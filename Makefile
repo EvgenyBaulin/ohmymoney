@@ -549,6 +549,7 @@ check-scripts:
 	@scripts/install-xcodegen.sh --self-test
 	@scripts/git-hooks/commit-msg --self-test
 	@python3 scripts/make_xcstrings.py --self-test
+	@python3 scripts/make_themes.py --self-test
 
 # No personal data may ever be staged.
 check-privacy:
