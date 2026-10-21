@@ -1,0 +1,58 @@
+// None of these feed a measured height back into the layout: a width reflows from the top
+// down, a floating element leaves its room to the safe area, and a frame measured for a
+// popover never reaches a size.
+struct GoodBar: View {
+  @State private var width: CGFloat = 0
+
+  var body: some View {
+    content
+      // The window gives the width from the top down, so reflowing by it settles at once.
+      .onGeometryChange(for: CGFloat.self) {
+        $0.size.width
+      } action: {
+        width = $0
+      }
+      .padding(.horizontal, width > 800 ? 24 : 12)
+  }
+}
+
+struct GoodScreen: View {
+  var body: some View {
+    list
+      // The height of the bar is the safe area's business, not a measurement of ours.
+      .safeAreaInset(edge: .bottom, spacing: 0) {
+        FloatingBar()
+      }
+  }
+}
+
+struct GoodAnchor: View {
+  var actions: OperationActions
+
+  var body: some View {
+    capsule
+      .onGeometryChange(for: CGRect.self) {
+        $0.frame(in: .named("operations"))
+      } action: {
+        // The popover reads it once, when it is presented.
+        // geometry: `barFrame` is `@ObservationIgnored` — nothing lays out again.
+        actions.barFrame = $0
+      }
+  }
+}
+
+struct GoodMeasured: View {
+  // geometry: the sheet is laid out by a host of its own, and AppKit asks for this height
+  @Binding var sheetHeight: CGFloat
+  @State private var measured: CGFloat = 0
+
+  var body: some View {
+    content
+      .onGeometryChange(for: CGFloat.self) {
+        $0.size.height
+      } action: {
+        measured = $0
+        sheetHeight = $0
+      }
+  }
+}

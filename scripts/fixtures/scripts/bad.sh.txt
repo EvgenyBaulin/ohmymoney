@@ -1,0 +1,8 @@
+#!/bin/bash
+# Three variables written against a non-ASCII character. The self-test expects three.
+set -euo pipefail
+NAME="OhMyMoney Local Signing"
+echo "«$NAME» is already there."
+echo "Keychain Access → login → «$NAME» → Trust"
+echo "Готово: $NAME—подпись на месте"
+echo "This one is fine: ${NAME} and «${NAME}»"

@@ -1,0 +1,11 @@
+#!/bin/bash
+# Builds by Xcode's own toolchain, and reaches the build root by its real path: the link
+# Build.nosync is named in this comment and where `pwd -P` resolves it, nowhere else.
+set -euo pipefail
+build_root="${1:-}"
+[ -n "${build_root}" ] || build_root="$(cd "$(pwd)/Build.nosync" && pwd -P)"
+xcodebuild -version
+xcodebuild -project OhMyMoney.xcodeproj -scheme OhMyMoney -configuration Release \
+  -toolchain com.apple.dt.toolchain.XcodeDefault \
+  -derivedDataPath "${build_root}/release/DerivedData" build
+# xcodebuild -project OhMyMoney.xcodeproj build   (a comment, not a build)

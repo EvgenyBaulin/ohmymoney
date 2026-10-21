@@ -1,0 +1,332 @@
+name: OhMyMoney
+
+options:
+  bundleIdPrefix: io.github.EvgenyBaulin
+  knownRegions: [en, ru, Base]
+  createIntermediateGroups: true
+  developmentLanguage: en
+  deploymentTarget:
+    macOS: "26.0"
+    iOS: "26.0"
+  groupSortPosition: top
+  generateEmptyDirectories: false
+  defaultConfig: Debug
+
+configs:
+  Debug: debug
+  Release: release
+  AppStore: release
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGN_STYLE: Manual
+    DEVELOPMENT_TEAM: ""
+    ENABLE_HARDENED_RUNTIME: NO
+    MARKETING_VERSION: 1.13.0
+    CURRENT_PROJECT_VERSION: 19
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    SWIFT_STRICT_CONCURRENCY: complete
+    DEAD_CODE_STRIPPING: YES
+    GCC_WARN_UNINITIALIZED_AUTOS: YES
+    CLANG_WARN_DOCUMENTATION_COMMENTS: NO
+
+packages:
+  AppCore:
+    path: Packages/AppCore
+  AppDatabase:
+    path: Packages/AppDatabase
+  # Sparkle 2, pinned exactly: an updater is the one dependency where «whatever resolves
+  # today» is not good enough. 2.10.0 is what was read and checked.
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    exactVersion: 2.10.0
+
+targets:
+  OhMyMoney:
+    type: application
+    platform: macOS
+    sources:
+      # Documentation lives in the repository, not in the app: a README next to the code was
+      # being copied into Contents/Resources.
+      - path: Apps/macOS/App
+        excludes: ["**/*.md"]
+      - path: Apps/macOS/Shared
+        excludes: ["**/*.md"]
+      - path: Apps/macOS/Features
+        excludes: ["**/*.md"]
+      - path: Apps/macOS/Platform
+        excludes: ["**/*.md"]
+      - path: Apps/macOS/Resources
+        excludes:
+          - "Info.plist"
+          - "*.entitlements"
+          - "Icon/Sources/**"
+      - path: Schema
+        type: folder
+        buildPhase: resources
+    postBuildScripts:
+      # The script is named as an input: `ENABLE_USER_SCRIPT_SANDBOXING` is on, and a phase
+      # that reads a file of the repository has to say which one. It cannot name what it
+      # writes, because the framework it removes is already produced by the embed phase and
+      # Xcode refuses two producers of one path — so the store configuration, and only it,
+      # turns the script sandbox off below. What it changes is named as input
+      # instead: without that edge the build system may run the phase before the framework is
+      # embedded and the Info.plist written, and the store bundle keeps both.
+      - name: No updater in the store build
+        script: |
+          "${SRCROOT}/scripts/sparkle-bundle.sh"
+        inputFiles:
+          - $(SRCROOT)/scripts/sparkle-bundle.sh
+          - $(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)
+          - $(TARGET_BUILD_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Sparkle.framework/Versions/B
+        basedOnDependencyAnalysis: false
+    dependencies:
+      - package: AppCore
+        product: AppCore
+      - package: AppCore
+        product: CoreKit
+      - package: AppDatabase
+        product: AppDatabase
+      - package: Sparkle
+        product: Sparkle
+    settings:
+      base:
+        PRODUCT_NAME: OhMyMoney
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney
+        INFOPLIST_FILE: Apps/macOS/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Apps/macOS/Resources/OhMyMoney.entitlements
+        COMBINE_HIDPI_IMAGES: YES
+        ENABLE_PREVIEWS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        # The icon is the owner's Icon Composer file (AppIcon.icon, layered for Liquid Glass).
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        # Info.plist reads the icon's name from here, so the Debug build can wear its own.
+        OHMYMONEY_APP_ICON: AppIcon
+        # Each build carries only its own icon: the shipped bundle has no Debug band in it.
+        EXCLUDED_SOURCE_FILE_NAMES: AppIconDebug.icon
+        # The owner's copy opens an archive on a double click; a build from the repository
+        # declares the same type, but only as an alternative (Debug below).
+        OHMYMONEY_ARCHIVE_HANDLER_RANK: Owner
+        SWIFT_EMIT_LOC_STRINGS: YES
+        SU_FEED_URL: https://EvgenyBaulin.github.io/ohmymoney/appcast.xml
+        # The real key is the owner's and never lives in the repository: `make release-local`
+        # passes it in and refuses to release while this placeholder is what got built. The
+        # application checks for nothing at all while it carries the placeholder
+        # (`UpdateService.canVerifyUpdates`).
+        SU_PUBLIC_ED_KEY: SPARKLE_PUBLIC_KEY_NOT_SET
+        # A sandboxed application launches Sparkle's installer through an XPC service that
+        # ships inside the framework. Sparkle refuses to run when that service is copied into
+        # the application bundle instead (`SPUUpdater.m`), so it stays where it is and this
+        # key turns it on — exactly as in Sparkle's own sandboxed test application.
+        SU_INSTALLER_LAUNCHER: "YES"
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG DIRECT_DISTRIBUTION
+          # An id of its own, and with it a container, defaults and a registration in Launch
+          # Services of its own: the owner's copy in /Applications and a build from the
+          # repository never share data, settings or a process name to be killed by. Release
+          # and AppStore keep the id above, which may never change. The app file and the
+          # module are called OhMyMoney in every configuration.
+          PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney.debug
+          OHMYMONEY_ARCHIVE_HANDLER_RANK: Alternate
+          # The same icon with a red «DEBUG» band, so the two copies differ in the Dock. The
+          # name stays: InfoPlist.xcstrings names the app in both languages, and a name per
+          # configuration would take a script after the build.
+          # AppIconDebug.icon is AppIcon.icon with one more group on top, the band
+          # (Icon/Sources/make-debug-band.swift draws it).
+          ASSETCATALOG_COMPILER_APPICON_NAME: AppIconDebug
+          OHMYMONEY_APP_ICON: AppIconDebug
+          EXCLUDED_SOURCE_FILE_NAMES: AppIcon.icon
+        Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DIRECT_DISTRIBUTION
+        AppStore:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: APPSTORE
+          CODE_SIGN_ENTITLEMENTS: Apps/macOS/Resources/OhMyMoney-AppStore.entitlements
+          # Nothing here to feed, and nothing to launch.
+          SU_FEED_URL: ""
+          SU_PUBLIC_ED_KEY: ""
+          SU_INSTALLER_LAUNCHER: "NO"
+          # Not one line of the store build mentions Sparkle (`#if APPSTORE` everywhere), so
+          # the linker has no symbol to resolve from it and drops the load command entirely.
+          OTHER_LDFLAGS: -Wl,-dead_strip_dylibs
+          # And only here the post-build script may write inside the product, because only
+          # here it has anything to do. Debug and Release — the builds that run all day —
+          # keep the script sandbox on.
+          ENABLE_USER_SCRIPT_SANDBOXING: NO
+
+  OhMyMoney-iOS:
+    type: application
+    platform: iOS
+    sources:
+      - path: Apps/iOS/App
+        excludes: ["**/*.md"]
+      # The iPhone app compiles the Mac app's shared layers in place: no copies, one source of
+      # truth. What needs AppKit stays out through the excludes and is replaced under Apps/iOS.
+      - path: Apps/macOS/Shared
+        excludes: ["**/*.md"]
+      - path: Apps/macOS/Platform
+        excludes: ["**/*.md", "Updates/**", "Archive/ArchiveProgressPanel.swift"]
+      - path: Apps/macOS/Features
+        excludes:
+          - "**/*.md"
+          - "Transactions/TransactionsTable.swift"
+          - "Settings/SettingsScene.swift"
+      # The Mac app's non-window part: the environment and what it needs.
+      - path: Apps/macOS/App
+        includes:
+          - AppEnvironment.swift
+          - AppDependencies.swift
+          - StarterCategories.swift
+          - MainSidebar.swift
+          - MainWindowSection.swift
+          - LaunchOptions.swift
+          - AppLaunch.swift
+          - AppRestart.swift
+          - DataSetGeneration.swift
+          - DatabaseRecovery.swift
+          - Licenses.swift
+      - path: Apps/macOS/Resources/Strings
+      - path: Schema
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: AppCore
+        product: AppCore
+      - package: AppCore
+        product: CoreKit
+      - package: AppDatabase
+        product: AppDatabase
+    settings:
+      base:
+        PRODUCT_NAME: OhMyMoney
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney
+        TARGETED_DEVICE_FAMILY: "1,2"
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: OhMyMoney
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_NSFaceIDUsageDescription: Unlock OhMyMoney with Face ID.
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        SDKROOT: iphoneos
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SUPPORTS_MACCATALYST: NO
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG IOS_APP
+        Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: IOS_APP
+
+  # Logic only, no windows: the lock, the two data sets, the folder. It runs inside the phone app
+  # on a Simulator (`xcodebuild test -scheme OhMyMoney-iOS`).
+  OhMyMoneyTests-iOS:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Apps/iOS/Tests
+      # Navigation and launch order are plain logic shared with the Mac; the Mac runs them too.
+      - path: Apps/macOS/Tests/PhoneNavigationTests.swift
+    dependencies:
+      - target: OhMyMoney-iOS
+      - package: AppCore
+        product: AppCore
+      - package: AppCore
+        product: CoreKit
+      - package: AppDatabase
+        product: AppDatabase
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+        SDKROOT: iphoneos
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/OhMyMoney.app/OhMyMoney"
+
+  OhMyMoneyTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Apps/macOS/Tests
+      # The golden set of the core, compiled and bundled here too: the Analytics window is
+      # checked against the same hand-computed history. The test reads the copy in its own
+      # bundle, never the repository.
+      - path: Packages/AppCore/Tests/CoreAnalyticsTests/GoldenSet.swift
+      - path: Packages/AppCore/Tests/CoreAnalyticsTests/Fixtures/golden-small.json
+        buildPhase: resources
+    dependencies:
+      - target: OhMyMoney
+      - package: AppCore
+        product: AppCore
+      - package: AppCore
+        product: CoreKit
+      - package: AppDatabase
+        product: AppDatabase
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        # Registers the observers of the bundle before the first test: the owner's language
+        # is put back after every test (LanguageDefaultsGuard).
+        INFOPLIST_KEY_NSPrincipalClass: OhMyMoneyTestBundlePrincipal
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/OhMyMoney.app/Contents/MacOS/OhMyMoney"
+
+  OhMyMoneyUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources:
+      - path: Apps/macOS/UITests
+    dependencies:
+      - target: OhMyMoney
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: OhMyMoney
+
+schemes:
+  OhMyMoney:
+    build:
+      targets:
+        OhMyMoney: all
+        OhMyMoneyTests: [test]
+        OhMyMoneyUITests: [test]
+    run:
+      config: Debug
+    # `make test` runs only OhMyMoneyTests (-only-testing), `make test-ui` only OhMyMoneyUITests: a
+    # UI test can stop on a system prompt.
+    test:
+      config: Debug
+      targets: [OhMyMoneyTests, OhMyMoneyUITests]
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+
+  OhMyMoney-iOS:
+    build:
+      targets:
+        OhMyMoney-iOS: all
+        OhMyMoneyTests-iOS: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets: [OhMyMoneyTests-iOS]
+    archive:
+      config: Release
+
+  OhMyMoney-AppStore:
+    build:
+      targets:
+        OhMyMoney: all
+    run:
+      config: AppStore
+    archive:
+      config: AppStore

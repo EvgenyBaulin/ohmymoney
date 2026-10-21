@@ -1,0 +1,371 @@
+{
+  "about": "Synthetic golden set for CoreAnalytics: July and August 2026 plus one operation in August 2025 (last year's birthday). Every expected number was worked out by hand; its 'why' shows the arithmetic. Ids are small integers; the loader turns n into the UUID 00000000-0000-0000-0000-<n, 12 digits>. Operation n has parts n*10+k. Days are UTC. Amounts are rubles unless a currency is given. A reimbursement and what it writes next to it have the shape the app's reimbursement sheet (ReimbursementRecording) gives them: the payback is one part without a category, place or payment method that names the person who paid; a surplus is income in Surcharges (category source system) under the interface's words; a shortfall is my expense in the category of the part it is left of (category source system), with that purchase's description, 'for whom', person (whom the part was for, otherwise the debtor) and event, rated by the usual rules, and without a place or method.",
+  "calendar": "UTC",
+  "today": "2026-08-20",
+  "settings": { "cashbackCategory": 33 },
+  "rates": { "USD": "95" },
+  "categories": [
+    { "id": 1, "name": "Goals", "kind": "expense", "quality": "good", "role": "goals" },
+    { "id": 2, "parent": 1, "name": "Vacation", "kind": "expense" },
+    { "id": 3, "name": "Loans", "kind": "expense", "quality": "neutral", "role": "loans" },
+    { "id": 4, "parent": 3, "name": "Bank loan", "kind": "expense" },
+    { "id": 5, "name": "Surcharges", "kind": "income", "role": "surcharges" },
+    { "id": 6, "name": "Unknown", "kind": "expense", "role": "unknown" },
+    { "id": 10, "name": "Groceries", "kind": "expense", "quality": "neutral" },
+    { "id": 11, "parent": 10, "name": "Supermarket", "kind": "expense" },
+    { "id": 12, "name": "Food out", "kind": "expense", "quality": "neutral" },
+    { "id": 13, "parent": 12, "name": "Cafe", "kind": "expense" },
+    { "id": 14, "parent": 12, "name": "Bar", "kind": "expense", "quality": "bad" },
+    { "id": 15, "name": "Transport", "kind": "expense", "quality": "neutral" },
+    { "id": 16, "name": "Other", "kind": "expense", "quality": "neutral" },
+    { "id": 17, "parent": 16, "name": "Fees", "kind": "expense", "quality": "bad" },
+    { "id": 18, "name": "Gifts", "kind": "expense", "quality": "neutral" },
+    { "id": 19, "name": "Hobby", "kind": "expense", "quality": "neutral", "archived": true },
+    { "id": 20, "name": "Electronics", "kind": "expense", "quality": "neutral" },
+    { "id": 30, "name": "Work", "kind": "income" },
+    { "id": 31, "parent": 30, "name": "Salary", "kind": "income" },
+    { "id": 32, "name": "Passive", "kind": "income" },
+    { "id": 33, "parent": 32, "name": "Cashback", "kind": "income" }
+  ],
+  "people": [
+    { "id": 40, "name": "Anna", "relation": "friend" },
+    { "id": 41, "name": "Boris", "relation": "friend" },
+    { "id": 42, "name": "Partner", "relation": "partner" }
+  ],
+  "places": [
+    { "id": 50, "name": "Market" },
+    { "id": 51, "name": "Cafe Luna" },
+    { "id": 52, "name": "Bar Nord" },
+    { "id": 53, "name": "Electro" },
+    { "id": 54, "name": "Gift shop" }
+  ],
+  "paymentMethods": [
+    { "id": 60, "name": "Main card", "kind": "card" },
+    { "id": 61, "name": "Travel card", "kind": "card" },
+    { "id": 62, "name": "Cash", "kind": "cash" }
+  ],
+  "events": [
+    { "id": 70, "name": "Birthday", "kind": "birthday", "start": "2025-08-10", "end": "2025-08-10", "series": 99, "yearly": true },
+    { "id": 71, "name": "Birthday", "kind": "birthday", "start": "2026-08-10", "end": "2026-08-10", "series": 99, "yearly": true, "budget": "5000" },
+    { "id": 72, "name": "Trip", "kind": "trip", "start": "2026-07-18", "end": "2026-07-20", "budget": "10000" }
+  ],
+  "goals": [
+    { "id": 80, "name": "Vacation", "target": "100000", "monthlyPlan": "10000", "subcategory": 2 }
+  ],
+  "debts": [
+    { "id": 90, "name": "Bank loan", "type": "loan", "origin": "existing", "paymentsAreExpenses": true, "monthlyPayment": "7000", "paymentDay": 25, "loansSubcategory": 4 },
+    { "id": 91, "name": "Laptop in instalments", "type": "installment", "origin": "purchase", "paymentsAreExpenses": false, "monthlyPayment": "2000", "paymentDay": 5 },
+    { "id": 92, "name": "Old loan", "type": "loan", "origin": "existing", "paymentsAreExpenses": true, "monthlyPayment": "3000", "paymentDay": 3, "closed": true, "loansSubcategory": 4 },
+    { "id": 93, "name": "Dollar loan", "type": "loan", "origin": "existing", "paymentsAreExpenses": true, "currency": "USD", "monthlyPayment": "100", "paymentDay": 28 }
+  ],
+  "operations": [
+    { "id": 101, "kind": "expense", "at": "2026-07-01T10:00", "note": "groceries", "place": 50, "method": 60,
+      "parts": [{ "id": 1011, "category": 11, "amount": "2000", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 102, "kind": "income", "at": "2026-07-01T12:00", "note": "salary", "method": 60,
+      "parts": [{ "id": 1021, "category": 31, "amount": "100000" }] },
+    { "id": 103, "kind": "expense", "at": "2026-07-03T09:00", "note": "old loan", "method": 60, "debt": 92,
+      "parts": [{ "id": 1031, "category": 4, "amount": "3000", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 104, "kind": "expense", "at": "2026-07-04T13:00", "note": "lunch", "place": 51, "method": 60,
+      "parts": [
+        { "id": 1041, "category": 13, "amount": "1200", "quality": "neutral", "qualitySource": "category" },
+        { "id": 1042, "category": 13, "amount": "800", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "reimbursable": true, "debtor": 40, "status": "returned" }] },
+    { "id": 105, "kind": "expense", "at": "2026-07-05T20:00", "note": "bar", "place": 52, "method": 60,
+      "parts": [{ "id": 1051, "category": 14, "amount": "1500", "quality": "bad", "qualitySource": "category" }] },
+    { "id": 106, "kind": "refund", "at": "2026-07-05T21:00", "note": "bar refund", "place": 52, "method": 60,
+      "parts": [{ "id": 1061, "category": 14, "amount": "500", "quality": "bad", "qualitySource": "category" }] },
+    { "id": 107, "kind": "expense", "at": "2026-07-07T08:00", "note": "taxi", "method": 62,
+      "parts": [{ "id": 1071, "category": 15, "amount": "500", "quality": "bad", "qualitySource": "manual" }] },
+    { "id": 108, "kind": "expense", "at": "2026-07-08T11:00", "note": "bank fee", "method": 60,
+      "parts": [
+        { "id": 1081, "category": 16, "amount": "300", "quality": "neutral", "qualitySource": "category" },
+        { "id": 1082, "category": 17, "amount": "200" }] },
+    { "id": 109, "kind": "expense", "at": "2026-07-10T15:00", "note": "laptop", "place": 53, "method": 60, "creditDebt": 91,
+      "parts": [{ "id": 1091, "category": 20, "amount": "12000", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 110, "kind": "reimbursement", "at": "2026-07-12T18:00",
+      "parts": [{ "id": 1101, "amount": "800", "forPerson": 40 }] },
+    { "id": 111, "kind": "expense", "at": "2026-07-15T10:00", "note": "hobby kit", "method": 62,
+      "parts": [{ "id": 1111, "category": 19, "amount": "1000", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 112, "kind": "expense", "at": "2026-07-15T11:00", "note": "vacation savings", "method": 60,
+      "parts": [{ "id": 1121, "category": 2, "amount": "10000", "quality": "good", "qualitySource": "system", "goal": 80 }] },
+    { "id": 113, "kind": "expense", "at": "2026-07-18T20:00", "note": "hotel", "method": 61,
+      "parts": [{ "id": 1131, "category": 16, "amount": "6000", "quality": "neutral", "qualitySource": "category", "event": 72 }] },
+    { "id": 114, "kind": "expense", "at": "2026-07-19T21:00", "note": "trip dinner", "place": 51, "method": 61,
+      "parts": [
+        { "id": 1141, "category": 13, "amount": "2000", "quality": "neutral", "qualitySource": "category", "event": 72 },
+        { "id": 1142, "category": 13, "amount": "2000", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "reimbursable": true, "debtor": 41, "status": "written_off", "event": 72 }] },
+    { "id": 115, "kind": "expense", "at": "2026-07-20T12:00", "note": "souvenir", "method": 61, "currency": "USD", "rate": "95",
+      "parts": [{ "id": 1151, "category": 16, "amount": "50", "amountRub": "4750", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "reimbursable": true, "debtor": 40, "status": "returned", "event": 72 }] },
+    { "id": 116, "kind": "expense", "at": "2026-07-23T18:00", "note": "flowers", "method": 60,
+      "parts": [{ "id": 1161, "category": 18, "amount": "1500", "quality": "neutral", "qualitySource": "category", "forWhom": "partner", "forPerson": 42 }] },
+    { "id": 117, "kind": "expense", "at": "2026-07-25T09:00", "note": "bank loan", "method": 60, "debt": 90,
+      "parts": [{ "id": 1171, "category": 4, "amount": "7000", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 118, "kind": "expense", "at": "2026-07-26T20:00", "note": "dinner with Boris", "place": 51, "method": 60,
+      "parts": [
+        { "id": 1181, "category": 13, "amount": "1000", "quality": "neutral", "qualitySource": "category" },
+        { "id": 1182, "category": 13, "amount": "1000", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "reimbursable": true, "debtor": 41, "status": "expected" }] },
+    { "id": 119, "kind": "income", "at": "2026-07-28T12:00", "note": "advance", "method": 60, "periodMonth": "2026-08",
+      "parts": [{ "id": 1191, "category": 31, "amount": "50000" }] },
+    { "id": 120, "kind": "income", "at": "2026-07-29T12:00", "note": "cashback", "method": 60,
+      "parts": [{ "id": 1201, "category": 33, "amount": "300" }] },
+    { "id": 121, "kind": "expense", "at": "2026-07-30T18:00", "note": "groceries", "place": 50, "method": 61,
+      "parts": [
+        { "id": 1211, "category": 11, "amount": "2500", "quality": "neutral", "qualitySource": "category" },
+        { "id": 1212, "amount": "500" }] },
+    { "id": 122, "kind": "expense", "at": "2026-07-31T10:00", "note": "mistake", "place": 50, "method": 60, "deleted": true,
+      "parts": [{ "id": 1221, "category": 11, "amount": "9999", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 123, "kind": "income", "at": "2026-08-01T12:00", "note": "cashback", "method": 61, "periodMonth": "2026-07",
+      "parts": [{ "id": 1231, "category": 33, "amount": "150" }] },
+    { "id": 124, "kind": "expense", "at": "2026-08-02T10:00", "note": "groceries", "place": 50, "method": 60,
+      "parts": [{ "id": 1241, "category": 11, "amount": "1800", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 125, "kind": "expense", "at": "2026-08-03T11:00", "note": "vacation savings", "method": 60,
+      "parts": [{ "id": 1251, "category": 2, "amount": "4000", "quality": "good", "qualitySource": "system", "goal": 80 }] },
+    { "id": 126, "kind": "expense", "at": "2026-08-05T09:00", "note": "laptop instalment", "method": 60, "debt": 91,
+      "parts": [{ "id": 1261, "category": 3, "amount": "2000", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 127, "kind": "expense", "at": "2026-08-06T13:00", "note": "cafe", "place": 51, "method": 60,
+      "parts": [{ "id": 1271, "category": 13, "amount": "900", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 128, "kind": "expense", "at": "2026-08-08T22:00", "note": "bar", "place": 52, "method": 62,
+      "parts": [{ "id": 1281, "category": 14, "amount": "2000", "quality": "bad", "qualitySource": "category" }] },
+    { "id": 129, "kind": "reimbursement", "at": "2026-08-09T12:00",
+      "parts": [{ "id": 1291, "amount": "4000", "forPerson": 40 }] },
+    { "id": 130, "kind": "expense", "at": "2026-08-09T12:01", "note": "souvenir", "externalId": "reimb:129:shortfall:1151",
+      "parts": [{ "id": 1301, "category": 16, "categorySource": "system", "amount": "750", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "forPerson": 40, "event": 72 }] },
+    { "id": 131, "kind": "expense", "at": "2026-08-10T14:00", "note": "birthday gift", "place": 54, "method": 60,
+      "parts": [{ "id": 1311, "category": 18, "amount": "3000", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "forPerson": 41, "event": 71 }] },
+    { "id": 132, "kind": "expense", "at": "2026-08-10T16:00", "note": "birthday cake", "place": 50, "method": 60,
+      "parts": [{ "id": 1321, "category": 11, "amount": "1200", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "event": 71 }] },
+    { "id": 133, "kind": "expense", "at": "2026-08-11T19:00", "note": "concert tickets", "method": 60,
+      "parts": [
+        { "id": 1331, "category": 16, "amount": "2500", "quality": "neutral", "qualitySource": "category" },
+        { "id": 1332, "category": 16, "amount": "2500", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "reimbursable": true, "debtor": 40, "status": "returned" }] },
+    { "id": 134, "kind": "refund", "at": "2026-08-12T12:00", "note": "cafe refund for Boris", "place": 51, "method": 60,
+      "parts": [{ "id": 1341, "category": 13, "amount": "300", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "reimbursable": true, "debtor": 41 }] },
+    { "id": 135, "kind": "reimbursement", "at": "2026-08-14T12:00",
+      "parts": [{ "id": 1351, "amount": "3000", "forPerson": 40 }] },
+    { "id": 136, "kind": "income", "at": "2026-08-14T12:01", "note": "Surplus of a reimbursement", "externalId": "reimb:135:surplus",
+      "parts": [{ "id": 1361, "category": 5, "categorySource": "system", "amount": "500" }] },
+    { "id": 137, "kind": "income", "at": "2026-08-15T12:00", "note": "cashback", "method": 60,
+      "parts": [{ "id": 1371, "category": 33, "amount": "200" }] },
+    { "id": 138, "kind": "expense", "at": "2026-08-16T08:00", "note": "taxi", "method": 62,
+      "parts": [{ "id": 1381, "category": 15, "amount": "700" }] },
+    { "id": 139, "kind": "expense", "at": "2026-08-18T11:00", "note": "fees", "method": 60,
+      "parts": [{ "id": 1391, "category": 17, "amount": "150", "quality": "bad", "qualitySource": "category" }] },
+    { "id": 140, "kind": "expense", "at": "2026-08-19T18:00", "note": "groceries", "place": 50, "method": 61,
+      "parts": [{ "id": 1401, "category": 11, "amount": "2200", "quality": "neutral", "qualitySource": "category" }] },
+    { "id": 141, "kind": "income", "at": "2026-08-25T10:00", "note": "salary", "method": 60,
+      "parts": [{ "id": 1411, "category": 31, "amount": "100000" }] },
+    { "id": 142, "kind": "expense", "at": "2025-08-10T14:00", "note": "birthday gift", "method": 60,
+      "parts": [{ "id": 1421, "category": 18, "amount": "2500", "quality": "neutral", "qualitySource": "category", "forWhom": "friends", "forPerson": 41, "event": 70 }] }
+  ],
+  "links": [
+    { "id": 201, "reimbursement": 110, "part": 1042, "amount": "800" },
+    { "id": 202, "reimbursement": 129, "part": 1151, "amount": "4000" },
+    { "id": 203, "reimbursement": 135, "part": 1332, "amount": "2500" }
+  ],
+  "contributions": {
+    "why": "My expenses per operation (MyExpensesRule.contribution): 101: 2000; 103: 3000 (payment on the closed old loan, whose payments are expenses); 104: 1200 (the 800 for Anna is returned, not mine); 105: 1500; 106: refund −500; 107: 500; 108: 300+200 = 500; 109: 12000 (bought in instalments — the purchase is the expense); 111: 1000; 112: 10000 (goal contribution); 113: 6000; 114: 2000+2000 = 4000 (Boris's 2000 written off); 115: 0 (50 USD for Anna, returned); 116: 1500; 117: 7000 (bank loan payment); 118: 1000 (Boris's 1000 still expected); 121: 2500+500 = 3000; 122 is deleted; 124: 1800; 125: 4000; 126: 0 (payment on an instalment purchase); 127: 900; 128: 2000; 130: 750 (shortfall, for friends, Anna and the trip like the souvenir it is left of); 131: 3000; 132: 1200; 133: 2500 (Anna's 2500 returned); 134: 0 (refund of a part bought for Boris); 138: 700; 139: 150; 140: 2200; 142: 2500 (August 2025). Income and reimbursements contribute nothing."
+  },
+  "expected": {
+    "julyExpenses": { "amount": "53700", "why": "2000+3000+1200+1500−500+500+500+12000+1000+10000+6000+4000+1500+7000+1000+3000 = 53700 (operations 101…121 of July; 122 deleted)" },
+    "augustExpenses": { "amount": "19200", "why": "1800+4000+900+2000+750+3000+1200+2500+700+150+2200 = 19200 (all dated 2–19 August)" },
+    "julyIncome": { "amount": "100450", "why": "income that belongs to July: salary 100000 (1 Jul) + cashback 300 (29 Jul) + cashback 150 dated 1 Aug with period_month July = 100450; the advance of 28 Jul is for August" },
+    "augustIncome": { "amount": "150700", "why": "income that belongs to August: advance 50000 (dated 28 Jul, period_month August) + surplus 500 in Surcharges + cashback 200 + salary 100000 dated 25 Aug = 150700" },
+
+    "overview.expenses.current": { "amount": "19200", "why": "today 20 Aug: every August expense is dated 2–19 Aug, so month to date = 19200" },
+    "overview.expenses.previous": { "amount": "41200", "why": "same span 1–20 Jul: 2000+3000+1200+1500−500+500+500+12000+1000+10000+6000+4000+0 (souvenir returned) = 41200" },
+    "overview.expenses.basisPoints": { "int": -5340, "why": "(19200−41200)/41200 = −0.533980… → −5339.8 bp → −5340 (half away from zero)" },
+    "overview.income.current": { "amount": "50700", "why": "belongs to August and arrived by 20 Aug: advance 50000 (28 Jul) + surplus 500 (14 Aug) + cashback 200 (15 Aug) = 50700; the salary of 25 Aug has not arrived" },
+    "overview.income.previous": { "amount": "100000", "why": "belongs to July and arrived by 20 Jul: salary 100000; cashback of 29 Jul and of 1 Aug came later" },
+    "overview.income.basisPoints": { "int": -4930, "why": "(50700−100000)/100000 = −0.493 → −4930 bp" },
+    "overview.net": { "amount": "31500", "why": "50700 − 19200 = 31500" },
+    "overview.topCategories": {
+      "why": "top-level categories 1–20 Aug: Groceries 1800+1200+2200 = 5200; Goals 4000; Other 750+2500+150 = 3400; Gifts 3000; Food out 900+2000 = 2900; Transport 700 (6th, not shown). Base 19200 (all six). ×10000/19200 floors: 2708 r6400, 2083 r6400, 1770 r16000, 1562 r9600, 1510 r8000, 364 r11200 = 9997; the 3 spare bp go to the largest remainders: Other, Transport, Gifts",
+      "nodes": [
+        { "key": "category:10", "amount": "5200", "share": 2708 },
+        { "key": "category:1", "amount": "4000", "share": 2083 },
+        { "key": "category:16", "amount": "3400", "share": 1771 },
+        { "key": "category:18", "amount": "3000", "share": 1563 },
+        { "key": "category:12", "amount": "2900", "share": 1510 }
+      ] },
+    "overview.qualities": {
+      "why": "1–20 Aug: good = goal 4000; bad = bar 2000 + taxi 700 (no stored quality, my manual 'bad' for 'taxi' in July wins) + fees 150 = 2850; neutral = 19200−4000−2850 = 12350. Floors of ×10000/19200: 2083 r6400, 6432 r5600, 1484 r7200 = 9999; the spare bp goes to bad",
+      "nodes": [
+        { "key": "quality:good", "amount": "4000", "share": 2083 },
+        { "key": "quality:neutral", "amount": "12350", "share": 6432 },
+        { "key": "quality:bad", "amount": "2850", "share": 1485 }
+      ] },
+    "overview.bad.current": { "amount": "2850", "why": "2000 + 700 + 150" },
+    "overview.bad.previous": { "amount": "1700", "why": "1–20 Jul: bar 1500 − bar refund 500 + taxi 500 (manual bad) + fee 200 (no stored quality, category Fees is bad) = 1700" },
+    "overview.bad.basisPoints": { "int": 6765, "why": "(2850−1700)/1700 = 0.676470… → 6764.7 bp → 6765" },
+    "overview.owed": { "amount": "1000", "why": "only Boris's 1000 of 26 Jul is still expected; the refund part of 12 Aug is not a purchase" },
+    "overview.owedCount": { "int": 1, "why": "one expected part" },
+
+    "rowTotals.2026-07-04": { "amounts": ["1200", "0", "800", "0"], "why": "[my expenses, income, for others, money returned]: lunch 1200 mine, 800 for Anna not written off" },
+    "rowTotals.2026-07-05": { "amounts": ["1000", "0", "0", "0"], "why": "bar 1500 − refund 500" },
+    "rowTotals.2026-07-19": { "amounts": ["4000", "0", "0", "0"], "why": "2000 mine + 2000 written off for Boris; a written-off part is no longer 'for others'" },
+    "rowTotals.2026-07-20": { "amounts": ["0", "0", "4750", "0"], "why": "50 USD × 95 = 4750 for Anna, returned but not written off" },
+    "rowTotals.2026-08-09": { "amounts": ["750", "0", "0", "4000"], "why": "shortfall 750 is my expense; Anna's 4000 is money returned" },
+    "rowTotals.2026-08-12": { "amounts": ["0", "0", "0", "0"], "why": "a refund of a part bought for Boris changes none of the four sums" },
+    "rowTotals.2026-08-14": { "amounts": ["0", "500", "0", "3000"], "why": "reimbursement 3000; surplus 500 is income" },
+
+    "breakdown.july.expenses": {
+      "why": "July by leaf: Supermarket 2000+2500 = 4500; uncategorized 500; Bank loan 3000+7000 = 10000; Cafe 1200+2000+2000+1000 = 6200; Bar 1500−500 = 1000; Transport 500; Other itself 300+6000 = 6300; Fees 200; Electronics 12000; Hobby 1000 (archived); Vacation 10000; Gifts 1500 — 53700. Top level ×10000/53700 floors: 12000→2234 r34200, 10000→1862 r10600 (twice), 7200→1340 r42000, 6500→1210 r23000, 4500→837 r53100, 1500→279 r17700, 1000→186 r11800, 500→93 r5900 (twice) = 9996; 4 spare bp to 4500, 7200, 12000, 6500. Lowest level (children, plus childless top lines) floors: 12000→2234 r34200, 10000→1862 ×2, 6200→1154 r30200, 1000→186 r11800 (Bar and Hobby), 200→37 r13100, 6300→1173 r9900, 4500→837 r53100, 1500→279 r17700, 500→93 ×2 = 9996; spare to 4500, 12000, 6200, 1500. Goals and Loans tie at 10000 and go by id; (no subcategory) and Uncategorized go last",
+      "nodes": [
+        { "key": "category:20", "amount": "12000", "share": 2235 },
+        { "key": "category:1", "amount": "10000", "share": 1862, "children": [{ "key": "category:2", "amount": "10000", "share": 1862 }] },
+        { "key": "category:3", "amount": "10000", "share": 1862, "children": [{ "key": "category:4", "amount": "10000", "share": 1862 }] },
+        { "key": "category:12", "amount": "7200", "share": 1341, "children": [{ "key": "category:13", "amount": "6200", "share": 1155 }, { "key": "category:14", "amount": "1000", "share": 186 }] },
+        { "key": "category:16", "amount": "6500", "share": 1211, "children": [{ "key": "category:17", "amount": "200", "share": 37 }, { "key": "no-subcategory", "amount": "6300", "share": 1173 }] },
+        { "key": "category:10", "amount": "4500", "share": 838, "children": [{ "key": "category:11", "amount": "4500", "share": 838 }] },
+        { "key": "category:18", "amount": "1500", "share": 279 },
+        { "key": "category:19", "amount": "1000", "share": 186 },
+        { "key": "category:15", "amount": "500", "share": 93 },
+        { "key": "uncategorized", "amount": "500", "share": 93 }
+      ] },
+    "breakdown.july.income": {
+      "why": "belongs to July: Salary 100000; Cashback 300+150 = 450; 100450 in all. ×10000/100450: 9955 r20250, 44 r80200 → the spare bp goes to Cashback",
+      "nodes": [
+        { "key": "category:30", "amount": "100000", "share": 9955, "children": [{ "key": "category:31", "amount": "100000", "share": 9955 }] },
+        { "key": "category:32", "amount": "450", "share": 45, "children": [{ "key": "category:33", "amount": "450", "share": 45 }] }
+      ] },
+
+    "report.july.expensesByCategoryAndSubcategory.csv": {
+      "why": "the breakdown above, parents as subtotal lines before their children, total 53700 with share 1.0000; names from the test's label resolver",
+      "text": "row_type,name,amount_rub,amount_rub_exact,share\nitem,Electronics,12000,12000.0000,0.2235\nsubtotal,Goals,10000,10000.0000,0.1862\nitem,Vacation,10000,10000.0000,0.1862\nsubtotal,Loans,10000,10000.0000,0.1862\nitem,Bank loan,10000,10000.0000,0.1862\nsubtotal,Food out,7200,7200.0000,0.1341\nitem,Cafe,6200,6200.0000,0.1155\nitem,Bar,1000,1000.0000,0.0186\nsubtotal,Other,6500,6500.0000,0.1211\nitem,Fees,200,200.0000,0.0037\nitem,(no subcategory),6300,6300.0000,0.1173\nsubtotal,Groceries,4500,4500.0000,0.0838\nitem,Supermarket,4500,4500.0000,0.0838\nitem,Gifts,1500,1500.0000,0.0279\nitem,Hobby,1000,1000.0000,0.0186\nitem,Transport,500,500.0000,0.0093\nitem,Uncategorized,500,500.0000,0.0093\ntotal,Total,53700,53700.0000,1.0000\n" },
+    "report.august.byPlace": {
+      "why": "August by place → category: Market: Groceries 1800+1200+2200 = 5200; Gift shop: Gifts 3000; Bar Nord: Food out 2000; Cafe Luna: Food out 900 (the refund for Boris adds 0); no place: Goals 4000, Other 750+2500+150 = 3400, Transport 700 = 8100. Top floors ×10000/19200: 2708 r6400, 1562 r9600, 1041 r12800, 468 r14400, 4218 r14400 = 9997 → spare to Cafe, no place (equal remainders, list order), Bar. Children floors: 2708 r6400, 1562 r9600, 1041 r12800, 468 r14400, 2083 r6400, 1770 r16000, 364 r11200 = 9996 → spare to Other, Cafe/Food out, Bar/Food out, Transport",
+      "nodes": [
+        { "key": "place:50", "amount": "5200", "share": 2708, "children": [{ "key": "category:10", "amount": "5200", "share": 2708 }] },
+        { "key": "place:54", "amount": "3000", "share": 1562, "children": [{ "key": "category:18", "amount": "3000", "share": 1562 }] },
+        { "key": "place:52", "amount": "2000", "share": 1042, "children": [{ "key": "category:12", "amount": "2000", "share": 1042 }] },
+        { "key": "place:51", "amount": "900", "share": 469, "children": [{ "key": "category:12", "amount": "900", "share": 469 }] },
+        { "key": "no-place", "amount": "8100", "share": 4219, "children": [
+          { "key": "category:1", "amount": "4000", "share": 2083 },
+          { "key": "category:16", "amount": "3400", "share": 1771 },
+          { "key": "category:15", "amount": "700", "share": 365 }] }
+      ] },
+    "report.august.byForWhom": {
+      "why": "August by 'for whom' → person: me 1800+4000+900+2000+2500+700+150+2200 = 14250 (no person, so no children); friends: Boris 3000 (birthday gift) + Anna 750 (the shortfall on her souvenir keeps the purchase's 'for whom' and names her, the debtor, since the part was for nobody else) + the cake 1200 that names nobody = 4950; money that names no person is the value's own and is named by the value, last under it, never 'no person'. Top ×10000/19200: 7421 r16800, 2578 r2400 = 9999 → the spare bp to 'me'. Lowest level: me 7421 r16800, Boris 1562 r9600, Anna 390 r12000, friends themselves 625 r0 = 9998 → spare to 'me' and Anna",
+      "nodes": [
+        { "key": "for-whom:me", "amount": "14250", "share": 7422 },
+        { "key": "for-whom:friends", "amount": "4950", "share": 2578, "children": [{ "key": "person:41", "amount": "3000", "share": 1562 }, { "key": "person:40", "amount": "750", "share": 391 }, { "key": "for-whom:friends", "amount": "1200", "share": 625 }] }
+      ] },
+    "report.august.byPaymentMethod": {
+      "why": "one level by payment method, my expenses: Main card 1800+4000+0+900+3000+1200+2500+0+150 = 13550; Cash 2000+700 = 2700; Travel card 2200; no method (the shortfall) 750. Floors ×10000/19200: 7057 r5600, 1406 r4800, 1145 r16000, 390 r12000 = 9998 → spare to Travel card and no method",
+      "nodes": [
+        { "key": "payment-method:60", "amount": "13550", "share": 7057 },
+        { "key": "payment-method:62", "amount": "2700", "share": 1406 },
+        { "key": "payment-method:61", "amount": "2200", "share": 1146 },
+        { "key": "no-payment-method", "amount": "750", "share": 391 }
+      ] },
+    "report.august.byEvent": {
+      "why": "one level by event: Birthday 2026 3000+1200 = 4200; Trip 750 (the shortfall of 9 Aug stays in the event of the souvenir it is left of); no event 19200 − 4950 = 14250. Floors 2187 r9600, 390 r12000, 7421 r16800 = 9998 → spare to no event and Trip",
+      "nodes": [
+        { "key": "event:71", "amount": "4200", "share": 2187 },
+        { "key": "event:72", "amount": "750", "share": 391 },
+        { "key": "no-event", "amount": "14250", "share": 7422 }
+      ] },
+    "report.monthly.2026": {
+      "why": "today 20 Aug. Values [expenses, income, net]; January–June are 0 (no operations yet, already past); July 53700 / 100450 / 46750; August 19200 / 150700 / 131500, incomplete; September–December not yet. Average over July only — the first month of the year with operations to the last completed month: 53700 / 100450 / 46750. Total: 53700+19200 = 72900; 100450+150700 = 251150; 46750+131500 = 178250",
+      "text": "row_type,name,expenses_rub,expenses_rub_exact,income_rub,income_rub_exact,net_rub,net_rub_exact\nitem,2026-01,0,0.0000,0,0.0000,0,0.0000\nitem,2026-02,0,0.0000,0,0.0000,0,0.0000\nitem,2026-03,0,0.0000,0,0.0000,0,0.0000\nitem,2026-04,0,0.0000,0,0.0000,0,0.0000\nitem,2026-05,0,0.0000,0,0.0000,0,0.0000\nitem,2026-06,0,0.0000,0,0.0000,0,0.0000\nitem,2026-07,53700,53700.0000,100450,100450.0000,46750,46750.0000\nitem,2026-08,19200,19200.0000,150700,150700.0000,131500,131500.0000\nitem,2026-09,,,,,,\nitem,2026-10,,,,,,\nitem,2026-11,,,,,,\nitem,2026-12,,,,,,\naverage,Average,53700,53700.0000,100450,100450.0000,46750,46750.0000\ntotal,Total,72900,72900.0000,251150,251150.0000,178250,178250.0000\n" },
+    "report.july.periodTotal": {
+      "why": "income of July 100450 − my expenses of July 53700 = 46750",
+      "text": "row_type,name,amount_rub,amount_rub_exact\nitem,Income,100450,100450.0000\nitem,Expenses,53700,53700.0000\ntotal,Total,46750,46750.0000\n" },
+
+    "series.august.weeks": {
+      "why": "weeks from Monday: 27 Jul (only 1–2 Aug inside August): 1800; 3 Aug: 4000+0+900+2000+750 = 7650; 10 Aug: 3000+1200+2500+0+700 = 7400; 17 Aug: 150+2200 = 2350; 24 Aug: 0; 31 Aug: 0",
+      "items": [["2026-07-27", "1800"], ["2026-08-03", "7650"], ["2026-08-10", "7400"], ["2026-08-17", "2350"], ["2026-08-24", "0"], ["2026-08-31", "0"]] },
+    "series.august.weeks.average": { "amount": "4800", "why": "days elapsed 1–20 Aug touch the first four weeks: 19200 / 4 = 4800" },
+    "series.2026.months.expenses.average": { "amount": "9112.5", "why": "history starts in 2025, so January through August 2026 have begun: 72900 / 8 = 9112.5" },
+    "series.2026.months.income.average": { "amount": "31393.75", "why": "(100450 + 150700) / 8 = 31393.75; income by the month it is for" },
+
+    "comparison.august.cumulative": { "amounts": ["0", "1800", "5800", "19200"], "why": "cumulative my expenses on 1, 2, 3 and 20 Aug: 0; 1800; 1800+4000 = 5800; all 19200" },
+    "comparison.august.previousLast": { "amount": "41200", "why": "cumulative to 20 Jul, the end of the same span" },
+    "comparison.july.previous": { "amount": "0", "why": "July is complete on 20 Aug, so it is compared with the whole of June, which is empty: no percent" },
+
+    "weekday.august": {
+      "why": "interval 1–20 Aug. Occurrences: Mon 3, Tue 3, Wed 3, Thu 3 (6, 13, 20), Fri 2, Sat 3, Sun 3. Totals: Mon 4000 (3 Aug) + 4200 (10 Aug) = 8200; Tue 2500+150 = 2650; Wed 2200; Thu 900; Fri 0; Sat 2000; Sun 1800+750+700 = 3250. Averages rounded to 4 decimals: 8200/3 = 2733.3333, 2650/3 = 883.3333, 2200/3 = 733.3333, 900/3 = 300, 0/2 = 0, 2000/3 = 666.6667, 3250/3 = 1083.3333",
+      "items": [
+        ["1", "8200", "3", "2733.3333"], ["2", "2650", "3", "883.3333"], ["3", "2200", "3", "733.3333"],
+        ["4", "900", "3", "300"], ["5", "0", "2", "0"], ["6", "2000", "3", "666.6667"], ["7", "3250", "3", "1083.3333"]] },
+
+    "quality.july.month": {
+      "why": "July: good = goal 10000; bad = 1500 − 500 + 500 + 200 = 1700; neutral = 53700 − 10000 − 1700 = 42000. Floors ×10000/53700: 1862 r10600, 7821 r12300, 316 r30800 = 9999 → spare to bad",
+      "nodes": [
+        { "key": "quality:good", "amount": "10000", "share": 1862 },
+        { "key": "quality:neutral", "amount": "42000", "share": 7821 },
+        { "key": "quality:bad", "amount": "1700", "share": 317 }
+      ] },
+    "quality.july.badByCategory": {
+      "why": "bad July spending by top level: Food out 1500−500 = 1000, Transport 500, Other (Fees) 200; base 1700: floors 5882 r600, 2941 r300, 1176 r800 = 9999 → spare to Other",
+      "nodes": [
+        { "key": "category:12", "amount": "1000", "share": 5882 },
+        { "key": "category:15", "amount": "500", "share": 2941 },
+        { "key": "category:16", "amount": "200", "share": 1177 }
+      ] },
+    "quality.streaks": { "amounts": ["2", "329"], "why": "[current, best]. Bad days: 5, 7, 8 Jul and 8, 16, 18 Aug 2026. History starts 10 Aug 2025; 10 Aug 2025 … 4 Jul 2026 is 365 − 37 + 1 = 329 days without bad spending (the longest). Today 20 Aug: 19 and 20 Aug → current 2. The refund of 5 Jul does not clean that day" },
+    "quality.july.goals": { "amounts": ["10000", "43700", "1862", "8138"], "why": "[goals, rest, goals bp, rest bp]: 10000 and 53700−10000 = 43700; floors 1862 r10600, 8137 r43100 → spare to the rest" },
+
+    "others.july": { "amounts": ["8550", "4800", "2000", "1000", "750", "0"], "why": "[paid, returned, written off, waiting, shortfall, surplus] for purchases of July: paid 800 + 2000 + 4750 + 1000 = 8550; returned by links 800 + 4000 = 4800 (the 4000 came on 9 Aug); written off 2000 (Boris, trip dinner); waiting 1000 (Boris, 26 Jul); shortfall (4750 − 4000) + (800 − 800) = 750; surplus in Surcharges belonging to July 0" },
+    "others.july.byPerson": {
+      "why": "[person, paid, returned, written off, waiting, shortfall]: Anna 800+4750 = 5550, 4800, 0, 0, 750; Boris 2000+1000 = 3000, 0, 2000, 1000, 0",
+      "items": [["40", "5550", "4800", "0", "0", "750"], ["41", "3000", "0", "2000", "1000", "0"]] },
+    "others.august": { "amounts": ["2500", "2500", "0", "0", "0", "500"], "why": "concert ticket for Anna 2500, returned 2500 by the link of 14 Aug; the refund for Boris is not a purchase; surplus 3000 − 2500 = 500 in Surcharges belongs to August" },
+
+    "forWhom.august.values": {
+      "why": "me 14250, friends 3000 + 1200 + the shortfall 750 on Anna's souvenir = 4950 (see report.august.byForWhom); floors 7421 r16800, 2578 r2400 → spare to me",
+      "nodes": [{ "key": "for-whom:me", "amount": "14250", "share": 7422 }, { "key": "for-whom:friends", "amount": "4950", "share": 2578 }] },
+    "forWhom.august.people": {
+      "why": "by person, shares of all my August expenses: Boris 3000; Anna 750 (the shortfall on her souvenir); the 19200 − 3750 = 15450 that name nobody are my own spending and get no line, but stay in the base of the shares: floors 1562 r9600, 390 r12000, 8046 r16800 = 9998 → spare to the 15450 and Anna",
+      "nodes": [{ "key": "person:41", "amount": "3000", "share": 1562 }, { "key": "person:40", "amount": "750", "share": 391 }] },
+
+    "places.july": {
+      "why": "[place, my spending, purchases, average receipt, first day, new]: Electro 12000, 1, 12000/1; Cafe Luna mine 1200+4000+1000 = 6200, receipts (1200+800) + (2000+2000) + (1000+1000) = 8000 over 3 = 2666.6667; Market 2000+3000 = 5000, receipts 2000 + 3000 over 2 = 2500; Bar Nord 1500−500 = 1000, one purchase of 1500. All four first appear in July",
+      "items": [
+        ["53", "12000", "1", "12000", "2026-07-10", "true"],
+        ["51", "6200", "3", "2666.6667", "2026-07-04", "true"],
+        ["50", "5000", "2", "2500", "2026-07-01", "true"],
+        ["52", "1000", "1", "1500", "2026-07-05", "true"]] },
+    "places.august": {
+      "why": "Market 1800+1200+2200 = 5200 over 3 = 1733.3333; Gift shop 3000 (first visit 10 Aug — new); Bar Nord 2000; Cafe Luna 900 (the refund adds 0 and is not a purchase)",
+      "items": [
+        ["50", "5200", "3", "1733.3333", "2026-07-01", "false"],
+        ["54", "3000", "1", "3000", "2026-08-10", "true"],
+        ["52", "2000", "1", "2000", "2026-07-05", "false"],
+        ["51", "900", "1", "900", "2026-07-04", "false"]] },
+
+    "events.august": {
+      "why": "events by start: the Trip of July is in August too, because its shortfall of 9 Aug is — shown whole: 10750, budget 10000, left −750 (see events.july). Birthday 2026: 3000 + 1200 = 4200; by category (the nodes) Gifts 3000, Groceries 1200 (floors 7142 r3600, 2857 r600 → spare to Gifts); budget 5000, left 800; last year's Birthday (same series) 2500",
+      "items": [["72", "10750", "10000", "-750", "", ""], ["71", "4200", "5000", "800", "70", "2500"]],
+      "nodes": [{ "key": "category:18", "amount": "3000", "share": 7143 }, { "key": "category:10", "amount": "1200", "share": 2857 }] },
+    "events.july": {
+      "why": "Trip 18–20 Jul, as a whole: hotel 6000 + dinner 2000 + 2000 written off + souvenir 0 (returned) + the shortfall of 9 Aug on the souvenir 750 = 10750; Other 6000+750 = 6750, Food out 4000 (floors 6279 r750, 3720 r10000 → spare to Food out); budget 10000, left −750; no series",
+      "items": [["72", "10750", "10000", "-750", "", ""]],
+      "nodes": [{ "key": "category:16", "amount": "6750", "share": 6279 }, { "key": "category:12", "amount": "4000", "share": 3721 }] },
+
+    "paymentMethods.july": {
+      "why": "[method, my spending, turnover, cashback, share bp]. Main card: mine 2000+3000+1200+1500−500+500+12000+10000+1500+7000+1000 = 39200; turnover (whole receipts) 2000+3000+2000+1500+500+12000+10000+1500+7000+2000 = 41500 − refund 500 = 41000; cashback 300 → 300/41000 = 73.17 bp → 73. Travel card: mine 6000+4000+0+3000 = 13000; turnover 6000+4000+4750+3000 = 17750; cashback 150 (dated 1 Aug, belongs to July) → 84.5 bp → 85. Cash: 500+1000 = 1500, turnover 1500, cashback 0 → 0",
+      "items": [["60", "39200", "41000", "300", "73"], ["61", "13000", "17750", "150", "85"], ["62", "1500", "1500", "0", "0"]] },
+    "paymentMethods.august": {
+      "why": "Main card: mine 13550; turnover 1800+4000+2000+900+3000+1200+5000+150 = 18050 − refund 300 = 17750; cashback 200 → 112.7 bp → 113. Cash 2700 / 2700 / 0. Travel card 2200 / 2200 / 0 (its 150 belongs to July). No method: the shortfall 750",
+      "items": [["60", "13550", "17750", "200", "113"], ["62", "2700", "2700", "0", "0"], ["61", "2200", "2200", "0", "0"], ["no-payment-method", "750", "750", "0", "0"]] },
+
+    "filter.augustIncome": { "ids": [141, 137, 136, 119], "why": "income belonging to August, newest first: salary 25 Aug, cashback 15 Aug, surplus 14 Aug, advance dated 28 Jul; the cashback of 1 Aug belongs to July" },
+    "filter.julyIncome": { "ids": [123, 120, 102], "why": "cashback dated 1 Aug for July, cashback 29 Jul, salary 1 Jul" },
+    "filter.foodOutBad": { "ids": [128, 106, 105], "why": "a part under Food out that is bad: bar 8 Aug, bar refund 5 Jul, bar 5 Jul" },
+    "filter.cafeReturned": { "ids": [104], "why": "subcategory Cafe and status returned on the same part: only Anna's 800 at lunch" },
+    "filter.anna": { "ids": [135, 133, 130, 129, 115, 110, 104], "why": "parts for Anna or owed by her, newest first: her paybacks of 14 Aug, 9 Aug and 12 Jul name her as the person, the way the reimbursement sheet records them, and so does the shortfall on her souvenir (9 Aug, a minute after the payback); the concert (11 Aug), the souvenir (20 Jul) and the lunch (4 Jul) name her as the debtor" },
+    "filter.textSouvenir": { "ids": [130, 115], "why": "the word appears in two descriptions" },
+    "filter.textBarNord": { "ids": [128, 106, 105], "why": "both words are in the place name of these three" },
+    "filter.travelAugust": { "ids": [140], "why": "Travel card in August: groceries 19 Aug; its cashback of 1 Aug belongs to July" },
+    "filter.birthday": { "ids": [132, 131], "why": "event Birthday 2026" },
+    "filter.partner": { "ids": [116], "why": "for whom = partner" },
+    "filter.bad": { "ids": [139, 138, 128, 108, 107, 106, 105], "why": "a bad part, stored or resolved: fees, taxi (history), bar, bank fee (Fees is bad), taxi (manual), bar refund, bar" },
+    "filter.deleted": { "ids": [], "why": "the deleted operation is never found" },
+    "filter.marketJulyExpenses": { "ids": [121, 101], "why": "expenses at Market in July; the deleted one of 31 Jul is gone" },
+    "filter.textSouvenir.rowTotals": { "amounts": ["750", "0", "4750", "0"], "why": "shortfall 750 is mine; 4750 for Anna is not written off" },
+
+    "forecast.planned": { "amounts": ["16500", "6000"], "why": "[debts, goals] on 20 Aug: bank loan 7000 (day 25 > 20, not paid in August) + dollar loan 100 USD × 95 = 9500 (day 28); the instalment purchase's payments are not expenses; the old loan is closed → 16500. Goal Vacation: 10000 − 4000 contributed on 3 Aug = 6000" },
+    "forecast.remainder": { "amounts": ["0", "5000", "14730", "90", "11"], "why": "[P10, middle, P90, window days, days left]. Variable spending leaves out goal contributions, debt payments, parts for others and the deleted 9999 of 31 July: July 31700, 1–19 Aug 15200, and 2500 in Aug 2025, so the window is [20 Aug − 90 = 22 May, 19 Aug], 90 days, 46900 in all. All three numbers are quantiles of one sample: the sums of the 11-day runs that begin on a Friday, the weekday of 21 August. There are 12 of them: 0, 0, 0, 0, 0, 4200, 5800, 9650, 10150, 10500, 15200, 21000. P10 at position 1.1 = 0; P50 at 5.5 = 4200 + 0.5 × (5800 − 4200) = 5000; P90 at 9.9 = 10500 + 0.9 × (15200 − 10500) = 14730" },
+    "forecast.total": { "amounts": ["41700", "46700", "56430"], "why": "spent 19200 + planned 22500 = 41700; P10 = 41700 + 0; P50 = 41700 + 5000; P90 = 41700 + 14730" }
+  }
+}

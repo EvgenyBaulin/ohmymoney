@@ -1,0 +1,9 @@
+# Python tools for development only; nothing here ships with the app.
+#
+# pandas reads every Reports table exported by the core with `pandas.read_csv(path)` and no
+# parameters — the promise of the CSV format. `make pyenv` installs
+# this into Build.nosync/pyenv, outside the repository; `make test-core` then hands that
+# Python to the test through OHMYMONEY_PYTHON. The pin keeps a failure reproducible; its
+# dependencies (numpy, python-dateutil, pytz, tzdata) are resolved by pip for the Python in
+# use, since no single numpy serves every Python from 3.9 on.
+pandas==2.2.3

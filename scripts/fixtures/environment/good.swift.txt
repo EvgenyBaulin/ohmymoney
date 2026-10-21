@@ -1,0 +1,24 @@
+// None of these can trap: optional reads, keys with safe defaults, and comments.
+struct Good: View {
+  @Environment(AppEnvironment.self) private var environment: AppEnvironment?
+  @Environment(\.appEnvironment) private var app
+  @Environment(\.colorSchemeContrast) private var contrast
+  // @Environment(AppEnvironment.self) private var old — a comment is not code
+  var isDifferent: Bool { contrast != .standard }
+}
+
+extension EnvironmentValues {
+  @Entry var windowWidth: CGFloat = 0
+  @Entry var appEnvironment: AppEnvironment = .missing(key: "appEnvironment")
+}
+
+enum Good2 {
+  static func show(_ view: some View, _ deps: AppDependencies, in window: NSWindow) {
+    window.contentView = NSHostingView(rootView: view.appDependencies(deps))
+  }
+
+  // dependencies: none on purpose — this is the test of the stand-in itself
+  static func bare(_ view: some View) -> NSHostingController<some View> {
+    NSHostingController(rootView: view)
+  }
+}

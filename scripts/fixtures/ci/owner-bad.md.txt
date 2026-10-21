@@ -1,0 +1,7 @@
+# What the owner sets up
+
+1. **The key** — in `key.txt` or in the variable `SIGNING_KEY`.
+2. **A secret on GitHub**: Settings → Secrets → New repository secret, `OTHER_KEY`.
+3. **Pages** from the branch gh-pages; the release needs `RELEASE_KEY` there too.
+
+The workflow reads RELEASE_KEY as a secret, but this paragraph never spells it as a name.

@@ -1,0 +1,23 @@
+# A Makefile in small: verify, a group of checks, a rule with a variable of its own, and three
+# test runs of xcodebuild — limited on the line, limited through a variable set below, and not.
+.PHONY: verify ci-checks test-one test test-ui
+test-one: XCB_TIME = 600
+test-one: generate
+	@echo one
+	$(XCB) -scheme App -only-testing:$(T) \
+	    -test-timeouts-enabled YES -default-test-execution-time-allowance 60 test
+
+test: generate
+	set -o pipefail; $(XCB) -scheme App $(LIMITS) test 2>&1 | tee test.log
+
+test-ui: generate
+	$(XCB) -scheme App -only-testing:AppUITests test
+
+LIMITS := -test-timeouts-enabled YES -default-test-execution-time-allowance 120
+
+verify: check-toolchain fmt lint test-core build check-a \
+	    check-b ci-checks
+	@echo "verify: green"
+
+ci-checks: check-c check-d
+	@echo "checks: ok"

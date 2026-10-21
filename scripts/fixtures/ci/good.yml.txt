@@ -1,0 +1,35 @@
+# Runs everything make verify runs but fmt and lint, each job and each test with a limit, and
+# XcodeGen of the pinned release, and actions on Node 24 (# uses: actions/checkout@v4 is a comment);
+# every step an expression reads is declared in its job, the outputs of a job before its steps.
+jobs:
+  macos:
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0   # uses: actions/checkout@v4 would be read if this were not a comment
+      - uses: actions/setup-python@v6
+      - uses: actions/upload-artifact@v6
+      - name: Install XcodeGen, not with brew install xcodegen
+        run: scripts/install-xcodegen.sh "$RUNNER_TEMP/xcodegen"
+      - name: Test, as make test-core does
+        id: tested
+        run: OHMYMONEY_PYTHON="$(command -v python)" make test-core
+      - name: Build and check   # if: steps.fake.outcome would be read if this were not a comment
+        if: ${{ !cancelled() && steps.tested.outcome == 'success' }}
+        run: |
+          make build check-a check-b
+          make ci-checks   # the read-only checks
+      - name: One more test run
+        run: |
+          xcodebuild -scheme OhMyMoney -only-testing:OhMyMoneyTests \
+            -test-timeouts-enabled YES -default-test-execution-time-allowance 120 test
+  linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    outputs:
+      swift: ${{ steps.swift.outputs.version }}
+    steps:
+      - id: 'swift'
+        run: swift test   # a package test has no allowance to give

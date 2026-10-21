@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<!--
+  The envelope of the update feed, and only the envelope. This file is a template: it is
+  copied once to the branch GitHub Pages publishes, and the live feed lives there, never on
+  main. Each release puts one <item> right under the line that says where entries go, newest
+  first: `scripts/release-entry.sh into` does it, both on the author's Mac after
+  `make release-local` and in the workflow of a tag. That line is how the entry finds its
+  place, so it stays.
+
+  The address may never change — every installed copy looks for its updates there:
+      https://EvgenyBaulin.github.io/ohmymoney/appcast.xml
+
+  Pages must publish from a branch that holds this file and nothing else — a Pages site
+  served from `main` would publish the whole repository over HTTP.
+-->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>OhMyMoney</title>
+    <link>https://EvgenyBaulin.github.io/ohmymoney/appcast.xml</link>
+    <description>Updates for OhMyMoney</description>
+    <language>en</language>
+    <!-- Release entries go here, newest first. -->
+  </channel>
+</rss>

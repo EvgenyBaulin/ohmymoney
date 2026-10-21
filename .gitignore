@@ -1,0 +1,57 @@
+# Build output and tool caches. `Build.nosync` is a link to the build folder outside the
+# repository; the Xcode project is generated from project.yml.
+Build.nosync
+Build.nosync/
+DerivedData/
+.build/
+*.xcodeproj
+*.xcworkspace
+!Packages/**/Package.resolved
+.swiftpm/
+
+# macOS
+.DS_Store
+*.swp
+
+# Personal data must never enter the repository. The kinds of file are ignored anywhere; the
+# folders of personal data only at the root: without the slash a rule matches at any depth,
+# and on a Mac, where git ignores case, `models/` would hide a `Features/…/Models/` of source code.
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.numbers
+*.ohmymoneyarchive
+/backups/
+/exports/
+/models/
+*.mlmodel
+
+# Keys. The private Sparkle key lives in the keychain and never leaves it; the public one is
+# passed to `make release-local` from a file of the maintainer's.
+*.pem
+*.key
+private_key*
+dsa_priv*
+sparkle-public-key.txt
+sparkle_private*
+eddsa_priv*
+
+# CSV is allowed only inside test fixtures. The folder is named per test target —
+# CoreAnalyticsTests/Fixtures, CoreRatesTests/Fixtures — never one AppCoreTests/Fixtures,
+# so the exception is written against any Fixtures folder under the tests.
+*.csv
+!Packages/AppCore/Tests/**/Fixtures/**/*.csv
+
+# Logs, problem reports and crash reports say what somebody did and what was on the screen.
+# They are read while a fault is being chased and never committed.
+log_*.txt
+ohmymoney.log
+ohmymoney.*.log
+/Logs/
+OhMyMoney-report-*.zip
+OhMyMoney-report-*.zip
+*.ips
+*.crash
+
+# Machine-specific make settings (build folder of a sandbox that names another one)
+.local-paths.mk

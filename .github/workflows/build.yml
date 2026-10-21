@@ -1,0 +1,102 @@
+# Builds and tests the macOS application.
+#
+# The interface is built on the Liquid Glass APIs of macOS 26, and the app is developed with
+# Xcode 27 on macOS 27. GitHub's `macos-26` image carries Xcode 26.6 with the macOS 26.5 SDK,
+# an older compiler that refuses code Xcode 27 accepts, so the job runs on the `xcode-27` label
+# (macOS 27, Xcode 27) — the same compiler as the author's Mac. The step «Show the Xcode in use»
+# stops the run at once when the label ever hands out another Xcode.
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A newer push to the same branch makes the run of the older one pointless.
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: xcode-27
+    # make verify from scratch takes well under half an hour on the author's Mac; a runner that
+    # is not done in two hours is stuck, and GitHub's own limit is six. Inside, make test ends a
+    # hanging test with its name.
+    timeout-minutes: 120
+    steps:
+      # The whole history: `make check-attribution` reads every commit of it.
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Show the Xcode in use
+        run: |
+          xcode-select -p
+          xcodebuild -version
+          xcodebuild -showsdks | grep macosx
+          xcodebuild -version | grep -q '^Xcode 27\.' || {
+            echo "::error::this job builds with Xcode 27; the runner has another"; exit 1; }
+
+      # One release of XcodeGen, built from its source checked against a checksum: the project
+      # is generated the same way every day, not by the day's Homebrew formula.
+      - name: Install XcodeGen
+        run: scripts/install-xcodegen.sh "$RUNNER_TEMP/xcodegen"
+
+      # pandas reads every Reports table back with `read_csv(path)` and no parameters, the way
+      # a person opening the export would. A Python of its own, so pip never meets an
+      # externally managed one.
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      # The last step that prepares the runner: it runs only when every one before it succeeded
+      # (the Xcode 27 check among them), so its outcome says the runner is ready.
+      - name: Install pandas for the CSV check
+        id: prepared
+        run: python -m pip install --no-cache-dir -r scripts/requirements-dev.txt
+
+      # From here on, the targets `make verify` is made of, so CI builds, tests and checks
+      # exactly what the author's Mac does, with the same limits and the same logs
+      # (scripts/check-ci.sh fails when the two part ways). The pandas of the step above reads
+      # the Reports tables back. Each of them runs on a prepared runner even after one before it
+      # failed: a red run then names everything that is wrong, not only the first thing.
+      # scripts/check-ci.sh fails when an `if:` reads a step id no step declares: GitHub reads
+      # such an outcome as empty, and the steps it guards would be skipped with the run green.
+      - name: Test the packages
+        run: OHMYMONEY_PYTHON="$(command -v python)" make test-core test-db
+
+      # `make test` gives every test 120 s and a ceiling of 300 s: a test that hangs fails with
+      # its name instead of holding the runner. `OHMYMONEY_CI` reaches the test host (the prefix
+      # TEST_RUNNER_ is how xcodebuild hands a variable over): the runner's screen is 1024 × 768
+      # and SwiftUI builds no accessibility tree there, so the tests that need either skip.
+      - name: Build and test the application
+        if: ${{ !cancelled() && steps.prepared.outcome == 'success' }}
+        run: TEST_RUNNER_OHMYMONEY_CI=1 make build test
+
+      # Not only built: looked into. No Sparkle, no XPC services, no feed address in the store
+      # bundle, and the id that ships.
+      - name: Build the App Store configuration and look inside it
+        if: ${{ !cancelled() && steps.prepared.outcome == 'success' }}
+        run: make check-appstore-clean
+
+      # No implicitly unwrapped optional, warnings of our own code and stale files in the logs
+      # of the steps above, a portable core, no trapping environment, no measured height fed
+      # back, scripts that parse, no personal data, one name in the history, no web view,
+      # glass where it belongs, every literal key in the String Catalog it is looked up in.
+      - name: Run the checks of make verify
+        if: ${{ !cancelled() && steps.prepared.outcome == 'success' }}
+        run: make ci-checks
+
+      # What the build and the tests wrote, for the run that failed.
+      - name: Keep the logs of a failed run
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: logs
+          path: ~/Library/Developer/OhMyMoney/logs
+          if-no-files-found: ignore

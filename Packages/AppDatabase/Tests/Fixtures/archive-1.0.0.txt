@@ -1,0 +1,162 @@
+archive-1.0.0.zip and archive-1.0.0-sealed.zip: transfer archives written by the code of the
+v1.0.0 tag, for OlderArchiveFixtureTests. Synthetic data only: the 1.0.0 sample generator
+(seed 1000, one month ending 2026-09-20, Russian names) plus a few rows written in SQL.
+
+How they were made, from the repository root:
+
+  git archive v1.0.0 Packages/AppCore Packages/AppDatabase Schema \
+    Apps/macOS/Platform/Archive/CryptoKitArchiveCipher.swift | tar -x -C <work>/v100
+  # <work>/v100maker/Package.swift and Sources/maker/main.swift as below, plus a copy of
+  # CryptoKitArchiveCipher.swift in Sources/maker
+  swift run --package-path <work>/v100maker maker <work>/v100/Schema <output>
+
+The sealed one's password is «пароль 1.0.0», with 1 000 iterations and a fixed salt and nonce.
+
+---- Package.swift ----
+// swift-tools-version: 6.1
+import PackageDescription
+
+let package = Package(
+  name: "maker",
+  platforms: [.macOS("26.0")],
+  dependencies: [
+    .package(path: "../v100/Packages/AppCore"),
+    .package(path: "../v100/Packages/AppDatabase"),
+    .package(url: "https://github.com/groue/GRDB.swift.git", exact: "7.11.1"),
+  ],
+  targets: [
+    .executableTarget(
+      name: "maker",
+      dependencies: [
+        .product(name: "AppCore", package: "AppCore"),
+        .product(name: "CoreKit", package: "AppCore"),
+        .product(name: "AppDatabase", package: "AppDatabase"),
+        .product(name: "GRDB", package: "GRDB.swift"),
+      ],
+      swiftSettings: [.swiftLanguageMode(.v6)])
+  ])
+
+---- Sources/maker/main.swift ----
+import AppCore
+import AppDatabase
+import CoreKit
+import Foundation
+import GRDB
+
+// Writes two transfer archives with the code of the v1.0.0 tag, the way 1.0.0's ArchiveService
+// wrote them: a snapshot through ExportRepository.snapshot, its CSV files, the settings JSON,
+// ArchiveBuilder — plain, and sealed with a password through CryptoKit's AES-GCM.
+// Usage: maker <schema dir> <output dir>
+let arguments = CommandLine.arguments
+let schema = DirectorySchemaSource(directory: URL(fileURLWithPath: arguments[1], isDirectory: true))
+let output = URL(fileURLWithPath: arguments[2], isDirectory: true)
+let work = FileManager.default.temporaryDirectory.appendingPathComponent("v100maker-\(UUID().uuidString)")
+try FileManager.default.createDirectory(at: work, withIntermediateDirectories: true)
+defer { try? FileManager.default.removeItem(at: work) }
+let url = work.appendingPathComponent("finance.sqlite")
+
+// Small pages keep the fixture small: set before the first table is made.
+do {
+  let queue = try DatabaseQueue(path: url.path)
+  try queue.writeWithoutTransaction { db in try db.execute(sql: "PRAGMA page_size = 1024; VACUUM") }
+  try queue.close()
+}
+
+let stack = try DatabaseStack(url: url, schema: schema)
+let calendar = CalendarContext.moscow
+let set = SampleDataGenerator(seed: 1_000).generate(
+  months: 1, endingOn: DateOnly(year: 2026, month: 9, day: 20), calendar: calendar, language: "ru",
+  density: 1)
+try TransactionRepository(writer: stack.writer).insert(HistoryBatch(sample: set))
+
+// What a 1.0.0 history held beyond the sample: an account with a lower-case currency and none
+// flagged main, an operation without an account, the planning book, rates, a template, a
+// choice of the model and an anomaly waved away, settings.
+try stack.writer.write { db in
+  try db.execute(sql: "UPDATE payment_methods SET is_default = 0")
+  try db.execute(
+    sql: "UPDATE payment_methods SET currency = 'usd' WHERE rowid = (SELECT MIN(rowid) FROM payment_methods)")
+  try db.execute(
+    sql: """
+      UPDATE transactions SET payment_method_id = NULL
+      WHERE rowid IN (SELECT rowid FROM transactions ORDER BY rowid LIMIT 5)
+      """)
+  let category: String = try String.fetchOne(
+    db, sql: "SELECT id FROM categories WHERE kind = 'expense' AND parent_id IS NOT NULL LIMIT 1")!
+  let income: String = try String.fetchOne(
+    db, sql: "SELECT id FROM transactions WHERE kind = 'income' LIMIT 1")!
+  let operation: String = try String.fetchOne(db, sql: "SELECT id FROM transactions LIMIT 1")!
+  let payment = "5C9E1A40-0000-4000-8000-000000000001"
+  let expected = "5C9E1A40-0000-4000-8000-000000000002"
+  try db.execute(
+    sql: """
+      INSERT INTO scheduled_payments (id, name, kind, amount_e4, currency, category_id, for_whom,
+        reimbursable, freq, interval, day, next_date, active)
+      VALUES (?, 'Музыка, «семейная»', 'subscription', 1990000, 'RUB', ?, 'me', 0, 'monthly', 1, 5,
+        '2026-10-05', 1);
+      INSERT INTO subscription_prices (id, payment_id, date, amount_e4)
+        VALUES ('5C9E1A40-0000-4000-8000-000000000003', ?, '2026-01-05', 1690000);
+      INSERT INTO expected_income (id, name, kind, total_e4, currency, due_date, parts_expected,
+        closed) VALUES (?, 'Премия', 'one_off', 500000000, 'RUB', '2026-12-20', 1, 0);
+      INSERT INTO expected_income_links (id, expected_income_id, transaction_id)
+        VALUES ('5C9E1A40-0000-4000-8000-000000000004', ?, ?);
+      INSERT OR IGNORE INTO budgets (id, scope, category_id, amount_e4, rollover, start_month)
+        VALUES ('5C9E1A40-0000-4000-8000-000000000005', 'category', ?, 150000000, 1, '2026-08');
+      INSERT OR IGNORE INTO budgets (id, scope, amount_e4, rollover)
+        VALUES ('5C9E1A40-0000-4000-8000-000000000006', 'bad_total', 50000000, 0);
+      INSERT INTO reconciliations (id, date, actual_total_rub_e4, expected_total_rub_e4,
+        difference_e4, reconciled_at, breakdown)
+      VALUES ('5C9E1A40-0000-4000-8000-000000000007', '2026-09-15', 12345670000, 12345000000,
+        670000, '2026-09-15 18:30:00.000',
+        '[{"amount_e4":1000000,"currency":"USD","rub_e4":81430000,"rub_per_unit":"81.43"}]');
+      INSERT INTO reconciliations (id, date, actual_total_rub_e4)
+        VALUES ('5C9E1A40-0000-4000-8000-000000000008', '2026-08-01', 10000000000);
+      INSERT OR REPLACE INTO rates (date, currency, rub_per_unit, nominal, source, fetched_at)
+        VALUES ('2026-09-15', 'USD', '81.4321', 1, 'cbr', '2026-09-15 12:00:00.123'),
+               ('2026-09-15', 'KZT', '16.1234', 100, 'cbr_mirror', NULL);
+      INSERT INTO templates (id, text, category_id, amount_e4, currency, pinned, use_count)
+        VALUES ('5C9E1A40-0000-4000-8000-000000000009', 'кофе 250', ?, 2500000, 'rub', 1, 7);
+      INSERT INTO category_feedback (id, text, predicted_category_id, chosen_category_id, at,
+        confidence_bp)
+        VALUES ('5C9E1A40-0000-4000-8000-00000000000A', 'кофе', NULL, ?, '2026-09-01 09:00:00.000',
+          4200);
+      INSERT INTO anomaly_dismissals (id, rule, transaction_id, at, subject)
+        VALUES ('5C9E1A40-0000-4000-8000-00000000000B', 'duplicate', ?, '2026-09-02 10:00:00.000',
+          NULL);
+      INSERT OR REPLACE INTO settings (key, value) VALUES ('app.language', 'ru');
+      """,
+    arguments: [
+      payment, category, payment, expected, expected, income, category, category, category,
+      operation,
+    ])
+}
+
+let snapshotURL = work.appendingPathComponent("snapshot.sqlite")
+let snapshot = try ExportRepository(writer: stack.writer).snapshot(to: snapshotURL)
+try stack.close()
+let data = try Data(contentsOf: snapshotURL)
+var builder = ArchiveBuilder(
+  metadata: ArchiveBuilder.Metadata(
+    appVersion: "1.0.0", schemaVersion: stack.applied.onDisk,
+    createdAt: DateOnly(year: 2026, month: 9, day: 25), platform: "macOS",
+    rowCounts: snapshot.rowCounts))
+try builder.add(path: ArchivePaths.database, data: data)
+for table in snapshot.tables {
+  try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
+}
+try builder.add(
+  path: ArchivePaths.settings,
+  data: try JSONSerialization.data(
+    withJSONObject: ["language": "ru", "theme.scheme": "dark", "theme.accent": "green"],
+    options: [.sortedKeys]))
+try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
+try builder.build().write(to: output.appendingPathComponent("archive-1.0.0.zip"))
+
+let salt = (0..<16).map { UInt8(truncatingIfNeeded: $0 &* 37 &+ 11) }
+let nonce = (0..<12).map { UInt8(truncatingIfNeeded: $0 &* 53 &+ 7) }
+try builder.build(
+  password: "пароль 1.0.0", cipher: CryptoKitArchiveCipher(), salt: salt, nonce: nonce,
+  iterations: 1_000
+).write(to: output.appendingPathComponent("archive-1.0.0-sealed.zip"))
+print("schema \(stack.applied.onDisk), tables \(snapshot.tables.count), bytes \(data.count)")
+print(snapshot.rowCounts.sorted { $0.key < $1.key })

@@ -1,0 +1,342 @@
+# Release of the Direct build on GitHub Actions: build Release and run the tests; build, sign
+# and package the app with the owner's certificate and Sparkle key; check it as an installed
+# copy would meet it; create the GitHub release; put the entry into appcast.xml on Pages; read
+# the published release back. The tests run in a job of their own, without any secret.
+#
+# Two ways in:
+#   * «Run workflow» on the Actions tab, or `gh workflow run release.yml -f version=X.Y.Z`, on
+#     main: the release of the commit main is at, its tag made by the release itself;
+#   * a tag `vX.Y.Z` pushed without a release.
+# A release made on the owner's Mac (`make release`, guide/development.md, «Выпуск») creates its
+# tag, the tag starts this workflow too, and the first job sees the release already out and
+# stops.
+#
+# The build is the one `make release-local` makes on the owner's Mac (scripts/make-release.sh):
+# the certificate «OhMyMoney Local Signing» comes from a .p12 put into a keychain of this run only,
+# the Sparkle private key from a file of this run only; both are gone before anything is
+# published. Without the secrets — SPARKLE_PUBLIC_KEY, SPARKLE_PRIVATE_KEY,
+# OHMYMONEY_SIGNING_P12_BASE64, OHMYMONEY_SIGNING_P12_PASSWORD — nothing is built: the first job names
+# the missing ones in a warning and the run ends there, green.
+name: Release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version, X.Y.Z: MARKETING_VERSION of project.yml on main"
+        required: true
+        type: string
+
+# Two releases at once would both write the feed; one after the other, each sees the entry of
+# the one before.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  # The tag of the release: the one pushed, or the one a release started by hand will make.
+  TAG: ${{ github.event_name == 'workflow_dispatch' && format('v{0}', inputs.version) || github.ref_name }}
+
+jobs:
+  # Whether there is anything to do. A release published already — by hand, its tag starting
+  # this workflow — is out, and building and signing it again would end red on
+  # `gh release create`. A repository without the secrets cannot sign: nothing is built, and the
+  # warning says which secrets are missing. Only whether each secret is set comes here, never a
+  # value.
+  published:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      by_hand: ${{ steps.ask.outputs.by_hand }}
+      go: ${{ steps.ask.outputs.go }}
+    steps:
+      - name: Ask whether the release is out and whether the secrets are set
+        id: ask
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLIC_KEY_SET: ${{ secrets.SPARKLE_PUBLIC_KEY != '' }}
+          PRIVATE_KEY_SET: ${{ secrets.SPARKLE_PRIVATE_KEY != '' }}
+          P12_SET: ${{ secrets.OHMYMONEY_SIGNING_P12_BASE64 != '' }}
+          P12_PASSWORD_SET: ${{ secrets.OHMYMONEY_SIGNING_P12_PASSWORD != '' }}
+        run: |
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+            echo "::error::«$TAG» is not vX.Y.Z: give the version as X.Y.Z"; exit 1; }
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ] && [ "$GITHUB_REF" != refs/heads/main ]; then
+            echo "::error::a release is made from main; this run was started on $GITHUB_REF"
+            exit 1
+          fi
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            echo "::notice::$TAG is already published; nothing is built"
+            echo "by_hand=yes" >> "$GITHUB_OUTPUT"
+            echo "go=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "by_hand=no" >> "$GITHUB_OUTPUT"
+          missing=""
+          [ "$PUBLIC_KEY_SET" = true ] || missing="$missing SPARKLE_PUBLIC_KEY"
+          [ "$PRIVATE_KEY_SET" = true ] || missing="$missing SPARKLE_PRIVATE_KEY"
+          [ "$P12_SET" = true ] || missing="$missing OHMYMONEY_SIGNING_P12_BASE64"
+          [ "$P12_PASSWORD_SET" = true ] || missing="$missing OHMYMONEY_SIGNING_P12_PASSWORD"
+          if [ -n "$missing" ]; then
+            echo "::warning title=Nothing released::the repository has no secret$missing; nothing is built, signed or published (guide/development.md, «Выпуск»)"
+            echo "go=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=yes" >> "$GITHUB_OUTPUT"
+          fi
+
+  # The tests, in a job of their own that holds no secret: pandas and what it needs come from
+  # PyPI, and nothing fetched for a test runs where the private key is read.
+  test:
+    needs: published
+    if: needs.published.outputs.go == 'yes'
+    # The same compiler as the author's Mac and as build.yml: macos-26 has only Xcode 26.6.
+    runs-on: xcode-27
+    # make verify from scratch takes well under half an hour on the owner's Mac.
+    timeout-minutes: 90
+    permissions:
+      contents: read
+    steps:
+      # The whole history with its tags: the build number is compared with the release before.
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      # The short version comes from the tag, and project.yml
+      # has to say the same: a tag v1.0.1 over a project.yml of 1.0.0 would ship an archive
+      # named 1.0.1 holding an app that says 1.0.0. And CFBundleVersion grows with every
+      # release, or Sparkle never offers this one. First, before an hour of tests.
+      - name: Check the tag and the build number against project.yml
+        run: |
+          scripts/release-version.sh tag "$TAG"
+          scripts/release-version.sh grew
+
+      # One release of XcodeGen, built from its source checked against a checksum: the project
+      # is generated the same way every day, not by the day's Homebrew formula.
+      - name: Install XcodeGen
+        run: scripts/install-xcodegen.sh "$RUNNER_TEMP/xcodegen"
+
+      # pandas reads every Reports table back with `read_csv(path)` and no parameters, as on
+      # every push: without OHMYMONEY_PYTHON that suite is skipped and the job still ends green
+      # (scripts/check-ci.sh fails on that).
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install pandas for the CSV check
+        run: python -m pip install --no-cache-dir -r scripts/requirements-dev.txt
+
+      # The tests of the packages and of the application, with the limits `make test` gives
+      # them: a test that hangs fails with its name instead of holding the runner for hours.
+      - name: Generate the project and run the tests
+        env:
+          # The runner has no room for the widest windows and no accessibility tree of SwiftUI:
+          # the tests that need either skip (Apps/macOS/Tests/TestEnvironment.swift).
+          TEST_RUNNER_OHMYMONEY_CI: "1"
+        run: |
+          xcodegen generate --spec project.yml
+          OHMYMONEY_PYTHON="$(command -v python)" swift test --package-path Packages/AppCore
+          swift test --package-path Packages/AppDatabase
+          xcodebuild -project OhMyMoney.xcodeproj -scheme OhMyMoney -configuration Debug \
+            -destination 'platform=macOS' -derivedDataPath build -only-testing:OhMyMoneyTests \
+            -test-timeouts-enabled YES -default-test-execution-time-allowance 120 \
+            -maximum-test-execution-time-allowance 300 \
+            CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="" test
+
+  release:
+    needs: [published, test]
+    if: needs.published.outputs.go == 'yes'
+    runs-on: xcode-27
+    # The Release build and its signature take minutes; the feed on Pages may take up to twenty
+    # more to be served fresh.
+    timeout-minutes: 90
+    # The release and the push of the feed to gh-pages, and a new build of Pages from it;
+    # nothing else is written.
+    permissions:
+      contents: write
+      pages: write
+    steps:
+      # The whole history with its tags and gh-pages: make-release.sh compares the build number
+      # with every release out.
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      # A tag of this version made earlier at another commit would publish a release of that
+      # commit with an archive of this one. The notes come from CHANGELOG.md, as on the Mac.
+      - name: Check the tag, the commit and the notes
+        run: |
+          # The build root of make release-local: outside the checkout, gone with the runner.
+          echo "BUILD_ROOT=$RUNNER_TEMP/ohmymoney-build" >> "$GITHUB_ENV"
+          scripts/release-version.sh tag "$TAG"
+          if tagged="$(git rev-parse -q --verify "refs/tags/$TAG^{commit}")"; then
+            [ "$tagged" = "$GITHUB_SHA" ] || {
+              echo "::error::$TAG exists already at $tagged, not at $GITHUB_SHA"; exit 1; }
+          fi
+          version="${TAG#v}"
+          awk -v head="## [${version}]" '
+            index($0, head) == 1 { on = 1; next }
+            on && /^## / { exit }
+            on { print }
+          ' CHANGELOG.md > "$RUNNER_TEMP/release-notes.md"
+          [ -s "$RUNNER_TEMP/release-notes.md" ] || {
+            echo "::error::CHANGELOG.md has no section «## [${version}]», or it is empty"; exit 1; }
+          if grep -qiE 'Co-Authored-By|Generated with|-Session:' "$RUNNER_TEMP/release-notes.md"; then
+            echo "::error::the release notes carry an attribution line"; exit 1
+          fi
+
+      # One release of XcodeGen, built from its source checked against a checksum: the project
+      # is generated the same way every day, not by the day's Homebrew formula.
+      - name: Install XcodeGen
+        run: scripts/install-xcodegen.sh "$RUNNER_TEMP/xcodegen"
+
+      # make-release.sh looks for Sparkle's sign_update among the packages fetched before it
+      # builds; on a fresh runner they are fetched here, where the build will look for them.
+      - name: Generate the project and fetch the packages
+        run: |
+          make generate BUILD_ROOT="$BUILD_ROOT"
+          xcodebuild -resolvePackageDependencies -project OhMyMoney.xcodeproj -scheme OhMyMoney \
+            -clonedSourcePackagesDirPath "$BUILD_ROOT/SourcePackages"
+
+      # The certificate goes into a keychain of this run, unlocked, searched by codesign without
+      # asking, and trusted for code signing (a self-signed certificate is no valid identity
+      # otherwise). make-release.sh finds it by its name as it does in the login keychain.
+      - name: Put the signing certificate into a keychain of this run
+        env:
+          P12: ${{ secrets.OHMYMONEY_SIGNING_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.OHMYMONEY_SIGNING_P12_PASSWORD }}
+        run: |
+          umask 077
+          keychain="$RUNNER_TEMP/ohmymoney-signing.keychain-db"
+          password="$(uuidgen)"
+          printf '%s' "$P12" | base64 --decode > "$RUNNER_TEMP/signing.p12" || {
+            echo "::error::OHMYMONEY_SIGNING_P12_BASE64 is not base64"; exit 1; }
+          security create-keychain -p "$password" "$keychain"
+          security set-keychain-settings -lut 7200 "$keychain"
+          security unlock-keychain -p "$password" "$keychain"
+          if ! security import "$RUNNER_TEMP/signing.p12" -k "$keychain" -f pkcs12 \
+              -P "$P12_PASSWORD" -T /usr/bin/codesign > /dev/null; then
+            rm -f "$RUNNER_TEMP/signing.p12"
+            echo "::error::the .p12 did not import: a wrong OHMYMONEY_SIGNING_P12_PASSWORD, or not a .p12"
+            exit 1
+          fi
+          rm -f "$RUNNER_TEMP/signing.p12"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$password" \
+            "$keychain" > /dev/null
+          security list-keychains -d user -s "$keychain" \
+            $(security list-keychains -d user | tr -d '"')
+          if ! security find-identity -v -p codesigning "$keychain" | grep -q '"OhMyMoney Local Signing"'; then
+            security find-certificate -c "OhMyMoney Local Signing" -p "$keychain" \
+              > "$RUNNER_TEMP/signing.pem" 2> /dev/null || {
+              echo "::error::the .p12 holds no certificate «OhMyMoney Local Signing»"; exit 1; }
+            sudo security add-trusted-cert -d -r trustRoot -p codeSign -k "$keychain" \
+              "$RUNNER_TEMP/signing.pem"
+            rm -f "$RUNNER_TEMP/signing.pem"
+          fi
+          security find-identity -v -p codesigning "$keychain" | grep -q '"OhMyMoney Local Signing"' || {
+            echo "::error::«OhMyMoney Local Signing» is no valid signing identity on the runner"; exit 1; }
+
+      - name: Put the Sparkle private key into a file of this run
+        env:
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+        run: |
+          umask 077
+          printf '%s\n' "$SPARKLE_PRIVATE_KEY" > "$RUNNER_TEMP/sparkle-ed-key"
+
+      # The same build, checks, archive and entry as on the owner's Mac. Signing ad-hoc is not
+      # allowed here: installed copies would take such an update for another app.
+      - name: Build, sign and package (make release-local)
+        env:
+          SPARKLE_PUBLIC_KEY: ${{ secrets.SPARKLE_PUBLIC_KEY }}
+          SPARKLE_ED_KEY_FILE: ${{ runner.temp }}/sparkle-ed-key
+          OHMYMONEY_REQUIRE_CERTIFICATE: "1"
+        run: make release-local BUILD_ROOT="$BUILD_ROOT"
+
+      # The keys are needed for signing alone: gone before anything is published, whatever
+      # happened above.
+      - name: Remove the keys of this run
+        if: always()
+        run: |
+          rm -f "$RUNNER_TEMP/sparkle-ed-key" "$RUNNER_TEMP/signing.p12" "$RUNNER_TEMP/signing.pem"
+          security delete-keychain "$RUNNER_TEMP/ohmymoney-signing.keychain-db" 2> /dev/null || true
+
+      # As an installed copy would meet it, before anything is public: the signature holds, the
+      # owner's certificate signed it, the build is above the newest release of the feed, and the
+      # app meets the designated requirement of that release — or no installed copy takes it.
+      # The archive's EdDSA signature holds for the public key the app carries.
+      - name: Check the build against the release before
+        env:
+          SPARKLE_PUBLIC_KEY: ${{ secrets.SPARKLE_PUBLIC_KEY }}
+        run: |
+          version="${TAG#v}"
+          out="$BUILD_ROOT/release"
+          app="$out/Release/OhMyMoney.app"
+          codesign --verify --deep --strict "$app"
+          signature="$(sed -nE 's/.*sparkle:edSignature="([^"]+)".*/\1/p' \
+            "$out/appcast-entry-${version}.xml" | head -n 1)"
+          scripts/check-release.sh --candidate "$app" "$out/OhMyMoney-${version}.zip" "$signature"
+          mkdir -p out
+          cp "$out/OhMyMoney-${version}.zip" "$out/appcast-entry-${version}.xml" out/
+
+      # The archive and its entry stay among the artifacts: if a later step fails, the release
+      # can be finished by hand from there.
+      - uses: actions/upload-artifact@v6
+        with:
+          name: release
+          path: |
+            out/OhMyMoney-*.zip
+            out/appcast-entry-*.xml
+
+      # GitHub's own command line, not an action of somebody else's. A release started by hand
+      # makes its tag at this commit; a pushed tag is used as it is.
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${TAG#v}"
+          if [ "$GITHUB_EVENT_NAME" = push ]; then where="--verify-tag"; else where="--target=$GITHUB_SHA"; fi
+          gh release create "$TAG" "out/OhMyMoney-${version}.zip" --repo "$GITHUB_REPOSITORY" "$where" \
+            --title "OhMyMoney ${version}" --notes-file "$RUNNER_TEMP/release-notes.md"
+
+      # Last, once the archive the entry points at can be downloaded. The feed lives on the
+      # orphan branch gh-pages, one file; the entry goes in newest first, and a build number the
+      # feed already announces, or one below, is refused. The commit carries the name of the
+      # released commit's author: the history has one name. A push made with the token of a
+      # workflow starts no build of Pages by itself, so one is asked for.
+      - name: Announce the release in the feed on Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${TAG#v}"
+          signature="$(sed -nE 's/.*sparkle:edSignature="([^"]+)".*/\1/p' \
+            "out/appcast-entry-${version}.xml" | head -n 1)"
+          git fetch --depth=1 origin gh-pages
+          git worktree add --detach pages FETCH_HEAD
+          scripts/release-entry.sh into pages/appcast.xml "$version" \
+            "$(scripts/release-version.sh build)" "$(stat -f%z "out/OhMyMoney-${version}.zip")" \
+            "$signature"
+          git -C pages add appcast.xml
+          git -C pages -c user.name="$(git log -1 --format=%an)" \
+            -c user.email="$(git log -1 --format=%ae)" commit -m "Announce OhMyMoney ${version}"
+          git -C pages push origin HEAD:gh-pages
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" > /dev/null ||
+            echo "::notice::Pages build not asked for; it starts on the push"
+
+      # The published release read from outside, as `make release-check` reads it on the Mac:
+      # the live feed, the archive it points at, and the app inside meeting the requirement of
+      # the release before. Pages serves the feed through a cache, so it is asked again for a
+      # while.
+      - name: Read the published release back
+        env:
+          SPARKLE_PUBLIC_KEY: ${{ secrets.SPARKLE_PUBLIC_KEY }}
+        run: |
+          for attempt in $(seq 1 20); do
+            if make release-check V="${TAG#v}"; then exit 0; fi
+            echo "attempt ${attempt}: not yet; again in a minute"
+            sleep 60
+          done
+          echo "::error::the live feed did not pass make release-check in 20 minutes; the release is out, check the feed by hand"
+          exit 1

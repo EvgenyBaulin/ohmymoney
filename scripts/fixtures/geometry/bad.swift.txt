@@ -1,0 +1,48 @@
+// Every line below trips the check: a height taken from the screen that comes back into the
+// layout, either through a binding out of the view or into a modifier of its own branch.
+// The self-test expects four.
+struct BadBar: View {
+  @Binding var clearance: CGFloat
+  @State private var capsuleHeight: CGFloat = 0
+
+  var body: some View {
+    capsule
+      .onGeometryChange(for: CGFloat.self) {
+        $0.size.height
+      } action: {
+        capsuleHeight = $0
+      }
+      .padding(.bottom, capsuleHeight + 12)
+  }
+}
+
+struct BadPanel: View {
+  var reportsHeight: (CGFloat) -> Void
+  @State private var height: CGFloat = 0
+
+  var body: some View {
+    content
+      .onGeometryChange(for: CGFloat.self) {
+        $0.size.height
+      } action: {
+        height = $0
+        reportsHeight($0)
+      }
+  }
+}
+
+// The third shape, and the one that cost the owner a crash on 21.09: the measurement goes
+// into a property of a shared object, and whoever reads that property is laid out again on
+// every frame of the size it reports.
+struct BadThroughAnObject: View {
+  let actions: SomeActions
+
+  var body: some View {
+    bar
+      .onGeometryChange(for: CGRect.self) {
+        $0.frame(in: .named("screen"))
+      } action: {
+        actions.barFrame = $0
+      }
+  }
+}

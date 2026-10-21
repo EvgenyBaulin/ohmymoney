@@ -1,0 +1,7 @@
+#!/bin/bash
+# Every variable here is either followed by ASCII or wrapped in braces.
+set -euo pipefail
+NAME="OhMyMoney Local Signing"
+echo "«${NAME}» is already there."
+echo "$NAME signs the Debug build"
+echo "Keychain Access → login → «${NAME}» → Trust"

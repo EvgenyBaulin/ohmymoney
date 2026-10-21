@@ -1,0 +1,9 @@
+#!/bin/bash
+# Two builds without Xcode's own toolchain, and a build root reached through the link: the
+# self-test expects three findings.
+set -euo pipefail
+out="$(pwd)/Build.nosync/release"
+xcodebuild -project OhMyMoney.xcodeproj -scheme OhMyMoney -configuration Release \
+  -derivedDataPath "${out}/DerivedData" build
+xcodebuild -scheme OhMyMoney -toolchain swift test
+xcodebuild -version

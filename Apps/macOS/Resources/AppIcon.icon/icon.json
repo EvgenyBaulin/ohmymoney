@@ -1,0 +1,61 @@
+{
+  "fill" : {
+    "automatic-gradient" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "image-name" : "03_input_line_1024_transparent.png",
+          "name" : "03_input_line_1024_transparent",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -1,
+              13
+            ]
+          }
+        },
+        {
+          "image-name" : "02_coin_1024_transparent.png",
+          "name" : "02_coin_1024_transparent",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -1,
+              31
+            ]
+          }
+        },
+        {
+          "blend-mode" : "normal",
+          "fill" : "automatic",
+          "hidden" : false,
+          "image-name" : "01_background_amber_1024.png",
+          "name" : "01_background_amber_1024",
+          "position" : {
+            "scale" : 1.09,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.3
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

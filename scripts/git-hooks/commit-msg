@@ -1,0 +1,85 @@
+#!/bin/bash
+# Strips the trailers a coding tool adds to a commit message, so the history of this repository
+# carries one name — the author's.
+#
+# Removed, case-insensitively:
+#   any Co-Authored-By: trailer, whoever it names;
+#   any line that starts with a word ending in -Session: (a reference to a tool's session);
+#   a line that starts with «Generated with», after an emoji or other marks if there are any;
+# and the blank lines those leave behind: at the end of the message, and the second of two
+# where a paragraph of them stood between two others.
+#
+# Nothing else is touched: the rest of the message keeps every byte, including the blank line
+# between subject and body, and «generated with» in the middle of a sentence.
+#
+# Git calls this with the path of the message file. `make hooks` points core.hooksPath here.
+# `commit-msg --self-test` runs the cleaning on a few messages and compares (make check-scripts).
+set -u
+
+# Prints the message of the file named, cleaned; non-zero when it cannot be read.
+clean() {
+/usr/bin/perl -e '
+  my $path = shift @ARGV;
+  # Non-zero, so the shell below removes the half-written file and leaves the message alone.
+  # Exiting 0 here let an empty file be moved over the message, and git aborts a commit whose
+  # message is empty: the author would lose what was typed.
+  open(my $in, "<", $path) or exit 1;
+  my @lines = <$in>;
+  close($in);
+
+  my @kept;
+  my $cut = 0;
+  for my $line (@lines) {
+    if ($line =~ /^\s*Co-Authored-By:/i ||
+        $line =~ /^\s*[A-Za-z][A-Za-z0-9-]*-Session:/i ||
+        $line =~ /^[^A-Za-z0-9]*Generated\s+with\b/i) {
+      $cut = 1;
+      next;
+    }
+    # A paragraph that was nothing but such lines leaves the blank lines on both sides of it:
+    # one of them goes with it, so the paragraphs around it stay one blank line apart.
+    next if $cut && $line =~ /^\s*$/ && @kept && $kept[-1] =~ /^\s*$/;
+    $cut = 0;
+    push @kept, $line;
+  }
+
+  # Blank lines left at the end by what was removed.
+  while (@kept && $kept[-1] =~ /^\s*$/) { pop @kept; }
+
+  # Exactly one newline at the end, whether or not the file had one.
+  for my $line (@kept) { $line =~ s/\r?\n\z//; print $line, "\n"; }
+' "$1"
+}
+
+if [ "${1:-}" = "--self-test" ]; then
+  work="$(mktemp -d "${TMPDIR:-/tmp}/ohmymoney-commit-msg.XXXXXX")" || exit 1
+  trap 'rm -rf "${work}"' EXIT
+  failed=""
+  # expect <name> <message> <cleaned>: both as printf formats.
+  expect() {
+    printf "$2" > "${work}/message"
+    printf "$3" > "${work}/wanted"
+    clean "${work}/message" > "${work}/got" || { failed="${failed} $1"; return; }
+    cmp -s "${work}/got" "${work}/wanted" || {
+      echo "commit-msg self-test: $1 came out as:"; cat "${work}/got"; failed="${failed} $1"; }
+  }
+  expect middle 'Subject\n\nBody\n\nCo-Authored-By: Someone <someone@example.com>\n\nMore body\n' \
+    'Subject\n\nBody\n\nMore body\n'
+  expect end 'Subject\n\nBody\n\n\360\237\244\226 Generated with [Some Tool](https://example.com/tool)\n\nCo-authored-by: Someone Else <else@example.com>\nTool-Session: abc\n' \
+    'Subject\n\nBody\n'
+  expect untouched 'Subject\n\nBody\n\n\nKept as typed: the table is generated with pandas.\n\nReviewed-by: Someone <someone@example.com>\n' \
+    'Subject\n\nBody\n\n\nKept as typed: the table is generated with pandas.\n\nReviewed-by: Someone <someone@example.com>\n'
+  [ -z "${failed}" ] || { echo "commit-msg self-test: failed:${failed}"; exit 1; }
+  echo "commit-msg self-test: ok"
+  exit 0
+fi
+
+file="${1:-}"
+[ -n "${file}" ] || exit 0
+[ -f "${file}" ] || exit 0
+
+cleaned="${file}.ohmymoney-clean"
+clean "${file}" > "${cleaned}" || { rm -f "${cleaned}"; exit 0; }
+
+mv "${cleaned}" "${file}"
+exit 0

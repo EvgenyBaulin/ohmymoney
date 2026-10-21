@@ -1,0 +1,26 @@
+// Every line below trips the check: a value that traps when missing, or a host of its own
+// shown without the app's dependencies. The self-test expects seven.
+struct Bad: View {
+  @Environment(AppEnvironment.self) private var environment
+  @Environment(TransactionsStore.self)
+  private var store
+  @EnvironmentObject var model: Model
+}
+
+extension EnvironmentValues {
+  @Entry var planning: PlanningStore = PlanningStore.shared!
+}
+
+private struct StoreKey: EnvironmentKey {
+  static var defaultValue: Store { fatalError("no store") }
+}
+
+enum Bad2 {
+  static func show(_ view: some View, in window: NSWindow) {
+    window.contentView = NSHostingView(rootView: view)
+  }
+
+  static func controller(_ view: some View) -> NSHostingController<some View> {
+    NSHostingController(rootView: view)
+  }
+}

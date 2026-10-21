@@ -1,0 +1,7 @@
+# What the owner sets up
+
+1. **The key** — in `key.txt` or in `SIGNING_KEY`.
+2. **Secrets on GitHub**: Settings → Secrets → New repository secret, two:
+   `RELEASE_KEY` (the one that builds) and
+   `SIGNING_KEY` (the one that signs).
+3. **Pages** from the branch gh-pages.
