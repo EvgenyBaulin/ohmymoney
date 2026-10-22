@@ -118,7 +118,8 @@ final class SyncBootstrapTests: XCTestCase {
     let phone = try coordinator("phone", stack: phoneStack)
     await phone.lookForSnapshot()
     XCTAssertEqual(phone.bootstrap, .idle, "no folder: nothing is offered")
-    XCTAssertEqual(phone.choose(folder: folder), .accepted)
+    // No exchange of its own yet: it would race the offer by filling the empty device.
+    XCTAssertEqual(phone.choose(folder: folder, thenSync: false), .accepted)
     await phone.lookForSnapshot()
     guard case .offered(let offer) = phone.bootstrap else {
       return XCTFail("expected an offer, got \(phone.bootstrap)")

@@ -70,7 +70,9 @@ final class SyncCoordinator {
   /// The owner confirmed a folder. The database and the folders of its copies are refused: only
   /// journal files go to the exchange folder.
   @discardableResult
-  func choose(folder url: URL) -> Choice {
+  /// `thenSync` starts the first exchange at once; a caller that wants to offer the snapshot of the
+  /// folder first (the empty device) or a test that must not race it passes `false`.
+  func choose(folder url: URL, thenSync: Bool = true) -> Choice {
     guard SyncFolderPolicy.allows(url, protecting: protectedFolders()) else {
       AppLog.warning("sync.folderRefused", .db, "the folder holds or lies in the books")
       return .refused
@@ -86,7 +88,7 @@ final class SyncCoordinator {
     }
     refreshFolderName(url)
     exchange.map { try? $0.setRecording(true) }
-    Task { await syncNow() }
+    if thenSync { Task { await syncNow() } }
     return .accepted
   }
 

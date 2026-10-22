@@ -365,14 +365,14 @@ struct OperationsScreen: View {
             }
           }
           .background(surfaces.card)
-        .clipShape(.rect(cornerRadius: 16))
-        .overlay {
-          RoundedRectangle(cornerRadius: 16).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
-        }
-        // With the editor column open the card runs up to its divider: the column's own width is
-        // what the layout keeps, and nothing of it is spent on a margin beside the table.
-        .padding(.leading, 16)
-        .padding(.trailing, editorColumnShown ? 0 : 16)
+          .clipShape(.rect(cornerRadius: 16))
+          .overlay {
+            RoundedRectangle(cornerRadius: 16).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
+          }
+          // With the editor column open the card runs up to its divider: the column's own width is
+          // what the layout keeps, and nothing of it is spent on a margin beside the table.
+          .padding(.leading, 16)
+          .padding(.trailing, editorColumnShown ? 0 : 16)
       #endif
     } else if pages.listing != nil {
       nothingFound
