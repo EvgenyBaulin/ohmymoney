@@ -89,6 +89,7 @@ struct EntryBar<Accessory: View>: View {
   @Dependency(\.compute) private var compute
   /// Handed to the reimbursement sheet, which SwiftUI lays out in a host of its own.
   @Environment(\.dependencies) private var dependencies
+  @Environment(\.themeSurfaces) private var surfaces
   @FocusState private var focused: Bool
 
   @State private var text = ""
@@ -520,8 +521,12 @@ struct EntryBar<Accessory: View>: View {
 
         GlassCapsule {
           HStack(spacing: 10) {
-            Image(systemName: "plus.circle")
-              .foregroundStyle(.secondary)
+            // The accent circle with its plus, as the design draws the start of the line.
+            Image(systemName: "plus")
+              .font(.system(size: 12, weight: .bold))  // font-fixed: glyph in a fixed circle
+              .foregroundStyle(surfaces.onAccent)
+              .frame(width: 26, height: 26)
+              .background(surfaces.accent, in: .circle)
               // The tip hangs on the symbol beside the line, not on the field: the field keeps
               // its keys — Tab into the panel — to itself.
               .popoverTip(EntryLineTip(), arrowEdge: .top)

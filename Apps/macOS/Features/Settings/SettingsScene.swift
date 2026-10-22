@@ -23,6 +23,7 @@ struct SettingsView: View {
   @State private var navigation = SettingsNavigation.shared
   /// «Выбрать стартовый набор…» of «Основные»: the set, on a sheet over the settings.
   @State private var starterSet = SettingsStarterSet.shared
+  @Environment(\.themeSurfaces) private var surfaces
 
   /// The smallest the window may be made: the sidebar and a section beside it whose grouped
   /// form still holds a row of the accent circles and a category per row with its quality.
@@ -45,8 +46,15 @@ struct SettingsView: View {
         )
         .layoutPriority(1)
       Divider()
-      SettingsSectionContent(section: navigation.section)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+      VStack(spacing: 0) {
+        SettingsSectionTitle(
+          section: navigation.section,
+          title: environment.language(navigation.section.titleKey, table: "Settings"))
+        SettingsSectionContent(section: navigation.section)
+          .scrollContentBackground(.hidden)
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+      .background(surfaces.background)
     }
     .navigationTitle(environment.language(navigation.section.titleKey, table: "Settings"))
     // Room for what the sections hold — the row of accent circles, a category per row with its
@@ -107,6 +115,8 @@ struct SettingsSidebar: View {
   let environment: AppEnvironment
   /// The words of both languages, read once for the sidebar.
   @State private var words = SettingsSearch.catalogWords()
+  @Environment(\.appTheme) private var theme
+  @Environment(\.themeSurfaces) private var surfaces
 
   var body: some View {
     let found = SettingsSearch.find(navigation.query, words: words)
@@ -116,12 +126,17 @@ struct SettingsSidebar: View {
         set: { if let section = $0 { navigation.section = section } })
     ) {
       ForEach(found, id: \.section) { found in
-        Label {
-          Text(verbatim: environment.language(found.section.titleKey, table: "Settings"))
-        } icon: {
-          Image(systemName: found.section.symbol)
-        }
+        SettingsSidebarLabel(
+          section: found.section,
+          title: environment.language(found.section.titleKey, table: "Settings"),
+          isSelected: navigation.section == found.section
+        )
         .tag(found.section)
+        .listRowBackground(
+          navigation.section == found.section
+            ? RoundedRectangle(cornerRadius: SettingsChromeMetrics.plateRadius)
+              .fill(Color(theme.palette.accentTint)).padding(.horizontal, 4)
+            : nil)
         .accessibilityIdentifier("settings.section.\(found.section.rawValue)")
         ForEach(found.captions, id: \.self) { caption in
           Button {
@@ -146,6 +161,8 @@ struct SettingsSidebar: View {
       }
     }
     .listStyle(.sidebar)
+    .scrollContentBackground(.hidden)
+    .background(surfaces.sidebar)
     .searchable(
       text: $navigation.query, placement: .toolbar,
       prompt: Text(verbatim: environment.language("settings.search.prompt", table: "Settings"))

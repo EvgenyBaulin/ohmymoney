@@ -32,20 +32,8 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
     }
   }
 
-  var symbol: String {
-    switch self {
-    case .general: "gearshape"
-    case .appearance: "paintpalette"
-    case .currencies: "banknote"
-    case .accounts: "building.columns"
-    case .categories: "folder"
-    case .references: "books.vertical"
-    case .entry: "keyboard"
-    case .templates: "square.grid.2x2"
-    case .planning: "calendar"
-    case .backups: "externaldrive"
-    }
-  }
+  /// The line symbol of the section (`tileSymbol`).
+  var symbol: String { tileSymbol }
 
   /// The captions of the settings the section holds, as keys of the catalogs: what a search
   /// finds a section by besides its name. A caption added to a section is added here, so the

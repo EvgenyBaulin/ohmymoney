@@ -22,6 +22,8 @@ struct ReconcileSheet: View {
   @Environment(\.dependencies) private var dependencies
   @Environment(\.dismiss) private var dismiss
   @Environment(\.openWindow) private var openWindow
+  @Environment(\.appTheme) private var theme
+  @Environment(\.themeSurfaces) private var surfaces
 
   /// What the owner typed, by balance: a row he never touched counts its expected balance, and
   /// a starting point he never touched counts nothing.
@@ -60,16 +62,22 @@ struct ReconcileSheet: View {
       rows: compared, counted: counted, rubPerUnit: snapshot?.context.rubPerUnit ?? [:])
     let notHeld = Self.differencesNotHeld(rows: compared, counted: counted)
     VStack(alignment: .leading, spacing: 12) {
-      Text(verbatim: t("reconcile.title")).appFont(.headline)
-      Text(verbatim: t("reconcile.accountsQuestion"))
-        .foregroundStyle(.secondary)
-        .fixedSize(horizontal: false, vertical: true)
+      // The title with its question under it, set off from the table by a rule.
+      VStack(alignment: .leading, spacing: 2) {
+        Text(verbatim: t("reconcile.title")).appFont(.title3).bold()
+        Text(verbatim: t("reconcile.accountsQuestion"))
+          .appFont(.callout)
+          .foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+      Divider()
       if let snapshot {
         if rows.isEmpty {
           Text(verbatim: t("reconcile.noAccounts")).foregroundStyle(.secondary)
         } else {
           ScrollView {
             Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 8) {
+              columnCaptions
               ForEach(rows, id: \.key) { row in
                 rowView(
                   row, snapshot: snapshot, counted: counted, compared: saved[row.key] ?? row)
@@ -85,6 +93,9 @@ struct ReconcileSheet: View {
                 }
               }
             }
+            .padding(12)
+            .background(surfaces.card, in: .rect(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(surfaces.cardBorder))
             .padding(.vertical, 2)
           }
           .frame(maxHeight: 340)
@@ -130,6 +141,7 @@ struct ReconcileSheet: View {
         .appFont(.caption)
         .foregroundStyle(.red)
       }
+      Divider()
       HStack {
         if let last = snapshot?.planning.lastReconciliation {
           Button(t("reconcile.findMissing")) {
@@ -336,6 +348,23 @@ struct ReconcileSheet: View {
       Text(verbatim: translated ? text : t(text)).fixedSize(horizontal: false, vertical: true)
     } icon: {
       Image(systemName: symbol)
+    }
+    .appFont(.caption)
+    .foregroundStyle(.secondary)
+    .padding(.horizontal, 12)
+    .padding(.vertical, 8)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(Color(theme.palette.accentTint), in: .rect(cornerRadius: 10))
+  }
+
+  /// The captions over the columns of the table, as the design draws them.
+  private var columnCaptions: some View {
+    GridRow {
+      Text(verbatim: t("reconcile.col.account"))
+      Color.clear.frame(width: 1, height: 1)
+      Text(verbatim: t("reconcile.col.expected"))
+      Text(verbatim: t("reconcile.col.counted"))
+      Text(verbatim: t("reconcile.difference")).frame(minWidth: 100, alignment: .trailing)
     }
     .appFont(.caption)
     .foregroundStyle(.secondary)
