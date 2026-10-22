@@ -18,7 +18,7 @@ final class CapitalSectionTests: XCTestCase {
   func testTheSectionIsCommandSixAndLast() {
     XCTAssertEqual(MainWindow.Section.allCases.last, .capital)
     XCTAssertEqual(MainWindow.Section.capital.shortcutIndex, 6)
-    XCTAssertEqual(MainWindow.Section.capital.symbol, "building.columns")
+    XCTAssertEqual(MainWindow.Section.capital.symbol, "chart.bar")
     XCTAssertEqual(MainWindow.Section.capital.titleKey, "section.capital")
     XCTAssertEqual(
       Set(MainWindow.Section.allCases.map(\.shortcutIndex)).count,

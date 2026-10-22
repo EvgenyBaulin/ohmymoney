@@ -24,6 +24,7 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
   }
 
   @Dependency(\.environment) private var environment
+  @Environment(\.themeSurfaces) private var surfaces
 
   let title: String?
   let state: BlockState<Value>
@@ -91,7 +92,7 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
     case .failed(let messageKey):
       HStack(alignment: .firstTextBaseline, spacing: 8) {
         Image(systemName: "exclamationmark.octagon")
-          .foregroundStyle(.red)
+          .foregroundStyle(surfaces.negative)
           .accessibilityHidden(true)
         Text(verbatim: environment.language(messageKey))
           .fixedSize(horizontal: false, vertical: true)
@@ -143,14 +144,17 @@ extension ComputedBlock where Content == EmptyView, Value == Never {
 /// Overview and the chart cards of Analytics share it, so they look the same.
 struct ContentCard: ViewModifier {
   @Environment(\.colorSchemeContrast) private var contrast
+  @Environment(\.themeSurfaces) private var surfaces
   let fillsHeight: Bool
 
   func body(content: Content) -> some View {
     content
       .frame(maxWidth: .infinity, maxHeight: fillsHeight ? .infinity : nil, alignment: .topLeading)
       .padding(14)
-      .background(.background.secondary, in: .rect(cornerRadius: 12))
+      .background(surfaces.card, in: .rect(cornerRadius: 12))
       .overlay {
+        // The theme's own hairline always; under «Увеличить контраст» the separator edge too.
+        RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
         if contrast == .increased {
           RoundedRectangle(cornerRadius: 12).strokeBorder(.separator, lineWidth: 1)
         }

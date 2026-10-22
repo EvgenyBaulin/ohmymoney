@@ -162,6 +162,7 @@ final class AppearanceThemeTests: XCTestCase {
   // MARK: The sheet itself
 
   private func show<V: View>(_ view: V, size: CGSize) -> NSWindow {
+    // dependencies: the views under test are handed to the sheet by the caller; this host only sizes them.
     let window = NSWindow(
       contentViewController: NSHostingController(
         rootView: view.frame(width: size.width, height: size.height)))

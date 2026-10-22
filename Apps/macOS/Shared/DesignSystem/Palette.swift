@@ -75,6 +75,7 @@ public struct QualityTag: View {
   private let quality: Quality
   private let title: String
   private let font: AppFont
+  @Environment(\.themeSurfaces) private var surfaces
 
   /// `font` is the caption of a row by default; a card sets it to its own lines.
   public init(quality: Quality, title: String, font: AppFont = .caption) {
@@ -89,7 +90,7 @@ public struct QualityTag: View {
     } icon: {
       Image(systemName: Palette.qualitySymbol(quality))
     }
-    .foregroundStyle(Palette.quality(quality))
+    .foregroundStyle(surfaces.quality(quality))
     .labelStyle(.titleAndIcon)
     .appFont(font)
   }

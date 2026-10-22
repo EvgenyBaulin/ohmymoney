@@ -438,6 +438,7 @@ struct MainWindow: View {
         GeometryReader { proxy in
           content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .themedWindowBackground()
             // The tutorial's strip: «Учебный режим · 3 из 10», the tasks, the way out.
             .safeAreaInset(edge: .top, spacing: 0) {
               if guide.isTutorial, environment.state == .ready { TutorialBar(guide: guide) }
@@ -760,7 +761,8 @@ struct MainWindow: View {
       }
       // ⌘N belongs to the menu item of `AppCommands` and is declared there once. Declared
       // twice, the main menu shadows the toolbar anyway (`MenuTests`).
-      .help(environment.language("action.add"))
+      .labelStyle(.titleAndIcon)
+      .help("\(environment.language("action.add")) ⌘N")
       .accessibilityIdentifier("entry.add")
     }
 
@@ -792,6 +794,7 @@ struct MainWindow: View {
           Image(systemName: "arrow.clockwise")
         }
       }
+      .help("\(environment.language("action.recompute")) ⌘R")
 
       Button {
         environment.showsReconciliation = true

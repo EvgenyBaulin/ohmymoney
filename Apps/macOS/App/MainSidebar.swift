@@ -63,23 +63,52 @@ enum SidebarItem: Hashable, Sendable {
     /// rows are redrawn with every change of the data, and a sheet hung on one would go with it.
     @State private var accounts = AccountsSidebarModel()
 
+    @Environment(\.appTheme) private var theme
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.openSettings) private var openSettings
+
     var body: some View {
       List(selection: $selection) {
         Section {
           ForEach(MainWindow.Section.allCases) { item in
-            Label {
-              Text(verbatim: environment.language(item.titleKey))
-            } icon: {
-              Image(systemName: item.symbol)
-            }
-            .tag(SidebarItem.section(item))
-            .accessibilityIdentifier("sidebar.\(item.rawValue)")
-            .guideTarget("sidebar.\(item.rawValue)")
+            sectionRow(item)
           }
+          // Analytics is a window of its own, not a screen of this one: a button, never lit.
+          Button {
+            AppWindows.open("analytics", with: openWindow)
+          } label: {
+            Label {
+              Text(verbatim: environment.language("window.analytics"))
+            } icon: {
+              Image(systemName: "chart.xyaxis.line")
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(.rect)
+          }
+          .buttonStyle(.plain)
+          .accessibilityIdentifier("sidebar.analytics")
         }
         if environment.state == .ready {
           AccountsSidebarSection(model: accounts, selection: $selection)
         }
+      }
+      // «Настройки» with the gear, at the foot of the column.
+      .safeAreaInset(edge: .bottom, spacing: 0) {
+        Button {
+          openSettings()
+        } label: {
+          Label {
+            Text(verbatim: environment.language("settings.title", table: "Settings"))
+          } icon: {
+            Image(systemName: "gearshape")
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .accessibilityIdentifier("sidebar.settings")
       }
       .accountsSidebarPresentations(accounts, selection: $selection)
       .guideOverlay(GuideStore.shared)
@@ -95,6 +124,34 @@ enum SidebarItem: Hashable, Sendable {
         guard let item = note.object as? SidebarItem else { return }
         selection = item
       }
+    }
+
+    /// A section of the window: a line icon and the name; the chosen one lies on a plate of the
+    /// theme's accent tint with its text in the accent. A button, not a tagged row: the list's
+    /// own highlight would paint over the plate, and the lit row is the model's
+    /// (`SidebarHighlight`), also for VoiceOver (`isSelected`).
+    private func sectionRow(_ item: MainWindow.Section) -> some View {
+      let lit = SidebarHighlight.of(item, selection: selection)
+      return Button {
+        selection = .section(item)
+      } label: {
+        Label {
+          Text(verbatim: environment.language(item.titleKey))
+        } icon: {
+          Image(systemName: item.symbol)
+        }
+        .foregroundStyle(lit.text(theme))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 3)
+        .padding(.horizontal, 6)
+        .background(lit.plate(theme), in: .rect(cornerRadius: 8))
+        .contentShape(.rect)
+      }
+      .buttonStyle(.plain)
+      .listRowBackground(Color.clear)
+      .accessibilityAddTraits(lit.isSelected ? [.isSelected] : [])
+      .accessibilityIdentifier("sidebar.\(item.rawValue)")
+      .guideTarget("sidebar.\(item.rawValue)")
     }
   }
 

@@ -25,12 +25,12 @@ extension MainWindow {
 
     var symbol: String {
       switch self {
-      case .overview: "chart.pie"
-      case .operations: "list.bullet.rectangle"
-      case .planning: "calendar"
+      case .overview: "house"
+      case .operations: "list.bullet"
+      case .planning: "calendar.badge.clock"
       case .debts: "creditcard"
-      case .calendar: "calendar.circle"
-      case .capital: "building.columns"
+      case .calendar: "calendar"
+      case .capital: "chart.bar"
       }
     }
 
