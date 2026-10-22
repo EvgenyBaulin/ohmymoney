@@ -673,6 +673,10 @@ public final class AppEnvironment {
     let refused = refuseAStagedDatabaseThisBuildCannotOpen()
     let replacement = AppPaths.applyPendingReplacement()
     let imported = AppPaths.takeImportMark(after: replacement)
+    // The exchange with other devices remembers the database that is gone: it starts over.
+    if replacement == .replaced, AppPaths.dataSet == nil {
+      UserDefaults.standard.set(true, forKey: SyncWiring.replacedKey)
+    }
     staging.note(.init(refused: refused, replacement: replacement, imported: imported))
     let schema = BundleSchemaSource()
     let pending = try DatabaseStack.pendingMigrations(fileAt: AppPaths.databaseURL, schema: schema)

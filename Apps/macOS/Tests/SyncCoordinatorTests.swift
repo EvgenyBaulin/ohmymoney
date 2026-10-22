@@ -104,8 +104,14 @@ final class SyncCoordinatorTests: XCTestCase {
     guard case .synced = coordinator.status else {
       return XCTFail("status \(coordinator.status)")
     }
-    let names = try FileManager.default.contentsOfDirectory(atPath: folder.path)
-    XCTAssertEqual(names, [SyncFormat.fileName(deviceId: "mac", sequence: 0)])
+    let names = try FileManager.default.contentsOfDirectory(atPath: folder.path).sorted()
+    XCTAssertEqual(
+      names,
+      [
+        SyncFormat.fileName(deviceId: "mac", sequence: 0),
+        SyncSnapshotName.fileName(deviceId: "mac"),
+      ]
+      .sorted(), "the journal and the copy of the whole database, nothing else")
     coordinator.forgetFolder()
     XCTAssertEqual(coordinator.status, .notConfigured)
     XCTAssertFalse(coordinator.hasFolder)
@@ -166,5 +172,142 @@ final class SyncCoordinatorTests: XCTestCase {
     XCTAssertEqual(note, "coffee 300")
     await phoneOwner.syncNow()
     XCTAssertTrue(phoneOwner.conflicts.isEmpty)
+  }
+
+  // MARK: Books that were there before the exchange
+
+  private func phoneCoordinator(
+    _ stack: DatabaseStack, bookmarkKey: String, notes: Notes = Notes()
+  ) throws -> SyncCoordinator {
+    let exchange = try SyncExchange(writer: stack.writer, deviceId: "phone", deviceName: "phone")
+    try exchange.setRecording(true)
+    return SyncCoordinator(
+      exchange: exchange, bookmarks: BookmarkStore(key: bookmarkKey), notifier: notes)
+  }
+
+  func testBooksThatWereThereBeforeTheExchangeReachAnEmptyPhone() async throws {
+    let macStack = try makeStack()
+    // Written while nothing recorded: the way a restored or imported database holds its rows.
+    let saved = try TransactionRepository(writer: macStack.writer).save(try entry("coffee"))
+    let mac = try makeCoordinator(device: "mac", stack: macStack)
+    XCTAssertEqual(mac.choose(folder: folder), .accepted)
+    await mac.syncNow()
+
+    let phoneStack = try makeStack()
+    let phoneKey = "tests.sync.phone.\(UUID().uuidString)"
+    defer { UserDefaults.standard.removeObject(forKey: phoneKey) }
+    let phone = try phoneCoordinator(phoneStack, bookmarkKey: phoneKey)
+    XCTAssertEqual(phone.choose(folder: folder), .accepted)
+    await phone.syncNow()
+
+    XCTAssertEqual(try note(of: saved.id, in: phoneStack), "coffee")
+    XCTAssertTrue(mac.conflicts.isEmpty)
+    XCTAssertTrue(phone.conflicts.isEmpty)
+  }
+
+  func testAReplacedDatabaseStartsTheExchangeOverAndTheMarkIsCleared() async throws {
+    let suite = "tests.sync.replaced.\(UUID().uuidString)"
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+    defer { defaults.removePersistentDomain(forName: suite) }
+    let stack = try makeStack()
+    let exchange = try SyncExchange(writer: stack.writer, deviceId: "mac", deviceName: "mac")
+    try exchange.setRecording(true)
+    let coordinator = SyncCoordinator(
+      exchange: exchange, bookmarks: BookmarkStore(key: key), notifier: Notes(),
+      defaults: defaults)
+    XCTAssertEqual(coordinator.choose(folder: folder), .accepted)
+    await coordinator.syncNow()
+    XCTAssertTrue(exchange.isSeeded)
+
+    // A restore put another database in place: rows of its own.
+    let restored = try TransactionRepository(writer: stack.writer).save(try entry("restored"))
+    defaults.set(true, forKey: SyncWiring.replacedKey)
+    await coordinator.syncNow()
+
+    XCTAssertNil(defaults.object(forKey: SyncWiring.replacedKey), "dealt with once")
+    XCTAssertEqual(try exchange.pendingCount(), 0)
+    let phoneStack = try makeStack()
+    let phoneKey = "tests.sync.phone.\(UUID().uuidString)"
+    defer { UserDefaults.standard.removeObject(forKey: phoneKey) }
+    let phone = try phoneCoordinator(phoneStack, bookmarkKey: phoneKey)
+    XCTAssertEqual(phone.choose(folder: folder), .accepted)
+    await phone.syncNow()
+    XCTAssertEqual(try note(of: restored.id, in: phoneStack), "restored")
+  }
+
+  func testAnEmptyDeviceStagesTheFoldersSnapshotAndABusyOneRefuses() async throws {
+    let macStack = try makeStack()
+    try TransactionRepository(writer: macStack.writer).save(try entry("coffee"))
+    let mac = try makeCoordinator(device: "mac", stack: macStack)
+    XCTAssertEqual(mac.choose(folder: folder), .accepted)
+    await mac.syncNow()
+
+    let suite = "tests.sync.bootstrap.\(UUID().uuidString)"
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+    defer { defaults.removePersistentDomain(forName: suite) }
+    let work = FileManager.default.temporaryDirectory
+      .appendingPathComponent("sync-bootstrap-\(UUID().uuidString)", isDirectory: true)
+    try FileManager.default.createDirectory(at: work, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: work) }
+    let phoneKey = "tests.sync.phone.\(UUID().uuidString)"
+    defer { UserDefaults.standard.removeObject(forKey: phoneKey) }
+
+    // A phone with books of its own is never replaced.
+    let busyStack = try makeStack()
+    try TransactionRepository(writer: busyStack.writer).save(try entry("mine"))
+    let busyExchange = try SyncExchange(writer: busyStack.writer, deviceId: "busy", deviceName: "b")
+    let busy = SyncCoordinator(
+      exchange: busyExchange, bookmarks: BookmarkStore(key: phoneKey), notifier: Notes(),
+      defaults: defaults)
+    XCTAssertEqual(busy.choose(folder: folder), .accepted)
+    let busyBackups = BackupService(
+      stack: busyStack, directory: work.appendingPathComponent("busy"))
+    let refused = await busy.bootstrapFromSnapshot(
+      backups: busyBackups, schema: BundleSchemaSource(bundle: .main),
+      target: work.appendingPathComponent("busy.pending.sqlite"))
+    XCTAssertEqual(refused, .notEmpty)
+    XCTAssertFalse(defaults.bool(forKey: SyncWiring.bootstrapKey))
+
+    // An empty one takes it: checked, the current state copied first, staged for the launch.
+    let emptyStack = try DatabaseStack(
+      url: work.appendingPathComponent("phone.sqlite"), schema: BundleSchemaSource(bundle: .main))
+    let emptyExchange = try SyncExchange(
+      writer: emptyStack.writer, deviceId: "phone", deviceName: "phone")
+    let empty = SyncCoordinator(
+      exchange: emptyExchange, bookmarks: BookmarkStore(key: phoneKey), notifier: Notes(),
+      defaults: defaults)
+    let backups = BackupService(stack: emptyStack, directory: work.appendingPathComponent("b"))
+    let target = work.appendingPathComponent("phone.pending.sqlite")
+    let staged = await empty.bootstrapFromSnapshot(
+      backups: backups, schema: BundleSchemaSource(bundle: .main), target: target)
+    XCTAssertEqual(staged, .staged)
+    XCTAssertTrue(FileManager.default.fileExists(atPath: target.path))
+    XCTAssertTrue(defaults.bool(forKey: SyncWiring.bootstrapKey))
+    let beforeRestore = try await backups.backups()
+    XCTAssertEqual(beforeRestore.count, 1, "the state it had is copied first")
+    let reopened = try DatabaseStack(url: target, schema: BundleSchemaSource(bundle: .main))
+    defer { try? reopened.close() }
+    XCTAssertEqual(try TransactionRepository(writer: reopened.writer).count(), 1)
+    try emptyStack.close()
+  }
+
+  func testNoFolderAndNoSnapshotAreSaidNotThrown() async throws {
+    let stack = try DatabaseStack(
+      url: folder.appendingPathComponent("db/phone.sqlite"),
+      schema: BundleSchemaSource(bundle: .main))
+    defer { try? stack.close() }
+    let backups = BackupService(stack: stack, directory: folder.appendingPathComponent("b"))
+    let coordinator = try makeCoordinator(device: "phone", stack: try makeStack())
+    let unconfigured = await coordinator.bootstrapFromSnapshot(
+      backups: backups, schema: BundleSchemaSource(bundle: .main),
+      target: folder.appendingPathComponent("x.pending.sqlite"))
+    XCTAssertEqual(unconfigured, .notConfigured)
+    let shared = folder.appendingPathComponent("shared", isDirectory: true)
+    try FileManager.default.createDirectory(at: shared, withIntermediateDirectories: true)
+    XCTAssertEqual(coordinator.choose(folder: shared), .accepted)
+    let none = await coordinator.bootstrapFromSnapshot(
+      backups: backups, schema: BundleSchemaSource(bundle: .main),
+      target: folder.appendingPathComponent("x.pending.sqlite"))
+    XCTAssertEqual(none, .noSnapshot)
   }
 }
