@@ -78,7 +78,11 @@ struct CalendarView: View {
     .onChange(of: compute.generation) { _, _ in actions.reloadDictionaries(from: snapshot.dataset) }
     .onAppear { actions.reloadDictionaries(from: snapshot.dataset) }
     .onChange(of: chosen) { _, _ in selection = [] }
-    .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+    .onGeometryChange(for: CGFloat.self) {
+      $0.size.width
+    } action: {
+      width = $0
+    }
   }
 
   // MARK: - Header
@@ -141,16 +145,37 @@ struct CalendarView: View {
           scopePicker
         }
       } else {
-        HStack(spacing: 12) {
-          Text(verbatim: CalendarText.title(of: calendar, environment))
-            .appFont(.title2.weight(.semibold))
-            .accessibilityAddTraits(.isHeader)
-            .accessibilityIdentifier("calendar.title")
-          Spacer(minLength: 8)
-          scopePicker.fixedSize()
-          stepper
-        }
+        #if os(iOS)
+          // A tablet draws the page title of the design itself, the month under it, with the
+          // switch and the steppers at the right.
+          HStack(alignment: .top, spacing: 12) {
+            ScreenTitleBlock(
+              title: environment.language("section.calendar"),
+              subtitle: CalendarText.title(of: calendar, environment),
+              identifier: "calendar.title")
+            Spacer(minLength: 8)
+            scopePicker.fixedSize()
+            stepper
+          }
+        #else
+          wideMacHeader(calendar, scopePicker: scopePicker, stepper: stepper)
+        #endif
       }
+    }
+  }
+
+  /// The Mac's wide header: the month as the window's title, the switch and the steppers.
+  private func wideMacHeader(
+    _ calendar: SpendingCalendar, scopePicker: some View, stepper: some View
+  ) -> some View {
+    HStack(spacing: 12) {
+      Text(verbatim: CalendarText.title(of: calendar, environment))
+        .appFont(.title2.weight(.semibold))
+        .accessibilityAddTraits(.isHeader)
+        .accessibilityIdentifier("calendar.title")
+      Spacer(minLength: 8)
+      scopePicker.fixedSize()
+      stepper
     }
   }
 

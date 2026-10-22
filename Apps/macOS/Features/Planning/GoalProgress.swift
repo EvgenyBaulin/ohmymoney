@@ -39,10 +39,12 @@ struct GoalProgressBar: View {
 struct GoalTile: View {
   @Environment(\.themeSurfaces) private var surfaces
   let complete: Bool
+  /// What the tile shows while the goal is saved for; the cushion has its own.
+  var symbol: String = "target"
 
   var body: some View {
     let tint = complete ? surfaces.positive : surfaces.accent
-    Image(systemName: complete ? "checkmark" : "target")
+    Image(systemName: complete ? "checkmark" : symbol)
       .appFont(.callout.weight(.semibold))
       .foregroundStyle(tint)
       .frame(width: 36, height: 36)

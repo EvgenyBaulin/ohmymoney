@@ -35,8 +35,50 @@ struct CapitalChartSection: View {
   @State private var allVersion: DataVersion?
 
   var body: some View {
+    // The design's card: the title over the range, the caption of what is shown at the right,
+    // the switch under them and the chart in the rest; the block inside is plain, so the title
+    // stays in sight whatever the block is doing.
+    VStack(alignment: .leading, spacing: 10) {
+      ScreenCardHeader(
+        title: CapitalText.t("capital.chart.title", environment),
+        caption: CapitalText.t(
+          range == .year ? "capital.chart.year" : "capital.chart.all", environment))
+      rangePicker
+      chartBlock
+    }
+    .contentCard()
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel(Text(verbatim: CapitalText.t("capital.chart.title", environment)))
+    .onAppear {
+      guard !restored else { return }
+      restored = true
+      range = CapitalChartRange.stored()
+    }
+    .onChange(of: range) { _, new in new.store() }
+    .task(id: AllKey(range: range, version: compute.snapshot?.version)) {
+      await workOutAll()
+    }
+  }
+
+  private var rangePicker: some View {
+    Picker(selection: $range) {
+      Text(verbatim: CapitalText.t("capital.chart.year", environment))
+        .tag(CapitalChartRange.year)
+      Text(verbatim: CapitalText.t("capital.chart.all", environment))
+        .tag(CapitalChartRange.all)
+    } label: {
+      Text(verbatim: CapitalText.t("capital.chart.range", environment))
+    }
+    .labelsHidden()
+    .pickerStyle(.segmented)
+    .controlSize(.small)
+    .fixedSize()
+    .accessibilityIdentifier("capital.chart.range")
+  }
+
+  private var chartBlock: some View {
     ComputedBlock(
-      title: CapitalText.t("capital.chart.title", environment), state: state,
+      title: nil, state: state, style: .plain,
       emptyReason: CapitalText.t("capital.chart.notEnough", environment),
       retry: { compute.retry(ComputeStep.data) }
     ) { chart in
@@ -58,31 +100,6 @@ struct CapitalChartSection: View {
             ? CapitalText.t("capital.chart.now", environment)
             : environment.dates.monthTitle(point.day.monthKey)
         })
-    }
-    .overlay(alignment: .topTrailing) {
-      Picker(selection: $range) {
-        Text(verbatim: CapitalText.t("capital.chart.year", environment))
-          .tag(CapitalChartRange.year)
-        Text(verbatim: CapitalText.t("capital.chart.all", environment))
-          .tag(CapitalChartRange.all)
-      } label: {
-        Text(verbatim: CapitalText.t("capital.chart.range", environment))
-      }
-      .labelsHidden()
-      .pickerStyle(.segmented)
-      .controlSize(.small)
-      .fixedSize()
-      .padding(10)
-      .accessibilityIdentifier("capital.chart.range")
-    }
-    .onAppear {
-      guard !restored else { return }
-      restored = true
-      range = CapitalChartRange.stored()
-    }
-    .onChange(of: range) { _, new in new.store() }
-    .task(id: AllKey(range: range, version: compute.snapshot?.version)) {
-      await workOutAll()
     }
   }
 

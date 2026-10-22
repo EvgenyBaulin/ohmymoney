@@ -186,6 +186,21 @@ final class PlanningScreenTests: XCTestCase {
     }
   }
 
+  // MARK: - The screen of the goals
+
+  /// The screen of «Цели» lists a card per goal in the order of the block, the cushion after
+  /// them while it is counted, and the allocation card last.
+  func testTheGoalsScreenListsTheGoalsThenTheCushionThenTheAllocation() throws {
+    let environment = environment(.russian)
+    let (_, snapshot) = dependencies(environment)
+    let items = GoalsScreen.items(of: snapshot)
+    let goals = GoalOrder.shown(snapshot.planning.goals)
+    XCTAssertEqual(items.count, goals.count + (snapshot.planning.cushion.state == .ready ? 2 : 1))
+    XCTAssertEqual(items.last?.id, "allocation")
+    XCTAssertEqual(
+      items.prefix(goals.count).map(\.id), goals.map { "goal-\($0.goal.id)" })
+  }
+
   // MARK: - The ribbon
 
   /// The ribbon holds every plan of the calendar for its 14 days and adds up their money; a
