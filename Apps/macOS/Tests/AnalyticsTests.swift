@@ -512,11 +512,10 @@ final class AnalyticsModelTests: XCTestCase {
       request(.overview, .month(september), today: day(18)), ledger: ledger)
     XCTAssertEqual(overview.blockIDs.count, 6)
     XCTAssertEqual(Set(overview.blockIDs).count, 6)
-    // The sections of 2.1 count what they show themselves and have no chart to wait for.
-    for section in AnalyticsSection.allCases where !section.isSpending {
-    // «Доход и сбережения» counts its own page from the whole snapshot (`IncomeSavingsPage`), so
-    // its model keeps the request only and the measurement has no block of the builder to wait for.
-    for section in AnalyticsSection.allCases where section != .incomeSavings {
+    // The sections of 2.1 count what they show themselves and have no chart to wait for; so does
+    // «Доход и сбережения» (`IncomeSavingsPage`, from the whole snapshot): their models keep the
+    // request only and the measurement has no block of the builder to wait for.
+    for section in AnalyticsSection.allCases where !section.isSpending && section != .incomeSavings {
       let model = AnalyticsBuilder.model(
         request(section, .month(september), today: day(18)), ledger: ledger)
       XCTAssertFalse(model.blockIDs.isEmpty, "\(section)")
