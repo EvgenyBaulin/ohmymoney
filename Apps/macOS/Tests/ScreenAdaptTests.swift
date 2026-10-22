@@ -18,6 +18,7 @@ final class ScreenAdaptTests: XCTestCase {
     XCTAssertLessThan(ScreenWidth.compactBelow, ScreenColumns.twoFrom)
   }
 
+  @MainActor
   func testGoalBarFillsInProportionAndStaysInsideTheTrack() {
     XCTAssertEqual(GoalProgressBar.fraction(basisPoints: 0), 0)
     XCTAssertEqual(GoalProgressBar.fraction(basisPoints: 6_200), 0.62, accuracy: 0.0001)
@@ -26,6 +27,7 @@ final class ScreenAdaptTests: XCTestCase {
     XCTAssertEqual(GoalProgressBar.fraction(basisPoints: -5), 0)
   }
 
+  @MainActor
   func testGoalIsCompleteOnlyAtTheWhole() {
     XCTAssertFalse(GoalProgressBar.isComplete(basisPoints: 9_999))
     XCTAssertTrue(GoalProgressBar.isComplete(basisPoints: 10_000))
