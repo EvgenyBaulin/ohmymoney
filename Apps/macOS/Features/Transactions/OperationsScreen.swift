@@ -206,20 +206,20 @@ struct OperationsScreen: View {
         searchField
           .frame(maxWidth: roomy ? 260 : .infinity)
         #if !os(iOS)
-        Button {
-          NotificationCenter.default.post(name: .focusEntryLine, object: nil)
-        } label: {
-          Label {
-            Text(verbatim: environment.language("action.add"))
-          } icon: {
-            Image(systemName: "plus")
+          Button {
+            NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+          } label: {
+            Label {
+              Text(verbatim: environment.language("action.add"))
+            } icon: {
+              Image(systemName: "plus")
+            }
+            .labelStyle(.iconOnly)
           }
-          .labelStyle(.iconOnly)
-        }
-        .buttonStyle(.borderedProminent)
-        .buttonBorderShape(.circle)
-        .help(environment.language("action.add"))
-        .accessibilityIdentifier("operations.add")
+          .buttonStyle(.borderedProminent)
+          .buttonBorderShape(.circle)
+          .help(environment.language("action.add"))
+          .accessibilityIdentifier("operations.add")
         #endif
       }
       ScrollView(.horizontal, showsIndicators: false) {
@@ -355,14 +355,16 @@ struct OperationsScreen: View {
         }
       #else
         // The table stands on a rounded card of the theme, as the design draws it.
-        VStack(spacing: 0) {
-          table(shown)
-            .scrollContentBackground(.hidden)
-          if shown.operationCount < listing.operationCount {
-            earlierMonths(hidden: listing.operationCount - shown.operationCount)
+        // The footer is an inset of the table, not a sibling under it: the table keeps its edge at
+        // the bottom of the window, so the room the floating bars take reaches its scroll view.
+        table(shown)
+          .scrollContentBackground(.hidden)
+          .safeAreaInset(edge: .bottom, spacing: 0) {
+            if shown.operationCount < listing.operationCount {
+              earlierMonths(hidden: listing.operationCount - shown.operationCount)
+            }
           }
-        }
-        .background(surfaces.card)
+          .background(surfaces.card)
         .clipShape(.rect(cornerRadius: 16))
         .overlay {
           RoundedRectangle(cornerRadius: 16).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
@@ -371,7 +373,6 @@ struct OperationsScreen: View {
         // what the layout keeps, and nothing of it is spent on a margin beside the table.
         .padding(.leading, 16)
         .padding(.trailing, editorColumnShown ? 0 : 16)
-        .padding(.bottom, 12)
       #endif
     } else if pages.listing != nil {
       nothingFound
