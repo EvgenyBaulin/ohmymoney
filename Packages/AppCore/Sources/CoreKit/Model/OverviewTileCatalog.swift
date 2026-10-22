@@ -165,12 +165,12 @@ public enum OverviewCatalog {
     row(102, .usualDay, .analysis, compact: true),
     // Added after the owner's choice of 2.0, with the financial health of 2.2: not one of the
     // hundred, so it is in no list of chosen numbers.
-    row(101, .financialHealth, .analysis, compact: true),
+    row(103, .financialHealth, .analysis, compact: true),
   ]
 
   /// The numbers of the tiles that came after the list of a hundred was drawn (2.1 and later):
   /// not among the ones the owner chose from it, and not among the six kept.
-  public static let laterNumbers: Set<Int> = [101, 102]
+  public static let laterNumbers: Set<Int> = [101, 102, 103]
 
   /// The numbers the owner chose, for the record: 48 of the 100.
   public static let chosenNumbers: Set<Int> = [

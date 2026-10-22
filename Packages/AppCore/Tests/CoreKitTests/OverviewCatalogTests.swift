@@ -15,10 +15,9 @@ struct OverviewCatalogTests {
     #expect(OverviewCatalog.chosenNumbers.isSubset(of: Set(numbers)))
     let kept = Set(numbers).subtracting(OverviewCatalog.chosenNumbers)
     #expect(kept.subtracting(OverviewCatalog.laterNumbers) == [10, 11, 15, 17, 18, 24])
-    #expect(OverviewCatalog.laterNumbers == [101, 102])
-    #expect(numbers.count == 56)
-    #expect(kept == [10, 11, 15, 17, 18, 24, 101])
-    #expect(numbers.count == 55)
+    #expect(OverviewCatalog.laterNumbers == [101, 102, 103])
+    #expect(numbers.count == 57)
+    #expect(kept == [10, 11, 15, 17, 18, 24, 101, 102, 103])
   }
 
   @Test func everyTileOfTheEnumIsInTheCatalogOnce() {

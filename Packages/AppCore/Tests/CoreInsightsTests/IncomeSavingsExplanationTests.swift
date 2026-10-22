@@ -96,6 +96,6 @@ struct IncomeSavingsExplanationTests {
     #expect(TileDestination.of(.savingsRate) == .analytics(.incomeSavings))
     #expect(TileDestination.of(.financialHealth) == .analytics(.incomeSavings))
     #expect(!OverviewTile.financialHealth.isShownUnnamed)
-    #expect(OverviewCatalog.item(of: .financialHealth)?.number == 101)
+    #expect(OverviewCatalog.item(of: .financialHealth)?.number == 103)
   }
 }

@@ -46,7 +46,6 @@ struct OverviewLayoutTests {
         .topCategories, .qualities, .spendingForecast, .incomeForecast, .worthALook, .currencyChart,
         .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
         .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
-        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
         .financialHealth,
       ])
   }
@@ -77,7 +76,6 @@ struct OverviewLayoutTests {
         .topCategories, .qualities, .spendingForecast, .worthALook, .incomeForecast, .currencyChart,
         .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
         .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
-        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
         .financialHealth,
       ])
     #expect(layout.isStandard)
@@ -98,7 +96,6 @@ struct OverviewLayoutTests {
         .topCategories, .spendingForecast, .incomeForecast, .worthALook, .currencyChart,
         .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
         .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
-        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
         .financialHealth,
       ])
     #expect(

@@ -71,7 +71,8 @@ struct ExportPandasTests {
     // The tables of loans, allocation and own currencies the sample does not fill yet: headers alone.
     for table in [
       ExportTables.debtInstalments, ExportTables.debtCosts, ExportTables.allocationRules,
-      ExportTables.customCurrencies, ExportTables.settings,
+      ExportTables.customCurrencies, ExportTables.settings, ExportTables.tags,
+      ExportTables.partTags, ExportTables.rules, ExportTables.dayNotes,
     ] where rows[table] == nil {
       rows[table] = []
     }
