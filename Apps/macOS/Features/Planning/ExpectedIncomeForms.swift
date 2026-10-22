@@ -13,6 +13,9 @@ struct ExpectedIncomeForm: View {
   @Environment(\.dependencies) private var dependencies
   @Environment(\.dismiss) private var dismiss
   let original: ExpectedIncome?
+  /// A new income that starts filled in (the month a cell of the year plan was added to); only
+  /// read when `original` is `nil`.
+  var start: ExpectedIncome?
   @State private var income = ExpectedIncome(name: "", totalE4: .zero)
   @State private var loaded = false
   /// «On the last day of the month» of a recurring income; read off the stored day.
@@ -169,7 +172,7 @@ struct ExpectedIncomeForm: View {
       guard !loaded else { return }
       loaded = true
       income =
-        original
+        original ?? start
         ?? Self.newIncome(defaultCurrency: environment.defaultCurrency, today: environment.today)
       lastDay = income.isOnLastDay
     }

@@ -23,6 +23,8 @@ struct PlanningView: View {
   /// The blocks collapsed in this window; never kept.
   @State private var collapsed: Set<PlanningBlock> = []
   @State private var editing = false
+  /// The month's blocks or the plan of the year (`YearPlanPage`); never kept.
+  @State private var area: PlanningArea = .month
 
   /// Two columns from this width of content on, one below it.
   static let twoColumnsFrom: CGFloat = 760
@@ -43,25 +45,30 @@ struct PlanningView: View {
       ScrollView {
         VStack(alignment: .leading, spacing: 16) {
           PlanningTopBar(editing: $editing, add: add)
-          if let free, layout.order.contains(.freeMoney),
-            let hero = PlanningHero.make(
-              free: free, environment: environment)
-          {
-            ScreenHero(
-              caption: hero.caption, figure: hero.figure, lines: hero.lines,
-              figureIdentifier: "planning.hero.figure"
-            )
-            .accessibilityIdentifier("planning.summary")
-          }
-          if let snapshot {
-            PlanningRibbonView(ribbon: Self.ribbon(of: snapshot), open: open)
-          }
-          if editing {
-            PlanningOrderEditor(layout: layout) { editing = false }
+          PlanningAreaPicker(area: $area)
+          if area == .year {
+            YearPlanPage()
           } else {
-            cards(
-              columns: Self.columns(forWidth: proxy.size.width - 40), snapshot: snapshot,
-              free: free)
+            if let free, layout.order.contains(.freeMoney),
+              let hero = PlanningHero.make(
+                free: free, environment: environment)
+            {
+              ScreenHero(
+                caption: hero.caption, figure: hero.figure, lines: hero.lines,
+                figureIdentifier: "planning.hero.figure"
+              )
+              .accessibilityIdentifier("planning.summary")
+            }
+            if let snapshot {
+              PlanningRibbonView(ribbon: Self.ribbon(of: snapshot), open: open)
+            }
+            if editing {
+              PlanningOrderEditor(layout: layout) { editing = false }
+            } else {
+              cards(
+                columns: Self.columns(forWidth: proxy.size.width - 40), snapshot: snapshot,
+                free: free)
+            }
           }
         }
         .padding(20)

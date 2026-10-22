@@ -64,6 +64,8 @@ public struct FreeMoney: Hashable, Sendable {
     public static let npdTax = "planning.free.npdTax"
     /// «Кредитка «…» к оплате до …», for the cards out of the summary.
     public static let creditCards = "planning.free.creditCards"
+    /// «Буфер на непредвиденное −X»: the part of the month's buffer not yet spent.
+    public static let buffer = "planning.free.buffer"
   }
 
   /// A group left out of the summary, with its own total.
@@ -129,7 +131,7 @@ public struct FreeMoney: Hashable, Sendable {
   public init(
     accounts: AccountsSnapshot, plan: CashPlan, stillExpected: AmountE4,
     stillExpectedWithoutRate: [UUID] = [], today: DateOnly, until: DateOnly,
-    cushion: AmountE4 = .zero
+    cushion: AmountE4 = .zero, buffer: AmountE4 = .zero
   ) {
     let window = Self.window(today: today, until: until)
     var lines = [
@@ -147,6 +149,11 @@ public struct FreeMoney: Hashable, Sendable {
     }
     if !plan.creditCards.isZero {
       lines.append(FreeToSpendLine(key: Key.creditCards, sign: .minus, amount: plan.creditCards))
+    }
+    // The buffer of the month is held back like the budget of an event: a grey line of its own,
+    // only while some of it is left.
+    if buffer.raw > 0 {
+      lines.append(FreeToSpendLine(key: Key.buffer, sign: .minus, amount: buffer))
     }
 
     let moneyNow = accounts.inSummaryTotalRub

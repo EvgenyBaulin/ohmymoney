@@ -436,10 +436,15 @@ public struct PlanningSnapshot: Hashable, Sendable {
       creditStatements: creditStatements)
     let still = IncomeEstimate.stillExpected(
       statuses: expected, today: today, through: end, ledger: ledger)
+    let year = ledger.dataset.yearPlan
+    let buffer = MonthBuffer.state(
+      settings: year.buffer,
+      used: MonthBuffer.used(marks: year.bufferMarks, month: today.monthKey, ledger: ledger))
     return FreeMoney(
       accounts: accounts, plan: plan, stillExpected: still.amount,
       stillExpectedWithoutRate: still.withoutRate, today: today, until: end,
-      cushion: ledger.dataset.capitalSettings.outOfFreeMoney ? cushion.inSummaryRub : .zero)
+      cushion: ledger.dataset.capitalSettings.outOfFreeMoney ? cushion.inSummaryRub : .zero,
+      buffer: buffer?.left ?? .zero)
   }
 
   // MARK: - Can save

@@ -9,7 +9,7 @@ public struct LimitLine: Hashable, Sendable {
   public var budget: Budget
   /// The month the line is for — the month of «today».
   public var month: MonthKey
-  /// The limit itself, `budget.amountE4`.
+  /// The limit of the month: `budget.amountE4`, or the exception set for this month.
   public var amount: AmountE4
   /// What earlier months left unspent (rollover); zero without rollover.
   public var carry: AmountE4
@@ -106,9 +106,11 @@ public enum LimitRules {
     plannedByCategory: [UUID: AmountE4] = [:], plannedByForWhom: [ForWhom: AmountE4] = [:],
     scheduledOperations: Set<UUID> = []
   ) -> [LimitLine] {
-    book.budgets.map { budget in
+    let exceptions = ledger.dataset.yearPlan.monthExceptions
+    return book.budgets.map { budget in
       line(
         budget: budget, ledger: ledger, today: today,
+        amount: LimitSchedule.amount(of: budget, in: today.monthKey, exceptions: exceptions),
         planned: planned(
           for: budget, tree: ledger.tree, byCategory: plannedByCategory,
           byForWhom: plannedByForWhom),
@@ -125,13 +127,17 @@ public enum LimitRules {
   /// * status: `over` when spent exceeds what is available; `warning` when the forecast does,
   ///   or 90 % of a positive limit is spent; `ok` otherwise.
   public static func line(
-    budget: Budget, ledger: Ledger, today: DateOnly, planned: AmountE4 = .zero,
-    scheduledOperations: Set<UUID> = []
+    budget: Budget, ledger: Ledger, today: DateOnly, amount: AmountE4? = nil,
+    planned: AmountE4 = .zero, scheduledOperations: Set<UUID> = []
   ) -> LimitLine {
+    // The limit of this month: the exception for the month when the owner set one («на
+    // декабрь — 20 000»), else the limit itself. `line.budget` stays the stored limit, so an
+    // edit changes the usual amount, not the month's.
+    let limit = amount ?? budget.amountE4
     let month = today.monthKey
     let daysInMonth = month.dayCount
     let carry = carry(of: budget, into: month, ledger: ledger)
-    let available = budget.amountE4 + carry
+    let available = limit + carry
     let spent = spent(of: budget, in: month, ledger: ledger)
 
     let elapsedShareBp = basisPoints(
@@ -163,7 +169,7 @@ public enum LimitRules {
     }
 
     return LimitLine(
-      budget: budget, month: month, amount: budget.amountE4, carry: carry, spent: spent,
+      budget: budget, month: month, amount: limit, carry: carry, spent: spent,
       spentShareBp: spentShareBp, elapsedShareBp: elapsedShareBp, paceBp: paceBp,
       planned: planned, forecast: forecast, lowData: rate.lowData, status: status)
   }
