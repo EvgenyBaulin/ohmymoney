@@ -1,5 +1,5 @@
 import Foundation
-import UserNotifications
+@preconcurrency import UserNotifications
 
 /// Tells the owner that a record is waiting for a choice. A seam: the app posts a system
 /// notification, a test counts calls.
