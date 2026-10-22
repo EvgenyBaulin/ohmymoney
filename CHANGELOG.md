@@ -7,6 +7,31 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.0.0] — 2026-10-22
+
+OhMyMoney 2.0 is a new application with a new identifier: it runs on the Mac, the iPhone and the
+iPad, and it does not update 1.13 — install it next to it and move the data over.
+
+### Added
+
+- The iPhone and iPad app: the same screens as the Mac, a floating navigation bar at the bottom of
+  the phone and a bar at the top of the tablet whose number of sections follows the window width.
+- Thirty colour themes, each in light and dark, with a preview on your own data; the contrast
+  theme takes over when «Increase Contrast» is on.
+- Exchange between the Mac and the phone through a folder you choose (iCloud Drive included):
+  every device keeps its own local database, changes travel as small files, and a record changed on
+  two devices waits in «Conflicts» until you choose. The folder also holds a verified copy of the
+  whole database that an empty device can start from.
+- Overview tiles as a catalogue: ten tiles for a new person, compact tiles side by side, eighteen
+  new tiles and tiles that appear by themselves when their data exists.
+- Redrawn screens: Operations, Accounts, Planning, Capital, Goals, Calendar, Debts, Analytics,
+  Reports, the entry panel and the ten sections of Settings.
+
+### Changed
+
+- The database schema is 12: bookkeeping tables for the exchange only; recording is off until the
+  app turns it on for the real database.
+
 ## [1.13.0] — 2026-10-21
 
 Trips and readable backups in one release (the planned 1.12 and 1.13 were joined). Trips: a trip mode with the day's allowance, the summary of a trip, the cards abroad and the
