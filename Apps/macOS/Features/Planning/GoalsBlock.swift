@@ -51,31 +51,17 @@ struct GoalsBlock: View {
         }
         ForEach(shown.items) { status in
           VStack(alignment: .leading, spacing: 3) {
-            HStack(alignment: .firstTextBaseline) {
+            HStack(alignment: .center, spacing: 10) {
+              GoalTile(complete: GoalProgressBar.isComplete(basisPoints: status.progressBp))
               Text(verbatim: status.goal.name).lineLimit(1)
               Spacer(minLength: 6)
               Text(
                 verbatim: environment.money.percent(
                   basisPoints: status.progressBp, fractionDigits: 0)
               )
-              .monospacedDigit()
-              .foregroundStyle(.secondary)
+              .appFont(.body.weight(.semibold).monospacedDigit())
             }
-            Capsule()
-              .fill(.quaternary)
-              .overlay {
-                ProportionalRow(
-                  weights: [
-                    min(status.progressBp, Shares.whole),
-                    Shares.whole - min(status.progressBp, Shares.whole),
-                  ]
-                ) {
-                  Capsule().fill(.tint)
-                  Color.clear
-                }
-              }
-              .frame(height: 4)
-              .accessibilityHidden(true)
+            GoalProgressBar(basisPoints: status.progressBp)
             // In the goal's own currency: a dollar goal is saved in dollars.
             Text(
               verbatim: String(

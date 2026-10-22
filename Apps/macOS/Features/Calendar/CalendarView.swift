@@ -84,53 +84,73 @@ struct CalendarView: View {
   // MARK: - Header
 
   private func header(_ calendar: SpendingCalendar, today: DateOnly) -> some View {
-    HStack(spacing: 12) {
-      Text(verbatim: CalendarText.title(of: calendar, environment))
-        .appFont(.title2.weight(.semibold))
-        .accessibilityAddTraits(.isHeader)
-        .accessibilityIdentifier("calendar.title")
-      Spacer(minLength: 8)
-      Picker(selection: $scope) {
-        Text(verbatim: t("calendar.scope.month")).tag(CalendarScope.month)
-        Text(verbatim: t("calendar.scope.week")).tag(CalendarScope.week)
+    let compact = ScreenWidth.isCompact(width)
+    let scopePicker = Picker(selection: $scope) {
+      Text(verbatim: t("calendar.scope.month")).tag(CalendarScope.month)
+      Text(verbatim: t("calendar.scope.week")).tag(CalendarScope.week)
+    } label: {
+      Text(verbatim: t("calendar.scope"))
+    }
+    .pickerStyle(.segmented)
+    .labelsHidden()
+    .accessibilityIdentifier("calendar.scope")
+    let stepper = ControlGroup {
+      Button {
+        anchor = SpendingCalendar.step(calendar.anchor, scope: scope, by: -1)
       } label: {
-        Text(verbatim: t("calendar.scope"))
+        Label {
+          Text(verbatim: t("calendar.previous"))
+        } icon: {
+          Image(systemName: "chevron.left")
+        }
       }
-      .pickerStyle(.segmented)
-      .labelsHidden()
-      .fixedSize()
-      .accessibilityIdentifier("calendar.scope")
-      ControlGroup {
-        Button {
-          anchor = SpendingCalendar.step(calendar.anchor, scope: scope, by: -1)
-        } label: {
-          Label {
-            Text(verbatim: t("calendar.previous"))
-          } icon: {
-            Image(systemName: "chevron.left")
-          }
-        }
-        .help(Text(verbatim: t("calendar.previous")))
-        Button {
-          anchor = nil
-          chosen = nil
-        } label: {
-          Text(verbatim: t("calendar.today"))
-        }
-        .disabled(anchor == nil || calendar.range.contains(today))
-        Button {
-          anchor = SpendingCalendar.step(calendar.anchor, scope: scope, by: 1)
-        } label: {
-          Label {
-            Text(verbatim: t("calendar.next"))
-          } icon: {
-            Image(systemName: "chevron.right")
-          }
-        }
-        .help(Text(verbatim: t("calendar.next")))
+      .help(Text(verbatim: t("calendar.previous")))
+      Button {
+        anchor = nil
+        chosen = nil
+      } label: {
+        Text(verbatim: t("calendar.today"))
       }
-      .labelStyle(.iconOnly)
-      .fixedSize()
+      .disabled(anchor == nil || calendar.range.contains(today))
+      Button {
+        anchor = SpendingCalendar.step(calendar.anchor, scope: scope, by: 1)
+      } label: {
+        Label {
+          Text(verbatim: t("calendar.next"))
+        } icon: {
+          Image(systemName: "chevron.right")
+        }
+      }
+      .help(Text(verbatim: t("calendar.next")))
+    }
+    .labelStyle(.iconOnly)
+    .fixedSize()
+    return Group {
+      if compact {
+        // A phone: the page title with the month under it, the steppers beside, and the
+        // month/week switch on a full line of its own, as the design has it.
+        VStack(alignment: .leading, spacing: 12) {
+          HStack(alignment: .top, spacing: 12) {
+            ScreenTitleBlock(
+              title: environment.language("section.calendar"),
+              subtitle: CalendarText.title(of: calendar, environment),
+              identifier: "calendar.title")
+            Spacer(minLength: 8)
+            stepper
+          }
+          scopePicker
+        }
+      } else {
+        HStack(spacing: 12) {
+          Text(verbatim: CalendarText.title(of: calendar, environment))
+            .appFont(.title2.weight(.semibold))
+            .accessibilityAddTraits(.isHeader)
+            .accessibilityIdentifier("calendar.title")
+          Spacer(minLength: 8)
+          scopePicker.fixedSize()
+          stepper
+        }
+      }
     }
   }
 

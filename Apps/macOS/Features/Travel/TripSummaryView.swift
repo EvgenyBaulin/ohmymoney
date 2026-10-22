@@ -57,9 +57,8 @@ struct TripSummaryView: View {
     let money = environment.money
     return ScrollView {
       VStack(alignment: .leading, spacing: 16) {
-        Text(verbatim: TravelText.format("travel.summary.title", environment, event.name))
-          .appFont(.title2.bold())
-          .accessibilityAddTraits(.isHeader)
+        ScreenTitleBlock(
+          title: TravelText.format("travel.summary.title", environment, event.name))
         ScreenHero(
           caption: TravelText.t("travel.summary.total", environment),
           figure: money.rounded(summary.total), lines: [budgetLine(summary)],

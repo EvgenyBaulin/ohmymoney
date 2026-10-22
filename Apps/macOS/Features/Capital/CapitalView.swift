@@ -84,14 +84,9 @@ struct CapitalView: View {
 
   /// The page title and its one-line subtitle.
   private var titleLine: some View {
-    VStack(alignment: .leading, spacing: 2) {
-      Text(verbatim: CapitalText.t("capital.title", environment))
-        .appFont(.title2.bold())
-        .accessibilityAddTraits(.isHeader)
-      Text(verbatim: CapitalText.t("capital.subtitle", environment))
-        .appFont(.caption)
-        .foregroundStyle(.secondary)
-    }
+    ScreenTitleBlock(
+      title: CapitalText.t("capital.title", environment),
+      subtitle: CapitalText.t("capital.subtitle", environment))
   }
 
   /// Two columns on a wide window — the figure and what it is made of on the left, how it moved

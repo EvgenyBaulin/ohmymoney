@@ -65,7 +65,7 @@ struct PlanningView: View {
         .padding(20)
       }
     }
-    .navigationTitle(environment.language("section.planning"))
+    .screenNavigationTitle(environment.language("section.planning"))
     .sheet(item: $sheet) { sheet in
       PlanningSheetView(sheet: sheet)
         .handingOver(dependencies)
@@ -195,39 +195,66 @@ enum PlanningAddition: String, CaseIterable, Identifiable {
   var titleKey: String { "layout.add.\(rawValue)" }
 }
 
-/// The line over the blocks: the sentence, «+» with every form, and «Изменить».
+/// The line over the blocks: the title with its subtitle, and the actions — «Хватит ли?»,
+/// «Что если», «+» with every form, «Изменить». On a phone's width the four buttons would not
+/// fit beside the title, so they fold into one menu at its right.
 struct PlanningTopBar: View {
   @Dependency(\.environment) private var environment
   @Environment(\.openWindow) private var openWindow
   @Environment(\.dependencies) private var dependencies
+  @Environment(\.windowWidth) private var windowWidth
   @State private var asksAfford = false
   @Binding var editing: Bool
   let add: (PlanningAddition) -> Void
 
+  private var compact: Bool { ScreenWidth.isCompact(windowWidth) }
+
   var body: some View {
-    HStack(alignment: .firstTextBaseline, spacing: 12) {
-      VStack(alignment: .leading, spacing: 2) {
-        Text(verbatim: environment.language("section.planning"))
-          .appFont(.title2.bold())
-          .accessibilityAddTraits(.isHeader)
-        Text(verbatim: PlanningBlockText.t("layout.subtitle", environment))
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
-      }
+    HStack(alignment: compact ? .top : .firstTextBaseline, spacing: 12) {
+      ScreenTitleBlock(
+        title: environment.language("section.planning"),
+        subtitle: PlanningBlockText.t("layout.subtitle", environment),
+        identifier: "planning.title")
       Spacer(minLength: 8)
-      Button(environment.language("afford.title", table: "WhatIf")) { asksAfford = true }
-        .buttonStyle(.bordered)
-        .fixedSize()
-        .accessibilityIdentifier("planning.afford")
-        .sheet(isPresented: $asksAfford) { AffordSheet().handingOver(dependencies) }
-      Button(environment.language("window.whatIf")) { AppScreens.open(.whatIf, with: openWindow) }
-        .buttonStyle(.bordered)
-        .fixedSize()
-        .accessibilityIdentifier("planning.whatIf")
+      if compact {
+        actionsMenu
+      } else {
+        wideActions
+      }
+    }
+    .sheet(isPresented: $asksAfford) { AffordSheet().handingOver(dependencies) }
+  }
+
+  private var affordButton: some View {
+    Button(environment.language("afford.title", table: "WhatIf")) { asksAfford = true }
+      .accessibilityIdentifier("planning.afford")
+  }
+
+  private var whatIfButton: some View {
+    Button(environment.language("window.whatIf")) { AppScreens.open(.whatIf, with: openWindow) }
+      .accessibilityIdentifier("planning.whatIf")
+  }
+
+  private var editButton: some View {
+    Button(PlanningBlockText.t(editing ? "layout.done" : "layout.edit", environment)) {
+      editing.toggle()
+    }
+    .accessibilityIdentifier("planning.edit")
+  }
+
+  @ViewBuilder
+  private var addItems: some View {
+    ForEach(PlanningAddition.allCases) { addition in
+      Button(PlanningBlockText.t(addition.titleKey, environment)) { add(addition) }
+    }
+  }
+
+  private var wideActions: some View {
+    HStack(spacing: 12) {
+      affordButton.buttonStyle(.bordered).fixedSize()
+      whatIfButton.buttonStyle(.bordered).fixedSize()
       Menu {
-        ForEach(PlanningAddition.allCases) { addition in
-          Button(PlanningBlockText.t(addition.titleKey, environment)) { add(addition) }
-        }
+        addItems
       } label: {
         Label {
           Text(verbatim: PlanningBlockText.t("layout.add", environment))
@@ -239,13 +266,28 @@ struct PlanningTopBar: View {
       .buttonStyle(.bordered)
       .fixedSize()
       .accessibilityIdentifier("planning.add")
-      Button(PlanningBlockText.t(editing ? "layout.done" : "layout.edit", environment)) {
-        editing.toggle()
-      }
-      .buttonStyle(.bordered)
-      .fixedSize()
-      .accessibilityIdentifier("planning.edit")
+      editButton.buttonStyle(.bordered).fixedSize()
     }
+  }
+
+  /// One round button: the forms first, then the two questions, then the order of the blocks.
+  private var actionsMenu: some View {
+    Menu {
+      Section { addItems }
+      Section {
+        affordButton
+        whatIfButton
+        editButton
+      }
+    } label: {
+      Image(systemName: "ellipsis.circle")
+        .appFont(.title2)
+        .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.add", environment)))
+    }
+    .menuStyle(.button)
+    .buttonStyle(.borderless)
+    .fixedSize()
+    .accessibilityIdentifier("planning.actions")
   }
 }
 
