@@ -1,7 +1,7 @@
 import SwiftUI
 import XCTest
 
-@testable import Itogo
+@testable import OhMyMoney
 
 /// The colour themes: the data is complete, text can be read on every surface, and «Увеличить
 /// контраст» always lands on the Contrast theme.
