@@ -366,6 +366,7 @@ final class SubscriptionsScreenTests: XCTestCase {
       backing: .buffered, defer: false)
     window.isReleasedWhenClosed = false
     windows.append(window)
+    // dependencies: the caller hands the view its own dependencies; this host only sizes it.
     let hosting = NSHostingView(rootView: view.frame(width: width, height: 800))
     window.contentView = hosting
     window.makeKeyAndOrderFront(nil)
