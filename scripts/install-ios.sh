@@ -7,11 +7,16 @@
 # Usage: install-ios.sh <path to .app> <bundle id> [device name or id fragment]
 set -u
 
-app="${1:-}"
-bundle="${2:-}"
-only="${3:-}"
-[ -n "${app}" ] && [ -n "${bundle}" ] || { echo "usage: install-ios.sh <app> <bundle id> [device]"; exit 2; }
-[ -d "${app}" ] || { echo "install-ios: no app at ${app}"; exit 1; }
+check=0
+if [ "${1:-}" = "--check" ]; then
+  check=1; only="${2:-}"; app=""; bundle=""
+else
+  app="${1:-}"
+  bundle="${2:-}"
+  only="${3:-}"
+  [ -n "${app}" ] && [ -n "${bundle}" ] || { echo "usage: install-ios.sh <app> <bundle id> [device] | --check [device]"; exit 2; }
+  [ -d "${app}" ] || { echo "install-ios: no app at ${app}"; exit 1; }
+fi
 
 list="$(mktemp -t ohmymoney-devices)"
 trap 'rm -f "${list}"' EXIT
@@ -44,7 +49,20 @@ for d in devices:
 PY
 )"
 
-[ -n "${rows}" ] || { echo "install-ios: no physical device is connected"; exit 1; }
+[ -n "${rows}" ] || { echo "install-ios: no physical device is connected"; [ "${check}" = "1" ] && exit 3; exit 1; }
+
+if [ "${check}" = "1" ]; then
+  ready=0
+  while IFS="$(printf '\t')" read -r ident name isready why; do
+    [ -n "${ident}" ] || continue
+    if [ "${isready}" = "1" ]; then echo "install-ios: ready    ${name}"; ready=$((ready + 1))
+    else echo "install-ios: not ready ${name}: ${why}"; fi
+  done <<ROWS
+${rows}
+ROWS
+  [ "${ready}" -gt 0 ] && exit 0
+  exit 3
+fi
 
 done_count=0
 while IFS="$(printf '\t')" read -r ident name ready why; do

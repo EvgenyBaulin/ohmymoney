@@ -83,7 +83,7 @@ PYENV_MARKER := $(PYENV)/pandas.ok
 .PHONY: all generate build-dir build run test test-core test-db test-ui fmt lint verify test-one eval-model migration-dry-run \
 	    check-core-purity check-toolchain check-warnings check-scripts check-chart-double check-privacy check-environment check-geometry check-stale check-attribution check-native check-glass check-fonts check-names check-ci check-log-names check-strings ci-checks hooks clean install \
 	    archive-appstore build-appstore check-appstore-clean release-local release-check sample sample-large demo \
-	    bench bench-app pyenv build-ios test-ios run-ios
+	    bench bench-app pyenv build-ios test-ios run-ios run-ios-go
 
 all: run
 
@@ -170,6 +170,11 @@ IOS_DEST ?= generic/platform=iOS
 IOS_BUNDLE := $(shell sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER: \(io.github.EvgenyBaulin.ohmymoney\)$$/\1/p' project.yml | sed -n 1p)
 
 run-ios: generate
+	@if scripts/install-ios.sh --check "$(DEVICE)"; then \
+	    $(MAKE) --no-print-directory run-ios-go DEVICE="$(DEVICE)" IOS_DEST="$(IOS_DEST)" TEAM="$(TEAM)"; \
+	else echo "run-ios: no ready device, nothing built (reconnect and unlock it, then run again)"; fi
+
+run-ios-go:
 	@mkdir -p $(LOGS)
 	set -o pipefail; $(IOS_XCB) -configuration Debug -destination '$(IOS_DEST)' \
 	    -allowProvisioningUpdates DEVELOPMENT_TEAM=$(TEAM) CODE_SIGN_STYLE=Automatic \
