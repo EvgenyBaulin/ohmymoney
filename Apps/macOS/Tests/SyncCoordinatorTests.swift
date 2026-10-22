@@ -91,7 +91,7 @@ final class SyncCoordinatorTests: XCTestCase {
       device: "mac", stack: try makeStack(), protected: [support, backups])
     XCTAssertEqual(coordinator.choose(folder: support), .refused)
     XCTAssertEqual(coordinator.choose(folder: backups), .refused)
-    XCTAssertEqual(coordinator.choose(folder: folder), .refused, "a folder that holds them")
+    XCTAssertEqual(coordinator.choose(folder: folder, thenSync: false), .refused, "a folder that holds them")
     XCTAssertFalse(coordinator.hasFolder, "a refused folder is not remembered")
   }
 
@@ -99,7 +99,7 @@ final class SyncCoordinatorTests: XCTestCase {
     let stack = try makeStack()
     let coordinator = try makeCoordinator(device: "mac", stack: stack)
     try TransactionRepository(writer: stack.writer).save(try entry("coffee"))
-    XCTAssertEqual(coordinator.choose(folder: folder), .accepted)
+    XCTAssertEqual(coordinator.choose(folder: folder, thenSync: false), .accepted)
     await coordinator.syncNow()
     guard case .synced = coordinator.status else {
       return XCTFail("status \(coordinator.status)")
@@ -121,7 +121,7 @@ final class SyncCoordinatorTests: XCTestCase {
     let stack = try makeStack()
     let coordinator = try makeCoordinator(device: "mac", stack: stack)
     try TransactionRepository(writer: stack.writer).save(try entry("coffee"))
-    XCTAssertEqual(coordinator.choose(folder: folder), .accepted)
+    XCTAssertEqual(coordinator.choose(folder: folder, thenSync: false), .accepted)
     try FileManager.default.removeItem(at: folder)
     await coordinator.syncNow()
     XCTAssertEqual(coordinator.status, .failed(.folderMissing))
@@ -145,7 +145,7 @@ final class SyncCoordinatorTests: XCTestCase {
     let phone = try makeCoordinator(device: "phone", stack: phoneStack)
     let saved = try TransactionRepository(writer: macStack.writer).save(try entry("coffee"))
     let id = saved.id
-    XCTAssertEqual(mac.choose(folder: folder), .accepted)
+    XCTAssertEqual(mac.choose(folder: folder, thenSync: false), .accepted)
     await mac.syncNow()
     // The phone shares the same folder through its own bookmark key.
     let phoneBookmarks = "tests.sync.phone.\(UUID().uuidString)"
@@ -153,7 +153,7 @@ final class SyncCoordinatorTests: XCTestCase {
     let phoneExchange = try XCTUnwrap(phone.exchange)
     let phoneOwner = SyncCoordinator(
       exchange: phoneExchange, bookmarks: BookmarkStore(key: phoneBookmarks), notifier: Notes())
-    XCTAssertEqual(phoneOwner.choose(folder: folder), .accepted)
+    XCTAssertEqual(phoneOwner.choose(folder: folder, thenSync: false), .accepted)
     await phoneOwner.syncNow()
 
     try setNote("coffee 250", of: id, in: macStack)
@@ -190,14 +190,14 @@ final class SyncCoordinatorTests: XCTestCase {
     // Written while nothing recorded: the way a restored or imported database holds its rows.
     let saved = try TransactionRepository(writer: macStack.writer).save(try entry("coffee"))
     let mac = try makeCoordinator(device: "mac", stack: macStack)
-    XCTAssertEqual(mac.choose(folder: folder), .accepted)
+    XCTAssertEqual(mac.choose(folder: folder, thenSync: false), .accepted)
     await mac.syncNow()
 
     let phoneStack = try makeStack()
     let phoneKey = "tests.sync.phone.\(UUID().uuidString)"
     defer { UserDefaults.standard.removeObject(forKey: phoneKey) }
     let phone = try phoneCoordinator(phoneStack, bookmarkKey: phoneKey)
-    XCTAssertEqual(phone.choose(folder: folder), .accepted)
+    XCTAssertEqual(phone.choose(folder: folder, thenSync: false), .accepted)
     await phone.syncNow()
 
     XCTAssertEqual(try note(of: saved.id, in: phoneStack), "coffee")
@@ -215,7 +215,7 @@ final class SyncCoordinatorTests: XCTestCase {
     let coordinator = SyncCoordinator(
       exchange: exchange, bookmarks: BookmarkStore(key: key), notifier: Notes(),
       defaults: defaults)
-    XCTAssertEqual(coordinator.choose(folder: folder), .accepted)
+    XCTAssertEqual(coordinator.choose(folder: folder, thenSync: false), .accepted)
     await coordinator.syncNow()
     XCTAssertTrue(exchange.isSeeded)
 
@@ -230,7 +230,7 @@ final class SyncCoordinatorTests: XCTestCase {
     let phoneKey = "tests.sync.phone.\(UUID().uuidString)"
     defer { UserDefaults.standard.removeObject(forKey: phoneKey) }
     let phone = try phoneCoordinator(phoneStack, bookmarkKey: phoneKey)
-    XCTAssertEqual(phone.choose(folder: folder), .accepted)
+    XCTAssertEqual(phone.choose(folder: folder, thenSync: false), .accepted)
     await phone.syncNow()
     XCTAssertEqual(try note(of: restored.id, in: phoneStack), "restored")
   }
@@ -239,7 +239,7 @@ final class SyncCoordinatorTests: XCTestCase {
     let macStack = try makeStack()
     try TransactionRepository(writer: macStack.writer).save(try entry("coffee"))
     let mac = try makeCoordinator(device: "mac", stack: macStack)
-    XCTAssertEqual(mac.choose(folder: folder), .accepted)
+    XCTAssertEqual(mac.choose(folder: folder, thenSync: false), .accepted)
     await mac.syncNow()
 
     let suite = "tests.sync.bootstrap.\(UUID().uuidString)"
@@ -259,7 +259,7 @@ final class SyncCoordinatorTests: XCTestCase {
     let busy = SyncCoordinator(
       exchange: busyExchange, bookmarks: BookmarkStore(key: phoneKey), notifier: Notes(),
       defaults: defaults)
-    XCTAssertEqual(busy.choose(folder: folder), .accepted)
+    XCTAssertEqual(busy.choose(folder: folder, thenSync: false), .accepted)
     let busyBackups = BackupService(
       stack: busyStack, directory: work.appendingPathComponent("busy"))
     let refused = await busy.bootstrapFromSnapshot(
