@@ -1,6 +1,22 @@
 import AppCore
 import SwiftUI
 
+extension EnvironmentValues {
+  /// «Изменить» and «Готово» stand in the navigation bar of the host (the phone), not in the
+  /// bar above the tiles.
+  @Entry var overviewEditsInChrome = false
+  /// The title of the screen and its buttons, drawn as the first row of the page and scrolling
+  /// with it (the phone and the tablet, whose navigation bar is hidden); `nil` where the window
+  /// has a title bar of its own.
+  @Entry var overviewTitleRow: OverviewTitleRow?
+}
+
+/// The large title of Overview with what stands at its right edge.
+struct OverviewTitleRow {
+  let title: String
+  let trailing: AnyView
+}
+
 /// The month so far, as tiles. The cards come from the calculation pipeline (`ComputeStore`):
 /// nothing here reads the database, and nothing here counts — every figure is the core's, only
 /// put into words. The operations are «Операции» of the sidebar (`OperationsScreen`); ↓ in the
@@ -11,6 +27,7 @@ struct OverviewView: View {
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
+  @Environment(\.themeSurfaces) private var surfaces
   let actions: OperationActions
   /// Editing or not, and the tile whose «Почему так» is open.
   @State private var screen: OverviewScreen
@@ -28,6 +45,7 @@ struct OverviewView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 8)
     }
+    .background(surfaces.background)
     .onAppear(perform: followData)
     // The limit of a small purchase and the copies of the database, read again with every change
     // of the data: the tiles of 2.0 follow them.
@@ -72,13 +90,24 @@ struct OverviewView: View {
 /// grid is often out of view.
 private struct OverviewHeader: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.overviewTitleRow) private var titleRow
   let actions: OperationActions
   let screen: OverviewScreen
   @State private var width: CGFloat = 0
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    VStack(alignment: .leading, spacing: 14) {
+      if let titleRow {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+          Text(verbatim: titleRow.title)
+            .appFont(.largeTitle.bold())
+            .accessibilityAddTraits(.isHeader)
+          Spacer(minLength: 8)
+          titleRow.trailing
+        }
+      }
       OverviewEditBar(screen: screen)
+      if OverviewHero.shows(forWidth: width) { OverviewHero() }
       if AccountsSetupCard.shows(setup: environment.accountSetup) {
         AccountsSetupCard()
       }

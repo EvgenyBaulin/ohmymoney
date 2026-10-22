@@ -19,6 +19,7 @@ struct PhoneRoot: View {
   @State private var width: CGFloat = 0
   @State private var phoneTabs = PhoneTabsPreference.load()
   @State private var showsMore = false
+  @State private var overviewScreen = OverviewScreen()
 
   private var environment: AppEnvironment { deps.environment }
   private var guide: GuideStore { GuideStore.shared }
@@ -35,9 +36,7 @@ struct PhoneRoot: View {
 
   var body: some View {
     TabView(selection: $router.tab) {
-      page(.overview, titleKey: "section.overview", symbol: "chart.pie") {
-        OverviewView(actions: actions)
-      }
+      overviewPage
       page(.operations, titleKey: "section.operations", symbol: "list.bullet.rectangle") {
         OperationsScreen(deps: deps, actions: actions, state: operations)
       }
@@ -114,6 +113,37 @@ struct PhoneRoot: View {
     .toolbarVisibility(.hidden, for: .tabBar)
     .tabItem { Label(environment.language(titleKey), systemImage: symbol) }
     .tag(tag)
+  }
+
+  /// Overview has the large title of the design with «Изменить» on its row, scrolling with the
+  /// tiles (the navigation bar is hidden); undo, the eye, a new calculation and the rest of what
+  /// the Mac's toolbar holds are one menu.
+  private var overviewPage: some View {
+    NavigationStack {
+      PhoneContent(
+        deps: deps, actions: actions,
+        content: { OverviewView(actions: actions, screen: overviewScreen) },
+        entry: { entryBar }
+      )
+      .environment(\.overviewEditsInChrome, true)
+      .environment(
+        \.overviewTitleRow,
+        OverviewTitleRow(
+          title: environment.language("section.overview"),
+          trailing: AnyView(
+            OverviewTitleActions(deps: deps, router: router, screen: overviewScreen)))
+      )
+      // On a tablet the bar of the app floats in the row of the empty navigation bar, and the
+      // title row starts under it; on a phone the bar is gone and the row starts at the top.
+      .toolbarVisibility(layout.placement == .top ? .automatic : .hidden, for: .navigationBar)
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar(removing: layout.placement == .top ? .title : nil)
+    }
+    .toolbarVisibility(.hidden, for: .tabBar)
+    .tabItem {
+      Label(environment.language("section.overview"), systemImage: "chart.pie")
+    }
+    .tag(PhoneTab.overview)
   }
 
   @ViewBuilder
@@ -283,6 +313,103 @@ extension View {
   /// holds: the buttons of the phone.
   func phoneToolbar(deps: AppDependencies, router: PhoneRouter) -> some View {
     modifier(PhoneToolbar(deps: deps, router: router))
+  }
+}
+
+/// The navigation bar of Overview: «Изменить» (while editing «Готово») in words, and one round
+/// menu with the rest — undo, the amounts, a new calculation, reconciliation, a trip, Analytics
+/// and Reports.
+struct OverviewTitleActions: View {
+  let deps: AppDependencies
+  let router: PhoneRouter
+  let screen: OverviewScreen
+
+  var body: some View {
+    let environment = deps.environment
+    HStack(spacing: 16) {
+      if screen.isEditing {
+        Button(environment.language("overview.edit.done", table: "Overview")) { screen.done() }
+          .fontWeight(.semibold)
+          .accessibilityIdentifier("overview.edit.done")
+      } else {
+        Button(environment.language("overview.edit", table: "Overview")) { screen.edit() }
+          .accessibilityIdentifier("overview.edit")
+      }
+      Group {
+        Menu {
+          Button {
+            deps.store.undo()
+          } label: {
+            Label {
+              Text(verbatim: environment.language("action.undo"))
+            } icon: {
+              Image(systemName: "arrow.uturn.backward")
+            }
+          }
+          .disabled(!deps.store.canUndo)
+          Button {
+            environment.amounts.toggle()
+          } label: {
+            Label {
+              Text(verbatim: PrivacyCommands.amountsTitle(environment))
+            } icon: {
+              Image(systemName: environment.amounts.hidesAmounts ? "eye" : "eye.slash")
+            }
+          }
+          Button {
+            deps.compute.run()
+          } label: {
+            Label {
+              Text(verbatim: environment.language("action.recompute"))
+            } icon: {
+              Image(systemName: "arrow.clockwise")
+            }
+          }
+          Divider()
+          Button {
+            environment.showsReconciliation = true
+          } label: {
+            Label {
+              Text(verbatim: environment.language("action.reconcile"))
+            } icon: {
+              Image(systemName: "checkmark.seal")
+            }
+          }
+          Button {
+            environment.showsTrip = true
+          } label: {
+            Label {
+              Text(verbatim: TravelText.t("travel.start.button", environment))
+            } icon: {
+              Image(systemName: "airplane")
+            }
+          }
+          Button {
+            router.open(screen: .analytics)
+          } label: {
+            Label {
+              Text(verbatim: environment.language("window.analytics"))
+            } icon: {
+              Image(systemName: "chart.xyaxis.line")
+            }
+          }
+          Button {
+            router.open(screen: .reports)
+          } label: {
+            Label {
+              Text(verbatim: environment.language("window.reports"))
+            } icon: {
+              Image(systemName: "tablecells")
+            }
+          }
+        } label: {
+          Image(systemName: "ellipsis.circle")
+            .appFont(.title3)
+            .accessibilityLabel(
+              Text(verbatim: environment.language("phone.tab.more", table: "Phone")))
+        }
+      }
+    }
   }
 }
 
