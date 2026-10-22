@@ -1431,7 +1431,7 @@ private struct AnomalyRow: View {
         .appFont(.caption.weight(.semibold))
         .foregroundStyle(surfaces.warning)
         .padding(.horizontal, 8).padding(.vertical, 3)
-        .background(surfaces.warning.opacity(0.14), in: .capsule)
+        .background(surfaces.warning.mix(with: surfaces.background, by: 0.86), in: .capsule)
         Text(verbatim: environment.dates.dayAndMonth(anomaly.day))
           .appFont(.caption)
           .foregroundStyle(.secondary)

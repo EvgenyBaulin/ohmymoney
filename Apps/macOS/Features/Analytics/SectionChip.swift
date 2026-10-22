@@ -26,7 +26,7 @@ struct SectionChip: View {
         selected ? Color(theme.palette.accentContent) : surfaces.secondary
       )
       .background(
-        selected ? Color(theme.palette.accentTint) : surfaces.secondary.opacity(0.12),
+        selected ? Color(theme.palette.accentTint) : surfaces.secondary.mix(with: surfaces.background, by: 0.88),
         in: .capsule)
     }
     .buttonStyle(.plain)

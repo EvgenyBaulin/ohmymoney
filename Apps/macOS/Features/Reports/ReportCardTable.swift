@@ -118,7 +118,7 @@ struct ReportCardTable: View {
     .padding(.horizontal, 12).padding(.vertical, 8)
     .background(
       line.isSummary
-        ? surfaces.secondary.opacity(0.16) : (banded ? surfaces.background.opacity(0.6) : .clear)
+        ? surfaces.secondary.mix(with: surfaces.background, by: 0.84) : (banded ? surfaces.background.mix(with: surfaces.card, by: 0.4) : .clear)
     )
     .contentShape(.rect)
     .onTapGesture {

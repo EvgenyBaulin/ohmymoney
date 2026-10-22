@@ -64,6 +64,7 @@ final class EntryFieldFlowTests: XCTestCase {
   func testTheFlowStacksCellsOfADefinedWidthInRows() {
     // Three cells in a 480-wide proposal fit one row; a fourth makes a second.
     func height(cells: Int) -> CGFloat {
+      // dependencies: the flow reads nothing from the environment; this host only sizes plain cells.
       let host = NSHostingView(
         rootView: EntryFieldFlow(maxColumns: 3) {
           ForEach(0..<cells, id: \.self) { _ in Color.clear.frame(height: 30) }
