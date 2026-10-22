@@ -45,6 +45,7 @@ struct PhoneRoot: View {
         PlanningView()
       }
       AccountsTab(deps: deps, router: router, actions: actions, entry: { entryBar })
+        .toolbarVisibility(.hidden, for: .tabBar)
         .tabItem {
           Label(
             environment.language("accounts.section.accounts", table: "Accounts"),
@@ -55,14 +56,15 @@ struct PhoneRoot: View {
         deps: deps, session: session, lock: lock, router: router, actions: actions,
         layout: layout, phoneTabs: $phoneTabs
       )
+      .toolbarVisibility(.hidden, for: .tabBar)
       .tabItem {
         Label(
           environment.language("phone.tab.more", table: "Phone"), systemImage: "ellipsis.circle")
       }
       .tag(PhoneTab.more)
     }
-    // The system bar is hidden: the bar of the app (`PhoneTabBar`, `PadTopBar`) takes its place.
-    .toolbarVisibility(.hidden, for: .tabBar)
+    // The system bar is hidden on every tab (it must be said on the tab's own content, not on
+    // the `TabView`): the bar of the app (`PhoneTabBar`, `PadTopBar`) takes its place.
     .safeAreaInset(edge: .bottom, spacing: 0) {
       if layout.placement == .bottom {
         PhoneTabBar(
@@ -105,8 +107,11 @@ struct PhoneRoot: View {
       PhoneContent(deps: deps, actions: actions, content: content) { entryBar }
         .navigationTitle(environment.language(titleKey))
         .navigationBarTitleDisplayMode(.inline)
+        // On an iPad the bar of the app stands in the row of the title: the title would run under it.
+        .toolbar(removing: layout.placement == .top ? .title : nil)
         .phoneToolbar(deps: deps, router: router)
     }
+    .toolbarVisibility(.hidden, for: .tabBar)
     .tabItem { Label(environment.language(titleKey), systemImage: symbol) }
     .tag(tag)
   }
