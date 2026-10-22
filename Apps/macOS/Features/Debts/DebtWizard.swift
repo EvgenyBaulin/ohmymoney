@@ -488,7 +488,8 @@ struct DebtWizard: View {
       VStack(spacing: 10) {
         ForEach(DebtWizardKind.allCases, id: \.self) { kind in
           DebtOptionCard(
-            title: t("wizard.kind.\(kind.rawValue)"), subtitle: t("wizard.kind.\(kind.rawValue).hint"),
+            title: t("wizard.kind.\(kind.rawValue)"),
+            subtitle: t("wizard.kind.\(kind.rawValue).hint"),
             symbol: kind.symbol, selected: model.kind == kind
           ) {
             kindBinding.wrappedValue = kind

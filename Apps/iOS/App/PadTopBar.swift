@@ -60,8 +60,9 @@ struct PadMoreList: View {
   private var menu: MoreMenu {
     MoreMenu.make(
       more: layout.more, tripIsOn: environment.tripEntryDefaults != nil,
-      hasConflicts: !(environment.sync?.conflicts.isEmpty ?? true))
-      .filtered(by: query, title: title(of:))
+      hasConflicts: !(environment.sync?.conflicts.isEmpty ?? true)
+    )
+    .filtered(by: query, title: title(of:))
   }
 
   var body: some View {

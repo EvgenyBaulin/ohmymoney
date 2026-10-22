@@ -161,13 +161,21 @@ final class TransactionsSelectionBarTests: XCTestCase {
   }
 
   /// Scrolls the table to its very end, as the owner's wheel does: as far as the clip view lets.
+  /// The rows measure themselves as they come into view, so the document grows under the wheel;
+  /// the wheel is turned again until the end stops moving.
   private func scrollToTheEnd(_ table: NSTableView) throws {
     let scroll = try XCTUnwrap(table.enclosingScrollView)
-    var bounds = scroll.contentView.bounds
-    bounds.origin.y = table.frame.height + 10_000
-    let end = scroll.contentView.constrainBoundsRect(bounds).origin
-    scroll.contentView.scroll(to: end)
-    scroll.reflectScrolledClipView(scroll.contentView)
+    var last: CGFloat = -1
+    for _ in 0..<10 {
+      var bounds = scroll.contentView.bounds
+      bounds.origin.y = table.frame.height + 10_000
+      let end = scroll.contentView.constrainBoundsRect(bounds).origin
+      scroll.contentView.scroll(to: end)
+      scroll.reflectScrolledClipView(scroll.contentView)
+      RunLoop.main.run(until: Date().addingTimeInterval(0.2))
+      if end.y == last { break }
+      last = end.y
+    }
   }
 
   /// Where the bottom of the last row is, above the bottom of the window.

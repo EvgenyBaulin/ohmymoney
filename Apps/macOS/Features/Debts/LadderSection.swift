@@ -121,7 +121,8 @@ struct LadderSection: View {
               VStack(alignment: .leading, spacing: 1) {
                 Text(verbatim: debt.name).appFont(.callout)
                 Text(
-                  verbatim: "\(environment.format("debts.rate.row", table: "Debts", money.rate(debt.ratePercent))) · \(money.rounded(debt.balanceRub))"
+                  verbatim:
+                    "\(environment.format("debts.rate.row", table: "Debts", money.rate(debt.ratePercent))) · \(money.rounded(debt.balanceRub))"
                 )
                 .appFont(.caption).foregroundStyle(.secondary).monospacedDigit()
               }
@@ -143,7 +144,8 @@ struct LadderSection: View {
           .accessibilityAddTraits(.isHeader)
         if let free = chosen.freeFrom, let months = chosen.months {
           DebtFactRow(
-            label: t("ladder.free.label"), value: environment.dates.monthTitle(free), bold: true)
+            label: t("ladder.free.label"), value: environment.dates.monthTitle(free), bold: true
+          )
           .accessibilityHint(
             environment.language.format("advice.months", table: "Planning", counts: months))
         } else {

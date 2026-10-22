@@ -43,13 +43,15 @@ struct PlanningView: View {
       ScrollView {
         VStack(alignment: .leading, spacing: 16) {
           PlanningTopBar(editing: $editing, add: add)
-          if let free, layout.order.contains(.freeMoney), let hero = PlanningHero.make(
-            free: free, environment: environment)
+          if let free, layout.order.contains(.freeMoney),
+            let hero = PlanningHero.make(
+              free: free, environment: environment)
           {
             ScreenHero(
               caption: hero.caption, figure: hero.figure, lines: hero.lines,
-              figureIdentifier: "planning.hero.figure")
-              .accessibilityIdentifier("planning.summary")
+              figureIdentifier: "planning.hero.figure"
+            )
+            .accessibilityIdentifier("planning.summary")
           }
           if let snapshot {
             PlanningRibbonView(ribbon: Self.ribbon(of: snapshot), open: open)

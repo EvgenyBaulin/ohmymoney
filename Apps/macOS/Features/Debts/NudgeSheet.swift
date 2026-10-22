@@ -45,8 +45,11 @@ struct NudgeSheet: View {
       Button {
         copy()
       } label: {
-        Label(copied ? t("nudge.copied") : t("nudge.copy"), systemImage: copied ? "checkmark.circle" : "doc.on.doc")
-          .frame(maxWidth: .infinity)
+        Label(
+          copied ? t("nudge.copied") : t("nudge.copy"),
+          systemImage: copied ? "checkmark.circle" : "doc.on.doc"
+        )
+        .frame(maxWidth: .infinity)
       }
       .buttonStyle(.bordered)
       .controlSize(.large)

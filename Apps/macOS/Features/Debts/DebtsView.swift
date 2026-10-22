@@ -688,7 +688,8 @@ private struct DebtDetail: View {
         if let rate = debt.interestRate {
           DebtFactRow(
             label: t("debts.card.rate"),
-            value: environment.format("debts.rate.row", table: "Debts", environment.money.rate(rate)))
+            value: environment.format(
+              "debts.rate.row", table: "Debts", environment.money.rate(rate)))
         }
         if let payment = debt.monthlyPaymentE4 {
           DebtFactRow(

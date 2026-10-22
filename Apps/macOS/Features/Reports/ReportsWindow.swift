@@ -131,8 +131,10 @@ struct ReportsWindow: View {
           }
         }
         .clipShape(.rect(cornerRadius: 12))
-          .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder, lineWidth: 0.5))
-          .padding(.horizontal, 20)
+        .overlay(
+          RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
+        )
+        .padding(.horizontal, 20)
         Text(verbatim: t("reports.csvNote"))
           .appFont(.caption).foregroundStyle(.secondary)
           .padding(.horizontal, 20).padding(.bottom, 12)

@@ -463,7 +463,7 @@ struct DetailsPanel: View {
       maxColumns: isSideForm
         ? EntryFieldFlowMetrics.sideColumns : EntryFieldFlowMetrics.panelColumns
     ) { content() }
-      .frame(maxWidth: .infinity, alignment: .leading)
+    .frame(maxWidth: .infinity, alignment: .leading)
   }
 
   /// One field: its label above its control, the control as wide as its cell. `alone`: the field
