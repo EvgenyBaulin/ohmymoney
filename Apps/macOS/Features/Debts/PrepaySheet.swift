@@ -19,9 +19,10 @@ struct PrepaySheet: View {
   @State private var failed = false
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: environment.format("prepay.sheet.title", table: "Debts", debt.name))
-        .appFont(.headline)
+        .appFont(.title2.bold())
+        .accessibilityAddTraits(.isHeader)
       Form {
         DatePicker(t("prepay.day"), selection: $day, displayedComponents: .date)
         LabeledContent(t("form.amount")) {
@@ -33,22 +34,31 @@ struct PrepaySheet: View {
         Stepper(value: $notice, in: 0...90) {
           Text(verbatim: environment.format("wizard.notice", table: "Debts", String(notice)))
         }
-        Text(
-          verbatim: environment.format(
-            "prepay.fileBy", table: "Debts",
-            environment.dates.longDay(
-              Self.fileBy(environment.calendar.day(of: day), notice: notice)))
-        )
-        .appFont(.caption).foregroundStyle(.secondary)
-        Text(verbatim: t(debt.prepayAnyDay ? "prepay.anyDay" : "prepay.paymentDayOnly"))
-          .appFont(.caption).foregroundStyle(.secondary).fixedSize(
-            horizontal: false, vertical: true)
       }
       .formStyle(.grouped)
+      .scrollContentBackground(.hidden)
+      DebtInfoBlock(
+        title: t("wizard.how"),
+        lines: [
+          environment.format(
+            "prepay.fileBy", table: "Debts",
+            environment.dates.longDay(
+              Self.fileBy(environment.calendar.day(of: day), notice: notice))),
+          t(debt.prepayAnyDay ? "prepay.anyDay" : "prepay.paymentDayOnly"),
+        ])
       if failed {
         Text(verbatim: environment.language("form.notSaved", table: "Planning"))
           .appFont(.caption).foregroundStyle(.red)
       }
+      Button {
+        save(PlannedPrepay(day: environment.calendar.day(of: day), amountE4: amount))
+      } label: {
+        Text(verbatim: t("form.save")).frame(maxWidth: .infinity)
+      }
+      .keyboardShortcut(.defaultAction)
+      .buttonStyle(.borderedProminent)
+      .controlSize(.large)
+      .disabled(amount.raw <= 0 || dependencies == nil)
       HStack {
         if debt.plannedPrepay != nil {
           Button(t("prepay.remove"), role: .destructive) { save(nil) }
@@ -56,16 +66,11 @@ struct PrepaySheet: View {
         Spacer()
         Button(environment.language("action.cancel")) { dismiss() }
           .keyboardShortcut(.cancelAction)
-        Button(t("form.save")) {
-          save(PlannedPrepay(day: environment.calendar.day(of: day), amountE4: amount))
-        }
-        .keyboardShortcut(.defaultAction)
-        .buttonStyle(.borderedProminent)
-        .disabled(amount.raw <= 0 || dependencies == nil)
       }
     }
     .padding(20)
     .sheetFrame(width: 440)
+    .themedWindowBackground()
     .onAppear {
       guard !loaded else { return }
       loaded = true

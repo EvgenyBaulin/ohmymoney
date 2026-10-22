@@ -306,6 +306,7 @@ struct DebtWizard: View {
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.themeSurfaces) private var surfaces
   @State private var model = DebtWizardModel(
     today: DateOnly(year: 2000, month: 1, day: 1), currency: .rub)
   @State private var loaded = false
@@ -329,51 +330,52 @@ struct DebtWizard: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      HStack {
-        Text(verbatim: t("wizard.title")).appFont(.headline)
-        Spacer()
-        Text(
-          verbatim: environment.format(
-            "wizard.step", table: "Debts", String(model.step.rawValue + 1),
-            String(DebtWizardModel.Step.allCases.count))
-        )
-        .appFont(.caption).foregroundStyle(.secondary)
-        .accessibilityIdentifier("debt.wizard.step")
+    VStack(alignment: .leading, spacing: 12) {
+      topRow
+      VStack(alignment: .leading, spacing: 8) {
+        Text(verbatim: t("wizard.step.\(model.step)")).appFont(.title.weight(.bold))
+          .accessibilityAddTraits(.isHeader)
+        DebtStepDots(
+          current: model.step.rawValue, count: DebtWizardModel.Step.allCases.count)
       }
-      Text(verbatim: t("wizard.step.\(model.step)")).appFont(.subheadline).foregroundStyle(
-        .secondary)
-      Form { content }
-        .formStyle(.grouped)
+      content
+        .frame(maxHeight: .infinity, alignment: .top)
+      if let how = howLines, !how.isEmpty {
+        DebtInfoBlock(title: t("wizard.how"), lines: how)
+          .accessibilityIdentifier("debt.wizard.how")
+      }
       if failed {
         Text(verbatim: environment.language("form.notSaved", table: "Planning"))
           .appFont(.caption).foregroundStyle(.red)
       }
-      HStack {
-        Button(environment.language("action.cancel")) { dismiss() }
-          .keyboardShortcut(.cancelAction)
-        Spacer()
-        if model.step != .kind {
-          Button(t("wizard.back")) { back() }
-            .accessibilityIdentifier("debt.wizard.back")
+      if model.step == .preview || (model.step == .amount && model.kind == .creditCard) {
+        Button {
+          save()
+        } label: {
+          Text(verbatim: model.kind == .creditCard ? t("wizard.card.open") : t("form.save"))
+            .frame(maxWidth: .infinity)
         }
-        if model.step == .preview || (model.step == .amount && model.kind == .creditCard) {
-          Button(model.kind == .creditCard ? t("wizard.card.open") : t("form.save")) { save() }
-            .keyboardShortcut(.defaultAction)
-            .buttonStyle(.borderedProminent)
-            .disabled(dependencies == nil || !model.canLeave(model.step))
-            .accessibilityIdentifier("debt.wizard.save")
-        } else {
-          Button(t("wizard.next")) { forward() }
-            .keyboardShortcut(.defaultAction)
-            .buttonStyle(.borderedProminent)
-            .disabled(!model.canLeave(model.step))
-            .accessibilityIdentifier("debt.wizard.next")
+        .keyboardShortcut(.defaultAction)
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .disabled(dependencies == nil || !model.canLeave(model.step))
+        .accessibilityIdentifier("debt.wizard.save")
+      } else {
+        Button {
+          forward()
+        } label: {
+          Text(verbatim: t("wizard.next")).frame(maxWidth: .infinity)
         }
+        .keyboardShortcut(.defaultAction)
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .disabled(!model.canLeave(model.step))
+        .accessibilityIdentifier("debt.wizard.next")
       }
     }
     .padding(20)
     .sheetFrame(minWidth: 340, idealWidth: 520, maxWidth: 560, minHeight: 420)
+    .themedWindowBackground()
     .onAppear(perform: load)
     .sheet(item: $editingCard) { edit in
       AccountEditor(previous: edit.account, defaultCurrency: environment.defaultCurrency) { _ in
@@ -383,25 +385,117 @@ struct DebtWizard: View {
     }
   }
 
+  /// «Отмена» on the first step and «Назад» on the others, on the left; «Шаг N из M» on the right.
+  private var topRow: some View {
+    HStack {
+      if model.step == .kind {
+        Button(environment.language("action.cancel")) { dismiss() }
+          .keyboardShortcut(.cancelAction)
+          .accessibilityIdentifier("debt.wizard.cancel")
+      } else {
+        Button {
+          back()
+        } label: {
+          Label(t("wizard.back"), systemImage: "chevron.backward")
+        }
+        .accessibilityIdentifier("debt.wizard.back")
+      }
+      Spacer()
+      Text(
+        verbatim: environment.format(
+          "wizard.step", table: "Debts", String(model.step.rawValue + 1),
+          String(DebtWizardModel.Step.allCases.count))
+      )
+      .appFont(.callout)
+      .accessibilityIdentifier("debt.wizard.step")
+    }
+    .buttonStyle(.plain)
+    .foregroundStyle(surfaces.accent)
+  }
+
+  /// What saving this step will do, in the few lines of «Как это будет».
+  private var howLines: [String]? {
+    let money = environment.money
+    switch model.step {
+    case .kind:
+      guard model.kind != .creditCard else { return nil }
+      let name = model.name.trimmingCharacters(in: .whitespaces)
+      var lines = [
+        environment.format(
+          "wizard.how.card", table: "Debts", name.isEmpty ? t("wizard.how.cardNoName") : name)
+      ]
+      if model.kind.direction == .iOwe { lines.append(t("wizard.how.capital")) }
+      return lines
+    case .amount:
+      return nil
+    case .payments:
+      guard model.kind.isLoan || model.kind == .instalments || model.kind == .purchase else {
+        return nil
+      }
+      let preview = model.preview(calendar: environment.calendar)
+      guard let last = preview.rows.last else { return nil }
+      var lines = [
+        environment.format(
+          "wizard.how.count", table: "Debts", money.count(Int64(preview.rows.count)),
+          environment.dates.monthTitle(last.due.monthKey))
+      ]
+      if preview.interest.raw > 0 {
+        lines.append(
+          environment.format(
+            "wizard.how.interest", table: "Debts",
+            money.rounded(preview.interest, currency: model.currency)))
+      }
+      return lines
+    case .preview:
+      var lines = [
+        environment.format(
+          "wizard.how.create", table: "Debts", model.name,
+          money.exact(model.amount, currency: model.currency))
+      ]
+      if model.monthly.raw > 0 {
+        lines.append(
+          environment.format(
+            "wizard.how.payment", table: "Debts",
+            money.exact(model.monthly, currency: model.currency),
+            DebtSheetView.paymentDayText(model.paymentDay, language: environment.language)))
+      }
+      lines.append(t("wizard.how.undo"))
+      return lines
+    }
+  }
+
   @ViewBuilder
   private var content: some View {
     switch model.step {
     case .kind: kindStep
-    case .amount: amountStep
-    case .payments: paymentsStep
-    case .preview: previewStep
+    case .amount: stepForm { amountStep }
+    case .payments: stepForm { paymentsStep }
+    case .preview: stepForm { previewStep }
     }
+  }
+
+  /// The fields of a step on the floor of the window, in the grouped rows of a form.
+  private func stepForm<Fields: View>(@ViewBuilder _ fields: () -> Fields) -> some View {
+    Form { fields() }
+      .formStyle(.grouped)
+      .scrollContentBackground(.hidden)
   }
 
   // MARK: Step 1 — the kind
 
   private var kindStep: some View {
-    Picker(t("wizard.kind"), selection: kindBinding) {
-      ForEach(DebtWizardKind.allCases, id: \.self) { kind in
-        Label(t("wizard.kind.\(kind.rawValue)"), systemImage: kind.symbol).tag(kind)
+    ScrollView {
+      VStack(spacing: 10) {
+        ForEach(DebtWizardKind.allCases, id: \.self) { kind in
+          DebtOptionCard(
+            title: t("wizard.kind.\(kind.rawValue)"), subtitle: t("wizard.kind.\(kind.rawValue).hint"),
+            symbol: kind.symbol, selected: model.kind == kind
+          ) {
+            kindBinding.wrappedValue = kind
+          }
+        }
       }
     }
-    .pickerStyle(.radioGroup)
     .accessibilityIdentifier("debt.wizard.kind")
   }
 

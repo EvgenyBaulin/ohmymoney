@@ -11,6 +11,7 @@ struct LadderSection: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
+  @Environment(\.themeSurfaces) private var surfaces
   @AppStorage(LadderSection.methodKey) private var methodRaw = LadderMethod.avalanche.rawValue
   @State private var extra: AmountE4 = .zero
   @State private var loaded = false
@@ -23,30 +24,36 @@ struct LadderSection: View {
         Text(verbatim: t("ladder.title")).appFont(.title2)
         Text(verbatim: t("ladder.hint"))
           .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
-        HStack {
-          Text(verbatim: t("ladder.extra"))
-          AmountField(amount: $extra)
-            .frame(maxWidth: 160)
-            .onSubmit(saveExtra)
-          Button(t("ladder.apply"), action: saveExtra)
-            .controlSize(.small)
-        }
-        if let suggested = suggestedExtra {
-          Text(
-            verbatim: environment.format(
-              "ladder.suggested", table: "Debts", environment.money.rounded(suggested))
-          )
-          .appFont(.caption).foregroundStyle(.secondary)
-        }
         Picker(t("ladder.method"), selection: $methodRaw) {
           Text(verbatim: t("ladder.avalanche")).tag(LadderMethod.avalanche.rawValue)
           Text(verbatim: t("ladder.snowball")).tag(LadderMethod.snowball.rawValue)
         }
         .pickerStyle(.segmented)
+        .labelsHidden()
+        .accessibilityLabel(t("ladder.method"))
         .accessibilityIdentifier("debts.ladder.method")
         Text(verbatim: t("ladder.\(method.rawValue).hint"))
           .appFont(.caption).foregroundStyle(.secondary).fixedSize(
             horizontal: false, vertical: true)
+        VStack(alignment: .leading, spacing: 6) {
+          Text(verbatim: t("ladder.extra")).appFont(.caption).foregroundStyle(.secondary)
+          HStack {
+            AmountField(amount: $extra)
+              .onSubmit(saveExtra)
+              .padding(.horizontal, 12).padding(.vertical, 8)
+              .background(surfaces.card, in: .rect(cornerRadius: 10))
+              .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(surfaces.cardBorder))
+            Button(t("ladder.apply"), action: saveExtra)
+              .controlSize(.small)
+          }
+          if let suggested = suggestedExtra {
+            Text(
+              verbatim: environment.format(
+                "ladder.suggested", table: "Debts", environment.money.rounded(suggested))
+            )
+            .appFont(.caption).foregroundStyle(.secondary)
+          }
+        }
         if let comparison = comparison {
           plan(comparison)
         } else {
@@ -55,6 +62,7 @@ struct LadderSection: View {
       }
       .padding(20)
     }
+    .themedWindowBackground()
     .onAppear {
       guard !loaded else { return }
       loaded = true
@@ -96,50 +104,66 @@ struct LadderSection: View {
   private func plan(_ comparison: LadderComparison) -> some View {
     let chosen = method == .avalanche ? comparison.avalanche : comparison.snowball
     let money = environment.money
-    VStack(alignment: .leading, spacing: 6) {
-      if let free = chosen.freeFrom, let months = chosen.months {
-        Text(
-          verbatim: environment.format(
-            "ladder.free", table: "Debts", environment.dates.monthTitle(free),
-            environment.language.format("advice.months", table: "Planning", counts: months))
-        )
-        .appFont(.headline)
-      } else {
-        Label(t("ladder.never"), systemImage: "exclamationmark.triangle").appFont(.headline)
-      }
-      Text(
-        verbatim: environment.format(
-          "ladder.interest", table: "Debts", money.rounded(chosen.interestRub)))
-      if let saved = comparison.interestSavedRub, let months = comparison.monthsSaved,
-        saved.raw != 0 || months != 0
-      {
-        Text(
-          verbatim: environment.format(
-            "ladder.difference", table: "Debts", money.rounded(saved.magnitude),
-            environment.language.format("advice.months", table: "Planning", counts: abs(months)))
-        )
-        .foregroundStyle(.secondary)
-        .fixedSize(horizontal: false, vertical: true)
-      }
-      Divider()
-      let names = Dictionary(
-        Self.candidates(compute.snapshot!).map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
-      ForEach(Array(chosen.order.enumerated()), id: \.element) { index, id in
-        if let debt = names[id] {
-          HStack {
-            Text(verbatim: "\(index + 1).").monospacedDigit().foregroundStyle(.secondary)
-            Text(verbatim: debt.name)
-            Text(verbatim: money.rate(debt.ratePercent)).foregroundStyle(.secondary)
-            Spacer()
-            Text(verbatim: money.rounded(debt.balanceRub)).monospacedDigit()
-            if let month = chosen.payoff[id] {
-              Text(verbatim: environment.dates.monthTitle(month))
-                .foregroundStyle(.secondary)
+    let candidates = Dictionary(
+      Self.candidates(compute.snapshot!).map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
+    VStack(alignment: .leading, spacing: 12) {
+      VStack(alignment: .leading, spacing: 8) {
+        Text(verbatim: t("ladder.order")).appFont(.headline)
+          .accessibilityAddTraits(.isHeader)
+        ForEach(Array(chosen.order.enumerated()), id: \.element) { index, id in
+          if let debt = candidates[id] {
+            HStack(spacing: 10) {
+              Text(verbatim: String(index + 1))
+                .appFont(.caption.weight(.bold).monospacedDigit())
+                .foregroundStyle(surfaces.onAccent)
+                .frame(width: 22, height: 22)
+                .background(surfaces.accent, in: .circle)
+              VStack(alignment: .leading, spacing: 1) {
+                Text(verbatim: debt.name).appFont(.callout)
+                Text(
+                  verbatim: "\(environment.format("debts.rate.row", table: "Debts", money.rate(debt.ratePercent))) · \(money.rounded(debt.balanceRub))"
+                )
+                .appFont(.caption).foregroundStyle(.secondary).monospacedDigit()
+              }
+              Spacer(minLength: 8)
+              if let month = chosen.payoff[id] {
+                Text(verbatim: environment.dates.monthTitle(month))
+                  .appFont(.caption).foregroundStyle(.secondary)
+              }
             }
+            .padding(.horizontal, 10).padding(.vertical, 8)
+            .background(surfaces.background, in: .rect(cornerRadius: 8))
+            .accessibilityElement(children: .combine)
           }
-          .appFont(.callout)
         }
       }
+      .contentCard()
+      VStack(alignment: .leading, spacing: 6) {
+        Text(verbatim: t("ladder.result")).appFont(.headline)
+          .accessibilityAddTraits(.isHeader)
+        if let free = chosen.freeFrom, let months = chosen.months {
+          DebtFactRow(
+            label: t("ladder.free.label"), value: environment.dates.monthTitle(free), bold: true)
+          .accessibilityHint(
+            environment.language.format("advice.months", table: "Planning", counts: months))
+        } else {
+          Label(t("ladder.never"), systemImage: "exclamationmark.triangle").appFont(.callout)
+        }
+        DebtFactRow(
+          label: t("ladder.interest.label"), value: "≈ \(money.rounded(chosen.interestRub))")
+        if let saved = comparison.interestSavedRub, let months = comparison.monthsSaved,
+          saved.raw != 0 || months != 0
+        {
+          Text(
+            verbatim: environment.format(
+              "ladder.difference", table: "Debts", money.rounded(saved.magnitude),
+              environment.language.format("advice.months", table: "Planning", counts: abs(months)))
+          )
+          .appFont(.caption).foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+        }
+      }
+      .contentCard()
     }
     .accessibilityIdentifier("debts.ladder.plan")
   }

@@ -649,6 +649,11 @@ private struct DebtDetail: View {
   @ViewBuilder
   private var summaryCards: some View {
     balanceCard
+    if line.debt.isInstalmentPlan, let parts = line.debt.parts, parts > 0 {
+      InstalmentPartsCard(parts: parts, paid: min(line.dues.paidCount, parts))
+      DebtInfoBlock(
+        title: t("wizard.how"), lines: [t("parts.how.once"), t("parts.how.reduces")])
+    }
     DebtCostSection(line: line)
     actionsCard
   }

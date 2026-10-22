@@ -10,6 +10,7 @@ import SwiftUI
 /// database: they are there again when the window is opened again.
 struct ReportsWindow: View {
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.windowWidth) private var windowWidth
   let deps: AppDependencies
 
   init(deps: AppDependencies) {
@@ -55,6 +56,9 @@ struct ReportsWindow: View {
       Button(environment.language("action.ok")) {}
     }
   }
+
+  /// A phone: the table is drawn as a card of plain rows and the header folds to what fits.
+  private var isNarrow: Bool { windowWidth > 0 && windowWidth < 640 }
 
   // MARK: What is shown
 
@@ -119,8 +123,14 @@ struct ReportsWindow: View {
       .padding(.top, 14)
 
       if let model = state.value {
-        ReportTableView(model: model, collapsed: $collapsed)
-          .clipShape(.rect(cornerRadius: 12))
+        Group {
+          if isNarrow {
+            ReportCardTable(model: model, collapsed: $collapsed)
+          } else {
+            ReportTableView(model: model, collapsed: $collapsed)
+          }
+        }
+        .clipShape(.rect(cornerRadius: 12))
           .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder, lineWidth: 0.5))
           .padding(.horizontal, 20)
         Text(verbatim: t("reports.csvNote"))
@@ -162,6 +172,17 @@ struct ReportsWindow: View {
             exportButton
           }
         }
+        // A phone: the title and the export on one line, the period across the width under it.
+        VStack(alignment: .leading, spacing: 10) {
+          HStack {
+            Text(verbatim: t("reports.window.title"))
+              .appFont(.title2.weight(.semibold))
+              .accessibilityAddTraits(.isHeader)
+            Spacer(minLength: 8)
+            exportButton
+          }
+          compactPeriodControls
+        }
       }
       FlowRow(spacing: 6, lineSpacing: 6) {
         ForEach(ReportTable.Kind.allCases, id: \.self) { kind in
@@ -195,6 +216,56 @@ struct ReportsWindow: View {
     .padding(.horizontal, 20)
     .padding(.top, 12)
     .padding(.bottom, 8)
+  }
+
+  /// The period as a phone shows it: «Месяц | Год» across the width, under it the steps as
+  /// arrows around the chosen period and «Текущий».
+  private var compactPeriodControls: some View {
+    VStack(spacing: 8) {
+      Picker(selection: periodKindSelection) {
+        Text(verbatim: t("reports.period.month")).tag(AnalyticsPeriod.Kind.month)
+        Text(verbatim: t("reports.period.year")).tag(AnalyticsPeriod.Kind.year)
+      } label: {
+        Text(verbatim: t("reports.period.kind"))
+      }
+      .pickerStyle(.segmented)
+      .labelsHidden()
+      HStack(spacing: 8) {
+        Button {
+          setPeriod(period.stepped(by: -1))
+        } label: {
+          Image(systemName: "chevron.left")
+        }
+        .accessibilityLabel(Text(verbatim: t("reports.period.previous")))
+        Button {
+          choosingPeriod = true
+        } label: {
+          Text(verbatim: AnalyticsText.title(of: period, environment))
+            .monospacedDigit().lineLimit(1).frame(maxWidth: .infinity)
+        }
+        .accessibilityIdentifier("period.choose.compact")
+        .popover(isPresented: $choosingPeriod) {
+          PeriodChooser(period: period, today: today) { chosen in
+            setPeriod(chosen)
+            choosingPeriod = false
+          }
+          .appDependencies(deps)
+        }
+        Button {
+          setPeriod(period.stepped(by: 1))
+        } label: {
+          Image(systemName: "chevron.right")
+        }
+        .disabled(!period.canStepForward(today: today))
+        .accessibilityLabel(Text(verbatim: t("reports.period.next")))
+        Button(t("reports.period.current")) {
+          setPeriod(.current(period.kind, today: today))
+        }
+        .lineLimit(1)
+        .disabled(period.isCurrent(today: today))
+      }
+      .buttonStyle(.borderless)
+    }
   }
 
   private var periodControls: some View {
