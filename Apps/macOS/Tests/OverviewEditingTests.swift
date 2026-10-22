@@ -101,20 +101,18 @@ final class OverviewEditingTests: XCTestCase {
   /// hidden tiles nobody sees.
   func testEditingOnOverviewChangesTheLayout() {
     environment.overviewLayout = .standard
-    // Only the tiles that wait to be added are hidden at first.
-    XCTAssertEqual(environment.overviewLayout.hiddenInOrder, [.installments, .selfEmployment])
+    // Only the tiles that wait to be added are hidden at first: the two of the credits and the
+    // self-employment, and the tiles of 2.0, which no layout of an earlier build names.
+    XCTAssertEqual(hiddenBefore2(), [.installments, .selfEmployment])
     XCTAssertTrue(OverviewTilesActions.hide(environment, .canSave))
     XCTAssertTrue(OverviewTilesActions.hide(environment, .worthALook))
-    XCTAssertEqual(
-      environment.overviewLayout.hiddenInOrder,
-      [.canSave, .installments, .selfEmployment, .worthALook])
+    XCTAssertEqual(hiddenBefore2(), [.canSave, .installments, .selfEmployment, .worthALook])
     XCTAssertEqual(OverviewTilesActions.moves(environment, .monthToDate, amongShown: true), [1])
     XCTAssertTrue(OverviewTilesActions.move(environment, .monthToDate, by: 1, amongShown: true))
     XCTAssertEqual(
       Array(environment.overviewLayout.shownTiles(in: .money).prefix(2)), [.owedToMe, .monthToDate])
     XCTAssertTrue(OverviewTilesActions.show(environment, .canSave))
-    XCTAssertEqual(
-      environment.overviewLayout.hiddenInOrder, [.installments, .selfEmployment, .worthALook])
+    XCTAssertEqual(hiddenBefore2(), [.installments, .selfEmployment, .worthALook])
 
     XCTAssertTrue(OverviewTilesActions.drop(environment, .capital, onto: .limits))
     XCTAssertEqual(environment.overviewLayout.shownTiles(in: .plan).first, .capital)
@@ -126,6 +124,13 @@ final class OverviewEditingTests: XCTestCase {
     environment.overviewTiles = [.event]
     XCTAssertFalse(OverviewTilesActions.hide(environment, .event), "the last tile shown stays")
     XCTAssertEqual(environment.overviewTiles, [.event])
+  }
+
+  /// The hidden tiles of the first 24, which every build knows.
+  private func hiddenBefore2() -> [OverviewTile] {
+    environment.overviewLayout.hiddenInOrder.filter {
+      (OverviewCatalog.item(of: $0)?.number ?? 99) <= 24
+    }
   }
 
   // MARK: - The window

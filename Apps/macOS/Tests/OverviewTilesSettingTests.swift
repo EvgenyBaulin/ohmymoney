@@ -65,7 +65,10 @@ final class OverviewTilesSettingTests: XCTestCase {
     XCTAssertEqual(layout.tiles(in: .plan).first, .limits)
     // Every tile but the ones that wait to be added.
     XCTAssertEqual(layout.shown.count, OverviewTile.allCases.filter(\.isShownUnnamed).count)
-    XCTAssertEqual(layout.hidden, [.installments, .selfEmployment])
+    // Hidden: the tiles of the credits and of the self-employment, and the tiles of 2.0, which no
+    // list of an earlier build names — all that wait to be added.
+    XCTAssertEqual(layout.hidden, Set(OverviewTile.allCases.filter { !$0.isShownUnnamed }))
+    XCTAssertTrue(layout.hidden.isSuperset(of: [.installments, .selfEmployment]))
 
     UserDefaults.standard.set("tilesOfTomorrow,iOwe,iOwe", forKey: AppEnvironment.overviewTilesKey)
     XCTAssertEqual(AppEnvironment().overviewLayout, OverviewLayout(tiles: [.iOwe]))
@@ -113,7 +116,12 @@ final class OverviewTilesSettingTests: XCTestCase {
     let environment = AppEnvironment()
     XCTAssertEqual(OverviewTilesActions.moves(environment, .monthToDate, amongShown: false), [1])
     XCTAssertEqual(OverviewTilesActions.moves(environment, .canSave, amongShown: false), [-1, 1])
-    XCTAssertEqual(OverviewTilesActions.moves(environment, .cushion, amongShown: false), [-1])
+    // The tiles of 2.0 come after the cushion in the group, so the last one has no place below.
+    guard let last = environment.overviewLayout.tiles(in: .money).last else {
+      return XCTFail("the group holds tiles")
+    }
+    XCTAssertEqual(OverviewTilesActions.moves(environment, last, amongShown: false), [-1])
+    XCTAssertEqual(OverviewTilesActions.moves(environment, .cushion, amongShown: false), [-1, 1])
     XCTAssertTrue(OverviewTilesActions.move(environment, .canSave, by: -1, amongShown: false))
     XCTAssertEqual(
       Array(environment.overviewLayout.tiles(in: .money).prefix(2)), [.canSave, .monthToDate])

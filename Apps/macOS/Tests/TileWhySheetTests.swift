@@ -223,6 +223,14 @@ final class TileWhySheetTests: XCTestCase {
       .spendingCalendar: .section(.calendar), .capital: .section(.capital),
       .cushion: .section(.capital), .installments: .section(.debts),
       .selfEmployment: .section(.planning),
+      .currencyBalances: .sidebar(.allAccounts), .spendToday: .analytics(.overview),
+      .weekOverWeek: .analytics(.overview), .averageDaily: .analytics(.overview),
+      .monthIncome: .analytics(.overview), .savingsRate: .analytics(.overview),
+      .monthRest: .section(.planning), .weekdaySpending: .analytics(.overview),
+      .monthlySpending: .analytics(.overview), .incomeSources: .analytics(.overview),
+      .topPlaces: .analytics(.overview), .spendingByPerson: .analytics(.overview),
+      .categoryGrew: .analytics(.overview), .categoryShrank: .analytics(.overview),
+      .smallPurchases: .analytics(.overview), .backups: nil, .integrity: nil, .ratesStatus: nil,
     ]
     XCTAssertEqual(Set(expected.keys), Set(OverviewTile.allCases))
     for (tile, target) in expected {

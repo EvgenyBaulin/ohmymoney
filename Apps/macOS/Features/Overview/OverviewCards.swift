@@ -24,8 +24,19 @@ enum OverviewCard {
 struct OverviewCardView: View {
   let tile: OverviewTile
   let actions: OperationActions
+  /// The tile is compact: one figure and a caption (`OverviewLayout.isCompact`).
+  var compact = false
 
   var body: some View {
+    if compact, OverviewCatalog.canBeCompact(tile) {
+      OverviewNewCardView(tile: tile, compact: true)
+    } else {
+      regular
+    }
+  }
+
+  @ViewBuilder
+  private var regular: some View {
     switch tile {
     case .monthToDate: MonthToDateCard()
     case .topCategories: TopCategoriesCard()
@@ -51,6 +62,11 @@ struct OverviewCardView: View {
     case .cushion: CushionTileCard()
     case .installments: InstalmentsTileCard()
     case .selfEmployment: SelfEmploymentTile()
+    case .currencyBalances, .spendToday, .weekOverWeek, .averageDaily, .monthIncome,
+      .savingsRate, .monthRest, .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces,
+      .spendingByPerson, .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity,
+      .ratesStatus:
+      OverviewNewCardView(tile: tile)
     }
   }
 }
@@ -257,7 +273,7 @@ private struct ForecastCard: View {
 // MARK: - Pieces of the cards
 
 /// A figure of a card: its name on the left, the amount in whole rubles on the right.
-private struct FigureLine: View {
+struct FigureLine: View {
   @Dependency(\.environment) private var environment
   let label: String
   let amount: AmountE4
@@ -294,7 +310,7 @@ struct ComparisonLine: View {
 }
 
 /// A share of a card line, or a dash for a bucket that has none.
-private struct ShareText: View {
+struct ShareText: View {
   @Dependency(\.environment) private var environment
   let basisPoints: Int?
 
@@ -307,7 +323,7 @@ private struct ShareText: View {
 }
 
 /// The thin bar under a line of the top: as long as its share of all my spending.
-private struct ShareBar: View {
+struct ShareBar: View {
   let basisPoints: Int?
 
   var body: some View {
@@ -386,6 +402,8 @@ enum OverviewText {
         ? environment.format("common.archivedName", category.name) : category.name
     case .uncategorized:
       return environment.language("category.uncategorized")
+    case .forWhom(let value):
+      return environment.label(for: value)
     default:
       return "—"
     }

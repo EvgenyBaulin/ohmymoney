@@ -29,6 +29,12 @@ struct OverviewView: View {
         .padding(.vertical, 8)
     }
     .onAppear(perform: followData)
+    // The limit of a small purchase and the copies of the database, read again with every change
+    // of the data: the tiles of 2.0 follow them.
+    .task(id: compute.generation) {
+      OverviewFirstRun.seed(environment)
+      await OverviewFiguresStore.shared.refresh(environment: environment)
+    }
     // Every change of the data: the dictionaries of the menus the cards open follow it.
     .onChange(of: compute.generation) { _, _ in followData() }
     // A sheet is a host of its own: the dependencies are handed to it.

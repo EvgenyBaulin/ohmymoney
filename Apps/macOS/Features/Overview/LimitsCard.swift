@@ -58,9 +58,10 @@ struct LimitsCard: View {
     }
   }
 
-  /// The most the card lists, whatever Planning shows: the card shares a row of Overview with
-  /// others, and they grow with it — with «all» and eighteen limits, eighteen lines high.
-  static let most = 5
+  /// The most the card lists, whatever Planning shows: the three limits closest to running out
+  /// (the owner's answer) — the rest are in Planning, and the card shares a row of Overview with
+  /// others, which would grow with every line.
+  static let most = 3
 
   /// The limits the card lists — the top of the one order, as many as Planning shows, `most`
   /// at most — and the ones after them.

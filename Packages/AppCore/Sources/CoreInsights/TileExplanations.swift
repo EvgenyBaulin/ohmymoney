@@ -32,13 +32,18 @@ public struct TileInputs: Sendable {
   public var calendarWeek: SpendingCalendar?
   /// The pair of the chart tile and its rates.
   public var rates: TileRateSeries?
+  /// The figures of the tiles of 2.0 that count from the ledger alone.
+  public var figures: OverviewFigures?
+  /// The state of the copies, the check of the database and the rates.
+  public var system: OverviewSystemStatus?
 
   public init(
     ledger: Ledger, summary: OverviewSummary, planning: PlanningSnapshot, today: DateOnly,
     remainder: MonthForecast.Remainder? = nil, accountPlan: AccountMonthPlan? = nil,
     summaryAccountIds: [UUID] = [], owed: AmountE4? = nil, anomalies: AnomalyReport? = nil,
     limits: [LimitLine] = [], limitNames: [UUID: String] = [:], anomaliesShown: Int = 3,
-    calendarWeek: SpendingCalendar? = nil, rates: TileRateSeries? = nil
+    calendarWeek: SpendingCalendar? = nil, rates: TileRateSeries? = nil,
+    figures: OverviewFigures? = nil, system: OverviewSystemStatus? = nil
   ) {
     self.ledger = ledger
     self.summary = summary
@@ -54,6 +59,8 @@ public struct TileInputs: Sendable {
     self.anomaliesShown = anomaliesShown
     self.calendarWeek = calendarWeek
     self.rates = rates
+    self.figures = figures
+    self.system = system
   }
 }
 
@@ -133,6 +140,7 @@ public enum TileExplanations {
     case .cushion: cushion(inputs.planning.cushion)
     case .installments: installments(inputs.planning.instalments)
     case .selfEmployment: selfEmployment(inputs.planning.npd, today: inputs.today)
+    default: explainNew(tile, inputs)
     }
   }
 

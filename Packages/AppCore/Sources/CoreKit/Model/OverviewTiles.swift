@@ -53,6 +53,46 @@ public enum OverviewTile: String, CaseIterable, Sendable, Hashable, Codable {
   case installments
   /// «Самозанятость»: the income of the month, the tax to pay and the limit of the year.
   case selfEmployment
+
+  // The tiles of 2.0: each counts from what the books already hold (`OverviewFigures`), and
+  // none is shown to an owner who did not ask for it (`isShownUnnamed`).
+
+  /// «Деньги по валютам» (27): the money of the accounts in the summary, by currency, in rubles.
+  case currencyBalances
+  /// «Расход сегодня» (31): today's spending against an ordinary day.
+  case spendToday
+  /// «Неделя к неделе» (32): the spending of this week against the same days of the last one.
+  case weekOverWeek
+  /// «Средний расход в день» (33): the month so far per day.
+  case averageDaily
+  /// «Доход месяца» (34): what came this month and what is still expected.
+  case monthIncome
+  /// «Норма сбережений» (35): the share of the income put aside this month.
+  case savingsRate
+  /// «Остаток месяца» (70): what is left of the month just past and where to put it.
+  case monthRest
+  /// «Расходы по дням недели» (73).
+  case weekdaySpending
+  /// «Расходы по месяцам» (74): the last twelve months.
+  case monthlySpending
+  /// «Доходы по источникам» (75).
+  case incomeSources
+  /// «Топ мест» (76).
+  case topPlaces
+  /// «Траты по людям» (77): my spending by «на кого».
+  case spendingByPerson
+  /// «Категория выросла сильнее всего» (79).
+  case categoryGrew
+  /// «Категория сократилась» (80).
+  case categoryShrank
+  /// «Мелкие покупки» (88): the small purchases of the month, up to a limit the owner sets.
+  case smallPurchases
+  /// «Резервные копии» (96): when the last copy of the database was made.
+  case backups
+  /// «Проверка базы» (97): the result of the last check.
+  case integrity
+  /// «Курсы ЦБ» (98): how fresh the rates are.
+  case ratesStatus
 }
 
 extension OverviewTile: Identifiable {
@@ -65,13 +105,16 @@ extension OverviewTile {
   public var defaultGroup: OverviewTileGroup {
     switch self {
     case .monthToDate, .canSave, .balanceForecast, .owedToMe, .iOwe, .lastCount, .lastRecord,
-      .lastCountAndRecord, .freeMoney, .capital, .cushion:
+      .lastCountAndRecord, .freeMoney, .capital, .cushion, .currencyBalances, .spendToday,
+      .weekOverWeek, .averageDaily, .monthIncome, .savingsRate:
       return .money
     case .limits, .upcoming, .expectedIncome, .event, .spendingCalendar, .installments,
-      .selfEmployment:
+      .selfEmployment, .monthRest:
       return .plan
     case .topCategories, .qualities, .spendingForecast, .incomeForecast, .worthALook,
-      .currencyChart:
+      .currencyChart, .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces,
+      .spendingByPerson, .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity,
+      .ratesStatus:
       return .analysis
     }
   }
@@ -79,11 +122,16 @@ extension OverviewTile {
 
 extension OverviewTile {
   /// Whether the tile is shown where a layout does not name it — an owner who never chose, a
-  /// layout kept before the tile existed. The tiles that came with the credits and the
-  /// self-employment wait hidden until the owner adds them.
+  /// layout kept before the tile existed. The tiles that came with the credits, the
+  /// self-employment and 2.0 wait hidden until the owner adds them: an owner's choice never
+  /// changes because a build brought new tiles.
   public var isShownUnnamed: Bool {
     switch self {
-    case .installments, .selfEmployment: false
+    case .installments, .selfEmployment, .currencyBalances, .spendToday, .weekOverWeek,
+      .averageDaily, .monthIncome, .savingsRate, .monthRest, .weekdaySpending, .monthlySpending,
+      .incomeSources, .topPlaces, .spendingByPerson, .categoryGrew, .categoryShrank,
+      .smallPurchases, .backups, .integrity, .ratesStatus:
+      false
     default: true
     }
   }

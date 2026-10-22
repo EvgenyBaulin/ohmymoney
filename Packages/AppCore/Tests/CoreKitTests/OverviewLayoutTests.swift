@@ -32,40 +32,49 @@ struct OverviewLayoutTests {
       money == [
         .monthToDate, .canSave, .balanceForecast, .owedToMe, .iOwe, .lastCount, .lastRecord,
         .lastCountAndRecord, .freeMoney, .capital, .cushion,
+        // The tiles of 2.0 follow the older ones.
+        .currencyBalances, .spendToday, .weekOverWeek, .averageDaily, .monthIncome,
+        .savingsRate,
       ])
     #expect(
       plan == [
         .limits, .upcoming, .expectedIncome, .event, .spendingCalendar, .installments,
-        .selfEmployment,
+        .selfEmployment, .monthRest,
       ])
     #expect(
       analysis == [
         .topCategories, .qualities, .spendingForecast, .incomeForecast, .worthALook, .currencyChart,
+        .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
+        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
       ])
   }
 
   /// No choice kept: the twelve cards of the first Overview first, then the rest, each in its
-  /// default group, every one of the twenty-two shown; the two that came later wait hidden at
-  /// the end of «План» until the owner adds them.
+  /// default group, every one of the twenty-two shown; the ones that came later — the credits,
+  /// the self-employment and the tiles of 2.0 — wait hidden at the end of their groups until the
+  /// owner adds them.
   @Test func theStandardLayoutShowsEveryTile() {
     let layout = OverviewLayout.standard
     #expect(isWhole(layout))
-    #expect(layout.hidden == [.installments, .selfEmployment])
+    #expect(layout.hidden == Set(OverviewTile.allCases.filter { !$0.isShownUnnamed }))
     #expect(layout.shown.count == 22)
     #expect(layout.groups == [.money, .plan, .analysis])
     #expect(
       layout.tiles(in: .money) == [
         .monthToDate, .canSave, .owedToMe, .lastCount, .balanceForecast, .iOwe, .lastRecord,
-        .lastCountAndRecord, .freeMoney, .capital, .cushion,
+        .lastCountAndRecord, .freeMoney, .capital, .cushion, .currencyBalances, .spendToday,
+        .weekOverWeek, .averageDaily, .monthIncome, .savingsRate,
       ])
     #expect(
       layout.tiles(in: .plan) == [
         .limits, .upcoming, .expectedIncome, .event, .spendingCalendar, .installments,
-        .selfEmployment,
+        .selfEmployment, .monthRest,
       ])
     #expect(
       layout.tiles(in: .analysis) == [
         .topCategories, .qualities, .spendingForecast, .worthALook, .incomeForecast, .currencyChart,
+        .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
+        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
       ])
     #expect(layout.isStandard)
   }
@@ -75,19 +84,20 @@ struct OverviewLayoutTests {
   @Test func aFlatListKeepsItsOrderAndGetsTheRestAtTheEnd() {
     let layout = OverviewLayout(tiles: [.freeMoney, .limits, .monthToDate, .qualities])
     #expect(isWhole(layout))
-    #expect(layout.hidden == [.installments, .selfEmployment])
+    #expect(layout.hidden == Set(OverviewTile.allCases.filter { !$0.isShownUnnamed }))
     #expect(Array(layout.tiles(in: .money).prefix(2)) == [.freeMoney, .monthToDate])
-    #expect(layout.tiles(in: .money).count == 11)
+    #expect(layout.tiles(in: .money).count == 17)
     #expect(layout.tiles(in: .plan).first == .limits)
     #expect(layout.tiles(in: .analysis).first == .qualities)
     #expect(
       Array(layout.tiles(in: .analysis).dropFirst()) == [
         .topCategories, .spendingForecast, .incomeForecast, .worthALook, .currencyChart,
+        .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
+        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
       ])
     #expect(
       OverviewLayout(tiles: [])
-        == OverviewLayout(
-          tiles: OverviewTile.allCases.filter { $0 != .installments && $0 != .selfEmployment }))
+        == OverviewLayout(tiles: OverviewTile.allCases.filter(\.isShownUnnamed)))
     // A list that names one of them shows it.
     #expect(!OverviewLayout(tiles: [.installments]).isHidden(.installments))
     #expect(OverviewLayout(tiles: [.installments]).isHidden(.selfEmployment))
@@ -99,7 +109,9 @@ struct OverviewLayoutTests {
     let layout = try #require(OverviewLayout.decode("money:monthToDate;plan:limits"))
     #expect(isWhole(layout))
     #expect(layout.isHidden(.installments) && layout.isHidden(.selfEmployment))
-    #expect(Array(layout.tiles(in: .plan).suffix(2)) == [.installments, .selfEmployment])
+    #expect(layout.isHidden(.monthRest), "a tile of 2.0 the text does not name waits too")
+    #expect(
+      Array(layout.tiles(in: .plan).suffix(3)) == [.installments, .selfEmployment, .monthRest])
     #expect(!layout.isHidden(.capital), "an older tile not named is still shown")
     let added = try #require(layout.showing(.selfEmployment))
     #expect(OverviewLayout.decode(added.encode()) == added)
@@ -118,7 +130,8 @@ struct OverviewLayoutTests {
     #expect(text.contains(";analysis:topCategories,"))
     #expect(
       text.hasSuffix(
-        ";plan:limits,upcoming,expectedIncome,event,spendingCalendar,-installments,-selfEmployment"
+        ";plan:limits,upcoming,expectedIncome,event,spendingCalendar,-installments,-selfEmployment,"
+          + "-monthRest"
       ))
     #expect(OverviewLayout.decode(text) == layout)
     #expect(OverviewLayout.decode(OverviewLayout.standard.encode()) == .standard)
@@ -148,7 +161,7 @@ struct OverviewLayoutTests {
     #expect(layout.group(of: .event) == .analysis, "the first mention of a tile wins")
     #expect(layout.group(of: .iOwe) == .money, "a tile of an unknown group goes to its own")
     #expect(!layout.isHidden(.iOwe))
-    #expect(layout.tiles(in: .money).last == .cushion)
+    #expect(layout.tiles(in: .money).last == .savingsRate)
     #expect(!layout.tiles(in: .money).contains(.monthToDate))
   }
 
@@ -188,7 +201,10 @@ struct OverviewLayoutTests {
     layout = try #require(layout.hiding(.canSave))
     #expect(!layout.shown.contains(.canSave))
     #expect(layout.tiles(in: .money)[1] == .canSave)
-    #expect(layout.hiddenInOrder == [.canSave, .installments, .selfEmployment])
+    #expect(layout.hiddenInOrder.first == .canSave)
+    #expect(
+      Set(layout.hiddenInOrder)
+        == Set([.canSave] + OverviewTile.allCases.filter { !$0.isShownUnnamed }))
     #expect(layout.hiding(.canSave) == nil, "hidden already")
     #expect(layout.showing(.limits) == nil, "shown already")
     layout = try #require(layout.showing(.canSave))

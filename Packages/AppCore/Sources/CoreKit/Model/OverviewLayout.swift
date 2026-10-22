@@ -27,14 +27,37 @@ public struct OverviewLayout: Hashable, Sendable {
 
   /// The groups in their order, each with every tile it holds.
   public private(set) var sections: [Section]
-  /// The tiles the owner hid.
+  /// The tiles the owner hid, and the self-showing ones waiting for their data (`auto`).
   public private(set) var hidden: Set<OverviewTile>
+  /// The tiles that are compact: one figure and a caption, two to a cell when paired.
+  public private(set) var compact: Set<OverviewTile>
+  /// Who stands beside whom: every pair twice, once from each side. Both are compact, in one
+  /// group, next to each other.
+  public private(set) var partners: [OverviewTile: OverviewTile]
+  /// Hidden tiles that show themselves as soon as their function has data
+  /// (`OverviewCatalogItem.showsItself`) — hidden for an older build, which does not know them.
+  /// A tile the owner hides or adds by hand leaves this set.
+  public private(set) var auto: Set<OverviewTile>
 
   /// A layout from any sections and hidden tiles, made whole (`normalized`).
-  public init(sections: [Section], hidden: Set<OverviewTile> = []) {
+  public init(
+    sections: [Section], hidden: Set<OverviewTile> = [], compact: Set<OverviewTile> = [],
+    partners: [OverviewTile: OverviewTile] = [:], auto: Set<OverviewTile> = []
+  ) {
     self.sections = sections
     self.hidden = hidden
+    self.compact = compact
+    self.partners = partners
+    self.auto = auto
     normalize()
+  }
+
+  /// The same layout with other sections and hidden tiles: the sizes, pairs and self-showing
+  /// marks stay, and `normalize` drops what no longer holds.
+  private func rebuilt(sections: [Section], hidden: Set<OverviewTile>? = nil) -> OverviewLayout {
+    OverviewLayout(
+      sections: sections, hidden: hidden ?? self.hidden, compact: compact, partners: partners,
+      auto: auto)
   }
 
   /// The layout of a flat list of tiles — the setting of the builds before groups, or none: the
@@ -56,6 +79,20 @@ public struct OverviewLayout: Hashable, Sendable {
   /// The layout of an owner who never chose: the twelve cards of the first Overview first, in
   /// their order, then the rest, each in its default group.
   public static let standard = OverviewLayout(tiles: OverviewTiles.standard)
+
+  /// The layout of a new person: the ten tiles of the answer, the self-showing ones waiting for
+  /// their data, everything else one «Добавить плитку» away.
+  public static let firstRun: OverviewLayout = {
+    let chosen = OverviewCatalog.firstRunTiles
+    let sections = OverviewTileGroup.allCases.map { group in
+      let first = chosen.filter { $0.defaultGroup == group }
+      let rest = OverviewTile.allCases.filter { $0.defaultGroup == group && !first.contains($0) }
+      return Section(group: group, tiles: first + rest)
+    }
+    return OverviewLayout(
+      sections: sections, hidden: Set(OverviewTile.allCases).subtracting(chosen),
+      auto: Set(OverviewTile.allCases.filter { OverviewCatalog.showsItself($0) }))
+  }()
 
   /// Nothing to reset: the layout is the standard one.
   public var isStandard: Bool { self == Self.standard }
@@ -92,11 +129,127 @@ public struct OverviewLayout: Hashable, Sendable {
 
   public func isHidden(_ tile: OverviewTile) -> Bool { hidden.contains(tile) }
 
+  // MARK: - What the screen shows
+
+  /// Whether the screen shows `tile` with `facts`: a tile that is not hidden, or a self-showing
+  /// one whose function has data.
+  public func isVisible(_ tile: OverviewTile, facts: OverviewFacts) -> Bool {
+    if !hidden.contains(tile) { return true }
+    return auto.contains(tile)
+      && OverviewCatalog.item(of: tile)?.isVisibleByItself(facts) == true
+  }
+
+  /// The tiles of `group` the screen shows with `facts`, in their order.
+  public func visibleTiles(in group: OverviewTileGroup, facts: OverviewFacts) -> [OverviewTile] {
+    tiles(in: group).filter { isVisible($0, facts: facts) }
+  }
+
+  /// What «Добавить плитку» offers with `facts`: the tiles the screen does not show, group
+  /// after group.
+  public func addable(facts: OverviewFacts) -> [OverviewTile] {
+    sections.flatMap { $0.tiles.filter { !isVisible($0, facts: facts) } }
+  }
+
+  /// A tile waits for its data and shows itself then.
+  public func showsItself(_ tile: OverviewTile) -> Bool { auto.contains(tile) }
+
+  // MARK: - Size and pairs
+
+  /// The tile is compact, alone or in a pair.
+  public func isCompact(_ tile: OverviewTile) -> Bool { compact.contains(tile) }
+
+  /// The tile beside `tile` in a pair.
+  public func partner(of tile: OverviewTile) -> OverviewTile? { partners[tile] }
+
+  /// «Компактная» or «Обычная»; `nil` for a tile that cannot be compact when asked to be. Making
+  /// a tile regular parts its pair, both going back to regular.
+  public func setting(_ tile: OverviewTile, compact makeCompact: Bool) -> OverviewLayout? {
+    if makeCompact {
+      guard OverviewCatalog.canBeCompact(tile) else { return nil }
+      guard !compact.contains(tile) else { return self }
+      var layout = self
+      layout.compact.insert(tile)
+      return layout
+    }
+    guard compact.contains(tile) else { return self }
+    return unpairing(tile)
+  }
+
+  /// Two compact tiles in one cell: `tile` goes right after `target`, in its group, and both
+  /// become compact; either one's earlier partner is left alone, compact. `nil` when either
+  /// cannot be compact.
+  public func pairing(_ tile: OverviewTile, with target: OverviewTile) -> OverviewLayout? {
+    guard tile != target, OverviewCatalog.canBeCompact(tile),
+      OverviewCatalog.canBeCompact(target)
+    else { return nil }
+    var layout = self
+    layout.compact.formUnion([tile, target])
+    layout.unlink(tile)
+    layout.unlink(target)
+    let group = layout.group(of: target)
+    let at = layout.tiles(in: group).firstIndex(of: target) ?? 0
+    layout = layout.moving(tile, to: group, at: at + 1)
+    layout.compact.formUnion([tile, target])
+    layout.partners[tile] = target
+    layout.partners[target] = tile
+    layout.normalize()
+    return layout.partners[tile] == target ? layout : nil
+  }
+
+  /// «Разъединить»: the pair of `tile` falls apart and both go back to regular size; `self` when
+  /// it has no partner and is regular.
+  public func unpairing(_ tile: OverviewTile) -> OverviewLayout {
+    var layout = self
+    let other = layout.partners[tile]
+    layout.unlink(tile)
+    layout.compact.remove(tile)
+    if let other { layout.compact.remove(other) }
+    layout.normalize()
+    return layout
+  }
+
+  private mutating func unlink(_ tile: OverviewTile) {
+    if let other = partners[tile] { partners[other] = nil }
+    partners[tile] = nil
+  }
+
+  /// The tiles of `group` the screen shows with `facts`, as the cells they stand in: a tile
+  /// alone, or two tiles of a pair — when both are shown; a pair with one tile hidden leaves the
+  /// other as a compact tile alone.
+  public func cells(in group: OverviewTileGroup, facts: OverviewFacts) -> [Cell] {
+    var cells: [Cell] = []
+    var taken: Set<OverviewTile> = []
+    for tile in visibleTiles(in: group, facts: facts) where !taken.contains(tile) {
+      taken.insert(tile)
+      if let other = partners[tile], isVisible(other, facts: facts), !taken.contains(other) {
+        taken.insert(other)
+        cells.append(.pair(tile, other))
+      } else {
+        cells.append(.single(tile))
+      }
+    }
+    return cells
+  }
+
+  /// A place of a grid: one tile, or two compact tiles sharing it.
+  public enum Cell: Hashable, Sendable {
+    case single(OverviewTile)
+    case pair(OverviewTile, OverviewTile)
+
+    public var tiles: [OverviewTile] {
+      switch self {
+      case .single(let tile): [tile]
+      case .pair(let a, let b): [a, b]
+      }
+    }
+  }
+
   // MARK: - Hiding and showing
 
   /// Whether `tile` can be hidden: it is shown, and it is not the last one shown.
   public func canHide(_ tile: OverviewTile) -> Bool {
-    !hidden.contains(tile) && shown.count > 1
+    if auto.contains(tile) { return true }
+    return !hidden.contains(tile) && shown.count > 1
   }
 
   /// The layout with `tile` hidden where it stands; `nil` when it cannot be — the last tile shown
@@ -105,6 +258,7 @@ public struct OverviewLayout: Hashable, Sendable {
     guard canHide(tile) else { return nil }
     var layout = self
     layout.hidden.insert(tile)
+    layout.auto.remove(tile)
     return layout
   }
 
@@ -113,6 +267,7 @@ public struct OverviewLayout: Hashable, Sendable {
     guard hidden.contains(tile) else { return nil }
     var layout = self
     layout.hidden.remove(tile)
+    layout.auto.remove(tile)
     return layout
   }
 
@@ -130,8 +285,7 @@ public struct OverviewLayout: Hashable, Sendable {
         tiles: listed.filter { section.tiles.contains($0) }
           + section.tiles.filter { !listed.contains($0) })
     }
-    return OverviewLayout(
-      sections: sections, hidden: Set(OverviewTile.allCases).subtracting(listed))
+    return rebuilt(sections: sections, hidden: Set(OverviewTile.allCases).subtracting(listed))
   }
 
   // MARK: - Moving tiles
@@ -156,7 +310,7 @@ public struct OverviewLayout: Hashable, Sendable {
     target = sections.firstIndex(where: { $0.group == group }) ?? target
     let at = min(position ?? sections[target].tiles.count, sections[target].tiles.count)
     sections[target].tiles.insert(tile, at: at)
-    return OverviewLayout(sections: sections, hidden: hidden)
+    return rebuilt(sections: sections)
   }
 
   /// `tile` dragged onto `target`: it takes the target's place, in the target's group. In one
@@ -165,6 +319,12 @@ public struct OverviewLayout: Hashable, Sendable {
   /// dropped on itself leaves the layout as it was.
   public func dropping(_ tile: OverviewTile, onto target: OverviewTile) -> OverviewLayout {
     guard tile != target else { return self }
+    // A compact tile dropped on a compact one makes a pair with it.
+    if compact.contains(tile), compact.contains(target),
+      let paired = pairing(tile, with: target)
+    {
+      return paired
+    }
     let group = group(of: target)
     let tiles = tiles(in: group)
     guard let to = tiles.firstIndex(of: target) else { return self }
@@ -211,7 +371,7 @@ public struct OverviewLayout: Hashable, Sendable {
     guard step != 0, sections.indices.contains(to) else { return nil }
     var sections = sections
     sections.swapAt(from, to)
-    return OverviewLayout(sections: sections, hidden: hidden)
+    return rebuilt(sections: sections)
   }
 
   /// `group` dragged onto `target`: it takes the target's place, the target moving one place
@@ -225,7 +385,7 @@ public struct OverviewLayout: Hashable, Sendable {
     var sections = sections
     let section = sections.remove(at: from)
     sections.insert(section, at: to)
-    return OverviewLayout(sections: sections, hidden: hidden)
+    return rebuilt(sections: sections)
   }
 
   // MARK: - The text
@@ -234,14 +394,39 @@ public struct OverviewLayout: Hashable, Sendable {
   private static let hiddenMark: Character = "-"
 
   /// The layout as the setting keeps it.
+  ///
+  /// The sizes, the pairs and the self-showing tiles come after the groups, each in a part of
+  /// its own — `compact:a,b;pairs:c+d;auto:e` —, written only when there is something to say. A
+  /// build that does not know them skips the parts and reads the groups as before.
   public func encode() -> String {
-    sections.map { section in
+    var parts = sections.map { section in
       section.group.rawValue + ":"
         + section.tiles.map { (hidden.contains($0) ? "-" : "") + $0.rawValue }
         .joined(separator: ",")
     }
-    .joined(separator: ";")
+    let order = sections.flatMap(\.tiles)
+    let single = order.filter { compact.contains($0) && partners[$0] == nil }
+    if !single.isEmpty {
+      parts.append(Self.compactPart + ":" + single.map(\.rawValue).joined(separator: ","))
+    }
+    var pairs: [String] = []
+    var seen: Set<OverviewTile> = []
+    for tile in order where !seen.contains(tile) {
+      guard let other = partners[tile] else { continue }
+      seen.formUnion([tile, other])
+      pairs.append(tile.rawValue + "+" + other.rawValue)
+    }
+    if !pairs.isEmpty { parts.append(Self.pairsPart + ":" + pairs.joined(separator: ",")) }
+    let waiting = order.filter { auto.contains($0) }
+    if !waiting.isEmpty {
+      parts.append(Self.autoPart + ":" + waiting.map(\.rawValue).joined(separator: ","))
+    }
+    return parts.joined(separator: ";")
   }
+
+  private static let compactPart = "compact"
+  private static let pairsPart = "pairs"
+  private static let autoPart = "auto"
 
   /// The layout a kept text says; `nil` for no text, or a text that names no known group — then
   /// the list of the builds before groups is read instead (`init(tiles:)`).
@@ -252,8 +437,34 @@ public struct OverviewLayout: Hashable, Sendable {
     // A tile named again — in its group or another — is passed over whole: the first mention
     // gives both its place and whether it is hidden.
     var named: Set<OverviewTile> = []
+    var compact: Set<OverviewTile> = []
+    var partners: [OverviewTile: OverviewTile] = [:]
+    var auto: Set<OverviewTile> = []
     for part in stored.split(separator: ";", omittingEmptySubsequences: true) {
       let halves = part.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: false)
+      let head = halves[0].trimmingCharacters(in: .whitespaces)
+      if [compactPart, pairsPart, autoPart].contains(head) {
+        let words = halves.count > 1 ? halves[1].split(separator: ",") : []
+        for word in words {
+          let names = word.split(separator: "+").map {
+            OverviewTile(rawValue: $0.trimmingCharacters(in: .whitespaces))
+          }
+          switch head {
+          case compactPart:
+            if let first = names.first, let tile = first { compact.insert(tile) }
+          case autoPart:
+            if let first = names.first, let tile = first { auto.insert(tile) }
+          default:
+            if names.count == 2, let a = names[0], let b = names[1], a != b,
+              partners[a] == nil, partners[b] == nil
+            {
+              partners[a] = b
+              partners[b] = a
+            }
+          }
+        }
+        continue
+      }
       guard
         let group = OverviewTileGroup(
           rawValue: halves[0].trimmingCharacters(in: .whitespaces)),
@@ -274,7 +485,8 @@ public struct OverviewLayout: Hashable, Sendable {
       sections.append(Section(group: group, tiles: tiles))
     }
     guard !sections.isEmpty else { return nil }
-    return OverviewLayout(sections: sections, hidden: hidden)
+    return OverviewLayout(
+      sections: sections, hidden: hidden, compact: compact, partners: partners, auto: auto)
   }
 
   /// Makes the layout whole: every group once, the named ones first; every tile once, at its first
@@ -310,6 +522,29 @@ public struct OverviewLayout: Hashable, Sendable {
     if shown.isEmpty, let first = sections.lazy.flatMap(\.tiles).first {
       hidden.remove(first)
     }
+    normalizeSizes()
+  }
+
+  /// Sizes and pairs that still hold: only a tile that can be compact is, a pair is two compact
+  /// tiles of one group side by side, a tile waits for its data only while it is hidden and
+  /// shows itself.
+  private mutating func normalizeSizes() {
+    compact = compact.filter { OverviewCatalog.canBeCompact($0) }
+    var kept: [OverviewTile: OverviewTile] = [:]
+    for section in sections {
+      for index in section.tiles.indices.dropLast() {
+        let a = section.tiles[index]
+        let b = section.tiles[index + 1]
+        guard partners[a] == b, partners[b] == a, OverviewCatalog.canBeCompact(a),
+          OverviewCatalog.canBeCompact(b), kept[a] == nil, kept[b] == nil
+        else { continue }
+        kept[a] = b
+        kept[b] = a
+      }
+    }
+    partners = kept
+    compact.formUnion(kept.keys)
+    auto = auto.filter { hidden.contains($0) && OverviewCatalog.showsItself($0) }
   }
 
   // MARK: - Collapsed groups

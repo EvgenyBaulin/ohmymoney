@@ -90,7 +90,14 @@ struct TileExplanationTests {
       owed: summary.owedToMe, anomalies: anomalies, limits: limits,
       limitNames: Dictionary(
         limits.map { ($0.budget.id, $0.budget.id.uuidString) }, uniquingKeysWith: { a, _ in a }),
-      calendarWeek: week, rates: series)
+      calendarWeek: week, rates: series,
+      figures: OverviewFigures(
+        ledger: ledger, today: today, smallLimit: AmountE4(whole: 1_000),
+        expectedIncome: planning.income.expectedRemaining),
+      system: OverviewSystemStatus(
+        now: now, today: today, backupAt: now.addingTimeInterval(-3 * 86_400), backupCount: 5,
+        checkedAt: now.addingTimeInterval(-2 * 86_400), problems: 0,
+        ratesDay: today.adding(days: -1)))
     return World(
       ledger: ledger, summary: summary, planning: planning, remainder: remainder, plan: plan,
       inputs: inputs)
@@ -226,6 +233,14 @@ struct TileExplanationTests {
       .lastCountAndRecord: .operations, .worthALook: .analytics(.anomalies), .freeMoney: .planning,
       .currencyChart: nil, .spendingCalendar: .calendar, .capital: .capital,
       .cushion: .capital, .installments: .debts, .selfEmployment: .planning,
+      .currencyBalances: .allAccounts, .spendToday: .analytics(.overview),
+      .weekOverWeek: .analytics(.overview), .averageDaily: .analytics(.overview),
+      .monthIncome: .analytics(.overview), .savingsRate: .analytics(.overview),
+      .monthRest: .planning, .weekdaySpending: .analytics(.overview),
+      .monthlySpending: .analytics(.overview), .incomeSources: .analytics(.overview),
+      .topPlaces: .analytics(.overview), .spendingByPerson: .analytics(.overview),
+      .categoryGrew: .analytics(.overview), .categoryShrank: .analytics(.overview),
+      .smallPurchases: .analytics(.overview), .backups: nil, .integrity: nil, .ratesStatus: nil,
     ]
     #expect(Set(expected.keys) == Set(OverviewTile.allCases))
     for (tile, destination) in expected {

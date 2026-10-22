@@ -1023,6 +1023,91 @@
         }
       }
     },
+    "overview.add.inProgress": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "in progress"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "в работе"
+          }
+        }
+      }
+    },
+    "overview.add.pairs": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggested pairs — they go well side by side"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предложенные пары — можно ставить рядом"
+          }
+        }
+      }
+    },
+    "overview.add.sideBySide": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "goes well side by side"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "можно ставить рядом"
+          }
+        }
+      }
+    },
+    "overview.add.single": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Single tiles"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отдельные плитки"
+          }
+        }
+      }
+    },
+    "overview.add.unbuilt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not ready yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё не готовы"
+          }
+        }
+      }
+    },
     "overview.anomalies": {
       "extractionState": "manual",
       "localizations": {
@@ -1108,6 +1193,216 @@
         }
       }
     },
+    "overview.average.days": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "over %lld day"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "over %lld days"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "за %lld дня"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "за %lld дней"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "за %lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "за %lld дня"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.backups.ago": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld day ago"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld days ago"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня назад"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дней назад"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld день назад"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня назад"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.backups.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copy kept"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copies kept"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "хранится %lld копии"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "хранится %lld копий"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "хранится %lld копия"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "хранится %lld копии"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.backups.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No copy of the database yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копий базы пока нет"
+          }
+        }
+      }
+    },
+    "overview.backups.stale": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "older than %@ days — time for a new one"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "старше %@ дней — пора сделать новую"
+          }
+        }
+      }
+    },
+    "overview.backups.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня"
+          }
+        }
+      }
+    },
     "overview.badChange": {
       "extractionState": "manual",
       "localizations": {
@@ -1176,6 +1471,146 @@
         }
       }
     },
+    "overview.compact.iOweMonthly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ a month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ в месяц"
+          }
+        }
+      }
+    },
+    "overview.compact.owedNone": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nobody owes you"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вам никто не должен"
+          }
+        }
+      }
+    },
+    "overview.compact.owedParts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld item waiting"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld items waiting"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld части ждут"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld частей ждут"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld часть ждёт"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld части ждут"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.compact.upcoming": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld payment"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld payments"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld платежа"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld платежей"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld платёж"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld платежа"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "overview.comparison": {
       "extractionState": "manual",
       "localizations": {
@@ -1210,6 +1645,40 @@
         }
       }
     },
+    "overview.currencies.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No money counted on the accounts yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деньги на счетах ещё не посчитаны"
+          }
+        }
+      }
+    },
+    "overview.currencies.withoutRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No rate for %@: left out of the total"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет курса для %@: в итог не входят"
+          }
+        }
+      }
+    },
     "overview.edit": {
       "extractionState": "manual",
       "localizations": {
@@ -1240,6 +1709,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавить плитку"
+          }
+        }
+      }
+    },
+    "overview.edit.compactBadge": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "½ width"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "½ ширины"
           }
         }
       }
@@ -1380,6 +1866,74 @@
         }
       }
     },
+    "overview.edit.pair": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pair"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пара"
+          }
+        }
+      }
+    },
+    "overview.edit.sizeCompact": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compact size"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Компактная"
+          }
+        }
+      }
+    },
+    "overview.edit.sizeRegular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regular size"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обычная"
+          }
+        }
+      }
+    },
+    "overview.edit.unpair": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unpair"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разъединить"
+          }
+        }
+      }
+    },
     "overview.expenses": {
       "extractionState": "manual",
       "localizations": {
@@ -1512,6 +2066,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "На целях %1$@, а на счетах в сводке — %2$@."
+          }
+        }
+      }
+    },
+    "overview.grew.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No category has grown"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни одна категория не выросла"
           }
         }
       }
@@ -1699,6 +2270,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доходы"
+          }
+        }
+      }
+    },
+    "overview.income.expected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ still expected"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ещё ожидается %@"
+          }
+        }
+      }
+    },
+    "overview.income.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No income this month yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доходов в этом месяце пока нет"
+          }
+        }
+      }
+    },
+    "overview.income.received": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "received"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "получено"
           }
         }
       }
@@ -1926,6 +2548,163 @@
         }
       }
     },
+    "overview.integrity.ago": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "checked %lld day ago"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "checked %lld days ago"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "проверено %lld дня назад"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "проверено %lld дней назад"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "проверено %lld день назад"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "проверено %lld дня назад"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.integrity.healthy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All in order"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всё в порядке"
+          }
+        }
+      }
+    },
+    "overview.integrity.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The database was not checked yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "База ещё не проверялась"
+          }
+        }
+      }
+    },
+    "overview.integrity.problems": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Needs a look"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нужно посмотреть"
+          }
+        }
+      }
+    },
+    "overview.integrity.rows": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wrong row"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wrong rows"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неверные записи"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неверных записей"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неверная запись"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld неверной записи"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "overview.lastCount.none": {
       "extractionState": "manual",
       "localizations": {
@@ -2011,6 +2790,40 @@
         }
       }
     },
+    "overview.monthRest.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appears on the 1st of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Появляется 1-го числа"
+          }
+        }
+      }
+    },
+    "overview.monthRest.of": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "left of %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "осталось за %@"
+          }
+        }
+      }
+    },
     "overview.monthToDate": {
       "extractionState": "manual",
       "localizations": {
@@ -2024,6 +2837,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "С начала месяца"
+          }
+        }
+      }
+    },
+    "overview.months.current": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ so far"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ на сегодня"
+          }
+        }
+      }
+    },
+    "overview.move.was": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "was %@, now %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "было %@, стало %@"
+          }
+        }
+      }
+    },
+    "overview.noData": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No data"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет данных"
           }
         }
       }
@@ -2113,6 +2977,23 @@
         }
       }
     },
+    "overview.places.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No spending with a place this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Трат с местом в этом месяце нет"
+          }
+        }
+      }
+    },
     "overview.qualities": {
       "extractionState": "manual",
       "localizations": {
@@ -2126,6 +3007,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хорошие и плохие"
+          }
+        }
+      }
+    },
+    "overview.rates.fresh": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "up to date"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "актуальны"
+          }
+        }
+      }
+    },
+    "overview.rates.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No rates held yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Курсов пока нет"
+          }
+        }
+      }
+    },
+    "overview.rates.stale": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "older than %@ days"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "старше %@ дней"
           }
         }
       }
@@ -2181,6 +3113,299 @@
         }
       }
     },
+    "overview.savings.foreign": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld move in another currency left out"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld moves in other currencies left out"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перевода в другой валюте не учтено"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переводов в другой валюте не учтено"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перевод в другой валюте не учтён"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перевода в другой валюте не учтено"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.savings.noIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No income yet, so no share"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохода пока нет, доли нет"
+          }
+        }
+      }
+    },
+    "overview.savings.saved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ put aside"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "отложено %@"
+          }
+        }
+      }
+    },
+    "overview.shrank.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No category has shrunk"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни одна категория не сократилась"
+          }
+        }
+      }
+    },
+    "overview.small.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld small purchase"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld small purchases"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мелкие покупки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мелких покупок"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мелкая покупка"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мелкой покупки"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.small.field.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whole rubles. The tile «Small purchases» on Overview adds up the purchases of the month up to this sum. Empty — not set."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В целых рублях. Плитка «Мелкие покупки» на обзоре складывает покупки месяца до этой суммы. Пусто — не задано."
+          }
+        }
+      }
+    },
+    "overview.small.field.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A purchase is small up to"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мелкая покупка — до"
+          }
+        }
+      }
+    },
+    "overview.small.limit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "up to %@ each"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "до %@ каждая"
+          }
+        }
+      }
+    },
+    "overview.small.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No small purchases this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мелких покупок в этом месяце нет"
+          }
+        }
+      }
+    },
+    "overview.small.notSet": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Say how small a small purchase is in Settings → Entry"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укажите, какая покупка мелкая, в Настройки → Ввод"
+          }
+        }
+      }
+    },
+    "overview.sources.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No income this month yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доходов в этом месяце пока нет"
+          }
+        }
+      }
+    },
+    "overview.tile.averageDaily": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average spending a day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Средний расход в день"
+          }
+        }
+      }
+    },
+    "overview.tile.backups": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Backups"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Резервные копии"
+          }
+        }
+      }
+    },
     "overview.tile.balanceForecast": {
       "extractionState": "manual",
       "localizations": {
@@ -2228,6 +3453,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Капитал"
+          }
+        }
+      }
+    },
+    "overview.tile.categoryGrew": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category that grew most"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория выросла сильнее всего"
+          }
+        }
+      }
+    },
+    "overview.tile.categoryShrank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category that shrank"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория сократилась"
+          }
+        }
+      }
+    },
+    "overview.tile.currencyBalances": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money by currency"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деньги по валютам"
           }
         }
       }
@@ -2351,6 +3627,23 @@
         }
       }
     },
+    "overview.tile.incomeSources": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Income by source"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доходы по источникам"
+          }
+        }
+      }
+    },
     "overview.tile.installments": {
       "extractionState": "manual",
       "localizations": {
@@ -2364,6 +3657,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рассрочки"
+          }
+        }
+      }
+    },
+    "overview.tile.integrity": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Database check"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверка базы"
           }
         }
       }
@@ -2436,6 +3746,40 @@
         }
       }
     },
+    "overview.tile.monthIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Income of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доход месяца"
+          }
+        }
+      }
+    },
+    "overview.tile.monthRest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток месяца"
+          }
+        }
+      }
+    },
     "overview.tile.monthToDate": {
       "extractionState": "manual",
       "localizations": {
@@ -2449,6 +3793,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "С начала месяца"
+          }
+        }
+      }
+    },
+    "overview.tile.monthlySpending": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending by month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расходы по месяцам"
           }
         }
       }
@@ -2487,6 +3848,40 @@
         }
       }
     },
+    "overview.tile.ratesStatus": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank of Russia rates"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Курсы ЦБ"
+          }
+        }
+      }
+    },
+    "overview.tile.savingsRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Savings rate"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Норма сбережений"
+          }
+        }
+      }
+    },
     "overview.tile.selfEmployment": {
       "extractionState": "manual",
       "localizations": {
@@ -2500,6 +3895,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Самозанятость"
+          }
+        }
+      }
+    },
+    "overview.tile.smallPurchases": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Small purchases"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мелкие покупки"
+          }
+        }
+      }
+    },
+    "overview.tile.spendToday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent today"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расход сегодня"
+          }
+        }
+      }
+    },
+    "overview.tile.spendingByPerson": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending by person"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Траты по людям"
           }
         }
       }
@@ -2538,6 +3984,210 @@
         }
       }
     },
+    "overview.tile.stub.38": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days until payday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дней до зарплаты"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.39": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Will it last until payday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хватит ли до зарплаты"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.40": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily budget until payday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет на день до зарплаты"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.48": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next interest payout"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Следующая выплата процентов"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.51": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next payment"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ближайший платёж"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.52": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Left to pay this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осталось оплатить в месяце"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.55": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Overdue payments"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Просроченные платежи"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.58": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debt load"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Долговая нагрузка"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.62": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credit card: pay by"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитка: внести до"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.67": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trip: left per day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поездка: осталось на день"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.68": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trip: budget"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поездка: бюджет"
+          }
+        }
+      }
+    },
+    "overview.tile.stub.71": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allocate income"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Распределить доход"
+          }
+        }
+      }
+    },
     "overview.tile.topCategories": {
       "extractionState": "manual",
       "localizations": {
@@ -2551,6 +4201,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Топ категорий"
+          }
+        }
+      }
+    },
+    "overview.tile.topPlaces": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top places"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Топ мест"
           }
         }
       }
@@ -2572,6 +4239,40 @@
         }
       }
     },
+    "overview.tile.weekOverWeek": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week against week"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неделя к неделе"
+          }
+        }
+      }
+    },
+    "overview.tile.weekdaySpending": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending by weekday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расходы по дням недели"
+          }
+        }
+      }
+    },
     "overview.tile.worthALook": {
       "extractionState": "manual",
       "localizations": {
@@ -2589,6 +4290,110 @@
         }
       }
     },
+    "overview.today.against": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ against an ordinary day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ к обычному дню"
+          }
+        }
+      }
+    },
+    "overview.today.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing spent today"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня трат не было"
+          }
+        }
+      }
+    },
+    "overview.today.operations": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operation"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operations"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операции"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операций"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операции"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.today.usual": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An ordinary day: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обычный день: %@"
+          }
+        }
+      }
+    },
     "overview.topCategories": {
       "extractionState": "manual",
       "localizations": {
@@ -2602,6 +4407,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Топ категорий"
+          }
+        }
+      }
+    },
+    "overview.upcomingNone.compact": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No payments in 7 days"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На 7 дней платежей нет"
+          }
+        }
+      }
+    },
+    "overview.weekday.average": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ a day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ в день"
+          }
+        }
+      }
+    },
+    "overview.weekday.over": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The last 12 weeks, %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последние 12 недель, %@"
           }
         }
       }
@@ -2704,6 +4560,178 @@
           "stringUnit": {
             "state": "translated",
             "value": "Курсы ЦБ: обновляются…"
+          }
+        }
+      }
+    },
+    "why.average.days": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дней"
+          }
+        }
+      }
+    },
+    "why.average.expenses": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрачено за месяц"
+          }
+        }
+      }
+    },
+    "why.average.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending a day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расход в день"
+          }
+        }
+      }
+    },
+    "why.backups.age": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days ago"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дней назад"
+          }
+        }
+      }
+    },
+    "why.backups.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copies kept"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копий хранится"
+          }
+        }
+      }
+    },
+    "why.backups.last": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The newest copy"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Самая свежая копия"
+          }
+        }
+      }
+    },
+    "why.backups.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no copy of the database yet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копий базы пока нет."
+          }
+        }
+      }
+    },
+    "why.backups.stale": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The copy is older than %lld day: make a new one."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The copy is older than %lld days: make a new one."
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Копия старше %lld дней: сделайте новую."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Копия старше %lld дней: сделайте новую."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Копия старше %lld дня: сделайте новую."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Копия старше %lld дня: сделайте новую."
+                }
+              }
+            }
           }
         }
       }
@@ -3405,6 +5433,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Последняя сверка"
+          }
+        }
+      }
+    },
+    "why.currencies.native": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ in the currency itself"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ в самой валюте"
+          }
+        }
+      }
+    },
+    "why.currencies.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No money counted on the accounts of the summary yet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деньги на счетах из сводки ещё не посчитаны."
+          }
+        }
+      }
+    },
+    "why.currencies.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money on the accounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деньги на счетах"
+          }
+        }
+      }
+    },
+    "why.currencies.withoutRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No rate for %@: their money is left out of the total."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет курса для %@: их деньги не входят в итог."
           }
         }
       }
@@ -4475,6 +6571,23 @@
         }
       }
     },
+    "why.grew.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No category has grown against the same days of last month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни одна категория не выросла к тем же дням прошлого месяца."
+          }
+        }
+      }
+    },
     "why.iOwe.inCurrency": {
       "extractionState": "manual",
       "localizations": {
@@ -4583,13 +6696,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Still expected this month"
+            "value": "Still expected"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ещё ожидается в этом месяце"
+            "value": "Ещё ожидается"
           }
         }
       }
@@ -4670,13 +6783,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Already came"
+            "value": "Received this month"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Уже пришло"
+            "value": "Получено за месяц"
           }
         }
       }
@@ -4847,6 +6960,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Осталось заплатить"
+          }
+        }
+      }
+    },
+    "why.integrity.last": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The last check"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последняя проверка"
+          }
+        }
+      }
+    },
+    "why.integrity.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The database has not been checked yet; the check runs once a week."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "База ещё не проверялась; проверка идёт раз в неделю."
+          }
+        }
+      }
+    },
+    "why.integrity.problems": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rows found wrong"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найдено неверных записей"
           }
         }
       }
@@ -5331,6 +7495,227 @@
         }
       }
     },
+    "why.monthRest.debts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dues of debts held back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сроки по долгам, которые учтены"
+          }
+        }
+      }
+    },
+    "why.monthRest.main": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What can be spent now"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можно тратить сейчас"
+          }
+        }
+      }
+    },
+    "why.monthRest.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The rest of the month is offered from the 1st to the 10th, until you allocate it or decline."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток месяца предлагается с 1-го по 10-е число, пока вы его не распределили или не отказались."
+          }
+        }
+      }
+    },
+    "why.monthRest.of": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest of %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток за %@"
+          }
+        }
+      }
+    },
+    "why.monthRest.scheduled": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payments held back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платежи, которые учтены"
+          }
+        }
+      }
+    },
+    "why.monthRest.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The rest"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток"
+          }
+        }
+      }
+    },
+    "why.months.current": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The current month is counted up to today."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Текущий месяц посчитан до сегодняшнего дня."
+          }
+        }
+      }
+    },
+    "why.months.row": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
+        }
+      }
+    },
+    "why.months.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent in twelve months"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрачено за двенадцать месяцев"
+          }
+        }
+      }
+    },
+    "why.move.before": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The same days of last month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Те же дни прошлого месяца"
+          }
+        }
+      }
+    },
+    "why.move.now": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This month so far"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В этом месяце на сегодня"
+          }
+        }
+      }
+    },
+    "why.move.share": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change in per cent"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменение в процентах"
+          }
+        }
+      }
+    },
+    "why.move.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменение"
+          }
+        }
+      }
+    },
     "why.name": {
       "extractionState": "manual",
       "localizations": {
@@ -5707,6 +8092,74 @@
         }
       }
     },
+    "why.people.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My spending of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои расходы месяца"
+          }
+        }
+      }
+    },
+    "why.places.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No spending with a place this month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Трат с местом в этом месяце нет."
+          }
+        }
+      }
+    },
+    "why.places.rest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smaller places and spending with no place"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мелкие места и траты без места"
+          }
+        }
+      }
+    },
+    "why.places.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My spending of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои расходы месяца"
+          }
+        }
+      }
+    },
     "why.qualities.badBefore": {
       "extractionState": "manual",
       "localizations": {
@@ -5809,6 +8262,23 @@
         }
       }
     },
+    "why.rates.age": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days old"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дней назад"
+          }
+        }
+      }
+    },
     "why.rates.change": {
       "extractionState": "manual",
       "localizations": {
@@ -5822,6 +8292,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Изменение, %@"
+          }
+        }
+      }
+    },
+    "why.rates.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The newest rate is of"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Самый свежий курс — на"
           }
         }
       }
@@ -5866,13 +8353,66 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The rates are loading or the bank has none for the period."
+            "value": "The app holds no rate of a foreign currency yet."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Курсы загружаются или у ЦБ нет курсов за период."
+            "value": "В приложении пока нет курса иностранной валюты."
+          }
+        }
+      }
+    },
+    "why.rates.stale": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The rate is older than %lld day."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "The rate is older than %lld days."
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Курсу больше %lld дней."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Курсу больше %lld дней."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Курсу больше %lld дня."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Курсу больше %lld дня."
+                }
+              }
+            }
           }
         }
       }
@@ -6013,6 +8553,40 @@
         }
       }
     },
+    "why.rule.averageDaily": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My spending of the month so far divided by the days from the 1st through today."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои расходы месяца на сегодня, делённые на число дней с 1-го по сегодня."
+          }
+        }
+      }
+    },
+    "why.rule.backups": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The newest copy of the database in the folder of copies; a copy older than a week is stale."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Самая свежая копия базы в папке копий; копия старше недели считается устаревшей."
+          }
+        }
+      }
+    },
     "why.rule.balanceForecast": {
       "extractionState": "manual",
       "localizations": {
@@ -6060,6 +8634,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что у меня есть — деньги на всех счетах, имущество и долги мне — минус то, что я должен."
+          }
+        }
+      }
+    },
+    "why.rule.categoryGrew": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The category whose spending grew most in rubles against the same days of last month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория, расходы по которой выросли больше всех в рублях к тем же дням прошлого месяца."
+          }
+        }
+      }
+    },
+    "why.rule.categoryShrank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The category whose spending fell most in rubles against the same days of last month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория, расходы по которой сократились больше всех в рублях к тем же дням прошлого месяца."
+          }
+        }
+      }
+    },
+    "why.rule.currencyBalances": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The balances of the accounts in the summary, grouped by currency; each currency is shown in rubles at the rate of the day, and together they are the total of «Всего»."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остатки счетов из сводки, сгруппированные по валютам; каждая валюта показана в рублях по курсу дня, вместе они дают «Всего»."
           }
         }
       }
@@ -6183,6 +8808,23 @@
         }
       }
     },
+    "why.rule.incomeSources": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The income of this month by the category it was filed under."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доход этого месяца по категориям, в которых он записан."
+          }
+        }
+      }
+    },
     "why.rule.installments": {
       "extractionState": "manual",
       "localizations": {
@@ -6196,6 +8838,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сколько ещё должны открытые рассрочки и покупки в кредит, в рублях по курсу сегодня."
+          }
+        }
+      }
+    },
+    "why.rule.integrity": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The result of the last check of the database, which only reads and runs once a week."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итог последней проверки базы, которая только читает и идёт раз в неделю."
           }
         }
       }
@@ -6268,6 +8927,40 @@
         }
       }
     },
+    "why.rule.monthIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The income that belongs to this month and has arrived by today, by source; what is still expected comes apart from it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доход, который относится к этому месяцу и пришёл к сегодняшнему дню, по источникам; ожидаемое показано отдельно."
+          }
+        }
+      }
+    },
+    "why.rule.monthRest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What can be spent now less the payments and the dues of debts held back through the day, in the first ten days of the month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что можно тратить сейчас за вычетом платежей и сроков по долгам до этого дня — в первые десять дней месяца."
+          }
+        }
+      }
+    },
     "why.rule.monthToDate": {
       "extractionState": "manual",
       "localizations": {
@@ -6281,6 +8974,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доходы этого месяца, пришедшие по сегодня, минус мои расходы с 1-го числа по сегодня; оба сравниваются с теми же днями прошлого месяца."
+          }
+        }
+      }
+    },
+    "why.rule.monthlySpending": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My spending of each of the last twelve months, the current one so far."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои расходы за каждый из последних двенадцати месяцев, текущий — на сегодня."
           }
         }
       }
@@ -6319,6 +9029,40 @@
         }
       }
     },
+    "why.rule.ratesStatus": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The day of the newest rate of a currency the app holds; the bank does not publish on weekends, so a few days is normal."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День самого свежего курса валюты в приложении; по выходным банк не публикует, так что несколько дней — это нормально."
+          }
+        }
+      }
+    },
+    "why.rule.savingsRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contributions to goals plus the rubles moved into the cushion and the deposits, less the rubles taken out of them, as a share of the income of the month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Взносы в цели плюс рубли, переведённые в подушку и на вклады, за вычетом снятых, как доля дохода месяца."
+          }
+        }
+      }
+    },
     "why.rule.selfEmployment": {
       "extractionState": "manual",
       "localizations": {
@@ -6332,6 +9076,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Налог месяца: доход по курсу ЦБ дня × ставка минус вычет, до копейки; меньше 100 ₽ переносится; срок — 28-е следующего месяца."
+          }
+        }
+      }
+    },
+    "why.rule.smallPurchases": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My parts of this month's spending that cost no more than the limit you set, outside the essential categories, the goals and the counts."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои части трат этого месяца не дороже заданного вами предела, вне необходимых категорий, целей и сверок."
+          }
+        }
+      }
+    },
+    "why.rule.spendToday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What I spent today — my share of every operation of the day, refunds taken off — against the average of the days before it over the last 28."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сколько я потратил сегодня — моя доля каждой операции дня за вычетом возвратов — против среднего за предыдущие 28 дней."
+          }
+        }
+      }
+    },
+    "why.rule.spendingByPerson": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My spending of the month by «на кого»; the names are the ones you gave."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои расходы месяца по «на кого»; названия — те, что вы дали."
           }
         }
       }
@@ -6387,6 +9182,23 @@
         }
       }
     },
+    "why.rule.topPlaces": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My spending of the month by place; the smaller places and spending with no place are one line."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои расходы месяца по местам; мелкие места и траты без места — одной строкой."
+          }
+        }
+      }
+    },
     "why.rule.upcoming": {
       "extractionState": "manual",
       "localizations": {
@@ -6404,6 +9216,40 @@
         }
       }
     },
+    "why.rule.weekOverWeek": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My spending from Monday through today against the same days of the week before."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои расходы с понедельника по сегодня против тех же дней прошлой недели."
+          }
+        }
+      }
+    },
+    "why.rule.weekdaySpending": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My spending of the last twelve weeks added up by day of the week; the average is of one such day."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои расходы за последние двенадцать недель, сложенные по дням недели; среднее — за один такой день."
+          }
+        }
+      }
+    },
     "why.rule.worthALook": {
       "extractionState": "manual",
       "localizations": {
@@ -6417,6 +9263,161 @@
           "stringUnit": {
             "state": "translated",
             "value": "Необычное за последний месяц, найденное правилами, деньги целей, которые похоже потрачены, и деньги на счетах в архиве."
+          }
+        }
+      }
+    },
+    "why.savings.accounts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rubles moved into the cushion and deposits, net"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рубли, переведённые в подушку и на вклады, за вычетом снятых"
+          }
+        }
+      }
+    },
+    "why.savings.foreign": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld move in another currency is left out: no rate is applied here."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld moves in other currencies are left out: no rate is applied here."
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перевода в другой валюте не учтено: курс здесь не применяется."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переводов в другой валюте не учтено: курс здесь не применяется."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перевод в другой валюте не учтён: курс здесь не применяется."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перевода в другой валюте не учтено: курс здесь не применяется."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "why.savings.goals": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contributions to goals"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Взносы в цели"
+          }
+        }
+      }
+    },
+    "why.savings.income": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Income of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доход месяца"
+          }
+        }
+      }
+    },
+    "why.savings.noIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no income this month yet, so there is no share to count."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохода в этом месяце ещё нет, доли считать не от чего."
+          }
+        }
+      }
+    },
+    "why.savings.rate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share of the income"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доля дохода"
+          }
+        }
+      }
+    },
+    "why.savings.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Put aside"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отложено"
           }
         }
       }
@@ -6795,6 +9796,244 @@
         }
       }
     },
+    "why.shrank.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No category has shrunk against the same days of last month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни одна категория не сократилась к тем же дням прошлого месяца."
+          }
+        }
+      }
+    },
+    "why.small.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchases"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупок"
+          }
+        }
+      }
+    },
+    "why.small.limit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The limit of a small purchase"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предел мелкой покупки"
+          }
+        }
+      }
+    },
+    "why.small.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No small purchases this month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мелких покупок в этом месяце нет."
+          }
+        }
+      }
+    },
+    "why.small.notSet": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Say how small a small purchase is in Settings → Entry, and the tile counts them."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укажите в Настройки → Ввод, какая покупка мелкая, и плитка их посчитает."
+          }
+        }
+      }
+    },
+    "why.small.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Small purchases"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мелкие покупки"
+          }
+        }
+      }
+    },
+    "why.sources.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No income this month yet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доходов в этом месяце пока нет."
+          }
+        }
+      }
+    },
+    "why.sources.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Income of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доход месяца"
+          }
+        }
+      }
+    },
+    "why.today.against": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today against it"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня к нему"
+          }
+        }
+      }
+    },
+    "why.today.noUsual": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no earlier day in the books to compare with."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В книге нет более раннего дня для сравнения."
+          }
+        }
+      }
+    },
+    "why.today.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing was spent today."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня трат не было."
+          }
+        }
+      }
+    },
+    "why.today.operations": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operations today"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операций сегодня"
+          }
+        }
+      }
+    },
+    "why.today.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent today"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрачено сегодня"
+          }
+        }
+      }
+    },
+    "why.today.usual": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An ordinary day (the last 28)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обычный день (последние 28)"
+          }
+        }
+      }
+    },
     "why.top.refunded": {
       "extractionState": "manual",
       "localizations": {
@@ -6963,6 +10202,261 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "why.week.before": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The same days of the week before, %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Те же дни прошлой недели, %@"
+          }
+        }
+      }
+    },
+    "why.week.change": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменение"
+          }
+        }
+      }
+    },
+    "why.week.changeShare": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change in per cent"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменение в процентах"
+          }
+        }
+      }
+    },
+    "why.week.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
+        }
+      }
+    },
+    "why.week.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent this week"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрачено на этой неделе"
+          }
+        }
+      }
+    },
+    "why.weekday.1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Понедельник"
+          }
+        }
+      }
+    },
+    "why.weekday.2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuesday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вторник"
+          }
+        }
+      }
+    },
+    "why.weekday.3": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wednesday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Среда"
+          }
+        }
+      }
+    },
+    "why.weekday.4": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thursday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Четверг"
+          }
+        }
+      }
+    },
+    "why.weekday.5": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Friday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пятница"
+          }
+        }
+      }
+    },
+    "why.weekday.6": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saturday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Суббота"
+          }
+        }
+      }
+    },
+    "why.weekday.7": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Воскресенье"
+          }
+        }
+      }
+    },
+    "why.weekday.average": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ on average"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "в среднем %@"
+          }
+        }
+      }
+    },
+    "why.weekday.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Over %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За период %@"
+          }
+        }
+      }
+    },
+    "why.weekday.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent in these weeks"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрачено за эти недели"
           }
         }
       }

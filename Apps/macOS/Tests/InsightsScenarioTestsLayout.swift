@@ -42,14 +42,16 @@ final class InsightsScenarioLayoutTests: XCTestCase {
     XCTAssertEqual(shown.shownTiles(in: .money).last, .worthALook)
   }
 
-  /// The tiles of the credits and of self-employment wait hidden for an owner who never chose,
-  /// and are offered by «Добавить плитку».
+  /// The tiles of the credits, of self-employment and of 2.0 wait hidden for an owner who never
+  /// chose, and are offered by «Добавить плитку»: the 22 tiles of the builds before stay shown.
   func testTheNewerTilesWaitToBeAdded() {
     let standard = OverviewLayout.standard
     XCTAssertTrue(standard.isHidden(.installments))
     XCTAssertTrue(standard.isHidden(.selfEmployment))
-    XCTAssertEqual(standard.hiddenInOrder, [.installments, .selfEmployment])
-    XCTAssertEqual(standard.shown.count, OverviewTile.allCases.count - 2)
+    let waiting = OverviewTile.allCases.filter { !$0.isShownUnnamed }
+    XCTAssertEqual(Set(standard.hiddenInOrder), Set(waiting))
+    XCTAssertEqual(standard.shown.count, OverviewTile.allCases.count - waiting.count)
+    XCTAssertEqual(standard.shown.count, 22)
   }
 
   /// A flat list of an older build shows exactly what it names, each tile in its group.

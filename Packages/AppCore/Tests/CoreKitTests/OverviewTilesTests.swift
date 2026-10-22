@@ -9,15 +9,19 @@ import Testing
 /// always reads as a list the grid can show.
 @Suite("The tiles of Overview")
 struct OverviewTilesTests {
-  /// Twenty-four kinds, in the order of the settings; the raw values are what is stored.
-  @Test func twentyFourKindsInTheOrderOfTheSettings() {
+  /// Forty-two kinds, in the order of the settings: the twenty-four of the builds before, then
+  /// the eighteen of 2.0; the raw values are what is stored, and a case is never renamed.
+  @Test func fortyTwoKindsInTheOrderOfTheSettings() {
     #expect(
       OverviewTile.allCases.map(\.rawValue) == [
         "monthToDate", "topCategories", "qualities", "canSave", "spendingForecast",
         "incomeForecast", "balanceForecast", "limits", "upcoming", "expectedIncome", "owedToMe",
         "iOwe", "event", "lastCount", "lastRecord", "lastCountAndRecord", "worthALook",
         "freeMoney", "currencyChart", "spendingCalendar", "capital", "cushion", "installments",
-        "selfEmployment",
+        "selfEmployment", "currencyBalances", "spendToday", "weekOverWeek", "averageDaily",
+        "monthIncome", "savingsRate", "monthRest", "weekdaySpending", "monthlySpending",
+        "incomeSources", "topPlaces", "spendingByPerson", "categoryGrew", "categoryShrank",
+        "smallPurchases", "backups", "integrity", "ratesStatus",
       ])
   }
 
@@ -30,8 +34,10 @@ struct OverviewTilesTests {
     #expect(OverviewTile.selfEmployment.defaultGroup == .plan)
     #expect(
       !OverviewTile.installments.isShownUnnamed && !OverviewTile.selfEmployment.isShownUnnamed)
+    // Waiting with them: every tile of 2.0, which no kept layout names.
     #expect(
-      OverviewTile.allCases.filter { !$0.isShownUnnamed } == [.installments, .selfEmployment])
+      OverviewTile.allCases.filter { !$0.isShownUnnamed }
+        == [.installments, .selfEmployment] + OverviewTile.allCases.suffix(18))
     #expect(
       OverviewTiles.decode("installments,selfEmployment,limits")
         == [.installments, .selfEmployment, .limits])

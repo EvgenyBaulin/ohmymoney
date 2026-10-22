@@ -468,8 +468,9 @@ final class SettingsAccessibilityTests: XCTestCase {
     XCTAssertEqual(
       Set(actions(row(.limits))), [down, moveTo(.money), moveTo(.analysis)],
       "the first tile of «План»")
+    // The tiles of 2.0 follow the cushion in «Деньги»: the last of them is the last of the group.
     XCTAssertEqual(
-      Set(actions(row(.cushion))), [up, moveTo(.plan), moveTo(.analysis)],
+      Set(actions(row(.savingsRate))), [up, moveTo(.plan), moveTo(.analysis)],
       "the last tile of «Деньги»")
 
     let buttons =

@@ -242,6 +242,13 @@ public enum TileDestination: Hashable, Sendable {
     case .installments: .debts
     case .selfEmployment: .planning
     case .currencyChart: nil
+    case .currencyBalances: .allAccounts
+    case .spendToday, .weekOverWeek, .averageDaily, .monthIncome, .savingsRate, .weekdaySpending,
+      .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson, .categoryGrew,
+      .categoryShrank, .smallPurchases:
+      .analytics(.overview)
+    case .monthRest: .planning
+    case .backups, .integrity, .ratesStatus: nil
     }
   }
 }

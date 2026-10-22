@@ -45,8 +45,12 @@ final class OverviewScreen {
 
   /// The groups the screen shows, in the owner's order: outside editing a group with no tile
   /// shown is left out; while editing every group is there, to drop a tile into.
-  static func groups(of layout: OverviewLayout, editing: Bool) -> [OverviewTileGroup] {
-    editing ? layout.groups : layout.groups.filter { !layout.shownTiles(in: $0).isEmpty }
+  static func groups(
+    of layout: OverviewLayout, editing: Bool, facts: OverviewFacts = .none
+  ) -> [OverviewTileGroup] {
+    editing
+      ? layout.groups
+      : layout.groups.filter { !layout.visibleTiles(in: $0, facts: facts).isEmpty }
   }
 
   /// Whether the tiles of `group` are laid out under its name: unless it is collapsed — and
@@ -69,20 +73,7 @@ struct OverviewEditBar: View {
       LastRecordLine()
       Spacer(minLength: 8)
       if screen.isEditing {
-        let hidden = environment.overviewLayout.hiddenInOrder
-        Menu {
-          ForEach(hidden) { tile in
-            Button(OverviewTileText.name(of: tile, environment)) {
-              OverviewTilesActions.show(environment, tile)
-            }
-          }
-        } label: {
-          Label(t("overview.edit.add"), systemImage: "plus")
-        }
-        .menuStyle(.button)
-        .fixedSize()
-        .disabled(hidden.isEmpty)
-        .accessibilityIdentifier("overview.edit.add")
+        OverviewAddMenu()
         Button(t("overview.edit.done")) { screen.done() }
           .buttonStyle(.borderedProminent)
           .accessibilityIdentifier("overview.edit.done")
@@ -101,6 +92,7 @@ struct OverviewEditBar: View {
 /// laid out at its natural height, and every card then fills the row it stands in.
 struct OverviewGroupedGrid: View {
   @Dependency(\.environment) private var environment
+  @Dependency(\.compute) private var compute
   let columns: Int
   let actions: OperationActions
   let screen: OverviewScreen
@@ -108,18 +100,19 @@ struct OverviewGroupedGrid: View {
   var body: some View {
     let layout = environment.overviewLayout
     let editing = screen.isEditing
+    let facts = OverviewScreen.facts(compute.snapshot)
     VStack(alignment: .leading, spacing: 14) {
-      ForEach(OverviewScreen.groups(of: layout, editing: editing)) { group in
+      ForEach(OverviewScreen.groups(of: layout, editing: editing, facts: facts)) { group in
         VStack(alignment: .leading, spacing: 8) {
           OverviewGroupHeader(group: group, screen: screen)
           if OverviewScreen.showsTiles(
             of: group, collapsed: environment.overviewCollapsed, editing: editing)
           {
-            let tiles = layout.shownTiles(in: group)
-            if tiles.isEmpty {
+            let cells = layout.cells(in: group, facts: facts)
+            if cells.isEmpty {
               OverviewEmptyGroup(group: group)
             } else {
-              grid(tiles)
+              grid(cells, layout: layout)
             }
           }
         }
@@ -127,12 +120,14 @@ struct OverviewGroupedGrid: View {
     }
   }
 
-  private func grid(_ tiles: [OverviewTile]) -> some View {
+  /// The cells in rows of `columns`; a chart or a list — the whole width — has a row of its own.
+  private func grid(_ cells: [OverviewLayout.Cell], layout: OverviewLayout) -> some View {
     Grid(horizontalSpacing: 12, verticalSpacing: 12) {
-      ForEach(OverviewCard.rows(tiles, columns: columns), id: \.self) { row in
+      ForEach(OverviewCard.rows(cells, columns: columns), id: \.self) { row in
         GridRow {
-          ForEach(row) { tile in
-            OverviewTileFrame(tile: tile, actions: actions, screen: screen)
+          ForEach(row, id: \.self) { cell in
+            OverviewCellView(cell: cell, actions: actions, screen: screen)
+              .gridCellColumns(OverviewCard.span(of: cell, columns: columns))
           }
         }
       }
@@ -244,7 +239,7 @@ private struct OverviewEmptyGroup: View {
 /// editing the card's own controls rest, the tile is dragged onto another tile to take its place,
 /// «−» hides it (not the last one shown), and VoiceOver moves it by «Выше», «Ниже» and «Перенести
 /// в «…»».
-private struct OverviewTileFrame: View {
+struct OverviewTileFrame: View {
   @Dependency(\.environment) private var environment
   let tile: OverviewTile
   let actions: OperationActions
@@ -255,9 +250,11 @@ private struct OverviewTileFrame: View {
     if screen.isEditing {
       editing
     } else {
-      OverviewCardView(tile: tile, actions: actions)
-        .contentShape(Rectangle())
-        .onTapGesture { screen.open(tile) }
+      OverviewCardView(
+        tile: tile, actions: actions, compact: environment.overviewLayout.isCompact(tile)
+      )
+      .contentShape(Rectangle())
+      .onTapGesture { screen.open(tile) }
         .accessibilityElement(children: .contain)
         .accessibilityAction(named: Text(verbatim: t("overview.why"))) { screen.open(tile) }
     }
@@ -266,8 +263,10 @@ private struct OverviewTileFrame: View {
   private var editing: some View {
     let name = OverviewTileText.name(of: tile, environment)
     let canHide = environment.overviewLayout.canHide(tile)
-    return OverviewCardView(tile: tile, actions: actions)
-      .allowsHitTesting(false)
+    return OverviewCardView(
+      tile: tile, actions: actions, compact: environment.overviewLayout.isCompact(tile)
+    )
+    .allowsHitTesting(false)
       .overlay {
         RoundedRectangle(cornerRadius: 12)
           .strokeBorder(style: StrokeStyle(lineWidth: targeted ? 2 : 1, dash: [5, 4]))
@@ -292,7 +291,19 @@ private struct OverviewTileFrame: View {
         .accessibilityIdentifier("overview.edit.hide.\(tile.rawValue)")
         .offset(x: -7, y: -7)
       }
+      .overlay(alignment: .bottomTrailing) {
+        if environment.overviewLayout.isCompact(tile) {
+          Text(verbatim: t("overview.edit.compactBadge"))
+            .appFont(.caption2)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background(.quaternary, in: Capsule())
+            .padding(6)
+            .accessibilityHidden(true)
+        }
+      }
       .contextMenu {
+        OverviewSizeMenu(tile: tile)
         ForEach(OverviewTilesActions.otherGroups(environment, tile)) { group in
           Button(moveToTitle(group)) { OverviewTilesActions.move(environment, tile, to: group) }
         }
@@ -300,6 +311,7 @@ private struct OverviewTileFrame: View {
       .accessibilityElement(children: .contain)
       .accessibilityLabel(Text(verbatim: name))
       .accessibilityActions {
+        OverviewSizeMenu(tile: tile)
         ForEach(OverviewTilesActions.moves(environment, tile, amongShown: true), id: \.self) {
           step in
           Button(t(step < 0 ? "overview.edit.moveUp" : "overview.edit.moveDown")) {

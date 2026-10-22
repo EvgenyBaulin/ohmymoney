@@ -283,7 +283,8 @@ enum TileWhy {
       calendarWeek: CalendarScreen.calendar(
         of: snapshot, scope: .week, anchor: snapshot.today,
         firstWeekday: CalendarScreen.firstWeekday(locale: environment.language.locale)),
-      rates: rates)
+      rates: rates, figures: OverviewFiguresStore.shared.figures(for: snapshot),
+      system: OverviewFiguresStore.shared.systemStatus(for: snapshot, environment: environment))
   }
 
   /// The rates of the chart tile's pair and period, as the tile keeps them on this Mac and
