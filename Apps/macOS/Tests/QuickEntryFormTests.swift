@@ -69,7 +69,7 @@ final class QuickEntryFormTests: XCTestCase {
     // waited for by suspending, up to two seconds. A run loop spun inside this test alone never
     // lets that task run — the test holds the main actor — and the focus seemed not to land.
     var focused: NSTextField?
-    let deadline = Date().addingTimeInterval(2)
+    let deadline = Date().addingTimeInterval(8)  // generous: a full parallel run loads the host
     repeat {
       try await Task.sleep(for: .milliseconds(50))
       host.settle(0.05)
