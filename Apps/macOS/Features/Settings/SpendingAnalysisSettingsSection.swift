@@ -106,11 +106,14 @@ struct SpendingAnalysisSettingsSection: View {
     }
   }
 
-  private func dayPicker(_ weekday: Int, id: String, set: @escaping @MainActor (Int) -> Void)
+  private func dayPicker(
+    _ weekday: Int, id: String, set: @escaping @MainActor (Int) -> Void
+  )
     -> some View
   {
     Picker(
-      selection: Binding(get: { weekday }, set: { value in MainActor.assumeIsolated { set(value) } })
+      selection: Binding(
+        get: { weekday }, set: { value in MainActor.assumeIsolated { set(value) } })
     ) {
       ForEach(1...7, id: \.self) { value in
         Text(verbatim: environment.dates.weekday(value)).tag(value)

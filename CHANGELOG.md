@@ -7,6 +7,35 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.1.0] — 2026-10-23
+
+Four releases in one: spending analysis, income and savings, rules and tags, and quick entry.
+The database schema is 13; opening the app upgrades the database after a verified copy.
+
+### Added
+
+- Spending analysis: two periods side by side (ready pairs or your own range, with a CSV), «a
+  year ago», the price of the weekend, the usual day, a heatmap by hour, favourite places and
+  habits, what you spend on people, «leaks», what ate a limit, and the price of a purchase in
+  working hours. Two new tiles, «Weekend price» and «Usual day». An operation can be marked
+  one-off, singly or in bulk, to stay out of averages and forecasts.
+- Income and savings: the savings rate by month, the budget split into needs, wants and
+  savings against its target, the share of obligatory spending, the cushion in days, the
+  stability of income, a note when spending grows faster than income, the effect of payday, and
+  a financial health score with its history. Two new tiles, «Savings rate» and «Financial
+  health».
+- Rules and tags: rules that fill category, rating, whom it is for, place and tags; a preview
+  and an undo for «apply to past operations»; `#tags` in the entry line, tag reports and
+  filters; a file to exchange rules (`.ohmymoneyrules`).
+- Quick entry: suggestions for places, correcting the last entry, repeating a past day, paste of
+  a bank message, a split bar, moving an entry to another day, drafts, notes on a day, and the
+  last four digits and details of a card.
+
+### Changed
+
+- The database schema is 13: a one-off flag, the budget basket of a category, card details,
+  tags, rules and day notes. The export holds 35 files.
+
 ## [2.0.0] — 2026-10-22
 
 OhMyMoney 2.0 is a new application with a new identifier: it runs on the Mac, the iPhone and the
