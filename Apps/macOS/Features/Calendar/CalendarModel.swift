@@ -46,6 +46,34 @@ enum CalendarScreen {
   }
 }
 
+// MARK: - Layout
+
+/// How the calendar screen lays itself out, apart from the view so a test reads the rules: two
+/// columns (the chosen day beside the grid and what is coming) once the window is wide, one
+/// column below that; and the list of what is coming, soonest first.
+enum CalendarLayout {
+  /// The width from which the day list stands beside the grid (the Figma frame is 1040 pt of
+  /// content; below ~860 pt the grid would shrink under 56 pt a day).
+  static let wideThreshold: CGFloat = 860
+
+  static func isWide(width: CGFloat) -> Bool { width >= wideThreshold }
+
+  /// How many upcoming events the card lists.
+  static let upcomingLimit = 6
+
+  /// The plans of the days shown from today on, soonest first, payments before incomes within
+  /// a day, at most `limit`; the days ahead only, so a past day never appears.
+  static func upcoming(
+    in calendar: SpendingCalendar, limit: Int = upcomingLimit
+  ) -> [CalendarPlan] {
+    let plans = calendar.weeks.flatMap { $0 }
+      .filter { $0.inScope || calendar.scope == .week }
+      .filter { $0.isToday || $0.isFuture }
+      .flatMap(\.plans)
+    return Array(plans.prefix(limit))
+  }
+}
+
 // MARK: - Words
 
 /// The words of the calendar, from the Overview catalog, apart from the views so a test reads
@@ -60,7 +88,8 @@ enum CalendarText {
     "calendar.level.higher", "calendar.level.muchHigher", "calendar.plannedOut",
     "calendar.plannedIn", "calendar.plansWithoutRate", "calendar.usual", "calendar.lowData",
     "calendar.atTodaysRate", "calendar.planned", "calendar.payment", "calendar.income",
-    "calendar.day.empty", "calendar.open", "calendar.total",
+    "calendar.day.empty", "calendar.open", "calendar.total", "calendar.upcoming",
+    "calendar.legend.level",
   ]
 
   static func t(_ key: String, _ environment: AppEnvironment) -> String {

@@ -10,6 +10,7 @@ struct CalendarView: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
+  @Environment(\.themeSurfaces) private var surfaces
   let actions: OperationActions
 
   @State private var scope: CalendarScope = .month
@@ -18,6 +19,7 @@ struct CalendarView: View {
   /// The day whose operations are listed; `nil` is today.
   @State private var chosen: DateOnly?
   @State private var selection: Set<UUID> = []
+  @State private var width: CGFloat = 0
 
   private func t(_ key: String) -> String { CalendarText.t(key, environment) }
 
@@ -39,28 +41,44 @@ struct CalendarView: View {
     let calendar = CalendarScreen.calendar(
       of: snapshot, scope: scope, anchor: anchor ?? snapshot.today, firstWeekday: firstWeekday)
     let chosenDay = calendar.day(chosen ?? snapshot.today)
-    return VStack(alignment: .leading, spacing: 10) {
+    let wide = CalendarLayout.isWide(width: width)
+    let dayList = DayList(
+      groups: CalendarScreen.groups(of: chosenDay, in: snapshot, calendar: environment.calendar),
+      selection: $selection,
+      ledger: snapshot.ledger,
+      emptyText: chosenDay.map { _ in t("calendar.day.empty") },
+      header: { plans(of: chosenDay, in: calendar) },
+      menu: { ids in BulkMenuItems(ids: ids, actions: actions, offersEdit: true) },
+      primaryAction: { ids in actions.edit(ids, store: store) },
+      deleteAction: { ids in actions.requestDeletion(of: ids, store: store) }
+    )
+    .frame(minHeight: 160)
+    .accessibilityIdentifier("calendar.dayList")
+    return VStack(alignment: .leading, spacing: 12) {
       header(calendar, today: snapshot.today)
-      summary(calendar)
-      grid(calendar)
-      DayList(
-        groups: CalendarScreen.groups(of: chosenDay, in: snapshot, calendar: environment.calendar),
-        selection: $selection,
-        ledger: snapshot.ledger,
-        emptyText: chosenDay.map { _ in t("calendar.day.empty") },
-        header: { plans(of: chosenDay, in: calendar) },
-        menu: { ids in BulkMenuItems(ids: ids, actions: actions, offersEdit: true) },
-        primaryAction: { ids in actions.edit(ids, store: store) },
-        deleteAction: { ids in actions.requestDeletion(of: ids, store: store) }
-      )
-      .frame(minHeight: 160)
-      .accessibilityIdentifier("calendar.dayList")
+      if wide {
+        HStack(alignment: .top, spacing: 16) {
+          dayList
+            .clipShape(.rect(cornerRadius: 12))
+            .frame(maxWidth: 360)
+          VStack(alignment: .leading, spacing: 12) {
+            gridCard(calendar)
+            upcomingCard(calendar)
+          }
+          .frame(maxWidth: .infinity, alignment: .top)
+        }
+      } else {
+        gridCard(calendar)
+        dayList.clipShape(.rect(cornerRadius: 12))
+        upcomingCard(calendar)
+      }
     }
     .padding(.horizontal, 20)
     .padding(.top, 12)
     .onChange(of: compute.generation) { _, _ in actions.reloadDictionaries(from: snapshot.dataset) }
     .onAppear { actions.reloadDictionaries(from: snapshot.dataset) }
     .onChange(of: chosen) { _, _ in selection = [] }
+    .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
   }
 
   // MARK: - Header
@@ -174,6 +192,55 @@ struct CalendarView: View {
       Text(verbatim: t(key))
     } icon: {
       Image(systemName: symbol).foregroundStyle(tint)
+    }
+  }
+
+  // MARK: - Cards
+
+  /// The grid with the summary and the legend on one card, as in the design.
+  private func gridCard(_ calendar: SpendingCalendar) -> some View {
+    VStack(alignment: .leading, spacing: 10) {
+      summary(calendar)
+      grid(calendar)
+      Text(verbatim: t("calendar.legend.level"))
+        .appFont(.caption)
+        .foregroundStyle(.secondary)
+    }
+    .contentCard()
+  }
+
+  /// What is planned from today on, soonest first; hidden when nothing is.
+  @ViewBuilder
+  private func upcomingCard(_ calendar: SpendingCalendar) -> some View {
+    let plans = CalendarLayout.upcoming(in: calendar)
+    if !plans.isEmpty {
+      VStack(alignment: .leading, spacing: 8) {
+        HStack {
+          Text(verbatim: t("calendar.upcoming")).appFont(.headline)
+          Spacer()
+          Text(verbatim: "\(plans.count)").appFont(.caption).foregroundStyle(.secondary)
+        }
+        .accessibilityElement(children: .combine)
+        ForEach(plans) { plan in
+          HStack(spacing: 8) {
+            Image(systemName: CalendarText.symbol(of: plan.kind))
+              .foregroundStyle(plan.kind == .income ? surfaces.positive : surfaces.accent)
+              .frame(width: 22)
+              .accessibilityLabel(
+                Text(verbatim: t(plan.kind == .payment ? "calendar.payment" : "calendar.income")))
+            Text(verbatim: "\(environment.dates.longDay(plan.day)) · \(plan.name)")
+              .lineLimit(1)
+            Spacer(minLength: 6)
+            Text(verbatim: CalendarText.amount(of: plan, environment))
+              .monospacedDigit()
+              .foregroundStyle(plan.kind == .income ? surfaces.positive : surfaces.primary)
+          }
+          .appFont(.callout)
+          .accessibilityElement(children: .combine)
+        }
+      }
+      .contentCard()
+      .accessibilityIdentifier("calendar.upcoming")
     }
   }
 

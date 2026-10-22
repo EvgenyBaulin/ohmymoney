@@ -8,6 +8,7 @@ import SwiftUI
 struct CalendarDayCell: View {
   @Dependency(\.environment) private var environment
   @Environment(\.colorSchemeContrast) private var contrast
+  @Environment(\.themeSurfaces) private var surfaces
 
   let day: SpendingCalendarDay
   let calendar: SpendingCalendar
@@ -25,7 +26,7 @@ struct CalendarDayCell: View {
         if let symbol = CalendarText.symbol(of: day.level) {
           Image(systemName: symbol)
             .appFont(.caption2.weight(.semibold))
-            .foregroundStyle(.orange)
+            .foregroundStyle(surfaces.warning)
         }
       }
       if day.inScope || calendar.scope == .week {
@@ -62,14 +63,14 @@ struct CalendarDayCell: View {
         (compact ? AppFont.caption : .callout).monospacedDigit().weight(
           day.isToday ? .bold : .regular)
       )
-      .foregroundStyle(day.isToday ? AnyShapeStyle(.white) : AnyShapeStyle(.primary))
+      .foregroundStyle(day.isToday ? AnyShapeStyle(surfaces.onAccent) : AnyShapeStyle(surfaces.primary))
       // A number is one line, however narrow the cell of the strip: «15» was «1» over «5». It
       // gives way a little in size instead of pushing the strip wider than the window.
       .lineLimit(1)
       .minimumScaleFactor(0.6)
       .padding(.horizontal, day.isToday ? (compact ? 3 : 5) : 0)
       .background {
-        if day.isToday { Capsule().fill(.tint) }
+        if day.isToday { Capsule().fill(surfaces.accent) }
       }
   }
 
@@ -121,13 +122,13 @@ struct CalendarDayCell: View {
   /// The tint of the level over the plain cell: a usual day and a day ahead keep the plain one.
   private var background: AnyShapeStyle {
     switch day.level {
-    case .higher: AnyShapeStyle(Color.orange.quaternary)
-    case .muchHigher: AnyShapeStyle(Color.orange.tertiary)
-    case .usual, .none: AnyShapeStyle(.background.secondary)
+    case .higher: AnyShapeStyle(surfaces.warning.opacity(0.14))
+    case .muchHigher: AnyShapeStyle(surfaces.warning.opacity(0.28))
+    case .usual, .none: AnyShapeStyle(surfaces.card)
     }
   }
 
   private var borderStyle: AnyShapeStyle {
-    isChosen ? AnyShapeStyle(.tint) : AnyShapeStyle(.separator)
+    isChosen ? AnyShapeStyle(surfaces.accent) : AnyShapeStyle(.separator)
   }
 }

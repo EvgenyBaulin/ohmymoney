@@ -52,6 +52,23 @@
         }
       }
     },
+    "calendar.legend.level": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day fill: spending above usual, lighter is a little, deeper is much"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заливка дня — траты выше обычного: светлая — немного, насыщенная — намного"
+          }
+        }
+      }
+    },
     "calendar.level.higher": {
       "extractionState": "manual",
       "localizations": {
@@ -354,6 +371,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Потрачено: %@"
+          }
+        }
+      }
+    },
+    "calendar.upcoming": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coming up"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ближайшие события"
           }
         }
       }
