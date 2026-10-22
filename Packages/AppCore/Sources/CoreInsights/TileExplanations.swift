@@ -36,6 +36,11 @@ public struct TileInputs: Sendable {
   public var figures: OverviewFigures?
   /// The state of the copies, the check of the database and the rates.
   public var system: OverviewSystemStatus?
+  /// The savings norm of the month so far (`SavingsNorm.month`): «Норма сбережений» explains
+  /// itself from it. Without it the 2.0 breakdown of what was put aside stays.
+  public var savingsNorm: SavingsNormMonth?
+  /// The financial health now; `nil` while it has not been counted.
+  public var health: FinancialHealth?
 
   public init(
     ledger: Ledger, summary: OverviewSummary, planning: PlanningSnapshot, today: DateOnly,
@@ -43,7 +48,8 @@ public struct TileInputs: Sendable {
     summaryAccountIds: [UUID] = [], owed: AmountE4? = nil, anomalies: AnomalyReport? = nil,
     limits: [LimitLine] = [], limitNames: [UUID: String] = [:], anomaliesShown: Int = 3,
     calendarWeek: SpendingCalendar? = nil, rates: TileRateSeries? = nil,
-    figures: OverviewFigures? = nil, system: OverviewSystemStatus? = nil
+    figures: OverviewFigures? = nil, system: OverviewSystemStatus? = nil,
+    savingsNorm: SavingsNormMonth? = nil, health: FinancialHealth? = nil
   ) {
     self.ledger = ledger
     self.summary = summary
@@ -61,6 +67,8 @@ public struct TileInputs: Sendable {
     self.rates = rates
     self.figures = figures
     self.system = system
+    self.savingsNorm = savingsNorm
+    self.health = health
   }
 }
 

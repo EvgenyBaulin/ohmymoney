@@ -3610,6 +3610,23 @@
         }
       }
     },
+    "overview.tile.financialHealth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Financial health"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Финансовое здоровье"
+          }
+        }
+      }
+    },
     "overview.tile.freeMoney": {
       "extractionState": "manual",
       "localizations": {
@@ -4273,6 +4290,23 @@
         }
       }
     },
+    "overview.tile.usualDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usual day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обычный день"
+          }
+        }
+      }
+    },
     "overview.tile.weekOverWeek": {
       "extractionState": "manual",
       "localizations": {
@@ -4303,6 +4337,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Расходы по дням недели"
+          }
+        }
+      }
+    },
+    "overview.tile.weekendPrice": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekend price"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цена выходных"
           }
         }
       }
@@ -7835,6 +7886,23 @@
         }
       }
     },
+    "why.open.analytics.days": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Analytics: Days and time"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть «Аналитику»: дни и время"
+          }
+        }
+      }
+    },
     "why.open.analytics.forecast": {
       "extractionState": "manual",
       "localizations": {
@@ -7848,6 +7916,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть «Аналитику»: прогноз"
+          }
+        }
+      }
+    },
+    "why.open.analytics.incomeSavings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Analytics: Income and savings"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть «Аналитику»: доход и сбережения"
           }
         }
       }
@@ -8791,6 +8876,23 @@
         }
       }
     },
+    "why.rule.financialHealth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One number out of a hundred made of five parts: the cushion, the debt load, the savings rate, overdue dues and the stability of income. A part with no data is left out and the rest are scaled to a hundred; the points of the parts add up to the number."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одно число из ста из пяти частей: подушка, долговая нагрузка, норма сбережений, просрочки и стабильность дохода. Часть без данных не считается, остальные пересчитываются на сто; баллы частей складываются в число."
+          }
+        }
+      }
+    },
     "why.rule.freeMoney": {
       "extractionState": "manual",
       "localizations": {
@@ -9086,13 +9188,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Contributions to goals plus the rubles moved into the cushion and the deposits, less the rubles taken out of them, as a share of the income of the month."
+            "value": "The income of the month less my spending (money put into goals is put aside, not spent) is what is kept; its share of the income is the savings rate."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Взносы в цели плюс рубли, переведённые в подушку и на вклады, за вычетом снятых, как доля дохода месяца."
+            "value": "Доход месяца минус мои траты (деньги в цели — отложенные, а не траты) — это то, что осталось; его доля в доходе и есть норма сбережений."
           }
         }
       }
@@ -9250,6 +9352,23 @@
         }
       }
     },
+    "why.rule.usualDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The median of the days with spending in the last 90 days, told apart for weekdays and weekend days; one-off purchases left out."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Медиана дней с тратами за последние 90 дней отдельно для будней и выходных; разовые не входят."
+          }
+        }
+      }
+    },
     "why.rule.weekOverWeek": {
       "extractionState": "manual",
       "localizations": {
@@ -9280,6 +9399,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мои расходы за последние двенадцать недель, сложенные по дням недели; среднее — за один такой день."
+          }
+        }
+      }
+    },
+    "why.rule.weekendPrice": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What I spent this month in the hours the settings call the weekend, a total that keeps one-off purchases; the month before is beside it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сколько я потратил в этом месяце в часы, которые настройки считают выходными, итогом вместе с разовыми; рядом — прошлый месяц."
           }
         }
       }

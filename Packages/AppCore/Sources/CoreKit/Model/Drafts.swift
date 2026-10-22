@@ -27,6 +27,9 @@ public struct TransactionDraft: Hashable, Sendable {
   public var cardId: UUID?
   /// The cashback the owner typed, in the currency that moves on the account.
   public var cashback: Money?
+  /// «Разовое»: left out of the averages and forecasts, kept in the totals and the limits. The
+  /// panel edits it, so an edit that rebuilds the operation from the draft keeps the mark.
+  public var isOneOff: Bool
 
   public init(
     kind: TransactionKind = .expense,
@@ -48,7 +51,8 @@ public struct TransactionDraft: Hashable, Sendable {
     creditDebtId: UUID? = nil,
     parts: [PartDraft] = [],
     cardId: UUID? = nil,
-    cashback: Money? = nil
+    cashback: Money? = nil,
+    isOneOff: Bool = false
   ) {
     self.kind = kind
     self.occurredAt = occurredAt
@@ -70,6 +74,7 @@ public struct TransactionDraft: Hashable, Sendable {
     self.parts = parts
     self.cardId = cardId
     self.cashback = cashback
+    self.isOneOff = isOneOff
   }
 
   /// Reopens a saved operation for editing: the panel edits drafts, never records.
@@ -95,7 +100,8 @@ public struct TransactionDraft: Hashable, Sendable {
       creditDebtId: transaction.creditDebtId,
       parts: entry.parts.map(PartDraft.init(part:)),
       cardId: transaction.cardId,
-      cashback: transaction.cashback)
+      cashback: transaction.cashback,
+      isOneOff: transaction.isOneOff)
   }
 
   /// Amount not yet distributed between parts. Saving is only allowed when it is zero.
@@ -170,7 +176,7 @@ public struct TransactionDraft: Hashable, Sendable {
       updatedAt: now,
       cardId: cardId,
       cashback: cashback,
-      timeZoneId: TravelDay.recordedId(in: timeZone))
+      timeZoneId: TravelDay.recordedId(in: timeZone), isOneOff: isOneOff)
 
     // Ruble shares are split from the converted total so rounding never loses a unit.
     let shares = totalRub.allocated(proportionallyTo: parts.map(\.amount), outOf: amount)

@@ -492,7 +492,9 @@ struct DetailsPanel: View {
     case .cashback: cashbackRow
     case .goal: goalRow
     case .debt: debtRow
-    case .note: noteRow
+    case .note:
+      noteRow
+      oneOffRow
     case .date: dateRow
     case .incomeMonth: incomeMonthRows
     case .currency: currencyRows
@@ -877,6 +879,34 @@ struct DetailsPanel: View {
       .labelsHidden()
       .focused($focus, equals: .note)
       .help(t("entry.note.lines"))
+    }
+  }
+
+  /// «Разовое»: the operation stays in the totals and the limits, and is left out of the
+  /// averages and forecasts. Only an expense can be marked; a split says the mark is of the whole
+  /// receipt.
+  @ViewBuilder
+  private var oneOffRow: some View {
+    if model.draft.kind == .expense {
+      fieldRow(nil, alone: true) {
+        VStack(alignment: .leading, spacing: 2) {
+          Toggle(isOn: $model.draft.isOneOff) {
+            Text(verbatim: SpendingText.t("spending.oneOff", environment))
+          }
+          .accessibilityIdentifier("entry.oneOff")
+          Text(verbatim: SpendingText.t("spending.oneOff.hint", environment))
+            .appFont(.caption)
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+          if model.isSplit {
+            Text(verbatim: SpendingText.t("spending.oneOff.splitHint", environment))
+              .appFont(.caption)
+              .foregroundStyle(.secondary)
+              .fixedSize(horizontal: false, vertical: true)
+              .accessibilityIdentifier("entry.oneOff.splitHint")
+          }
+        }
+      }
     }
   }
 

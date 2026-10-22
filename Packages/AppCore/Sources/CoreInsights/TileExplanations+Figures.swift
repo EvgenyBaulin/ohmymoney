@@ -14,7 +14,9 @@ extension TileExplanations {
     case .weekOverWeek: weekOverWeek(inputs.figures)
     case .averageDaily: averageDaily(inputs.figures)
     case .monthIncome: monthIncome(inputs.figures)
-    case .savingsRate: savingsRate(inputs.figures)
+    case .savingsRate:
+      inputs.savingsNorm.map(savingsNorm) ?? savingsRate(inputs.figures)
+    case .financialHealth: financialHealth(inputs.health)
     case .weekdaySpending: weekdaySpending(inputs.figures)
     case .monthlySpending: monthlySpending(inputs.figures)
     case .incomeSources: incomeSources(inputs.figures)
@@ -28,6 +30,8 @@ extension TileExplanations {
     case .backups: backups(inputs.system)
     case .integrity: integrity(inputs.system)
     case .ratesStatus: ratesStatus(inputs.system)
+    case .weekendPrice: weekendPrice(inputs.ledger, today: inputs.today)
+    case .usualDay: usualDay(inputs.ledger, today: inputs.today)
     default: TileExplanation(tile: tile, state: .waiting)
     }
   }

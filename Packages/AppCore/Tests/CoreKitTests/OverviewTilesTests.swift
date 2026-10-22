@@ -9,8 +9,8 @@ import Testing
 /// always reads as a list the grid can show.
 @Suite("The tiles of Overview")
 struct OverviewTilesTests {
-  /// Forty-two kinds, in the order of the settings: the twenty-four of the builds before, then
-  /// the eighteen of 2.0; the raw values are what is stored, and a case is never renamed.
+  /// Forty-three kinds, in the order of the settings: the twenty-four of the builds before, the
+  /// eighteen of 2.0, then the financial health of 2.2; the raw values are what is stored, and a case is never renamed.
   @Test func fortyTwoKindsInTheOrderOfTheSettings() {
     #expect(
       OverviewTile.allCases.map(\.rawValue) == [
@@ -21,7 +21,8 @@ struct OverviewTilesTests {
         "selfEmployment", "currencyBalances", "spendToday", "weekOverWeek", "averageDaily",
         "monthIncome", "savingsRate", "monthRest", "weekdaySpending", "monthlySpending",
         "incomeSources", "topPlaces", "spendingByPerson", "categoryGrew", "categoryShrank",
-        "smallPurchases", "backups", "integrity", "ratesStatus",
+        "smallPurchases", "backups", "integrity", "ratesStatus", "weekendPrice", "usualDay",
+        "smallPurchases", "backups", "integrity", "ratesStatus", "financialHealth",
       ])
   }
 
@@ -34,10 +35,11 @@ struct OverviewTilesTests {
     #expect(OverviewTile.selfEmployment.defaultGroup == .plan)
     #expect(
       !OverviewTile.installments.isShownUnnamed && !OverviewTile.selfEmployment.isShownUnnamed)
-    // Waiting with them: every tile of 2.0, which no kept layout names.
+    // Waiting with them: every tile of 2.0 and the health of 2.2, which no kept layout names.
     #expect(
       OverviewTile.allCases.filter { !$0.isShownUnnamed }
-        == [.installments, .selfEmployment] + OverviewTile.allCases.suffix(18))
+        == [.installments, .selfEmployment] + OverviewTile.allCases.suffix(20))
+        == [.installments, .selfEmployment] + OverviewTile.allCases.suffix(19))
     #expect(
       OverviewTiles.decode("installments,selfEmployment,limits")
         == [.installments, .selfEmployment, .limits])

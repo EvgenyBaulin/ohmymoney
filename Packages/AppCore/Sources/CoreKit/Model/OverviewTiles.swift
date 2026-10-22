@@ -93,6 +93,17 @@ public enum OverviewTile: String, CaseIterable, Sendable, Hashable, Codable {
   case integrity
   /// «Курсы ЦБ» (98): how fresh the rates are.
   case ratesStatus
+
+  // The tiles of 2.1, numbered after the hundred of the first list (`OverviewCatalog.laterNumbers`).
+
+  /// «Цена выходных» (101): what the weekend of the settings cost this month.
+  case weekendPrice
+  /// «Обычный день» (102): the usual day of spending, weekdays and weekends told apart.
+  case usualDay
+  // The tile of 2.2, waiting hidden like the tiles of 2.0 until the owner adds it.
+
+  /// «Финансовое здоровье»: one number 0–100 and what it is made of.
+  case financialHealth
 }
 
 extension OverviewTile: Identifiable {
@@ -114,7 +125,7 @@ extension OverviewTile {
     case .topCategories, .qualities, .spendingForecast, .incomeForecast, .worthALook,
       .currencyChart, .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces,
       .spendingByPerson, .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity,
-      .ratesStatus:
+      .ratesStatus, .weekendPrice, .usualDay, .financialHealth:
       return .analysis
     }
   }
@@ -130,7 +141,8 @@ extension OverviewTile {
     case .installments, .selfEmployment, .currencyBalances, .spendToday, .weekOverWeek,
       .averageDaily, .monthIncome, .savingsRate, .monthRest, .weekdaySpending, .monthlySpending,
       .incomeSources, .topPlaces, .spendingByPerson, .categoryGrew, .categoryShrank,
-      .smallPurchases, .backups, .integrity, .ratesStatus:
+      .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
+      .financialHealth:
       false
     default: true
     }

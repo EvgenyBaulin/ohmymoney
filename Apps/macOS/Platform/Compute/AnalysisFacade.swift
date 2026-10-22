@@ -212,14 +212,20 @@ struct IncomeSavingsFacade: Sendable {
     return sums
   }
 
+  /// The norm of one month, counted on the spot: the very figure `savingsNorm` caches, for the
+  /// one place that needs it without waiting (the breakdown sheet of the tile).
+  static func norm(_ snapshot: DataSnapshot, month: MonthKey) -> SavingsNormMonth {
+    SavingsNorm.month(
+      month, ledger: snapshot.ledger, today: snapshot.today,
+      earningsOnly: snapshot.dataset.incomeSavings.earningsOnly,
+      earningsCategoryId: snapshot.dataset.allocationSettings.earningsCategoryId,
+      cushionDeposits: cushionDeposits(snapshot)[month] ?? .zero)
+  }
+
   func savingsNorm(_ snapshot: DataSnapshot, month: MonthKey) async throws -> SavingsNormMonth {
     try await core.cached("norm|\(month)|\(snapshot.dataset.incomeSavings.earningsOnly)", snapshot)
     {
-      SavingsNorm.month(
-        month, ledger: snapshot.ledger, today: snapshot.today,
-        earningsOnly: snapshot.dataset.incomeSavings.earningsOnly,
-        earningsCategoryId: snapshot.dataset.allocationSettings.earningsCategoryId,
-        cushionDeposits: Self.cushionDeposits(snapshot)[month] ?? .zero)
+      Self.norm(snapshot, month: month)
     }
   }
 

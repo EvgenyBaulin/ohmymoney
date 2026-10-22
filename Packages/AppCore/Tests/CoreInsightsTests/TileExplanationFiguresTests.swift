@@ -107,7 +107,7 @@ struct TileExplanationFiguresTests {
     for tile: OverviewTile in [
       .spendToday, .weekOverWeek, .averageDaily, .monthIncome, .savingsRate, .weekdaySpending,
       .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson, .categoryGrew,
-      .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
+      .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus, .financialHealth,
     ] {
       #expect(TileExplanations.explain(tile, bare).state == .waiting, "\(tile)")
     }

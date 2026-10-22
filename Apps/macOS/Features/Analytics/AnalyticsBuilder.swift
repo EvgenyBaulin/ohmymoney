@@ -39,6 +39,13 @@ enum AnalyticsBuilder {
       content = .anomalies(anomalies(request.anomalies, period: period))
     case .modelQuality:
       content = .modelQuality(modelQuality(ledger: ledger, today: today))
+    case .comparison, .days, .habits, .leaks:
+      // These count what they show themselves (`SpendingSectionsHost`).
+      content = .planned
+    case .incomeSavings:
+      // Counted from the whole snapshot by its own page (`IncomeSavingsPage`), not from the
+      // ledger alone: the model only keeps the request.
+      content = .planned
     }
     return AnalyticsModel(
       request: request, header: AnalyticsHeader(period: period, today: today),

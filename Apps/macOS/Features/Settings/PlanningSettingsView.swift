@@ -32,7 +32,9 @@ struct PlanningSettingsView: View {
       // section, written as steps of ⌘Z (the database) or switches of this Mac (the hints).
       SelfEmploymentSettingsSection()
       AllocationSettingsSection()
+      IncomeSavingsSettingsSection()
       PlanningHintsSection()
+      SpendingAnalysisSettingsSection()
 
       Section {
         Stepper(

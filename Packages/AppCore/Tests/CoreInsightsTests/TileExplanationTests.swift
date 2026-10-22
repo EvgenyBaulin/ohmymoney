@@ -235,12 +235,14 @@ struct TileExplanationTests {
       .cushion: .capital, .installments: .debts, .selfEmployment: .planning,
       .currencyBalances: .allAccounts, .spendToday: .analytics(.overview),
       .weekOverWeek: .analytics(.overview), .averageDaily: .analytics(.overview),
-      .monthIncome: .analytics(.overview), .savingsRate: .analytics(.overview),
+      .monthIncome: .analytics(.overview), .savingsRate: .analytics(.incomeSavings),
+      .financialHealth: .analytics(.incomeSavings),
       .monthRest: .planning, .weekdaySpending: .analytics(.overview),
       .monthlySpending: .analytics(.overview), .incomeSources: .analytics(.overview),
       .topPlaces: .analytics(.overview), .spendingByPerson: .analytics(.overview),
       .categoryGrew: .analytics(.overview), .categoryShrank: .analytics(.overview),
       .smallPurchases: .analytics(.overview), .backups: nil, .integrity: nil, .ratesStatus: nil,
+      .weekendPrice: .analytics(.days), .usualDay: .analytics(.days),
     ]
     #expect(Set(expected.keys) == Set(OverviewTile.allCases))
     for (tile, destination) in expected {

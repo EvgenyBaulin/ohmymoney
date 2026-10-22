@@ -284,7 +284,10 @@ enum TileWhy {
         of: snapshot, scope: .week, anchor: snapshot.today,
         firstWeekday: CalendarScreen.firstWeekday(locale: environment.language.locale)),
       rates: rates, figures: OverviewFiguresStore.shared.figures(for: snapshot),
-      system: OverviewFiguresStore.shared.systemStatus(for: snapshot, environment: environment))
+      system: OverviewFiguresStore.shared.systemStatus(for: snapshot, environment: environment),
+      savingsNorm: IncomeSavingsFacade.norm(snapshot, month: snapshot.today.monthKey),
+      health: FinancialHealth.build(
+        IncomeSavingsFacade.healthInputs(snapshot, asOf: snapshot.today.monthKey)))
   }
 
   /// The rates of the chart tile's pair and period, as the tile keeps them on this Mac and

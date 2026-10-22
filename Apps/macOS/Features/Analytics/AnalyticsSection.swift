@@ -10,9 +10,15 @@ enum AnalyticsSection: String, CaseIterable, Identifiable, Hashable, Sendable {
   case places
   case events
   case paymentMethods
+  case incomeSavings
   case forecast
   case anomalies
   case modelQuality
+  // The sections of 2.1 («Разбор трат»): counted on demand through `ComputeStore.analysis`.
+  case comparison
+  case days
+  case habits
+  case leaks
 
   var id: String { rawValue }
 
@@ -27,9 +33,23 @@ enum AnalyticsSection: String, CaseIterable, Identifiable, Hashable, Sendable {
     case .places: "mappin.and.ellipse"
     case .events: "calendar"
     case .paymentMethods: "creditcard"
+    case .incomeSavings: "banknote"
     case .forecast: "chart.line.uptrend.xyaxis"
     case .anomalies: "waveform.path.ecg"
     case .modelQuality: "checkmark.seal"
+    case .comparison: "arrow.left.arrow.right"
+    case .days: "clock"
+    case .habits: "repeat"
+    case .leaks: "drop"
+    }
+  }
+
+  /// The sections of 2.1: they are not built from an `AnalyticsModel` but count what they show
+  /// themselves (`SpendingSectionsHost`).
+  var isSpending: Bool {
+    switch self {
+    case .comparison, .days, .habits, .leaks: true
+    default: false
     }
   }
 
@@ -38,11 +58,12 @@ enum AnalyticsSection: String, CaseIterable, Identifiable, Hashable, Sendable {
   var plannedFor: String? { nil }
 
   /// The forecast is always the current month, whatever period the toolbar shows, and
-  /// «Качество модели» measures the whole history: the period elements are inactive on both,
-  /// and neither is computed again when the toolbar moves.
+  /// «Качество модели» measures the whole history; «Доход и сбережения» looks at the last twelve
+  /// months and at the months before today: the period elements are inactive on all three,
+  /// and none is computed again when the toolbar moves.
   var followsThePeriod: Bool {
     switch self {
-    case .forecast, .modelQuality: false
+    case .forecast, .modelQuality, .incomeSavings: false
     default: plannedFor == nil
     }
   }

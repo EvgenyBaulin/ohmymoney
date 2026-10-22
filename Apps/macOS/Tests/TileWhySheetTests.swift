@@ -225,12 +225,14 @@ final class TileWhySheetTests: XCTestCase {
       .selfEmployment: .section(.planning),
       .currencyBalances: .sidebar(.allAccounts), .spendToday: .analytics(.overview),
       .weekOverWeek: .analytics(.overview), .averageDaily: .analytics(.overview),
-      .monthIncome: .analytics(.overview), .savingsRate: .analytics(.overview),
+      .monthIncome: .analytics(.overview), .savingsRate: .analytics(.incomeSavings),
+      .financialHealth: .analytics(.incomeSavings),
       .monthRest: .section(.planning), .weekdaySpending: .analytics(.overview),
       .monthlySpending: .analytics(.overview), .incomeSources: .analytics(.overview),
       .topPlaces: .analytics(.overview), .spendingByPerson: .analytics(.overview),
       .categoryGrew: .analytics(.overview), .categoryShrank: .analytics(.overview),
       .smallPurchases: .analytics(.overview), .backups: nil, .integrity: nil, .ratesStatus: nil,
+      .weekendPrice: .analytics(.days), .usualDay: .analytics(.days),
     ]
     XCTAssertEqual(Set(expected.keys), Set(OverviewTile.allCases))
     for (tile, target) in expected {
@@ -240,6 +242,7 @@ final class TileWhySheetTests: XCTestCase {
     // keep the period they have — they do not follow it.
     XCTAssertTrue(TileWhyNavigation.showsThisMonth(.overview))
     XCTAssertFalse(TileWhyNavigation.showsThisMonth(.forecast))
+    XCTAssertFalse(TileWhyNavigation.showsThisMonth(.incomeSavings))
   }
 
   /// The section of a breakdown is chosen in the sidebar: the number of a section, «Всего» by

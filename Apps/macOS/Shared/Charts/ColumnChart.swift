@@ -28,6 +28,9 @@ struct ColumnChart: View {
   var xLabels: [String: String]?
   var average: ChartRule?
   var tint: ChartTint = .accent
+  /// The words of the value axis when the columns are not rubles (a share, a score): given the
+  /// plotted value, gives the label. Without it the axis writes rubles.
+  var valueAxisText: ((Int64) -> String)?
   @State private var hovered: String?
 
   /// Columns that still carry their value above them.
@@ -90,12 +93,17 @@ struct ColumnChart: View {
       AxisMarks(values: .automatic(desiredCount: 4)) { value in
         AxisGridLine()
         AxisValueLabel {
-          Text(verbatim: ChartAxis.money(value, money))
+          Text(verbatim: axisLabel(value, money))
             .appFont(.caption.monospacedDigit())
         }
       }
     }
     .frame(height: 220)
+  }
+
+  private func axisLabel(_ value: AxisValue, _ money: MoneyFormatter) -> String {
+    guard let valueAxisText else { return ChartAxis.money(value, money) }
+    return value.as(Int64.self).map(valueAxisText) ?? ""
   }
 
   /// The ids of the labelled columns, in their order.

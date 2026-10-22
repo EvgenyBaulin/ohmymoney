@@ -243,12 +243,14 @@ public enum TileDestination: Hashable, Sendable {
     case .selfEmployment: .planning
     case .currencyChart: nil
     case .currencyBalances: .allAccounts
-    case .spendToday, .weekOverWeek, .averageDaily, .monthIncome, .savingsRate, .weekdaySpending,
+    case .spendToday, .weekOverWeek, .averageDaily, .monthIncome, .weekdaySpending,
       .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson, .categoryGrew,
       .categoryShrank, .smallPurchases:
       .analytics(.overview)
+    case .savingsRate, .financialHealth: .analytics(.incomeSavings)
     case .monthRest: .planning
     case .backups, .integrity, .ratesStatus: nil
+    case .weekendPrice, .usualDay: .analytics(.days)
     }
   }
 }
@@ -261,4 +263,7 @@ public enum TileAnalyticsSection: String, Hashable, Sendable, CaseIterable {
   case others
   case forecast
   case anomalies
+  /// «Дни и время» (2.1): the price of the weekend, the usual day, the hours of the day.
+  case days
+  case incomeSavings
 }

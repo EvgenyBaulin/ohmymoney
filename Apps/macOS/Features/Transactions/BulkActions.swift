@@ -307,6 +307,7 @@ struct BulkMenuItems: View {
         Button(item.name) { request(.paymentMethod(item.id)) }
       }
     }
+    oneOffItem
     Divider()
     Button(t("selection.delete"), role: .destructive) {
       actions.requestDeletion(of: ids, store: store)
@@ -315,6 +316,21 @@ struct BulkMenuItems: View {
 
   private func request(_ edit: BulkEdit) {
     actions.request(edit, on: ids, store: store, environment: environment)
+  }
+
+  /// «Отметить как разовое» / «Снять отметку»: one write and one step of ⌘Z for the whole
+  /// selection (`TransactionsStore.setOneOff`). Offered when the selection holds an expense.
+  @ViewBuilder
+  private var oneOffItem: some View {
+    let entries = store.entries(ids: ids)
+    if let action = OneOffMenu.action(for: entries) {
+      Button(
+        SpendingText.t(action == .mark ? "spending.oneOff.mark" : "spending.oneOff.unmark", environment)
+      ) {
+        store.setOneOff(action == .mark, ids: OneOffMenu.targets(in: entries))
+      }
+      .accessibilityIdentifier("bulk.oneOff")
+    }
   }
 
   /// The accounts the account menu offers: each live one, the main one first.

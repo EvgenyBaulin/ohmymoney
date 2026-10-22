@@ -37,7 +37,7 @@ struct AnalyticsWindow: View {
       header
       AnalyticsSectionView(
         section: section, title: AnalyticsText.title(of: period, environment), state: state,
-        retry: retry
+        retry: retry, period: period
       )
       .id(section)
     }
@@ -140,7 +140,7 @@ struct AnalyticsWindow: View {
 
   /// The clock of `--measure` starts with every change of the section or the period.
   private func beginMeasurement() {
-    guard section.plannedFor == nil else { return }
+    guard section.plannedFor == nil, !section.isSpending else { return }
     analytics.measurement.begin(
       "\(section.rawValue) \(period.kind.rawValue)", for: measured)
   }

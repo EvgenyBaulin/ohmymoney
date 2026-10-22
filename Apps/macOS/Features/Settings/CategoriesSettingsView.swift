@@ -378,6 +378,14 @@ struct CategoriesSettingsView: View {
               Text(verbatim: environment.language("categories.essential", table: "Settings"))
             }
             .disabled(Self.essentialIsFixed(category, in: tree))
+            Picker(selection: basketBinding(for: category, tree: tree)) {
+              ForEach(BasketChoice.allCases, id: \.self) { choice in
+                Text(verbatim: BasketChoice.name(choice, environment)).tag(choice)
+              }
+            } label: {
+              Text(verbatim: IncomeSavingsText.t("income.basket.menu", environment))
+            }
+            .disabled(BasketChoice.isFixed(category, in: tree))
             Divider()
           }
           Button(environment.language("references.delete", table: "Settings")) {
@@ -487,6 +495,27 @@ struct CategoriesSettingsView: View {
         }
         AppLog.info(
           "cushion.essential.set", .db, "a category became or stopped being essential",
+          [LogPair("categories", .count(1))])
+        reload()
+      })
+  }
+
+  /// The basket of a category in the budget proportions (50 / 30 / 20): «Как у родителя»
+  /// until the owner moves it.
+  private func basketBinding(
+    for category: CoreKit.Category, tree: CategoryTree
+  ) -> Binding<BasketChoice> {
+    Binding(
+      get: { BasketChoice(category.basket) },
+      set: { choice in
+        guard !BasketChoice.isFixed(category, in: tree), choice != BasketChoice(category.basket)
+        else { return }
+        guard store.setBasket(choice.basket, ofCategory: category.id) else {
+          refused = true
+          return
+        }
+        AppLog.info(
+          "income.basket.set", .db, "a category was moved to another basket",
           [LogPair("categories", .count(1))])
         reload()
       })

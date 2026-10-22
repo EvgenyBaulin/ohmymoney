@@ -45,7 +45,9 @@ struct OverviewLayoutTests {
       analysis == [
         .topCategories, .qualities, .spendingForecast, .incomeForecast, .worthALook, .currencyChart,
         .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
+        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
         .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
+        .financialHealth,
       ])
   }
 
@@ -74,7 +76,9 @@ struct OverviewLayoutTests {
       layout.tiles(in: .analysis) == [
         .topCategories, .qualities, .spendingForecast, .worthALook, .incomeForecast, .currencyChart,
         .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
+        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
         .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
+        .financialHealth,
       ])
     #expect(layout.isStandard)
   }
@@ -93,7 +97,9 @@ struct OverviewLayoutTests {
       Array(layout.tiles(in: .analysis).dropFirst()) == [
         .topCategories, .spendingForecast, .incomeForecast, .worthALook, .currencyChart,
         .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces, .spendingByPerson,
+        .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
         .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity, .ratesStatus,
+        .financialHealth,
       ])
     #expect(
       OverviewLayout(tiles: [])

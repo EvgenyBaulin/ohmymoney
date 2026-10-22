@@ -76,7 +76,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
       [
         .settings("categories.essential"), .settings("categories.cashback"),
         .settings("categories.limit.rollover"), .settings("categories.showArchived"),
-        .settings("categories.tax"),
+        .settings("categories.tax"), .incomeSavings("income.basket.menu"),
       ]
     case .references:
       [.settings("settings.people"), .settings("settings.places"), .settings("settings.events")]
@@ -102,6 +102,11 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .settings("settings.selfEmployed.reference"), .settings("settings.allocation"),
         .settings("settings.allocation.rules"), .settings("settings.hints"),
         .settings("settings.hints.burnout"), .settings("settings.hints.creditHistory"),
+        .spending("spending.settings.title"), .spending("spending.settings.weekend"),
+        .spending("spending.settings.hours.enabled"),
+        .incomeSavings("income.settings.title"), .incomeSavings("income.settings.needs"),
+        .incomeSavings("income.settings.wants"), .incomeSavings("income.settings.earningsOnly"),
+        .incomeSavings("income.settings.trendNudge"),
       ]
     case .backups:
       [
@@ -130,8 +135,16 @@ struct SettingsCaption: Hashable, Sendable {
     SettingsCaption(key: key, table: "Sync")
   }
 
+  static func spending(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "Spending")
+  }
+
   static func overview(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Overview")
+  }
+
+  static func incomeSavings(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "IncomeSavings")
   }
 }
 

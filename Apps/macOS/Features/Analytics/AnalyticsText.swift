@@ -252,6 +252,8 @@ enum AnalyticsText {
     case .modelQuality:
       return format(
         "analytics.period.wholeHistory", environment, environment.dates.dayAndMonth(today))
+    case .incomeSavings:
+      return IncomeSavingsText.sectionHeader(today: today, environment)
     default:
       break
     }

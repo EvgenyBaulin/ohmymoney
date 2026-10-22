@@ -11,6 +11,8 @@ struct AnalyticsSectionView: View {
   let title: String
   let state: BlockState<AnalyticsModel>
   let retry: () -> Void
+  /// The period of the toolbar, for the sections of 2.1 that count by themselves.
+  var period: AnalyticsPeriod?
   @State private var width: CGFloat = 0
 
   /// From here on two small charts stand side by side.
@@ -51,9 +53,12 @@ struct AnalyticsSectionView: View {
     case .places: PlacesSection(state: state, retry: retry, isWide: isWide)
     case .events: EventsSection(state: state, retry: retry)
     case .paymentMethods: PaymentMethodsSection(state: state, retry: retry)
+    case .incomeSavings: IncomeSavingsSection(isWide: isWide)
     case .forecast: ForecastSection(state: state, retry: retry)
     case .anomalies: AnomaliesSection(state: state, retry: retry)
     case .modelQuality: ModelQualitySection(state: state, retry: retry)
+    case .comparison, .days, .habits, .leaks:
+      if let period { SpendingSectionsHost(section: section, period: period) }
     }
   }
 }
