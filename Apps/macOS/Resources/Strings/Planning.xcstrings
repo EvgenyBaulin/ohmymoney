@@ -6549,6 +6549,23 @@
         }
       }
     },
+    "layout.subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What to pay, what to receive and how much you can spend"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что платить, что получить и сколько можно тратить"
+          }
+        }
+      }
+    },
     "layout.summary.dues": {
       "extractionState": "manual",
       "localizations": {
@@ -8552,6 +8569,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Разницу на счёте в архиве или в валюте вне списка счёта не записать. Ничего не сохранено."
+          }
+        }
+      }
+    },
+    "reconcile.col.account": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт"
+          }
+        }
+      }
+    },
+    "reconcile.col.counted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Counted"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На руках"
+          }
+        }
+      }
+    },
+    "reconcile.col.expected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Books say"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидает учёт"
           }
         }
       }

@@ -22,28 +22,38 @@ struct CapitalView: View {
   }
 
   var body: some View {
-    ScrollView {
-      VStack(alignment: .leading, spacing: 16) {
-        header
-        if let snapshot = compute.snapshot {
-          let model = CapitalViewModel(
-            capital: snapshot.planning.capital, accountGroups: snapshot.dataset.accountGroups,
-            debts: snapshot.dataset.debts)
-          CurrencyGainSection(snapshot: snapshot)
-          CapitalChartSection(model: model)
-          CapitalBreakdownSection(model: model, open: open)
-          AssetsSection(
-            assets: snapshot.dataset.assets, valuations: snapshot.dataset.assetValuations,
-            sheet: $sheet, deleting: $deleting)
-          CushionSection(status: snapshot.planning.cushion)
-        } else {
-          ComputedBlock(
-            waiting: compute.states.data.flatMap { _, _ -> BlockState<Never> in .calculating },
-            retry: { compute.retry(ComputeStep.data) })
+    GeometryReader { proxy in
+      ScrollView {
+        VStack(alignment: .leading, spacing: 16) {
+          titleLine
+          if let snapshot = compute.snapshot {
+            let model = CapitalViewModel(
+              capital: snapshot.planning.capital, accountGroups: snapshot.dataset.accountGroups,
+              debts: snapshot.dataset.debts)
+            columns(
+              count: ScreenColumns.count(forWidth: proxy.size.width - 40),
+              left: [
+                AnyView(header),
+                AnyView(CurrencyGainSection(snapshot: snapshot)),
+                AnyView(CapitalBreakdownSection(model: model, open: open)),
+                AnyView(
+                  AssetsSection(
+                    assets: snapshot.dataset.assets, valuations: snapshot.dataset.assetValuations,
+                    sheet: $sheet, deleting: $deleting)),
+              ],
+              right: [
+                AnyView(CapitalChartSection(model: model)),
+                AnyView(CushionSection(status: snapshot.planning.cushion)),
+              ])
+          } else {
+            ComputedBlock(
+              waiting: compute.states.data.flatMap { _, _ -> BlockState<Never> in .calculating },
+              retry: { compute.retry(ComputeStep.data) })
+          }
         }
+        .padding(20)
+        .frame(maxWidth: .infinity, alignment: .leading)
       }
-      .padding(20)
-      .frame(maxWidth: .infinity, alignment: .leading)
     }
     .accessibilityIdentifier("capital.screen")
     .sheet(item: $sheet) { sheet in
@@ -72,36 +82,64 @@ struct CapitalView: View {
     }
   }
 
-  /// «Капитал 4,213,000 ₽» and how it moved since the end of last month — an arrow and a sign,
-  /// never the colour of good or bad: more debt can be a flat bought.
-  private var header: some View {
-    VStack(alignment: .leading, spacing: 4) {
-      HStack(alignment: .firstTextBaseline, spacing: 12) {
-        Text(verbatim: CapitalText.t("capital.title", environment))
-          .appFont(.largeTitle.bold())
-          .accessibilityAddTraits(.isHeader)
-        if let capital = compute.snapshot?.planning.capital {
-          Text(verbatim: environment.money.rounded(capital.now.netRub))
-            .appFont(.largeTitle.monospacedDigit())
-            .accessibilityIdentifier("capital.net")
-        }
-      }
-      if let capital = compute.snapshot?.planning.capital {
-        let model = CapitalViewModel(capital: capital)
-        if let change = model.change, let since = model.sinceMonth {
-          Label {
-            Text(
-              verbatim: environment.money.signedRounded(change) + " "
-                + CapitalText.since(since, environment))
-          } icon: {
-            Image(systemName: CapitalText.arrow(of: change))
-          }
-          .appFont(.callout.monospacedDigit())
-          .foregroundStyle(.secondary)
-          .accessibilityIdentifier("capital.change")
-        }
-      }
+  /// The page title and its one-line subtitle.
+  private var titleLine: some View {
+    VStack(alignment: .leading, spacing: 2) {
+      Text(verbatim: CapitalText.t("capital.title", environment))
+        .appFont(.title2.bold())
+        .accessibilityAddTraits(.isHeader)
+      Text(verbatim: CapitalText.t("capital.subtitle", environment))
+        .appFont(.caption)
+        .foregroundStyle(.secondary)
     }
+  }
+
+  /// Two columns on a wide window — the figure and what it is made of on the left, how it moved
+  /// and the cushion on the right — and one column, in that order, on a narrow one.
+  @ViewBuilder
+  private func columns(count: Int, left: [AnyView], right: [AnyView]) -> some View {
+    if count == 2 {
+      HStack(alignment: .top, spacing: 16) {
+        column(left)
+        column(right)
+      }
+    } else {
+      column(left + right)
+    }
+  }
+
+  private func column(_ cards: [AnyView]) -> some View {
+    VStack(alignment: .leading, spacing: 16) {
+      ForEach(Array(cards.enumerated()), id: \.offset) { _, card in card }
+    }
+    .frame(maxWidth: .infinity, alignment: .topLeading)
+  }
+
+  /// The hero card: «Капитал 2 184 300 ₽» and how it moved since the end of last month — an
+  /// arrow and a sign, never the colour of good or bad: more debt can be a flat bought — and
+  /// what is had and what is owed.
+  private var header: some View {
+    ScreenHero(
+      caption: CapitalText.t("capital.title", environment),
+      figure: compute.snapshot.map { environment.money.rounded($0.planning.capital.now.netRub) }
+        ?? "—",
+      lines: heroLines, figureIdentifier: "capital.net")
+  }
+
+  private var heroLines: [String] {
+    guard let capital = compute.snapshot?.planning.capital else { return [] }
+    let model = CapitalViewModel(capital: capital)
+    var lines: [String] = []
+    if let change = model.change, let since = model.sinceMonth {
+      lines.append(
+        (change.isNegative ? "↓ " : "↑ ") + environment.money.signedRounded(change) + " "
+          + CapitalText.since(since, environment))
+    }
+    lines.append(
+      CapitalText.format(
+        "capital.hero.haveOwe", environment, environment.money.rounded(capital.now.haveRub),
+        environment.money.rounded(capital.now.iOweRub)))
+    return lines
   }
 
   @ViewBuilder

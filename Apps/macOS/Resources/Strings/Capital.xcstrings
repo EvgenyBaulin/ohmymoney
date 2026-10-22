@@ -987,6 +987,23 @@
         }
       }
     },
+    "capital.hero.haveOwe": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Have %@ · Owe %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есть %@ · Должен %@"
+          }
+        }
+      }
+    },
     "capital.history.empty": {
       "extractionState": "manual",
       "localizations": {
@@ -1391,6 +1408,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "с конца сентября"
+          }
+        }
+      }
+    },
+    "capital.subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What you have less what you owe"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что есть минус что должен"
           }
         }
       }

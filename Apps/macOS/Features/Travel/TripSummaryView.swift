@@ -57,20 +57,13 @@ struct TripSummaryView: View {
     let money = environment.money
     return ScrollView {
       VStack(alignment: .leading, spacing: 16) {
-        VStack(alignment: .leading, spacing: 4) {
-          Text(verbatim: TravelText.format("travel.summary.title", environment, event.name))
-            .appFont(.title2.bold())
-            .accessibilityAddTraits(.isHeader)
-          Text(verbatim: TravelText.t("travel.summary.total", environment))
-            .foregroundStyle(.secondary)
-          Text(verbatim: money.rounded(summary.total))
-            .appFont(.largeTitle.monospacedDigit())
-            .accessibilityIdentifier("travel.summary.total")
-          Text(verbatim: budgetLine(summary))
-            .appFont(.callout.monospacedDigit())
-            .foregroundStyle(.secondary)
-            .accessibilityIdentifier("travel.summary.budget")
-        }
+        Text(verbatim: TravelText.format("travel.summary.title", environment, event.name))
+          .appFont(.title2.bold())
+          .accessibilityAddTraits(.isHeader)
+        ScreenHero(
+          caption: TravelText.t("travel.summary.total", environment),
+          figure: money.rounded(summary.total), lines: [budgetLine(summary)],
+          figureIdentifier: "travel.summary.total")
         section("travel.summary.byDay") {
           ForEach(summary.byDay, id: \.day) { row in
             line(PlanningBlockText.dayText(row.day, environment), money.rounded(row.amount))
@@ -162,11 +155,10 @@ struct TripSummaryView: View {
     _ key: String, @ViewBuilder _ content: () -> Content
   ) -> some View {
     VStack(alignment: .leading, spacing: 6) {
-      Text(verbatim: TravelText.t(key, environment))
-        .appFont(.headline)
-        .accessibilityAddTraits(.isHeader)
+      ScreenCardHeader(title: TravelText.t(key, environment))
       content()
     }
+    .contentCard()
   }
 
   private func line(_ name: String, _ value: String) -> some View {

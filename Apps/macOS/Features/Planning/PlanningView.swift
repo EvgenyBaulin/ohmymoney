@@ -42,8 +42,15 @@ struct PlanningView: View {
     GeometryReader { proxy in
       ScrollView {
         VStack(alignment: .leading, spacing: 16) {
-          PlanningTopBar(
-            summary: free.flatMap(PlanningSummary.init), editing: $editing, add: add)
+          PlanningTopBar(editing: $editing, add: add)
+          if let free, layout.order.contains(.freeMoney), let hero = PlanningHero.make(
+            free: free, environment: environment)
+          {
+            ScreenHero(
+              caption: hero.caption, figure: hero.figure, lines: hero.lines,
+              figureIdentifier: "planning.hero.figure")
+              .accessibilityIdentifier("planning.summary")
+          }
           if let snapshot {
             PlanningRibbonView(ribbon: Self.ribbon(of: snapshot), open: open)
           }
@@ -194,17 +201,18 @@ struct PlanningTopBar: View {
   @Environment(\.openWindow) private var openWindow
   @Environment(\.dependencies) private var dependencies
   @State private var asksAfford = false
-  let summary: PlanningSummary?
   @Binding var editing: Bool
   let add: (PlanningAddition) -> Void
 
   var body: some View {
     HStack(alignment: .firstTextBaseline, spacing: 12) {
-      if let summary {
-        Text(verbatim: PlanningBlockText.sentence(summary, environment))
-          .appFont(.title3)
-          .fixedSize(horizontal: false, vertical: true)
-          .accessibilityIdentifier("planning.summary")
+      VStack(alignment: .leading, spacing: 2) {
+        Text(verbatim: environment.language("section.planning"))
+          .appFont(.title2.bold())
+          .accessibilityAddTraits(.isHeader)
+        Text(verbatim: PlanningBlockText.t("layout.subtitle", environment))
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
       }
       Spacer(minLength: 8)
       Button(environment.language("afford.title", table: "WhatIf")) { asksAfford = true }

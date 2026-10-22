@@ -12,6 +12,7 @@ struct TripBanner: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
+  @Environment(\.appTheme) private var theme
   @State private var sheet: TravelSheet?
 
   /// The strip for today; `nil` while the data is not there yet.
@@ -25,12 +26,12 @@ struct TripBanner: View {
   var body: some View {
     Group {
       if let model, !model.isEmpty {
-        VStack(spacing: 0) {
+        VStack(spacing: 8) {
           if let mode = model.mode { modeStrip(mode) }
           if let welcome = model.welcome { welcomeCard(welcome) }
-          Divider()
         }
-        .background(.background.secondary)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
       }
     }
     // The only thing the mode changes: the currency and the event a new operation starts with.
@@ -78,8 +79,12 @@ struct TripBanner: View {
           .accessibilityIdentifier("travel.mode.day")
       }
     }
-    .padding(.horizontal, 16)
+    .padding(.horizontal, 14)
     .padding(.vertical, 8)
+    .background(theme.accentTint, in: .rect(cornerRadius: 10))
+    .overlay {
+      RoundedRectangle(cornerRadius: 10).strokeBorder(theme.accentTintStrong, lineWidth: 0.5)
+    }
   }
 
   private func welcomeCard(_ welcome: TripBannerModel.Welcome) -> some View {
@@ -112,8 +117,12 @@ struct TripBanner: View {
         .buttonStyle(.link)
         .accessibilityIdentifier("travel.welcome.close")
     }
-    .padding(.horizontal, 16)
-    .padding(.vertical, 8)
+    .padding(.horizontal, 14)
+    .padding(.vertical, 10)
+    .background(theme.accentTint, in: .rect(cornerRadius: 10))
+    .overlay {
+      RoundedRectangle(cornerRadius: 10).strokeBorder(theme.accentTintStrong, lineWidth: 0.5)
+    }
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("travel.welcome")
   }
