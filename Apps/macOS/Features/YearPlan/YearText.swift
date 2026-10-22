@@ -127,7 +127,9 @@ enum YearText {
   // MARK: Reserves and taxes
 
   /// «Похоже, снова страховка ≈ 12 000 ₽ — около 5 марта. Завести копилку?»
-  static func reserveQuestion(_ expense: YearlyExpense, name: String, _ environment: AppEnvironment)
+  static func reserveQuestion(
+    _ expense: YearlyExpense, name: String, _ environment: AppEnvironment
+  )
     -> String
   {
     f(

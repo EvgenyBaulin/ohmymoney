@@ -210,7 +210,7 @@ final class QuickEntryWritesTests: XCTestCase {
   // MARK: Moving to another day
 
   func testAnOperationMovedToAnotherDayKeepsItsTimeAndUndoesInOneStep() async throws {
-    let entry = try write(500, "Ужин", hoursAgo: 30)
+    let entry = try write(500, "Ужин", hoursAgo: 100)
     let before = environment.calendar.day(of: entry.transaction.occurredAt)
     let target = environment.calendar.adding(days: -2, to: environment.today)
     XCTAssertNotEqual(before, target)

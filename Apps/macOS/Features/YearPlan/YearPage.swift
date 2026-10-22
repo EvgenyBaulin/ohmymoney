@@ -97,7 +97,8 @@ struct YearPage: Sendable {
       limitSeasons: seasons, yearly: yearly, propertyTax: tax, buffer: buffer,
       bufferRaise: raise, freeToMonthEnd: free, week: week, incomeNow: income,
       exceptions: dataset.yearPlan.monthExceptions, budgets: dataset.planning.budgets,
-      events: events, eventItems: items, templates: EventTemplates.builtIn + dataset.yearPlan.eventTemplates,
+      events: events, eventItems: items,
+      templates: EventTemplates.builtIn + dataset.yearPlan.eventTemplates,
       categoryNames: Dictionary(
         dataset.categories.map { ($0.id, $0.name) }, uniquingKeysWith: { first, _ in first }),
       placeNames: Dictionary(

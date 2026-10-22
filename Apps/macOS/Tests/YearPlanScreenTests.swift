@@ -410,7 +410,8 @@ final class YearPlanScreenTests: XCTestCase {
       YearText.balance(AmountE4(whole: -5_000), environment).hasPrefix("\u{2212}"))
     XCTAssertEqual(YearText.balance(.zero, environment), "0")
     // Income nothing is expected for is the median of the last months, grey and marked.
-    let plan = try await page(snapshot(today: day(2027, 2, 10), entries: dearDecemberHistory())).plan
+    let plan = try await page(snapshot(today: day(2027, 2, 10), entries: dearDecemberHistory()))
+      .plan
     let guess = try XCTUnwrap(plan.cell(.income, MonthKey(year: 2027, month: 5)))
     XCTAssertTrue(guess.isEstimate)
     XCTAssertTrue(YearText.cell(guess, environment).hasPrefix("≈"))
@@ -474,7 +475,9 @@ final class YearPlanScreenTests: XCTestCase {
       name: "Move", startDate: day(2026, 12, 1), endDate: day(2026, 12, 3),
       budgetE4: AmountE4(whole: 150_000))
     var dataset = Dataset(
-      entries: dearDecemberHistory().filter { $0.transaction.occurredAt < Self.calendar.startOfDay(today) },
+      entries: dearDecemberHistory().filter {
+        $0.transaction.occurredAt < Self.calendar.startOfDay(today)
+      },
       categories: Self.categories, events: [event],
       paymentMethods: [PaymentMethod(id: Self.account, name: "Main", currency: .rub)],
       planning: PlanningBook(budgets: [limit]))
@@ -490,7 +493,8 @@ final class YearPlanScreenTests: XCTestCase {
     let deps = AppDependencies(
       environment: environment, store: TransactionsStore(), compute: compute)
     let sheets: [YearSheet] = [
-      .monthLimit(budget: nil, month: nil), .monthLimit(budget: limit.id, month: MonthKey(year: 2026, month: 12)),
+      .monthLimit(budget: nil, month: nil),
+      .monthLimit(budget: limit.id, month: MonthKey(year: 2026, month: 12)),
       .buffer, .bufferMarks, .eventItems(event), .fromTemplate, .saveTemplate(event),
       .newEvent(day: day(2026, 12, 1)),
       .newExpected(ExpectedIncomeForm.newIncome(defaultCurrency: .rub, today: day(2026, 12, 1))),
@@ -519,7 +523,8 @@ final class YearPlanScreenTests: XCTestCase {
     entries.append(entry(.expense, 700, on: day(2026, 11, 9), category: Self.groceries))
     let rows = BufferMarksSheet.expenses(snapshot(today: today, entries: entries), limit: 10)
     XCTAssertEqual(rows.map(\.title), ["Groceries", "Phone case", "Bread"])
-    XCTAssertEqual(rows.map(\.amount), [AmountE4(whole: 700), AmountE4(whole: 900), AmountE4(whole: 300)])
+    XCTAssertEqual(
+      rows.map(\.amount), [AmountE4(whole: 700), AmountE4(whole: 900), AmountE4(whole: 300)])
     XCTAssertEqual(
       BufferMarksSheet.expenses(snapshot(today: today, entries: entries), limit: 2).count, 2)
     XCTAssertTrue(BufferMarksSheet.expenses(nil, limit: 5).isEmpty)
