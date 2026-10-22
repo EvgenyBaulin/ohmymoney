@@ -242,7 +242,7 @@ struct TileExplanationTests {
       .topPlaces: .analytics(.overview), .spendingByPerson: .analytics(.overview),
       .categoryGrew: .analytics(.overview), .categoryShrank: .analytics(.overview),
       .smallPurchases: .analytics(.overview), .backups: nil, .integrity: nil, .ratesStatus: nil,
-      .weekendPrice: .analytics(.days), .usualDay: .analytics(.days),
+      .weekendPrice: .analytics(.days), .usualDay: .analytics(.days), .subscriptions: .planning,
     ]
     #expect(Set(expected.keys) == Set(OverviewTile.allCases))
     for (tile, destination) in expected {

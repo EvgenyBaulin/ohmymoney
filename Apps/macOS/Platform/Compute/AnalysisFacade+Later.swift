@@ -127,7 +127,7 @@ struct SubscriptionAnalysisFacade: Sendable {
     try await core.cached("subs.notices", snapshot) {
       SubscriptionWatch.notices(
         book: snapshot.dataset.planning, subscriptions: snapshot.dataset.subscriptions,
-        today: snapshot.today)
+        today: snapshot.today, matches: snapshot.planning.matches)
     }
   }
 
@@ -138,7 +138,8 @@ struct SubscriptionAnalysisFacade: Sendable {
     try await core.cached("subs.calendar|\(month.iso)", snapshot) {
       SubscriptionCalendar.items(
         in: month, ledger: snapshot.ledger, book: snapshot.dataset.planning,
-        today: snapshot.today, rubPerUnit: snapshot.context.rubPerUnit)
+        today: snapshot.today, rubPerUnit: snapshot.context.rubPerUnit,
+        matches: snapshot.planning.matches)
     }
   }
 }

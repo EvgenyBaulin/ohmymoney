@@ -248,7 +248,7 @@ public enum TileDestination: Hashable, Sendable {
       .categoryShrank, .smallPurchases:
       .analytics(.overview)
     case .savingsRate, .financialHealth: .analytics(.incomeSavings)
-    case .monthRest: .planning
+    case .monthRest, .subscriptions: .planning
     case .backups, .integrity, .ratesStatus: nil
     case .weekendPrice, .usualDay: .analytics(.days)
     }

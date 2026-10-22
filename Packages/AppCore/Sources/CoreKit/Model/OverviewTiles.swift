@@ -104,6 +104,10 @@ public enum OverviewTile: String, CaseIterable, Sendable, Hashable, Codable {
 
   /// «Финансовое здоровье»: one number 0–100 and what it is made of.
   case financialHealth
+  // The tile of 2.8, waiting hidden until the owner adds it.
+
+  /// «Подписки»: what the running subscriptions cost a month, and a year and a day beneath.
+  case subscriptions
 }
 
 extension OverviewTile: Identifiable {
@@ -120,7 +124,7 @@ extension OverviewTile {
       .weekOverWeek, .averageDaily, .monthIncome, .savingsRate:
       return .money
     case .limits, .upcoming, .expectedIncome, .event, .spendingCalendar, .installments,
-      .selfEmployment, .monthRest:
+      .selfEmployment, .monthRest, .subscriptions:
       return .plan
     case .topCategories, .qualities, .spendingForecast, .incomeForecast, .worthALook,
       .currencyChart, .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces,
@@ -142,7 +146,7 @@ extension OverviewTile {
       .averageDaily, .monthIncome, .savingsRate, .monthRest, .weekdaySpending, .monthlySpending,
       .incomeSources, .topPlaces, .spendingByPerson, .categoryGrew, .categoryShrank,
       .smallPurchases, .backups, .integrity, .ratesStatus, .weekendPrice, .usualDay,
-      .financialHealth:
+      .financialHealth, .subscriptions:
       false
     default: true
     }

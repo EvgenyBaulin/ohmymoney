@@ -19,6 +19,7 @@ struct ScheduledBlock: View {
   /// How many of the nearest payments show before «Показать все».
   var length: PlanningListLength = .all
   @State private var showsAll = false
+  @State private var showsScreen = false
 
   var body: some View {
     ComputedBlock(
@@ -72,6 +73,12 @@ struct ScheduledBlock: View {
         PlanningShowAllButton(
           block: kind == .subscription ? .subscriptions : .payments, total: statuses.count,
           hidden: shown.hidden, expanded: $showsAll)
+        if kind == .subscription, !statuses.isEmpty {
+          Button(SubscriptionsText.t("subs.open", environment)) { showsScreen = true }
+            .buttonStyle(.link)
+            .appFont(.callout)
+            .accessibilityIdentifier("planning.subscriptions.screen")
+        }
         if kind != .subscription, !planning.funding.isEmpty {
           FundingLines(lines: planning.funding, methods: snapshot.dataset.paymentMethods)
         }
@@ -95,6 +102,9 @@ struct ScheduledBlock: View {
           }
         }
       }
+    }
+    .sheet(isPresented: $showsScreen) {
+      SubscriptionsScreen().handingOver(dependencies)
     }
   }
 

@@ -24,6 +24,8 @@ struct CalendarView: View {
   @State private var mover = MoveToDayModel()
   /// The day under a dragged operation, to show where it would land.
   @State private var dropTarget: DateOnly?
+  /// «Только подписки»: the grid gives way to the days subscriptions are charged on.
+  @State private var subscriptionsOnly = false
 
   private func t(_ key: String) -> String { CalendarText.t(key, environment) }
 
@@ -72,7 +74,15 @@ struct CalendarView: View {
       if let text = mover.message {
         QuickCalendarMessage(text: text, failed: mover.failed)
       }
-      if wide {
+      Toggle(isOn: $subscriptionsOnly) {
+        Text(verbatim: SubscriptionsText.t("subs.calendar.only", environment))
+      }
+      .toggleStyle(.button)
+      .controlSize(.small)
+      .accessibilityIdentifier("calendar.subscriptionsOnly")
+      if subscriptionsOnly {
+        SubscriptionCalendarCard(month: calendar.anchor.monthKey)
+      } else if wide {
         HStack(alignment: .top, spacing: 16) {
           dayList
             .clipShape(.rect(cornerRadius: 12))

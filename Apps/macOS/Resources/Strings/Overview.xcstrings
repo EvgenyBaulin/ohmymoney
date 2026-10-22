@@ -4239,6 +4239,23 @@
         }
       }
     },
+    "overview.tile.subscriptions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subscriptions"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подписки"
+          }
+        }
+      }
+    },
     "overview.tile.topCategories": {
       "extractionState": "manual",
       "localizations": {
@@ -9297,6 +9314,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Уже потраченное, плюс ещё не оплаченные платежи месяца, плюс то, что обычно добавляют оставшиеся дни."
+          }
+        }
+      }
+    },
+    "why.rule.subscriptions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What the running subscriptions cost a month, each at the rate of the day; the priciest first. A subscription cancelled from a later day still counts until then."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сколько в месяц стоят действующие подписки, каждая по курсу дня, дорогие первыми. Подписка, отменённая с будущего дня, считается до него."
           }
         }
       }

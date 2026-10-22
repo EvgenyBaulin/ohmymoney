@@ -32,6 +32,10 @@ extension TileExplanations {
     case .ratesStatus: ratesStatus(inputs.system)
     case .weekendPrice: weekendPrice(inputs.ledger, today: inputs.today)
     case .usualDay: usualDay(inputs.ledger, today: inputs.today)
+    case .subscriptions:
+      subscriptions(
+        book: inputs.ledger.dataset.planning, subscriptions: inputs.ledger.dataset.subscriptions,
+        today: inputs.today, rubPerUnit: inputs.planning.rubPerUnit)
     default: TileExplanation(tile: tile, state: .waiting)
     }
   }

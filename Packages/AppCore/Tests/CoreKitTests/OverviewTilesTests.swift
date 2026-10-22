@@ -10,7 +10,7 @@ import Testing
 @Suite("The tiles of Overview")
 struct OverviewTilesTests {
   /// Forty-three kinds, in the order of the settings: the twenty-four of the builds before, the
-  /// eighteen of 2.0, then the financial health of 2.2; the raw values are what is stored, and a case is never renamed.
+  /// eighteen of 2.0, then the financial health of 2.2 and the subscriptions of 2.8; the raw values are what is stored, and a case is never renamed.
   @Test func fortyTwoKindsInTheOrderOfTheSettings() {
     #expect(
       OverviewTile.allCases.map(\.rawValue) == [
@@ -22,7 +22,7 @@ struct OverviewTilesTests {
         "monthIncome", "savingsRate", "monthRest", "weekdaySpending", "monthlySpending",
         "incomeSources", "topPlaces", "spendingByPerson", "categoryGrew", "categoryShrank",
         "smallPurchases", "backups", "integrity", "ratesStatus", "weekendPrice", "usualDay",
-        "financialHealth",
+        "financialHealth", "subscriptions",
       ])
   }
 
@@ -38,7 +38,7 @@ struct OverviewTilesTests {
     // Waiting with them: every tile of 2.0 and the health of 2.2, which no kept layout names.
     #expect(
       OverviewTile.allCases.filter { !$0.isShownUnnamed }
-        == [.installments, .selfEmployment] + OverviewTile.allCases.suffix(21))
+        == [.installments, .selfEmployment] + OverviewTile.allCases.suffix(22))
     #expect(
       OverviewTiles.decode("installments,selfEmployment,limits")
         == [.installments, .selfEmployment, .limits])

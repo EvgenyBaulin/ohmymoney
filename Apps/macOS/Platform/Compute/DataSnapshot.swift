@@ -68,6 +68,10 @@ struct SnapshotContext: Hashable, Sendable {
     // The capital counts the debts and the assets at the end of each past month, at its rate.
     byDay.formUnion(dataset.debts.map(\.currency))
     byDay.formUnion(dataset.assets.map(\.currency))
+    // The subscriptions in a foreign currency: a rise of their price is told apart from a rise
+    // of the rate on the days of the two prices.
+    byDay.formUnion(
+      dataset.planning.scheduled.filter { $0.kind == .subscription }.map(\.currency))
     byDay.remove(.rub)
     currencies.formUnion(byDay)
     for currency in currencies where currency != .rub {

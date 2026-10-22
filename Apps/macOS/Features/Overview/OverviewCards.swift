@@ -65,7 +65,7 @@ struct OverviewCardView: View {
     case .currencyBalances, .spendToday, .weekOverWeek, .averageDaily, .monthIncome,
       .savingsRate, .monthRest, .weekdaySpending, .monthlySpending, .incomeSources, .topPlaces,
       .spendingByPerson, .categoryGrew, .categoryShrank, .smallPurchases, .backups, .integrity,
-      .ratesStatus, .weekendPrice, .usualDay, .financialHealth:
+      .ratesStatus, .weekendPrice, .usualDay, .financialHealth, .subscriptions:
       OverviewNewCardView(tile: tile)
     }
   }
@@ -557,6 +557,7 @@ struct AnomaliesCard: View {
       VStack(alignment: .leading, spacing: 6) {
         TrendNudgeRow()
         DraftReminderRow()
+        SubscriptionNoticeRows()
         if let snapshot = compute.snapshot {
           ForEach(notes) { note in
             WorthALookNoteRow(
