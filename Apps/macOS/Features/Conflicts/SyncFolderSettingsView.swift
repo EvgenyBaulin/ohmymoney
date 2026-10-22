@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 /// «Папка обмена»: the folder the journal files of this device and of the others live in. The
 /// app proposes iCloud Drive → OhMyMoney → Sync; the owner confirms it or picks another one
 /// (0518). Only journal files go there — never the database or its copies, and a folder that
-/// holds or lies in them is refused. The main session puts it into Settings.
+/// holds or lies in them is refused. Settings → «Основные» shows it, and only for the real database.
 struct SyncFolderSettingsView: View {
   @Dependency(\.environment) private var environment
   let coordinator: SyncCoordinator
@@ -52,6 +52,9 @@ struct SyncFolderSettingsView: View {
     }
     .fileImporter(isPresented: $picking, allowedContentTypes: [.folder]) { result in
       guard case .success(let url) = result else { return }
+      // The bookmark of a picked folder can be made only while access to it is open.
+      let scoped = url.startAccessingSecurityScopedResource()
+      defer { if scoped { url.stopAccessingSecurityScopedResource() } }
       refused = coordinator.choose(folder: url) == .refused
     }
   }

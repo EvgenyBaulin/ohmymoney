@@ -65,7 +65,7 @@ extension PhoneRouter {
       case .debts: return .debts
       case .calendar: return .calendar
       case .capital: return .capital
-      case .settings, nil: return nil
+      case .settings, .conflicts, nil: return nil
       }
     }
   }

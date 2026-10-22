@@ -349,6 +349,8 @@ struct MainWindow: View {
   /// The reminders of the day, shown once, and the due dates passed and unpaid, asked about
   /// once a launch.
   @State private var remindersShown: RemindersShown?
+  /// The list of conflicts of the exchange with the other devices, over the window.
+  @State private var showsConflicts = false
 
   struct RemindersShown: Identifiable {
     let reminders: [Reminder]
@@ -447,6 +449,10 @@ struct MainWindow: View {
             .safeAreaInset(edge: .top, spacing: 0) {
               if environment.state == .ready { TripBanner() }
             }
+            // Records another device changed apart from this one, waiting for the owner.
+            .safeAreaInset(edge: .top, spacing: 0) {
+              if environment.state == .ready { SyncConflictsStrip(showsList: $showsConflicts) }
+            }
             // The bar floats over the last rows and keeps them clear of it. The room it needs
             // is left to the safe area and never measured back into `@State`: a height handed
             // back into the layout of its own branch is what kept the window of Transactions
@@ -541,6 +547,11 @@ struct MainWindow: View {
         set: { environment.showsReconciliation = $0 })
     ) {
       ReconcileSheet().appDependencies(deps)
+    }
+    .sheet(isPresented: environment.lock.presenting($showsConflicts)) {
+      if let sync = environment.sync {
+        ConflictsSheet(coordinator: sync).appDependencies(deps)
+      }
     }
     .sheet(
       isPresented: Binding(

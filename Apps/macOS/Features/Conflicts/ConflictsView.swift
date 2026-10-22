@@ -36,10 +36,9 @@ struct ConflictsBanner: View {
 struct ConflictsList: View {
   @Dependency(\.environment) private var environment
   let coordinator: SyncCoordinator
-  @State private var selected: SyncConflict.ID?
 
   var body: some View {
-    List(selection: $selected) {
+    List {
       if coordinator.conflicts.isEmpty {
         Text(verbatim: ConflictText.t("sync.conflicts.empty", environment))
           .appFont(.callout)
@@ -48,7 +47,11 @@ struct ConflictsList: View {
       }
       ForEach(coordinator.conflicts) { conflict in
         let comparison = ConflictComparison.make(conflict)
-        NavigationLink(value: conflict.id) {
+        // A closure link, not a value: the stack that holds the list (the phone's «Ещё») keeps
+        // its own typed path, which a value of another type cannot join.
+        NavigationLink {
+          ConflictDetailView(coordinator: coordinator, conflict: conflict)
+        } label: {
           VStack(alignment: .leading, spacing: 2) {
             Text(verbatim: comparison.title ?? ConflictText.t(comparison.tableKey, environment))
               .appFont(.headline)
@@ -64,15 +67,6 @@ struct ConflictsList: View {
       }
     }
     .navigationTitle(ConflictText.t("sync.conflicts.title", environment))
-    .navigationDestination(for: SyncConflict.ID.self) { id in
-      if let conflict = coordinator.conflicts.first(where: { $0.id == id }) {
-        ConflictDetailView(coordinator: coordinator, conflict: conflict)
-      } else {
-        // Settled meanwhile (here or by the other device): the row is gone.
-        Text(verbatim: ConflictText.t("sync.conflicts.empty", environment))
-          .foregroundStyle(.secondary)
-      }
-    }
   }
 }
 

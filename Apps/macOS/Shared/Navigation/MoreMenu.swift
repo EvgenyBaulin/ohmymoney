@@ -8,6 +8,8 @@ enum MoreRow: Hashable, Identifiable, Sendable {
   case trip
   case reconcile
   case settings
+  /// Only while records wait for the owner's choice (the exchange with the other devices).
+  case conflicts
   case tour
   case whatsNew
   case problemReport
@@ -19,6 +21,7 @@ enum MoreRow: Hashable, Identifiable, Sendable {
     case .trip: "trip"
     case .reconcile: "reconcile"
     case .settings: "settings"
+    case .conflicts: "conflicts"
     case .tour: "tour"
     case .whatsNew: "whatsNew"
     case .problemReport: "problemReport"
@@ -32,6 +35,7 @@ enum MoreRow: Hashable, Identifiable, Sendable {
     case .trip: "airplane"
     case .reconcile: "checkmark.seal"
     case .settings: "gearshape"
+    case .conflicts: "exclamationmark.triangle"
     case .tour: "map"
     case .whatsNew: "sparkles"
     case .problemReport: "exclamationmark.bubble"
@@ -45,11 +49,13 @@ struct MoreMenu: Equatable, Sendable {
   var sections: [MoreRow]
   var app: [MoreRow]
 
-  static func make(more: [NavItem], tripIsOn: Bool) -> MoreMenu {
+  static func make(more: [NavItem], tripIsOn: Bool, hasConflicts: Bool = false) -> MoreMenu {
     var sections = more.map(MoreRow.section)
     sections.append(.whatIf)
     if tripIsOn { sections.append(.trip) }
     sections.append(.reconcile)
+    // The row is there only while something waits: an empty list is not worth a place.
+    if hasConflicts { sections.append(.conflicts) }
     return MoreMenu(sections: sections, app: [.settings, .tour, .whatsNew, .problemReport])
   }
 

@@ -86,6 +86,12 @@ struct GeneralSettingsView: View {
           .foregroundStyle(.secondary)
       }
 
+      // The folder the journal of the exchange with the other devices lives in; the demo and
+      // generated sets have no exchange, so no row.
+      if let sync = environment.sync {
+        SyncFolderSettingsView(coordinator: sync)
+      }
+
       Section {
         ForEach(ForWhom.allCases, id: \.self) { value in
           LabeledContent {

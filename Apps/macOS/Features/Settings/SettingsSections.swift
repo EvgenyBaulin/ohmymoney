@@ -61,6 +61,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .settings("settings.events.automatic"), .settings("settings.forWhomLabels"),
         .settings("settings.forWhom.people"), .settings("settings.updates"),
         .settings("settings.updates.automatic"), .settings("report.title"),
+        .sync("sync.folder.title"),
       ]
     case .appearance:
       [
@@ -92,7 +93,10 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
     case .references:
       [.settings("settings.people"), .settings("settings.places"), .settings("settings.events")]
     case .entry:
-      [.settings("settings.entry.style"), .settings("settings.entry.order")]
+      [
+        .settings("settings.entry.style"), .settings("settings.entry.order"),
+        .overview("overview.small.field.title"),
+      ]
     case .templates:
       [.settings("templates.showArchive")]
     case .planning:
@@ -132,6 +136,14 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func accounts(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Accounts")
+  }
+
+  static func sync(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "Sync")
+  }
+
+  static func overview(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "Overview")
   }
 }
 

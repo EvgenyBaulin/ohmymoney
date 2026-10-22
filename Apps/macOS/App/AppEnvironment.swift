@@ -234,6 +234,10 @@ public final class AppEnvironment {
   public private(set) var csvExport: CSVExportService?
   public private(set) var archives: ArchiveService?
   public private(set) var rateService: RateService?
+  /// The exchange with the owner's other devices. Only the real database has one; a data set,
+  /// the demo and the test host read `nil` and never record or write a journal.
+  internal(set) var sync: SyncCoordinator?
+  @ObservationIgnored internal(set) var syncFolders: SyncProtectedFolders?
   /// The folder the owner picked for mirrored copies, usually inside iCloud Drive. The test
   /// host is the app itself, in the owner's container: it keeps a key of its own, so no test
   /// opens the owner's folder, saves its bookmark again or mirrors a synthetic copy into it.
@@ -337,6 +341,7 @@ public final class AppEnvironment {
       backupFolder.release(previous)
     }
     mirrorFolder = url
+    syncFolders?.setMirror(url)
     mirrorFolderUnavailable = false
     if let backups {
       Task { await backups.setMirror(url) }
@@ -819,6 +824,8 @@ public final class AppEnvironment {
     // no writer is left to change the database after it.
     integrityLoop?.cancel()
     integrityLoop = nil
+    await sync?.stop()
+    sync = nil
     await backups?.finish()
     let closing = stack
     transactions = nil
@@ -845,12 +852,8 @@ public final class AppEnvironment {
     if let mirror = mirrorFolder {
       backupFolder.release(mirror)
       mirrorFolder = nil
+      syncFolders?.setMirror(nil)
     }
-    // The services were built on this stack too, and a caller that holds the environment
-    // reaches them directly: `scheduleBackup()`, `applyRate(...)`. Left wired, they went on
-    // writing through a closed connection for the whole terminate-later window (SQLITE_MISUSE,
-    // no crash — but a late reader is owed `nil`, never a closed connection, and this is what
-    // makes that true).
     stack = nil
     state = .starting
     isClosed = true
@@ -933,6 +936,7 @@ public final class AppEnvironment {
           "backup.mirrorUnavailable", .backup, "the folder chosen for copies could not be opened")
       }
     }
+    wireSync(writer: stack.writer, isRealDatabase: !Self.isTestHost && AppPaths.dataSet == nil)
     if let references, let settings {
       try Self.seed(
         references: references, settings: settings, language: language.resolvedCode,
@@ -959,6 +963,8 @@ public final class AppEnvironment {
         await backups.fillReadableFolders()
         await backups.startDaily()
       }
+      // The exchange with the other devices: what waits, and one exchange at the launch.
+      sync?.start()
       // The weekly check of the database: at the launch if it is due, and again every few hours
       // for an app that stays open for days.
       integrityLoop = Task { @MainActor in

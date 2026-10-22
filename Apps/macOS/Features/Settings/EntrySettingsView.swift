@@ -32,6 +32,8 @@ struct EntrySettingsView: View {
       .accessibilityIdentifier("settings.entry.style")
       hint("settings.entry.styleHint")
       Divider()
+      SmallPurchaseLimitField()
+      Divider()
 
       List {
         Section {

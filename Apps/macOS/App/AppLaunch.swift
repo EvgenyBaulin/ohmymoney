@@ -220,6 +220,8 @@ enum AppLaunch {
       for await _ in changes {
         guard !Task.isCancelled else { return }
         environment.scheduleBackup()
+        // The same change is news for the other devices: one exchange once the burst is over.
+        environment.sync?.changed()
       }
     }
   }

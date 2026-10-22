@@ -27,6 +27,11 @@ final class SyncCoordinator {
   private let notifier: any SyncNotifying
   private let defaults: UserDefaults
   private var isRunning = false
+  private var isStopped = false
+  private var debounce: Task<Void, Never>?
+  @ObservationIgnored private var foregroundObserver: (any NSObjectProtocol)?
+  /// How long a burst of changes is left to settle before one exchange.
+  var debounceDelay: Duration = .seconds(3)
   /// The language of the interface, for the words of a notification; the wiring sets it.
   var language: AppLanguage?
 
@@ -100,6 +105,60 @@ final class SyncCoordinator {
     }
   }
 
+  // MARK: Triggers
+
+  /// The data changed (any committed write, the exchange's own included): the status shows what
+  /// waits, and one exchange runs once the changes have stopped coming. Without a folder there
+  /// is nothing to run.
+  func changed() {
+    guard exchange != nil, !isStopped else { return }
+    refresh()
+    guard bookmarks.isStored else { return }
+    debounce?.cancel()
+    let delay = debounceDelay
+    debounce = Task { [weak self] in
+      try? await Task.sleep(for: delay)
+      guard !Task.isCancelled else { return }
+      await self?.syncNow()
+    }
+  }
+
+  /// The app came to the front: look at what waits and run an exchange.
+  func startObservingForeground(center: NotificationCenter = .default) {
+    guard exchange != nil, foregroundObserver == nil else { return }
+    foregroundObserver = center.addObserver(
+      forName: SyncWiring.foregroundNotification, object: nil, queue: .main
+    ) { [weak self] _ in
+      Task { @MainActor [weak self] in
+        self?.refresh()
+        await self?.syncNow()
+      }
+    }
+  }
+
+  /// The launch: what waits, and one exchange.
+  func start() {
+    refresh()
+    startObservingForeground()
+    Task { await syncNow() }
+  }
+
+  /// Before the database closes: no new exchange begins, and one in flight is waited for.
+  func stop() async {
+    isStopped = true
+    debounce?.cancel()
+    debounce = nil
+    if let observer = foregroundObserver {
+      NotificationCenter.default.removeObserver(observer)
+      foregroundObserver = nil
+    }
+    var waited = 0
+    while isRunning, waited < 200 {
+      try? await Task.sleep(for: .milliseconds(50))
+      waited += 1
+    }
+  }
+
   // MARK: Running
 
   /// Looks at what is waiting without touching the folder.
@@ -118,7 +177,7 @@ final class SyncCoordinator {
 
   /// One exchange: out, in, conflicts. Does nothing while one runs or when no folder is chosen.
   func syncNow() async {
-    guard let exchange, !isRunning else { return }
+    guard let exchange, !isRunning, !isStopped else { return }
     guard bookmarks.isStored else {
       status = .notConfigured
       return

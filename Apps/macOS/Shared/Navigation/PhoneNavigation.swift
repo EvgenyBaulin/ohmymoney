@@ -10,7 +10,7 @@ enum PhoneTab: String, Hashable, CaseIterable, Sendable {
 
 /// What «Ещё» pushes: the sections that did not fit into a tab, and the list of the settings.
 enum MoreDestination: Hashable, Sendable {
-  case debts, calendar, capital, settings
+  case debts, calendar, capital, settings, conflicts
 }
 
 /// Where a request to show something lands on the phone.

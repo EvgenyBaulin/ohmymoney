@@ -117,6 +117,12 @@ struct MoreTab: View {
       }
     case .settings:
       PhoneSettingsList(deps: deps)
+    case .conflicts:
+      if let sync = environment.sync {
+        ConflictsList(coordinator: sync)
+      } else {
+        EmptyView()
+      }
     }
   }
 
@@ -131,7 +137,9 @@ struct MoreTab: View {
   // MARK: Sections and tools
 
   private var menu: MoreMenu {
-    MoreMenu.make(more: layout.more, tripIsOn: environment.tripEntryDefaults != nil)
+    MoreMenu.make(
+      more: layout.more, tripIsOn: environment.tripEntryDefaults != nil,
+      hasConflicts: !(environment.sync?.conflicts.isEmpty ?? true))
       .filtered(by: query, title: title(of:))
   }
 
@@ -145,6 +153,7 @@ struct MoreTab: View {
     case .trip: n("nav.more.trip")
     case .reconcile: environment.language("action.reconcile")
     case .settings: environment.language("settings.title", table: "Settings")
+    case .conflicts: environment.language("sync.conflicts.title", table: "Sync")
     case .tour: environment.language("guide.menu.tour", table: "Guide")
     case .whatsNew: environment.language("guide.menu.whatsNew", table: "Guide")
     case .problemReport: environment.language("report.title", table: "Settings")
@@ -171,6 +180,8 @@ struct MoreTab: View {
       }
     case .settings:
       NavigationLink(value: MoreDestination.settings) { label }
+    case .conflicts:
+      NavigationLink(value: MoreDestination.conflicts) { label }
     case .whatIf:
       Button {
         router.open(screen: .whatIf)

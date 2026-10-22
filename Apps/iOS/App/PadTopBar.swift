@@ -58,7 +58,9 @@ struct PadMoreList: View {
   private var environment: AppEnvironment { deps.environment }
 
   private var menu: MoreMenu {
-    MoreMenu.make(more: layout.more, tripIsOn: environment.tripEntryDefaults != nil)
+    MoreMenu.make(
+      more: layout.more, tripIsOn: environment.tripEntryDefaults != nil,
+      hasConflicts: !(environment.sync?.conflicts.isEmpty ?? true))
       .filtered(by: query, title: title(of:))
   }
 
@@ -106,6 +108,7 @@ struct PadMoreList: View {
     case .trip: environment.language("nav.more.trip", table: "Navigation")
     case .reconcile: environment.language("action.reconcile")
     case .settings: environment.language("settings.title", table: "Settings")
+    case .conflicts: environment.language("sync.conflicts.title", table: "Sync")
     case .tour: environment.language("guide.menu.tour", table: "Guide")
     case .whatsNew: environment.language("guide.menu.whatsNew", table: "Guide")
     case .problemReport: environment.language("report.title", table: "Settings")
@@ -119,6 +122,7 @@ struct PadMoreList: View {
     case .trip: environment.showsTrip = true
     case .reconcile: environment.showsReconciliation = true
     case .settings: router.open(screen: .settings)
+    case .conflicts: router.open(PhoneRoute(tab: .more, more: .conflicts))
     case .tour: GuideStore.shared.show(GuideCatalog.firstLaunch)
     case .whatsNew:
       if let latest = GuideCatalog.whatsNew.last { GuideStore.shared.show(latest) }
