@@ -52,6 +52,18 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
   /// The owner marked the whole operation as a one-off (a laptop, a repair): it leaves the
   /// averages and the forecasts and stays in every total and every limit.
   public var isOneOff: Bool
+  /// Where the operation came from: `manual`, `statement`, `screenshot` or `receipt`; `nil`
+  /// reads as `manual`. Kept as the stored text so a value a newer build writes survives
+  /// (`StatementOperationRecord` of `CoreCSV` has the typed form).
+  public var source: String?
+  /// What the bank said of the operation: `posted`, `pending`, `declined` or `unknown`; `nil`
+  /// reads as `posted`.
+  public var bankStatus: String?
+  /// The day the bank posted the operation, when it is not the day of the operation.
+  public var postedOn: DateOnly?
+  /// The versioned hash of a statement line, which finds the same line when the same period is
+  /// loaded again; never the text of the line.
+  public var dedupKey: String?
 
   public init(
     id: UUID = UUID(),
@@ -81,7 +93,11 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     cardId: UUID? = nil,
     cashback: Money? = nil,
     timeZoneId: String? = nil,
-    isOneOff: Bool = false
+    isOneOff: Bool = false,
+    source: String? = nil,
+    bankStatus: String? = nil,
+    postedOn: DateOnly? = nil,
+    dedupKey: String? = nil
   ) {
     self.id = id
     self.kind = kind
@@ -111,6 +127,10 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     self.cashback = cashback
     self.timeZoneId = timeZoneId
     self.isOneOff = isOneOff
+    self.source = source
+    self.bankStatus = bankStatus
+    self.postedOn = postedOn
+    self.dedupKey = dedupKey
   }
 
   public var isDeleted: Bool { deletedAt != nil }

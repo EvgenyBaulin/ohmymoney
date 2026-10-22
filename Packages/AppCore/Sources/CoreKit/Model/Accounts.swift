@@ -64,12 +64,16 @@ public struct Transfer: Identifiable, Hashable, Sendable, Codable {
   /// What wrote the transfer, when the app did: `alloc:<income>:<uuid>` — the allocation of an
   /// income. Unique among transfers; `nil` — the owner wrote it.
   public var externalId: String?
+  /// When the money arrived, if later than it was sent: until then it is on its way. `nil` —
+  /// it arrived when it was sent, as every transfer did before this field. Nothing moves a
+  /// balance by it yet.
+  public var arrivedAt: Date?
 
   public init(
     id: UUID = UUID(), occurredAt: Date, fromAccountId: UUID, fromCurrency: CurrencyCode,
     fromAmountE4: AmountE4, toAccountId: UUID, toCurrency: CurrencyCode, toAmountE4: AmountE4,
     note: String? = nil, createdAt: Date = Date(), updatedAt: Date = Date(),
-    externalId: String? = nil
+    externalId: String? = nil, arrivedAt: Date? = nil
   ) {
     self.id = id
     self.occurredAt = occurredAt
@@ -83,6 +87,7 @@ public struct Transfer: Identifiable, Hashable, Sendable, Codable {
     self.createdAt = createdAt
     self.updatedAt = updatedAt
     self.externalId = externalId
+    self.arrivedAt = arrivedAt
   }
 
   public var from: BalanceKey { BalanceKey(accountId: fromAccountId, currency: fromCurrency) }

@@ -170,7 +170,9 @@ enum AppLaunch {
       }
       store.attach(
         repository, references: environment.references, planning: environment.planning,
-        spending: environment.spendingRules)
+        spending: environment.spendingRules, year: environment.yearPlan,
+        subscriptions: environment.subscriptionBooks, savedViews: environment.savedViews,
+        imports: environment.statementImports)
     }
     // A copy after every change, whoever wrote it: the store, a setting written through
     // `environment.attempt`, a hidden anomaly, a pinned template. One rule on the database

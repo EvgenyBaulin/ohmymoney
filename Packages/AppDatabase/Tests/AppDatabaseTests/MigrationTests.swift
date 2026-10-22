@@ -23,16 +23,21 @@ struct MigrationTests {
   @Test func schemaCreatesEveryTableOfTheApp() throws {
     let stack = try TestSupport.makeStack()
     let expected = [
-      "account_groups", "allocation_rules", "anomaly_dismissals", "asset_valuations", "assets",
-      "banks", "budgets", "cards", "cashback_rules",
-      "categories", "category_feedback", "currencies", "custom_currencies", "day_notes", "debt_costs",
-      "debt_entries", "debt_instalments", "debts", "events", "expected_income",
-      "expected_income_links", "goals", "import_batches", "import_mappings", "ml_models", "part_tags",
-      "payment_methods", "people", "places", "rates", "reconciliation_balances",
-      "reconciliations", "reimbursement_links", "rules", "scenarios", "scheduled_payments", "settings",
-      "subscription_prices", "sync_deferred", "sync_heads", "sync_meta", "sync_outbox",
-      "sync_resolutions", "sync_state", "tags", "templates", "transaction_parts", "transactions",
-      "transfers",
+      "account_groups", "allocation_rules", "anomaly_dismissals", "asset_valuations",
+      "assets", "banks", "budget_month_exceptions", "budgets",
+      "cards", "cashback_rules", "categories", "category_feedback",
+      "currencies", "custom_currencies", "day_notes", "debt_costs",
+      "debt_entries", "debt_instalments", "debts", "event_budget_items",
+      "event_templates", "events", "expected_income", "expected_income_links",
+      "goals", "identity_items", "import_batches", "import_mappings",
+      "ml_models", "part_tags", "payment_methods", "people",
+      "places", "rates", "reconciliation_balances", "reconciliations",
+      "reimbursement_links", "rules", "saved_views", "scenarios",
+      "scheduled_payments", "settings", "statement_profiles", "subscription_keep_groups",
+      "subscription_prices", "subscription_terms", "subscription_usage", "subscription_users",
+      "sync_deferred", "sync_heads", "sync_meta", "sync_outbox",
+      "sync_resolutions", "sync_state", "tags", "templates",
+      "transaction_parts", "transactions", "transfers",
     ]
     let tables = try stack.writer.read { db in
       try String.fetchAll(
@@ -271,8 +276,8 @@ extension MigrationTests {
     #expect(before["payment_methods"]?.columns.contains("other_currencies") == false)
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
-    #expect(try stack.appliedMigrations().last == "0013_spending_rules")
-    #expect(stack.applied.applied == 10)
+    #expect(try stack.appliedMigrations().last == "0014_import_year_questions_subscriptions")
+    #expect(stack.applied.applied == 11)
 
     // The two values the update may change are the flag of the main account and the account
     // of an operation that had none; they are checked on their own below.

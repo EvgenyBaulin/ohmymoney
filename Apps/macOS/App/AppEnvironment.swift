@@ -45,6 +45,14 @@ public final class AppEnvironment {
   public private(set) var planning: PlanningRepository?
   /// Tags, rules, notes of days, baskets and the settings of the spending screens.
   public private(set) var spendingRules: SpendingRulesRepository?
+  /// The list of imports, the finding of duplicates, who the owner is and the owner's profiles.
+  public private(set) var statementImports: StatementImportRepository?
+  /// The limits of one month, the articles and templates of events and the buffer of the month.
+  public private(set) var yearPlan: YearPlanRepository?
+  /// Terms, days of use, people sharing and kept groups of subscriptions.
+  public private(set) var subscriptionBooks: SubscriptionRepository?
+  /// The saved filters and reports.
+  public private(set) var savedViews: SavedViewsRepository?
   /// The saved «what if» scenarios.
   public private(set) var scenarios: ScenarioRepository?
   /// «Это нормально» on an anomaly.
@@ -842,6 +850,10 @@ public final class AppEnvironment {
     currencyCatalog = .empty
     planning = nil
     spendingRules = nil
+    statementImports = nil
+    yearPlan = nil
+    subscriptionBooks = nil
+    savedViews = nil
     scenarios = nil
     anomalies = nil
     accounts = nil
@@ -912,6 +924,10 @@ public final class AppEnvironment {
     self.currencies = CurrencyRepository(writer: stack.writer)
     self.planning = PlanningRepository(writer: stack.writer, liveCounts: liveCounts)
     self.spendingRules = SpendingRulesRepository(writer: stack.writer)
+    self.statementImports = StatementImportRepository(writer: stack.writer)
+    self.yearPlan = YearPlanRepository(writer: stack.writer)
+    self.subscriptionBooks = SubscriptionRepository(writer: stack.writer)
+    self.savedViews = SavedViewsRepository(writer: stack.writer)
     self.scenarios = ScenarioRepository(writer: stack.writer, liveCounts: liveCounts)
     self.anomalies = AnomalyRepository(writer: stack.writer)
     self.accounts = AccountRepository(writer: stack.writer)

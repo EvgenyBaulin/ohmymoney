@@ -105,6 +105,12 @@ public struct Dataset: Sendable {
   public var weekendWindow: WeekendWindow
   /// The price in hours of work (`spending.workHours.*`).
   public var workHours: WorkHoursSettings
+  /// The saved filters and reports (`saved_views`).
+  public var savedViews: SavedViewsBook
+  /// What the layers above the analytics keep in the same read — the plan of the year and the
+  /// subscriptions (`CorePlanning`) —, so it is one moment with the operations and travels with
+  /// every copy of the dataset.
+  public var extras: DatasetExtras
 
   public init(
     entries: [TransactionEntry] = [],
@@ -144,7 +150,9 @@ public struct Dataset: Sendable {
     dayNotes: [DayNote] = [],
     incomeSavings: IncomeSavingsSettings = .standard,
     weekendWindow: WeekendWindow = .standard,
-    workHours: WorkHoursSettings = WorkHoursSettings()
+    workHours: WorkHoursSettings = WorkHoursSettings(),
+    savedViews: SavedViewsBook = SavedViewsBook(),
+    extras: DatasetExtras = DatasetExtras()
   ) {
     self.entries = entries
     self.links = links
@@ -184,6 +192,8 @@ public struct Dataset: Sendable {
     self.incomeSavings = incomeSavings
     self.weekendWindow = weekendWindow
     self.workHours = workHours
+    self.savedViews = savedViews
+    self.extras = extras
   }
 
   public static let empty = Dataset()

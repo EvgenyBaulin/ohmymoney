@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 35 files of Export, always in the same order.
+/// The 42 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -31,7 +31,11 @@ public enum ExportTables {
   /// that moved on the account.
   /// `time_zone` came with `Schema/0011_travel.sql`: the zone the operation was recorded in, empty
   /// for Moscow. `one_off` came with `Schema/0013_spending_rules.sql`: `true` when the owner marked
-  /// the operation as a one-off.
+  /// the operation as a one-off. `source`, `bank_status`, `posted_on` and `dedup_key` came with
+  /// `Schema/0014_import_year_questions_subscriptions.sql`: where a statement line came from
+  /// (`statement`, `screenshot`, `receipt`; empty — typed by hand), what the bank said of it
+  /// (`posted`, `pending`, `declined`, `unknown`; empty — posted), the day the bank posted it and
+  /// the hash that finds the same line again.
   public static let transactions = ExportTable(
     fileName: "transactions.csv",
     columns: [
@@ -40,6 +44,7 @@ public enum ExportTables {
       "payment_method_id", "period_month", "debt_id", "credit_debt_id", "import_batch_id",
       "external_id", "created_at", "updated_at", "deleted_at", "account_currency",
       "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
+      "source", "bank_status", "posted_on", "dedup_key",
     ])
 
   /// `refund_of_part_id` came with `Schema/0004_accounts.sql`: the purchase part a refund
@@ -224,12 +229,14 @@ public enum ExportTables {
 
   /// Columns match `Schema/0004_accounts.sql`; `external_id` came with
   /// `Schema/0009_credit_and_allocation.sql`: what wrote the transfer, when the app did.
+  /// `arrived_at` came with `Schema/0014_import_year_questions_subscriptions.sql`: when the money
+  /// arrived, empty when it arrived when it was sent.
   public static let transfers = ExportTable(
     fileName: "transfers.csv",
     columns: [
       "id", "occurred_at", "from_payment_method_id", "from_currency", "from_amount",
       "to_payment_method_id", "to_currency", "to_amount", "note", "created_at", "updated_at",
-      "external_id",
+      "external_id", "arrived_at",
     ])
 
   /// Columns match `Schema/0004_accounts.sql`. Amounts are in the row's currency; an empty
@@ -336,18 +343,52 @@ public enum ExportTables {
   public static let dayNotes = ExportTable(
     fileName: "day_notes.csv", columns: ["id", "day", "text", "created_at", "updated_at"])
 
-  /// All 35 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// The limits that differ in one month, the articles of the budget of an event, the owner's
+  /// templates of events and the extras of subscriptions came with
+  /// `Schema/0014_import_year_questions_subscriptions.sql`, and go last. Amounts are written
+  /// without `_e4` as decimal strings, flags as `true` and `false`. `lines` of a template and
+  /// `payment_ids` of a group of kept subscriptions are the JSON of the database, as it is. The
+  /// saved filters and reports, the owner's own statement profiles, the numbers of one's own
+  /// contracts and the list of imports are not exported: the archive carries the database whole.
+  public static let budgetMonthExceptions = ExportTable(
+    fileName: "budget_month_exceptions.csv", columns: ["id", "budget_id", "month", "amount"])
+
+  public static let eventBudgetItems = ExportTable(
+    fileName: "event_budget_items.csv", columns: ["id", "event_id", "title", "planned", "sort"])
+
+  public static let eventTemplates = ExportTable(
+    fileName: "event_templates.csv",
+    columns: ["id", "name", "event_kind", "total", "lines", "created_at", "updated_at"])
+
+  public static let subscriptionTerms = ExportTable(
+    fileName: "subscription_terms.csv",
+    columns: [
+      "payment_id", "yearly_plan", "monthly_plan", "floating", "tolerance_percent",
+      "service_type", "needed", "yearly_reminder_off", "owner_uses",
+    ])
+
+  public static let subscriptionUsage = ExportTable(
+    fileName: "subscription_usage.csv", columns: ["id", "payment_id", "day"])
+
+  public static let subscriptionUsers = ExportTable(
+    fileName: "subscription_users.csv", columns: ["id", "payment_id", "person_id"])
+
+  public static let subscriptionKeepGroups = ExportTable(
+    fileName: "subscription_keep_groups.csv", columns: ["id", "type", "payment_ids"])
+
+  /// All 42 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
-  /// of days.
+  /// of days, then the month limits, event articles and templates and the subscription extras.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
     budgets, goals, debts, debtEntries, reconciliations, rates, accountGroups, transfers,
     reconciliationBalances, cards, cashbackRules, banks, assets, assetValuations,
     debtInstalments, debtCosts, allocationRules, customCurrencies, settings, tags, partTags, rules,
-    dayNotes,
+    dayNotes, budgetMonthExceptions, eventBudgetItems, eventTemplates, subscriptionTerms,
+    subscriptionUsage, subscriptionUsers, subscriptionKeepGroups,
   ]
 }
 
@@ -386,6 +427,10 @@ extension ExportTables {
       CSVValue.string(amount: transaction.cashback?.amount),
       CSVValue.string(transaction.timeZoneId),
       CSVValue.string(bool: transaction.isOneOff),
+      CSVValue.string(transaction.source),
+      CSVValue.string(transaction.bankStatus),
+      CSVValue.string(transaction.postedOn?.iso),
+      CSVValue.string(transaction.dedupKey),
     ]
   }
 
@@ -739,6 +784,7 @@ extension ExportTables {
       CSVValue.string(instant: transfer.createdAt),
       CSVValue.string(instant: transfer.updatedAt),
       CSVValue.string(transfer.externalId),
+      CSVValue.string(instant: transfer.arrivedAt),
     ]
   }
 

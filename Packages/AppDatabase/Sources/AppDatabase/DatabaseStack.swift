@@ -253,6 +253,8 @@ public final class DatabaseStack: Sendable {
     "category_feedback", "account_groups", "transfers", "reconciliation_balances", "cards",
     "cashback_rules", "banks", "assets", "asset_valuations", "debt_instalments", "debt_costs",
     "allocation_rules", "custom_currencies", "tags", "part_tags", "rules", "day_notes",
+    "saved_views", "budget_month_exceptions", "event_budget_items", "event_templates",
+    "subscription_terms", "subscription_usage", "subscription_users", "subscription_keep_groups",
   ]
 
   /// One element after every committed transaction that changed one of `ledgerTables` —
@@ -286,7 +288,13 @@ public final class DatabaseStack: Sendable {
   /// The tables whose change is a change of the owner's data, worth a copy: the ledger's, plus
   /// the templates, the enabled currencies and the saved scenarios, which no number reads but a
   /// restore must bring back. The model file (`ml_models`) is left out: it is rebuilt from the data.
-  static let dataTables = ledgerTables + ["templates", "currencies", "scenarios"]
+  /// The list of imports, the numbers of the owner's own contracts and the owner's profiles of
+  /// files are no figure's input either, but a restore must bring them back.
+  static let dataTables =
+    ledgerTables + [
+      "templates", "currencies", "scenarios", "import_batches", "identity_items",
+      "statement_profiles",
+    ]
 
   /// One element after every committed transaction that changed one of `dataTables`, whoever
   /// wrote it — the stream the copy after every change listens to. Same threading, buffer

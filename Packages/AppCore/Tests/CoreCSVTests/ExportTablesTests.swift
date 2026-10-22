@@ -4,11 +4,12 @@ import Testing
 
 @testable import CoreCSV
 
-/// The 35 file names of the export, in their one fixed order: the 18 of the first schema,
+/// The 42 file names of the export, in their one fixed order: the 18 of the first schema,
 /// then the three the accounts brought, then the cards and their cashback rules, then the banks,
 /// then the assets and their valuations, then the instalments and costs of the debts, the rules
 /// of allocation, the custom currencies and the settings, then the tags, their links, the rules
-/// and the notes of days.
+/// and the notes of days, then the month limits, the articles and templates of events and the
+/// extras of subscriptions.
 private let specifiedFileNames = [
   "transactions.csv", "transaction_parts.csv", "reimbursement_links.csv", "people.csv",
   "payment_methods.csv", "places.csv", "events.csv", "categories.csv", "templates.csv",
@@ -18,19 +19,26 @@ private let specifiedFileNames = [
   "cashback_rules.csv", "banks.csv", "assets.csv", "asset_valuations.csv",
   "debt_instalments.csv", "debt_costs.csv", "allocation_rules.csv", "custom_currencies.csv",
   "settings.csv", "tags.csv", "part_tags.csv", "rules.csv", "day_notes.csv",
+  "budget_month_exceptions.csv", "event_budget_items.csv", "event_templates.csv",
+  "subscription_terms.csv", "subscription_usage.csv", "subscription_users.csv",
+  "subscription_keep_groups.csv",
 ]
 
-@Suite("ExportTables describes the 35 files of the export")
+@Suite("ExportTables describes the 42 files of the export")
 struct ExportTablesDescriptionTests {
-  @Test func theThirtyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 35)
+  @Test func theFortyTwoFilesInTheirOrder() {
+    #expect(ExportTables.all.count == 42)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.suffix(14) == [
+      ExportTables.all.suffix(21) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
         ExportTables.tags, ExportTables.partTags, ExportTables.rules, ExportTables.dayNotes,
+        ExportTables.budgetMonthExceptions, ExportTables.eventBudgetItems,
+        ExportTables.eventTemplates, ExportTables.subscriptionTerms,
+        ExportTables.subscriptionUsage, ExportTables.subscriptionUsers,
+        ExportTables.subscriptionKeepGroups,
       ])
   }
 
@@ -76,7 +84,7 @@ struct ExportTablesDescriptionTests {
         "return_by", "terms_reviewed",
       ])
     #expect(Array(ExportTables.debtEntries.columns.suffix(2)) == ["tranche", "prepay"])
-    #expect(Array(ExportTables.transfers.columns.suffix(2)) == ["updated_at", "external_id"])
+    #expect(Array(ExportTables.transfers.columns.suffix(3)) == ["updated_at", "external_id", "arrived_at"])
   }
 
   /// The capital brought two files at the end and one column at the end of the accounts and of
@@ -108,6 +116,7 @@ struct ExportTablesDescriptionTests {
         "payment_method_id", "period_month", "debt_id", "credit_debt_id", "import_batch_id",
         "external_id", "created_at", "updated_at", "deleted_at", "account_currency",
         "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
+        "source", "bank_status", "posted_on", "dedup_key",
       ])
     #expect(
       ExportTables.scheduledPayments.columns == [
@@ -190,7 +199,7 @@ struct ExportTablesDescriptionTests {
       let older = Array(table.columns.prefix(before[table.fileName] ?? 0))
       #expect(Array(older.suffix(columns.count)) == columns, "\(table.fileName)")
     }
-    #expect(ExportTables.transactions.columns.count == 29)
+    #expect(ExportTables.transactions.columns.count == 33)
     #expect(ExportTables.transactionParts.columns.count == 17)
     #expect(ExportTables.paymentMethods.columns.count == 36)
     #expect(ExportTables.templates.columns.count == 8)

@@ -65,7 +65,9 @@ struct SyncRecordingTests {
           sql:
             "SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite\\_%' ESCAPE '\\' AND name NOT LIKE 'grdb\\_%' ESCAPE '\\'"
         ))
-      let leftOut: Set<String> = ["settings", "rates", "ml_models", "category_feedback"]
+      let leftOut: Set<String> = [
+        "settings", "rates", "ml_models", "category_feedback", "identity_items",
+      ]
       #expect(
         all.subtracting(SyncTables.followed.keys).subtracting(SyncTables.bookkeeping) == leftOut)
     }

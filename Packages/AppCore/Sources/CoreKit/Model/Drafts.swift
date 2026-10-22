@@ -218,7 +218,8 @@ extension TransactionEntry {
   /// * When the operation was created and which import it came from (`import_batch_id`,
   ///   `external_id`) are facts about it, not fields of the panel: resetting them would put
   ///   an old purchase among today's additions and let the same bank row be imported a
-  ///   second time. Whether it is deleted is not the panel's either.
+  ///   second time; the same holds for where it came from (`source`, `bankStatus`, `postedOn`,
+  ///   `dedupKey`). Whether it is deleted is not the panel's either.
   /// * How far a part paid for somebody else has come back is written by a reimbursement
   ///   and by writing the part off, never by the panel. An editor holds the copy it was
   ///   opened with, and one of those may happen meanwhile: the old «expected» written back
@@ -237,6 +238,12 @@ extension TransactionEntry {
     rebased.transaction.importBatchId = current.transaction.importBatchId
     rebased.transaction.externalId = current.transaction.externalId
     rebased.transaction.deletedAt = current.transaction.deletedAt
+    // Where a statement line came from is a fact of the record too: a panel edit must not turn
+    // an imported operation into a manual one, or the same line would be loaded a second time.
+    rebased.transaction.source = current.transaction.source
+    rebased.transaction.bankStatus = current.transaction.bankStatus
+    rebased.transaction.postedOn = current.transaction.postedOn
+    rebased.transaction.dedupKey = current.transaction.dedupKey
     // The zone is a fact of the record: an edit that leaves the moment where it was leaves the
     // zone it was recorded in; one that moves the moment is a new date typed on this Mac.
     if rebased.transaction.occurredAt == current.transaction.occurredAt {

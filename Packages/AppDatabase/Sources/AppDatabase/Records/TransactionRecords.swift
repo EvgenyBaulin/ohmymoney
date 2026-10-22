@@ -36,7 +36,16 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
       cardId: RowMapping.optionalUUID(row, "card_id"),
       cashback: try Self.cashback(row),
       timeZoneId: Self.zone(row),
-      isOneOff: (try? RowMapping.flag(row, "one_off", fallback: false)) ?? false)
+      isOneOff: (try? RowMapping.flag(row, "one_off", fallback: false)) ?? false,
+      source: Self.text(row, "source"), bankStatus: Self.text(row, "bank_status"),
+      postedOn: RowMapping.day(row, "posted_on"), dedupKey: Self.text(row, "dedup_key"))
+  }
+
+  /// A blank text reads as none, like a NULL.
+  private static func text(_ row: Row, _ column: String) -> String? {
+    guard let text: String = row[column] else { return nil }
+    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    return trimmed.isEmpty ? nil : trimmed
   }
 
   /// A blank zone reads as none, like a NULL: Moscow.
@@ -83,6 +92,10 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
     container["cashback_e4"] = cashback?.amount.raw
     container["time_zone"] = timeZoneId
     container["one_off"] = isOneOff
+    container["source"] = source
+    container["bank_status"] = bankStatus
+    container["posted_on"] = postedOn?.iso
+    container["dedup_key"] = dedupKey
   }
 }
 

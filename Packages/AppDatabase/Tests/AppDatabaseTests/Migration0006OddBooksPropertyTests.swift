@@ -240,7 +240,7 @@ struct Migration0006OddBooksPropertyTests {
     for (table, contents) in before
     where ![
       "banks", "cashback_rules", "payment_methods", "debt_entries", "debts", "categories",
-      "goals", "transfers", "transactions", "events", "cards",
+      "goals", "transfers", "transactions", "events", "cards", "import_batches",
     ].contains(table) {
       #expect(afterUpdate[table] == contents, "seed \(seed): \(table) changed")
     }

@@ -122,6 +122,12 @@ public final class TransactionsStore {
   private var planning: PlanningRepository?
   /// Tags, rules, notes of days and baskets: their writes are steps of ⌘Z too (`SpendingUndo`).
   var spending: SpendingRulesRepository?
+  /// The year plan, the subscription extras, the saved views and the loading of statements:
+  /// their writes are steps of ⌘Z too (`LaterUndo`).
+  var year: YearPlanRepository?
+  var subscriptions: SubscriptionRepository?
+  var savedViews: SavedViewsRepository?
+  var imports: StatementImportRepository?
   /// What the last rules applied to the past wrote (`TransactionsStore+Spending`).
   @ObservationIgnored let backfillBox = BackfillBox()
   private var undoStack: [UndoStep] = []
@@ -166,6 +172,9 @@ public final class TransactionsStore {
     case moneyBack(MoneyBackWrite)
     /// A write of tags, rules, a note of a day or a basket, or rules applied to the past.
     case spending(SpendingUndo)
+    /// A write of the year plan, the subscription extras, the saved views or the loading of a
+    /// statement.
+    case later(LaterUndo)
 
     /// How many operations undoing it writes.
     var size: Int {
@@ -181,6 +190,7 @@ public final class TransactionsStore {
       case .moneyBack(let write):
         max(1, write.created.count + write.repricedBefore.count + write.refundsBefore.count)
       case .spending(let step): step.size
+      case .later(let step): step.size
       }
     }
   }
@@ -216,6 +226,10 @@ public final class TransactionsStore {
     references = nil
     planning = nil
     spending = nil
+    year = nil
+    subscriptions = nil
+    savedViews = nil
+    imports = nil
     didWrite = nil
     letGoOfTheDatabase()
     isAttached = false
@@ -223,12 +237,18 @@ public final class TransactionsStore {
 
   public func attach(
     _ repository: TransactionRepository, references: ReferenceRepository?,
-    planning: PlanningRepository? = nil, spending: SpendingRulesRepository? = nil
+    planning: PlanningRepository? = nil, spending: SpendingRulesRepository? = nil,
+    year: YearPlanRepository? = nil, subscriptions: SubscriptionRepository? = nil,
+    savedViews: SavedViewsRepository? = nil, imports: StatementImportRepository? = nil
   ) {
     self.repository = repository
     self.references = references
     self.planning = planning
     self.spending = spending
+    self.year = year
+    self.subscriptions = subscriptions
+    self.savedViews = savedViews
+    self.imports = imports
     letGoOfTheDatabase()
     isAttached = true
   }
@@ -1232,6 +1252,9 @@ public final class TransactionsStore {
       case .spending(let undo):
         guard let spending else { return }
         write = try undo.revert(spending: spending, transactions: repository)
+      case .later(let undo):
+        write = try undo.revert(
+          year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports)
       }
       // Nothing else runs on the main actor meanwhile: the step is still the last one.
       undoStack.removeLast()
@@ -1297,6 +1320,9 @@ public final class TransactionsStore {
     case .spending(let undo):
       guard let spending else { throw PlanningUndoUnavailable() }
       return try undo.revert(spending: spending, transactions: repository)
+    case .later:
+      // Its steps are single small writes (`LaterUndo.size`), so they never take this path.
+      throw PlanningUndoUnavailable()
     }
   }
 

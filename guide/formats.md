@@ -9,7 +9,7 @@ Windows.
 ```text
 manifest.json          что это за архив, с контрольными суммами
 data/database.sqlite   согласованный снимок базы (backup API SQLite)
-data/csv/<table>.csv   35 таблиц, как в экспорте CSV
+data/csv/<table>.csv   42 таблицы, как в экспорте CSV
 settings.json          переносимые настройки
 ```
 

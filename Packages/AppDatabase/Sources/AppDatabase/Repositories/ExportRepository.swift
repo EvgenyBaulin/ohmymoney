@@ -172,10 +172,72 @@ public struct ExportRepository: Sendable {
       for row in try DayNote.fetchAll(db, sql: "SELECT * FROM day_notes ORDER BY day") {
         csv.append(ExportTables.row(row))
       }
+    case ExportTables.budgetMonthExceptions.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM budget_month_exceptions ORDER BY month, budget_id, id")
+      {
+        csv.append(Self.text(row, ["id", "budget_id", "month"]) + Self.amount(row, "amount_e4"))
+      }
+    case ExportTables.eventBudgetItems.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM event_budget_items ORDER BY event_id, sort, id")
+      {
+        csv.append(
+          Self.text(row, ["id", "event_id", "title"]) + Self.amount(row, "planned_e4")
+            + [String(row["sort"] as Int? ?? 0)])
+      }
+    case ExportTables.eventTemplates.fileName:
+      // The lines as the database has them: a template a newer build wrote still goes out whole.
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM event_templates ORDER BY name, id") {
+        csv.append(
+          Self.text(row, ["id", "name", "event_kind"]) + Self.amount(row, "total_e4")
+            + [row["lines"] ?? "[]"] + [try Self.instant(row, "created_at")]
+            + [try Self.instant(row, "updated_at")])
+      }
+    case ExportTables.subscriptionTerms.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM subscription_terms ORDER BY payment_id") {
+        csv.append(
+          [row["payment_id"] ?? ""] + Self.amount(row, "yearly_plan_e4")
+            + Self.amount(row, "monthly_plan_e4") + [Self.flag(row, "floating", false)]
+            + [CSVValue.string(row["tolerance_percent"] as Int?)]
+            + [CSVValue.string(row["service_type"] as String?)]
+            + [Self.flag(row, "needed", false), Self.flag(row, "yearly_reminder_off", false)]
+            + [Self.flag(row, "owner_uses", true)])
+      }
+    case ExportTables.subscriptionUsage.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM subscription_usage ORDER BY day, id") {
+        csv.append(Self.text(row, ["id", "payment_id", "day"]))
+      }
+    case ExportTables.subscriptionUsers.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM subscription_users ORDER BY rowid") {
+        csv.append(Self.text(row, ["id", "payment_id", "person_id"]))
+      }
+    case ExportTables.subscriptionKeepGroups.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM subscription_keep_groups ORDER BY type, id") {
+        csv.append(Self.text(row, ["id", "type"]) + [row["payment_ids"] ?? "[]"])
+      }
     default:
       // A table the list gains before its rows are mapped still gets its header row.
       break
     }
     return csv.data()
+  }
+
+  /// The text columns of a row, in the order given; NULL is an empty cell.
+  private static func text(_ row: Row, _ columns: [String]) -> [String] {
+    columns.map { CSVValue.string(row[$0] as String?) }
+  }
+
+  /// An amount column (`*_e4`) as a decimal string; NULL is an empty cell.
+  private static func amount(_ row: Row, _ column: String) -> [String] {
+    [CSVValue.string(amount: (row[column] as Int64?).map { AmountE4(raw: $0) })]
+  }
+
+  private static func flag(_ row: Row, _ column: String, _ fallback: Bool) -> String {
+    CSVValue.string(bool: (row[column] as Int?).map { $0 != 0 } ?? fallback)
+  }
+
+  private static func instant(_ row: Row, _ column: String) throws -> String {
+    CSVValue.string(instant: try RowMapping.instant(row, column))
   }
 }

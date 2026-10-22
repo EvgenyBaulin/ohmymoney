@@ -66,7 +66,7 @@ struct LegacyMigrationPropertyTests {
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 10, "seed \(seed)")
+    #expect(stack.applied.applied == 11, "seed \(seed)")
 
     try stack.writer.read { db in
       let after = try ExactTables.read(db, columns: before.mapValues(\.columns))
@@ -374,7 +374,7 @@ struct LegacyMigrationPropertyTests {
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 13)
+    #expect(try stack.appliedMigrations().count == 14)
     let after = try stack.writer.read { db in
       try Row.fetchAll(db, sql: "PRAGMA foreign_key_check").count
     }

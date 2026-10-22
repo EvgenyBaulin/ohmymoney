@@ -296,7 +296,7 @@ public struct ReferenceRepository: Sendable {
       ("transaction_parts", "for_person_id"), ("transaction_parts", "debtor_person_id"),
       ("debts", "person_id"), ("scheduled_payments", "for_person_id"),
       ("scheduled_payments", "debtor_person_id"), ("expected_income", "person_id"),
-      ("import_mappings", "target_for_person_id"),
+      ("import_mappings", "target_for_person_id"), ("subscription_users", "person_id"),
     ],
     "places": [("transactions", "place_id")],
     "payment_methods": [
@@ -306,11 +306,11 @@ public struct ReferenceRepository: Sendable {
       ("debt_entries", "payment_method_id"), ("cashback_rules", "payment_method_id"),
       ("expected_income", "payment_method_id"), ("payment_methods", "cashback_points_account_id"),
       ("payment_methods", "interest_account_id"), ("goals", "account_id"),
-      ("allocation_rules", "payment_method_id"),
+      ("allocation_rules", "payment_method_id"), ("import_batches", "payment_method_id"),
     ],
     "events": [
       ("transaction_parts", "event_id"), ("import_mappings", "target_event_id"),
-      ("scheduled_payments", "event_id"),
+      ("scheduled_payments", "event_id"), ("event_budget_items", "event_id"),
     ],
   ]
 

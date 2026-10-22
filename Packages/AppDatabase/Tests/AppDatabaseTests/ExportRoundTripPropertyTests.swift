@@ -24,11 +24,12 @@ struct ExportRoundTripPropertyTests {
     "payments_are_expenses", "closed", "rollover", "active", "in_summary", "records_difference",
     "closes_term", "accrues_interest", "tranche", "cushion", "essential", "prepay_any_day",
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
-    "tax_npd", "in_loan", "one_off", "enabled",
+    "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
+    "owner_uses",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
-    "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at",
+    "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at", "arrived_at",
   ]
   /// Columns holding a decimal kept as text.
   private static let decimals: Set<String> = [
@@ -123,6 +124,7 @@ struct ExportRoundTripPropertyTests {
           case "rates": ["date", "currency", "source"]
           case "custom_currencies": ["code"]
           case "settings": ["key"]
+          case "subscription_terms": ["payment_id"]
           default: ["id"]
           }
         let stored = try Row.fetchAll(db, sql: "SELECT * FROM \(name)")
@@ -206,7 +208,8 @@ struct ExportRoundTripPropertyTests {
       let part = try #require(try String.fetchOne(db, sql: "SELECT id FROM transaction_parts"))
       let tag = UUID().uuidString
       try db.execute(
-        sql: "INSERT INTO tags (id, name, archived, created_at) VALUES (?, 'Отпуск, \"юг\"', 0, '2026-09-01 12:00:00.000')",
+        sql:
+          "INSERT INTO tags (id, name, archived, created_at) VALUES (?, 'Отпуск, \"юг\"', 0, '2026-09-01 12:00:00.000')",
         arguments: [tag])
       try db.execute(
         sql: "INSERT INTO part_tags (id, part_id, tag_id) VALUES (?, ?, ?)",
@@ -219,9 +222,54 @@ struct ExportRoundTripPropertyTests {
           """,
         arguments: [UUID().uuidString])
       try db.execute(
-        sql: "INSERT INTO day_notes (id, day, text, created_at, updated_at) VALUES (?, '2026-09-12', 'мама, день рождения', '2026-09-01 12:00:00.000', '2026-09-01 12:00:00.000')",
+        sql:
+          "INSERT INTO day_notes (id, day, text, created_at, updated_at) VALUES (?, '2026-09-12', 'мама, день рождения', '2026-09-01 12:00:00.000', '2026-09-01 12:00:00.000')",
         arguments: [UUID().uuidString])
-      try db.execute(sql: "UPDATE transactions SET one_off = 1 WHERE id = (SELECT MIN(id) FROM transactions)")
+      try db.execute(
+        sql: "UPDATE transactions SET one_off = 1 WHERE id = (SELECT MIN(id) FROM transactions)")
+      try db.execute(
+        sql: """
+          UPDATE transactions SET source = 'statement', bank_status = 'pending',
+            posted_on = '2026-09-03', dedup_key = 'v1:00ff'
+          WHERE id = (SELECT MIN(id) FROM transactions)
+          """)
+      try db.execute(
+        sql:
+          "UPDATE transfers SET arrived_at = '2026-09-04 09:00:00.000' WHERE id = (SELECT MIN(id) FROM transfers)"
+      )
+      let budget = try #require(try String.fetchOne(db, sql: "SELECT id FROM budgets LIMIT 1"))
+      try db.execute(
+        sql:
+          "INSERT INTO budget_month_exceptions (id, budget_id, month, amount_e4) VALUES (?, ?, '2026-12', 200000000)",
+        arguments: [UUID().uuidString, budget])
+      let event = try #require(try String.fetchOne(db, sql: "SELECT id FROM events LIMIT 1"))
+      try db.execute(
+        sql:
+          "INSERT INTO event_budget_items (id, event_id, title, planned_e4, sort) VALUES (?, ?, 'Грузчики, \"быстро\"', 50000000, 1)",
+        arguments: [UUID().uuidString, event])
+      try db.execute(
+        sql: """
+          INSERT INTO event_templates (id, name, event_kind, total_e4, lines, created_at, updated_at)
+          VALUES (?, 'Переезд, "мой"', 'other', 1500000000, '[{"shareBp":10000,"title":"Всё"}]',
+            '2026-09-01 12:00:00.000', '2026-09-01 12:00:00.000')
+          """,
+        arguments: [UUID().uuidString])
+      let payment = try #require(
+        try String.fetchOne(db, sql: "SELECT id FROM scheduled_payments LIMIT 1"))
+      let person = try #require(try String.fetchOne(db, sql: "SELECT id FROM people LIMIT 1"))
+      try db.execute(
+        sql:
+          "INSERT INTO subscription_terms (payment_id, yearly_plan_e4, floating, tolerance_percent, service_type) VALUES (?, 12000000, 1, 15, 'music')",
+        arguments: [payment])
+      try db.execute(
+        sql: "INSERT INTO subscription_usage (id, payment_id, day) VALUES (?, ?, '2026-09-10')",
+        arguments: [UUID().uuidString, payment])
+      try db.execute(
+        sql: "INSERT INTO subscription_users (id, payment_id, person_id) VALUES (?, ?, ?)",
+        arguments: [UUID().uuidString, payment, person])
+      try db.execute(
+        sql: "INSERT INTO subscription_keep_groups (id, type, payment_ids) VALUES (?, 'music', ?)",
+        arguments: [UUID().uuidString, "[\"" + payment + "\"]"])
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -270,17 +318,17 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 13)
+    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 14)
     #expect(plain.files == files)
-    #expect(plain.csvTables.count == 35)
-    #expect(plain.manifest.schemaVersion == 13)
+    #expect(plain.csvTables.count == 42)
+    #expect(plain.manifest.schemaVersion == 14)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 13)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 14)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -312,7 +360,7 @@ struct ExportRoundTripPropertyTests {
             && !Self.addedByTheCredits.contains("\(table.fileName):\($0)")
             && !Self.addedByTheScenarios.contains("\(table.fileName):\($0)")
             && !Self.addedByTheTravel.contains("\(table.fileName):\($0)")
-            && !Self.addedByTheRules.contains("\(table.fileName):\($0)")
+            && !Self.addedByTheRulesOrImport.contains("\(table.fileName):\($0)")
         })
     }
     var counts: [String: Int] = [:]
@@ -348,7 +396,7 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 13)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 14)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 
@@ -365,6 +413,7 @@ struct ExportRoundTripPropertyTests {
           "0011_travel",
           "0012_sync",
           "0013_spending_rules",
+          "0014_import_year_questions_subscriptions",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -452,8 +501,8 @@ struct ExportRoundTripPropertyTests {
     #expect(
       tables.subtracting(exported) == [
         "anomaly_dismissals", "category_feedback", "currencies", "expected_income_links",
-        "import_batches", "import_mappings", "ml_models", "scenarios", "sync_deferred",
-        "sync_heads",
+        "identity_items", "import_batches", "import_mappings", "ml_models", "saved_views",
+        "scenarios", "statement_profiles", "sync_deferred", "sync_heads",
         "sync_meta", "sync_outbox", "sync_resolutions", "sync_state",
       ])
   }
@@ -514,6 +563,15 @@ struct ExportRoundTripPropertyTests {
   private static let addedByTheRules: Set<String> = [
     "transactions.csv:one_off", "categories.csv:basket", "cards.csv:last4", "cards.csv:details",
   ]
+
+  /// The columns the import and the transfers' arrival added
+  /// (`0014_import_year_questions_subscriptions`).
+  private static let addedByTheImport: Set<String> = [
+    "transactions.csv:source", "transactions.csv:bank_status", "transactions.csv:posted_on",
+    "transactions.csv:dedup_key", "transfers.csv:arrived_at",
+  ]
+
+  private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
 
   /// The columns the credits and the allocation of income added.
   private static let addedByTheCredits: Set<String> = Set(

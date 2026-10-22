@@ -33,8 +33,8 @@ struct Migration0013Tests {
 
   @Test func aNewDatabaseHasTheColumnsAtTheirDefaultsAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0013_spending_rules")
-    #expect(stack.applied.onDisk == 13)
+    #expect(try stack.appliedMigrations().last == "0014_import_year_questions_subscriptions")
+    #expect(stack.applied.onDisk == 14)
     try stack.writer.read { (db: Database) throws in
       for table in Self.newTables {
         #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") == 0, "\(table)")
@@ -75,11 +75,11 @@ struct Migration0013Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0013_spending_rules"])
+        == ["0013_spending_rules", "0014_import_year_questions_subscriptions"])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 1)
+    #expect(stack.applied.applied == 2)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -415,15 +415,15 @@ struct SpendingRulesTravelTests {
 
   @Test func theFourNewFilesAreInTheExportAfterSettingsWithTheirHeaders() throws {
     let names = ExportTables.all.map(\.fileName)
-    #expect(names.count == 35)
+    #expect(names.count == 42)
     #expect(
-      Array(names.suffix(5)) == [
+      Array(names[30..<35]) == [
         "settings.csv", "tags.csv", "part_tags.csv", "rules.csv", "day_notes.csv",
       ])
     #expect(ExportTables.tags.columns == ["id", "name", "archived", "created_at"])
     #expect(ExportTables.partTags.columns == ["id", "part_id", "tag_id"])
     #expect(ExportTables.dayNotes.columns == ["id", "day", "text", "created_at", "updated_at"])
-    #expect(ExportTables.transactions.columns.last == "one_off")
+    #expect(ExportTables.transactions.columns[28] == "one_off")
     #expect(ExportTables.categories.columns.last == "basket")
     #expect(Array(ExportTables.cards.columns.suffix(2)) == ["last4", "details"])
   }
@@ -467,9 +467,9 @@ struct SpendingRulesTravelTests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 13)
-    #expect(opened.csvTables.count == 35)
-    #expect(opened.manifest.schemaVersion == 13)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 14)
+    #expect(opened.csvTables.count == 42)
+    #expect(opened.manifest.schemaVersion == 14)
     #expect(opened.manifest.rowCounts["tags"] == 1)
     #expect(opened.manifest.rowCounts["rules"] == 1)
     let inside = folder.appendingPathComponent("inside.sqlite")

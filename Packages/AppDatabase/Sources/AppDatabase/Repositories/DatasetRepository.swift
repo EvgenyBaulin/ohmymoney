@@ -128,6 +128,11 @@ public struct DatasetRepository: Sendable {
       .flatMap { WeekendWindow(storedValue: $0) } ?? .standard
     let workHours = WorkHoursSettings(
       storedValues: try SettingsRepository.values(of: WorkHoursSettings.storageKeys, db: db))
+    // The saved views, the plan of the year and the subscriptions come in the same read too.
+    let savedViews = try SavedViewsRepository.book(db)
+    var extras = DatasetExtras()
+    extras.set(try SubscriptionRepository.book(db), for: Dataset.subscriptionsKey)
+    extras.set(try YearPlanRepository.data(db), for: Dataset.yearPlanKey)
     try Task.checkCancellation()
     return Dataset(
       entries: entries,
@@ -169,6 +174,8 @@ public struct DatasetRepository: Sendable {
       dayNotes: dayNotes,
       incomeSavings: incomeSavings,
       weekendWindow: weekendWindow,
-      workHours: workHours)
+      workHours: workHours,
+      savedViews: savedViews,
+      extras: extras)
   }
 }
