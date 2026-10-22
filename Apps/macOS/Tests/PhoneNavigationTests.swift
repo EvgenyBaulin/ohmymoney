@@ -72,21 +72,21 @@ final class PhoneNavigationTests: XCTestCase {
     XCTAssertEqual(router.accountsSelection, .account(id))
   }
 
-  func testTheWindowsOfTheMacAreCoversAndTheSettingsAreAList() {
+  func testTheWindowsOfTheMacArePagesOfMoreNotCovers() {
     let router = PhoneRouter()
     router.open(screen: .analytics)
-    XCTAssertEqual(router.cover, .analytics)
-    router.open(screen: .reports)
-    XCTAssertEqual(router.cover, .reports)
-    router.open(screen: .whatIf)
-    XCTAssertEqual(router.cover, .whatIf)
-    router.closeCover()
-    XCTAssertNil(router.cover)
-    router.open(screen: .analytics)
-    router.open(screen: .settings)
-    XCTAssertNil(router.cover, "the settings are not a cover: they take it down")
+    XCTAssertNil(router.cover, "Analytics is a page of «Ещё», not a window over the tabs")
     XCTAssertEqual(router.tab, .more)
-    XCTAssertEqual(router.morePath, [.settings])
+    XCTAssertEqual(router.morePath, [.analytics])
+    XCTAssertEqual(router.current, .analytics)
+    router.open(screen: .reports)
+    XCTAssertEqual(router.morePath.last, .reports)
+    router.open(screen: .whatIf)
+    XCTAssertEqual(router.morePath.last, .whatIf)
+    router.open(screen: .settings)
+    XCTAssertNil(router.cover)
+    XCTAssertEqual(router.tab, .more)
+    XCTAssertEqual(router.morePath.last, .settings)
   }
 
   func testThePhoneHasTheFiveTabsInOrder() {
@@ -196,10 +196,11 @@ final class PhoneNavigationTests: XCTestCase {
     router.open(nav: .goals)
     XCTAssertEqual(router.tab, .planning)
     router.open(nav: .analytics)
-    XCTAssertEqual(router.cover, .analytics)
+    XCTAssertNil(router.cover)
+    XCTAssertEqual(router.tab, .more)
     XCTAssertEqual(router.current, .analytics)
     router.open(nav: .overview)
-    XCTAssertNil(router.cover, "a section of the bar takes the cover down")
+    XCTAssertNil(router.cover)
     XCTAssertEqual(router.current, .overview)
   }
 

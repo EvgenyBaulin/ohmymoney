@@ -115,6 +115,12 @@ struct MoreTab: View {
       sectionScreen(titleKey: "section.capital") {
         CapitalView { router.open(item: .account($0)) }
       }
+    case .analytics:
+      sectionScreen(titleKey: "window.analytics") { AnalyticsWindow(deps: deps) }
+    case .reports:
+      sectionScreen(titleKey: "window.reports") { ReportsWindow(deps: deps) }
+    case .whatIf:
+      sectionScreen(titleKey: "window.whatIf") { WhatIfWindow(deps: deps) }
     case .settings:
       PhoneSettingsList(deps: deps)
     case .conflicts:
@@ -183,11 +189,7 @@ struct MoreTab: View {
     case .conflicts:
       NavigationLink(value: MoreDestination.conflicts) { label }
     case .whatIf:
-      Button {
-        router.open(screen: .whatIf)
-      } label: {
-        label
-      }
+      NavigationLink(value: MoreDestination.whatIf) { label }
     case .trip:
       Button {
         environment.showsTrip = true

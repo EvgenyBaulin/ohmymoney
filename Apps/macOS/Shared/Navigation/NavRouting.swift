@@ -12,7 +12,8 @@ extension NavItem {
     case .calendar: PhoneRoute(tab: .more, more: .calendar)
     case .capital: PhoneRoute(tab: .more, more: .capital)
     case .debts: PhoneRoute(tab: .more, more: .debts)
-    case .analytics, .reports: nil
+    case .analytics: PhoneRoute(tab: .more, more: .analytics)
+    case .reports: PhoneRoute(tab: .more, more: .reports)
     }
   }
 
@@ -22,6 +23,8 @@ extension NavItem {
     case .calendar: .calendar
     case .capital: .capital
     case .debts: .debts
+    case .analytics: .analytics
+    case .reports: .reports
     default: nil
     }
   }
@@ -50,11 +53,6 @@ extension PhoneRouter {
   /// The section the screen on view stands for, or `nil` when it is «Ещё» itself (or one of its
   /// pages that is no section, such as the settings).
   var current: NavItem? {
-    switch cover {
-    case .analytics: return .analytics
-    case .reports: return .reports
-    default: break
-    }
     switch tab {
     case .overview: return .overview
     case .operations: return .operations
@@ -65,7 +63,9 @@ extension PhoneRouter {
       case .debts: return .debts
       case .calendar: return .calendar
       case .capital: return .capital
-      case .settings, .conflicts, nil: return nil
+      case .analytics: return .analytics
+      case .reports: return .reports
+      case .settings, .whatIf, .conflicts, nil: return nil
       }
     }
   }
