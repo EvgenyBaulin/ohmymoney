@@ -20,6 +20,10 @@ struct PhoneRoot: View {
   @State private var phoneTabs = PhoneTabsPreference.load()
   @State private var showsMore = false
   @State private var overviewScreen = OverviewScreen()
+  /// Whether the entry line is up. By default it is not, and the keyboard with it.
+  @State private var entryGate = PhoneEntryGate()
+  /// The height of the bar of the sections at the bottom, for the «+» above it.
+  @State private var barHeight: CGFloat = 0
 
   private var environment: AppEnvironment { deps.environment }
   private var guide: GuideStore { GuideStore.shared }
@@ -43,7 +47,7 @@ struct PhoneRoot: View {
       page(.planning, titleKey: "section.planning", symbol: "calendar") {
         PlanningView()
       }
-      AccountsTab(deps: deps, router: router, actions: actions, entry: { entryBar })
+      AccountsTab(deps: deps, router: router, actions: actions, entry: { entryBar(.accounts) })
         .toolbarVisibility(.hidden, for: .tabBar)
         .tabItem {
           Label(
@@ -68,7 +72,9 @@ struct PhoneRoot: View {
       if layout.placement == .bottom {
         PhoneTabBar(
           layout: layout, router: router, title: title,
-          moreTitle: environment.language("phone.tab.more", table: "Phone"))
+          moreTitle: environment.language("phone.tab.more", table: "Phone")
+        )
+        .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { barHeight = $0 }
       }
     }
     .safeAreaInset(edge: .top, spacing: 0) {
@@ -83,6 +89,33 @@ struct PhoneRoot: View {
       }
     }
     .environment(\.fadesOverNavBar, layout.placement == .bottom)
+    .environment(\.phoneEntryGate, entryGate)
+    // The round «+» that brings up the entry line: above the bar of a phone, in the corner of a
+    // tablet. It is gone while the line is up and on the sections that have no line.
+    .overlay(alignment: .bottomTrailing) {
+      if entryGate.showsPlus, environment.state == .ready {
+        PhoneEntryButton(
+          gate: entryGate, title: environment.language("phone.entry.new", table: "Phone")
+        )
+        .padding(.trailing, PhoneEntryButton.sideMargin)
+        .padding(
+          .bottom,
+          PhoneEntryButton.bottomPadding(placement: layout.placement, barHeight: barHeight)
+        )
+        .transition(.scale.combined(with: .opacity))
+      }
+    }
+    // A section switched to puts the line away with its keyboard; none opens the keyboard.
+    .onChange(of: router.tab, initial: true) { _, tab in entryGate.send(.tabChanged(tab)) }
+    // ⌘N on a hardware keyboard: the line comes up with the keyboard.
+    .background {
+      Button("") {
+        NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+      }
+      .keyboardShortcut("n", modifiers: .command)
+      .opacity(0)
+      .accessibilityHidden(true)
+    }
     .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
     .environment(\.windowWidth, width)
     .onGeometryChange(for: CGFloat.self) {
@@ -105,7 +138,7 @@ struct PhoneRoot: View {
     _ tag: PhoneTab, titleKey: String, symbol: String, @ViewBuilder content: () -> Content
   ) -> some View {
     NavigationStack {
-      PhoneContent(deps: deps, actions: actions, content: content) { entryBar }
+      PhoneContent(deps: deps, actions: actions, content: content) { entryBar(tag) }
         .navigationTitle(environment.language(titleKey))
         .navigationBarTitleDisplayMode(.inline)
         // On an iPad the bar of the app stands in the row of the title: the title would run under it.
@@ -125,7 +158,7 @@ struct PhoneRoot: View {
       PhoneContent(
         deps: deps, actions: actions,
         content: { OverviewView(actions: actions, screen: overviewScreen) },
-        entry: { entryBar }
+        entry: { entryBar(.overview) }
       )
       .environment(\.overviewEditsInChrome, true)
       .environment(
@@ -149,8 +182,11 @@ struct PhoneRoot: View {
   }
 
   @ViewBuilder
-  private var entryBar: some View {
-    EntryBar(windowWidth: width, detailWidth: width, operations: actions) {
+  private func entryBar(_ tab: PhoneTab) -> some View {
+    EntryBar(
+      windowWidth: width, detailWidth: width, operations: actions,
+      phone: PhoneEntryAccess(gate: entryGate, tab: tab)
+    ) {
       SelectionBar(actions: actions)
     }
   }
@@ -275,6 +311,7 @@ struct PhoneContent<Content: View, Entry: View>: View {
   @ViewBuilder let content: Content
   @ViewBuilder let entry: Entry
   @Environment(\.fadesOverNavBar) private var fades
+  @Environment(\.phoneEntryGate) private var entryGate
 
   init(
     deps: AppDependencies, actions: OperationActions,
@@ -297,6 +334,15 @@ struct PhoneContent<Content: View, Entry: View>: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         // Over the bar of the phone the page fades out instead of ending in a hard edge.
         .overlay(alignment: .bottom) { if fades { NavBarFade() } }
+        // A tap on the screen outside the line puts the line away, with its keyboard.
+        .overlay {
+          if entryGate?.isShown == true {
+            Color.clear
+              .contentShape(Rectangle())
+              .onTapGesture { entryGate?.send(.tappedOutside) }
+              .accessibilityHidden(true)
+          }
+        }
         .safeAreaInset(edge: .top, spacing: 0) {
           VStack(spacing: 0) {
             if GuideStore.shared.isTutorial { TutorialBar(guide: GuideStore.shared) }

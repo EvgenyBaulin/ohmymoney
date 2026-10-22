@@ -195,6 +195,9 @@ final class QuickEntryModel {
     }
   }
 
+  /// Whether a «;» line still has parts waiting to be written.
+  var hasNextPart: Bool { !waitingParts.isEmpty }
+
   /// The next part of a «;» line, once the one before it is written.
   func nextPart() -> String? {
     guard !waitingParts.isEmpty else { return nil }

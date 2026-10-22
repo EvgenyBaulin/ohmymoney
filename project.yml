@@ -236,6 +236,7 @@ targets:
       - path: Apps/iOS/Tests
       # Navigation and launch order are plain logic shared with the Mac; the Mac runs them too.
       - path: Apps/macOS/Tests/PhoneNavigationTests.swift
+      - path: Apps/macOS/Tests/PhoneEntryGateTests.swift
     dependencies:
       - target: OhMyMoney-iOS
       - package: AppCore

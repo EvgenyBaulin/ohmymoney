@@ -81,6 +81,9 @@ struct EntryBar<Accessory: View>: View {
   /// The selection of the window's lists, for the form at the side: an operation selected there
   /// opens in the form to be edited (`EntryFormEditor`). `nil`: the form only makes new ones.
   var operations: OperationActions? = nil
+  /// On the phone and the tablet the line is not on screen until the round «+» shows it, and the
+  /// keyboard comes only with it: the gate says when. `nil` (the Mac): always on screen.
+  var phone: PhoneEntryAccess? = nil
   /// Glass of its own, or nothing. While it is shown it stands in the bar, so the safe area
   /// grows by its height and the last rows of the list can be scrolled out from under it. It
   /// morphs in and out of the capsule only inside an animated change; the screen that owns it
@@ -155,12 +158,19 @@ struct EntryBar<Accessory: View>: View {
   var body: some View {
     Group {
       switch style {
-      case .line: lineBody
+      case .line:
+        if let phone, !phone.isShown {
+          collapsedBody
+        } else {
+          lineBody
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+        }
       case .form: formBody
       }
     }
     .onAppear {
-      focused = style == .line
+      // A screen appearing never opens the keyboard on the phone: only the owner's act does.
+      focused = style == .line && phone == nil
       prepareModel()
       templates.attach(environment.references)
       fast.drafts.attach(SettingsDraftStore(settings: environment.settings))
@@ -168,11 +178,28 @@ struct EntryBar<Accessory: View>: View {
       if opensDetails || style == .form { showsDetails = true }
     }
     .onReceive(NotificationCenter.default.publisher(for: .focusEntryLine)) { _ in
+      if let phone {
+        // ⌘N on a hardware keyboard, or the palette: the line comes up and takes the keyboard.
+        if phone.gate.send(.newEntryRequested), phone.isShown { focusTheLineSoon() }
+        return
+      }
       startNewOperation()
     }
     // ↑ on the newest row of the list, or Esc in it: the keyboard comes back to the line.
     .onReceive(NotificationCenter.default.publisher(for: .returnToEntryLine)) { _ in
+      if let phone, !phone.isShown { return }
       focused = style == .line
+    }
+    // The line going away takes the keyboard and the open panel with it.
+    .onChange(of: phone?.isShown) { _, shown in
+      guard shown == false else { return }
+      focused = false
+      showsDetails = false
+      message = nil
+      #if os(iOS)
+        UIApplication.shared.sendAction(
+          #selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+      #endif
     }
     // Goals and debts made in Planning or Debts belong in the pickers of the ↓ panel at once
     // (review of the app, 19.09): read again when the panel opens and after each write. The
@@ -533,6 +560,26 @@ struct EntryBar<Accessory: View>: View {
     }
   }
 
+  /// The phone with no line on screen: only what stands with it — the bar of a selection.
+  private var collapsedBody: some View {
+    GlassEffectContainer(spacing: 12) {
+      accessory()
+        .glassEffectID("accessory", in: glass)
+    }
+    .frame(
+      width: EntryBarMetrics.columnWidth(windowWidth: windowWidth, detailWidth: detailWidth))
+  }
+
+  /// The line is up on the phone: it asks for the keyboard once it is in the view, and again a
+  /// moment later (the field may not be in the window yet).
+  private func focusTheLineSoon() {
+    focused = true
+    Task { @MainActor in
+      try? await Task.sleep(for: .milliseconds(150))
+      if phone?.isShown == true { focused = true }
+    }
+  }
+
   /// The floating glass capsule with the chips above it and the ↓ panel over them.
   private var lineBody: some View {
     GlassEffectContainer(spacing: 12) {
@@ -571,6 +618,8 @@ struct EntryBar<Accessory: View>: View {
             }
             .textFieldStyle(.plain)
             .focused($focused)
+            // The line was shown by the owner's «+» (or ⌘N): the keyboard comes with it.
+            .onAppear { if phone != nil { focusTheLineSoon() } }
             .accessibilityIdentifier("entry.line")
             .onSubmit(save)
             // ↓ walks the list of operations from the newest, and only while the line has
@@ -1080,6 +1129,11 @@ struct EntryBar<Accessory: View>: View {
   }
 
   private func press(_ key: DetailsPanelKey) -> KeyPress.Result {
+    // Esc on the phone's line, the panel closed: the line goes away with its keyboard.
+    if key == .escape, let phone, !showsDetails {
+      phone.gate.send(.escaped)
+      return .handled
+    }
     // While Enter's stop for a category stands, ↓ and ↑ choose in the menu it asked for: the
     // panel is open already, and without «Навигация с клавиатуры» the focus never reaches a menu.
     if showsDetails, key != .escape, let model,
@@ -1552,7 +1606,9 @@ struct EntryBar<Accessory: View>: View {
     // The field of the panel that had the focus — Return in it, or «Save» clicked while it
     // was being typed in — goes with the panel: without this the window kept no first
     // responder and the next line was typed into nothing. `closeDetails` does the same.
-    focused = true
+    // On the phone the written line goes away (but for the next part of a «;» line).
+    focused = phone == nil || fast.hasNextPart
+    if let phone, !fast.hasNextPart { phone.gate.send(.saved) }
     // The next part of a line with «;» goes on where this one ended, once the bar has settled
     // (a run-loop timer, which a window under test serves like the app does).
     if let next = fast.nextPart() {
