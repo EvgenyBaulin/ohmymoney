@@ -29,6 +29,8 @@ verified copy.
 
 ### Changed
 
+- iPhone and iPad: the entry line is hidden until you tap the round «+» button above the bottom bar
+  (bottom right corner on iPad), and no screen opens the keyboard by itself any more.
 - The database schema is 14: import fields on operations, saved views, year-plan data, subscription
   data and the arrival day of a transfer. The export holds 42 files.
 

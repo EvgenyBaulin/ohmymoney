@@ -76,7 +76,8 @@ jobs:
       # and SwiftUI builds no accessibility tree there, so the tests that need either skip.
       - name: Build and test the application
         if: ${{ !cancelled() && steps.prepared.outcome == 'success' }}
-        run: TEST_RUNNER_OHMYMONEY_CI=1 make build test
+        # One worker on the runner: 4 900 tests no longer fit the 30 minutes `make test` gives the Mac.
+        run: TEST_RUNNER_OHMYMONEY_CI=1 XCB_TIME=3000 make build test
 
       # Not only built: looked into. No Sparkle, no XPC services, no feed address in the store
       # bundle, and the id that ships.
