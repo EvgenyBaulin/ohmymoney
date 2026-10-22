@@ -108,8 +108,10 @@ final class EntryFormLayoutTests: XCTestCase {
         for variant in [
           "expense", "income", "split", "currency", "credit", "transfer", "exchange",
         ] {
+          // Tall enough for the tallest form (a split at 340 pt is ~1 500 pt of fields): a
+          // taller form would scroll, and its scroller at the edge is not a control past it.
           let window = NSWindow(
-            contentRect: CGRect(x: 0, y: 0, width: width, height: 1500), styleMask: [.titled],
+            contentRect: CGRect(x: 0, y: 0, width: width, height: 2400), styleMask: [.titled],
             backing: .buffered, defer: false)
           window.isReleasedWhenClosed = false
           windows.append(window)
@@ -126,7 +128,7 @@ final class EntryFormLayoutTests: XCTestCase {
           ) {
             EmptyView()
           }
-          .frame(width: width, height: 1500)
+          .frame(width: width, height: 2400)
           .appDependencies(deps)
           window.contentView = NSHostingView(rootView: column)
           window.makeKeyAndOrderFront(nil)

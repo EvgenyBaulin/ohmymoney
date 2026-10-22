@@ -76,12 +76,26 @@ enum StatementFixtures {
     RaiffRow(
       moment: "09.09.2026 20:00", done: "10.09.2026", doc: "DOC0013", income: "", expense: "946,40",
       details: " CARD **1111 11AUG RUB 946.40 SAMPLESHOP", card: "*1111"),
-    RaiffRow(moment: "08.09.2026 10:00", done: "08.09.2026", doc: "", income: "700,00", expense: "", details: " Пришел перевод: Алексей В.", card: ""),
-    RaiffRow(moment: "08.09.2026 11:00", done: "08.09.2026", doc: "DOC0015", income: "", expense: "1 000,00", details: " Рублевый перевод между счетами", card: ""),
-    RaiffRow(moment: "08.09.2026 12:00", done: "08.09.2026", doc: "DOC0016", income: "12,00", expense: "", details: " Кэшбэк от SAMPLE MARKET На счет: *2222", card: ""),
-    RaiffRow(moment: "08.09.2026 13:00", done: "08.09.2026", doc: "", income: "300,00", expense: "", details: " Мария А Мария Мария На счет: *2222", card: ""),
-    RaiffRow(moment: "08.09.2026 14:00", done: "08.09.2026", doc: "DOC0018", income: "", expense: "100,00", details: " Телефон получателя 79001112233 Банк получателя Сбербанк", card: ""),
-    RaiffRow(moment: "08.09.2026 15:00", done: "08.09.2026", doc: "DOC0019", income: "", expense: "400,00", details: " Телефон получателя 79001112233 Сообщение За обед Идентификатор операции СБП X9 Банк получателя Т-Банк", card: ""),
+    RaiffRow(
+      moment: "08.09.2026 10:00", done: "08.09.2026", doc: "", income: "700,00", expense: "",
+      details: " Пришел перевод: Алексей В.", card: ""),
+    RaiffRow(
+      moment: "08.09.2026 11:00", done: "08.09.2026", doc: "DOC0015", income: "",
+      expense: "1 000,00", details: " Рублевый перевод между счетами", card: ""),
+    RaiffRow(
+      moment: "08.09.2026 12:00", done: "08.09.2026", doc: "DOC0016", income: "12,00", expense: "",
+      details: " Кэшбэк от SAMPLE MARKET На счет: *2222", card: ""),
+    RaiffRow(
+      moment: "08.09.2026 13:00", done: "08.09.2026", doc: "", income: "300,00", expense: "",
+      details: " Мария А Мария Мария На счет: *2222", card: ""),
+    RaiffRow(
+      moment: "08.09.2026 14:00", done: "08.09.2026", doc: "DOC0018", income: "", expense: "100,00",
+      details: " Телефон получателя 79001112233 Банк получателя Сбербанк", card: ""),
+    RaiffRow(
+      moment: "08.09.2026 15:00", done: "08.09.2026", doc: "DOC0019", income: "", expense: "400,00",
+      details:
+        " Телефон получателя 79001112233 Сообщение За обед Идентификатор операции СБП X9 Банк получателя Т-Банк",
+      card: ""),
   ]
 
   /// The file as a bank writes it: a byte-order mark, mixed line endings.

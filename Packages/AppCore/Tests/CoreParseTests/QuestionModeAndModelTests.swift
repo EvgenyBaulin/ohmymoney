@@ -161,7 +161,8 @@ struct QuestionModeAndModelTests {
           == .failure(.unknownName("Несуществующая")), "\(kind)")
     }
     // A name that is only close is as good as made up.
-    let close = ModelQueryOutput(intent: "how_much", terms: [.init(name: "Такси бизнес", kind: "category")])
+    let close = ModelQueryOutput(
+      intent: "how_much", terms: [.init(name: "Такси бизнес", kind: "category")])
     #expect(
       ModelQueryValidator.validate(close, catalog: Self.catalog, today: Self.today)
         == .failure(.unknownName("Такси бизнес")))

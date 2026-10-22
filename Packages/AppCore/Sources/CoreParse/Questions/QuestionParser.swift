@@ -139,7 +139,8 @@ public enum QuestionParser {
     var intent = explicit
     if intent == nil {
       let asksHowMuch =
-        words.contains(where: QuestionWords.howMuchWords.contains) || padded.contains(" how many ") || padded.contains(" how much ")
+        words.contains(where: QuestionWords.howMuchWords.contains) || padded.contains(" how many ")
+        || padded.contains(" how much ")
       if asksHowMuch || !terms.isEmpty || !found.isEmpty { intent = .howMuch }
     }
     guard let intent else { return .failure(.notUnderstood) }

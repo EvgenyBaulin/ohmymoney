@@ -388,7 +388,8 @@ struct TBankStatementTests {
         amountCents: -2_500, description: "AIA*Sample MOSCOW RU", card: "1111", time: "18:00",
         postTime: "18:00"))
     let ops = parse(StatementFixtures.tbankLines(rows: rows)).operations
-    #expect(ops[7].kind == .ownContractTransferIn && ops[7].counterparty.contractRef == "1000000002")
+    #expect(
+      ops[7].kind == .ownContractTransferIn && ops[7].counterparty.contractRef == "1000000002")
     #expect(ops[8].kind == .purchase && ops[8].merchant == "AIA*Sample")
   }
 

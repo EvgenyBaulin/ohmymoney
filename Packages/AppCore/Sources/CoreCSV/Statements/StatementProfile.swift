@@ -334,8 +334,12 @@ public enum StatementProfiles {
       // A card line the bank prints with the place alone, no wording in front of it: a
       // description without any Cyrillic letter, so a Russian wording the rules do not know
       // is never taken for a purchase.
-      rule("tb-card-purchase", #"^([^А-Яа-яЁё]+)$"#, .purchase, ["merchant"], direction: .expense, card: .present),
-      rule("tb-card-credit", #"^([^А-Яа-яЁё]+)$"#, .cardCredit, ["merchant"], direction: .income, card: .present),
+      rule(
+        "tb-card-purchase", #"^([^А-Яа-яЁё]+)$"#, .purchase, ["merchant"], direction: .expense,
+        card: .present),
+      rule(
+        "tb-card-credit", #"^([^А-Яа-яЁё]+)$"#, .cardCredit, ["merchant"], direction: .income,
+        card: .present),
     ])
 
   private static func rule(

@@ -113,7 +113,8 @@ extension EntryDraftModel {
       ruleState.verdict = RuleVerdict()
       return
     }
-    let verdict = RuleEngine.evaluate(ruleSubject(calendar: calendar), rules: rules, tree: categoryTree)
+    let verdict = RuleEngine.evaluate(
+      ruleSubject(calendar: calendar), rules: rules, tree: categoryTree)
     ruleState.verdict = verdict
     guard draft.parts.indices.contains(0) else { return }
     var filled = EntryRuleState.Filled()

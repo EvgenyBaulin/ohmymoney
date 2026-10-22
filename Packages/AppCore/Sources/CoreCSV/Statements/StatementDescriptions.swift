@@ -88,7 +88,8 @@ public enum StatementMerchant {
     }
     var words = value.split(separator: " ").map(String.init)
     // Country and city.
-    if words.count >= 3, let last = words.last, countries.contains(last) || countries2.contains(last),
+    if words.count >= 3, let last = words.last,
+      countries.contains(last) || countries2.contains(last),
       isUpperWord(words[words.count - 2])
     {
       words.removeLast(2)

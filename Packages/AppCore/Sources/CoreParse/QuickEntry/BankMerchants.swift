@@ -72,7 +72,8 @@ public enum BankMerchants {
     }
     // 2. The built-in chains, then a place of the owner's list that carries the chain's name.
     for chain in chains {
-      let matches = chain.key.count >= 6 ? compact.contains(chain.key) : isWhole(chain.key, in: compact)
+      let matches =
+        chain.key.count >= 6 ? compact.contains(chain.key) : isWhole(chain.key, in: compact)
       guard matches else { continue }
       let wanted = NameKey.fold(chain.name)
       if let place = places.first(where: { NameKey.fold($0.name) == wanted }) {

@@ -17,8 +17,16 @@ final class SyncCoordinatorTests: XCTestCase {
   private var key = ""
   private var folder: URL!
   private var stacks: [DatabaseStack] = []
+  /// The marks a launch leaves for the exchange (database replaced, snapshot staged) live in
+  /// the defaults. The shared ones may hold a mark of another test or of the host's own launch
+  /// on this machine, which would make the first exchange drop the outbox, so every coordinator
+  /// here reads a suite of its own.
+  private var suiteName = ""
+  private var defaults: UserDefaults!
 
   override func setUp() async throws {
+    suiteName = "tests.sync.coordinator.\(UUID().uuidString)"
+    defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
     key = "tests.sync.folder.\(UUID().uuidString)"
     folder = FileManager.default.temporaryDirectory
       .appendingPathComponent("sync-coordinator-\(UUID().uuidString)", isDirectory: true)
@@ -26,6 +34,7 @@ final class SyncCoordinatorTests: XCTestCase {
   }
 
   override func tearDown() async throws {
+    defaults.removePersistentDomain(forName: suiteName)
     UserDefaults.standard.removeObject(forKey: key)
     try? FileManager.default.removeItem(at: folder)
     for stack in stacks { try? stack.close() }
@@ -45,7 +54,7 @@ final class SyncCoordinatorTests: XCTestCase {
     try exchange.setRecording(true)
     return SyncCoordinator(
       exchange: exchange, bookmarks: BookmarkStore(key: key), protectedFolders: { protected },
-      notifier: notes)
+      notifier: notes, defaults: defaults)
   }
 
   private func entry(_ note: String) throws -> TransactionEntry {
@@ -118,6 +127,37 @@ final class SyncCoordinatorTests: XCTestCase {
     XCTAssertFalse(coordinator.hasFolder)
   }
 
+  /// A mark left in the shared defaults by another test, or by the host's own launch after a
+  /// restore (database replaced, snapshot staged), reads as «this database came from the
+  /// folder's snapshot»: the outbox is dropped and nothing is sent. A coordinator that is given
+  /// defaults of its own does not see it.
+  func testMarksLeftInTheSharedDefaultsDoNotSwallowTheChanges() async throws {
+    let shared = UserDefaults.standard
+    let replaced = shared.object(forKey: SyncWiring.replacedKey)
+    let staged = shared.object(forKey: SyncWiring.bootstrapKey)
+    shared.set(true, forKey: SyncWiring.replacedKey)
+    shared.set(true, forKey: SyncWiring.bootstrapKey)
+    defer {
+      if let replaced {
+        shared.set(replaced, forKey: SyncWiring.replacedKey)
+      } else {
+        shared.removeObject(forKey: SyncWiring.replacedKey)
+      }
+      if let staged {
+        shared.set(staged, forKey: SyncWiring.bootstrapKey)
+      } else {
+        shared.removeObject(forKey: SyncWiring.bootstrapKey)
+      }
+    }
+    let stack = try makeStack()
+    let coordinator = try makeCoordinator(device: "mac", stack: stack)
+    try TransactionRepository(writer: stack.writer).save(try entry("coffee"))
+    XCTAssertEqual(coordinator.choose(folder: folder, thenSync: false), .accepted)
+    await coordinator.syncNow()
+    let names = try FileManager.default.contentsOfDirectory(atPath: folder.path)
+    XCTAssertTrue(names.contains(SyncFormat.fileName(deviceId: "mac", sequence: 0)), "\(names)")
+  }
+
   func testAFolderThatIsGoneShowsTheFailureAndRetryDoesTheWorkLater() async throws {
     let stack = try makeStack()
     let coordinator = try makeCoordinator(device: "mac", stack: stack)
@@ -153,7 +193,8 @@ final class SyncCoordinatorTests: XCTestCase {
     defer { UserDefaults.standard.removeObject(forKey: phoneBookmarks) }
     let phoneExchange = try XCTUnwrap(phone.exchange)
     let phoneOwner = SyncCoordinator(
-      exchange: phoneExchange, bookmarks: BookmarkStore(key: phoneBookmarks), notifier: Notes())
+      exchange: phoneExchange, bookmarks: BookmarkStore(key: phoneBookmarks), notifier: Notes(),
+      defaults: defaults)
     XCTAssertEqual(phoneOwner.choose(folder: folder, thenSync: false), .accepted)
     await phoneOwner.syncNow()
 
@@ -183,7 +224,8 @@ final class SyncCoordinatorTests: XCTestCase {
     let exchange = try SyncExchange(writer: stack.writer, deviceId: "phone", deviceName: "phone")
     try exchange.setRecording(true)
     return SyncCoordinator(
-      exchange: exchange, bookmarks: BookmarkStore(key: bookmarkKey), notifier: notes)
+      exchange: exchange, bookmarks: BookmarkStore(key: bookmarkKey), notifier: notes,
+      defaults: defaults)
   }
 
   func testBooksThatWereThereBeforeTheExchangeReachAnEmptyPhone() async throws {

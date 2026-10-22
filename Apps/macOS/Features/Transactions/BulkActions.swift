@@ -325,7 +325,8 @@ struct BulkMenuItems: View {
     let entries = store.entries(ids: ids)
     if let action = OneOffMenu.action(for: entries) {
       Button(
-        SpendingText.t(action == .mark ? "spending.oneOff.mark" : "spending.oneOff.unmark", environment)
+        SpendingText.t(
+          action == .mark ? "spending.oneOff.mark" : "spending.oneOff.unmark", environment)
       ) {
         store.setOneOff(action == .mark, ids: OneOffMenu.targets(in: entries))
       }

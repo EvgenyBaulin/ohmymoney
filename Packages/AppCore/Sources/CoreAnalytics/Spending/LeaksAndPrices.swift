@@ -212,7 +212,8 @@ public struct WorkHoursSettings: Hashable, Sendable {
   public var storedValues: [String: String?] {
     [
       Self.enabledKey: isEnabled ? "1" : nil,
-      Self.hoursPerMonthKey: hoursPerMonth == Self.defaultHoursPerMonth ? nil : String(hoursPerMonth),
+      Self.hoursPerMonthKey: hoursPerMonth == Self.defaultHoursPerMonth
+        ? nil : String(hoursPerMonth),
     ]
   }
 }

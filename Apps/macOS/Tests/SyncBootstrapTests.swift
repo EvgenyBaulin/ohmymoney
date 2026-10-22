@@ -15,14 +15,21 @@ final class SyncBootstrapTests: XCTestCase {
   private var folder: URL!
   private var stacks: [DatabaseStack] = []
   private var keys: [String] = []
+  /// Staging a snapshot leaves a mark in the defaults the next exchange reads; in the shared
+  /// ones it would outlive this class and make another test's first exchange drop its outbox.
+  private var suiteName = ""
+  private var defaults: UserDefaults!
 
   override func setUp() async throws {
+    suiteName = "tests.sync.bootstrap.ui.defaults.\(UUID().uuidString)"
+    defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
     folder = FileManager.default.temporaryDirectory
       .appendingPathComponent("sync-bootstrap-ui-\(UUID().uuidString)", isDirectory: true)
     try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
   }
 
   override func tearDown() async throws {
+    defaults.removePersistentDomain(forName: suiteName)
     for key in keys { UserDefaults.standard.removeObject(forKey: key) }
     try? FileManager.default.removeItem(at: folder)
     for stack in stacks { try? stack.close() }
@@ -35,7 +42,8 @@ final class SyncBootstrapTests: XCTestCase {
     keys.append(key)
     let exchange = try SyncExchange(writer: stack.writer, deviceId: device, deviceName: device)
     return SyncCoordinator(
-      exchange: exchange, bookmarks: BookmarkStore(key: key), notifier: Silent())
+      exchange: exchange, bookmarks: BookmarkStore(key: key), notifier: Silent(),
+      defaults: defaults)
   }
 
   private func makeStack() throws -> DatabaseStack {

@@ -57,6 +57,8 @@ struct TagChip: View {
 /// the rules that filled fields. Shown for a new operation only.
 struct EntryTagsRow: View {
   @Bindable var model: EntryDraftModel
+  /// «Save» of the panel: Return in an empty tag field answers it, as in every other field.
+  var submit: (() -> Void)? = nil
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
 
@@ -98,11 +100,12 @@ struct EntryTagsRow: View {
           .textFieldStyle(.plain)
           .frame(minWidth: 90, maxWidth: 160)
           .focused($focused)
-          .onSubmit(commit)
+          .onSubmit(returnPressed)
           .accessibilityIdentifier("entry.tag.field")
           existingTags(book)
         }
-        // Return here adds the tag; it must not also save the operation.
+        // Return with a tag typed adds it and does not also save the operation; with nothing
+        // typed it saves, as in every field of the panel.
         .submitScope()
         .onChange(of: focused) { _, isFocused in if !isFocused { commit() } }
       }
@@ -136,6 +139,14 @@ struct EntryTagsRow: View {
       .menuStyle(.borderlessButton)
       .fixedSize()
       .accessibilityLabel(Text(verbatim: t("rules.editor.existingTags")))
+    }
+  }
+
+  private func returnPressed() {
+    if TagName.normalized(typed) == nil {
+      submit?()
+    } else {
+      commit()
     }
   }
 

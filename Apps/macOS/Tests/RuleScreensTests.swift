@@ -286,7 +286,8 @@ final class RuleScreensTests: XCTestCase {
         ("tags row", AnyView(EntryTagsRow(model: entryModel()).appDependencies(deps))),
       ]
       for (name, view) in sheets {
-        let size = NSHostingController(rootView: view).sizeThatFits(in: CGSize(width: 700, height: 900))
+        let size = NSHostingController(rootView: view).sizeThatFits(
+          in: CGSize(width: 700, height: 900))
         XCTAssertGreaterThan(size.width, 0, "\(name) in \(choice)")
         XCTAssertGreaterThan(size.height, 0, "\(name) in \(choice)")
       }
