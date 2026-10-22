@@ -333,7 +333,11 @@ struct CalendarView: View {
             .dropDestination(for: String.self) { items, _ in
               drop(items, on: day.day)
             } isTargeted: { targeted in
-              if targeted { dropTarget = day.day } else if dropTarget == day.day { dropTarget = nil }
+              if targeted {
+                dropTarget = day.day
+              } else if dropTarget == day.day {
+                dropTarget = nil
+              }
             }
             .accessibilityIdentifier("calendar.day.\(day.day.iso)")
           }

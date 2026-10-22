@@ -65,7 +65,8 @@ struct CalendarDayCell: View {
     .accessibilityLabel(
       Text(
         verbatim: CalendarText.label(of: day, in: calendar, environment)
-          + (hasNote ? ", " + QuickText.t("quick.note.mark", environment) : "")))
+          + (hasNote ? ", " + QuickText.t("quick.note.mark", environment) : ""))
+    )
     .accessibilityAddTraits(isChosen ? [.isButton, .isSelected] : .isButton)
   }
 

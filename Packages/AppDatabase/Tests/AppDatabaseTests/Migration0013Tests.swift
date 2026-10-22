@@ -208,7 +208,8 @@ struct SpendingRulesRepositoryTests {
     let vacation = resolved.ids[0]
     let turkey = resolved.ids[1]
     let rule = Rule(
-      name: "Отпуск", conditions: [.textContains("отель")], actions: [.addTag(turkey)], createdAt: moment)
+      name: "Отпуск", conditions: [.textContains("отель")], actions: [.addTag(turkey)],
+      createdAt: moment)
     try repository.append(rule)
 
     let merge = try #require(book.merging(turkey, into: vacation))
@@ -253,7 +254,9 @@ struct SpendingRulesRepositoryTests {
   @Test func theRulesKeepTheirOrderAndTheOrderComesBack() throws {
     let (_, repository, _) = try prepared()
     let a = try repository.append(
-      Rule(name: "A", conditions: [.weekdays([6, 7])], actions: [.setQuality(.bad)], createdAt: moment))
+      Rule(
+        name: "A", conditions: [.weekdays([6, 7])], actions: [.setQuality(.bad)], createdAt: moment)
+    )
     let b = try repository.append(
       Rule(
         name: "B", conditions: [.amountAbove(AmountE4(whole: 5_000))],
@@ -278,7 +281,9 @@ struct SpendingRulesRepositoryTests {
   @Test func aRuleOfANewerBuildIsLeftOutOfTheListAndStaysInTheDatabase() throws {
     let (stack, repository, _) = try prepared()
     try repository.append(
-      Rule(name: "Known", conditions: [.weekdays([1])], actions: [.setQuality(.good)], createdAt: moment))
+      Rule(
+        name: "Known", conditions: [.weekdays([1])], actions: [.setQuality(.good)],
+        createdAt: moment))
     try stack.writer.write { db in
       try db.execute(
         sql: """
@@ -299,7 +304,8 @@ struct SpendingRulesRepositoryTests {
     let day = DateOnly(year: 2026, month: 10, day: 12)
     let first = try repository.setNote("День рождения мамы", on: day, at: moment)
     #expect(first.before == nil && first.after?.text == "День рождения мамы")
-    let second = try repository.setNote("  День рождения мамы, звонок  ", on: day, at: moment.addingTimeInterval(60))
+    let second = try repository.setNote(
+      "  День рождения мамы, звонок  ", on: day, at: moment.addingTimeInterval(60))
     #expect(second.after?.text == "День рождения мамы, звонок")
     #expect(second.after?.id == first.after?.id, "one note per day")
     #expect(try repository.dayNotes().count == 1)

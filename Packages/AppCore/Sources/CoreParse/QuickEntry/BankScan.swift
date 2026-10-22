@@ -222,7 +222,8 @@ struct BankScan {
   // MARK: - Cards
 
   private static let cardWords: Set<String> = [
-    "mir", "мир", "visa", "mc", "mastercard", "maestro", "карта", "карты", "карте", "карту", "картой",
+    "mir", "мир", "visa", "mc", "mastercard", "maestro", "карта", "карты", "карте", "карту",
+    "картой",
     "card", "cards",
   ]
   private static let accountWords: Set<String> = [

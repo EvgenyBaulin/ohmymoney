@@ -107,9 +107,11 @@ struct CardEditor: View {
             title: QuickText.t("quick.card.details", environment), text: $draft.details,
             identifier: "card.editor.details")
         } footer: {
-          Text(verbatim: QuickText.t("quick.card.last4.hint", environment) + " "
-            + QuickText.t("quick.card.details.hint", environment))
-            .foregroundStyle(.secondary)
+          Text(
+            verbatim: QuickText.t("quick.card.last4.hint", environment) + " "
+              + QuickText.t("quick.card.details.hint", environment)
+          )
+          .foregroundStyle(.secondary)
         }
         Section {
         } footer: {

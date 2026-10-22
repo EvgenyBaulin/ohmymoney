@@ -144,7 +144,8 @@ public enum RuleEngine {
   ) -> RuleVerdict {
     var verdict = RuleVerdict()
     var tagSeen: Set<UUID> = []
-    for rule in (presorted ? rules : RuleOrder.sorted(rules)) where matches(rule, subject, part: part) {
+    for rule in (presorted ? rules : RuleOrder.sorted(rules))
+    where matches(rule, subject, part: part) {
       verdict.matchedRuleIds.append(rule.id)
       for action in rule.actions {
         if let tree, let reason = refusal(of: action, kind: subject.kind, tree: tree) {

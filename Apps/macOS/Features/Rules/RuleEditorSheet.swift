@@ -448,6 +448,7 @@ struct RuleTrialResult {
   @MainActor
   func summary(_ environment: AppEnvironment) -> String {
     if matched == 0 { return RulesText.t("rules.trial.none", environment) }
-    return environment.format("rules.trial.summary", table: RulesText.table, counts: matched, scanned, changed)
+    return environment.format(
+      "rules.trial.summary", table: RulesText.table, counts: matched, scanned, changed)
   }
 }

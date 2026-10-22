@@ -206,7 +206,8 @@ struct ExportRoundTripPropertyTests {
       let part = try #require(try String.fetchOne(db, sql: "SELECT id FROM transaction_parts"))
       let tag = UUID().uuidString
       try db.execute(
-        sql: "INSERT INTO tags (id, name, archived, created_at) VALUES (?, 'Отпуск, \"юг\"', 0, '2026-09-01 12:00:00.000')",
+        sql:
+          "INSERT INTO tags (id, name, archived, created_at) VALUES (?, 'Отпуск, \"юг\"', 0, '2026-09-01 12:00:00.000')",
         arguments: [tag])
       try db.execute(
         sql: "INSERT INTO part_tags (id, part_id, tag_id) VALUES (?, ?, ?)",
@@ -219,9 +220,11 @@ struct ExportRoundTripPropertyTests {
           """,
         arguments: [UUID().uuidString])
       try db.execute(
-        sql: "INSERT INTO day_notes (id, day, text, created_at, updated_at) VALUES (?, '2026-09-12', 'мама, день рождения', '2026-09-01 12:00:00.000', '2026-09-01 12:00:00.000')",
+        sql:
+          "INSERT INTO day_notes (id, day, text, created_at, updated_at) VALUES (?, '2026-09-12', 'мама, день рождения', '2026-09-01 12:00:00.000', '2026-09-01 12:00:00.000')",
         arguments: [UUID().uuidString])
-      try db.execute(sql: "UPDATE transactions SET one_off = 1 WHERE id = (SELECT MIN(id) FROM transactions)")
+      try db.execute(
+        sql: "UPDATE transactions SET one_off = 1 WHERE id = (SELECT MIN(id) FROM transactions)")
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
