@@ -58,7 +58,9 @@ let package = Package(
     // the ledger, the planning book and the model at once.
     .target(
       name: "CoreInsights",
-      dependencies: ["CoreKit", "CoreAccounting", "CoreAnalytics", "CorePlanning", "CoreModel"],
+      dependencies: [
+        "CoreKit", "CoreAccounting", "CoreAnalytics", "CorePlanning", "CoreModel", "CoreParse",
+      ],
       swiftSettings: [.swiftLanguageMode(.v6)]),
     .target(
       name: "CoreAccounting", dependencies: ["CoreKit"], swiftSettings: [.swiftLanguageMode(.v6)]),
@@ -118,7 +120,7 @@ let package = Package(
     // reads and rewrites it in the source tree (`#filePath`: a package test runs outside the
     // sandbox, so it may), so it is no bundle resource: excluded, not copied.
     .testTarget(
-      name: "CoreInsightsTests", dependencies: ["CoreInsights", "CoreSample"],
+      name: "CoreInsightsTests", dependencies: ["CoreInsights", "CoreSample", "CoreParse"],
       exclude: ["Fixtures"], swiftSettings: [.swiftLanguageMode(.v6)]),
     .testTarget(
       name: "CoreAccountingTests", dependencies: ["CoreAccounting"],
