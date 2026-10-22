@@ -1,5 +1,6 @@
 import AppCore
 import SwiftUI
+import UIKit
 
 /// The tabs of the phone: Overview, Operations, Planning, Accounts and More. The same shared
 /// screens the Mac window shows, in a `NavigationStack` each; on an iPad they simply get more
@@ -16,9 +17,21 @@ struct PhoneRoot: View {
   @State private var actions = OperationActions()
   @State private var operations = OperationsScreenState()
   @State private var width: CGFloat = 0
+  @State private var phoneTabs = PhoneTabsPreference.load()
+  @State private var showsMore = false
 
   private var environment: AppEnvironment { deps.environment }
   private var guide: GuideStore { GuideStore.shared }
+
+  private var layout: NavLayout {
+    NavLayout.make(
+      width: Double(width), isPad: UIDevice.current.userInterfaceIdiom == .pad,
+      phoneTabs: phoneTabs)
+  }
+
+  private func title(_ item: NavItem) -> String {
+    environment.language(item.titleKey, table: item.titleTable ?? "Common")
+  }
 
   var body: some View {
     TabView(selection: $router.tab) {
@@ -38,13 +51,38 @@ struct PhoneRoot: View {
             systemImage: "building.columns")
         }
         .tag(PhoneTab.accounts)
-      MoreTab(deps: deps, session: session, lock: lock, router: router, actions: actions)
-        .tabItem {
-          Label(
-            environment.language("phone.tab.more", table: "Phone"), systemImage: "ellipsis.circle")
-        }
-        .tag(PhoneTab.more)
+      MoreTab(
+        deps: deps, session: session, lock: lock, router: router, actions: actions,
+        layout: layout, phoneTabs: $phoneTabs
+      )
+      .tabItem {
+        Label(
+          environment.language("phone.tab.more", table: "Phone"), systemImage: "ellipsis.circle")
+      }
+      .tag(PhoneTab.more)
     }
+    // The system bar is hidden: the bar of the app (`PhoneTabBar`, `PadTopBar`) takes its place.
+    .toolbarVisibility(.hidden, for: .tabBar)
+    .safeAreaInset(edge: .bottom, spacing: 0) {
+      if layout.placement == .bottom {
+        PhoneTabBar(
+          layout: layout, router: router, title: title,
+          moreTitle: environment.language("phone.tab.more", table: "Phone"))
+      }
+    }
+    .safeAreaInset(edge: .top, spacing: 0) {
+      if layout.placement == .top {
+        PadTopBar(
+          layout: layout, router: router, title: title,
+          moreTitle: environment.language("phone.tab.more", table: "Phone"),
+          showsMore: $showsMore
+        ) {
+          PadMoreList(deps: deps, layout: layout, router: router) { showsMore = false }
+        }
+      }
+    }
+    .environment(\.fadesOverNavBar, layout.placement == .bottom)
+    .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
     .environment(\.windowWidth, width)
     .onGeometryChange(for: CGFloat.self) {
       $0.size.width
@@ -199,6 +237,7 @@ struct PhoneContent<Content: View, Entry: View>: View {
   let actions: OperationActions
   @ViewBuilder let content: Content
   @ViewBuilder let entry: Entry
+  @Environment(\.fadesOverNavBar) private var fades
 
   init(
     deps: AppDependencies, actions: OperationActions,
@@ -219,6 +258,8 @@ struct PhoneContent<Content: View, Entry: View>: View {
     case .ready:
       content
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        // Over the bar of the phone the page fades out instead of ending in a hard edge.
+        .overlay(alignment: .bottom) { if fades { NavBarFade() } }
         .safeAreaInset(edge: .top, spacing: 0) {
           VStack(spacing: 0) {
             if GuideStore.shared.isTutorial { TutorialBar(guide: GuideStore.shared) }

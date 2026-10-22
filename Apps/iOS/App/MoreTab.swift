@@ -32,38 +32,60 @@ struct MoreTab: View {
   let lock: AppLock
   let router: PhoneRouter
   let actions: OperationActions
+  /// The sections the bar carries: «Ещё» lists the rest.
+  var layout: NavLayout = NavLayout.make(width: 0, isPad: false)
+  /// The four sections of the phone bar, edited here.
+  @Binding var phoneTabs: [NavItem]
 
   @State private var picking = false
   @State private var failure: String?
+  @State private var query = ""
+  @State private var editsTabs = false
 
   private var environment: AppEnvironment { deps.environment }
   private func t(_ key: String) -> String { environment.language(key, table: "Phone") }
+  private func n(_ key: String) -> String { environment.language(key, table: "Navigation") }
 
   @State private var starterSet = SettingsStarterSet.shared
+
+  private var isSearching: Bool {
+    !query.trimmingCharacters(in: .whitespaces).isEmpty
+  }
 
   var body: some View {
     @Bindable var router = router
     NavigationStack(path: $router.morePath) {
       Form {
-        sectionsSection
-        toolsSection
-        guideSection
-        dataSection
-        folderSection
-        privacySection
-        Section {
-          NavigationLink(value: MoreDestination.settings) {
-            Label {
-              Text(verbatim: environment.language("settings.title", table: "Settings"))
-            } icon: {
-              Image(systemName: "gearshape")
-            }
-          }
+        let rows = visibleRows
+        if rows.sections.isEmpty && rows.app.isEmpty && isSearching {
+          Text(verbatim: n("nav.more.noResults")).foregroundStyle(.secondary)
+        }
+        if !rows.sections.isEmpty {
+          Section { ForEach(rows.sections) { row in rowView(row) } }
+        }
+        if !rows.app.isEmpty {
+          Section { ForEach(rows.app) { row in rowView(row) } }
+        }
+        if !isSearching {
+          dataSection
+          folderSection
+          privacySection
         }
       }
+      .searchable(text: $query, prompt: Text(verbatim: n("nav.more.search")))
       .navigationTitle(t("phone.tab.more"))
       .navigationBarTitleDisplayMode(.inline)
       .phoneToolbar(deps: deps, router: router)
+      .toolbar {
+        if layout.placement == .bottom {
+          ToolbarItem(placement: .topBarLeading) {
+            Button(n("nav.more.edit")) { editsTabs = true }
+          }
+        }
+      }
+      .sheet(isPresented: $editsTabs) {
+        PhoneTabsEditor(deps: deps, tabs: $phoneTabs)
+      }
       .fileImporter(isPresented: $picking, allowedContentTypes: [.folder]) { result in
         take(result)
       }
@@ -108,72 +130,57 @@ struct MoreTab: View {
 
   // MARK: Sections and tools
 
-  private var sectionsSection: some View {
-    Section {
-      destinationLink(.debts, titleKey: "section.debts", symbol: "creditcard")
-      destinationLink(.calendar, titleKey: "section.calendar", symbol: "calendar.circle")
-      destinationLink(.capital, titleKey: "section.capital", symbol: "building.columns")
+  private var menu: MoreMenu {
+    MoreMenu.make(more: layout.more, tripIsOn: environment.tripEntryDefaults != nil)
+      .filtered(by: query, title: title(of:))
+  }
+
+  private var visibleRows: MoreMenu { menu }
+
+  private func title(of row: MoreRow) -> String {
+    switch row {
+    case .section(let item):
+      environment.language(item.titleKey, table: item.titleTable ?? "Common")
+    case .whatIf: environment.language("window.whatIf")
+    case .trip: n("nav.more.trip")
+    case .reconcile: environment.language("action.reconcile")
+    case .settings: environment.language("settings.title", table: "Settings")
+    case .tour: environment.language("guide.menu.tour", table: "Guide")
+    case .whatsNew: environment.language("guide.menu.whatsNew", table: "Guide")
+    case .problemReport: environment.language("report.title", table: "Settings")
     }
   }
 
-  private func destinationLink(
-    _ destination: MoreDestination, titleKey: String, symbol: String
-  ) -> some View {
-    NavigationLink(value: destination) {
-      Label {
-        Text(verbatim: environment.language(titleKey))
-      } icon: {
-        Image(systemName: symbol)
-      }
+  @ViewBuilder
+  private func rowView(_ row: MoreRow) -> some View {
+    let label = Label {
+      Text(verbatim: title(of: row))
+    } icon: {
+      Image(systemName: row.symbol)
     }
-  }
-
-  private var toolsSection: some View {
-    Section {
-      toolButton("window.analytics", symbol: "chart.xyaxis.line") {
-        router.open(screen: .analytics)
+    switch row {
+    case .section(let item):
+      if let destination = item.moreDestination {
+        NavigationLink(value: destination) { label }
+      } else {
+        Button { router.open(nav: item) } label: { label }
       }
-      toolButton("window.reports", symbol: "tablecells") { router.open(screen: .reports) }
-      toolButton("action.reconcile", symbol: "checkmark.seal") {
-        environment.showsReconciliation = true
-      }
+    case .settings:
+      NavigationLink(value: MoreDestination.settings) { label }
+    case .whatIf:
+      Button { router.open(screen: .whatIf) } label: { label }
+    case .trip:
+      Button { environment.showsTrip = true } label: { label }
+    case .reconcile:
+      Button { environment.showsReconciliation = true } label: { label }
+    case .tour:
+      Button { GuideStore.shared.show(GuideCatalog.firstLaunch) } label: { label }
+    case .whatsNew:
       Button {
-        environment.showsTrip = true
-      } label: {
-        Label {
-          Text(verbatim: TravelText.t("travel.start.button", environment))
-        } icon: {
-          Image(systemName: "airplane")
-        }
-      }
-    }
-  }
-
-  private func toolButton(
-    _ titleKey: String, symbol: String, action: @escaping () -> Void
-  ) -> some View {
-    Button(action: action) {
-      Label {
-        Text(verbatim: environment.language(titleKey))
-      } icon: {
-        Image(systemName: symbol)
-      }
-    }
-  }
-
-  /// The tour and «Что нового», the cards of the guide, and the report of a problem. The
-  /// tutorial set and the spotlight of the Mac sidebar are not on the phone.
-  private var guideSection: some View {
-    Section {
-      Button(environment.language("guide.menu.tour", table: "Guide")) {
-        GuideStore.shared.show(GuideCatalog.firstLaunch)
-      }
-      Button(environment.language("guide.menu.whatsNew", table: "Guide")) {
         if let latest = GuideCatalog.whatsNew.last { GuideStore.shared.show(latest) }
-      }
-      Button(environment.language("report.title", table: "Settings")) {
-        environment.showsProblemReport = true
-      }
+      } label: { label }
+    case .problemReport:
+      Button { environment.showsProblemReport = true } label: { label }
     }
   }
 
@@ -345,5 +352,86 @@ struct PhoneSettingsList: View {
     case .planning: PlanningSettingsView()
     case .backups: BackupSettingsView()
     }
+  }
+}
+
+/// «Ещё → Изменить»: which four sections the bar of the phone carries, and in what order. The
+/// chosen ones come first and move; the rest are added one by one. Only four are kept.
+struct PhoneTabsEditor: View {
+  let deps: AppDependencies
+  @Binding var tabs: [NavItem]
+
+  @State private var draft: [NavItem] = []
+  @Environment(\.dismiss) private var dismiss
+
+  private var environment: AppEnvironment { deps.environment }
+  private func n(_ key: String) -> String { environment.language(key, table: "Navigation") }
+  private func title(_ item: NavItem) -> String {
+    environment.language(item.titleKey, table: item.titleTable ?? "Common")
+  }
+
+  private var rest: [NavItem] { NavItem.allCases.filter { !draft.contains($0) } }
+  private var isFull: Bool { draft.count == NavLayout.phoneSlots }
+
+  var body: some View {
+    NavigationStack {
+      List {
+        Section {
+          ForEach(draft) { item in
+            HStack {
+              Label {
+                Text(verbatim: title(item))
+              } icon: {
+                Image(systemName: item.symbol)
+              }
+              Spacer()
+              Button {
+                draft.removeAll { $0 == item }
+              } label: {
+                Image(systemName: "minus.circle")
+              }
+              .accessibilityLabel(Text(verbatim: n("nav.edit.remove")))
+            }
+          }
+          .onMove { draft.move(fromOffsets: $0, toOffset: $1) }
+        } header: {
+          Text(
+            verbatim: environment.format(
+              "nav.edit.chosen", table: "Navigation", draft.count, NavLayout.phoneSlots))
+        } footer: {
+          Text(verbatim: n("nav.edit.footer"))
+        }
+        Section {
+          ForEach(rest) { item in
+            Button {
+              if !isFull { draft.append(item) }
+            } label: {
+              Label {
+                Text(verbatim: title(item))
+              } icon: {
+                Image(systemName: item.symbol)
+              }
+            }
+            .disabled(isFull)
+          }
+        }
+      }
+      .environment(\.editMode, .constant(.active))
+      .navigationTitle(n("nav.edit.title"))
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .cancellationAction) {
+          Button(environment.language("action.cancel")) { dismiss() }
+        }
+        ToolbarItem(placement: .confirmationAction) {
+          Button(n("nav.edit.done")) {
+            if PhoneTabsPreference.validated(draft) != nil { tabs = draft }
+            dismiss()
+          }
+          .disabled(!isFull)
+        }
+      }
+    }
+    .onAppear { draft = tabs }
   }
 }

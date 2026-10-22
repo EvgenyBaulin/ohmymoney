@@ -94,6 +94,159 @@ final class PhoneNavigationTests: XCTestCase {
       PhoneTab.allCases, [.overview, .operations, .planning, .accounts, .more])
   }
 
+  // MARK: The bar
+
+  func testTheIPadBarGrowsWithTheWindow() {
+    let expected: [(Double, Int)] = [
+      (744, 4), (834, 5), (1024, 7), (1133, 8), (1194, 8), (1366, 10),
+    ]
+    for (width, slots) in expected {
+      let layout = NavLayout.make(width: width, isPad: true)
+      XCTAssertEqual(layout.placement, .top, "\(width)")
+      XCTAssertEqual(layout.visible.count, slots, "\(width)")
+      XCTAssertEqual(layout.visible + layout.more, NavItem.allCases, "\(width)")
+      XCTAssertLessThanOrEqual(
+        NavLayout.padBarWidth(slots: layout.visible.count), width * 0.5, "\(width)")
+    }
+  }
+
+  func testTheIPadSectionsAppearInTheAgreedOrder() {
+    XCTAssertEqual(
+      NavItem.allCases,
+      [
+        .overview, .operations, .planning, .accounts, .calendar, .capital, .debts, .analytics,
+        .goals, .reports,
+      ])
+    let layout = NavLayout.make(width: 834, isPad: true)
+    XCTAssertEqual(
+      layout.visible, [.overview, .operations, .planning, .accounts, .calendar])
+    XCTAssertEqual(layout.more.first, .capital)
+  }
+
+  func testAnIPadWindowThatShrinksLosesSectionsAndGetsThemBack() {
+    var widths = [1366.0, 1024, 834, 744, 1024, 1366]
+    var counts: [Int] = []
+    while !widths.isEmpty {
+      counts.append(NavLayout.make(width: widths.removeFirst(), isPad: true).visible.count)
+    }
+    XCTAssertEqual(counts, [10, 7, 5, 4, 7, 10])
+  }
+
+  func testANarrowIPadWindowWearsThePhoneBar() {
+    for width in [320.0, 507, 639, 743] {
+      let layout = NavLayout.make(width: width, isPad: true)
+      XCTAssertEqual(layout.placement, .bottom, "\(width)")
+      XCTAssertEqual(layout.visible, NavItem.defaultPhoneTabs, "\(width)")
+    }
+  }
+
+  func testThePhoneBarHasTheChosenFourAndTheRestInMore() {
+    for width in [320.0, 390, 430, 744] {
+      let layout = NavLayout.make(width: width, isPad: false)
+      XCTAssertEqual(layout.placement, .bottom)
+      XCTAssertEqual(layout.visible, [.overview, .operations, .planning, .accounts])
+      XCTAssertEqual(layout.barCount, 5)
+      XCTAssertEqual(layout.more.count, 6)
+    }
+    let chosen: [NavItem] = [.accounts, .debts, .overview, .goals]
+    let layout = NavLayout.make(width: 390, isPad: false, phoneTabs: chosen)
+    XCTAssertEqual(layout.visible, chosen)
+    XCTAssertFalse(layout.more.contains(.debts))
+    XCTAssertTrue(layout.more.contains(.operations))
+  }
+
+  func testABrokenChoiceOfTabsFallsBackToTheDefault() {
+    let layout = NavLayout.make(width: 390, isPad: false, phoneTabs: [.overview, .overview])
+    XCTAssertEqual(layout.visible, NavItem.defaultPhoneTabs)
+  }
+
+  func testTheChoiceOfTabsIsKeptAsFourDifferentSections() {
+    let defaults = UserDefaults(suiteName: "tests.phone.tabs.\(UUID().uuidString)")!
+    XCTAssertEqual(PhoneTabsPreference.load(defaults), NavItem.defaultPhoneTabs)
+    let chosen: [NavItem] = [.capital, .overview, .reports, .debts]
+    XCTAssertTrue(PhoneTabsPreference.save(chosen, to: defaults))
+    XCTAssertEqual(PhoneTabsPreference.load(defaults), chosen)
+    XCTAssertEqual(defaults.string(forKey: "phone.tabs"), "capital,overview,reports,debts")
+    XCTAssertFalse(PhoneTabsPreference.save([.overview], to: defaults))
+    XCTAssertFalse(PhoneTabsPreference.save([.overview, .overview, .debts, .goals], to: defaults))
+    XCTAssertEqual(PhoneTabsPreference.load(defaults), chosen, "a refused save changes nothing")
+    for damaged in ["", "overview", "overview,nonsense,debts,goals", "a,b,c,d"] {
+      XCTAssertEqual(PhoneTabsPreference.decode(damaged), NavItem.defaultPhoneTabs, damaged)
+    }
+  }
+
+  func testEverySectionOfTheBarHasASymbolAndATitle() {
+    for item in NavItem.allCases {
+      XCTAssertFalse(item.symbol.isEmpty)
+      XCTAssertFalse(item.titleKey.isEmpty)
+    }
+    XCTAssertEqual(
+      Array(NavItem.allCases.prefix(4)).map(\.symbol),
+      ["house", "list.bullet", "calendar", "wallet.bifold"])
+  }
+
+  func testTheBarOpensEverySectionWhereItBelongs() {
+    let router = PhoneRouter()
+    router.open(nav: .debts)
+    XCTAssertEqual(router.tab, .more)
+    XCTAssertEqual(router.morePath, [.debts])
+    XCTAssertEqual(router.current, .debts)
+    router.open(nav: .accounts)
+    XCTAssertEqual(router.current, .accounts)
+    router.open(nav: .goals)
+    XCTAssertEqual(router.tab, .planning)
+    router.open(nav: .analytics)
+    XCTAssertEqual(router.cover, .analytics)
+    XCTAssertEqual(router.current, .analytics)
+    router.open(nav: .overview)
+    XCTAssertNil(router.cover, "a section of the bar takes the cover down")
+    XCTAssertEqual(router.current, .overview)
+  }
+
+  func testMoreIsLitWhenTheScreenIsNotOnTheBar() {
+    let router = PhoneRouter()
+    let bar = NavItem.defaultPhoneTabs
+    XCTAssertFalse(router.isMoreLit(visible: bar))
+    router.open(nav: .capital)
+    XCTAssertTrue(router.isMoreLit(visible: bar))
+    // The same page, once it has a place on the bar of an iPad, lights its own button.
+    XCTAssertFalse(router.isMoreLit(visible: bar + [.capital]))
+    router.open(PhoneRoute(tab: .more))
+    XCTAssertNil(router.current)
+    XCTAssertTrue(router.isMoreLit(visible: bar))
+    router.open(screen: .settings)
+    XCTAssertTrue(router.isMoreLit(visible: bar))
+  }
+
+  func testMoreListsWhatTheBarDoesNotCarry() {
+    let menu = MoreMenu.make(more: NavLayout.make(width: 390, isPad: false).more, tripIsOn: false)
+    XCTAssertEqual(
+      menu.sections.prefix(6),
+      [
+        .section(.calendar), .section(.capital), .section(.debts), .section(.analytics),
+        .section(.goals), .section(.reports),
+      ])
+    XCTAssertTrue(menu.sections.contains(.whatIf))
+    XCTAssertFalse(menu.sections.contains(.trip), "no trip, no row")
+    XCTAssertEqual(menu.app, [.settings, .tour, .whatsNew, .problemReport])
+    let travelling = MoreMenu.make(more: [], tripIsOn: true)
+    XCTAssertTrue(travelling.sections.contains(.trip))
+    XCTAssertFalse(travelling.sections.contains(.section(.calendar)))
+  }
+
+  func testTheSearchOfMoreIgnoresCaseAndYo() {
+    let menu = MoreMenu.make(more: NavItem.allCases, tripIsOn: false)
+    let titles: [MoreRow: String] = [
+      .section(.reports): "Отчёты", .section(.debts): "Долги", .settings: "Настройки",
+    ]
+    func title(_ row: MoreRow) -> String { titles[row] ?? "—" }
+    XCTAssertEqual(menu.filtered(by: "отчеты", title: title).sections, [.section(.reports)])
+    XCTAssertEqual(menu.filtered(by: "ДОЛ", title: title).sections, [.section(.debts)])
+    XCTAssertEqual(menu.filtered(by: "наст", title: title).app, [.settings])
+    XCTAssertEqual(menu.filtered(by: "  ", title: title), menu)
+    XCTAssertTrue(menu.filtered(by: "zzz", title: title).sections.isEmpty)
+  }
+
   // MARK: Order of the questions
 
   func testNothingIsAskedWhileTheAppIsCovered() {
