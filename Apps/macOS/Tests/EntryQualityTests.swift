@@ -90,7 +90,7 @@ final class EntryQualityTests: XCTestCase {
   }
 
   /// The quality of a new expense is a menu that shows the rating chosen and offers the three,
-  /// each with its symbol and its name; the type row is the one segmented control left.
+  /// each with its symbol and its name; the kinds are tabs in a track of their own.
   func testTheQualityIsAMenuWithASymbolForEveryValue() throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     let environment = AppEnvironment()
@@ -111,11 +111,16 @@ final class EntryQualityTests: XCTestCase {
     let items = open(menu)
     XCTAssertEqual(items.map(\.title), names)
     XCTAssertTrue(items.allSatisfy { $0.image != nil }, "a symbol for every value")
-    // Only the kind of the operation and «За кого» of an expense are chosen by segments; the
-    // quality is not among them.
+    // Only «За кого» of an expense is chosen by segments; the kinds are tabs, the quality is a
+    // menu.
     let typeNames = TransactionKind.allCases.map { environment.language("kind.\($0.rawValue)") }
     let groups = elements(in: window, role: "AXRadioGroup")
-    XCTAssertEqual(groups.count, 2, "the type row and «За кого» are the segmented controls")
+    XCTAssertEqual(groups.count, 1, "«За кого» is the one segmented control")
+    for kind in TransactionKind.allCases {
+      XCTAssertNotNil(
+        WindowAccessibility.element(identified: "entry.kind.\(kind.rawValue)", in: window),
+        "a tab for \(kind.rawValue)")
+    }
     XCTAssertEqual(
       groups.filter { attribute($0, "accessibilityIdentifier") as? String == "entry.payingFor" }
         .count, 1, "one of them is «За кого»")

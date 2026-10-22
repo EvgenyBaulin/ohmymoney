@@ -47,6 +47,7 @@ struct PlanningSettingsView: View {
         }
       } header: {
         Text(verbatim: t("settings.planning.reconciliation"))
+          .settingsHeaderStyle()
       }
 
       Section {
@@ -104,6 +105,7 @@ struct PlanningSettingsView: View {
         .accessibilityIdentifier("settings.planning.goalValuation")
       } header: {
         Text(verbatim: t("settings.planning.savings"))
+          .settingsHeaderStyle()
       }
 
       Section {
@@ -128,6 +130,7 @@ struct PlanningSettingsView: View {
         .accessibilityIdentifier("settings.planning.cushionOut")
       } header: {
         Text(verbatim: t("settings.planning.cushion"))
+          .settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("settings.planning.cushionHint"))
           .appFont(.callout)
@@ -148,6 +151,7 @@ struct PlanningSettingsView: View {
         .accessibilityIdentifier("settings.planning.limitsTopN")
       } header: {
         Text(verbatim: t("settings.planning.limits"))
+          .settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("settings.planning.limitsHint"))
           .appFont(.callout)
@@ -167,6 +171,7 @@ struct PlanningSettingsView: View {
         .pickerStyle(.segmented)
       } header: {
         Text(verbatim: t("settings.anomalies"))
+          .settingsHeaderStyle()
       } footer: {
         Text(verbatim: t("settings.anomalies.hint"))
           .appFont(.callout)
@@ -321,6 +326,7 @@ struct AllocationSettingsSection: View {
       }
     } header: {
       Text(verbatim: t("settings.allocation"))
+        .settingsHeaderStyle()
     } footer: {
       Text(verbatim: t("settings.allocation.hint"))
         .appFont(.callout)
@@ -383,6 +389,7 @@ struct PlanningHintsSection: View {
       .accessibilityIdentifier("settings.hints.creditHistory")
     } header: {
       Text(verbatim: t("settings.hints"))
+        .settingsHeaderStyle()
     }
   }
 

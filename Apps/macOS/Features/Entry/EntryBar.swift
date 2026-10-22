@@ -15,6 +15,9 @@ enum EntryBarMetrics {
   static let minimumWidth: CGFloat = 560
   static let maximumWidth: CGFloat = 720
   static let widthShare: CGFloat = 0.7
+  /// The tallest the ↓ panel stands before its fields scroll: the design's panel, label over
+  /// control in three columns, is about 590 pt with its foot.
+  static let panelMaxHeight: CGFloat = 620
   /// Room kept free between the bar and each side of the column it floats over.
   static let sideMargin: CGFloat = 16
   /// Distance between the capsule and the bottom edge of the window.
@@ -803,20 +806,17 @@ struct EntryBar<Accessory: View>: View {
   private func detailsPanel(_ model: EntryDraftModel) -> some View {
     GlassPanel {
       VStack(alignment: .leading, spacing: 4) {
-        // A row of its own above the fields: laid over them, the button covered the
-        // controls at the right end of the first row. It belongs to the floating
-        // panel, not to `DetailsPanel`: the edit sheet shows the same fields and has
-        // buttons of its own.
-        HStack {
-          Spacer()
-          closeButton
-        }
         ScrollView {
-          // Return in a field of the panel saves, as Return in the line does.
-          DetailsPanel(model: model, submit: save, offersTransfer: true)
-            .padding(.trailing, 4)
+          // Return in a field of the panel saves, as Return in the line does. The close button
+          // stands at the end of the row of the kinds, as the design draws it: it belongs to the
+          // floating panel, not to `DetailsPanel`, whose edit sheet has buttons of its own.
+          DetailsPanel(
+            model: model, submit: save, offersTransfer: true,
+            headerTrailing: AnyView(panelCloseCluster), showsSave: true
+          )
+          .padding(.trailing, 4)
         }
-        .frame(maxHeight: 420)
+        .frame(maxHeight: EntryBarMetrics.panelMaxHeight)
       }
       // Esc while a control inside the panel has focus. Esc on the line itself is
       // handled by the line, so neither reaches the list behind.
@@ -877,6 +877,17 @@ struct EntryBar<Accessory: View>: View {
       return
     }
     message = nil
+  }
+
+  /// «Esc» and the close button at the end of the row of the kinds.
+  private var panelCloseCluster: some View {
+    HStack(spacing: 8) {
+      Text(verbatim: "Esc")
+        .appFont(.caption)
+        .foregroundStyle(.secondary)
+        .accessibilityHidden(true)
+      closeButton
+    }
   }
 
   /// A plain button: the panel is glass already, and glass is never put on glass.

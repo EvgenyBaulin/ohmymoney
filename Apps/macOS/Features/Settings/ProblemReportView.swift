@@ -74,6 +74,7 @@ struct ProblemReportView: View {
       }
     } header: {
       Text(verbatim: t("report.section"))
+        .settingsHeaderStyle()
     } footer: {
       Text(verbatim: t("report.hint")).foregroundStyle(.secondary)
     }

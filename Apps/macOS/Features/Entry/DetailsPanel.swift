@@ -17,6 +17,7 @@ struct DetailsPanel: View {
   @Dependency(\.compute) private var compute
   /// «Запомнить» of «Кэшбэк» writes its rule through the store: a step of ⌘Z.
   @Dependency(\.store) private var store
+  @Environment(\.themeSurfaces) private var surfaces
   /// Handed to the sheet of «Add…», which SwiftUI lays out in a host of its own.
   @Environment(\.dependencies) private var dependencies
   @Bindable var model: EntryDraftModel
@@ -52,6 +53,11 @@ struct DetailsPanel: View {
   /// form shows the quick line and the kinds alone, and a tile — or the quick line read into the
   /// fields — brings the fields. `nil`: the fields are always there (the ↓ panel, the editor).
   var kindChosen: Binding<Bool>? = nil
+  /// What stands at the end of the row of the kinds: the ↓ panel's «Esc» and its close button.
+  var headerTrailing: AnyView? = nil
+  /// The panel has «Записать» of its own at its foot with a hint of the keys — the ↓ panel, which
+  /// has no button of the editor's.
+  var showsSave = false
   /// The control of the panel that has the keyboard focus, when it is one of the fields.
   @FocusState private var focus: PanelFocus?
 
@@ -63,7 +69,10 @@ struct DetailsPanel: View {
     case column
   }
 
-  private var inColumn: Bool { arrangement == .column }
+  /// The form at the side of the window, not the ↓ panel or the editor. Every field stands as
+  /// the design draws it in all of them: its label above its control, the control as wide as its
+  /// cell, the cells flowing in columns (`EntryFieldFlow`); only the number of columns differs.
+  private var isSideForm: Bool { arrangement == .column }
 
   var body: some View {
     VStack(alignment: .leading, spacing: 14) {
@@ -71,10 +80,13 @@ struct DetailsPanel: View {
         quickLine($focus)
         Divider()
       }
-      typeRow
+      HStack(spacing: 12) {
+        typeRow
+        if let headerTrailing { headerTrailing }
+      }
       if showsFields, let transfer = model.transfer {
         Divider()
-        TransferFields(entry: transfer, layout: inColumn ? .column : .wide, focus: $focus)
+        TransferFields(entry: transfer, layout: isSideForm ? .column : .wide, focus: $focus)
       } else if showsFields {
         Divider()
         fieldsAndActions
@@ -177,11 +189,32 @@ struct DetailsPanel: View {
     switch arrangement {
     case .wide:
       if hasRoomForSegments {
-        kindPicker.pickerStyle(.segmented)
+        kindTabs
       } else {
         kindPicker.pickerStyle(.menu)
       }
     case .column: kindTiles
+    }
+  }
+
+  /// The kinds in one capsule track, «Перевод» last where the panel offers a transfer.
+  private var kindTabs: some View {
+    EntryKindTabs(
+      tiles: EntryKindTiles.all.filter { $0 != .transfer || offersTransfer },
+      chosen: model.transfer == nil ? .kind(model.draft.kind) : .transfer,
+      title: { tile in
+        switch tile {
+        case .kind(let kind): environment.language("kind.\(kind.rawValue)")
+        case .transfer: t("entry.kind.transfer")
+        }
+      },
+      locked: model.hasClosedPart || model.isReconcileDifference,
+      choose: { chooseKind($0) }
+    )
+    // The defaults also drop a category of the other kind from every part, so switching an
+    // expense to income never leaves an expense category behind.
+    .onChange(of: model.draft.kind) { _, _ in
+      model.applyDefaults(today: environment.today)
     }
   }
 
@@ -264,7 +297,7 @@ struct DetailsPanel: View {
       guard model.draft.kind != kind else { return }
       model.draft.kind = kind
       // The segments lay the defaults when the kind changes (`kindPicker`); the tiles here.
-      if inColumn { model.applyDefaults(today: environment.today) }
+      if isSideForm { model.applyDefaults(today: environment.today) }
     case .transfer:
       model.chooseTransfer(calendar: environment.calendar)
     }
@@ -423,61 +456,45 @@ struct DetailsPanel: View {
     PayingForSentence.text(of: model, environment: environment)
   }
 
-  /// The rows of fields: a grid of labels and controls, or one column.
-  @ViewBuilder
+  /// The rows of fields: cells flowing in columns — three in the ↓ panel, two in the form at the
+  /// side — each a label over its control.
   private func fields<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
-    switch arrangement {
-    case .wide:
-      Grid(alignment: .leading, horizontalSpacing: 14, verticalSpacing: 10) { content() }
-    case .column:
-      VStack(alignment: .leading, spacing: 12) { content() }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
+    EntryFieldFlow(
+      maxColumns: isSideForm
+        ? EntryFieldFlowMetrics.sideColumns : EntryFieldFlowMetrics.panelColumns
+    ) { content() }
+      .frame(maxWidth: .infinity, alignment: .leading)
   }
 
-  /// One field: its label and its control — side by side in the grid; in the column the label
-  /// above and the control as wide as the column. No `key`: a line under the control above.
+  /// One field: its label above its control, the control as wide as its cell. `alone`: the field
+  /// takes a row of its own — the amount, a note, a choice of a few options. No `key`: a line
+  /// under the control above, always on a row of its own.
   @ViewBuilder
   private func fieldRow<Control: View>(
-    _ key: String?, marked: Bool = false, @ViewBuilder control: () -> Control
+    _ key: String?, marked: Bool = false, alone: Bool = false, @ViewBuilder control: () -> Control
   ) -> some View {
-    switch arrangement {
-    case .wide:
-      GridRow {
-        if let key {
-          fieldLabel(key, marked: marked)
-        } else {
-          Color.clear.frame(width: 1, height: 1)
-        }
-        control()
-      }
-    case .column:
-      VStack(alignment: .leading, spacing: 4) {
-        if let key { fieldLabel(key, marked: marked) }
-        control()
-          .buttonSizing(.flexible)
-          .frame(maxWidth: .infinity, alignment: .leading)
-      }
+    VStack(alignment: .leading, spacing: 4) {
+      if let key { fieldLabel(key, marked: marked) }
+      control()
+        .buttonSizing(.flexible)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
+    .layoutValue(key: EntryFieldFlow.Alone.self, value: alone || key == nil)
   }
 
-  /// A control with what goes beside it: side by side in the grid, one under the other in the
-  /// column, where the two would not fit in a line.
+  /// A control with what goes beside it: one under the other, where a cell is too narrow for
+  /// the two in a line.
   private var beside: AnyLayout {
-    inColumn
-      ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6))
-      : AnyLayout(HStackLayout(spacing: 8))
+    AnyLayout(VStackLayout(alignment: .leading, spacing: 6))
   }
 
-  /// A row of small buttons: one line in the grid, wrapping in the column.
+  /// A row of small buttons: they wrap where the width ends.
   private func buttonRow(spacing: CGFloat) -> AnyLayout {
-    inColumn
-      ? AnyLayout(FlowRow(spacing: spacing, lineSpacing: 8))
-      : AnyLayout(HStackLayout(spacing: spacing))
+    AnyLayout(FlowRow(spacing: spacing, lineSpacing: 8))
   }
 
-  /// A fixed width in the grid; in the column the control is as wide as the column.
-  private func gridWidth(_ width: CGFloat) -> CGFloat? { inColumn ? nil : width }
+  /// A fixed width: none, the control is as wide as its cell.
+  private func gridWidth(_ width: CGFloat) -> CGFloat? { nil }
 
   @ViewBuilder
   private func rows(for field: EntryField) -> some View {
@@ -537,14 +554,15 @@ struct DetailsPanel: View {
 
   @ViewBuilder
   private var amountRows: some View {
-    fieldRow("entry.amount") {
-      beside {
+    fieldRow("entry.amount", alone: true) {
+      HStack(alignment: .firstTextBaseline, spacing: 10) {
         AmountField(
           amount: totalBinding,
           // The text goes along: a formula typed here is kept in `amount_expr`.
-          onTyped: { model.setTotal($0, typed: $1) }
+          onTyped: { model.setTotal($0, typed: $1) },
+          prominent: true
         )
-        .frame(width: gridWidth(140))
+        .frame(width: 180)
         .focused($focus, equals: .amount)
         // One part is the whole operation: its amount is the total.
         .disabled((!model.isSplit && model.hasClosedPart) || moneyLocked)
@@ -590,7 +608,7 @@ struct DetailsPanel: View {
       fieldRow(nil) { closedPartCaption }
     }
     if model.offersRefundPurchase {
-      fieldRow("entry.refund.purchase") { refundPurchaseRow }
+      fieldRow("entry.refund.purchase", alone: true) { refundPurchaseRow }
     }
   }
 
@@ -634,7 +652,7 @@ struct DetailsPanel: View {
   @ViewBuilder
   private var qualityRow: some View {
     if model.hasQuality && model.has(.quality) {
-      fieldRow("entry.quality") {
+      fieldRow("entry.quality", alone: true) {
         // A menu like every other field: chosen by a click, and from the keyboard with Space,
         // the arrows and Return — a segmented control took Return for nothing.
         qualityMenu(for: partBinding(0))
@@ -725,7 +743,7 @@ struct DetailsPanel: View {
   @ViewBuilder
   private var accountRows: some View {
     // «Со счёта» for spending, «На счёт» for money that comes in, «Счёт» for a goal.
-    fieldRow(model.accountFieldKey) {
+    fieldRow(model.accountFieldKey, alone: true) {
       // An account chosen here is the owner's: no place chosen after it replaces it. The
       // main account first, the rest in the owner's order, each followed by its live cards
       // («Т-Банк · Black»): a card brings its account, an account picked names no card. No
@@ -768,8 +786,8 @@ struct DetailsPanel: View {
       }
     }
     if model.needsCharge {
-      fieldRow("entry.accountCharge") {
-        AccountChargeField(model: model, stacked: inColumn)
+      fieldRow("entry.accountCharge", alone: true) {
+        AccountChargeField(model: model, stacked: true)
           .focused($focus, equals: .charge)
           .disabled(moneyLocked)
       }
@@ -783,11 +801,11 @@ struct DetailsPanel: View {
   @ViewBuilder
   private var cashbackRow: some View {
     if model.showsCashback {
-      fieldRow("entry.cashback") {
+      fieldRow("entry.cashback", alone: true) {
         CashbackField(
           state: $model.cashbackField, draft: model.draft,
           expectation: model.cashbackExpectation, context: model.cashbackContext,
-          leading: inColumn,
+          leading: true,
           remember: { rule in
             model.rememberCashback(rule) {
               CardActions(environment: environment, store: store).remember($0)
@@ -868,7 +886,7 @@ struct DetailsPanel: View {
   }
 
   private var noteRow: some View {
-    fieldRow("entry.note") {
+    fieldRow("entry.note", alone: true) {
       // Several lines: ⌥Return starts a new one, Return saves as in every field.
       TextField(text: Binding($model.draft.note, replacingNilWith: ""), axis: .vertical) {
         Text(verbatim: t("entry.note"))
@@ -991,12 +1009,12 @@ struct DetailsPanel: View {
                 categoryPicker(forPartAt: index)
                 subcategoryPicker(forPartAt: index)
               }
-              .frame(maxWidth: inColumn ? .infinity : 200)
+              .frame(maxWidth: .infinity)
             }
             // Each part has a quality of its own, so it sits next to the amount.
             VStack(alignment: .leading, spacing: 4) {
               AmountField(amount: partBinding(index).amount)
-                .frame(width: inColumn ? 104 : 120)
+                .frame(width: 104)
                 .disabled(model.isClosedPart(id: part.id))
               if model.hasQuality {
                 qualityMenu(for: partBinding(index))
@@ -1106,10 +1124,33 @@ struct DetailsPanel: View {
     }
   }
 
+  /// The foot of the ↓ panel: the keys that save and close, and «Записать» in the theme's accent.
+  private var saveRow: some View {
+    HStack(spacing: 12) {
+      Text(verbatim: t("entry.panel.hint"))
+        .appFont(.caption)
+        .foregroundStyle(.secondary)
+        .fixedSize(horizontal: false, vertical: true)
+      Spacer(minLength: 8)
+      Button {
+        submit?()
+      } label: {
+        Text(verbatim: t("entry.save"))
+          .fontWeight(.semibold)
+          .padding(.horizontal, 14)
+      }
+      .buttonStyle(.borderedProminent)
+      .buttonBorderShape(.capsule)
+      .controlSize(.large)
+      .tint(surfaces.accent)
+      .accessibilityIdentifier("entry.panel.save")
+    }
+  }
+
   private var footer: some View {
     VStack(alignment: .leading, spacing: 12) {
       // The column is too narrow for the four in a line: there they wrap.
-      buttonRow(spacing: inColumn ? 8 : 12).callAsFunction {
+      buttonRow(spacing: 8).callAsFunction {
         // A refund of a purchase takes back one amount of one part: it is neither split nor
         // paid for somebody else.
         if model.canSplit {
@@ -1145,12 +1186,13 @@ struct DetailsPanel: View {
             .accessibilityIdentifier("entry.transfer")
         }
 
-        if !inColumn { Spacer() }
       }
 
       if !model.canChangeCredit && model.isOnCredit {
         caption("entry.creditInDebts")
       }
+
+      if showsSave { saveRow }
 
       // A payment smaller than the due of its debt may say that no more comes this month.
       if offersClosingTerm {
@@ -1305,7 +1347,6 @@ struct DetailsPanel: View {
       .appFont(.caption)
       .fontWeight(marked ? .semibold : .regular)
       .foregroundStyle(marked ? Color.primary : Color.secondary)
-      .gridColumnAlignment(.leading)
   }
 
   /// The category of a part. Choosing one drops whatever subcategory was under the
@@ -1381,7 +1422,6 @@ struct DetailsPanel: View {
     .pickerStyle(.menu)
     .labelsHidden()
     // As wide as the column in the form; in the grid and in a part of a split, as its value.
-    .fixedSize(horizontal: !inColumn, vertical: false)
     .help(t("entry.quality"))
     .disabled(!model.canRateByHand(part.wrappedValue))
   }
@@ -1743,6 +1783,8 @@ struct AmountField: View {
   /// amount itself: the total of an operation keeps a formula typed in it (`amount_expr`).
   var onTyped: ((AmountE4, String) -> Void)?
   private var reads: Binding<Bool>?
+  /// The amount of an operation, large as the design draws it: the number the form is about.
+  private let prominent: Bool
   @State private var text: String = ""
   @State private var lastShown: AmountE4 = .zero
   /// The text the field has just written back itself: its amount was told when it was typed.
@@ -1752,8 +1794,9 @@ struct AmountField: View {
   /// `locale` is accepted and not needed: amounts are written the same way in every language.
   init(
     amount: Binding<AmountE4>, locale _: Locale? = nil, reads: Binding<Bool>? = nil,
-    onTyped: ((AmountE4, String) -> Void)? = nil
+    onTyped: ((AmountE4, String) -> Void)? = nil, prominent: Bool = false
   ) {
+    self.prominent = prominent
     self._amount = amount
     self.reads = reads
     self.onTyped = onTyped
@@ -1764,7 +1807,7 @@ struct AmountField: View {
       Text(verbatim: "0")
     }
     .labelsHidden()
-    .appFont(.body.monospacedDigit())
+    .appFont(prominent ? .title.monospacedDigit().bold() : .body.monospacedDigit())
     .focused($isFocused)
     .onAppear { show(amount) }
     .onChange(of: amount) { _, newValue in

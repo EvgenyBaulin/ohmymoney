@@ -123,6 +123,7 @@ struct CurrenciesSettingsView: View {
         }
       } header: {
         Text(verbatim: t("settings.currencies.enabled"))
+          .settingsHeaderStyle()
       } footer: {
         Text(
           verbatim: environment.format(

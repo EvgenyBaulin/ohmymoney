@@ -45,6 +45,7 @@ struct EntrySettingsView: View {
           }
         } header: {
           Text(verbatim: t("settings.entry.order"))
+            .settingsHeaderStyle()
         }
       }
       .frame(minHeight: 200)

@@ -46,6 +46,7 @@ struct AppearanceSettingsView: View {
           open: { previewing = $0 })
       } header: {
         Text(verbatim: environment.language("appearance.themes.title", table: "Appearance"))
+          .settingsHeaderStyle()
       } footer: {
         VStack(alignment: .leading, spacing: 4) {
           Text(verbatim: environment.language("appearance.themes.hint", table: "Appearance"))

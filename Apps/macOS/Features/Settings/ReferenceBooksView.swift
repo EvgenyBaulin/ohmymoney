@@ -263,6 +263,7 @@ struct ReferenceBooksView: View {
           }
         } header: {
           Text(verbatim: t("references.archiveSection"))
+            .settingsHeaderStyle()
         }
       }
     }

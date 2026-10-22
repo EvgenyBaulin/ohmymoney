@@ -258,6 +258,7 @@ struct SelfEmploymentSettingsSection: View {
       }
     } header: {
       Text(verbatim: t("settings.selfEmployed"))
+        .settingsHeaderStyle()
     }
     .sheet(isPresented: $setsUp, onDismiss: load) {
       SelfEmploymentSetupSheet().handingOver(dependencies)
@@ -360,6 +361,7 @@ struct SelfEmploymentSettingsSection: View {
       .accessibilityIdentifier("settings.selfEmployed.reference.remindDays")
     } header: {
       Text(verbatim: t("settings.selfEmployed.reference"))
+        .settingsHeaderStyle()
     } footer: {
       VStack(alignment: .leading, spacing: 6) {
         Text(verbatim: t("settings.selfEmployed.referenceHint"))

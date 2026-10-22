@@ -35,21 +35,44 @@ extension SettingsSection {
   }
 }
 
-/// The rounded tile a section's symbol sits on: the theme's accent tint behind, the accent
-/// colour for the line. The meaning never rests on the colour: the name is always beside it.
+extension SettingsSection {
+  /// The colour of the tile behind the section's symbol, as the design gives each section its
+  /// own: 0xRRGGBB. The colour only helps to find the row; the name always stands beside it.
+  var tileHex: UInt32 {
+    switch self {
+    case .general: 0x8E8E93
+    case .appearance: 0xF0932B
+    case .currencies: 0x2E9E6B
+    case .accounts: 0x3B6EF0
+    case .categories: 0xE0453A
+    case .references: 0x8B5CF6
+    case .entry: 0x14A3A3
+    case .templates: 0xF7A93B
+    case .planning: 0x8E8E93
+    case .backups: 0x2F5DE8
+    }
+  }
+
+  var tileColor: Color {
+    let hex = tileHex
+    return Color(
+      red: Double((hex >> 16) & 0xFF) / 255, green: Double((hex >> 8) & 0xFF) / 255,
+      blue: Double(hex & 0xFF) / 255)
+  }
+}
+
+/// The rounded tile a section's symbol sits on: the section's own colour behind, a white line
+/// symbol over it. The meaning never rests on the colour: the name is always beside it.
 struct SettingsIconTile: View {
   let symbol: String
-  @Environment(\.appTheme) private var theme
+  var color: Color = .gray
 
   var body: some View {
     Image(systemName: symbol)
       .font(.system(size: SettingsChromeMetrics.glyphSize, weight: .medium))  // font-fixed: glyph in a fixed tile
-      .foregroundStyle(Color(theme.palette.accentDefault))
+      .foregroundStyle(.white)
       .frame(width: SettingsChromeMetrics.tileSize, height: SettingsChromeMetrics.tileSize)
-      .background(
-        Color(theme.palette.accentTint),
-        in: .rect(cornerRadius: SettingsChromeMetrics.tileRadius)
-      )
+      .background(color, in: .rect(cornerRadius: SettingsChromeMetrics.tileRadius))
       .accessibilityHidden(true)
   }
 }
@@ -61,7 +84,7 @@ struct SettingsSectionTitle: View {
 
   var body: some View {
     HStack(spacing: 10) {
-      SettingsIconTile(symbol: section.tileSymbol)
+      SettingsIconTile(symbol: section.tileSymbol, color: section.tileColor)
       Text(verbatim: title)
         .appFont(.title2)
         .bold()
@@ -85,7 +108,7 @@ struct SettingsSidebarLabel: View {
 
   var body: some View {
     HStack(spacing: 10) {
-      SettingsIconTile(symbol: section.tileSymbol)
+      SettingsIconTile(symbol: section.tileSymbol, color: section.tileColor)
       Text(verbatim: title)
         .foregroundStyle(
           isSelected ? Color(theme.palette.accentContent) : Color(theme.palette.contentPrimary)
@@ -94,4 +117,34 @@ struct SettingsSidebarLabel: View {
     }
     .frame(minHeight: SettingsChromeMetrics.rowHeight - 4)
   }
+}
+
+/// The label of a section in a list of sections — the phone's «Настройки» — as the design draws
+/// it: the symbol's tile and the name, the same pair the Mac's sidebar shows.
+struct SettingsSectionLabel: View {
+  let section: SettingsSection
+  let title: String
+
+  var body: some View {
+    HStack(spacing: 12) {
+      SettingsIconTile(symbol: section.tileSymbol, color: section.tileColor)
+      Text(verbatim: title)
+    }
+  }
+}
+
+/// The title of a group of settings above its card: small, upper case, quiet — as the design
+/// draws «ЯЗЫК И ВИД», «ПРИВАТНОСТЬ». Only the look changes: the text is the one the catalog holds.
+struct SettingsHeaderStyle: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .appFont(.caption)
+      .textCase(.uppercase)
+      .foregroundStyle(.secondary)
+  }
+}
+
+extension View {
+  /// The look of a group's title above its card (`SettingsHeaderStyle`).
+  func settingsHeaderStyle() -> some View { modifier(SettingsHeaderStyle()) }
 }
