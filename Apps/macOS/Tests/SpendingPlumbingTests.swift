@@ -364,7 +364,7 @@ final class SpendingPlumbingTests: XCTestCase {
   }
 
   func testAnOneOffOperationLeavesTheUsualDayAndTheFacadeFollowsTheMarks() async throws {
-    let big = try spend("holiday", 500_000, hoursAgo: 30)
+    let big = try spend("holiday", 500_000, hoursAgo: 25)
     for day in 2..<30 { try spend("coffee", 100, hoursAgo: Double(day) * 24 + 1) }
     let facade = AnalysisFacade()
     let before = try await facade.spending.usualDay(try await snapshot(version: 1))

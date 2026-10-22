@@ -74,7 +74,11 @@ struct PhoneRoot: View {
           layout: layout, router: router, title: title,
           moreTitle: environment.language("phone.tab.more", table: "Phone")
         )
-        .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { barHeight = $0 }
+        .onGeometryChange(for: CGFloat.self) {
+          $0.size.height
+        } action: {
+          barHeight = $0
+        }
       }
     }
     .safeAreaInset(edge: .top, spacing: 0) {
