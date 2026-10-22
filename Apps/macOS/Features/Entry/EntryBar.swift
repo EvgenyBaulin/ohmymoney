@@ -140,6 +140,8 @@ struct EntryBar<Accessory: View>: View {
   @State private var settingUpSelfEmployment = false
   /// Quick entry: a pasted text of a bank, «ой, 350», places, the parts of a «;» line, drafts.
   @State private var fast = QuickEntryModel()
+  /// The question mode of the line: Enter asks instead of writing (`QuestionLineModel`).
+  @State private var questions = QuestionLineModel()
   @Namespace private var glass
 
   private var interpreter: any LineInterpreter {
@@ -185,6 +187,11 @@ struct EntryBar<Accessory: View>: View {
     // that an operation became a plan has said what it had to: the next line starts clean.
     .onChange(of: text) { old, new in
       if message?.isNotice == true { message = nil }
+      // A question is not read as an operation: no bank text, no panel, no rules.
+      if questions.isActive {
+        questions.textChanged()
+        return
+      }
       // A text of a bank pasted into the line is read; any other paste stays as it came.
       if let replaced = fast.lineChanged(
         old: old, new: new, environment: environment, compute: compute)
@@ -208,6 +215,7 @@ struct EntryBar<Accessory: View>: View {
       // The chips too: a restore or an archive brought in replaces them.
       templates.reload()
       fast.drafts.reload()
+      questions.askWaiting(compute: compute)
     }
     // Cancelled, the confirmation leaves the line as it was; recorded, it clears it like a
     // save. A person who owes nothing, or owes on a debt, sends the money back to the line as
@@ -554,7 +562,10 @@ struct EntryBar<Accessory: View>: View {
               .popoverTip(EntryLineTip(), arrowEdge: .top)
             TextField(
               text: $text,
-              prompt: Text(verbatim: environment.language("entry.placeholder", table: "Entry"))
+              prompt: Text(
+                verbatim: questions.isActive
+                  ? QuestionsText.t("questions.prompt", environment)
+                  : environment.language("entry.placeholder", table: "Entry"))
             ) {
               Text(verbatim: environment.language("entry.amount", table: "Entry"))
             }
@@ -576,6 +587,20 @@ struct EntryBar<Accessory: View>: View {
             .onKeyPress(keys: [.tab, PanelTabOrder.backTab]) { key in tab(key) }
             // Last, over the field and its keys: where the guide frames the line.
             .guideTarget("entry.line")
+
+            // «Вопрос»: the line asks about the data instead of writing; the mode is this button's,
+            // never the text's.
+            Button(action: toggleQuestionMode) {
+              Image(
+                systemName: questions.isActive ? "questionmark.bubble.fill" : "questionmark.bubble")
+            }
+            .buttonStyle(.glass)
+            .help(QuestionsText.t("questions.mode.help", environment))
+            .accessibilityLabel(
+              Text(verbatim: QuestionsText.t("questions.mode.label", environment))
+            )
+            .accessibilityAddTraits(questions.isActive ? [.isSelected] : [])
+            .accessibilityIdentifier("entry.question.toggle")
 
             Button(action: toggleDetails) {
               Image(systemName: showsDetails ? "chevron.up" : "chevron.down")
@@ -601,15 +626,23 @@ struct EntryBar<Accessory: View>: View {
                 verbatim: carriesChoices
                   ? environment.language("entry.detailsCarried", table: "Entry") : "")
             )
+            .disabled(questions.isActive)
             .accessibilityIdentifier("entry.details.toggle")
             .guideTarget("entry.details.toggle")
 
-            Button(environment.language("entry.save", table: "Entry"), action: save)
-              .buttonStyle(.glassProminent)
-              // While the panel is open Return saves wherever the focus is — a menu, the date,
-              // a checkbox — as Enter in the line does. An open menu takes Return itself.
-              .keyboardShortcut(showsDetails ? .defaultAction : nil)
-              .disabled(!EntrySaving.isOffered(line: text, showsDetails: showsDetails))
+            Button(
+              questions.isActive
+                ? QuestionsText.t("questions.ask", environment)
+                : environment.language("entry.save", table: "Entry"), action: save
+            )
+            .buttonStyle(.glassProminent)
+            // While the panel is open Return saves wherever the focus is — a menu, the date,
+            // a checkbox — as Enter in the line does. An open menu takes Return itself.
+            .keyboardShortcut(showsDetails ? .defaultAction : nil)
+            .disabled(
+              questions.isActive
+                ? text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                : !EntrySaving.isOffered(line: text, showsDetails: showsDetails))
           }
         }
         .glassEffectID("capsule", in: glass)
@@ -621,10 +654,18 @@ struct EntryBar<Accessory: View>: View {
         .overlay(alignment: .top) {
           standing(
             above: VStack(alignment: .leading, spacing: 6) {
-              if !showsDetails {
-                QuickEntryStrip(
-                  model: fast, text: $text, applyCorrection: applyTheCorrection,
-                  refocus: { focused = true })
+              if questions.isActive {
+                QuestionPanel(model: questions) { again in
+                  text = again
+                  askTheQuestion()
+                }
+              } else {
+                if !showsDetails {
+                  QuickEntryStrip(
+                    model: fast, text: $text, applyCorrection: applyTheCorrection,
+                    refocus: { focused = true })
+                }
+                questionNudge
               }
               caption
             })
@@ -1177,7 +1218,50 @@ struct EntryBar<Accessory: View>: View {
     guard returnGate.admits(now: ProcessInfo.processInfo.systemUptime, isRepeat: isRepeat) else {
       return
     }
+    // In the question mode Enter asks and never writes, whatever the line says.
+    if QuestionLineGuard.action(for: questions.mode) == .askQuestion {
+      askTheQuestion()
+      return
+    }
     saveTheLine()
+  }
+
+  /// The line is a question: it is answered from the data and stays in the line.
+  private func askTheQuestion() {
+    questions.ask(text, compute: compute)
+  }
+
+  /// The button of the question mode. Switched on, the ↓ panel closes and the next Enter asks.
+  private func toggleQuestionMode() {
+    questions.toggle()
+    if questions.isActive {
+      withAnimation(.snappy) { showsDetails = false }
+      message = nil
+    }
+    focused = true
+  }
+
+  /// In the entry mode, a line that reads like a question offers the question mode. It only
+  /// asks: the line is never taken for a question by its words.
+  @ViewBuilder
+  private var questionNudge: some View {
+    if !showsDetails,
+      QuestionLineGuard.offersQuestionMode(text: text, mode: questions.mode)
+    {
+      Button {
+        toggleQuestionMode()
+      } label: {
+        Label {
+          Text(verbatim: QuestionsText.t("questions.nudge", environment))
+        } icon: {
+          Image(systemName: "questionmark.bubble")
+        }
+      }
+      .buttonStyle(.link)
+      .appFont(.caption)
+      .padding(.horizontal, captionInset)
+      .accessibilityIdentifier("entry.question.nudge")
+    }
   }
 
   /// The save of the line, past the gate of the keystroke: Return, a click, and the next part of

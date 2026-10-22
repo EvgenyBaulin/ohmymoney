@@ -283,6 +283,10 @@ struct AnalyticsWindow: View {
         setPeriod(.current(period.kind, today: today))
       }
       .disabled(!enabled || period.isCurrent(today: today))
+
+      // The periods of the saved filters.
+      SavedPeriodsMenu { setPeriod($0) }
+        .disabled(!enabled)
     }
   }
 

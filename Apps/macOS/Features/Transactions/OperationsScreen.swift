@@ -295,6 +295,9 @@ struct OperationsScreen: View {
           .accessibilityIdentifier("operations.filters.reset")
       }
 
+      // The saved filters: apply one, save these, open the list.
+      SavedFiltersMenu()
+
       Button {
         showsColumns = true
       } label: {

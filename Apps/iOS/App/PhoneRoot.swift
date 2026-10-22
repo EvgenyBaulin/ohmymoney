@@ -92,6 +92,8 @@ struct PhoneRoot: View {
     }
     .modifier(PhoneRequests(router: router))
     .modifier(PhoneSheets(deps: deps, router: router))
+    // The palette, the question sheet and the saved views, as on the Mac.
+    .questionsHost(deps: deps, operations: operations)
     .modifier(PhoneLaunch(deps: deps, router: router))
     .onChange(of: deps.compute.generation, initial: true) { _, _ in
       if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
@@ -338,6 +340,25 @@ struct OverviewTitleActions: View {
       Group {
         Menu {
           Button {
+            NotificationCenter.default.post(name: .showCommandPalette, object: nil)
+          } label: {
+            Label {
+              Text(verbatim: QuestionsText.t("questions.menu.palette", environment))
+            } icon: {
+              Image(systemName: "command")
+            }
+          }
+          Button {
+            NotificationCenter.default.post(name: .showQuestionSheet, object: nil)
+          } label: {
+            Label {
+              Text(verbatim: QuestionsText.t("questions.sheet.title", environment))
+            } icon: {
+              Image(systemName: "questionmark.bubble")
+            }
+          }
+          Divider()
+          Button {
             deps.store.undo()
           } label: {
             Label {
@@ -433,6 +454,17 @@ struct PhoneToolbar: ViewModifier {
         .disabled(!deps.store.canUndo)
       }
       ToolbarItemGroup(placement: .topBarTrailing) {
+        // The palette of commands and the question, a sheet on the phone.
+        Button {
+          NotificationCenter.default.post(name: .showCommandPalette, object: nil)
+        } label: {
+          Label {
+            Text(verbatim: QuestionsText.t("questions.menu.palette", environment))
+          } icon: {
+            Image(systemName: "command")
+          }
+        }
+        .accessibilityIdentifier("toolbar.palette")
         Button {
           environment.amounts.toggle()
         } label: {

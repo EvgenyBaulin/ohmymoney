@@ -249,6 +249,64 @@ struct AppCommands: Commands {
       }
       .keyboardShortcut("6", modifiers: .command)
     }
+
+    // «Перейти → Команды…» (⌘K): the palette of commands. Every fixed command of the palette is
+    // an item of this menu too, so the owner can give it a shortcut of his own in the system
+    // keyboard settings (App Shortcuts match a menu item by its title).
+    CommandMenu(QuestionsText.t("questions.menu.go", environment)) {
+      Button(QuestionsText.t("questions.menu.palette", environment)) {
+        NotificationCenter.default.post(name: .showCommandPalette, object: nil)
+      }
+      .keyboardShortcut("k", modifiers: .command)
+      Divider()
+      ForEach(PaletteCatalog.menuCommandIds, id: \.self) { id in
+        Button(QuestionsText.t("palette.\(id)", environment)) {
+          NotificationCenter.default.post(name: .runPaletteCommand, object: id)
+        }
+      }
+    }
+
+    // «Отчёты»: the Reports window, the saved reports and filters, and saving the filters
+    // of «Операции» under a name.
+    SavedViewsCommands(environment: environment, compute: compute)
+  }
+}
+
+/// The menu «Отчёты» of the menu bar (the owner's choice for where the saved views live).
+struct SavedViewsCommands: Commands {
+  @Environment(\.openWindow) private var openWindow
+  let environment: AppEnvironment
+  let compute: ComputeStore
+
+  var body: some Commands {
+    let book = compute.snapshot?.dataset.savedViews ?? SavedViewsBook()
+    CommandMenu(QuestionsText.t("questions.menu.reports", environment)) {
+      Button(environment.language("window.reports")) {
+        AppWindows.open("reports", with: openWindow)
+      }
+      Divider()
+      Section(QuestionsText.t("questions.saved.reports", environment)) {
+        ForEach(book.reports) { report in
+          Button(report.name) {
+            NotificationCenter.default.post(name: .openSavedView, object: report.id)
+          }
+        }
+      }
+      Section(QuestionsText.t("questions.saved.filters", environment)) {
+        ForEach(book.filters) { filter in
+          Button(filter.name) {
+            NotificationCenter.default.post(name: .openSavedView, object: filter.id)
+          }
+        }
+      }
+      Divider()
+      Button(QuestionsText.t("questions.saved.save.filter", environment)) {
+        NotificationCenter.default.post(name: .saveOperationsFilter, object: nil)
+      }
+      Button(QuestionsText.t("questions.saved.manage", environment)) {
+        NotificationCenter.default.post(name: .manageSavedViews, object: nil)
+      }
+    }
   }
 }
 
@@ -487,6 +545,8 @@ struct MainWindow: View {
     // Closing it quits the app; the secondary windows stand over it in full screen
     // (`AppWindows`).
     .appWindow(.main)
+    // ⌘K, the question sheet, filters set by an answer or a saved view, and the saved views.
+    .questionsHost(deps: deps, operations: operations)
     .navigationSubtitle(RecomputeText.subtitle(compute: compute, environment: environment))
     .journalsSection(selection.journalToken, in: .main)
     // The cards of the first launch, of «Что нового» or of the Help menu.
@@ -780,6 +840,20 @@ struct MainWindow: View {
     }
 
     ToolbarItemGroup {
+      // The palette of commands. ⌘K belongs to the menu item «Перейти → Команды…», declared there
+      // once.
+      Button {
+        NotificationCenter.default.post(name: .showCommandPalette, object: nil)
+      } label: {
+        Label {
+          Text(verbatim: QuestionsText.t("questions.menu.palette", environment))
+        } icon: {
+          Image(systemName: "command")
+        }
+      }
+      .help("\(QuestionsText.t("questions.menu.palette", environment)) ⌘K")
+      .accessibilityIdentifier("toolbar.palette")
+
       // «Скрыть суммы» — the eye says what a click will do, the label says it in words.
       Button {
         environment.amounts.toggle()

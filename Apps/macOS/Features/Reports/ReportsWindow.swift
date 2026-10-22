@@ -353,7 +353,15 @@ struct ReportsWindow: View {
 
   // MARK: Export
 
+  /// The saved reports next to the export: open one, keep the table on screen under a name.
   private var exportButton: some View {
+    HStack(spacing: 8) {
+      SavedReportsMenu(kind: selection.kind, grouping: selection.grouping, period: period)
+      exportAction
+    }
+  }
+
+  private var exportAction: some View {
     Button {
       export()
     } label: {
