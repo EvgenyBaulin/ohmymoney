@@ -15,6 +15,7 @@ final class OverviewNewTilesTests: XCTestCase {
   private static let calendar = CalendarContext.system
 
   override func setUp() async throws {
+    OverviewFiguresStore.shared.reset()
     environment = AppEnvironment()
     languageBefore = environment.language.choice
   }
@@ -161,9 +162,10 @@ final class OverviewNewTilesTests: XCTestCase {
     let breakdown = TileWhy.explanation(
       of: .spendToday, snapshot: snapshot, remainder: nil, owed: nil, anomalies: nil, rates: nil,
       environment: environment)
-    XCTAssertEqual(
-      breakdown.figure,
-      TileValue.money(OverviewFiguresStore.shared.figures(for: snapshot).spendToday.spent, .rub))
+    // With nothing spent today the breakdown has no figure at all: the answer depends on the
+    // hour the sample was drawn (on a runner in UTC the day may still be empty).
+    let spent = OverviewFiguresStore.shared.figures(for: snapshot).spendToday.spent
+    XCTAssertEqual(breakdown.figure, spent == .zero ? nil : TileValue.money(spent, .rub))
   }
 
   // MARK: - Facts
