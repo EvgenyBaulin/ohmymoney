@@ -21,6 +21,9 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
   /// The tax an income in this category owes; `nil` on a subcategory follows its parent, on a
   /// category means none (`CategoryTree.tax(of:)`). Only an income category has one.
   public var tax: IncomeTax?
+  /// The basket of the budget the category belongs to (`categories.basket`); `nil` on a
+  /// subcategory follows its parent, on a category reads from `essential`.
+  public var basket: BudgetBasket?
 
   public init(
     id: UUID = UUID(),
@@ -32,7 +35,8 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
     quality: Quality? = nil,
     systemRole: SystemRole? = nil,
     essential: Bool? = nil,
-    tax: IncomeTax? = nil
+    tax: IncomeTax? = nil,
+    basket: BudgetBasket? = nil
   ) {
     self.id = id
     self.parentId = parentId
@@ -44,6 +48,7 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
     self.systemRole = systemRole
     self.essential = essential
     self.tax = tax
+    self.basket = basket
   }
 
   public var isSystem: Bool { systemRole != nil }

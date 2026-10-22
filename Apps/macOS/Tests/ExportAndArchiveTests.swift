@@ -53,13 +53,13 @@ final class ExportAndArchiveTests: XCTestCase {
     let target = directory.appendingPathComponent("export")
     let written = try service.export(to: target)
 
-    XCTAssertEqual(written.count, 31)
+    XCTAssertEqual(written.count, 35)
     XCTAssertEqual(
       Array(written.map(\.lastPathComponent).suffix(12)),
       [
-        "transfers.csv", "reconciliation_balances.csv", "cards.csv", "cashback_rules.csv",
         "banks.csv", "assets.csv", "asset_valuations.csv", "debt_instalments.csv",
         "debt_costs.csv", "allocation_rules.csv", "custom_currencies.csv", "settings.csv",
+        "tags.csv", "part_tags.csv", "rules.csv", "day_notes.csv",
       ])
     for url in written {
       let text = try String(contentsOf: url, encoding: .utf8)
@@ -147,9 +147,9 @@ final class ExportAndArchiveTests: XCTestCase {
   func testAnExportThatFinishesSaysHowManyFilesItWrote() throws {
     let service = CSVExportService(repository: ExportRepository(writer: stack.writer))
     let target = directory.appendingPathComponent("export")
-    XCTAssertEqual(FileCommands.exportCSV(with: service, to: target), .written(files: 31))
+    XCTAssertEqual(FileCommands.exportCSV(with: service, to: target), .written(files: 35))
     let names = try FileManager.default.contentsOfDirectory(atPath: target.path)
-    XCTAssertEqual(names.count, 31, "\(names)")
+    XCTAssertEqual(names.count, 35, "\(names)")
     XCTAssertTrue(names.allSatisfy { $0.hasSuffix(".csv") }, "\(names)")
   }
 
@@ -169,7 +169,7 @@ final class ExportAndArchiveTests: XCTestCase {
     XCTAssertTrue(done)
     let lines = Logbook.shared.lines()
     let line = try XCTUnwrap(lines.first { $0.contains("export.done") })
-    XCTAssertTrue(line.contains("files=31"), line)
+    XCTAssertTrue(line.contains("files=35"), line)
     XCTAssertTrue(line.contains("rows=\(records)"), line)
   }
 
@@ -191,7 +191,7 @@ final class ExportAndArchiveTests: XCTestCase {
 
     try FileManager.default.removeItem(at: target.appendingPathComponent("rates.csv"))
     try service.export(to: target)
-    XCTAssertEqual(service.filesItWouldReplace(in: target).count, 31)
+    XCTAssertEqual(service.filesItWouldReplace(in: target).count, 35)
   }
 
   /// The three files the accounts brought are asked about like the other eighteen: an export
@@ -282,15 +282,15 @@ final class ExportAndArchiveTests: XCTestCase {
   /// build opens an archive of schema 8 — and of the ones before it — and a build that knows only
   /// 7 refuses it.
   func testAnArchiveOfSchemaEightOpensWhereEightIsSupported() throws {
-    XCTAssertEqual(stack.applied.onDisk, 12)
+    XCTAssertEqual(stack.applied.onDisk, 13)
     let service = ArchiveService(stack: stack, appVersion: "1.6.0")
     let url = directory.appendingPathComponent("eight.ohmymoneyarchive")
     _ = try service.exportArchive(to: url)
     let data = try Data(contentsOf: url)
 
-    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 12)
-    XCTAssertEqual(opened.manifest.schemaVersion, 12)
-    XCTAssertEqual(opened.csvTables.count, 31)
+    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 13)
+    XCTAssertEqual(opened.manifest.schemaVersion, 13)
+    XCTAssertEqual(opened.csvTables.count, 35)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))
     XCTAssertTrue(opened.csvTables.contains("cards"))
     XCTAssertTrue(opened.csvTables.contains("cashback_rules"))

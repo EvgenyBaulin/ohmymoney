@@ -27,8 +27,8 @@ struct Migration0011Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0012_sync")
-    #expect(stack.applied.onDisk == 12)
+    #expect(try stack.appliedMigrations().last == "0013_spending_rules")
+    #expect(stack.applied.onDisk == 13)
     try stack.writer.read { db in
       let transactions = try db.columns(in: "transactions")
       let zone = try #require(transactions.first { $0.name == "time_zone" })
@@ -73,11 +73,11 @@ struct Migration0011Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0011_travel", "0012_sync"])
+        == ["0011_travel", "0012_sync", "0013_spending_rules"])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 2)
+    #expect(stack.applied.applied == 3)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -154,12 +154,12 @@ struct Migration0011Tests {
         atmFeeFixed: Money(amount: AmountE4(whole: 3), currency: .usd)))
     let row = ExportTables.row(card)
     #expect(row.count == ExportTables.cards.columns.count)
-    #expect(Array(row.suffix(4)) == ["1.5", "", "3", "USD"])
+    #expect(Array(row.suffix(6).prefix(4)) == ["1.5", "", "3", "USD"])
     let plain = ExportTables.row(PaymentCard(accountId: UUID(), name: "B"))
-    #expect(Array(plain.suffix(4)) == ["", "", "", ""])
+    #expect(Array(plain.suffix(6).prefix(4)) == ["", "", "", ""])
     let operation = CoreKit.Transaction(
       kind: .expense, occurredAt: Date(), amountE4: AmountE4(whole: 1), timeZoneId: "Asia/Tokyo")
-    #expect(ExportTables.row(operation).last == "Asia/Tokyo")
+    #expect(ExportTables.row(operation).suffix(2).first == "Asia/Tokyo")
     #expect(ExportTables.row(operation).count == ExportTables.transactions.columns.count)
     let trip = Event(
       name: "T", kind: .trip, startDate: DateOnly(year: 2026, month: 1, day: 1),

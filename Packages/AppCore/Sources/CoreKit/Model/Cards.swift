@@ -16,11 +16,18 @@ public struct PaymentCard: Identifiable, Hashable, Sendable, Codable {
   public var archived: Bool
   /// What the card costs abroad, as the owner typed it; all empty until then.
   public var foreign: CardForeignTerms
+  /// The four digits a bank text names the card by; `nil` until typed.
+  public var last4: String?
+  /// Whatever else the owner keeps about the card, free text.
+  public var details: String?
 
   public init(
     id: UUID = UUID(), accountId: UUID, name: String, aliases: [String] = [], sort: Int = 0,
-    archived: Bool = false, foreign: CardForeignTerms = CardForeignTerms()
+    archived: Bool = false, foreign: CardForeignTerms = CardForeignTerms(),
+    last4: String? = nil, details: String? = nil
   ) {
+    self.last4 = last4
+    self.details = details
     self.foreign = foreign
     self.id = id
     self.accountId = accountId

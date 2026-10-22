@@ -16,7 +16,8 @@ extension CoreKit.Category: @retroactive FetchableRecord, @retroactive Persistab
       quality: (row["quality"] as String?).flatMap(Quality.init(rawValue:)),
       systemRole: (row["system_role"] as String?).flatMap(SystemRole.init(rawValue:)),
       essential: Self.essential(row),
-      tax: Self.tax(row))
+      tax: Self.tax(row),
+      basket: (row["basket"] as String?).flatMap(BudgetBasket.init(rawValue:)))
   }
 
   /// The tax of an income. A rate that does not read reads as none.
@@ -47,6 +48,7 @@ extension CoreKit.Category: @retroactive FetchableRecord, @retroactive Persistab
     container["essential"] = essential
     container["tax_rate"] = RowMapping.string(tax?.rate)
     container["tax_npd"] = tax?.npd ?? false
+    container["basket"] = basket?.rawValue
   }
 }
 

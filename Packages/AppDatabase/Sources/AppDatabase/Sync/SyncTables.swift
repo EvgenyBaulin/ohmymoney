@@ -6,7 +6,8 @@ import GRDB
 /// Not followed, on purpose: `settings` (the settings of one device), `rates` (fetched again on
 /// each device), `ml_models` and `category_feedback` (learned on each device) and the
 /// bookkeeping of the exchange itself. A table is followed only if the triggers of
-/// `Schema/0012_sync.sql` write for it; a test holds the two lists together.
+/// `Schema/0012_sync.sql` (and, for the tables added later, the migration that added them) write
+/// for it; a test holds the two lists together.
 public enum SyncTables {
   public static let followed: [String: String] = [
     "account_groups": "id", "allocation_rules": "id", "anomaly_dismissals": "id",
@@ -19,6 +20,7 @@ public enum SyncTables {
     "reconciliation_balances": "id", "reconciliations": "id", "reimbursement_links": "id",
     "scenarios": "id", "scheduled_payments": "id", "subscription_prices": "id",
     "templates": "id", "transaction_parts": "id", "transactions": "id", "transfers": "id",
+    "tags": "id", "part_tags": "id", "rules": "id", "day_notes": "id",
   ]
 
   /// The bookkeeping tables of the exchange: not part of the books, left out of every copy of

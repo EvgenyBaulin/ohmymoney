@@ -101,20 +101,20 @@ final class UpgradeFromOnePointEightTests: XCTestCase {
     XCTAssertEqual(
       try DatabaseStack.pendingMigrations(
         fileAt: AppPaths.databaseURL, schema: BundleSchemaSource()),
-      ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync"])
+      ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync", "0013_spending_rules"])
 
     let environment = await start()
 
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().last, "0012_sync")
-    XCTAssertEqual(stack.applied.applied, 4)
+    XCTAssertEqual(try stack.appliedMigrations().last, "0013_spending_rules")
+    XCTAssertEqual(stack.applied.applied, 5)
     let copies = try copiesBeforeAnUpdate()
     XCTAssertEqual(copies.count, 1, "no copy of the database before its update")
     let copy = try XCTUnwrap(copies.first)
     XCTAssertEqual(
       try DatabaseStack.pendingMigrations(fileAt: copy, schema: BundleSchemaSource()),
-      ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync"],
+      ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync", "0013_spending_rules"],
       "the copy is not the database as 1.8 left it")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: copy), counts)
 

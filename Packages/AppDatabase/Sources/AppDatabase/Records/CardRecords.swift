@@ -17,7 +17,14 @@ extension PaymentCard: @retroactive FetchableRecord, @retroactive PersistableRec
       aliases: RowMapping.aliases(row, "aliases"),
       sort: try RowMapping.optionalInteger(row, "sort") ?? 0,
       archived: try RowMapping.flag(row, "archived", fallback: false),
-      foreign: Self.foreignTerms(row))
+      foreign: Self.foreignTerms(row),
+      last4: Self.text(row, "last4"), details: Self.text(row, "details"))
+  }
+
+  /// A text column where blank reads as none, like NULL.
+  private static func text(_ row: Row, _ column: String) -> String? {
+    guard let text: String = row[column] else { return nil }
+    return text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : text
   }
 
   /// A percent that does not read, or reads outside 0…100 % — only a hand edit leaves one —
@@ -49,6 +56,8 @@ extension PaymentCard: @retroactive FetchableRecord, @retroactive PersistableRec
     container["aliases"] = RowMapping.join(aliases)
     container["sort"] = sort
     container["archived"] = archived
+    container["last4"] = last4
+    container["details"] = details
   }
 }
 

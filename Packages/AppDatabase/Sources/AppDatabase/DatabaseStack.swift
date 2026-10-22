@@ -286,7 +286,8 @@ public final class DatabaseStack: Sendable {
   /// The tables whose change is a change of the owner's data, worth a copy: the ledger's, plus
   /// the templates, the enabled currencies and the saved scenarios, which no number reads but a
   /// restore must bring back. The model file (`ml_models`) is left out: it is rebuilt from the data.
-  static let dataTables = ledgerTables + ["templates", "currencies", "scenarios"]
+  static let dataTables =
+    ledgerTables + ["templates", "currencies", "scenarios", "tags", "part_tags", "rules", "day_notes"]
 
   /// One element after every committed transaction that changed one of `dataTables`, whoever
   /// wrote it — the stream the copy after every change listens to. Same threading, buffer

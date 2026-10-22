@@ -87,7 +87,8 @@ public struct RuleBackfillPlan: Sendable {
       }
     }
     return RuleBackfillCommit(
-      writes: picked.filter { $0.after != $0.before }.map(\.after), tagLinksToAdd: picked.flatMap(\.addedTags),
+      writes: picked.filter { $0.after != $0.before }.map(\.after),
+      tagLinksToAdd: picked.flatMap(\.addedTags),
       undo: RuleBackfillUndo(
         entries: picked.map(\.before), tagLinksToRemove: picked.flatMap(\.addedTags)),
       lessons: lessons.values.sorted { $0.ruleId.uuidString < $1.ruleId.uuidString })
@@ -100,6 +101,16 @@ public struct RuleBackfillCommit: Sendable {
   public var tagLinksToAdd: [PartTag]
   public var undo: RuleBackfillUndo
   public var lessons: [RuleLesson]
+
+  public init(
+    writes: [TransactionEntry], tagLinksToAdd: [PartTag], undo: RuleBackfillUndo,
+    lessons: [RuleLesson] = []
+  ) {
+    self.writes = writes
+    self.tagLinksToAdd = tagLinksToAdd
+    self.undo = undo
+    self.lessons = lessons
+  }
 }
 
 /// Takes the whole step back: every operation as it was, `updatedAt` too, and the tag links the
@@ -107,6 +118,11 @@ public struct RuleBackfillCommit: Sendable {
 public struct RuleBackfillUndo: Sendable {
   public var entries: [TransactionEntry]
   public var tagLinksToRemove: [PartTag]
+
+  public init(entries: [TransactionEntry], tagLinksToRemove: [PartTag]) {
+    self.entries = entries
+    self.tagLinksToRemove = tagLinksToRemove
+  }
 }
 
 /// The rules run over history: the dry run, and the write it is the preview of.

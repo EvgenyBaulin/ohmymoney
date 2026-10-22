@@ -49,6 +49,9 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
   /// reads as Moscow, where every operation of the earlier versions was recorded. The day and
   /// the time of day the operation is shown on are read in this zone (`TravelDay`).
   public var timeZoneId: String?
+  /// The owner marked the whole operation as a one-off (a laptop, a repair): it leaves the
+  /// averages and the forecasts and stays in every total and every limit.
+  public var isOneOff: Bool
 
   public init(
     id: UUID = UUID(),
@@ -77,7 +80,8 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     deletedAt: Date? = nil,
     cardId: UUID? = nil,
     cashback: Money? = nil,
-    timeZoneId: String? = nil
+    timeZoneId: String? = nil,
+    isOneOff: Bool = false
   ) {
     self.id = id
     self.kind = kind
@@ -106,6 +110,7 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     self.cardId = cardId
     self.cashback = cashback
     self.timeZoneId = timeZoneId
+    self.isOneOff = isOneOff
   }
 
   public var isDeleted: Bool { deletedAt != nil }

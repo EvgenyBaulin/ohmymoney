@@ -148,6 +148,30 @@ public struct ExportRepository: Sendable {
       for row in try Row.fetchAll(db, sql: "SELECT key, value FROM settings ORDER BY key") {
         csv.append(ExportTables.settingRow(key: row["key"] ?? "", value: row["value"] ?? ""))
       }
+    case ExportTables.tags.fileName:
+      for row in try Tag.fetchAll(db, sql: "SELECT * FROM tags ORDER BY created_at, id") {
+        csv.append(ExportTables.row(row))
+      }
+    case ExportTables.partTags.fileName:
+      for row in try PartTag.fetchAll(db, sql: "SELECT * FROM part_tags ORDER BY id") {
+        csv.append(ExportTables.row(row))
+      }
+    case ExportTables.rules.fileName:
+      // The text of the database as it is: a rule a newer build wrote still goes out whole.
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM rules ORDER BY position, id") {
+        csv.append(
+          [
+            row["id"] ?? "", row["name"] ?? "", String(row["position"] as Int? ?? 0),
+            CSVValue.string(bool: (row["enabled"] as Int? ?? 1) != 0),
+            row["origin"] ?? "manual", row["conditions"] ?? "[]", row["actions"] ?? "[]",
+            CSVValue.string(instant: try RowMapping.instant(row, "created_at")),
+            CSVValue.string(instant: try RowMapping.instant(row, "updated_at")),
+          ])
+      }
+    case ExportTables.dayNotes.fileName:
+      for row in try DayNote.fetchAll(db, sql: "SELECT * FROM day_notes ORDER BY day") {
+        csv.append(ExportTables.row(row))
+      }
     default:
       // A table the list gains before its rows are mapped still gets its header row.
       break

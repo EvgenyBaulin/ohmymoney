@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 31 files of Export, always in the same order.
+/// The 35 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -30,7 +30,8 @@ public enum ExportTables {
   /// account that paid, and the cashback the owner typed for the operation, in the currency
   /// that moved on the account.
   /// `time_zone` came with `Schema/0011_travel.sql`: the zone the operation was recorded in, empty
-  /// for Moscow.
+  /// for Moscow. `one_off` came with `Schema/0013_spending_rules.sql`: `true` when the owner marked
+  /// the operation as a one-off.
   public static let transactions = ExportTable(
     fileName: "transactions.csv",
     columns: [
@@ -38,7 +39,7 @@ public enum ExportTables {
       "rate_date", "rate_source", "rate_provisional", "amount_rub", "note", "place_id",
       "payment_method_id", "period_month", "debt_id", "credit_debt_id", "import_batch_id",
       "external_id", "created_at", "updated_at", "deleted_at", "account_currency",
-      "account_amount", "card_id", "cashback_currency", "cashback", "time_zone",
+      "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
     ])
 
   /// `refund_of_part_id` came with `Schema/0004_accounts.sql`: the purchase part a refund
@@ -100,12 +101,13 @@ public enum ExportTables {
   /// `essential` came with `Schema/0008_capital.sql`: `true` or `false` as the owner marked
   /// it, empty — a subcategory follows its parent, a category is not essential. `tax_rate` and
   /// `tax_npd` came with `Schema/0009_credit_and_allocation.sql`: the tax an income in the
-  /// category owes, in percent, and whether it is the tax on professional income.
+  /// category owes, in percent, and whether it is the tax on professional income. `basket` came
+  /// with `Schema/0013_spending_rules.sql`: `needs`, `wants` or `savings`, empty when not said.
   public static let categories = ExportTable(
     fileName: "categories.csv",
     columns: [
       "id", "parent_id", "kind", "name", "sort", "archived", "quality", "system_role",
-      "essential", "tax_rate", "tax_npd",
+      "essential", "tax_rate", "tax_npd", "basket",
     ])
 
   /// `archived` came with `Schema/0004_accounts.sql`.
@@ -244,12 +246,13 @@ public enum ExportTables {
   /// Columns match `Schema/0005_cards.sql`: the cards of an account; `aliases` one per line.
   /// `fx_fee`, `atm_fee_percent`, `atm_fee_fixed` and `atm_fee_fixed_currency` came with
   /// `Schema/0011_travel.sql`: what the card costs abroad, the percents as decimal strings with a
-  /// dot (`1.5` is 1.5 %), empty when not typed.
+  /// dot (`1.5` is 1.5 %), empty when not typed. `last4` and `details` came with
+  /// `Schema/0013_spending_rules.sql`: the four digits a bank text names the card by, and free text.
   public static let cards = ExportTable(
     fileName: "cards.csv",
     columns: [
       "id", "payment_method_id", "name", "aliases", "sort", "archived", "fx_fee",
-      "atm_fee_percent", "atm_fee_fixed", "atm_fee_fixed_currency",
+      "atm_fee_percent", "atm_fee_fixed", "atm_fee_fixed_currency", "last4", "details",
     ])
 
   /// Columns match `Schema/0005_cards.sql`. `percent` is the percent as a decimal string with
@@ -313,16 +316,38 @@ public enum ExportTables {
     fileName: "settings.csv",
     columns: ["key", "value"])
 
-  /// All 31 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// The tags, the links to parts, the rules and the notes of days came with
+  /// `Schema/0013_spending_rules.sql`; they go last, after `settings`, so the order of every
+  /// older file stays. `part_tags` has the pair itself as `id`. `conditions` and `actions` of a
+  /// rule are the JSON of the database, as it is (`RuleStorage`).
+  public static let tags = ExportTable(
+    fileName: "tags.csv", columns: ["id", "name", "archived", "created_at"])
+
+  public static let partTags = ExportTable(
+    fileName: "part_tags.csv", columns: ["id", "part_id", "tag_id"])
+
+  public static let rules = ExportTable(
+    fileName: "rules.csv",
+    columns: [
+      "id", "name", "position", "enabled", "origin", "conditions", "actions", "created_at",
+      "updated_at",
+    ])
+
+  public static let dayNotes = ExportTable(
+    fileName: "day_notes.csv", columns: ["id", "day", "text", "created_at", "updated_at"])
+
+  /// All 35 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
-  /// the custom currencies and the settings.
+  /// the custom currencies and the settings, then the tags, their links, the rules and the notes
+  /// of days.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
     budgets, goals, debts, debtEntries, reconciliations, rates, accountGroups, transfers,
     reconciliationBalances, cards, cashbackRules, banks, assets, assetValuations,
-    debtInstalments, debtCosts, allocationRules, customCurrencies, settings,
+    debtInstalments, debtCosts, allocationRules, customCurrencies, settings, tags, partTags, rules,
+    dayNotes,
   ]
 }
 
@@ -360,6 +385,7 @@ extension ExportTables {
       CSVValue.string(transaction.cashback?.currency.code),
       CSVValue.string(amount: transaction.cashback?.amount),
       CSVValue.string(transaction.timeZoneId),
+      CSVValue.string(bool: transaction.isOneOff),
     ]
   }
 
@@ -498,6 +524,7 @@ extension ExportTables {
       CSVValue.string(bool: category.essential),
       CSVValue.string(decimal: category.tax?.rate),
       CSVValue.string(bool: category.tax?.npd ?? false),
+      CSVValue.string(category.basket?.rawValue),
     ]
   }
 
@@ -741,6 +768,37 @@ extension ExportTables {
       CSVValue.string(decimal: card.foreign.atmFeePercent?.decimal),
       CSVValue.string(amount: card.foreign.atmFeeFixed?.amount),
       CSVValue.string(card.foreign.atmFeeFixed?.currency.code),
+      CSVValue.string(card.last4),
+      CSVValue.string(card.details),
+    ]
+  }
+
+  public static func row(_ tag: Tag) -> [String] {
+    [
+      tag.id.uuidString, tag.name, CSVValue.string(bool: tag.archived),
+      CSVValue.string(instant: tag.createdAt),
+    ]
+  }
+
+  public static func row(_ link: PartTag) -> [String] {
+    [
+      link.partId.uuidString + ":" + link.tagId.uuidString, link.partId.uuidString,
+      link.tagId.uuidString,
+    ]
+  }
+
+  public static func row(_ rule: Rule) -> [String] {
+    [
+      rule.id.uuidString, rule.name, String(rule.position), CSVValue.string(bool: rule.enabled),
+      rule.origin.rawValue, RuleStorage.json(rule.conditions), RuleStorage.json(rule.actions),
+      CSVValue.string(instant: rule.createdAt), CSVValue.string(instant: rule.updatedAt),
+    ]
+  }
+
+  public static func row(_ note: DayNote) -> [String] {
+    [
+      note.id.uuidString, note.day.iso, note.text, CSVValue.string(instant: note.createdAt),
+      CSVValue.string(instant: note.updatedAt),
     ]
   }
 

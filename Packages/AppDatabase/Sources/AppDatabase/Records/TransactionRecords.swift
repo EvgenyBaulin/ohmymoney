@@ -35,7 +35,8 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
       deletedAt: try RowMapping.optionalInstant(row, "deleted_at"),
       cardId: RowMapping.optionalUUID(row, "card_id"),
       cashback: try Self.cashback(row),
-      timeZoneId: Self.zone(row))
+      timeZoneId: Self.zone(row),
+      isOneOff: (try? RowMapping.flag(row, "one_off", fallback: false)) ?? false)
   }
 
   /// A blank zone reads as none, like a NULL: Moscow.
@@ -81,6 +82,7 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
     container["cashback_currency"] = cashback?.currency.code
     container["cashback_e4"] = cashback?.amount.raw
     container["time_zone"] = timeZoneId
+    container["one_off"] = isOneOff
   }
 }
 

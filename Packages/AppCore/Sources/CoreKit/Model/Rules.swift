@@ -109,6 +109,31 @@ public struct Rule: Identifiable, Hashable, Sendable, Codable {
 public enum RuleStorage {
   public static let table = "rules"
   public static let csv = "rules.csv"
+
+  /// The conditions as the `conditions` column keeps them: a JSON array, keys sorted so the same
+  /// rule is always the same text.
+  public static func json(_ conditions: [RuleCondition]) -> String { encode(conditions) }
+
+  /// The actions as the `actions` column keeps them.
+  public static func json(_ actions: [RuleAction]) -> String { encode(actions) }
+
+  /// The conditions of a stored text; `nil` when it is no list of known conditions (a rule
+  /// from a newer build), which the reader then leaves out instead of guessing.
+  public static func conditions(json text: String) -> [RuleCondition]? {
+    try? JSONDecoder().decode([RuleCondition].self, from: Data(text.utf8))
+  }
+
+  public static func actions(json text: String) -> [RuleAction]? {
+    try? JSONDecoder().decode([RuleAction].self, from: Data(text.utf8))
+  }
+
+  private static func encode<T: Encodable>(_ value: T) -> String {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
+    guard let data = try? encoder.encode(value), let text = String(data: data, encoding: .utf8)
+    else { return "[]" }
+    return text
+  }
 }
 
 // MARK: - Stored form

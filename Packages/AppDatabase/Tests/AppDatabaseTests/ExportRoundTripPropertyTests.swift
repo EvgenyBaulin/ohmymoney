@@ -24,7 +24,7 @@ struct ExportRoundTripPropertyTests {
     "payments_are_expenses", "closed", "rollover", "active", "in_summary", "records_difference",
     "closes_term", "accrues_interest", "tranche", "cushion", "essential", "prepay_any_day",
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
-    "tax_npd", "in_loan",
+    "tax_npd", "in_loan", "one_off", "enabled",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
@@ -202,6 +202,27 @@ struct ExportRoundTripPropertyTests {
         try db.execute(sql: "UPDATE transfers SET note = ? WHERE id = ?", arguments: [next(), id])
       }
     }
+    try stack.writer.write { db in
+      let part = try #require(try String.fetchOne(db, sql: "SELECT id FROM transaction_parts"))
+      let tag = UUID().uuidString
+      try db.execute(
+        sql: "INSERT INTO tags (id, name, archived, created_at) VALUES (?, 'Отпуск, \"юг\"', 0, '2026-09-01 12:00:00.000')",
+        arguments: [tag])
+      try db.execute(
+        sql: "INSERT INTO part_tags (id, part_id, tag_id) VALUES (?, ?, ?)",
+        arguments: [part + ":" + tag, part, tag])
+      try db.execute(
+        sql: """
+          INSERT INTO rules (id, name, position, enabled, origin, conditions, actions, created_at, updated_at)
+          VALUES (?, 'Кофе, "быстро"', 1, 1, 'manual', '[{"text":"кофе","type":"textContains"}]',
+            '[{"id":"\(tag)","type":"addTag"}]', '2026-09-01 12:00:00.000', '2026-09-01 12:00:00.000')
+          """,
+        arguments: [UUID().uuidString])
+      try db.execute(
+        sql: "INSERT INTO day_notes (id, day, text, created_at, updated_at) VALUES (?, '2026-09-12', 'мама, день рождения', '2026-09-01 12:00:00.000', '2026-09-01 12:00:00.000')",
+        arguments: [UUID().uuidString])
+      try db.execute(sql: "UPDATE transactions SET one_off = 1 WHERE id = (SELECT MIN(id) FROM transactions)")
+    }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
       #expect(counts[String(table.fileName.dropLast(4))] ?? 0 > 0, "\(table.fileName) is empty")
@@ -249,17 +270,17 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 12)
+    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 13)
     #expect(plain.files == files)
-    #expect(plain.csvTables.count == 31)
-    #expect(plain.manifest.schemaVersion == 12)
+    #expect(plain.csvTables.count == 35)
+    #expect(plain.manifest.schemaVersion == 13)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 12)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 13)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -291,6 +312,7 @@ struct ExportRoundTripPropertyTests {
             && !Self.addedByTheCredits.contains("\(table.fileName):\($0)")
             && !Self.addedByTheScenarios.contains("\(table.fileName):\($0)")
             && !Self.addedByTheTravel.contains("\(table.fileName):\($0)")
+            && !Self.addedByTheRules.contains("\(table.fileName):\($0)")
         })
     }
     var counts: [String: Int] = [:]
@@ -326,7 +348,7 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 12)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 13)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 
@@ -342,6 +364,7 @@ struct ExportRoundTripPropertyTests {
           "0010_scenarios",
           "0011_travel",
           "0012_sync",
+          "0013_spending_rules",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -485,6 +508,11 @@ struct ExportRoundTripPropertyTests {
     "transactions.csv:time_zone", "events.csv:trip_currency", "events.csv:budget_currency",
     "cards.csv:fx_fee", "cards.csv:atm_fee_percent", "cards.csv:atm_fee_fixed",
     "cards.csv:atm_fee_fixed_currency",
+  ]
+
+  /// The columns the spending rules added (`0013_spending_rules`).
+  private static let addedByTheRules: Set<String> = [
+    "transactions.csv:one_off", "categories.csv:basket", "cards.csv:last4", "cards.csv:details",
   ]
 
   /// The columns the credits and the allocation of income added.

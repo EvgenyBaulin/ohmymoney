@@ -82,6 +82,7 @@ struct DatabaseFileToolsTests {
           "0010_scenarios",
           "0011_travel",
           "0012_sync",
+          "0013_spending_rules",
         ])
   }
 
@@ -286,6 +287,7 @@ struct ReadingWithoutTheIndexTests {
           "0010_scenarios",
           "0011_travel",
           "0012_sync",
+          "0013_spending_rules",
         ])
 
     #expect(try Data(contentsOf: crashed) == main, "the main file was written into")

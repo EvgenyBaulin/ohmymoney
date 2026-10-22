@@ -90,8 +90,8 @@ struct Migration0009Tests {
   @Test func aNewDatabaseHasTheColumnsAndTablesWithTheirDefaults() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().contains("0009_credit_and_allocation"))
-    #expect(try stack.appliedMigrations().last == "0012_sync")
-    #expect(stack.applied.onDisk == 12)
+    #expect(try stack.appliedMigrations().last == "0013_spending_rules")
+    #expect(stack.applied.onDisk == 13)
     let account = UUID().uuidString
     let category = UUID().uuidString
     let debt = UUID().uuidString
@@ -167,11 +167,11 @@ struct Migration0009Tests {
     #expect(before["assets"]?.rows.isEmpty == false)
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync"])
+        == ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync", "0013_spending_rules"])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
-    #expect(try stack.appliedMigrations().last == "0012_sync")
-    #expect(stack.applied.applied == 4)
+    #expect(try stack.appliedMigrations().last == "0013_spending_rules")
+    #expect(stack.applied.applied == 5)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -248,14 +248,14 @@ struct Migration0009Tests {
     #expect(try DatabaseStack.sameData(fileAt: copy, as: url))
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: copy, schema: TestSupport.schemaSource)
-        == ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync"])
+        == ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync", "0013_spending_rules"])
     let debts = try DatabaseStack.rowCounts(fileAt: url)["debts"] ?? 0
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     try stack.close()
     // The copy is still the older database: the update did not reach it.
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: copy, schema: TestSupport.schemaSource)
-        == ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync"])
+        == ["0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync", "0013_spending_rules"])
     let counts = try DatabaseStack.rowCounts(fileAt: url)
     #expect(counts["debts"] == debts)
     for table in ["debt_instalments", "debt_costs", "allocation_rules", "custom_currencies"] {

@@ -53,7 +53,7 @@ struct EntryLineTip: Tip {
     .readableTip()
   }
   var image: Image? { Image(systemName: "text.cursor") }
-  var rules: [Rule] { #Rule(GuideTips.$enabled) { $0 } }
+  var rules: [Tips.Rule] { #Rule(GuideTips.$enabled) { $0 } }
   var options: [any TipOption] { [MaxDisplayCount(1)] }
 }
 
@@ -75,6 +75,6 @@ struct SpendingSearchTip: Tip {
     .readableTip()
   }
   var image: Image? { Image(systemName: "magnifyingglass") }
-  var rules: [Rule] { #Rule(GuideTips.$enabled) { $0 } }
+  var rules: [Tips.Rule] { #Rule(GuideTips.$enabled) { $0 } }
   var options: [any TipOption] { [MaxDisplayCount(1)] }
 }
