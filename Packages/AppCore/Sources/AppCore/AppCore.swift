@@ -14,6 +14,7 @@
 @_exported import CorePlanning
 @_exported import CoreRates
 @_exported import CoreSample
+@_exported import CoreSync
 
 public enum AppCoreInfo {
   /// Bumped when the meaning of the golden fixtures changes.

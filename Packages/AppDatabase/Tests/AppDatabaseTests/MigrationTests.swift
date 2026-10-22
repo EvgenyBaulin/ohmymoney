@@ -30,7 +30,9 @@ struct MigrationTests {
       "expected_income_links", "goals", "import_batches", "import_mappings", "ml_models",
       "payment_methods", "people", "places", "rates", "reconciliation_balances",
       "reconciliations", "reimbursement_links", "scenarios", "scheduled_payments", "settings",
-      "subscription_prices", "templates", "transaction_parts", "transactions", "transfers",
+      "subscription_prices", "sync_deferred", "sync_heads", "sync_meta", "sync_outbox",
+      "sync_resolutions", "sync_state", "templates", "transaction_parts", "transactions",
+      "transfers",
     ]
     let tables = try stack.writer.read { db in
       try String.fetchAll(
@@ -269,8 +271,8 @@ extension MigrationTests {
     #expect(before["payment_methods"]?.columns.contains("other_currencies") == false)
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
-    #expect(try stack.appliedMigrations().last == "0011_travel")
-    #expect(stack.applied.applied == 8)
+    #expect(try stack.appliedMigrations().last == "0012_sync")
+    #expect(stack.applied.applied == 9)
 
     // The two values the update may change are the flag of the main account and the account
     // of an operation that had none; they are checked on their own below.

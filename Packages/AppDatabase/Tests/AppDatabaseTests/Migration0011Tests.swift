@@ -27,8 +27,8 @@ struct Migration0011Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0011_travel")
-    #expect(stack.applied.onDisk == 11)
+    #expect(try stack.appliedMigrations().last == "0012_sync")
+    #expect(stack.applied.onDisk == 12)
     try stack.writer.read { db in
       let transactions = try db.columns(in: "transactions")
       let zone = try #require(transactions.first { $0.name == "time_zone" })
@@ -73,15 +73,17 @@ struct Migration0011Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0011_travel"])
+        == ["0011_travel", "0012_sync"])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 1)
+    #expect(stack.applied.applied == 2)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
-      #expect(after == before, "every old value is the same byte for byte")
+      for (table, old) in before {
+        #expect(after[table] == old, "\(table): every old value is the same byte for byte")
+      }
       #expect(
         try Int.fetchOne(
           db, sql: "SELECT COUNT(*) FROM transactions WHERE time_zone IS NOT NULL") == 0)

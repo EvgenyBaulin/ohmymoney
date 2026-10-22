@@ -6,6 +6,8 @@ public struct RecordVersion: Hashable, Sendable, Codable {
   public var op: SyncOp
   public var fields: [String: SyncValue]
   public var base: VersionStamp?
+  /// The versions this one settles besides `base` (see `SyncEntry.resolves`).
+  public var resolves: [VersionStamp]? = nil
   /// Sequence of the file and place in it: two edits of one row in the same second by the same
   /// device still have a fixed order, so the winner never depends on which file came first.
   public var sequence: Int
@@ -78,7 +80,7 @@ public struct SyncState: Hashable, Sendable, Codable {
       if before[key] == nil { before[key] = .some(resolve(key)) }
       let version = RecordVersion(
         stamp: VersionStamp(updatedAt: entry.updatedAt, deviceId: file.deviceId),
-        op: entry.op, fields: entry.fields, base: entry.base,
+        op: entry.op, fields: entry.fields, base: entry.base, resolves: entry.resolves,
         sequence: file.sequence, index: index)
       var list = versions[key, default: []]
       if !list.contains(version) {
@@ -93,21 +95,31 @@ public struct SyncState: Hashable, Sendable, Codable {
   }
 
   public func resolve(_ key: RecordKey) -> ResolvedRecord? {
-    guard let list = versions[key], var winner = list.first else { return nil }
-    for v in list where RecordVersion.precedes(winner, v) { winner = v }
-    // Everything some version builds on is superseded.
+    guard let list = versions[key], !list.isEmpty else { return nil }
+    // Everything some version builds on is superseded. What an owner's choice settled
+    // (`resolves`, and what that builds on) is also never the winner, however late its stamp:
+    // the settling edit stands in its place. What an ordinary edit builds on may still win by
+    // its stamp — a slow clock loses, but is not lost.
     var covered = Set<Int>()
+    var settled = Set<Int>()
     for (i, v) in list.enumerated() {
       var visited = Set<Int>()
-      var queue: [VersionStamp] = v.base.map { [$0] } ?? []
-      while let stamp = queue.popLast() {
-        for (j, u) in list.enumerated()
-        where u.stamp == stamp && j != i && visited.insert(j).inserted {
+      var queue: [(VersionStamp, Bool)] =
+        (v.base.map { [($0, false)] } ?? []) + (v.resolves ?? []).map { ($0, true) }
+      while let (stamp, viaChoice) = queue.popLast() {
+        for (j, u) in list.enumerated() where u.stamp == stamp && j != i {
+          guard visited.insert(j * 2 + (viaChoice ? 1 : 0)).inserted else { continue }
           covered.insert(j)
-          if let b = u.base { queue.append(b) }
+          if viaChoice { settled.insert(j) }
+          if let b = u.base { queue.append((b, viaChoice)) }
+          queue.append(contentsOf: (u.resolves ?? []).map { ($0, true) })
         }
       }
     }
+    var candidates = list.enumerated().filter { !settled.contains($0.offset) }.map(\.element)
+    if candidates.isEmpty { candidates = list }
+    var winner = candidates[0]
+    for v in candidates where RecordVersion.precedes(winner, v) { winner = v }
     let conflicts = list.enumerated()
       .filter { !covered.contains($0.offset) && $0.element != winner }
       .map(\.element)

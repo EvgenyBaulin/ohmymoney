@@ -84,6 +84,23 @@ public struct SyncInstant: Hashable, Comparable, Sendable, Codable {
   }
 
   public static func < (a: SyncInstant, b: SyncInstant) -> Bool { a.text < b.text }
+
+  /// The instant as text, to the whole second.
+  public init(date: Date) {
+    let style = Date.ISO8601FormatStyle(timeZone: TimeZone(secondsFromGMT: 0)!)
+    self.text = date.formatted(style)
+  }
+
+  /// `nil` only for a text that passes the shape check but is no real moment (month 13).
+  public var date: Date? {
+    try? Date(text, strategy: Date.ISO8601FormatStyle(timeZone: TimeZone(secondsFromGMT: 0)!))
+  }
+
+  /// The same instant a number of whole seconds later; `self` if the text is no real moment.
+  public func adding(seconds: Int) -> SyncInstant {
+    guard let moment = date else { return self }
+    return SyncInstant(date: moment.addingTimeInterval(TimeInterval(seconds)))
+  }
 }
 
 /// A field value. No floating point exists here on purpose: money is `*_e4` integers.
@@ -159,10 +176,14 @@ public struct SyncEntry: Hashable, Sendable, Codable {
   public var updatedAt: SyncInstant
   /// The version this edit replaced, if the writer knew it (`nil` for a creation).
   public var base: VersionStamp?
+  /// Versions made apart from `base` that this edit settles — the owner's choice in the list of
+  /// conflicts. The edit then stands for them too, so none of them is a conflict any more.
+  /// Absent in every file written before a conflict was ever settled.
+  public var resolves: [VersionStamp]?
 
   public init(
     table: String, uuid: String, op: SyncOp, fields: [String: SyncValue],
-    updatedAt: SyncInstant, base: VersionStamp? = nil
+    updatedAt: SyncInstant, base: VersionStamp? = nil, resolves: [VersionStamp]? = nil
   ) {
     self.table = table
     self.uuid = uuid
@@ -170,6 +191,7 @@ public struct SyncEntry: Hashable, Sendable, Codable {
     self.fields = fields
     self.updatedAt = updatedAt
     self.base = base
+    self.resolves = resolves
   }
 
   public var key: RecordKey { RecordKey(table: table, uuid: uuid) }

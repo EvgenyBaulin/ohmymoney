@@ -360,7 +360,7 @@ struct Schema0005CheckTests {
       try String.fetchSet(db, sql: "SELECT name FROM sqlite_master WHERE type = 'trigger'")
     }
     #expect(
-      triggers == [
+      Set(triggers.filter { !$0.hasPrefix("sync_") }) == [
         "card_of_account_transactions_insert", "card_of_account_transactions_update",
         "card_of_account_scheduled_insert", "card_of_account_scheduled_update",
         "card_of_account_cashback_insert", "card_of_account_cashback_update",

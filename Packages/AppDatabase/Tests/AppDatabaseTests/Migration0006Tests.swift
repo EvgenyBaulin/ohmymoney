@@ -61,9 +61,9 @@ struct Migration0006Tests {
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 11)
-    #expect(try stack.appliedMigrations().last == "0011_travel")
-    #expect(stack.applied.applied == 6)
+    #expect(try stack.appliedMigrations().count == 12)
+    #expect(try stack.appliedMigrations().last == "0012_sync")
+    #expect(stack.applied.applied == 7)
     try stack.writer.read { db in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
       for (table, old) in before {
@@ -244,7 +244,7 @@ struct Migration0006Tests {
     try old.close()
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 11)
+    #expect(try stack.appliedMigrations().count == 12)
     try stack.writer.read { db in
       let accounts = try PaymentMethod.fetchAll(db)
       #expect(accounts.count >= 2)

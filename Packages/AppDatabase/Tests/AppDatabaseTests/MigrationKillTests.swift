@@ -75,6 +75,7 @@ struct MigrationKillTests {
           "0009_credit_and_allocation",
           "0010_scenarios",
           "0011_travel",
+          "0012_sync",
         ], "seed \(seed)")
 
     let made = UUID()

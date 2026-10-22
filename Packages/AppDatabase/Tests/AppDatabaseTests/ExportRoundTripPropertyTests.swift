@@ -249,17 +249,17 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 11)
+    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 12)
     #expect(plain.files == files)
     #expect(plain.csvTables.count == 31)
-    #expect(plain.manifest.schemaVersion == 11)
+    #expect(plain.manifest.schemaVersion == 12)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 11)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 12)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -326,7 +326,7 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 11)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 12)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 
@@ -341,6 +341,7 @@ struct ExportRoundTripPropertyTests {
           "0009_credit_and_allocation",
           "0010_scenarios",
           "0011_travel",
+          "0012_sync",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -428,7 +429,8 @@ struct ExportRoundTripPropertyTests {
     #expect(
       tables.subtracting(exported) == [
         "anomaly_dismissals", "category_feedback", "currencies", "expected_income_links",
-        "import_batches", "import_mappings", "ml_models", "scenarios",
+        "import_batches", "import_mappings", "ml_models", "scenarios", "sync_deferred", "sync_heads",
+        "sync_meta", "sync_outbox", "sync_resolutions", "sync_state",
       ])
   }
 
