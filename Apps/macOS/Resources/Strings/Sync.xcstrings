@@ -1,6 +1,244 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "sync.bootstrap.damaged": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The copy in the folder is damaged. Nothing was taken."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия в папке повреждена. Ничего не взято."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.explain": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The folder holds a full copy of another device's data. You can take it as your own: the app first saves a copy of what is here, then puts the data in place the next time it starts. This is possible only while this device has none of your records."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В папке лежит полная копия данных другого устройства. Её можно взять как свои данные: приложение сначала сохранит копию того, что здесь есть, а потом подставит данные при следующем запуске. Это возможно, только пока на этом устройстве нет ваших записей."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The data could not be loaded. Nothing was changed; try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не получилось загрузить данные. Ничего не изменено, попробуйте ещё раз."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.load": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Load data from the folder"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Загрузить данные из папки"
+          }
+        }
+      }
+    },
+    "sync.bootstrap.loading": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading the data…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Загружаю данные…"
+          }
+        }
+      }
+    },
+    "sync.bootstrap.newerVersion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The copy was written by a newer version of the app. Update this app and try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копию записала более новая версия приложения. Обновите это приложение и повторите."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.noSnapshot": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The folder holds no copy of the data yet. Open the app on the other device with this same folder and wait until it writes the copy."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В папке пока нет копии данных. Откройте приложение на другом устройстве с этой же папкой и подождите, пока оно запишет копию."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.notConfigured": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose the exchange folder first."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сначала выберите папку обмена."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.notEmpty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There are already records here, so they are not replaced."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Здесь уже есть записи, поэтому их не заменяют."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.offer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy from %@ · device %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копия от %@ · устройство %@"
+          }
+        }
+      }
+    },
+    "sync.bootstrap.reopen": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close the app completely and open it again: the data is put in place at launch."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Полностью закройте приложение и откройте снова: данные подставятся при запуске."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.restart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restart"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустить"
+          }
+        }
+      }
+    },
+    "sync.bootstrap.staged": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The data is ready. Restart the app to see it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Данные готовы. Перезапустите приложение, чтобы они появились."
+          }
+        }
+      }
+    },
+    "sync.bootstrap.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data from the folder"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Данные из папки"
+          }
+        }
+      }
+    },
     "sync.conflict.changedOnTwo": {
       "extractionState": "manual",
       "localizations": {
@@ -781,6 +1019,76 @@
           "stringUnit": {
             "state": "translated",
             "value": "Идёт обмен…"
+          }
+        }
+      }
+    },
+    "sync.status.seeded": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld existing record sent to the folder"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld existing records sent to the folder"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld прежние записи отправлены в папку"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld прежних записей отправлено в папку"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld прежняя запись отправлена в папку"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld прежней записи отправлено в папку"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "sync.status.snapshot": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A fresh copy of all the data is in the folder."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свежая копия всех данных лежит в папке."
           }
         }
       }

@@ -1,4 +1,5 @@
 import AppCore
+import AppDatabase
 import Foundation
 
 /// The words of the exchange and of the conflicts, from the table `Sync`.
@@ -44,5 +45,25 @@ enum ConflictText {
     case .waiting(let changes): count("sync.status.waiting.detail", changes, environment)
     case .failed(let failure): t(failure.messageKey, environment)
     }
+  }
+
+  /// Lines under the status: the existing books that were sent for the first time, and a fresh
+  /// copy of the whole database in the folder.
+  static func outcomeLines(_ outcome: SyncOutcome?, _ environment: AppEnvironment) -> [String] {
+    guard let outcome else { return [] }
+    var lines: [String] = []
+    if outcome.rowsSeeded > 0 {
+      lines.append(count("sync.status.seeded", outcome.rowsSeeded, environment))
+    }
+    if outcome.snapshotWritten { lines.append(t("sync.status.snapshot", environment)) }
+    return lines
+  }
+
+  /// «Копия от 21 октября 2026 г., 14:02 · устройство a1b2c3d4».
+  static func offerLine(_ offer: SyncSnapshotOffer, _ environment: AppEnvironment) -> String {
+    let date = offer.madeAt.formatted(
+      Date.FormatStyle(date: .long, time: .shortened).locale(environment.language.locale))
+    return environment.language.format(
+      "sync.bootstrap.offer", table: table, date, offer.deviceLabel)
   }
 }

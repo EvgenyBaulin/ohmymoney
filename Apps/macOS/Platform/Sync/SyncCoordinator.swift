@@ -20,6 +20,11 @@ final class SyncCoordinator {
   private(set) var conflicts: [SyncConflict] = []
   /// The chosen folder as the screens name it; `nil` while none is chosen.
   private(set) var folderName: String?
+  /// What the last exchange did, for the status row (rows sent from the existing books, a
+  /// fresh copy of the whole database in the folder).
+  private(set) var lastOutcome: SyncOutcome?
+  /// Where «Загрузить данные из папки» stands.
+  private(set) var bootstrap: SyncBootstrapState = .idle
 
   let exchange: SyncExchange?
   private let bookmarks: BookmarkStore
@@ -227,6 +232,7 @@ final class SyncCoordinator {
       AppLog.info(
         "sync.done", .db, "the exchange went through",
         outcome.logPairs.map { LogPair($0.0, .count($0.1)) })
+      lastOutcome = outcome
       conflicts = (try? exchange.conflicts()) ?? conflicts
       status = .synced(at: Date())
       if conflicts.count > before { announceConflicts() }
@@ -283,8 +289,10 @@ final class SyncCoordinator {
     defer { try? FileManager.default.removeItem(at: fetched) }
     do {
       let folder = DirectoryJournalFolder(url: url)
-      let found: SyncSnapshotInfo? = try await Task.detached { try SyncSnapshots.newest(in: folder) }
-        .value
+      let found: SyncSnapshotInfo? = try await Task.detached {
+        try SyncSnapshots.newest(in: folder)
+      }
+      .value
       guard let found else { return .noSnapshot }
       try await Task.detached {
         try SyncSnapshots.fetchVerified(found, from: folder, to: fetched, schema: schema)
@@ -304,6 +312,48 @@ final class SyncCoordinator {
     defaults.set(true, forKey: SyncWiring.bootstrapKey)
     AppLog.info("sync.bootstrapStaged", .db, "the snapshot of the folder is staged")
     return .staged
+  }
+
+  /// Looks in the folder for a snapshot this device could take as its books. Offered only while
+  /// the books hold nothing of the owner's and a folder is chosen; otherwise the state is idle.
+  func lookForSnapshot() async {
+    if case .loading = bootstrap { return }
+    if case .staged = bootstrap { return }
+    guard let exchange, bookmarks.isStored, !exchange.holdsOwnerData else {
+      bootstrap = .idle
+      return
+    }
+    guard let url = bookmarks.resolve() else {
+      bootstrap = .idle
+      return
+    }
+    defer { bookmarks.release(url) }
+    let found: SyncSnapshotInfo? = await Task.detached {
+      try? SyncSnapshots.newest(in: DirectoryJournalFolder(url: url))
+    }.value
+    if let found {
+      bootstrap = .offered(
+        SyncSnapshotOffer(
+          madeAt: found.modified, deviceId: SyncSnapshotName.parse(found.name) ?? ""))
+    } else {
+      bootstrap = .result(.noSnapshot)
+    }
+  }
+
+  /// «Загрузить данные из папки»: stages the snapshot (`bootstrapFromSnapshot`) and keeps the
+  /// answer for the screen.
+  func loadSnapshot(
+    backups: BackupService?, schema: any SchemaSource = BundleSchemaSource(),
+    target: URL = AppPaths.pendingReplacementURL
+  ) async {
+    guard let backups else {
+      bootstrap = .result(.failed)
+      return
+    }
+    if case .loading = bootstrap { return }
+    bootstrap = .loading
+    let result = await bootstrapFromSnapshot(backups: backups, schema: schema, target: target)
+    bootstrap = result == .staged ? .staged : .result(result)
   }
 
   // MARK: Choices

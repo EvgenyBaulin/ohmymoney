@@ -68,6 +68,11 @@ struct MoreTab: View {
         }
         if !isSearching {
           dataSection
+          // A real profile with no records of its own can take the data another device left in
+          // the exchange folder.
+          if session.profile == .real, let sync = environment.sync {
+            SyncBootstrapSection(coordinator: sync)
+          }
           folderSection
           privacySection
         }
@@ -145,8 +150,9 @@ struct MoreTab: View {
   private var menu: MoreMenu {
     MoreMenu.make(
       more: layout.more, tripIsOn: environment.tripEntryDefaults != nil,
-      hasConflicts: !(environment.sync?.conflicts.isEmpty ?? true))
-      .filtered(by: query, title: title(of:))
+      hasConflicts: !(environment.sync?.conflicts.isEmpty ?? true)
+    )
+    .filtered(by: query, title: title(of:))
   }
 
   private var visibleRows: MoreMenu { menu }

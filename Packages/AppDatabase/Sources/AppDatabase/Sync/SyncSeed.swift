@@ -102,6 +102,8 @@ extension SyncExchange {
       try db.execute(
         sql: "DELETE FROM sync_meta WHERE key IN (?, ?, ?)",
         arguments: [Self.seededKey, Self.snapshotDueKey, Self.snapshotDayKey])
+      try db.execute(
+        sql: "DELETE FROM sync_meta WHERE key LIKE ?", arguments: [SystemRowIdentity.prefix + "%"])
       if bootstrappedFromSnapshot {
         // The rows are those of the other device's journal: the next exchange reads the files
         // and takes their versions as the heads, nothing is sent back.

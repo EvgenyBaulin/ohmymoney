@@ -22,6 +22,11 @@ struct SyncStatusRow: View {
             .appFont(.caption)
             .foregroundStyle(.secondary)
         }
+        ForEach(ConflictText.outcomeLines(coordinator.lastOutcome, environment), id: \.self) {
+          Text(verbatim: $0)
+            .appFont(.caption)
+            .foregroundStyle(.secondary)
+        }
       }
       Spacer()
       if status.offersRetry {
