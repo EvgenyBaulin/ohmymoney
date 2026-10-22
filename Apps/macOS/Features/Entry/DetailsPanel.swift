@@ -141,6 +141,10 @@ struct DetailsPanel: View {
   @ViewBuilder
   private var fieldsAndActions: some View {
     mainFields
+    // Tags and what the owner's rules said: for a new operation, not for one being edited.
+    if !model.editsSavedOperation {
+      EntryTagsRow(model: model)
+    }
     // The difference of a count: why its money cannot be changed here.
     if model.isReconcileDifference {
       Label {

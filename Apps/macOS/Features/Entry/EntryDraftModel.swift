@@ -27,6 +27,8 @@ public final class EntryDraftModel {
       kindWithTheCredit = draft.creditDebtId == nil ? nil : draft.kind
     }
   }
+  /// What the owner's rules and the tags typed have done to the entry (`EntryDraftModel+Rules`).
+  var ruleState = EntryRuleState()
   /// Categories that can be chosen: the archived ones are left out.
   public var categories: [CoreKit.Category] = []
   /// Categories retired since. They are never offered, but an operation saved under one of
@@ -2978,6 +2980,7 @@ public final class EntryDraftModel {
   public func reset() {
     // A transfer written or thrown away: the next entry is an operation again.
     transfer = nil
+    ruleState = EntryRuleState()
     // The figure typed for the operation just saved is not the next one's.
     cashbackField = CashbackFieldState()
     // Nor is the month chosen or laid for it.

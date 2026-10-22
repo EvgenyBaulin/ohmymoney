@@ -30,6 +30,7 @@ extension SettingsSection {
     case .entry: "keyboard"
     case .templates: "square.on.square"
     case .planning: "calendar.badge.checkmark"
+    case .rules: "line.3.horizontal.decrease.circle"
     case .backups: "clock.arrow.circlepath"
     }
   }
@@ -49,6 +50,7 @@ extension SettingsSection {
     case .entry: 0x14A3A3
     case .templates: 0xF7A93B
     case .planning: 0x8E8E93
+    case .rules: 0xC2548A
     case .backups: 0x2F5DE8
     }
   }

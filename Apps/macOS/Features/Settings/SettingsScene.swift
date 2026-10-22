@@ -103,6 +103,7 @@ struct SettingsSectionContent: View {
     case .entry: EntrySettingsView()
     case .templates: TemplatesSettingsView()
     case .planning: PlanningSettingsView()
+    case .rules: RulesSettingsView()
     case .backups: BackupSettingsView()
     }
   }

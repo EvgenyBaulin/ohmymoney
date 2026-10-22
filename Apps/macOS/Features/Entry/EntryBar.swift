@@ -119,6 +119,8 @@ struct EntryBar<Accessory: View>: View {
   @State private var repeatQuestion: RepeatQuestion?
   /// «Запись или план?» for an operation dated after today, waiting for the owner's answer.
   @State private var aheadQuestion: AheadQuestion?
+  /// What the owner's rules and the tags typed say about the line, under it (`EntryLineRules`).
+  @State private var ruleHint: String?
   /// The chips under the line.
   @State private var templates = TemplatesModel()
   /// The quick line of the form: whether «Будет записано» is up.
@@ -139,9 +141,11 @@ struct EntryBar<Accessory: View>: View {
   @Namespace private var glass
 
   private var interpreter: any LineInterpreter {
-    CoreLineInterpreter(
-      vocabulary: environment.vocabulary, calendar: environment.calendar,
-      catalog: environment.currencyCatalog)
+    // The «#tags» of the line are taken out before it is read (`TaggingInterpreter`).
+    TaggingInterpreter(
+      base: CoreLineInterpreter(
+        vocabulary: environment.vocabulary, calendar: environment.calendar,
+        catalog: environment.currencyCatalog))
   }
 
   var body: some View {
@@ -178,6 +182,7 @@ struct EntryBar<Accessory: View>: View {
     .onChange(of: text) { _, _ in
       if message?.isNotice == true { message = nil }
       readTheLineIntoThePanel()
+      refreshRuleHint()
     }
     // The form at the side follows the selection of the window's lists: one operation selected
     // is edited in it, anything else brings the new operation back.
@@ -856,13 +861,66 @@ struct EntryBar<Accessory: View>: View {
       }
       .appFont(.caption)
       .padding(.horizontal, captionInset)
-    } else if let preview {
-      // "Результат виден сразу": the amount a formula comes to, before Enter.
-      Text(verbatim: preview)
-        .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
-        .padding(.horizontal, captionInset)
+    } else if preview != nil || ruleHint != nil {
+      VStack(alignment: .leading, spacing: 2) {
+        if let preview {
+          // "Результат виден сразу": the amount a formula comes to, before Enter.
+          Text(verbatim: preview)
+            .appFont(.caption.monospacedDigit())
+            .foregroundStyle(.secondary)
+        }
+        // «По правилу «Пятёрочка»: Продукты · #еда»: nothing happens silently.
+        if let ruleHint {
+          Label(ruleHint, systemImage: "line.3.horizontal.decrease.circle")
+            .appFont(.caption)
+            .foregroundStyle(.secondary)
+            .accessibilityIdentifier("entry.rule.hint")
+        }
+      }
+      .padding(.horizontal, captionInset)
     }
+  }
+
+  /// The tags the entry carries — typed in the line or the panel, or named by a rule — go on
+  /// the parts of the operation just written, as one step of ⌘Z of their own.
+  private func attachTags(to entry: TransactionEntry, model: EntryDraftModel) {
+    let state = model.ruleState
+    let ruleTags = state.ruleTags.map(\.value)
+    guard !state.typedTags.isEmpty || !ruleTags.isEmpty else { return }
+    store.tag(
+      parts: entry.parts.map(\.id), names: state.typedTags, ruleTagIds: ruleTags)
+  }
+
+  /// What the rules say about the line as typed, and the tags in it, for under the line.
+  private func refreshRuleHint() {
+    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !trimmed.isEmpty, let dataset = compute.snapshot?.dataset else {
+      ruleHint = nil
+      return
+    }
+    let tagged = TagText.extract(from: trimmed)
+    let wording = RuleWording(environment: environment, names: RuleNames(dataset: dataset))
+    var verdict = RuleVerdict()
+    if showsDetails, let model, model.transfer == nil {
+      // The open panel has read the line already: its verdict is the one that will be saved.
+      verdict = model.ruleState.verdict
+    } else if !dataset.rules.isEmpty, model?.editsSavedOperation != true {
+      let reading = interpreter.read(trimmed, today: environment.today, kind: model?.draft.kind)
+      guard reading.parsed.dateProblem == nil, reading.timeProblem == nil else {
+        ruleHint = EntryLineRules.tagsCaption(tagged.tags)
+        return
+      }
+      let tree = CategoryTree(dataset.categories)
+      let subject = EntryLineRules.subject(
+        reading: reading, noteWords: "",
+        places: Dictionary(
+          dataset.places.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first }),
+        fallback: model?.draft, tree: tree, calendar: environment.calendar, now: Date())
+      verdict = RuleEngine.evaluate(subject, rules: dataset.rules, tree: tree)
+    }
+    let sentence = EntryLineRules.hint(verdict, rules: dataset.rules, wording: wording)
+    let parts = [EntryLineRules.tagsCaption(tagged.tags), sentence].compactMap { $0 }
+    ruleHint = parts.isEmpty ? nil : parts.joined(separator: "  ·  ")
   }
 
   /// The button of a notice under the line: the sheet it offers.
@@ -1067,8 +1125,12 @@ struct EntryBar<Accessory: View>: View {
     let assisted = model.assisted
     if style == .form { model.assisted = true }
     defer { model.assisted = assisted }
+    model.retractRules()
     model.apply(
       reading, amount: amount, today: environment.today, text: trimmed, whileTyping: true)
+    model.applyRules(
+      compute.snapshot?.dataset.rules ?? [], lineTags: TagText.extract(from: trimmed).tags,
+      calendar: environment.calendar)
   }
 
   private func prepareModel() {
@@ -1141,7 +1203,11 @@ struct EntryBar<Accessory: View>: View {
 
     do {
       let amount = try parsed.amount.map { try AmountE4(decimal: $0) } ?? model.draft.amount
+      model.retractRules()
       model.apply(reading, amount: amount, today: environment.today, text: trimmed)
+      model.applyRules(
+        compute.snapshot?.dataset.rules ?? [], lineTags: TagText.extract(from: trimmed).tags,
+        calendar: environment.calendar)
       // «перевод 5000 сбер т-банк» is a transfer, not an operation: written at once when both
       // accounts are known in one currency, else left in the fields of a transfer to finish.
       if let transfer = parsed.transfer {
@@ -1280,6 +1346,7 @@ struct EntryBar<Accessory: View>: View {
       }
       CategoryLearning.saved(
         written.entry, choice: model.categoryChoice(), environment: environment)
+      attachTags(to: written.entry, model: model)
       if written.openedCredit != nil || written.paidDebt != nil { model.reload() }
       // A debt opened by this purchase is a name the line should know next time.
       if written.openedCredit?.isNew == true { environment.refreshVocabulary() }
