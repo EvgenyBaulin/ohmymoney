@@ -5,7 +5,12 @@ import XCTest
 
 @testable import OhMyMoney
 
-/// Showing the sidebar of Analytics or Reports never widens the window.
+/// Analytics and Reports have no sidebar to widen the window: their sections and tables are
+/// chips in the content, and the window narrows to its minimum.
+///
+/// History: AppKit shows a hidden sidebar inside the window only while the window, less the
+/// sidebar, is still at least the window's minimum width; the sidebars these windows once had
+/// widened them. The old reasoning, kept for any split that comes back:
 ///
 /// AppKit shows a hidden sidebar inside the window only while the window, less the sidebar, is
 /// still at least the window's minimum width. Narrower, it widens the window by the whole
@@ -52,63 +57,29 @@ final class SidebarWindowWidthTests: XCTestCase {
 
   // MARK: - Helpers
 
-  /// The owner hides the sidebar, narrows the window as far as it goes, and shows the sidebar
-  /// again — the toolbar button and View → Show Sidebar both send `toggleSidebar:`. The window
-  /// keeps the width it was left at.
+  /// Opens the window, checks it has no sidebar and narrows it as far as it goes.
   private func assertTheSidebarComesBackInside<V: View>(
     _ kind: AppWindow, _ what: String, @ViewBuilder content: (AppDependencies) -> V,
     file: StaticString = #filePath, line: UInt = #line
   ) throws {
     let opening: CGFloat = 1_000
     try TestEnvironment.requireScreen(width: opening)
-    // A locked screen moves no split divider: the sidebar would neither hide nor show.
-    try TestEnvironment.requireUnlockedScreen()
     let deps = AppDependencies(
       environment: AppEnvironment(), store: TransactionsStore(),
       compute: ComputeStore(calendar: .utc))
     let window = makeWindow(
       AppScenes.root(deps, window: kind, launches: false, content: content), width: opening)
     settle(window)
-    let item = try XCTUnwrap(sidebarItem(window), "no sidebar in \(what)", file: file, line: line)
-    let controller = try XCTUnwrap(splitController(window), file: file, line: line)
-    XCTAssertFalse(item.isCollapsed, "\(what) opened without its sidebar", file: file, line: line)
-
-    controller.toggleSidebar(nil)
-    settle(window)
-    XCTAssertTrue(item.isCollapsed, "the sidebar of \(what) did not hide", file: file, line: line)
-
-    // As narrow as the window goes, with the sidebar hidden.
+    // Analytics and Reports keep their sections and tables as a row of chips in the content:
+    // there is no sidebar left that could widen the window when it comes back.
+    XCTAssertNil(sidebarItem(window), "\(what) has a sidebar again", file: file, line: line)
     let narrowest = window.contentMinSize.width
     XCTAssertGreaterThan(narrowest, 0, "\(what) has no minimum width", file: file, line: line)
     window.setContentSize(CGSize(width: narrowest, height: window.contentLayoutRect.height))
     settle(window)
-    let width = window.frame.width
     XCTAssertEqual(
-      width, narrowest, accuracy: 1, "\(what) did not narrow to \(narrowest) pt",
+      window.frame.width, narrowest, accuracy: 1, "\(what) did not narrow to \(narrowest) pt",
       file: file, line: line)
-    assertTheContentFits(window, controller, "\(what) at \(narrowest) pt", file: file, line: line)
-
-    controller.toggleSidebar(nil)
-    settle(window)
-    XCTAssertFalse(item.isCollapsed, "the sidebar of \(what) did not show", file: file, line: line)
-    XCTAssertEqual(
-      window.frame.width, width, accuracy: 1,
-      "showing the sidebar widened \(what) from its narrowest, \(narrowest) pt",
-      file: file, line: line)
-    assertTheContentFits(
-      window, controller, "\(what) with its sidebar at \(narrowest) pt", file: file, line: line)
-  }
-
-  /// The window's minimum is the content's: a window allowed narrower than what it holds lays
-  /// the content out wider than itself and cuts it off at both edges.
-  private func assertTheContentFits(
-    _ window: NSWindow, _ controller: NSSplitViewController, _ what: String,
-    file: StaticString, line: UInt
-  ) {
-    let content = window.contentView?.frame.width ?? 0
-    XCTAssertLessThanOrEqual(
-      controller.splitView.frame.width, content + 1,
-      "the content of \(what) is wider than its window", file: file, line: line)
   }
 
   private func makeWindow<V: View>(_ root: V, width: CGFloat) -> NSWindow {

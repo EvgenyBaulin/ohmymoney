@@ -33,14 +33,11 @@ struct ReportsWindow: View {
   @State private var collapsed: Set<String> = []
 
   var body: some View {
-    NavigationSplitView {
-      sidebar
-        .navigationSplitViewColumnWidth(
-          min: Self.sidebarMinWidth, ideal: Self.sidebarIdealWidth, max: Self.sidebarMaxWidth)
-    } detail: {
+    VStack(alignment: .leading, spacing: 0) {
+      header
       detail
     }
-    .toolbar { exportToolbar }
+    .themedWindowBackground()
     .sheetFrame(minWidth: Self.minimumWidth, minHeight: 480)
     .task(id: loadKey) { await load() }
     .onChange(of: request) { _, _ in collapsed = [] }
@@ -134,55 +131,71 @@ struct ReportsWindow: View {
     }
   }
 
-  // MARK: The sidebar
+  // MARK: The header
 
-  private var sidebar: some View {
-    Form {
-      Section {
-        periodControls
-      } header: {
-        Text(verbatim: t("reports.sidebar.period"))
-      }
-
-      Section {
-        Picker(selection: kindSelection) {
-          ForEach(ReportTable.Kind.allCases, id: \.self) { kind in
-            Text(verbatim: ReportsText.title(of: kind, environment)).tag(kind)
-          }
-        } label: {
-          Text(verbatim: t("reports.sidebar.tables"))
+  /// The title and the period with the export on top, the tables as a row of chips under it,
+  /// «Группировать по» beside them for the tables that group.
+  private var header: some View {
+    VStack(alignment: .leading, spacing: 12) {
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .center, spacing: 10) {
+          Text(verbatim: t("reports.window.title"))
+            .appFont(.title2.weight(.semibold))
+            .accessibilityAddTraits(.isHeader)
+          Spacer(minLength: 12)
+          periodControls
+          exportButton
         }
-        .pickerStyle(.radioGroup)
-        .labelsHidden()
-      } header: {
-        Text(verbatim: t("reports.sidebar.tables"))
-      }
-
-      Section {
-        Picker(selection: groupingSelection) {
-          ForEach(ReportGrouping.allCases, id: \.self) { grouping in
-            Text(verbatim: ReportsText.title(of: grouping, environment)).tag(grouping)
+        VStack(alignment: .leading, spacing: 10) {
+          Text(verbatim: t("reports.window.title"))
+            .appFont(.title2.weight(.semibold))
+            .accessibilityAddTraits(.isHeader)
+          HStack(spacing: 10) {
+            periodControls
+            exportButton
           }
-        } label: {
+        }
+      }
+      FlowRow(spacing: 6, lineSpacing: 6) {
+        ForEach(ReportTable.Kind.allCases, id: \.self) { kind in
+          SectionChip(
+            title: ReportsText.title(of: kind, environment), symbol: "tablecells",
+            selected: kind == selection.kind
+          ) { tableName = kind.rawValue }
+        }
+      }
+      .accessibilityElement(children: .contain)
+      .accessibilityIdentifier("reports.tables")
+      if selection.isGroupable {
+        HStack(spacing: 8) {
           Text(verbatim: t("reports.sidebar.grouping"))
+            .appFont(.caption).foregroundStyle(.secondary)
+          Picker(selection: groupingSelection) {
+            ForEach(ReportGrouping.allCases, id: \.self) { grouping in
+              Text(verbatim: ReportsText.title(of: grouping, environment)).tag(grouping)
+            }
+          } label: {
+            Text(verbatim: t("reports.sidebar.grouping"))
+          }
+          .labelsHidden()
+          .fixedSize()
         }
-        .labelsHidden()
-        .disabled(!selection.isGroupable)
-      } header: {
-        Text(verbatim: t("reports.sidebar.grouping"))
-      } footer: {
-        if !selection.isGroupable {
-          Text(verbatim: t("reports.grouping.spendingOnly"))
-            .appFont(.caption)
-            .foregroundStyle(.secondary)
-        }
+      } else {
+        Text(verbatim: t("reports.grouping.spendingOnly"))
+          .appFont(.caption).foregroundStyle(.secondary)
       }
     }
-    .formStyle(.grouped)
+    .padding(.horizontal, 20)
+    .padding(.top, 12)
+    .padding(.bottom, 8)
+  }
+
+  private var periodControls: some View {
+    HStack(spacing: 8) { periodControlsContent }
   }
 
   @ViewBuilder
-  private var periodControls: some View {
+  private var periodControlsContent: some View {
     Picker(selection: periodKindSelection) {
       Text(verbatim: t("reports.period.month")).tag(AnalyticsPeriod.Kind.month)
       Text(verbatim: t("reports.period.year")).tag(AnalyticsPeriod.Kind.year)
@@ -260,23 +273,21 @@ struct ReportsWindow: View {
 
   // MARK: Export
 
-  @ToolbarContentBuilder
-  private var exportToolbar: some ToolbarContent {
-    ToolbarItem(placement: .primaryAction) {
-      Button {
-        export()
-      } label: {
-        Label {
-          Text(verbatim: t("reports.export"))
-        } icon: {
-          Image(systemName: "square.and.arrow.up")
-        }
+  private var exportButton: some View {
+    Button {
+      export()
+    } label: {
+      Label {
+        Text(verbatim: t("reports.export"))
+      } icon: {
+        Image(systemName: "square.and.arrow.up")
       }
-      .labelStyle(.titleAndIcon)
-      .help(t("reports.export.help"))
-      // Nothing to export while the table is computed or has no lines.
-      .disabled(state.value == nil)
     }
+    .buttonStyle(.borderedProminent)
+    .labelStyle(.titleAndIcon)
+    .help(t("reports.export.help"))
+    // Nothing to export while the table is computed or has no lines.
+    .disabled(state.value == nil)
   }
 
   private func export() {

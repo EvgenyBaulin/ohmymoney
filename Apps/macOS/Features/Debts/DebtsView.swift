@@ -11,6 +11,7 @@ struct DebtsView: View {
   @Environment(\.dependencies) private var dependencies
   @Environment(\.windowWidth) private var windowWidth
   @State private var selection: DebtsSelection?
+  @State private var tab: DebtsTab = .iOwe
   @State private var sheet: DebtSheet?
   @State private var recordingReimbursement = false
   /// «Новый долг» step by step (`DebtWizard`).
@@ -37,7 +38,7 @@ struct DebtsView: View {
         if isNarrow {
           // A phone: the list, and the card of the chosen debt in its place with a way back.
           if selection == nil {
-            list(overview, snapshot: snapshot)
+            overviewPane(overview, snapshot: snapshot)
           } else {
             Button {
               selection = nil
@@ -53,10 +54,22 @@ struct DebtsView: View {
             detail(overview, snapshot: snapshot)
               .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
           }
+        } else if selection == nil {
+          overviewPane(overview, snapshot: snapshot)
         } else {
           HStack(spacing: 0) {
-            list(overview, snapshot: snapshot)
-              .frame(width: 300)
+            VStack(alignment: .leading, spacing: 0) {
+              Button {
+                selection = nil
+              } label: {
+                Label(t("debts.allDebts"), systemImage: "square.grid.2x2")
+              }
+              .buttonStyle(.borderless)
+              .padding(.horizontal, 16).padding(.vertical, 8)
+              .accessibilityIdentifier("debts.all")
+              list(overview, snapshot: snapshot)
+            }
+            .frame(width: 300)
             Divider()
             detail(overview, snapshot: snapshot)
               .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -116,6 +129,16 @@ struct DebtsView: View {
   /// Too narrow for the list and the card side by side. The Mac window never gets this narrow
   /// (its minimum is wider); a width not measured yet (0) is not narrow.
   private var isNarrow: Bool { windowWidth > 0 && windowWidth < 640 }
+
+  private func overviewPane(_ overview: DebtsOverview, snapshot: DataSnapshot) -> some View {
+    DebtOverviewPane(
+      overview: overview, people: snapshot.dataset.people, tab: $tab,
+      ladderAvailable: !LadderSection.candidates(snapshot).isEmpty,
+      select: { selection = $0 },
+      delete: { id in
+        deleting = (overview.iOwe + overview.closed).first { $0.id == id }
+      })
+  }
 
   private func list(_ overview: DebtsOverview, snapshot: DataSnapshot) -> some View {
     DebtsList(

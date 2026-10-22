@@ -33,31 +33,15 @@ struct AnalyticsWindow: View {
     changes: AnalyticsMeasurement.isRequested ? LaunchOptions.current.measureRuns : nil)
 
   var body: some View {
-    NavigationSplitView {
-      List(AnalyticsSection.allCases, selection: sectionSelection) { item in
-        Label {
-          Text(verbatim: t(item.titleKey))
-        } icon: {
-          Image(systemName: item.symbol)
-        }
-        .badge(item.plannedFor.map { Text(verbatim: $0) })
-        .tag(item)
-      }
-      .navigationSplitViewColumnWidth(
-        min: Self.sidebarMinWidth, ideal: Self.sidebarIdealWidth, max: Self.sidebarMaxWidth)
-    } detail: {
+    VStack(alignment: .leading, spacing: 0) {
+      header
       AnalyticsSectionView(
         section: section, title: AnalyticsText.title(of: period, environment), state: state,
         retry: retry
       )
       .id(section)
     }
-    .toolbar { periodToolbar }
-    // The period takes the whole toolbar: beside the title of the window it went behind »
-    // below about 1 000 pt, and the smallest window is 820 pt wide.
-    // The title stays in the Window menu and in Mission Control. With `--measure` it stays
-    // in the toolbar too, since its subtitle carries the time (`make bench-app`).
-    .toolbar(removing: AnalyticsMeasurement.isRequested ? nil : .title)
+    .themedWindowBackground()
     .navigationSubtitle(subtitle)
     .sheetFrame(minWidth: Self.minimumWidth, minHeight: 560)
     .environment(analytics)
@@ -72,14 +56,6 @@ struct AnalyticsWindow: View {
 
   private var section: AnalyticsSection {
     AnalyticsSection(rawValue: sectionName) ?? .overview
-  }
-
-  private var sectionSelection: Binding<AnalyticsSection?> {
-    Binding(
-      get: { section },
-      set: { chosen in
-        if let chosen { sectionName = chosen.rawValue }
-      })
   }
 
   /// The day the data was built for: the day of Overview, not the clock of this window.
@@ -202,9 +178,50 @@ struct AnalyticsWindow: View {
 
   // MARK: The period in the toolbar
 
-  @ToolbarContentBuilder
-  private var periodToolbar: some ToolbarContent {
-    ToolbarItemGroup(placement: .principal) {
+  /// The title of the section with the period under it on the left; the period controls on the
+  /// right; the sections below as a wrapping row of chips.
+  private var header: some View {
+    VStack(alignment: .leading, spacing: 12) {
+      ViewThatFits(in: .horizontal) {
+        HStack(alignment: .top) {
+          titleBlock
+          Spacer(minLength: 12)
+          periodControls
+        }
+        VStack(alignment: .leading, spacing: 10) {
+          titleBlock
+          periodControls
+        }
+      }
+      sectionChips
+    }
+    .padding(.horizontal, 20)
+    .padding(.top, 12)
+    .padding(.bottom, 8)
+  }
+
+  private var titleBlock: some View {
+    VStack(alignment: .leading, spacing: 2) {
+      Text(verbatim: t(section.titleKey)).appFont(.title2.weight(.semibold))
+      Text(verbatim: AnalyticsText.title(of: period, environment))
+        .appFont(.caption).foregroundStyle(.secondary)
+    }
+  }
+
+  private var sectionChips: some View {
+    FlowRow(spacing: 6, lineSpacing: 6) {
+      ForEach(AnalyticsSection.allCases) { item in
+        SectionChip(
+          title: t(item.titleKey), symbol: item.symbol, selected: item == section
+        ) { sectionName = item.rawValue }
+      }
+    }
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("analytics.sections")
+  }
+
+  private var periodControls: some View {
+    HStack(spacing: 8) {
       let enabled = section.followsThePeriod
       Button {
         setPeriod(period.stepped(by: -1))
