@@ -417,9 +417,9 @@ final class CategoryLimitsTests: XCTestCase {
     }
   }
 
-  /// The Overview card shares the order and the number of Planning, but lists five at most:
+  /// The Overview card shares the order and the number of Planning, but lists three at most:
   /// with «all» and many limits it grew, and the cards beside it grew with it.
-  func testTheCardListsTheTopOfTheOrderFiveAtMost() {
+  func testTheCardListsTheTopOfTheOrderThreeAtMost() {
     let categories = (1...7).map { CoreKit.Category(kind: .expense, name: "Limit \($0)") }
     let budgets = categories.map {
       Budget(scope: .category, categoryId: $0.id, amountE4: AmountE4(whole: 1_000))
@@ -434,9 +434,10 @@ final class CategoryLimitsTests: XCTestCase {
       let lines = LimitsCard.lines(snapshot, AppEnvironment())
       return (lines.shown.count, lines.rest.count)
     }
-    XCTAssertTrue(card(nil) == (5, 2), "«all» listed every limit in the card: \(card(nil))")
-    XCTAssertTrue(card(10) == (5, 2), "\(card(10))")
+    XCTAssertTrue(card(nil) == (3, 4), "«all» listed every limit in the card: \(card(nil))")
+    XCTAssertTrue(card(10) == (3, 4), "\(card(10))")
     XCTAssertTrue(card(3) == (3, 4), "\(card(3))")
+    XCTAssertTrue(card(2) == (2, 5), "\(card(2))")
   }
 
   /// A new amount typed in place starts the carry again: while the field is open, the row says

@@ -429,7 +429,8 @@ struct ExportRoundTripPropertyTests {
     #expect(
       tables.subtracting(exported) == [
         "anomaly_dismissals", "category_feedback", "currencies", "expected_income_links",
-        "import_batches", "import_mappings", "ml_models", "scenarios", "sync_deferred", "sync_heads",
+        "import_batches", "import_mappings", "ml_models", "scenarios", "sync_deferred",
+        "sync_heads",
         "sync_meta", "sync_outbox", "sync_resolutions", "sync_state",
       ])
   }

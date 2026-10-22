@@ -255,8 +255,8 @@ struct OverviewTileFrame: View {
       )
       .contentShape(Rectangle())
       .onTapGesture { screen.open(tile) }
-        .accessibilityElement(children: .contain)
-        .accessibilityAction(named: Text(verbatim: t("overview.why"))) { screen.open(tile) }
+      .accessibilityElement(children: .contain)
+      .accessibilityAction(named: Text(verbatim: t("overview.why"))) { screen.open(tile) }
     }
   }
 
@@ -267,73 +267,73 @@ struct OverviewTileFrame: View {
       tile: tile, actions: actions, compact: environment.overviewLayout.isCompact(tile)
     )
     .allowsHitTesting(false)
-      .overlay {
-        RoundedRectangle(cornerRadius: 12)
-          .strokeBorder(style: StrokeStyle(lineWidth: targeted ? 2 : 1, dash: [5, 4]))
-          .foregroundStyle(targeted ? AnyShapeStyle(.tint) : AnyShapeStyle(.separator))
-          .contentShape(Rectangle())
+    .overlay {
+      RoundedRectangle(cornerRadius: 12)
+        .strokeBorder(style: StrokeStyle(lineWidth: targeted ? 2 : 1, dash: [5, 4]))
+        .foregroundStyle(targeted ? AnyShapeStyle(.tint) : AnyShapeStyle(.separator))
+        .contentShape(Rectangle())
+    }
+    .overlay(alignment: .topLeading) {
+      Button {
+        _ = withAnimation(.snappy) { OverviewTilesActions.hide(environment, tile) }
+      } label: {
+        Image(systemName: "minus.circle.fill")
+          .appFont(.title3)
+          .symbolRenderingMode(.palette)
+          .foregroundStyle(.white, canHide ? Color.red : Color.secondary)
       }
-      .overlay(alignment: .topLeading) {
-        Button {
-          _ = withAnimation(.snappy) { OverviewTilesActions.hide(environment, tile) }
-        } label: {
-          Image(systemName: "minus.circle.fill")
-            .appFont(.title3)
-            .symbolRenderingMode(.palette)
-            .foregroundStyle(.white, canHide ? Color.red : Color.secondary)
-        }
-        .buttonStyle(.plain)
-        .disabled(!canHide)
-        .help(environment.format("overview.edit.hide", table: "Overview", name))
-        .accessibilityLabel(
-          Text(verbatim: environment.format("overview.edit.hide", table: "Overview", name))
-        )
-        .accessibilityIdentifier("overview.edit.hide.\(tile.rawValue)")
-        .offset(x: -7, y: -7)
+      .buttonStyle(.plain)
+      .disabled(!canHide)
+      .help(environment.format("overview.edit.hide", table: "Overview", name))
+      .accessibilityLabel(
+        Text(verbatim: environment.format("overview.edit.hide", table: "Overview", name))
+      )
+      .accessibilityIdentifier("overview.edit.hide.\(tile.rawValue)")
+      .offset(x: -7, y: -7)
+    }
+    .overlay(alignment: .bottomTrailing) {
+      if environment.overviewLayout.isCompact(tile) {
+        Text(verbatim: t("overview.edit.compactBadge"))
+          .appFont(.caption2)
+          .padding(.horizontal, 6)
+          .padding(.vertical, 2)
+          .background(.quaternary, in: Capsule())
+          .padding(6)
+          .accessibilityHidden(true)
       }
-      .overlay(alignment: .bottomTrailing) {
-        if environment.overviewLayout.isCompact(tile) {
-          Text(verbatim: t("overview.edit.compactBadge"))
-            .appFont(.caption2)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 2)
-            .background(.quaternary, in: Capsule())
-            .padding(6)
-            .accessibilityHidden(true)
-        }
+    }
+    .contextMenu {
+      OverviewSizeMenu(tile: tile)
+      ForEach(OverviewTilesActions.otherGroups(environment, tile)) { group in
+        Button(moveToTitle(group)) { OverviewTilesActions.move(environment, tile, to: group) }
       }
-      .contextMenu {
-        OverviewSizeMenu(tile: tile)
-        ForEach(OverviewTilesActions.otherGroups(environment, tile)) { group in
-          Button(moveToTitle(group)) { OverviewTilesActions.move(environment, tile, to: group) }
-        }
-      }
-      .accessibilityElement(children: .contain)
-      .accessibilityLabel(Text(verbatim: name))
-      .accessibilityActions {
-        OverviewSizeMenu(tile: tile)
-        ForEach(OverviewTilesActions.moves(environment, tile, amongShown: true), id: \.self) {
-          step in
-          Button(t(step < 0 ? "overview.edit.moveUp" : "overview.edit.moveDown")) {
-            OverviewTilesActions.move(environment, tile, by: step, amongShown: true)
-          }
-        }
-        ForEach(OverviewTilesActions.otherGroups(environment, tile)) { group in
-          Button(moveToTitle(group)) { OverviewTilesActions.move(environment, tile, to: group) }
+    }
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel(Text(verbatim: name))
+    .accessibilityActions {
+      OverviewSizeMenu(tile: tile)
+      ForEach(OverviewTilesActions.moves(environment, tile, amongShown: true), id: \.self) {
+        step in
+        Button(t(step < 0 ? "overview.edit.moveUp" : "overview.edit.moveDown")) {
+          OverviewTilesActions.move(environment, tile, by: step, amongShown: true)
         }
       }
-      .draggable(OverviewTilesActions.payload(of: tile)) {
-        Text(verbatim: name).padding(6)
+      ForEach(OverviewTilesActions.otherGroups(environment, tile)) { group in
+        Button(moveToTitle(group)) { OverviewTilesActions.move(environment, tile, to: group) }
       }
-      .dropDestination(for: String.self) { payloads, _ in
-        guard let dragged = payloads.lazy.compactMap(OverviewTilesActions.tile).first
-        else { return false }
-        return withAnimation(.snappy) {
-          OverviewTilesActions.drop(environment, dragged, onto: tile)
-        }
-      } isTargeted: {
-        targeted = $0
+    }
+    .draggable(OverviewTilesActions.payload(of: tile)) {
+      Text(verbatim: name).padding(6)
+    }
+    .dropDestination(for: String.self) { payloads, _ in
+      guard let dragged = payloads.lazy.compactMap(OverviewTilesActions.tile).first
+      else { return false }
+      return withAnimation(.snappy) {
+        OverviewTilesActions.drop(environment, dragged, onto: tile)
       }
+    } isTargeted: {
+      targeted = $0
+    }
   }
 
   private func moveToTitle(_ group: OverviewTileGroup) -> String {

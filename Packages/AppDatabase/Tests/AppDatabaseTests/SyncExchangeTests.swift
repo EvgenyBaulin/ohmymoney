@@ -437,8 +437,10 @@ struct SyncConflictFlowTests {
     let (mac, phone, folder) = try apart()
     try mac.setNote("t1", "same")
     try phone.setNote("t1", "same")
-    try mac.sql("UPDATE transactions SET amount_e4 = 5, amount_rub_e4 = 5, updated_at = 'u' WHERE id = 't1'")
-    try phone.sql("UPDATE transactions SET amount_e4 = 5, amount_rub_e4 = 5, updated_at = 'u' WHERE id = 't1'")
+    try mac.sql(
+      "UPDATE transactions SET amount_e4 = 5, amount_rub_e4 = 5, updated_at = 'u' WHERE id = 't1'")
+    try phone.sql(
+      "UPDATE transactions SET amount_e4 = 5, amount_rub_e4 = 5, updated_at = 'u' WHERE id = 't1'")
     try mac.stamp("2026-10-22T10:07:00Z")
     try phone.stamp("2026-10-22T10:08:00Z")
     _ = try mac.exchange.exchange(with: folder)

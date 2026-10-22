@@ -94,10 +94,12 @@ enum SyncBook {
       arguments: [key.table, key.uuid, stamp.updatedAt.text, stamp.deviceId])
   }
 
-  static func hasPendingChange(_ db: Database, _ key: RecordKey, upTo marker: Int64) throws -> Bool {
+  static func hasPendingChange(_ db: Database, _ key: RecordKey, upTo marker: Int64) throws -> Bool
+  {
     try Bool.fetchOne(
       db,
-      sql: "SELECT EXISTS (SELECT 1 FROM sync_outbox WHERE table_name = ? AND row_key = ? AND seq <= ?)",
+      sql:
+        "SELECT EXISTS (SELECT 1 FROM sync_outbox WHERE table_name = ? AND row_key = ? AND seq <= ?)",
       arguments: [key.table, key.uuid, marker]) ?? false
   }
 

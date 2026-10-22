@@ -163,24 +163,50 @@ struct MoreTab: View {
       if let destination = item.moreDestination {
         NavigationLink(value: destination) { label }
       } else {
-        Button { router.open(nav: item) } label: { label }
+        Button {
+          router.open(nav: item)
+        } label: {
+          label
+        }
       }
     case .settings:
       NavigationLink(value: MoreDestination.settings) { label }
     case .whatIf:
-      Button { router.open(screen: .whatIf) } label: { label }
+      Button {
+        router.open(screen: .whatIf)
+      } label: {
+        label
+      }
     case .trip:
-      Button { environment.showsTrip = true } label: { label }
+      Button {
+        environment.showsTrip = true
+      } label: {
+        label
+      }
     case .reconcile:
-      Button { environment.showsReconciliation = true } label: { label }
+      Button {
+        environment.showsReconciliation = true
+      } label: {
+        label
+      }
     case .tour:
-      Button { GuideStore.shared.show(GuideCatalog.firstLaunch) } label: { label }
+      Button {
+        GuideStore.shared.show(GuideCatalog.firstLaunch)
+      } label: {
+        label
+      }
     case .whatsNew:
       Button {
         if let latest = GuideCatalog.whatsNew.last { GuideStore.shared.show(latest) }
-      } label: { label }
+      } label: {
+        label
+      }
     case .problemReport:
-      Button { environment.showsProblemReport = true } label: { label }
+      Button {
+        environment.showsProblemReport = true
+      } label: {
+        label
+      }
     }
   }
 
