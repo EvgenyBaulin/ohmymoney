@@ -132,7 +132,8 @@ public enum StatementEntryBuilder {
     let part = TransactionPart(
       transactionId: id, categoryId: choice.categoryID, categorySource: choice.categorySource,
       quality: kind.hasQuality ? choice.quality : nil,
-      qualitySource: kind.hasQuality && choice.quality != nil ? .category : nil, amountE4: magnitude,
+      qualitySource: kind.hasQuality && choice.quality != nil ? .category : nil,
+      amountE4: magnitude,
       amountRubE4: rubles.amount)
     return TransactionEntry(transaction: transaction, parts: [part])
   }

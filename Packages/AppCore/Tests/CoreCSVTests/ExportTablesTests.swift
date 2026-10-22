@@ -84,7 +84,10 @@ struct ExportTablesDescriptionTests {
         "return_by", "terms_reviewed",
       ])
     #expect(Array(ExportTables.debtEntries.columns.suffix(2)) == ["tranche", "prepay"])
-    #expect(Array(ExportTables.transfers.columns.suffix(3)) == ["updated_at", "external_id", "arrived_at"])
+    #expect(
+      Array(ExportTables.transfers.columns.suffix(3)) == [
+        "updated_at", "external_id", "arrived_at",
+      ])
   }
 
   /// The capital brought two files at the end and one column at the end of the accounts and of

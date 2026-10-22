@@ -30,7 +30,9 @@ public struct YearPlanData: Hashable, Sendable {
 
   /// The articles of one event, in the owner's order.
   public func items(of event: UUID) -> [EventBudgetItem] {
-    eventItems.filter { $0.eventId == event }.sorted { ($0.sort, $0.id.uuidString) < ($1.sort, $1.id.uuidString) }
+    eventItems.filter { $0.eventId == event }.sorted {
+      ($0.sort, $0.id.uuidString) < ($1.sort, $1.id.uuidString)
+    }
   }
 }
 

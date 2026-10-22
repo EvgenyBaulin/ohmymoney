@@ -7,6 +7,31 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.2.0] — 2026-10-23
+
+Four releases in one: statement import, the plan of the year, questions and commands, and
+subscriptions. The database schema is 14; opening the app upgrades the database after a
+verified copy.
+
+### Added
+
+- Import of bank statements (CSV and the text of PDF statements): a preview with new, duplicate,
+  changed and unreadable rows, a category for what is not sorted yet, matching with entries you
+  made by hand, applying with an undo, and a history of imports; a set-up of who you are so that
+  transfers between your own accounts are recognised. Photos of receipts come in a later release.
+- The plan of the year in Planning: history and seasonality, a forecast of the year, expensive
+  months, limit seasons, a buffer with an offer to raise it, annual reserves, event templates
+  and budgets, and exceptions to the limit of a month.
+- Questions and commands: ask in words, a command palette, and saved views that apply to
+  Operations and Analytics.
+- Subscriptions: the cost per month and per year, used and unused marks, who uses each one, the
+  history of prices, advice on what to cancel, notices, and a calendar of charges.
+
+### Changed
+
+- The database schema is 14: import fields on operations, saved views, year-plan data, subscription
+  data and the arrival day of a transfer. The export holds 42 files.
+
 ## [2.1.0] — 2026-10-23
 
 Four releases in one: spending analysis, income and savings, rules and tags, and quick entry.

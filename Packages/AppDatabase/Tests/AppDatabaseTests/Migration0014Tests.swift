@@ -828,7 +828,11 @@ struct Migration0014Tests {
     #expect(try phone.count("identity_items") == 0, "who the owner is never travels")
     #expect(try phone.outboxCount() == 0)
     let row = try phone.stack.writer.read { db in
-      try Row.fetchOne(db, sql: "SELECT dedup_key, posted_on FROM transactions WHERE id = '55555555-5555-4555-8555-555555555555'")
+      try Row.fetchOne(
+        db,
+        sql:
+          "SELECT dedup_key, posted_on FROM transactions WHERE id = '55555555-5555-4555-8555-555555555555'"
+      )
     }
     #expect(row?["dedup_key"] == "v1:ff" && row?["posted_on"] == "2026-10-21")
   }

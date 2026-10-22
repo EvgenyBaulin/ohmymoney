@@ -29,7 +29,8 @@ struct ExportRoundTripPropertyTests {
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
-    "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at", "arrived_at",
+    "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at",
+    "arrived_at",
   ]
   /// Columns holding a decimal kept as text.
   private static let decimals: Set<String> = [

@@ -213,7 +213,9 @@ public struct ExportRepository: Sendable {
         csv.append(Self.text(row, ["id", "payment_id", "person_id"]))
       }
     case ExportTables.subscriptionKeepGroups.fileName:
-      for row in try Row.fetchAll(db, sql: "SELECT * FROM subscription_keep_groups ORDER BY type, id") {
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM subscription_keep_groups ORDER BY type, id")
+      {
         csv.append(Self.text(row, ["id", "type"]) + [row["payment_ids"] ?? "[]"])
       }
     default:

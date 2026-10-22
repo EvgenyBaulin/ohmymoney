@@ -64,7 +64,10 @@ struct Migration0010Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0010_scenarios", "0011_travel", "0012_sync", "0013_spending_rules", "0014_import_year_questions_subscriptions"])
+        == [
+          "0010_scenarios", "0011_travel", "0012_sync", "0013_spending_rules",
+          "0014_import_year_questions_subscriptions",
+        ])
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
     #expect(stack.applied.applied == 5)
