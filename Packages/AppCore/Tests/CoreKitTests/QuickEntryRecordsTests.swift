@@ -109,18 +109,20 @@ struct QuickEntryRecordsTests {
   let now = Date(timeIntervalSince1970: 1_760_000_000)
 
   @Test func aNoteIsTrimmedAndKept() throws {
-    let note = try #require(DayNote(day: day, text: "  день рождения мамы \n", updatedAt: now))
+    let note = try #require(
+      DayNote.cleaned(day: day, text: "  день рождения мамы \n", updatedAt: now))
     #expect(note.text == "день рождения мамы")
-    #expect(note.id == day)
+    #expect(note.day == day)
   }
 
   @Test func anEmptyNoteIsNoNote() {
-    #expect(DayNote(day: day, text: "  \n ", updatedAt: now) == nil)
+    #expect(DayNote.cleaned(day: day, text: "  \n ", updatedAt: now) == nil)
   }
 
   @Test func aNoteHasALimit() throws {
     let note = try #require(
-      DayNote(day: day, text: String(repeating: "я", count: DayNote.maxLength + 50), updatedAt: now)
+      DayNote.cleaned(
+        day: day, text: String(repeating: "я", count: DayNote.maxLength + 50), updatedAt: now)
     )
     #expect(note.text.count == DayNote.maxLength)
   }
@@ -147,15 +149,14 @@ struct QuickEntryRecordsTests {
   }
 
   @Test func twoRowsOfOneDayKeepTheLaterOne() {
-    let older = DayNote(day: day, text: "старая", updatedAt: now)!
-    let newer = DayNote(day: day, text: "новая", updatedAt: now.addingTimeInterval(5))!
+    let older = DayNote.cleaned(day: day, text: "старая", updatedAt: now)!
+    let newer = DayNote.cleaned(day: day, text: "новая", updatedAt: now.addingTimeInterval(5))!
     #expect(DayNotes([newer, older])[day]?.text == "новая")
     #expect(DayNotes([older, newer])[day]?.text == "новая")
   }
 
   @Test func theStoredNamesAreFixed() {
-    #expect(DayNote.tableName == "day_notes")
-    #expect(DayNote.csvColumns == ["day", "text", "updated_at"])
+    #expect(DayNoteStorage.table == "day_notes")
     #expect(PendingDraft.tableName == "pending_drafts")
     #expect(PendingDraft.csvColumns == ["id", "text", "created_at", "resolved_at"])
   }

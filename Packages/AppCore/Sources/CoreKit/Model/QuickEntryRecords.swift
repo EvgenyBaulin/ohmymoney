@@ -1,38 +1,5 @@
 import Foundation
 
-/// A note the owner put on a day of the spending calendar: «12 октября — день рождения мамы»
-/// (its own table, in the database, the archive and the CSV — an event with a budget is
-/// something else).
-///
-/// Stored form: table `day_notes`, one row per day (`day` is the key), columns `day`
-/// (`YYYY-MM-DD`), `text`, `updated_at` (a UTC string). An empty text is no note.
-public struct DayNote: Hashable, Sendable, Codable, Identifiable {
-  public static let tableName = "day_notes"
-  public static let csvColumns = ["day", "text", "updated_at"]
-  public static let maxLength = 500
-
-  public var day: DateOnly
-  public var text: String
-  public var updatedAt: Date
-
-  public var id: DateOnly { day }
-
-  /// `nil` for a text with nothing in it.
-  public init?(day: DateOnly, text: String, updatedAt: Date) {
-    guard let clean = Self.clean(text) else { return nil }
-    self.day = day
-    self.text = clean
-    self.updatedAt = updatedAt
-  }
-
-  /// The text as it is kept: trimmed, lines kept, no longer than `maxLength` characters.
-  public static func clean(_ text: String) -> String? {
-    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
-    guard !trimmed.isEmpty else { return nil }
-    return String(trimmed.prefix(maxLength))
-  }
-}
-
 /// The notes of the days, one per day.
 public struct DayNotes: Hashable, Sendable {
   private var byDay: [DateOnly: DayNote]
@@ -50,10 +17,14 @@ public struct DayNotes: Hashable, Sendable {
   /// Writes the note of a day; an empty text takes the note away. Returns the note now kept.
   @discardableResult
   public mutating func set(_ text: String, on day: DateOnly, at now: Date) -> DayNote? {
-    guard let note = DayNote(day: day, text: text, updatedAt: now) else {
+    guard let clean = DayNote.clean(text) else {
       byDay[day] = nil
       return nil
     }
+    let old = byDay[day]
+    let note = DayNote(
+      id: old?.id ?? UUID(), day: day, text: clean, createdAt: old?.createdAt ?? now,
+      updatedAt: now)
     byDay[day] = note
     return note
   }

@@ -194,6 +194,27 @@ public struct WorkHoursSettings: Hashable, Sendable {
     self.isEnabled = isEnabled
     self.hoursPerMonth = hoursPerMonth
   }
+
+  public static let storageKeys = [enabledKey, hoursPerMonthKey]
+
+  /// The settings the rows give; a value that does not read keeps its default.
+  public init(storedValues values: [String: String]) {
+    let hours = values[Self.hoursPerMonthKey].flatMap {
+      Int($0.trimmingCharacters(in: .whitespaces))
+    }
+    self.init(
+      isEnabled: values[Self.enabledKey]?.trimmingCharacters(in: .whitespaces) == "1",
+      hoursPerMonth: hours.flatMap { (1...744).contains($0) ? $0 : nil }
+        ?? Self.defaultHoursPerMonth)
+  }
+
+  /// The rows to write; a setting at its default deletes its key (`nil`).
+  public var storedValues: [String: String?] {
+    [
+      Self.enabledKey: isEnabled ? "1" : nil,
+      Self.hoursPerMonthKey: hoursPerMonth == Self.defaultHoursPerMonth ? nil : String(hoursPerMonth),
+    ]
+  }
 }
 
 /// «Кроссовки 14 000 — 18 часов вашей работы»: the price divided by what an hour of work

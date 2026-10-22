@@ -150,11 +150,11 @@ struct ChangeStreamTests {
     for table in [
       "account_groups", "transfers", "reconciliation_balances", "cards", "cashback_rules",
       "banks", "assets", "asset_valuations", "debt_instalments", "debt_costs",
-      "allocation_rules", "custom_currencies",
+      "allocation_rules", "custom_currencies", "tags", "part_tags", "rules", "day_notes",
     ] {
       #expect(DatabaseStack.ledgerTables.contains(table), "\(table) is not watched")
     }
-    #expect(DatabaseStack.ledgerTables.count == 33)
+    #expect(DatabaseStack.ledgerTables.count == 37)
     #expect(Set(DatabaseStack.ledgerTables).count == DatabaseStack.ledgerTables.count)
   }
 

@@ -366,6 +366,7 @@ public enum BulkEditRule {
     reverted.transaction.accountAmountE4 = snapshot.transaction.accountAmountE4
     reverted.transaction.cardId = snapshot.transaction.cardId
     reverted.transaction.cashback = snapshot.transaction.cashback
+    reverted.transaction.isOneOff = snapshot.transaction.isOneOff
     let before = Dictionary(
       snapshot.parts.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     for index in reverted.parts.indices {

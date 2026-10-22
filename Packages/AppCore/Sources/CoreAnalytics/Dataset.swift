@@ -1,3 +1,4 @@
+import CoreAccounting
 import CoreKit
 import Foundation
 
@@ -92,6 +93,18 @@ public struct Dataset: Sendable {
   public var allocationSettings: AllocationSettings
   /// The payoff ladder, the reminder to a debtor, the interest of credit cards.
   public var debtSettings: DebtSettings
+  /// Every tag and the parts each one is on.
+  public var tagBook: TagBook
+  /// The owner's rules in the order of precedence (rules this build cannot read are left out).
+  public var rules: [Rule]
+  /// The notes on days of the calendar, oldest day first.
+  public var dayNotes: [DayNote]
+  /// The proportions and switches of «Доход и сбережения».
+  public var incomeSavings: IncomeSavingsSettings
+  /// Which hours are the weekend (`analytics.weekend`).
+  public var weekendWindow: WeekendWindow
+  /// The price in hours of work (`spending.workHours.*`).
+  public var workHours: WorkHoursSettings
 
   public init(
     entries: [TransactionEntry] = [],
@@ -125,7 +138,13 @@ public struct Dataset: Sendable {
     customCurrencies: [CustomCurrency] = [],
     selfEmployment: SelfEmploymentSettings = .standard,
     allocationSettings: AllocationSettings = .standard,
-    debtSettings: DebtSettings = .standard
+    debtSettings: DebtSettings = .standard,
+    tagBook: TagBook = TagBook(),
+    rules: [Rule] = [],
+    dayNotes: [DayNote] = [],
+    incomeSavings: IncomeSavingsSettings = .standard,
+    weekendWindow: WeekendWindow = .standard,
+    workHours: WorkHoursSettings = WorkHoursSettings()
   ) {
     self.entries = entries
     self.links = links
@@ -159,6 +178,12 @@ public struct Dataset: Sendable {
     self.selfEmployment = selfEmployment
     self.allocationSettings = allocationSettings
     self.debtSettings = debtSettings
+    self.tagBook = tagBook
+    self.rules = rules
+    self.dayNotes = dayNotes
+    self.incomeSavings = incomeSavings
+    self.weekendWindow = weekendWindow
+    self.workHours = workHours
   }
 
   public static let empty = Dataset()
@@ -191,6 +216,12 @@ public struct Dataset: Sendable {
     copy.entries.removeAll { gone.contains($0.id) }
     copy.version &+= 1
     return copy
+  }
+
+  /// The operations marked one-off («Разовое»): the calculations that average leave them out.
+  public var oneOffMarks: OneOffMarks {
+    OneOffMarks(
+      ids: Set(entries.lazy.filter { $0.transaction.isOneOff }.map { $0.transaction.id }))
   }
 
   /// Every debt an operation or a journal line may name, deleted ones included: a payment of

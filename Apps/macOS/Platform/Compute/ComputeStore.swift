@@ -118,6 +118,9 @@ final class ComputeStore {
   @ObservationIgnored private let counter = WriteCounter()
   @ObservationIgnored private let faultSwitch = FaultSwitch()
   @ObservationIgnored private let latest = LatestSnapshot()
+  /// The calculations of the spending, income and savings, rules, tags and quick-entry screens,
+  /// off the main thread and kept per version of the data (`AnalysisFacade`).
+  @ObservationIgnored let analysis = AnalysisFacade()
   @ObservationIgnored private var knownToday: DateOnly?
   @ObservationIgnored private var shownSerial = 0
   @ObservationIgnored private var eventsTask: Task<Void, Never>?

@@ -184,6 +184,15 @@ public struct SpendingRulesRepository: Sendable {
     }
   }
 
+  /// ⌘Z of a change of rules, in one transaction: the rules as they were are written back (a
+  /// deleted one comes back, a changed one is as it was) and the ones that were new are deleted.
+  public func restoreRules(_ rules: [Rule], removing ids: [UUID]) throws {
+    try writer.write { db in
+      for rule in rules { try rule.save(db) }
+      for id in ids { _ = try Rule.deleteOne(db, key: id.uuidString) }
+    }
+  }
+
   /// Puts the rules in this order (positions 0…n-1); ones left out keep their order after them.
   /// Returns the order as it was, for ⌘Z (`restoreOrder`).
   @discardableResult
@@ -333,6 +342,49 @@ public struct SpendingRulesRepository: Sendable {
   public func save(_ settings: IncomeSavingsSettings) throws {
     try writer.write { db in
       for (key, value) in settings.storedValues {
+        if let value {
+          try SettingsRepository.set(key, to: value, in: db)
+        } else {
+          try db.execute(sql: "DELETE FROM settings WHERE key = ?", arguments: [key])
+        }
+      }
+    }
+  }
+
+  // MARK: - Basket of a category, weekend, price in hours
+
+  /// Sets the basket of a category (`nil`: none of its own, so it reads from its parent or by the
+  /// default). Returns the basket it had, for ⌘Z; a category that is not there is no error and
+  /// returns `nil` with nothing written.
+  @discardableResult
+  public func setBasket(_ basket: BudgetBasket?, ofCategory id: UUID) throws -> BudgetBasket? {
+    try writer.write { db in
+      let old = try String.fetchOne(
+        db, sql: "SELECT basket FROM categories WHERE id = ?", arguments: [id.uuidString]
+      ).flatMap(BudgetBasket.init(rawValue:))
+      try db.execute(
+        sql: "UPDATE categories SET basket = ? WHERE id = ?",
+        arguments: [basket?.rawValue, id.uuidString])
+      return old
+    }
+  }
+
+  /// The hours that count as the weekend; the standard window deletes its key.
+  public func save(weekend: WeekendWindow) throws {
+    try writer.write { db in
+      if weekend == .standard {
+        try db.execute(
+          sql: "DELETE FROM settings WHERE key = ?", arguments: [WeekendWindow.settingsKey])
+      } else {
+        try SettingsRepository.set(WeekendWindow.settingsKey, to: weekend.storedValue, in: db)
+      }
+    }
+  }
+
+  /// The price in hours of work; a setting at its default deletes its key.
+  public func save(workHours: WorkHoursSettings) throws {
+    try writer.write { db in
+      for (key, value) in workHours.storedValues {
         if let value {
           try SettingsRepository.set(key, to: value, in: db)
         } else {

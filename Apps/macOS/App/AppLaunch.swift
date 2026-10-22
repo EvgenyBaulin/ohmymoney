@@ -169,7 +169,8 @@ enum AppLaunch {
         compute.overlay(write)
       }
       store.attach(
-        repository, references: environment.references, planning: environment.planning)
+        repository, references: environment.references, planning: environment.planning,
+        spending: environment.spendingRules)
     }
     // A copy after every change, whoever wrote it: the store, a setting written through
     // `environment.attempt`, a hidden anomaly, a pinned template. One rule on the database

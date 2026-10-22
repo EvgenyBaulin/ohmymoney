@@ -116,10 +116,14 @@ public final class TransactionsStore {
   public var didWrite: (@MainActor (StoreWrite) -> Void)?
 
   /// Empty until the database has been opened, so the window can render immediately.
-  private var repository: TransactionRepository?
+  var repository: TransactionRepository?
   private var references: ReferenceRepository?
   /// The one write path of planning: an action and its operations in one write.
   private var planning: PlanningRepository?
+  /// Tags, rules, notes of days and baskets: their writes are steps of ⌘Z too (`SpendingUndo`).
+  var spending: SpendingRulesRepository?
+  /// What the last rules applied to the past wrote (`TransactionsStore+Spending`).
+  @ObservationIgnored let backfillBox = BackfillBox()
   private var undoStack: [UndoStep] = []
   /// How far back ⌘Z reaches; a test sets smaller numbers.
   @ObservationIgnored var undoDepth = UndoDepth()
@@ -142,7 +146,7 @@ public final class TransactionsStore {
   /// Each step keeps what the counts its write reached wrote (`CountsSettled`): its undo hands
   /// the operations of their differences as they were back to the settle, so a difference the
   /// write took to zero comes back as the owner left it.
-  private enum UndoStep: Sendable {
+  enum UndoStep: Sendable {
     case created(UUID, CountsSettled)
     /// One operation edited, with the journal lines the edit moved (`EditedEntry`).
     case edited(EditedEntry)
@@ -160,6 +164,8 @@ public final class TransactionsStore {
     /// the parts it closed, the purchases repriced at a rate typed there and the money back of
     /// their parts balanced again.
     case moneyBack(MoneyBackWrite)
+    /// A write of tags, rules, a note of a day or a basket, or rules applied to the past.
+    case spending(SpendingUndo)
 
     /// How many operations undoing it writes.
     var size: Int {
@@ -174,13 +180,14 @@ public final class TransactionsStore {
             + undo.deletion.deletedIds.count + undo.deletion.companionIds.count)
       case .moneyBack(let write):
         max(1, write.created.count + write.repricedBefore.count + write.refundsBefore.count)
+      case .spending(let step): step.size
       }
     }
   }
 
   /// What a write leaves behind once it has landed: the step that takes it back — none for
   /// an undo — and what it changed.
-  private struct Landed: Sendable {
+  struct Landed: Sendable {
     var step: UndoStep?
     var write: StoreWrite
   }
@@ -208,6 +215,7 @@ public final class TransactionsStore {
     repository = nil
     references = nil
     planning = nil
+    spending = nil
     didWrite = nil
     letGoOfTheDatabase()
     isAttached = false
@@ -215,11 +223,12 @@ public final class TransactionsStore {
 
   public func attach(
     _ repository: TransactionRepository, references: ReferenceRepository?,
-    planning: PlanningRepository? = nil
+    planning: PlanningRepository? = nil, spending: SpendingRulesRepository? = nil
   ) {
     self.repository = repository
     self.references = references
     self.planning = planning
+    self.spending = spending
     letGoOfTheDatabase()
     isAttached = true
   }
@@ -254,7 +263,7 @@ public final class TransactionsStore {
   public func forgetRefusal() { refusal = nil }
 
   /// True when the write must not even be attempted, having been announced as refused.
-  private func refuses(_ what: String, _ file: String) -> Bool {
+  func refuses(_ what: String, _ file: String) -> Bool {
     guard let standInFor else { return false }
     Self.standInLog.fault(
       "a write was refused: \(standInFor, privacy: .public) asked \(what, privacy: .public) from \(file, privacy: .public)"
@@ -681,7 +690,7 @@ public final class TransactionsStore {
   /// Rewrites the operations `transform` changes, in one write that is one step of undo —
   /// with `settling`, the transfers that keep an archived account at zero, in the same write
   /// and the same step, when the write changes exactly the operations of `planned`.
-  private func modifyMany(
+  func modifyMany(
     _ ids: [UUID], settling: [Transfer] = [], planned: Set<UUID>? = nil, file: String,
     transform: @escaping @Sendable (TransactionEntry) -> TransactionEntry?
   ) -> Bool {
@@ -1073,7 +1082,7 @@ public final class TransactionsStore {
   /// Where its step goes is taken now, when the write is asked for, not when it lands: a
   /// line saved in between was asked for later, and ⌘Z must take it back first. An undo that
   /// fails gives its step — `undone`, taken off the stack for the write — back to that place.
-  private func runInBackground(
+  func runInBackground(
     _ action: StoreFailure.Action, file: String, undone: UndoStep? = nil,
     _ write: @escaping @Sendable () async throws -> Landed?
   ) {
@@ -1153,12 +1162,12 @@ public final class TransactionsStore {
     guard let repository, !isWritingInBackground, let step = undoStack.last else { return }
     if Self.writesInBackground(step.size) {
       undoStack.removeLast()
-      let planning = planning
+      let (planning, spending) = (planning, spending)
       runInBackground(.undo, file: file, undone: step) {
         Landed(
           step: nil,
           write: try await Self.undoInBackground(
-            step, repository: repository, planning: planning))
+            step, repository: repository, planning: planning, spending: spending))
       }
       return
     }
@@ -1220,6 +1229,9 @@ public final class TransactionsStore {
         let counts = try repository.revertMoneyBack(recorded)
         let readBack = try repository.entries(ids: Self.broughtBack(by: recorded))
         write = Self.laid(counts, over: Self.revertedMoneyBack(recorded, readBack: readBack))
+      case .spending(let undo):
+        guard let spending else { return }
+        write = try undo.revert(spending: spending, transactions: repository)
       }
       // Nothing else runs on the main actor meanwhile: the step is still the last one.
       undoStack.removeLast()
@@ -1232,7 +1244,8 @@ public final class TransactionsStore {
   /// The undo of a bulk step too large for the main thread: the same rules, awaited. Only
   /// the steps of many operations ever get here; the others go the way `undo` takes them.
   private nonisolated static func undoInBackground(
-    _ step: UndoStep, repository: TransactionRepository, planning: PlanningRepository?
+    _ step: UndoStep, repository: TransactionRepository, planning: PlanningRepository?,
+    spending: SpendingRulesRepository?
   ) async throws -> StoreWrite {
     switch step {
     case .created(let id, let counts):
@@ -1281,6 +1294,9 @@ public final class TransactionsStore {
       let counts = try repository.revertMoneyBack(recorded)
       let readBack = try await repository.entriesInBackground(ids: broughtBack(by: recorded))
       return laid(counts, over: revertedMoneyBack(recorded, readBack: readBack))
+    case .spending(let undo):
+      guard let spending else { throw PlanningUndoUnavailable() }
+      return try undo.revert(spending: spending, transactions: repository)
     }
   }
 
@@ -1351,7 +1367,7 @@ public final class TransactionsStore {
   // MARK: Helpers
 
   /// Keeps the step of a write that has just been made and reports the write.
-  private func record(_ landed: Landed) {
+  func record(_ landed: Landed) {
     record(landed, at: undoStack.count, epoch: undoEpoch)
   }
 
@@ -1400,7 +1416,7 @@ public final class TransactionsStore {
   /// and the file that asked («тип, категория, место в коде»); `lastError` the type; and
   /// `failure` — what the screen shows — a write whose caller has no words of its own for it,
   /// unless it was a write on a database the screen no longer shows (`onScreen: false`).
-  private func failed(
+  func failed(
     _ action: StoreFailure.Action, _ error: any Error, file: String, onScreen: Bool = true
   ) {
     let type = String(describing: Swift.type(of: error))

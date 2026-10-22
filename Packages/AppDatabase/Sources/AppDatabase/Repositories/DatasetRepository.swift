@@ -41,6 +41,8 @@ public struct DatasetRepository: Sendable {
   /// - And the sums of dues typed from a bank's app, the costs of the loans, the rules of the
   ///   allocation of income, the custom currencies, and the settings of self-employment, of the
   ///   allocation and of the debts.
+  /// - And the tags with their links to parts, the rules in the order of precedence, the notes of
+  ///   days and the settings of «Доход и сбережения», of the weekend and of the price in hours.
   ///
   /// `version` is the caller's mark for the snapshot (the pipeline's count of writes taken
   /// before the read), so a result can be told apart from one built on older data.
@@ -112,6 +114,20 @@ public struct DatasetRepository: Sendable {
       storedValues: try SettingsRepository.values(of: AllocationSettings.storageKeys, db: db))
     let debtSettings = DebtSettings(
       storedValues: try SettingsRepository.values(of: DebtSettings.storageKeys, db: db))
+    // The tags, the rules, the notes of days and the settings of the spending screens come in the
+    // same read, so a screen never shows a tag of a part the snapshot lacks.
+    let tagBook = try SpendingRulesRepository.tagBook(db)
+    let spendingRules = try SpendingRulesRepository.rules(db)
+    let dayNotes = try DayNote.fetchAll(db, sql: "SELECT * FROM day_notes ORDER BY day")
+    let incomeSavings = IncomeSavingsSettings(
+      storedValues: try SettingsRepository.values(of: IncomeSavingsSettings.storageKeys, db: db))
+    let weekendWindow =
+      try SettingsRepository.values(of: [WeekendWindow.settingsKey], db: db)[
+        WeekendWindow.settingsKey
+      ]
+      .flatMap { WeekendWindow(storedValue: $0) } ?? .standard
+    let workHours = WorkHoursSettings(
+      storedValues: try SettingsRepository.values(of: WorkHoursSettings.storageKeys, db: db))
     try Task.checkCancellation()
     return Dataset(
       entries: entries,
@@ -147,6 +163,12 @@ public struct DatasetRepository: Sendable {
       customCurrencies: customCurrencies,
       selfEmployment: selfEmployment,
       allocationSettings: allocationSettings,
-      debtSettings: debtSettings)
+      debtSettings: debtSettings,
+      tagBook: tagBook,
+      rules: spendingRules,
+      dayNotes: dayNotes,
+      incomeSavings: incomeSavings,
+      weekendWindow: weekendWindow,
+      workHours: workHours)
   }
 }

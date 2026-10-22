@@ -43,6 +43,8 @@ public final class AppEnvironment {
   public private(set) var currencyCatalog = CurrencyCatalog.empty
   /// Scheduled payments, limits, goals, expectations, reconciliations and debt journals.
   public private(set) var planning: PlanningRepository?
+  /// Tags, rules, notes of days, baskets and the settings of the spending screens.
+  public private(set) var spendingRules: SpendingRulesRepository?
   /// The saved «what if» scenarios.
   public private(set) var scenarios: ScenarioRepository?
   /// «Это нормально» on an anomaly.
@@ -835,6 +837,7 @@ public final class AppEnvironment {
     currencies = nil
     currencyCatalog = .empty
     planning = nil
+    spendingRules = nil
     scenarios = nil
     anomalies = nil
     accounts = nil
@@ -904,6 +907,7 @@ public final class AppEnvironment {
     self.rates = RateRepository(writer: stack.writer)
     self.currencies = CurrencyRepository(writer: stack.writer)
     self.planning = PlanningRepository(writer: stack.writer, liveCounts: liveCounts)
+    self.spendingRules = SpendingRulesRepository(writer: stack.writer)
     self.scenarios = ScenarioRepository(writer: stack.writer, liveCounts: liveCounts)
     self.anomalies = AnomalyRepository(writer: stack.writer)
     self.accounts = AccountRepository(writer: stack.writer)
