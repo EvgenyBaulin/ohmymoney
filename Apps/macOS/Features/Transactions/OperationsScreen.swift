@@ -205,6 +205,7 @@ struct OperationsScreen: View {
         }
         searchField
           .frame(maxWidth: roomy ? 260 : .infinity)
+        #if !os(iOS)
         Button {
           NotificationCenter.default.post(name: .focusEntryLine, object: nil)
         } label: {
@@ -219,6 +220,7 @@ struct OperationsScreen: View {
         .buttonBorderShape(.circle)
         .help(environment.language("action.add"))
         .accessibilityIdentifier("operations.add")
+        #endif
       }
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 12) {
@@ -240,17 +242,31 @@ struct OperationsScreen: View {
   }
 
   private var searchField: some View {
-    TextField(
+    let field = TextField(
       text: $state.filters.search, prompt: Text(verbatim: t("operations.search.prompt"))
     ) {
       Text(verbatim: t("transactions.search"))
     }
-    .textFieldStyle(.roundedBorder)
     .labelsHidden()
     .focused($searchFocused)
     .accessibilityIdentifier("transactions.search")
     .guideTarget(GuideTarget.operationsSearch)
     .popoverTip(SpendingSearchTip())
+    #if os(iOS)
+      // The phone's search is a capsule with a magnifier, as the design draws it.
+      return HStack(spacing: 8) {
+        Image(systemName: "magnifyingglass")
+          .foregroundStyle(.secondary)
+          .accessibilityHidden(true)
+        field.textFieldStyle(.plain)
+      }
+      .padding(.horizontal, 14)
+      .padding(.vertical, 9)
+      .background(surfaces.card, in: .capsule)
+      .overlay { Capsule().strokeBorder(surfaces.cardBorder, lineWidth: 0.5) }
+    #else
+      return field.textFieldStyle(.roundedBorder)
+    #endif
   }
 
   private var controls: some View {
@@ -325,24 +341,38 @@ struct OperationsScreen: View {
         Text(verbatim: t("transactions.noneYetHint"))
       }
     } else if let listing = pages.listing, let shown = pages.shown, !listing.isEmpty {
-      // The table stands on a rounded card of the theme, as the design draws it.
-      VStack(spacing: 0) {
-        table(shown)
-          .scrollContentBackground(.hidden)
-        if shown.operationCount < listing.operationCount {
-          earlierMonths(hidden: listing.operationCount - shown.operationCount)
+      #if os(iOS)
+        // The phone's day cards are cards already: no second card around them.
+        VStack(spacing: 0) {
+          table(shown)
+          if shown.operationCount < listing.operationCount {
+            earlierMonths(hidden: listing.operationCount - shown.operationCount)
+              .background(surfaces.card)
+              .clipShape(.rect(cornerRadius: 12))
+              .padding(.horizontal, 16)
+              .padding(.bottom, 8)
+          }
         }
-      }
-      .background(surfaces.card)
-      .clipShape(.rect(cornerRadius: 16))
-      .overlay {
-        RoundedRectangle(cornerRadius: 16).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
-      }
-      // With the editor column open the card runs up to its divider: the column's own width is
-      // what the layout keeps, and nothing of it is spent on a margin beside the table.
-      .padding(.leading, 16)
-      .padding(.trailing, editorColumnShown ? 0 : 16)
-      .padding(.bottom, 12)
+      #else
+        // The table stands on a rounded card of the theme, as the design draws it.
+        VStack(spacing: 0) {
+          table(shown)
+            .scrollContentBackground(.hidden)
+          if shown.operationCount < listing.operationCount {
+            earlierMonths(hidden: listing.operationCount - shown.operationCount)
+          }
+        }
+        .background(surfaces.card)
+        .clipShape(.rect(cornerRadius: 16))
+        .overlay {
+          RoundedRectangle(cornerRadius: 16).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
+        }
+        // With the editor column open the card runs up to its divider: the column's own width is
+        // what the layout keeps, and nothing of it is spent on a margin beside the table.
+        .padding(.leading, 16)
+        .padding(.trailing, editorColumnShown ? 0 : 16)
+        .padding(.bottom, 12)
+      #endif
     } else if pages.listing != nil {
       nothingFound
     } else {

@@ -10,6 +10,7 @@ struct AccountsTab<Entry: View>: View {
   let actions: OperationActions
   @ViewBuilder let entry: Entry
 
+  @Environment(\.horizontalSizeClass) private var sizeClass
   @State private var model = AccountsSidebarModel()
   @State private var selection: SidebarItem = .allAccounts
   @State private var shown: SidebarItem?
@@ -37,7 +38,12 @@ struct AccountsTab<Entry: View>: View {
           })
       ) {
         if environment.state == .ready {
-          AccountsSidebarSection(model: model, selection: $selection)
+          if sizeClass == .compact {
+            // The phone shows the accounts as cards, as the design draws them.
+            AccountCardsSection(model: model, selection: $selection)
+          } else {
+            AccountsSidebarSection(model: model, selection: $selection)
+          }
         }
       }
       .accountsSidebarPresentations(model, selection: $selection)

@@ -62,6 +62,18 @@ final class OperationsAccountsChromeTests: XCTestCase {
     }
   }
 
+  func testATransferRowHasItsOwnTitleInBothLanguages() {
+    let language = AppLanguage()
+    var seen: Set<String> = []
+    for choice in [AppLanguage.Choice.english, .russian] {
+      language.choice = choice
+      let text = language("operations.row.transfer", table: "Transactions")
+      XCTAssertNotEqual(text, "operations.row.transfer", "no text in \(choice)")
+      seen.insert(text)
+    }
+    XCTAssertEqual(seen.count, 2)
+  }
+
   // MARK: Rows
 
   func testTheSignOfAnAmountSaysTheDirection() {
