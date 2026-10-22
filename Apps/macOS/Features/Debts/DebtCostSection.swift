@@ -16,7 +16,13 @@ struct DebtCostSection: View {
     let report = Self.report(line, costs: costs, calendar: environment.calendar)
     if !costs.isEmpty || report != nil {
       VStack(alignment: .leading, spacing: 4) {
-        Text(verbatim: t("costs.title")).appFont(.subheadline.weight(.semibold))
+        Text(verbatim: t("costs.honest")).appFont(.headline)
+          .accessibilityAddTraits(.isHeader)
+        if let report {
+          DebtFactRow(
+            label: t("costs.borrowed"),
+            value: environment.money.exact(report.principalE4, currency: line.debt.currency))
+        }
         ForEach(costs) { cost in
           HStack {
             Text(verbatim: cost.name ?? t("costs.kind.\(cost.kind.rawValue)"))
@@ -38,11 +44,28 @@ struct DebtCostSection: View {
           .appFont(.callout)
         }
         if let report {
+          if report.interestE4.raw > 0 {
+            DebtFactRow(
+              label: t("costs.interest"),
+              value: "+" + environment.money.exact(report.interestE4, currency: line.debt.currency))
+          }
+          Divider()
+          DebtFactRow(
+            label: t("costs.total"),
+            value: environment.money.exact(Self.total(report), currency: line.debt.currency),
+            bold: true)
           DebtCostLines(report: report, currency: line.debt.currency)
+            .foregroundStyle(.secondary)
         }
       }
+      .contentCard()
       .accessibilityIdentifier("debts.costs")
     }
+  }
+
+  /// «Вернёте всего»: every payment and every fee, the principal included.
+  static func total(_ report: DebtCostReport) -> AmountE4 {
+    report.paymentsE4 + report.costsOnceE4 + report.costsPeriodicE4
   }
 
   /// The true cost of the loan of `line` from its first due: the money drawn, at its rate and

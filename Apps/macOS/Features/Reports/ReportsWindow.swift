@@ -9,6 +9,7 @@ import SwiftUI
 /// and the grouping on screen are a preference of the window (`UserDefaults`), never the
 /// database: they are there again when the window is opened again.
 struct ReportsWindow: View {
+  @Environment(\.themeSurfaces) private var surfaces
   let deps: AppDependencies
 
   init(deps: AppDependencies) {
@@ -119,6 +120,12 @@ struct ReportsWindow: View {
 
       if let model = state.value {
         ReportTableView(model: model, collapsed: $collapsed)
+          .clipShape(.rect(cornerRadius: 12))
+          .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder, lineWidth: 0.5))
+          .padding(.horizontal, 20)
+        Text(verbatim: t("reports.csvNote"))
+          .appFont(.caption).foregroundStyle(.secondary)
+          .padding(.horizontal, 20).padding(.bottom, 12)
       } else {
         ComputedBlock(
           title: nil, state: state, style: .plain,

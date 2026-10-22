@@ -14,7 +14,7 @@ struct AnalyticsSectionView: View {
   @State private var width: CGFloat = 0
 
   /// From here on two small charts stand side by side.
-  static let wideWidth: CGFloat = 1_000
+  static let wideWidth: CGFloat = 860
 
   var body: some View {
     ScrollView {
@@ -318,6 +318,10 @@ private struct QualitySection: View {
               })
           },
           styles: styles)
+      }
+
+      if case .ready(let columns)? = state.value?.quality?.shares {
+        QualityTiles(totals: QualityTotals.make(columns: columns))
       }
 
       AnalyticsPair(isWide: isWide) {

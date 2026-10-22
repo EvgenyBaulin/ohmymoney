@@ -35,6 +35,23 @@
         }
       }
     },
+    "costs.borrowed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrowed"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Взято"
+          }
+        }
+      }
+    },
     "costs.category.insurance": {
       "extractionState": "manual",
       "localizations": {
@@ -137,6 +154,23 @@
         }
       }
     },
+    "costs.honest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "True cost"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Честная стоимость"
+          }
+        }
+      }
+    },
     "costs.inLoan": {
       "extractionState": "manual",
       "localizations": {
@@ -167,6 +201,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "в кредите"
+          }
+        }
+      }
+    },
+    "costs.interest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты"
           }
         }
       }
@@ -375,6 +426,40 @@
         }
       }
     },
+    "costs.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You will pay back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вернёте всего"
+          }
+        }
+      }
+    },
+    "debts.actions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actions"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Действия"
+          }
+        }
+      }
+    },
     "debts.add": {
       "extractionState": "manual",
       "localizations": {
@@ -575,6 +660,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Платёж"
+          }
+        }
+      }
+    },
+    "debts.card.rate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставка"
+          }
+        }
+      }
+    },
+    "debts.chart.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debt balance"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток долга"
           }
         }
       }
@@ -1658,6 +1777,23 @@
         }
       }
     },
+    "debts.rate.row": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %% a year"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %% годовых"
+          }
+        }
+      }
+    },
     "debts.reopen": {
       "extractionState": "manual",
       "localizations": {
@@ -1688,6 +1824,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось вернуть долг в открытые."
+          }
+        }
+      }
+    },
+    "debts.series.fact": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "actual"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "факт"
+          }
+        }
+      }
+    },
+    "debts.series.plan": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "by schedule"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "по графику"
           }
         }
       }
