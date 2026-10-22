@@ -82,6 +82,9 @@ extension Notification.Name {
 @Observable
 final class TemplatesModel {
   private(set) var templates: [Template] = []
+  /// Puts the chips in the order of the owner's habits (time of day, day of the week); unset,
+  /// they stay as the dictionary has them.
+  @ObservationIgnored var ordering: (([Template]) -> [Template])?
   @ObservationIgnored private var references: ReferenceRepository?
   @ObservationIgnored private var observer: (any NSObjectProtocol)?
 
@@ -100,7 +103,8 @@ final class TemplatesModel {
 
   /// The chips: the templates in the archive are not among them.
   func reload() {
-    templates = (try? references?.templates(includeArchived: false)) ?? []
+    let all = (try? references?.templates(includeArchived: false)) ?? []
+    templates = ordering?(all) ?? all
   }
 
   /// An operation the line saved: remembered as a chip when a chip can say it again, and the

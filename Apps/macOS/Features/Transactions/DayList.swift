@@ -38,6 +38,8 @@ struct DayList<Header: View, MenuItems: View>: View {
   var primaryAction: (Set<UUID>) -> Void
   /// ⌫ on the selection. `nil` leaves the key alone.
   var deleteAction: ((Set<UUID>) -> Void)?
+  /// A row can be dragged out of the list (to another day of the calendar).
+  var dragsRows = false
 
   var body: some View {
     List(selection: $selection) { rows }
@@ -102,6 +104,7 @@ struct DayList<Header: View, MenuItems: View>: View {
       payingFor: PayingForLabel.text(of: entry, people: peopleNames, language: environment.language)
     )
     .tag(entry.id)
+    .modifier(OperationDragModifier(enabled: dragsRows, id: entry.id))
   }
 
   /// The names of the people, archived ones too: «за Машу», «пополам с Машей».

@@ -15,6 +15,10 @@ struct CalendarDayCell: View {
   /// The week shows a taller cell that names what is planned.
   var detailed = false
   var isChosen = false
+  /// The day has a note of the owner's: a symbol says so.
+  var hasNote = false
+  /// An operation is being dragged over the day.
+  var isDropTarget = false
   /// The Overview tile: a narrow strip, the figure only.
   var compact = false
 
@@ -23,6 +27,11 @@ struct CalendarDayCell: View {
       HStack(spacing: 4) {
         number
         Spacer(minLength: 0)
+        if hasNote {
+          Image(systemName: "note.text")
+            .appFont(.caption2)
+            .foregroundStyle(.secondary)
+        }
         if let symbol = CalendarText.symbol(of: day.level) {
           Image(systemName: symbol)
             .appFont(.caption2.weight(.semibold))
@@ -47,13 +56,16 @@ struct CalendarDayCell: View {
     .background(background, in: .rect(cornerRadius: 8))
     .overlay {
       RoundedRectangle(cornerRadius: 8)
-        .strokeBorder(borderStyle, lineWidth: isChosen ? 2 : 1)
-        .opacity(isChosen || contrast == .increased ? 1 : 0)
+        .strokeBorder(borderStyle, lineWidth: isChosen || isDropTarget ? 2 : 1)
+        .opacity(isChosen || isDropTarget || contrast == .increased ? 1 : 0)
     }
     .opacity(day.inScope ? 1 : 0.45)
     .contentShape(.rect)
     .accessibilityElement(children: .ignore)
-    .accessibilityLabel(Text(verbatim: CalendarText.label(of: day, in: calendar, environment)))
+    .accessibilityLabel(
+      Text(
+        verbatim: CalendarText.label(of: day, in: calendar, environment)
+          + (hasNote ? ", " + QuickText.t("quick.note.mark", environment) : "")))
     .accessibilityAddTraits(isChosen ? [.isButton, .isSelected] : .isButton)
   }
 
@@ -131,6 +143,6 @@ struct CalendarDayCell: View {
   }
 
   private var borderStyle: AnyShapeStyle {
-    isChosen ? AnyShapeStyle(surfaces.accent) : AnyShapeStyle(.separator)
+    isChosen || isDropTarget ? AnyShapeStyle(surfaces.accent) : AnyShapeStyle(.separator)
   }
 }

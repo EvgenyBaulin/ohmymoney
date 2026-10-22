@@ -1029,6 +1029,16 @@ struct DetailsPanel: View {
 
   private var splitEditor: some View {
     VStack(alignment: .leading, spacing: 8) {
+      // Two parts: the border between them can be dragged along the bar of the amount.
+      if model.draft.parts.count == 2, let bar = SplitBar(total: model.draft.amount) {
+        SplitBarView(
+          bar: bar, first: model.draft.parts[0].amount, currency: model.draft.currency,
+          locked: model.hasClosedPart
+        ) { first, second in
+          model.draft.parts[0].amount = first
+          model.draft.parts[1].amount = second
+        }
+      }
       // Two lines per part, not one. A part carries everything an operation does («У
       // каждой части свои категория, подкатегория, оценка, сумма (тоже выражением), «для
       // кого», событие и признак «за другого»»), and all of it in one row came to about 790 pt

@@ -5,17 +5,35 @@ import SwiftUI
 struct CardDraft: Equatable {
   var name: String
   var aliases: [String]
+  /// The four digits a bank text names the card by, as typed; empty until then.
+  var last4: String
+  /// Whatever else the owner keeps about the card, free text.
+  var details: String
 
   init(_ card: PaymentCard?) {
     name = card?.name ?? ""
     aliases = card?.aliases ?? []
+    last4 = card?.last4 ?? ""
+    details = card?.details ?? ""
   }
+
+  /// The digits as they are kept: only the digits of what was typed, `nil` for none.
+  var keptLast4: String? {
+    let digits = CardDetails.digits(last4)
+    return digits.isEmpty ? nil : digits
+  }
+
+  /// Four digits or none: anything else is a slip the editor says so about.
+  var last4IsValid: Bool { keptLast4.map { $0.count == 4 } ?? true }
 
   /// The card to save: `previous` with the edits, or a new card of `accountId`.
   func card(previous: PaymentCard?, accountId: UUID) -> PaymentCard {
     var card = previous ?? PaymentCard(accountId: accountId, name: "")
     card.name = name
     card.aliases = aliases
+    card.last4 = keptLast4
+    let note = details.trimmingCharacters(in: .whitespacesAndNewlines)
+    card.details = note.isEmpty ? nil : note
     return card
   }
 }
@@ -73,6 +91,27 @@ struct CardEditor: View {
             .foregroundStyle(.secondary)
         }
         Section {
+          NameField(
+            title: QuickText.t("quick.card.last4", environment), text: $draft.last4,
+            identifier: "card.editor.last4")
+          if !draft.last4IsValid {
+            Label {
+              Text(verbatim: QuickText.t("quick.card.last4.bad", environment))
+            } icon: {
+              Image(systemName: "exclamationmark.triangle")
+            }
+            .foregroundStyle(.orange)
+            .appFont(.callout)
+          }
+          NameField(
+            title: QuickText.t("quick.card.details", environment), text: $draft.details,
+            identifier: "card.editor.details")
+        } footer: {
+          Text(verbatim: QuickText.t("quick.card.last4.hint", environment) + " "
+            + QuickText.t("quick.card.details.hint", environment))
+            .foregroundStyle(.secondary)
+        }
+        Section {
         } footer: {
           Text(verbatim: t("card.editor.hint"))
             .foregroundStyle(.secondary)
@@ -90,11 +129,11 @@ struct CardEditor: View {
         Button(environment.language("action.save"), action: save)
           .keyboardShortcut(.defaultAction)
           .buttonStyle(.borderedProminent)
-          .disabled(store.isWritingInBackground)
+          .disabled(store.isWritingInBackground || !draft.last4IsValid)
       }
     }
     .padding(20)
-    .sheetFrame(width: 440, height: 420)
+    .sheetFrame(width: 440, height: 560)
     .onChange(of: draft) { _, _ in refusal = nil }
     .refusedWriteAlert($failed, environment)
   }

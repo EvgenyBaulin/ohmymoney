@@ -556,6 +556,7 @@ struct AnomaliesCard: View {
         notes: notes)
       VStack(alignment: .leading, spacing: 6) {
         TrendNudgeRow()
+        DraftReminderRow()
         if let snapshot = compute.snapshot {
           ForEach(notes) { note in
             WorthALookNoteRow(

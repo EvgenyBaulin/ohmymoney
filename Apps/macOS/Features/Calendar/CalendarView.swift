@@ -20,6 +20,10 @@ struct CalendarView: View {
   @State private var chosen: DateOnly?
   @State private var selection: Set<UUID> = []
   @State private var width: CGFloat = 0
+  /// An operation moved to another day: by a drop on a day, or by the menu of its row.
+  @State private var mover = MoveToDayModel()
+  /// The day under a dragged operation, to show where it would land.
+  @State private var dropTarget: DateOnly?
 
   private func t(_ key: String) -> String { CalendarText.t(key, environment) }
 
@@ -48,14 +52,26 @@ struct CalendarView: View {
       ledger: snapshot.ledger,
       emptyText: chosenDay.map { _ in t("calendar.day.empty") },
       header: { plans(of: chosenDay, in: calendar) },
-      menu: { ids in BulkMenuItems(ids: ids, actions: actions, offersEdit: true) },
+      menu: { ids in
+        BulkMenuItems(ids: ids, actions: actions, offersEdit: true)
+        if ids.count == 1, let only = ids.first {
+          Divider()
+          Button(QuickText.t("quick.move.menu", environment)) {
+            mover.picking = MoveToDayModel.Pick(id: only)
+          }
+        }
+      },
       primaryAction: { ids in actions.edit(ids, store: store) },
-      deleteAction: { ids in actions.requestDeletion(of: ids, store: store) }
+      deleteAction: { ids in actions.requestDeletion(of: ids, store: store) },
+      dragsRows: true
     )
     .frame(minHeight: 160)
     .accessibilityIdentifier("calendar.dayList")
     return VStack(alignment: .leading, spacing: 12) {
       header(calendar, today: snapshot.today)
+      if let text = mover.message {
+        QuickCalendarMessage(text: text, failed: mover.failed)
+      }
       if wide {
         HStack(alignment: .top, spacing: 16) {
           dayList
@@ -78,6 +94,7 @@ struct CalendarView: View {
     .onChange(of: compute.generation) { _, _ in actions.reloadDictionaries(from: snapshot.dataset) }
     .onAppear { actions.reloadDictionaries(from: snapshot.dataset) }
     .onChange(of: chosen) { _, _ in selection = [] }
+    .modifier(MoveToDayPresentation(mover: mover, snapshot: snapshot))
     .onGeometryChange(for: CGFloat.self) {
       $0.size.width
     } action: {
@@ -309,14 +326,38 @@ struct CalendarView: View {
             } label: {
               CalendarDayCell(
                 day: day, calendar: calendar, detailed: calendar.scope == .week,
-                isChosen: day.day == (chosen ?? calendar.today))
+                isChosen: day.day == (chosen ?? calendar.today),
+                hasNote: noteDays.contains(day.day), isDropTarget: dropTarget == day.day)
             }
             .buttonStyle(.plain)
+            .dropDestination(for: String.self) { items, _ in
+              drop(items, on: day.day)
+            } isTargeted: { targeted in
+              if targeted { dropTarget = day.day } else if dropTarget == day.day { dropTarget = nil }
+            }
             .accessibilityIdentifier("calendar.day.\(day.day.iso)")
           }
         }
       }
     }
+  }
+
+  // MARK: - Moving and notes
+
+  /// The days that have a note, for the mark on their cells.
+  private var noteDays: Set<DateOnly> {
+    Set((compute.snapshot?.dataset.dayNotes ?? []).map(\.day))
+  }
+
+  /// An operation dropped on a day: it is moved there, with every check an edit makes.
+  private func drop(_ items: [String], on day: DateOnly) -> Bool {
+    dropTarget = nil
+    guard let payload = items.first, let id = OperationDrag.id(in: payload),
+      let entry = compute.snapshot?.ledger.entry(id)
+    else { return false }
+    mover.request(
+      entry, to: day, environment: environment, store: store, compute: compute)
+    return true
   }
 
   // MARK: - The plans of the chosen day
@@ -327,6 +368,9 @@ struct CalendarView: View {
       VStack(alignment: .leading, spacing: 4) {
         Text(verbatim: environment.dates.longDay(day.day))
           .appFont(.headline)
+        DayNoteRow(
+          day: day.day,
+          note: compute.snapshot?.dataset.dayNotes.first { $0.day == day.day })
         if !day.plans.isEmpty {
           Text(verbatim: t("calendar.planned"))
             .appFont(.subheadline)

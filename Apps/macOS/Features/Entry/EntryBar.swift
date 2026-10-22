@@ -138,6 +138,8 @@ struct EntryBar<Accessory: View>: View {
   @State private var allocation: AllocationRequest?
   /// «Включить…» of the offer to count the tax of self-employment.
   @State private var settingUpSelfEmployment = false
+  /// Quick entry: a pasted text of a bank, «ой, 350», places, the parts of a «;» line, drafts.
+  @State private var fast = QuickEntryModel()
   @Namespace private var glass
 
   private var interpreter: any LineInterpreter {
@@ -159,6 +161,8 @@ struct EntryBar<Accessory: View>: View {
       focused = style == .line
       prepareModel()
       templates.attach(environment.references)
+      fast.drafts.attach(SettingsDraftStore(settings: environment.settings))
+      arrangeTheChips()
       if opensDetails || style == .form { showsDetails = true }
     }
     .onReceive(NotificationCenter.default.publisher(for: .focusEntryLine)) { _ in
@@ -179,8 +183,15 @@ struct EntryBar<Accessory: View>: View {
     }
     // The open panel shows what the line says as it is typed, not only after Enter. The notice
     // that an operation became a plan has said what it had to: the next line starts clean.
-    .onChange(of: text) { _, _ in
+    .onChange(of: text) { old, new in
       if message?.isNotice == true { message = nil }
+      // A text of a bank pasted into the line is read; any other paste stays as it came.
+      if let replaced = fast.lineChanged(
+        old: old, new: new, environment: environment, compute: compute)
+      {
+        text = replaced
+        return
+      }
       readTheLineIntoThePanel()
       refreshRuleHint()
     }
@@ -196,6 +207,7 @@ struct EntryBar<Accessory: View>: View {
       if showsDetails { model?.reload() }
       // The chips too: a restore or an archive brought in replaces them.
       templates.reload()
+      fast.drafts.reload()
     }
     // Cancelled, the confirmation leaves the line as it was; recorded, it clears it like a
     // save. A person who owes nothing, or owes on a debt, sends the money back to the line as
@@ -237,6 +249,7 @@ struct EntryBar<Accessory: View>: View {
       SelfEmploymentSetupSheet()
         .handingOver(dependencies)
     }
+    .quickEntrySheets(fast, text: $text)
     // The ↓ panel asks for the picker through the model: read here, in the body, so the ask
     // is seen, and handed to the sheet.
     .onChange(of: model?.refundPicking) { _, request in
@@ -520,7 +533,8 @@ struct EntryBar<Accessory: View>: View {
           model: templates,
           currencyOf: { Templates.currency(of: $0, in: environment, model: model) }
         ) { template in
-          text = templateLine(for: template)
+          // A chip with a blank («Такси до работы — ? ₽») puts its words in and waits for the sum.
+          text = QuickSuggest.lineForBlank(template) ?? templateLine(for: template)
           focused = true
         }
 
@@ -604,7 +618,17 @@ struct EntryBar<Accessory: View>: View {
         // capsule instead of standing in the stack so that it adds nothing to the height —
         // otherwise the list would be nudged by every keystroke that changes what a formula
         // comes to.
-        .overlay(alignment: .top) { standing(above: caption) }
+        .overlay(alignment: .top) {
+          standing(
+            above: VStack(alignment: .leading, spacing: 6) {
+              if !showsDetails {
+                QuickEntryStrip(
+                  model: fast, text: $text, applyCorrection: applyTheCorrection,
+                  refocus: { focused = true })
+              }
+              caption
+            })
+        }
       }
       // The ↓ panel stands above the whole bar and adds nothing to its height either. The
       // room the list keeps under the bar is the safe area's, and the safe area takes it from
@@ -1153,9 +1177,27 @@ struct EntryBar<Accessory: View>: View {
     guard returnGate.admits(now: ProcessInfo.processInfo.systemUptime, isRepeat: isRepeat) else {
       return
     }
-    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    saveTheLine()
+  }
+
+  /// The save of the line, past the gate of the keystroke: Return, a click, and the next part of
+  /// a line with «;», which is no keystroke at all.
+  private func saveTheLine() {
+    var trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
     prepareModel()
     guard let model else { return }
+
+    // A correction («ой, 350»), «повторить вчера», a line of several operations («кофе 250;
+    // метро 62») or a bill with a tip is answered by quick entry before the line is read.
+    if !trimmed.isEmpty, model.transfer == nil {
+      switch fast.intercept(trimmed, environment: environment, compute: compute) {
+      case .handled:
+        return
+      case .proceed(let line, let replacesText):
+        trimmed = line
+        if replacesText { text = line }
+      }
+    }
 
     // A transfer left behind the closed panel of the line — Esc, a question not answered — goes:
     // the line is read afresh, «кофе 300» as an expense, «перевод …» as a transfer of its own.
@@ -1204,10 +1246,12 @@ struct EntryBar<Accessory: View>: View {
     do {
       let amount = try parsed.amount.map { try AmountE4(decimal: $0) } ?? model.draft.amount
       model.retractRules()
+      fast.collapseTip(on: model)
       model.apply(reading, amount: amount, today: environment.today, text: trimmed)
       model.applyRules(
         compute.snapshot?.dataset.rules ?? [], lineTags: TagText.extract(from: trimmed).tags,
         calendar: environment.calendar)
+      fast.applyTip(to: model, environment: environment)
       // «перевод 5000 сбер т-банк» is a transfer, not an operation: written at once when both
       // accounts are known in one currency, else left in the fields of a transfer to finish.
       if let transfer = parsed.transfer {
@@ -1400,6 +1444,11 @@ struct EntryBar<Accessory: View>: View {
       }
     #endif
     model.reset()
+    // The draft this line was finished from is done; the next part of a «;» line is next.
+    fast.drafts.lineWritten()
+    fast.tip = nil
+    if fast.bank?.reconcileAfter == true { fast.showsReconcile = true }
+    fast.bank = nil
     // A rating just given by hand is history now (rule 2 of the qualities): the next
     // operation described the same way should find it.
     model.reload()
@@ -1420,6 +1469,32 @@ struct EntryBar<Accessory: View>: View {
     // was being typed in — goes with the panel: without this the window kept no first
     // responder and the next line was typed into nothing. `closeDetails` does the same.
     focused = true
+    // The next part of a line with «;» goes on where this one ended, once the bar has settled
+    // (a run-loop timer, which a window under test serves like the app does).
+    if let next = fast.nextPart() {
+      text = next
+      Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+        MainActor.assumeIsolated { saveTheLine() }
+      }
+    }
+  }
+
+  /// «Исправить» under «ой, 350»: the corrected operation is written, the line is cleared.
+  private func applyTheCorrection() {
+    if fast.applyCorrection(environment: environment, store: store) { text = "" }
+    focused = true
+  }
+
+  /// The chips come in the order of the owner's habits: what he writes at this hour on this day
+  /// of the week comes first, the pinned ones before all.
+  private func arrangeTheChips() {
+    templates.ordering = { [environment, compute] templates in
+      guard let snapshot = compute.snapshot else { return templates }
+      return HabitOrdering.ordered(
+        templates, history: QuickSuggest.habits(of: snapshot.dataset.entries),
+        now: environment.now(), calendar: environment.calendar)
+    }
+    templates.reload()
   }
 }
 
