@@ -192,6 +192,11 @@ struct AnalyticsWindow: View {
           titleBlock
           periodControls
         }
+        // A phone: the kind of the period across the width, the steps and the month under it.
+        VStack(alignment: .leading, spacing: 10) {
+          titleBlock
+          compactPeriodControls
+        }
       }
       sectionChips
     }
@@ -278,6 +283,54 @@ struct AnalyticsWindow: View {
         setPeriod(.current(period.kind, today: today))
       }
       .disabled(!enabled || period.isCurrent(today: today))
+    }
+  }
+
+  /// The period controls as a phone shows them: «Месяц | Год» across the width, and under it the
+  /// two steps as arrows, the chosen period between them, and «Текущий».
+  private var compactPeriodControls: some View {
+    let enabled = section.followsThePeriod
+    return VStack(spacing: 8) {
+      Picker(selection: kindSelection) {
+        ForEach(AnalyticsPeriod.Kind.allCases, id: \.self) { kind in
+          Text(verbatim: t(kind.titleKey)).tag(kind)
+        }
+      } label: {
+        Text(verbatim: t("analytics.period.kind"))
+      }
+      .pickerStyle(.segmented)
+      .labelsHidden()
+      .disabled(!enabled)
+      HStack(spacing: 6) {
+        Button {
+          setPeriod(period.stepped(by: -1))
+        } label: {
+          Image(systemName: "chevron.left")
+        }
+        .accessibilityLabel(Text(verbatim: t("analytics.period.previous")))
+        .disabled(!enabled)
+        Button {
+          choosingPeriod = true
+        } label: {
+          Text(verbatim: AnalyticsText.title(of: period, environment))
+            .monospacedDigit().lineLimit(1).minimumScaleFactor(0.8)
+            .frame(maxWidth: .infinity)
+        }
+        .accessibilityIdentifier("period.choose.compact")
+        .disabled(!enabled)
+        Button {
+          setPeriod(period.stepped(by: 1))
+        } label: {
+          Image(systemName: "chevron.right")
+        }
+        .accessibilityLabel(Text(verbatim: t("analytics.period.next")))
+        .disabled(!enabled || !period.canStepForward(today: today))
+        Button(t("analytics.period.current")) {
+          setPeriod(.current(period.kind, today: today))
+        }
+        .lineLimit(1)
+        .disabled(!enabled || period.isCurrent(today: today))
+      }
     }
   }
 

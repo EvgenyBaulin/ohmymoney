@@ -18,6 +18,7 @@ struct NudgeSheet: View {
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.themeSurfaces) private var surfaces
   let debt: Debt
   let balance: AmountE4
 
@@ -27,30 +28,44 @@ struct NudgeSheet: View {
   @State private var copied = false
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      Text(verbatim: environment.format("nudge.title", table: "Debts", values.name)).appFont(
-        .headline)
+    VStack(alignment: .leading, spacing: 12) {
+      Text(verbatim: environment.format("nudge.title", table: "Debts", values.name))
+        .appFont(.title2.bold())
+        .accessibilityAddTraits(.isHeader)
       TextEditor(text: $text)
         .appFont(.body)
-        .frame(minHeight: 110)
-        .overlay(RoundedRectangle(cornerRadius: 6).stroke(.separator))
+        .scrollContentBackground(.hidden)
+        .padding(8)
+        .frame(minHeight: 110, maxHeight: 180)
+        .background(surfaces.card, in: .rect(cornerRadius: 12))
+        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder))
         .accessibilityIdentifier("debts.nudge.text")
       Text(verbatim: t("nudge.hint"))
         .appFont(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
-      HStack {
-        if copied {
-          Label(t("nudge.copied"), systemImage: "checkmark.circle").appFont(.caption)
-        }
-        Spacer()
-        Button(environment.language("action.cancel")) { dismiss() }
-          .keyboardShortcut(.cancelAction)
-        Button(t("nudge.copy")) { copy() }
-          .keyboardShortcut(.defaultAction)
-          .buttonStyle(.borderedProminent)
+      Button {
+        copy()
+      } label: {
+        Label(
+          copied ? t("nudge.copied") : t("nudge.copy"),
+          systemImage: copied ? "checkmark.circle" : "doc.on.doc"
+        )
+        .frame(maxWidth: .infinity)
       }
+      .buttonStyle(.bordered)
+      .controlSize(.large)
+      .accessibilityIdentifier("debts.nudge.copy")
+      Button {
+        dismiss()
+      } label: {
+        Text(verbatim: t("nudge.done")).frame(maxWidth: .infinity)
+      }
+      .keyboardShortcut(.defaultAction)
+      .buttonStyle(.borderedProminent)
+      .controlSize(.large)
     }
     .padding(20)
     .sheetFrame(width: 460)
+    .themedWindowBackground()
     .onAppear {
       guard !loaded else { return }
       loaded = true

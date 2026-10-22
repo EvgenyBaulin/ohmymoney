@@ -136,7 +136,8 @@ struct SettingsSidebar: View {
           navigation.section == found.section
             ? RoundedRectangle(cornerRadius: SettingsChromeMetrics.plateRadius)
               .fill(Color(theme.palette.accentTint)).padding(.horizontal, 4)
-            : nil)
+            : nil
+        )
         .accessibilityIdentifier("settings.section.\(found.section.rawValue)")
         ForEach(found.captions, id: \.self) { caption in
           Button {

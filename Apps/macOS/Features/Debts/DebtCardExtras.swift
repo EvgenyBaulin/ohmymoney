@@ -65,13 +65,29 @@ struct DebtCardExtras: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
+  /// Which of the two halves the card shows: the facts above the actions, or the further
+  /// actions themselves. The cards of a debt put them in different places.
+  enum Part { case all, details, more }
+
   let line: DebtLine
+  var part: Part = .all
   @Binding var sheet: DebtCreditSheet?
   @State private var keepFailed = false
 
   var body: some View {
     let debt = line.debt
     VStack(alignment: .leading, spacing: 6) {
+      if part != .more { details(debt) }
+      if part != .details { moreActions(debt) }
+    }
+    .alert(t("keepOnlyAccount.failed"), isPresented: $keepFailed) {
+      Button(environment.language("action.ok")) {}
+    }
+  }
+
+  @ViewBuilder
+  private func details(_ debt: Debt) -> some View {
+    Group {
       ForEach(
         DebtPlanText.lines(
           line, language: environment.language, money: environment.money, dates: environment.dates),
@@ -102,24 +118,20 @@ struct DebtCardExtras: View {
         .appFont(.callout)
       }
       DebtDuesAhead(line: line)
-      if debt.direction == .iOwe, debt.type == .loan {
-        DebtCostSection(line: line)
-      }
       if debt.direction == .iOwe, !debt.closed {
         Toggle(t("ladder.inLadder"), isOn: inLadder)
           .accessibilityIdentifier("debts.inLadder")
       }
-      let more = DebtMoreAction.offered(for: debt)
-      if !more.isEmpty {
-        HStack(spacing: 8) {
-          ForEach(more, id: \.self) { action in button(action) }
-        }
-        .buttonStyle(.bordered)
-        .controlSize(.small)
-      }
     }
-    .alert(t("keepOnlyAccount.failed"), isPresented: $keepFailed) {
-      Button(environment.language("action.ok")) {}
+  }
+
+  @ViewBuilder
+  private func moreActions(_ debt: Debt) -> some View {
+    let more = DebtMoreAction.offered(for: debt)
+    if !more.isEmpty {
+      FlowButtons {
+        ForEach(more, id: \.self) { action in button(action) }
+      }
     }
   }
 

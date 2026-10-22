@@ -66,6 +66,7 @@ final class OverviewScreen {
 /// editing «Добавить плитку» (the hidden tiles, a menu) and «Готово».
 struct OverviewEditBar: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.overviewEditsInChrome) private var editsInChrome
   let screen: OverviewScreen
 
   var body: some View {
@@ -74,10 +75,13 @@ struct OverviewEditBar: View {
       Spacer(minLength: 8)
       if screen.isEditing {
         OverviewAddMenu()
-        Button(t("overview.edit.done")) { screen.done() }
-          .buttonStyle(.borderedProminent)
-          .accessibilityIdentifier("overview.edit.done")
-      } else {
+        // «Готово» stands in the navigation bar on a phone, beside the title.
+        if !editsInChrome {
+          Button(t("overview.edit.done")) { screen.done() }
+            .buttonStyle(.borderedProminent)
+            .accessibilityIdentifier("overview.edit.done")
+        }
+      } else if !editsInChrome {
         Button(t("overview.edit")) { screen.edit() }
           .accessibilityIdentifier("overview.edit")
       }
@@ -101,7 +105,7 @@ struct OverviewGroupedGrid: View {
     let layout = environment.overviewLayout
     let editing = screen.isEditing
     let facts = OverviewScreen.facts(compute.snapshot)
-    VStack(alignment: .leading, spacing: 14) {
+    VStack(alignment: .leading, spacing: 20) {
       ForEach(OverviewScreen.groups(of: layout, editing: editing, facts: facts)) { group in
         VStack(alignment: .leading, spacing: 8) {
           OverviewGroupHeader(group: group, screen: screen)
@@ -184,13 +188,14 @@ private struct OverviewGroupHeader: View {
         withAnimation(.snappy) { OverviewTilesActions.toggleCollapsed(environment, group) }
       } label: {
         HStack(spacing: 6) {
-          Image(systemName: "chevron.right")
+          Text(verbatim: name)
+            .appFont(.callout.weight(.medium))
+            .foregroundStyle(.secondary)
+          Image(systemName: "chevron.down")
             .appFont(.caption.weight(.semibold))
             .foregroundStyle(.secondary)
-            .rotationEffect(.degrees(collapsed ? 0 : 90))
+            .rotationEffect(.degrees(collapsed ? -90 : 0))
             .accessibilityHidden(true)
-          Text(verbatim: name)
-            .appFont(.headline)
           Spacer()
         }
         .contentShape(Rectangle())

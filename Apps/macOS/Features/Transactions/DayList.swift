@@ -146,6 +146,7 @@ struct ListWaiting {
 /// side of the day too: «Сегодня · Доходы».
 struct DayHeader: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.appTheme) private var theme
   let day: DateOnly
   var sideKey: String?
   let totals: RowTotals
@@ -153,7 +154,10 @@ struct DayHeader: View {
   var body: some View {
     HStack(alignment: .firstTextBaseline) {
       Text(verbatim: title)
-        .appFont(.headline)
+        .appFont(.caption.weight(.semibold))
+        .textCase(.uppercase)
+        .foregroundStyle(Color(theme.palette.accentContent))
+        .accessibilityAddTraits(.isHeader)
       Spacer()
       RowTotalsLine(totals: totals)
     }

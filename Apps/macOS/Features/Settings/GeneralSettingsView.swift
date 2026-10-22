@@ -50,6 +50,7 @@ struct GeneralSettingsView: View {
         .accessibilityIdentifier("settings.starter.open")
       } header: {
         Text(verbatim: environment.language("settings.starter", table: "Settings"))
+          .settingsHeaderStyle()
       } footer: {
         Text(verbatim: environment.language("settings.starter.hint", table: "Settings"))
           .appFont(.callout)
@@ -109,6 +110,7 @@ struct GeneralSettingsView: View {
         }
       } header: {
         Text(verbatim: environment.language("settings.forWhomLabels", table: "Settings"))
+          .settingsHeaderStyle()
       } footer: {
         Text(verbatim: environment.language("settings.forWhom.fixedHint", table: "Settings"))
           .appFont(.callout)
@@ -141,6 +143,7 @@ struct GeneralSettingsView: View {
         }
       } header: {
         Text(verbatim: environment.language("settings.forWhom.people", table: "Settings"))
+          .settingsHeaderStyle()
       } footer: {
         Text(verbatim: environment.language("settings.forWhom.peopleHint", table: "Settings"))
           .appFont(.callout)
@@ -193,6 +196,7 @@ struct GeneralSettingsView: View {
         .disabled(!AutomaticUpdates.isChangeable)
       } header: {
         Text(verbatim: environment.language("settings.updates", table: "Settings"))
+          .settingsHeaderStyle()
       } footer: {
         Text(
           verbatim: environment.language(

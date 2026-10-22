@@ -155,28 +155,62 @@ struct CushionBar: View {
   }
 }
 
-/// «Подушка безопасности: 3.5 мес. из 6» at the top of «Цели» in «Планирование», with the way
-/// to «Капитал», where the cushion is set up and explained.
+/// The cushion at the top of «Цели» in «Планирование», drawn like a goal: the tile, the name over
+/// «3.5 из 6 мес.», the money at the right and the bar. A tap goes to «Капитал», where the
+/// cushion is set up and explained. Not set up, or without the data to count the months, the
+/// row says so in a line instead of the bar.
 struct CushionPlanningRow: View {
   @Dependency(\.environment) private var environment
   let status: CushionStatus
 
   var body: some View {
-    HStack(alignment: .firstTextBaseline, spacing: 8) {
-      Label {
-        Text(verbatim: CushionText.planningLine(status, environment))
-      } icon: {
-        Image(systemName: CushionText.symbol)
+    Button {
+      NotificationCenter.default.post(
+        name: .selectSection, object: MainWindow.Section.capital.shortcutIndex)
+    } label: {
+      VStack(alignment: .leading, spacing: 8) {
+        HStack(alignment: .center, spacing: 12) {
+          GoalTile(complete: false, symbol: CushionText.symbol)
+          VStack(alignment: .leading, spacing: 2) {
+            Text(verbatim: CushionText.t("cushion.planning.name", environment))
+              .appFont(.body.weight(.semibold))
+              .lineLimit(1)
+            Text(verbatim: sub)
+              .appFont(.caption.monospacedDigit())
+              .foregroundStyle(.secondary)
+              .lineLimit(2)
+          }
+          Spacer(minLength: 6)
+          if status.state == .ready {
+            Text(verbatim: environment.money.rounded(status.moneyRub))
+              .appFont(.body.weight(.semibold).monospacedDigit())
+              .lineLimit(1)
+              .minimumScaleFactor(0.8)
+          }
+        }
+        if status.state == .ready {
+          GoalProgressBar(basisPoints: basisPoints)
+        }
       }
-      .appFont(.callout.monospacedDigit())
-      Spacer(minLength: 6)
-      Button(CushionText.t("cushion.planning.open", environment)) {
-        NotificationCenter.default.post(
-          name: .selectSection, object: MainWindow.Section.capital.shortcutIndex)
-      }
-      .buttonStyle(.link)
-      .accessibilityIdentifier("planning.cushion.open")
+      .contentShape(.rect)
     }
+    .buttonStyle(.plain)
+    .accessibilityElement(children: .combine)
+    .accessibilityHint(Text(verbatim: CushionText.t("cushion.planning.open", environment)))
+    .accessibilityIdentifier("planning.cushion.open")
+  }
+
+  private var sub: String {
+    status.state == .ready
+      ? CushionText.barLabel(status, environment)
+      : CushionText.planningLine(status, environment)
+  }
+
+  /// The months the cushion lasts against the months of its goal, as the bar's share.
+  private var basisPoints: Int {
+    let weights = CushionText.barWeights(status)
+    let whole = weights.reduce(0, +)
+    return whole > 0 ? weights[0] * Shares.whole / whole : 0
   }
 }
 

@@ -224,6 +224,7 @@ struct AccountsSettingsView: View {
         }
       } header: {
         Text(verbatim: t("accounts.section.banks"))
+          .settingsHeaderStyle()
       }
 
       Section {
@@ -237,6 +238,7 @@ struct AccountsSettingsView: View {
         }
       } header: {
         Text(verbatim: t("accounts.section.accounts"))
+          .settingsHeaderStyle()
       }
 
       Section {
@@ -251,6 +253,7 @@ struct AccountsSettingsView: View {
         }
       } header: {
         Text(verbatim: t("accounts.section.groups"))
+          .settingsHeaderStyle()
       }
 
       if showsArchive {
@@ -280,6 +283,7 @@ struct AccountsSettingsView: View {
           }
         } header: {
           Text(verbatim: t("accounts.section.archive"))
+            .settingsHeaderStyle()
         }
       }
     }

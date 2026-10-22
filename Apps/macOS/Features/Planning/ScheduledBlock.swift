@@ -62,7 +62,6 @@ struct ScheduledBlock: View {
           ScheduledRow(
             status: status, prices: planning.book.prices, matches: planning.matches,
             sheet: $sheet)
-          Divider()
         }
         if kind != .subscription {
           NPDPaymentRows(
@@ -156,59 +155,56 @@ struct ScheduledRow: View {
   @State private var expanded = false
   @State private var confirmsDeletion = false
 
+  @Environment(\.themeSurfaces) private var surfaces
+
   var body: some View {
     let payment = status.payment
-    VStack(alignment: .leading, spacing: 4) {
-      HStack(alignment: .firstTextBaseline, spacing: 8) {
-        if status.isOverdue {
-          Label {
-            Text(verbatim: t("planning.overdue"))
-          } icon: {
-            Image(systemName: "exclamationmark.circle")
+    let tint = status.isOverdue ? surfaces.negative : surfaces.accent
+    HStack(alignment: .top, spacing: 12) {
+      // The tile says what the row is by its symbol; an overdue one says so by the symbol, the
+      // word in the line under the name and the red, never by the red alone.
+      Image(systemName: tileSymbol)
+        .appFont(.callout.weight(.semibold))
+        .foregroundStyle(tint)
+        .frame(width: 36, height: 36)
+        .background(tint.opacity(0.14), in: .rect(cornerRadius: 10))
+        .accessibilityHidden(true)
+      VStack(alignment: .leading, spacing: 4) {
+        HStack(alignment: .firstTextBaseline, spacing: 6) {
+          Text(verbatim: payment.name)
+            .appFont(.body.weight(.semibold))
+            .lineLimit(1)
+          if Self.showsDetails(status, prices: prices) {
+            Button {
+              expanded.toggle()
+            } label: {
+              Image(systemName: expanded ? "chevron.down" : "chevron.right")
+            }
+            .buttonStyle(.borderless)
+            .accessibilityLabel(Text(verbatim: t("scheduled.details")))
           }
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
         }
-        // The first due date nothing paid: an ordinary operation that matches a due date pays
-        // it, and `next_date` stays behind until «Привязать» or «Провести» moves it. A due
-        // date of another year says its year: «8 мая 2027», not «8 мая».
-        Text(
-          verbatim: status.nextUnpaid.year == environment.today.year
-            ? environment.dates.dayAndMonth(status.nextUnpaid)
-            : environment.dates.longDay(status.nextUnpaid)
-        )
-        .monospacedDigit()
-        .foregroundStyle(status.isOverdue ? .primary : .secondary)
-        .frame(minWidth: 52, alignment: .leading)
-        Text(verbatim: payment.name).lineLimit(1)
-        if Self.showsDetails(status, prices: prices) {
-          Button {
-            expanded.toggle()
-          } label: {
-            Image(systemName: expanded ? "chevron.down" : "chevron.right")
-          }
-          .buttonStyle(.borderless)
-          .accessibilityLabel(Text(verbatim: t("scheduled.details")))
-        }
-        Spacer(minLength: 8)
-        Text(verbatim: environment.money.exact(status.amountNext, currency: payment.currency))
-          .monospacedDigit()
+        subtitle
         if Self.canPay(status, matches: matches) {
-          Button(t("scheduled.markAsPaid")) { sheet = .markAsPaid(Self.paying(status)) }
-            .buttonStyle(.bordered)
-            .controlSize(.small)
-          Button(t("scheduled.skip")) {
-            if let dependencies {
-              PlanningActions(dependencies).skip(payment, due: status.nextUnpaid)
+          HStack(spacing: 14) {
+            Button(t("scheduled.markAsPaid")) { sheet = .markAsPaid(Self.paying(status)) }
+            Button(t("scheduled.skip")) {
+              if let dependencies {
+                PlanningActions(dependencies).skip(payment, due: status.nextUnpaid)
+              }
             }
           }
-          .buttonStyle(.bordered)
-          .controlSize(.small)
+          .buttonStyle(.borderless)
+          .appFont(.callout)
         }
+        MatchedDues(status: status)
+        if expanded && Self.showsDetails(status, prices: prices) { details }
       }
-      subtitle
-      MatchedDues(status: status)
-      if expanded && Self.showsDetails(status, prices: prices) { details }
+      Spacer(minLength: 6)
+      Text(verbatim: environment.money.exact(status.amountNext, currency: payment.currency))
+        .appFont(.body.weight(.semibold).monospacedDigit())
+        .lineLimit(1)
+        .minimumScaleFactor(0.8)
     }
     .contentShape(Rectangle())
     .contextMenu {
@@ -225,6 +221,20 @@ struct ScheduledRow: View {
     } message: {
       Text(verbatim: t("scheduled.deleteMessage"))
     }
+  }
+
+  private var tileSymbol: String {
+    if status.isOverdue { return "exclamationmark.circle" }
+    return status.payment.kind == .subscription ? "arrow.triangle.2.circlepath" : "calendar"
+  }
+
+  /// The day the first due date nothing paid falls on. An ordinary operation that matches a due
+  /// date pays it, and `next_date` stays behind until «Привязать» or «Провести» moves it. A due
+  /// date of another year says its year: «8 мая 2027», not «8 мая».
+  private var dueText: String {
+    status.nextUnpaid.year == environment.today.year
+      ? environment.dates.dayAndMonth(status.nextUnpaid)
+      : environment.dates.longDay(status.nextUnpaid)
   }
 
   /// «Провести» and «Пропустить» are for a due date nothing has paid. When every due date left
@@ -322,6 +332,7 @@ struct ScheduledRow: View {
     let debtor = dataset?.people.first { $0.id == (payment.debtorPersonId ?? payment.forPersonId) }?
       .name
     let pieces = [
+      (status.isOverdue ? t("planning.overdue") + " · " : "") + dueText,
       method,
       payment.reimbursable
         ? environment.language.format(
@@ -340,7 +351,6 @@ struct ScheduledRow: View {
       Text(verbatim: pieces.joined(separator: " · "))
         .appFont(.caption)
         .foregroundStyle(.secondary)
-        .padding(.leading, 60)
     }
     // Its card is in the archive: «Провести» pays from the account alone.
     if paidWith.cardArchived {
@@ -351,7 +361,6 @@ struct ScheduledRow: View {
       }
       .appFont(.caption)
       .foregroundStyle(.secondary)
-      .padding(.leading, 60)
     }
     // Paid from the main account while its own is archived: said with a symbol and words.
     if status.accountArchived {
@@ -362,7 +371,6 @@ struct ScheduledRow: View {
       }
       .appFont(.caption)
       .foregroundStyle(.secondary)
-      .padding(.leading, 60)
     }
   }
 
@@ -394,7 +402,6 @@ struct ScheduledRow: View {
     }
     .appFont(.caption)
     .foregroundStyle(.secondary)
-    .padding(.leading, 60)
   }
 
   private func t(_ key: String) -> String {
@@ -491,7 +498,6 @@ private struct MatchedDues: View {
           .foregroundStyle(.tertiary)
         }
       }
-      .padding(.leading, 60)
     }
   }
 

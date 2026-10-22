@@ -13,6 +13,11 @@ struct SyncFolderSettingsView: View {
   @State private var refused = false
 
   var body: some View {
+    folderSection
+    SyncBootstrapSection(coordinator: coordinator)
+  }
+
+  private var folderSection: some View {
     Section {
       LabeledContent {
         Text(

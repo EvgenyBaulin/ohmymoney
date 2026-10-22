@@ -10,7 +10,7 @@ enum PhoneTab: String, Hashable, CaseIterable, Sendable {
 
 /// What «Ещё» pushes: the sections that did not fit into a tab, and the list of the settings.
 enum MoreDestination: Hashable, Sendable {
-  case debts, calendar, capital, settings, conflicts
+  case debts, calendar, capital, settings, conflicts, analytics, reports, whatIf
 }
 
 /// Where a request to show something lands on the phone.
@@ -89,17 +89,14 @@ final class PhoneRouter {
     if let route = PhoneNavigation.route(forShortcutIndex: shortcutIndex) { open(route) }
   }
 
-  /// A window of the Mac: a cover here, except the settings, which are a list in «Ещё».
+  /// A window of the Mac: a page «Ещё» pushes here, like every other section — no cover.
   func open(screen: AppScreen) {
+    cover = nil
     switch screen {
-    case .settings:
-      cover = nil
-      open(PhoneRoute(tab: .more, more: .settings))
-    case .whatIf:
-      // «Что если…» belongs to Planning; it covers whichever tab asked.
-      cover = screen
-    case .analytics, .reports:
-      cover = screen
+    case .settings: open(PhoneRoute(tab: .more, more: .settings))
+    case .whatIf: open(PhoneRoute(tab: .more, more: .whatIf))
+    case .analytics: open(PhoneRoute(tab: .more, more: .analytics))
+    case .reports: open(PhoneRoute(tab: .more, more: .reports))
     }
   }
 

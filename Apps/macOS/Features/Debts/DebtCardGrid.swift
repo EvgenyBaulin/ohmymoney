@@ -99,7 +99,7 @@ struct DebtCardGrid: View {
         HStack(alignment: .firstTextBaseline) {
           Text(verbatim: model.name).appFont(.headline).lineLimit(1)
           Spacer(minLength: 6)
-          badge(model.badge)
+          DebtBadgeCapsule(badge: model.badge)
         }
         Text(verbatim: environment.money.rounded(model.balance, currency: model.currency))
           .appFont(.title2.monospacedDigit().weight(.semibold))
@@ -136,15 +136,6 @@ struct DebtCardGrid: View {
       Text(verbatim: value ?? "—").monospacedDigit()
     }
     .appFont(.caption)
-  }
-
-  private func badge(_ badge: DebtCardModel.Badge) -> some View {
-    Label(t(badge.key), systemImage: badge.symbol)
-      .appFont(.caption2)
-      .labelStyle(.titleAndIcon)
-      .padding(.horizontal, 8).padding(.vertical, 2)
-      .background(surfaces.secondary.opacity(0.15), in: .capsule)
-      .foregroundStyle(surfaces.primary)
   }
 
   private func t(_ key: String) -> String { environment.language(key, table: "Debts") }

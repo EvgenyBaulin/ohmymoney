@@ -477,6 +477,31 @@ trap 'rm -rf "${scratch}"' EXIT
 feed="${scratch}/appcast.xml"
 source_url="${OHMYMONEY_FEED_URL:-${feed_url}}"
 curl -fsSL --retry 2 -o "${feed}" "${source_url}" || fail "the feed at ${source_url} did not download"
+# The very first release of a feed: nothing is announced yet, so there is no copy to update from.
+# The candidate is then checked on its own — Info.plist, bundle, signed archive — and the
+# successor requirement, which needs a copy before it, is skipped.
+if [ -n "${candidate}" ] && /usr/bin/xmllint --noout "${feed}" 2> /dev/null &&
+  [ -z "$(entries "${feed}")" ]; then
+  plist="${candidate}/Contents/Info.plist"
+  said_version="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "${plist}" 2> /dev/null || true)"
+  said_build="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "${plist}" 2> /dev/null || true)"
+  said_minimum="$(/usr/libexec/PlistBuddy -c 'Print :LSMinimumSystemVersion' "${plist}" 2> /dev/null || true)"
+  [[ "${said_build}" =~ ^[1-9][0-9]*$ ]] || fail "the candidate has the build «${said_build}»"
+  check_plist "${plist}" "${said_version}" "${said_build}" "${key}" "${said_minimum}"
+  sparkle="$(pinned_sparkle "${root}/project.yml")"
+  check_bundle "${candidate}" "${certificate}" "${sparkle}"
+  if [ -n "${candidate_archive}" ]; then
+    check_archive "${candidate_archive}" "$(stat -f%z "${candidate_archive}")" \
+      "${candidate_signature}" "${key}"
+    extra="$(unzip -Z1 "${candidate_archive}" | grep -vE '^(OhMyMoney\.app/|__MACOSX/)' || true)"
+    [ -z "${extra}" ] ||
+      fail "the archive ${candidate_archive##*/} holds something besides OhMyMoney.app: $(printf '%s\n' "${extra}" | sed -n 1p)"
+    say "candidate archive: ${candidate_archive##*/}, EdDSA signature holds for the repository's key"
+  fi
+  say "candidate: ${said_version} (${said_build}) is the first release of the feed, the repository's key, signed by ${certificate}, Sparkle ${sparkle}"
+  say "ok"
+  exit 0
+fi
 check_feed "${feed}"
 say "feed: $(entries "${feed}" | awk -F '|' '{ printf "%s%s (%s)", sep, $2, $1; sep = ", " }')"
 

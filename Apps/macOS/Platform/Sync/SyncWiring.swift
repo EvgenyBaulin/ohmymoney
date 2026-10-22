@@ -43,6 +43,15 @@ enum SyncWiring {
   /// copy on another device must not pose as the device it came from.
   static let deviceIdKey = "sync.deviceId"
 
+  /// Set by the launch that put a staged database in place (a restore, an archive import, the
+  /// snapshot of the folder): what the exchange remembers belongs to the database that is gone.
+  /// The coordinator clears it once the exchange has dealt with it.
+  static let replacedKey = "sync.databaseReplaced"
+
+  /// Set when the staged database is the folder's own snapshot: its rows are in the journal
+  /// files already, so they are not sent again.
+  static let bootstrapKey = "sync.bootstrapPending"
+
   /// The identity of this device: made once, kept in `defaults`. Letters, digits and hyphens
   /// only, because it sits inside file names of the journal.
   static func deviceId(in defaults: UserDefaults) -> String {

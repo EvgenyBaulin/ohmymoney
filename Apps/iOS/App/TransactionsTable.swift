@@ -1,11 +1,11 @@
 import AppCore
 import SwiftUI
 
-/// The Mac's `Table` of operations is AppKit; on iPhone the same listing is a plain list by day.
-/// Same arguments, so `OperationsScreen` is written once.
+/// The Mac's `Table` of operations is AppKit; on iPhone and iPad the same listing is the day
+/// cards: a card per day with its total, a round line-symbol badge per row, «category · account»
+/// beneath the description. Same arguments as the Mac's table, so `OperationsScreen` is written
+/// once.
 struct TransactionsTable<MenuItems: View>: View {
-  @Dependency(\.environment) private var environment
-
   let deps: AppDependencies
   let listing: TransactionListing
   @Binding var selection: Set<UUID>
@@ -15,26 +15,8 @@ struct TransactionsTable<MenuItems: View>: View {
   var deleteAction: (Set<UUID>) -> Void
 
   var body: some View {
-    List(selection: $selection) {
-      ForEach(listing.days) { day in
-        Section {
-          ForEach(day.rows) { item in
-            HStack {
-              Text(verbatim: item.note ?? "")
-                .appFont(.body)
-                .lineLimit(1)
-              Spacer()
-              Text(verbatim: environment.money.exact(item.amount, currency: item.currency))
-                .appFont(.body)
-                .monospacedDigit()
-            }
-            .tag(item.transactionId)
-          }
-        } header: {
-          Text(verbatim: day.day.iso)
-        }
-      }
-    }
-    .contextMenu(forSelectionType: UUID.self, menu: menu, primaryAction: primaryAction)
+    OperationDayCards(
+      deps: deps, listing: listing, selection: $selection, menu: menu,
+      primaryAction: primaryAction, deleteAction: deleteAction)
   }
 }

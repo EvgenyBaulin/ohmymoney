@@ -7,6 +7,7 @@ import SwiftUI
 /// (`TransactionEditorModel.save`): the same refusals, the same questions, one step of ⌘Z.
 struct EntryFormEditor: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.themeSurfaces) private var surfaces
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
@@ -21,7 +22,7 @@ struct EntryFormEditor: View {
     VStack(spacing: 0) {
       HStack(alignment: .firstTextBaseline) {
         Text(verbatim: environment.language("entry.form.editTitle", table: "Entry"))
-          .appFont(.headline)
+          .appFont(.title3.bold())
           .accessibilityIdentifier("entry.form.editTitle")
         Spacer(minLength: 8)
       }
@@ -60,6 +61,8 @@ struct EntryFormEditor: View {
               .frame(maxWidth: .infinity)
           }
           .buttonStyle(.borderedProminent)
+          .buttonBorderShape(.capsule)
+          .tint(surfaces.accent)
           .controlSize(.large)
           // Return saves from any field of the form while the focus is in it; with the focus in
           // the list beside it, Return and the arrows are the list's.

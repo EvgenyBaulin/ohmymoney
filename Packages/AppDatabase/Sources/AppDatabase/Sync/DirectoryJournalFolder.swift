@@ -42,7 +42,7 @@ public struct DirectoryJournalFolder: JournalFolder {
       // it shows under its own name once it has come, and the next exchange reads it.
       if name.hasPrefix("."), name.hasSuffix(".icloud") {
         let real = String(name.dropFirst().dropLast(".icloud".count))
-        if SyncFormat.parse(fileName: real) != nil {
+        if SyncFormat.parse(fileName: real) != nil || SyncSnapshotName.parse(real) != nil {
           try? FileManager.default.startDownloadingUbiquitousItem(
             at: url.appendingPathComponent(real))
         }

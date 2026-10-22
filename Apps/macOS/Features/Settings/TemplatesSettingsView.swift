@@ -43,6 +43,7 @@ struct TemplatesSettingsView: View {
             }
           } header: {
             Text(verbatim: t("templates.archiveSection"))
+              .settingsHeaderStyle()
           }
         }
       }

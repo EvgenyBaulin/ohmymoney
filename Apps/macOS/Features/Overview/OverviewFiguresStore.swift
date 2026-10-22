@@ -26,6 +26,10 @@ final class OverviewFiguresStore {
 
   init() {}
 
+  /// Forgets the counted figures: the next call counts again. A test that builds its own snapshots
+  /// with the same data version as another one's starts from here.
+  func reset() { cache = nil }
+
   /// The figures of `snapshot`, counted once for it and the limit.
   func figures(for snapshot: DataSnapshot) -> OverviewFigures {
     if let cache, cache.version == snapshot.version, cache.limit == smallLimit {

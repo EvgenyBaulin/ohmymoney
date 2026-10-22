@@ -95,9 +95,12 @@ final class EntryReconcileDifferenceTests: XCTestCase {
     let days = views(of: NSDatePicker.self, in: content)
     XCTAssertFalse(days.isEmpty, "the date of the panel")
     XCTAssertTrue(days.allSatisfy { !$0.isEnabled }, "the moment of a difference is the count's")
-    let kinds = try XCTUnwrap(
-      views(of: NSSegmentedControl.self, in: content).first, "the type row")
-    XCTAssertFalse(kinds.isEnabled, "a difference stays what the count found")
+    // The kinds are tabs, drawn by SwiftUI: they are looked for in the accessibility tree.
+    try TestEnvironment.requireSwiftUIAccessibility()
+    let window = show(model)
+    let income = try XCTUnwrap(
+      elements(in: window) { identifier($0) == "entry.kind.income" }.first, "the income tab")
+    XCTAssertEqual(isEnabled(income), false, "a difference stays what the count found")
 
     // An ordinary expense is changed as ever.
     let open = try XCTUnwrap(show(ordinary).contentView)
@@ -105,7 +108,10 @@ final class EntryReconcileDifferenceTests: XCTestCase {
       try XCTUnwrap(views(of: NSTextField.self, in: open).first { $0.placeholderString == "0" })
         .isEnabled)
     XCTAssertTrue(views(of: NSDatePicker.self, in: open).allSatisfy(\.isEnabled))
-    XCTAssertTrue(try XCTUnwrap(views(of: NSSegmentedControl.self, in: open).first).isEnabled)
+    let ordinaryIncome = try XCTUnwrap(
+      elements(in: show(ordinary)) { identifier($0) == "entry.kind.income" }.first,
+      "the income tab of an ordinary expense")
+    XCTAssertEqual(isEnabled(ordinaryIncome), true)
   }
 
   /// A count of an account in dollars records its difference in dollars, at the rate of its day;
@@ -142,9 +148,10 @@ final class EntryReconcileDifferenceTests: XCTestCase {
     XCTAssertEqual(isEnabled(currency), false, "the currency of a difference is the count's")
     let debt = try XCTUnwrap(menus.first { identifier($0) == "entry.debt" }, "the debt menu")
     XCTAssertEqual(isEnabled(debt), false, "a difference pays no debt")
-    let kinds = try XCTUnwrap(
-      elements(in: window) { role($0) == "AXRadioGroup" }.first, "the type row")
-    XCTAssertEqual(isEnabled(kinds), false)
+    // The kinds are tabs: every other kind than the one it is stays off.
+    let income = try XCTUnwrap(
+      elements(in: window) { identifier($0) == "entry.kind.income" }.first, "the income tab")
+    XCTAssertEqual(isEnabled(income), false)
 
     // The same debt is offered to an ordinary expense.
     let other = show(editor(of: try save(externalId: nil)))

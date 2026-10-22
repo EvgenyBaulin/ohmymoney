@@ -35,6 +35,23 @@
         }
       }
     },
+    "costs.borrowed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrowed"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Взято"
+          }
+        }
+      }
+    },
     "costs.category.insurance": {
       "extractionState": "manual",
       "localizations": {
@@ -137,6 +154,23 @@
         }
       }
     },
+    "costs.honest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "True cost"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Честная стоимость"
+          }
+        }
+      }
+    },
     "costs.inLoan": {
       "extractionState": "manual",
       "localizations": {
@@ -167,6 +201,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "в кредите"
+          }
+        }
+      }
+    },
+    "costs.interest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты"
           }
         }
       }
@@ -375,6 +426,40 @@
         }
       }
     },
+    "costs.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You will pay back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вернёте всего"
+          }
+        }
+      }
+    },
+    "debts.actions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actions"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Действия"
+          }
+        }
+      }
+    },
     "debts.add": {
       "extractionState": "manual",
       "localizations": {
@@ -575,6 +660,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Платёж"
+          }
+        }
+      }
+    },
+    "debts.card.rate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rate"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставка"
+          }
+        }
+      }
+    },
+    "debts.chart.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debt balance"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток долга"
           }
         }
       }
@@ -1658,6 +1777,23 @@
         }
       }
     },
+    "debts.rate.row": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %% a year"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %% годовых"
+          }
+        }
+      }
+    },
     "debts.reopen": {
       "extractionState": "manual",
       "localizations": {
@@ -1688,6 +1824,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось вернуть долг в открытые."
+          }
+        }
+      }
+    },
+    "debts.series.fact": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "actual"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "факт"
+          }
+        }
+      }
+    },
+    "debts.series.plan": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "by schedule"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "по графику"
           }
         }
       }
@@ -3207,6 +3377,23 @@
         }
       }
     },
+    "ladder.free.label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free of debts by"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свободны от долгов"
+          }
+        }
+      }
+    },
     "ladder.hint": {
       "extractionState": "manual",
       "localizations": {
@@ -3258,6 +3445,23 @@
         }
       }
     },
+    "ladder.interest.label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest over this time"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты за это время"
+          }
+        }
+      }
+    },
     "ladder.method": {
       "extractionState": "manual",
       "localizations": {
@@ -3288,6 +3492,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Платежи не закрывают долги — добавьте сумму сверх."
+          }
+        }
+      }
+    },
+    "ladder.order": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Order"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Порядок"
+          }
+        }
+      }
+    },
+    "ladder.result": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Result"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Результат"
           }
         }
       }
@@ -3428,6 +3666,23 @@
         }
       }
     },
+    "nudge.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
+        }
+      }
+    },
     "nudge.hint": {
       "extractionState": "manual",
       "localizations": {
@@ -3475,6 +3730,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "Напоминание: %@"
+          }
+        }
+      }
+    },
+    "parts.how.once": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The expense was recorded once — on the day of the purchase"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расход записан один раз — в день покупки"
+          }
+        }
+      }
+    },
+    "parts.how.reduces": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Each part only reduces the debt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждая часть только уменьшает долг"
+          }
+        }
+      }
+    },
+    "parts.paid": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "paid"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оплачена"
+          }
+        }
+      }
+    },
+    "parts.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Части"
+          }
+        }
+      }
+    },
+    "parts.waits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "waiting"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ждёт"
           }
         }
       }
@@ -5351,6 +5691,159 @@
         }
       }
     },
+    "wizard.how": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How it will go"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Как это будет"
+          }
+        }
+      }
+    },
+    "wizard.how.capital": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The balance goes to Capital, but not to Overview"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток попадёт в «Капитал», но не в «Обзор»"
+          }
+        }
+      }
+    },
+    "wizard.how.card": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A card “%@” will appear in Debts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В «Долгах» появится карточка «%@»"
+          }
+        }
+      }
+    },
+    "wizard.how.cardNoName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "of this debt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "этого долга"
+          }
+        }
+      }
+    },
+    "wizard.how.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payments ≈ %@, the last one in %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платежей ≈ %@, последний — %@"
+          }
+        }
+      }
+    },
+    "wizard.how.create": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A debt “%@” for %@ will be created"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создастся долг «%@» на %@"
+          }
+        }
+      }
+    },
+    "wizard.how.interest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest ≈ %@ — grey “≈”, not money"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты ≈ %@ — серое «≈», не деньги"
+          }
+        }
+      }
+    },
+    "wizard.how.payment": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A payment of %@ will be added, %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавится платёж %@, %@"
+          }
+        }
+      }
+    },
+    "wizard.how.undo": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One gesture undoes it: ⌘Z"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отмена одним жестом — «Отменить»"
+          }
+        }
+      }
+    },
     "wizard.kind": {
       "extractionState": "manual",
       "localizations": {
@@ -5385,6 +5878,23 @@
         }
       }
     },
+    "wizard.kind.creditCard.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "an account with a minus and its terms, not a debt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "счёт с минусом и условиями, не долг"
+          }
+        }
+      }
+    },
     "wizard.kind.education": {
       "extractionState": "manual",
       "localizations": {
@@ -5398,6 +5908,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Образовательный кредит (госпрограмма)"
+          }
+        }
+      }
+    },
+    "wizard.kind.education.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the state programme, preset terms"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "госпрограмма, условия уже заполнены"
           }
         }
       }
@@ -5419,6 +5946,23 @@
         }
       }
     },
+    "wizard.kind.instalments.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a purchase with a number of parts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "покупка с числом частей"
+          }
+        }
+      }
+    },
     "wizard.kind.loan": {
       "extractionState": "manual",
       "localizations": {
@@ -5432,6 +5976,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кредит"
+          }
+        }
+      }
+    },
+    "wizard.kind.loan.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a bank loan with a rate and payments"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "кредит банка со ставкой и платежами"
           }
         }
       }
@@ -5453,6 +6014,23 @@
         }
       }
     },
+    "wizard.kind.mortgage.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a long loan with early repayments"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "долгий кредит с досрочными платежами"
+          }
+        }
+      }
+    },
     "wizard.kind.owedToMe": {
       "extractionState": "manual",
       "localizations": {
@@ -5466,6 +6044,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мне должны"
+          }
+        }
+      }
+    },
+    "wizard.kind.owedToMe.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the person will give the money back to me"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "человек вернёт вам деньги"
           }
         }
       }
@@ -5487,6 +6082,23 @@
         }
       }
     },
+    "wizard.kind.personIOwe.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a person who lent me money"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "человек, который одолжил мне деньги"
+          }
+        }
+      }
+    },
     "wizard.kind.pledge": {
       "extractionState": "manual",
       "localizations": {
@@ -5504,6 +6116,23 @@
         }
       }
     },
+    "wizard.kind.pledge.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a deposit owed back to me by a day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "залог, который вернут к дате"
+          }
+        }
+      }
+    },
     "wizard.kind.purchase": {
       "extractionState": "manual",
       "localizations": {
@@ -5517,6 +6146,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Покупка в кредит"
+          }
+        }
+      }
+    },
+    "wizard.kind.purchase.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the expense once, payments only reduce the debt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "расход один раз при покупке, платежи уменьшают долг"
           }
         }
       }

@@ -1212,6 +1212,23 @@
         }
       }
     },
+    "travel.summary.budgetCard": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trip budget"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет поездки"
+          }
+        }
+      }
+    },
     "travel.summary.byCategory": {
       "extractionState": "manual",
       "localizations": {
@@ -1269,13 +1286,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Export…"
+            "value": "Export CSV"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выгрузить…"
+            "value": "Выгрузить CSV"
+          }
+        }
+      }
+    },
+    "travel.summary.forOthers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "for others"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "за других"
           }
         }
       }

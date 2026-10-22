@@ -16,7 +16,7 @@ struct AnalyticsSectionView: View {
   @State private var width: CGFloat = 0
 
   /// From here on two small charts stand side by side.
-  static let wideWidth: CGFloat = 1_000
+  static let wideWidth: CGFloat = 860
 
   var body: some View {
     ScrollView {
@@ -323,6 +323,10 @@ private struct QualitySection: View {
               })
           },
           styles: styles)
+      }
+
+      if case .ready(let columns)? = state.value?.quality?.shares {
+        QualityTiles(totals: QualityTotals.make(columns: columns))
       }
 
       AnalyticsPair(isWide: isWide) {
@@ -1267,6 +1271,7 @@ enum AccountBalancesForecastText {
 
 private struct ForecastView: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.windowWidth) private var windowWidth
   let plot: ForecastPlot
   let month: MonthKey?
 
@@ -1288,7 +1293,8 @@ private struct ForecastView: View {
             ($0, String($0))
           }),
         middleText: "≈ \(money.rubles(plot.p50))",
-        rangeText: plot.p10 == plot.p90 ? nil : range(plot.p10, plot.p90),
+        // On a phone the range does not fit beside the end of the line: it goes under the chart.
+        rangeText: plot.p10 == plot.p90 || narrow ? nil : range(plot.p10, plot.p90),
         legend: [
           ChartLegend.series("actual", t("analytics.forecast.actual"), .current),
           ChartLegend.series("projection", t("analytics.forecast.projection"), .projection),
@@ -1296,6 +1302,10 @@ private struct ForecastView: View {
             id: "interval", label: t("analytics.forecast.interval"),
             systemImage: "rectangle.fill", tint: .accent, dash: nil),
         ])
+      if narrow, plot.p10 != plot.p90 {
+        Text(verbatim: range(plot.p10, plot.p90))
+          .appFont(.callout.monospacedDigit())
+      }
       Text(
         verbatim: AnalyticsText.format(
           "analytics.forecast.summary", environment, money.rubles(plot.spent),
@@ -1314,6 +1324,8 @@ private struct ForecastView: View {
       }
     }
   }
+
+  private var narrow: Bool { windowWidth > 0 && windowWidth < 640 }
 
   private func point(_ value: DayValue) -> ChartLinePoint {
     ChartLinePoint(
@@ -1405,34 +1417,45 @@ private struct AnomaliesSection: View {
 
 private struct AnomalyRow: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.themeSurfaces) private var surfaces
   let anomaly: Anomaly
   let names: AnalyticsNames
   var isHidden = false
   let act: () -> Void
 
+  /// The rule as a capsule with a warning triangle: the kind is said in words and a shape, the
+  /// warm tint only confirms it.
   var body: some View {
-    HStack(alignment: .firstTextBaseline, spacing: 12) {
-      VStack(alignment: .leading, spacing: 2) {
-        HStack(spacing: 6) {
+    VStack(alignment: .leading, spacing: 8) {
+      HStack(spacing: 8) {
+        Label {
           Text(verbatim: AnalyticsText.t("analytics.anomaly.\(anomaly.rule.rawValue)", environment))
-            .appFont(.subheadline.weight(.semibold))
-          Text(verbatim: environment.dates.dayAndMonth(anomaly.day))
-            .appFont(.caption)
-            .foregroundStyle(.secondary)
+        } icon: {
+          Image(systemName: "exclamationmark.triangle.fill")
         }
-        Text(verbatim: AnalyticsText.anomalyDetail(anomaly, names: names, environment))
-          .appFont(.callout)
+        .appFont(.caption.weight(.semibold))
+        .foregroundStyle(surfaces.warning)
+        .padding(.horizontal, 8).padding(.vertical, 3)
+        .background(surfaces.warning.mix(with: surfaces.background, by: 0.86), in: .capsule)
+        Text(verbatim: environment.dates.dayAndMonth(anomaly.day))
+          .appFont(.caption)
           .foregroundStyle(.secondary)
-          .fixedSize(horizontal: false, vertical: true)
       }
-      Spacer(minLength: 8)
+      Text(verbatim: AnalyticsText.anomalyDetail(anomaly, names: names, environment))
+        .appFont(.callout)
+        .fixedSize(horizontal: false, vertical: true)
       Button(
         AnalyticsText.t(
           isHidden ? "analytics.anomaly.restore" : "analytics.anomaly.normal", environment),
         action: act
       )
-      .buttonStyle(.link)
+      .buttonStyle(.bordered)
+      .tint(surfaces.secondary)
+      .foregroundStyle(surfaces.primary)
     }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(12)
+    .background(surfaces.background, in: .rect(cornerRadius: 10))
     .accessibilityElement(children: .combine)
   }
 }

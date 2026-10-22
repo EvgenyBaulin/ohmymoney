@@ -506,7 +506,8 @@ struct AccountScreen: View {
             .foregroundStyle(.secondary)
             .accessibilityHidden(true)
           Text(verbatim: account.name)
-            .appFont(.title2.weight(.semibold))
+            .appFont(.title.bold())
+            .accessibilityAddTraits(.isHeader)
           if account.isDefault {
             Label {
               Text(verbatim: t("accounts.main"))
@@ -530,7 +531,6 @@ struct AccountScreen: View {
           }
         }
         Spacer()
-        buttons
       }
       LastRecordCaption(history: history)
       if let caption = groupCaption {
@@ -538,24 +538,7 @@ struct AccountScreen: View {
           .appFont(.caption)
           .foregroundStyle(.secondary)
       }
-      if let line {
-        AccountBalancesCard(line: line)
-        AccountForecastCard(accountId: accountId)
-      } else if compute.snapshot == nil {
-        ComputedBlock<Int, EmptyView>(
-          title: t("account.screen.balances"), state: .calculating, retry: nil
-        ) { _ in EmptyView() }
-      }
-      // What pays from the account and what it earns: its cards, the cashback of the month,
-      // the interest of a deposit or a savings account, and the payments and subscriptions
-      // paid from it.
-      if account != nil {
-        AccountCreditBlock(accountId: accountId)
-        AccountCardsBlock(accountId: accountId)
-        AccountCashbackBlock(accountId: accountId)
-        AccountInterestBlock(accountId: accountId)
-        AccountPaymentsBlock(accountId: accountId)
-      }
+      cards
       Label {
         Text(verbatim: t("account.screen.entryHint"))
       } icon: {
@@ -567,45 +550,96 @@ struct AccountScreen: View {
     .padding(.vertical, 8)
   }
 
-  private var buttons: some View {
-    HStack(spacing: 8) {
-      Button {
-        guard let account else { return }
-        sheet = .transfer(
-          TransferForm(
-            from: account, accounts: AccountActions(environment: environment, store: store).all,
-            day: environment.today))
-      } label: {
-        Label {
-          Text(verbatim: t("accounts.transfer"))
-        } icon: {
-          Image(systemName: "arrow.left.arrow.right")
-        }
+  /// The cards of the screen: the balance on the hero, what pays from the account and what it
+  /// earns — its cards, the cashback of the month, the interest of a deposit or a savings
+  /// account, the payments and subscriptions paid from it. Two columns on a wide screen —
+  /// the balance, the credit card, the cards and the payments on the left, the actions, the
+  /// forecast, the cashback and the interest on the right —, one on a narrow one.
+  private var cards: some View {
+    AccountColumns {
+      balance
+      if account != nil {
+        AccountCreditBlock(accountId: accountId)
+        AccountCardsBlock(accountId: accountId)
+        AccountPaymentsBlock(accountId: accountId)
       }
-      .accessibilityIdentifier("account.transfer")
-      Button {
-        environment.focusedAccountId = accountId
-        environment.showsReconciliation = true
-      } label: {
-        Label {
-          Text(verbatim: t("accounts.reconcile"))
-        } icon: {
-          Image(systemName: "checkmark.seal")
-        }
+    } trailing: {
+      actionRow
+      if line != nil { AccountForecastCard(accountId: accountId) }
+      if account != nil {
+        AccountCashbackBlock(accountId: accountId)
+        AccountInterestBlock(accountId: accountId)
       }
-      .accessibilityIdentifier("account.reconcile")
-      Button {
-        if let account { sheet = .edit(account) }
-      } label: {
-        Label {
-          Text(verbatim: t("accounts.edit"))
-        } icon: {
-          Image(systemName: "pencil")
-        }
+    } stacked: {
+      balance
+      actionRow
+      if line != nil { AccountForecastCard(accountId: accountId) }
+      if account != nil {
+        AccountCreditBlock(accountId: accountId)
+        AccountCardsBlock(accountId: accountId)
+        AccountCashbackBlock(accountId: accountId)
+        AccountInterestBlock(accountId: accountId)
+        AccountPaymentsBlock(accountId: accountId)
       }
-      .accessibilityIdentifier("account.edit")
     }
-    .buttonStyle(.bordered)
+  }
+
+  /// The hero with the balance — a credit card has no hero: its block says «Доступно» and
+  /// what is owed — and, for an account in several currencies, each currency under it.
+  @ViewBuilder
+  private var balance: some View {
+    if let line {
+      if line.account.credit == nil {
+        ScreenHero(
+          caption: hero(line).caption, figure: hero(line).figure, lines: hero(line).lines,
+          figureIdentifier: "account.screen.hero.figure")
+      }
+      if line.account.credit != nil || line.keys.count > 1 {
+        AccountBalancesCard(line: line)
+      }
+    } else if compute.snapshot == nil {
+      ComputedBlock<Int, EmptyView>(
+        title: t("account.screen.balances"), state: .calculating, retry: nil
+      ) { _ in EmptyView() }
+    }
+  }
+
+  private func hero(_ line: AccountsSnapshot.AccountLine) -> AccountHero {
+    AccountHero.make(
+      line: line,
+      words: AccountHero.Words(
+        kind: t("account.kind.\(line.account.kind.rawValue)"),
+        countedAt: {
+          environment.format(
+            "account.screen.countedAt", table: AccountText.table, environment.dates.moment($0))
+        },
+        notCounted: t("account.screen.notCounted"), main: t("accounts.main"),
+        cushion: t("accounts.cushion")),
+      money: environment.money)
+  }
+
+  private var actionRow: some View {
+    AccountActionRow(actions: [
+      .init(
+        id: "account.transfer", title: t("accounts.transfer"),
+        symbol: "arrow.left.arrow.right",
+        run: {
+          guard let account else { return }
+          sheet = .transfer(
+            TransferForm(
+              from: account, accounts: AccountActions(environment: environment, store: store).all,
+              day: environment.today))
+        }),
+      .init(
+        id: "account.reconcile", title: t("accounts.reconcile"), symbol: "checkmark.seal",
+        run: {
+          environment.focusedAccountId = accountId
+          environment.showsReconciliation = true
+        }),
+      .init(
+        id: "account.edit", title: t("accounts.edit"), symbol: "pencil",
+        run: { if let account { sheet = .edit(account) } }),
+    ])
     .disabled(account == nil)
   }
 

@@ -202,24 +202,23 @@ private struct DescriptionCell: View {
   }
 
   var body: some View {
-    if let transfer = item.transfer {
-      transferBody(transfer)
-    } else {
-      operationBody
+    HStack(spacing: 10) {
+      // A part sits under its split without a mark of its own.
+      if !item.isPart { OperationBadge(kind: OperationBadgeKind(item)) }
+      if let transfer = item.transfer {
+        transferBody(transfer)
+      } else {
+        operationBody
+      }
     }
   }
 
-  /// «⇄ Перевод: Сбер → Kaspi», the note under it: money moved between the owner's own
-  /// accounts, the symbol and the words saying so, never a colour.
+  /// «Перевод: Сбер → Kaspi», the note under it: money moved between the owner's own accounts,
+  /// the ⇄ mark in front and the words saying so, never a colour.
   private func transferBody(_ transfer: TransferRowText) -> some View {
     VStack(alignment: .leading, spacing: 1) {
-      Label {
-        Text(verbatim: transfer.title(language: environment.language))
-          .lineLimit(1)
-      } icon: {
-        Image(systemName: TransferSymbol.name)
-          .foregroundStyle(.secondary)
-      }
+      Text(verbatim: transfer.title(language: environment.language))
+        .lineLimit(1)
       if let note = transfer.note, !note.isEmpty {
         Text(verbatim: note)
           .appFont(.caption)
@@ -397,13 +396,23 @@ private struct QualityCell: View {
 /// rubles under it.
 private struct AmountCell: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.themeSurfaces) private var surfaces
   let item: TransactionRowItem
 
   var body: some View {
     VStack(alignment: .trailing, spacing: 1) {
-      Text(verbatim: environment.money.exact(item.amount, currency: item.currency))
-        .monospacedDigit()
-        .foregroundStyle(item.isPart ? .secondary : .primary)
+      Text(
+        verbatim: OperationAmountSign.prefix(
+          kind: item.kind, isTransfer: item.isTransfer, isPart: item.isPart)
+          + environment.money.exact(item.amount, currency: item.currency)
+      )
+      .monospacedDigit()
+      .fontWeight(item.isPart ? .regular : .semibold)
+      .foregroundStyle(
+        item.isPart
+          ? AnyShapeStyle(.secondary)
+          : item.kind == .income && !item.isTransfer
+            ? AnyShapeStyle(surfaces.positive) : AnyShapeStyle(.primary))
       if let transfer = item.transfer {
         // An exchange says what arrived; a transfer in one currency arrives as it was sent.
         if transfer.isExchange {

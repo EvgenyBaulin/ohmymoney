@@ -46,8 +46,21 @@ final class DatabaseRecordApplier: RecordApplier, @unchecked Sendable {
       try db.execute(sql: "PRAGMA defer_foreign_keys = ON")
       let marker = try SyncBook.maxOutboxSeq(db)
       var batch = ApplyTally()
+      var identities = try SystemRowIdentity.load(db)
+      try identities.learn(db, from: records)
       for record in records {
         try SyncBook.undefer(db, record.key)
+        // A system row two devices made apart is one row with two ids: the other device's
+        // version is applied to the local row, and its references are pointed at it.
+        let target = identities.localKey(for: record.key)
+        let fields = try identities.rewritten(db, table: record.key.table, record.fields)
+        if target != record.key {
+          try SyncBook.undefer(db, target)
+          if record.isDeleted {
+            // A system row is never deleted.
+            continue
+          }
+        }
         guard SyncTables.followed[record.key.table] != nil else {
           batch.unknownTable += 1
           continue
@@ -62,7 +75,7 @@ final class DatabaseRecordApplier: RecordApplier, @unchecked Sendable {
           break
         }
         // An edit of mine that is not in a file yet may be what the other side overwrote.
-        if try SyncBook.hasPendingChange(db, record.key, upTo: marker) {
+        if try SyncBook.hasPendingChange(db, target, upTo: marker) {
           try SyncBook.defer_(db, record.key)
           batch.deferred += 1
           continue
@@ -70,10 +83,10 @@ final class DatabaseRecordApplier: RecordApplier, @unchecked Sendable {
         do {
           try db.inSavepoint {
             try SyncRows.write(
-              db, table: record.key.table, key: record.key.uuid, fields: record.fields)
+              db, table: target.table, key: target.uuid, fields: fields)
             return .commit
           }
-          try SyncBook.setHead(db, record.key, record.winner.stamp)
+          try SyncBook.setHead(db, target, record.winner.stamp)
           batch.applied += 1
         } catch let error as GRDB.DatabaseError where error.resultCode == .SQLITE_CONSTRAINT {
           try SyncBook.defer_(db, record.key)

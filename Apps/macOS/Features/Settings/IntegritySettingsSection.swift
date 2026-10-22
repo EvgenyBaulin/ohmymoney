@@ -81,6 +81,7 @@ struct IntegritySettingsSection: View {
       }
     } header: {
       Text(verbatim: environment.language("integrity.heading", table: "Settings"))
+        .settingsHeaderStyle()
     }
     .alert(
       environment.language("integrity.repair.title", table: "Settings"), isPresented: $asking

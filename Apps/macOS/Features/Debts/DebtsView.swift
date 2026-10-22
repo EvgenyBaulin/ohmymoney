@@ -614,73 +614,173 @@ private struct DebtDetail: View {
   @State private var reopenFailed = false
 
   var body: some View {
-    let debt = line.debt
     ScrollView {
-      VStack(alignment: .leading, spacing: 12) {
-        Text(verbatim: debt.name).appFont(.title2)
-        Text(verbatim: facts).foregroundStyle(.secondary)
-        HStack(alignment: .firstTextBaseline, spacing: 8) {
-          Text(verbatim: t("debts.balance"))
-          Text(verbatim: environment.money.exact(line.balance, currency: debt.currency))
-            .appFont(.title3.monospacedDigit())
-          if let next = line.nextPayment {
-            Text(
-              verbatim: environment.format(
-                "debts.nextPayment", table: "Debts", environment.dates.longDay(next))
-            )
-            .foregroundStyle(.secondary)
-            if line.isOverdue(today: environment.today) {
-              // A symbol and a word, never a colour alone.
-              Label(t("debts.overdue"), systemImage: "exclamationmark.circle")
-                .accessibilityIdentifier("debts.overdue")
-            }
+      VStack(alignment: .leading, spacing: 14) {
+        header
+        // Two columns when the window has room for both, one stack below that — and always on
+        // a phone.
+        ViewThatFits(in: .horizontal) {
+          HStack(alignment: .top, spacing: 14) {
+            VStack(alignment: .leading, spacing: 14) { summaryCards }
+              .frame(minWidth: 300, maxWidth: 420)
+            VStack(alignment: .leading, spacing: 14) { historyCards }
+              .frame(minWidth: 360, maxWidth: .infinity)
+          }
+          .frame(minWidth: 720)
+          VStack(alignment: .leading, spacing: 14) {
+            summaryCards
+            historyCards
           }
         }
-        // Money paid toward a due, less than the due: the due stays owed until it is covered.
-        if let partial = line.partialDue {
-          Text(
-            verbatim: environment.format(
-              "debts.partialDue", table: "Debts",
-              environment.money.exact(partial.paid, currency: debt.currency),
-              environment.money.exact(partial.due, currency: debt.currency),
-              environment.money.exact(partial.left, currency: debt.currency))
-          )
-          .appFont(.caption).foregroundStyle(.secondary)
-          .accessibilityIdentifier("debts.partialDue")
-        }
-        ForEach(scheduleLines, id: \.self) { text in
-          Text(verbatim: text).appFont(.callout).foregroundStyle(.secondary)
-        }
-        if debt.direction == .iOwe {
-          Toggle(
-            isOn: Binding(
-              get: { debt.paymentsAreExpenses },
-              set: { _ in confirmsToggle = true })
-          ) {
-            Text(verbatim: t("debts.paymentsAreExpenses"))
-          }
-          .confirmationDialog(
-            t("debts.toggleTitle"), isPresented: $confirmsToggle, titleVisibility: .visible
-          ) {
-            Button(t("debts.toggleConfirm")) {
-              var changed = debt
-              changed.paymentsAreExpenses.toggle()
-              if let dependencies { DebtActions(dependencies).save(changed) }
-            }
-          } message: {
-            Text(verbatim: t("debts.toggleMessage"))
-          }
-          if let payoff = payoff {
-            Text(verbatim: payoff).appFont(.caption).foregroundStyle(.secondary)
-          }
-        }
-        DebtCardExtras(line: line, sheet: $creditSheet)
-        actions
-        Divider()
-        journal
       }
       .padding(20)
     }
+  }
+
+  /// The name and, under it, what kind of debt it is.
+  private var header: some View {
+    VStack(alignment: .leading, spacing: 2) {
+      Text(verbatim: line.debt.name).appFont(.title2.bold())
+      Text(verbatim: t("debts.type.\(line.debt.type.rawValue)"))
+        .appFont(.callout).foregroundStyle(.secondary)
+    }
+  }
+
+  @ViewBuilder
+  private var summaryCards: some View {
+    balanceCard
+    if line.debt.isInstalmentPlan, let parts = line.debt.parts, parts > 0 {
+      InstalmentPartsCard(parts: parts, paid: min(line.dues.paidCount, parts))
+      DebtInfoBlock(
+        title: t("wizard.how"), lines: [t("parts.how.once"), t("parts.how.reduces")])
+    }
+    DebtCostSection(line: line)
+    actionsCard
+  }
+
+  @ViewBuilder
+  private var historyCards: some View {
+    if let series = balanceSeries, series.isDrawable {
+      DebtBalanceChartCard(series: series)
+    }
+    journal.contentCard()
+  }
+
+  /// «Остаток», the figure, how far it is paid, and the facts a payment is made from.
+  private var balanceCard: some View {
+    let debt = line.debt
+    return VStack(alignment: .leading, spacing: 8) {
+      HStack(alignment: .firstTextBaseline) {
+        Text(verbatim: t("debts.balance")).appFont(.callout).foregroundStyle(.secondary)
+        Spacer(minLength: 8)
+        DebtBadgeCapsule(badge: DebtCardModel.badge(of: debt))
+      }
+      Text(verbatim: environment.money.exact(line.balance, currency: debt.currency))
+        .appFont(.largeTitle.bold().monospacedDigit())
+        .minimumScaleFactor(0.6).lineLimit(1)
+        .accessibilityIdentifier("debts.balance")
+      if let progress = DebtCardModel.progress(of: line) {
+        ProgressView(value: progress)
+          .accessibilityLabel(t("debts.card.paid"))
+          .accessibilityValue("\(Int((progress * 100).rounded())) %")
+      }
+      VStack(alignment: .leading, spacing: 4) {
+        if let rate = debt.interestRate {
+          DebtFactRow(
+            label: t("debts.card.rate"),
+            value: environment.format(
+              "debts.rate.row", table: "Debts", environment.money.rate(rate)))
+        }
+        if let payment = debt.monthlyPaymentE4 {
+          DebtFactRow(
+            label: t("debts.card.payment"),
+            value: DebtSheetView.cardPaymentText(
+              environment.money.rounded(payment, currency: debt.currency), day: debt.paymentDay,
+              language: environment.language))
+        }
+        if line.paidTotal.raw > 0 {
+          DebtFactRow(
+            label: t("debts.card.paid"),
+            value: environment.money.exact(line.paidTotal, currency: debt.currency))
+        }
+        if let next = line.nextPayment {
+          DebtFactRow(
+            label: t("debts.card.nextDue"), value: environment.dates.longDay(next))
+          if line.isOverdue(today: environment.today) {
+            // A symbol and a word, never a colour alone.
+            Label(t("debts.overdue"), systemImage: "exclamationmark.circle")
+              .appFont(.callout)
+              .accessibilityIdentifier("debts.overdue")
+          }
+        }
+      }
+      // Money paid toward a due, less than the due: the due stays owed until it is covered.
+      if let partial = line.partialDue {
+        Text(
+          verbatim: environment.format(
+            "debts.partialDue", table: "Debts",
+            environment.money.exact(partial.paid, currency: debt.currency),
+            environment.money.exact(partial.due, currency: debt.currency),
+            environment.money.exact(partial.left, currency: debt.currency))
+        )
+        .appFont(.caption).foregroundStyle(.secondary)
+        .accessibilityIdentifier("debts.partialDue")
+      }
+      ForEach(scheduleLines, id: \.self) { text in
+        Text(verbatim: text).appFont(.callout).foregroundStyle(.secondary)
+      }
+      if debt.direction == .iOwe {
+        Toggle(
+          isOn: Binding(
+            get: { debt.paymentsAreExpenses },
+            set: { _ in confirmsToggle = true })
+        ) {
+          Text(verbatim: t("debts.paymentsAreExpenses")).appFont(.callout)
+        }
+        .confirmationDialog(
+          t("debts.toggleTitle"), isPresented: $confirmsToggle, titleVisibility: .visible
+        ) {
+          Button(t("debts.toggleConfirm")) {
+            var changed = debt
+            changed.paymentsAreExpenses.toggle()
+            if let dependencies { DebtActions(dependencies).save(changed) }
+          }
+        } message: {
+          Text(verbatim: t("debts.toggleMessage"))
+        }
+        if let payoff = payoff {
+          Text(verbatim: payoff).appFont(.caption).foregroundStyle(.secondary)
+        }
+      }
+      DebtCardExtras(line: line, part: .details, sheet: $creditSheet)
+    }
+    .contentCard()
+  }
+
+  /// «Действия»: pay, the early repayment, the ladder and the rest, wrapping on a narrow card.
+  private var actionsCard: some View {
+    VStack(alignment: .leading, spacing: 8) {
+      Text(verbatim: t("debts.actions")).appFont(.headline)
+        .accessibilityAddTraits(.isHeader)
+      actions
+      DebtCardExtras(line: line, part: .more, sheet: $creditSheet)
+    }
+    .contentCard()
+  }
+
+  /// Balance by month from the journal, and the schedule ahead of it for a loan.
+  private var balanceSeries: DebtBalanceSeries? {
+    let debt = line.debt
+    var rows: [AmortizationRow] = []
+    if debt.direction == .iOwe, let rate = debt.interestRate, rate > 0,
+      let payment = debt.monthlyPaymentE4, payment.raw > 0, line.balance.raw > 0,
+      let day = debt.paymentDay
+    {
+      rows = DebtAmortization.schedule(
+        principal: line.balance, percent: rate, payment: payment,
+        firstDue: line.nextPayment ?? environment.today, paymentDay: day, limit: 120)
+    }
+    return DebtBalanceSeries.make(entries: line.entries, schedule: rows)
   }
 
   private var facts: String {
@@ -731,7 +831,7 @@ private struct DebtDetail: View {
     if line.debt.closed {
       Text(verbatim: t("debts.closedCaption")).appFont(.caption).foregroundStyle(.secondary)
     }
-    HStack(spacing: 8) {
+    FlowButtons {
       ForEach(DebtCardAction.offered(for: line.debt), id: \.self) { action in
         if action == .pay || action == .reopen {
           button(action).buttonStyle(.borderedProminent)
@@ -740,8 +840,6 @@ private struct DebtDetail: View {
         }
       }
     }
-    .buttonStyle(.bordered)
-    .controlSize(.small)
     .alert(t("debts.reopenFailed"), isPresented: $reopenFailed) {
       Button(environment.language("action.ok")) {}
     }

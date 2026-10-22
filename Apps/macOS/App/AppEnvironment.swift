@@ -238,8 +238,8 @@ public final class AppEnvironment {
   public private(set) var rateService: RateService?
   /// The exchange with the owner's other devices. Only the real database has one; a data set,
   /// the demo and the test host read `nil` and never record or write a journal.
-  internal(set) var sync: SyncCoordinator?
-  @ObservationIgnored internal(set) var syncFolders: SyncProtectedFolders?
+  var sync: SyncCoordinator?
+  @ObservationIgnored var syncFolders: SyncProtectedFolders?
   /// The folder the owner picked for mirrored copies, usually inside iCloud Drive. The test
   /// host is the app itself, in the owner's container: it keeps a key of its own, so no test
   /// opens the owner's folder, saves its bookmark again or mirrors a synthetic copy into it.
@@ -675,6 +675,10 @@ public final class AppEnvironment {
     let refused = refuseAStagedDatabaseThisBuildCannotOpen()
     let replacement = AppPaths.applyPendingReplacement()
     let imported = AppPaths.takeImportMark(after: replacement)
+    // The exchange with other devices remembers the database that is gone: it starts over.
+    if replacement == .replaced, AppPaths.dataSet == nil {
+      UserDefaults.standard.set(true, forKey: SyncWiring.replacedKey)
+    }
     staging.note(.init(refused: refused, replacement: replacement, imported: imported))
     let schema = BundleSchemaSource()
     let pending = try DatabaseStack.pendingMigrations(fileAt: AppPaths.databaseURL, schema: schema)

@@ -1,52 +1,51 @@
 import AppCore
 import SwiftUI
 
-/// «Ближайшие 14 дней»: a scale of days from today with two lanes — the incomes expected on top,
-/// the payments below (scheduled payments, subscriptions, debts) —, each day of a lane marked
-/// with its symbol and how many there are. Hovering says what and how much; a click opens the
-/// form of what is planned, a day of several asks which. Under the scale, what comes in and
-/// what goes out in all. Content, never glass; a lane is told by its symbol and its name, never
-/// by colour alone.
+/// «Ближайшие 14 дней»: a row of days from today, each a small chip with its number; a day with
+/// something planned is tinted and carries its mark under the number — a circle for an income
+/// expected, a square for a payment (scheduled payments, subscriptions, debts) —, and the legend
+/// under the row says which is which. Hovering says what and how much; a click opens the form of
+/// what is planned, a day of several asks which. Under the legend, what comes in and what goes
+/// out in all. Content, never glass; a day is told by its mark and its spoken label, never by
+/// the tint alone.
 struct PlanningRibbonView: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.themeSurfaces) private var surfaces
   let ribbon: PlanningRibbon
   let open: (CalendarPlan) -> Void
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: 10) {
       HStack(alignment: .firstTextBaseline, spacing: 8) {
-        Label {
-          Text(verbatim: t("layout.ribbon.title")).appFont(.headline)
-        } icon: {
-          Image(systemName: "calendar.day.timeline.left").foregroundStyle(.secondary)
-        }
-        .accessibilityAddTraits(.isHeader)
+        Text(verbatim: t("layout.ribbon.title"))
+          .appFont(.headline)
+          .lineLimit(2)
+          .accessibilityAddTraits(.isHeader)
         Spacer(minLength: 8)
-        Text(verbatim: Self.totals(ribbon, environment))
-          .appFont(.callout.monospacedDigit())
-          .foregroundStyle(.secondary)
-          .lineLimit(1)
-          .minimumScaleFactor(0.8)
-          .accessibilityIdentifier("planning.ribbon.totals")
+        if let range = rangeText {
+          Text(verbatim: range)
+            .appFont(.callout.monospacedDigit())
+            .foregroundStyle(.secondary)
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
+        }
       }
       if ribbon.isEmpty {
         Text(verbatim: t("layout.ribbon.empty"))
           .foregroundStyle(.secondary)
       }
-      Grid(horizontalSpacing: 2, verticalSpacing: 4) {
-        GridRow {
-          laneTitle(income: true)
-          ForEach(ribbon.days) { day in cell(day.incomes, income: true) }
-        }
-        GridRow {
-          Color.clear.frame(width: 18, height: 1)
-          ForEach(ribbon.days) { day in scale(day.day) }
-        }
-        GridRow {
-          laneTitle(income: false)
-          ForEach(ribbon.days) { day in cell(day.payments, income: false) }
-        }
+      HStack(alignment: .top, spacing: 3) {
+        ForEach(ribbon.days) { day in chip(day) }
       }
+      HStack(spacing: 12) {
+        legend(shape: Circle(), key: "layout.ribbon.legend.income")
+        legend(shape: Rectangle(), key: "layout.ribbon.legend.payment")
+      }
+      Text(verbatim: Self.totals(ribbon, environment))
+        .appFont(.caption.monospacedDigit())
+        .foregroundStyle(.secondary)
+        .lineLimit(2)
+        .accessibilityIdentifier("planning.ribbon.totals")
       if !ribbon.withoutRate.isEmpty {
         Text(
           verbatim: environment.format(
@@ -63,6 +62,12 @@ struct PlanningRibbonView: View {
     .accessibilityIdentifier("planning.ribbon")
   }
 
+  /// «22 октября — 4 ноября»: the first and the last day of the row.
+  private var rangeText: String? {
+    guard let first = ribbon.days.first?.day, let last = ribbon.days.last?.day else { return nil }
+    return environment.dates.dayAndMonth(first) + " — " + environment.dates.dayAndMonth(last)
+  }
+
   /// «Придёт +100,000 ₽ · уйдёт −32,900 ₽».
   static func totals(_ ribbon: PlanningRibbon, _ environment: AppEnvironment) -> String {
     environment.format(
@@ -76,79 +81,83 @@ struct PlanningRibbonView: View {
     return "\(name) — \(environment.money.exact(plan.amount, currency: plan.currency))"
   }
 
-  private func laneTitle(income: Bool) -> some View {
-    Image(systemName: income ? "arrow.up.circle" : "arrow.down.circle")
-      .foregroundStyle(income ? Color.green : Color.secondary)
-      .frame(width: 18)
-      .help(t(income ? "layout.ribbon.incomes" : "layout.ribbon.payments"))
-      .accessibilityLabel(
-        Text(verbatim: t(income ? "layout.ribbon.incomes" : "layout.ribbon.payments")))
+  private func legend<S: Shape>(shape: S, key: String) -> some View {
+    HStack(spacing: 5) {
+      shape
+        .fill(.secondary)
+        .frame(width: 6, height: 6)
+        .accessibilityHidden(true)
+      Text(verbatim: t(key))
+        .appFont(.caption)
+        .foregroundStyle(.secondary)
+    }
   }
 
-  /// The day of the scale: its weekday and number; today in bold.
-  private func scale(_ day: DateOnly) -> some View {
-    let isToday = day == environment.today
-    return VStack(spacing: 0) {
-      Text(verbatim: environment.dates.shortWeekday(environment.calendar.weekdayIndex(day)))
-        .appFont(.caption2)
-        .foregroundStyle(.tertiary)
-      Text(verbatim: "\(day.day)")
-        .appFont(.caption.monospacedDigit().weight(isToday ? .bold : .regular))
-        .foregroundStyle(isToday ? .primary : .secondary)
+  /// One day: its number over the marks of what is planned; the whole chip is the button when
+  /// one plan stands on it, a menu when several do.
+  @ViewBuilder
+  private func chip(_ day: PlanningRibbon.Day) -> some View {
+    let plans = day.incomes + day.payments
+    let isToday = day.day == environment.today
+    let face = VStack(spacing: 3) {
+      Text(verbatim: "\(day.day.day)")
+        .appFont(.caption.monospacedDigit().weight(isToday || !plans.isEmpty ? .bold : .regular))
+        .foregroundStyle(isToday || !plans.isEmpty ? .primary : .secondary)
+      HStack(spacing: 2) {
+        if !day.incomes.isEmpty {
+          Circle().fill(.secondary).frame(width: 4, height: 4)
+        }
+        if !day.payments.isEmpty {
+          Rectangle().fill(.secondary).frame(width: 4, height: 4)
+        }
+        if day.isEmpty {
+          Rectangle().fill(.quaternary).frame(width: 4, height: 4)
+        }
+      }
+      .frame(height: 4)
     }
     .lineLimit(1)
     .minimumScaleFactor(0.6)
-    .frame(maxWidth: .infinity)
-    .accessibilityElement(children: .ignore)
-    .accessibilityLabel(Text(verbatim: environment.dates.dayAndMonth(day)))
-  }
-
-  @ViewBuilder
-  private func cell(_ plans: [CalendarPlan], income: Bool) -> some View {
-    let symbol = income ? "arrow.up.circle.fill" : "arrow.down.circle.fill"
+    .frame(maxWidth: .infinity, minHeight: 36)
+    .background(
+      plans.isEmpty ? AnyShapeStyle(.quaternary) : AnyShapeStyle(surfaces.accent.opacity(0.18)),
+      in: .rect(cornerRadius: 6)
+    )
+    .overlay {
+      if isToday { RoundedRectangle(cornerRadius: 6).strokeBorder(.secondary, lineWidth: 1) }
+    }
     let help = plans.map { Self.line($0, environment) }.joined(separator: "\n")
+    let spoken =
+      environment.dates.dayAndMonth(day.day)
+      + (help.isEmpty
+        ? "" : ": " + help.replacingOccurrences(of: "\n", with: "; "))
     Group {
       if plans.isEmpty {
-        Color.clear.frame(height: 22)
+        face
       } else if plans.count == 1, let plan = plans.first {
         Button {
           open(plan)
         } label: {
-          mark(symbol: symbol, count: 1, income: income)
+          face
         }
-        .buttonStyle(.borderless)
+        .buttonStyle(.plain)
       } else {
         Menu {
           ForEach(plans) { plan in
             Button(Self.line(plan, environment)) { open(plan) }
           }
         } label: {
-          mark(symbol: symbol, count: plans.count, income: income)
+          face
         }
         .menuStyle(.button)
-        .buttonStyle(.borderless)
+        .buttonStyle(.plain)
         .menuIndicator(.hidden)
       }
     }
-    .frame(maxWidth: .infinity, minHeight: 22)
     .help(help)
-    .accessibilityLabel(
-      Text(
-        verbatim: t(income ? "layout.ribbon.incomes" : "layout.ribbon.payments") + ": " + help))
-  }
-
-  private func mark(symbol: String, count: Int, income: Bool) -> some View {
-    HStack(spacing: 1) {
-      Image(systemName: symbol)
-        .foregroundStyle(income ? Color.green : Color.secondary)
-      if count > 1 {
-        Text(verbatim: "\(count)")
-          .appFont(.caption2.monospacedDigit())
-          .foregroundStyle(.secondary)
-      }
-    }
-    .lineLimit(1)
-    .minimumScaleFactor(0.6)
+    .accessibilityElement(children: .ignore)
+    .accessibilityLabel(Text(verbatim: spoken))
+    .accessibilityAddTraits(plans.isEmpty ? [] : .isButton)
   }
 
   private func t(_ key: String) -> String { environment.language(key, table: "Planning") }

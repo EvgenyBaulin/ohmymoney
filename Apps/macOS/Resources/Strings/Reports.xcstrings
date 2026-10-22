@@ -222,6 +222,23 @@
         }
       }
     },
+    "reports.csvNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV: row_type, name, amount_rub, amount_rub_exact, share — pandas.read_csv reads it with no parameters."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV: row_type, name, amount_rub, amount_rub_exact, share — читается pandas.read_csv без параметров."
+          }
+        }
+      }
+    },
     "reports.empty.expenses": {
       "extractionState": "manual",
       "localizations": {

@@ -58,6 +58,7 @@ struct OtherNamesEditor: View {
       }
     } header: {
       Text(verbatim: t("names.other.title"))
+        .settingsHeaderStyle()
     } footer: {
       Text(verbatim: t("names.other.hint"))
         .appFont(.callout)

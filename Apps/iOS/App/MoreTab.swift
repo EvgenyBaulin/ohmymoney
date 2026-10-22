@@ -68,6 +68,11 @@ struct MoreTab: View {
         }
         if !isSearching {
           dataSection
+          // A real profile with no records of its own can take the data another device left in
+          // the exchange folder.
+          if session.profile == .real, let sync = environment.sync {
+            SyncBootstrapSection(coordinator: sync)
+          }
           folderSection
           privacySection
         }
@@ -115,6 +120,12 @@ struct MoreTab: View {
       sectionScreen(titleKey: "section.capital") {
         CapitalView { router.open(item: .account($0)) }
       }
+    case .analytics:
+      sectionScreen(titleKey: "window.analytics") { AnalyticsWindow(deps: deps) }
+    case .reports:
+      sectionScreen(titleKey: "window.reports") { ReportsWindow(deps: deps) }
+    case .whatIf:
+      sectionScreen(titleKey: "window.whatIf") { WhatIfWindow(deps: deps) }
     case .settings:
       PhoneSettingsList(deps: deps)
     case .conflicts:
@@ -139,8 +150,9 @@ struct MoreTab: View {
   private var menu: MoreMenu {
     MoreMenu.make(
       more: layout.more, tripIsOn: environment.tripEntryDefaults != nil,
-      hasConflicts: !(environment.sync?.conflicts.isEmpty ?? true))
-      .filtered(by: query, title: title(of:))
+      hasConflicts: !(environment.sync?.conflicts.isEmpty ?? true)
+    )
+    .filtered(by: query, title: title(of:))
   }
 
   private var visibleRows: MoreMenu { menu }
@@ -183,11 +195,7 @@ struct MoreTab: View {
     case .conflicts:
       NavigationLink(value: MoreDestination.conflicts) { label }
     case .whatIf:
-      Button {
-        router.open(screen: .whatIf)
-      } label: {
-        label
-      }
+      NavigationLink(value: MoreDestination.whatIf) { label }
     case .trip:
       Button {
         environment.showsTrip = true

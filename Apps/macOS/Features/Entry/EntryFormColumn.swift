@@ -5,6 +5,7 @@ import SwiftUI
 /// «Очистить», the fields of the panel in one column, what the entry has to say, and «Сохранить».
 struct EntryFormColumn<Caption: View>: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.themeSurfaces) private var surfaces
   @Bindable var model: EntryDraftModel
   /// Whether a field of the form has the keyboard: Return is «Save» only then.
   @Binding var focusedInside: Bool
@@ -21,7 +22,7 @@ struct EntryFormColumn<Caption: View>: View {
     VStack(spacing: 0) {
       HStack(alignment: .firstTextBaseline) {
         Text(verbatim: environment.language("entry.form.title", table: "Entry"))
-          .appFont(.headline)
+          .appFont(.title3.bold())
         Spacer(minLength: 8)
         Button(environment.language("entry.form.clear", table: "Entry"), action: clear)
           .buttonStyle(.borderless)
@@ -49,6 +50,8 @@ struct EntryFormColumn<Caption: View>: View {
               .frame(maxWidth: .infinity)
           }
           .buttonStyle(.borderedProminent)
+          .buttonBorderShape(.capsule)
+          .tint(surfaces.accent)
           .controlSize(.large)
           // Return saves from any field of the form — a menu, the date, a checkbox — while the
           // focus is in it; with the focus in the list beside it Return is the list's.

@@ -20,6 +20,11 @@ final class SyncCoordinator {
   private(set) var conflicts: [SyncConflict] = []
   /// The chosen folder as the screens name it; `nil` while none is chosen.
   private(set) var folderName: String?
+  /// What the last exchange did, for the status row (rows sent from the existing books, a
+  /// fresh copy of the whole database in the folder).
+  private(set) var lastOutcome: SyncOutcome?
+  /// Where «Загрузить данные из папки» stands.
+  private(set) var bootstrap: SyncBootstrapState = .idle
 
   let exchange: SyncExchange?
   private let bookmarks: BookmarkStore
@@ -65,7 +70,9 @@ final class SyncCoordinator {
   /// The owner confirmed a folder. The database and the folders of its copies are refused: only
   /// journal files go to the exchange folder.
   @discardableResult
-  func choose(folder url: URL) -> Choice {
+  /// `thenSync` starts the first exchange at once; a caller that wants to offer the snapshot of the
+  /// folder first (the empty device) or a test that must not race it passes `false`.
+  func choose(folder url: URL, thenSync: Bool = true) -> Choice {
     guard SyncFolderPolicy.allows(url, protecting: protectedFolders()) else {
       AppLog.warning("sync.folderRefused", .db, "the folder holds or lies in the books")
       return .refused
@@ -81,7 +88,7 @@ final class SyncCoordinator {
     }
     refreshFolderName(url)
     exchange.map { try? $0.setRecording(true) }
-    Task { await syncNow() }
+    if thenSync { Task { await syncNow() } }
     return .accepted
   }
 
@@ -192,14 +199,42 @@ final class SyncCoordinator {
     defer { bookmarks.release(url) }
     refreshFolderName(url)
     let before = conflicts.count
+    // The launch put another database in place: the exchange drops what it remembered of the
+    // old one and sends every row of the new one before anything else.
+    let replaced = defaults.bool(forKey: SyncWiring.replacedKey)
+    let fromSnapshot = replaced && defaults.bool(forKey: SyncWiring.bootstrapKey)
     let result: Result<SyncOutcome, any Error> = await Task.detached {
-      Result { try exchange.exchange(with: DirectoryJournalFolder(url: url)) }
+      Result {
+        if replaced {
+          let rows = try exchange.databaseWasReplaced(bootstrappedFromSnapshot: fromSnapshot)
+          AppLog.info(
+            "sync.replaced", .db, "the database was replaced; the exchange starts over",
+            [LogPair("seeded", .count(rows)), LogPair("snapshot", .count(fromSnapshot ? 1 : 0))])
+        }
+        let folder = DirectoryJournalFolder(url: url)
+        var outcome = try exchange.exchange(with: folder)
+        // The copy of the whole database is a courtesy to a device that joins later: when it
+        // can not be written the exchange itself has still gone through.
+        do {
+          outcome.snapshotWritten = try exchange.snapshotIfDue(to: folder)
+        } catch {
+          AppLog.warning(
+            "sync.snapshotFailed", .db, "the snapshot was not written; nothing was lost",
+            [LogPair("error", .error(error))])
+        }
+        return outcome
+      }
     }.value
     switch result {
     case .success(let outcome):
+      if replaced {
+        defaults.removeObject(forKey: SyncWiring.replacedKey)
+        defaults.removeObject(forKey: SyncWiring.bootstrapKey)
+      }
       AppLog.info(
         "sync.done", .db, "the exchange went through",
         outcome.logPairs.map { LogPair($0.0, .count($0.1)) })
+      lastOutcome = outcome
       conflicts = (try? exchange.conflicts()) ?? conflicts
       status = .synced(at: Date())
       if conflicts.count > before { announceConflicts() }
@@ -219,6 +254,108 @@ final class SyncCoordinator {
   func retry() async {
     if case .failed = status { status = .notConfigured }
     await syncNow()
+  }
+
+  // MARK: Joining with the folder's snapshot
+
+  /// Why a device did not take the snapshot of the folder.
+  enum BootstrapResult: Equatable {
+    /// The snapshot is checked and staged; the next launch puts it in place and the exchange
+    /// carries on from the journal files.
+    case staged
+    case notConfigured
+    /// This database holds the owner's books: it is never replaced by a snapshot.
+    case notEmpty
+    case noSnapshot
+    case damaged
+    case newerVersion
+    case failed
+  }
+
+  /// A device with empty books takes the newest snapshot in the folder as its database. The
+  /// snapshot is fetched, checked as a restore checks a copy, the current state is copied first
+  /// (`BackupRestoreFlow`), and the file is staged for the next launch. Nothing is replaced
+  /// here; the screen that offers it decides when to ask for the restart.
+  func bootstrapFromSnapshot(
+    backups: BackupService, schema: any SchemaSource = BundleSchemaSource(),
+    target: URL = AppPaths.pendingReplacementURL
+  ) async -> BootstrapResult {
+    guard let exchange, bookmarks.isStored else { return .notConfigured }
+    guard !exchange.holdsOwnerData else {
+      AppLog.warning("sync.bootstrapRefused", .db, "the database holds books; no snapshot is taken")
+      return .notEmpty
+    }
+    guard let url = bookmarks.resolve() else { return .failed }
+    defer { bookmarks.release(url) }
+    let fetched = URL(fileURLWithPath: target.path + ".snapshot")
+    defer { try? FileManager.default.removeItem(at: fetched) }
+    do {
+      let folder = DirectoryJournalFolder(url: url)
+      let found: SyncSnapshotInfo? = try await Task.detached {
+        try SyncSnapshots.newest(in: folder)
+      }
+      .value
+      guard let found else { return .noSnapshot }
+      try await Task.detached {
+        try SyncSnapshots.fetchVerified(found, from: folder, to: fetched, schema: schema)
+      }.value
+      try await BackupRestoreFlow.stage(copy: fetched, backups: backups, target: target)
+    } catch let error as SyncSnapshotError {
+      AppLog.warning(
+        "sync.bootstrapFailed", .db, "the snapshot was not taken",
+        [LogPair("reason", .token(error == .newerSchema ? "newer" : "damaged"))])
+      return error == .newerSchema ? .newerVersion : (error == .none ? .noSnapshot : .damaged)
+    } catch {
+      AppLog.warning(
+        "sync.bootstrapFailed", .db, "the snapshot was not taken",
+        [LogPair("error", .error(error))])
+      return .failed
+    }
+    defaults.set(true, forKey: SyncWiring.bootstrapKey)
+    AppLog.info("sync.bootstrapStaged", .db, "the snapshot of the folder is staged")
+    return .staged
+  }
+
+  /// Looks in the folder for a snapshot this device could take as its books. Offered only while
+  /// the books hold nothing of the owner's and a folder is chosen; otherwise the state is idle.
+  func lookForSnapshot() async {
+    if case .loading = bootstrap { return }
+    if case .staged = bootstrap { return }
+    guard let exchange, bookmarks.isStored, !exchange.holdsOwnerData else {
+      bootstrap = .idle
+      return
+    }
+    guard let url = bookmarks.resolve() else {
+      bootstrap = .idle
+      return
+    }
+    defer { bookmarks.release(url) }
+    let found: SyncSnapshotInfo? = await Task.detached {
+      try? SyncSnapshots.newest(in: DirectoryJournalFolder(url: url))
+    }.value
+    if let found {
+      bootstrap = .offered(
+        SyncSnapshotOffer(
+          madeAt: found.modified, deviceId: SyncSnapshotName.parse(found.name) ?? ""))
+    } else {
+      bootstrap = .result(.noSnapshot)
+    }
+  }
+
+  /// «Загрузить данные из папки»: stages the snapshot (`bootstrapFromSnapshot`) and keeps the
+  /// answer for the screen.
+  func loadSnapshot(
+    backups: BackupService?, schema: any SchemaSource = BundleSchemaSource(),
+    target: URL = AppPaths.pendingReplacementURL
+  ) async {
+    guard let backups else {
+      bootstrap = .result(.failed)
+      return
+    }
+    if case .loading = bootstrap { return }
+    bootstrap = .loading
+    let result = await bootstrapFromSnapshot(backups: backups, schema: schema, target: target)
+    bootstrap = result == .staged ? .staged : .result(result)
   }
 
   // MARK: Choices

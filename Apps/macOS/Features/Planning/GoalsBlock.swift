@@ -23,6 +23,10 @@ struct GoalsBlock: View {
   @State private var deletionNotes: [UUID: String] = [:]
   /// The gathered goal «Сделать поездкой…» was pressed on.
   @State private var tripGoal: GoalStatus?
+  /// The goals whose strip of actions and plan is open; a look of this window only.
+  @State private var opened: Set<UUID> = []
+  /// «Все цели»: the screen of the goals and of the income allocation.
+  @State private var showsScreen = false
 
   var body: some View {
     ComputedBlock(
@@ -35,7 +39,6 @@ struct GoalsBlock: View {
         // «Цели» —, but it is saved for like one: its row stands first, with the way to
         // «Капитал».
         CushionPlanningRow(status: snapshot.planning.cushion)
-        Divider()
         let goals = snapshot.planning.goals
         let ordered = GoalOrder.shown(goals)
         let split = PlanningShortList.split(
@@ -50,98 +53,7 @@ struct GoalsBlock: View {
           }
         }
         ForEach(shown.items) { status in
-          VStack(alignment: .leading, spacing: 3) {
-            HStack(alignment: .firstTextBaseline) {
-              Text(verbatim: status.goal.name).lineLimit(1)
-              Spacer(minLength: 6)
-              Text(
-                verbatim: environment.money.percent(
-                  basisPoints: status.progressBp, fractionDigits: 0)
-              )
-              .monospacedDigit()
-              .foregroundStyle(.secondary)
-            }
-            Capsule()
-              .fill(.quaternary)
-              .overlay {
-                ProportionalRow(
-                  weights: [
-                    min(status.progressBp, Shares.whole),
-                    Shares.whole - min(status.progressBp, Shares.whole),
-                  ]
-                ) {
-                  Capsule().fill(.tint)
-                  Color.clear
-                }
-              }
-              .frame(height: 4)
-              .accessibilityHidden(true)
-            // In the goal's own currency: a dollar goal is saved in dollars.
-            Text(
-              verbatim: String(
-                format: t("planning.spentOf"), locale: environment.language.locale,
-                environment.money.rounded(status.saved, currency: status.currency),
-                environment.money.rounded(status.goal.targetE4, currency: status.currency))
-            )
-            .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
-            if status.withoutRate > 0 {
-              Label {
-                Text(
-                  verbatim: environment.format(
-                    "goals.withoutRate", table: "Planning", counts: status.withoutRate))
-              } icon: {
-                Image(systemName: "hourglass")
-              }
-              .appFont(.caption)
-              .foregroundStyle(.secondary)
-            }
-            Text(verbatim: realism(status))
-              .appFont(.caption)
-              .foregroundStyle(.secondary)
-              .fixedSize(horizontal: false, vertical: true)
-            if let ahead = Self.paidAhead(of: status.goal, snapshot), ahead.raw > 0 {
-              Text(
-                verbatim: environment.format(
-                  "goals.ahead", table: "Planning",
-                  environment.money.rounded(ahead, currency: status.currency))
-              )
-              .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
-            }
-            HStack(spacing: 8) {
-              Button(t("goals.contribute")) { sheet = .moveGoal(status, withdraw: false) }
-                .buttonStyle(.bordered)
-              Button(t("goals.withdraw")) { sheet = .moveGoal(status, withdraw: true) }
-                .buttonStyle(.bordered)
-                .disabled(status.saved.raw <= 0)
-              // A goal that has gathered what it was for can become the trip it was saved for.
-              if TripGoal.readyBudget(target: status.goal.targetE4, saved: status.saved) != nil {
-                Button(TravelText.t("travel.goal.make", environment)) { tripGoal = status }
-                  .buttonStyle(.bordered)
-                  .help(TravelText.t("travel.goal.help", environment))
-                  .accessibilityIdentifier("goal.makeTrip")
-              }
-            }
-            .controlSize(.small)
-          }
-          .draggable(GoalOrder.payload(of: status.goal.id)) {
-            Text(verbatim: status.goal.name).padding(6)
-          }
-          .dropDestination(for: String.self) { payloads, _ in
-            guard let moved = payloads.lazy.compactMap(GoalOrder.goal(in:)).first,
-              let ids = GoalOrder.ids(
-                moving: moved, onto: status.goal.id, in: ordered.map(\.goal.id)),
-              let dependencies
-            else { return false }
-            return PlanningActions(dependencies).reorderGoals(ids)
-          }
-          .contextMenu {
-            Button(environment.language("action.edit")) { sheet = .goal(status.goal) }
-            Button(t("goals.archive")) {
-              if let dependencies { PlanningActions(dependencies).archive(status.goal) }
-            }
-          }
+          goalRow(status, snapshot: snapshot, ordered: ordered)
         }
         PlanningShowAllButton(
           block: .goals, total: goals.count, hidden: shown.hidden, expanded: $showsAll)
@@ -151,8 +63,17 @@ struct GoalsBlock: View {
             .controlSize(.small)
             .guideTarget(GuideTarget.planningAddGoal)
         }
+        if hosted {
+          Button(t("goals.screen.open")) { showsScreen = true }
+            .buttonStyle(.link)
+            .appFont(.callout)
+            .accessibilityIdentifier("planning.goals.screen")
+        }
         archive(snapshot.dataset.goals.filter(\.archived))
       }
+    }
+    .sheet(isPresented: $showsScreen) {
+      GoalsScreen().handingOver(dependencies)
     }
     .sheet(item: $tripGoal) { status in
       TripFromGoalSheet(status: status).handingOver(dependencies)
@@ -170,6 +91,145 @@ struct GoalsBlock: View {
     } message: {
       Text(verbatim: t("form.goal.delete.message"))
     }
+  }
+
+  /// A goal as the design draws it: the tile, the name over «62 % · до 1 декабря», what is saved
+  /// at the right and the bar under it. A tap opens what can be done with it (the strip of
+  /// «Внести», «Забрать», «Сделать поездкой…» and the plan in words); the long press or the
+  /// right click lists the same as a menu, with «Изменить» and the archive.
+  @ViewBuilder
+  private func goalRow(
+    _ status: GoalStatus, snapshot: DataSnapshot, ordered: [GoalStatus]
+  )
+    -> some View
+  {
+    let isOpen = opened.contains(status.goal.id)
+    VStack(alignment: .leading, spacing: 8) {
+      Button {
+        if isOpen { opened.remove(status.goal.id) } else { opened.insert(status.goal.id) }
+      } label: {
+        VStack(alignment: .leading, spacing: 8) {
+          HStack(alignment: .center, spacing: 12) {
+            GoalTile(complete: GoalProgressBar.isComplete(basisPoints: status.progressBp))
+            VStack(alignment: .leading, spacing: 2) {
+              Text(verbatim: status.goal.name)
+                .appFont(.body.weight(.semibold))
+                .lineLimit(1)
+              Text(verbatim: subtitle(status))
+                .appFont(.caption.monospacedDigit())
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+            }
+            Spacer(minLength: 6)
+            // In the goal's own currency: a dollar goal is saved in dollars.
+            Text(verbatim: environment.money.rounded(status.saved, currency: status.currency))
+              .appFont(.body.weight(.semibold).monospacedDigit())
+              .lineLimit(1)
+              .minimumScaleFactor(0.8)
+          }
+          GoalProgressBar(basisPoints: status.progressBp)
+        }
+        .contentShape(.rect)
+      }
+      .buttonStyle(.plain)
+      .accessibilityElement(children: .combine)
+      .accessibilityHint(Text(verbatim: t(isOpen ? "goals.row.hide" : "goals.row.show")))
+      if status.withoutRate > 0 {
+        Label {
+          Text(
+            verbatim: environment.format(
+              "goals.withoutRate", table: "Planning", counts: status.withoutRate))
+        } icon: {
+          Image(systemName: "hourglass")
+        }
+        .appFont(.caption)
+        .foregroundStyle(.secondary)
+      }
+      if isOpen { details(status, snapshot: snapshot) }
+    }
+    .draggable(GoalOrder.payload(of: status.goal.id)) {
+      Text(verbatim: status.goal.name).padding(6)
+    }
+    .dropDestination(for: String.self) { payloads, _ in
+      guard let moved = payloads.lazy.compactMap(GoalOrder.goal(in:)).first,
+        let ids = GoalOrder.ids(moving: moved, onto: status.goal.id, in: ordered.map(\.goal.id)),
+        let dependencies
+      else { return false }
+      return PlanningActions(dependencies).reorderGoals(ids)
+    }
+    .contextMenu {
+      Button(t("goals.contribute")) { sheet = .moveGoal(status, withdraw: false) }
+      Button(t("goals.withdraw")) { sheet = .moveGoal(status, withdraw: true) }
+        .disabled(status.saved.raw <= 0)
+      Button(environment.language("action.edit")) { sheet = .goal(status.goal) }
+      Button(t("goals.archive")) {
+        if let dependencies { PlanningActions(dependencies).archive(status.goal) }
+      }
+    }
+  }
+
+  /// «62 % · до 1 декабря», «62 % · без срока»: the share and the day the goal is for.
+  private func subtitle(_ status: GoalStatus) -> String {
+    let percent = environment.money.percent(basisPoints: status.progressBp, fractionDigits: 0)
+    guard let day = status.goal.targetDate else {
+      return environment.format("goals.row.noDate", table: "Planning", percent)
+    }
+    return environment.format(
+      "goals.row.until", table: "Planning", percent, PlanningBlockText.dayText(day, environment))
+  }
+
+  /// What opens under a goal: what is saved of the target, how it stands against the plan, and
+  /// the buttons of the goal.
+  @ViewBuilder
+  private func details(_ status: GoalStatus, snapshot: DataSnapshot) -> some View {
+    VStack(alignment: .leading, spacing: 6) {
+      Text(
+        verbatim: String(
+          format: t("planning.spentOf"), locale: environment.language.locale,
+          environment.money.rounded(status.saved, currency: status.currency),
+          environment.money.rounded(status.goal.targetE4, currency: status.currency))
+      )
+      .appFont(.caption.monospacedDigit())
+      .foregroundStyle(.secondary)
+      Text(verbatim: realism(status))
+        .appFont(.caption)
+        .foregroundStyle(.secondary)
+        .fixedSize(horizontal: false, vertical: true)
+      if let ahead = Self.paidAhead(of: status.goal, snapshot), ahead.raw > 0 {
+        Text(
+          verbatim: environment.format(
+            "goals.ahead", table: "Planning",
+            environment.money.rounded(ahead, currency: status.currency))
+        )
+        .appFont(.caption.monospacedDigit())
+        .foregroundStyle(.secondary)
+      }
+      ViewThatFits(in: .horizontal) {
+        actionButtons(status, horizontal: true)
+        actionButtons(status, horizontal: false)
+      }
+    }
+  }
+
+  @ViewBuilder
+  private func actionButtons(_ status: GoalStatus, horizontal: Bool) -> some View {
+    let layout =
+      horizontal ? AnyLayout(HStackLayout(spacing: 8)) : AnyLayout(VStackLayout(spacing: 8))
+    layout {
+      Button(t("goals.contribute")) { sheet = .moveGoal(status, withdraw: false) }
+        .buttonStyle(.bordered)
+      Button(t("goals.withdraw")) { sheet = .moveGoal(status, withdraw: true) }
+        .buttonStyle(.bordered)
+        .disabled(status.saved.raw <= 0)
+      // A goal that has gathered what it was for can become the trip it was saved for.
+      if TripGoal.readyBudget(target: status.goal.targetE4, saved: status.saved) != nil {
+        Button(TravelText.t("travel.goal.make", environment)) { tripGoal = status }
+          .buttonStyle(.bordered)
+          .help(TravelText.t("travel.goal.help", environment))
+          .accessibilityIdentifier("goal.makeTrip")
+      }
+    }
+    .controlSize(.small)
   }
 
   /// The goals in the archive, behind «Показывать архив» while there are any. «Вернуть» brings

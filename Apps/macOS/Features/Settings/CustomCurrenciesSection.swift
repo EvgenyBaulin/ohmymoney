@@ -228,6 +228,7 @@ struct CustomCurrenciesSection: View {
         .accessibilityIdentifier("currencies.custom.add")
     } header: {
       Text(verbatim: t("currencies.custom"))
+        .settingsHeaderStyle()
     } footer: {
       Text(verbatim: t("currencies.custom.hint"))
         .appFont(.callout)

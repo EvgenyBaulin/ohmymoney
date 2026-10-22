@@ -63,7 +63,9 @@ struct CalendarDayCell: View {
         (compact ? AppFont.caption : .callout).monospacedDigit().weight(
           day.isToday ? .bold : .regular)
       )
-      .foregroundStyle(day.isToday ? AnyShapeStyle(surfaces.onAccent) : AnyShapeStyle(surfaces.primary))
+      .foregroundStyle(
+        day.isToday ? AnyShapeStyle(surfaces.onAccent) : AnyShapeStyle(surfaces.primary)
+      )
       // A number is one line, however narrow the cell of the strip: «15» was «1» over «5». It
       // gives way a little in size instead of pushing the strip wider than the window.
       .lineLimit(1)

@@ -39,6 +39,10 @@ public struct SyncOutcome: Sendable, Equatable {
   public var filesFromNewerVersion = 0
   /// Files that are cut short or damaged; they are read again next time, nothing of them used.
   public var filesDamaged = 0
+  /// Rows of the existing books put into the outbox because this device had never exchanged.
+  public var rowsSeeded = 0
+  /// A fresh copy of the whole database was put in the folder (set by the caller that does it).
+  public var snapshotWritten = false
 
   public init() {}
 
@@ -47,7 +51,8 @@ public struct SyncOutcome: Sendable, Equatable {
     [
       ("written", entriesWritten), ("files", filesApplied), ("applied", recordsApplied),
       ("conflicts", conflictsOpen), ("deferred", deferred), ("newer", filesFromNewerVersion),
-      ("damaged", filesDamaged),
+      ("damaged", filesDamaged), ("seeded", rowsSeeded),
+      ("snapshot", snapshotWritten ? 1 : 0),
     ]
   }
 }
@@ -99,7 +104,7 @@ public enum SyncChoiceError: Error, Sendable, Equatable {
 public final class SyncExchange: Sendable {
   public let deviceId: String
   public let deviceName: String
-  private let writer: any DatabaseWriter
+  let writer: any DatabaseWriter
   private let store: DatabaseSyncStateStore
   private let applier: DatabaseRecordApplier
   private let maxEntriesPerFile = 5_000
@@ -239,6 +244,9 @@ public final class SyncExchange: Sendable {
     let watched = WatchedFolder(folder)
     var outcome = SyncOutcome()
     do {
+      // A device that already holds books has nothing in its outbox for them: every row goes
+      // out once, before anything else, so a device that joins later receives the whole of it.
+      if isRecording { outcome.rowsSeeded = try seedIfNeeded() }
       outcome.entriesWritten += try flush(to: watched)
       var report = try run(watched)
       outcome.filesApplied = report.filesApplied

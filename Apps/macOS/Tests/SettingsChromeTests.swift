@@ -13,6 +13,14 @@ final class SettingsChromeTests: XCTestCase {
     XCTAssertTrue(symbols.allSatisfy { !$0.hasSuffix(".fill") })
   }
 
+  func testEverySectionHasATileColourAndOnlyTheQuietOnesShareOne() {
+    let hexes = SettingsSection.allCases.map(\.tileHex)
+    // The design gives «Основные» and «Планирование» the same grey, and nothing else repeats.
+    XCTAssertEqual(Set(hexes).count, SettingsSection.allCases.count - 1)
+    XCTAssertEqual(SettingsSection.general.tileHex, SettingsSection.planning.tileHex)
+    XCTAssertTrue(hexes.allSatisfy { $0 <= 0xFFFFFF })
+  }
+
   func testTheMeasuresFollowTheDesign() {
     XCTAssertEqual(SettingsChromeMetrics.tileSize, 28)
     XCTAssertEqual(SettingsChromeMetrics.rowHeight, 32)

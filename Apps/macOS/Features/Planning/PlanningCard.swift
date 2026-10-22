@@ -35,16 +35,17 @@ struct PlanningCard<Content: View>: View {
   }
 
   private var header: some View {
+    // The design's header is the title and a quiet caption, nothing else; the controls that
+    // fold the card or set its length sit at the end, small and secondary, and on a touch
+    // device the length menu moves into a long press of the title.
     HStack(alignment: .firstTextBaseline, spacing: 8) {
-      Label {
-        Text(verbatim: PlanningBlockText.name(of: block, environment))
-          .appFont(.headline)
-          .lineLimit(2)
-      } icon: {
-        Image(systemName: PlanningBlockText.symbol(of: block))
-          .foregroundStyle(.secondary)
-      }
-      .accessibilityAddTraits(.isHeader)
+      Text(verbatim: PlanningBlockText.name(of: block, environment))
+        .appFont(.headline)
+        .lineLimit(2)
+        .accessibilityAddTraits(.isHeader)
+        .contextMenu {
+          if block.hasShortList { PlanningLengthChoices(block: block, layout: layout) }
+        }
       Spacer(minLength: 8)
       if let total {
         Text(verbatim: total)
@@ -54,13 +55,17 @@ struct PlanningCard<Content: View>: View {
           .minimumScaleFactor(0.8)
           .accessibilityIdentifier("planning.card.\(block.rawValue).total")
       }
-      if block.hasShortList {
-        PlanningLengthMenu(block: block, layout: layout)
-      }
+      #if os(macOS)
+        if block.hasShortList {
+          PlanningLengthMenu(block: block, layout: layout)
+        }
+      #endif
       Button {
         collapsed.toggle()
       } label: {
         Image(systemName: collapsed ? "chevron.right" : "chevron.down")
+          .appFont(.caption.weight(.semibold))
+          .foregroundStyle(.secondary)
           .frame(width: 14)
       }
       .buttonStyle(.borderless)
@@ -85,26 +90,7 @@ struct PlanningLengthMenu: View {
 
   var body: some View {
     Menu {
-      Picker(
-        selection: Binding(
-          get: { layout.ownLength(of: block).map(Choice.own) ?? .global },
-          set: { choice in
-            switch choice {
-            case .global: layout.setOwnLength(nil, for: block)
-            case .own(let length): layout.setOwnLength(length, for: block)
-            }
-          })
-      ) {
-        Text(verbatim: PlanningBlockText.globalLengthTitle(layout.length, environment))
-          .tag(Choice.global)
-        ForEach(PlanningListLength.choices, id: \.self) { length in
-          Text(verbatim: PlanningBlockText.lengthTitle(length, environment))
-            .tag(Choice.own(length))
-        }
-      } label: {
-        Text(verbatim: PlanningBlockText.t("layout.length", environment))
-      }
-      .pickerStyle(.inline)
+      PlanningLengthChoices(block: block, layout: layout)
     } label: {
       Image(systemName: "list.number")
     }
@@ -115,6 +101,38 @@ struct PlanningLengthMenu: View {
     .help(PlanningBlockText.t("layout.length", environment))
     .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.length", environment)))
     .accessibilityIdentifier("planning.card.\(block.rawValue).length")
+  }
+
+}
+
+/// The choices of the length of a block, as an inline picker: in the menu of the card's header
+/// and, on a touch device, in the menu of a long press of its title.
+struct PlanningLengthChoices: View {
+  @Dependency(\.environment) private var environment
+  let block: PlanningBlock
+  let layout: PlanningLayoutStore
+
+  var body: some View {
+    Picker(
+      selection: Binding(
+        get: { layout.ownLength(of: block).map(Choice.own) ?? .global },
+        set: { choice in
+          switch choice {
+          case .global: layout.setOwnLength(nil, for: block)
+          case .own(let length): layout.setOwnLength(length, for: block)
+          }
+        })
+    ) {
+      Text(verbatim: PlanningBlockText.globalLengthTitle(layout.length, environment))
+        .tag(Choice.global)
+      ForEach(PlanningListLength.choices, id: \.self) { length in
+        Text(verbatim: PlanningBlockText.lengthTitle(length, environment))
+          .tag(Choice.own(length))
+      }
+    } label: {
+      Text(verbatim: PlanningBlockText.t("layout.length", environment))
+    }
+    .pickerStyle(.inline)
   }
 
   enum Choice: Hashable {

@@ -92,19 +92,24 @@ struct PhoneTabBar: View {
       .layoutPriority(router.isMoreLit(visible: layout.visible) ? 1 : 0)
     }
     .padding(.horizontal, 8)
-    .padding(.vertical, 4)
-    .frame(maxWidth: .infinity)
-    .background(colors.background.ignoresSafeArea(edges: .bottom))
-    .overlay(alignment: .top) { Divider() }
+    .padding(.vertical, 6)
+    .background(colors.background, in: RoundedRectangle(cornerRadius: 32, style: .continuous))
+    .shadow(color: .black.opacity(0.18), radius: 12, y: 4)
+    // The bar floats: a margin on every side, the page shows around it (design: tab bar pill).
+    .padding(.horizontal, 16)
+    .padding(.top, 6)
+    .padding(.bottom, 8)
   }
 }
 
 /// The fade over the bottom of a screen that stands above the bar of the phone: the colour of
 /// the page, from clear to solid, so the content goes under the bar and not through it.
 struct NavBarFade: View {
+  @Environment(\.themeSurfaces) private var surfaces
+
   var body: some View {
     LinearGradient(
-      colors: [Color(.systemBackground).opacity(0), Color(.systemBackground)],
+      colors: [surfaces.background.opacity(0), surfaces.background],
       startPoint: .top, endPoint: .bottom
     )
     .frame(height: PhoneTabBar.fadeHeight)
