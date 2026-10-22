@@ -91,7 +91,8 @@ final class SyncCoordinatorTests: XCTestCase {
       device: "mac", stack: try makeStack(), protected: [support, backups])
     XCTAssertEqual(coordinator.choose(folder: support), .refused)
     XCTAssertEqual(coordinator.choose(folder: backups), .refused)
-    XCTAssertEqual(coordinator.choose(folder: folder, thenSync: false), .refused, "a folder that holds them")
+    XCTAssertEqual(
+      coordinator.choose(folder: folder, thenSync: false), .refused, "a folder that holds them")
     XCTAssertFalse(coordinator.hasFolder, "a refused folder is not remembered")
   }
 
