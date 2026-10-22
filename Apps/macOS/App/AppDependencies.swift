@@ -139,8 +139,8 @@ private struct AppTheming: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .environment(\.appAccent, theme.accentColor)
-      .tint(theme.tint)
+      // The colours of the chosen theme and the accent over them (`AppThemeModifier`).
+      .modifier(AppThemeModifier(theme: theme))
       // The size of the text chosen in Settings → Appearance, for every window and sheet.
       .modifier(AppFontSizing(size: theme.fontSize))
   }

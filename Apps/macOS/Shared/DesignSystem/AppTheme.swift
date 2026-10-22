@@ -51,6 +51,8 @@ public final class AppTheme {
   /// System colours only: they follow the dark theme and «Увеличить контраст» by themselves,
   /// and the app owns no hexadecimal value of its own.
   public enum Accent: String, CaseIterable, Sendable {
+    /// «Как в теме»: no override, the accent is the one the chosen theme brings. The default.
+    case theme
     case system
     /// The amber of the icon, as the system knows it.
     case amber
@@ -68,7 +70,7 @@ public final class AppTheme {
     /// Settings, which is what `Color.accentColor` already means.
     public var color: Color {
       switch self {
-      case .system: .accentColor
+      case .system, .theme: .accentColor
       case .amber: .orange
       case .blue: .blue
       case .teal: .teal
@@ -82,7 +84,24 @@ public final class AppTheme {
 
     /// The same colour for `.tint(_:)`, where `nil` means «leave the system's alone»: a
     /// choice of `system` must not pin today's system accent into the view tree.
-    public var tint: Color? { self == .system ? nil : color }
+    public var tint: Color? { self == .system || self == .theme ? nil : color }
+
+    /// The accent to paint with under `colors`: the theme's own for «Как в теме», the circle's
+    /// colour otherwise.
+    public func resolved(in colors: AppThemeColors) -> Color {
+      self == .theme ? Color(colors.palette.accentDefault) : color
+    }
+
+    /// The same for `.tint(_:)`: `nil` only for «Системный», which leaves the system's alone.
+    public func resolvedTint(in colors: AppThemeColors) -> Color? {
+      self == .system ? nil : resolved(in: colors)
+    }
+
+    /// Where the name of the choice lives: «Как в теме» has its own table, the circles keep the
+    /// Settings strings they always had.
+    public var title: (key: String, table: String) {
+      self == .theme ? ("appearance.accent.theme", "Appearance") : (settingsKey, "Settings")
+    }
 
     /// The colour of the choice's circle in Settings. «Системный» is the accent chosen in System
     /// Settings as it is now, read from AppKit, so the circle shows what the choice will paint
@@ -101,12 +120,25 @@ public final class AppTheme {
   /// guard reads them before the first test.
   nonisolated static let schemeKey = "app.theme.scheme"
   nonisolated static let accentKey = "app.theme.accent"
+  /// The chosen colour theme (`ThemeID.rawValue`, «01»…«30»). Travels in the archive's
+  /// `settings.json` as `theme.id`; a build that does not know the key passes it over.
+  nonisolated static let themeKey = "app.theme.id"
 
   public var scheme: Scheme {
     didSet {
       guard scheme != oldValue else { return }
       UserDefaults.standard.set(scheme.rawValue, forKey: Self.schemeKey)
       applyAppearance()
+    }
+  }
+
+  /// The colour theme: surfaces, text and chart colours (`ThemeCatalog`). Light or dark is
+  /// `scheme`; the accent circle is an override on top of it. «Увеличить контраст» swaps it for
+  /// the Contrast theme at resolve time (`ThemeResolver`) and leaves this choice alone.
+  public var themeID: ThemeID {
+    didSet {
+      guard themeID != oldValue else { return }
+      UserDefaults.standard.set(themeID.rawValue, forKey: Self.themeKey)
     }
   }
 
@@ -143,7 +175,8 @@ public final class AppTheme {
   public init() {
     let defaults = UserDefaults.standard
     scheme = defaults.string(forKey: Self.schemeKey).flatMap(Scheme.init(rawValue:)) ?? .system
-    accent = defaults.string(forKey: Self.accentKey).flatMap(Accent.init(rawValue:)) ?? .system
+    accent = defaults.string(forKey: Self.accentKey).flatMap(Accent.init(rawValue:)) ?? .theme
+    themeID = defaults.string(forKey: Self.themeKey).flatMap(ThemeID.init(rawValue:)) ?? .theme01
     habits = AppEnvironment.isTestHost ? nil : defaults
     fontSize = AppFontSize.stored(in: habits)
     currencyStyle = CurrencyStyle.stored(in: habits)

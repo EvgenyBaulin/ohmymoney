@@ -606,6 +606,7 @@ public final class AppEnvironment {
       "language": language.choice.rawValue,
       "theme.scheme": theme.scheme.rawValue,
       "theme.accent": theme.accent.rawValue,
+      "theme.id": theme.themeID.rawValue,
       Self.entryFieldOrderKey: EntryFieldOrder.encode(entryFieldOrder),
       Self.entryStyleKey: entryStyle.rawValue,
       Self.overviewTilesKey: OverviewTiles.encode(overviewTiles),

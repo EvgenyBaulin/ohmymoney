@@ -13,7 +13,8 @@ final class AppThemeTests: XCTestCase {
     let theme = AppTheme()
 
     XCTAssertEqual(theme.scheme, .system)
-    XCTAssertEqual(theme.accent, .system)
+    XCTAssertEqual(theme.accent, .theme)
+    XCTAssertEqual(theme.themeID, .theme01)
     // «Светлая и тёмная тема — как в системе»: without a choice nothing is imposed.
     XCTAssertNil(AppTheme.Scheme.system.appearance)
     XCTAssertNil(theme.tint)
@@ -48,7 +49,8 @@ final class AppThemeTests: XCTestCase {
     }
     // The system accent is the one that leaves `.tint(_:)` alone.
     XCTAssertNil(AppTheme.Accent.system.tint)
-    for accent in AppTheme.Accent.allCases where accent != .system {
+    XCTAssertNil(AppTheme.Accent.theme.tint)
+    for accent in AppTheme.Accent.allCases where accent != .system && accent != .theme {
       XCTAssertEqual(accent.tint, accent.color, accent.rawValue)
       XCTAssertEqual(accent.swatch, accent.color, accent.rawValue)
     }
@@ -73,11 +75,11 @@ final class AppThemeTests: XCTestCase {
     var chosen = AppTheme.Accent.system
     let swatches = AccentSwatches(
       selection: Binding(get: { chosen }, set: { chosen = $0 }),
-      name: { environment.language($0.settingsKey, table: "Settings") })
+      name: { AppearanceSettingsView.accentTitle($0, environment) })
     for (choice, teal) in [(AppLanguage.Choice.english, "Teal"), (.russian, "Бирюзовый")] {
       environment.language.choice = choice
       for accent in AppTheme.Accent.allCases {
-        XCTAssertNotEqual(swatches.name(accent), accent.settingsKey, "\(accent), \(choice)")
+        XCTAssertNotEqual(swatches.name(accent), accent.title.key, "\(accent), \(choice)")
       }
       XCTAssertEqual(swatches.name(.teal), teal)
     }
@@ -88,12 +90,13 @@ final class AppThemeTests: XCTestCase {
   func testEveryChoiceHasACaptionInBothLanguages() {
     let language = AppLanguage()
     let keys =
-      AppTheme.Scheme.allCases.map(\.settingsKey) + AppTheme.Accent.allCases.map(\.settingsKey)
+      AppTheme.Scheme.allCases.map { ($0.settingsKey, "Settings") }
+      + AppTheme.Accent.allCases.map { ($0.title.key, $0.title.table) }
     for choice in [AppLanguage.Choice.english, .russian] {
       language.choice = choice
-      for key in keys {
+      for (key, table) in keys {
         XCTAssertNotEqual(
-          language(key, table: "Settings"), key, "\(key) is missing in \(choice.rawValue)")
+          language(key, table: table), key, "\(key) is missing in \(choice.rawValue)")
       }
     }
   }

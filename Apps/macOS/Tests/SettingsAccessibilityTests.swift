@@ -75,14 +75,14 @@ final class SettingsAccessibilityTests: XCTestCase {
     let window = show(
       AppearanceSettingsView().appDependencies(deps), size: CGSize(width: 620, height: 460))
     let names = AppTheme.Accent.allCases.map {
-      environment.language($0.settingsKey, table: "Settings")
+      AppearanceSettingsView.accentTitle($0, environment)
     }
     waitFor { Self.elements(in: window, role: "AXButton").count >= names.count }
     let buttons = Self.elements(in: window, role: "AXButton").map(Self.spoken)
     for name in names {
       XCTAssertTrue(buttons.contains { $0.contains(name) }, "no circle says «\(name)»: \(buttons)")
     }
-    let chosen = environment.language(environment.theme.accent.settingsKey, table: "Settings")
+    let chosen = AppearanceSettingsView.accentTitle(environment.theme.accent, environment)
     let texts = Self.elements(in: window, role: "AXStaticText").map(Self.spoken)
     XCTAssertTrue(
       texts.contains { $0.contains(chosen) }, "the chosen accent is not said in words: \(texts)")

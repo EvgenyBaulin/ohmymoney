@@ -76,13 +76,15 @@ final class AppDefaultsGuard: NSObject, XCTestObservation, @unchecked Sendable {
     var overviewTiles: String?
     var overviewLayout: String?
     var overviewCollapsed: String?
+    var themeID: String?
 
     init(
       language: String? = nil, appleLanguages: [String]? = nil, themeScheme: String? = nil,
       themeAccent: String? = nil, entryFieldOrder: String? = nil, entryStyle: String? = nil,
       overviewTiles: String? = nil, overviewLayout: String? = nil,
-      overviewCollapsed: String? = nil
+      overviewCollapsed: String? = nil, themeID: String? = nil
     ) {
+      self.themeID = themeID
       self.language = language
       self.appleLanguages = appleLanguages
       self.themeScheme = themeScheme
@@ -106,6 +108,7 @@ final class AppDefaultsGuard: NSObject, XCTestObservation, @unchecked Sendable {
       overviewTiles = values[AppDefaultsGuard.overviewTilesKey] as? String
       overviewLayout = values[AppDefaultsGuard.overviewLayoutKey] as? String
       overviewCollapsed = values[AppDefaultsGuard.overviewCollapsedKey] as? String
+      themeID = values[AppTheme.themeKey] as? String
     }
 
     /// Writes the values back; a key that was missing is removed.
@@ -119,6 +122,7 @@ final class AppDefaultsGuard: NSObject, XCTestObservation, @unchecked Sendable {
       Self.put(overviewTiles, forKey: AppDefaultsGuard.overviewTilesKey, in: defaults)
       Self.put(overviewLayout, forKey: AppDefaultsGuard.overviewLayoutKey, in: defaults)
       Self.put(overviewCollapsed, forKey: AppDefaultsGuard.overviewCollapsedKey, in: defaults)
+      Self.put(themeID, forKey: AppTheme.themeKey, in: defaults)
     }
 
     private static func put(_ value: Any?, forKey key: String, in defaults: UserDefaults) {

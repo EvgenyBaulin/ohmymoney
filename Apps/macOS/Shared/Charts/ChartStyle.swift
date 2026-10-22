@@ -117,7 +117,7 @@ struct ChartSeriesStyle: Hashable, Sendable {
     case .graphite: .gray
     case .green: .green
     case .amber: .orange
-    case .system, .indigo, .pink: nil
+    case .system, .theme, .indigo, .pink: nil
     }
   }
 

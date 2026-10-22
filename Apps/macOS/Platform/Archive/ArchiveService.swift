@@ -361,6 +361,10 @@ enum ArchiveImportFlow {
     if let accent = values["theme.accent"], AppTheme.Accent(rawValue: accent) != nil {
       defaults.set(accent, forKey: AppTheme.accentKey)
     }
+    // The colour theme, when this build has it among its thirty; an older archive has none.
+    if let id = values["theme.id"], ThemeID(rawValue: id) != nil {
+      defaults.set(id, forKey: AppTheme.themeKey)
+    }
     // The order of the fields of the ↓ panel is read as a whole order before it is kept: a
     // field this build does not know goes, one it lacks takes its standard place.
     if let order = values[AppEnvironment.entryFieldOrderKey] {
