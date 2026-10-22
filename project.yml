@@ -178,6 +178,7 @@ targets:
       - path: Apps/macOS/App
         includes:
           - AppEnvironment.swift
+          - AppEnvironment+Spending.swift
           - AppDependencies.swift
           - StarterCategories.swift
           - MainSidebar.swift
