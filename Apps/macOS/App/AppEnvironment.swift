@@ -112,6 +112,10 @@ public final class AppEnvironment {
   /// as it is there — at once when it is open, when it appears otherwise — and clears this.
   public var pendingSearchFocus = false
 
+  /// «Файл» → «Импорт выписки…», or files dropped on the main window: the loading of statements
+  /// opens over it with these files (none: it asks which) and the request is cleared.
+  var statementImportRequest: StatementImportRequest?
+
   /// The reconciliation sheet of the main window is open: the toolbar, the Overview card and
   /// a reminder ask for it from wherever they are.
   public var showsReconciliation = false

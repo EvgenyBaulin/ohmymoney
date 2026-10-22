@@ -548,6 +548,8 @@ struct MainWindow: View {
     ) {
       ReconcileSheet().appDependencies(deps)
     }
+    // Statements: from the File menu, or files dropped on the window.
+    .statementImportSheet(deps)
     .sheet(isPresented: environment.lock.presenting($showsConflicts)) {
       if let sync = environment.sync {
         ConflictsSheet(coordinator: sync).appDependencies(deps)

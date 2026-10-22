@@ -24,6 +24,11 @@ struct FileCommands: Commands {
         importArchive()
       }
       .keyboardShortcut("o", modifiers: [.command, .shift])
+
+      Divider()
+      Button(environment.language("import.menu", table: "Import")) {
+        environment.statementImportRequest = StatementImportRequest(urls: [])
+      }
     }
   }
 

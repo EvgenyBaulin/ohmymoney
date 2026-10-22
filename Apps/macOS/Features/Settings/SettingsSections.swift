@@ -72,7 +72,9 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .accounts("accounts.newAccount"), .accounts("accounts.newGroup"),
         .accounts("card.cashback"), .accounts("accounts.section.archive"),
         .accounts("account.mainCard"), .accounts("account.credit.title"),
-        .settings("accounts.creditTerms"),
+        .settings("accounts.creditTerms"), .imports("import.settings.title"),
+        .imports("import.settings.load"), .imports("import.identity.open"),
+        .imports("import.history.undo"),
       ]
     case .categories:
       [
@@ -154,6 +156,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func overview(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Overview")
+  }
+
+  static func imports(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "Import")
   }
 
   static func incomeSavings(_ key: String) -> SettingsCaption {

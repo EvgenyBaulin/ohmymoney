@@ -256,6 +256,13 @@ struct AccountsSettingsView: View {
           .settingsHeaderStyle()
       }
 
+      Section {
+        StatementImportSettingsRows()
+      } header: {
+        Text(verbatim: ImportText.t("import.settings.title", environment))
+          .settingsHeaderStyle()
+      }
+
       if showsArchive {
         Section {
           if archived.isEmpty && archivedGroups.isEmpty && archivedCards.isEmpty
