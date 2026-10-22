@@ -57,6 +57,7 @@ struct OperationsScreen: View {
   private var store: TransactionsStore { deps.store }
   private var compute: ComputeStore { deps.compute }
 
+  @Environment(\.themeSurfaces) private var surfaces
   @State private var choices = FilterChoices()
   /// What the filters found and the newest months of it the table shows.
   @State private var pages = TransactionPages()
@@ -76,18 +77,21 @@ struct OperationsScreen: View {
   /// still shows the time, the description and the amount.
   static let widthForEditorColumn: CGFloat = TransactionInspector.idealWidth + 380
 
+  private var editorColumnShown: Bool {
+    environment.entryStyle == .line && state.editor != nil
+  }
+
   private var layout: OperationColumnLayout { OperationColumnLayout(storage: columnsText) }
 
   var body: some View {
     VStack(spacing: 0) {
       header
-      Divider()
       HStack(spacing: 0) {
         content
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           // The place of the table for the guide, whatever the table is showing now.
           .guideTarget(GuideTarget.operationsList)
-        if environment.entryStyle == .line, let editor = state.editor {
+        if editorColumnShown, let editor = state.editor {
           Divider()
           TransactionInspector(deps: deps, editor: editor) { state.editor = nil }
             // The operation, not the object: `followData` makes a fresh model for the same
@@ -185,20 +189,72 @@ struct OperationsScreen: View {
 
   // MARK: The search, the filters and the columns
 
-  private var header: some View {
-    HStack(spacing: 8) {
-      TextField(
-        text: $state.filters.search, prompt: Text(verbatim: t("operations.search.prompt"))
-      ) {
-        Text(verbatim: t("transactions.search"))
-      }
-      .textFieldStyle(.roundedBorder)
-      .labelsHidden()
-      .focused($searchFocused)
-      .accessibilityIdentifier("transactions.search")
-      .guideTarget(GuideTarget.operationsSearch)
-      .popoverTip(SpendingSearchTip())
+  /// A screen narrower than this drops the title (the navigation bar has it) and lets the
+  /// chips and buttons scroll sideways.
+  static let widthForTitle: CGFloat = 560
 
+  private var header: some View {
+    let roomy = width == 0 || width >= Self.widthForTitle
+    return VStack(alignment: .leading, spacing: 12) {
+      HStack(spacing: 12) {
+        if roomy {
+          Text(verbatim: environment.language("section.operations"))
+            .appFont(.title.bold())
+            .accessibilityAddTraits(.isHeader)
+          Spacer(minLength: 8)
+        }
+        searchField
+          .frame(maxWidth: roomy ? 260 : .infinity)
+        Button {
+          NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+        } label: {
+          Label {
+            Text(verbatim: environment.language("action.add"))
+          } icon: {
+            Image(systemName: "plus")
+          }
+          .labelStyle(.iconOnly)
+        }
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.circle)
+        .help(environment.language("action.add"))
+        .accessibilityIdentifier("operations.add")
+      }
+      ScrollView(.horizontal, showsIndicators: false) {
+        HStack(spacing: 12) {
+          QuickFilterChips(
+            chips: OperationsQuickFilter.allCases,
+            isActive: { $0.isActive(in: state.filters, today: environment.today) },
+            title: { t($0.titleKey) },
+            choose: { chip in
+              chip.apply(to: &state.filters, tree: choices.categories, today: environment.today)
+            })
+          Spacer(minLength: 8)
+          controls
+        }
+        .frame(minWidth: 0, maxWidth: .infinity)
+      }
+    }
+    .padding(.horizontal, 16)
+    .padding(.vertical, 12)
+  }
+
+  private var searchField: some View {
+    TextField(
+      text: $state.filters.search, prompt: Text(verbatim: t("operations.search.prompt"))
+    ) {
+      Text(verbatim: t("transactions.search"))
+    }
+    .textFieldStyle(.roundedBorder)
+    .labelsHidden()
+    .focused($searchFocused)
+    .accessibilityIdentifier("transactions.search")
+    .guideTarget(GuideTarget.operationsSearch)
+    .popoverTip(SpendingSearchTip())
+  }
+
+  private var controls: some View {
+    HStack(spacing: 8) {
       Button {
         showsFilters = true
       } label: {
@@ -236,8 +292,6 @@ struct OperationsScreen: View {
       .help(t("operations.columns"))
       .accessibilityIdentifier("operations.columns")
     }
-    .padding(.horizontal, 16)
-    .padding(.vertical, 8)
   }
 
   /// «Фильтры», and how many narrow the table: «Фильтры · 2».
@@ -271,12 +325,24 @@ struct OperationsScreen: View {
         Text(verbatim: t("transactions.noneYetHint"))
       }
     } else if let listing = pages.listing, let shown = pages.shown, !listing.isEmpty {
+      // The table stands on a rounded card of the theme, as the design draws it.
       VStack(spacing: 0) {
         table(shown)
+          .scrollContentBackground(.hidden)
         if shown.operationCount < listing.operationCount {
           earlierMonths(hidden: listing.operationCount - shown.operationCount)
         }
       }
+      .background(surfaces.card)
+      .clipShape(.rect(cornerRadius: 16))
+      .overlay {
+        RoundedRectangle(cornerRadius: 16).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
+      }
+      // With the editor column open the card runs up to its divider: the column's own width is
+      // what the layout keeps, and nothing of it is spent on a margin beside the table.
+      .padding(.leading, 16)
+      .padding(.trailing, editorColumnShown ? 0 : 16)
+      .padding(.bottom, 12)
     } else if pages.listing != nil {
       nothingFound
     } else {

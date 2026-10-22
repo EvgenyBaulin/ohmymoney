@@ -69,85 +69,66 @@ struct GroupScreen: View {
           .foregroundStyle(.secondary)
           .accessibilityHidden(true)
           Text(verbatim: section.group?.name ?? t("sidebar.total"))
-            .appFont(.title2.weight(.semibold))
+            .appFont(.title.bold())
+            .accessibilityAddTraits(.isHeader)
         }
         Spacer()
-        buttons
       }
       LastRecordCaption(history: history)
       if let section {
-        summary(section)
-        accounts(section)
-        GroupPlanBlock(accountIds: section.accountIds)
+        AccountColumns {
+          summary(section)
+          GroupPlanBlock(accountIds: section.accountIds)
+        } trailing: {
+          actionRow
+          accounts(section)
+        } stacked: {
+          summary(section)
+          actionRow
+          accounts(section)
+          GroupPlanBlock(accountIds: section.accountIds)
+        }
       }
     }
     .padding(.vertical, 8)
   }
 
-  private var buttons: some View {
-    HStack(spacing: 8) {
-      Button {
-        let first = section?.accounts.first?.account
-        sheet = .transfer(
-          TransferForm(
-            from: first, accounts: AccountActions(environment: environment, store: store).all,
-            day: environment.today))
-      } label: {
-        Label {
-          Text(verbatim: t("accounts.transfer"))
-        } icon: {
-          Image(systemName: "arrow.left.arrow.right")
-        }
-      }
-      if let group = section?.group {
-        Button {
-          sheet = .edit(group)
-        } label: {
-          Label {
-            Text(verbatim: t("accounts.edit"))
-          } icon: {
-            Image(systemName: "pencil")
-          }
-        }
-      }
+  private var actionRow: some View {
+    var buttons: [AccountActionRow.Action] = [
+      .init(
+        id: "group.transfer", title: t("accounts.transfer"), symbol: "arrow.left.arrow.right",
+        run: {
+          let first = section?.accounts.first?.account
+          sheet = .transfer(
+            TransferForm(
+              from: first, accounts: AccountActions(environment: environment, store: store).all,
+              day: environment.today))
+        })
+    ]
+    if let group = section?.group {
+      buttons.append(
+        .init(
+          id: "group.edit", title: t("accounts.edit"), symbol: "pencil",
+          run: { sheet = .edit(group) }))
     }
-    .buttonStyle(.bordered)
-    .disabled(section == nil)
+    return AccountActionRow(actions: buttons).disabled(section == nil)
   }
 
-  /// The total and, for a group left out of the summary, what that means — in words and with
-  /// its own symbol.
+  /// The total on the hero and, for a group left out of the summary, what that means — in
+  /// words and with its own symbol under the figure.
   private func summary(_ section: GroupContent) -> some View {
-    VStack(alignment: .leading, spacing: 6) {
-      HStack(alignment: .firstTextBaseline) {
-        Text(verbatim: t("sidebar.total"))
-          .foregroundStyle(.secondary)
-        Text(verbatim: section.totalRub.map { environment.money.rounded($0) } ?? "—")
-          .appFont(.title3.monospacedDigit())
-        if !section.withoutRate.isEmpty {
-          Text(
-            verbatim: environment.format(
-              "sidebar.withoutRate", table: AccountText.table,
-              section.withoutRate.map(\.code).joined(separator: ", "))
-          )
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
-        }
-      }
-      .accessibilityElement(children: .combine)
-      if !section.inSummary {
-        Label {
-          Text(verbatim: t("group.screen.excluded"))
-            .fixedSize(horizontal: false, vertical: true)
-        } icon: {
-          Image(systemName: "eye.slash")
-        }
-        .appFont(.caption)
-        .foregroundStyle(.secondary)
-      }
+    var lines: [String] = []
+    if !section.withoutRate.isEmpty {
+      lines.append(
+        environment.format(
+          "sidebar.withoutRate", table: AccountText.table,
+          section.withoutRate.map(\.code).joined(separator: ", ")))
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .contentCard()
+    if !section.inSummary { lines.append(t("group.screen.excluded")) }
+    return ScreenHero(
+      caption: t("sidebar.total"),
+      figure: section.totalRub.map { environment.money.rounded($0) } ?? "\u{2014}",
+      lines: lines, figureIdentifier: "group.screen.hero.figure")
   }
 
   /// The accounts of the group with their balances; a click opens the account.
