@@ -269,9 +269,12 @@ struct PlanningTopBar: View {
     HStack(spacing: 12) {
       affordButton.buttonStyle(.bordered).fixedSize()
       whatIfButton.buttonStyle(.bordered).fixedSize()
-      warrantyButton.buttonStyle(.bordered).fixedSize()
+      // The warranty screen lives in the «+» menu: one more bordered button here would widen
+      // the narrowest window at the largest text size.
       Menu {
         addItems
+        Divider()
+        warrantyButton
       } label: {
         Label {
           Text(verbatim: PlanningBlockText.t("layout.add", environment))
