@@ -12,6 +12,8 @@ struct DebtOverviewPane: View {
   let overview: DebtsOverview
   let people: [Person]
   @Binding var tab: DebtsTab
+  /// The credit cards in debt: shown under the debts I owe, in no total.
+  var cardDebts: [CreditCardDebtLine] = []
   let ladderAvailable: Bool
   let select: (DebtsSelection) -> Void
   let delete: (UUID) -> Void
@@ -21,7 +23,8 @@ struct DebtOverviewPane: View {
       VStack(alignment: .leading, spacing: 16) {
         HStack {
           Picker("", selection: $tab) {
-            Text(verbatim: "\(t("debts.iOwe")) · \(overview.iOwe.count)").tag(DebtsTab.iOwe)
+            Text(verbatim: "\(t("debts.iOwe")) · \(overview.iOwe.count + cardDebts.count)")
+              .tag(DebtsTab.iOwe)
             Text(verbatim: "\(t("debts.owedToMe")) · \(overview.owedToMe.count)")
               .tag(DebtsTab.owedToMe)
           }
@@ -41,6 +44,7 @@ struct DebtOverviewPane: View {
             lines: overview.iOwe.map(DebtCardModel.init),
             closed: overview.closed.map(DebtCardModel.init),
             open: { select(.debt($0)) }, delete: delete)
+          CreditCardDebtCards(lines: cardDebts, open: { select(.card($0)) })
         case .owedToMe:
           if overview.owedToMe.isEmpty {
             Text(verbatim: t("debts.nobodyOwes")).foregroundStyle(.secondary)

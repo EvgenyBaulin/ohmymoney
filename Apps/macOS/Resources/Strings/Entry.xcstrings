@@ -2126,6 +2126,57 @@
         }
       }
     },
+    "entry.minBalance.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The bank asks to keep this much on the account. Nothing is forbidden: you can record it all the same."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк просит держать на счёте не меньше. Ничего не запрещено: можно записать всё равно."
+          }
+        }
+      }
+    },
+    "entry.minBalance.record": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record anyway"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записать всё равно"
+          }
+        }
+      }
+    },
+    "entry.minBalance.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After this the balance will be %1$@ — below %2$@, the rate for the month may be lost"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "После этого остаток станет %1$@ — ниже %2$@, ставка за месяц может пропасть"
+          }
+        }
+      }
+    },
     "entry.monthlyPayment": {
       "extractionState": "manual",
       "localizations": {
@@ -2241,6 +2292,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "В кредит"
+          }
+        }
+      }
+    },
+    "entry.overLimit.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The bank may charge a fee for it. Record it anyway?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возможна комиссия банка. Записать всё равно?"
+          }
+        }
+      }
+    },
+    "entry.overLimit.record": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record anyway"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записать всё равно"
+          }
+        }
+      }
+    },
+    "entry.overLimit.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Over the card limit by %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выйдет за лимит карты на %@"
           }
         }
       }

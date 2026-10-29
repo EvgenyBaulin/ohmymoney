@@ -93,8 +93,10 @@ public struct CreditStatement: Hashable, Sendable {
 
 /// A credit card today, as the screen of its account shows it.
 public struct CreditCardNow: Hashable, Sendable {
-  /// The limit plus the balance.
+  /// The limit plus the balance; below zero once the card is over its limit.
   public var availableE4: AmountE4
+  /// The limit of the terms, zero when the owner never gave one.
+  public var limitE4: AmountE4
   public var debtE4: AmountE4
   /// What to pay by `payBy` not to pay interest.
   public var toPayNoInterestE4: AmountE4
@@ -107,12 +109,13 @@ public struct CreditCardNow: Hashable, Sendable {
   public var estimate: CreditInterestEstimate?
 
   public init(
-    availableE4: AmountE4 = .zero, debtE4: AmountE4 = .zero,
+    availableE4: AmountE4 = .zero, limitE4: AmountE4 = .zero, debtE4: AmountE4 = .zero,
     toPayNoInterestE4: AmountE4 = .zero, minimumE4: AmountE4? = nil, payBy: DateOnly? = nil,
     nextStatement: DateOnly? = nil, graceKept: Bool = true,
     estimate: CreditInterestEstimate? = nil
   ) {
     self.availableE4 = availableE4
+    self.limitE4 = limitE4
     self.debtE4 = debtE4
     self.toPayNoInterestE4 = toPayNoInterestE4
     self.minimumE4 = minimumE4
@@ -264,7 +267,8 @@ public enum CreditStatements {
     let key = BalanceKey(accountId: account.id, currency: account.mainCurrency)
     let balance = balances[key]?.amountE4 ?? .zero
     let debt = balance.raw < 0 ? -balance : .zero
-    var card = CreditCardNow(availableE4: terms.limitE4 + balance, debtE4: debt)
+    var card = CreditCardNow(
+      availableE4: terms.limitE4 + balance, limitE4: terms.limitE4, debtE4: debt)
     let all = withOpening(movements, account: account, balances: balances, calendar: calendar)
     let estimates = CreditInterest.estimates(
       terms: terms, statements: statements, movements: all, recorded: [:], through: today)

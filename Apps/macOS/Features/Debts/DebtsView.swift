@@ -133,6 +133,7 @@ struct DebtsView: View {
   private func overviewPane(_ overview: DebtsOverview, snapshot: DataSnapshot) -> some View {
     DebtOverviewPane(
       overview: overview, people: snapshot.dataset.people, tab: $tab,
+      cardDebts: cardDebts(snapshot),
       ladderAvailable: !LadderSection.candidates(snapshot).isEmpty,
       select: { selection = $0 },
       delete: { id in
@@ -144,8 +145,16 @@ struct DebtsView: View {
     DebtsList(
       overview: overview, people: snapshot.dataset.people, selection: $selection,
       deleting: $deleting, instalments: snapshot.planning.instalments,
+      cardDebts: cardDebts(snapshot),
       hasLadder: !LadderSection.candidates(snapshot).isEmpty
     )
+  }
+
+  /// The credit cards whose grace period was lost: a view of what the accounts already hold.
+  private func cardDebts(_ snapshot: DataSnapshot) -> [CreditCardDebtLine] {
+    CreditCardDebts.lines(
+      states: snapshot.planning.creditCardStates, accounts: snapshot.planning.accounts,
+      debts: snapshot.dataset.debts)
   }
 
   private var deletionAsked: Binding<Bool> {
@@ -260,6 +269,12 @@ struct DebtsView: View {
       }
     case .ladder:
       LadderSection()
+    case .card(let id):
+      if let line = cardDebts(snapshot).first(where: { $0.accountId == id }) {
+        CreditCardDebtDetail(line: line)
+      } else {
+        placeholder
+      }
     case nil:
       placeholder
     }
@@ -279,6 +294,8 @@ enum DebtsSelection: Hashable {
   case person(UUID?)
   /// The payoff ladder (`LadderSection`).
   case ladder
+  /// A credit card in debt, by its account.
+  case card(UUID)
 }
 
 /// A row of «Owed to me»: a person with everything they owe, and under them each personal
@@ -479,6 +496,8 @@ private struct DebtsList: View {
   @Binding var deleting: DebtLine?
   /// «В рассрочках …» above «Я должен».
   var instalments: InstalmentsSummary = .empty
+  /// The credit cards in debt, under the debts I owe.
+  var cardDebts: [CreditCardDebtLine] = []
   /// The ladder has debts on it.
   var hasLadder = false
   @State private var showsClosed = false
@@ -510,6 +529,13 @@ private struct DebtsList: View {
         }
       } header: {
         Text(verbatim: t("debts.iOwe"))
+      }
+      if !cardDebts.isEmpty {
+        Section {
+          CreditCardDebtRows(lines: cardDebts)
+        } header: {
+          Text(verbatim: t("debts.cards.header"))
+        }
       }
       Section {
         if overview.owedToMe.isEmpty {

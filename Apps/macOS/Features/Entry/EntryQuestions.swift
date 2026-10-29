@@ -35,6 +35,34 @@ struct AheadQuestion: Identifiable {
   }
 }
 
+/// «Выйдет за лимит карты на X»: asked once before spending that takes a credit card past its
+/// limit is written. The bank may charge a fee, but the owner can record it all the same.
+struct OverLimitQuestion: Identifiable, Equatable {
+  let over: AmountE4
+  let currency: CurrencyCode
+  var id: String { "\(over.raw)-\(currency.code)" }
+
+  @MainActor func title(_ environment: AppEnvironment) -> String {
+    environment.language.format(
+      "entry.overLimit.title", table: "Entry", environment.money.exact(over, currency: currency))
+  }
+}
+
+/// «После этого остаток станет X — ниже Y»: asked once before spending that takes an account
+/// below the balance its bank asks to keep is written. The bank may take back a rate for the
+/// month, but the owner can record it all the same.
+struct MinBalanceQuestion: Identifiable, Equatable {
+  let warning: MinBalanceWarning
+  var id: String { "\(warning.afterE4.raw)-\(warning.minimumE4.raw)" }
+
+  @MainActor func title(_ environment: AppEnvironment) -> String {
+    environment.language.format(
+      "entry.minBalance.title", table: "Entry",
+      environment.money.rounded(warning.afterE4, currency: warning.currency),
+      environment.money.rounded(warning.minimumE4, currency: warning.currency))
+  }
+}
+
 /// «Сверх платежа X — уменьшить срок, платёж или это платёж вперёд?»: asked before a payment of a
 /// loan above what its due asks for is written (`DebtPrepayment`). The answer given for the debt
 /// the last time comes first, «Это платёж вперёд» too.

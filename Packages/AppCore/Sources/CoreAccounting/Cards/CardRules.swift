@@ -25,13 +25,38 @@ public enum CardNameOwner: Hashable, Sendable {
 /// name of its own account — the card an account starts with does —, but never a name of another
 /// account or of another live card: the entry line would read either for the other one.
 public enum CardRules {
-  /// The card a new account starts with, named like it: an account of the kind «card» or
-  /// «account» is paid from with a card; cash and other kinds have none.
-  public static func startingCard(for account: PaymentMethod, id: UUID = UUID()) -> PaymentCard? {
-    guard account.kind == .card || account.kind == .account else { return nil }
-    let name = account.name.trimmingCharacters(in: .whitespacesAndNewlines)
+  /// The card a new account starts with, named `named` — else like the account: an account of
+  /// the kind «card» or «account» is paid from with a card; cash and other kinds have none. A
+  /// credit card always has one, whatever its kind: it is never opened without a card.
+  public static func startingCard(
+    for account: PaymentMethod, named: String? = nil, id: UUID = UUID()
+  ) -> PaymentCard? {
+    guard account.kind == .card || account.kind == .account || account.credit != nil else {
+      return nil
+    }
+    let typed = named?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+    let name = typed.isEmpty ? account.name.trimmingCharacters(in: .whitespacesAndNewlines) : typed
     guard !name.isEmpty else { return nil }
     return PaymentCard(id: id, accountId: account.id, name: name)
+  }
+
+  /// Whether `account` is a live credit card with no live card: it is given one when it is
+  /// saved, never left without.
+  public static func creditCardLacksCard(_ account: PaymentMethod, cards: [PaymentCard]) -> Bool {
+    account.credit != nil && !account.archived
+      && !cards.contains { $0.accountId == account.id && !$0.archived }
+  }
+
+  /// Whether `card` is the only live card of a live credit card: archiving or deleting it
+  /// would leave the credit card without a card.
+  public static func isLastCardOfCreditCard(
+    _ card: PaymentCard, cards: [PaymentCard], accounts: [PaymentMethod]
+  ) -> Bool {
+    guard !card.archived,
+      let account = accounts.first(where: { $0.id == card.accountId }),
+      account.credit != nil, !account.archived
+    else { return false }
+    return !cards.contains { $0.accountId == card.accountId && !$0.archived && $0.id != card.id }
   }
 
   /// What is wrong with `card` about to be saved over `previous` (`nil` for a new one), names

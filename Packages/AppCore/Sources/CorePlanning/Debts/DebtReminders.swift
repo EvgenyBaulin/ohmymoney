@@ -46,6 +46,8 @@ public enum DebtReminder: Hashable, Sendable, Identifiable {
   case creditHistory(half: HalfYear)
   case cardPayBy(accountId: UUID, due: DateOnly, fullE4: AmountE4, minimumE4: AmountE4?)
   case cardGraceMissed(accountId: UUID, statementDay: DateOnly, estimateE4: AmountE4)
+  /// The card is over its limit by `overE4` until enough is paid in. Not put away by «Готово».
+  case cardOverLimit(accountId: UUID, overE4: AmountE4)
 
   /// The key «Готово» puts the reminder away by (`reminders.dismissed`).
   public var id: String {
@@ -58,6 +60,7 @@ public enum DebtReminder: Hashable, Sendable, Identifiable {
     case .cardPayBy(let accountId, let due, _, _): "cardPayBy:\(accountId.uuidString):\(due.iso)"
     case .cardGraceMissed(let accountId, let statementDay, _):
       "cardGrace:\(accountId.uuidString):\(statementDay.iso)"
+    case .cardOverLimit(let accountId, _): "cardOverLimit:\(accountId.uuidString)"
     }
   }
 }
@@ -72,7 +75,8 @@ public enum DebtReminder: Hashable, Sendable, Identifiable {
 /// * the credit history, from 1 February through June and from 1 August through December,
 ///   until the owner says it is done for the half, unless they turned the reminder off;
 /// * a credit card to pay by its day, from five days before it, while something is to pay;
-/// * a credit card whose grace period was lost, with the interest it likely charges.
+/// * a credit card whose grace period was lost, with the interest it likely charges;
+/// * a credit card over its limit, until the excess is paid in — it cannot be put away.
 ///
 /// A reminder put away («Готово») is left out by its key (`DebtReminder.id`).
 public enum DebtReminders {
@@ -139,6 +143,11 @@ public enum DebtReminders {
             estimateE4: estimate.shownE4))
       }
     }
-    return result.filter { !dismissed.contains($0.id) }
+    var overLimit: [DebtReminder] = []
+    for (accountId, card) in cards.sorted(by: { $0.key.uuidString < $1.key.uuidString }) {
+      let over = CreditCardStates.overLimit(card)
+      if over.raw > 0 { overLimit.append(.cardOverLimit(accountId: accountId, overE4: over)) }
+    }
+    return overLimit + result.filter { !dismissed.contains($0.id) }
   }
 }

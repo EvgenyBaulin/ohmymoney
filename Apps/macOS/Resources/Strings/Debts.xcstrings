@@ -613,6 +613,108 @@
         }
       }
     },
+    "debts.card.badge": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credit card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитная карта"
+          }
+        }
+      }
+    },
+    "debts.card.counted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This money is already in the balance of the account. The debt here is only a view: it is in no total."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эти деньги уже в остатке счёта. Долг здесь только показ: в итоги он не входит."
+          }
+        }
+      }
+    },
+    "debts.card.debt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Owed %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Долг %@"
+          }
+        }
+      }
+    },
+    "debts.card.estimate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты %@"
+          }
+        }
+      }
+    },
+    "debts.card.missed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The statement due %@ was missed: the whole debt of the card is a debt now"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Срок выписки %@ пропущен: вся задолженность по карте теперь долг"
+          }
+        }
+      }
+    },
+    "debts.card.missedNoDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A statement was missed: the whole debt of the card is a debt now"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Срок выписки пропущен: вся задолженность по карте теперь долг"
+          }
+        }
+      }
+    },
     "debts.card.nextDue": {
       "extractionState": "manual",
       "localizations": {
@@ -626,6 +728,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ближайший срок"
+          }
+        }
+      }
+    },
+    "debts.card.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть счёт"
+          }
+        }
+      }
+    },
+    "debts.card.over": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Over the limit by %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выше лимита на %@"
           }
         }
       }
@@ -677,6 +813,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставка"
+          }
+        }
+      }
+    },
+    "debts.card.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credit card %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитная карта %@"
+          }
+        }
+      }
+    },
+    "debts.cards.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credit cards"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитные карты"
           }
         }
       }
