@@ -184,7 +184,7 @@ public enum PrivacyJournal {
     let days = min(
       max(days, PrivacySettings.journalDaysRange.lowerBound),
       PrivacySettings.journalDaysRange.upperBound)
-    return now.addingTimeInterval(-Double(days) * 86_400)
+    return now.addingTimeInterval(-TimeInterval(days) * 86_400)
   }
 
   /// The entries that stay: those not older than `days` days before `now`, oldest first.

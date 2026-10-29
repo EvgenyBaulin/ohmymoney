@@ -318,6 +318,9 @@ struct SQLAnonymizerTests {
             ("key", "debts.nudgeTemplate"), ("value", "Marina, please pay back"),
           ])
         try put(db, "settings", [("key", "planning.listLength"), ("value", "5")])
+        try put(
+          db, "categories",
+          [("id", UUID().uuidString), ("kind", "expense"), ("name", "Groceries"), ("sort", 1)])
         return .commit
       }
       try db.execute(sql: "PRAGMA foreign_keys = ON")
@@ -461,11 +464,16 @@ struct SQLAnonymizerTests {
     for (table, count) in before.0 {
       if Self.dropped.contains(table) {
         #expect(after.0[table] == 0, "\(table) is emptied")
+      } else if table == "settings" {
+        // Only the reminder text for a debtor goes: it is the owner's own wording.
+        #expect(after.0[table] == count - 1, "settings loses the reminder text only")
       } else {
         #expect(after.0[table] == count, "\(table) keeps its rows")
       }
     }
-    for (table, text) in before.1 { #expect(after.1[table] == text, "\(table) is unchanged") }
+    for (table, text) in before.1 where table != "settings" {
+      #expect(after.1[table] == text, "\(table) is unchanged")
+    }
     #expect(categoriesAfter == categoriesBefore)
     #expect(!categoriesBefore.isEmpty)
   }

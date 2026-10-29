@@ -88,7 +88,9 @@ public struct TimeToAfford: Hashable, Sendable {
     today: DateOnly
   ) -> TimeToAfford {
     estimate(
-      priceRubE4: wish.priceE4.map { wish.currency == .rub ? $0 : PurchaseMath.converted($0, rate: rateToRub) },
+      priceRubE4: wish.priceE4.map {
+        wish.currency == .rub ? $0 : PurchaseMath.converted($0, rate: rateToRub)
+      },
       savedE4: savedE4, monthlySavingE4: monthlySaving(from: canSave), today: today,
       lowData: canSave.lowData)
   }

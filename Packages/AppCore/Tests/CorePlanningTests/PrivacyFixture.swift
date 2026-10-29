@@ -81,15 +81,19 @@ struct PrivacyFixture {
     d.assets = [Asset(name: "Laptop fund", note: "in-the-safe-note")]
     d.ownedItems = [OwnedItem(name: "Laptop", note: "bought-for-work-note")]
     d.wishes = [
-      Wish(name: "Gift for Marina", url: "https://shop.example/marina", note: "size-M-note",
+      Wish(
+        name: "Gift for Marina", url: "https://shop.example/marina", note: "size-M-note",
         createdOn: Self.day(2026, 1, 1))
     ]
-    d.shoppingItems = [ShoppingItem(name: "Gift paper", note: "red-ribbon-note", createdOn: Self.day(2026, 1, 1))]
+    d.shoppingItems = [
+      ShoppingItem(name: "Gift paper", note: "red-ribbon-note", createdOn: Self.day(2026, 1, 1))
+    ]
     let tag = Tag(name: "Vacation")
     d.tagBook = TagBook(tags: [tag], links: [PartTag(partId: purchasePartId, tagId: tag.id)])
     d.rules = [
       Rule(
-        name: "Kiosk is food", conditions: [.textContains("kiosk"), .amountAbove(AmountE4(whole: 1))],
+        name: "Kiosk is food",
+        conditions: [.textContains("kiosk"), .amountAbove(AmountE4(whole: 1))],
         actions: [.setCategory(foodId)])
     ]
     d.dayNotes = [DayNote(day: Self.day(2026, 5, 2), text: "Wedding day, wear the blue one")]
@@ -116,16 +120,19 @@ struct PrivacyFixture {
     d.planning.debtEntries = [
       DebtEntry(
         debtId: debtId, groupName: "Mortgage Sergey", date: Self.day(2026, 5, 4),
-        description: "to Sergey", amountE4: AmountE4(whole: 10), kind: .payment, note: "cash-from-Sergey",
+        description: "to Sergey", amountE4: AmountE4(whole: 10), kind: .payment,
+        note: "cash-from-Sergey",
         paymentMethodId: hiddenId)
     ]
 
     // A purchase in April and its refund in June; an operation on the hidden account.
     let purchase = TransactionEntry(
       transaction: Transaction(
-        id: purchaseId, kind: .expense, occurredAt: Self.at(2026, 4, 20), amountE4: AmountE4(whole: 300),
+        id: purchaseId, kind: .expense, occurredAt: Self.at(2026, 4, 20),
+        amountE4: AmountE4(whole: 300),
         note: "coffee at Kiosk with Marina", placeId: placeId, paymentMethodId: visibleId,
-        externalId: "BANK-REF-77", cardId: visibleCardId, dedupKey: "v1:abcdef", warrantyWhere: "drawer"),
+        externalId: "BANK-REF-77", cardId: visibleCardId, dedupKey: "v1:abcdef",
+        warrantyWhere: "drawer"),
       parts: [
         TransactionPart(
           id: purchasePartId, transactionId: purchaseId, categoryId: foodId,
@@ -135,7 +142,8 @@ struct PrivacyFixture {
     let refundPartId = UUID()
     let refund = TransactionEntry(
       transaction: Transaction(
-        id: refundId, kind: .refund, occurredAt: Self.at(2026, 6, 5), amountE4: AmountE4(whole: 100),
+        id: refundId, kind: .refund, occurredAt: Self.at(2026, 6, 5),
+        amountE4: AmountE4(whole: 100),
         note: "refund Kiosk", paymentMethodId: visibleId, externalId: "sched:abc"),
       parts: [
         TransactionPart(
@@ -144,7 +152,8 @@ struct PrivacyFixture {
       ])
     let hiddenOp = TransactionEntry(
       transaction: Transaction(
-        id: hiddenOpId, kind: .expense, occurredAt: Self.at(2026, 6, 6), amountE4: AmountE4(whole: 70),
+        id: hiddenOpId, kind: .expense, occurredAt: Self.at(2026, 6, 6),
+        amountE4: AmountE4(whole: 70),
         note: "secret-note", paymentMethodId: hiddenId),
       parts: [
         TransactionPart(

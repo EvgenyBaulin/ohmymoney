@@ -137,7 +137,8 @@ public struct ExportCopyService: Sendable {
 
       let report = ExportCopyReport(
         url: url, operations: draft.rowCounts["transactions"] ?? 0,
-        transfers: draft.rowCounts["transfers"] ?? 0, accounts: draft.rowCounts["payment_methods"] ?? 0,
+        transfers: draft.rowCounts["transfers"] ?? 0,
+        accounts: draft.rowCounts["payment_methods"] ?? 0,
         operationsLeftOut: draft.operationsLeftOut, transfersLeftOut: draft.transfersLeftOut,
         accountsLeftOut: draft.accountsLeftOut, attachments: carried, encrypted: true)
       AppLog.info(

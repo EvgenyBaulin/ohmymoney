@@ -30,14 +30,15 @@ struct MigrationTests {
       "debt_entries", "debt_instalments", "debts", "deposit_offers", "event_budget_items",
       "event_templates", "events", "expected_income", "expected_income_links",
       "goals", "identity_items", "import_batches", "import_mappings",
-      "ml_models", "part_tags", "payment_methods", "people",
+      "ml_models", "owned_items", "part_tags", "payment_methods", "people",
       "places", "rates", "reconciliation_balances", "reconciliations",
       "reimbursement_links", "rules", "saved_views", "scenarios",
-      "scheduled_payments", "settings", "statement_profiles", "subscription_keep_groups",
+      "scheduled_payments", "settings", "shopping_items", "statement_profiles",
+      "subscription_keep_groups",
       "subscription_prices", "subscription_terms", "subscription_usage", "subscription_users",
       "sync_deferred", "sync_heads", "sync_meta", "sync_outbox",
       "sync_resolutions", "sync_state", "tags", "templates",
-      "transaction_parts", "transactions", "transfers", "week_answers",
+      "transaction_parts", "transactions", "transfers", "week_answers", "wish_prices", "wishes",
     ]
     let tables = try stack.writer.read { db in
       try String.fetchAll(

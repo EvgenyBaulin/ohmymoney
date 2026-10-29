@@ -31,7 +31,9 @@ enum CalendarBirthdays {
 
   /// The button «Создать событие с бюджетом» is offered for today and the days ahead, until the
   /// event of that name exists.
-  @MainActor static func offersEvent(for day: GiftDay, events: [Event], _ environment: AppEnvironment)
+  @MainActor static func offersEvent(
+    for day: GiftDay, events: [Event], _ environment: AppEnvironment
+  )
     -> Bool
   {
     day.daysLeft >= 0 && !PurchaseHookActions.hasEvent(for: day, events: events, environment)

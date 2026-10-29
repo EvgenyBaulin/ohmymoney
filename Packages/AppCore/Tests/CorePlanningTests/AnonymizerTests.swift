@@ -69,7 +69,8 @@ struct AnonymizerTests {
     #expect(copy.transfers.map(\.fromAmountE4) == fx.dataset.transfers.map(\.fromAmountE4))
     #expect(copy.transfers.map(\.occurredAt) == fx.dataset.transfers.map(\.occurredAt))
     #expect(copy.goals.map(\.targetE4) == fx.dataset.goals.map(\.targetE4))
-    #expect(copy.planning.scheduled.map(\.amountE4) == fx.dataset.planning.scheduled.map(\.amountE4))
+    #expect(
+      copy.planning.scheduled.map(\.amountE4) == fx.dataset.planning.scheduled.map(\.amountE4))
   }
 
   @Test("every id and every link between records stays")

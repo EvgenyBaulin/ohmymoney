@@ -25,7 +25,8 @@ struct ExportRoundTripPropertyTests {
     "closes_term", "accrues_interest", "tranche", "cushion", "essential", "prepay_any_day",
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
     "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
-    "owner_uses", "new_client_only", "needs_subscription", "topup", "keep_forever",
+    "owner_uses", "new_client_only", "needs_subscription", "topup", "keep_forever", "done",
+    "hidden",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
@@ -49,7 +50,7 @@ struct ExportRoundTripPropertyTests {
   private static func expectedCell(
     column: String, databaseColumn: String, raw: DatabaseValue
   ) -> String? {
-    if raw.isNull { return "" }
+    if raw.isNull { return column == "hidden" ? "false" : "" }
     if databaseColumn.hasSuffix("_e4"), let stored = Int64.fromDatabaseValue(raw) {
       return "e4:\(stored)"
     }
@@ -271,6 +272,23 @@ struct ExportRoundTripPropertyTests {
       try db.execute(
         sql: "INSERT INTO subscription_keep_groups (id, type, payment_ids) VALUES (?, 'music', ?)",
         arguments: [UUID().uuidString, "[\"" + payment + "\"]"])
+      // A wish with a price, an item of the shopping list and a thing outside the capital.
+      let wish = UUID().uuidString
+      try db.execute(
+        sql:
+          "INSERT INTO wishes (id, name, currency, created_on) VALUES (?, 'Наушники', 'RUB', '2026-09-01')",
+        arguments: [wish])
+      try db.execute(
+        sql:
+          "INSERT INTO wish_prices (id, wish_id, on_date, price_e4) VALUES (?, ?, '2026-09-02', 5)",
+        arguments: [UUID().uuidString, wish])
+      try db.execute(
+        sql: "INSERT INTO shopping_items (id, name, created_on) VALUES (?, 'Хлеб', '2026-09-01')",
+        arguments: [UUID().uuidString])
+      try db.execute(
+        sql:
+          "INSERT INTO owned_items (id, name, bought_on, price_e4, currency) VALUES (?, 'Ноутбук', '2026-01-01', 7, 'RUB')",
+        arguments: [UUID().uuidString])
       // The conditions of a product, a deposit of the owner, and a value in each new column.
       let account = try #require(
         try String.fetchOne(db, sql: "SELECT id FROM payment_methods LIMIT 1"))
@@ -342,7 +360,7 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
+    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 19)
     #expect(plain.files == files)
     #expect(plain.csvTables.count == 49)
     #expect(plain.manifest.schemaVersion == 19)
@@ -352,7 +370,7 @@ struct ExportRoundTripPropertyTests {
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 17)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 19)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -420,7 +438,7 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 19)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 
@@ -618,6 +636,16 @@ struct ExportRoundTripPropertyTests {
 
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
+    .union(addedByThePurchases)
+
+  /// The columns the purchases (schema 18) added to the operations and the people.
+  private static let addedByThePurchases: Set<String> = Set(
+    [
+      "discount", "regret", "regret_asked_on", "refund_waiting_until", "odometer_km",
+    ].map { "transactions.csv:\($0)" }
+      + ["birthday_month", "birthday_day", "birthday_year", "gift_budget"].map {
+        "people.csv:\($0)"
+      })
 
   /// The columns the credits and the allocation of income added.
   private static let addedByTheCredits: Set<String> = Set(

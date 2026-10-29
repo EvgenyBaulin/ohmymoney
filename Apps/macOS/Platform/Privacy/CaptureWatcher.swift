@@ -30,7 +30,9 @@ final class CaptureWatcher {
   static func current() -> RecordingPolicy.Capture {
     var capture: RecordingPolicy.Capture = []
     #if canImport(UIKit) && !targetEnvironment(macCatalyst)
-      let screens = UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.screen }
+      let screens = UIApplication.shared.connectedScenes.compactMap {
+        ($0 as? UIWindowScene)?.screen
+      }
       if screens.contains(where: \.isCaptured) { capture.insert(.recording) }
     #elseif canImport(AppKit)
       var ids = [CGDirectDisplayID](repeating: 0, count: 16)

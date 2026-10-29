@@ -59,9 +59,11 @@ public struct WishRepository: Sendable {
   @discardableResult
   public func notePrice(of wishId: UUID, _ price: AmountE4, on day: DateOnly) throws -> Bool {
     try writer.write { db in
-      guard var wish = try Self.wishRows(
-        db, sql: "SELECT * FROM wishes WHERE id = ?", arguments: [wishId.uuidString]
-      ).first else { return false }
+      guard
+        var wish = try Self.wishRows(
+          db, sql: "SELECT * FROM wishes WHERE id = ?", arguments: [wishId.uuidString]
+        ).first
+      else { return false }
       let last = try Self.priceRows(
         db, sql: "SELECT * FROM wish_prices WHERE wish_id = ? ORDER BY on_date DESC, rowid DESC",
         arguments: [wishId.uuidString]

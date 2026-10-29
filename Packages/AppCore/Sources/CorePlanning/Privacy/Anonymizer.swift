@@ -280,7 +280,8 @@ public enum Anonymizer {
     texts += dataset.planning.debtEntries.flatMap { [$0.groupName, $0.description, $0.note] }
     texts += dataset.transfers.map(\.note)
     texts += dataset.feedback.map(\.text)
-    return Set(texts.compactMap { $0 }.map { $0.trimmingCharacters(in: .whitespaces) }
-      .filter { !$0.isEmpty })
+    return Set(
+      texts.compactMap { $0 }.map { $0.trimmingCharacters(in: .whitespaces) }
+        .filter { !$0.isEmpty })
   }
 }

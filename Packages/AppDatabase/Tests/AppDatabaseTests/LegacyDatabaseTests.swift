@@ -229,7 +229,7 @@ struct LegacyDatabaseTests {
         try DatabaseStack(url: book.url, schema: TestSupport.schemaSource, context: stopping)
       })
     #expect(failure.from == 3)
-    #expect(failure.to == 17)
+    #expect(failure.to == 19)
     #expect(failure.migration == "0004_accounts")
 
     #expect(

@@ -9,7 +9,9 @@ import Testing
 struct PrivacyTests {
   private static let now = Date(timeIntervalSince1970: 1_800_000_000)
 
-  private static func entry(daysAgo: Double, _ event: PrivacyJournalEntry.Event)
+  private static func entry(
+    daysAgo: Double, _ event: PrivacyJournalEntry.Event
+  )
     -> PrivacyJournalEntry
   {
     PrivacyJournalEntry(at: now.addingTimeInterval(-daysAgo * 86_400), event: event)

@@ -448,7 +448,8 @@ final class ComputeStore {
     guard states.serial != shownSerial, let snapshot = states.snapshot else { return }
     shownSerial = states.serial
     latest.set(snapshot)
-    shield?.learn(accounts: snapshot.ledger.dataset.paymentMethods, cards: snapshot.ledger.dataset.cards)
+    shield?.learn(
+      accounts: snapshot.ledger.dataset.paymentMethods, cards: snapshot.ledger.dataset.cards)
     onSnapshot?(snapshot)
   }
 

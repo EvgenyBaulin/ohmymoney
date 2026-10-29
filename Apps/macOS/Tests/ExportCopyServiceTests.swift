@@ -81,7 +81,9 @@ final class ExportCopyServiceTests: XCTestCase {
   }
 
   /// Opens the copy with its password and returns what it holds.
-  private func open(_ report: ExportCopyReport, password: String = "correct horse") throws
+  private func open(
+    _ report: ExportCopyReport, password: String = "correct horse"
+  ) throws
     -> (archive: ArchiveOpener.OpenedArchive, dataset: Dataset?)
   {
     let opened = try ArchiveOpener.open(
@@ -122,7 +124,8 @@ final class ExportCopyServiceTests: XCTestCase {
 
   func testAnEmptySpanOfDaysIsRefused() {
     let target = directory.appendingPathComponent("a.ohmymoneyarchive")
-    let range = DayRange(DateOnly(year: 2026, month: 9, day: 2), DateOnly(year: 2026, month: 9, day: 1))
+    let range = DayRange(
+      DateOnly(year: 2026, month: 9, day: 2), DateOnly(year: 2026, month: 9, day: 1))
     let request = ExportCopyRequest(scope: .period(range), password: "correct horse")
     XCTAssertThrowsError(try service().export(request, to: target)) {
       XCTAssertEqual($0 as? ExportCopyError, .periodEmpty)
@@ -151,7 +154,8 @@ final class ExportCopyServiceTests: XCTestCase {
   func testTheLiveDatabaseIsTheSameAfterEveryKindOfCopy() throws {
     let before = try liveCounts()
     let names = try accountNames()
-    let range = DayRange(DateOnly(year: 2026, month: 9, day: 1), DateOnly(year: 2026, month: 9, day: 30))
+    let range = DayRange(
+      DateOnly(year: 2026, month: 9, day: 1), DateOnly(year: 2026, month: 9, day: 30))
     for (index, request) in [
       ExportCopyRequest(scope: .period(range), includeHidden: false, password: "correct horse"),
       ExportCopyRequest(includeHidden: false, includeAttachments: true, password: "correct horse"),
@@ -214,7 +218,8 @@ final class ExportCopyServiceTests: XCTestCase {
     XCTAssertEqual(dataset.entries.count, 3)
     XCTAssertTrue(
       dataset.entries.allSatisfy {
-        range.contains(TravelDay.day(of: $0.transaction.occurredAt, zoneId: $0.transaction.timeZoneId))
+        range.contains(
+          TravelDay.day(of: $0.transaction.occurredAt, zoneId: $0.transaction.timeZoneId))
       })
     XCTAssertEqual(dataset.transfers.count, 2)
     XCTAssertEqual(dataset.paymentMethods.count, 3, "the accounts are not cut by a span of days")

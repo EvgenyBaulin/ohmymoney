@@ -121,7 +121,8 @@ public enum PeriodScope {
     d.wishPrices = dataset.wishPrices.filter { range.contains($0.onDate) }
 
     d.version &+= 1
-    return Result(dataset: d, pulledIn: pulled, unresolved: unresolved.sorted { $0.uuidString < $1.uuidString })
+    return Result(
+      dataset: d, pulledIn: pulled, unresolved: unresolved.sorted { $0.uuidString < $1.uuidString })
   }
 
   /// For every operation, the other operations it points at: the owners of the parts it

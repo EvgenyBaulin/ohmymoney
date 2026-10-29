@@ -39,7 +39,7 @@ struct ReadOnlyBarrierTests {
       "UPDATE transactions SET note = 'x' WHERE id = 'a'",
       "DELETE FROM transactions WHERE id = 'a'",
     ] {
-      #expect(throws: GRDB.DatabaseError.self) {
+      #expect(throws: ReadOnlyBarrier.Refusal.self) {
         try queue.write { try $0.execute(sql: sql) }
       }
     }
@@ -77,5 +77,24 @@ struct ReadOnlyBarrierTests {
     #expect(!ReadOnlyBarrier.refuses(action: 18, table: "scratch", database: "temp"))
     // Not a write of a row: a read (20) is never refused.
     #expect(!ReadOnlyBarrier.refuses(action: 20, table: "transactions", database: "main"))
+  }
+
+  @Test("the barrier leaves the region observations of GRDB working")
+  func observationsStillSeeWrites() throws {
+    let barrier = ReadOnlyBarrier()
+    let queue = try database(barrier)
+    let seen = Seen()
+    let cancellable = DatabaseRegionObservation(tracking: Table("transactions"))
+      .start(in: queue, onError: { _ in }, onChange: { _ in seen.bump() })
+    defer { cancellable.cancel() }
+    try queue.write { try $0.execute(sql: "INSERT INTO transactions VALUES ('d', 'four')") }
+    #expect(seen.count == 1)
+  }
+
+  private final class Seen: @unchecked Sendable {
+    private let lock = NSLock()
+    private var value = 0
+    var count: Int { lock.lock(); defer { lock.unlock() }; return value }
+    func bump() { lock.lock(); value += 1; lock.unlock() }
   }
 }

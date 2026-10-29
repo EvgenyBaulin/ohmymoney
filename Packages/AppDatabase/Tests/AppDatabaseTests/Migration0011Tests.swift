@@ -167,7 +167,7 @@ struct Migration0011Tests {
     #expect(Array(plain.suffix(7).prefix(4)) == ["", "", "", ""])
     let operation = CoreKit.Transaction(
       kind: .expense, occurredAt: Date(), amountE4: AmountE4(whole: 1), timeZoneId: "Asia/Tokyo")
-    #expect(ExportTables.row(operation).suffix(9).first == "Asia/Tokyo")
+    #expect(ExportTables.row(operation).suffix(14).first == "Asia/Tokyo")
     #expect(ExportTables.row(operation).count == ExportTables.transactions.columns.count)
     let trip = Event(
       name: "T", kind: .trip, startDate: DateOnly(year: 2026, month: 1, day: 1),

@@ -480,7 +480,7 @@ struct SpendingRulesTravelTests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 19)
     #expect(opened.csvTables.count == 49)
     #expect(opened.manifest.schemaVersion == 19)
     #expect(opened.manifest.rowCounts["tags"] == 1)

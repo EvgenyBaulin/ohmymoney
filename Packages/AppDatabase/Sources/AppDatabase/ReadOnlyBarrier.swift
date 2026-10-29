@@ -29,6 +29,11 @@ public final class ReadOnlyBarrier: @unchecked Sendable {
     }
   }
 
+  /// What a refused write throws: the change was rolled back.
+  public struct Refusal: Error, LocalizedError, Sendable {
+    public var errorDescription: String? { "The books are read-only: the change is refused." }
+  }
+
   /// Tables a write to which is never refused.
   public static let writableTables: Set<String> = [
     "settings", "rates", "rates_new", "ml_models", "category_feedback", "sync_meta",
@@ -46,22 +51,50 @@ public final class ReadOnlyBarrier: @unchecked Sendable {
     return !writableTables.contains(table)
   }
 
-  /// Puts the authorizer on the connection that writes. Called once for each database that is
+  /// Puts the barrier on the connection that writes. Called once for each database that is
   /// opened; the barrier is shared by all of them and only reads its switch.
+  ///
+  /// It is a transaction observer, not a SQLite authorizer: GRDB keeps its own authorizer on
+  /// every connection to learn which tables a statement reads and writes, and a second one
+  /// replaces it -- the observations of the app (the cache of hand ratings, the lists) would
+  /// stop seeing writes. The observer notes a row written to a refused table while the switch
+  /// is on and refuses the commit: the transaction is rolled back and the write throws.
   public func install(on writer: any DatabaseWriter) {
-    let context = Unmanaged.passRetained(self).toOpaque()
+    let observer = Observer(barrier: self)
     writer.writeWithoutTransaction { db in
-      _ = sqlite3_set_authorizer(
-        db.sqliteConnection,
-        { context, action, first, _, database, _ in
-          guard let context else { return SQLITE_OK }
-          let barrier = Unmanaged<ReadOnlyBarrier>.fromOpaque(context).takeUnretainedValue()
-          guard barrier.isOn else { return SQLITE_OK }
-          let table = first.map { String(cString: $0) }
-          let name = database.map { String(cString: $0) }
-          return ReadOnlyBarrier.refuses(action: action, table: table, database: name)
-            ? SQLITE_DENY : SQLITE_OK
-        }, context)
+      db.add(transactionObserver: observer, extent: .databaseLifetime)
     }
+  }
+
+  private final class Observer: TransactionObserver, @unchecked Sendable {
+    let barrier: ReadOnlyBarrier
+    var refused = false
+
+    init(barrier: ReadOnlyBarrier) { self.barrier = barrier }
+
+    func observes(eventsOfKind eventKind: DatabaseEventKind) -> Bool {
+      switch eventKind {
+      case .insert(let table), .delete(let table), .update(let table, _):
+        return !ReadOnlyBarrier.writableTables.contains(table)
+      }
+    }
+
+    func databaseDidChange(with event: DatabaseEvent) {
+      guard barrier.isOn else { return }
+      if ReadOnlyBarrier.refuses(
+        action: event.kind.rawValue, table: event.tableName, database: event.databaseName)
+      {
+        refused = true
+      }
+    }
+
+    func databaseWillCommit() throws {
+      guard refused else { return }
+      refused = false
+      throw Refusal()
+    }
+
+    func databaseDidCommit(_ db: Database) { refused = false }
+    func databaseDidRollback(_ db: Database) { refused = false }
   }
 }

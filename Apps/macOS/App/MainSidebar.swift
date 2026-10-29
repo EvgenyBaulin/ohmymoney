@@ -124,6 +124,11 @@ enum SidebarItem: Hashable, Sendable {
         else { return }
         selection = .section(chosen)
       }
+      // A line of «Стоит посмотреть» about a wish or a refund waited for: the page, then the section.
+      .onReceive(NotificationCenter.default.publisher(for: .openPurchaseList)) { note in
+        PurchasesNavigation.shared.page = (note.object as? String) == "refunds" ? .waiting : .wishes
+        selection = .section(.purchases)
+      }
       // «Открыть «Всего»» of a breakdown of Overview, and any other place that names an item of
       // the sidebar itself rather than a section by its number.
       .onReceive(NotificationCenter.default.publisher(for: .openSidebarItem)) { note in

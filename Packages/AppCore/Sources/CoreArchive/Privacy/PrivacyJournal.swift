@@ -41,14 +41,15 @@ public enum PrivacyJournalRules {
   /// 1…3650 is moved to the nearest edge.
   public static func days(stored: Int?) -> Int {
     guard let stored else { return PrivacySettings.journalDaysDefault }
-    return min(max(stored, PrivacySettings.journalDaysRange.lowerBound),
+    return min(
+      max(stored, PrivacySettings.journalDaysRange.lowerBound),
       PrivacySettings.journalDaysRange.upperBound)
   }
 
   /// The instant before which a line is too old. Whole days of 86 400 seconds, so a change of
   /// clocks does not move it.
   public static func cutoff(now: Date, days: Int) -> Date {
-    now.addingTimeInterval(-Double(days) * 86_400)
+    now.addingTimeInterval(-TimeInterval(days) * 86_400)
   }
 
   /// Whether the line is past the term. A line exactly at the cutoff is still kept.

@@ -475,7 +475,8 @@ struct DetailsPanel: View {
   /// under the control above, always on a row of its own.
   @ViewBuilder
   private func fieldRow<Control: View>(
-    _ key: String?, marked: Bool = false, alone: Bool = false, @ViewBuilder control: () -> Control
+    _ key: String?, marked: Bool = false, alone: Bool = false, flows: Bool = false,
+    @ViewBuilder control: () -> Control
   ) -> some View {
     VStack(alignment: .leading, spacing: 4) {
       if let key { fieldLabel(key, marked: marked) }
@@ -483,7 +484,8 @@ struct DetailsPanel: View {
         .buttonSizing(.flexible)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    .layoutValue(key: EntryFieldFlow.Alone.self, value: alone || key == nil)
+    // A cell without a label takes its own row, unless it says it flows with the others.
+    .layoutValue(key: EntryFieldFlow.Alone.self, value: alone || (key == nil && !flows))
   }
 
   /// A control with what goes beside it: one under the other, where a cell is too narrow for
@@ -574,6 +576,12 @@ struct DetailsPanel: View {
         .focused($focus, equals: .amount)
         // One part is the whole operation: its amount is the total.
         .disabled((!model.isSplit && model.hasClosedPart) || moneyLocked)
+        // The discount stands beside the amount: a cell of its own would make the panel taller.
+        if PurchaseFieldRules.showsDiscount(model.draft) {
+          PurchaseFields(
+            part: .discount, draft: $model.draft, tree: model.categoryTree,
+            editsSaved: model.editsSavedOperation)
+        }
         // The formula the amount was worked out from, its numbers written the way the app
         // writes them.
         if let expression = model.draft.amountExpression {
@@ -946,9 +954,15 @@ struct DetailsPanel: View {
   @ViewBuilder
   private var purchaseRow: some View {
     if model.draft.kind == .expense || model.draft.kind == .refund {
-      fieldRow(nil, alone: true) {
-        PurchaseFields(
-          draft: $model.draft, tree: model.categoryTree, editsSaved: model.editsSavedOperation)
+      if PurchaseFieldRules.isFillUp(model.draft, tree: model.categoryTree)
+        || PurchaseFieldRules.showsWaitingRefund(model.draft)
+        || PurchaseFieldRules.showsRegret(model.draft, editsSaved: model.editsSavedOperation)
+      {
+        fieldRow(nil, alone: true) {
+          PurchaseFields(
+            part: .rest, draft: $model.draft, tree: model.categoryTree,
+            editsSaved: model.editsSavedOperation)
+        }
       }
     }
   }
@@ -1854,6 +1868,9 @@ struct AmountField: View {
   private var reads: Binding<Bool>?
   /// The amount of an operation, large as the design draws it: the number the form is about.
   private let prominent: Bool
+  /// What the empty field shows. A second amount in the same panel (the discount) shows another
+  /// one, so that «0» names the amount of the operation alone.
+  private let prompt: String
   @State private var text: String = ""
   @State private var lastShown: AmountE4 = .zero
   /// The text the field has just written back itself: its amount was told when it was typed.
@@ -1863,9 +1880,10 @@ struct AmountField: View {
   /// `locale` is accepted and not needed: amounts are written the same way in every language.
   init(
     amount: Binding<AmountE4>, locale _: Locale? = nil, reads: Binding<Bool>? = nil,
-    onTyped: ((AmountE4, String) -> Void)? = nil, prominent: Bool = false
+    onTyped: ((AmountE4, String) -> Void)? = nil, prominent: Bool = false, prompt: String = "0"
   ) {
     self.prominent = prominent
+    self.prompt = prompt
     self._amount = amount
     self.reads = reads
     self.onTyped = onTyped
@@ -1873,7 +1891,7 @@ struct AmountField: View {
 
   var body: some View {
     TextField(text: $text) {
-      Text(verbatim: "0")
+      Text(verbatim: prompt)
     }
     .labelsHidden()
     .appFont(prominent ? .title.monospacedDigit().bold() : .body.monospacedDigit())

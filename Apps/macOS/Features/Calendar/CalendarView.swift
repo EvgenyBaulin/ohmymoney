@@ -59,7 +59,11 @@ struct CalendarView: View {
       selection: $selection,
       ledger: snapshot.ledger,
       emptyText: chosenDay.map { _ in t("calendar.day.empty") },
-      header: { plans(of: chosenDay, in: calendar, gifts: gifts[chosenDay?.day ?? snapshot.today] ?? [], events: snapshot.dataset.events) },
+      header: {
+        plans(
+          of: chosenDay, in: calendar, gifts: gifts[chosenDay?.day ?? snapshot.today] ?? [],
+          events: snapshot.dataset.events)
+      },
       menu: { ids in
         BulkMenuItems(ids: ids, actions: actions, offersEdit: true)
         if ids.count == 1, let only = ids.first {
@@ -450,7 +454,8 @@ struct CalendarView: View {
         let dependencies
       {
         Button(PurchaseHookText.t("calendar.birthday.createEvent", environment)) {
-          giftMessage = PurchaseHookActions.createEvent(for: gift, deps: dependencies)
+          giftMessage =
+            PurchaseHookActions.createEvent(for: gift, deps: dependencies)
             ? PurchaseHookText.t("calendar.birthday.created", environment)
             : PurchaseHookText.t("calendar.birthday.notCreated", environment)
         }

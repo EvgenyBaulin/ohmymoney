@@ -55,7 +55,9 @@ public struct WaitingRefunds: Hashable, Sendable {
   /// What the waiting refunds will take off each category when credited.
   public var impactByCategory: [UUID: AmountE4] {
     var result: [UUID: AmountE4] = [:]
-    for item in items { for (id, amount) in item.byCategory { result[id, default: .zero] += amount } }
+    for item in items {
+      for (id, amount) in item.byCategory { result[id, default: .zero] += amount }
+    }
     return result
   }
 
@@ -64,7 +66,8 @@ public struct WaitingRefunds: Hashable, Sendable {
     transaction.kind == .refund && transaction.refundWaitingUntil != nil && !transaction.isDeleted
   }
 
-  public static func list(entries: [TransactionEntry], calendar: CalendarContext) -> WaitingRefunds {
+  public static func list(entries: [TransactionEntry], calendar: CalendarContext) -> WaitingRefunds
+  {
     var items: [WaitingRefund] = []
     for entry in entries where isWaiting(entry.transaction) {
       let transaction = entry.transaction

@@ -236,7 +236,9 @@ final class PrivacyShieldTests: XCTestCase {
 
   // MARK: The lists
 
-  private func ledgerOfTwoAccounts() -> (Ledger, hiddenOp: UUID, openOp: UUID, toHidden: UUID, between: UUID, secret: PaymentMethod) {
+  private func ledgerOfTwoAccounts() -> (
+    Ledger, hiddenOp: UUID, openOp: UUID, toHidden: UUID, between: UUID, secret: PaymentMethod
+  ) {
     let food = CoreKit.Category(kind: .expense, name: "Food")
     let secret = hiddenAccount
     let other = PaymentMethod(name: "Other secret", currency: .rub)
@@ -249,7 +251,9 @@ final class PrivacyShieldTests: XCTestCase {
         transaction: Transaction(
           id: id, kind: .expense, occurredAt: Date(), amountE4: AmountE4(whole: 10),
           paymentMethodId: account),
-        parts: [TransactionPart(transactionId: id, categoryId: food.id, amountE4: AmountE4(whole: 10))])
+        parts: [
+          TransactionPart(transactionId: id, categoryId: food.id, amountE4: AmountE4(whole: 10))
+        ])
     }
     func transfer(_ from: UUID, _ to: UUID) -> Transfer {
       Transfer(
@@ -273,7 +277,8 @@ final class PrivacyShieldTests: XCTestCase {
   func testTheTableLeavesOutTheHiddenOperationsAndNamesNoHiddenAccount() {
     let (ledger, hiddenOp, openOp, toHidden, between, secret) = ledgerOfTwoAccounts()
     var covered = EntryFilter.none
-    covered.hiddenAccountIds = ledger.dataset.paymentMethods.filter(\.hidden).map(\.id).reduce(into: []) { $0.insert($1) }
+    covered.hiddenAccountIds = ledger.dataset.paymentMethods.filter(\.hidden).map(\.id).reduce(
+      into: []) { $0.insert($1) }
     let listing = TransactionListing.build(matching: covered, in: ledger)
     XCTAssertTrue(listing.visibleIds.contains(openOp))
     XCTAssertFalse(listing.visibleIds.contains(hiddenOp))
@@ -299,10 +304,12 @@ final class PrivacyShieldTests: XCTestCase {
     var covered = EntryFilter.none
     covered.text = secret.name
     covered.hiddenAccountIds = [secret.id]
-    XCTAssertFalse(TransactionListing.build(matching: covered, in: ledger).visibleIds.contains(toHidden))
+    XCTAssertFalse(
+      TransactionListing.build(matching: covered, in: ledger).visibleIds.contains(toHidden))
     var shown = EntryFilter.none
     shown.text = secret.name
-    XCTAssertTrue(TransactionListing.build(matching: shown, in: ledger).visibleIds.contains(toHidden))
+    XCTAssertTrue(
+      TransactionListing.build(matching: shown, in: ledger).visibleIds.contains(toHidden))
   }
 
   func testThePresentedSnapshotHasNoHiddenAccountAndTheSameTotals() {
@@ -333,7 +340,8 @@ final class PrivacyShieldTests: XCTestCase {
 
   private static func word(_ language: String, _ key: String, table: String) -> String? {
     guard
-      let bundle = Bundle.main.path(forResource: language, ofType: "lproj").flatMap(Bundle.init(path:))
+      let bundle = Bundle.main.path(forResource: language, ofType: "lproj").flatMap(
+        Bundle.init(path:))
     else { return nil }
     let text = bundle.localizedString(forKey: key, value: "\u{0}", table: table)
     return text == "\u{0}" ? nil : text

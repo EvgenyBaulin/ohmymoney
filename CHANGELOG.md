@@ -7,6 +7,52 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.6.0] — 2026-10-30
+
+Privacy. This release also carries 2.4.0 and 2.5.0, which were not published on their own. The
+database schema is 19; opening the app upgrades the database after a verified copy, and older data
+reads as before. The export has 49 files.
+
+### Added
+
+- Hidden accounts: an account can be hidden; its balance and operations stay out of sight until the
+  owner opens them with Touch ID or the app password. Totals still count the money, and the
+  sidebar marks them «part hidden». The database schema is 19: the `hidden` column of
+  `payment_methods`, last in `payment_methods.csv` (empty reads as visible).
+- «Export copy…»: a copy of the data for another person, always protected by a password, for a chosen
+  period, without hidden accounts and, if asked, with names replaced by neutral labels. The original
+  data is never changed.
+- «View only»: a mode in which the app writes nothing; leaving it asks for Touch ID or the password.
+- Amounts hide by themselves while the screen is recorded or shown (iPhone and iPad); on Mac they
+  hide when the screen is mirrored, and ⌃⌘H does it by hand.
+- «What the app knows» screen and a journal of openings kept for a year, only on this Mac (not in the
+  database, the archive or CSV; no amounts or names).
+- Settings keys in the table `settings`: `privacy.autoHideOnCapture`, `privacy.readOnly`,
+  `privacy.journalDays`.
+- From 2.4.0: files can be attached to operations, assets, debts and subscriptions (stored once by
+  content, a 30-day trash, optional mirror and archive copies); warranty and return terms with
+  reminders and a «Warranties» screen; receipt by QR code; summaries of the week, month and year
+  with a PDF. The schema is 17.
+- From 2.5.0: «Purchases» with wishes and a price history, a shopping list, owned things with the
+  cost of ownership, refunds waiting to be credited, discounts, the question «Any regrets?», a pause
+  before a big purchase, mileage at fuelling, birthdays and gift budgets. The schema is 18.
+
+### Known limits
+
+- On Mac there is no reliable sign of screen recording: amounts hide on mirroring, and ⌃⌘H is the
+  manual way.
+- Hidden accounts still appear in some pick lists (scheduled payments, goals, debts, templates, the
+  entry line) and in the lists of a day and in analytics; the mark «part hidden» is only in the
+  sidebar.
+- The exports «Trip» and «Comparison» are not encrypted.
+- The labels of the neutral names are always Russian.
+- «Export copy» cuts out a transfer between a hidden and a visible account.
+- The journal on Mac does not tell Touch ID from the Mac password.
+- The new screens were not looked at in a live window.
+- Limits of 2.4.0 and 2.5.0 below and in the notes of those versions still apply: a new operation
+  gets no «Attachments» section until saved; «Sale of things» is an ordinary category; there is no
+  Overview tile for purchases.
+
 ## [2.4.0] — 2026-10-29
 
 Documents and Summaries. The database schema is 17; opening the app upgrades the database after a

@@ -312,7 +312,8 @@ public final class AppEnvironment {
       shield.turnReadOnlyOn()
       return true
     }
-    return await shield.leaveReadOnly(reason: language("privacy.readOnly.leave.reason", table: "PrivacyScreens"))
+    return await shield.leaveReadOnly(
+      reason: language("privacy.readOnly.leave.reason", table: "PrivacyScreens"))
   }
 
   /// «Показать скрытые»: Touch ID or the password of the Mac, then the hidden accounts show until

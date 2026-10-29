@@ -14,7 +14,9 @@ struct RecordingPolicyTests {
 
   @Test("a capture hides the amounts when the setting is on")
   func captureHides() {
-    for capture: RecordingPolicy.Capture in [.recording, .mirroring, .sharing, [.recording, .sharing]] {
+    for capture: RecordingPolicy.Capture in [
+      .recording, .mirroring, .sharing, [.recording, .sharing],
+    ] {
       let decision = RecordingPolicy.decide(.init(capture: capture, autoHideOnCapture: true))
       #expect(decision.hide)
       #expect(decision.reason == .capture)
@@ -57,7 +59,8 @@ struct ReadOnlyModeTests {
   func on() {
     let mode = ReadOnlyMode().turnedOn()
     for action in ReadOnlyAction.allCases { #expect(!mode.allows(action)) }
-    #expect(Set(mode.forbidden) == [.write, .edit, .delete, .undo, .importData, .restore, .moveData])
+    #expect(
+      Set(mode.forbidden) == [.write, .edit, .delete, .undo, .importData, .restore, .moveData])
   }
 
   @Test("leaving needs a confirmation from Touch ID or the password of the Mac")
@@ -151,7 +154,8 @@ struct PrivacyJournalRulesTests {
     let events = [event(daysAgo: 400), event(daysAgo: 366), event(daysAgo: 365), event(daysAgo: 1)]
     let kept = PrivacyJournalRules.retained(events, now: now, days: 365)
     #expect(kept.map(\.id) == [events[2].id, events[3].id])
-    #expect(PrivacyJournalRules.expiredIds(events, now: now, days: 365) == [events[0].id, events[1].id])
+    #expect(
+      PrivacyJournalRules.expiredIds(events, now: now, days: 365) == [events[0].id, events[1].id])
   }
 
   @Test("a shorter term cuts more")

@@ -44,7 +44,8 @@ private struct MileageAlert: ViewModifier {
       TextField(
         text: $text,
         prompt: Text(
-          verbatim: t(asked.previous == nil ? "purchase.mileage.prompt" : "purchase.mileage.prompt.km"))
+          verbatim: t(
+            asked.previous == nil ? "purchase.mileage.prompt" : "purchase.mileage.prompt.km"))
       ) {
         Text(verbatim: t("purchase.mileage.title"))
       }
@@ -59,14 +60,18 @@ private struct MileageAlert: ViewModifier {
       }
       Button(environment.language("action.cancel"), role: .cancel) { text = "" }
     } message: { asked in
-      Text(verbatim: t(asked.previous == nil ? "purchase.mileage.messageFirst" : "purchase.mileage.message"))
+      Text(
+        verbatim: t(
+          asked.previous == nil ? "purchase.mileage.messageFirst" : "purchase.mileage.message"))
     }
   }
 }
 
 extension View {
   /// The pause over a view that keeps its own question.
-  func pauseDialog(_ question: Binding<PauseQuestion?>, record: @escaping () -> Void)
+  func pauseDialog(
+    _ question: Binding<PauseQuestion?>, record: @escaping () -> Void
+  )
     -> some View
   {
     modifier(PauseDialog(question: question, record: record))

@@ -114,8 +114,12 @@ struct PrivacySettingsView: View {
       get: { environment.privacy.readOnly },
       set: { value in
         guard value != environment.privacy.readOnly else { return }
-        change { $0.readOnly = value }
-        environment.privacyJournal.record(value ? .readOnlyOn : .readOnlyOff)
+        // The shield switches the mode: it asks Touch ID or the password to leave it, tells the
+        // barrier of the database and writes the journal line itself.
+        Task { @MainActor in
+          await environment.setReadOnly(value)
+          environment.refreshPrivacySettings()
+        }
       })
   }
 

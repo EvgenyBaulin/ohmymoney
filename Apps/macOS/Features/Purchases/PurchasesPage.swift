@@ -81,22 +81,24 @@ struct PurchasesPage: Sendable {
         wish: wish, prices: dataset.wishPrices, today: today)
       let factor = rate(wish.currency)
       let missing = wish.priceE4 != nil && factor == nil
+      let priceRub: AmountE4? = wish.priceE4.flatMap { price in
+        factor.map {
+          wish.currency == .rub ? price : (try? AmountE4(decimal: price.decimal * $0)) ?? .zero
+        }
+      }
       let afford: TimeToAfford
       if let canSave, let factor {
         afford = TimeToAfford.estimate(
           wish: wish, rateToRub: factor, canSave: canSave, today: today)
       } else {
+        // No month to take the pace from: the price is known, the pace is not («нечего
+        // откладывать»); without a rate there is no price in rubles at all.
         afford = TimeToAfford.estimate(
-          priceRubE4: nil, monthlySavingE4: nil, today: today)
+          priceRubE4: priceRub, monthlySavingE4: nil, today: today)
       }
       lines.append(
         WishLine(
-          wish: wish, tracking: tracking, afford: afford,
-          priceRubE4: wish.priceE4.flatMap { price in
-            factor.map {
-              wish.currency == .rub ? price : (try? AmountE4(decimal: price.decimal * $0)) ?? .zero
-            }
-          },
+          wish: wish, tracking: tracking, afford: afford, priceRubE4: priceRub,
           rateMissing: missing))
     }
     lines.sort { Self.wishOrder($0.wish, $1.wish) }

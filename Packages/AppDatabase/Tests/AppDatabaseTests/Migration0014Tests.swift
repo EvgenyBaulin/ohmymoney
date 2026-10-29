@@ -680,7 +680,7 @@ struct Migration0014Tests {
       ])
     #expect(ExportTables.subscriptionTerms.columns.first == "payment_id")
     #expect(
-      Array(ExportTables.transactions.columns.dropLast(3).suffix(4)) == [
+      Array(ExportTables.transactions.columns.dropLast(8).suffix(4)) == [
         "source", "bank_status", "posted_on", "dedup_key",
       ])
     #expect(ExportTables.transfers.columns.last == "arrived_at")
@@ -793,7 +793,7 @@ struct Migration0014Tests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 19)
     #expect(opened.csvTables.count == 49)
     #expect(opened.manifest.schemaVersion == 19)
     #expect(opened.manifest.rowCounts["subscription_terms"] == 1)

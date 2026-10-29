@@ -118,13 +118,18 @@ public final class PrivacyJournalStore: @unchecked Sendable {
     let all = readAll()
     let remaining = PrivacyJournal.kept(all, now: moment, days: kept)
     // Rewritten when a line goes, and when a torn or unknown line would otherwise stay.
-    guard remaining.count != all.count || fileHasUnreadableLines(readCount: all.count) else { return }
+    guard remaining.count != all.count || fileHasUnreadableLines(readCount: all.count) else {
+      return
+    }
     do {
       let text = try remaining.map { try PrivacyJournal.line(for: $0) + "\n" }.joined()
       try Data(text.utf8).write(to: url, options: .atomic)
       AppLog.info(
         "privacy.journalCut", .app, "old lines of the journal of openings were cut",
-        [LogPair("left", .count(remaining.count)), LogPair("cut", .count(all.count - remaining.count))])
+        [
+          LogPair("left", .count(remaining.count)),
+          LogPair("cut", .count(all.count - remaining.count)),
+        ])
     } catch {
       AppLog.warning(
         "privacy.journalCutFail", .app, "the journal of openings was not cut",

@@ -89,7 +89,8 @@ public struct ExportCopyMaker: Sendable {
 
     let final = folder.appendingPathComponent("final.sqlite")
     let cut = try ExportRepository(writer: queue).snapshot(to: final)
-    let attachments = request.includeAttachments ? try AttachmentRepository(writer: queue).all() : []
+    let attachments =
+      request.includeAttachments ? try AttachmentRepository(writer: queue).all() : []
     return ExportCopyDraft(
       databaseURL: final, tables: cut.tables, rowCounts: cut.rowCounts,
       rowCountsBefore: before.rowCounts, attachments: attachments)

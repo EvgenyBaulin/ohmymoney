@@ -208,14 +208,17 @@ public struct HiddenAccounts: Hashable, Sendable {
     // Plans and the things that name an account.
     var planning = dataset.planning
     planning.scheduled = planning.scheduled.filter { !isHidden($0.paymentMethodId) }
-    for index in planning.expected.indices where isHidden(planning.expected[index].paymentMethodId) {
+    for index in planning.expected.indices where isHidden(planning.expected[index].paymentMethodId)
+    {
       planning.expected[index].paymentMethodId = nil
     }
     for index in planning.debtEntries.indices
     where isHidden(planning.debtEntries[index].paymentMethodId) {
       planning.debtEntries[index].paymentMethodId = nil
     }
-    planning.expectedLinks = planning.expectedLinks.filter { !goneEntries.contains($0.transactionId) }
+    planning.expectedLinks = planning.expectedLinks.filter {
+      !goneEntries.contains($0.transactionId)
+    }
     let touched = Set(
       dataset.planning.reconciledBalances.filter { ids.contains($0.accountId) }
         .map(\.reconciliationId))

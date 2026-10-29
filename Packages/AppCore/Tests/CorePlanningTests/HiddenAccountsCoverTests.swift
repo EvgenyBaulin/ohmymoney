@@ -9,11 +9,14 @@ import Testing
 @Suite("Hidden accounts: the covered lists")
 struct HiddenAccountsCoverTests {
   let fx = PrivacyFixture()
-  var hidden: HiddenAccounts { HiddenAccounts(accounts: fx.dataset.paymentMethods.map { account in
-    var copy = account
-    copy.hidden = account.id == fx.hiddenId
-    return copy
-  }) }
+  var hidden: HiddenAccounts {
+    HiddenAccounts(
+      accounts: fx.dataset.paymentMethods.map { account in
+        var copy = account
+        copy.hidden = account.id == fx.hiddenId
+        return copy
+      })
+  }
 
   private func line(_ account: PaymentMethod, rub: Int64) -> AccountsSnapshot.AccountLine {
     AccountsSnapshot.AccountLine(
@@ -46,7 +49,8 @@ struct HiddenAccountsCoverTests {
   func totalsKeepAllTheMoney() {
     let covered = hidden.cover(snapshot())
     #expect(covered.snapshot.inSummaryTotalRub == AmountE4(whole: 240))
-    #expect(covered.snapshot.sections.flatMap(\.accounts).allSatisfy { $0.account.id != fx.hiddenId })
+    #expect(
+      covered.snapshot.sections.flatMap(\.accounts).allSatisfy { $0.account.id != fx.hiddenId })
     let group = covered.snapshot.sections.first { $0.group?.name == "Savings" }
     #expect(group?.totalRub == AmountE4(whole: 140))
     #expect(group?.accounts.count == 1)
@@ -79,8 +83,9 @@ struct HiddenAccountsCoverTests {
   @Test("nothing hidden: the snapshot is the same and unmarked")
   func nothingHidden() {
     let none = HiddenAccounts(ids: [UUID]())
-    let covered = none.cover(snapshot())
-    #expect(covered.snapshot == snapshot())
+    let original = snapshot()
+    let covered = none.cover(original)
+    #expect(covered.snapshot == original)
     #expect(!covered.partHidden)
   }
 

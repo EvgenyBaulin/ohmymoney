@@ -55,19 +55,20 @@ final class ExportAndArchiveTests: XCTestCase {
 
     XCTAssertEqual(written.count, 49)
     XCTAssertEqual(
-      Array(written.map(\.lastPathComponent).suffix(22).prefix(12)),
+      Array(written.map(\.lastPathComponent).suffix(26).prefix(12)),
       [
         "banks.csv", "assets.csv", "asset_valuations.csv", "debt_instalments.csv",
         "debt_costs.csv", "allocation_rules.csv", "custom_currencies.csv", "settings.csv",
         "tags.csv", "part_tags.csv", "rules.csv", "day_notes.csv",
       ])
     XCTAssertEqual(
-      Array(written.map(\.lastPathComponent).suffix(10)),
+      Array(written.map(\.lastPathComponent).suffix(14)),
       [
         "budget_month_exceptions.csv", "event_budget_items.csv", "event_templates.csv",
         "subscription_terms.csv", "subscription_usage.csv", "subscription_users.csv",
         "subscription_keep_groups.csv", "bank_conditions.csv", "deposit_offers.csv",
-        "attachments.csv",
+        "attachments.csv", "wishes.csv", "wish_prices.csv", "shopping_items.csv",
+        "owned_items.csv",
       ])
     for url in written {
       let text = try String(contentsOf: url, encoding: .utf8)
@@ -290,14 +291,14 @@ final class ExportAndArchiveTests: XCTestCase {
   /// build opens an archive of schema 8 — and of the ones before it — and a build that knows only
   /// 7 refuses it.
   func testAnArchiveOfSchemaEightOpensWhereEightIsSupported() throws {
-    XCTAssertEqual(stack.applied.onDisk, 17)
+    XCTAssertEqual(stack.applied.onDisk, 19)
     let service = ArchiveService(stack: stack, appVersion: "1.6.0")
     let url = directory.appendingPathComponent("eight.ohmymoneyarchive")
     _ = try service.exportArchive(to: url)
     let data = try Data(contentsOf: url)
 
-    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 17)
-    XCTAssertEqual(opened.manifest.schemaVersion, 18)
+    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 19)
+    XCTAssertEqual(opened.manifest.schemaVersion, 19)
     XCTAssertEqual(opened.csvTables.count, 49)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))
     XCTAssertTrue(opened.csvTables.contains("cards"))

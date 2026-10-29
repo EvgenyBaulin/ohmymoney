@@ -94,7 +94,8 @@ struct Migration0018Tests {
       #expect(birthdays == 0)
       let keys = try String.fetchAll(
         db,
-        sql: "SELECT key FROM settings WHERE key LIKE 'purchases.%' OR key LIKE 'regret.%' OR key LIKE 'fuel.%'"
+        sql:
+          "SELECT key FROM settings WHERE key LIKE 'purchases.%' OR key LIKE 'regret.%' OR key LIKE 'fuel.%'"
       )
       #expect(keys.isEmpty, "no setting is written: every key reads its default")
     }
@@ -195,7 +196,8 @@ struct Migration0018Tests {
     #expect(try wishes.wish(boughtBy: operation.id)?.id == wish.id)
     // The operation really removed leaves the wish, no longer bought by anything.
     try stack.writer.write { db in
-      try db.execute(sql: "DELETE FROM transactions WHERE id = ?", arguments: [operation.id.uuidString])
+      try db.execute(
+        sql: "DELETE FROM transactions WHERE id = ?", arguments: [operation.id.uuidString])
     }
     #expect(try wishes.wish(id: wish.id)?.boughtTransactionId == nil)
   }
@@ -229,7 +231,8 @@ struct Migration0018Tests {
     try device.sql(
       "INSERT INTO wishes (id, name, created_on) VALUES ('w1', 'Лампа', '2026-10-29')")
     try device.sql(
-      "INSERT INTO wish_prices (id, wish_id, on_date, price_e4) VALUES ('p1', 'w1', '2026-10-29', 5)")
+      "INSERT INTO wish_prices (id, wish_id, on_date, price_e4) VALUES ('p1', 'w1', '2026-10-29', 5)"
+    )
     try device.sql(
       "INSERT INTO shopping_items (id, name, created_on) VALUES ('s1', 'Хлеб', '2026-10-29')")
     try device.sql("INSERT INTO owned_items (id, name) VALUES ('o1', 'Велосипед')")
@@ -269,10 +272,12 @@ struct Migration0018Tests {
       "INSERT INTO wishes (id, name, created_on, bought_transaction_id) VALUES ('w1', 'Лампа', '2026-10-29', 't1')"
     )
     try mac.sql(
-      "INSERT INTO wish_prices (id, wish_id, on_date, price_e4) VALUES ('p1', 'w1', '2026-10-29', 5)")
+      "INSERT INTO wish_prices (id, wish_id, on_date, price_e4) VALUES ('p1', 'w1', '2026-10-29', 5)"
+    )
     try mac.sql(
       "INSERT INTO shopping_items (id, name, created_on) VALUES ('s1', 'Хлеб', '2026-10-29')")
-    try mac.sql("INSERT INTO owned_items (id, name, sale_transaction_id) VALUES ('o1', 'Лампа', 't1')")
+    try mac.sql(
+      "INSERT INTO owned_items (id, name, sale_transaction_id) VALUES ('o1', 'Лампа', 't1')")
     _ = try mac.exchange.exchange(with: folder)
     _ = try phone.exchange.exchange(with: folder)
     for table in ["wishes", "wish_prices", "shopping_items", "owned_items"] {

@@ -15,8 +15,9 @@ final class CapitalSectionTests: XCTestCase {
     return environment.language(key, table: table)
   }
 
-  func testTheSectionIsCommandSixAndLast() {
-    XCTAssertEqual(MainWindow.Section.allCases.last, .capital)
+  func testTheSectionIsCommandSix() {
+    // «Покупки» came after it (⌘7); the capital is the last of the six old sections.
+    XCTAssertEqual(MainWindow.Section.allCases.dropLast().last, .capital)
     XCTAssertEqual(MainWindow.Section.capital.shortcutIndex, 6)
     XCTAssertEqual(MainWindow.Section.capital.symbol, "chart.bar")
     XCTAssertEqual(MainWindow.Section.capital.titleKey, "section.capital")

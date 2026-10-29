@@ -186,7 +186,9 @@ final class ExportCopyModel {
   }
 
   private func discardTemporary() {
-    if let pending { try? FileManager.default.removeItem(at: pending.url.deletingLastPathComponent()) }
+    if let pending {
+      try? FileManager.default.removeItem(at: pending.url.deletingLastPathComponent())
+    }
     pending = nil
   }
 

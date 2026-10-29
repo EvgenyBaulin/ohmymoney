@@ -139,7 +139,7 @@ struct Migration0016Tests {
       #expect(tables == ["rates"], "the scratch table is gone")
     }
     // The rows read as before through the repository.
-    let rates = try RateRepository(writer: stack.writer)
+    let rates = RateRepository(writer: stack.writer)
     let btc = try #require(
       try rates.rate(for: CurrencyCode("BTC"), on: DateOnly(year: 2026, month: 10, day: 20)))
     #expect(btc.source == .manual && btc.rubPerUnit == Decimal(string: "6700000"))
