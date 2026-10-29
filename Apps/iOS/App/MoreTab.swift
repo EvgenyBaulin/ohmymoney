@@ -67,6 +67,15 @@ struct MoreTab: View {
           Section { ForEach(rows.app) { row in rowView(row) } }
         }
         if !isSearching {
+          Section {
+            Button {
+              environment.receiptRequest = ReceiptRequest(urls: [])
+            } label: {
+              Label(
+                environment.language("receipt.menu", table: "Receipt"), systemImage: "qrcode.viewfinder")
+            }
+            .accessibilityIdentifier("more.receipt")
+          }
           dataSection
           // A real profile with no records of its own can take the data another device left in
           // the exchange folder.

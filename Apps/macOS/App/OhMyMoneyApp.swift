@@ -610,6 +610,7 @@ struct MainWindow: View {
     }
     // Statements: from the File menu, or files dropped on the window.
     .statementImportSheet(deps)
+    .receiptSheet(deps)
     .sheet(isPresented: environment.lock.presenting($showsConflicts)) {
       if let sync = environment.sync {
         ConflictsSheet(coordinator: sync).appDependencies(deps)

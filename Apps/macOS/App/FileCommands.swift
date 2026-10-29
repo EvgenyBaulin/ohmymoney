@@ -29,6 +29,9 @@ struct FileCommands: Commands {
       Button(environment.language("import.menu", table: "Import")) {
         environment.statementImportRequest = StatementImportRequest(urls: [])
       }
+      Button(environment.language("receipt.menu", table: "Receipt")) {
+        environment.receiptRequest = ReceiptRequest(urls: [])
+      }
     }
   }
 
