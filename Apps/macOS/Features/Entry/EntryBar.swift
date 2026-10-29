@@ -133,8 +133,14 @@ struct EntryBar<Accessory: View>: View {
   @State private var kindChosen = false
   /// The form at the side: the saved operation selected in a list, edited in the form.
   @State private var editing: TransactionEditorModel?
+  /// A transfer selected in a list of the window, edited in the form like an operation.
+  @State private var editingTransfer: TransferEntry?
   /// «Сверх платежа X — уменьшить срок или платёж?», waiting for the owner's answer.
   @State private var prepayQuestion: PrepayQuestion?
+  /// «Выйдет за лимит карты на X», waiting for the owner's answer.
+  @State private var overLimitQuestion: OverLimitQuestion?
+  /// «После этого остаток станет X — ниже Y», waiting for the owner's answer.
+  @State private var minBalanceQuestion: MinBalanceQuestion?
   /// A thing bought in instalments, returned: the sheet that asks how the bank gives it back.
   @State private var instalmentReturn: InstalmentReturnRequest?
   /// «Распределить…» under the line, after an income.
@@ -348,6 +354,8 @@ struct EntryBar<Accessory: View>: View {
       }
     }
     .background {
+      overLimitDialog
+      minBalanceDialog
       Color.clear.confirmationDialog(
         prepayQuestion.map { $0.title(environment) } ?? "",
         isPresented: Binding(
@@ -390,6 +398,7 @@ struct EntryBar<Accessory: View>: View {
   private func offerTheFormForEditing() {
     guard style == .form, let operations else { return }
     operations.opensEditor = { entry in operations.selection = [entry.id] }
+    operations.opensTransferEditor = { transfer in operations.selection = [transfer.id] }
   }
 
   /// One operation selected in a list of the window is edited in the form; nothing, several rows
@@ -399,12 +408,28 @@ struct EntryBar<Accessory: View>: View {
     guard style == .form else { return }
     guard let entry = EntryFormSelection.operation(selection, find: findOperation) else {
       if editing != nil { editing = nil }
+      followTheSelectedTransfer(selection)
       return
     }
+    editingTransfer = nil
     guard editing?.id != entry.id else { return }
     editing = TransactionEditorModel(
       entry: entry, environment: environment, tree: compute.snapshot?.ledger.tree ?? CategoryTree())
     AppLog.info("entry.formEdits", .ui, "an operation selected in a list opened in the form")
+  }
+
+  /// One transfer selected is edited in the form; anything else leaves the form to a new
+  /// operation.
+  private func followTheSelectedTransfer(_ selection: Set<UUID>) {
+    guard selection.count == 1, let id = selection.first,
+      let found = TransferEditing.find(id, in: store)
+    else {
+      if editingTransfer != nil { editingTransfer = nil }
+      return
+    }
+    guard editingTransfer?.form.previous?.id != found.id else { return }
+    editingTransfer = TransferEntry(form: found.form(calendar: environment.calendar))
+    AppLog.info("entry.formEditsTransfer", .ui, "a transfer selected in a list opened in the form")
   }
 
   private func findOperation(_ id: UUID) -> TransactionEntry? {
@@ -428,6 +453,7 @@ struct EntryBar<Accessory: View>: View {
   /// the form stands ready for a new operation.
   private func stopEditing() {
     editing = nil
+    editingTransfer = nil
     operations?.selection = []
     model?.focusRequest = .control(.quick)
   }
@@ -540,6 +566,58 @@ struct EntryBar<Accessory: View>: View {
       "entry.aheadPlanned", .ui, "an operation dated ahead became a plan",
       [LogPair("plan", .token("\(question.plan)"))])
     finishSaving(model, then: .planned(question.plan, question.day))
+  }
+
+  /// «Выйдет за лимит карты на X», on a view of its own.
+  private var overLimitDialog: some View {
+    Color.clear.confirmationDialog(
+      overLimitQuestion.map { $0.title(environment) } ?? "",
+      isPresented: Binding(
+        get: { overLimitQuestion != nil }, set: { if !$0 { overLimitQuestion = nil } }),
+      titleVisibility: .visible, presenting: overLimitQuestion
+    ) { _ in
+      Button(environment.language("entry.overLimit.record", table: "Entry")) {
+        recordOverLimit()
+      }
+      Button(environment.language("action.cancel"), role: .cancel) {}
+    } message: { _ in
+      Text(verbatim: environment.language("entry.overLimit.message", table: "Entry"))
+    }
+  }
+
+  /// «После этого остаток станет X — ниже Y», on a view of its own.
+  private var minBalanceDialog: some View {
+    Color.clear.confirmationDialog(
+      minBalanceQuestion.map { $0.title(environment) } ?? "",
+      isPresented: Binding(
+        get: { minBalanceQuestion != nil }, set: { if !$0 { minBalanceQuestion = nil } }),
+      titleVisibility: .visible, presenting: minBalanceQuestion
+    ) { _ in
+      Button(environment.language("entry.minBalance.record", table: "Entry")) {
+        recordBelowMinimum()
+      }
+      Button(environment.language("action.cancel"), role: .cancel) {}
+    } message: { _ in
+      Text(verbatim: environment.language("entry.minBalance.message", table: "Entry"))
+    }
+  }
+
+  /// «Записать всё равно»: the spending below the balance the bank asks to keep is written; the
+  /// warning is not asked again for it.
+  private func recordBelowMinimum() {
+    guard let model else { return }
+    AppLog.info("entry.minBalanceRecorded", .ui, "spending below a minimum balance was recorded")
+    model.minBalanceAnswered = true
+    continueSaving(model)
+  }
+
+  /// «Записать всё равно»: the spending past the card's limit is written; the warning is not
+  /// asked again for it.
+  private func recordOverLimit() {
+    guard let model else { return }
+    AppLog.info("entry.overLimitRecorded", .ui, "spending past a card limit was recorded")
+    model.overLimitAnswered = true
+    continueSaving(model)
   }
 
   /// «Добавить»: the repeat is written; the question is not asked again for it.
@@ -745,7 +823,10 @@ struct EntryBar<Accessory: View>: View {
   /// open, with a button of its own to save and one to clear. No line, no chips, no suggestions.
   @ViewBuilder
   private var formBody: some View {
-    if let editing {
+    if let editingTransfer {
+      TransferEditorColumn(entry: editingTransfer, close: stopEditing)
+        .id(ObjectIdentifier(editingTransfer))
+    } else if let editing {
       EntryFormEditor(editor: editing, close: stopEditing)
         // Another operation selected: a form of its own, not the last one's fields.
         .id(ObjectIdentifier(editing))
@@ -1101,7 +1182,7 @@ struct EntryBar<Accessory: View>: View {
     // The form is always open: a new operation puts the keyboard on its first field.
     if style == .form {
       // An operation being edited in the form gives way to the new one.
-      if editing != nil { stopEditing() }
+      if editing != nil || editingTransfer != nil { stopEditing() }
       // The quick line over the fields, asked through the panel's own focus.
       model?.focusRequest = .control(.quick)
       return
@@ -1464,6 +1545,25 @@ struct EntryBar<Accessory: View>: View {
       AppLog.info(
         "entry.aheadAsked", .ui, "an operation dated ahead was asked about",
         [LogPair("plan", .token("\(plan)"))])
+      return
+    }
+    // Spending that takes a credit card past its limit: said before it is written, the bank
+    // may charge a fee. Written all the same on «Записать всё равно».
+    if askingForGaps,
+      let warning = model.creditLimitWarning(cards: compute.snapshot?.planning.creditCards ?? [:])
+    {
+      overLimitQuestion = OverLimitQuestion(over: warning.over, currency: warning.currency)
+      AppLog.info("entry.overLimitAsked", .ui, "spending past a card limit was asked about")
+      return
+    }
+    // Spending that takes an account below the balance its bank asks to keep: said before it is
+    // written, the rate of the month may go. Written all the same on «Записать всё равно».
+    if askingForGaps, let snapshot = compute.snapshot,
+      let warning = model.minBalanceWarning(
+        accounts: snapshot.planning.accounts, bank: snapshot.dataset.bankData)
+    {
+      minBalanceQuestion = MinBalanceQuestion(warning: warning)
+      AppLog.info("entry.minBalanceAsked", .ui, "spending below a minimum balance was asked about")
       return
     }
     // What was written a moment ago with the same amount is shown before it is written again.

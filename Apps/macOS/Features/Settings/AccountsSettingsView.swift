@@ -44,6 +44,8 @@ struct AccountsSettingsView: View {
   @State private var deletingGroup: AccountGroup?
   /// The bank the owner asked to delete, waiting for the answer.
   @State private var deletingBank: Bank?
+  /// What a deletion was refused for: said by an alert at once, not only under the list.
+  @State private var deleteRefusal: AccountRefusal?
   /// A write the database refused; the alert says so.
   @State private var failed = false
 
@@ -71,7 +73,7 @@ struct AccountsSettingsView: View {
     /// the main one and any others picked with it.
     enum Hand {
       case archive
-      case delete([UUID])
+      case delete([UUID], [HeldMoney])
     }
 
     var id: String {
@@ -96,6 +98,8 @@ struct AccountsSettingsView: View {
   struct Deletion: Identifiable {
     let ids: [UUID]
     let names: [String]
+    /// The money counts put on these accounts, which leaves every total with them.
+    var held: [HeldMoney] = []
     var id: [UUID] { ids }
   }
 
@@ -156,6 +160,7 @@ struct AccountsSettingsView: View {
       .appFont(.callout)
       .foregroundStyle(.secondary)
       .fixedSize(horizontal: false, vertical: true)
+      ForgottenDaysSetting()
       footer
     }
     .padding()
@@ -172,7 +177,16 @@ struct AccountsSettingsView: View {
       Button(environment.language("action.delete"), role: .destructive) { delete(question) }
       Button(environment.language("action.cancel"), role: .cancel) {}
     } message: { question in
-      Text(verbatim: deleteMessage(count: question.ids.count))
+      Text(verbatim: deleteMessage(question))
+    }
+    .alert(
+      t("sidebar.refusal.title"),
+      isPresented: Binding(get: { deleteRefusal != nil }, set: { if !$0 { deleteRefusal = nil } }),
+      presenting: deleteRefusal
+    ) { _ in
+      Button(environment.language("action.ok"), role: .cancel) {}
+    } message: { reason in
+      Text(verbatim: AccountText.message(reason, environment))
     }
     // A bank is deleted for good and the ⌘Z history with it: asked first, like a group.
     .confirmationDialog(
@@ -827,15 +841,20 @@ struct AccountsSettingsView: View {
             archive(account, newMain: next)
           },
           cancel: { self.sheet = nil })
-      case .delete(let ids):
+      case .delete(let ids, let held):
         // The choice of the new main account is also the confirmation of the deletion, so
         // the sheet says it cannot be undone.
         MainHandOverSheet(
           leaving: account, candidates: candidates, preselected: preselected,
-          confirmTitle: t("accounts.delete"), note: deleteMessage(count: ids.count),
+          confirmTitle: t("accounts.delete"),
+          note: AccountText.deleteMessage(count: ids.count, held: held, environment),
           confirm: { next in
             self.sheet = nil
-            if perform(actions.delete(ids, newMain: next)) { selection = [] }
+            if perform(
+              actions.delete(ids, newMain: next, losingMoney: !held.isEmpty), says: true)
+            {
+              selection = []
+            }
           },
           cancel: { self.sheet = nil })
       }
@@ -910,8 +929,13 @@ struct AccountsSettingsView: View {
     for id in ids {
       if let usage = try? repository.usage(of: id), usage.isUsed {
         refusal = .inUse(id, usage)
+        deleteRefusal = refusal
         return
       }
+    }
+    guard let held = actions.heldMoney(on: ids) else {
+      failed = true
+      return
     }
     if let main = accounts.first(where: { ids.contains($0.id) && $0.isDefault && !$0.archived }) {
       Task {
@@ -921,17 +945,19 @@ struct AccountsSettingsView: View {
         }
         let next = actions.successors(leaving: Set(ids), books: books)
         sheet = .handOver(
-          main, .delete(ids), candidates: next.all, preselected: next.preselected)
+          main, .delete(ids, held), candidates: next.all, preselected: next.preselected)
       }
       return
     }
     let names = accounts.filter { ids.contains($0.id) }.map(\.name)
-    deleting = Deletion(ids: ids, names: names)
+    deleting = Deletion(ids: ids, names: names, held: held)
   }
 
   private func delete(_ question: Deletion) {
     deleting = nil
-    if perform(actions.delete(question.ids)) { selection = [] }
+    if perform(actions.delete(question.ids, losingMoney: !question.held.isEmpty), says: true) {
+      selection = []
+    }
   }
 
   private var isAskingToDelete: Binding<Bool> {
@@ -964,10 +990,10 @@ struct AccountsSettingsView: View {
     Binding(get: { deletingBank != nil }, set: { if !$0 { deletingBank = nil } })
   }
 
-  /// That nothing refers to the account — or to the accounts — and that a deletion is not
-  /// undone.
-  private func deleteMessage(count: Int) -> String {
-    t(count == 1 ? "accounts.delete.message" : "accounts.delete.messageMany")
+  /// That nothing refers to the account — or to the accounts —, how much money leaves the
+  /// totals with them, and that a deletion is not undone.
+  private func deleteMessage(_ question: Deletion) -> String {
+    AccountText.deleteMessage(count: question.ids.count, held: question.held, environment)
   }
 
   private func deleteTitle(_ question: Deletion) -> String {
@@ -980,10 +1006,12 @@ struct AccountsSettingsView: View {
   /// Says what came of an action and shows the lists as they are now. Returns whether it was
   /// done.
   @discardableResult
-  private func perform(_ outcome: AccountActionOutcome) -> Bool {
+  private func perform(_ outcome: AccountActionOutcome, says alerts: Bool = false) -> Bool {
     switch outcome {
     case .done: refusal = nil
-    case .refused(let reason): refusal = reason
+    case .refused(let reason):
+      refusal = reason
+      if alerts { deleteRefusal = reason }
     case .failed: failed = true
     }
     cardRefusal = nil

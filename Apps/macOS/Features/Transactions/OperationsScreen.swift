@@ -14,6 +14,8 @@ final class OperationsScreenState {
   /// Another operation asked for while the one in the editor has unsaved changes: the question
   /// is up.
   var switchingTo: TransactionEntry?
+  /// The transfer in the column beside the table, in place of an operation's editor.
+  var transferEditor: TransferEntry?
 
   init(editing: TransactionEditorModel? = nil) {
     editor = editing
@@ -75,10 +77,10 @@ struct OperationsScreen: View {
 
   /// The narrowest screen that edits beside the table: the editor's column and a table that
   /// still shows the time, the description and the amount.
-  static let widthForEditorColumn: CGFloat = TransactionInspector.idealWidth + 380
+  static let widthForEditorColumn: CGFloat = OperationEditPlace.widthForEditorColumn
 
   private var editorColumnShown: Bool {
-    environment.entryStyle == .line && state.editor != nil
+    environment.entryStyle == .line && (state.editor != nil || state.transferEditor != nil)
   }
 
   private var layout: OperationColumnLayout { OperationColumnLayout(storage: columnsText) }
@@ -91,7 +93,14 @@ struct OperationsScreen: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           // The place of the table for the guide, whatever the table is showing now.
           .guideTarget(GuideTarget.operationsList)
-        if editorColumnShown, let editor = state.editor {
+        if editorColumnShown, let transfer = state.transferEditor {
+          Divider()
+          TransferEditorColumn(entry: transfer) { state.transferEditor = nil }
+            .appDependencies(deps)
+            .id(ObjectIdentifier(transfer))
+            .frame(width: TransactionInspector.idealWidth)
+            .frame(maxHeight: .infinity)
+        } else if editorColumnShown, let editor = state.editor {
           Divider()
           TransactionInspector(deps: deps, editor: editor) { state.editor = nil }
             // The operation, not the object: `followData` makes a fresh model for the same
@@ -510,6 +519,11 @@ struct OperationsScreen: View {
     kept.keep(within: choices)
     if kept != state.filters { state.filters = kept }
     actions.reloadDictionaries(from: snapshot.dataset)
+    if let open = state.transferEditor?.form.previous,
+      store.transfers(among: [open.id]).isEmpty
+    {
+      state.transferEditor = nil
+    }
     guard let editor = state.editor else { return }
     // Deleted meanwhile — from the menu, or by ⌘Z of its creation — or changed elsewhere — a
     // bulk change, a part written off: with nothing typed here the editor closes, or shows the
@@ -540,19 +554,30 @@ struct OperationsScreen: View {
         MainQueue.afterCallback { request(entry) }
       }
       actions.opensEditor = opens
+      let opensTransfer: @MainActor (TransferEditing) -> Void = { editing in
+        MainQueue.afterCallback { requestTransfer(editing) }
+      }
+      actions.opensTransferEditor = opensTransfer
       // The form at the side, going away as the line comes back, lets go of the double click
       // as it disappears — which may be after this: it is taken again a turn later.
       Task { @MainActor in
-        if isShown, environment.entryStyle == .line { actions.opensEditor = opens }
+        if isShown, environment.entryStyle == .line {
+          actions.opensEditor = opens
+          actions.opensTransferEditor = opensTransfer
+        }
       }
     case .form:
       state.editor = nil
+      state.transferEditor = nil
     }
   }
 
   /// The other lists of the window edit in the sheet again; the form keeps what it set.
   private func releaseTheEditing() {
-    if environment.entryStyle == .line { actions.opensEditor = nil }
+    if environment.entryStyle == .line {
+      actions.opensEditor = nil
+      actions.opensTransferEditor = nil
+    }
   }
 
   /// The accounts' balances as the data on screen has them: a save that lands an operation on
@@ -565,10 +590,11 @@ struct OperationsScreen: View {
   /// asking, when the one there has unsaved changes —, or into the edit sheet when the screen
   /// has no room for the column.
   private func request(_ entry: TransactionEntry) {
-    guard width <= 0 || width >= Self.widthForEditorColumn else {
+    guard OperationEditPlace.choose(style: environment.entryStyle, width: width) == .column else {
       actions.editing = entry
       return
     }
+    state.transferEditor = nil
     if let editor = state.editor, editor.id != entry.id, editor.hasChanges {
       state.switchingTo = entry
       return
@@ -577,7 +603,26 @@ struct OperationsScreen: View {
     open(entry)
   }
 
+  /// A transfer goes where an operation goes: the column beside the table, or the sheet when
+  /// the screen is too narrow for it.
+  private func requestTransfer(_ editing: TransferEditing) {
+    guard OperationEditPlace.choose(style: environment.entryStyle, width: width) == .column else {
+      actions.editingTransfer = editing
+      return
+    }
+    // Unsaved typing in the operation's editor is not thrown away for a transfer: the sheet
+    // takes the transfer and the column keeps the typing.
+    if state.editor?.hasChanges == true {
+      actions.editingTransfer = editing
+      return
+    }
+    guard state.transferEditor?.form.previous?.id != editing.id else { return }
+    state.editor = nil
+    state.transferEditor = TransferEntry(form: editing.form(calendar: environment.calendar))
+  }
+
   private func open(_ entry: TransactionEntry) {
+    state.transferEditor = nil
     state.editor = TransactionEditorModel(
       entry: entry, environment: environment,
       tree: compute.snapshot?.ledger.tree ?? CategoryTree())

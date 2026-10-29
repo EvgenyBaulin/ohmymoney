@@ -2,6 +2,12 @@ import AppCore
 import AppDatabase
 import SwiftUI
 
+/// Money a count says is on an account, in one currency.
+struct HeldMoney: Hashable, Sendable {
+  let currency: CurrencyCode
+  let amount: AmountE4
+}
+
 /// Why an action on the accounts was not taken. Nothing is written then.
 enum AccountRefusal: Error, Hashable, Sendable {
   case emptyName
@@ -32,6 +38,9 @@ enum AccountRefusal: Error, Hashable, Sendable {
   /// counted, so it is counted first rather than taken for money or for zero.
   case balanceUnknown
   case lastLiveAccount
+  /// A credit card would be left without a card: the first one cannot be made (its name is
+  /// empty or taken).
+  case creditCardNeedsCard
   /// The main account leaves the live ones and no account was named to take it over.
   case needsNewMain
   /// The main account leaves and no other live account in the summary could take it over.
@@ -226,7 +235,7 @@ struct AccountActions {
   /// setting together.
   func save(
     _ account: PaymentMethod, previous: PaymentMethod?, openings: [CurrencyCode: AmountE4] = [:],
-    books: AccountBooks, newBankNamed: String? = nil
+    books: AccountBooks, newBankNamed: String? = nil, firstCardNamed: String? = nil
   ) -> AccountActionOutcome {
     let all = self.all
     var account = Self.tidied(account)
@@ -266,7 +275,17 @@ struct AccountActions {
       if choice.isNew { bankRows = [choice.bank] }
     }
     var rows = PlanningRows(paymentMethods: [account], banks: bankRows)
-    if previous == nil, let card = CardRules.startingCard(for: account) {
+    // A credit card is never opened, or left, without a card: the first is made with it, named
+    // as typed. Any other new account starts with a card named like itself.
+    let allCards = cards
+    if account.credit != nil, !account.archived {
+      if CardRules.creditCardLacksCard(account, cards: allCards) {
+        guard let card = CardRules.startingCard(for: account, named: firstCardNamed),
+          CardRules.validate(card, previous: nil, cards: allCards, accounts: all).isEmpty
+        else { return .refused(.creditCardNeedsCard) }
+        rows.cards = [card]
+      }
+    } else if previous == nil, let card = CardRules.startingCard(for: account) {
       rows.cards = [card]
     }
     let counted = openings.filter { currency, _ in
@@ -738,7 +757,9 @@ struct AccountActions {
   /// account a count says holds money stays, as it stays out of the archive: its money would
   /// leave every total for good. When the main account is among them, `newMain` takes the flag
   /// first — a step of its own, forgotten with the rest.
-  func delete(_ ids: [UUID], newMain: UUID? = nil) -> AccountActionOutcome {
+  func delete(
+    _ ids: [UUID], newMain: UUID? = nil, losingMoney: Bool = false
+  ) -> AccountActionOutcome {
     guard let repository = environment.accounts, !ids.isEmpty else { return .failed }
     let all = self.all
     for id in ids {
@@ -753,8 +774,10 @@ struct AccountActions {
       case .failure(let refusal): return .refused(refusal)
       }
     }
-    guard let counted = countedMoney(on: Set(ids), all: all) else { return .failed }
-    if counted { return .refused(.deletesWithMoney) }
+    guard let held = heldMoney(on: ids) else { return .failed }
+    // Money typed or counted on an account nothing points at leaves the totals with it: only
+    // after the owner was told how much.
+    if !held.isEmpty, !losingMoney { return .refused(.deletesWithMoney) }
     if let nextMain {
       guard
         store.apply(
@@ -785,21 +808,21 @@ struct AccountActions {
     return .done
   }
 
-  /// Whether a count says money is on any of `ids` — «Остаток сейчас» typed when the account
-  /// was made is one. An account nothing points at holds exactly its last counts; `nil` when
-  /// the counts cannot be read.
-  private func countedMoney(on ids: Set<UUID>, all: [PaymentMethod]) -> Bool? {
+  /// The money counts say is on `ids` — «Остаток сейчас» typed when an account was made is one,
+  /// a credit card below zero too. An account nothing points at holds exactly its last counts;
+  /// `nil` when the counts cannot be read.
+  func heldMoney(on ids: [UUID]) -> [HeldMoney]? {
     guard let book = try? environment.planning?.book() else { return nil }
+    let wanted = Set(ids)
     let balances = AccountBalances.build(
       entries: [], transfers: [], debtEntries: [], debts: [:],
       reconciliations: book.reconciliations, balances: book.reconciledBalances, accounts: all,
       tree: CategoryTree([]), now: environment.now(), calendar: environment.calendar)
-    return balances.keys.contains { key in
-      guard ids.contains(key.accountId), let amount = balances[key]?.amountE4 else {
-        return false
-      }
-      return !amount.isZero
-    }
+    return balances.keys.compactMap { key -> HeldMoney? in
+      guard wanted.contains(key.accountId), let amount = balances[key]?.amountE4, !amount.isZero
+      else { return nil }
+      return HeldMoney(currency: key.currency, amount: amount)
+    }.sorted { $0.currency.code < $1.currency.code }
   }
 
   /// Deletes a group nothing is filed under, for good; the ⌘Z history is forgotten after it.
@@ -989,6 +1012,22 @@ enum AccountText {
       : environment.format("account.group.excludedTitle", table: table, group.name)
   }
 
+  /// What the deletion question says: that nothing refers to the account — and, when counts
+  /// put money on it, how much leaves every total with it.
+  static func deleteMessage(
+    count: Int, held: [HeldMoney], _ environment: AppEnvironment
+  ) -> String {
+    guard !held.isEmpty else {
+      return environment.language(
+        count == 1 ? "accounts.delete.message" : "accounts.delete.messageMany", table: table)
+    }
+    let amounts = held.map { environment.money.exact($0.amount, currency: $0.currency) }
+      .joined(separator: ", ")
+    return environment.format(
+      count == 1 ? "accounts.delete.messageMoney" : "accounts.delete.messageMoneyMany",
+      table: table, amounts)
+  }
+
   /// Why an action was not taken, in words.
   static func message(_ refusal: AccountRefusal, _ environment: AppEnvironment) -> String {
     func t(_ key: String) -> String { environment.language(key, table: table) }
@@ -1016,6 +1055,7 @@ enum AccountText {
       return environment.format(
         "account.refusal.currencyBalanceUnknown", table: table, currency.code)
     case .lastLiveAccount: return t("account.refusal.lastLiveAccount")
+    case .creditCardNeedsCard: return t("account.refusal.creditCardNeedsCard")
     case .needsNewMain: return t("account.refusal.needsNewMain")
     case .noSuccessor: return t("account.refusal.noSuccessor")
     case .mainInExcludedGroup: return t("account.refusal.mainInExcludedGroup")

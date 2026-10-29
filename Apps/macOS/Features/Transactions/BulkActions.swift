@@ -160,15 +160,21 @@ final class OperationActions {
   /// Where «Edit» leads: the edit sheet unless a screen takes it — the Transactions window
   /// opens the operation in its inspector instead.
   @ObservationIgnored var opensEditor: (@MainActor (TransactionEntry) -> Void)?
+  /// The same for a transfer: a screen that edits in a column takes it instead of the sheet.
+  @ObservationIgnored var opensTransferEditor: (@MainActor (TransferEditing) -> Void)?
 
-  /// A double click, or «Edit» in the menu of one row. A transfer opens its own sheet, with
-  /// the fee it has now.
+  /// A double click, or «Edit» in the menu of one row. A transfer is edited where an operation
+  /// is — in the column or the form when the screen has one, else in its own sheet — with the
+  /// fee it has now.
   func edit(_ ids: Set<UUID>, store: TransactionsStore) {
     guard ids.count == 1, let id = ids.first else { return }
     guard let entry = store.entry(id: id) else {
-      guard let transfer = store.transfers(among: [id]).first else { return }
-      let fee = TransferActions.fee(of: transfer.id, in: store.listing?.dataset.entries ?? [])
-      editingTransfer = TransferEditing(transfer: transfer, fee: fee?.transaction.amountE4)
+      guard let editing = TransferEditing.find(id, in: store) else { return }
+      if let opensTransferEditor {
+        opensTransferEditor(editing)
+      } else {
+        editingTransfer = editing
+      }
       return
     }
     if let opensEditor {
@@ -528,6 +534,13 @@ struct TransferEditing: Identifiable {
   let fee: AmountE4?
 
   var id: UUID { transfer.id }
+
+  /// The transfer `id` with the fee it has now, when the list holds it.
+  @MainActor static func find(_ id: UUID, in store: TransactionsStore) -> TransferEditing? {
+    guard let transfer = store.transfers(among: [id]).first else { return nil }
+    let fee = TransferActions.fee(of: transfer.id, in: store.listing?.dataset.entries ?? [])
+    return TransferEditing(transfer: transfer, fee: fee?.transaction.amountE4)
+  }
 
   /// The form of the transfer's sheet: the transfer as it was written, on its day.
   func form(calendar: CalendarContext) -> TransferForm {

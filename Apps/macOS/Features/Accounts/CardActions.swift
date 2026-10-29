@@ -15,6 +15,8 @@ enum CardRefusal: Error, Hashable, Sendable {
   /// «Объединить с…»: the cards are not two live cards of one account.
   case merge(CardMergeIssue)
   case notFound
+  /// The only card of a credit card: a credit card is never left without one.
+  case lastCardOfCreditCard
 }
 
 /// What came of an action on a card or on the rules.
@@ -104,6 +106,9 @@ struct CardActions {
   func archive(_ id: UUID) -> CardActionOutcome {
     guard var card = cards.first(where: { $0.id == id }) else { return refuse(.notFound) }
     guard !card.archived else { return .done }
+    if CardRules.isLastCardOfCreditCard(card, cards: cards, accounts: accounts) {
+      return refuse(.lastCardOfCreditCard)
+    }
     card.archived = true
     var rows = PlanningRows(cards: [card])
     if let account = accounts.first(where: { $0.id == card.accountId }),
@@ -148,8 +153,11 @@ struct CardActions {
   /// Deletes a card nothing names, with its rules; ⌘Z brings both back. A card an operation — in
   /// the bin too — or a scheduled payment names can only go to the archive.
   func delete(_ id: UUID) -> CardActionOutcome {
-    guard let repository, cards.contains(where: { $0.id == id }) else {
+    guard let repository, let card = cards.first(where: { $0.id == id }) else {
       return refuse(.notFound)
+    }
+    if CardRules.isLastCardOfCreditCard(card, cards: cards, accounts: accounts) {
+      return refuse(.lastCardOfCreditCard)
     }
     guard let usage = try? repository.usage(of: id) else { return .failed }
     guard !usage.isUsed else { return refuse(.inUse(usage)) }
@@ -318,6 +326,7 @@ struct CardActions {
     case .merge(.otherAccount): "mergeOtherAccount"
     case .merge(.archived): "mergeArchived"
     case .notFound: "notFound"
+    case .lastCardOfCreditCard: "lastCardOfCreditCard"
     }
   }
 
@@ -437,6 +446,7 @@ enum CardText {
     case .merge(.archived): return t("card.merge.refusal.archived")
     case .merge(.sameCard), .merge(.notFound): return t("card.refusal.notFound")
     case .notFound: return t("card.refusal.notFound")
+    case .lastCardOfCreditCard: return t("card.refusal.lastCardOfCreditCard")
     }
   }
 }

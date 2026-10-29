@@ -453,6 +453,34 @@ final class AccountsScenarioAccountActionTests: AccountsScenarioDatabaseCase {
     XCTAssertEqual(accounts.delete([full.id]), .refused(.deletesWithMoney))
   }
 
+  /// A credit card that sits below zero holds only its typed balance: asking first says how
+  /// much leaves the totals, and the confirmed deletion goes through.
+  func testACreditCardWithOnlyATypedBalanceIsDeletedOnceTheLossIsAccepted() async throws {
+    try await make(PaymentMethod(name: "Главный", isDefault: true))
+    let card = try await make(PaymentMethod(name: "Кредитка"), openings: [.rub: rub(-15_000)])
+    XCTAssertEqual(
+      accounts.heldMoney(on: [card.id]), [HeldMoney(currency: .rub, amount: rub(-15_000))])
+    XCTAssertEqual(accounts.delete([card.id]), .refused(.deletesWithMoney))
+    XCTAssertEqual(accounts.delete([card.id], losingMoney: true), .done)
+    XCTAssertNil(accounts.all.first { $0.id == card.id })
+    XCTAssertFalse(store.canUndo, "a deletion for good forgets the steps of ⌘Z")
+  }
+
+  func testAccountWithoutMoneyHoldsNothingToLose() async throws {
+    try await make(PaymentMethod(name: "Главный", isDefault: true))
+    let spare = try await make(PaymentMethod(name: "Лишний"), openings: [.rub: .zero])
+    XCTAssertEqual(accounts.heldMoney(on: [spare.id]), [])
+  }
+
+  func testAcceptingTheLossDoesNotDeleteAnAccountInUse() async throws {
+    try await make(PaymentMethod(name: "Главный", isDefault: true))
+    let used = try await make(PaymentMethod(name: "Рабочий"), openings: [.rub: rub(10)])
+    try spend(100, on: used.id)
+    guard case .refused(.inUse) = accounts.delete([used.id], losingMoney: true) else {
+      return XCTFail("an account in use stays")
+    }
+  }
+
   func testAnAccountWithOperationsIsInUse() async throws {
     try await make(PaymentMethod(name: "Главный", isDefault: true))
     let used = try await make(PaymentMethod(name: "Рабочий"))

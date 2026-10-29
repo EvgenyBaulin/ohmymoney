@@ -246,6 +246,33 @@ final class TransferListTests: XCTestCase {
     XCTAssertNil(actions.editingTransfer)
   }
 
+  /// A screen that edits in a column (the table's editor column, the form at the side) takes a
+  /// transfer as it takes an operation: the sheet stays shut.
+  func testAScreenWithAnEditorColumnTakesATransferInsteadOfTheSheet() async throws {
+    let (setup, _) = try setUpStore()
+    let moved = transfer(on: today, hour: 11)
+    _ = try setup.planning.apply(PlanningChange(upsert: PlanningRows(transfers: [moved])))
+    try await show(setup)
+
+    let actions = OperationActions()
+    var taken: [UUID] = []
+    actions.opensTransferEditor = { taken.append($0.id) }
+    actions.edit([moved.id], store: setup.store)
+    XCTAssertEqual(taken, [moved.id])
+    XCTAssertNil(actions.editingTransfer, "no separate window beside an editor column")
+    XCTAssertEqual(TransferEditing.find(moved.id, in: setup.store)?.id, moved.id)
+    XCTAssertNil(TransferEditing.find(UUID(), in: setup.store))
+  }
+
+  func testTheEditPlaceFollowsTheEntryStyleAndTheRoom() {
+    let wide = OperationEditPlace.widthForEditorColumn
+    XCTAssertEqual(OperationEditPlace.choose(style: .line, width: wide), .column)
+    XCTAssertEqual(OperationEditPlace.choose(style: .line, width: 0), .column)
+    XCTAssertEqual(OperationEditPlace.choose(style: .line, width: wide - 1), .sheet)
+    XCTAssertEqual(OperationEditPlace.choose(style: .form, width: wide - 1), .form)
+    XCTAssertEqual(OperationEditPlace.choose(style: .form, width: 2_000), .form)
+  }
+
   func testDeletingATransferWithAnOperationIsOneStepOfUndo() async throws {
     let (setup, box) = try setUpStore()
     let moved = transfer(on: today, hour: 11)
