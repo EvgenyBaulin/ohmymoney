@@ -376,7 +376,7 @@ struct AccountDataTests {
 
     let export = ExportRepository(writer: stack.writer)
     let tables = try export.tables()
-    #expect(tables.count == 45)
+    #expect(tables.count == 49)
     #expect(
       tables.dropLast(21).suffix(6).map(\.fileName) == [
         "account_groups.csv", "transfers.csv", "reconciliation_balances.csv", "cards.csv",

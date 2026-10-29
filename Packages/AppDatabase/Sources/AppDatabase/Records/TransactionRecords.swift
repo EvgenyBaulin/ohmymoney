@@ -41,7 +41,12 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
       postedOn: RowMapping.day(row, "posted_on"), dedupKey: Self.text(row, "dedup_key"),
       warrantyUntil: RowMapping.day(row, "warranty_until"),
       warrantyWhere: Self.text(row, "warranty_where"),
-      returnUntil: RowMapping.day(row, "return_until"))
+      returnUntil: RowMapping.day(row, "return_until"),
+      discountE4: (try? RowMapping.optionalAmount(row, "discount_e4")) ?? nil,
+      regret: PurchaseRegret(stored: row["regret"]),
+      regretAskedOn: RowMapping.day(row, "regret_asked_on"),
+      refundWaitingUntil: RowMapping.day(row, "refund_waiting_until"),
+      odometerKm: (try? RowMapping.optionalInteger(row, "odometer_km")) ?? nil)
   }
 
   /// A blank text reads as none, like a NULL.
@@ -102,6 +107,11 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
     container["warranty_until"] = warrantyUntil?.iso
     container["warranty_where"] = warrantyWhere
     container["return_until"] = returnUntil?.iso
+    container["discount_e4"] = discountE4?.raw
+    container["regret"] = regret?.rawValue
+    container["regret_asked_on"] = regretAskedOn?.iso
+    container["refund_waiting_until"] = refundWaitingUntil?.iso
+    container["odometer_km"] = odometerKm
   }
 }
 

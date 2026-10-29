@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 45 files of Export, always in the same order.
+/// The 49 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -45,7 +45,8 @@ public enum ExportTables {
       "external_id", "created_at", "updated_at", "deleted_at", "account_currency",
       "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
       "source", "bank_status", "posted_on", "dedup_key", "warranty_until", "warranty_where",
-      "return_until",
+      "return_until", "discount", "regret", "regret_asked_on", "refund_waiting_until",
+      "odometer_km",
     ])
 
   /// `refund_of_part_id` came with `Schema/0004_accounts.sql`: the purchase part a refund
@@ -65,7 +66,10 @@ public enum ExportTables {
 
   public static let people = ExportTable(
     fileName: "people.csv",
-    columns: ["id", "name", "relation", "aliases", "archived"])
+    columns: [
+      "id", "name", "relation", "aliases", "archived", "birthday_month", "birthday_day",
+      "birthday_year", "gift_budget",
+    ])
 
   /// The accounts. `group_id`, `sort` and `other_currencies` came with
   /// `Schema/0004_accounts.sql`; `other_currencies` holds the codes after the main one,
@@ -414,12 +418,40 @@ public enum ExportTables {
       "kind", "added_at", "trashed_at", "keep_forever", "note",
     ])
 
-  /// All 45 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// The wishes, their prices, the shopping list and the things outside the capital came with
+  /// `Schema/0018_purchases.sql` and go last. `price` and `expected` are decimal amounts, empty for
+  /// none; `priority` a whole number (0: none); `bought_transaction_id` the operation that bought
+  /// the wish, empty for none; `archived`, `done` `true` or `false`; days `YYYY-MM-DD`. The
+  /// discount, the answer about regret (`no`, `yes`, `skip`; empty: none), the day it was asked, the
+  /// day a refund is awaited by and the mileage of a fill-up go last in `transactions.csv`; the
+  /// birthday (month, day, and the year when known) and the gift budget go last in `people.csv`.
+  public static let wishes = ExportTable(
+    fileName: "wishes.csv",
+    columns: [
+      "id", "name", "price", "currency", "priority", "url", "note", "created_on",
+      "bought_transaction_id", "expected", "archived", "sort",
+    ])
+
+  public static let wishPrices = ExportTable(
+    fileName: "wish_prices.csv", columns: ["id", "wish_id", "on_date", "price"])
+
+  public static let shoppingItems = ExportTable(
+    fileName: "shopping_items.csv", columns: ["id", "name", "note", "done", "created_on", "sort"])
+
+  public static let ownedItems = ExportTable(
+    fileName: "owned_items.csv",
+    columns: [
+      "id", "name", "bought_on", "price", "currency", "tag_id", "sold_on",
+      "sale_transaction_id", "note", "archived",
+    ])
+
+  /// All 49 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
   /// of days, then the month limits, event articles and templates and the subscription extras, then
-  /// the conditions of bank products and the deposits of the owner, then the attachments.
+  /// the conditions of bank products and the deposits of the owner, then the attachments, then the
+  /// wishes, their prices, the shopping list and the things outside the capital.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
@@ -428,7 +460,7 @@ public enum ExportTables {
     debtInstalments, debtCosts, allocationRules, customCurrencies, settings, tags, partTags, rules,
     dayNotes, budgetMonthExceptions, eventBudgetItems, eventTemplates, subscriptionTerms,
     subscriptionUsage, subscriptionUsers, subscriptionKeepGroups, bankConditions, depositOffers,
-    attachments,
+    attachments, wishes, wishPrices, shoppingItems, ownedItems,
   ]
 }
 
@@ -474,6 +506,11 @@ extension ExportTables {
       CSVValue.string(transaction.warrantyUntil?.iso),
       CSVValue.string(transaction.warrantyWhere),
       CSVValue.string(transaction.returnUntil?.iso),
+      CSVValue.string(amount: transaction.discountE4),
+      CSVValue.string(transaction.regret?.rawValue),
+      CSVValue.string(transaction.regretAskedOn?.iso),
+      CSVValue.string(transaction.refundWaitingUntil?.iso),
+      CSVValue.string(transaction.odometerKm),
     ]
   }
 
@@ -515,6 +552,10 @@ extension ExportTables {
       person.relation.rawValue,
       CSVValue.string(joining: person.aliases),
       CSVValue.string(bool: person.archived),
+      CSVValue.string(person.birthday?.month),
+      CSVValue.string(person.birthday?.day),
+      CSVValue.string(person.birthday?.year),
+      CSVValue.string(amount: person.giftBudgetE4),
     ]
   }
 
@@ -1035,6 +1076,58 @@ extension ExportTables {
       CSVValue.string(instant: attachment.trashedAt),
       CSVValue.string(bool: attachment.keepForever),
       CSVValue.string(attachment.note),
+    ]
+  }
+
+  public static func row(_ wish: Wish) -> [String] {
+    [
+      wish.id.uuidString,
+      wish.name,
+      CSVValue.string(amount: wish.priceE4),
+      wish.currency.code,
+      String(wish.priority),
+      CSVValue.string(wish.url),
+      CSVValue.string(wish.note),
+      wish.createdOn.iso,
+      CSVValue.string(wish.boughtTransactionId),
+      CSVValue.string(amount: wish.expectedE4),
+      CSVValue.string(bool: wish.archived),
+      String(wish.sort),
+    ]
+  }
+
+  public static func row(_ price: WishPrice) -> [String] {
+    [
+      price.id.uuidString,
+      price.wishId.uuidString,
+      price.onDate.iso,
+      CSVValue.string(amount: price.priceE4),
+    ]
+  }
+
+  public static func row(_ item: ShoppingItem) -> [String] {
+    [
+      item.id.uuidString,
+      item.name,
+      CSVValue.string(item.note),
+      CSVValue.string(bool: item.done),
+      item.createdOn.iso,
+      String(item.sort),
+    ]
+  }
+
+  public static func row(_ item: OwnedItem) -> [String] {
+    [
+      item.id.uuidString,
+      item.name,
+      CSVValue.string(day: item.boughtOn),
+      CSVValue.string(amount: item.priceE4),
+      item.currency.code,
+      CSVValue.string(item.tagId),
+      CSVValue.string(day: item.soldOn),
+      CSVValue.string(item.saleTransactionId),
+      CSVValue.string(item.note),
+      CSVValue.string(bool: item.archived),
     ]
   }
 

@@ -27,7 +27,7 @@ struct Migration0011Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(try stack.appliedMigrations().last == "0018_purchases")
     #expect(stack.applied.onDisk == 17)
     try stack.writer.read { db in
       let transactions = try db.columns(in: "transactions")
@@ -79,6 +79,7 @@ struct Migration0011Tests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)

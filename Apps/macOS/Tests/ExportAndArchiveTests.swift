@@ -53,7 +53,7 @@ final class ExportAndArchiveTests: XCTestCase {
     let target = directory.appendingPathComponent("export")
     let written = try service.export(to: target)
 
-    XCTAssertEqual(written.count, 45)
+    XCTAssertEqual(written.count, 49)
     XCTAssertEqual(
       Array(written.map(\.lastPathComponent).suffix(22).prefix(12)),
       [
@@ -155,9 +155,9 @@ final class ExportAndArchiveTests: XCTestCase {
   func testAnExportThatFinishesSaysHowManyFilesItWrote() throws {
     let service = CSVExportService(repository: ExportRepository(writer: stack.writer))
     let target = directory.appendingPathComponent("export")
-    XCTAssertEqual(FileCommands.exportCSV(with: service, to: target), .written(files: 45))
+    XCTAssertEqual(FileCommands.exportCSV(with: service, to: target), .written(files: 49))
     let names = try FileManager.default.contentsOfDirectory(atPath: target.path)
-    XCTAssertEqual(names.count, 45, "\(names)")
+    XCTAssertEqual(names.count, 49, "\(names)")
     XCTAssertTrue(names.allSatisfy { $0.hasSuffix(".csv") }, "\(names)")
   }
 
@@ -177,7 +177,7 @@ final class ExportAndArchiveTests: XCTestCase {
     XCTAssertTrue(done)
     let lines = Logbook.shared.lines()
     let line = try XCTUnwrap(lines.first { $0.contains("export.done") })
-    XCTAssertTrue(line.contains("files=45"), line)
+    XCTAssertTrue(line.contains("files=49"), line)
     XCTAssertTrue(line.contains("rows=\(records)"), line)
   }
 
@@ -199,7 +199,7 @@ final class ExportAndArchiveTests: XCTestCase {
 
     try FileManager.default.removeItem(at: target.appendingPathComponent("rates.csv"))
     try service.export(to: target)
-    XCTAssertEqual(service.filesItWouldReplace(in: target).count, 45)
+    XCTAssertEqual(service.filesItWouldReplace(in: target).count, 49)
   }
 
   /// The three files the accounts brought are asked about like the other eighteen: an export
@@ -297,8 +297,8 @@ final class ExportAndArchiveTests: XCTestCase {
     let data = try Data(contentsOf: url)
 
     let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 17)
-    XCTAssertEqual(opened.manifest.schemaVersion, 17)
-    XCTAssertEqual(opened.csvTables.count, 45)
+    XCTAssertEqual(opened.manifest.schemaVersion, 18)
+    XCTAssertEqual(opened.csvTables.count, 49)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))
     XCTAssertTrue(opened.csvTables.contains("cards"))
     XCTAssertTrue(opened.csvTables.contains("cashback_rules"))

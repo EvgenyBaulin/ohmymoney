@@ -194,6 +194,7 @@ final class UpgradeFromOnePointOneTests: XCTestCase {
         "0015_bank_conditions",
         "0016_rate_source",
         "0017_attachments",
+        "0018_purchases",
       ],
       "the copy is not the database as the version before left it")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: copy), counts)

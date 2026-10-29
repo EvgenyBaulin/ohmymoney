@@ -35,6 +35,14 @@ public struct TransactionDraft: Hashable, Sendable {
   public var warrantyUntil: DateOnly?
   public var warrantyWhere: String?
   public var returnUntil: DateOnly?
+  /// The discount, the answer about regret, the wait for a refund and the mileage of a fill-up.
+  /// The panel and the questions edit them, so an edit that rebuilds the operation from the draft
+  /// keeps them.
+  public var discountE4: AmountE4?
+  public var regret: PurchaseRegret?
+  public var regretAskedOn: DateOnly?
+  public var refundWaitingUntil: DateOnly?
+  public var odometerKm: Int?
 
   public init(
     kind: TransactionKind = .expense,
@@ -60,7 +68,12 @@ public struct TransactionDraft: Hashable, Sendable {
     isOneOff: Bool = false,
     warrantyUntil: DateOnly? = nil,
     warrantyWhere: String? = nil,
-    returnUntil: DateOnly? = nil
+    returnUntil: DateOnly? = nil,
+    discountE4: AmountE4? = nil,
+    regret: PurchaseRegret? = nil,
+    regretAskedOn: DateOnly? = nil,
+    refundWaitingUntil: DateOnly? = nil,
+    odometerKm: Int? = nil
   ) {
     self.kind = kind
     self.occurredAt = occurredAt
@@ -86,6 +99,11 @@ public struct TransactionDraft: Hashable, Sendable {
     self.warrantyUntil = warrantyUntil
     self.warrantyWhere = warrantyWhere
     self.returnUntil = returnUntil
+    self.discountE4 = discountE4
+    self.regret = regret
+    self.regretAskedOn = regretAskedOn
+    self.refundWaitingUntil = refundWaitingUntil
+    self.odometerKm = odometerKm
   }
 
   /// Reopens a saved operation for editing: the panel edits drafts, never records.
@@ -115,7 +133,12 @@ public struct TransactionDraft: Hashable, Sendable {
       isOneOff: transaction.isOneOff,
       warrantyUntil: transaction.warrantyUntil,
       warrantyWhere: transaction.warrantyWhere,
-      returnUntil: transaction.returnUntil)
+      returnUntil: transaction.returnUntil,
+      discountE4: transaction.discountE4,
+      regret: transaction.regret,
+      regretAskedOn: transaction.regretAskedOn,
+      refundWaitingUntil: transaction.refundWaitingUntil,
+      odometerKm: transaction.odometerKm)
   }
 
   /// Amount not yet distributed between parts. Saving is only allowed when it is zero.
@@ -195,7 +218,12 @@ public struct TransactionDraft: Hashable, Sendable {
       timeZoneId: TravelDay.recordedId(in: timeZone), isOneOff: isOneOff,
       warrantyUntil: warrantyUntil,
       warrantyWhere: warrantyPlace,
-      returnUntil: returnUntil)
+      returnUntil: returnUntil,
+      discountE4: discountE4,
+      regret: regret,
+      regretAskedOn: regretAskedOn,
+      refundWaitingUntil: refundWaitingUntil,
+      odometerKm: odometerKm)
 
     // Ruble shares are split from the converted total so rounding never loses a unit.
     let shares = totalRub.allocated(proportionallyTo: parts.map(\.amount), outOf: amount)

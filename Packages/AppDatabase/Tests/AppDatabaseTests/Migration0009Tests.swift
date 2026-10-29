@@ -90,7 +90,7 @@ struct Migration0009Tests {
   @Test func aNewDatabaseHasTheColumnsAndTablesWithTheirDefaults() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().contains("0009_credit_and_allocation"))
-    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(try stack.appliedMigrations().last == "0018_purchases")
     #expect(stack.applied.onDisk == 17)
     let account = UUID().uuidString
     let category = UUID().uuidString
@@ -173,10 +173,11 @@ struct Migration0009Tests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
-    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(try stack.appliedMigrations().last == "0018_purchases")
     #expect(stack.applied.applied == 9)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
@@ -260,6 +261,7 @@ struct Migration0009Tests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
     let debts = try DatabaseStack.rowCounts(fileAt: url)["debts"] ?? 0
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
@@ -273,6 +275,7 @@ struct Migration0009Tests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
     let counts = try DatabaseStack.rowCounts(fileAt: url)
     #expect(counts["debts"] == debts)

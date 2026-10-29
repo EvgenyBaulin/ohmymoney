@@ -107,6 +107,7 @@ final class UpgradeFromOnePointEightTests: XCTestCase {
         "0015_bank_conditions",
         "0016_rate_source",
         "0017_attachments",
+        "0018_purchases",
       ])
 
     let environment = await start()
@@ -126,6 +127,7 @@ final class UpgradeFromOnePointEightTests: XCTestCase {
         "0015_bank_conditions",
         "0016_rate_source",
         "0017_attachments",
+        "0018_purchases",
       ],
       "the copy is not the database as 1.8 left it")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: copy), counts)

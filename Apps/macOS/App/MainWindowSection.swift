@@ -2,7 +2,7 @@ import Foundation
 
 extension MainWindow {
   enum Section: String, CaseIterable, Identifiable {
-    case overview, operations, planning, debts, calendar, capital
+    case overview, operations, planning, debts, calendar, capital, purchases
 
     var id: String { rawValue }
 
@@ -20,6 +20,7 @@ extension MainWindow {
       case .debts: "section.debts"
       case .calendar: "section.calendar"
       case .capital: "section.capital"
+      case .purchases: "section.purchases"
       }
     }
 
@@ -31,11 +32,12 @@ extension MainWindow {
       case .debts: "creditcard"
       case .calendar: "calendar"
       case .capital: "chart.bar"
+      case .purchases: "bag"
       }
     }
 
     /// ⌘1 / ⌘2 / ⌘3, the first three sections; «Операции», added
-    /// after them, is ⌘4, «Календарь» ⌘5 and «Капитал» ⌘6.
+    /// after them, is ⌘4, «Календарь» ⌘5, «Капитал» ⌘6 and «Покупки» ⌘7.
     var shortcutIndex: Int {
       switch self {
       case .overview: 1
@@ -44,6 +46,7 @@ extension MainWindow {
       case .operations: 4
       case .calendar: 5
       case .capital: 6
+      case .purchases: 7
       }
     }
   }

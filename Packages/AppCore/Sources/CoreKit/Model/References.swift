@@ -63,16 +63,23 @@ public struct Person: Identifiable, Hashable, Sendable, Codable {
   public var relation: PersonRelation
   public var aliases: [String]
   public var archived: Bool
+  /// The birthday, for the reminder to think of a gift; `nil`: not told.
+  public var birthday: Birthday?
+  /// What the owner is ready to spend on a gift for the person, in rubles.
+  public var giftBudgetE4: AmountE4?
 
   public init(
     id: UUID = UUID(), name: String, relation: PersonRelation = .other,
-    aliases: [String] = [], archived: Bool = false
+    aliases: [String] = [], archived: Bool = false, birthday: Birthday? = nil,
+    giftBudgetE4: AmountE4? = nil
   ) {
     self.id = id
     self.name = name
     self.relation = relation
     self.aliases = aliases
     self.archived = archived
+    self.birthday = birthday
+    self.giftBudgetE4 = giftBudgetE4
   }
 }
 

@@ -344,8 +344,8 @@ struct ExportRoundTripPropertyTests {
 
     let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
     #expect(plain.files == files)
-    #expect(plain.csvTables.count == 45)
-    #expect(plain.manifest.schemaVersion == 17)
+    #expect(plain.csvTables.count == 49)
+    #expect(plain.manifest.schemaVersion == 18)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
@@ -441,6 +441,7 @@ struct ExportRoundTripPropertyTests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }

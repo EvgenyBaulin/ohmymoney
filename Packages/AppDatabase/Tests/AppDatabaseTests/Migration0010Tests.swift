@@ -70,6 +70,7 @@ struct Migration0010Tests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -137,7 +138,7 @@ struct Migration0010Tests {
 
   @Test func theScenariosAreNotInTheCSVButTravelInTheDatabase() throws {
     #expect(!ExportTables.all.map(\.fileName).contains("scenarios.csv"))
-    #expect(ExportTables.all.count == 45)
+    #expect(ExportTables.all.count == 49)
     #expect(!DatabaseStack.ledgerTables.contains("scenarios"))
     #expect(DatabaseStack.dataTables.contains("scenarios"))
   }

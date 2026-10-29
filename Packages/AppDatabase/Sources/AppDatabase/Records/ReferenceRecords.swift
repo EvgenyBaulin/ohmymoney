@@ -61,7 +61,19 @@ extension Person: @retroactive FetchableRecord, @retroactive PersistableRecord {
       name: row["name"] ?? "",
       relation: PersonRelation(rawValue: row["relation"] ?? "other") ?? .other,
       aliases: RowMapping.aliases(row, "aliases"),
-      archived: try RowMapping.flag(row, "archived", fallback: false))
+      archived: try RowMapping.flag(row, "archived", fallback: false),
+      birthday: Self.birthday(row),
+      giftBudgetE4: (try? RowMapping.optionalAmount(row, "gift_budget_e4")) ?? nil)
+  }
+
+  /// A birthday whose month or day does not read is none: one damaged cell must not stop the
+  /// people from being read.
+  private static func birthday(_ row: Row) -> Birthday? {
+    guard let month = (try? RowMapping.optionalInteger(row, "birthday_month")) ?? nil,
+      let day = (try? RowMapping.optionalInteger(row, "birthday_day")) ?? nil
+    else { return nil }
+    let year = (try? RowMapping.optionalInteger(row, "birthday_year")) ?? nil
+    return Birthday(month: month, day: day, year: year)
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -70,6 +82,10 @@ extension Person: @retroactive FetchableRecord, @retroactive PersistableRecord {
     container["relation"] = relation.rawValue
     container["aliases"] = RowMapping.join(aliases)
     container["archived"] = archived
+    container["birthday_month"] = birthday?.month
+    container["birthday_day"] = birthday?.day
+    container["birthday_year"] = birthday?.year
+    container["gift_budget_e4"] = giftBudgetE4?.raw
   }
 }
 

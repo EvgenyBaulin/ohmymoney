@@ -256,7 +256,8 @@ public final class DatabaseStack: Sendable {
     "allocation_rules", "custom_currencies", "tags", "part_tags", "rules", "day_notes",
     "saved_views", "budget_month_exceptions", "event_budget_items", "event_templates",
     "subscription_terms", "subscription_usage", "subscription_users", "subscription_keep_groups",
-    "bank_conditions", "deposit_offers",
+    "bank_conditions", "deposit_offers", "wishes", "wish_prices", "shopping_items",
+    "owned_items",
   ]
 
   /// One element after every committed transaction that changed one of `ledgerTables` —
@@ -292,11 +293,13 @@ public final class DatabaseStack: Sendable {
   /// restore must bring back. The model file (`ml_models`) is left out: it is rebuilt from the data.
   /// The list of imports, the numbers of the owner's own contracts and the owner's profiles of
   /// files are no figure's input either, but a restore must bring them back; so must the files
-  /// attached to records and the answers to «how did the week go».
+  /// attached to records, the answers to «how did the week go», the wishes with their prices, the
+  /// shopping list and the things outside the capital.
   static let dataTables =
     ledgerTables + [
       "templates", "currencies", "scenarios", "import_batches", "identity_items",
-      "statement_profiles", "attachments", "week_answers",
+      "statement_profiles", "attachments", "week_answers", "wishes", "wish_prices",
+      "shopping_items", "owned_items",
     ]
 
   /// One element after every committed transaction that changed one of `dataTables`, whoever

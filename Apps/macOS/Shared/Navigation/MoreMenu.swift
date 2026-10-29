@@ -3,6 +3,7 @@ import Foundation
 /// One row of «Ещё»: a section the bar does not carry, a window of the Mac, or a tool.
 enum MoreRow: Hashable, Identifiable, Sendable {
   case section(NavItem)
+  case purchases
   case whatIf
   /// Only while the trip mode is on.
   case trip
@@ -17,6 +18,7 @@ enum MoreRow: Hashable, Identifiable, Sendable {
   var id: String {
     switch self {
     case .section(let item): "section.\(item.rawValue)"
+    case .purchases: "purchases"
     case .whatIf: "whatIf"
     case .trip: "trip"
     case .reconcile: "reconcile"
@@ -31,6 +33,7 @@ enum MoreRow: Hashable, Identifiable, Sendable {
   var symbol: String {
     switch self {
     case .section(let item): item.symbol
+    case .purchases: "bag"
     case .whatIf: "slider.horizontal.3"
     case .trip: "airplane"
     case .reconcile: "checkmark.seal"
@@ -51,6 +54,7 @@ struct MoreMenu: Equatable, Sendable {
 
   static func make(more: [NavItem], tripIsOn: Bool, hasConflicts: Bool = false) -> MoreMenu {
     var sections = more.map(MoreRow.section)
+    sections.append(.purchases)
     sections.append(.whatIf)
     if tripIsOn { sections.append(.trip) }
     sections.append(.reconcile)

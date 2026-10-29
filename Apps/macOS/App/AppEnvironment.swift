@@ -47,6 +47,12 @@ public final class AppEnvironment {
   /// The files attached to operations, assets, debts and subscriptions: the rows and the folder
   /// of their bytes beside the database.
   public private(set) var attachments: AttachmentService?
+  /// «Хочу купить» with the history of the prices, the shopping list, the things outside the
+  /// capital and the settings of the purchases (`Schema/0018_purchases.sql`).
+  public private(set) var wishes: WishRepository?
+  public private(set) var shopping: ShoppingRepository?
+  public private(set) var ownedItems: OwnedItemRepository?
+  public private(set) var purchaseSettings: PurchaseSettingsRepository?
   /// Names, symbols and digits of the custom currencies, read at every open; a screen that
   /// changes them reads them again (`refreshCurrencyCatalog()`). `money` writes with it.
   public private(set) var currencyCatalog = CurrencyCatalog.empty
@@ -873,6 +879,10 @@ public final class AppEnvironment {
     depositOffers = nil
     bankConditions = nil
     attachments = nil
+    wishes = nil
+    shopping = nil
+    ownedItems = nil
+    purchaseSettings = nil
     savedViews = nil
     scenarios = nil
     anomalies = nil
@@ -948,6 +958,10 @@ public final class AppEnvironment {
       repository: AttachmentRepository(writer: stack.writer),
       store: AttachmentFileStore(root: AppPaths.attachmentsDirectory))
     self.attachments = attachmentService
+    self.wishes = WishRepository(writer: stack.writer)
+    self.shopping = ShoppingRepository(writer: stack.writer)
+    self.ownedItems = OwnedItemRepository(writer: stack.writer)
+    self.purchaseSettings = PurchaseSettingsRepository(writer: stack.writer)
     self.planning = PlanningRepository(writer: stack.writer, liveCounts: liveCounts)
     self.spendingRules = SpendingRulesRepository(writer: stack.writer)
     self.statementImports = StatementImportRepository(writer: stack.writer)

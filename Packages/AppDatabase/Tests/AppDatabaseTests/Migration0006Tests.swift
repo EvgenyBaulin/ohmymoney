@@ -62,7 +62,7 @@ struct Migration0006Tests {
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
     #expect(try stack.appliedMigrations().count == 17)
-    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(try stack.appliedMigrations().last == "0018_purchases")
     #expect(stack.applied.applied == 12)
     try stack.writer.read { db in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))

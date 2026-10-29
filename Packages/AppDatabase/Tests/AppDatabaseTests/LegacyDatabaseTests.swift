@@ -672,6 +672,7 @@ struct PendingMigrationsTests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
     // Asking leaves the folder as it was: no log is left for the next file of that name.
     #expect(try FileManager.default.contentsOfDirectory(atPath: folder).sorted() == files)
@@ -776,7 +777,7 @@ struct MigrationDryRunTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 3 -> 17 (applied 14)"))
+    #expect(output.contains("schema: 3 -> 18 (applied 15)"))
     #expect(output.contains(" assigned=\(book.unassignedCount) "))
     #expect(output.contains(" defaultsCleared=2 "))
     #expect(output.contains(" cardsCreated=\(book.cardsStep["cardsCreated"] ?? -1) "))
@@ -819,6 +820,7 @@ struct MigrationDryRunTests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
   }
 

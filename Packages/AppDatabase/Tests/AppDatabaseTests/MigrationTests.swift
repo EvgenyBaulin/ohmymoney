@@ -276,7 +276,7 @@ extension MigrationTests {
     #expect(before["payment_methods"]?.columns.contains("other_currencies") == false)
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
-    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(try stack.appliedMigrations().last == "0018_purchases")
     #expect(stack.applied.applied == 14)
 
     // The two values the update may change are the flag of the main account and the account

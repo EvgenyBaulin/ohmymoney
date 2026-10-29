@@ -40,7 +40,7 @@ struct Migration0016Tests {
 
   @Test func aNewDatabaseAcceptsCoingeckoAndRefusesAnUnknownSource() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(try stack.appliedMigrations().last == "0018_purchases")
     try stack.writer.write { (db: Database) throws in
       for source in ["cbr", "cbr_mirror", "manual", "import", "coingecko"] {
         try Self.insertRate(db, "2026-10-20", "BTC", "6500000.5", source)
@@ -94,7 +94,7 @@ struct Migration0016Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0016_rate_source", "0017_attachments"])
+        == ["0016_rate_source", "0017_attachments", "0018_purchases"])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }

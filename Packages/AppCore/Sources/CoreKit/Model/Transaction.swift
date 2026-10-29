@@ -70,6 +70,17 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
   public var warrantyWhere: String?
   /// The last day the goods can be returned; `nil`: none.
   public var returnUntil: DateOnly?
+  /// How much the price fell for the owner (a coupon, points), in the currency of the operation;
+  /// `nil`: none.
+  public var discountE4: AmountE4?
+  /// The owner's answer to «would you buy it again»; `nil`: not asked or not answered yet.
+  public var regret: PurchaseRegret?
+  /// The day the question about regret was put.
+  public var regretAskedOn: DateOnly?
+  /// A refund of the purchase is expected to reach the account by this day.
+  public var refundWaitingUntil: DateOnly?
+  /// The mileage of the car at a fill-up, whole kilometres.
+  public var odometerKm: Int?
 
   public init(
     id: UUID = UUID(),
@@ -106,7 +117,12 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     dedupKey: String? = nil,
     warrantyUntil: DateOnly? = nil,
     warrantyWhere: String? = nil,
-    returnUntil: DateOnly? = nil
+    returnUntil: DateOnly? = nil,
+    discountE4: AmountE4? = nil,
+    regret: PurchaseRegret? = nil,
+    regretAskedOn: DateOnly? = nil,
+    refundWaitingUntil: DateOnly? = nil,
+    odometerKm: Int? = nil
   ) {
     self.id = id
     self.kind = kind
@@ -143,6 +159,11 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     self.warrantyUntil = warrantyUntil
     self.warrantyWhere = warrantyWhere
     self.returnUntil = returnUntil
+    self.discountE4 = discountE4
+    self.regret = regret
+    self.regretAskedOn = regretAskedOn
+    self.refundWaitingUntil = refundWaitingUntil
+    self.odometerKm = odometerKm
   }
 
   public var isDeleted: Bool { deletedAt != nil }

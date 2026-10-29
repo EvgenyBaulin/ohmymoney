@@ -4,12 +4,13 @@ import Testing
 
 @testable import CoreCSV
 
-/// The 45 file names of the export, in their one fixed order: the 18 of the first schema,
+/// The 49 file names of the export, in their one fixed order: the 18 of the first schema,
 /// then the three the accounts brought, then the cards and their cashback rules, then the banks,
 /// then the assets and their valuations, then the instalments and costs of the debts, the rules
 /// of allocation, the custom currencies and the settings, then the tags, their links, the rules
 /// and the notes of days, then the month limits, the articles and templates of events and the
-/// extras of subscriptions, then the conditions of bank products and the deposits of the owner, then the attachments.
+/// extras of subscriptions, then the conditions of bank products and the deposits of the owner, then the attachments, then the wishes, their prices, the shopping list
+/// and the things outside the capital.
 private let specifiedFileNames = [
   "transactions.csv", "transaction_parts.csv", "reimbursement_links.csv", "people.csv",
   "payment_methods.csv", "places.csv", "events.csv", "categories.csv", "templates.csv",
@@ -21,16 +22,17 @@ private let specifiedFileNames = [
   "settings.csv", "tags.csv", "part_tags.csv", "rules.csv", "day_notes.csv",
   "budget_month_exceptions.csv", "event_budget_items.csv", "event_templates.csv",
   "subscription_terms.csv", "subscription_usage.csv", "subscription_users.csv",
-  "subscription_keep_groups.csv", "bank_conditions.csv", "deposit_offers.csv", "attachments.csv",
+  "subscription_keep_groups.csv", "bank_conditions.csv", "deposit_offers.csv", "attachments.csv", "wishes.csv",
+  "wish_prices.csv", "shopping_items.csv", "owned_items.csv",
 ]
 
-@Suite("ExportTables describes the 45 files of the export")
+@Suite("ExportTables describes the 49 files of the export")
 struct ExportTablesDescriptionTests {
   @Test func theFortyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 45)
+    #expect(ExportTables.all.count == 49)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.suffix(24) == [
+      ExportTables.all.suffix(28) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -39,7 +41,8 @@ struct ExportTablesDescriptionTests {
         ExportTables.eventTemplates, ExportTables.subscriptionTerms,
         ExportTables.subscriptionUsage, ExportTables.subscriptionUsers,
         ExportTables.subscriptionKeepGroups, ExportTables.bankConditions,
-        ExportTables.depositOffers, ExportTables.attachments,
+        ExportTables.depositOffers, ExportTables.attachments, ExportTables.wishes,
+        ExportTables.wishPrices, ExportTables.shoppingItems, ExportTables.ownedItems,
       ])
   }
 
@@ -122,7 +125,8 @@ struct ExportTablesDescriptionTests {
         "external_id", "created_at", "updated_at", "deleted_at", "account_currency",
         "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
         "source", "bank_status", "posted_on", "dedup_key", "warranty_until", "warranty_where",
-        "return_until",
+        "return_until", "discount", "regret", "regret_asked_on", "refund_waiting_until",
+        "odometer_km",
       ])
     #expect(
       ExportTables.scheduledPayments.columns == [

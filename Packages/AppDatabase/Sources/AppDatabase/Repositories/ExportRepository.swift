@@ -235,6 +235,51 @@ public struct ExportRepository: Sendable {
               + [Self.flag(row, "keep_forever", false)] + Self.text(row, ["note"]))
         }
       }
+    case ExportTables.wishes.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM wishes ORDER BY created_on, id")
+      {
+        // A row this build can not read still goes out, in the text of the database.
+        if let wish = try? Wish(row: row) {
+          csv.append(ExportTables.row(wish))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "name"]) + Self.amount(row, "price_e4")
+              + Self.text(row, ["currency"]) + [CSVValue.string(row["priority"] as Int?)]
+              + Self.text(row, ["url", "note", "created_on", "bought_transaction_id"])
+              + Self.amount(row, "expected_e4") + [Self.flag(row, "archived", false)]
+              + [CSVValue.string(row["sort"] as Int?)])
+        }
+      }
+    case ExportTables.wishPrices.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM wish_prices ORDER BY on_date, id") {
+        if let price = try? WishPrice(row: row) {
+          csv.append(ExportTables.row(price))
+        } else {
+          csv.append(Self.text(row, ["id", "wish_id", "on_date"]) + Self.amount(row, "price_e4"))
+        }
+      }
+    case ExportTables.shoppingItems.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM shopping_items ORDER BY created_on, id") {
+        if let item = try? ShoppingItem(row: row) {
+          csv.append(ExportTables.row(item))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "name", "note"]) + [Self.flag(row, "done", false)]
+              + Self.text(row, ["created_on"]) + [CSVValue.string(row["sort"] as Int?)])
+        }
+      }
+    case ExportTables.ownedItems.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM owned_items ORDER BY bought_on, id") {
+        if let item = try? OwnedItem(row: row) {
+          csv.append(ExportTables.row(item))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "name", "bought_on"]) + Self.amount(row, "price_e4")
+              + Self.text(row, ["currency", "tag_id", "sold_on", "sale_transaction_id", "note"])
+              + [Self.flag(row, "archived", false)])
+        }
+      }
     case ExportTables.depositOffers.fileName:
       for row in try Row.fetchAll(db, sql: "SELECT * FROM deposit_offers ORDER BY id") {
         // An offer this build can not read still goes out, in the text of the database.

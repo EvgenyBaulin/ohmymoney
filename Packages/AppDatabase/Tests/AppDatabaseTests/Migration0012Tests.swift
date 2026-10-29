@@ -26,7 +26,7 @@ struct Migration0012Tests {
 
   @Test func aNewDatabaseHasTheBookkeepingEmptyAndRecordingOff() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(try stack.appliedMigrations().last == "0018_purchases")
     #expect(stack.applied.onDisk == 17)
     try stack.writer.read { db in
       for table in SyncTables.bookkeeping {
@@ -62,6 +62,7 @@ struct Migration0012Tests {
           "0015_bank_conditions",
           "0016_rate_source",
           "0017_attachments",
+          "0018_purchases",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
