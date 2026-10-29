@@ -48,8 +48,8 @@ struct Migration0015Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmptyAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0015_bank_conditions")
-    #expect(stack.applied.onDisk == 15)
+    #expect(try stack.appliedMigrations().last == "0016_rate_source")
+    #expect(stack.applied.onDisk == 16)
     try stack.writer.read { (db: Database) throws in
       for table in Self.newTables {
         #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") == 0, "\(table)")
@@ -93,11 +93,11 @@ struct Migration0015Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0015_bank_conditions"])
+        == ["0015_bank_conditions", "0016_rate_source"])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 1)
+    #expect(stack.applied.applied == 2)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -408,14 +408,14 @@ struct Migration0015Tests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 15)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 16)
     #expect(opened.csvTables.count == 44)
-    #expect(opened.manifest.schemaVersion == 15)
+    #expect(opened.manifest.schemaVersion == 16)
     #expect(opened.manifest.rowCounts["bank_conditions"] == 1)
     #expect(opened.manifest.rowCounts["deposit_offers"] == 0)
-    // An archive of schema 15 does not open in a build that knows schema 14.
+    // An archive of schema 16 does not open in a build that knows schema 15.
     #expect(throws: CoreError.self) {
-      _ = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 14)
+      _ = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 15)
     }
   }
 

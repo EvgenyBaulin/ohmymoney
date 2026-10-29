@@ -333,8 +333,8 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
 
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(stack.applied.applied, 12)
-    XCTAssertEqual(try stack.appliedMigrations().count, 15)
+    XCTAssertEqual(stack.applied.applied, 13)
+    XCTAssertEqual(try stack.appliedMigrations().count, 16)
     XCTAssertEqual(
       Self.accountsStep(stack.applied.dataSteps),
       ["mainKept": 1, "mainChosen": 0, "mainCreated": 0, "defaultsCleared": 1, "assigned": 3])
@@ -861,6 +861,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
         "0013_spending_rules",
         "0014_import_year_questions_subscriptions",
         "0015_bank_conditions",
+        "0016_rate_source",
       ])
     let copies = copiesBeforeAnUpdate()
     XCTAssertEqual(copies.count, 1)
@@ -876,7 +877,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
     await environment.start()
 
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 15)
+    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 16)
     let kept = try FileManager.default.contentsOfDirectory(
       at: DatabaseRecovery.damagedDirectory, includingPropertiesForKeys: nil
     ).filter { $0.pathExtension == "sqlite" }
@@ -971,7 +972,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
 
     XCTAssertEqual(restored.state, .ready)
     let stack = try XCTUnwrap(restored.stack)
-    XCTAssertEqual(stack.applied.applied, 12, "the restored file was not updated")
+    XCTAssertEqual(stack.applied.applied, 13, "the restored file was not updated")
     XCTAssertEqual(copiesBeforeAnUpdate(), [copy], "a second copy of the same file was written")
     XCTAssertEqual(try FirstVersionFile.dump(at: copy), firstVersion, "the copy itself changed")
     XCTAssertNil(restored.accountSetup, "the setup of the restored database is not asked again")
@@ -1024,7 +1025,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
     let restored = await start()
 
     XCTAssertEqual(restored.state, .ready)
-    XCTAssertEqual(restored.stack?.applied.applied, 12)
+    XCTAssertEqual(restored.stack?.applied.applied, 13)
     let copies = copiesBeforeAnUpdate()
     XCTAssertEqual(copies.count, 2, "the restored copy was updated without a copy of its own")
     XCTAssertTrue(copies.contains(first))
@@ -1251,7 +1252,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
     let imported = await start()
 
     XCTAssertEqual(imported.state, .ready)
-    XCTAssertEqual(imported.stack?.applied.applied, 12)
+    XCTAssertEqual(imported.stack?.applied.applied, 13)
     XCTAssertEqual(copiesBeforeAnUpdate().count, 1)
     XCTAssertNil(imported.accountSetup)
     XCTAssertTrue(AccountSetupOffer.asks(imported, isTestHost: false))
@@ -1283,7 +1284,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
     let imported = await start()
 
     XCTAssertEqual(imported.state, .ready)
-    XCTAssertEqual(imported.stack?.applied.applied, 12)
+    XCTAssertEqual(imported.stack?.applied.applied, 13)
     XCTAssertEqual(copiesBeforeAnUpdate().count, 1)
     XCTAssertNil(imported.accountSetup, "the answer of the replaced database stayed")
     XCTAssertTrue(AccountSetupOffer.asks(imported, isTestHost: false))
@@ -1390,7 +1391,7 @@ extension UpgradeFromFirstVersionTests {
     let imported = await start()
 
     XCTAssertEqual(imported.state, .ready)
-    XCTAssertEqual(imported.stack?.applied.applied, 12)
+    XCTAssertEqual(imported.stack?.applied.applied, 13)
     let copies = copiesBeforeAnUpdate()
     XCTAssertEqual(copies.count, 1)
     let copy = try XCTUnwrap(copies.first)
@@ -1537,7 +1538,7 @@ extension UpgradeFromFirstVersionTests {
     let third = await start()
 
     XCTAssertEqual(third.state, .ready)
-    XCTAssertEqual(third.stack?.applied.applied, 12)
+    XCTAssertEqual(third.stack?.applied.applied, 13)
     XCTAssertEqual(copiesBeforeAnUpdate().count, 2, "a third copy of the same data was kept")
     XCTAssertTrue(copiesBeforeAnUpdate().contains(first))
     let entry = try XCTUnwrap(
@@ -1652,7 +1653,7 @@ extension UpgradeFromFirstVersionTests {
     let environment = await start()
 
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(environment.stack?.applied.applied, 12)
+    XCTAssertEqual(environment.stack?.applied.applied, 13)
     XCTAssertEqual(copiesBeforeAnUpdate().count, 1)
     XCTAssertTrue(AccountSetupOffer.asks(environment, isTestHost: false))
     let accounts = try XCTUnwrap(environment.accounts).accounts(includeArchived: true)
@@ -1713,7 +1714,7 @@ extension UpgradeFromFirstVersionTests {
     try XCTUnwrap(carried.database).write(to: AppPaths.databaseURL)
     let environment = await start()
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(environment.stack?.applied.applied, 12)
+    XCTAssertEqual(environment.stack?.applied.applied, 13)
     let store = try store(for: environment)
 
     var model = try XCTUnwrap(AccountSetupModel.load(from: environment))
@@ -1822,7 +1823,7 @@ extension UpgradeFromFirstVersionTests {
     let firstStart = Date().timeIntervalSince(began)
 
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(environment.stack?.applied.applied, 12)
+    XCTAssertEqual(environment.stack?.applied.applied, 13)
     XCTAssertEqual(
       try FirstVersionFile.rows(
         at: AppPaths.databaseURL,

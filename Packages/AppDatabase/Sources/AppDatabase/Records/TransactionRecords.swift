@@ -71,7 +71,7 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
     container["amount_expr"] = amountExpr
     container["rate"] = RowMapping.string(rate)
     container["rate_date"] = rateDate?.iso
-    container["rate_source"] = rateSource?.rawValue
+    container["rate_source"] = rateSource?.operationMark.rawValue
     container["rate_provisional"] = rateProvisional
     container["amount_rub_e4"] = amountRubE4.raw
     container["note"] = note

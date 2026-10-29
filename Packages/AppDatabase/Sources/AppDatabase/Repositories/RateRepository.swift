@@ -113,7 +113,7 @@ public struct RateRepository: Sendable {
 
   /// `CASE source WHEN … END`, built from the enum so the two can never drift apart.
   private static let sourceOrder: String = {
-    let ranked: [RateSource] = [.manual, .imported, .cbr, .cbrMirror]
+    let ranked: [RateSource] = [.manual, .imported, .cbr, .coingecko, .cbrMirror]
     let cases = ranked.enumerated()
       .map { rank, source in "WHEN '\(source.rawValue)' THEN \(rank)" }
       .joined(separator: " ")
