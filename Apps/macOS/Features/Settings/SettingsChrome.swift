@@ -31,6 +31,7 @@ extension SettingsSection {
     case .templates: "square.on.square"
     case .planning: "calendar.badge.checkmark"
     case .rules: "line.3.horizontal.decrease.circle"
+    case .attachments: "paperclip"
     case .backups: "clock.arrow.circlepath"
     }
   }
@@ -51,6 +52,7 @@ extension SettingsSection {
     case .templates: 0xF7A93B
     case .planning: 0x8E8E93
     case .rules: 0xC2548A
+    case .attachments: 0x6C7A89
     case .backups: 0x2F5DE8
     }
   }

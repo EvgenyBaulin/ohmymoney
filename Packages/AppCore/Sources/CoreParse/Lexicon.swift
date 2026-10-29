@@ -78,6 +78,11 @@ enum Lexicon {
   /// Longest first, so «со своего счёта» is tried before «со счёта».
   static let withoutCardPhrases: [[String]] =
     (englishWithoutCardPhrases + russianWithoutCardPhrases).sorted { $0.count > $1.count }
+  static let warrantyWords: Set<String> = englishWarrantyWords.union(russianWarrantyWords)
+  static let returnWords: Set<String> = englishReturnWords.union(russianReturnWords)
+  static let termPrepositions: Set<String> = englishTermPrepositions.union(russianTermPrepositions)
+  static let termUnits: [String: TermReading.Unit] =
+    englishTermUnits.merging(russianTermUnits) { first, _ in first }
   static let selfEmployedWords: Set<String> = russianSelfEmployedWords
   static let goalMarkers: Set<String> = englishGoalMarkers.union(russianGoalMarkers)
   static let debtMarkers: Set<String> = englishDebtMarkers.union(russianDebtMarkers)

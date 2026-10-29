@@ -121,4 +121,14 @@ extension Lexicon {
     ["from", "account"], ["from", "the", "account"], ["by", "account"],
   ]
   static let englishDebtMarkers: Set<String> = ["loan", "loans", "credit", "debt", "mortgage"]
+  /// "warranty 2y", "return 14d": the word, then a count with its unit.
+  static let englishWarrantyWords: Set<String> = ["warranty", "guarantee"]
+  static let englishReturnWords: Set<String> = ["return", "returnable"]
+  static let englishTermPrepositions: Set<String> = ["for"]
+  static let englishTermUnits: [String: TermReading.Unit] = [
+    "d": .day, "day": .day, "days": .day,
+    "w": .week, "wk": .week, "week": .week, "weeks": .week,
+    "m": .month, "mo": .month, "mos": .month, "month": .month, "months": .month,
+    "y": .year, "yr": .year, "yrs": .year, "year": .year, "years": .year,
+  ]
 }

@@ -425,9 +425,12 @@ struct TransactionEditor: View {
       header
       ScrollView {
         // Return in a text field saves, as «Save» does when it is on.
-        DetailsPanel(
-          model: editor.draft, submit: saveOnReturn, hasRoomForSegments: style == .sheet
-        )
+        VStack(alignment: .leading, spacing: 16) {
+          DetailsPanel(
+            model: editor.draft, submit: saveOnReturn, hasRoomForSegments: style == .sheet
+          )
+          AttachedFilesCard(owner: .transaction, id: editor.id)
+        }
         .padding(.vertical, 2)
       }
       .frame(minWidth: style == .sheet ? 620 : nil, minHeight: style == .sheet ? 360 : nil)

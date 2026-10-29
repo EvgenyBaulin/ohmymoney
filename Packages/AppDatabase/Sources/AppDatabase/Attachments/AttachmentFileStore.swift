@@ -104,6 +104,9 @@ public struct AttachmentFileStore: Sendable {
       at: target.deletingLastPathComponent(), withIntermediateDirectories: true)
     do {
       try manager.moveItem(at: staged, to: target)
+      // A copy keeps the date of its source, which says nothing of when the file came here; the
+      // sweep of files nobody names counts its delay from this moment.
+      try? manager.setAttributes([.modificationDate: Date()], ofItemAtPath: target.path)
     } catch {
       // Another writer placed the same content between the check and the move.
       if !manager.fileExists(atPath: target.path) { throw error }
@@ -114,6 +117,13 @@ public struct AttachmentFileStore: Sendable {
     guard let url = url(forHash: hash) else { throw StoreError.notADigest }
     guard contains(hash: hash) else { throw StoreError.missing }
     return try Data(contentsOf: url)
+  }
+
+  /// When the file was put into the folder; `nil` when it is not there.
+  public func placedAt(hash: String) -> Date? {
+    guard let url = url(forHash: hash) else { return nil }
+    return (try? FileManager.default.attributesOfItem(atPath: url.path))?[.modificationDate]
+      as? Date
   }
 
   /// Removes one file; no such file is no error.

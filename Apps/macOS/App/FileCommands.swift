@@ -100,7 +100,13 @@ struct FileCommands: Commands {
     panel.nameFieldStringValue =
       "OhMyMoney-\(environment.today.iso).\(ArchiveService.fileExtension)"
     panel.canCreateDirectories = true
+    // «С вложениями (N МБ)»: the size is worked out before the panel, from the rows. An archive
+    // of a book without files has no such box.
+    let withFiles = Self.attachmentsBox(for: archives, in: environment)
+    panel.accessoryView = withFiles?.box
     guard panel.runModal() == .OK, let url = panel.url else { return }
+    let attachments: ArchiveService.AttachmentChoice =
+      withFiles.map { $0.box.state == .on ? .include : .leaveOut } ?? .bySetting
 
     // A password is optional, and leaving it empty is a decision the owner takes
     // knowingly: the archive then carries names and amounts in the open.
@@ -116,7 +122,8 @@ struct FileCommands: Commands {
       environment.language("archive.export.working", table: "Settings"))
     Task { @MainActor in
       let written = await Self.exportArchive(
-        with: archives, to: url, password: password, settings: settings)
+        with: archives, to: url, password: password, settings: settings,
+        attachments: attachments)
       progress.close()
       Self.report(written ? "archive.export.done" : "archive.export.failed", in: environment)
     }
@@ -129,11 +136,32 @@ struct FileCommands: Commands {
   /// pure-Swift HMAC), the digests over the whole database and the read-back took seconds, and
   /// on the main thread the whole app stood still meanwhile.
   static func exportArchive(
-    with archives: ArchiveService, to url: URL, password: String?, settings: [String: String]
+    with archives: ArchiveService, to url: URL, password: String?, settings: [String: String],
+    attachments: ArchiveService.AttachmentChoice = .bySetting
   ) async -> Bool {
     await Task.detached(priority: .userInitiated) {
-      (try? archives.exportArchive(to: url, password: password, settings: settings)) != nil
+      (try? archives.exportArchive(
+        to: url, password: password, settings: settings, attachments: attachments)) != nil
     }.value
+  }
+
+  /// The checkbox «С вложениями (размер)» for the save panel, ticked as `archive.withAttachments`
+  /// says (on by default); nil when there are no files to carry.
+  static func attachmentsBox(
+    for archives: ArchiveService, in environment: AppEnvironment
+  ) -> (box: NSButton, plan: AttachmentArchive.Plan)? {
+    guard let plan = try? archives.attachmentPlan(),
+      !plan.included.isEmpty || !plan.skipped.isEmpty
+    else { return nil }
+    let size = ByteCountFormatter.string(fromByteCount: plan.includedBytes, countStyle: .file)
+    let key = plan.isComplete ? "att.archive.with" : "att.archive.partial"
+    let box = NSButton(
+      checkboxWithTitle: environment.format(key, table: "Attachments", size), target: nil,
+      action: nil)
+    let on = (try? environment.attachments?.repository.settings().withAttachmentsInArchive) ?? true
+    box.state = on ? .on : .off
+    box.setAccessibilityIdentifier("archive.export.withAttachments")
+    return (box, plan)
   }
 
   /// What the owner typed for the password of a new archive.

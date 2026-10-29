@@ -30,10 +30,13 @@ struct EntryFormEditor: View {
       .padding(.vertical, 12)
       Divider()
       ScrollView {
-        DetailsPanel(
-          model: editor.draft, submit: saveOnReturn, focusedInside: $focusedInside,
-          arrangement: .column
-        )
+        VStack(alignment: .leading, spacing: 16) {
+          DetailsPanel(
+            model: editor.draft, submit: saveOnReturn, focusedInside: $focusedInside,
+            arrangement: .column
+          )
+          AttachedFilesCard(owner: .transaction, id: editor.id)
+        }
         .padding(Self.inset)
       }
       Divider()

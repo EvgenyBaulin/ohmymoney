@@ -521,6 +521,9 @@ enum ArchiveImportFlow {
     /// Says, in words of the Settings catalog, that the import is at work; the closure it
     /// returns takes the words away again. Nothing in a test.
     var progress: @MainActor (String) -> @MainActor () -> Void = { _ in {} }
+    /// Something to tell the owner about a successful import before the app restarts: words of
+    /// the Attachments catalog. Nothing in a test unless it asks.
+    var notice: @MainActor (String) -> Void = { _ in }
 
     #if !os(macOS)
       /// iPhone has no modal alerts: the archive screen asks in SwiftUI, so until it does
@@ -562,6 +565,11 @@ enum ArchiveImportFlow {
           progress: { key in
             let panel = ArchiveProgressPanel.show(environment.language(key, table: "Settings"))
             return { panel.close() }
+          },
+          notice: { key in
+            let alert = NSAlert()
+            alert.messageText = environment.language(key, table: "Attachments")
+            alert.runModal()
           })
       }
     #endif
@@ -659,6 +667,7 @@ enum ArchiveImportFlow {
     }
     let working = questions.progress("archive.import.working")
     return Task { @MainActor in
+      var notice: String?
       do {
         let opened = try await Task.detached(priority: .userInitiated) {
           try open(url, password: password, archives: archives)
@@ -669,6 +678,7 @@ enum ArchiveImportFlow {
         try await stageReplacement(
           opened: opened, archives: archives, backups: backups,
           target: AppPaths.pendingReplacementURL)
+        notice = attachmentsNotice(for: opened)
       } catch {
         working()
         // The reasons differ and so should the message: a wrong password is not the same
@@ -677,8 +687,17 @@ enum ArchiveImportFlow {
         return
       }
       working()
+      if let notice { questions.notice(notice) }
       questions.relaunch()
     }
+  }
+
+  /// The words that tell the owner an archive came without the files its rows name: it was
+  /// written without them, or by a build before attachments. The rows then read «удалено по
+  /// правилу хранения» instead of failing.
+  nonisolated static func attachmentsNotice(for archive: ArchiveOpener.OpenedArchive) -> String? {
+    let rows = archive.manifest.rowCounts["attachments"] ?? 0
+    return rows > 0 && archive.attachmentHashes.isEmpty ? "att.import.without" : nil
   }
 
   /// An archive Finder handed over before the database opened, taken up once the start is

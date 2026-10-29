@@ -111,7 +111,9 @@ public struct InputLineParser: Sendable {
     return InputLineReading(
       parsed: session.finish(), timeOfDay: session.timeOfDay, timeProblem: session.timeProblem,
       timePhrase: session.timePhrase, cashback: session.cashback,
-      cashbackPhrase: session.cashbackPhrase, selfEmployed: session.selfEmployed)
+      cashbackPhrase: session.cashbackPhrase, selfEmployed: session.selfEmployed,
+      warranty: session.warranty, warrantyPhrase: session.warrantyPhrase,
+      returnTerm: session.returnTerm, returnPhrase: session.returnPhrase)
   }
 }
 
@@ -140,6 +142,10 @@ private struct ParseSession {
   let catalog: CurrencyCatalog
   /// «смз» was read.
   var selfEmployed = false
+  var warranty: TermReading?
+  var warrantyPhrase: String?
+  var returnTerm: TermReading?
+  var returnPhrase: String?
 
   init(
     text: String, vocabulary: ParserVocabulary, calendar: CalendarContext, today: DateOnly,
@@ -156,6 +162,8 @@ private struct ParseSession {
   /// known names — a name the dictionary knows keeps its words — and before the currency, the
   /// date and the amount, which must not take their numbers.
   mutating func run(readingTimeAndCashback: Bool) {
+    // Before the kind: «возврат 14д» is a term, while «возврат» alone is a refund.
+    if readingTimeAndCashback { readTerms() }
     readKind()
     readSelfEmployed()
     readGoalAndDebt()
@@ -919,6 +927,58 @@ private struct ParseSession {
     }
     guard (1...12).contains(hour) else { return .impossible }
     return .time(TimeOfDay(hour: hour % 12 + (afternoon ? 12 : 0), minute: minute))
+  }
+
+  /// The span behind the word of the warranty and the one behind the word of the return: «гарантия
+  /// 2г», «гарантия на 6 мес», "warranty 2 years", «возврат 14д», "return 14d". The count is
+  /// whole and above zero, its unit a word of the table; a word without them stays in the note.
+  mutating func readTerms() {
+    if let found = readTerm(after: Lexicon.warrantyWords) {
+      warranty = found.term
+      warrantyPhrase = found.phrase
+    }
+    if let found = readTerm(after: Lexicon.returnWords) {
+      returnTerm = found.term
+      returnPhrase = found.phrase
+    }
+  }
+
+  private mutating func readTerm(after markers: Set<String>) -> (term: TermReading, phrase: String)?
+  {
+    for index in words.indices where !words[index].claimed && markers.contains(words[index].normalized)
+    {
+      var next = index + 1
+      if next < words.count, !words[next].claimed,
+        Lexicon.termPrepositions.contains(words[next].normalized)
+      {
+        next += 1
+      }
+      guard next < words.count, !words[next].claimed else { continue }
+      let text = words[next].normalized
+      let digits = text.prefix(while: { $0.isASCII && $0.isNumber })
+      guard (1...3).contains(digits.count), let count = Int(digits), count > 0 else { continue }
+      let tail = String(text.dropFirst(digits.count))
+      var end = next + 1
+      var unitWord = tail
+      if tail.isEmpty {
+        guard end < words.count, !words[end].claimed else { continue }
+        unitWord = words[end].normalized
+        end += 1
+      }
+      guard let unit = Lexicon.termUnits[unitWord] else { continue }
+      let limit: Int
+      switch unit {
+      case .day: limit = 3650
+      case .week: limit = 520
+      case .month: limit = 360
+      case .year: limit = 30
+      }
+      guard count <= limit else { continue }
+      let phrase = marked(index..<end)
+      claim(index..<end, as: nil)
+      return (TermReading(count: count, unit: unit), phrase)
+    }
+    return nil
   }
 
   /// The number right behind the cashback word (see `InputLineParser.read`).

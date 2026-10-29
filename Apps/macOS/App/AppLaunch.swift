@@ -172,7 +172,7 @@ enum AppLaunch {
         repository, references: environment.references, planning: environment.planning,
         spending: environment.spendingRules, year: environment.yearPlan,
         subscriptions: environment.subscriptionBooks, savedViews: environment.savedViews,
-        imports: environment.statementImports)
+        imports: environment.statementImports, attachments: environment.attachments)
     }
     // A copy after every change, whoever wrote it: the store, a setting written through
     // `environment.attempt`, a hidden anomaly, a pinned template. One rule on the database

@@ -4,7 +4,7 @@ import XCTest
 
 @testable import OhMyMoney
 
-/// The settings as System Settings shows its own: eleven sections in a sidebar, and a search that
+/// The settings as System Settings shows its own: twelve sections in a sidebar, and a search that
 /// finds a section by its name or a setting by its caption, in Russian or in English whatever the
 /// language of the interface.
 @MainActor
@@ -16,9 +16,9 @@ final class SettingsSearchTests: XCTestCase {
       SettingsSection.allCases,
       [
         .general, .appearance, .currencies, .accounts, .categories, .references, .entry,
-        .templates, .planning, .rules, .backups,
+        .templates, .planning, .rules, .attachments, .backups,
       ])
-    XCTAssertEqual(Set(SettingsSection.allCases.map(\.symbol)).count, 11, "no two share a symbol")
+    XCTAssertEqual(Set(SettingsSection.allCases.map(\.symbol)).count, 12, "no two share a symbol")
   }
 
   /// Every name and every caption of the index has words in both languages: a caption without

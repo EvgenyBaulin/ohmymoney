@@ -106,6 +106,48 @@ public struct AttachmentService: Sendable {
     return orphans.count
   }
 
+  /// The same, but only the files that have lain in the folder for `days` days or more: files an
+  /// archive has just put in wait there for their rows to arrive, and a file whose row is being
+  /// written is not taken from under it.
+  @discardableResult
+  public func sweepOrphanFiles(olderThanDays days: Int, now: Date = Date()) throws -> Int {
+    let limit = now.addingTimeInterval(-TimeInterval(max(0, days) * 86_400))
+    let orphans = store.storedHashes().subtracting(try repository.allHashes())
+    var removed = 0
+    for hash in orphans {
+      // A file whose date can not be read is left alone.
+      guard let placed = store.placedAt(hash: hash), placed <= limit else { continue }
+      try store.remove(hash: hash)
+      removed += 1
+    }
+    return removed
+  }
+
+  /// What one daily sweep did, in counts.
+  public struct SweepReport: Equatable, Sendable {
+    public var movedToTrash = 0
+    public var deleted = 0
+    public var orphanFiles = 0
+    public var isEmpty: Bool { movedToTrash + deleted + orphanFiles == 0 }
+  }
+
+  /// The daily upkeep: what the retention rules say is due, and then the files nobody names that
+  /// have lain in the folder for as long as the trash keeps a file. Warranties and documents are
+  /// never touched by the rules; a file that is gone from the folder is no error.
+  @discardableResult
+  public func dailySweep(now: Date = Date()) throws -> SweepReport {
+    var report = SweepReport()
+    for action in try applyRetention(now: now) {
+      switch action {
+      case .moveToTrash: report.movedToTrash += 1
+      case .delete: report.deleted += 1
+      }
+    }
+    report.orphanFiles = try sweepOrphanFiles(
+      olderThanDays: try repository.settings().trashDays, now: now)
+    return report
+  }
+
   /// Whether a row's file is there, or why it is not.
   public func availability(of attachment: AttachedFile) -> AttachmentRetention.Availability {
     AttachmentRetention.availability(

@@ -104,6 +104,7 @@ struct SettingsSectionContent: View {
     case .templates: TemplatesSettingsView()
     case .planning: PlanningSettingsView()
     case .rules: RulesSettingsView()
+    case .attachments: AttachmentsSettingsView()
     case .backups: BackupSettingsView()
     }
   }

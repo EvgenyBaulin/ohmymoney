@@ -168,6 +168,48 @@ struct AttachmentStoreTests {
     #expect(rig.service.store.contains(hash: card.contentHash))
   }
 
+  @Test func theDailySweepKeepsEveryReceiptWhileTheSettingIsOn() throws {
+    let rig = try Rig()
+    defer { rig.cleanUp() }
+    let photo = try rig.add("receipt", kind: .receipt, at: now)
+    let report = try rig.service.dailySweep(now: now.addingTimeInterval(90 * 86_400))
+    #expect(report.isEmpty)
+    #expect(try rig.service.repository.attachment(id: photo.id)?.trashedAt == nil)
+  }
+
+  @Test func theDailySweepTrashesOldReceiptsAndDeletesTheTrashButNotWarrantiesOrDocuments() throws {
+    let rig = try Rig()
+    defer { rig.cleanUp() }
+    var settings = try rig.service.repository.settings()
+    settings.keepReceiptsForever = false
+    settings.trashDays = 10
+    try rig.service.repository.save(settings)
+    let old = try rig.add("old receipt", kind: .receipt, at: now)
+    let pinned = try rig.add("pinned receipt", kind: .receipt, at: now)
+    var pin = pinned
+    pin.keepForever = true
+    try rig.service.repository.update(pin)
+    let fresh = try rig.add("fresh receipt", kind: .receipt, at: now.addingTimeInterval(86_400 * 6))
+    let warranty = try rig.add("warranty", kind: .warranty, at: now)
+    let document = try rig.add("document", kind: .document, at: now)
+
+    // A week and a day in: the old receipt goes to the trash and nothing else moves.
+    let week = now.addingTimeInterval(8 * 86_400)
+    #expect(try rig.service.dailySweep(now: week) == .init(movedToTrash: 1))
+    #expect(try rig.service.repository.trash().map(\.id) == [old.id])
+    #expect(rig.service.store.contains(hash: old.contentHash), "still shown in the trash")
+
+    // Ten days after the move: deleted with its file; the rest stays, whatever its age.
+    let later = week.addingTimeInterval(10 * 86_400)
+    let report = try rig.service.dailySweep(now: later)
+    #expect(report.deleted == 1)
+    #expect(!rig.service.store.contains(hash: old.contentHash))
+    #expect(try rig.service.repository.attachment(id: pinned.id)?.trashedAt == nil)
+    #expect(try rig.service.repository.attachment(id: warranty.id)?.trashedAt == nil)
+    #expect(try rig.service.repository.attachment(id: document.id)?.trashedAt == nil)
+    _ = fresh
+  }
+
   @Test func aRestoredOldCopyNamesAFileThatIsGoneWithoutAnError() throws {
     let rig = try Rig()
     defer { rig.cleanUp() }
@@ -196,6 +238,25 @@ struct AttachmentStoreTests {
     _ = try rig.service.store.put(Data("stray".utf8))
     #expect(rig.service.store.storedHashes().count == 2)
     #expect(try rig.service.sweepOrphanFiles() == 1)
+    #expect(rig.service.store.storedHashes() == [kept.contentHash])
+  }
+
+  @Test func theDelayedSweepWaitsForTheFilesToGetOldNoMatterHowOldTheirSourceWas() throws {
+    let rig = try Rig()
+    defer { rig.cleanUp() }
+    let kept = try rig.add("kept")
+    // A photo from 2019 attached today: the copy keeps the old date of its source.
+    try FileManager.default.createDirectory(at: rig.folder, withIntermediateDirectories: true)
+    let source = rig.folder.appendingPathComponent("old.jpg")
+    try Data("old photo".utf8).write(to: source)
+    try FileManager.default.setAttributes(
+      [.modificationDate: Date(timeIntervalSince1970: 1_550_000_000)], ofItemAtPath: source.path)
+    let stray = try rig.service.store.put(fileAt: source)
+    #expect(try rig.service.sweepOrphanFiles(olderThanDays: 30) == 0)
+    #expect(rig.service.store.contains(hash: stray.hash))
+    // Thirty days later it goes, and the file with a row never does.
+    let later = Date().addingTimeInterval(31 * 86_400)
+    #expect(try rig.service.sweepOrphanFiles(olderThanDays: 30, now: later) == 1)
     #expect(rig.service.store.storedHashes() == [kept.contentHash])
   }
 

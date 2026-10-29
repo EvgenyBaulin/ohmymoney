@@ -92,6 +92,9 @@ struct SubscriptionTermsSheet: View {
             .appFont(.caption)
             .foregroundStyle(.secondary)
         }
+        Section {
+          AttachedFilesCard(owner: .subscription, id: payment.id)
+        }
         Section(t("subs.terms.people")) {
           ForEach(candidates) { person in
             Toggle(

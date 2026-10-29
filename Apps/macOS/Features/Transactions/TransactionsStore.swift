@@ -128,6 +128,9 @@ public final class TransactionsStore {
   var subscriptions: SubscriptionRepository?
   var savedViews: SavedViewsRepository?
   var imports: StatementImportRepository?
+  /// The files attached to operations, assets, debts and subscriptions: adding, trashing and
+  /// pinning one are steps of ⌘Z too (`LaterUndo`).
+  var attachments: AttachmentService?
   /// What the last rules applied to the past wrote (`TransactionsStore+Spending`).
   @ObservationIgnored let backfillBox = BackfillBox()
   private var undoStack: [UndoStep] = []
@@ -230,6 +233,7 @@ public final class TransactionsStore {
     subscriptions = nil
     savedViews = nil
     imports = nil
+    attachments = nil
     didWrite = nil
     letGoOfTheDatabase()
     isAttached = false
@@ -239,7 +243,8 @@ public final class TransactionsStore {
     _ repository: TransactionRepository, references: ReferenceRepository?,
     planning: PlanningRepository? = nil, spending: SpendingRulesRepository? = nil,
     year: YearPlanRepository? = nil, subscriptions: SubscriptionRepository? = nil,
-    savedViews: SavedViewsRepository? = nil, imports: StatementImportRepository? = nil
+    savedViews: SavedViewsRepository? = nil, imports: StatementImportRepository? = nil,
+    attachments: AttachmentService? = nil
   ) {
     self.repository = repository
     self.references = references
@@ -249,6 +254,7 @@ public final class TransactionsStore {
     self.subscriptions = subscriptions
     self.savedViews = savedViews
     self.imports = imports
+    self.attachments = attachments
     letGoOfTheDatabase()
     isAttached = true
   }
@@ -1254,7 +1260,8 @@ public final class TransactionsStore {
         write = try undo.revert(spending: spending, transactions: repository)
       case .later(let undo):
         write = try undo.revert(
-          year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports)
+          year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports,
+          attachments: attachments)
       }
       // Nothing else runs on the main actor meanwhile: the step is still the last one.
       undoStack.removeLast()

@@ -681,6 +681,7 @@ private struct DebtDetail: View {
         title: t("wizard.how"), lines: [t("parts.how.once"), t("parts.how.reduces")])
     }
     DebtCostSection(line: line)
+    AttachedFilesCard(owner: .debt, id: line.debt.id).contentCard()
     actionsCard
   }
 

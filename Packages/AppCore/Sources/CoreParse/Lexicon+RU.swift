@@ -177,4 +177,14 @@ extension Lexicon {
   static let russianDebtMarkers: Set<String> = [
     "кредит", "кредиту", "кредита", "долг", "долгу", "долга", "займ", "займу", "ипотека",
   ]
+  /// «гарантия 2г», «возврат 14д»: the word, then a count with its unit.
+  static let russianWarrantyWords: Set<String> = ["гарантия", "гарантии", "гарантию"]
+  static let russianReturnWords: Set<String> = ["возврат", "возврата"]
+  static let russianTermPrepositions: Set<String> = ["на"]
+  static let russianTermUnits: [String: TermReading.Unit] = [
+    "д": .day, "дн": .day, "день": .day, "дня": .day, "дней": .day,
+    "н": .week, "нед": .week, "неделя": .week, "недели": .week, "неделю": .week, "недель": .week,
+    "м": .month, "мес": .month, "месяц": .month, "месяца": .month, "месяцев": .month,
+    "г": .year, "год": .year, "года": .year, "лет": .year,
+  ]
 }

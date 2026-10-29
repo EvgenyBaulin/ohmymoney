@@ -1027,6 +1027,7 @@ public final class AppEnvironment {
       }
       // The exchange with the other devices: what waits, and one exchange at the launch.
       sync?.start()
+      startAttachmentUpkeep()
       // The weekly check of the database: at the launch if it is due, and again every few hours
       // for an app that stays open for days.
       integrityLoop = Task { @MainActor in

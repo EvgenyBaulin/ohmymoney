@@ -85,9 +85,10 @@ final class AttachmentsStorageTests: XCTestCase {
     await service.setAttachments(store) { true }
     await service.setMirror(mirrorFolder)
 
-    // A copy after a change does not go to the mirror, and its files do not either.
+    // The files go to the mirror as soon as the folder and the store are both known; a copy
+    // after a change does not go to the mirror, only its files do.
+    XCTAssertTrue(FileManager.default.fileExists(atPath: mirrored(first).path))
     _ = try await service.writeBackup(now: day(10, 4))
-    XCTAssertFalse(FileManager.default.fileExists(atPath: mirrored(first).path))
 
     _ = try await service.writeBackup(now: day(10, 5), label: "daily")
     XCTAssertEqual(try Data(contentsOf: mirrored(first)), Data("first".utf8))

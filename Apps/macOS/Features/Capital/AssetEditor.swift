@@ -8,8 +8,11 @@ import SwiftUI
 struct AssetEditor: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Dependency(\.store) private var store
   @Environment(\.dependencies) private var dependencies
   let original: Asset?
+  /// The warranty, the receipt, the contract: a new thing keeps them waiting until it is saved.
+  @State private var files: AttachmentsModel
   @State private var asset: Asset
   @State private var value: AmountE4 = .zero
   @State private var day: DateOnly?
@@ -18,7 +21,10 @@ struct AssetEditor: View {
 
   init(original: Asset?) {
     self.original = original
-    _asset = State(initialValue: original ?? Asset(name: ""))
+    let seed = original ?? Asset(name: "")
+    _asset = State(initialValue: seed)
+    _files = State(
+      initialValue: AttachmentsModel(owner: .asset, ownerId: seed.id, deferred: original == nil))
   }
 
   var body: some View {
@@ -77,6 +83,9 @@ struct AssetEditor: View {
           Text(verbatim: CapitalText.t("capital.editor.note", environment))
         }
         .lineLimit(1...3)
+        if environment.attachments != nil {
+          Section { AttachmentsSection(model: files) }
+        }
       }
       .formStyle(.grouped)
       FormButtons(
@@ -89,11 +98,17 @@ struct AssetEditor: View {
           asset, isNew: original == nil, value: value, on: day ?? environment.today,
           with: AssetActions(dependencies))
         if case .refused(let why) = outcome { refusal = why }
+        if outcome == .done {
+          let files = files
+          let service = environment.attachments
+          let store = store
+          Task { await files.commitPending(service: service, store: store) }
+        }
         return outcome == .done
       }
     }
     .padding(20)
-    .sheetFrame(width: 460, height: original == nil ? 420 : 360)
+    .sheetFrame(width: 460, height: original == nil ? 560 : 500)
     .onAppear {
       // A new thing is valued in the default currency unless the owner picks another.
       guard !loaded else { return }

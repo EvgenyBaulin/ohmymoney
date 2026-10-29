@@ -32,13 +32,20 @@ enum LaterUndo: Sendable {
   case importRecorded(id: String)
   /// An import marked undone: ⌘Z takes the mark off.
   case importUndone(id: String)
+  /// Files attached in one go: ⌘Z takes the rows away, and the files nothing else names.
+  case attachmentsAdded(ids: [UUID])
+  /// Files sent to the trash in one go: ⌘Z takes them back out.
+  case attachmentsTrashed(ids: [UUID])
+  /// A file's kind, note or «Хранить всегда» changed: the row as it was.
+  case attachmentChanged(before: AttachedFile)
 
   /// How many operations undoing it writes.
   var size: Int { 1 }
 
   func revert(
     year: YearPlanRepository?, subscriptions: SubscriptionRepository?,
-    savedViews: SavedViewsRepository?, imports: StatementImportRepository?
+    savedViews: SavedViewsRepository?, imports: StatementImportRepository?,
+    attachments: AttachmentService? = nil
   ) throws -> StoreWrite {
     switch self {
     case .monthLimit(let budget, let month, let before):
@@ -83,6 +90,15 @@ enum LaterUndo: Sendable {
       try need(imports).deleteImport(id: id)
     case .importUndone(let id):
       try need(imports).clearUndone(id: id)
+    case .attachmentsAdded(let ids):
+      try need(attachments).delete(ids: ids)
+      return StoreWrite()
+    case .attachmentsTrashed(let ids):
+      for id in ids { try need(attachments).restoreFromTrash(id: id) }
+      return StoreWrite()
+    case .attachmentChanged(let before):
+      try need(attachments).repository.update(before)
+      return StoreWrite()
     }
     return StoreWrite(planningChanged: true)
   }
