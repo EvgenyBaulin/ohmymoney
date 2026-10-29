@@ -4077,6 +4077,23 @@
         }
       }
     },
+    "integrity.finding.attachmentWithoutOwner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attachments whose operation, asset, debt or subscription is not there"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вложения, у которых нет операции, вещи, долга или подписки"
+          }
+        }
+      }
+    },
     "integrity.finding.foreignKeys": {
       "extractionState": "manual",
       "localizations": {

@@ -64,7 +64,9 @@ final class SummariesTests: XCTestCase {
   private let today = DateOnly(year: 2026, month: 10, day: 26)
   private var september: SummaryID { .month(MonthKey(year: 2026, month: 9)) }
 
-  private func text(_ ledger: Ledger, language: AppLanguage.Choice, withAmounts: Bool = true)
+  private func text(
+    _ ledger: Ledger, language: AppLanguage.Choice, withAmounts: Bool = true
+  )
     -> SummaryText
   {
     environment.language.choice = language
@@ -110,7 +112,8 @@ final class SummariesTests: XCTestCase {
       .afterIncomeHeavier: [.percent(30)],
       .timeBiggestChecks: [.timeOfDay(.evening), .percent(40)],
       .timeSmallestChecks: [.timeOfDay(.night), .percent(40)],
-      .placeDearest: [.place(shop.id), .percent(40)], .placeCheapest: [.place(shop.id), .percent(40)],
+      .placeDearest: [.place(shop.id), .percent(40)],
+      .placeCheapest: [.place(shop.id), .percent(40)],
       .placeMostVisited: [.place(shop.id), .count(12)],
       .categoryGrew: [.category(food.id), .percent(40)],
       .categoryShrank: [.category(food.id), .percent(40)],
@@ -127,7 +130,10 @@ final class SummariesTests: XCTestCase {
       let words = text(ledger, language: language)
       for (id, args) in samples {
         let sentence = words.text(SummaryLine(id.key, args))
-        XCTAssertFalse(sentence.contains("%"), "\(id): \(sentence)")
+        // A left-over format specifier (%@, %lld, %d, %1$@), not the percent sign of «30 %».
+        XCTAssertNil(
+          sentence.range(of: #"%(\d+\$)?(@|l*d|l*f)"#, options: .regularExpression),
+          "\(id): \(sentence)")
         XCTAssertFalse(sentence.contains("summaries."), "\(id): \(sentence)")
         XCTAssertGreaterThan(sentence.count, 12, "\(id)")
       }
@@ -181,9 +187,11 @@ final class SummariesTests: XCTestCase {
     for language in [AppLanguage.Choice.russian, .english] {
       let words = text(ledger, language: language)
       let money = words.money
-      let amounts = [summary.income, summary.expenses, summary.net, summary.cashback]
-        + summary.topCategories.map(\.amount) + [summary.surprise?.amount, summary.surprise?.usual]
-          .compactMap { $0 }
+      let amounts =
+        [summary.income, summary.expenses, summary.net, summary.cashback]
+        + summary.topCategories.map(\.amount)
+        + [summary.surprise?.amount, summary.surprise?.usual]
+        .compactMap { $0 }
       let written = Set(amounts.filter { !$0.isZero }.map { money.rounded($0) })
       XCTAssertGreaterThan(written.count, 3)
 
@@ -255,7 +263,8 @@ final class SummariesTests: XCTestCase {
     XCTAssertEqual(model.moods.map(\.mood), [2])
     // A fresh model reads the same answers back.
     let again = SummariesModel(
-      store: MemoryWeekAnswers(model.moods), storage: SummaryStorage(defaults: defaults, suffix: ""))
+      store: MemoryWeekAnswers(model.moods), storage: SummaryStorage(defaults: defaults, suffix: "")
+    )
     await again.load()
     XCTAssertEqual(again.moods.map(\.mood), [2])
   }
@@ -274,10 +283,20 @@ final class SummariesTests: XCTestCase {
     // Monday 26 October: the month of September is ready first.
     XCTAssertEqual(model.announcement(ledger: ledger, today: today), .summary(september))
     model.markShown(september)
-    // Then last week (no operations in October yet: the book ends on 27 September).
+    // Then last week: it ends after the first operation, so it is offered although the book
+    // has nothing in it (only periods before the first operation are left out).
+    let lastWeek = SummaryID.week(WeekKey(containing: today).previous)
+    XCTAssertEqual(model.announcement(ledger: ledger, today: today), .summary(lastWeek))
+    model.markShown(lastWeek)
     XCTAssertNil(model.announcement(ledger: ledger, today: today))
-    // On the Sunday of a week with operations, the question is asked.
+    // On the Sunday of a week with operations, once the finished month and week are put away,
+    // the question is asked.
     let sunday = DateOnly(year: 2026, month: 9, day: 27)
+    XCTAssertEqual(
+      model.announcement(ledger: ledger, today: sunday),
+      .summary(.month(sunday.monthKey.previous)))
+    model.markShown(.month(sunday.monthKey.previous))
+    model.markShown(.week(WeekKey(containing: sunday).previous))
     XCTAssertEqual(
       model.announcement(ledger: ledger, today: sunday),
       .weekQuestion(WeekKey(containing: sunday)))
@@ -324,7 +343,9 @@ final class SummariesTests: XCTestCase {
     let words = text(ledger, language: .russian)
     let page = SummaryPage(
       title: "Итоги",
-      cards: content.cards(hideAmounts: false).map { (title: words.title($0), lines: words.lines($0)) })
+      cards: content.cards(hideAmounts: false).map {
+        (title: words.title($0), lines: words.lines($0))
+      })
     let pdf = try XCTUnwrap(SummaryExport.pdf(of: page))
     XCTAssertEqual(String(decoding: pdf.prefix(5), as: UTF8.self), "%PDF-")
     XCTAssertGreaterThan(pdf.count, 1_000)

@@ -31,8 +31,9 @@ final class ReceiptModelTests: XCTestCase {
       planning: environment.planning, spending: environment.spendingRules,
       year: environment.yearPlan, subscriptions: environment.subscriptionBooks,
       savedViews: environment.savedViews, imports: environment.statementImports)
-    unknown = CoreKit.Category(kind: .expense, name: "Не помню", systemRole: .unknown)
-    XCTAssertTrue(store.apply(PlanningChange(upsert: PlanningRows(categories: [unknown]))))
+    // The starter categories already carry the system «Не помню» (one per role and kind).
+    unknown = try XCTUnwrap(
+      try environment.references?.category(systemRole: .unknown, kind: .expense))
   }
 
   override func tearDown() async throws {
@@ -60,7 +61,9 @@ final class ReceiptModelTests: XCTestCase {
 
   /// A purchase of `rubles` on `day` of October 2026 at `hour`:00 Moscow time, noted `note`.
   @discardableResult
-  private func purchase(_ note: String, rubles: Decimal, day: Int, hour: Int = 12) throws
+  private func purchase(
+    _ note: String, rubles: Decimal, day: Int, hour: Int = 12
+  ) throws
     -> TransactionEntry
   {
     let amount = try AmountE4(decimal: rubles)
