@@ -108,6 +108,17 @@ struct EntryFormEditor: View {
         save()
       }
     )
+    .purchaseSaveQuestions(
+      $editor.saveQuestion,
+      record: {
+        editor.answerSaveQuestion()
+        save()
+      },
+      answeredMileage: { asked, km in
+        editor.answerMileage(asked, km: km)
+        save()
+      }
+    )
     .onAppear {
       let compute = self.compute
       editor.balancesNow = { compute.snapshot?.planning.accounts.balances ?? .empty }

@@ -420,6 +420,7 @@ struct ReferenceBooksView: View {
             label("references.relation")
           }
         }
+        PersonGiftFields(person: $people[index])
         // Its own editor for each row: a name typed and not added stays with the row it was
         // typed for, and so does the reason one was refused.
         OtherNamesEditor(

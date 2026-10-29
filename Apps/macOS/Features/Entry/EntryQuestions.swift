@@ -64,9 +64,35 @@ struct MinBalanceQuestion: Identifiable, Equatable {
   }
 }
 
+/// «Подождать?»: asked once before a purchase above the owner's share of the free sum is
+/// written, with the pause switched on in «Покупки». «Записать» writes it, «Отмена» leaves it.
+struct PauseQuestion: Identifiable, Equatable {
+  let amountRubE4: AmountE4
+  /// The purchase in percent of the free sum; `nil` when there is none to compare with.
+  let sharePercent: Decimal?
+  var id: String { "\(amountRubE4.raw)" }
+
+  @MainActor func message(_ environment: AppEnvironment) -> String {
+    let money = environment.money.rounded(amountRubE4)
+    guard let sharePercent else {
+      return PurchaseHookText.f("purchase.pause.messageNoShare", environment, money)
+    }
+    return PurchaseHookText.f(
+      "purchase.pause.message", environment, money, NumberText.plain(sharePercent))
+  }
+}
+
+/// «Сколько проехали с прошлой заправки?»: asked once after the words of a fill-up, to know the
+/// mileage. `previous` is the fill-up before, if there is one: the answer is the kilometres since
+/// it; without one the answer is the mileage on the dashboard.
+struct MileageQuestion: Identifiable, Equatable {
+  let previous: FuelFill?
+  var id: String { previous?.transactionId.uuidString ?? "first" }
+}
+
 /// The questions asked before a new operation is written, in the order they are asked: a date
 /// after today, a card past its limit, an account below the balance its bank asks to keep, a
-/// repeat of the last minutes. The line at the bottom and the form at the side both save through
+/// repeat of the last minutes, a pause before a big purchase, the mileage of a fill-up. The line at the bottom and the form at the side both save through
 /// `EntryBar.commit`, which asks this and nothing else for these four, so the two can not drift
 /// apart. A saved operation being edited is asked only the two about money, and only when the
 /// edit makes the card's limit or the kept balance worse than the saved operation did
@@ -76,7 +102,7 @@ struct MinBalanceQuestion: Identifiable, Equatable {
 enum EntrySaveQuestions {
   /// Which question it is, for logs and tests.
   enum Kind: String, CaseIterable {
-    case ahead, overLimit, minBalance, repeated
+    case ahead, overLimit, minBalance, repeated, pause, mileage
   }
 
   enum Question {
@@ -84,6 +110,8 @@ enum EntrySaveQuestions {
     case overLimit(OverLimitQuestion)
     case minBalance(MinBalanceQuestion)
     case repeated(RepeatQuestion)
+    case pause(PauseQuestion)
+    case mileage(MileageQuestion)
 
     var kind: Kind {
       switch self {
@@ -91,6 +119,8 @@ enum EntrySaveQuestions {
       case .overLimit: .overLimit
       case .minBalance: .minBalance
       case .repeated: .repeated
+      case .pause: .pause
+      case .mileage: .mileage
       }
     }
   }
@@ -100,6 +130,13 @@ enum EntrySaveQuestions {
   struct Money {
     var cards: [UUID: CreditCardNow] = [:]
     var balances: (accounts: AccountsSnapshot, bank: BankData)?
+    /// The settings of the purchases, the free sum now and the rubles per unit of a currency: what
+    /// the pause compares with. The pause is off by default, so nothing is asked without them.
+    var purchase = PurchaseSettings()
+    var freeRubE4: AmountE4?
+    var rubPerUnit: [CurrencyCode: Decimal] = [:]
+    /// The latest fill-up recorded, to count the mileage from.
+    var lastFill: FuelFill?
 
     init(cards: [UUID: CreditCardNow] = [:], balances: (AccountsSnapshot, BankData)? = nil) {
       self.cards = cards
@@ -110,6 +147,16 @@ enum EntrySaveQuestions {
       self.init(
         cards: snapshot?.planning.creditCards ?? [:],
         balances: snapshot.map { ($0.planning.accounts, $0.dataset.bankData) })
+      guard let snapshot else { return }
+      purchase = snapshot.dataset.purchaseSettings
+      freeRubE4 = snapshot.planning.freeMoney.main
+      rubPerUnit = snapshot.planning.rubPerUnit
+      // Only when the question can be asked: the fill-ups are read from every operation.
+      if purchase.fuelAskMileage {
+        lastFill = FuelEconomy.fills(
+          entries: snapshot.dataset.entries, calendar: snapshot.ledger.calendar
+        ).max { ($0.day, $0.odometerKm) < ($1.day, $1.odometerKm) }
+      }
     }
   }
 
@@ -133,6 +180,8 @@ enum EntrySaveQuestions {
     if let same = model.repeatedOperation(now: now) {
       return .repeated(RepeatQuestion(entry: same))
     }
+    if let pause = model.pauseQuestion(money: money) { return .pause(pause) }
+    if let mileage = model.mileageQuestion(money: money) { return .mileage(mileage) }
     return nil
   }
 }
@@ -149,7 +198,15 @@ private struct EditSaveQuestionDialog: ViewModifier {
     switch question {
     case .overLimit(let over): over.title(environment)
     case .minBalance(let minimum): minimum.title(environment)
-    case .ahead, .repeated, nil: ""
+    case .ahead, .repeated, .pause, .mileage, nil: ""
+    }
+  }
+
+  /// The two questions about money; the pause and the mileage have dialogs of their own.
+  private var isMoneyQuestion: Bool {
+    switch question {
+    case .overLimit, .minBalance: true
+    case .ahead, .repeated, .pause, .mileage, nil: false
     }
   }
 
@@ -162,7 +219,7 @@ private struct EditSaveQuestionDialog: ViewModifier {
     content.confirmationDialog(
       title,
       isPresented: Binding(
-        get: { question != nil }, set: { if !$0 { question = nil } }),
+        get: { isMoneyQuestion }, set: { if !$0 && isMoneyQuestion { question = nil } }),
       titleVisibility: .visible
     ) {
       Button(environment.language("\(prefix).record", table: "Entry")) { answered() }

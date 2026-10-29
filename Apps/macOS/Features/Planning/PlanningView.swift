@@ -61,6 +61,7 @@ struct PlanningView: View {
             }
             if let snapshot {
               PlanningRibbonView(ribbon: Self.ribbon(of: snapshot), open: open)
+              PlanningBirthdaysStrip(snapshot: snapshot)
             }
             if editing {
               PlanningOrderEditor(layout: layout) { editing = false }

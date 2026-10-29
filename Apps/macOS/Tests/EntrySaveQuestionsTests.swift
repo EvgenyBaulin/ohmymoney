@@ -47,6 +47,8 @@ final class EntrySaveQuestionsTests: AccountsScenarioDatabaseCase {
       case .overLimit: model.overLimitAnswered = true
       case .minBalance: model.minBalanceAnswered = true
       case .repeated: model.repeatConfirmed = true
+      case .pause: model.pauseAnswered = true
+      case .mileage: model.mileageAnswered = true
       }
     }
     return kinds

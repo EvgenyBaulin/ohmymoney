@@ -10,6 +10,7 @@ struct CalendarView: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
+  @Environment(\.dependencies) private var dependencies
   @Environment(\.themeSurfaces) private var surfaces
   let actions: OperationActions
 
@@ -26,6 +27,8 @@ struct CalendarView: View {
   @State private var dropTarget: DateOnly?
   /// «Только подписки»: the grid gives way to the days subscriptions are charged on.
   @State private var subscriptionsOnly = false
+  /// What the button «Создать событие с бюджетом» said last.
+  @State private var giftMessage: String?
 
   private func t(_ key: String) -> String { CalendarText.t(key, environment) }
 
@@ -47,13 +50,16 @@ struct CalendarView: View {
     let calendar = CalendarScreen.calendar(
       of: snapshot, scope: scope, anchor: anchor ?? snapshot.today, firstWeekday: firstWeekday)
     let chosenDay = calendar.day(chosen ?? snapshot.today)
+    let gifts = CalendarBirthdays.gifts(
+      people: snapshot.dataset.people, on: calendar.weeks.flatMap { $0 }.map(\.day),
+      today: snapshot.today)
     let wide = CalendarLayout.isWide(width: width)
     let dayList = DayList(
       groups: CalendarScreen.groups(of: chosenDay, in: snapshot, calendar: environment.calendar),
       selection: $selection,
       ledger: snapshot.ledger,
       emptyText: chosenDay.map { _ in t("calendar.day.empty") },
-      header: { plans(of: chosenDay, in: calendar) },
+      header: { plans(of: chosenDay, in: calendar, gifts: gifts[chosenDay?.day ?? snapshot.today] ?? [], events: snapshot.dataset.events) },
       menu: { ids in
         BulkMenuItems(ids: ids, actions: actions, offersEdit: true)
         if ids.count == 1, let only = ids.first {
@@ -74,6 +80,12 @@ struct CalendarView: View {
       if let text = mover.message {
         QuickCalendarMessage(text: text, failed: mover.failed)
       }
+      if let giftMessage {
+        Label(giftMessage, systemImage: "gift")
+          .appFont(.callout)
+          .foregroundStyle(.secondary)
+          .accessibilityIdentifier("calendar.birthday.message")
+      }
       Toggle(isOn: $subscriptionsOnly) {
         Text(verbatim: SubscriptionsText.t("subs.calendar.only", environment))
       }
@@ -88,13 +100,13 @@ struct CalendarView: View {
             .clipShape(.rect(cornerRadius: 12))
             .frame(maxWidth: 360)
           VStack(alignment: .leading, spacing: 12) {
-            gridCard(calendar)
+            gridCard(calendar, gifts: gifts)
             upcomingCard(calendar)
           }
           .frame(maxWidth: .infinity, alignment: .top)
         }
       } else {
-        gridCard(calendar)
+        gridCard(calendar, gifts: gifts)
         dayList.clipShape(.rect(cornerRadius: 12))
         upcomingCard(calendar)
       }
@@ -103,7 +115,10 @@ struct CalendarView: View {
     .padding(.top, 12)
     .onChange(of: compute.generation) { _, _ in actions.reloadDictionaries(from: snapshot.dataset) }
     .onAppear { actions.reloadDictionaries(from: snapshot.dataset) }
-    .onChange(of: chosen) { _, _ in selection = [] }
+    .onChange(of: chosen) { _, _ in
+      selection = []
+      giftMessage = nil
+    }
     .modifier(MoveToDayPresentation(mover: mover, snapshot: snapshot))
     .onGeometryChange(for: CGFloat.self) {
       $0.size.width
@@ -270,10 +285,10 @@ struct CalendarView: View {
   // MARK: - Cards
 
   /// The grid with the summary and the legend on one card, as in the design.
-  private func gridCard(_ calendar: SpendingCalendar) -> some View {
+  private func gridCard(_ calendar: SpendingCalendar, gifts: [DateOnly: [GiftDay]]) -> some View {
     VStack(alignment: .leading, spacing: 10) {
       summary(calendar)
-      grid(calendar)
+      grid(calendar, gifts: gifts)
       Text(verbatim: t("calendar.legend.level"))
         .appFont(.caption)
         .foregroundStyle(.secondary)
@@ -321,7 +336,7 @@ struct CalendarView: View {
 
   // MARK: - Grid
 
-  private func grid(_ calendar: SpendingCalendar) -> some View {
+  private func grid(_ calendar: SpendingCalendar, gifts: [DateOnly: [GiftDay]]) -> some View {
     Grid(horizontalSpacing: 6, verticalSpacing: 6) {
       GridRow {
         ForEach(calendar.weekdays, id: \.self) { weekday in
@@ -340,7 +355,8 @@ struct CalendarView: View {
               CalendarDayCell(
                 day: day, calendar: calendar, detailed: calendar.scope == .week,
                 isChosen: day.day == (chosen ?? calendar.today),
-                hasNote: noteDays.contains(day.day), isDropTarget: dropTarget == day.day)
+                hasNote: noteDays.contains(day.day), hasBirthday: gifts[day.day] != nil,
+                isDropTarget: dropTarget == day.day)
             }
             .buttonStyle(.plain)
             .dropDestination(for: String.self) { items, _ in
@@ -380,7 +396,10 @@ struct CalendarView: View {
   // MARK: - The plans of the chosen day
 
   @ViewBuilder
-  private func plans(of day: SpendingCalendarDay?, in calendar: SpendingCalendar) -> some View {
+  private func plans(
+    of day: SpendingCalendarDay?, in calendar: SpendingCalendar, gifts: [GiftDay] = [],
+    events: [Event] = []
+  ) -> some View {
     if let day {
       VStack(alignment: .leading, spacing: 4) {
         Text(verbatim: environment.dates.longDay(day.day))
@@ -388,6 +407,7 @@ struct CalendarView: View {
         DayNoteRow(
           day: day.day,
           note: compute.snapshot?.dataset.dayNotes.first { $0.day == day.day })
+        ForEach(gifts) { gift in birthdayRow(gift, events: events) }
         if !day.plans.isEmpty {
           Text(verbatim: t("calendar.planned"))
             .appFont(.subheadline)
@@ -413,5 +433,34 @@ struct CalendarView: View {
       .listRowSeparator(.hidden)
       .selectionDisabled()
     }
+  }
+
+  // MARK: - Birthdays
+
+  /// «День рождения Маши, бюджет 5 000 ₽» and, until the event exists, the button that makes it.
+  private func birthdayRow(_ gift: GiftDay, events: [Event]) -> some View {
+    HStack(spacing: 6) {
+      Image(systemName: "gift")
+        .foregroundStyle(.secondary)
+        .accessibilityHidden(true)
+      Text(verbatim: PurchaseHookText.calendarLine(gift, environment))
+        .lineLimit(2)
+      Spacer(minLength: 6)
+      if CalendarBirthdays.offersEvent(for: gift, events: events, environment),
+        let dependencies
+      {
+        Button(PurchaseHookText.t("calendar.birthday.createEvent", environment)) {
+          giftMessage = PurchaseHookActions.createEvent(for: gift, deps: dependencies)
+            ? PurchaseHookText.t("calendar.birthday.created", environment)
+            : PurchaseHookText.t("calendar.birthday.notCreated", environment)
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.small)
+        .accessibilityIdentifier("calendar.birthday.createEvent")
+      }
+    }
+    .appFont(.callout)
+    .accessibilityElement(children: .combine)
+    .accessibilityIdentifier("calendar.birthday")
   }
 }

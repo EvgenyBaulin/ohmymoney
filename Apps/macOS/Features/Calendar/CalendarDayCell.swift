@@ -17,6 +17,8 @@ struct CalendarDayCell: View {
   var isChosen = false
   /// The day has a note of the owner's: a symbol says so.
   var hasNote = false
+  /// A birthday of a person falls on the day: a gift symbol says so.
+  var hasBirthday = false
   /// An operation is being dragged over the day.
   var isDropTarget = false
   /// The Overview tile: a narrow strip, the figure only.
@@ -27,6 +29,11 @@ struct CalendarDayCell: View {
       HStack(spacing: 4) {
         number
         Spacer(minLength: 0)
+        if hasBirthday {
+          Image(systemName: "gift")
+            .appFont(.caption2)
+            .foregroundStyle(.secondary)
+        }
         if hasNote {
           Image(systemName: "note.text")
             .appFont(.caption2)
@@ -65,7 +72,8 @@ struct CalendarDayCell: View {
     .accessibilityLabel(
       Text(
         verbatim: CalendarText.label(of: day, in: calendar, environment)
-          + (hasNote ? ", " + QuickText.t("quick.note.mark", environment) : ""))
+          + (hasNote ? ", " + QuickText.t("quick.note.mark", environment) : "")
+          + (hasBirthday ? ", " + PurchaseHookText.t("calendar.birthday.mark", environment) : ""))
     )
     .accessibilityAddTraits(isChosen ? [.isButton, .isSelected] : .isButton)
   }

@@ -66,7 +66,7 @@ final class EditSaveQuestionsTests: AccountsScenarioDatabaseCase {
       switch question.kind {
       case .overLimit: editor.draft.overLimitAnswered = true
       case .minBalance: editor.draft.minBalanceAnswered = true
-      case .ahead, .repeated: return kinds
+      case .ahead, .repeated, .pause, .mileage: return kinds
       }
     }
     return kinds

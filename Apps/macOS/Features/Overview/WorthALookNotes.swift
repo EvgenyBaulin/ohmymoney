@@ -75,6 +75,8 @@ enum WorthALookNoteText {
       return DepositText.endsLine(advice, accounts: accounts, environment)
     case .warranty(let reminder):
       return WarrantyText.note(reminder, names: warrantyNames, environment)
+    case .purchase(let purchase):
+      return PurchaseHookText.note(purchase, environment)
     case .lowCopySpace(let free):
       return f(
         "look.lowCopySpace", ByteCountFormatter.string(fromByteCount: free, countStyle: .file))
@@ -105,6 +107,7 @@ enum WorthALookNoteText {
     case .depositEnds: "calendar.badge.clock"
     case .databaseProblems: "stethoscope"
     case .warranty(let reminder): WarrantyText.symbol(reminder)
+    case .purchase(let purchase): PurchaseHookText.symbol(purchase)
     }
   }
 
@@ -112,6 +115,7 @@ enum WorthALookNoteText {
   static func isAlarm(_ note: WorthALookNote) -> Bool {
     if case .debt(.cardOverLimit) = note { return true }
     if case .bank(let bankNote) = note { return bankNote.isAlarm }
+    if case .purchase(let purchase) = note { return PurchaseHookText.isAlarm(purchase) }
     return false
   }
 
@@ -142,8 +146,38 @@ enum WorthALookNoteText {
     case openForgotten
     /// Opens the list of what is paid with a card that ends.
     case rebind
+    /// The purchase notes: a birthday becomes an event, a purchase is answered about, the list of
+    /// wishes or of refunds is opened, a refund is marked as credited.
+    case createEvent
+    case regretNo
+    case regretYes
+    case regretSkip
+    case openWishes
+    case openRefunds
+    case credited
 
-    var key: String { "look.action.\(rawValue)" }
+    /// The actions of the purchase notes have their words in the catalog of the purchases.
+    var isPurchase: Bool {
+      switch self {
+      case .createEvent, .regretNo, .regretYes, .regretSkip, .openWishes, .openRefunds,
+        .credited:
+        true
+      default: false
+      }
+    }
+
+    var table: String { isPurchase ? PurchaseHookText.table : WorthALookNoteText.table }
+
+    var key: String {
+      switch self {
+      case .regretNo: "purchase.regret.no"
+      case .regretYes: "purchase.regret.yes"
+      case .regretSkip: "purchase.regret.skip"
+      case .createEvent, .openWishes, .openRefunds, .credited:
+        "look.purchase.action.\(rawValue)"
+      default: "look.action.\(rawValue)"
+      }
+    }
   }
 
   static func actions(_ note: WorthALookNote) -> [Action] {
@@ -166,6 +200,16 @@ enum WorthALookNoteText {
     case .bank(let bankNote): bankActions(bankNote)
     case .depositEnds: [.openDeposits]
     case .warranty: [.openWarranty, .done]
+    case .purchase(let purchase): purchaseActions(purchase)
+    }
+  }
+
+  private static func purchaseActions(_ note: PurchaseNote) -> [Action] {
+    switch note {
+    case .wishReady: [.openWishes, .done]
+    case .refundWaiting: [.credited, .openRefunds, .done]
+    case .birthday: [.createEvent, .done]
+    case .regret: [.regretNo, .regretYes, .regretSkip]
     }
   }
 
@@ -178,7 +222,8 @@ enum WorthALookNoteText {
       "look.npdDue", "look.npdOverdue", "look.salaryLate", "look.allocate", "look.monthRest",
       "look.npdLimit", "look.npdLimitExceeded", "look.burnout", "look.lowCopySpace",
       "look.databaseProblems",
-    ] + WarrantyText.noteKeys + bankKeys + Action.allCases.map(\.key)
+    ] + WarrantyText.noteKeys + bankKeys
+    + Action.allCases.filter { !$0.isPurchase }.map(\.key)
 }
 
 extension WorthALookNoteText {
@@ -323,7 +368,8 @@ extension WorthALook {
       depositEnds: DepositText.advice(for: snapshot),
       warranty: WarrantyReminders.list(
         WarrantyList.items(from: snapshot.dataset.entries), today: snapshot.today,
-        dismissed: DebtReminderMarks.read(from: defaults).dismissed))
+        dismissed: DebtReminderMarks.read(from: defaults).dismissed),
+      purchases: snapshot.planning.purchaseNotes)
   }
 }
 
@@ -388,7 +434,7 @@ struct WorthALookNoteRow: View {
         WorthALookNoteText.isAlarm(note) ? AnyShapeStyle(.red) : AnyShapeStyle(.primary))
       HStack(spacing: 8) {
         ForEach(WorthALookNoteText.actions(note), id: \.self) { action in
-          Button(environment.language(action.key, table: WorthALookNoteText.table)) {
+          Button(environment.language(action.key, table: action.table)) {
             perform(action)
           }
           .accessibilityIdentifier("look.\(action.rawValue)")
@@ -422,6 +468,11 @@ struct WorthALookNoteRow: View {
   private func perform(_ action: WorthALookNoteText.Action) {
     switch action {
     case .done:
+      if case .purchase(let purchase) = note {
+        DebtReminderMarks.dismiss(purchase.id, in: .standard)
+        settle()
+        return
+      }
       if case .warranty(let reminder) = note {
         DebtReminderMarks.dismiss(reminder.id, in: .standard)
         settle()
@@ -499,6 +550,26 @@ struct WorthALookNoteRow: View {
       open(.showcase)
     case .openWarranty:
       open(.warranty)
+    case .createEvent:
+      guard let dependencies, case .purchase(.birthday(let day)) = note else { return }
+      if PurchaseHookActions.createEvent(for: day, deps: dependencies) { settled(note.id) }
+    case .regretNo, .regretYes, .regretSkip:
+      guard let dependencies, case .purchase(.regret(let question)) = note else { return }
+      let answer: PurchaseRegret = action == .regretNo ? .no : (action == .regretYes ? .yes : .skip)
+      if PurchaseHookActions.answerRegret(
+        answer, transactionId: question.transactionId, deps: dependencies)
+      {
+        settled(note.id)
+      }
+    case .credited:
+      guard let dependencies, case .purchase(.refundWaiting(let id, _, _, _, _, _)) = note else {
+        return
+      }
+      if PurchaseActions(dependencies).credit(id) == .done { settled(note.id) }
+    case .openWishes:
+      NotificationCenter.default.post(name: .openPurchaseList, object: "wishes")
+    case .openRefunds:
+      NotificationCenter.default.post(name: .openPurchaseList, object: "refunds")
     case .openSettings:
       #if os(macOS)
         openSettings()

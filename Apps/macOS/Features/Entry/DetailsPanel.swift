@@ -517,6 +517,7 @@ struct DetailsPanel: View {
       noteRow
       oneOffRow
       warrantyRow
+      purchaseRow
     case .date: dateRow
     case .incomeMonth: incomeMonthRows
     case .currency: currencyRows
@@ -938,6 +939,17 @@ struct DetailsPanel: View {
   private var warrantyRow: some View {
     if model.draft.kind == .expense {
       fieldRow(nil, alone: true) { WarrantyFields(draft: $model.draft) }
+    }
+  }
+
+  /// The discount, the answer about regret, the wait for a refund and the mileage of a fill-up.
+  @ViewBuilder
+  private var purchaseRow: some View {
+    if model.draft.kind == .expense || model.draft.kind == .refund {
+      fieldRow(nil, alone: true) {
+        PurchaseFields(
+          draft: $model.draft, tree: model.categoryTree, editsSaved: model.editsSavedOperation)
+      }
     }
   }
 

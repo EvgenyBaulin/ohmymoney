@@ -141,6 +141,10 @@ struct EntryBar<Accessory: View>: View {
   @State private var overLimitQuestion: OverLimitQuestion?
   /// «После этого остаток станет X — ниже Y», waiting for the owner's answer.
   @State private var minBalanceQuestion: MinBalanceQuestion?
+  /// «Подождать?» before a big purchase, waiting for the owner's answer.
+  @State private var pauseQuestion: PauseQuestion?
+  /// «Сколько проехали с прошлой заправки?», waiting for the owner's answer.
+  @State private var mileageQuestion: MileageQuestion?
   /// A thing bought in instalments, returned: the sheet that asks how the bank gives it back.
   @State private var instalmentReturn: InstalmentReturnRequest?
   /// «Распределить…» under the line, after an income.
@@ -356,6 +360,9 @@ struct EntryBar<Accessory: View>: View {
     .background {
       overLimitDialog
       minBalanceDialog
+      Color.clear
+        .pauseDialog($pauseQuestion) { recordAfterPause() }
+        .mileageAlert($mileageQuestion) { asked, km in answerMileage(asked, km: km) }
       Color.clear.confirmationDialog(
         prepayQuestion.map { $0.title(environment) } ?? "",
         isPresented: Binding(
@@ -372,6 +379,21 @@ struct EntryBar<Accessory: View>: View {
         Text(verbatim: environment.language("entry.prepay.message", table: "Entry"))
       }
     }
+  }
+
+  /// «Записать» of «Подождать?»: the purchase is written; the question is not asked again.
+  private func recordAfterPause() {
+    guard let model else { return }
+    AppLog.info("entry.pauseRecorded", .ui, "a big purchase was recorded without the pause")
+    model.pauseAnswered = true
+    continueSaving(model)
+  }
+
+  /// The mileage typed, or «Не помню»: the fill-up is written with what was said.
+  private func answerMileage(_ asked: MileageQuestion, km: Int?) {
+    guard let model else { return }
+    model.answerMileage(km, previous: asked.previous)
+    continueSaving(model)
   }
 
   /// «Уменьшить срок», «Уменьшить платёж» or «Это платёж вперёд»: the payment is written with
@@ -1261,13 +1283,23 @@ struct EntryBar<Accessory: View>: View {
     let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
     guard !trimmed.isEmpty else { return nil }
     let reading = interpreter.read(trimmed, today: environment.today, kind: model?.draft.kind)
-    guard reading.warranty != nil || reading.returnTerm != nil,
+    let discount = reading.discount.flatMap { try? AmountE4(decimal: $0) }.flatMap {
+      $0.raw > 0 ? $0 : nil
+    }
+    guard reading.warranty != nil || reading.returnTerm != nil || discount != nil,
       reading.parsed.kind == .expense
     else { return nil }
     let day = reading.parsed.date ?? environment.today
-    return WarrantyText.hint(
+    let terms = WarrantyText.hint(
       warranty: reading.warranty.map { WarrantyTerms.end(of: $0, from: day) },
       returnUntil: reading.returnTerm.map { WarrantyTerms.end(of: $0, from: day) }, environment)
+    let off = discount.map {
+      PurchaseHookText.f(
+        "purchase.discount.hint", environment,
+        environment.money.exact(
+          $0, currency: EntryPreview.currency(of: reading.parsed, model: model, in: environment)))
+    }
+    return [terms, off].compactMap { $0 }.joined(separator: " · ")
   }
 
   /// What the line currently comes to, shown above the capsule while it is being typed.
@@ -1585,6 +1617,12 @@ struct EntryBar<Accessory: View>: View {
         repeatQuestion = same
         AppLog.info(
           "entry.repeatAsked", .ui, "a repeat of an operation just written was asked about")
+      case .pause(let pause):
+        pauseQuestion = pause
+        AppLog.info("entry.pauseAsked", .ui, "a pause before a big purchase was asked about")
+      case .mileage(let mileage):
+        mileageQuestion = mileage
+        AppLog.info("entry.mileageAsked", .ui, "the mileage of a fill-up was asked about")
       }
       return
     }

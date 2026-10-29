@@ -210,6 +210,8 @@ public final class EntryDraftModel {
   /// holds it, the next line writes its own or empties the field; a day picked in the panel stays.
   var warrantyFromTheLine: DateOnly?
   var returnFromTheLine: DateOnly?
+  /// What the line last wrote into «Скидка»: the same rule as for the terms above.
+  var discountFromTheLine: AmountE4?
 
   /// A value of «for whom» and the person it names, as one choice.
   private struct ForWhomChoice: Equatable {
@@ -692,6 +694,7 @@ public final class EntryDraftModel {
     takeTheCashback(of: reading)
     takeTheSelfEmployment(of: reading)
     takeTheTerms(of: reading)
+    takeTheDiscount(of: reading)
   }
 
   /// The time of day the line being applied names («в 18:09»): the moment is that time of the
@@ -2620,6 +2623,11 @@ public final class EntryDraftModel {
   /// way.
   var minBalanceAnswered = false
 
+  /// «Записать» of the question «Подождать?» and the answer to «Сколько проехали с прошлой
+  /// заправки?» (even «Не помню»), kept the same way.
+  var pauseAnswered = false
+  var mileageAnswered = false
+
   /// «В этом месяце больше платежей не будет»: set from the panel on a payment of a debt that
   /// leaves part of its due unpaid, so the due closes all the same (`DebtEntry.closesTerm`).
   /// Kept until the operation is saved, and cleared with the draft (`reset`).
@@ -3140,6 +3148,8 @@ public final class EntryDraftModel {
     aheadAnswered = false
     overLimitAnswered = false
     minBalanceAnswered = false
+    pauseAnswered = false
+    mileageAnswered = false
     closesDebtTerm = false
     paysFromAccount = false
     paysFromAccountByTheLine = false
@@ -3147,6 +3157,7 @@ public final class EntryDraftModel {
     lineSaysSelfEmployed = false
     warrantyFromTheLine = nil
     returnFromTheLine = nil
+    discountFromTheLine = nil
     prepayChoice = nil
   }
 

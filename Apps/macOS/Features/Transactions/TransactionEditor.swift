@@ -260,8 +260,16 @@ final class TransactionEditorModel {
     switch saveQuestion {
     case .overLimit: draft.overLimitAnswered = true
     case .minBalance: draft.minBalanceAnswered = true
-    case .ahead, .repeated, nil: break
+    case .pause: draft.pauseAnswered = true
+    case .ahead, .repeated, .mileage, nil: break
     }
+    saveQuestion = nil
+  }
+
+  /// The answer to «Сколько проехали с прошлой заправки?» (`nil`: «Не помню»): the edit is saved
+  /// with the mileage it gives, and is not asked about it again; the caller saves once more.
+  func answerMileage(_ asked: MileageQuestion, km: Int?) {
+    draft.answerMileage(km, previous: asked.previous)
     saveQuestion = nil
   }
 
@@ -511,6 +519,17 @@ struct TransactionEditor: View {
       editor.answerSaveQuestion()
       save()
     }
+    .purchaseSaveQuestions(
+      $editor.saveQuestion,
+      record: {
+        editor.answerSaveQuestion()
+        save()
+      },
+      answeredMileage: { asked, km in
+        editor.answerMileage(asked, km: km)
+        save()
+      }
+    )
     .onAppear {
       let compute = self.compute
       editor.balancesNow = { compute.snapshot?.planning.accounts.balances ?? .empty }
