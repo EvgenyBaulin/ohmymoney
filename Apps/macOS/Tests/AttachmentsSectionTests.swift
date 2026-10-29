@@ -18,8 +18,8 @@ final class AttachmentsSectionTests: XCTestCase {
   private var store: TransactionsStore!
   private var owner: UUID!
 
-  override func setUpWithError() throws {
-    try super.setUpWithError()
+  override func setUp() async throws {
+    try await super.setUp()
     directory = FileManager.default.temporaryDirectory
       .appendingPathComponent("ohmymoney-att-section-\(UUID().uuidString)", isDirectory: true)
     try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -40,12 +40,12 @@ final class AttachmentsSectionTests: XCTestCase {
       TransactionRepository(writer: stack.writer), references: nil, attachments: service)
   }
 
-  override func tearDownWithError() throws {
+  override func tearDown() async throws {
     store = nil
     service = nil
     stack = nil
     try? FileManager.default.removeItem(at: directory)
-    try super.tearDownWithError()
+    try await super.tearDown()
   }
 
   private func model(
