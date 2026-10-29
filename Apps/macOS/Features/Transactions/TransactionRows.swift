@@ -260,6 +260,10 @@ struct TransactionRowItem: Identifiable, Hashable, Sendable {
   /// The cashback the owner wrote for the operation, in the currency it came in; `nil` for a
   /// part, a transfer and an operation without one.
   var cashback: Money? = nil
+  /// The colour of the account the operation is on, when the owner gave it one; `nil` for a
+  /// part, a transfer and an account without a colour. The name of the account is always in
+  /// `paymentMethod` beside it.
+  var accountAccent: AccountAccent? = nil
 
   var isPart: Bool {
     if case .part = id { return true }
@@ -717,7 +721,8 @@ struct TransactionListing: Sendable {
       amount: transaction.amountE4, currency: transaction.currency,
       amountRub: transaction.amountRubE4, partCount: entry.parts.count,
       owedMark: owedMark(of: entry), parts: parts, refund: RefundMark.of(entry, ledger: ledger),
-      cashback: transaction.cashback.flatMap { $0.amount.isZero ? nil : $0 })
+      cashback: transaction.cashback.flatMap { $0.amount.isZero ? nil : $0 },
+      accountAccent: names.accent(of: transaction))
   }
 
   /// The quality of an operation as a row of the list of days shows it, the way the table
@@ -777,6 +782,7 @@ struct TransactionListing: Sendable {
     let places: [UUID: String]
     let events: [UUID: String]
     let paymentMethods: [UUID: String]
+    let accents: [UUID: AccountAccent]
     let cards: [UUID: String]
     /// How the lists name an account and a card: the bank, when it has one account and one card.
     let labels: AccountLabels
@@ -794,6 +800,10 @@ struct TransactionListing: Sendable {
       places = index(dataset.places, \.id, \.name)
       events = index(dataset.events, \.id, \.name)
       paymentMethods = index(dataset.paymentMethods, \.id, \.name)
+      accents = Dictionary(
+        dataset.paymentMethods.compactMap { account in
+          account.accountAccent.map { (account.id, $0) }
+        }, uniquingKeysWith: { a, _ in a })
       cards = index(dataset.cards, \.id, \.name)
       labels = AccountLabels(
         accounts: dataset.paymentMethods, cards: dataset.cards, banks: dataset.banks)
@@ -802,6 +812,11 @@ struct TransactionListing: Sendable {
     /// The account column of an operation, as the lists name it: «Т-Банк › Black» when it names
     /// a card of an account with two cards or more, only «Сбер» when its card is called like its
     /// account or its bank, the bank alone for a bank with one account (`AccountLabels`).
+    func accent(of transaction: Transaction) -> AccountAccent? {
+      guard let id = transaction.paymentMethodId, paymentMethods[id] != nil else { return nil }
+      return accents[id]
+    }
+
     func account(of transaction: Transaction) -> String? {
       guard let id = transaction.paymentMethodId, paymentMethods[id] != nil else { return nil }
       return labels.label(account: id, card: transaction.cardId)

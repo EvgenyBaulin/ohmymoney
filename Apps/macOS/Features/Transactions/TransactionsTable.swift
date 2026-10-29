@@ -141,7 +141,12 @@ private struct OperationCell: View {
     case .category:
       CategoryCell(item: item)
     case .account:
-      Text(verbatim: item.paymentMethod ?? "").lineLimit(1)
+      HStack(spacing: 5) {
+        if let accent = item.accountAccent {
+          AccountAccentDot(accent: accent)
+        }
+        Text(verbatim: item.paymentMethod ?? "").lineLimit(1)
+      }
     case .place:
       Text(verbatim: item.place ?? "").lineLimit(1)
     case .forWhom:

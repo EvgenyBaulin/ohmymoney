@@ -98,10 +98,15 @@ struct OperationDayCards<MenuItems: View>: View {
           }
         }
         if let caption = caption(of: item) {
-          Text(verbatim: caption)
-            .appFont(.caption)
-            .foregroundStyle(.secondary)
-            .lineLimit(1)
+          HStack(spacing: 5) {
+            if let accent = item.accountAccent {
+              AccountAccentDot(accent: accent, diameter: 7)
+            }
+            Text(verbatim: caption)
+              .appFont(.caption)
+              .foregroundStyle(.secondary)
+              .lineLimit(1)
+          }
         }
       }
       Spacer(minLength: 8)

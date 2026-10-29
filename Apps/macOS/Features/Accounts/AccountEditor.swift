@@ -30,6 +30,11 @@ struct AccountDraft: Equatable {
   /// «Основная карта»: the card a purchase on the account is made with unless it says
   /// otherwise; `nil` — none chosen.
   var mainCardId: UUID?
+  /// «Название карты»: the first card of a credit card that has none yet, as typed; empty — the
+  /// card is named like the account.
+  var firstCardName = ""
+  /// «Цвет счёта»: the key of a colour of the palette (`AccountAccent`); `nil` — none.
+  var accent: String?
 
   /// The fields of an account there is.
   init(_ account: PaymentMethod) {
@@ -45,6 +50,7 @@ struct AccountDraft: Equatable {
     cushion = account.cushion
     credit = CreditDraft(account.credit)
     mainCardId = account.mainCardId
+    accent = account.accent
   }
 
   /// A new account: a bank account in the default currency, in no group, under a bank — `bank`
@@ -76,6 +82,7 @@ struct AccountDraft: Equatable {
     account.aliases = aliases
     account.cushion = cushion
     account.mainCardId = mainCardId
+    account.accent = accent
     return account
   }
 
@@ -157,6 +164,8 @@ struct AccountEditor: View {
   @State private var cards: [PaymentCard] = []
   @State private var refusal: AccountRefusal?
   @State private var failed = false
+  /// «Условия банка», as typed.
+  @State private var conditions = BankConditionsDraft()
 
   /// `bank`: the bank a new account is added to, from the menu of a bank.
   init(
@@ -191,6 +200,16 @@ struct AccountEditor: View {
         bankSection
         currenciesSection
         Section {
+          AccountAccentPicker(
+            selection: $draft.accent, name: { t($0.nameKey) },
+            noneTitle: t("account.editor.accent.none"))
+        } header: {
+          Text(verbatim: t("account.editor.accent"))
+        } footer: {
+          Text(verbatim: t("account.editor.accentHint"))
+            .foregroundStyle(.secondary)
+        }
+        Section {
           Picker(selection: $draft.groupId) {
             Text(verbatim: t("account.editor.noGroup")).tag(UUID?.none)
             ForEach(groupChoices, id: \.id) { group in
@@ -212,7 +231,20 @@ struct AccountEditor: View {
         }
         AccountCreditSection(
           draft: $draft.credit, currency: draft.currencies.first ?? .rub)
+        if draft.credit.isOn, cards.isEmpty {
+          Section {
+            NameField(
+              title: t("account.credit.firstCard"), text: $draft.firstCardName,
+              prompt: draft.name.isEmpty ? nil : draft.name,
+              identifier: "account.editor.firstCard")
+          } footer: {
+            Text(verbatim: t("account.credit.firstCardHint"))
+              .foregroundStyle(.secondary)
+          }
+        }
         AccountInterestSection(draft: $draft.interest, payoutChoices: payoutChoices)
+        BankConditionsSection(
+          draft: $conditions, currency: draft.currencies.first ?? .rub, isAccount: true)
         Section {
           Toggle(isOn: $draft.cushion) {
             Text(verbatim: t("account.editor.cushion"))
@@ -243,7 +275,7 @@ struct AccountEditor: View {
         Button(environment.language("action.save"), action: save)
           .keyboardShortcut(.defaultAction)
           .buttonStyle(.borderedProminent)
-          .disabled(books == nil || store.isWritingInBackground)
+          .disabled(books == nil || store.isWritingInBackground || !conditions.isValid)
       }
     }
     .padding(20)
@@ -261,6 +293,10 @@ struct AccountEditor: View {
         actions.cards.filter { !$0.archived }, of: draft.id, locale: environment.language.locale)
       if draft.mainCardId != nil, !cards.contains(where: { $0.id == draft.mainCardId }) {
         draft.mainCardId = nil
+      }
+      if let previous {
+        conditions = BankConditionsDraft(
+          BankConditionsStore.read(account: previous.id, environment))
       }
       books = await actions.books()
       // Without the books nothing can be checked or saved: said, not a greyed button alone.
@@ -479,10 +515,16 @@ struct AccountEditor: View {
     }
     switch actions.save(
       account, previous: previous, openings: openings, books: books,
-      newBankNamed: draft.bankId == nil ? draft.newBankName : nil)
+      newBankNamed: draft.bankId == nil ? draft.newBankName : nil,
+      firstCardNamed: draft.firstCardName)
     {
     case .done:
       Self.logCushion(of: account, previous: previous)
+      if case .success(let typed) = conditions.conditions(
+        accountId: account.id, cardId: nil, currency: account.mainCurrency)
+      {
+        if !BankConditionsStore.write(typed, environment) { failed = true }
+      }
       finish(account.id)
     case .refused(let reason): refusal = reason
     case .failed: failed = true

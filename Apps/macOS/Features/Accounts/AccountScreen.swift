@@ -502,6 +502,14 @@ struct AccountScreen: View {
     VStack(alignment: .leading, spacing: 12) {
       HStack(alignment: .firstTextBaseline, spacing: 8) {
         if let account {
+          if let accent = account.accountAccent {
+            // A stripe in the colour of the account, standing by its name.
+            Capsule()
+              .fill(accent.swatch)
+              .frame(width: 4, height: 28)
+              .accessibilityHidden(true)
+              .accessibilityIdentifier("account.screen.accent")
+          }
           Image(systemName: AccountText.kindSymbol(account.kind))
             .foregroundStyle(.secondary)
             .accessibilityHidden(true)
@@ -561,6 +569,7 @@ struct AccountScreen: View {
       if account != nil {
         AccountCreditBlock(accountId: accountId)
         AccountCardsBlock(accountId: accountId)
+        AccountConditionsBlock(accountId: accountId)
         AccountPaymentsBlock(accountId: accountId)
       }
     } trailing: {
@@ -577,6 +586,7 @@ struct AccountScreen: View {
       if account != nil {
         AccountCreditBlock(accountId: accountId)
         AccountCardsBlock(accountId: accountId)
+        AccountConditionsBlock(accountId: accountId)
         AccountCashbackBlock(accountId: accountId)
         AccountInterestBlock(accountId: accountId)
         AccountPaymentsBlock(accountId: accountId)
