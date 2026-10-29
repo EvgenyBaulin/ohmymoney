@@ -7,6 +7,52 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.3.0] — 2026-10-29
+
+Banks, conditions and deposits. The database schema is 15; opening the app upgrades the database
+after a verified copy, and older data reads as before.
+
+### Added
+
+- Credit cards: a credit account always has a card; while the grace period runs it shows as a card
+  with a «pay by» reminder, and once a statement date is missed the whole debt is shown in
+  «Debts» and on the bank screen (the balance is counted once and the debt is not added to the
+  totals); spending past the limit asks a question before it is recorded and puts a red line into
+  «Worth a look».
+- Bank conditions, typed by hand on an account or a card: free monthly limits for cash, SBP and
+  transfers between banks, the condition for free service (spending from, or a balance from), a
+  minimum balance (a question before the entry, never a ban), the expiry of a card with a reminder a
+  month ahead, «What to rebind», «Forgotten money» (nothing moved for 90 days), and deposit
+  insurance (1,400,000 ₽ per bank, marked on the bank screen and in «Capital»).
+- A bank screen and the report «To banks for the year» (fees and interest, with a CSV).
+- Cash: counting a wallet by bills.
+- Deposits: a showcase of deposits (14 banks, rates by date, rates older than 30 days in grey, and
+  your own offers) and a note seven days before a deposit ends (not financial advice).
+- Cryptocurrency: your own currency with a rate from the network (only the id of the coin is sent;
+  it can also be typed by hand; up to four decimals).
+- Dividends and coupons as expected income, marked as such, in the calendar and from the card of
+  an investment.
+- Account colour: 12 colours, an icon, a stripe on the account screen and a dot next to operations.
+
+### Changed
+
+- A credit card without operations can be deleted; the dialog says what disappears with it, and
+  «Settings → Accounts» now refuses with an alert.
+- Editing a transfer opens in the column or the form on the right instead of a window of its own.
+- iPhone: «Overview» follows the design (the card «Safe to spend now» first, then a strip of
+  accounts), the choice of a light or dark theme applies, and the theme preview and the choice of
+  an accent fit the screen.
+- The database schema is 15: conditions of accounts and cards, the expiry of a card, offers of
+  deposits and payouts. The export holds 44 files.
+
+### Known limits
+
+- The rates are the built-in list and your own offers; a reader of rates from a website is not
+  there yet.
+- The rate of a coin from the network is stored with the label of the Bank of Russia.
+- The rates of two banks in the showcase are not filled in.
+- The entry form on the right does not ask about a credit limit or a minimum balance.
+
 ## [2.2.0] — 2026-10-23
 
 Four releases in one: statement import, the plan of the year, questions and commands, and
