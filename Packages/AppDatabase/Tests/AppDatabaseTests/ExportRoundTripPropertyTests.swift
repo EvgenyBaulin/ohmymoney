@@ -25,12 +25,12 @@ struct ExportRoundTripPropertyTests {
     "closes_term", "accrues_interest", "tranche", "cushion", "essential", "prepay_any_day",
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
     "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
-    "owner_uses", "new_client_only", "needs_subscription", "topup",
+    "owner_uses", "new_client_only", "needs_subscription", "topup", "keep_forever",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
     "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at",
-    "arrived_at",
+    "arrived_at", "added_at", "trashed_at",
   ]
   /// Columns holding a decimal kept as text.
   private static let decimals: Set<String> = [
@@ -283,6 +283,12 @@ struct ExportRoundTripPropertyTests {
           "INSERT INTO deposit_offers (id, bank_name, rate_percent, rate_on) VALUES (?, 'Банк', '15.25', '2026-09-01')",
         arguments: [UUID().uuidString])
       try db.execute(
+        sql: """
+          INSERT INTO attachments (id, owner_kind, owner_id, content_hash, file_name, byte_size, added_at)
+          VALUES (?, 'debt', ?, ?, 'договор, «№1».pdf', 1234, '2026-09-01 10:00:00.000')
+          """,
+        arguments: [UUID().uuidString, UUID().uuidString, String(repeating: "ab", count: 32)])
+      try db.execute(
         sql: "UPDATE payment_methods SET accent = '04' WHERE id = ?", arguments: [account])
       try db.execute(sql: "UPDATE cards SET expires_on = '2029-03'")
       try db.execute(
@@ -336,17 +342,17 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 15)
+    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 16)
     #expect(plain.files == files)
-    #expect(plain.csvTables.count == 44)
-    #expect(plain.manifest.schemaVersion == 15)
+    #expect(plain.csvTables.count == 45)
+    #expect(plain.manifest.schemaVersion == 16)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 15)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 16)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -414,7 +420,7 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 15)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 16)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 
@@ -433,6 +439,7 @@ struct ExportRoundTripPropertyTests {
           "0013_spending_rules",
           "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0017_attachments",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -522,7 +529,7 @@ struct ExportRoundTripPropertyTests {
         "anomaly_dismissals", "category_feedback", "currencies", "expected_income_links",
         "identity_items", "import_batches", "import_mappings", "ml_models", "saved_views",
         "scenarios", "statement_profiles", "sync_deferred", "sync_heads",
-        "sync_meta", "sync_outbox", "sync_resolutions", "sync_state",
+        "sync_meta", "sync_outbox", "sync_resolutions", "sync_state", "week_answers",
       ])
   }
 
@@ -597,8 +604,14 @@ struct ExportRoundTripPropertyTests {
     "expected_income.csv:asset_id",
   ]
 
+  /// The columns the attachments added (`0017_attachments`).
+  private static let addedByTheAttachments: Set<String> = [
+    "transactions.csv:warranty_until", "transactions.csv:warranty_where",
+    "transactions.csv:return_until",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
-    .union(addedByTheConditions)
+    .union(addedByTheConditions).union(addedByTheAttachments)
 
   /// The columns the credits and the allocation of income added.
   private static let addedByTheCredits: Set<String> = Set(

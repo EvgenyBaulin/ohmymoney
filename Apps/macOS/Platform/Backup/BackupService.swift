@@ -32,6 +32,10 @@ public actor BackupService {
   private let policy: Policy
   private var pending: Task<Void, Never>?
   private var mirror: URL?
+  /// The folder of the attached files and whether the owner wants them in the mirror
+  /// (`attachments.mirror`, on by default). A copy of the database names these files and holds none.
+  private var attachmentStore: AttachmentFileStore?
+  private var mirrorsAttachments: @Sendable () -> Bool = { true }
   /// What went wrong with the last copy, for the Backups settings to show. The journal has the
   /// error's type; the owner reads words from the Settings catalog.
   public private(set) var lastFailure: Failure?
@@ -70,6 +74,37 @@ public actor BackupService {
   public func setMirror(_ url: URL?) {
     mirror = url
     mirrorCopiesBeforeUpdates()
+    // A folder chosen later gets the files that are already here too.
+    mirrorAttachmentFiles()
+  }
+
+  /// Tells the service where the attached files are. The mirror receives them with the copy of the
+  /// day and the copies before updates, each file once, when `mirrorAttachments` says yes.
+  public func setAttachments(
+    _ store: AttachmentFileStore?, mirrorAttachments: @escaping @Sendable () -> Bool
+  ) {
+    attachmentStore = store
+    mirrorsAttachments = mirrorAttachments
+    // The folder may have been set already: the files go as soon as both are known.
+    mirrorAttachmentFiles()
+  }
+
+  /// Puts the files the mirror lacks into it. A file that does not arrive is in the journal and
+  /// marks the mirror as incomplete; the next copy tries it again.
+  @discardableResult
+  func mirrorAttachmentFiles() -> AttachmentMirror.Outcome? {
+    guard let mirror, let attachmentStore, mirrorsAttachments() else { return nil }
+    let outcome = AttachmentMirror(chosenFolder: mirror).push(from: attachmentStore)
+    if outcome.copied > 0 || outcome.failed > 0 {
+      AppLog.info(
+        "backup.filesMirrored", .backup, "attached files were put into the chosen folder",
+        [
+          LogPair("files", .count(outcome.copied)), LogPair("failed", .count(outcome.failed)),
+          LogPair("bytes", .bytes(Int(outcome.copiedBytes))),
+        ])
+    }
+    if outcome.failed > 0 { lastFailure = .notMirrored }
+    return outcome
   }
 
   /// Drops a copy that has not been written yet: nothing is left to run against a database
@@ -181,6 +216,7 @@ public actor BackupService {
     let mirrored =
       Self.reason(of: label) == .daily ? mirror.map { copy(destination, into: $0) } : nil
     lastFailure = written.isDamaged ? .damaged : mirrored == false ? .notMirrored : nil
+    if mirrored == true { mirrorAttachmentFiles() }
     let size =
       (try? FileManager.default.attributesOfItem(atPath: destination.path)[.size] as? Int) ?? 0
     AppLog.info(
@@ -474,6 +510,7 @@ public actor BackupService {
       if copy(source, into: target) { arrived += 1 } else { missed += 1 }
     }
     if missed > 0 { lastFailure = .notMirrored }
+    if arrived > 0 { mirrorAttachmentFiles() }
     if arrived > 0 || missed > 0 {
       AppLog.info(
         "backup.preUpdateMirrored", .backup,

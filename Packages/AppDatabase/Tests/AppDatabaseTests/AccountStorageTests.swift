@@ -376,9 +376,9 @@ struct AccountDataTests {
 
     let export = ExportRepository(writer: stack.writer)
     let tables = try export.tables()
-    #expect(tables.count == 44)
+    #expect(tables.count == 45)
     #expect(
-      tables.dropLast(20).suffix(6).map(\.fileName) == [
+      tables.dropLast(21).suffix(6).map(\.fileName) == [
         "account_groups.csv", "transfers.csv", "reconciliation_balances.csv", "cards.csv",
         "cashback_rules.csv", "banks.csv",
       ])
@@ -388,7 +388,7 @@ struct AccountDataTests {
     #expect(counts["reconciliation_balances"] == 1)
     #expect(counts["cards"] == 0)
     #expect(counts["cashback_rules"] == 0)
-    for table in tables.dropLast(23).suffix(3) {
+    for table in tables.dropLast(24).suffix(3) {
       let rows = try CSVReader.dictionaries(from: table.data)
       #expect(rows.count == 1, "\(table.fileName)")
     }

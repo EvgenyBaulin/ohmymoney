@@ -15,6 +15,10 @@ public struct ArchiveService: Sendable {
   public static let fileExtension = "ohmymoneyarchive"
 
   private let repository: ExportRepository
+  /// The rows of the attached files and the folder their bytes lie in; without them an archive
+  /// carries none.
+  private let attachmentRows: AttachmentRepository?
+  private let attachmentStore: AttachmentFileStore?
   private let appVersion: String
   private let schemaVersion: Int
   private let cipher: any ArchiveCipher
@@ -34,9 +38,12 @@ public struct ArchiveService: Sendable {
     appVersion: String,
     schemaVersion: Int? = nil,
     cipher: any ArchiveCipher = CryptoKitArchiveCipher(),
-    iterations: Int = EncryptionHeader.recommendedIterations
+    iterations: Int = EncryptionHeader.recommendedIterations,
+    attachmentStore: AttachmentFileStore? = nil
   ) {
     self.repository = ExportRepository(writer: stack.writer)
+    self.attachmentRows = attachmentStore == nil ? nil : AttachmentRepository(writer: stack.writer)
+    self.attachmentStore = attachmentStore
     self.appVersion = appVersion
     self.schemaVersion = schemaVersion ?? stack.applied.onDisk
     self.cipher = cipher
@@ -55,7 +62,8 @@ public struct ArchiveService: Sendable {
   /// step it stopped at, then thrown for the File menu to tell the owner.
   @discardableResult
   public func exportArchive(
-    to url: URL, password: String? = nil, settings: [String: String] = [:], now: Date = Date()
+    to url: URL, password: String? = nil, settings: [String: String] = [:], now: Date = Date(),
+    attachments: AttachmentChoice = .bySetting
   ) throws -> URL {
     AppLog.info(
       "archive.export.started", .archive, "an archive is being written",
@@ -84,6 +92,33 @@ public struct ArchiveService: Sendable {
         path: ArchivePaths.settings,
         data: try JSONSerialization.data(withJSONObject: settings, options: [.sortedKeys]))
 
+      // The attached files are ordinary entries of the same container (`attachments/aa/bb/<hash>`),
+      // each listed in the manifest. A build that knows nothing of them reads the database and the
+      // CSV files and leaves the rest alone.
+      step = "attachments"
+      var carried = 0
+      // Everything already in the container counts against the limits of a plain zip: the database,
+      // every CSV file, the settings, and the manifest that comes first.
+      let csvBytes = snapshot.contents.tables.reduce(into: Int64(0)) { $0 += Int64($1.data.count) }
+      let settingsBytes = Int64(
+        settings.reduce(0) { $0 + $1.key.utf8.count + $1.value.utf8.count + 8 })
+      if let included = try attachmentEntries(
+        choice: attachments,
+        baseBytes: Int64(snapshot.data.count) + csvBytes + settingsBytes + Self.manifestAllowance,
+        baseEntries: 3 + snapshot.contents.tables.count)
+      {
+        for file in included {
+          guard let store = attachmentStore, let path = AttachmentArchive.path(forHash: file.hash)
+          else { continue }
+          // A file that is not in the folder (removed by a rule since the row was written) is
+          // simply not carried: the row reads «удалено по правилу хранения» on the other side.
+          guard let content = try? store.data(forHash: file.hash) else { continue }
+          try builder.add(path: path, data: content)
+          carried += 1
+        }
+      }
+      step = "build"
+
       let data: Data
       if let password, Self.encrypts(password) {
         // Salt and nonce come from the system generator, never from a seeded one.
@@ -109,7 +144,7 @@ public struct ArchiveService: Sendable {
       }
       AppLog.info(
         "archive.export.done", .archive, "the archive was written and read back",
-        [LogPair("bytes", .bytes(data.count))])
+        [LogPair("bytes", .bytes(data.count)), LogPair("files", .count(carried))])
       return url
     } catch {
       var pairs = Self.journalPairs(for: error, step: step)
@@ -119,6 +154,79 @@ public struct ArchiveService: Sendable {
         pairs)
       throw error
     }
+  }
+
+  /// What the manifest takes in the container: its names, row counts and one digest per entry. A
+  /// roomy figure is cheaper than an export that fails after reading every file.
+  private static let manifestAllowance: Int64 = 4_000_000
+
+  /// Whether an archive carries the attached files.
+  public enum AttachmentChoice: Sendable, Equatable {
+    /// What the owner set (`archive.withAttachments`, on by default).
+    case bySetting
+    case include
+    case leaveOut
+  }
+
+  /// The files an archive would carry, worked out before anything is read: how many, how big, and
+  /// what the 4 GB of a plain zip leaves out. Nothing is chosen for an archive without files.
+  public func attachmentPlan(
+    baseBytes: Int64 = 0, baseEntries: Int = 0
+  ) throws -> AttachmentArchive.Plan {
+    guard let rows = attachmentRows else {
+      return AttachmentArchive.Plan(included: [], skipped: [])
+    }
+    return AttachmentArchive.plan(
+      for: try rows.all(), baseBytes: baseBytes, baseEntries: baseEntries)
+  }
+
+  private func attachmentEntries(
+    choice: AttachmentChoice, baseBytes: Int64, baseEntries: Int
+  ) throws -> [AttachmentArchive.Entry]? {
+    guard let rows = attachmentRows else { return nil }
+    switch choice {
+    case .leaveOut: return nil
+    case .include: break
+    case .bySetting: guard try rows.settings().withAttachmentsInArchive else { return nil }
+    }
+    let plan = try attachmentPlan(baseBytes: baseBytes, baseEntries: baseEntries)
+    if !plan.isComplete {
+      AppLog.warning(
+        "archive.export.skipped", .archive,
+        "some attached files did not fit in the archive",
+        [
+          LogPair("left", .count(plan.skipped.count)),
+          LogPair("bytes", .bytes(Int(clamping: plan.skippedBytes))),
+        ])
+    }
+    return plan.included
+  }
+
+  /// Puts the files an opened archive carries into the folder of attachments. A file whose content
+  /// does not match its name is refused. Returns how many arrived and how many were refused; an
+  /// archive without files gives zero and zero, and the rows read «удалено по правилу хранения».
+  @discardableResult
+  public func restoreAttachments(
+    from archive: ArchiveOpener.OpenedArchive
+  ) -> (restored: Int, refused: Int) {
+    guard let store = attachmentStore else { return (0, 0) }
+    var restored = 0
+    var refused = 0
+    for hash in archive.attachmentHashes {
+      guard let content = archive.attachment(hash: hash) else { continue }
+      do {
+        try store.put(content, expecting: hash)
+        restored += 1
+      } catch {
+        refused += 1
+      }
+    }
+    if restored > 0 || refused > 0 {
+      AppLog.info(
+        "archive.import.files", .archive, "the attached files of an archive were put away",
+        [LogPair("files", .count(restored)), LogPair("refused", .count(refused))])
+    }
+    return (restored, refused)
   }
 
   public func openArchive(
@@ -323,6 +431,10 @@ enum ArchiveImportFlow {
       }
       throw error
     }
+    // The files the archive carries go into the folder of attachments now; the rows come with the
+    // database at the next launch. Archives from before the attachments carry none, and their rows
+    // do not exist either.
+    archives.restoreAttachments(from: opened)
     applyPortableSettings(opened)
     AppLog.info(
       "archive.import.staged", .archive,

@@ -147,6 +147,12 @@ public enum AppPaths {
     dataDirectory.appendingPathComponent("backups", isDirectory: true)
   }
 
+  /// The files of the attachments, beside the database: one file per distinct content, named by its
+  /// digest (`AttachmentFileStore`). Copies of the database name these files and do not hold them.
+  public static var attachmentsDirectory: URL {
+    dataDirectory.appendingPathComponent("Attachments", isDirectory: true)
+  }
+
   public static var modelsDirectory: URL {
     dataDirectory.appendingPathComponent("models", isDirectory: true)
   }

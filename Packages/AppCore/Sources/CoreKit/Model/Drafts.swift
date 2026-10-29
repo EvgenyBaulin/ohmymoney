@@ -30,6 +30,11 @@ public struct TransactionDraft: Hashable, Sendable {
   /// «Разовое»: left out of the averages and forecasts, kept in the totals and the limits. The
   /// panel edits it, so an edit that rebuilds the operation from the draft keeps the mark.
   public var isOneOff: Bool
+  /// The warranty and the return term of what was bought, and where the original lies. The panel
+  /// edits them, so an edit that rebuilds the operation from the draft keeps them.
+  public var warrantyUntil: DateOnly?
+  public var warrantyWhere: String?
+  public var returnUntil: DateOnly?
 
   public init(
     kind: TransactionKind = .expense,
@@ -52,7 +57,10 @@ public struct TransactionDraft: Hashable, Sendable {
     parts: [PartDraft] = [],
     cardId: UUID? = nil,
     cashback: Money? = nil,
-    isOneOff: Bool = false
+    isOneOff: Bool = false,
+    warrantyUntil: DateOnly? = nil,
+    warrantyWhere: String? = nil,
+    returnUntil: DateOnly? = nil
   ) {
     self.kind = kind
     self.occurredAt = occurredAt
@@ -75,6 +83,9 @@ public struct TransactionDraft: Hashable, Sendable {
     self.cardId = cardId
     self.cashback = cashback
     self.isOneOff = isOneOff
+    self.warrantyUntil = warrantyUntil
+    self.warrantyWhere = warrantyWhere
+    self.returnUntil = returnUntil
   }
 
   /// Reopens a saved operation for editing: the panel edits drafts, never records.
@@ -101,7 +112,10 @@ public struct TransactionDraft: Hashable, Sendable {
       parts: entry.parts.map(PartDraft.init(part:)),
       cardId: transaction.cardId,
       cashback: transaction.cashback,
-      isOneOff: transaction.isOneOff)
+      isOneOff: transaction.isOneOff,
+      warrantyUntil: transaction.warrantyUntil,
+      warrantyWhere: transaction.warrantyWhere,
+      returnUntil: transaction.returnUntil)
   }
 
   /// Amount not yet distributed between parts. Saving is only allowed when it is zero.
@@ -152,6 +166,8 @@ public struct TransactionDraft: Hashable, Sendable {
     } else {
       totalRub = try rublesConverter(amount)
     }
+    let warrantyPlace = warrantyWhere.map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+      .flatMap { $0.isEmpty ? nil : $0 }
     let transaction = Transaction(
       id: id,
       kind: kind,
@@ -176,7 +192,10 @@ public struct TransactionDraft: Hashable, Sendable {
       updatedAt: now,
       cardId: cardId,
       cashback: cashback,
-      timeZoneId: TravelDay.recordedId(in: timeZone), isOneOff: isOneOff)
+      timeZoneId: TravelDay.recordedId(in: timeZone), isOneOff: isOneOff,
+      warrantyUntil: warrantyUntil,
+      warrantyWhere: warrantyPlace,
+      returnUntil: returnUntil)
 
     // Ruble shares are split from the converted total so rounding never loses a unit.
     let shares = totalRub.allocated(proportionallyTo: parts.map(\.amount), outOf: amount)

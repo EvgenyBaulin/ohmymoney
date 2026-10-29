@@ -64,7 +64,7 @@ struct BankConditionsExportTests {
     #expect(Array(ExportTables.customCurrencies.columns.suffix(2)) == ["rate_source", "coin_id"])
     #expect(Array(ExportTables.expectedIncome.columns.suffix(2)) == ["payout_kind", "asset_id"])
     #expect(
-      Array(ExportTables.all.suffix(2).map(\.fileName)) == [
+      Array(ExportTables.all.dropLast().suffix(2).map(\.fileName)) == [
         "bank_conditions.csv", "deposit_offers.csv",
       ])
 

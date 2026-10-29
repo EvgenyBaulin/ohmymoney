@@ -1,7 +1,9 @@
 import Foundation
 import GRDB
 
-/// The tables of the books that travel between devices, each with its primary key column.
+/// The tables of the books that travel between devices, each with its primary key column. The rows of
+/// `attachments` travel; the files they name do not: each device keeps its own folder of files, so a
+/// row that arrives before its file reads as «not on this device».
 ///
 /// Not followed, on purpose: `settings` (the settings of one device), `rates` (fetched again on
 /// each device), `ml_models` and `category_feedback` (learned on each device), `identity_items`
@@ -25,7 +27,7 @@ public enum SyncTables {
     "statement_profiles": "id", "saved_views": "id", "budget_month_exceptions": "id",
     "event_budget_items": "id", "event_templates": "id", "subscription_terms": "payment_id",
     "subscription_usage": "id", "subscription_users": "id", "subscription_keep_groups": "id",
-    "bank_conditions": "id", "deposit_offers": "id",
+    "bank_conditions": "id", "deposit_offers": "id", "attachments": "id", "week_answers": "week",
   ]
 
   /// The bookkeeping tables of the exchange: not part of the books, left out of every copy of

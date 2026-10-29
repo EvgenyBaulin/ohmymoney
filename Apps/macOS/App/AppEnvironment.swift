@@ -42,6 +42,9 @@ public final class AppEnvironment {
   public private(set) var depositOffers: DepositOfferRepository?
   /// The conditions of bank products the owner typed (`bank_conditions`).
   public private(set) var bankConditions: BankConditionsRepository?
+  /// The files attached to operations, assets, debts and subscriptions: the rows and the folder
+  /// of their bytes beside the database.
+  public private(set) var attachments: AttachmentService?
   /// Names, symbols and digits of the custom currencies, read at every open; a screen that
   /// changes them reads them again (`refreshCurrencyCatalog()`). `money` writes with it.
   public private(set) var currencyCatalog = CurrencyCatalog.empty
@@ -119,6 +122,10 @@ public final class AppEnvironment {
   /// «Файл» → «Импорт выписки…», or files dropped on the main window: the loading of statements
   /// opens over it with these files (none: it asks which) and the request is cleared.
   var statementImportRequest: StatementImportRequest?
+
+  /// «Файл» → «Чек по QR…», or a picture dropped on the main window: the receipt reader opens over
+  /// it (with the picture, when there is one) and the request is cleared.
+  var receiptRequest: ReceiptRequest?
 
   /// The reconciliation sheet of the main window is open: the toolbar, the Overview card and
   /// a reminder ask for it from wherever they are.
@@ -863,6 +870,7 @@ public final class AppEnvironment {
     subscriptionBooks = nil
     depositOffers = nil
     bankConditions = nil
+    attachments = nil
     savedViews = nil
     scenarios = nil
     anomalies = nil
@@ -934,6 +942,10 @@ public final class AppEnvironment {
     self.currencies = CurrencyRepository(writer: stack.writer)
     self.depositOffers = DepositOfferRepository(writer: stack.writer)
     self.bankConditions = BankConditionsRepository(writer: stack.writer)
+    let attachmentService = AttachmentService(
+      repository: AttachmentRepository(writer: stack.writer),
+      store: AttachmentFileStore(root: AppPaths.attachmentsDirectory))
+    self.attachments = attachmentService
     self.planning = PlanningRepository(writer: stack.writer, liveCounts: liveCounts)
     self.spendingRules = SpendingRulesRepository(writer: stack.writer)
     self.statementImports = StatementImportRepository(writer: stack.writer)
@@ -945,7 +957,8 @@ public final class AppEnvironment {
     self.accounts = AccountRepository(writer: stack.writer)
     let exportRepository = ExportRepository(writer: stack.writer)
     self.csvExport = CSVExportService(repository: exportRepository)
-    self.archives = ArchiveService(stack: stack, appVersion: Self.appVersion)
+    self.archives = ArchiveService(
+      stack: stack, appVersion: Self.appVersion, attachmentStore: attachmentService.store)
     // A refinement that lets money back cover a part writes the income over it with the note
     // an edit gives it, in the language of the interface at that moment.
     self.rateService = RateService(
@@ -954,6 +967,17 @@ public final class AppEnvironment {
       calendar: calendar, surplusNote: { TransactionsStore.surplusNote() })
     let backups = BackupService(stack: stack, directory: AppPaths.backupsDirectory)
     self.backups = backups
+    // The copy of the day and the copy before an update take the files with them into the chosen
+    // folder when the owner left that on (the default).
+    // Whichever of this and `setMirror` reaches the service first, the files are pushed once both
+    // are known.
+    let attachmentFolder = attachmentService.store
+    let attachmentRows = attachmentService.repository
+    Task {
+      await backups.setAttachments(attachmentFolder) {
+        (try? attachmentRows.settings().mirror) ?? true
+      }
+    }
     // What a check found is kept in the settings of this Mac, but not by the test host or a
     // data set: neither has a book of the owner's to say anything of.
     let integrity = IntegrityCheckService(

@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 44 files of Export, always in the same order.
+/// The 45 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -44,7 +44,8 @@ public enum ExportTables {
       "payment_method_id", "period_month", "debt_id", "credit_debt_id", "import_batch_id",
       "external_id", "created_at", "updated_at", "deleted_at", "account_currency",
       "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
-      "source", "bank_status", "posted_on", "dedup_key",
+      "source", "bank_status", "posted_on", "dedup_key", "warranty_until", "warranty_where",
+      "return_until",
     ])
 
   /// `refund_of_part_id` came with `Schema/0004_accounts.sql`: the purchase part a refund
@@ -399,12 +400,26 @@ public enum ExportTables {
       "new_client_only", "needs_subscription", "topup", "rate_on", "note", "archived",
     ])
 
-  /// All 44 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// The files attached to operations, assets, debts and subscriptions came with
+  /// `Schema/0017_attachments.sql` and go last: one row per file, the file itself is not in the
+  /// CSV. `content_hash` is the SHA-256 of the content (lower-case hex), `byte_size` a whole
+  /// number of bytes, `added_at` and `trashed_at` UTC instants (empty `trashed_at`: kept),
+  /// `keep_forever` `true` or `false`. The warranty and return terms of an operation
+  /// (`warranty_until`, `warranty_where`, `return_until`) go last in `transactions.csv`, empty for
+  /// none. The answers to «how did the week go» are in the database and the archive, not here.
+  public static let attachments = ExportTable(
+    fileName: "attachments.csv",
+    columns: [
+      "id", "owner_kind", "owner_id", "content_hash", "file_name", "byte_size", "media_type",
+      "kind", "added_at", "trashed_at", "keep_forever", "note",
+    ])
+
+  /// All 45 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
   /// of days, then the month limits, event articles and templates and the subscription extras, then
-  /// the conditions of bank products and the deposits of the owner.
+  /// the conditions of bank products and the deposits of the owner, then the attachments.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
@@ -413,6 +428,7 @@ public enum ExportTables {
     debtInstalments, debtCosts, allocationRules, customCurrencies, settings, tags, partTags, rules,
     dayNotes, budgetMonthExceptions, eventBudgetItems, eventTemplates, subscriptionTerms,
     subscriptionUsage, subscriptionUsers, subscriptionKeepGroups, bankConditions, depositOffers,
+    attachments,
   ]
 }
 
@@ -455,6 +471,9 @@ extension ExportTables {
       CSVValue.string(transaction.bankStatus),
       CSVValue.string(transaction.postedOn?.iso),
       CSVValue.string(transaction.dedupKey),
+      CSVValue.string(transaction.warrantyUntil?.iso),
+      CSVValue.string(transaction.warrantyWhere),
+      CSVValue.string(transaction.returnUntil?.iso),
     ]
   }
 
@@ -999,6 +1018,23 @@ extension ExportTables {
       CSVValue.string(amount: conditions.serviceFreeBalanceE4),
       CSVValue.string(amount: conditions.minBalanceE4),
       CSVValue.string(conditions.note),
+    ]
+  }
+
+  public static func row(_ attachment: AttachedFile) -> [String] {
+    [
+      attachment.id.uuidString,
+      attachment.ownerKind.rawValue,
+      attachment.ownerId.uuidString,
+      attachment.contentHash,
+      attachment.fileName,
+      String(attachment.byteSize),
+      CSVValue.string(attachment.mediaType),
+      attachment.kind.rawValue,
+      CSVValue.string(instant: attachment.addedAt),
+      CSVValue.string(instant: attachment.trashedAt),
+      CSVValue.string(bool: attachment.keepForever),
+      CSVValue.string(attachment.note),
     ]
   }
 

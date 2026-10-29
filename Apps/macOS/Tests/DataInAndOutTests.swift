@@ -129,7 +129,7 @@ final class DataInAndOutTests: XCTestCase {
     }
   }
 
-  /// All 44 files from a book with accounts: every row of every table is in its file — no more,
+  /// All 45 files from a book with accounts: every row of every table is in its file — no more,
   /// no fewer — each row as wide as the header, the header the one the export declares, and
   /// the amounts decimal strings with a dot.
   func testAnExportOfABookWithAccountsWritesEveryRowOfEveryTable() throws {
@@ -162,7 +162,7 @@ final class DataInAndOutTests: XCTestCase {
     }
   }
 
-  /// An export over a folder with an earlier export finds every one of the 44 files it would
+  /// An export over a folder with an earlier export finds every one of the 45 files it would
   /// replace — the three of the accounts and the two of the cards as well — and nothing else of
   /// the folder; the question before the replacement counts them in the plural of both
   /// languages (it gives the number, not the names).
@@ -180,13 +180,13 @@ final class DataInAndOutTests: XCTestCase {
     language.choice = .russian
     XCTAssertEqual(
       language.format("export.replace.title", table: "Settings", replaced.count),
-      "Заменить 44 файла в этой папке?")
+      "Заменить 45 файлов в этой папке?")
     XCTAssertEqual(
-      language.format("export.done", table: "Settings", replaced.count), "Записано 44 файла CSV")
+      language.format("export.done", table: "Settings", replaced.count), "Записано 45 файлов CSV")
     language.choice = .english
     XCTAssertEqual(
       language.format("export.replace.title", table: "Settings", replaced.count),
-      "Replace 44 files in this folder?")
+      "Replace 45 files in this folder?")
   }
 
   /// A second export over the first replaces the files with the same bytes, leaves nothing of
@@ -309,7 +309,7 @@ final class DataInAndOutTests: XCTestCase {
     }
   }
 
-  /// The manifest of the archive counts the rows of the 44 files it carries, the three of the
+  /// The manifest of the archive counts the rows of the 45 files it carries, the three of the
   /// accounts among them, and the counts agree with the files: an import checks one against
   /// the other.
   func testTheManifestCountsTheRowsOfTheAccountsFiles() throws {

@@ -23,6 +23,11 @@ public enum DatabaseCheck {
     case reconciliationWithoutBalances
     /// A transfer from an account to itself in one currency.
     case transferToItself
+    /// A file of an operation, asset, debt or subscription that is no longer there: the row names
+    /// an owner no row answers to. Only reported: the row is the owner's (a name, a note, the one
+    /// pointer to the file), and it may wait for an owner that is still on its way from another
+    /// device.
+    case attachmentWithoutOwner
   }
 
   public struct Finding: Sendable, Hashable, Codable {
@@ -73,6 +78,19 @@ public enum DatabaseCheck {
   ]
 
   private static let idsShown = 5
+
+  /// The attachment rows whose owner row is not there. `owner_id` names a row of the table the
+  /// kind says, so no foreign key can see it.
+  private static let attachmentsWithoutOwnerSQL = """
+    SELECT a.id AS id FROM attachments a
+    WHERE a.owner_kind IN ('transaction', 'asset', 'debt', 'subscription') AND NOT EXISTS (
+      SELECT 1 FROM transactions o WHERE a.owner_kind = 'transaction' AND o.id = a.owner_id)
+      AND NOT EXISTS (SELECT 1 FROM assets o WHERE a.owner_kind = 'asset' AND o.id = a.owner_id)
+      AND NOT EXISTS (SELECT 1 FROM debts o WHERE a.owner_kind = 'debt' AND o.id = a.owner_id)
+      AND NOT EXISTS (
+        SELECT 1 FROM scheduled_payments o WHERE a.owner_kind = 'subscription' AND o.id = a.owner_id)
+    ORDER BY a.id
+    """
 
   /// Checks the database. Reads only.
   public static func run(_ writer: any DatabaseReader) throws -> Report {
@@ -147,6 +165,14 @@ public enum DatabaseCheck {
         Finding(
           rule: .transferToItself, table: "transfers", count: selfTransfers.count,
           isRepairable: false, ids: selfTransfers.prefix(idsShown).map { $0["id"] }))
+    }
+
+    let lostFiles = try Row.fetchAll(db, sql: attachmentsWithoutOwnerSQL)
+    if !lostFiles.isEmpty {
+      findings.append(
+        Finding(
+          rule: .attachmentWithoutOwner, table: "attachments", count: lostFiles.count,
+          isRepairable: false, ids: lostFiles.prefix(idsShown).map { $0["id"] }))
     }
 
     let operations =

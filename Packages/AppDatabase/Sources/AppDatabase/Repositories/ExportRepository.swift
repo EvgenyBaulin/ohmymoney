@@ -222,6 +222,19 @@ public struct ExportRepository: Sendable {
       for row in try BankConditions.fetchAll(db, sql: "SELECT * FROM bank_conditions ORDER BY id") {
         csv.append(ExportTables.row(row))
       }
+    case ExportTables.attachments.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM attachments ORDER BY added_at, id") {
+        // A row this build can not read still goes out, in the text of the database.
+        if let attachment = try? AttachedFile(row: row) {
+          csv.append(ExportTables.row(attachment))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "owner_kind", "owner_id", "content_hash", "file_name"])
+              + [(row["byte_size"] as Int64?).map(String.init) ?? ""]
+              + Self.text(row, ["media_type", "kind", "added_at", "trashed_at"])
+              + [Self.flag(row, "keep_forever", false)] + Self.text(row, ["note"]))
+        }
+      }
     case ExportTables.depositOffers.fileName:
       for row in try Row.fetchAll(db, sql: "SELECT * FROM deposit_offers ORDER BY id") {
         // An offer this build can not read still goes out, in the text of the database.

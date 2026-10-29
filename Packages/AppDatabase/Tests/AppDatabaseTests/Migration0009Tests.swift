@@ -90,8 +90,8 @@ struct Migration0009Tests {
   @Test func aNewDatabaseHasTheColumnsAndTablesWithTheirDefaults() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().contains("0009_credit_and_allocation"))
-    #expect(try stack.appliedMigrations().last == "0015_bank_conditions")
-    #expect(stack.applied.onDisk == 15)
+    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(stack.applied.onDisk == 16)
     let account = UUID().uuidString
     let category = UUID().uuidString
     let debt = UUID().uuidString
@@ -171,11 +171,12 @@ struct Migration0009Tests {
           "0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync",
           "0013_spending_rules", "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0017_attachments",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
-    #expect(try stack.appliedMigrations().last == "0015_bank_conditions")
-    #expect(stack.applied.applied == 7)
+    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(stack.applied.applied == 8)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -256,6 +257,7 @@ struct Migration0009Tests {
           "0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync",
           "0013_spending_rules", "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0017_attachments",
         ])
     let debts = try DatabaseStack.rowCounts(fileAt: url)["debts"] ?? 0
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
@@ -267,6 +269,7 @@ struct Migration0009Tests {
           "0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync",
           "0013_spending_rules", "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0017_attachments",
         ])
     let counts = try DatabaseStack.rowCounts(fileAt: url)
     #expect(counts["debts"] == debts)

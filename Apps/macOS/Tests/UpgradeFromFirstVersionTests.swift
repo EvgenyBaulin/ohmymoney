@@ -334,7 +334,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
     XCTAssertEqual(stack.applied.applied, 12)
-    XCTAssertEqual(try stack.appliedMigrations().count, 15)
+    XCTAssertEqual(try stack.appliedMigrations().count, 16)
     XCTAssertEqual(
       Self.accountsStep(stack.applied.dataSteps),
       ["mainKept": 1, "mainChosen": 0, "mainCreated": 0, "defaultsCleared": 1, "assigned": 3])
@@ -861,6 +861,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
         "0013_spending_rules",
         "0014_import_year_questions_subscriptions",
         "0015_bank_conditions",
+        "0017_attachments",
       ])
     let copies = copiesBeforeAnUpdate()
     XCTAssertEqual(copies.count, 1)
@@ -876,7 +877,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
     await environment.start()
 
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 15)
+    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 16)
     let kept = try FileManager.default.contentsOfDirectory(
       at: DatabaseRecovery.damagedDirectory, includingPropertiesForKeys: nil
     ).filter { $0.pathExtension == "sqlite" }

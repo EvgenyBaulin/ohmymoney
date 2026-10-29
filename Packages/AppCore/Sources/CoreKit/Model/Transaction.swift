@@ -64,6 +64,12 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
   /// The versioned hash of a statement line, which finds the same line when the same period is
   /// loaded again; never the text of the line.
   public var dedupKey: String?
+  /// The last day of the warranty of what the operation bought; `nil`: none.
+  public var warrantyUntil: DateOnly?
+  /// Where the original of the warranty or the receipt lies, in the owner's words.
+  public var warrantyWhere: String?
+  /// The last day the goods can be returned; `nil`: none.
+  public var returnUntil: DateOnly?
 
   public init(
     id: UUID = UUID(),
@@ -97,7 +103,10 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     source: String? = nil,
     bankStatus: String? = nil,
     postedOn: DateOnly? = nil,
-    dedupKey: String? = nil
+    dedupKey: String? = nil,
+    warrantyUntil: DateOnly? = nil,
+    warrantyWhere: String? = nil,
+    returnUntil: DateOnly? = nil
   ) {
     self.id = id
     self.kind = kind
@@ -131,6 +140,9 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     self.bankStatus = bankStatus
     self.postedOn = postedOn
     self.dedupKey = dedupKey
+    self.warrantyUntil = warrantyUntil
+    self.warrantyWhere = warrantyWhere
+    self.returnUntil = returnUntil
   }
 
   public var isDeleted: Bool { deletedAt != nil }

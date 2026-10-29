@@ -38,7 +38,10 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
       timeZoneId: Self.zone(row),
       isOneOff: (try? RowMapping.flag(row, "one_off", fallback: false)) ?? false,
       source: Self.text(row, "source"), bankStatus: Self.text(row, "bank_status"),
-      postedOn: RowMapping.day(row, "posted_on"), dedupKey: Self.text(row, "dedup_key"))
+      postedOn: RowMapping.day(row, "posted_on"), dedupKey: Self.text(row, "dedup_key"),
+      warrantyUntil: RowMapping.day(row, "warranty_until"),
+      warrantyWhere: Self.text(row, "warranty_where"),
+      returnUntil: RowMapping.day(row, "return_until"))
   }
 
   /// A blank text reads as none, like a NULL.
@@ -96,6 +99,9 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
     container["bank_status"] = bankStatus
     container["posted_on"] = postedOn?.iso
     container["dedup_key"] = dedupKey
+    container["warranty_until"] = warrantyUntil?.iso
+    container["warranty_where"] = warrantyWhere
+    container["return_until"] = returnUntil?.iso
   }
 }
 

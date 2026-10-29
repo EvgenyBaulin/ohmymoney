@@ -53,7 +53,7 @@ final class ExportAndArchiveTests: XCTestCase {
     let target = directory.appendingPathComponent("export")
     let written = try service.export(to: target)
 
-    XCTAssertEqual(written.count, 44)
+    XCTAssertEqual(written.count, 45)
     XCTAssertEqual(
       Array(written.map(\.lastPathComponent).suffix(21).prefix(12)),
       [
@@ -154,9 +154,9 @@ final class ExportAndArchiveTests: XCTestCase {
   func testAnExportThatFinishesSaysHowManyFilesItWrote() throws {
     let service = CSVExportService(repository: ExportRepository(writer: stack.writer))
     let target = directory.appendingPathComponent("export")
-    XCTAssertEqual(FileCommands.exportCSV(with: service, to: target), .written(files: 44))
+    XCTAssertEqual(FileCommands.exportCSV(with: service, to: target), .written(files: 45))
     let names = try FileManager.default.contentsOfDirectory(atPath: target.path)
-    XCTAssertEqual(names.count, 44, "\(names)")
+    XCTAssertEqual(names.count, 45, "\(names)")
     XCTAssertTrue(names.allSatisfy { $0.hasSuffix(".csv") }, "\(names)")
   }
 
@@ -176,7 +176,7 @@ final class ExportAndArchiveTests: XCTestCase {
     XCTAssertTrue(done)
     let lines = Logbook.shared.lines()
     let line = try XCTUnwrap(lines.first { $0.contains("export.done") })
-    XCTAssertTrue(line.contains("files=44"), line)
+    XCTAssertTrue(line.contains("files=45"), line)
     XCTAssertTrue(line.contains("rows=\(records)"), line)
   }
 
@@ -198,7 +198,7 @@ final class ExportAndArchiveTests: XCTestCase {
 
     try FileManager.default.removeItem(at: target.appendingPathComponent("rates.csv"))
     try service.export(to: target)
-    XCTAssertEqual(service.filesItWouldReplace(in: target).count, 44)
+    XCTAssertEqual(service.filesItWouldReplace(in: target).count, 45)
   }
 
   /// The three files the accounts brought are asked about like the other eighteen: an export
@@ -289,15 +289,15 @@ final class ExportAndArchiveTests: XCTestCase {
   /// build opens an archive of schema 8 — and of the ones before it — and a build that knows only
   /// 7 refuses it.
   func testAnArchiveOfSchemaEightOpensWhereEightIsSupported() throws {
-    XCTAssertEqual(stack.applied.onDisk, 15)
+    XCTAssertEqual(stack.applied.onDisk, 16)
     let service = ArchiveService(stack: stack, appVersion: "1.6.0")
     let url = directory.appendingPathComponent("eight.ohmymoneyarchive")
     _ = try service.exportArchive(to: url)
     let data = try Data(contentsOf: url)
 
-    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 15)
-    XCTAssertEqual(opened.manifest.schemaVersion, 15)
-    XCTAssertEqual(opened.csvTables.count, 44)
+    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 16)
+    XCTAssertEqual(opened.manifest.schemaVersion, 16)
+    XCTAssertEqual(opened.csvTables.count, 45)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))
     XCTAssertTrue(opened.csvTables.contains("cards"))
     XCTAssertTrue(opened.csvTables.contains("cashback_rules"))

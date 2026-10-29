@@ -27,8 +27,8 @@ struct Migration0011Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0015_bank_conditions")
-    #expect(stack.applied.onDisk == 15)
+    #expect(try stack.appliedMigrations().last == "0017_attachments")
+    #expect(stack.applied.onDisk == 16)
     try stack.writer.read { db in
       let transactions = try db.columns(in: "transactions")
       let zone = try #require(transactions.first { $0.name == "time_zone" })
@@ -77,11 +77,12 @@ struct Migration0011Tests {
           "0011_travel", "0012_sync", "0013_spending_rules",
           "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0017_attachments",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 5)
+    #expect(stack.applied.applied == 6)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -163,7 +164,7 @@ struct Migration0011Tests {
     #expect(Array(plain.suffix(7).prefix(4)) == ["", "", "", ""])
     let operation = CoreKit.Transaction(
       kind: .expense, occurredAt: Date(), amountE4: AmountE4(whole: 1), timeZoneId: "Asia/Tokyo")
-    #expect(ExportTables.row(operation).suffix(6).first == "Asia/Tokyo")
+    #expect(ExportTables.row(operation).suffix(9).first == "Asia/Tokyo")
     #expect(ExportTables.row(operation).count == ExportTables.transactions.columns.count)
     let trip = Event(
       name: "T", kind: .trip, startDate: DateOnly(year: 2026, month: 1, day: 1),

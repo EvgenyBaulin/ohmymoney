@@ -291,11 +291,12 @@ public final class DatabaseStack: Sendable {
   /// the templates, the enabled currencies and the saved scenarios, which no number reads but a
   /// restore must bring back. The model file (`ml_models`) is left out: it is rebuilt from the data.
   /// The list of imports, the numbers of the owner's own contracts and the owner's profiles of
-  /// files are no figure's input either, but a restore must bring them back.
+  /// files are no figure's input either, but a restore must bring them back; so must the files
+  /// attached to records and the answers to «how did the week go».
   static let dataTables =
     ledgerTables + [
       "templates", "currencies", "scenarios", "import_batches", "identity_items",
-      "statement_profiles",
+      "statement_profiles", "attachments", "week_answers",
     ]
 
   /// One element after every committed transaction that changed one of `dataTables`, whoever
