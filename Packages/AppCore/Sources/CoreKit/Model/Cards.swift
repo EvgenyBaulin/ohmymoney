@@ -20,12 +20,15 @@ public struct PaymentCard: Identifiable, Hashable, Sendable, Codable {
   public var last4: String?
   /// Whatever else the owner keeps about the card, free text.
   public var details: String?
+  /// The last month the card works; `nil` until typed.
+  public var expiresOn: MonthKey?
 
   public init(
     id: UUID = UUID(), accountId: UUID, name: String, aliases: [String] = [], sort: Int = 0,
     archived: Bool = false, foreign: CardForeignTerms = CardForeignTerms(),
-    last4: String? = nil, details: String? = nil
+    last4: String? = nil, details: String? = nil, expiresOn: MonthKey? = nil
   ) {
+    self.expiresOn = expiresOn
     self.last4 = last4
     self.details = details
     self.foreign = foreign

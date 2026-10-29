@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 42 files of Export, always in the same order.
+/// The 44 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -87,7 +87,7 @@ public enum ExportTables {
       "deposit_ends_on", "cushion", "credit_limit", "credit_grace", "credit_statement_day",
       "credit_pay_days", "credit_grace_days", "credit_purchase_rate", "credit_cash_rate",
       "credit_min_percent", "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
-      "credit_cash_no_grace", "main_card_id",
+      "credit_cash_no_grace", "main_card_id", "accent",
     ])
 
   public static let places = ExportTable(
@@ -147,7 +147,7 @@ public enum ExportTables {
     fileName: "expected_income.csv",
     columns: [
       "id", "name", "category_id", "person_id", "kind", "total", "currency", "due_date",
-      "freq", "day", "parts_expected", "closed", "payment_method_id",
+      "freq", "day", "parts_expected", "closed", "payment_method_id", "payout_kind", "asset_id",
     ])
 
   /// Columns match `Schema/0001_initial.sql`; `start_month` came with
@@ -260,6 +260,7 @@ public enum ExportTables {
     columns: [
       "id", "payment_method_id", "name", "aliases", "sort", "archived", "fx_fee",
       "atm_fee_percent", "atm_fee_fixed", "atm_fee_fixed_currency", "last4", "details",
+      "expires_on",
     ])
 
   /// Columns match `Schema/0005_cards.sql`. `percent` is the percent as a decimal string with
@@ -315,7 +316,9 @@ public enum ExportTables {
   /// `Schema/0009_credit_and_allocation.sql`.
   public static let customCurrencies = ExportTable(
     fileName: "custom_currencies.csv",
-    columns: ["code", "name", "symbol", "fraction_digits", "archived", "sort"])
+    columns: [
+      "code", "name", "symbol", "fraction_digits", "archived", "sort", "rate_source", "coin_id",
+    ])
 
   /// The whole `settings` table, by key: the settings that belong to the data — the default
   /// currency, self-employment, the allocation, the debts — as the database keeps them.
@@ -376,11 +379,32 @@ public enum ExportTables {
   public static let subscriptionKeepGroups = ExportTable(
     fileName: "subscription_keep_groups.csv", columns: ["id", "type", "payment_ids"])
 
-  /// All 42 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// The conditions of bank products and the deposits the owner typed in came with
+  /// `Schema/0015_bank_conditions.sql`, and go last. Amounts are written without `_e4` as decimal
+  /// strings, an empty amount is a condition not stated; `rate_percent` is a decimal string with a
+  /// dot. The new columns of older files (`payment_methods.accent`, `cards.expires_on`,
+  /// `custom_currencies.rate_source` and `coin_id`, `expected_income.payout_kind` and `asset_id`)
+  /// go last in their files, empty for none.
+  public static let bankConditions = ExportTable(
+    fileName: "bank_conditions.csv",
+    columns: [
+      "id", "payment_method_id", "card_id", "currency", "free_cash", "free_sbp",
+      "free_interbank", "service_free_spend", "service_free_balance", "min_balance", "note",
+    ])
+
+  public static let depositOffers = ExportTable(
+    fileName: "deposit_offers.csv",
+    columns: [
+      "id", "bank_name", "rate_percent", "term_months", "min_amount", "max_amount",
+      "new_client_only", "needs_subscription", "topup", "rate_on", "note", "archived",
+    ])
+
+  /// All 44 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
-  /// of days, then the month limits, event articles and templates and the subscription extras.
+  /// of days, then the month limits, event articles and templates and the subscription extras, then
+  /// the conditions of bank products and the deposits of the owner.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
@@ -388,7 +412,7 @@ public enum ExportTables {
     reconciliationBalances, cards, cashbackRules, banks, assets, assetValuations,
     debtInstalments, debtCosts, allocationRules, customCurrencies, settings, tags, partTags, rules,
     dayNotes, budgetMonthExceptions, eventBudgetItems, eventTemplates, subscriptionTerms,
-    subscriptionUsage, subscriptionUsers, subscriptionKeepGroups,
+    subscriptionUsage, subscriptionUsers, subscriptionKeepGroups, bankConditions, depositOffers,
   ]
 }
 
@@ -513,6 +537,7 @@ extension ExportTables {
       CSVValue.string(amount: method.credit?.cashFeeFixedE4),
       CSVValue.string(bool: method.credit?.cashWithoutGrace ?? false),
       CSVValue.string(method.mainCardId),
+      CSVValue.string(method.accent),
     ]
   }
 
@@ -719,6 +744,8 @@ extension ExportTables {
       String(income.partsExpected),
       CSVValue.string(bool: income.closed),
       CSVValue.string(income.paymentMethodId),
+      CSVValue.string(income.payoutKind?.rawValue),
+      CSVValue.string(income.assetId),
     ]
   }
 
@@ -816,6 +843,7 @@ extension ExportTables {
       CSVValue.string(card.foreign.atmFeeFixed?.currency.code),
       CSVValue.string(card.last4),
       CSVValue.string(card.details),
+      CSVValue.string(month: card.expiresOn),
     ]
   }
 
@@ -953,6 +981,41 @@ extension ExportTables {
       String(currency.fractionDigits),
       CSVValue.string(bool: currency.archived),
       String(currency.sort),
+      CSVValue.string(currency.rateSource?.rawValue),
+      CSVValue.string(currency.coinId),
+    ]
+  }
+
+  public static func row(_ conditions: BankConditions) -> [String] {
+    [
+      conditions.id.uuidString,
+      conditions.accountId.uuidString,
+      CSVValue.string(conditions.cardId),
+      conditions.currency.code,
+      CSVValue.string(amount: conditions.freeCashE4),
+      CSVValue.string(amount: conditions.freeSbpE4),
+      CSVValue.string(amount: conditions.freeInterbankE4),
+      CSVValue.string(amount: conditions.serviceFreeSpendE4),
+      CSVValue.string(amount: conditions.serviceFreeBalanceE4),
+      CSVValue.string(amount: conditions.minBalanceE4),
+      CSVValue.string(conditions.note),
+    ]
+  }
+
+  public static func row(_ offer: DepositOffer) -> [String] {
+    [
+      offer.id.uuidString,
+      offer.bankName,
+      CSVValue.string(decimal: offer.ratePercent),
+      CSVValue.string(offer.termMonths),
+      CSVValue.string(amount: offer.minAmountE4),
+      CSVValue.string(amount: offer.maxAmountE4),
+      CSVValue.string(bool: offer.newClientOnly),
+      CSVValue.string(bool: offer.needsSubscription),
+      CSVValue.string(bool: offer.topup),
+      CSVValue.string(day: offer.rateOn),
+      CSVValue.string(offer.note),
+      CSVValue.string(bool: offer.archived),
     ]
   }
 

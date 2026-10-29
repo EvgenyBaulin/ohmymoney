@@ -243,7 +243,8 @@ public final class DatabaseStack: Sendable {
   /// against the model, which «Качество модели» counts; so do the groups of the accounts,
   /// the transfers between them and the balances counted on them; so do the cards and
   /// their cashback rules, which the cashback expected of every purchase is made of; and so do
-  /// the banks, which name the accounts in every list. A test holds this list against the
+  /// the banks, which name the accounts in every list; and the conditions of bank products and the
+  /// deposits the owner typed in. A test holds this list against the
   /// statements the load runs.
   static let ledgerTables = [
     "transactions", "transaction_parts", "reimbursement_links", "categories", "people",
@@ -255,6 +256,7 @@ public final class DatabaseStack: Sendable {
     "allocation_rules", "custom_currencies", "tags", "part_tags", "rules", "day_notes",
     "saved_views", "budget_month_exceptions", "event_budget_items", "event_templates",
     "subscription_terms", "subscription_usage", "subscription_users", "subscription_keep_groups",
+    "bank_conditions", "deposit_offers",
   ]
 
   /// One element after every committed transaction that changed one of `ledgerTables` —

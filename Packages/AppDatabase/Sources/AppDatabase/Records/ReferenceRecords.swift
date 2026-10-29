@@ -118,8 +118,18 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
       interest: Self.interest(row),
       cushion: try RowMapping.flag(row, "cushion", fallback: false),
       credit: Self.credit(row),
-      mainCardId: RowMapping.optionalUUID(row, "main_card_id"))
+      mainCardId: RowMapping.optionalUUID(row, "main_card_id"),
+      accent: Self.accent(row))
   }
+
+  /// A palette key (`01` to `12`); any other text — only a hand edit leaves one — reads as none.
+  private static func accent(_ row: Row) -> String? {
+    guard let text: String = row["accent"] else { return nil }
+    return Self.accentKeys.contains(text) ? text : nil
+  }
+
+  /// The keys of the palette an account may be drawn in.
+  static let accentKeys: Set<String> = Set((1...12).map { String(format: "%02d", $0) })
 
   /// The terms of a credit card. A limit or a grace period that does not read reads as no
   /// credit card, any other term that does not as not said: one damaged cell must not stop the
@@ -238,6 +248,7 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
     container["credit_cash_fee_fixed_e4"] = credit?.cashFeeFixedE4?.raw
     container["credit_cash_no_grace"] = credit?.cashWithoutGrace ?? false
     container["main_card_id"] = mainCardId?.uuidString
+    container["accent"] = accent
   }
 }
 

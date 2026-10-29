@@ -5,7 +5,7 @@ import XCTest
 @testable import OhMyMoney
 
 /// The archive that carries everything to another Mac, written from a real database and read
-/// back: every one of the 42 tables arrives as it left, the counts of the manifest are the rows
+/// back: every one of the 44 tables arrives as it left, the counts of the manifest are the rows
 /// of the files, a password is the same password however it was typed, and a file that was cut,
 /// edited or is no archive at all is refused with the words that say why.
 final class DataScenarioArchiveRoundTripTests: XCTestCase {
@@ -58,7 +58,7 @@ final class DataScenarioArchiveRoundTripTests: XCTestCase {
     _ = try service().exportArchive(to: url("same"))
     let opened = try service().openArchive(at: url("same"))
     let tables = try ExportRepository(writer: stack.writer).tables()
-    XCTAssertEqual(tables.count, 42)
+    XCTAssertEqual(tables.count, 44)
     for table in tables {
       XCTAssertEqual(opened.csv(table: table.name), table.data, table.name)
     }

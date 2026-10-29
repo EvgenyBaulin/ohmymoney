@@ -24,10 +24,10 @@ struct MigrationTests {
     let stack = try TestSupport.makeStack()
     let expected = [
       "account_groups", "allocation_rules", "anomaly_dismissals", "asset_valuations",
-      "assets", "banks", "budget_month_exceptions", "budgets",
+      "assets", "bank_conditions", "banks", "budget_month_exceptions", "budgets",
       "cards", "cashback_rules", "categories", "category_feedback",
       "currencies", "custom_currencies", "day_notes", "debt_costs",
-      "debt_entries", "debt_instalments", "debts", "event_budget_items",
+      "debt_entries", "debt_instalments", "debts", "deposit_offers", "event_budget_items",
       "event_templates", "events", "expected_income", "expected_income_links",
       "goals", "identity_items", "import_batches", "import_mappings",
       "ml_models", "part_tags", "payment_methods", "people",
@@ -276,8 +276,8 @@ extension MigrationTests {
     #expect(before["payment_methods"]?.columns.contains("other_currencies") == false)
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
-    #expect(try stack.appliedMigrations().last == "0014_import_year_questions_subscriptions")
-    #expect(stack.applied.applied == 11)
+    #expect(try stack.appliedMigrations().last == "0015_bank_conditions")
+    #expect(stack.applied.applied == 12)
 
     // The two values the update may change are the flag of the main account and the account
     // of an operation that had none; they are checked on their own below.

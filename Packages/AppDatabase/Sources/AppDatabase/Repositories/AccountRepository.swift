@@ -568,7 +568,7 @@ public struct AccountRepository: Sendable {
       arguments: [main.uuidString])
   }
 
-  /// Deletes the cashback rules of `source`'s own — on the account, not on a card — whose month
+  /// Deletes the cashback rules and the conditions of `source`'s own — on the account, not on a card — whose month
   /// and category a rule of `target`'s own already has: one rule per holder, month and
   /// category (`idx_cashback_rules_key`) would refuse moving them. The target's rule stays. A
   /// merge is no step of ⌘Z, so they are not kept.
@@ -581,6 +581,16 @@ public struct AccountRepository: Sendable {
                       WHERE t.payment_method_id = :target AND t.card_id IS NULL
                         AND COALESCE(t.month, '') = COALESCE(cashback_rules.month, '')
                         AND COALESCE(t.category_id, '') = COALESCE(cashback_rules.category_id, ''))
+        """,
+      arguments: ["source": source.uuidString, "target": target.uuidString])
+    // The conditions of the account itself are one row per account (`idx_bank_conditions_product`):
+    // the target's stay, the source's own are dropped. Those of its cards move with the cards.
+    try db.execute(
+      sql: """
+        DELETE FROM bank_conditions
+        WHERE payment_method_id = :source AND card_id IS NULL
+          AND EXISTS (SELECT 1 FROM bank_conditions t
+                      WHERE t.payment_method_id = :target AND t.card_id IS NULL)
         """,
       arguments: ["source": source.uuidString, "target": target.uuidString])
   }

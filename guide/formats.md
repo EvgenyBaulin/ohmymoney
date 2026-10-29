@@ -9,7 +9,7 @@ Windows.
 ```text
 manifest.json          что это за архив, с контрольными суммами
 data/database.sqlite   согласованный снимок базы (backup API SQLite)
-data/csv/<table>.csv   42 таблицы, как в экспорте CSV
+data/csv/<table>.csv   44 таблицы, как в экспорте CSV
 settings.json          переносимые настройки
 ```
 
@@ -202,6 +202,22 @@ CSV-файлах вместо них десятичные строки, поэт
 вычета и его день, счёт и категории налога, правки справочника), распределение (`allocation.*`),
 долги (`debts.ladder.extra`, `debts.ladder.accountsOut`, `debts.nudgeTemplate`) и категория процентов
 кредитки (`cards.creditInterestCategory`).
+
+**Условия банка, вклады и новые столбцы (схема 15).** В конце списка два файла. `bank_conditions` —
+условия счёта или одной его карты: `id`, `payment_method_id`, `card_id` (пусто — условия самого
+счёта), `currency` и суммы без `_e4` десятичными строками — `free_cash`, `free_sbp`,
+`free_interbank` (сколько в месяц без комиссии), `service_free_spend`, `service_free_balance`
+(при какой трате или остатке обслуживание бесплатно), `min_balance`, и `note`. Пустая сумма —
+условие не указано; нулём она не читается. `deposit_offers` — вклады, которые владелец ввёл сам:
+`id`, `bank_name`, `rate_percent` (десятичная строка с точкой, `15.25`), `term_months`,
+`min_amount`, `max_amount`, `new_client_only`, `needs_subscription`, `topup` (`true`/`false`),
+`rate_on` (день, когда ставка была верной, `YYYY-MM-DD`), `note`, `archived`. Встроенная витрина
+вкладов — данные приложения, не строки, в файл не попадает. Столбцы в конце старых файлов:
+`payment_methods.accent` (ключ цвета счёта `01`–`12`), `cards.expires_on` (`YYYY-MM`, последний
+месяц действия карты), `custom_currencies.rate_source` (`manual` или `coingecko`; пусто — как
+`manual`) и `coin_id` (имя монеты у источника), `expected_income.payout_kind` (`dividend` или
+`coupon`; пусто — обычное поступление) и `asset_id` (вложение, из которого придут деньги). Все они
+пусты у данных старых версий.
 
 **Сверки.** `reconciliations.kind`: `total` — сверка одной суммы в рублях из версии 1.0.0,
 она хранится как история, и остатки от неё не отсчитываются; `accounts` — лист всех счетов и

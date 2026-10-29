@@ -68,6 +68,25 @@ struct ExportPandasTests {
     let (assets, valuations) = Self.assetsAndValuations()
     rows[ExportTables.assets] = assets.map(ExportTables.row)
     rows[ExportTables.assetValuations] = valuations.map(ExportTables.row)
+    // One row of each of the two files of bank conditions and deposits, whatever the sample holds:
+    // stated amounts next to the empty cells of the ones not stated.
+    if let account = set.paymentMethods.first {
+      rows[ExportTables.bankConditions] = [
+        ExportTables.row(
+          BankConditions(
+            id: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000001")!, accountId: account.id,
+            freeCashE4: AmountE4(whole: 100_000), minBalanceE4: AmountE4(raw: 5_000_000),
+            note: "без \"сюрпризов\", с запятой"))
+      ]
+    }
+    rows[ExportTables.depositOffers] = [
+      ExportTables.row(
+        DepositOffer(
+          id: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000002")!, bankName: "Банк",
+          ratePercent: Decimal(string: "15.25")!, termMonths: 12,
+          minAmountE4: AmountE4(whole: 50_000), newClientOnly: true,
+          rateOn: DateOnly(year: 2026, month: 10, day: 1)))
+    ]
     // The tables of loans, allocation and own currencies the sample does not fill yet: headers alone.
     for table in [
       ExportTables.debtInstalments, ExportTables.debtCosts, ExportTables.allocationRules,
@@ -137,7 +156,7 @@ struct ExportPandasTests {
       months: 6, endingOn: Synthetic.endingOn, calendar: Synthetic.calendar, language: "ru"
     ).withAccounts(seed: 20_260_918, calendar: Synthetic.calendar, language: "ru")
     let rows = Self.rows(of: set)
-    #expect(ExportTables.all.count == 42)
+    #expect(ExportTables.all.count == 44)
     #expect(Set(rows.keys) == Set(ExportTables.all), "a file of Export has no rows here")
     for table in [
       ExportTables.accountGroups, ExportTables.transfers, ExportTables.reconciliationBalances,
@@ -169,7 +188,7 @@ struct ExportPandasTests {
     try #require(run.status == 0, "pandas failed: \(run.output)")
     let readings = try JSONDecoder().decode(
       [String: Reading].self, from: Data(contentsOf: output))
-    #expect(readings.count == 42)
+    #expect(readings.count == 44)
     for (path, table) in paths.sorted(by: { $0.key < $1.key }) {
       let reading = try #require(readings[path], "pandas did not read \(table.fileName)")
       #expect(reading.rows == (rows[table] ?? []).count, "\(table.fileName): rows")
@@ -324,7 +343,7 @@ struct ExportPandasTests {
     try #require(run.status == 0, "pandas failed: \(run.output)")
     let readings = try JSONDecoder().decode(
       [String: TextReading].self, from: Data(contentsOf: output))
-    #expect(readings.count == 42)
+    #expect(readings.count == 44)
     for (path, table) in paths.sorted(by: { $0.key < $1.key }) {
       let reading = try #require(readings[path], "pandas did not read \(table.fileName)")
       #expect(reading.rows == (rows[table] ?? []).count, "\(table.fileName): rows")

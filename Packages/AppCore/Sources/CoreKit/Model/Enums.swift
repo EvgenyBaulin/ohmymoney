@@ -150,6 +150,12 @@ public enum ExpectedIncomeKind: String, Codable, Sendable, CaseIterable {
   case recurring
 }
 
+/// What a payout of a holding is (`expected_income.payout_kind`).
+public enum PayoutKind: String, Codable, Sendable, CaseIterable {
+  case dividend
+  case coupon
+}
+
 public enum BudgetScope: String, Codable, Sendable, CaseIterable {
   case category
   case badTotal = "bad_total"

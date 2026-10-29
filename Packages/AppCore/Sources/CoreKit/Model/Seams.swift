@@ -49,3 +49,12 @@ public protocol RatesFetching: Sendable {
 public protocol RandomSource {
   mutating func nextUInt64() -> UInt64
 }
+
+/// Network access for the rates of coins that no bank publishes. The request carries nothing but
+/// the ids of the coins and the currency asked for (rubles); the app layer owns the network, the
+/// core only parses and applies.
+public protocol CryptoRatesFetching: Sendable {
+  /// The price of one unit of each coin in rubles, by coin id; a coin the source does not know
+  /// is left out of the answer.
+  func rubPrices(coinIds: [String]) async throws -> [String: Decimal]
+}

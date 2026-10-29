@@ -25,6 +25,7 @@ public enum SyncTables {
     "statement_profiles": "id", "saved_views": "id", "budget_month_exceptions": "id",
     "event_budget_items": "id", "event_templates": "id", "subscription_terms": "payment_id",
     "subscription_usage": "id", "subscription_users": "id", "subscription_keep_groups": "id",
+    "bank_conditions": "id", "deposit_offers": "id",
   ]
 
   /// The bookkeeping tables of the exchange: not part of the books, left out of every copy of

@@ -12,11 +12,18 @@ public struct CustomCurrency: Identifiable, Hashable, Sendable, Codable {
   public var fractionDigits: Int
   public var archived: Bool
   public var sort: Int
+  /// Where its rate comes from; `nil` reads as `manual`.
+  public var rateSource: CustomRateSource?
+  /// The id the network source knows the coin by; `nil` for a currency typed by hand.
+  public var coinId: String?
 
   public init(
     code: CurrencyCode, name: String, symbol: String? = nil, fractionDigits: Int = 2,
-    archived: Bool = false, sort: Int = 0
+    archived: Bool = false, sort: Int = 0, rateSource: CustomRateSource? = nil,
+    coinId: String? = nil
   ) {
+    self.rateSource = rateSource
+    self.coinId = coinId
     self.code = code
     self.name = name
     self.symbol = symbol
@@ -27,4 +34,10 @@ public struct CustomCurrency: Identifiable, Hashable, Sendable, Codable {
 
   /// The digits after the point a currency may have.
   public static let fractionDigitsRange = 0...4
+}
+
+/// Where the rate of an own currency comes from (`custom_currencies.rate_source`).
+public enum CustomRateSource: String, Codable, Sendable, CaseIterable {
+  case manual
+  case coingecko
 }

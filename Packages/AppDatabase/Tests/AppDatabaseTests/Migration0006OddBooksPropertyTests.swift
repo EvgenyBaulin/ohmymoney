@@ -241,6 +241,7 @@ struct Migration0006OddBooksPropertyTests {
     where ![
       "banks", "cashback_rules", "payment_methods", "debt_entries", "debts", "categories",
       "goals", "transfers", "transactions", "events", "cards", "import_batches",
+      "expected_income", "custom_currencies",
     ].contains(table) {
       #expect(afterUpdate[table] == contents, "seed \(seed): \(table) changed")
     }

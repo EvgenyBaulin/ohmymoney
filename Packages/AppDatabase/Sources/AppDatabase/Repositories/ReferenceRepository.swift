@@ -304,6 +304,7 @@ public struct ReferenceRepository: Sendable {
       ("transactions", "payment_method_id"), ("scheduled_payments", "payment_method_id"),
       ("transfers", "from_payment_method_id"), ("transfers", "to_payment_method_id"),
       ("debt_entries", "payment_method_id"), ("cashback_rules", "payment_method_id"),
+      ("bank_conditions", "payment_method_id"),
       ("expected_income", "payment_method_id"), ("payment_methods", "cashback_points_account_id"),
       ("payment_methods", "interest_account_id"), ("goals", "account_id"),
       ("allocation_rules", "payment_method_id"), ("import_batches", "payment_method_id"),

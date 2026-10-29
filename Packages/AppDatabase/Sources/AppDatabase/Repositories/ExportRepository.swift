@@ -218,6 +218,27 @@ public struct ExportRepository: Sendable {
       {
         csv.append(Self.text(row, ["id", "type"]) + [row["payment_ids"] ?? "[]"])
       }
+    case ExportTables.bankConditions.fileName:
+      for row in try BankConditions.fetchAll(db, sql: "SELECT * FROM bank_conditions ORDER BY id") {
+        csv.append(ExportTables.row(row))
+      }
+    case ExportTables.depositOffers.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM deposit_offers ORDER BY id") {
+        // An offer this build can not read still goes out, in the text of the database.
+        if let offer = try? DepositOffer(row: row) {
+          csv.append(ExportTables.row(offer))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "bank_name", "rate_percent"])
+              + [CSVValue.string(row["term_months"] as Int?)]
+              + Self.amount(row, "min_amount_e4") + Self.amount(row, "max_amount_e4")
+              + [
+                Self.flag(row, "new_client_only", false),
+                Self.flag(row, "needs_subscription", false),
+                Self.flag(row, "topup", false),
+              ] + Self.text(row, ["rate_on", "note"]) + [Self.flag(row, "archived", false)])
+        }
+      }
     default:
       // A table the list gains before its rows are mapped still gets its header row.
       break

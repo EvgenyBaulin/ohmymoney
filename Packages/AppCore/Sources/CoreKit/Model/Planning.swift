@@ -111,13 +111,20 @@ public struct ExpectedIncome: Identifiable, Hashable, Sendable, Codable {
   /// The account the money is to come to; `nil` — the account of the latest income received
   /// for it, else the main account.
   public var paymentMethodId: UUID?
+  /// A dividend or a coupon of a holding; `nil` is an ordinary expected income.
+  public var payoutKind: PayoutKind?
+  /// The holding (an asset of kind `investment`) the money comes from.
+  public var assetId: UUID?
 
   public init(
     id: UUID = UUID(), name: String, categoryId: UUID? = nil, personId: UUID? = nil,
     kind: ExpectedIncomeKind = .oneOff, totalE4: AmountE4, currency: CurrencyCode = .rub,
     dueDate: DateOnly? = nil, freq: Frequency? = nil, day: Int? = nil, partsExpected: Int = 1,
-    closed: Bool = false, paymentMethodId: UUID? = nil
+    closed: Bool = false, paymentMethodId: UUID? = nil, payoutKind: PayoutKind? = nil,
+    assetId: UUID? = nil
   ) {
+    self.payoutKind = payoutKind
+    self.assetId = assetId
     self.id = id
     self.name = name
     self.categoryId = categoryId

@@ -145,7 +145,15 @@ extension CustomCurrency: @retroactive FetchableRecord, @retroactive Persistable
       fractionDigits: ((try? RowMapping.optionalInteger(row, "fraction_digits")) ?? nil)
         .flatMap { CustomCurrency.fractionDigitsRange.contains($0) ? $0 : nil } ?? 2,
       archived: try RowMapping.flag(row, "archived", fallback: false),
-      sort: try RowMapping.optionalInteger(row, "sort") ?? 0)
+      sort: try RowMapping.optionalInteger(row, "sort") ?? 0,
+      rateSource: (row["rate_source"] as String?).flatMap(CustomRateSource.init(rawValue:)),
+      coinId: Self.coinId(row))
+  }
+
+  /// Blank reads as none, like NULL.
+  private static func coinId(_ row: Row) -> String? {
+    guard let text: String = row["coin_id"] else { return nil }
+    return text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : text
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -155,5 +163,7 @@ extension CustomCurrency: @retroactive FetchableRecord, @retroactive Persistable
     container["fraction_digits"] = fractionDigits
     container["archived"] = archived
     container["sort"] = sort
+    container["rate_source"] = rateSource?.rawValue
+    container["coin_id"] = coinId
   }
 }

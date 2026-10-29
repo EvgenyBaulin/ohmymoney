@@ -25,7 +25,7 @@ struct ExportRoundTripPropertyTests {
     "closes_term", "accrues_interest", "tranche", "cushion", "essential", "prepay_any_day",
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
     "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
-    "owner_uses",
+    "owner_uses", "new_client_only", "needs_subscription", "topup",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
@@ -271,6 +271,23 @@ struct ExportRoundTripPropertyTests {
       try db.execute(
         sql: "INSERT INTO subscription_keep_groups (id, type, payment_ids) VALUES (?, 'music', ?)",
         arguments: [UUID().uuidString, "[\"" + payment + "\"]"])
+      // The conditions of a product, a deposit of the owner, and a value in each new column.
+      let account = try #require(
+        try String.fetchOne(db, sql: "SELECT id FROM payment_methods LIMIT 1"))
+      try db.execute(
+        sql:
+          "INSERT INTO bank_conditions (id, payment_method_id, free_cash_e4, note) VALUES (?, ?, 1000000, 'без комиссии')",
+        arguments: [UUID().uuidString, account])
+      try db.execute(
+        sql:
+          "INSERT INTO deposit_offers (id, bank_name, rate_percent, rate_on) VALUES (?, 'Банк', '15.25', '2026-09-01')",
+        arguments: [UUID().uuidString])
+      try db.execute(
+        sql: "UPDATE payment_methods SET accent = '04' WHERE id = ?", arguments: [account])
+      try db.execute(sql: "UPDATE cards SET expires_on = '2029-03'")
+      try db.execute(
+        sql: "UPDATE custom_currencies SET rate_source = 'coingecko', coin_id = 'bitcoin'")
+      try db.execute(sql: "UPDATE expected_income SET payout_kind = 'dividend'")
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -319,17 +336,17 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 14)
+    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 15)
     #expect(plain.files == files)
-    #expect(plain.csvTables.count == 42)
-    #expect(plain.manifest.schemaVersion == 14)
+    #expect(plain.csvTables.count == 44)
+    #expect(plain.manifest.schemaVersion == 15)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 14)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 15)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -397,7 +414,7 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 14)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 15)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 
@@ -415,6 +432,7 @@ struct ExportRoundTripPropertyTests {
           "0012_sync",
           "0013_spending_rules",
           "0014_import_year_questions_subscriptions",
+          "0015_bank_conditions",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -572,7 +590,15 @@ struct ExportRoundTripPropertyTests {
     "transactions.csv:dedup_key", "transfers.csv:arrived_at",
   ]
 
+  /// The columns the bank conditions added (`0015_bank_conditions`).
+  private static let addedByTheConditions: Set<String> = [
+    "payment_methods.csv:accent", "cards.csv:expires_on", "custom_currencies.csv:rate_source",
+    "custom_currencies.csv:coin_id", "expected_income.csv:payout_kind",
+    "expected_income.csv:asset_id",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
+    .union(addedByTheConditions)
 
   /// The columns the credits and the allocation of income added.
   private static let addedByTheCredits: Set<String> = Set(

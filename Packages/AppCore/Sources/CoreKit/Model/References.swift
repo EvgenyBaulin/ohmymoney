@@ -131,6 +131,9 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
   /// The card a purchase on the account is made with unless it says otherwise — always a card
   /// of this account; `nil`: none chosen.
   public var mainCardId: UUID?
+  /// The key of one of the twelve palette colours (`01` to `12`) the account is drawn in;
+  /// `nil`: none chosen.
+  public var accent: String?
 
   public init(
     id: UUID = UUID(), name: String, kind: PaymentMethodKind = .card,
@@ -139,7 +142,7 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
     otherCurrencies: [CurrencyCode] = [], bankId: UUID? = nil,
     cashbackRounding: CashbackRounding = .standard, cashbackPayout: CashbackPayout? = nil,
     cashbackPointsAccountId: UUID? = nil, interest: DepositTerms? = nil, cushion: Bool = false,
-    credit: CreditCardTerms? = nil, mainCardId: UUID? = nil
+    credit: CreditCardTerms? = nil, mainCardId: UUID? = nil, accent: String? = nil
   ) {
     self.id = id
     self.name = name
@@ -159,6 +162,7 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
     self.cushion = cushion
     self.credit = credit
     self.mainCardId = mainCardId
+    self.accent = accent
   }
 
   /// A credit card: an account with a limit, whose balance may go below zero.

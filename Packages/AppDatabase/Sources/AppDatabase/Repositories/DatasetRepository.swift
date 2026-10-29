@@ -133,6 +133,18 @@ public struct DatasetRepository: Sendable {
     var extras = DatasetExtras()
     extras.set(try SubscriptionRepository.book(db), for: Dataset.subscriptionsKey)
     extras.set(try YearPlanRepository.data(db), for: Dataset.yearPlanKey)
+    extras.set(
+      try Row.fetchAll(db, sql: "SELECT * FROM deposit_offers ORDER BY id")
+        .compactMap { try? DepositOffer(row: $0) },
+      for: Dataset.depositOffersKey)
+    // The conditions of bank products the owner typed, and the settings of the bank screens.
+    var bankData = BankData(
+      conditions: try Row.fetchAll(db, sql: "SELECT * FROM bank_conditions ORDER BY id")
+        .compactMap { try? BankConditions(row: $0) },
+      settings: BankSettings(
+        storedValues: try SettingsRepository.values(of: BankSettings.storageKeys, db: db)))
+    bankData.conditions.removeAll { $0.isEmpty }
+    extras.set(bankData, for: Dataset.bankDataKey)
     try Task.checkCancellation()
     return Dataset(
       entries: entries,

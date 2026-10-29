@@ -104,7 +104,9 @@ extension ExpectedIncome: @retroactive FetchableRecord, @retroactive Persistable
       day: try RowMapping.optionalInteger(row, "day"),
       partsExpected: try RowMapping.optionalInteger(row, "parts_expected") ?? 1,
       closed: try RowMapping.flag(row, "closed", fallback: false),
-      paymentMethodId: RowMapping.optionalUUID(row, "payment_method_id"))
+      paymentMethodId: RowMapping.optionalUUID(row, "payment_method_id"),
+      payoutKind: (row["payout_kind"] as String?).flatMap(PayoutKind.init(rawValue:)),
+      assetId: RowMapping.optionalUUID(row, "asset_id"))
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -121,6 +123,8 @@ extension ExpectedIncome: @retroactive FetchableRecord, @retroactive Persistable
     container["parts_expected"] = partsExpected
     container["closed"] = closed
     container["payment_method_id"] = paymentMethodId?.uuidString
+    container["payout_kind"] = payoutKind?.rawValue
+    container["asset_id"] = assetId?.uuidString
   }
 }
 

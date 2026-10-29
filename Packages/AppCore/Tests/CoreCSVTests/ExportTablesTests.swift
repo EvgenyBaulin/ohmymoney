@@ -4,12 +4,12 @@ import Testing
 
 @testable import CoreCSV
 
-/// The 42 file names of the export, in their one fixed order: the 18 of the first schema,
+/// The 44 file names of the export, in their one fixed order: the 18 of the first schema,
 /// then the three the accounts brought, then the cards and their cashback rules, then the banks,
 /// then the assets and their valuations, then the instalments and costs of the debts, the rules
 /// of allocation, the custom currencies and the settings, then the tags, their links, the rules
 /// and the notes of days, then the month limits, the articles and templates of events and the
-/// extras of subscriptions.
+/// extras of subscriptions, then the conditions of bank products and the deposits of the owner.
 private let specifiedFileNames = [
   "transactions.csv", "transaction_parts.csv", "reimbursement_links.csv", "people.csv",
   "payment_methods.csv", "places.csv", "events.csv", "categories.csv", "templates.csv",
@@ -21,16 +21,16 @@ private let specifiedFileNames = [
   "settings.csv", "tags.csv", "part_tags.csv", "rules.csv", "day_notes.csv",
   "budget_month_exceptions.csv", "event_budget_items.csv", "event_templates.csv",
   "subscription_terms.csv", "subscription_usage.csv", "subscription_users.csv",
-  "subscription_keep_groups.csv",
+  "subscription_keep_groups.csv", "bank_conditions.csv", "deposit_offers.csv",
 ]
 
-@Suite("ExportTables describes the 42 files of the export")
+@Suite("ExportTables describes the 44 files of the export")
 struct ExportTablesDescriptionTests {
-  @Test func theFortyTwoFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 42)
+  @Test func theFortyFourFilesInTheirOrder() {
+    #expect(ExportTables.all.count == 44)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.suffix(21) == [
+      ExportTables.all.suffix(23) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -38,7 +38,8 @@ struct ExportTablesDescriptionTests {
         ExportTables.budgetMonthExceptions, ExportTables.eventBudgetItems,
         ExportTables.eventTemplates, ExportTables.subscriptionTerms,
         ExportTables.subscriptionUsage, ExportTables.subscriptionUsers,
-        ExportTables.subscriptionKeepGroups,
+        ExportTables.subscriptionKeepGroups, ExportTables.bankConditions,
+        ExportTables.depositOffers,
       ])
   }
 
@@ -59,15 +60,16 @@ struct ExportTablesDescriptionTests {
       ])
     #expect(
       ExportTables.customCurrencies.columns == [
-        "code", "name", "symbol", "fraction_digits", "archived", "sort",
+        "code", "name", "symbol", "fraction_digits", "archived", "sort", "rate_source",
+        "coin_id",
       ])
     #expect(ExportTables.settings.columns == ["key", "value"])
     #expect(
-      Array(ExportTables.paymentMethods.columns.suffix(14)) == [
+      Array(ExportTables.paymentMethods.columns.suffix(15)) == [
         "cushion", "credit_limit", "credit_grace", "credit_statement_day", "credit_pay_days",
         "credit_grace_days", "credit_purchase_rate", "credit_cash_rate", "credit_min_percent",
         "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
-        "credit_cash_no_grace", "main_card_id",
+        "credit_cash_no_grace", "main_card_id", "accent",
       ])
     #expect(
       Array(ExportTables.categories.columns.suffix(4)) == [
@@ -132,7 +134,7 @@ struct ExportTablesDescriptionTests {
     #expect(
       ExportTables.expectedIncome.columns == [
         "id", "name", "category_id", "person_id", "kind", "total", "currency", "due_date",
-        "freq", "day", "parts_expected", "closed", "payment_method_id",
+        "freq", "day", "parts_expected", "closed", "payment_method_id", "payout_kind", "asset_id",
       ])
     #expect(
       Array(ExportTables.goals.columns.prefix(9)) == [
@@ -160,6 +162,7 @@ struct ExportTablesDescriptionTests {
       ExportTables.cards.columns == [
         "id", "payment_method_id", "name", "aliases", "sort", "archived", "fx_fee",
         "atm_fee_percent", "atm_fee_fixed", "atm_fee_fixed_currency", "last4", "details",
+        "expires_on",
       ])
     #expect(
       ExportTables.cashbackRules.columns == [
@@ -204,7 +207,7 @@ struct ExportTablesDescriptionTests {
     }
     #expect(ExportTables.transactions.columns.count == 33)
     #expect(ExportTables.transactionParts.columns.count == 17)
-    #expect(ExportTables.paymentMethods.columns.count == 36)
+    #expect(ExportTables.paymentMethods.columns.count == 37)
     #expect(ExportTables.templates.columns.count == 8)
     #expect(ExportTables.goals.columns.count == 12)
     #expect(ExportTables.debtEntries.columns.count == 18)

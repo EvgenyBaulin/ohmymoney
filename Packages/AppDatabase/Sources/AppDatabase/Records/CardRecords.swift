@@ -18,7 +18,8 @@ extension PaymentCard: @retroactive FetchableRecord, @retroactive PersistableRec
       sort: try RowMapping.optionalInteger(row, "sort") ?? 0,
       archived: try RowMapping.flag(row, "archived", fallback: false),
       foreign: Self.foreignTerms(row),
-      last4: Self.text(row, "last4"), details: Self.text(row, "details"))
+      last4: Self.text(row, "last4"), details: Self.text(row, "details"),
+      expiresOn: RowMapping.month(row, "expires_on"))
   }
 
   /// A text column where blank reads as none, like NULL.
@@ -58,6 +59,7 @@ extension PaymentCard: @retroactive FetchableRecord, @retroactive PersistableRec
     container["archived"] = archived
     container["last4"] = last4
     container["details"] = details
+    container["expires_on"] = expiresOn?.iso
   }
 }
 

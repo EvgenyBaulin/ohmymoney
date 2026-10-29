@@ -33,7 +33,7 @@ struct LegacyDatabaseTests {
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 14)
+    #expect(try stack.appliedMigrations().count == 15)
 
     // Of the three accounts flagged main — the everyday card, a second live one and an
     // archived one — the card with the operations stays main.
@@ -229,7 +229,7 @@ struct LegacyDatabaseTests {
         try DatabaseStack(url: book.url, schema: TestSupport.schemaSource, context: stopping)
       })
     #expect(failure.from == 3)
-    #expect(failure.to == 14)
+    #expect(failure.to == 15)
     #expect(failure.migration == "0004_accounts")
 
     #expect(
@@ -245,7 +245,7 @@ struct LegacyDatabaseTests {
     // And it migrates once nothing stops it.
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
-    #expect(try stack.appliedMigrations().count == 14)
+    #expect(try stack.appliedMigrations().count == 15)
     try stack.close()
   }
 
@@ -270,7 +270,7 @@ struct LegacyDatabaseTests {
     }
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 14)
+    #expect(try stack.appliedMigrations().count == 15)
     #expect(stack.applied.dataSteps["mainCreated"] == 1)
     let orphans = try stack.writer.read { db in
       try Row.fetchAll(db, sql: "PRAGMA foreign_key_check").count
@@ -669,6 +669,7 @@ struct PendingMigrationsTests {
           "0012_sync",
           "0013_spending_rules",
           "0014_import_year_questions_subscriptions",
+          "0015_bank_conditions",
         ])
     // Asking leaves the folder as it was: no log is left for the next file of that name.
     #expect(try FileManager.default.contentsOfDirectory(atPath: folder).sorted() == files)
@@ -773,7 +774,7 @@ struct MigrationDryRunTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 3 -> 14 (applied 11)"))
+    #expect(output.contains("schema: 3 -> 15 (applied 12)"))
     #expect(output.contains(" assigned=\(book.unassignedCount) "))
     #expect(output.contains(" defaultsCleared=2 "))
     #expect(output.contains(" cardsCreated=\(book.cardsStep["cardsCreated"] ?? -1) "))
@@ -813,6 +814,7 @@ struct MigrationDryRunTests {
           "0012_sync",
           "0013_spending_rules",
           "0014_import_year_questions_subscriptions",
+          "0015_bank_conditions",
         ])
   }
 
