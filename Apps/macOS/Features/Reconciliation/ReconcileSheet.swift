@@ -41,6 +41,8 @@ struct ReconcileSheet: View {
   /// The key of why the last press saved nothing, until the next one: the sheet is never left
   /// open without a word.
   @State private var failure: String?
+  /// The balance whose «По купюрам» popover is open.
+  @State private var countingByBill: BalanceKey?
 
   var body: some View {
     let snapshot = compute.snapshot
@@ -234,6 +236,28 @@ struct ReconcileSheet: View {
           Text(verbatim: t(note))
             .appFont(.caption)
             .foregroundStyle(.secondary)
+        }
+        if Self.countsByBill(row, accounts: snapshot.dataset.paymentMethods) {
+          Button(t("reconcile.cash.byBill")) { countingByBill = row.key }
+            .buttonStyle(.link)
+            .appFont(.caption)
+            .accessibilityIdentifier("reconcile.cash.byBill")
+            .accessibilityLabel(
+              Text(
+                verbatim: Self.spoken(t("reconcile.cash.byBill"), account: name, currency: currency)
+              )
+            )
+            .popover(
+              isPresented: Binding(
+                get: { countingByBill == row.key },
+                set: { if !$0 { countingByBill = nil } })
+            ) {
+              CashCountPopover(currency: currency) { total in
+                Self.typing(total: total, row: compared, typed: &typed, blank: &blank)
+                countingByBill = nil
+              }
+              .handingOver(dependencies)
+            }
         }
       }
       .frame(minWidth: 150, alignment: .leading)
@@ -512,6 +536,22 @@ struct ReconcileSheet: View {
     } else {
       blank.remove(row.key)
     }
+  }
+
+  /// Whether the row is a cash wallet with bills to count: an account of the cash kind, in
+  /// a currency with a table of denominations.
+  static func countsByBill(_ row: ReconcileRow, accounts: [PaymentMethod]) -> Bool {
+    guard row.isHeld, CashCount.denominations(for: row.key.currency) != nil else { return false }
+    return accounts.first { $0.id == row.key.accountId }?.kind == .cash
+  }
+
+  /// The sum counted by the bill becomes what the owner typed for the row, as if he had typed it.
+  static func typing(
+    total: AmountE4, row: ReconcileRow,
+    typed: inout [BalanceKey: AmountE4], blank: inout Set<BalanceKey>
+  ) {
+    typed[row.key] = total
+    blank.remove(row.key)
   }
 
   /// Why a row is not an ordinary one, as a key of the Planning table: an archived account
