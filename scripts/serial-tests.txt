@@ -5,3 +5,4 @@ SmokeTests        # the bundle id of the host as built: a worker's copy has an i
 UpdatesTests      # Sparkle's sandbox exceptions are named after the host's own bundle id
 EntryWalkTests    # SwiftUI moves the keyboard of a window only in the active app
 AppWindowsTests   # AppKit orders the windows strictly only in the active app
+HiddenAmountsTests # the eye of the toolbar is relabelled only while the app is the active one

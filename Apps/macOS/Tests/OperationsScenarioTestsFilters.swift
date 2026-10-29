@@ -47,7 +47,8 @@ final class OperationsScenarioFiltersTests: XCTestCase {
       draft.normalizeSinglePart()
       draft.parts[0].categoryId = (category ?? (kind == .income ? salary : food)).id
     }
-    return try draft.materialize(now: at(day, hour, minute))
+    // The operation records the zone it was made in; the history is read in UTC here.
+    return try draft.materialize(now: at(day, hour, minute), timeZone: calendar.timeZone)
   }
 
   private func ledger(_ entries: [TransactionEntry], transfers: [Transfer] = []) -> Ledger {

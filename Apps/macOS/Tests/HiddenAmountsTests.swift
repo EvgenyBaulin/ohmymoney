@@ -184,6 +184,7 @@ final class HiddenAmountsTests: XCTestCase {
 
   func testTheEyeOnTheToolbarSwitchesTheAmounts() throws {
     try TestEnvironment.requireScreen(width: 1120)
+    try TestEnvironment.requireActiveApp()
     let window = mainWindow()
     let hide = environment.language("privacy.hideAmounts")
     let show = environment.language("privacy.showAmounts")

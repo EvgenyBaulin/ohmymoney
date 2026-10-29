@@ -43,16 +43,19 @@ final class AccountEditorScrollTests: XCTestCase {
   }
 
   /// The name of the account, of its new bank and another name read from the left; «Остаток
-  /// сейчас» alone stays on the right. A text on the right hides a space typed last.
+  /// сейчас» and the sums of «Условия банка» stay on the right. A text on the right hides a space typed last.
   func testTheNamesOfAnAccountReadFromTheLeftAndTheBalanceFromTheRight() throws {
     let window = try show(
       AccountEditor(previous: nil, defaultCurrency: CurrencyCode("RUB"), finish: { _ in }))
     // The name, the name of the new bank, the balance once the books are read, another name.
     waitFor { self.fields(in: window).count >= 4 }
     let fields = fields(in: window)
-    XCTAssertEqual(fields.count, 4, "the fields of a new account")
+    XCTAssertGreaterThanOrEqual(fields.count, 4, "the fields of a new account")
+    // The sums of «Условия банка» read from the right like the balance; the balance is the one
+    // sum that has no «—» in it.
     XCTAssertEqual(
-      fields.filter { $0.alignment == .right }.count, 1, "only the balance reads from the right")
+      fields.filter { $0.alignment == .right && !isAmount($0) }.count, 1,
+      "only the balance reads from the right among the other fields")
     for field in fields where field.alignment != .right {
       XCTAssertTrue(
         [.left, .natural].contains(field.alignment), "a name field aligned \(field.alignment)")
@@ -69,7 +72,7 @@ final class AccountEditorScrollTests: XCTestCase {
       let window = try show(editor)
       let fields = fields(in: window)
       XCTAssertFalse(fields.isEmpty, "no field in the \(name) form")
-      for field in fields {
+      for field in fields where !isAmount(field) {
         XCTAssertTrue(
           [.left, .natural].contains(field.alignment),
           "a name field of the \(name) form aligned \(field.alignment)")
@@ -138,6 +141,11 @@ final class AccountEditorScrollTests: XCTestCase {
   private func fields(in window: NSWindow) -> [NSTextField] {
     guard let root = window.contentView else { return [] }
     return textFields(in: root).filter(\.isEditable)
+  }
+
+  /// A sum of «Условия банка»: it says «—» while empty and reads from the right.
+  private func isAmount(_ field: NSTextField) -> Bool {
+    field.placeholderString == "—" && field.alignment == .right
   }
 
   private func settle(_ seconds: TimeInterval = 0.2) {

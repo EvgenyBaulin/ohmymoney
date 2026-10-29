@@ -953,8 +953,9 @@ final class TransactionEditorAccountsTests: XCTestCase {
     return try repository.save(try draft.materialize(now: at))
   }
 
+  // Yesterday at noon UTC stays «yesterday» in any zone of the Mac, which the editor reads days in.
   func testAnEditThatMovesAnOperationOntoTheDayOfACountAsksFirst() throws {
-    let taxi = try taxi(at: moment(yesterday, 20))
+    let taxi = try taxi(at: moment(yesterday, 12))
     let saved = moment(today, 15)
     let balances = countedAt1405(now: saved)
     let editor = editor(of: taxi)
@@ -964,7 +965,7 @@ final class TransactionEditorAccountsTests: XCTestCase {
     XCTAssertFalse(
       editor.save(store: store, environment: environment, balances: balances, now: saved))
     XCTAssertEqual(editor.countQuestion?.count, moment(today, 14, 5))
-    XCTAssertEqual(try repository.entry(id: taxi.id)?.transaction.occurredAt, moment(yesterday, 20))
+    XCTAssertEqual(try repository.entry(id: taxi.id)?.transaction.occurredAt, moment(yesterday, 12))
 
     // «Нет»: after the count; the save goes on and does not ask again.
     editor.answerCount(moment(today, 14, 5), wasBefore: false)
@@ -994,7 +995,7 @@ final class TransactionEditorAccountsTests: XCTestCase {
   /// opened, or when the inspector is folded away — hands the editor no balances: it asks by
   /// the balances of the window that showed it, the same question the button asks.
   func testASaveFromTheQuestionsOfTheWindowAsksByTheBalancesTheEditorWasShownWith() throws {
-    let taxi = try taxi(at: moment(yesterday, 20))
+    let taxi = try taxi(at: moment(yesterday, 12))
     let saved = moment(today, 15)
     let balances = countedAt1405(now: saved)
     let editor = editor(of: taxi)
@@ -1003,7 +1004,7 @@ final class TransactionEditorAccountsTests: XCTestCase {
 
     XCTAssertFalse(editor.save(store: store, environment: environment, now: saved))
     XCTAssertEqual(editor.countQuestion?.count, moment(today, 14, 5))
-    XCTAssertEqual(try repository.entry(id: taxi.id)?.transaction.occurredAt, moment(yesterday, 20))
+    XCTAssertEqual(try repository.entry(id: taxi.id)?.transaction.occurredAt, moment(yesterday, 12))
 
     // Balances handed in win over the window's.
     let elsewhere = self.editor(of: taxi)
@@ -1017,10 +1018,10 @@ final class TransactionEditorAccountsTests: XCTestCase {
   /// after it, the edit asks too — only its amount, type and currency stay as they were.
   func testMoneyBackMovedOntoTheDayOfACountAsksFirst() throws {
     var draft = TransactionDraft(
-      kind: .reimbursement, occurredAt: moment(yesterday, 20), amount: AmountE4(whole: 1_700),
+      kind: .reimbursement, occurredAt: moment(yesterday, 12), amount: AmountE4(whole: 1_700),
       paymentMethodId: card.id)
     draft.normalizeSinglePart()
-    let back = try repository.save(try draft.materialize(now: moment(yesterday, 20)))
+    let back = try repository.save(try draft.materialize(now: moment(yesterday, 12)))
     let saved = moment(today, 15)
     let balances = countedAt1405(now: saved)
     let editor = editor(of: back)
@@ -1029,7 +1030,7 @@ final class TransactionEditorAccountsTests: XCTestCase {
     XCTAssertFalse(
       editor.save(store: store, environment: environment, balances: balances, now: saved))
     XCTAssertEqual(editor.countQuestion?.count, moment(today, 14, 5))
-    XCTAssertEqual(try repository.entry(id: back.id)?.transaction.occurredAt, moment(yesterday, 20))
+    XCTAssertEqual(try repository.entry(id: back.id)?.transaction.occurredAt, moment(yesterday, 12))
 
     // «Нет»: the money came after the count.
     editor.answerCount(moment(today, 14, 5), wasBefore: false)
