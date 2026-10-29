@@ -34,6 +34,7 @@ final class PlanningScenarioTestsActions: XCTestCase {
     store.attach(transactions, references: references, planning: planning)
     compute = ComputeStore(calendar: .utc, rebuildsInline: true)
     environment = AppEnvironment()
+    environment.calendar = .utc  // the days of these tests are UTC days
     let noon = S.calendar.noon(of: today)
     environment.now = { noon }
     for category in [food, home, goalsRoot] { try references.save(category) }

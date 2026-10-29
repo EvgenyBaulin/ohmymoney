@@ -14,12 +14,12 @@ final class LastRecordAndUpcomingTests: XCTestCase {
 
   /// 14:35 of a day, in the calendar the app shows times in.
   private func at(_ day: DateOnly, _ environment: AppEnvironment) -> Date {
-    environment.calendar.startOfDay(day).addingTimeInterval(14 * 3600 + 35 * 60)
+    environment.calendar.moment(day, hour: 14, minute: 35)
   }
 
   func testTheLastRecordLineInBothLanguages() {
     let environment = AppEnvironment()
-    let now = environment.calendar.startOfDay(today).addingTimeInterval(18 * 3600)
+    let now = environment.calendar.moment(today, hour: 18, minute: 0)
     environment.now = { now }
     let yesterday = DateOnly(year: 2026, month: 9, day: 26)
     let earlier = DateOnly(year: 2026, month: 9, day: 25)
@@ -59,7 +59,7 @@ final class LastRecordAndUpcomingTests: XCTestCase {
   /// The line reads the moment from the data: the latest write, lines of the books left out.
   func testTheLineFollowsTheLatestWrite() {
     let environment = AppEnvironment()
-    let now = environment.calendar.startOfDay(today).addingTimeInterval(18 * 3600)
+    let now = environment.calendar.moment(today, hour: 18, minute: 0)
     environment.now = { now }
     environment.language.choice = .english
     let id = UUID()

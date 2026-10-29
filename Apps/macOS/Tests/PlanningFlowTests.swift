@@ -27,7 +27,9 @@ final class PlanningFlowTests: XCTestCase {
   }
 
   private var deps: AppDependencies {
-    AppDependencies(environment: AppEnvironment(), store: store, compute: compute)
+    let environment = AppEnvironment()
+    environment.calendar = .utc  // the days of these tests are UTC days
+    return AppDependencies(environment: environment, store: store, compute: compute)
   }
 
   /// The data the actions read — the tree of categories — as the pipeline would show it.

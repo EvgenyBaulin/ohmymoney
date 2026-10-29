@@ -31,7 +31,7 @@ struct OverviewFiguresTests {
     draft.parts = [
       PartDraft(categoryId: category.id, amount: AmountE4(whole: whole), forWhom: whom)
     ]
-    return try draft.materialize()
+    return try draft.materialize(timeZone: CalendarContext.utc.timeZone)
   }
 
   private func earn(
@@ -42,7 +42,7 @@ struct OverviewFiguresTests {
     var draft = TransactionDraft(
       kind: .income, occurredAt: at(month, day), amount: AmountE4(whole: whole))
     draft.parts = [PartDraft(categoryId: category.id, amount: AmountE4(whole: whole))]
-    return try draft.materialize()
+    return try draft.materialize(timeZone: CalendarContext.utc.timeZone)
   }
 
   private func figures(
