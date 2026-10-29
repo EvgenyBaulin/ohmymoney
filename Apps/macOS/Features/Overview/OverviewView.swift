@@ -117,6 +117,7 @@ private struct OverviewHeader: View {
         .padding(.horizontal, 4)
       }
       OverviewEditBar(screen: screen)
+      SummaryAnnouncementCard()
       if OverviewHero.shows(forWidth: width) { OverviewHero() }
       if OverviewAccountsStrip.shows { OverviewAccountsStrip() }
       if AccountsSetupCard.shows(setup: environment.accountSetup) {

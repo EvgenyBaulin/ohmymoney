@@ -111,6 +111,9 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .incomeSavings("income.settings.title"), .incomeSavings("income.settings.needs"),
         .incomeSavings("income.settings.wants"), .incomeSavings("income.settings.earningsOnly"),
         .incomeSavings("income.settings.trendNudge"),
+        .summaries("summaries.settings.title"), .summaries("summaries.settings.week"),
+        .summaries("summaries.settings.month"), .summaries("summaries.settings.year"),
+        .summaries("summaries.settings.open"),
       ]
     case .rules:
       [
@@ -160,6 +163,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func imports(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Import")
+  }
+
+  static func summaries(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "Summaries")
   }
 
   static func incomeSavings(_ key: String) -> SettingsCaption {
