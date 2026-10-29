@@ -93,7 +93,7 @@ struct PhoneTabBar: View {
     }
     .padding(.horizontal, 8)
     .padding(.vertical, 6)
-    .background(colors.background, in: RoundedRectangle(cornerRadius: 32, style: .continuous))
+    .background(colors.background, in: RoundedRectangle(cornerRadius: 34, style: .continuous))
     .shadow(color: .black.opacity(0.18), radius: 12, y: 4)
     // The bar floats: a margin on every side, the page shows around it (design: tab bar pill).
     .padding(.horizontal, 16)

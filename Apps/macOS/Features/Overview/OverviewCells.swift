@@ -4,6 +4,15 @@ import SwiftUI
 // MARK: - Rows of cells
 
 extension OverviewCard {
+  /// The gap between the two cards of a pair: 12 pt on a phone, as the design draws it.
+  static var pairSpacing: CGFloat {
+    #if os(iOS)
+      12
+    #else
+      8
+    #endif
+  }
+
   /// How many columns of the grid a cell takes: a chart or a list the whole width, everything
   /// else — a tile or a pair — one.
   static func span(of cell: OverviewLayout.Cell, columns: Int) -> Int {
@@ -60,7 +69,7 @@ struct OverviewCellView: View {
       OverviewTileFrame(tile: tile, actions: actions, screen: screen)
     case .pair(let first, let second):
       VStack(alignment: .leading, spacing: 6) {
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top, spacing: OverviewCard.pairSpacing) {
           OverviewTileFrame(tile: first, actions: actions, screen: screen)
           OverviewTileFrame(tile: second, actions: actions, screen: screen)
         }

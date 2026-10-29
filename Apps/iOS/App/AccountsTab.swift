@@ -73,6 +73,8 @@ struct AccountsTab<Entry: View>: View {
       AccountScreen(accountId: id, actions: actions).id(id)
     case .group(let id):
       GroupScreen(scope: .group(id), actions: actions) { shown = .account($0) }.id(id)
+    case .bank(let id):
+      BankScreen(bankId: id).id(id)
     default:
       GroupScreen(scope: .summary, actions: actions) { shown = .account($0) }
     }

@@ -20,9 +20,29 @@ struct AppearancePreviewSheet: View {
   @State private var actions = OperationActions()
   @State private var operations = OperationsScreenState()
 
-  /// The size a screen is laid out at, and the scale it is shown at.
+  /// The size a screen is laid out at, and the scale it is shown at, on a wide sheet.
   static let screenSize = CGSize(width: 1_100, height: 760)
   static let scale: CGFloat = 0.65
+  /// The size of the screens of a phone, which a narrow sheet lays them out at.
+  static let phoneScreenSize = CGSize(width: 390, height: 760)
+  /// The widest a sheet can be and still hold the wide screens.
+  static let wideFrom: CGFloat = 700
+
+  /// The width the sheet has for the screens, as measured; `0` until it is.
+  @State private var available: CGFloat = 0
+
+  /// How the screens are laid out and scaled in a sheet `availableWidth` wide: the Mac's sheet
+  /// and a tablet's hold the wide screens, a phone's holds the screens of a phone at their own
+  /// size, so nothing runs off the edge. Unmeasured, the wide layout.
+  static func canvas(availableWidth: CGFloat) -> (size: CGSize, scale: CGFloat) {
+    guard availableWidth > 0 else { return (screenSize, scale) }
+    if availableWidth >= wideFrom {
+      return (screenSize, min(scale, availableWidth / screenSize.width))
+    }
+    return (phoneScreenSize, min(1, availableWidth / phoneScreenSize.width))
+  }
+
+  private var canvas: (size: CGSize, scale: CGFloat) { Self.canvas(availableWidth: available) }
 
   init(draft: AppearanceThemeDraft) {
     _draft = State(initialValue: draft)
@@ -31,6 +51,26 @@ struct AppearancePreviewSheet: View {
   private var colors: AppThemeColors { draft.colors(increasedContrast: contrast == .increased) }
 
   var body: some View {
+    #if os(macOS)
+      content
+        .padding(20)
+        .frame(width: Self.screenSize.width * Self.scale + 40)
+    #else
+      // On a phone or a tablet the sheet scrolls: the header, the screen and the buttons do not
+      // fit one above the other.
+      ScrollView {
+        content
+          .padding(20)
+          .onGeometryChange(for: CGFloat.self) {
+            $0.size.width - 40
+          } action: {
+            available = $0
+          }
+      }
+    #endif
+  }
+
+  private var content: some View {
     VStack(alignment: .leading, spacing: 12) {
       header
       status
@@ -40,8 +80,6 @@ struct AppearancePreviewSheet: View {
         .foregroundStyle(.secondary)
       footer
     }
-    .padding(20)
-    .frame(width: Self.screenSize.width * Self.scale + 40)
     .accessibilityIdentifier("appearance.preview")
     // Opened on a theme: the data is recounted so the figures shown are fresh. From then on the
     // screens follow the pipeline by themselves, as they do in the main window.
@@ -49,27 +87,42 @@ struct AppearancePreviewSheet: View {
   }
 
   private var header: some View {
-    HStack {
-      Text(
-        verbatim: environment.format(
-          "appearance.preview.title", table: "Appearance",
-          environment.language(draft.themeID.nameKey, table: "Themes"))
-      )
-      .appFont(.headline)
-      Spacer()
-      Picker(selection: $draft.scheme) {
-        Text(verbatim: environment.language("appearance.scheme.light", table: "Appearance"))
-          .tag(ColorScheme.light)
-        Text(verbatim: environment.language("appearance.scheme.dark", table: "Appearance"))
-          .tag(ColorScheme.dark)
-      } label: {
-        Text(verbatim: environment.language("appearance.scheme.title", table: "Appearance"))
+    // Side by side where there is room; the switch under the title where there is not.
+    ViewThatFits(in: .horizontal) {
+      HStack {
+        title
+        Spacer()
+        schemePicker.frame(width: 180)
       }
-      .pickerStyle(.segmented)
-      .labelsHidden()
-      .frame(width: 180)
-      .accessibilityIdentifier("appearance.preview.scheme")
+      VStack(alignment: .leading, spacing: 8) {
+        title
+        schemePicker
+      }
     }
+  }
+
+  private var title: some View {
+    Text(
+      verbatim: environment.format(
+        "appearance.preview.title", table: "Appearance",
+        environment.language(draft.themeID.nameKey, table: "Themes"))
+    )
+    .appFont(.headline)
+    .fixedSize(horizontal: false, vertical: true)
+  }
+
+  private var schemePicker: some View {
+    Picker(selection: $draft.scheme) {
+      Text(verbatim: environment.language("appearance.scheme.light", table: "Appearance"))
+        .tag(ColorScheme.light)
+      Text(verbatim: environment.language("appearance.scheme.dark", table: "Appearance"))
+        .tag(ColorScheme.dark)
+    } label: {
+      Text(verbatim: environment.language("appearance.scheme.title", table: "Appearance"))
+    }
+    .pickerStyle(.segmented)
+    .labelsHidden()
+    .accessibilityIdentifier("appearance.preview.scheme")
   }
 
   /// The state of the data under the preview, in the words of every other block.
@@ -129,11 +182,12 @@ struct AppearancePreviewSheet: View {
       .labelsHidden()
       .accessibilityIdentifier("appearance.preview.screens")
 
+      let canvas = self.canvas
       screen
-        .frame(width: Self.screenSize.width, height: Self.screenSize.height)
-        .scaleEffect(Self.scale, anchor: .topLeading)
+        .frame(width: canvas.size.width, height: canvas.size.height)
+        .scaleEffect(canvas.scale, anchor: .topLeading)
         .frame(
-          width: Self.screenSize.width * Self.scale, height: Self.screenSize.height * Self.scale,
+          width: canvas.size.width * canvas.scale, height: canvas.size.height * canvas.scale,
           alignment: .topLeading
         )
         .clipShape(RoundedRectangle(cornerRadius: 12))

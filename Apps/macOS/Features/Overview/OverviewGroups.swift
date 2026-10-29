@@ -148,6 +148,23 @@ private struct OverviewGroupHeader: View {
   let screen: OverviewScreen
   @State private var targeted = false
 
+  /// The name of a group is a heading of 15 pt semibold on the phone, as the design draws the
+  /// headings of its sections; on the Mac a quiet secondary line.
+  private static var nameFont: AppFont {
+    #if os(iOS)
+      .subheadline.weight(.semibold)
+    #else
+      .callout.weight(.medium)
+    #endif
+  }
+  private static var nameIsPrimary: Bool {
+    #if os(iOS)
+      true
+    #else
+      false
+    #endif
+  }
+
   var body: some View {
     let name = OverviewTileText.groupName(of: group, environment)
     if screen.isEditing {
@@ -189,8 +206,8 @@ private struct OverviewGroupHeader: View {
       } label: {
         HStack(spacing: 6) {
           Text(verbatim: name)
-            .appFont(.callout.weight(.medium))
-            .foregroundStyle(.secondary)
+            .appFont(Self.nameFont)
+            .foregroundStyle(Self.nameIsPrimary ? .primary : .secondary)
           Image(systemName: "chevron.down")
             .appFont(.caption.weight(.semibold))
             .foregroundStyle(.secondary)

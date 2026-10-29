@@ -61,15 +61,25 @@ struct AppearanceSettingsView: View {
       Section {
         // «Как в теме», then a row of circles, as in System Settings. The chosen one is ringed,
         // and its name stands under the title of the row, so nothing is told by colour alone.
-        LabeledContent {
-          AccentSwatches(selection: $theme.accent) { accent in
-            Self.accentTitle(accent, environment)
+        #if os(iOS)
+          // A phone has no room for the title and eleven choices side by side: the choices wrap
+          // under the title.
+          VStack(alignment: .leading, spacing: 10) {
+            accentTitle(theme.accent)
+            AccentSwatches(selection: $theme.accent) { accent in
+              Self.accentTitle(accent, environment)
+            }
           }
-        } label: {
-          Text(verbatim: environment.language("settings.appearance.accent", table: "Settings"))
-          Text(verbatim: Self.accentTitle(theme.accent, environment))
-            .accessibilityIdentifier("settings.appearance.accent.chosen")
-        }
+          .padding(.vertical, 4)
+        #else
+          LabeledContent {
+            AccentSwatches(selection: $theme.accent) { accent in
+              Self.accentTitle(accent, environment)
+            }
+          } label: {
+            accentTitle(theme.accent)
+          }
+        #endif
       } footer: {
         Text(verbatim: environment.language("appearance.accent.hint", table: "Appearance"))
           .appFont(.callout)
@@ -104,7 +114,9 @@ struct AppearanceSettingsView: View {
       OverviewTilesSection()
     }
     .formStyle(.grouped)
-    .padding()
+    #if os(macOS)
+      .padding()
+    #endif
     .accessibilityIdentifier("settings.appearance")
     // A sheet is a host of its own: the dependencies are handed over.
     .sheet(item: $previewing) { id in
@@ -114,6 +126,18 @@ struct AppearanceSettingsView: View {
       )
       .handingOver(dependencies)
     }
+  }
+}
+
+extension AppearanceSettingsView {
+  /// «Акцент» and under it the name of the chosen one, so nothing is told by colour alone.
+  @ViewBuilder
+  fileprivate func accentTitle(_ accent: AppTheme.Accent) -> some View {
+    Text(verbatim: environment.language("settings.appearance.accent", table: "Settings"))
+    Text(verbatim: Self.accentTitle(accent, environment))
+      .appFont(.callout)
+      .foregroundStyle(.secondary)
+      .accessibilityIdentifier("settings.appearance.accent.chosen")
   }
 }
 
@@ -155,9 +179,17 @@ struct AccentSwatches: View {
   let name: (AppTheme.Accent) -> String
 
   static let diameter: CGFloat = 18
+  /// Room around a circle that is part of its button but not of its picture.
+  static var touchMargin: CGFloat {
+    #if os(iOS)
+      10
+    #else
+      0
+    #endif
+  }
 
   var body: some View {
-    HStack(spacing: 10) {
+    FlowRow(spacing: 10, lineSpacing: 8) {
       let followsTheme = selection == .theme
       Button {
         selection = .theme
@@ -192,7 +224,9 @@ struct AccentSwatches: View {
                 Circle().strokeBorder(.primary, lineWidth: 2)
               }
             }
-            .contentShape(Circle())
+            // A finger needs 44 pt to hit; the pointer is happy with the circle.
+            .padding(Self.touchMargin)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .help(name(accent))

@@ -375,10 +375,11 @@ struct OverviewTitleActions: View {
   let deps: AppDependencies
   let router: PhoneRouter
   let screen: OverviewScreen
+  @Environment(\.themeSurfaces) private var surfaces
 
   var body: some View {
     let environment = deps.environment
-    HStack(spacing: 16) {
+    HStack(spacing: 12) {
       if screen.isEditing {
         Button(environment.language("overview.edit.done", table: "Overview")) { screen.done() }
           .fontWeight(.semibold)
@@ -474,8 +475,13 @@ struct OverviewTitleActions: View {
             }
           }
         } label: {
-          Image(systemName: "ellipsis.circle")
-            .appFont(.title3)
+          // The round button of the design: the card colour, a hairline, 44 pt to touch.
+          Image(systemName: "ellipsis")
+            .appFont(.body)
+            .foregroundStyle(surfaces.primary)
+            .frame(width: 44, height: 44)
+            .background(surfaces.card, in: .circle)
+            .overlay { Circle().strokeBorder(surfaces.cardBorder, lineWidth: 0.5) }
             .accessibilityLabel(
               Text(verbatim: environment.language("phone.tab.more", table: "Phone")))
         }

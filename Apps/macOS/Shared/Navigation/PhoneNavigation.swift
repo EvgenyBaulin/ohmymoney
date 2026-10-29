@@ -51,7 +51,7 @@ enum PhoneNavigation {
   static func route(forItem item: SidebarItem) -> PhoneRoute {
     switch item {
     case .section(let section): route(forSection: section)
-    case .account, .group, .allAccounts: PhoneRoute(tab: .accounts, account: item)
+    case .account, .group, .allAccounts, .bank: PhoneRoute(tab: .accounts, account: item)
     }
   }
 }

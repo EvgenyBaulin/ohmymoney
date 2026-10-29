@@ -196,13 +196,22 @@ public final class AppTheme {
       guard !AppEnvironment.isTestHost, let application = NSApp else { return }
       applyAppearance(to: application)
     #else
+      guard !AppEnvironment.isTestHost else { return }
       for scene in UIApplication.shared.connectedScenes {
         for window in (scene as? UIWindowScene)?.windows ?? [] {
-          window.overrideUserInterfaceStyle = scheme.userInterfaceStyle
+          applyAppearance(to: window)
         }
       }
     #endif
   }
+
+  #if os(iOS)
+    /// Light or dark for one window of the phone; «system» hands it back to the device. The
+    /// sheets and covers of the window follow it.
+    public func applyAppearance(to window: UIWindow) {
+      window.overrideUserInterfaceStyle = scheme.userInterfaceStyle
+    }
+  #endif
 
   /// Light or dark for `target` — the application in the app — and `nil` for «system», which
   /// hands it back to what is above it: the Mac for the application, the application for a

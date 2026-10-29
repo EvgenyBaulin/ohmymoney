@@ -32,6 +32,15 @@ struct OverviewView: View {
   /// Editing or not, and the tile whose «Почему так» is open.
   @State private var screen: OverviewScreen
 
+  /// The margin of the page: 16 pt on a phone and a tablet, as the design draws it, 20 on the Mac.
+  static var sideMargin: CGFloat {
+    #if os(iOS)
+      16
+    #else
+      20
+    #endif
+  }
+
   /// `screen` is handed in by a test that drives the editing and the sheet; the window makes its
   /// own.
   init(actions: OperationActions, screen: OverviewScreen = OverviewScreen()) {
@@ -42,7 +51,7 @@ struct OverviewView: View {
   var body: some View {
     ScrollView {
       OverviewHeader(actions: actions, screen: screen)
-        .padding(.horizontal, 20)
+        .padding(.horizontal, OverviewView.sideMargin)
         .padding(.vertical, 8)
     }
     .background(surfaces.background)
@@ -105,9 +114,11 @@ private struct OverviewHeader: View {
           Spacer(minLength: 8)
           titleRow.trailing
         }
+        .padding(.horizontal, 4)
       }
       OverviewEditBar(screen: screen)
       if OverviewHero.shows(forWidth: width) { OverviewHero() }
+      if OverviewAccountsStrip.shows { OverviewAccountsStrip() }
       if AccountsSetupCard.shows(setup: environment.accountSetup) {
         AccountsSetupCard()
       }

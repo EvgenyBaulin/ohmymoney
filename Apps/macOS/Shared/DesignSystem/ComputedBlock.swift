@@ -147,16 +147,29 @@ struct ContentCard: ViewModifier {
   @Environment(\.themeSurfaces) private var surfaces
   let fillsHeight: Bool
 
+  /// 12 pt on the Mac; the phone design rounds its cards to 22 and lifts them with a soft shadow.
+  static var cornerRadius: CGFloat {
+    #if os(iOS)
+      22
+    #else
+      12
+    #endif
+  }
+
   func body(content: Content) -> some View {
+    let shape = RoundedRectangle(cornerRadius: Self.cornerRadius)
     content
       .frame(maxWidth: .infinity, maxHeight: fillsHeight ? .infinity : nil, alignment: .topLeading)
       .padding(14)
-      .background(surfaces.card, in: .rect(cornerRadius: 12))
+      .background(surfaces.card, in: shape)
+      #if os(iOS)
+        .shadow(color: .black.opacity(0.05), radius: 10, y: 6)
+      #endif
       .overlay {
         // The theme's own hairline always; under «Увеличить контраст» the separator edge too.
-        RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
+        shape.strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
         if contrast == .increased {
-          RoundedRectangle(cornerRadius: 12).strokeBorder(.separator, lineWidth: 1)
+          shape.strokeBorder(.separator, lineWidth: 1)
         }
       }
   }

@@ -36,21 +36,30 @@ struct ShieldedRoot: View {
       }
     }
     .appDependencies(session.deps)
+    // Light or dark, from the first frame on and at every change of the choice: the app has no
+    // `NSApp` to set it once, so the windows of the scene are told (the saved choice used to be
+    // read and never applied).
+    .onChange(of: session.deps.environment.theme.scheme, initial: true) { _, _ in
+      session.deps.environment.theme.applyAppearance()
+    }
     // The questions the shared screens raise by themselves wait while the cover is up.
     .onChange(of: lock.isLocked, initial: true) { _, locked in
       session.deps.environment.lock.hostCovers = locked
     }
     .onChange(of: session.generation) { _, _ in
+      session.deps.environment.theme.applyAppearance()
       session.deps.environment.lock.hostCovers = lock.isLocked
     }
     .task {
       await session.start()
+      session.deps.environment.theme.applyAppearance()
       if lock.isLocked { await tryUnlock() }
     }
     .onChange(of: phase) { _, now in
       switch now {
       case .background: lock.didEnterBackground()
       case .active:
+        session.deps.environment.theme.applyAppearance()
         lock.didBecomeActive()
         if lock.isLocked { Task { await tryUnlock() } }
       default: break
