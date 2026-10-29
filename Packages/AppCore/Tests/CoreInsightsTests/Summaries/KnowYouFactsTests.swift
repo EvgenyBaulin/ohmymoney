@@ -24,7 +24,8 @@ struct KnowYouFactsTests {
 
   @Test func tooLittleHistoryOrTooFewPurchasesSayNothing() {
     let book = SummaryBook.flat()
-    #expect(KnowYouFacts.facts(ledger: book.ledger, through: SummaryBook.start.adding(days: 30)).isEmpty)
+    #expect(
+      KnowYouFacts.facts(ledger: book.ledger, through: SummaryBook.start.adding(days: 30)).isEmpty)
     var few = SummaryBook()
     for day in DayRange(SummaryBook.start, end).days where day.day == 3 { few.spend(1000, on: day) }
     few.spend(1000, on: SummaryBook.start)
@@ -255,7 +256,8 @@ struct KnowYouFactsTests {
   @Test func theShareOfGoodAndBadMoney() {
     func book(_ quality: Quality, prior: Int64, recent: Int64) -> SummaryBook {
       SummaryBook.flat { index, day, book in
-        let part: Int64 = SummaryBook.isRecent(day) ? recent : SummaryBook.isPrior(day) ? prior : 200
+        let part: Int64 =
+          SummaryBook.isRecent(day) ? recent : SummaryBook.isPrior(day) ? prior : 200
         book.add(
           SummaryBook.Spec(amount: part, place: book.shopA.id, note: "n\(index)", quality: quality),
           on: day)

@@ -54,9 +54,10 @@ struct AttachmentsExportTests {
     #expect(read["warranty_until"] == "2028-10-29")
     #expect(read["warranty_where"] == "папка «Техника», верхний ящик")
     #expect(read["return_until"] == "2026-11-12")
-    #expect(Array(ExportTables.transactions.columns.suffix(3)) == [
-      "warranty_until", "warranty_where", "return_until",
-    ])
+    #expect(
+      Array(ExportTables.transactions.columns.suffix(3)) == [
+        "warranty_until", "warranty_where", "return_until",
+      ])
   }
 
   @Test func theAnswersOfTheWeeksAreNotExported() {

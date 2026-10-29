@@ -96,11 +96,14 @@ struct Migration0017Tests {
         #expect(filled == 0, "transactions.\(column) starts empty")
       }
       // No setting was written: every one of the four reads its default.
-      let keys = try String.fetchAll(db, sql: "SELECT key FROM settings WHERE key LIKE 'attach%' OR key LIKE 'archive.%'")
+      let keys = try String.fetchAll(
+        db, sql: "SELECT key FROM settings WHERE key LIKE 'attach%' OR key LIKE 'archive.%'")
       #expect(keys.isEmpty)
     }
     let operation = try #require(
-      try stack.writer.read { db in try CoreKit.Transaction.fetchOne(db, key: "11111111-1111-4111-8111-111111111111") })
+      try stack.writer.read { db in
+        try CoreKit.Transaction.fetchOne(db, key: "11111111-1111-4111-8111-111111111111")
+      })
     #expect(operation.warrantyUntil == nil && operation.warrantyWhere == nil)
     #expect(operation.returnUntil == nil)
     #expect(try AttachmentRepository(writer: stack.writer).settings() == AttachmentSettings())
@@ -160,7 +163,8 @@ struct Migration0017Tests {
         """)
     }
     #expect(throws: GRDB.DatabaseError.self) {
-      try device.sql("INSERT INTO week_answers (week, mood, answered_at) VALUES ('2026-W44', 6, 'now')")
+      try device.sql(
+        "INSERT INTO week_answers (week, mood, answered_at) VALUES ('2026-W44', 6, 'now')")
     }
     // A file the build does not know the kind of still goes in: it reads as «other».
     try device.sql(
@@ -190,7 +194,8 @@ struct Migration0017Tests {
     let device = try TestDevice("mac")
     try device.sql("DELETE FROM sync_outbox")
     try Self.attach(device, id: "a1", kind: "debt", owner: "o")
-    try device.sql("INSERT INTO week_answers (week, mood, answered_at) VALUES ('2026-W44', 4, 'now')")
+    try device.sql(
+      "INSERT INTO week_answers (week, mood, answered_at) VALUES ('2026-W44', 4, 'now')")
     func queued() throws -> [String] {
       try device.stack.writer.read { db in
         try String.fetchAll(
@@ -215,9 +220,12 @@ struct Migration0017Tests {
     let folder = InMemoryFolder()
     try mac.insertOperation("t1", note: "чайник")
     try mac.sql(
-      "UPDATE transactions SET warranty_until = '2028-10-29', warranty_where = 'ящик', return_until = '2026-11-12'")
+      "UPDATE transactions SET warranty_until = '2028-10-29', warranty_where = 'ящик', return_until = '2026-11-12'"
+    )
     try Self.attach(mac, id: "a1", kind: "transaction", owner: "t1")
-    try mac.sql("INSERT INTO week_answers (week, mood, answered_at) VALUES ('2026-W44', 4, '2026-10-29 10:00:00.000')")
+    try mac.sql(
+      "INSERT INTO week_answers (week, mood, answered_at) VALUES ('2026-W44', 4, '2026-10-29 10:00:00.000')"
+    )
     _ = try mac.exchange.exchange(with: folder)
     _ = try phone.exchange.exchange(with: folder)
     #expect(try phone.count("attachments") == 1)

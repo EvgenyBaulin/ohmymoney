@@ -131,7 +131,8 @@ struct AttachmentsSection: View {
     .accessibilityIdentifier("attachments.section")
     #if os(iOS)
       .photosPicker(
-        isPresented: $showsPhotos, selection: $pickedPhotos, matching: .images)
+        isPresented: $showsPhotos, selection: $pickedPhotos, matching: .images
+      )
       .onChange(of: pickedPhotos) { _, items in
         guard !items.isEmpty else { return }
         pickedPhotos = []
@@ -197,7 +198,8 @@ struct AttachmentsSection: View {
       } else if let type = [UTType.pdf, .image].first(where: {
         provider.hasItemConformingToTypeIdentifier($0.identifier)
       }), let data = try? await Self.loadData(from: provider, type: type) {
-        let ext = (type == .pdf ? UTType.pdf : (provider.registeredContentTypes.first ?? .png))
+        let ext =
+          (type == .pdf ? UTType.pdf : (provider.registeredContentTypes.first ?? .png))
           .preferredFilenameExtension ?? "bin"
         sources.append(
           AttachmentSource(data: data, fileName: Self.pastedName(environment, ext: ext)))
@@ -209,8 +211,11 @@ struct AttachmentsSection: View {
   private static func loadURL(from provider: NSItemProvider) async throws -> URL {
     try await withCheckedThrowingContinuation { continuation in
       _ = provider.loadObject(ofClass: URL.self) { url, error in
-        if let url { continuation.resume(returning: url) }
-        else { continuation.resume(throwing: error ?? CocoaError(.fileReadUnknown)) }
+        if let url {
+          continuation.resume(returning: url)
+        } else {
+          continuation.resume(throwing: error ?? CocoaError(.fileReadUnknown))
+        }
       }
     }
   }
@@ -218,8 +223,11 @@ struct AttachmentsSection: View {
   private static func loadData(from provider: NSItemProvider, type: UTType) async throws -> Data {
     try await withCheckedThrowingContinuation { continuation in
       _ = provider.loadDataRepresentation(forTypeIdentifier: type.identifier) { data, error in
-        if let data { continuation.resume(returning: data) }
-        else { continuation.resume(throwing: error ?? CocoaError(.fileReadUnknown)) }
+        if let data {
+          continuation.resume(returning: data)
+        } else {
+          continuation.resume(throwing: error ?? CocoaError(.fileReadUnknown))
+        }
       }
     }
   }

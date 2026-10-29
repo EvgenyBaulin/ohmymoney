@@ -29,7 +29,9 @@ public struct AttachmentFileStore: Sendable {
   private var temporary: URL { root.appendingPathComponent(".incoming", isDirectory: true) }
 
   public func url(forHash hash: String) -> URL? {
-    AttachmentHash.relativePath(for: hash).map { root.appendingPathComponent($0, isDirectory: false) }
+    AttachmentHash.relativePath(for: hash).map {
+      root.appendingPathComponent($0, isDirectory: false)
+    }
   }
 
   public func contains(hash: String) -> Bool {

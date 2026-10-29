@@ -99,7 +99,8 @@ final class SummariesModel {
       return true
     } catch {
       answerFailed = true
-      AppLog.warning("summaries.answerFailed", .db, "the answer to the question of the week was not saved")
+      AppLog.warning(
+        "summaries.answerFailed", .db, "the answer to the question of the week was not saved")
       return false
     }
   }

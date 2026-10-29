@@ -25,7 +25,8 @@ struct PeriodSummaryTests {
         book.add(SummaryBook.Spec(amount: 3_000, place: book.shopA.id), on: date)
         book.add(SummaryBook.Spec(amount: 1_000, category: book.transport.id), on: date)
         book.add(
-          SummaryBook.Spec(amount: key == Self.september ? 4_000 : 1_000, place: book.shopB.id,
+          SummaryBook.Spec(
+            amount: key == Self.september ? 4_000 : 1_000, place: book.shopB.id,
             category: book.cafe.id), on: date)
       }
     }
@@ -105,7 +106,8 @@ struct PeriodSummaryTests {
     #expect(year.cashback == AmountE4(whole: 28_000))
     #expect(
       year.cashback
-        == AmountE4.sum(CashbackReport(ledger: book.ledger, period: .year(2026)).cells.map(\.receivedRub)))
+        == AmountE4.sum(
+          CashbackReport(ledger: book.ledger, period: .year(2026)).cells.map(\.receivedRub)))
     #expect(summary(.month(Self.september), self.book()).cashback == .zero)
   }
 
@@ -114,7 +116,8 @@ struct PeriodSummaryTests {
     let made = summary(.year(2026), book)
     // September's cafés cost 15,000 ₽ more than any other month.
     #expect(made.bestMonth?.month == MonthKey(year: 2026, month: 6))
-    let monthly = ReportBuilder(ledger: book.ledger, today: today).table(.monthly, period: .year(2026))
+    let monthly = ReportBuilder(ledger: book.ledger, today: today).table(
+      .monthly, period: .year(2026))
     let nets = monthly.rows.compactMap { $0.values.count == 3 ? $0.values[2] : nil }
     #expect(made.bestMonth?.net == nets.max())
     #expect(summary(.month(Self.september), book).bestMonth == nil)
@@ -127,9 +130,15 @@ struct PeriodSummaryTests {
     let open = Debt(direction: .iOwe, type: .loan, name: "Открытый")
     book.debts = [paid, old, open]
     book.debtEntries = [
-      DebtEntry(debtId: paid.id, date: DateOnly(year: 2026, month: 9, day: 10), amountE4: -AmountE4(whole: 1), kind: .payment),
-      DebtEntry(debtId: old.id, date: DateOnly(year: 2026, month: 5, day: 10), amountE4: -AmountE4(whole: 1), kind: .payment),
-      DebtEntry(debtId: open.id, date: DateOnly(year: 2026, month: 9, day: 10), amountE4: -AmountE4(whole: 1), kind: .payment),
+      DebtEntry(
+        debtId: paid.id, date: DateOnly(year: 2026, month: 9, day: 10),
+        amountE4: -AmountE4(whole: 1), kind: .payment),
+      DebtEntry(
+        debtId: old.id, date: DateOnly(year: 2026, month: 5, day: 10),
+        amountE4: -AmountE4(whole: 1), kind: .payment),
+      DebtEntry(
+        debtId: open.id, date: DateOnly(year: 2026, month: 9, day: 10),
+        amountE4: -AmountE4(whole: 1), kind: .payment),
     ]
     #expect(summary(.month(Self.september), book).closedDebts.map(\.name) == ["Рассрочка"])
     #expect(summary(.year(2026), book).closedDebts.map(\.name) == ["Рассрочка", "Старый"])
@@ -138,9 +147,15 @@ struct PeriodSummaryTests {
   @Test func theMoodOfAMonthIsReadFromItsWeeks() {
     let book = book()
     let moods = [
-      WeekMood(week: WeekKey(containing: DateOnly(year: 2026, month: 9, day: 8)), mood: 4, answeredAt: Date(timeIntervalSince1970: 0)),
-      WeekMood(week: WeekKey(containing: DateOnly(year: 2026, month: 9, day: 15)), mood: 3, answeredAt: Date(timeIntervalSince1970: 0)),
-      WeekMood(week: WeekKey(containing: DateOnly(year: 2026, month: 8, day: 11)), mood: 1, answeredAt: Date(timeIntervalSince1970: 0)),
+      WeekMood(
+        week: WeekKey(containing: DateOnly(year: 2026, month: 9, day: 8)), mood: 4,
+        answeredAt: Date(timeIntervalSince1970: 0)),
+      WeekMood(
+        week: WeekKey(containing: DateOnly(year: 2026, month: 9, day: 15)), mood: 3,
+        answeredAt: Date(timeIntervalSince1970: 0)),
+      WeekMood(
+        week: WeekKey(containing: DateOnly(year: 2026, month: 8, day: 11)), mood: 1,
+        answeredAt: Date(timeIntervalSince1970: 0)),
     ]
     let made = summary(.month(Self.september), book, moods: moods)
     #expect(made.moods.count == 2)
@@ -156,7 +171,9 @@ struct PeriodSummaryTests {
   }
 
   @Test func aWeekHasNoPeriodSummary() {
-    #expect(SummaryBuilder.summary(id: .week(WeekKey(year: 2026, week: 1)), ledger: book().ledger, today: today) == nil)
+    #expect(
+      SummaryBuilder.summary(
+        id: .week(WeekKey(year: 2026, week: 1)), ledger: book().ledger, today: today) == nil)
   }
 
   // MARK: The words
@@ -166,8 +183,16 @@ struct PeriodSummaryTests {
     book.settings = AnalyticsSettings(cashbackCategoryId: book.cashback.id)
     let paid = Debt(direction: .iOwe, type: .loan, name: "Рассрочка", closed: true)
     book.debts = [paid]
-    book.debtEntries = [DebtEntry(debtId: paid.id, date: DateOnly(year: 2026, month: 9, day: 10), amountE4: -AmountE4(whole: 1), kind: .payment)]
-    let moods = [WeekMood(week: WeekKey(containing: DateOnly(year: 2026, month: 9, day: 8)), mood: 4, answeredAt: Date(timeIntervalSince1970: 0))]
+    book.debtEntries = [
+      DebtEntry(
+        debtId: paid.id, date: DateOnly(year: 2026, month: 9, day: 10),
+        amountE4: -AmountE4(whole: 1), kind: .payment)
+    ]
+    let moods = [
+      WeekMood(
+        week: WeekKey(containing: DateOnly(year: 2026, month: 9, day: 8)), mood: 4,
+        answeredAt: Date(timeIntervalSince1970: 0))
+    ]
     return summary(.month(Self.september), book, moods: moods)
   }
 
@@ -189,7 +214,9 @@ struct PeriodSummaryTests {
     let hidden = SummaryCards.cards(for: fullSummary(), hideAmounts: true)
     let categories = hidden.first { $0.id == "categories" }
     #expect(categories?.lines.first?.key == "summaries.line.category")
-    #expect(categories?.lines.first?.args.contains { if case .percent = $0 { true } else { false } } == true)
+    #expect(
+      categories?.lines.first?.args.contains { if case .percent = $0 { true } else { false } }
+        == true)
     #expect(hidden.first { $0.id == "surprise" }?.lines.first?.key == "summaries.line.surpriseMore")
     #expect(hidden.first { $0.id == "totals" }?.lines.first?.key == "summaries.line.saved")
   }
@@ -205,7 +232,10 @@ struct PeriodSummaryTests {
     #expect(cards.total.expenses == book.ledger.expenses(in: week.range))
     #expect(cards.dearestDay?.day.weekday == 3)
     #expect(cards.topCategory?.categoryId == book.food.id)
-    #expect(cards.comparison.changeBP == SummaryMath.changeBP(cards.total.expenses.decimal, base: cards.comparison.previousExpenses.decimal))
+    #expect(
+      cards.comparison.changeBP
+        == SummaryMath.changeBP(
+          cards.total.expenses.decimal, base: cards.comparison.previousExpenses.decimal))
     #expect(SummaryCards.cards(for: cards, hideAmounts: false).count == 5)
     for card in SummaryCards.cards(for: cards, hideAmounts: true) {
       #expect(!card.showsMoney)

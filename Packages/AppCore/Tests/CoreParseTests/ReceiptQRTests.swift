@@ -8,7 +8,8 @@ import Testing
 struct ReceiptQRTests {
   @Test func readsAReceiptWithSeconds() throws {
     let receipt = try #require(
-      ReceiptQRParser.parse("t=20261029T183245&s=1250.50&fn=9960440300000000&i=12345&fp=2345678901&n=1"))
+      ReceiptQRParser.parse(
+        "t=20261029T183245&s=1250.50&fn=9960440300000000&i=12345&fp=2345678901&n=1"))
     #expect(receipt.day == DateOnly(year: 2026, month: 10, day: 29))
     #expect(receipt.time == TimeOfDay(hour: 18, minute: 32))
     #expect(receipt.second == 45)
@@ -95,7 +96,8 @@ struct ReceiptQRTests {
   @Test func tolerantToSurroundingNoise() throws {
     let wrapped = "  \nt=20261029T1832&s=10.00&fn=1&i=2&fp=3&n=1\r\n"
     #expect(ReceiptQRParser.parse(wrapped) != nil)
-    let link = try #require(ReceiptQRParser.parse("https://check.example/?t=20261029T1832&s=10.00&n=1"))
+    let link = try #require(
+      ReceiptQRParser.parse("https://check.example/?t=20261029T1832&s=10.00&n=1"))
     #expect(link.amountE4.raw == 100_000)
     let colons = ReceiptQRParser.parse("t=20261029T18:32:10&s=10.00&n=1")
     #expect(colons?.second == 10)

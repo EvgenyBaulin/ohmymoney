@@ -121,7 +121,9 @@ public enum KnowYouFacts {
           ledger.calendar.timeOfDay($0.occurredAt, recordedIn: $0.timeZoneId)
         }
         // A time of exactly 12:00 is the one an operation gets when nobody said when.
-        let bucket = time.flatMap { $0.hour == 12 && $0.minute == 0 ? nil : TimeBucket(hour: $0.hour) }
+        let bucket = time.flatMap {
+          $0.hour == 12 && $0.minute == 0 ? nil : TimeBucket(hour: $0.hour)
+        }
         let note = transaction?.note.map(Self.normalised).flatMap { $0.isEmpty ? nil : $0 }
         byTransaction[row.transactionId] = purchases.count
         purchases.append(
@@ -292,8 +294,10 @@ public enum KnowYouFacts {
         .map { (place: $0.key, count: $0.value.count) }
         .sorted { ($0.count, $1.place.uuidString) > ($1.count, $0.place.uuidString) }
       guard counts.count >= 2, counts[0].count >= 4 else { return nil }
-      let difference = SummaryMath.changeBP(Decimal(counts[0].count), base: Decimal(counts[1].count))
-      return fact(.placeMostVisited, [.place(counts[0].place), .count(counts[0].count)], difference)
+      let difference = SummaryMath.changeBP(
+        Decimal(counts[0].count), base: Decimal(counts[1].count))
+      return fact(
+        .placeMostVisited, [.place(counts[0].place), .count(counts[0].count)], difference)
     }
 
     private func categoryMove(_ id: FactID) -> KnowFact? {
@@ -309,7 +313,8 @@ public enum KnowYouFacts {
       let priorTotal = before.values.reduce(0, +)
       guard priorTotal > 0 else { return nil }
       var best: (category: UUID, delta: Decimal, difference: Int)?
-      for category in Set(now.keys).union(before.keys).sorted(by: { $0.uuidString < $1.uuidString }) {
+      for category in Set(now.keys).union(before.keys).sorted(by: { $0.uuidString < $1.uuidString })
+      {
         let after = now[category] ?? 0
         let was = before[category] ?? 0
         let delta = id == .categoryGrew ? after - was : was - after
@@ -366,7 +371,8 @@ public enum KnowYouFacts {
       guard let now = share(inRange(recent)), let before = share(inRange(prior)), before > 0
       else { return nil }
       let difference = above(now, before)
-      return fact(id, [percentArg(SummaryMath.whole(now * 10_000)), percentArg(difference ?? 0)], difference)
+      return fact(
+        id, [percentArg(SummaryMath.whole(now * 10_000)), percentArg(difference ?? 0)], difference)
     }
 
     private func savings(_ id: FactID) -> KnowFact? {
@@ -378,11 +384,14 @@ public enum KnowYouFacts {
       }
       guard let now = rate(recent), let before = rate(prior), before > 0 else { return nil }
       let difference = id == .savingsGrew ? above(now, before) : below(now, before)
-      return fact(id, [percentArg(SummaryMath.whole(now * 10_000)), percentArg(difference ?? 0)], difference)
+      return fact(
+        id, [percentArg(SummaryMath.whole(now * 10_000)), percentArg(difference ?? 0)], difference)
     }
 
     private func quietDays(_ id: FactID) -> KnowFact? {
-      func quiet(_ range: DayRange) -> Int { range.days.filter { (spendByDay[$0] ?? 0) == 0 }.count }
+      func quiet(_ range: DayRange) -> Int {
+        range.days.filter { (spendByDay[$0] ?? 0) == 0 }.count
+      }
       let now = quiet(recent)
       let before = quiet(prior)
       guard before > 0 || now > 0 else { return nil }

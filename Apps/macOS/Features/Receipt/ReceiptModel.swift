@@ -56,7 +56,8 @@ final class ReceiptModel {
   private let dataset: @MainActor () -> Dataset?
 
   init(
-    environment: AppEnvironment, store: TransactionsStore, dataset: @escaping @MainActor () -> Dataset?
+    environment: AppEnvironment, store: TransactionsStore,
+    dataset: @escaping @MainActor () -> Dataset?
   ) {
     self.environment = environment
     self.store = store

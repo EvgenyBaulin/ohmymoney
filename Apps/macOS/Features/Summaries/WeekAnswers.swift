@@ -24,7 +24,9 @@ struct DatabaseWeekAnswers: WeekAnswerStore {
   /// The store of the open database; `nil` while it is not open.
   @MainActor
   static func current(_ environment: AppEnvironment) -> DatabaseWeekAnswers? {
-    environment.stack.map { DatabaseWeekAnswers(repository: AttachmentRepository(writer: $0.writer)) }
+    environment.stack.map {
+      DatabaseWeekAnswers(repository: AttachmentRepository(writer: $0.writer))
+    }
   }
 }
 

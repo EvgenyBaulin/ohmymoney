@@ -227,7 +227,8 @@ final class AttachmentsSectionTests: XCTestCase {
 
   func testTheSummaryCountsFilesTrashAndBytes() async throws {
     let files = model()
-    await files.add([source("12345", "a.jpg"), source("678", "b.jpg")], service: service, store: store)
+    await files.add(
+      [source("12345", "a.jpg"), source("678", "b.jpg")], service: service, store: store)
     files.trash(files.files[0].id, service: service, store: store)
     let summary = AttachmentsSummary(service)
     XCTAssertEqual(summary, AttachmentsSummary(files: 1, inTrash: 1, bytes: 8))
@@ -285,8 +286,10 @@ final class AttachmentsSectionTests: XCTestCase {
     try service.add(
       data: Data(count: 2_000), fileName: "a.jpg", to: .transaction, id: owner, kind: .receipt)
     let box = try XCTUnwrap(FileCommands.attachmentsBox(for: archives, in: environment))
-    XCTAssertTrue(box.box.title.contains(ByteCountFormatter.string(
-      fromByteCount: 2_000, countStyle: .file)), box.box.title)
+    XCTAssertTrue(
+      box.box.title.contains(
+        ByteCountFormatter.string(
+          fromByteCount: 2_000, countStyle: .file)), box.box.title)
     XCTAssertEqual(box.plan.included.count, 1)
   }
 
@@ -349,7 +352,8 @@ final class AttachmentsSectionTests: XCTestCase {
     let words = SettingsSearch.catalogWords()
     XCTAssertEqual(
       SettingsSearch.find("вложения", words: words).map(\.section), [.attachments])
-    XCTAssertTrue(SettingsSearch.find("attachments", words: words).map(\.section).contains(.attachments))
+    XCTAssertTrue(
+      SettingsSearch.find("attachments", words: words).map(\.section).contains(.attachments))
   }
 
   func testTheSettingsRoundTripThroughTheRepositoryAndDefaultToTheAnswersOfTheOwner() throws {

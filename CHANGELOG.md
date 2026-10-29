@@ -7,6 +7,53 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.4.0] — 2026-10-29
+
+Documents and Summaries. The database schema is 17; opening the app upgrades the database after a
+verified copy, and older data reads as before. The export has 45 files.
+
+### Added
+
+- Attachments: files can be attached to an operation, an asset, a debt or a subscription. Any file
+  of any size is kept as it is, without compression; each file is stored once (by its content) in a
+  folder next to the database, and copies of the database refer to the files instead of copying
+  them. A removed file waits 30 days in a trash; «Keep receipt photos forever» is on by default,
+  and a single file can be marked «Keep always». A daily sweep applies the rule and never deletes
+  a file that has no owner row. A new settings section «Attachments» holds the rule and the trash.
+- The mirror folder receives the files too (it can be switched off), and the transfer archive can
+  carry them with the box «With attachments (size)»; an older version of the archive opens without
+  them. Files do not travel between devices, only the rows do.
+- Warranty and return: the operation has «Warranty until», «Where the original lies» and
+  «Can be returned until». The entry line reads «warranty 2y» and «return 14d» (in Russian too).
+  «Worth a look» reminds about a return two days before it ends, and about a warranty 30 days before
+  and on the last day. The new screen «Warranties» lists things with their terms.
+- Receipt by QR: «File → Receipt by QR…» reads the code of a cash receipt from Continuity Camera,
+  from a picture dropped on the window or from a file; on iPhone a scanner does it. The amount, the
+  date and the time are read; an operation with the same amount within a day is offered to be
+  completed (time and photo), otherwise a new operation is made. The items of a receipt are not
+  read. A return receipt looks for a return operation.
+- Summaries: a card above the tiles of Overview announces a finished period — a week on Monday, a
+  month on the 1st, a year on 1 January; each kind can be turned off in «Settings → Planning →
+  Summaries». A week has five cards and the question «How was the week?» (five faces; the answer
+  lives in the database and the archive, not in CSV). «Did you know» offers a finding out of 25
+  checks. A summary saves as a PDF (with hidden amounts it asks «Save with amounts?»), and the
+  picture of the year can be shared. The figures agree with «Reports».
+- The database schema is 17: tables of attachments and of the answers of the weeks, the warranty
+  fields of an operation; the export adds `attachments.csv`. New settings keys in the table
+  `settings`: `attachments.keepReceiptsForever`, `attachments.trashDays`, `attachments.mirror`,
+  `archive.withAttachments`.
+
+### Known limits
+
+- A new operation from the entry line or from the panel ↓ gets no «Attachments» section until it is
+  saved; the section is in the editor of a saved operation.
+- Undoing the creation of an operation leaves its attachment rows without an owner; the daily sweep
+  removes them.
+- The camera of iPhone hands over a JPEG.
+- The PDF of a summary is one page without splitting into A4 sheets.
+- There is no separate tile «Warranties» in Overview.
+- iPhone has no «Summaries» section in settings; the default values apply.
+
 ## [2.3.1] — 2026-10-29
 
 Follow-ups to 2.3. The database schema is 16; opening the app upgrades the database after a

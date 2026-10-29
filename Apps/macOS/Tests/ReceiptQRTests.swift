@@ -66,7 +66,8 @@ final class ReceiptQRDetectorTests: XCTestCase {
       URL(fileURLWithPath: "/tmp/a.png"), URL(fileURLWithPath: "/tmp/b.JPG"),
       URL(fileURLWithPath: "/tmp/c.csv"), URL(fileURLWithPath: "/tmp/d.pdf"),
     ]
-    XCTAssertEqual(ReceiptPresenter.pictures(in: urls).map(\.lastPathComponent), ["a.png", "b.JPG"])
+    XCTAssertEqual(
+      ReceiptPresenter.pictures(in: urls).map(\.lastPathComponent), ["a.png", "b.JPG"])
     XCTAssertEqual(
       StatementImportPresenter.statementFiles(in: urls).map(\.lastPathComponent),
       ["c.csv", "d.pdf"])

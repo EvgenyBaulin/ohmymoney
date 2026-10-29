@@ -375,7 +375,8 @@ struct Migration0015Tests {
     #expect(counts["bank_conditions"] == 1 && counts["deposit_offers"] == 1)
     let tables = try export.tables()
     #expect(tables.count == 45)
-    #expect(tables.dropLast().suffix(2).map(\.fileName) == ["bank_conditions.csv", "deposit_offers.csv"])
+    #expect(
+      tables.dropLast().suffix(2).map(\.fileName) == ["bank_conditions.csv", "deposit_offers.csv"])
     func rows(_ name: String) throws -> [[String: String]] {
       try CSVReader.dictionaries(from: try #require(tables.first { $0.name == name }).data)
     }

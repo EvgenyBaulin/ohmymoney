@@ -99,7 +99,8 @@ public enum SummaryScheduler {
 
   /// Every finished period of a kind that has operations, newest first — the list of the
   /// screen «Итоги».
-  public static func archive(kind: SummaryKind, today: DateOnly, firstDay: DateOnly?) -> [SummaryID] {
+  public static func archive(kind: SummaryKind, today: DateOnly, firstDay: DateOnly?) -> [SummaryID]
+  {
     guard let firstDay else { return [] }
     switch kind {
     case .week:

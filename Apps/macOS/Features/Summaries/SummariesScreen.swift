@@ -120,7 +120,8 @@ struct SummariesScreen: View {
         .foregroundStyle(.secondary)
         .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
     } else if let content, content.hasData, let snapshot {
-      let text = SummaryText(environment: environment, names: SummaryNames(dataset: snapshot.dataset))
+      let text = SummaryText(
+        environment: environment, names: SummaryNames(dataset: snapshot.dataset))
       SummaryRibbon(
         cards: content.cards(hideAmounts: environment.amounts.hidesAmounts), text: text)
       question(for: content, today: snapshot.today)
@@ -235,7 +236,8 @@ struct SummariesScreen: View {
   }
 
   private func preparePDF(withAmounts: Bool) {
-    guard let content, let data = SummaryExport.pdf(of: page(for: content, withAmounts: withAmounts))
+    guard let content,
+      let data = SummaryExport.pdf(of: page(for: content, withAmounts: withAmounts))
     else { return }
     pdfDocument = SummaryPDFDocument(data: data)
     exporting = true

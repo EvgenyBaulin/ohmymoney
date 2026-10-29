@@ -17,7 +17,9 @@ public struct AttachmentRepository: Sendable {
   /// Every row, oldest first. A row a newer build wrote that this one can not read is left out and
   /// stays in the database.
   public func all() throws -> [AttachedFile] {
-    try writer.read { db in try Self.rows(db, sql: "SELECT * FROM attachments ORDER BY added_at, id") }
+    try writer.read { db in
+      try Self.rows(db, sql: "SELECT * FROM attachments ORDER BY added_at, id")
+    }
   }
 
   /// The digests every row names, including rows this build can not read.
@@ -52,7 +54,10 @@ public struct AttachmentRepository: Sendable {
   }
 
   public func attachment(id: UUID) throws -> AttachedFile? {
-    try writer.read { db in try Self.rows(db, sql: "SELECT * FROM attachments WHERE id = ?", arguments: [id.uuidString]).first }
+    try writer.read { db in
+      try Self.rows(db, sql: "SELECT * FROM attachments WHERE id = ?", arguments: [id.uuidString])
+        .first
+    }
   }
 
   /// How many rows name this content.
@@ -129,7 +134,9 @@ public struct AttachmentRepository: Sendable {
   }
 
   public func answers() throws -> [WeekAnswer] {
-    try writer.read { db in try WeekAnswer.fetchAll(db, sql: "SELECT * FROM week_answers ORDER BY week") }
+    try writer.read { db in
+      try WeekAnswer.fetchAll(db, sql: "SELECT * FROM week_answers ORDER BY week")
+    }
   }
 
   /// One answer a week: a second one replaces the first.

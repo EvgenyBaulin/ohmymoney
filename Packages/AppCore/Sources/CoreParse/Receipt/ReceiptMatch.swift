@@ -54,9 +54,11 @@ public enum ReceiptMatch {
   ) -> ReceiptProposal {
     let moment = receipt.moment(in: calendar)
     let kind = receipt.operation.transactionKind
-    let fitting = candidates
+    let fitting =
+      candidates
       .filter { $0.kind == kind && $0.currency == .rub && $0.amountE4 == receipt.amountE4 }
-      .compactMap { candidate -> (candidate: ReceiptCandidate, apart: Int, distance: TimeInterval)? in
+      .compactMap {
+        candidate -> (candidate: ReceiptCandidate, apart: Int, distance: TimeInterval)? in
         let day = calendar.day(of: candidate.occurredAt, recordedIn: candidate.timeZoneId)
         let apart = abs(daysBetween(day, receipt.day, calendar))
         guard apart <= 1 else { return nil }
@@ -84,7 +86,9 @@ public enum ReceiptMatch {
       moment: receipt.moment(in: calendar), day: receipt.day, time: receipt.time)
   }
 
-  private static func daysBetween(_ from: DateOnly, _ to: DateOnly, _ calendar: CalendarContext)
+  private static func daysBetween(
+    _ from: DateOnly, _ to: DateOnly, _ calendar: CalendarContext
+  )
     -> Int
   {
     let start = calendar.startOfDay(from)

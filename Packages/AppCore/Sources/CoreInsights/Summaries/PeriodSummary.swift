@@ -137,7 +137,9 @@ public enum SummaryBuilder {
         else { return nil }
         return SummaryBestMonth(month: month, net: net)
       }
-      if months.count >= 2 { best = months.max { $0.net < $1.net || ($0.net == $1.net && $0.month > $1.month) } }
+      if months.count >= 2 {
+        best = months.max { $0.net < $1.net || ($0.net == $1.net && $0.month > $1.month) }
+      }
     }
 
     let cashback = AmountE4.sum(
@@ -146,8 +148,10 @@ public enum SummaryBuilder {
     let counted = Set(period.months)
     let periodMoods =
       moods
-      .filter { counted.contains($0.week.start.adding(days: 3).monthKey) && id.kind == .month
-        || id.kind == .year && $0.week.year == id.yearNumber }
+      .filter {
+        counted.contains($0.week.start.adding(days: 3).monthKey) && id.kind == .month
+          || id.kind == .year && $0.week.year == id.yearNumber
+      }
       .sorted { $0.week < $1.week }
 
     return PeriodSummary(

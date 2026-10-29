@@ -34,7 +34,9 @@ struct SummaryText {
   static let table = "Summaries"
 
   /// Keys whose weekday stands as a name («Самый дорогой день — среда»), not as «в среду».
-  private static let nominativeWeekday: Set<String> = ["summaries.line.dearestDayOnly", "summaries.line.dearestDay"]
+  private static let nominativeWeekday: Set<String> = [
+    "summaries.line.dearestDayOnly", "summaries.line.dearestDay",
+  ]
   /// Keys whose month stands as a name («Лучший месяц — март»), not as «сентября».
   private static let nominativeMonth: Set<String> = ["summaries.line.bestMonth"]
 
@@ -75,8 +77,10 @@ struct SummaryText {
       let separator = language.locale.decimalSeparator ?? "."
       return "\(tenths / 10)\(separator)\(tenths % 10)"
     case .weekday(let weekday):
-      if Self.nominativeWeekday.contains(key) { let name = dates.weekday(weekday)
-        return name.prefix(1).uppercased() + name.dropFirst() }
+      if Self.nominativeWeekday.contains(key) {
+        let name = dates.weekday(weekday)
+        return name.prefix(1).uppercased() + name.dropFirst()
+      }
       return language("summaries.weekday.in.\(weekday)", table: Self.table)
     case .month(let month):
       if Self.nominativeMonth.contains(key) { return dates.monthTitle(month) }

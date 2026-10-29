@@ -945,8 +945,8 @@ private struct ParseSession {
 
   private mutating func readTerm(after markers: Set<String>) -> (term: TermReading, phrase: String)?
   {
-    for index in words.indices where !words[index].claimed && markers.contains(words[index].normalized)
-    {
+    for index in words.indices
+    where !words[index].claimed && markers.contains(words[index].normalized) {
       var next = index + 1
       if next < words.count, !words[next].claimed,
         Lexicon.termPrepositions.contains(words[next].normalized)

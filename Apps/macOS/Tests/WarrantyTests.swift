@@ -45,7 +45,9 @@ final class WarrantyTests: XCTestCase {
     let model = book.model()
     try enter("чайник 3000 гарантия 2г возврат 14д", into: model)
     let day = book.environment.calendar.day(of: model.draft.occurredAt)
-    XCTAssertEqual(model.draft.warrantyUntil, WarrantyTerms.end(of: TermReading(count: 2, unit: .year), from: day))
+    XCTAssertEqual(
+      model.draft.warrantyUntil,
+      WarrantyTerms.end(of: TermReading(count: 2, unit: .year), from: day))
     XCTAssertEqual(model.draft.returnUntil, day.adding(days: 14))
     XCTAssertEqual(model.draft.note, "чайник")
     let saved = try book.save(model)

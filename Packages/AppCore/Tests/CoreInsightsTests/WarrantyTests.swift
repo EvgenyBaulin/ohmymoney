@@ -83,9 +83,11 @@ struct WarrantyTests {
 
   @Test func theWarrantyLineCarriesTheOriginalPlace() {
     let kept = Self.item("Холодильник", warranty: Self.today.adding(days: 14), place: "коробка")
-    guard case .warrantyEnds(_, let title, _, _, let place)? = WarrantyReminders.list(
-      [kept], today: Self.today
-    ).first else {
+    guard
+      case .warrantyEnds(_, let title, _, _, let place)? = WarrantyReminders.list(
+        [kept], today: Self.today
+      ).first
+    else {
       Issue.record("expected the warranty line")
       return
     }

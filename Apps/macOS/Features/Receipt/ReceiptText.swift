@@ -10,7 +10,9 @@ enum ReceiptText {
     environment.language(key, table: table)
   }
 
-  static func format(_ key: String, _ environment: AppEnvironment, _ arguments: CVarArg...) -> String {
+  static func format(
+    _ key: String, _ environment: AppEnvironment, _ arguments: CVarArg...
+  ) -> String {
     String(
       format: environment.language(key, table: table), locale: environment.language.locale,
       arguments: arguments)

@@ -208,7 +208,8 @@ final class AttachmentsModel {
   /// A path with the file's own name and extension, for the preview and the thumbnail: the
   /// folder of the files names a file by its digest, without an extension, and the system
   /// recognises a type by the name. A clone on the same volume costs nothing.
-  nonisolated static func previewURL(for file: AttachedFile, in service: AttachmentService) -> URL? {
+  nonisolated static func previewURL(for file: AttachedFile, in service: AttachmentService) -> URL?
+  {
     guard let source = service.store.url(forHash: file.contentHash),
       FileManager.default.fileExists(atPath: source.path)
     else { return nil }

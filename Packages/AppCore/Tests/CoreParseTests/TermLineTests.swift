@@ -73,10 +73,12 @@ struct TermLineTests {
     #expect(reading.returnPhrase == "возврат 14д")
   }
 
-  @Test("The words without a count and a unit stay in the note", arguments: [
-    "гарантия 250", "гарантия 250 кофе", "гарантия долго 250", "warranty 250", "возврат 14 250",
-    "гарантия 2х 250", "гарантия 0д 250", "гарантия 99г 250", "return 5000d 250",
-  ])
+  @Test(
+    "The words without a count and a unit stay in the note",
+    arguments: [
+      "гарантия 250", "гарантия 250 кофе", "гарантия долго 250", "warranty 250", "возврат 14 250",
+      "гарантия 2х 250", "гарантия 0д 250", "гарантия 99г 250", "return 5000d 250",
+    ])
   func incompleteWordsStay(_ line: String) {
     let reading = Self.read(line)
     #expect(reading.warranty == nil)

@@ -145,14 +145,17 @@ struct ReceiptMatchTests {
 @Suite("Время чека для найденной операции")
 struct ReceiptSupplementZoneTests {
   @Test func theTimeIsReadInTheZoneOfTheOperation() throws {
-    let owner = CalendarContext(timeZone: TimeZone(identifier: "Asia/Tokyo")!, unrecordedZone: TravelDay.moscowZone)
+    let owner = CalendarContext(
+      timeZone: TimeZone(identifier: "Asia/Tokyo")!, unrecordedZone: TravelDay.moscowZone)
     let receipt = try #require(ReceiptQRParser.parse("t=20261029T183200&s=10.00&n=1"))
     let moscow = CalendarContext.moscow
     let candidate = ReceiptCandidate(
       id: Fixture.id("01"), kind: .expense,
       occurredAt: moscow.moment(DateOnly(year: 2026, month: 10, day: 29), hour: 12, minute: 0),
       timeZoneId: nil, amountE4: AmountE4(raw: 100_000))
-    guard case .supplement(_, let moment, _) = ReceiptMatch.propose(receipt, among: [candidate], calendar: owner)
+    guard
+      case .supplement(_, let moment, _) = ReceiptMatch.propose(
+        receipt, among: [candidate], calendar: owner)
     else {
       Issue.record("expected a supplement")
       return

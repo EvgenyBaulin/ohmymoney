@@ -72,7 +72,8 @@ struct MoreTab: View {
               environment.receiptRequest = ReceiptRequest(urls: [])
             } label: {
               Label(
-                environment.language("receipt.menu", table: "Receipt"), systemImage: "qrcode.viewfinder")
+                environment.language("receipt.menu", table: "Receipt"),
+                systemImage: "qrcode.viewfinder")
             }
             .accessibilityIdentifier("more.receipt")
           }

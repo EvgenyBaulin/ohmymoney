@@ -95,8 +95,9 @@ final class AttachmentsStorageTests: XCTestCase {
     XCTAssertEqual(try Data(contentsOf: mirrored(second)), Data("second".utf8))
 
     // The next copy of a day writes nothing again: the file is there.
-    let stamp = try FileManager.default.attributesOfItem(atPath: mirrored(first).path)[
-      .modificationDate] as? Date
+    let stamp =
+      try FileManager.default.attributesOfItem(atPath: mirrored(first).path)[
+        .modificationDate] as? Date
     _ = try await service.writeBackup(now: day(10, 6), label: "daily")
     XCTAssertEqual(
       try FileManager.default.attributesOfItem(atPath: mirrored(first).path)[.modificationDate]
@@ -141,7 +142,8 @@ final class AttachmentsStorageTests: XCTestCase {
     XCTAssertFalse(service.store.contains(hash: file.contentHash))
     let outcome = mirror.pull(into: service.store)
     XCTAssertEqual(outcome.copied, 1)
-    XCTAssertEqual(try service.store.data(forHash: file.contentHash), Data("only in the cloud now".utf8))
+    XCTAssertEqual(
+      try service.store.data(forHash: file.contentHash), Data("only in the cloud now".utf8))
     // A file whose content does not match its name is not taken.
     let bad = mirror.folder.appendingPathComponent(
       AttachmentHash.relativePath(for: String(repeating: "c", count: 64))!)

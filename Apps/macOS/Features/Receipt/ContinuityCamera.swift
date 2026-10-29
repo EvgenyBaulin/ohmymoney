@@ -64,7 +64,9 @@
 
     static func photo(of image: CGImage) -> ReceiptPhoto? {
       let representation = NSBitmapImageRep(cgImage: image)
-      guard let data = representation.representation(using: .jpeg, properties: [.compressionFactor: 0.85])
+      guard
+        let data = representation.representation(
+          using: .jpeg, properties: [.compressionFactor: 0.85])
       else { return nil }
       return ReceiptPhoto(data: data, filename: "receipt.jpg")
     }

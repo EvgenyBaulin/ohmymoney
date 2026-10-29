@@ -52,7 +52,9 @@ public enum ReceiptQRParser {
   /// ones are ignored, seconds in the time are optional, the sum may have a point or a comma.
   public static func parse(_ text: String) -> ReceiptQR? {
     var body = text.trimmingCharacters(in: .whitespacesAndNewlines)
-    if let question = body.lastIndex(of: "?") { body = String(body[body.index(after: question)...]) }
+    if let question = body.lastIndex(of: "?") {
+      body = String(body[body.index(after: question)...])
+    }
     guard !body.isEmpty, body.count < 1_000 else { return nil }
     var values: [String: String] = [:]
     for pair in body.split(separator: "&") {
@@ -80,7 +82,8 @@ public enum ReceiptQRParser {
   private static func nonEmpty(_ text: String) -> String? { text.isEmpty ? nil : text }
 
   /// `20261029T1832` or `20261029T183245`; `-` and `:` between the parts are tolerated.
-  private static func readMoment(_ text: String) -> (day: DateOnly, time: TimeOfDay, second: Int?)? {
+  private static func readMoment(_ text: String) -> (day: DateOnly, time: TimeOfDay, second: Int?)?
+  {
     let compact = text.uppercased().filter { $0 != "-" && $0 != ":" }
     let halves = compact.split(separator: "T", omittingEmptySubsequences: false)
     guard halves.count == 2, halves[0].count == 8, [4, 6].contains(halves[1].count),

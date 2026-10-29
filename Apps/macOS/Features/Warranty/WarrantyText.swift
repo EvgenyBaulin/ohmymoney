@@ -73,7 +73,8 @@ enum WarrantyText {
     switch reminder {
     case .returnEnds(let id, let title, let until, let left):
       let name = title ?? names[id] ?? "—"
-      return left == 0 ? f("look.warranty.returnToday", name) : f("look.warranty.returnEnds", name, day(until))
+      return left == 0
+        ? f("look.warranty.returnToday", name) : f("look.warranty.returnEnds", name, day(until))
     case .warrantyEnds(let id, let title, let until, let left, let place):
       let name = title ?? names[id] ?? "—"
       let base =

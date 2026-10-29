@@ -11,7 +11,8 @@ public enum SummaryCards {
   public static func cards(for summary: PeriodSummary, hideAmounts: Bool) -> [SummaryCard] {
     var cards: [SummaryCard] = []
     let periodArg: SummaryArg =
-      summary.id.kind == .year ? .year(summary.period.start.year) : .month(summary.period.start.monthKey)
+      summary.id.kind == .year
+      ? .year(summary.period.start.year) : .month(summary.period.start.monthKey)
 
     // Totals
     var totals: [SummaryLine] = []
@@ -25,11 +26,16 @@ public enum SummaryCards {
       totals.append(SummaryLine("summaries.line.net", [.money(summary.net)]))
     }
     if let change = summary.expensesChangeBP {
-      let key = change > 0 ? "summaries.line.spendingUp" : change < 0 ? "summaries.line.spendingDown" : "summaries.line.spendingSame"
+      let key =
+        change > 0
+        ? "summaries.line.spendingUp"
+        : change < 0 ? "summaries.line.spendingDown" : "summaries.line.spendingSame"
       totals.append(SummaryLine(key, [.percent(SummaryMath.percent(abs(change)))]))
     }
     if totals.isEmpty { totals.append(SummaryLine("summaries.line.amountsHidden")) }
-    cards.append(SummaryCard(id: "totals", title: SummaryLine("summaries.card.totals", [periodArg]), lines: totals))
+    cards.append(
+      SummaryCard(
+        id: "totals", title: SummaryLine("summaries.card.totals", [periodArg]), lines: totals))
 
     if !summary.topCategories.isEmpty {
       let lines = summary.topCategories.map { item in
@@ -44,7 +50,9 @@ public enum SummaryCards {
               .percent(SummaryMath.percent(item.shareBP)),
             ])
       }
-      cards.append(SummaryCard(id: "categories", title: SummaryLine("summaries.card.categories"), lines: lines))
+      cards.append(
+        SummaryCard(id: "categories", title: SummaryLine("summaries.card.categories"), lines: lines)
+      )
     }
 
     if let surprise = summary.surprise {
@@ -65,14 +73,18 @@ public enum SummaryCards {
         line = SummaryLine("summaries.line.surpriseNew", [.category(surprise.categoryId)])
       case (nil, false):
         line = SummaryLine(
-          "summaries.line.surpriseNewMoney", [.category(surprise.categoryId), .money(surprise.amount)])
+          "summaries.line.surpriseNewMoney",
+          [.category(surprise.categoryId), .money(surprise.amount)])
       }
-      cards.append(SummaryCard(id: "surprise", title: SummaryLine("summaries.card.surprise"), lines: [line]))
+      cards.append(
+        SummaryCard(id: "surprise", title: SummaryLine("summaries.card.surprise"), lines: [line]))
     }
 
     if let best = summary.bestMonth {
       var lines = [SummaryLine("summaries.line.bestMonth", [.month(best.month)])]
-      if !hideAmounts { lines.append(SummaryLine("summaries.line.bestMonthNet", [.money(best.net)])) }
+      if !hideAmounts {
+        lines.append(SummaryLine("summaries.line.bestMonthNet", [.money(best.net)]))
+      }
       cards.append(SummaryCard(id: "best", title: SummaryLine("summaries.card.best"), lines: lines))
     }
 
@@ -86,24 +98,34 @@ public enum SummaryCards {
     if !summary.closedDebts.isEmpty {
       cards.append(
         SummaryCard(
-          id: "debts", title: SummaryLine("summaries.card.debts", [.count(summary.closedDebts.count)]),
-          lines: summary.closedDebts.map { SummaryLine("summaries.line.debtClosed", [.name($0.name)]) }))
+          id: "debts",
+          title: SummaryLine("summaries.card.debts", [.count(summary.closedDebts.count)]),
+          lines: summary.closedDebts.map {
+            SummaryLine("summaries.line.debtClosed", [.name($0.name)])
+          }))
     }
 
     if !summary.topPlaces.isEmpty {
       let lines = summary.topPlaces.map { item in
         hideAmounts
           ? SummaryLine(
-            "summaries.line.place", [.place(item.placeId), .percent(SummaryMath.percent(item.shareBP))])
+            "summaries.line.place",
+            [.place(item.placeId), .percent(SummaryMath.percent(item.shareBP))])
           : SummaryLine(
             "summaries.line.placeMoney",
-            [.place(item.placeId), .money(item.amount), .percent(SummaryMath.percent(item.shareBP))])
+            [
+              .place(item.placeId), .money(item.amount),
+              .percent(SummaryMath.percent(item.shareBP)),
+            ])
       }
-      cards.append(SummaryCard(id: "places", title: SummaryLine("summaries.card.places"), lines: lines))
+      cards.append(
+        SummaryCard(id: "places", title: SummaryLine("summaries.card.places"), lines: lines))
     }
 
     if let mood = summary.moodTimesTen {
-      var lines = [SummaryLine("summaries.line.moodAverage", [.tenths(mood), .count(summary.moods.count)])]
+      var lines = [
+        SummaryLine("summaries.line.moodAverage", [.tenths(mood), .count(summary.moods.count)])
+      ]
       if summary.id.kind == .month {
         lines += summary.moods.map {
           SummaryLine("summaries.line.moodWeek", [.day($0.week.start), .count($0.mood)])
@@ -127,7 +149,9 @@ public enum SummaryCards {
       dearest =
         hideAmounts
         ? [SummaryLine("summaries.line.dearestDayOnly", [.weekday(day.day.weekday)])]
-        : [SummaryLine("summaries.line.dearestDay", [.weekday(day.day.weekday), .money(day.amount)])]
+        : [
+          SummaryLine("summaries.line.dearestDay", [.weekday(day.day.weekday), .money(day.amount)])
+        ]
     } else {
       dearest = [SummaryLine("summaries.line.noSpending")]
     }
@@ -138,14 +162,20 @@ public enum SummaryCards {
       category =
         hideAmounts
         ? [SummaryLine("summaries.line.category", [.category(top.categoryId), share])]
-        : [SummaryLine("summaries.line.categoryMoney", [.category(top.categoryId), .money(top.amount), share])]
+        : [
+          SummaryLine(
+            "summaries.line.categoryMoney", [.category(top.categoryId), .money(top.amount), share])
+        ]
     } else {
       category = [SummaryLine("summaries.line.noSpending")]
     }
 
     var comparison: [SummaryLine] = []
     if let change = week.comparison.changeBP {
-      let key = change > 0 ? "summaries.line.weekMore" : change < 0 ? "summaries.line.weekLess" : "summaries.line.weekSame"
+      let key =
+        change > 0
+        ? "summaries.line.weekMore"
+        : change < 0 ? "summaries.line.weekLess" : "summaries.line.weekSame"
       comparison.append(SummaryLine(key, [.percent(SummaryMath.percent(abs(change)))]))
       if !hideAmounts {
         comparison.append(
@@ -160,9 +190,12 @@ public enum SummaryCards {
     let know = week.knowYou.map { [$0.line] } ?? [SummaryLine("summaries.line.noFact")]
     return [
       SummaryCard(id: "total", title: SummaryLine("summaries.card.weekTotal"), lines: total),
-      SummaryCard(id: "dearestDay", title: SummaryLine("summaries.card.dearestDay"), lines: dearest),
-      SummaryCard(id: "category", title: SummaryLine("summaries.card.weekCategory"), lines: category),
-      SummaryCard(id: "comparison", title: SummaryLine("summaries.card.comparison"), lines: comparison),
+      SummaryCard(
+        id: "dearestDay", title: SummaryLine("summaries.card.dearestDay"), lines: dearest),
+      SummaryCard(
+        id: "category", title: SummaryLine("summaries.card.weekCategory"), lines: category),
+      SummaryCard(
+        id: "comparison", title: SummaryLine("summaries.card.comparison"), lines: comparison),
       SummaryCard(id: "knowYou", title: SummaryLine("summaries.card.knowYou"), lines: know),
     ]
   }
