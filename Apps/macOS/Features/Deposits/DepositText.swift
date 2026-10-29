@@ -60,6 +60,28 @@ enum DepositText {
     return parts.joined(separator: " · ")
   }
 
+  /// Who named a rate: «список приложения», «banki.ru», «Банк России», the aggregator's name or
+  /// «моё предложение».
+  static func source(_ origin: DepositShowcaseEntry.Origin, _ environment: AppEnvironment) -> String
+  {
+    switch origin {
+    case .builtIn: t("dep.source.builtIn", environment)
+    case .bankiRu: "banki.ru"
+    case .centralBank: t("dep.source.centralBank", environment)
+    case .aggregator(let name): name
+    case .own: t("dep.source.own", environment)
+    }
+  }
+
+  /// «Ставки расходятся: список приложения — 14.5 %, banki.ru — 15.2 %. Стоит проверить на сайте
+  /// банка.»
+  static func discrepancy(_ found: DepositDiscrepancy, _ environment: AppEnvironment) -> String {
+    f(
+      "dep.diverge", environment, source(found.lower.origin, environment),
+      "\(found.lower.ratePercent ?? 0)", source(found.higher.origin, environment),
+      "\(found.higher.ratePercent ?? 0)")
+  }
+
   /// «ставка на 28 октября» and, past 30 days, «могла измениться».
   static func rateDate(
     _ entry: DepositShowcaseEntry, today: DateOnly, _ environment: AppEnvironment
@@ -118,7 +140,9 @@ enum DepositText {
   /// Every key, so a test finds each in both languages.
   static let keys = [
     "dep.title", "dep.subtitle", "dep.version", "dep.filter.term", "dep.filter.amount",
-    "dep.filter.topup", "dep.filter.any", "dep.rate.upTo", "dep.rate.exact", "dep.rate.unknown",
+    "dep.filter.topup", "dep.parser", "dep.parser.failed", "dep.cbr.title", "dep.cbr.body",
+    "dep.diverge", "dep.source.builtIn", "dep.source.centralBank", "dep.source.own",
+    "dep.filter.any", "dep.rate.upTo", "dep.rate.exact", "dep.rate.unknown",
     "dep.rateOn", "dep.stale", "dep.term.one", "dep.term.range", "dep.term.from", "dep.term.upTo",
     "dep.amount.range", "dep.amount.from", "dep.amount.upTo", "dep.newClient", "dep.subscription",
     "dep.topup.yes", "dep.topup.no", "dep.own", "dep.none", "dep.add", "dep.form.new",

@@ -34,6 +34,23 @@ final class DepositsAndCryptoTests: XCTestCase {
     }
   }
 
+  func testADiscrepancyNamesBothSourcesAndSaysToCheck() throws {
+    let low = DepositShowcaseEntry(
+      id: "a", bankName: "ВТБ", ratePercent: Decimal(string: "14.5"), rateOn: today)
+    let high = DepositShowcaseEntry(
+      id: "b", origin: .aggregator("example.test"), bankName: "ВТБ",
+      ratePercent: Decimal(string: "15.2"), rateOn: today)
+    let found = try XCTUnwrap(DepositShowcase.discrepancies([low, high])["втб"])
+    XCTAssertEqual(
+      DepositText.discrepancy(found, environment(.russian)),
+      "Ставки расходятся: список приложения — 14.5 %, example.test — 15.2 %. Стоит проверить на сайте банка."
+    )
+    XCTAssertEqual(
+      DepositText.discrepancy(found, environment(.english)),
+      "Rates differ: the app's list — 14.5%, example.test — 15.2%. Worth checking on the bank's site."
+    )
+  }
+
   func testAnEntryWithoutARateSaysToAskTheBank() {
     let entry = DepositShowcaseEntry(id: "x", bankName: "ПСБ", rateOn: today)
     XCTAssertEqual(DepositText.rate(entry, environment(.russian)), "Уточните на сайте банка")

@@ -15,6 +15,11 @@ struct DepositShowcaseSheet: View {
   @State private var requiresTopup = false
   @State private var own: [DepositOffer] = []
   @State private var editing: DepositOfferEditor.Target?
+  @State private var parserOn = false
+  @State private var fetched: [DepositShowcaseEntry] = []
+  @State private var indicator: CentralBankIndicator?
+  @State private var fetchFailed = false
+  @State private var settingLoaded = false
 
   /// The terms offered by the filter, in months; 0 is «любой».
   static let terms = [0, 1, 3, 6, 12, 24, 36]
@@ -29,7 +34,11 @@ struct DepositShowcaseSheet: View {
 
   var body: some View {
     let today = environment.today
-    let entries = DepositShowcase.entries(own: own, filter: filter)
+    let shownFetched = parserOn ? fetched : []
+    let entries = DepositShowcase.entries(fetched: shownFetched, own: own, filter: filter)
+    let discrepancies = DepositShowcase.discrepancies(
+      DepositShowcaseData.entries + shownFetched
+        + own.filter { !$0.archived }.map(DepositShowcaseEntry.init))
     VStack(alignment: .leading, spacing: 12) {
       Text(verbatim: t("dep.title")).appFont(.headline)
       Text(verbatim: t("dep.subtitle")).appFont(.callout).foregroundStyle(.secondary)
@@ -44,15 +53,27 @@ struct DepositShowcaseSheet: View {
             .frame(maxWidth: 160)
         }
         Toggle(t("dep.filter.topup"), isOn: $requiresTopup)
+        Toggle(t("dep.parser"), isOn: $parserOn)
+          .accessibilityIdentifier("deposits.parser")
       }
       .formStyle(.grouped)
-      .frame(maxHeight: 150)
+      .frame(maxHeight: 190)
+      if parserOn, fetchFailed {
+        Text(verbatim: t("dep.parser.failed")).appFont(.caption).foregroundStyle(.secondary)
+      }
+      if parserOn, let indicator {
+        centralBankBlock(indicator)
+      }
       ScrollView {
         LazyVStack(alignment: .leading, spacing: 8) {
           if entries.isEmpty {
             Text(verbatim: t("dep.none")).foregroundStyle(.secondary)
           }
-          ForEach(entries) { entry in row(entry, today: today) }
+          ForEach(entries) { entry in
+            row(
+              entry, today: today,
+              discrepancy: discrepancies[DepositShowcase.bankKey(entry.bankName)])
+          }
         }
       }
       Text(
@@ -71,13 +92,39 @@ struct DepositShowcaseSheet: View {
     }
     .padding(20)
     .sheetFrame(width: 560, height: 620)
-    .task { reload() }
+    .task {
+      reload()
+      await loadParserSetting()
+    }
+    .onChange(of: parserOn) { _, on in
+      guard settingLoaded else { return }
+      try? environment.settings?.set(DepositParserSetting.key, to: DepositParserSetting.stored(on))
+      if on { Task { await refreshFetched() } }
+    }
     .sheet(item: $editing, onDismiss: reload) { target in
       DepositOfferEditor(target: target).handingOver(dependencies)
     }
   }
 
-  private func row(_ entry: DepositShowcaseEntry, today: DateOnly) -> some View {
+  /// «По данным Банка России»: the market mark, apart from the banks and never as a rate of one.
+  private func centralBankBlock(_ indicator: CentralBankIndicator) -> some View {
+    VStack(alignment: .leading, spacing: 2) {
+      Label(t("dep.cbr.title"), systemImage: "building.columns").appFont(.callout)
+      Text(
+        verbatim: DepositText.f(
+          "dep.cbr.body", environment, "\(indicator.ratePercent)",
+          environment.dates.longDay(indicator.periodStart))
+      )
+      .appFont(.caption)
+      .foregroundStyle(.secondary)
+    }
+    .accessibilityElement(children: .combine)
+    .accessibilityIdentifier("deposits.centralBank")
+  }
+
+  private func row(
+    _ entry: DepositShowcaseEntry, today: DateOnly, discrepancy: DepositDiscrepancy?
+  ) -> some View {
     let stale = entry.isStale(on: today)
     return HStack(alignment: .firstTextBaseline, spacing: 8) {
       VStack(alignment: .leading, spacing: 2) {
@@ -104,6 +151,15 @@ struct DepositShowcaseSheet: View {
           .appFont(.caption)
           .foregroundStyle(.secondary)
         }
+        if let discrepancy {
+          Label {
+            Text(verbatim: DepositText.discrepancy(discrepancy, environment))
+          } icon: {
+            Image(systemName: "exclamationmark.triangle")
+          }
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+        }
       }
       Spacer(minLength: 8)
       Text(verbatim: DepositText.rate(entry, environment))
@@ -125,6 +181,20 @@ struct DepositShowcaseSheet: View {
       }
     }
     .accessibilityElement(children: .combine)
+  }
+
+  private func loadParserSetting() async {
+    let stored = (try? environment.settings?.string(DepositParserSetting.key)) ?? nil
+    parserOn = DepositParserSetting.isEnabled(from: stored)
+    settingLoaded = true
+    if parserOn { await refreshFetched() }
+  }
+
+  private func refreshFetched() async {
+    let result = await DepositRateService().load(today: environment.today)
+    fetched = result.entries
+    indicator = result.indicator
+    fetchFailed = result.failed
   }
 
   private func reload() {

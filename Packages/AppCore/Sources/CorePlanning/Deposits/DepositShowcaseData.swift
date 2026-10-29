@@ -79,6 +79,5 @@ public enum DepositShowcaseData {
       termMaxMonths: 12, rateOn: DateOnly(year: 2026, month: 10, day: 12)),
     // Pages that could not be read: listed without a rate.
     DepositShowcaseEntry(id: "psb", bankName: "ПСБ", rateOn: readOn),
-    DepositShowcaseEntry(id: "raiffeisen", bankName: "Райффайзенбанк", rateOn: readOn),
   ]
 }

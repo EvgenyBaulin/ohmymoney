@@ -205,6 +205,57 @@
         }
       }
     },
+    "dep.cbr.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average highest rate on rouble deposits of the ten banks with the most deposits: %1$@%% a year, from %2$@. A guide to the market, not the rate of any bank."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Средняя максимальная ставка по вкладам в рублях десяти банков с наибольшим объёмом вкладов: %1$@ %% годовых, с %2$@. Это ориентир рынка, а не ставка какого-либо банка."
+          }
+        }
+      }
+    },
+    "dep.cbr.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "According to the Bank of Russia"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По данным Банка России"
+          }
+        }
+      }
+    },
+    "dep.diverge": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rates differ: %1$@ — %2$@%%, %3$@ — %4$@%%. Worth checking on the bank's site."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставки расходятся: %1$@ — %2$@ %%, %3$@ — %4$@ %%. Стоит проверить на сайте банка."
+          }
+        }
+      }
+    },
     "dep.filter.amount": {
       "extractionState": "manual",
       "localizations": {
@@ -562,6 +613,40 @@
         }
       }
     },
+    "dep.parser": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Take rates from open sources (only the page request leaves the Mac)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Брать ставки из открытых источников (в сеть уходит только запрос страницы)"
+          }
+        }
+      }
+    },
+    "dep.parser.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not update the rates"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось обновить ставки"
+          }
+        }
+      }
+    },
     "dep.pick.amount": {
       "extractionState": "manual",
       "localizations": {
@@ -677,6 +762,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "ставка на %@"
+          }
+        }
+      }
+    },
+    "dep.source.builtIn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the app's list"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "список приложения"
+          }
+        }
+      }
+    },
+    "dep.source.centralBank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "the Bank of Russia"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк России"
+          }
+        }
+      }
+    },
+    "dep.source.own": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "my offer"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "моё предложение"
           }
         }
       }
