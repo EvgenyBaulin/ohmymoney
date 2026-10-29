@@ -786,6 +786,9 @@ struct MainWindow: View {
       case .group(let id):
         GroupScreen(scope: .group(id), actions: overviewActions) { selection = .account($0) }
           .id(id)
+      case .bank(let id):
+        BankScreen(bankId: id)
+          .id(id)
       case .allAccounts:
         GroupScreen(scope: .summary, actions: overviewActions) { selection = .account($0) }
       }

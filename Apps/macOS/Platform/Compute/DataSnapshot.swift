@@ -240,6 +240,7 @@ struct DataSnapshot: Sendable {
       accounts: planning.accounts.balances, tree: ledger.tree,
       allocation: dataset.allocationSettings, rubPerUnit: rubPerUnit, today: today)
     var cards: [UUID: CreditCardNow] = [:]
+    var cardStates: [UUID: CreditCardState] = [:]
     for account in dataset.paymentMethods where !account.archived {
       guard let terms = account.credit else { continue }
       let movements = CreditStatements.movements(
@@ -250,14 +251,21 @@ struct DataSnapshot: Sendable {
       cards[account.id] = CreditStatements.now(
         account: account, terms: terms, statements: statements, movements: movements,
         balances: planning.accounts.balances, today: today, calendar: ledger.calendar)
+      if let now = cards[account.id] {
+        cardStates[account.id] = CreditCardStates.state(now: now, statements: statements)
+      }
     }
     planning.creditCards = cards
+    planning.creditCardStates = cardStates
     planning.debtReminders = DebtReminders.list(
       debts: dataset.debts, costs: dataset.debtCosts, cards: cards, today: today,
       dismissed: context.debtReminders.dismissed,
       creditHistoryEnabled: context.debtReminders.creditHistoryEnabled,
       creditHistoryDone: context.debtReminders.creditHistoryDone)
     planning.debtReview = DebtReview.toReview(debts: dataset.debts)
+    planning.banks = BankReport.build(
+      ledger: ledger, accounts: planning.accounts, today: today, rubPerUnit: rubPerUnit)
+    planning.bankNotes = planning.banks.notes(dismissed: context.debtReminders.dismissed)
     planning.npd =
       dataset.selfEmployment.enabled
       ? NPDTax.state(

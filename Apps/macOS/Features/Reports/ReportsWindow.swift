@@ -30,6 +30,8 @@ struct ReportsWindow: View {
   /// The CSV handed to the file exporter on a phone; the Mac asks in its save panel.
   @State private var exportRequest: PersonalDataExport?
   @State private var exportFailed = false
+  /// «Банкам за год», a sheet over the window.
+  @State private var feesOpen = false
   /// The parents the owner folded; every parent is open until then, so the table shows every
   /// line the CSV holds. A new table, period or grouping opens them all again.
   @State private var collapsed: Set<String> = []
@@ -40,6 +42,7 @@ struct ReportsWindow: View {
       detail
     }
     .themedWindowBackground()
+    .sheet(isPresented: $feesOpen) { BankFeesSheet().handingOver(deps) }
     .sheetFrame(minWidth: Self.minimumWidth, minHeight: 480)
     .task(id: loadKey) { await load() }
     .onChange(of: request) { _, _ in collapsed = [] }
@@ -193,6 +196,12 @@ struct ReportsWindow: View {
             selected: kind == selection.kind
           ) { tableName = kind.rawValue }
         }
+        // Not a table of the ledger by category: the fees and the interest paid to banks.
+        SectionChip(
+          title: BankText.t("bank.fees.title", environment), symbol: "building.columns",
+          selected: false
+        ) { feesOpen = true }
+        .accessibilityIdentifier("reports.bankFees")
       }
       .accessibilityElement(children: .contain)
       .accessibilityIdentifier("reports.tables")

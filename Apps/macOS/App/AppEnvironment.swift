@@ -38,6 +38,10 @@ public final class AppEnvironment {
   /// The custom currencies and their rates typed by hand; every write of them is a change of
   /// the planning the caller applies through the store, one step of ⌘Z.
   public private(set) var currencies: CurrencyRepository?
+  /// The deposit offers the owner typed into the showcase (`deposit_offers`).
+  public private(set) var depositOffers: DepositOfferRepository?
+  /// The conditions of bank products the owner typed (`bank_conditions`).
+  public private(set) var bankConditions: BankConditionsRepository?
   /// Names, symbols and digits of the custom currencies, read at every open; a screen that
   /// changes them reads them again (`refreshCurrencyCatalog()`). `money` writes with it.
   public private(set) var currencyCatalog = CurrencyCatalog.empty
@@ -857,6 +861,8 @@ public final class AppEnvironment {
     statementImports = nil
     yearPlan = nil
     subscriptionBooks = nil
+    depositOffers = nil
+    bankConditions = nil
     savedViews = nil
     scenarios = nil
     anomalies = nil
@@ -926,6 +932,8 @@ public final class AppEnvironment {
     self.settings = SettingsRepository(writer: stack.writer)
     self.rates = RateRepository(writer: stack.writer)
     self.currencies = CurrencyRepository(writer: stack.writer)
+    self.depositOffers = DepositOfferRepository(writer: stack.writer)
+    self.bankConditions = BankConditionsRepository(writer: stack.writer)
     self.planning = PlanningRepository(writer: stack.writer, liveCounts: liveCounts)
     self.spendingRules = SpendingRulesRepository(writer: stack.writer)
     self.statementImports = StatementImportRepository(writer: stack.writer)

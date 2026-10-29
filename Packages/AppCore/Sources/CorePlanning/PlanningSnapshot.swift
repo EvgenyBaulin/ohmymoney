@@ -146,6 +146,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
   public var debtReview: [DebtReviewItem] = []
   /// Every credit card today, by account (`CreditStatements.now`).
   public var creditCards: [UUID: CreditCardNow] = [:]
+  /// Where every credit card stands (`CreditCardStates`): «Долги» shows the ones in debt.
+  public var creditCardStates: [UUID: CreditCardState] = [:]
   /// Self-employment and its tax; `nil` while it is off (`NPDTax`).
   public var npd: NPDState? = nil
   /// The half of a month paid twice (`PayHalves`).
@@ -157,6 +159,11 @@ public struct PlanningSnapshot: Hashable, Sendable {
   /// The statements of every credit card, by account: what the free sum of another day asks of
   /// the cards out of the summary (`CreditCardDues`).
   public var creditStatements: [UUID: [CreditStatement]] = [:]
+  /// What the conditions of the banks say today: free limits, free service, the minimum
+  /// balance, insurance, forgotten money, cards that end (`BankReport`).
+  public var banks: BankReport = .empty
+  /// The lines of «Стоит посмотреть» about them, those put away already left out.
+  public var bankNotes: [BankNote] = []
 
   public init(
     today: DateOnly, now: Date, rubPerUnit: [CurrencyCode: Decimal], book: PlanningBook,

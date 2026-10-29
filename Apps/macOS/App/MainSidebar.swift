@@ -6,6 +6,8 @@ enum SidebarItem: Hashable, Sendable {
   case section(MainWindow.Section)
   case account(UUID)
   case group(UUID)
+  /// The screen of a bank: its accounts, its conditions and the insurance of its money.
+  case bank(UUID)
   /// «Всего»: every account of the summary, as one screen of a group.
   case allAccounts
 
@@ -27,6 +29,7 @@ enum SidebarItem: Hashable, Sendable {
     case .section(let section): section.rawValue
     case .account: "account"
     case .group: "group"
+    case .bank: "bank"
     case .allAccounts: "accounts"
     }
   }
@@ -37,6 +40,7 @@ enum SidebarItem: Hashable, Sendable {
     switch self {
     case .section(let section): section == .operations
     case .account, .group, .allAccounts: true
+    case .bank: false
     }
   }
 
@@ -48,6 +52,7 @@ enum SidebarItem: Hashable, Sendable {
     case .section, .allAccounts: nil
     case .account(let id): liveAccounts.contains(id) ? nil : .section(.overview)
     case .group(let id): liveGroups.contains(id) ? nil : .section(.overview)
+    case .bank: nil
     }
   }
 }

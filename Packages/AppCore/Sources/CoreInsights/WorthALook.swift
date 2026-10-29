@@ -90,6 +90,9 @@ public enum WorthALook {
 public enum WorthALookNote: Hashable, Sendable, Identifiable {
   /// A reminder of a debt or a credit card (`DebtReminders`).
   case debt(DebtReminder)
+  /// A condition of a bank: a free limit, the minimum balance, a card that ends, forgotten
+  /// money, the insurance limit (`BankReport.notes`).
+  case bank(BankNote)
   /// «Налог НПД за октябрь ≈ X — до 28 ноября»: from `remindDaysBefore` days before the due
   /// day, and after it while unpaid.
   case npdDue(NPDMonth)
@@ -110,10 +113,14 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
   /// «Проверка базы нашла проблемы»: the weekly check of the database found `count` rows that
   /// are wrong. Said once it is found, until a later check finds none.
   case databaseProblems(count: Int)
+  /// «Вклад кончится 3 ноября. Сейчас в витрине: …»: a deposit ends within a week; the lines are
+  /// the showcase laid against its conditions (`DepositEndAdvisor`), never one «best» deposit.
+  case depositEnds(DepositEndAdvice)
 
   public var id: String {
     switch self {
     case .debt(let reminder): "debt:\(reminder.id)"
+    case .bank(let note): "bank:\(note.id)"
     case .npdDue(let month): "npdDue:\(month.month.iso)"
     case .salaryLate(let half): "salaryLate:\(half.nextIncomeId):\(half.nextIncomeDay.iso)"
     case .allocate(let id, _, _): "allocate:\(id)"
@@ -122,6 +129,7 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
     case .burnout(let signal): "burnout:\(signal.through.iso)"
     case .lowCopySpace: "lowCopySpace"
     case .databaseProblems: "databaseProblems"
+    case .depositEnds(let advice): "depositEnds:\(advice.id)"
     }
   }
 }
@@ -137,9 +145,11 @@ extension WorthALook {
   public static func notes(
     planning: PlanningSnapshot, ledger: Ledger, today: DateOnly, burnout: BurnoutCheck = .quiet,
     burnoutEnabled: Bool = true, burnoutLastShownWeek: String? = nil, copyFreeBytes: Int64? = nil,
-    lowCopySpaceBytes: Int64 = 1_000_000_000, databaseProblems: Int = 0
+    lowCopySpaceBytes: Int64 = 1_000_000_000, databaseProblems: Int = 0,
+    depositEnds: [DepositEndAdvice] = []
   ) -> [WorthALookNote] {
     var notes = planning.debtReminders.map(WorthALookNote.debt)
+    notes += planning.bankNotes.map(WorthALookNote.bank)
     if let npd = planning.npd {
       let reference = ledger.dataset.selfEmployment.reference
       for month in npd.months where month.state == .due || month.state == .overdue {
@@ -172,6 +182,7 @@ extension WorthALook {
       notes.append(.lowCopySpace(freeBytes: free))
     }
     if databaseProblems > 0 { notes.append(.databaseProblems(count: databaseProblems)) }
+    notes += depositEnds.map(WorthALookNote.depositEnds)
     return notes
   }
 }

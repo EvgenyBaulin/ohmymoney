@@ -606,6 +606,9 @@ struct AnomaliesCard: View {
       case .allocate(let request): AllocationSheetView(request: request).handingOver(dependencies)
       case .monthRest(let offer): MonthRestSheet(offer: offer).handingOver(dependencies)
       case .pay(let month): NPDPaymentSheet(month: month).handingOver(dependencies)
+      case .showcase: DepositShowcaseSheet().handingOver(dependencies)
+      case .forgotten: ForgottenMoneySheet().handingOver(dependencies)
+      case .rebind(let cardId): CardRebindSheet(cardId: cardId).handingOver(dependencies)
       }
     }
     // A new read brings the marks of this Mac in: what was settled is gone from the data.

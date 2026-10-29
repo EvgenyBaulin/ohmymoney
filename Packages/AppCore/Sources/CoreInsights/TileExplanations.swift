@@ -690,6 +690,8 @@ public enum TileExplanations {
       switch note {
       case .debt:
         return TileRow(TilePhrase("why.look.debtReminder"), mark: .warning)
+      case .bank:
+        return TileRow(TilePhrase("why.look.bank"), mark: .warning)
       case .npdDue(let month):
         return TileRow(
           TilePhrase("why.look.npdDue", .day(month.month.firstDay), .day(month.due)),
@@ -709,7 +711,7 @@ public enum TileExplanations {
       case .burnout(let signal):
         return TileRow(
           TilePhrase("why.look.burnout", .count(signal.lastWeekCount), .count(signal.usualCount)))
-      case .lowCopySpace, .databaseProblems:
+      case .lowCopySpace, .databaseProblems, .depositEnds:
         // About the disk, not about the money: the tile counts what happened in the book.
         return nil
       }

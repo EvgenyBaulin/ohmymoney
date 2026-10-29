@@ -9,8 +9,11 @@ struct CardDraft: Equatable {
   var last4: String
   /// Whatever else the owner keeps about the card, free text.
   var details: String
+  /// The last month the card works; `nil` until typed.
+  var expiresOn: MonthKey?
 
   init(_ card: PaymentCard?) {
+    expiresOn = card?.expiresOn
     name = card?.name ?? ""
     aliases = card?.aliases ?? []
     last4 = card?.last4 ?? ""
@@ -34,6 +37,7 @@ struct CardDraft: Equatable {
     card.last4 = keptLast4
     let note = details.trimmingCharacters(in: .whitespacesAndNewlines)
     card.details = note.isEmpty ? nil : note
+    card.expiresOn = expiresOn
     return card
   }
 }
@@ -52,6 +56,8 @@ struct CardEditor: View {
   let finish: (UUID?) -> Void
 
   @State private var draft: CardDraft
+  /// «Условия банка» of the card, as typed.
+  @State private var conditions = BankConditionsDraft()
   @State private var refusal: CardRefusal?
   @State private var failed = false
 
@@ -113,6 +119,9 @@ struct CardEditor: View {
           )
           .foregroundStyle(.secondary)
         }
+        CardExpiryField(month: $draft.expiresOn)
+        BankConditionsSection(
+          draft: $conditions, currency: accountCurrency, isAccount: false)
         Section {
         } footer: {
           Text(verbatim: t("card.editor.hint"))
@@ -131,13 +140,23 @@ struct CardEditor: View {
         Button(environment.language("action.save"), action: save)
           .keyboardShortcut(.defaultAction)
           .buttonStyle(.borderedProminent)
-          .disabled(store.isWritingInBackground || !draft.last4IsValid)
+          .disabled(store.isWritingInBackground || !draft.last4IsValid || !conditions.isValid)
       }
     }
     .padding(20)
     .sheetFrame(width: 440, height: 560)
     .onChange(of: draft) { _, _ in refusal = nil }
+    .task {
+      if let previous {
+        conditions = BankConditionsDraft(
+          BankConditionsStore.read(account: accountId, card: previous.id, environment))
+      }
+    }
     .refusedWriteAlert($failed, environment)
+  }
+
+  private var accountCurrency: CurrencyCode {
+    actions.accounts.first { $0.id == accountId }?.mainCurrency ?? .rub
   }
 
   private func save() {
@@ -145,7 +164,13 @@ struct CardEditor: View {
     failed = false
     let card = draft.card(previous: previous, accountId: accountId)
     switch actions.save(card, previous: previous) {
-    case .done: finish(card.id)
+    case .done:
+      if case .success(let typed) = conditions.conditions(
+        accountId: accountId, cardId: card.id, currency: accountCurrency)
+      {
+        if !BankConditionsStore.write(typed, environment) { failed = true }
+      }
+      finish(card.id)
     case .refused(let reason): refusal = reason
     case .failed: failed = true
     }

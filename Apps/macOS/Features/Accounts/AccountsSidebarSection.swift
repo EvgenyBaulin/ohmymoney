@@ -180,7 +180,9 @@ struct AccountsSidebarSection: View {
           }
         }
       } icon: {
+        // The colour of the account, when it has one; the name stands beside it.
         Image(systemName: AccountText.kindSymbol(line.account.kind))
+          .foregroundStyle(line.account.accountAccent?.swatch ?? Color.secondary)
       }
       Spacer(minLength: 4)
       VStack(alignment: .trailing, spacing: 0) {
@@ -213,6 +215,12 @@ struct AccountsSidebarSection: View {
   ) -> some View {
     Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: account)) }
     Button(t("accounts.reconcile")) { reconcile(account) }
+    Button(
+      environment.format(
+        "bank.screen.open", table: AccountText.table, bankName(of: account))
+    ) {
+      selection = .bank(BankLimits.bankKey(account))
+    }
     Divider()
     Button(t("accounts.edit")) { model.sheet = .account(account) }
     if !account.isDefault {
@@ -242,6 +250,11 @@ struct AccountsSidebarSection: View {
     Button(t("accounts.delete"), role: .destructive) {
       model.askToDelete(account, actions: actions)
     }
+  }
+
+  /// The name of the bank an account is filed under; an account without one is its own bank.
+  private func bankName(of account: PaymentMethod) -> String {
+    compute.snapshot?.dataset.banks.first { $0.id == account.bankId }?.name ?? account.name
   }
 
   @ViewBuilder
@@ -434,6 +447,8 @@ final class AccountsSidebarModel {
   var refusal: Refusal?
   /// The account the owner asked to delete, waiting for the answer.
   var deleting: PaymentMethod?
+  /// The money counts put on it, which leaves every total with it.
+  var deletingHeld: [HeldMoney] = []
   /// The group the owner asked to delete, waiting for the answer.
   var deletingGroup: AccountGroup?
   /// A write the database refused; the alert says so.
@@ -486,7 +501,12 @@ final class AccountsSidebarModel {
       refusal = Refusal(reason: .inUse(account.id, usage), account: account)
       return
     }
+    guard let held = actions.heldMoney(on: [account.id]) else {
+      failed = true
+      return
+    }
     guard account.isDefault, !account.archived else {
+      deletingHeld = held
       deleting = account
       return
     }
@@ -557,11 +577,13 @@ private struct AccountsSidebarPresentations: ViewModifier {
       ) { account in
         Button(environment.language("action.delete"), role: .destructive) {
           model.deleting = nil
-          model.perform(actions.delete([account.id]), about: account)
+          model.perform(
+            actions.delete([account.id], losingMoney: !model.deletingHeld.isEmpty),
+            about: account)
         }
         Button(environment.language("action.cancel"), role: .cancel) {}
       } message: { _ in
-        Text(verbatim: t("accounts.delete.message"))
+        Text(verbatim: AccountText.deleteMessage(count: 1, held: model.deletingHeld, environment))
       }
       .confirmationDialog(
         model.deletingGroup.map {
@@ -646,11 +668,18 @@ private struct AccountsSidebarPresentations: ViewModifier {
       MainHandOverSheet(
         leaving: account, candidates: candidates, preselected: preselected,
         confirmTitle: t(deletes ? "accounts.delete" : "accounts.archive"),
-        note: deletes ? t("accounts.delete.message") : nil,
+        note: deletes
+          ? AccountText.deleteMessage(
+            count: 1, held: actions.heldMoney(on: [account.id]) ?? [], environment)
+          : nil,
         confirm: { next in
           model.sheet = nil
           if deletes {
-            model.perform(actions.delete([account.id], newMain: next), about: account)
+            model.perform(
+              actions.delete(
+                [account.id], newMain: next,
+                losingMoney: !(actions.heldMoney(on: [account.id]) ?? []).isEmpty),
+              about: account)
           } else {
             model.archive(account, newMain: next, actions: actions)
           }

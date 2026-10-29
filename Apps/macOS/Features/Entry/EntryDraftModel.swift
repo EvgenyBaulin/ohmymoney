@@ -2606,6 +2606,13 @@ public final class EntryDraftModel {
   /// «Записать как есть» of the question about a date ahead, kept the same way.
   var aheadAnswered = false
 
+  /// «Записать всё равно» of the warning about a credit card's limit, kept the same way.
+  var overLimitAnswered = false
+
+  /// «Записать всё равно» of the warning about the balance a bank asks to keep, kept the same
+  /// way.
+  var minBalanceAnswered = false
+
   /// «В этом месяце больше платежей не будет»: set from the panel on a payment of a debt that
   /// leaves part of its due unpaid, so the due closes all the same (`DebtEntry.closesTerm`).
   /// Kept until the operation is saved, and cleared with the draft (`reset`).
@@ -2637,6 +2644,45 @@ public final class EntryDraftModel {
     let since = now.addingTimeInterval(-RecentDuplicate.window)
     let recent = (try? transactions.entries(recordedSince: since)) ?? []
     return RecentDuplicate.match(of: draftForSaving, among: recent, now: now)
+  }
+
+  /// How far past its limit the credit card the spending is charged to would be once it is
+  /// written, with the card's name and currency; `nil` when it stays within the limit, the
+  /// account is no credit card, the money is in another currency than the card's, or nothing
+  /// moves (a saved operation being edited, a purchase on credit, a goal, the difference of a
+  /// count) — or once «Записать всё равно» was said. `cards` are the cards today
+  /// (`CreditStatements.now`).
+  public func creditLimitWarning(
+    cards: [UUID: CreditCardNow]
+  ) -> (account: String, over: AmountE4, currency: CurrencyCode)? {
+    guard !editsSavedOperation, !overLimitAnswered, draft.kind == .expense, !isOnCredit,
+      !isReconcileDifference, !isGoalOnly,
+      let account = selectedAccount, account.credit != nil, !account.archived,
+      account.mainCurrency == draft.currency, let now = cards[account.id]
+    else { return nil }
+    let over = CreditCardStates.overshoot(now: now, spendE4: draft.amount)
+    return over.raw > 0 ? (account.name, over, account.mainCurrency) : nil
+  }
+
+  /// The balance the account the spending is charged to would fall below, with what the bank
+  /// asks to keep; `nil` when it stays above, the account states no minimum, the money is in
+  /// another currency than the conditions, nothing moves (a saved operation being edited, a
+  /// purchase on credit, a goal, the difference of a count), or once «Записать всё равно» was
+  /// said. An account already below its minimum is not asked about again at every record.
+  public func minBalanceWarning(
+    accounts: AccountsSnapshot, bank: BankData
+  ) -> MinBalanceWarning? {
+    guard !editsSavedOperation, !minBalanceAnswered, draft.kind == .expense, !isOnCredit,
+      !isReconcileDifference, !isGoalOnly,
+      let account = selectedAccount, !account.archived,
+      let conditions = bank.conditions(account: account.id),
+      let minimum = conditions.minBalanceE4, conditions.currency == draft.currency,
+      account.mainCurrency == draft.currency,
+      let balance = accounts.line(of: account.id)?.keys
+        .first(where: { $0.key.currency == draft.currency })?.balance
+    else { return nil }
+    return BankMinBalance.warning(
+      balanceE4: balance, spendE4: draft.amount, minimumE4: minimum, currency: draft.currency)
   }
 
   /// The plan a new operation dated after today may become — a payment from an expense, an
@@ -3039,6 +3085,8 @@ public final class EntryDraftModel {
     stampedAt = nil
     repeatConfirmed = false
     aheadAnswered = false
+    overLimitAnswered = false
+    minBalanceAnswered = false
     closesDebtTerm = false
     paysFromAccount = false
     paysFromAccountByTheLine = false

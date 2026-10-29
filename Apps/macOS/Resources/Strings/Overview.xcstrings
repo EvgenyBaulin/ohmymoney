@@ -613,6 +613,23 @@
         }
       }
     },
+    "look.action.openBank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the bank"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть банк"
+          }
+        }
+      }
+    },
     "look.action.openDebts": {
       "extractionState": "manual",
       "localizations": {
@@ -626,6 +643,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть «Долги»"
+          }
+        }
+      }
+    },
+    "look.action.openDeposits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Showcase"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрина"
+          }
+        }
+      }
+    },
+    "look.action.openForgotten": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать"
           }
         }
       }
@@ -698,6 +749,23 @@
         }
       }
     },
+    "look.action.rebind": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What to rebind"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что перепривязать"
+          }
+        }
+      }
+    },
     "look.action.stopCreditHistory": {
       "extractionState": "manual",
       "localizations": {
@@ -732,6 +800,195 @@
         }
       }
     },
+    "look.bank.cardAttached": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paid with it: %1$@ — rebind them."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платежей и подписок по ней: %1$@ — перепривяжите."
+          }
+        }
+      }
+    },
+    "look.bank.cardEnded": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card «%1$@» stopped working at the end of %2$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Срок карты «%1$@» истёк в конце: %2$@."
+          }
+        }
+      }
+    },
+    "look.bank.cardEnds": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The card «%1$@» works to the end of %2$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карта «%1$@» действует до конца: %2$@."
+          }
+        }
+      }
+    },
+    "look.bank.forgotten": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Forgotten money: %lld account or card without movement."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Forgotten money: %lld accounts or cards without movement."
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Забытые деньги: %lld счёта или карты без движения."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Забытые деньги: %lld счетов или карт без движения."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Забытые деньги: %lld счёт или карта без движения."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Забытые деньги: %lld счёта или карты без движения."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "look.bank.forgottenAmount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ lie on them."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На них лежит %1$@."
+          }
+        }
+      }
+    },
+    "look.bank.insurance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In the bank «%1$@» you have %2$@ — more than the insurance limit %3$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В банке «%1$@» у вас %2$@ — больше лимита страхования %3$@."
+          }
+        }
+      }
+    },
+    "look.bank.limitNear": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ — %3$@ still free this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ — ещё бесплатно %3$@ в этом месяце"
+          }
+        }
+      }
+    },
+    "look.bank.limitOver": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ — %3$@ over the free limit, the bank may charge a fee"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ — %3$@ сверх бесплатного лимита, банк может взять комиссию"
+          }
+        }
+      }
+    },
+    "look.bank.minBelow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: balance %2$@ is below the minimum %3$@ — the rate for the month may be lost"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: остаток %2$@ ниже неснижаемого %3$@ — ставка за месяц может пропасть"
+          }
+        }
+      }
+    },
     "look.burnout": {
       "extractionState": "manual",
       "localizations": {
@@ -762,6 +1019,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кредитка «%@»: льготный период выписки %@ потерян — проценты ≈ %@"
+          }
+        }
+      }
+    },
+    "look.cardOverLimit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ is over its limit by %2$@. Pay in at least that much: the bank may charge a fee."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: выше лимита на %2$@. Внесите не меньше: возможна комиссия банка."
           }
         }
       }
@@ -1053,6 +1327,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зарплата не пришла? Ждали %@"
+          }
+        }
+      }
+    },
+    "overview.accounts.all": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Все"
           }
         }
       }
@@ -7215,6 +7506,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "На «%@» в архиве"
+          }
+        }
+      }
+    },
+    "why.look.bank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A condition of a bank"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Условие банка"
           }
         }
       }
