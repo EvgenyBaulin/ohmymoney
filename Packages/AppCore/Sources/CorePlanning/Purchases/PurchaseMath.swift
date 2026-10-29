@@ -5,7 +5,9 @@ import Foundation
 enum PurchaseMath {
   /// `amount × numerator ÷ denominator`, rounded half away from zero; zero when the
   /// denominator is zero or the result does not fit.
-  static func scaled(_ amount: AmountE4, by numerator: AmountE4, over denominator: AmountE4)
+  static func scaled(
+    _ amount: AmountE4, by numerator: AmountE4, over denominator: AmountE4
+  )
     -> AmountE4
   {
     guard !denominator.isZero else { return .zero }

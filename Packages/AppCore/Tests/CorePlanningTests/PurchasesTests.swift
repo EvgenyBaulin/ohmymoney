@@ -35,7 +35,8 @@ enum PurchaseFx {
     return TransactionEntry(transaction: transaction, parts: [part])
   }
 
-  static func refund(_ whole: Int64, on day: DateOnly, waitingUntil: DateOnly?) -> TransactionEntry {
+  static func refund(_ whole: Int64, on day: DateOnly, waitingUntil: DateOnly?) -> TransactionEntry
+  {
     var transaction = Transaction(
       kind: .refund, occurredAt: moment(day), amountE4: rub(whole),
       refundWaitingUntil: waitingUntil)
@@ -140,7 +141,9 @@ struct RegretScheduleTests {
   typealias Fx = PurchaseFx
   let threshold = PurchaseFx.rub(10_000)
 
-  func due(_ entries: [TransactionEntry], settings: PurchaseSettings = PurchaseSettings())
+  func due(
+    _ entries: [TransactionEntry], settings: PurchaseSettings = PurchaseSettings()
+  )
     -> [RegretQuestion]
   {
     RegretSchedule.due(
@@ -209,16 +212,22 @@ struct OwnershipCostTests {
 
   @Test func monthsAreWholeAndAtLeastOne() {
     let start = DateOnly(year: 2026, month: 1, day: 15)
-    #expect(OwnershipCost.monthsOwned(from: start, to: DateOnly(year: 2026, month: 1, day: 20)) == 1)
-    #expect(OwnershipCost.monthsOwned(from: start, to: DateOnly(year: 2026, month: 3, day: 14)) == 1)
-    #expect(OwnershipCost.monthsOwned(from: start, to: DateOnly(year: 2026, month: 3, day: 15)) == 2)
-    #expect(OwnershipCost.monthsOwned(from: start, to: DateOnly(year: 2027, month: 1, day: 15)) == 12)
+    #expect(
+      OwnershipCost.monthsOwned(from: start, to: DateOnly(year: 2026, month: 1, day: 20)) == 1)
+    #expect(
+      OwnershipCost.monthsOwned(from: start, to: DateOnly(year: 2026, month: 3, day: 14)) == 1)
+    #expect(
+      OwnershipCost.monthsOwned(from: start, to: DateOnly(year: 2026, month: 3, day: 15)) == 2)
+    #expect(
+      OwnershipCost.monthsOwned(from: start, to: DateOnly(year: 2027, month: 1, day: 15)) == 12)
   }
 
   @Test func priceRunningCostsMinusSaleOverMonths() {
     let tag = Tag(name: "bike")
     let boughtOn = DateOnly(year: 2026, month: 1, day: 10)
-    let purchase = Fx.expense(60_000, on: boughtOn) { $0.warrantyUntil = DateOnly(year: 2028, month: 1, day: 10) }
+    let purchase = Fx.expense(60_000, on: boughtOn) {
+      $0.warrantyUntil = DateOnly(year: 2028, month: 1, day: 10)
+    }
     let service = Fx.expense(3_000, on: DateOnly(year: 2026, month: 5, day: 1))
     let before = Fx.expense(999, on: DateOnly(year: 2025, month: 12, day: 1))
     var income = Transaction(
@@ -268,8 +277,10 @@ struct OwnershipCostTests {
   @Test func anAssetStandsForItsFirstValuation() {
     let asset = Asset(name: "Camera", kind: .equipment)
     let valuations = [
-      AssetValuation(assetId: asset.id, day: DateOnly(year: 2026, month: 3, day: 1), valueE4: Fx.rub(50_000)),
-      AssetValuation(assetId: asset.id, day: DateOnly(year: 2026, month: 9, day: 1), valueE4: Fx.rub(40_000)),
+      AssetValuation(
+        assetId: asset.id, day: DateOnly(year: 2026, month: 3, day: 1), valueE4: Fx.rub(50_000)),
+      AssetValuation(
+        assetId: asset.id, day: DateOnly(year: 2026, month: 9, day: 1), valueE4: Fx.rub(40_000)),
     ]
     let subject = OwnershipSubject(asset: asset, valuations: valuations)
     #expect(subject.priceRubE4 == Fx.rub(50_000))
@@ -343,7 +354,8 @@ struct FuelEconomyTests {
     var transaction = Transaction(
       kind: .expense, occurredAt: Fx.moment(Fx.today), amountE4: Fx.rub(2_000), note: "бензин 40л")
     #expect(FuelEconomy.shouldAskMileage(transaction, settings: PurchaseSettings()))
-    #expect(!FuelEconomy.shouldAskMileage(transaction, settings: PurchaseSettings(fuelAskMileage: false)))
+    #expect(
+      !FuelEconomy.shouldAskMileage(transaction, settings: PurchaseSettings(fuelAskMileage: false)))
     transaction.odometerKm = 5
     #expect(!FuelEconomy.shouldAskMileage(transaction, settings: PurchaseSettings()))
   }
@@ -416,8 +428,10 @@ struct WaitingRefundsTests {
   typealias Fx = PurchaseFx
 
   @Test func listsOnlyTheWaitingOnesSoonestFirst() {
-    let late = Fx.refund(1_000, on: Fx.today.adding(days: -10), waitingUntil: Fx.today.adding(days: -2))
-    let soon = Fx.refund(2_000, on: Fx.today.adding(days: -3), waitingUntil: Fx.today.adding(days: 4))
+    let late = Fx.refund(
+      1_000, on: Fx.today.adding(days: -10), waitingUntil: Fx.today.adding(days: -2))
+    let soon = Fx.refund(
+      2_000, on: Fx.today.adding(days: -3), waitingUntil: Fx.today.adding(days: 4))
     let done = Fx.refund(500, on: Fx.today, waitingUntil: nil)
     let list = WaitingRefunds.list(entries: [soon, done, late], calendar: Fx.calendar)
     #expect(list.items.map(\.transactionId) == [late.id, soon.id])
@@ -459,7 +473,9 @@ struct WaitingRefundsTests {
 struct GiftCalendarTests {
   typealias Fx = PurchaseFx
 
-  func person(_ name: String, month: Int, day: Int, year: Int? = nil, budget: AmountE4? = nil)
+  func person(
+    _ name: String, month: Int, day: Int, year: Int? = nil, budget: AmountE4? = nil
+  )
     -> Person
   {
     Person(
@@ -481,7 +497,8 @@ struct GiftCalendarTests {
   @Test func theBirthdayThatPassedComesNextYear() {
     let birthday = Birthday(month: 10, day: 1)!
     #expect(
-      GiftCalendar.nextOccurrence(of: birthday, from: Fx.today) == DateOnly(year: 2027, month: 10, day: 1))
+      GiftCalendar.nextOccurrence(of: birthday, from: Fx.today)
+        == DateOnly(year: 2027, month: 10, day: 1))
   }
 
   @Test func the29thOfFebruaryFallsOnThe28thInACommonYear() {
@@ -489,8 +506,11 @@ struct GiftCalendarTests {
     #expect(GiftCalendar.date(of: leapDay, in: 2027) == DateOnly(year: 2027, month: 2, day: 28))
     #expect(GiftCalendar.date(of: leapDay, in: 2028) == DateOnly(year: 2028, month: 2, day: 29))
     #expect(
-      GiftCalendar.nextOccurrence(of: leapDay, from: Fx.today) == DateOnly(year: 2028, month: 2, day: 29)
-        || GiftCalendar.nextOccurrence(of: leapDay, from: Fx.today) == DateOnly(year: 2027, month: 2, day: 28))
+      GiftCalendar.nextOccurrence(of: leapDay, from: Fx.today)
+        == DateOnly(year: 2028, month: 2, day: 29)
+        || GiftCalendar.nextOccurrence(of: leapDay, from: Fx.today)
+          == DateOnly(year: 2027, month: 2, day: 28)
+    )
   }
 
   @Test func archivedPeopleAndPeopleWithoutABirthdayAreLeftOut() {
@@ -540,10 +560,12 @@ struct WishPriceTrackingTests {
   @Test func timeToBuyWhenTheFallIsBigEnough() {
     let wish = Wish(name: "TV", priceE4: Fx.rub(80), createdOn: Fx.today)
     let history = prices(wish, [(20, 100)])
-    let tracked = WishPriceTracking.track(wish: wish, prices: history, dropPercent: 15, today: Fx.today)
+    let tracked = WishPriceTracking.track(
+      wish: wish, prices: history, dropPercent: 15, today: Fx.today)
     #expect(tracked.fallFromHighestBp == 2_000)
     #expect(tracked.timeToBuy == .fellFromHighest(percent: 15))
-    let small = WishPriceTracking.track(wish: wish, prices: history, dropPercent: 25, today: Fx.today)
+    let small = WishPriceTracking.track(
+      wish: wish, prices: history, dropPercent: 25, today: Fx.today)
     #expect(small.timeToBuy == nil)
   }
 
@@ -557,7 +579,8 @@ struct WishPriceTrackingTests {
   @Test func theOutcomeComparesExpectedAndPaid() {
     let wish = Wish(name: "TV", createdOn: Fx.today, expectedE4: Fx.rub(100))
     #expect(WishOutcome.compare(wish: wish, paidE4: Fx.rub(90))?.differenceE4 == Fx.rub(-10))
-    #expect(WishOutcome.compare(wish: Wish(name: "x", createdOn: Fx.today), paidE4: Fx.rub(1)) == nil)
+    #expect(
+      WishOutcome.compare(wish: Wish(name: "x", createdOn: Fx.today), paidE4: Fx.rub(1)) == nil)
   }
 }
 
@@ -584,7 +607,8 @@ struct PurchaseNotesTests {
   }
 
   @Test func aRefundSpeaksFromItsExpectedDayAndDismissalWorks() {
-    let late = Fx.refund(1_000, on: Fx.today.adding(days: -9), waitingUntil: Fx.today.adding(days: -1))
+    let late = Fx.refund(
+      1_000, on: Fx.today.adding(days: -9), waitingUntil: Fx.today.adding(days: -1))
     let soon = Fx.refund(1_000, on: Fx.today, waitingUntil: Fx.today.adding(days: 2))
     let waiting = WaitingRefunds.list(entries: [late, soon], calendar: Fx.calendar)
     let notes = PurchaseNotes.list(

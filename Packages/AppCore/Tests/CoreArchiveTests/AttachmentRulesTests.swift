@@ -180,7 +180,7 @@ struct AttachmentArchiveTests {
       if withFiles {
         try builder.add(path: AttachmentArchive.path(forHash: hash)!, data: content)
       }
-      return try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
+      return try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 18)
     }
     let with = try archive(withFiles: true)
     #expect(with.manifest.formatVersion == 1)

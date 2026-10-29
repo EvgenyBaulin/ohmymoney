@@ -98,7 +98,7 @@ struct Migration0016Tests {
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 2)
+    #expect(stack.applied.applied == 3)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -139,7 +139,7 @@ struct Migration0016Tests {
       #expect(tables == ["rates"], "the scratch table is gone")
     }
     // The rows read as before through the repository.
-    let rates = try RateRepository(writer: stack.writer)
+    let rates = RateRepository(writer: stack.writer)
     let btc = try #require(
       try rates.rate(for: CurrencyCode("BTC"), on: DateOnly(year: 2026, month: 10, day: 20)))
     #expect(btc.source == .manual && btc.rubPerUnit == Decimal(string: "6700000"))

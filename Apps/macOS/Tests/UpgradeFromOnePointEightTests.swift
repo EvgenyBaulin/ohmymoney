@@ -114,8 +114,8 @@ final class UpgradeFromOnePointEightTests: XCTestCase {
 
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().last, "0017_attachments")
-    XCTAssertEqual(stack.applied.applied, 9)
+    XCTAssertEqual(try stack.appliedMigrations().last, "0018_purchases")
+    XCTAssertEqual(stack.applied.applied, 10)
     let copies = try copiesBeforeAnUpdate()
     XCTAssertEqual(copies.count, 1, "no copy of the database before its update")
     let copy = try XCTUnwrap(copies.first)

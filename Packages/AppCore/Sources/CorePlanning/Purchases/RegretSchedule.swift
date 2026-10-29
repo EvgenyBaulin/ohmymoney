@@ -117,7 +117,9 @@ public enum RegretSchedule {
       byCategory[root] = stat
     }
     return byCategory.values.sorted { left, right in
-      if left.regretShareBp != right.regretShareBp { return left.regretShareBp > right.regretShareBp }
+      if left.regretShareBp != right.regretShareBp {
+        return left.regretShareBp > right.regretShareBp
+      }
       if left.answered != right.answered { return left.answered > right.answered }
       return left.id < right.id
     }

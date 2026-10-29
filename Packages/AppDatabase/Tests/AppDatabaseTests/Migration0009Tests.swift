@@ -91,7 +91,7 @@ struct Migration0009Tests {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().contains("0009_credit_and_allocation"))
     #expect(try stack.appliedMigrations().last == "0018_purchases")
-    #expect(stack.applied.onDisk == 17)
+    #expect(stack.applied.onDisk == 18)
     let account = UUID().uuidString
     let category = UUID().uuidString
     let debt = UUID().uuidString
@@ -178,7 +178,7 @@ struct Migration0009Tests {
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     #expect(try stack.appliedMigrations().last == "0018_purchases")
-    #expect(stack.applied.applied == 9)
+    #expect(stack.applied.applied == 10)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))

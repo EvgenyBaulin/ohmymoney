@@ -587,9 +587,12 @@ final class PurchaseActionsTests: CapitalStoreTestCase {
 
     let stack = try XCTUnwrap(environment.stack)
     let dataset = try await DatasetRepository(writer: stack.writer).load(version: 0)
-    let sales = dataset.categories.filter {
-      $0.kind == .income && $0.name == PurchasesText.t("purchases.category.sales", environment)
-    }
+    // The sales go to the income category of that name: one the book already has («Sales» of the
+    // default categories) or the one the first sale made — never a second.
+    let names = [
+      PurchasesText.t("purchases.category.sales", environment), "Продажа вещей", "Sales",
+    ]
+    let sales = dataset.categories.filter { $0.kind == .income && names.contains($0.name) }
     XCTAssertEqual(sales.count, 1, "the category of sales was made twice")
     let income = try XCTUnwrap(
       dataset.entries.first { $0.transaction.note == "Велосипед" })

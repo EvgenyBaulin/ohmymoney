@@ -39,7 +39,7 @@ struct Migration0014Tests {
   @Test func aNewDatabaseHasTheColumnsEmptyAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().last == "0018_purchases")
-    #expect(stack.applied.onDisk == 17)
+    #expect(stack.applied.onDisk == 18)
     try stack.writer.read { (db: Database) throws in
       for table in Self.newTables {
         #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") == 0, "\(table)")
@@ -107,7 +107,7 @@ struct Migration0014Tests {
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 4)
+    #expect(stack.applied.applied == 5)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -679,7 +679,7 @@ struct Migration0014Tests {
       ])
     #expect(ExportTables.subscriptionTerms.columns.first == "payment_id")
     #expect(
-      Array(ExportTables.transactions.columns.dropLast(3).suffix(4)) == [
+      Array(ExportTables.transactions.columns.dropLast(8).suffix(4)) == [
         "source", "bank_status", "posted_on", "dedup_key",
       ])
     #expect(ExportTables.transfers.columns.last == "arrived_at")
@@ -792,7 +792,7 @@ struct Migration0014Tests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 18)
     #expect(opened.csvTables.count == 49)
     #expect(opened.manifest.schemaVersion == 18)
     #expect(opened.manifest.rowCounts["subscription_terms"] == 1)

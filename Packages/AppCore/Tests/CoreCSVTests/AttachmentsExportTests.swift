@@ -55,7 +55,7 @@ struct AttachmentsExportTests {
     #expect(read["warranty_where"] == "папка «Техника», верхний ящик")
     #expect(read["return_until"] == "2026-11-12")
     #expect(
-      Array(ExportTables.transactions.columns.suffix(3)) == [
+      Array(ExportTables.transactions.columns.dropLast(5).suffix(3)) == [
         "warranty_until", "warranty_where", "return_until",
       ])
   }

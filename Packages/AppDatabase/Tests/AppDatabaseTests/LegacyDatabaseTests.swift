@@ -33,7 +33,7 @@ struct LegacyDatabaseTests {
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 17)
+    #expect(try stack.appliedMigrations().count == 18)
 
     // Of the three accounts flagged main — the everyday card, a second live one and an
     // archived one — the card with the operations stays main.
@@ -229,7 +229,7 @@ struct LegacyDatabaseTests {
         try DatabaseStack(url: book.url, schema: TestSupport.schemaSource, context: stopping)
       })
     #expect(failure.from == 3)
-    #expect(failure.to == 17)
+    #expect(failure.to == 18)
     #expect(failure.migration == "0004_accounts")
 
     #expect(
@@ -245,7 +245,7 @@ struct LegacyDatabaseTests {
     // And it migrates once nothing stops it.
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
-    #expect(try stack.appliedMigrations().count == 17)
+    #expect(try stack.appliedMigrations().count == 18)
     try stack.close()
   }
 
@@ -270,7 +270,7 @@ struct LegacyDatabaseTests {
     }
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 17)
+    #expect(try stack.appliedMigrations().count == 18)
     #expect(stack.applied.dataSteps["mainCreated"] == 1)
     let orphans = try stack.writer.read { db in
       try Row.fetchAll(db, sql: "PRAGMA foreign_key_check").count

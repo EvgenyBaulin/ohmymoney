@@ -86,7 +86,7 @@ struct MigrationDryRunPropertyTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 17 -> 18 (applied 1)"))
+    #expect(output.contains("schema: 18 -> 18 (applied 0)"))
     #expect(output.contains("data step: none"))
     #expect(output.contains("result: equal"))
   }

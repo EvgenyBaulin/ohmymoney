@@ -344,7 +344,8 @@ final class PurchaseHooksTests: XCTestCase {
     person.birthday = Birthday(month: 3, day: 14)
     person.giftBudgetE4 = AmountE4(whole: 5_000)
     try references.save(person)
-    let loaded = try XCTUnwrap(try references.people(includeArchived: true).first { $0.id == person.id })
+    let loaded = try XCTUnwrap(
+      try references.people(includeArchived: true).first { $0.id == person.id })
     XCTAssertEqual(loaded.birthday, Birthday(month: 3, day: 14))
     XCTAssertEqual(loaded.giftBudgetE4, AmountE4(whole: 5_000))
   }
@@ -358,7 +359,8 @@ final class PurchaseHooksTests: XCTestCase {
     let nobody = Person(name: "Без даты")
     let days = (20...28).map { DateOnly(year: 2027, month: 2, day: $0) }
     let found = CalendarBirthdays.gifts(
-      people: [masha, petya, gone, nobody], on: days, today: DateOnly(year: 2027, month: 2, day: 21))
+      people: [masha, petya, gone, nobody], on: days, today: DateOnly(year: 2027, month: 2, day: 21)
+    )
     XCTAssertEqual(found[DateOnly(year: 2027, month: 2, day: 28)]?.map(\.name), ["Маша"])
     XCTAssertEqual(found[DateOnly(year: 2027, month: 2, day: 28)]?.first?.turnsAge, 31)
     XCTAssertEqual(found[DateOnly(year: 2027, month: 2, day: 27)]?.map(\.name), ["Петя"])
@@ -371,7 +373,8 @@ final class PurchaseHooksTests: XCTestCase {
       personId: UUID(), name: "Маша", date: DateOnly(year: 2027, month: 3, day: 14), daysLeft: 5,
       turnsAge: nil, budgetE4: AmountE4(whole: 5_000), reminderDue: true)
     XCTAssertTrue(CalendarBirthdays.offersEvent(for: day, events: [], environment))
-    let event = GiftCalendar.event(for: day, name: PurchaseHookActions.eventName(for: day, environment))
+    let event = GiftCalendar.event(
+      for: day, name: PurchaseHookActions.eventName(for: day, environment))
     XCTAssertEqual(event.budgetE4, AmountE4(whole: 5_000))
     XCTAssertFalse(CalendarBirthdays.offersEvent(for: day, events: [event], environment))
     var past = day
@@ -381,9 +384,10 @@ final class PurchaseHooksTests: XCTestCase {
 
   func testPlanningShowsAtMostThreeBirthdaysOfTheNextMonth() {
     let today = DateOnly(year: 2026, month: 10, day: 29)
-    let people = (1...5).map { number in
-      Person(name: "P\(number)", birthday: Birthday(month: 11, day: number))
-    } + [Person(name: "Far", birthday: Birthday(month: 6, day: 1))]
+    let people =
+      (1...5).map { number in
+        Person(name: "P\(number)", birthday: Birthday(month: 11, day: number))
+      } + [Person(name: "Far", birthday: Birthday(month: 6, day: 1))]
     let upcoming = PlanningBirthdays.upcoming(people: people, today: today)
     XCTAssertEqual(upcoming.map(\.name), ["P1", "P2", "P3"])
   }

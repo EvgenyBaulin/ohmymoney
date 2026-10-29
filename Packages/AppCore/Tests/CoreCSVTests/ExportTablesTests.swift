@@ -22,7 +22,8 @@ private let specifiedFileNames = [
   "settings.csv", "tags.csv", "part_tags.csv", "rules.csv", "day_notes.csv",
   "budget_month_exceptions.csv", "event_budget_items.csv", "event_templates.csv",
   "subscription_terms.csv", "subscription_usage.csv", "subscription_users.csv",
-  "subscription_keep_groups.csv", "bank_conditions.csv", "deposit_offers.csv", "attachments.csv", "wishes.csv",
+  "subscription_keep_groups.csv", "bank_conditions.csv", "deposit_offers.csv", "attachments.csv",
+  "wishes.csv",
   "wish_prices.csv", "shopping_items.csv", "owned_items.csv",
 ]
 
@@ -210,7 +211,7 @@ struct ExportTablesDescriptionTests {
       let older = Array(table.columns.prefix(before[table.fileName] ?? 0))
       #expect(Array(older.suffix(columns.count)) == columns, "\(table.fileName)")
     }
-    #expect(ExportTables.transactions.columns.count == 36)
+    #expect(ExportTables.transactions.columns.count == 41)
     #expect(ExportTables.transactionParts.columns.count == 17)
     #expect(ExportTables.paymentMethods.columns.count == 37)
     #expect(ExportTables.templates.columns.count == 8)

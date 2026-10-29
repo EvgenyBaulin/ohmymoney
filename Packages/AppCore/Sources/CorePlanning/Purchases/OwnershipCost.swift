@@ -120,12 +120,13 @@ public struct OwnershipCost: Hashable, Sendable {
     // The purchase: named, or the tagged expense of the day of the purchase for the price.
     var purchaseId = subject.purchaseTransactionId
     if purchaseId == nil, let day = subject.boughtOn, let price {
-      purchaseId = alive.first { entry in
-        entry.transaction.kind == .expense && entry.parts.contains { tagged.contains($0.id) }
-          && calendar.day(
-            of: entry.transaction.occurredAt, recordedIn: entry.transaction.timeZoneId) == day
-          && entry.transaction.amountRubE4 == price
-      }?.id
+      purchaseId =
+        alive.first { entry in
+          entry.transaction.kind == .expense && entry.parts.contains { tagged.contains($0.id) }
+            && calendar.day(
+              of: entry.transaction.occurredAt, recordedIn: entry.transaction.timeZoneId) == day
+            && entry.transaction.amountRubE4 == price
+        }?.id
     }
 
     var running = AmountE4.zero
@@ -159,7 +160,9 @@ public struct OwnershipCost: Hashable, Sendable {
 /// «Продал»: the edit that closes a thing — the day it left and the income that sold it.
 public enum OwnershipSale {
   /// A thing noted apart, sold by `saleTransactionId` on `day`.
-  public static func sold(_ item: OwnedItem, on day: DateOnly, by saleTransactionId: UUID?)
+  public static func sold(
+    _ item: OwnedItem, on day: DateOnly, by saleTransactionId: UUID?
+  )
     -> OwnedItem
   {
     var copy = item

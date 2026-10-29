@@ -51,7 +51,8 @@ public enum GiftCalendar {
 
   /// The birthdays within `withinDays` of `today`, the nearest first. People without a birthday
   /// and archived ones are left out.
-  public static func upcoming(people: [Person], today: DateOnly, withinDays: Int = 60) -> [GiftDay] {
+  public static func upcoming(people: [Person], today: DateOnly, withinDays: Int = 60) -> [GiftDay]
+  {
     var days: [GiftDay] = []
     for person in people where !person.archived {
       guard let birthday = person.birthday else { continue }

@@ -147,8 +147,10 @@ public struct DatasetRepository: Sendable {
     extras.set(bankData, for: Dataset.bankDataKey)
     // The wishes with their prices, the shopping list, the things and the settings of the
     // purchases come in the same read.
-    let wishes = try Row.fetchAll(db, sql: "SELECT * FROM wishes ORDER BY sort, priority, created_on, id")
-      .compactMap { try? Wish(row: $0) }.filter { !$0.archived }
+    let wishes = try Row.fetchAll(
+      db, sql: "SELECT * FROM wishes ORDER BY sort, priority, created_on, id"
+    )
+    .compactMap { try? Wish(row: $0) }.filter { !$0.archived }
     let wishPrices = try Row.fetchAll(
       db, sql: "SELECT * FROM wish_prices ORDER BY wish_id, on_date, rowid"
     ).compactMap { try? WishPrice(row: $0) }

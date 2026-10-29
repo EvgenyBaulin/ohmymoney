@@ -34,7 +34,7 @@ struct Migration0013Tests {
   @Test func aNewDatabaseHasTheColumnsAtTheirDefaultsAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().last == "0018_purchases")
-    #expect(stack.applied.onDisk == 17)
+    #expect(stack.applied.onDisk == 18)
     try stack.writer.read { (db: Database) throws in
       for table in Self.newTables {
         #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") == 0, "\(table)")
@@ -85,7 +85,7 @@ struct Migration0013Tests {
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 5)
+    #expect(stack.applied.applied == 6)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -479,7 +479,7 @@ struct SpendingRulesTravelTests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 18)
     #expect(opened.csvTables.count == 49)
     #expect(opened.manifest.schemaVersion == 18)
     #expect(opened.manifest.rowCounts["tags"] == 1)
