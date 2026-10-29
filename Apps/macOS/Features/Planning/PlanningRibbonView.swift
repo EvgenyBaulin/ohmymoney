@@ -77,7 +77,7 @@ struct PlanningRibbonView: View {
 
   /// «Аренда — 30,000 ₽»: one plan as a hover and a menu say it.
   static func line(_ plan: CalendarPlan, _ environment: AppEnvironment) -> String {
-    let name = plan.name.isEmpty ? "—" : plan.name
+    let name = plan.name.isEmpty ? "—" : CalendarText.title(of: plan, environment)
     return "\(name) — \(environment.money.exact(plan.amount, currency: plan.currency))"
   }
 

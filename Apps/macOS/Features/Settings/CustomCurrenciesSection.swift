@@ -226,6 +226,7 @@ struct CustomCurrenciesSection: View {
       }
       Button(t("currencies.custom.add")) { sheet = .editor(nil) }
         .accessibilityIdentifier("currencies.custom.add")
+      CryptoSourcePicker()
     } header: {
       Text(verbatim: t("currencies.custom"))
         .settingsHeaderStyle()
@@ -364,6 +365,8 @@ struct CustomCurrencyEditor: View {
   @State private var name: String
   @State private var symbol: String
   @State private var digits: Int
+  @State private var source: CustomRateSource
+  @State private var coinId: String
   @State private var rateText = ""
   @State private var rateDay = Date()
   @State private var refusal: String?
@@ -377,6 +380,8 @@ struct CustomCurrencyEditor: View {
     _name = State(initialValue: previous?.name ?? "")
     _symbol = State(initialValue: previous?.symbol ?? "")
     _digits = State(initialValue: previous?.fractionDigits ?? 2)
+    _source = State(initialValue: previous?.rateSource ?? .manual)
+    _coinId = State(initialValue: previous?.coinId ?? "")
   }
 
   private func t(_ key: String) -> String { environment.language(key, table: "Settings") }
@@ -405,6 +410,22 @@ struct CustomCurrencyEditor: View {
               "currencies.custom.digits", table: "Settings", counts: digits))
         }
         .accessibilityIdentifier("currencies.custom.digits")
+        Picker(DepositText.t("crypto.coin.source", environment), selection: $source) {
+          Text(verbatim: DepositText.t("crypto.source.manual", environment))
+            .tag(CustomRateSource.manual)
+          Text(verbatim: DepositText.t("crypto.source.coingecko", environment))
+            .tag(CustomRateSource.coingecko)
+        }
+        .accessibilityIdentifier("currencies.custom.rateSource")
+        if source == .coingecko {
+          TextField(text: $coinId, prompt: Text(verbatim: "bitcoin")) {
+            Text(verbatim: DepositText.t("crypto.coin.id", environment))
+          }
+          .accessibilityIdentifier("currencies.custom.coinId")
+          Text(verbatim: DepositText.t("crypto.coin.hint", environment))
+            .appFont(.caption)
+            .foregroundStyle(.secondary)
+        }
         if previous == nil {
           Section {
             TextField(text: $rateText, prompt: Text(verbatim: "95.5")) {
@@ -422,7 +443,7 @@ struct CustomCurrencyEditor: View {
       }
       .formStyle(.grouped)
       if let key = live ?? refusal {
-        Text(verbatim: t(key))
+        Text(verbatim: key.hasPrefix("crypto.") ? DepositText.t(key, environment) : t(key))
           .appFont(.callout)
           .foregroundStyle(.red)
           .fixedSize(horizontal: false, vertical: true)
@@ -453,6 +474,9 @@ struct CustomCurrencyEditor: View {
     currency.name = name
     currency.symbol = symbol.trimmingCharacters(in: .whitespaces).isEmpty ? nil : symbol
     currency.fractionDigits = digits
+    currency.rateSource = source == .manual ? nil : source
+    let coin = coinId.trimmingCharacters(in: .whitespaces)
+    currency.coinId = source == .coingecko && !coin.isEmpty ? coin : nil
     return currency
   }
 
@@ -460,7 +484,7 @@ struct CustomCurrencyEditor: View {
   private var live: String? {
     Self.refusal(
       code: code, name: name, symbol: symbol, digits: digits, rateText: rateText,
-      previous: previous, existing: existing)
+      previous: previous, existing: existing, source: source, coinId: coinId)
   }
 
   /// The key of why a currency typed so cannot be written, or `nil`. The code as typed («usd» is
@@ -468,8 +492,14 @@ struct CustomCurrencyEditor: View {
   /// be left empty — a currency without a rate has none until one is typed.
   static func refusal(
     code: String, name: String, symbol: String, digits: Int, rateText: String,
-    previous: CustomCurrency?, existing: [CustomCurrency]
+    previous: CustomCurrency?, existing: [CustomCurrency], source: CustomRateSource = .manual,
+    coinId: String = ""
   ) -> String? {
+    if source == .coingecko,
+      !CoinGeckoParser.isValidCoinId(coinId.trimmingCharacters(in: .whitespaces))
+    {
+      return "crypto.coin.refusal"
+    }
     if previous == nil,
       let refusal = CurrencyCatalog.refusal(newCode: code, existing: existing)
     {
@@ -613,5 +643,36 @@ struct CustomCurrencyRatesSheet: View {
 
   private func reload() {
     rates = (try? environment.currencies?.rates(of: currency.code)) ?? []
+  }
+}
+
+/// «Курс криптовалют»: whether the rates of the coins the own currencies name come from the
+/// network or are typed by hand — one choice for all of them, kept in the database settings
+/// (`crypto.rateSource`), so it travels in the archive. The network is the default.
+struct CryptoSourcePicker: View {
+  @Dependency(\.environment) private var environment
+  @State private var source = CryptoRateSetting.default
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 4) {
+      Picker(DepositText.t("crypto.source", environment), selection: $source) {
+        Text(verbatim: DepositText.t("crypto.source.coingecko", environment))
+          .tag(CustomRateSource.coingecko)
+        Text(verbatim: DepositText.t("crypto.source.manual", environment))
+          .tag(CustomRateSource.manual)
+      }
+      .accessibilityIdentifier("currencies.crypto.source")
+      Text(verbatim: DepositText.t("crypto.source.hint", environment))
+        .appFont(.caption)
+        .foregroundStyle(.secondary)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+    .task {
+      let stored = (try? environment.settings?.string(CryptoRateSetting.key)) ?? nil
+      source = CryptoRateSetting.source(from: stored)
+    }
+    .onChange(of: source) { _, new in
+      try? environment.settings?.set(CryptoRateSetting.key, to: new.rawValue)
+    }
   }
 }

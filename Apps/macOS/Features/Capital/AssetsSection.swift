@@ -26,6 +26,10 @@ struct AssetsSection: View {
           .foregroundStyle(.secondary)
           .accessibilityAddTraits(.isHeader)
         Spacer(minLength: 8)
+        Button(DepositText.t("dep.open", environment)) { sheet = .showcase }
+          .buttonStyle(.bordered)
+          .controlSize(.small)
+          .accessibilityIdentifier("capital.deposits.showcase")
         Button(CapitalText.t("capital.assets.add", environment)) { sheet = .newAsset }
           .buttonStyle(.bordered)
           .controlSize(.small)
@@ -101,6 +105,9 @@ struct AssetsSection: View {
     Button(CapitalText.t("capital.assets.newValuation", environment)) { sheet = .value(asset) }
     Button(CapitalText.t("capital.assets.history", environment)) { sheet = .history(asset) }
     Button(CapitalText.t("capital.assets.edit", environment)) { sheet = .edit(asset) }
+    if asset.kind == .investment, asset.disposedOn == nil {
+      Button(DepositText.t("payout.fromAsset", environment)) { sheet = .payout(asset) }
+    }
     if asset.disposedOn == nil {
       Button(CapitalText.t("capital.assets.dispose", environment)) { sheet = .dispose(asset) }
     } else {

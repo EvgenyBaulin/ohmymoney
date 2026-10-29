@@ -33,6 +33,9 @@ struct ComputeSources: Sendable {
     let datasets = DatasetRepository(writer: stack.writer)
     let settings = SettingsRepository(writer: stack.writer)
     let rates = RateRepository(writer: stack.writer)
+    // The prices of the owner's coins from the network, when the settings allow it; it never fails.
+    let crypto = CryptoRateService(
+      rates: rates, currencies: CurrencyRepository(writer: stack.writer), settings: settings)
     return ComputeSources(
       loadData: { mark, today, now in
         let dataset = try await datasets.load(version: mark)
@@ -48,7 +51,10 @@ struct ComputeSources: Sendable {
           dataset: dataset, calendar: calendar, today: today, context: context,
           version: DataVersion(load: mark), now: now)
       },
-      refineRates: { try await rateService.refine() }, models: models)
+      refineRates: {
+        await crypto.refresh()
+        return try await rateService.refine()
+      }, models: models)
   }
 
   /// The two-letter code of the interface language, read where the choice is stored so a step

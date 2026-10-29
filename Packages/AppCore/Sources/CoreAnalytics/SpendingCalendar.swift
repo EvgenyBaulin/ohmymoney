@@ -42,13 +42,16 @@ public struct CalendarPlan: Hashable, Sendable, Identifiable {
   /// In `currency`: what is still due on that day.
   public var amount: AmountE4
   public var currency: CurrencyCode
+  /// A dividend or a coupon among the incomes; `nil` for everything else.
+  public var payoutKind: PayoutKind?
 
   public var id: String { "\(kind.rawValue):\(sourceId.uuidString):\(day.iso)" }
 
   public init(
     kind: Kind, sourceId: UUID, day: DateOnly, name: String, amount: AmountE4,
-    currency: CurrencyCode
+    currency: CurrencyCode, payoutKind: PayoutKind? = nil
   ) {
+    self.payoutKind = payoutKind
     self.kind = kind
     self.sourceId = sourceId
     self.day = day

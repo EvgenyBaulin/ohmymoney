@@ -133,6 +133,32 @@ struct ExpectedIncomeForm: View {
           Text(verbatim: "—").tag(UUID?.none)
           ForEach(choices.people) { Text(verbatim: $0.name).tag(Optional($0.id)) }
         }
+        Picker(DepositText.t("payout.kind", environment), selection: $income.payoutKind) {
+          Text(verbatim: DepositText.t("payout.none", environment)).tag(PayoutKind?.none)
+          Text(verbatim: DepositText.t("payout.dividend", environment))
+            .tag(Optional(PayoutKind.dividend))
+          Text(verbatim: DepositText.t("payout.coupon", environment))
+            .tag(Optional(PayoutKind.coupon))
+        }
+        .accessibilityIdentifier("expected.payoutKind")
+        if income.payoutKind != nil {
+          let holdings = PayoutRules.holdings(
+            compute.snapshot?.dataset.assets ?? [], keeping: income.assetId,
+            today: environment.today)
+          Picker(DepositText.t("payout.asset", environment), selection: $income.assetId) {
+            Text(verbatim: "—").tag(UUID?.none)
+            ForEach(holdings) { Text(verbatim: $0.name).tag(Optional($0.id)) }
+          }
+          .accessibilityIdentifier("expected.payoutAsset")
+          if holdings.isEmpty {
+            Text(verbatim: DepositText.t("payout.noAssets", environment))
+              .appFont(.caption).foregroundStyle(.secondary)
+          }
+          if income.kind == .oneOff {
+            Text(verbatim: DepositText.t("payout.recurringHint", environment))
+              .appFont(.caption).foregroundStyle(.secondary)
+          }
+        }
         Picker(t("form.toAccount"), selection: $income.paymentMethodId) {
           ForEach(
             ExpectedIncomeAccounts.options(
@@ -157,8 +183,9 @@ struct ExpectedIncomeForm: View {
             && income.totalE4.raw > 0
         ) {
           guard let dependencies else { return false }
-          let ready = income.readyToSave(
-            today: environment.today, lastDay: offersLastDay && lastDay)
+          let ready = PayoutRules.normalized(
+            income, assets: compute.snapshot?.dataset.assets ?? []
+          ).readyToSave(today: environment.today, lastDay: offersLastDay && lastDay)
           // The other terms of the month are incomes of their own, written with this one in one
           // step: one ⌘Z takes them all back.
           let others = offersTerms ? income.terms(extraTerms, today: environment.today) : []
@@ -167,7 +194,7 @@ struct ExpectedIncomeForm: View {
       }
     }
     .padding(20)
-    .sheetFrame(width: 480, height: 520)
+    .sheetFrame(width: 480, height: 600)
     .onAppear {
       guard !loaded else { return }
       loaded = true

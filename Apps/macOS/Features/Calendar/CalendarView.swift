@@ -300,8 +300,11 @@ struct CalendarView: View {
               .frame(width: 22)
               .accessibilityLabel(
                 Text(verbatim: t(plan.kind == .payment ? "calendar.payment" : "calendar.income")))
-            Text(verbatim: "\(environment.dates.longDay(plan.day)) · \(plan.name)")
-              .lineLimit(1)
+            Text(
+              verbatim:
+                "\(environment.dates.longDay(plan.day)) · \(CalendarText.title(of: plan, environment))"
+            )
+            .lineLimit(1)
             Spacer(minLength: 6)
             Text(verbatim: CalendarText.amount(of: plan, environment))
               .monospacedDigit()
@@ -395,7 +398,7 @@ struct CalendarView: View {
                 .foregroundStyle(.secondary)
                 .accessibilityLabel(
                   Text(verbatim: t(plan.kind == .payment ? "calendar.payment" : "calendar.income")))
-              Text(verbatim: plan.name)
+              Text(verbatim: CalendarText.title(of: plan, environment))
                 .lineLimit(1)
               Spacer(minLength: 6)
               Text(verbatim: CalendarText.amount(of: plan, environment))

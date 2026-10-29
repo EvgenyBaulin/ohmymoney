@@ -36,6 +36,7 @@ struct CapitalView: View {
                 AnyView(header),
                 AnyView(CurrencyGainSection(snapshot: snapshot)),
                 AnyView(CapitalBreakdownSection(model: model, open: open)),
+                AnyView(CapitalInsuranceSection(banks: snapshot.planning.banks.insurance)),
                 AnyView(
                   AssetsSection(
                     assets: snapshot.dataset.assets, valuations: snapshot.dataset.assetValuations,
@@ -145,6 +146,10 @@ struct CapitalView: View {
     case .value(let asset): AssetValuationSheet(asset: asset)
     case .history(let asset): AssetHistorySheet(asset: asset)
     case .dispose(let asset): AssetDisposalSheet(asset: asset)
+    case .payout(let asset):
+      ExpectedIncomeForm(
+        original: nil, start: PayoutRules.draft(for: asset, today: environment.today))
+    case .showcase: DepositShowcaseSheet()
     }
   }
 
@@ -189,9 +194,13 @@ enum CapitalSheet: Identifiable, Hashable {
   case value(Asset)
   case history(Asset)
   case dispose(Asset)
+  case payout(Asset)
+  case showcase
 
   var id: String {
     switch self {
+    case .payout(let asset): "payout.\(asset.id)"
+    case .showcase: "showcase"
     case .newAsset: "new"
     case .edit(let asset): "edit.\(asset.id)"
     case .value(let asset): "value.\(asset.id)"

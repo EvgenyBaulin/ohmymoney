@@ -113,6 +113,12 @@ enum CalendarText {
     }
   }
 
+  /// The name of a plan, with «дивиденды» or «купон» after it when it is a payout of a holding.
+  static func title(of plan: CalendarPlan, _ environment: AppEnvironment) -> String {
+    guard let kind = plan.payoutKind else { return plan.name }
+    return "\(plan.name) · \(DepositText.payoutTag(kind, environment))"
+  }
+
   static func symbol(of kind: CalendarPlan.Kind) -> String {
     switch kind {
     case .payment: "clock"

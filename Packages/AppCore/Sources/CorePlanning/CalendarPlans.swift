@@ -52,7 +52,8 @@ public enum CalendarPlans {
         plans.append(
           CalendarPlan(
             kind: .income, sourceId: status.id, day: occurrence.due, name: status.income.name,
-            amount: occurrence.remaining, currency: status.currency))
+            amount: occurrence.remaining, currency: status.currency,
+            payoutKind: status.income.payoutKind))
       }
     }
     return plans.sorted {

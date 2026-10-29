@@ -45,6 +45,12 @@ struct ExpectedIncomeBlock: View {
           VStack(alignment: .leading, spacing: 2) {
             HStack(alignment: .firstTextBaseline) {
               Text(verbatim: status.income.name).lineLimit(1)
+              if let kind = status.income.payoutKind {
+                Text(verbatim: DepositText.payoutTag(kind, environment))
+                  .appFont(.caption)
+                  .foregroundStyle(.secondary)
+                  .accessibilityIdentifier("expected.payoutTag")
+              }
               if status.isOverdue {
                 Image(systemName: "exclamationmark.circle")
                   .accessibilityLabel(Text(verbatim: t("planning.overdue")))
@@ -217,6 +223,11 @@ struct ExpectedIncomeBlock: View {
       : status.current?.due
     if let due = shownDue ?? status.income.dueDate {
       pieces.append(environment.dates.dayAndMonth(due))
+    }
+    if let holding = status.income.assetId,
+      let asset = compute.snapshot?.dataset.assets.first(where: { $0.id == holding })
+    {
+      pieces.append(asset.name)
     }
     return pieces.joined(separator: " · ")
   }

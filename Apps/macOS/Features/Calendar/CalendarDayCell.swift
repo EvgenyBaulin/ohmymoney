@@ -95,8 +95,11 @@ struct CalendarDayCell: View {
       if detailed {
         ForEach(day.plans.prefix(4)) { plan in
           Label {
-            Text(verbatim: "\(plan.name) \(CalendarText.amount(of: plan, environment))")
-              .lineLimit(1)
+            Text(
+              verbatim:
+                "\(CalendarText.title(of: plan, environment)) \(CalendarText.amount(of: plan, environment))"
+            )
+            .lineLimit(1)
           } icon: {
             Image(systemName: CalendarText.symbol(of: plan.kind))
           }
