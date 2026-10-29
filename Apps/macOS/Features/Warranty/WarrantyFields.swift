@@ -8,13 +8,34 @@ import SwiftUI
 struct WarrantyFields: View {
   @Dependency(\.environment) private var environment
   @Binding var draft: TransactionDraft
+  /// Closed until the purchase has one of the three: open, the fields make the ↓ panel taller
+  /// than its scroll area, and the panel scrolls away from the field Tab has just focused.
+  @State private var expanded: Bool?
 
   private func t(_ key: String) -> String { WarrantyText.t(key, environment) }
 
   /// The day the purchase was made: the quick choices count from it.
   private var purchaseDay: DateOnly { environment.calendar.day(of: draft.occurredAt) }
 
+  private var hasAny: Bool {
+    draft.warrantyUntil != nil || draft.returnUntil != nil
+      || !(draft.warrantyWhere ?? "").isEmpty
+  }
+
   var body: some View {
+    DisclosureGroup(
+      isExpanded: Binding(
+        get: { expanded ?? hasAny }, set: { expanded = $0 })
+    ) {
+      fields.padding(.top, 6)
+    } label: {
+      Text(verbatim: t("warranty.title")).appFont(.caption).foregroundStyle(.secondary)
+    }
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("entry.warranty")
+  }
+
+  private var fields: some View {
     VStack(alignment: .leading, spacing: 10) {
       termField(
         title: "warranty.field.until", day: $draft.warrantyUntil,
@@ -34,8 +55,6 @@ struct WarrantyFields: View {
         title: "warranty.field.return", day: $draft.returnUntil,
         presets: WarrantyTerms.returnPresets, identifier: "entry.warranty.return")
     }
-    .accessibilityElement(children: .contain)
-    .accessibilityIdentifier("entry.warranty")
   }
 
   private func label(_ key: String) -> some View {
