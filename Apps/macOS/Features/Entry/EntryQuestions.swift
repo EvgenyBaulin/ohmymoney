@@ -1,5 +1,6 @@
 import AppCore
 import Foundation
+import SwiftUI
 
 /// «Такая же операция уже записана»: asked before a new operation that repeats one written a
 /// moment ago is written again. «Добавить» writes it, «Не добавлять» leaves the line as it was.
@@ -60,6 +61,123 @@ struct MinBalanceQuestion: Identifiable, Equatable {
       "entry.minBalance.title", table: "Entry",
       environment.money.rounded(warning.afterE4, currency: warning.currency),
       environment.money.rounded(warning.minimumE4, currency: warning.currency))
+  }
+}
+
+/// The questions asked before a new operation is written, in the order they are asked: a date
+/// after today, a card past its limit, an account below the balance its bank asks to keep, a
+/// repeat of the last minutes. The line at the bottom and the form at the side both save through
+/// `EntryBar.commit`, which asks this and nothing else for these four, so the two can not drift
+/// apart. A saved operation being edited is asked only the two about money, and only when the
+/// edit makes the card's limit or the kept balance worse than the saved operation did
+/// (`TransactionEditorModel.save`, which asks this too); the date and the repeat are for a new
+/// operation (the models answer `nil` for an edit).
+@MainActor
+enum EntrySaveQuestions {
+  /// Which question it is, for logs and tests.
+  enum Kind: String, CaseIterable {
+    case ahead, overLimit, minBalance, repeated
+  }
+
+  enum Question {
+    case ahead(AheadQuestion)
+    case overLimit(OverLimitQuestion)
+    case minBalance(MinBalanceQuestion)
+    case repeated(RepeatQuestion)
+
+    var kind: Kind {
+      switch self {
+      case .ahead: .ahead
+      case .overLimit: .overLimit
+      case .minBalance: .minBalance
+      case .repeated: .repeated
+      }
+    }
+  }
+
+  /// What the screens know about the money: the credit cards today and the balances with the
+  /// conditions of the banks. Empty while nothing was read: no limit and no minimum is known.
+  struct Money {
+    var cards: [UUID: CreditCardNow] = [:]
+    var balances: (accounts: AccountsSnapshot, bank: BankData)?
+
+    init(cards: [UUID: CreditCardNow] = [:], balances: (AccountsSnapshot, BankData)? = nil) {
+      self.cards = cards
+      self.balances = balances.map { (accounts: $0.0, bank: $0.1) }
+    }
+
+    init(_ snapshot: DataSnapshot?) {
+      self.init(
+        cards: snapshot?.planning.creditCards ?? [:],
+        balances: snapshot.map { ($0.planning.accounts, $0.dataset.bankData) })
+    }
+  }
+
+  /// The first question the operation as it stands has to answer, or `nil` when it can be
+  /// written.
+  static func next(
+    for model: EntryDraftModel, environment: AppEnvironment, money: Money, now: Date
+  ) -> Question? {
+    if let plan = model.planAhead(today: environment.today) {
+      return .ahead(
+        AheadQuestion(plan: plan, day: environment.calendar.day(of: model.draft.occurredAt)))
+    }
+    if let warning = model.creditLimitWarning(cards: money.cards) {
+      return .overLimit(OverLimitQuestion(over: warning.over, currency: warning.currency))
+    }
+    if let known = money.balances,
+      let warning = model.minBalanceWarning(accounts: known.accounts, bank: known.bank)
+    {
+      return .minBalance(MinBalanceQuestion(warning: warning))
+    }
+    if let same = model.repeatedOperation(now: now) {
+      return .repeated(RepeatQuestion(entry: same))
+    }
+    return nil
+  }
+}
+
+/// «Выйдет за лимит карты» and «Остаток станет ниже минимума» over the editor of a saved
+/// operation (window, inspector and form alike): «Записать всё равно» calls `answered`, which
+/// saves again; «Отмена» leaves the edit as typed.
+private struct EditSaveQuestionDialog: ViewModifier {
+  @Dependency(\.environment) private var environment
+  @Binding var question: EntrySaveQuestions.Question?
+  let answered: () -> Void
+
+  private var title: String {
+    switch question {
+    case .overLimit(let over): over.title(environment)
+    case .minBalance(let minimum): minimum.title(environment)
+    case .ahead, .repeated, nil: ""
+    }
+  }
+
+  private var prefix: String {
+    if case .minBalance = question { return "entry.minBalance" }
+    return "entry.overLimit"
+  }
+
+  func body(content: Content) -> some View {
+    content.confirmationDialog(
+      title,
+      isPresented: Binding(
+        get: { question != nil }, set: { if !$0 { question = nil } }),
+      titleVisibility: .visible
+    ) {
+      Button(environment.language("\(prefix).record", table: "Entry")) { answered() }
+      Button(environment.language("action.cancel"), role: .cancel) {}
+    } message: {
+      Text(verbatim: environment.language("\(prefix).message", table: "Entry"))
+    }
+  }
+}
+
+extension View {
+  func editSaveQuestions(
+    _ question: Binding<EntrySaveQuestions.Question?>, answered: @escaping () -> Void
+  ) -> some View {
+    modifier(EditSaveQuestionDialog(question: question, answered: answered))
   }
 }
 
