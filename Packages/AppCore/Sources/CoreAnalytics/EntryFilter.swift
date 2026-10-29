@@ -35,13 +35,18 @@ public struct EntryFilter: Hashable, Sendable {
   public var reimbursementStatus: ReimbursementStatus?
   /// Words to find, each of them, anywhere in the description, notes, names and amount.
   public var text: String
+  /// Accounts and cards the lists leave out whatever else is asked: the hidden accounts while
+  /// they are covered. It is not a criterion the owner picks, so it is not part of `isEmpty`.
+  public var hiddenAccountIds: Set<UUID>
+  public var hiddenCardIds: Set<UUID>
 
   public init(
     period: Period? = nil, kind: TransactionKind? = nil, categoryId: UUID? = nil,
     subcategoryId: UUID? = nil, quality: Quality? = nil, forWhom: ForWhom? = nil,
     personId: UUID? = nil, placeId: UUID? = nil, eventId: UUID? = nil,
     paymentMethodId: UUID? = nil, reimbursementStatus: ReimbursementStatus? = nil,
-    text: String = "", cardId: UUID? = nil
+    text: String = "", cardId: UUID? = nil, hiddenAccountIds: Set<UUID> = [],
+    hiddenCardIds: Set<UUID> = []
   ) {
     self.period = period
     self.kind = kind
@@ -56,11 +61,18 @@ public struct EntryFilter: Hashable, Sendable {
     self.reimbursementStatus = reimbursementStatus
     self.text = text
     self.cardId = cardId
+    self.hiddenAccountIds = hiddenAccountIds
+    self.hiddenCardIds = hiddenCardIds
   }
 
   public static let none = EntryFilter()
 
-  public var isEmpty: Bool { self == .none }
+  public var isEmpty: Bool {
+    var criteria = self
+    criteria.hiddenAccountIds = []
+    criteria.hiddenCardIds = []
+    return criteria == .none
+  }
 
   private var hasPartCriteria: Bool {
     categoryId != nil || subcategoryId != nil || quality != nil || forWhom != nil
@@ -90,6 +102,8 @@ public struct EntryFilter: Hashable, Sendable {
 
   /// Criteria of the operation, read from any of its rows: they are the same on each.
   private func matchesOperation(_ row: LedgerRow) -> Bool {
+    if let account = row.paymentMethodId, hiddenAccountIds.contains(account) { return false }
+    if let card = row.cardId, hiddenCardIds.contains(card) { return false }
     if let kind, row.kind != kind { return false }
     if let placeId, row.placeId != placeId { return false }
     if let paymentMethodId, row.paymentMethodId != paymentMethodId { return false }

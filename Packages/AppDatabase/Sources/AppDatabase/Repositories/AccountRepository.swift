@@ -105,6 +105,17 @@ public struct AccountRepository: Sendable {
     self.writer = writer
   }
 
+  // MARK: Hiding
+
+  /// Hides or shows an account. Nothing else of the row changes.
+  public func setHidden(_ hidden: Bool, accountId: UUID) throws {
+    try writer.write { db in
+      try db.execute(
+        sql: "UPDATE payment_methods SET hidden = ? WHERE id = ?",
+        arguments: [hidden ? 1 : 0, accountId.uuidString])
+    }
+  }
+
   // MARK: Reading
 
   /// By name; the order of the lists is the core's (the main account first, then the order

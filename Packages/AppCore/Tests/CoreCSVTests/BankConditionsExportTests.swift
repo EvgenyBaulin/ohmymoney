@@ -59,7 +59,7 @@ struct BankConditionsExportTests {
   }
 
   @Test func theColumnsOfSchemaFifteenComeLast() throws {
-    #expect(ExportTables.paymentMethods.columns.last == "accent")
+    #expect(Array(ExportTables.paymentMethods.columns.suffix(2)) == ["accent", "hidden"])
     #expect(ExportTables.cards.columns.last == "expires_on")
     #expect(Array(ExportTables.customCurrencies.columns.suffix(2)) == ["rate_source", "coin_id"])
     #expect(Array(ExportTables.expectedIncome.columns.suffix(2)) == ["payout_kind", "asset_id"])

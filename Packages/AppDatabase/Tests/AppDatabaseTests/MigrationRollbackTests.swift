@@ -53,6 +53,7 @@ struct MigrationRollbackTests {
           "0016_rate_source",
           "0017_attachments",
           "0018_purchases",
+          "0019_privacy",
         ])
   }
 

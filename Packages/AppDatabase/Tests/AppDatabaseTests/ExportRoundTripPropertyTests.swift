@@ -345,7 +345,7 @@ struct ExportRoundTripPropertyTests {
     let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
     #expect(plain.files == files)
     #expect(plain.csvTables.count == 49)
-    #expect(plain.manifest.schemaVersion == 18)
+    #expect(plain.manifest.schemaVersion == 19)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
@@ -442,6 +442,7 @@ struct ExportRoundTripPropertyTests {
           "0016_rate_source",
           "0017_attachments",
           "0018_purchases",
+          "0019_privacy",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -612,8 +613,11 @@ struct ExportRoundTripPropertyTests {
     "transactions.csv:return_until",
   ]
 
+  /// The column the privacy added (`0019_privacy`).
+  private static let addedByThePrivacy: Set<String> = ["payment_methods.csv:hidden"]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
-    .union(addedByTheConditions).union(addedByTheAttachments)
+    .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
 
   /// The columns the credits and the allocation of income added.
   private static let addedByTheCredits: Set<String> = Set(

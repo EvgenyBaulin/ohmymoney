@@ -179,6 +179,7 @@ struct MigrationDryRunPathTests {
           "0016_rate_source",
           "0017_attachments",
           "0018_purchases",
+          "0019_privacy",
         ])
   }
 
@@ -196,7 +197,7 @@ struct MigrationDryRunPathTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 5 -> 18 (applied 13)"), "\(output)")
+    #expect(output.contains("schema: 5 -> 19 (applied 14)"), "\(output)")
     #expect(output.contains(" cashbackRulesMoved=4"), "\(output)")
     #expect(output.contains(" cashbackRulesDropped=3"), "\(output)")
     #expect(output.contains(" cashbackRulesVoided=1"), "\(output)")
@@ -220,7 +221,7 @@ struct MigrationDryRunPathTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 4 -> 18 (applied 14)"), "\(output)")
+    #expect(output.contains("schema: 4 -> 19 (applied 15)"), "\(output)")
     let name = "cards".padding(toLength: 26, withPad: " ", startingAt: 0)
     let lines = output.split(separator: "\n").map(String.init)
     #expect(lines.contains("  \(name) - -> \(cards)"), "\(output)")

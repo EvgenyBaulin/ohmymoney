@@ -27,8 +27,8 @@ struct Migration0011Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0018_purchases")
-    #expect(stack.applied.onDisk == 17)
+    #expect(try stack.appliedMigrations().last == "0019_privacy")
+    #expect(stack.applied.onDisk == 19)
     try stack.writer.read { db in
       let transactions = try db.columns(in: "transactions")
       let zone = try #require(transactions.first { $0.name == "time_zone" })
@@ -80,11 +80,12 @@ struct Migration0011Tests {
           "0016_rate_source",
           "0017_attachments",
           "0018_purchases",
+          "0019_privacy",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 7)
+    #expect(stack.applied.applied == 9)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))

@@ -88,6 +88,7 @@ struct OlderArchiveFixtureTests {
         "0016_rate_source",
         "0017_attachments",
         "0018_purchases",
+        "0019_privacy",
       ])
 
     let stack = try DatabaseStack(

@@ -68,11 +68,11 @@ struct ExportTablesDescriptionTests {
       ])
     #expect(ExportTables.settings.columns == ["key", "value"])
     #expect(
-      Array(ExportTables.paymentMethods.columns.suffix(15)) == [
+      Array(ExportTables.paymentMethods.columns.suffix(16)) == [
         "cushion", "credit_limit", "credit_grace", "credit_statement_day", "credit_pay_days",
         "credit_grace_days", "credit_purchase_rate", "credit_cash_rate", "credit_min_percent",
         "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
-        "credit_cash_no_grace", "main_card_id", "accent",
+        "credit_cash_no_grace", "main_card_id", "accent", "hidden",
       ])
     #expect(
       Array(ExportTables.categories.columns.suffix(4)) == [

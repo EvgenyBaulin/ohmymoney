@@ -33,7 +33,7 @@ struct LegacyDatabaseTests {
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 17)
+    #expect(try stack.appliedMigrations().count == 19)
 
     // Of the three accounts flagged main — the everyday card, a second live one and an
     // archived one — the card with the operations stays main.
@@ -245,7 +245,7 @@ struct LegacyDatabaseTests {
     // And it migrates once nothing stops it.
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
-    #expect(try stack.appliedMigrations().count == 17)
+    #expect(try stack.appliedMigrations().count == 19)
     try stack.close()
   }
 
@@ -270,7 +270,7 @@ struct LegacyDatabaseTests {
     }
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 17)
+    #expect(try stack.appliedMigrations().count == 19)
     #expect(stack.applied.dataSteps["mainCreated"] == 1)
     let orphans = try stack.writer.read { db in
       try Row.fetchAll(db, sql: "PRAGMA foreign_key_check").count
@@ -673,6 +673,7 @@ struct PendingMigrationsTests {
           "0016_rate_source",
           "0017_attachments",
           "0018_purchases",
+          "0019_privacy",
         ])
     // Asking leaves the folder as it was: no log is left for the next file of that name.
     #expect(try FileManager.default.contentsOfDirectory(atPath: folder).sorted() == files)
@@ -777,7 +778,7 @@ struct MigrationDryRunTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 3 -> 18 (applied 15)"))
+    #expect(output.contains("schema: 3 -> 19 (applied 16)"))
     #expect(output.contains(" assigned=\(book.unassignedCount) "))
     #expect(output.contains(" defaultsCleared=2 "))
     #expect(output.contains(" cardsCreated=\(book.cardsStep["cardsCreated"] ?? -1) "))
@@ -821,6 +822,7 @@ struct MigrationDryRunTests {
           "0016_rate_source",
           "0017_attachments",
           "0018_purchases",
+          "0019_privacy",
         ])
   }
 

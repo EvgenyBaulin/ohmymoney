@@ -48,8 +48,8 @@ struct Migration0015Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmptyAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0018_purchases")
-    #expect(stack.applied.onDisk == 17)
+    #expect(try stack.appliedMigrations().last == "0019_privacy")
+    #expect(stack.applied.onDisk == 19)
     try stack.writer.read { (db: Database) throws in
       for table in Self.newTables {
         #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") == 0, "\(table)")
@@ -93,11 +93,11 @@ struct Migration0015Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0015_bank_conditions", "0016_rate_source", "0017_attachments", "0018_purchases"])
+        == ["0015_bank_conditions", "0016_rate_source", "0017_attachments", "0018_purchases", "0019_privacy"])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 3)
+    #expect(stack.applied.applied == 5)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -411,7 +411,7 @@ struct Migration0015Tests {
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
     let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
     #expect(opened.csvTables.count == 49)
-    #expect(opened.manifest.schemaVersion == 18)
+    #expect(opened.manifest.schemaVersion == 19)
     #expect(opened.manifest.rowCounts["bank_conditions"] == 1)
     #expect(opened.manifest.rowCounts["deposit_offers"] == 0)
     // An archive of schema 16 does not open in a build that knows schema 15.

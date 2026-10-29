@@ -135,7 +135,8 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
       cushion: try RowMapping.flag(row, "cushion", fallback: false),
       credit: Self.credit(row),
       mainCardId: RowMapping.optionalUUID(row, "main_card_id"),
-      accent: Self.accent(row))
+      accent: Self.accent(row),
+      hidden: (try? RowMapping.flag(row, "hidden", fallback: false)) ?? false)
   }
 
   /// A palette key (`01` to `12`); any other text — only a hand edit leaves one — reads as none.
@@ -265,6 +266,7 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
     container["credit_cash_no_grace"] = credit?.cashWithoutGrace ?? false
     container["main_card_id"] = mainCardId?.uuidString
     container["accent"] = accent
+    container["hidden"] = hidden
   }
 }
 
