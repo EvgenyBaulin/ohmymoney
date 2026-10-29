@@ -715,6 +715,23 @@
         }
       }
     },
+    "look.action.openWarranty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warranties"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантии"
+          }
+        }
+      }
+    },
     "look.action.pay": {
       "extractionState": "manual",
       "localizations": {
@@ -1327,6 +1344,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зарплата не пришла? Ждали %@"
+          }
+        }
+      }
+    },
+    "look.warranty.ends": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warranty on “%@” ends %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантия на «%@» кончается %@"
+          }
+        }
+      }
+    },
+    "look.warranty.endsToday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warranty on “%@” ends today"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантия на «%@» кончается сегодня"
+          }
+        }
+      }
+    },
+    "look.warranty.place": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " — original: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " — оригинал: %@"
+          }
+        }
+      }
+    },
+    "look.warranty.returnEnds": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can return “%@” until %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вернуть «%@» можно до %@"
+          }
+        }
+      }
+    },
+    "look.warranty.returnToday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today is the last day to return “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня последний день, чтобы вернуть «%@»"
           }
         }
       }

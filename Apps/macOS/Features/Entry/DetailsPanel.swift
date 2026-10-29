@@ -516,6 +516,7 @@ struct DetailsPanel: View {
     case .note:
       noteRow
       oneOffRow
+      warrantyRow
     case .date: dateRow
     case .incomeMonth: incomeMonthRows
     case .currency: currencyRows
@@ -929,6 +930,14 @@ struct DetailsPanel: View {
           }
         }
       }
+    }
+  }
+
+  /// The warranty, the place of the original and the term of return: a purchase has them.
+  @ViewBuilder
+  private var warrantyRow: some View {
+    if model.draft.kind == .expense {
+      fieldRow(nil, alone: true) { WarrantyFields(draft: $model.draft) }
     }
   }
 

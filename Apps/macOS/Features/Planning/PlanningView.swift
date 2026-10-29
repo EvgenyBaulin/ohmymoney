@@ -213,6 +213,7 @@ struct PlanningTopBar: View {
   @Environment(\.dependencies) private var dependencies
   @Environment(\.windowWidth) private var windowWidth
   @State private var asksAfford = false
+  @State private var showsWarranty = false
   @Binding var editing: Bool
   let add: (PlanningAddition) -> Void
 
@@ -232,6 +233,12 @@ struct PlanningTopBar: View {
       }
     }
     .sheet(isPresented: $asksAfford) { AffordSheet().handingOver(dependencies) }
+    .sheet(isPresented: $showsWarranty) { WarrantyScreen().handingOver(dependencies) }
+  }
+
+  private var warrantyButton: some View {
+    Button(WarrantyText.t("warranty.button", environment)) { showsWarranty = true }
+      .accessibilityIdentifier("planning.warranty")
   }
 
   private var affordButton: some View {
@@ -262,6 +269,7 @@ struct PlanningTopBar: View {
     HStack(spacing: 12) {
       affordButton.buttonStyle(.bordered).fixedSize()
       whatIfButton.buttonStyle(.bordered).fixedSize()
+      warrantyButton.buttonStyle(.bordered).fixedSize()
       Menu {
         addItems
       } label: {
@@ -286,6 +294,7 @@ struct PlanningTopBar: View {
       Section {
         affordButton
         whatIfButton
+        warrantyButton
         editButton
       }
     } label: {

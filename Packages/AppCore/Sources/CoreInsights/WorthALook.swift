@@ -116,6 +116,9 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
   /// «Вклад кончится 3 ноября. Сейчас в витрине: …»: a deposit ends within a week; the lines are
   /// the showcase laid against its conditions (`DepositEndAdvisor`), never one «best» deposit.
   case depositEnds(DepositEndAdvice)
+  /// «Вернуть «Наушники» можно до 21.10», «Гарантия на «Холодильник» кончается 12.11»
+  /// (`WarrantyReminders`).
+  case warranty(WarrantyReminder)
 
   public var id: String {
     switch self {
@@ -130,6 +133,7 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
     case .lowCopySpace: "lowCopySpace"
     case .databaseProblems: "databaseProblems"
     case .depositEnds(let advice): "depositEnds:\(advice.id)"
+    case .warranty(let reminder): reminder.id
     }
   }
 }
@@ -146,7 +150,7 @@ extension WorthALook {
     planning: PlanningSnapshot, ledger: Ledger, today: DateOnly, burnout: BurnoutCheck = .quiet,
     burnoutEnabled: Bool = true, burnoutLastShownWeek: String? = nil, copyFreeBytes: Int64? = nil,
     lowCopySpaceBytes: Int64 = 1_000_000_000, databaseProblems: Int = 0,
-    depositEnds: [DepositEndAdvice] = []
+    depositEnds: [DepositEndAdvice] = [], warranty: [WarrantyReminder] = []
   ) -> [WorthALookNote] {
     var notes = planning.debtReminders.map(WorthALookNote.debt)
     notes += planning.bankNotes.map(WorthALookNote.bank)
@@ -183,6 +187,7 @@ extension WorthALook {
     }
     if databaseProblems > 0 { notes.append(.databaseProblems(count: databaseProblems)) }
     notes += depositEnds.map(WorthALookNote.depositEnds)
+    notes += warranty.map(WorthALookNote.warranty)
     return notes
   }
 }

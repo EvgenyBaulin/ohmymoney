@@ -106,7 +106,7 @@ public final class EntryDraftModel {
 
   private let references: ReferenceRepository?
   private let transactions: TransactionRepository?
-  private let calendar: CalendarContext
+  let calendar: CalendarContext
   /// The draft is a saved operation in the editor — the sheet or the inspector — not the
   /// entry line's new one. Such a draft skips the questions of a new operation (a date ahead,
   /// a repeat) and asks about a card's limit and the kept balance only when the edit makes
@@ -206,6 +206,10 @@ public final class EntryDraftModel {
   /// The line said «смз»: income of the self-employed (`InputLineReading.selfEmployed`). Kept
   /// until the draft starts over, so the bar can offer to count the tax once it is written.
   public internal(set) var lineSaysSelfEmployed = false
+  /// What the line last wrote into «Гарантия до» and «Вернуть можно до»: while a field still
+  /// holds it, the next line writes its own or empties the field; a day picked in the panel stays.
+  var warrantyFromTheLine: DateOnly?
+  var returnFromTheLine: DateOnly?
 
   /// A value of «for whom» and the person it names, as one choice.
   private struct ForWhomChoice: Equatable {
@@ -687,6 +691,7 @@ public final class EntryDraftModel {
     apply(reading.parsed, amount: amount, today: today, text: text, whileTyping: whileTyping)
     takeTheCashback(of: reading)
     takeTheSelfEmployment(of: reading)
+    takeTheTerms(of: reading)
   }
 
   /// The time of day the line being applied names («в 18:09»): the moment is that time of the
@@ -3140,6 +3145,8 @@ public final class EntryDraftModel {
     paysFromAccountByTheLine = false
     cardFromDefaults = nil
     lineSaysSelfEmployed = false
+    warrantyFromTheLine = nil
+    returnFromTheLine = nil
     prepayChoice = nil
   }
 

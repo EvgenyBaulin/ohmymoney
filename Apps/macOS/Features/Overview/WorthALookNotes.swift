@@ -13,7 +13,8 @@ enum WorthALookNoteText {
   @MainActor
   static func text(
     _ note: WorthALookNote, debts: [UUID: String], accounts: [UUID: String],
-    currencies: [UUID: CurrencyCode] = [:], _ environment: AppEnvironment
+    currencies: [UUID: CurrencyCode] = [:], warrantyNames: [UUID: String] = [:],
+    _ environment: AppEnvironment
   ) -> String {
     let money = environment.money
     let day = { (day: DateOnly) in environment.dates.dayAndMonth(day) }
@@ -72,6 +73,8 @@ enum WorthALookNoteText {
     case .bank(let bankNote): return bankText(bankNote, accounts: accounts, environment)
     case .depositEnds(let advice):
       return DepositText.endsLine(advice, accounts: accounts, environment)
+    case .warranty(let reminder):
+      return WarrantyText.note(reminder, names: warrantyNames, environment)
     case .lowCopySpace(let free):
       return f(
         "look.lowCopySpace", ByteCountFormatter.string(fromByteCount: free, countStyle: .file))
@@ -101,6 +104,7 @@ enum WorthALookNoteText {
     case .bank(let bankNote): bankSymbol(bankNote)
     case .depositEnds: "calendar.badge.clock"
     case .databaseProblems: "stethoscope"
+    case .warranty(let reminder): WarrantyText.symbol(reminder)
     }
   }
 
@@ -130,6 +134,8 @@ enum WorthALookNoteText {
     case openSettings
     /// Opens the showcase of deposits.
     case openDeposits
+    /// Opens the list of warranties and return terms.
+    case openWarranty
     /// Opens the screen of a bank.
     case openBank
     /// Opens the list of forgotten money.
@@ -159,6 +165,7 @@ enum WorthALookNoteText {
     case .lowCopySpace, .databaseProblems: [.openSettings]
     case .bank(let bankNote): bankActions(bankNote)
     case .depositEnds: [.openDeposits]
+    case .warranty: [.openWarranty, .done]
     }
   }
 
@@ -171,7 +178,7 @@ enum WorthALookNoteText {
       "look.npdDue", "look.npdOverdue", "look.salaryLate", "look.allocate", "look.monthRest",
       "look.npdLimit", "look.npdLimitExceeded", "look.burnout", "look.lowCopySpace",
       "look.databaseProblems",
-    ] + bankKeys + Action.allCases.map(\.key)
+    ] + WarrantyText.noteKeys + bankKeys + Action.allCases.map(\.key)
 }
 
 extension WorthALookNoteText {
@@ -313,7 +320,10 @@ extension WorthALook {
       lowCopySpaceBytes: BackupSpace.lowThresholdBytes,
       databaseProblems: AppEnvironment.isTestHost
         ? 0 : IntegrityCheckService.storedProblems(in: .standard),
-      depositEnds: DepositText.advice(for: snapshot))
+      depositEnds: DepositText.advice(for: snapshot),
+      warranty: WarrantyReminders.list(
+        WarrantyList.items(from: snapshot.dataset.entries), today: snapshot.today,
+        dismissed: DebtReminderMarks.read(from: defaults).dismissed))
   }
 }
 
@@ -325,9 +335,11 @@ enum WorthALookSheet: Identifiable {
   case showcase
   case forgotten
   case rebind(UUID)
+  case warranty
 
   var id: String {
     switch self {
+    case .warranty: "warranty"
     case .showcase: "showcase"
     case .forgotten: "forgotten"
     case .rebind(let id): "rebind:\(id)"
@@ -363,7 +375,8 @@ struct WorthALookNoteRow: View {
                 + snapshot.dataset.cards.map { ($0.id, $0.name) }),
             currencies: Dictionary(
               snapshot.dataset.paymentMethods.map { ($0.id, $0.mainCurrency) },
-              uniquingKeysWith: { first, _ in first }), environment)
+              uniquingKeysWith: { first, _ in first }),
+            warrantyNames: untitledWarranty, environment)
         )
         .monospacedDigit()
         .fixedSize(horizontal: false, vertical: true)
@@ -391,6 +404,17 @@ struct WorthALookNoteRow: View {
     }
   }
 
+  /// The name of a purchase without a note, for a line about its warranty: «Покупка 29 октября».
+  private var untitledWarranty: [UUID: String] {
+    guard case .warranty(let reminder) = note, reminder.titleIsMissing,
+      let entry = snapshot.dataset.entries.first(where: { $0.id == reminder.transactionId })
+    else { return [:] }
+    return [
+      reminder.transactionId: WarrantyText.name(
+        nil, occurredAt: entry.transaction.occurredAt, environment)
+    ]
+  }
+
   private func names(_ pairs: [(UUID, String)]) -> [UUID: String] {
     Dictionary(pairs, uniquingKeysWith: { first, _ in first })
   }
@@ -398,6 +422,11 @@ struct WorthALookNoteRow: View {
   private func perform(_ action: WorthALookNoteText.Action) {
     switch action {
     case .done:
+      if case .warranty(let reminder) = note {
+        DebtReminderMarks.dismiss(reminder.id, in: .standard)
+        settle()
+        return
+      }
       if case .bank(let bankNote) = note {
         DebtReminderMarks.dismiss(bankNote.id, in: .standard)
         settle()
@@ -468,6 +497,8 @@ struct WorthALookNoteRow: View {
       if case .bank(.cardExpiry(_, let cardId, _, _, _)) = note { open(.rebind(cardId)) }
     case .openDeposits:
       open(.showcase)
+    case .openWarranty:
+      open(.warranty)
     case .openSettings:
       #if os(macOS)
         openSettings()

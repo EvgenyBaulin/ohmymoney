@@ -1056,8 +1056,15 @@ struct EntryBar<Accessory: View>: View {
       }
       .appFont(.caption)
       .padding(.horizontal, captionInset)
-    } else if preview != nil || ruleHint != nil {
+    } else if preview != nil || ruleHint != nil || termsHint != nil {
       VStack(alignment: .leading, spacing: 2) {
+        // «Гарантия до 29 октября 2028»: the span the line names, counted to a day before Enter.
+        if let termsHint {
+          Label(termsHint, systemImage: "checkmark.shield")
+            .appFont(.caption)
+            .foregroundStyle(.secondary)
+            .accessibilityIdentifier("entry.terms.hint")
+        }
         if let preview {
           // "Результат виден сразу": the amount a formula comes to, before Enter.
           Text(verbatim: preview)
@@ -1246,6 +1253,21 @@ struct EntryBar<Accessory: View>: View {
   /// draft): the ↓ button shows a dot.
   private var carriesChoices: Bool {
     !showsDetails && (model?.carriesChoices ?? false)
+  }
+
+  /// The days the warranty and the return term of the line come to («гарантия 2г», «возврат
+  /// 14д»), counted from the day the line names or today; `nil` for a line without them.
+  private var termsHint: String? {
+    let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !trimmed.isEmpty else { return nil }
+    let reading = interpreter.read(trimmed, today: environment.today, kind: model?.draft.kind)
+    guard reading.warranty != nil || reading.returnTerm != nil,
+      reading.parsed.kind == .expense
+    else { return nil }
+    let day = reading.parsed.date ?? environment.today
+    return WarrantyText.hint(
+      warranty: reading.warranty.map { WarrantyTerms.end(of: $0, from: day) },
+      returnUntil: reading.returnTerm.map { WarrantyTerms.end(of: $0, from: day) }, environment)
   }
 
   /// What the line currently comes to, shown above the capsule while it is being typed.

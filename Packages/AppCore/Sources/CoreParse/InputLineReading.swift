@@ -10,6 +10,21 @@ public enum CashbackReading: Hashable, Sendable {
   case percent(Decimal)
 }
 
+/// A span of time the line names after its word: «гарантия 2г», "return 14d". The parser reads
+/// the words; the day it ends on is the caller's to count from the day of the purchase.
+public struct TermReading: Hashable, Sendable {
+  public enum Unit: String, Hashable, Sendable { case day, week, month, year }
+
+  /// Above zero.
+  public var count: Int
+  public var unit: Unit
+
+  public init(count: Int, unit: Unit) {
+    self.count = count
+    self.unit = unit
+  }
+}
+
 /// What `InputLineParser.read` makes of a line: everything `parse` reads, and the time of day
 /// and the cashback, which leave the note.
 public struct InputLineReading: Hashable, Sendable {
@@ -32,12 +47,25 @@ public struct InputLineReading: Hashable, Sendable {
   /// «смз 15000»: income of the self-employed — `parsed.kind` is `.income` —, which the app
   /// files under the category taxed as professional income from individuals.
   public var selfEmployed: Bool
+  /// «гарантия 2г», "warranty 2y": the span of the warranty, counted from the day of the line.
+  public var warranty: TermReading?
+  /// «возврат 14д», "return 14d": the span in which the goods can be given back.
+  public var returnTerm: TermReading?
+  /// The words that named each span, as typed, to put them back into the note when the
+  /// operation takes none.
+  public var warrantyPhrase: String?
+  public var returnPhrase: String?
 
   public init(
     parsed: ParsedInput, timeOfDay: TimeOfDay? = nil, timeProblem: String? = nil,
     timePhrase: String? = nil, cashback: CashbackReading? = nil, cashbackPhrase: String? = nil,
-    selfEmployed: Bool = false
+    selfEmployed: Bool = false, warranty: TermReading? = nil, warrantyPhrase: String? = nil,
+    returnTerm: TermReading? = nil, returnPhrase: String? = nil
   ) {
+    self.warranty = warranty
+    self.warrantyPhrase = warrantyPhrase
+    self.returnTerm = returnTerm
+    self.returnPhrase = returnPhrase
     self.selfEmployed = selfEmployed
     self.parsed = parsed
     self.timeOfDay = timeOfDay
