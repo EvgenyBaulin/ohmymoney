@@ -53,6 +53,9 @@ public final class AppEnvironment {
   public private(set) var shopping: ShoppingRepository?
   public private(set) var ownedItems: OwnedItemRepository?
   public private(set) var purchaseSettings: PurchaseSettingsRepository?
+  /// The settings of the privacy features (`privacy.*` keys of `settings`) and the hidden-account
+  /// switch of an account (`Schema/0019_privacy.sql`).
+  public private(set) var privacySettings: PrivacySettingsRepository?
   /// Names, symbols and digits of the custom currencies, read at every open; a screen that
   /// changes them reads them again (`refreshCurrencyCatalog()`). `money` writes with it.
   public private(set) var currencyCatalog = CurrencyCatalog.empty
@@ -266,6 +269,90 @@ public final class AppEnvironment {
   @ObservationIgnored private var integrityLoop: Task<Void, Never>?
   public private(set) var csvExport: CSVExportService?
   public private(set) var archives: ArchiveService?
+  /// «Экспорт копии»: a locked copy made from a copy of the data.
+  public private(set) var exportCopies: ExportCopyService?
+  /// The journal of openings: a file beside the database of this copy of the app, not part of the
+  /// database, the archive or the CSV files. Open as soon as the app is, with or without a
+  /// database, because the app has been opened either way.
+  public var privacyJournal: PrivacyJournalStore {
+    if let made = privacyJournalStore { return made }
+    let made = PrivacyJournalStore(
+      directory: AppPaths.dataDirectory, retentionDays: privacy.journalDays)
+    privacyJournalStore = made
+    return made
+  }
+  @ObservationIgnored private var privacyJournalStore: PrivacyJournalStore?
+  /// The settings of the privacy features as last read (`refreshPrivacySettings()`).
+  public private(set) var privacy = PrivacySettings()
+
+  /// Reads the privacy settings again after the owner changed them, and tells the journal how long
+  /// to keep its lines. The amounts follow `autoHideOnCapture` at once; read-only follows
+  /// the stored choice, except that it is never switched off here: leaving it takes Touch ID or the
+  /// password (`setReadOnly`), so a stored «off» without that is put back.
+  public func refreshPrivacySettings() {
+    guard let repository = privacySettings, let read = try? repository.settings() else { return }
+    privacy = read
+    privacyJournal.retentionDays = read.journalDays
+    amounts.autoHideOnCapture = read.autoHideOnCapture
+    if read.readOnly {
+      shield.adopt(readOnly: true)
+    } else if shield.isReadOnly {
+      var kept = read
+      kept.readOnly = true
+      try? repository.save(kept)
+      privacy = kept
+    }
+  }
+
+  /// «Только просмотр»: on at once, off after Touch ID or the password of the Mac. `true` once the
+  /// mode is as asked. The one entry for the menu, the settings and the phone.
+  @discardableResult
+  public func setReadOnly(_ on: Bool) async -> Bool {
+    if on {
+      shield.turnReadOnlyOn()
+      return true
+    }
+    return await shield.leaveReadOnly(reason: language("privacy.readOnly.leave.reason", table: "PrivacyScreens"))
+  }
+
+  /// «Показать скрытые»: Touch ID or the password of the Mac, then the hidden accounts show until
+  /// the lock covers the app again or «Скрыть» is pressed.
+  @discardableResult
+  public func revealHiddenAccounts() async -> Bool {
+    await shield.reveal(reason: language("privacy.reveal.reason", table: "PrivacyScreens"))
+  }
+
+  /// The hidden accounts, the read-only mode and the capture watch of this copy.
+  var shield: PrivacyShield
+  /// Refuses writes of the owner's books while the app is read-only.
+  let readOnlyBarrier = ReadOnlyBarrier()
+  @ObservationIgnored private var captureWatcher: CaptureWatcher?
+
+  /// Starts the parts of privacy that live with the app and not with a window: the journal of
+  /// openings, the lock's events, the cover going back on with the lock, and the watch of the
+  /// screen. Not in the test host and not in a data set: neither holds the owner's books.
+  func startPrivacy() {
+    guard !Self.isTestHost, AppPaths.dataSet == nil, captureWatcher == nil else { return }
+    let journal = privacyJournal
+    journal.trim()
+    journal.record(.opened)
+    shield.journal = { [journal] event in journal.record(event) }
+    lock.onLocked = { [weak self] in
+      self?.shield.cover()
+      self?.privacyJournal.record(.locked)
+    }
+    lock.onUnlocked = { [weak self] method in
+      self?.privacyJournal.record(.unlocked(method: method))
+    }
+    // The lock covers the app from the first frame, before this ran.
+    if lock.isLocked { journal.record(.locked) }
+    let watcher = CaptureWatcher { [weak self] capture in
+      self?.amounts.capture = capture
+    }
+    captureWatcher = watcher
+    watcher.start()
+  }
+
   public private(set) var rateService: RateService?
   /// The exchange with the owner's other devices. Only the real database has one; a data set,
   /// the demo and the test host read `nil` and never record or write a journal.
@@ -300,7 +387,7 @@ public final class AppEnvironment {
 
   public var money: MoneyFormatter {
     MoneyFormatter(
-      locale: language.locale, hidesAmounts: amounts.hidesAmounts,
+      locale: language.locale, hidesAmounts: amounts.isHidingNow,
       currencyStyle: theme.currencyStyle, catalog: currencyCatalog)
   }
   public var dates: DateFormatting { DateFormatting(locale: language.locale, calendar: calendar) }
@@ -319,6 +406,7 @@ public final class AppEnvironment {
     // for the owner, whose `UserDefaults` the host shares. A data set is never locked.
     let defaults: UserDefaults? = Self.isTestHost ? nil : .standard
     amounts = AmountPrivacy(defaults: defaults)
+    shield = PrivacyShield()
     // The password of the lock lives in the Keychain of this Mac; the test host never touches it.
     lock = PrivacyLock(
       applies: !Self.isTestHost && AppPaths.dataSet == nil, defaults: defaults,
@@ -331,6 +419,7 @@ public final class AppEnvironment {
     language = AppLanguage(missingDependency: reader)
     theme = AppTheme()
     amounts = AmountPrivacy(defaults: nil)
+    shield = PrivacyShield()
     lock = PrivacyLock(applies: false, defaults: nil)
   }
 
@@ -883,6 +972,8 @@ public final class AppEnvironment {
     shopping = nil
     ownedItems = nil
     purchaseSettings = nil
+    privacySettings = nil
+    exportCopies = nil
     savedViews = nil
     scenarios = nil
     anomalies = nil
@@ -962,6 +1053,23 @@ public final class AppEnvironment {
     self.shopping = ShoppingRepository(writer: stack.writer)
     self.ownedItems = OwnedItemRepository(writer: stack.writer)
     self.purchaseSettings = PurchaseSettingsRepository(writer: stack.writer)
+    self.privacySettings = PrivacySettingsRepository(writer: stack.writer)
+    // Read-only: the barrier refuses writes of the owner's books at the database, the shield
+    // keeps the choice in the settings, and the mode of the last session is taken up here.
+    readOnlyBarrier.install(on: stack.writer)
+    shield.onReadOnlyChange = { [barrier = readOnlyBarrier] on in
+      barrier.isOn = on
+      ReadOnlyGate.isOn = on
+    }
+    shield.persistReadOnly = { [weak self] on in
+      guard let self, let repository = self.privacySettings else { return }
+      var stored = (try? repository.settings()) ?? self.privacy
+      stored.readOnly = on
+      try? repository.save(stored)
+      self.privacy = stored
+    }
+    refreshPrivacySettings()
+    startPrivacy()
     self.planning = PlanningRepository(writer: stack.writer, liveCounts: liveCounts)
     self.spendingRules = SpendingRulesRepository(writer: stack.writer)
     self.statementImports = StatementImportRepository(writer: stack.writer)
@@ -974,6 +1082,8 @@ public final class AppEnvironment {
     let exportRepository = ExportRepository(writer: stack.writer)
     self.csvExport = CSVExportService(repository: exportRepository)
     self.archives = ArchiveService(
+      stack: stack, appVersion: Self.appVersion, attachmentStore: attachmentService.store)
+    self.exportCopies = ExportCopyService(
       stack: stack, appVersion: Self.appVersion, attachmentStore: attachmentService.store)
     // A refinement that lets money back cover a part writes the income over it with the note
     // an edit gives it, in the language of the interface at that moment.

@@ -45,6 +45,8 @@ struct ShieldedRoot: View {
     // The questions the shared screens raise by themselves wait while the cover is up.
     .onChange(of: lock.isLocked, initial: true) { _, locked in
       session.deps.environment.lock.hostCovers = locked
+      // The phone's own lock covering the app takes the hidden accounts back under cover.
+      if locked { session.deps.environment.shield.cover() }
     }
     .onChange(of: session.generation) { _, _ in
       session.deps.environment.theme.applyAppearance()

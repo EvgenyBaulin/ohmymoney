@@ -57,6 +57,7 @@ struct AccountsSidebarSection: View {
           }
         }
       }
+      HiddenAccountsRow()
     } header: {
       header(live: live)
     }
@@ -108,6 +109,7 @@ struct AccountsSidebarSection: View {
       VStack(alignment: .trailing, spacing: 0) {
         Text(verbatim: snapshot.inSummaryTotalRub.map { environment.money.rounded($0) } ?? "—")
           .monospacedDigit()
+        if compute.snapshot?.coveredAccounts?.partHidden == true { partHiddenNote }
         if !missing.isEmpty {
           Text(
             verbatim: environment.format(
@@ -123,6 +125,14 @@ struct AccountsSidebarSection: View {
     .tag(SidebarItem.allAccounts)
     .accessibilityElement(children: .combine)
     .accessibilityIdentifier("sidebar.accounts.total")
+  }
+
+  /// «часть скрыта»: the figure above holds money of an account the owner hid. Never how much.
+  private var partHiddenNote: some View {
+    Text(verbatim: environment.language("privacy.partHidden", table: "PrivacyScreens"))
+      .appFont(.caption)
+      .foregroundStyle(.secondary)
+      .lineLimit(1)
   }
 
   private func groupRow(_ section: AccountsSnapshot.Section, _ group: AccountGroup) -> some View {
@@ -146,6 +156,7 @@ struct AccountsSidebarSection: View {
         Text(verbatim: section.totalRub.map { environment.money.rounded($0) } ?? "—")
           .monospacedDigit()
           .foregroundStyle(section.inSummary ? .primary : .secondary)
+        if compute.snapshot?.coveredAccounts?.isPartHidden(section) == true { partHiddenNote }
         if section.totalRub != nil, !section.withoutRate.isEmpty {
           // Money the total leaves out for want of a rate is named, not dropped in silence.
           Text(verbatim: withoutRate(section.withoutRate.map(\.code).joined(separator: ", ")))

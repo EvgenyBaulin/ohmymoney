@@ -123,7 +123,7 @@ struct SummariesScreen: View {
       let text = SummaryText(
         environment: environment, names: SummaryNames(dataset: snapshot.dataset))
       SummaryRibbon(
-        cards: content.cards(hideAmounts: environment.amounts.hidesAmounts), text: text)
+        cards: content.cards(hideAmounts: environment.amounts.isHidingNow), text: text)
       question(for: content, today: snapshot.today)
       actions
     } else {

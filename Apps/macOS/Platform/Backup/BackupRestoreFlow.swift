@@ -31,6 +31,8 @@ enum BackupRestoreFlow {
     case noCopyOfTheCurrentState
     /// The chosen copy could not be put in place: it is gone, or the disk would not take it.
     case notStaged
+    /// The app is read-only: nothing is put in place of the database.
+    case readOnly
 
     /// What the owner reads, from the Settings catalog.
     var messageKey: String {
@@ -39,6 +41,7 @@ enum BackupRestoreFlow {
       case .newerCopy: "backups.restore.newer"
       case .noCopyOfTheCurrentState: "backups.restore.noSafetyCopy"
       case .notStaged: "backups.restore.failed"
+      case .readOnly: "backups.restore.readOnly"
       }
     }
 
@@ -49,6 +52,7 @@ enum BackupRestoreFlow {
       case .newerCopy: "schema"
       case .noCopyOfTheCurrentState: "safetyCopy"
       case .notStaged: "staging"
+      case .readOnly: "readOnly"
       }
     }
   }
@@ -57,6 +61,7 @@ enum BackupRestoreFlow {
     copy: URL, backups: BackupService, target: URL,
     schema: any SchemaSource = BundleSchemaSource()
   ) async throws {
+    guard !ReadOnlyGate.isOn else { throw stopped(.readOnly, by: nil) }
     let manager = FileManager.default
     let taken = URL(fileURLWithPath: target.path + ".partial")
     try? manager.removeItem(at: taken)

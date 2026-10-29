@@ -285,16 +285,26 @@ struct TransferRowText: Hashable, Sendable {
   let note: String?
   /// An exchange between two currencies of one account.
   let withinOneAccount: Bool
+  /// The transfer touches a hidden account that is covered: it is told by a neutral line with
+  /// no name (`HiddenAccounts.caption(for:)`).
+  let caption: HiddenAccounts.TransferCaption?
 
   var isExchange: Bool { fromCurrency != toCurrency }
 
   /// The accounts, for the account column: «Сбер → Kaspi», or just «Freedom» for an exchange
   /// inside it.
-  var accounts: String { withinOneAccount ? from : "\(from) → \(to)" }
+  var accounts: String {
+    if caption != nil { return "" }
+    return withinOneAccount ? from : "\(from) → \(to)"
+  }
 
-  init(_ transfer: Transfer, names: [UUID: String]) {
-    from = names[transfer.fromAccountId] ?? ""
-    to = names[transfer.toAccountId] ?? ""
+  init(
+    _ transfer: Transfer, names: [UUID: String],
+    hiding hidden: HiddenAccounts = HiddenAccounts(ids: [UUID]())
+  ) {
+    caption = hidden.caption(for: transfer)
+    from = hidden.isHidden(transfer.fromAccountId) ? "" : names[transfer.fromAccountId] ?? ""
+    to = hidden.isHidden(transfer.toAccountId) ? "" : names[transfer.toAccountId] ?? ""
     fromCurrency = transfer.fromCurrency
     toCurrency = transfer.toCurrency
     received = transfer.toAmountE4
@@ -305,7 +315,8 @@ struct TransferRowText: Hashable, Sendable {
   /// «Перевод: Сбер → Kaspi», or «Обмен в Freedom: RUB → KZT» inside one account.
   @MainActor
   func title(language: AppLanguage) -> String {
-    withinOneAccount
+    if let caption { return language(caption.key, table: "PrivacyScreens") }
+    return withinOneAccount
       ? language.format(
         "transactions.transfer.exchange", table: "Transactions", from, fromCurrency.code,
         toCurrency.code)
@@ -544,7 +555,8 @@ struct TransactionListing: Sendable {
   /// What the filters find, operations and transfers: the whole listing of the window.
   static func build(matching filter: EntryFilter, in ledger: Ledger) -> TransactionListing {
     build(
-      filter.apply(to: ledger), ledger: ledger, transfers: transfers(matching: filter, in: ledger))
+      filter.apply(to: ledger), ledger: ledger, transfers: transfers(matching: filter, in: ledger),
+      hiding: HiddenAccounts(ids: filter.hiddenAccountIds))
   }
 
   /// Builds the rows of the operations the filter found, newest first, from the ledger
@@ -552,7 +564,8 @@ struct TransactionListing: Sendable {
   /// spending, in a section of their own that adds up to nothing. Pure, and meant for
   /// `ComputeStore.compute`.
   static func build(
-    _ ids: [UUID], ledger: Ledger, transfers: [Transfer] = []
+    _ ids: [UUID], ledger: Ledger, transfers: [Transfer] = [],
+    hiding hidden: HiddenAccounts = HiddenAccounts(ids: [UUID]())
   ) -> TransactionListing {
     let names = Names(ledger.dataset)
     let debts = ledger.debtsById
@@ -571,7 +584,7 @@ struct TransactionListing: Sendable {
       for transfer in moved.sorted(by: TransactionsStore.newestFirst)
       where visible.insert(transfer.id).inserted {
         transferIds.insert(transfer.id)
-        rows.append(row(for: transfer, names: names))
+        rows.append(row(for: transfer, names: names, hiding: hidden))
       }
       guard !rows.isEmpty else { return }
       sections.append(TransactionSection(day: day, side: .transfers, rows: rows, totals: .zero))
@@ -640,8 +653,13 @@ struct TransactionListing: Sendable {
       filter.reimbursementStatus == nil
     else { return [] }
     let words = NameKey.fold(filter.text).split(whereSeparator: \.isWhitespace).map(String.init)
-    let names = Names(ledger.dataset).paymentMethods
+    let hidden = HiddenAccounts(ids: filter.hiddenAccountIds)
+    var names = Names(ledger.dataset).paymentMethods
+    // The search never finds a transfer by the name of a hidden account.
+    for id in hidden.ids { names[id] = nil }
     return ledger.dataset.transfers.filter { transfer in
+      // Between two hidden accounts: nothing of it is shown while they are covered.
+      if hidden.caption(for: transfer) == .betweenHidden { return false }
       if let period = filter.period,
         !period.range.contains(ledger.calendar.day(of: transfer.occurredAt))
       {
@@ -667,8 +685,10 @@ struct TransactionListing: Sendable {
   /// The row of a transfer: the amount sent in its currency, the two accounts in the account
   /// column — one, for an exchange inside an account —, no category, quality or person: it is
   /// neither income nor spending.
-  private static func row(for transfer: Transfer, names: Names) -> TransactionRowItem {
-    let text = TransferRowText(transfer, names: names.paymentMethods)
+  private static func row(
+    for transfer: Transfer, names: Names, hiding hidden: HiddenAccounts
+  ) -> TransactionRowItem {
+    let text = TransferRowText(transfer, names: names.paymentMethods, hiding: hidden)
     return TransactionRowItem(
       id: .transfer(transfer.id), transactionId: transfer.id, kind: .expense,
       occurredAt: transfer.occurredAt, note: transfer.note, title: .kind(.expense),

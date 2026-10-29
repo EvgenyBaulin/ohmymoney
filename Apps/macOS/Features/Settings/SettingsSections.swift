@@ -17,6 +17,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
   case rules
   case attachments
   case purchases
+  case privacy
   case backups
 
   /// The name of the section, a key of the Settings table.
@@ -34,6 +35,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
     case .rules: "settings.tab.rules"
     case .attachments: "settings.tab.attachments"
     case .purchases: "settings.tab.purchases"
+    case .privacy: "settings.tab.privacy"
     case .backups: "settings.tab.backups"
     }
   }
@@ -139,6 +141,14 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .purchases("purchases.settings.pausePercent"), .purchases("purchases.settings.regret"),
         .purchases("purchases.settings.askAfter"), .purchases("purchases.settings.mileage"),
       ]
+    case .privacy:
+      [
+        .privacyExport("privacy.settings.autoHide"), .privacyExport("privacy.settings.readOnly"),
+        .privacyExport("privacy.settings.lock"), .privacyExport("privacy.settings.journal"),
+        .privacyExport("privacy.settings.storage"), .privacyExport("privacy.settings.exportCopy"),
+        .privacyExport("privacy.settings.demo"), .privacyExport("privacy.journal.keep"),
+        .privacyExport("privacy.journal.clear"), .privacyExport("privacy.copy.title"),
+      ]
     case .backups:
       [
         .settings("settings.backups.folder"), .settings("settings.backups.choose"),
@@ -192,6 +202,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func purchases(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Purchases")
+  }
+
+  static func privacyExport(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "PrivacyExport")
   }
 
   static func incomeSavings(_ key: String) -> SettingsCaption {

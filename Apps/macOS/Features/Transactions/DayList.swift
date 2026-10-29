@@ -361,7 +361,7 @@ struct TransferRow: View {
   let accounts: [UUID: String]
 
   var body: some View {
-    let text = TransferRowText(transfer, names: accounts)
+    let text = TransferRowText(transfer, names: accounts, hiding: environment.shield.covering)
     HStack(spacing: 12) {
       Image(systemName: TransferSymbol.name)
         .foregroundStyle(.secondary)

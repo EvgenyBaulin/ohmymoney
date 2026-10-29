@@ -288,8 +288,19 @@ public final class TransactionsStore {
 
   public func forgetRefusal() { refusal = nil }
 
+  /// Whether the app is in read-only mode; set by the app (`PrivacyShield`). `nil` — never.
+  @ObservationIgnored public var isReadOnly: (@MainActor () -> Bool)?
+
   /// True when the write must not even be attempted, having been announced as refused.
   func refuses(_ what: String, _ file: String) -> Bool {
+    // «Только просмотр»: one gate for every write and every undo of the store. The database
+    // refuses the same writes behind it (`ReadOnlyBarrier`); this stops them before a failure
+    // has to be told.
+    if isReadOnly?() == true {
+      Self.standInLog.notice(
+        "a write was refused: the app is read-only (\(what, privacy: .public))")
+      return true
+    }
     guard let standInFor else { return false }
     Self.standInLog.fault(
       "a write was refused: \(standInFor, privacy: .public) asked \(what, privacy: .public) from \(file, privacy: .public)"
@@ -1165,7 +1176,9 @@ public final class TransactionsStore {
 
   // MARK: Undo
 
-  public var canUndo: Bool { !undoStack.isEmpty && !isWritingInBackground }
+  public var canUndo: Bool {
+    !undoStack.isEmpty && !isWritingInBackground && isReadOnly?() != true
+  }
 
   /// Undo steps only make sense against the database they were taken from, and only up to
   /// a write that ⌘Z cannot describe (a reimbursement, a part written off). A bulk write

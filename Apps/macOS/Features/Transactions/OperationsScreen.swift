@@ -190,7 +190,7 @@ struct OperationsScreen: View {
     .task(
       id: FilterKey(
         filter: state.filters.entryFilter(today: environment.today),
-        generation: compute.generation)
+        generation: compute.generation &+ environment.shield.revision &* 1_000_003)
     ) {
       await refilter()
     }
@@ -492,7 +492,11 @@ struct OperationsScreen: View {
       try? await Task.sleep(for: ComputeStore.debounce)
       guard !Task.isCancelled else { return }
     }
-    let (filter, months) = (state.filters.entryFilter(today: environment.today), pages.monthsShown)
+    var chosen = state.filters.entryFilter(today: environment.today)
+    // Covered, the hidden accounts' operations are in neither the table nor the search.
+    chosen.hiddenAccountIds = environment.shield.covering.ids
+    chosen.hiddenCardIds = environment.shield.coveredCardIds
+    let (filter, months) = (chosen, pages.monthsShown)
     guard
       let result = try? await compute.compute({
         let found = TransactionListing.build(matching: filter, in: ledger)

@@ -73,16 +73,44 @@ enum ReportExport {
   #endif
   #if os(macOS)
     static func run(model: ReportsModel, environment: AppEnvironment, compute: ComputeStore) async {
-      guard FileCommands.confirmPersonalData(environment) else { return }
+      let answer = FileCommands.confirmExport(environment, offersLock: true)
+      guard answer != .cancel else { return }
+      let locked = answer == .locked
       let panel = NSSavePanel()
-      panel.nameFieldStringValue = ReportFileName.make(for: model.request)
-      panel.allowedContentTypes = [.commaSeparatedText]
+      let fileName = ReportFileName.make(for: model.request)
+      if locked {
+        panel.nameFieldStringValue =
+          (fileName as NSString).deletingPathExtension + "." + ArchiveService.fileExtension
+      } else {
+        panel.nameFieldStringValue = fileName
+        panel.allowedContentTypes = [.commaSeparatedText]
+      }
       panel.canCreateDirectories = true
       panel.isExtensionHidden = false
       guard panel.runModal() == .OK, let url = panel.url else { return }
 
       let names = ReportsText.csvNames(for: model, environment)
       let table = model.table
+      if locked {
+        // «Зашифровать»: the table goes into a locked file, with a password typed twice.
+        guard let password = LockedExportPassword.ask(environment),
+          let stack = environment.stack
+        else { return }
+        let csv = Self.data(table, names: names)
+        let stem = (fileName as NSString).deletingPathExtension
+        let version = AppEnvironment.appVersion
+        let schema = stack.applied.onDisk
+        do {
+          try await compute.compute {
+            try LockedFileExport.write(
+              csv: csv, table: stem, password: password, to: url, appVersion: version,
+              schemaVersion: schema)
+          }
+        } catch {
+          report(error, environment)
+        }
+        return
+      }
       do {
         try await compute.compute {
           try write(table, names: names, to: url)

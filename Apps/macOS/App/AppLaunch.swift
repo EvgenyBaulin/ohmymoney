@@ -168,6 +168,7 @@ enum AppLaunch {
         environment.scheduleBackup()
         compute.overlay(write)
       }
+      store.isReadOnly = { [environment] in environment.shield.isReadOnly }
       store.attach(
         repository, references: environment.references, planning: environment.planning,
         spending: environment.spendingRules, year: environment.yearPlan,
@@ -186,6 +187,7 @@ enum AppLaunch {
     if startsPipeline, !compute.isAttached, let stack = environment.stack,
       let rateService = environment.rateService
     {
+      compute.shield = environment.shield
       compute.onSnapshot = { [store] snapshot in store.show(snapshot.ledger) }
       var wired = sources(stack, rateService, environment.calendar)
       if wired.models == nil { wired.models = models?(stack, environment) }

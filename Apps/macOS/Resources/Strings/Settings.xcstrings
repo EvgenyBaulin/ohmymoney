@@ -290,6 +290,23 @@
         }
       }
     },
+    "archive.import.readOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The app is read-only: an import is not possible. Leave the mode first."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включён режим «Только просмотр»: импорт недоступен. Сначала выйдите из режима."
+          }
+        }
+      }
+    },
     "archive.import.title": {
       "extractionState": "manual",
       "localizations": {
@@ -1571,6 +1588,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось сначала сохранить копию текущих данных, поэтому ничего не заменено."
+          }
+        }
+      }
+    },
+    "backups.restore.readOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The app is read-only: a copy cannot be restored. Leave the mode first."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включён режим «Только просмотр»: восстановить копию нельзя. Сначала выйдите из режима."
           }
         }
       }
@@ -9857,6 +9891,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Планирование"
+          }
+        }
+      }
+    },
+    "settings.tab.privacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приватность"
           }
         }
       }

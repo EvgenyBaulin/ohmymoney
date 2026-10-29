@@ -35,6 +35,8 @@ struct AccountDraft: Equatable {
   var firstCardName = ""
   /// «Цвет счёта»: the key of a colour of the palette (`AccountAccent`); `nil` — none.
   var accent: String?
+  /// «Скрытый счёт»: kept out of the lists while the hidden accounts are covered.
+  var isHidden = false
 
   /// The fields of an account there is.
   init(_ account: PaymentMethod) {
@@ -51,6 +53,7 @@ struct AccountDraft: Equatable {
     credit = CreditDraft(account.credit)
     mainCardId = account.mainCardId
     accent = account.accent
+    isHidden = account.hidden
   }
 
   /// A new account: a bank account in the default currency, in no group, under a bank — `bank`
@@ -83,6 +86,7 @@ struct AccountDraft: Equatable {
     account.cushion = cushion
     account.mainCardId = mainCardId
     account.accent = accent
+    account.hidden = isHidden
     return account
   }
 
@@ -225,6 +229,17 @@ struct AccountEditor: View {
         } footer: {
           Text(verbatim: t(wasMain ? "account.editor.mainStays" : "account.editor.mainHint"))
             .foregroundStyle(.secondary)
+        }
+        Section {
+          Toggle(isOn: $draft.isHidden) {
+            Text(verbatim: environment.language("account.editor.hidden", table: "PrivacyScreens"))
+          }
+          .accessibilityIdentifier("account.editor.hidden")
+        } footer: {
+          Text(
+            verbatim: environment.language("account.editor.hiddenHint", table: "PrivacyScreens")
+          )
+          .foregroundStyle(.secondary)
         }
         if !cards.isEmpty {
           AccountMainCardPicker(selection: $draft.mainCardId, cards: cards)

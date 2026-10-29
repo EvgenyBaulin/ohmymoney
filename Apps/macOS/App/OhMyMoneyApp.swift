@@ -124,6 +124,7 @@ struct AppCommands: Commands {
         NotificationCenter.default.post(name: .focusEntryLine, object: nil)
       }
       .keyboardShortcut("n", modifiers: .command)
+      .disabled(environment.shield.isReadOnly)
     }
 
     // ⌘Z belongs to the operation being edited, but not while text is being typed: there
@@ -181,6 +182,28 @@ struct AppCommands: Commands {
           environment.lock.lock(because: .menu)
         }
         .disabled(environment.lock.isLocked)
+      }
+      // «Только просмотр» goes on freely and off with Touch ID or the password of the Mac.
+      Button(
+        environment.language(
+          environment.shield.isReadOnly ? "privacy.readOnly.menu.off" : "privacy.readOnly.menu.on",
+          table: "PrivacyScreens")
+      ) {
+        let on = !environment.shield.isReadOnly
+        Task { await environment.setReadOnly(on) }
+      }
+      if environment.shield.hasHiddenAccounts {
+        Button(
+          environment.language(
+            environment.shield.isRevealed ? "privacy.hidden.hide" : "privacy.hidden.show",
+            table: "PrivacyScreens")
+        ) {
+          if environment.shield.isRevealed {
+            environment.shield.cover()
+          } else {
+            Task { await environment.revealHiddenAccounts() }
+          }
+        }
       }
     }
 
@@ -508,6 +531,10 @@ struct MainWindow: View {
             .safeAreaInset(edge: .top, spacing: 0) {
               if guide.isTutorial, environment.state == .ready { TutorialBar(guide: guide) }
             }
+            // The training data are on: nothing below is the owner's, and the way back is here.
+            .safeAreaInset(edge: .top, spacing: 0) {
+              if DemoDataMode.isOn(), environment.state == .ready { DemoDataBanner() }
+            }
             // The trip that is on, its day's allowance, and the card of the return.
             .safeAreaInset(edge: .top, spacing: 0) {
               if environment.state == .ready { TripBanner() }
@@ -531,7 +558,9 @@ struct MainWindow: View {
         }
         // The form of a new operation, when the owner chose it in Settings → «Ввод»: a column
         // of its own at the right, always there, in place of the line (`EntryStyle.form`).
-        if environment.entryStyle == .form, environment.state == .ready {
+        if environment.entryStyle == .form, environment.state == .ready,
+          !environment.shield.isReadOnly
+        {
           Divider()
           EntryBar(
             windowWidth: windowWidth, detailWidth: 0, style: .form, operations: overviewActions
@@ -616,6 +645,7 @@ struct MainWindow: View {
     // Statements: from the File menu, or files dropped on the window.
     .statementImportSheet(deps)
     .receiptSheet(deps)
+    .privacySheets(deps)
     .sheet(isPresented: environment.lock.presenting($showsConflicts)) {
       if let sync = environment.sync {
         ConflictsSheet(coordinator: sync).appDependencies(deps)
@@ -748,6 +778,9 @@ struct MainWindow: View {
   @ViewBuilder
   private func entryDock(detailWidth: CGFloat) -> some View {
     switch environment.entryStyle {
+    case .line where environment.shield.isReadOnly:
+      // Nothing can be typed, so the line is not there; the strip says why and how to leave.
+      ReadOnlyStrip()
     case .line:
       EntryBar(
         windowWidth: windowWidth, detailWidth: detailWidth, opensDetails: opensDetails
@@ -763,7 +796,7 @@ struct MainWindow: View {
       // above it smoothly, and leaves a selection that merely grows alone.
       .animation(.snappy, value: showsSelectionBar)
     case .form:
-      if showsSelectionBar {
+      if showsSelectionBar, !environment.shield.isReadOnly {
         SelectionDock(actions: overviewActions)
           .transition(.opacity.combined(with: .move(edge: .bottom)))
       }

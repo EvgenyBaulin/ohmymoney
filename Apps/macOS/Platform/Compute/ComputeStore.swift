@@ -97,11 +97,27 @@ final class ComputeStore {
     didSet { faultSwitch.faults = faults }
   }
 
-  var snapshot: DataSnapshot? { states.snapshot }
+  /// The hidden accounts and the read-only mode (`PrivacyShield`): set once by the app. What
+  /// the screens read as `snapshot` is without the hidden accounts while they are covered.
+  @ObservationIgnored var shield: PrivacyShield?
+
+  var snapshot: DataSnapshot? {
+    guard let raw = states.snapshot else { return nil }
+    guard let shield, shield.visibility == .covered else { return raw }
+    // Read from the data itself, not from what the shield learned, so not a frame of the first
+    // snapshot shows an account the owner hid.
+    return raw.presented(hiding: HiddenAccounts(accounts: raw.ledger.dataset.paymentMethods))
+  }
+
+  /// The snapshot as the pipeline built it, hidden accounts and all: for what has to see the
+  /// whole books (the write rules, the totals).
+  var wholeSnapshot: DataSnapshot? { states.snapshot }
   var isRunning: Bool { states.run.isRunning }
   var lastCompletedAt: Date? { states.run.lastCompletedAt }
   /// Changes whenever the lists' data does.
-  var generation: Int { states.serial }
+  /// The hidden accounts going under cover or coming out change it too: every screen that follows
+  /// the data follows them.
+  var generation: Int { states.serial &+ (shield?.revision ?? 0) &* 7_919 }
 
   /// Called whenever the lists' data changes; the app hands the ledger to the store of
   /// writes, whose menus and confirmations read the operations from it.
@@ -432,6 +448,7 @@ final class ComputeStore {
     guard states.serial != shownSerial, let snapshot = states.snapshot else { return }
     shownSerial = states.serial
     latest.set(snapshot)
+    shield?.learn(accounts: snapshot.ledger.dataset.paymentMethods, cards: snapshot.ledger.dataset.cards)
     onSnapshot?(snapshot)
   }
 

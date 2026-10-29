@@ -106,6 +106,7 @@ struct SettingsSectionContent: View {
     case .rules: RulesSettingsView()
     case .attachments: AttachmentsSettingsView()
     case .purchases: PurchasesSettingsView()
+    case .privacy: PrivacySettingsView()
     case .backups: BackupSettingsView()
     }
   }

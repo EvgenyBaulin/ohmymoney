@@ -33,6 +33,7 @@ extension SettingsSection {
     case .rules: "line.3.horizontal.decrease.circle"
     case .attachments: "paperclip"
     case .purchases: "bag"
+    case .privacy: "hand.raised"
     case .backups: "clock.arrow.circlepath"
     }
   }
@@ -55,6 +56,7 @@ extension SettingsSection {
     case .rules: 0xC2548A
     case .attachments: 0x6C7A89
     case .purchases: 0xD9822B
+    case .privacy: 0x5B6B7F
     case .backups: 0x2F5DE8
     }
   }

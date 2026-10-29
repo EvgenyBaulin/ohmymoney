@@ -25,6 +25,15 @@ struct FileCommands: Commands {
       }
       .keyboardShortcut("o", modifiers: [.command, .shift])
 
+      // A locked copy for somebody else, and what the app keeps (the original never changes).
+      Button(environment.language("privacy.menu.exportCopy", table: "PrivacyExport")) {
+        PrivacyRequests.shared.askCopy()
+      }
+      .disabled(environment.exportCopies == nil)
+      Button(environment.language("privacy.menu.storage", table: "PrivacyExport")) {
+        PrivacyRequests.shared.storage = true
+      }
+
       Divider()
       Button(environment.language("import.menu", table: "Import")) {
         environment.statementImportRequest = StatementImportRequest(urls: [])
@@ -38,7 +47,14 @@ struct FileCommands: Commands {
   /// Also the «Export» button of the main window's toolbar.
   func exportCSV() {
     guard let csvExport = environment.csvExport else { return }
-    guard Self.confirmPersonalData(environment) else { return }
+    switch Self.confirmExport(environment, offersLock: true) {
+    case .cancel: return
+    case .locked:
+      // «Зашифровать»: the tables go as the CSV files of a locked copy, with a password.
+      PrivacyRequests.shared.askCopy(format: .csvOnly)
+      return
+    case .plain: break
+    }
     guard let directory = chooseDirectory() else { return }
     // The names of the export files are fixed; files under them are replaced only once the
     // owner has said so, as a save panel asks before it replaces one.
@@ -277,11 +293,39 @@ struct FileCommands: Commands {
   /// The files carry names of people and amounts; the owner is told before they leave. Every
   /// export asks this very question: the CSV of the File menu and a table of Reports.
   static func confirmPersonalData(_ environment: AppEnvironment) -> Bool {
+    confirmExport(environment, offersLock: false) != .cancel
+  }
+
+  /// What the owner answered to the warning about names and amounts.
+  enum PersonalDataAnswer: Equatable {
+    case cancel
+    /// Export as it is.
+    case plain
+    /// Export locked with a password («Зашифровать»).
+    case locked
+  }
+
+  /// The same warning, with a box «Зашифровать (zip с паролем)», off by default, for an export
+  /// that can be locked.
+  static func confirmExport(
+    _ environment: AppEnvironment, offersLock: Bool
+  ) -> PersonalDataAnswer {
     let alert = NSAlert()
     alert.messageText = environment.language("export.warning.title", table: "Settings")
     alert.informativeText = environment.language("export.warning.body", table: "Settings")
+    var box: NSButton?
+    if offersLock {
+      let lock = NSButton(
+        checkboxWithTitle: environment.language("privacy.export.lock", table: "PrivacyExport"),
+        target: nil, action: nil)
+      lock.state = .off
+      lock.setAccessibilityIdentifier("export.lock")
+      alert.accessoryView = lock
+      box = lock
+    }
     alert.addButton(withTitle: environment.language("action.export"))
     alert.addButton(withTitle: environment.language("action.cancel"))
-    return alert.runModal() == .alertFirstButtonReturn
+    guard alert.runModal() == .alertFirstButtonReturn else { return .cancel }
+    return box?.state == .on ? .locked : .plain
   }
 }

@@ -337,6 +337,9 @@ public final class EntryDraftModel {
   /// Where the cards and the cashback rules are read from: the database of the app, handed over
   /// in `init(environment:)`. Without it the panel knows no card and expects no cashback.
   var readsCards: (() -> (cards: [PaymentCard], rules: [CashbackRule]))?
+  /// The accounts and cards the pickers leave out while the hidden accounts are covered. Handed
+  /// over in `init(environment:)`; without it every account is offered.
+  var readsCovered: (() -> (accounts: Set<UUID>, cards: Set<UUID>))?
 
   /// The panel as the application makes it — for the entry line and for the editor of a
   /// saved operation alike: the repositories, the calendar, the owner's setting for events,
@@ -370,6 +373,10 @@ public final class EntryDraftModel {
         ?? []
       return CashRate.rate(spendingFrom: account, in: currency, transfers: transfers)
     }
+    readsCovered = { [weak environment] in
+      guard let shield = environment?.shield else { return ([], []) }
+      return (shield.covering.ids, shield.coveredCardIds)
+    }
     readsCards = { [weak environment] in
       guard let writer = environment?.stack?.writer else { return ([], []) }
       let repository = CardRepository(writer: writer)
@@ -402,8 +409,9 @@ public final class EntryDraftModel {
     reloadQualityRules()
     cachedRates = nil
     cashRates = [:]
+    let covered: (accounts: Set<UUID>, cards: Set<UUID>) = readsCovered?() ?? ([], [])
     if let read = readsCards?() {
-      cards = read.cards
+      cards = read.cards.filter { !covered.cards.contains($0.id) }
       cashbackRules = read.rules
     }
     guard let references else { return }
@@ -413,7 +421,9 @@ public final class EntryDraftModel {
     archivedPlaces = everyPlace.filter(\.archived)
     allAccounts = (try? references.paymentMethods(includeArchived: true)) ?? []
     banks = (try? references.banks(includeArchived: true)) ?? []
-    paymentMethods = allAccounts.filter { !$0.archived }
+    // A saved operation on a hidden account still finds its account in `allAccounts`; the
+    // pickers (`paymentMethods`) do not offer it while it is covered.
+    paymentMethods = allAccounts.filter { !$0.archived && !covered.accounts.contains($0.id) }
     events = (try? references.events()) ?? []
     goals = (try? references.goals()) ?? []
     debts = (try? references.debts()) ?? []

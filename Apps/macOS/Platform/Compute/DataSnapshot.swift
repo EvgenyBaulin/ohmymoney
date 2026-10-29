@@ -140,7 +140,7 @@ struct DataSnapshot: Sendable {
   /// Payments, limits, goals, expectations, events, free to spend, debts, reminders and the
   /// money on the accounts, built from the same ledger off the main thread. Its `planned` is
   /// the one figure of planned payments the cards and the forecast show.
-  let planning: PlanningSnapshot
+  var planning: PlanningSnapshot
   /// What is known about every balance through the end of the month, built from the same
   /// ledger and planning: the forecast step's remainder laid over it gives each account's
   /// balance at the end of the month (`accountPlan.forecast(remainder:)`).
@@ -156,7 +156,38 @@ struct DataSnapshot: Sendable {
   /// planning.
   var burnout: BurnoutCheck = .quiet
 
-  var dataset: Dataset { ledger.dataset }
+  /// The hidden accounts this snapshot is presented without (`presented(hiding:)`); empty
+  /// for the snapshot as the pipeline built it, which holds everything.
+  private(set) var hiding = HiddenAccounts(ids: [UUID]())
+  /// «часть скрыта» on the «Всего» of the accounts and on the groups that hold hidden money;
+  /// only a presented snapshot has marks.
+  private(set) var coveredAccounts: CoveredAccounts?
+
+  /// The data the screens read. A presented snapshot has no hidden account or card in it, so
+  /// every list and picker built from here leaves them out; the ledger stays whole (the write
+  /// rules and every total read it), and so does the data the pipeline made.
+  var dataset: Dataset {
+    guard !hiding.isEmpty else { return ledger.dataset }
+    var data = ledger.dataset
+    data.paymentMethods = hiding.offered(data.paymentMethods, visibility: .covered)
+    let cards = hiding.cardIds(in: data.cards)
+    data.cards = data.cards.filter { !cards.contains($0.id) }
+    return data
+  }
+
+  /// This snapshot as the screens see it while the hidden accounts are covered: the lists of
+  /// accounts without them, the totals untouched and flagged. One place for the whole app:
+  /// the sidebar, the account screens, the pickers and everything that reads `dataset` or
+  /// `planning.accounts` go through the presented snapshot.
+  func presented(hiding hidden: HiddenAccounts) -> DataSnapshot {
+    guard !hidden.isEmpty else { return self }
+    var copy = self
+    copy.hiding = hidden
+    let covered = hidden.cover(planning.accounts)
+    copy.planning.accounts = covered.snapshot
+    copy.coveredAccounts = covered
+    return copy
+  }
 
   /// The pure part of the step: the same function builds a snapshot from a fresh read and
   /// from a read with the app's own writes laid over it.

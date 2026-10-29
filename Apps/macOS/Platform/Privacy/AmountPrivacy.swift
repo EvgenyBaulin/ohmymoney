@@ -1,3 +1,4 @@
+import AppCore
 import Foundation
 import Observation
 
@@ -29,6 +30,23 @@ public final class AmountPrivacy {
         "the owner switched the amounts of the interface")
     }
   }
+
+  /// What watches the screen right now (`CaptureWatcher`). Never stored: it ends with the capture.
+  var capture: RecordingPolicy.Capture = []
+  /// `privacy.autoHideOnCapture`, as the app last read it.
+  var autoHideOnCapture = true
+
+  /// Whether the amounts are hidden right now, and why: the owner's own switch, or a capture.
+  /// What the screens draw follows this; the switch above stays what the owner set, so a
+  /// capture that ends brings the amounts back without touching the owner's choice.
+  var decision: RecordingPolicy.Decision {
+    RecordingPolicy.decide(
+      RecordingPolicy.Signals(
+        capture: capture, autoHideOnCapture: autoHideOnCapture, manuallyHidden: hidesAmounts))
+  }
+
+  /// `true` when the figures of money are masked now, whatever the reason.
+  var isHidingNow: Bool { decision.hide }
 
   @ObservationIgnored private let defaults: UserDefaults?
 

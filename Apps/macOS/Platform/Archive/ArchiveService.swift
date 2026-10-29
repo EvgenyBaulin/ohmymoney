@@ -658,6 +658,11 @@ enum ArchiveImportFlow {
   static func run(
     _ url: URL, archives: ArchiveService, backups: BackupService, questions: Questions
   ) -> Task<Void, Never>? {
+    // «Только просмотр»: an import replaces the books, so it is not started.
+    guard !ReadOnlyGate.isOn else {
+      questions.report("archive.import.readOnly")
+      return nil
+    }
     let password: String?
     if archives.isEncryptedSafely(at: url) {
       guard case .given(let typed) = questions.password() else { return nil }

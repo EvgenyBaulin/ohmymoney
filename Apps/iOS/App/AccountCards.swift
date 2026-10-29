@@ -54,6 +54,7 @@ struct AccountCardsSection: View {
           }
         }
       }
+      HiddenAccountsRow()
     }
     .listRowBackground(Color.clear)
     .listRowSeparator(.hidden)
@@ -98,6 +99,11 @@ struct AccountCardsSection: View {
         .appFont(.largeTitle.bold().monospacedDigit())
         .minimumScaleFactor(0.6)
         .lineLimit(1)
+      if compute.snapshot?.coveredAccounts?.partHidden == true {
+        Text(verbatim: environment.language("privacy.partHidden", table: "PrivacyScreens"))
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+      }
       if !missing.isEmpty {
         Text(verbatim: withoutRate(missing.map(\.code).joined(separator: ", ")))
           .appFont(.caption)

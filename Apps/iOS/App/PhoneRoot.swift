@@ -187,11 +187,15 @@ struct PhoneRoot: View {
 
   @ViewBuilder
   private func entryBar(_ tab: PhoneTab) -> some View {
-    EntryBar(
-      windowWidth: width, detailWidth: width, operations: actions,
-      phone: PhoneEntryAccess(gate: entryGate, tab: tab)
-    ) {
-      SelectionBar(actions: actions)
+    if environment.shield.isReadOnly {
+      ReadOnlyStrip()
+    } else {
+      EntryBar(
+        windowWidth: width, detailWidth: width, operations: actions,
+        phone: PhoneEntryAccess(gate: entryGate, tab: tab)
+      ) {
+        SelectionBar(actions: actions)
+      }
     }
   }
 }

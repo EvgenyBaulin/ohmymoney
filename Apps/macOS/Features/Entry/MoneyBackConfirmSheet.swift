@@ -833,7 +833,7 @@ struct MoneyBackConfirmSheet: View {
     people = (try? environment.references?.people()) ?? []
     owed = (try? environment.transactions?.owedParts()) ?? []
     debts = (try? environment.references?.debts()) ?? []
-    accounts = (try? environment.references?.paymentMethods()) ?? []
+    accounts = environment.shield.offered((try? environment.references?.paymentMethods()) ?? [])
     rates = (try? environment.rates?.table()) ?? RateTable()
     purchases = [:]
     for id in Set(owed.filter { $0.currency != .rub }.map(\.transactionId)) {

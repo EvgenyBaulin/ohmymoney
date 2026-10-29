@@ -144,6 +144,13 @@ final class PrivacyLock {
   /// The owner proved who they are on the way to the first password (`beginEnabling`).
   private(set) var isChoosingFirstPassword = false
 
+  /// Called whenever the windows get covered (the journal of openings, and the hidden accounts
+  /// going back under cover). Set once by the app after the lock is made.
+  @ObservationIgnored var onLocked: (() -> Void)?
+  /// Called whenever the cover is taken away, with what proved the owner: the password of the
+  /// app, or the system's Touch ID / password of the Mac.
+  @ObservationIgnored var onUnlocked: ((PrivacyJournalEntry.UnlockMethod) -> Void)?
+
   /// What went wrong with a password.
   enum PasswordProblem: Equatable, Sendable {
     case wrong(attemptsLeft: Int)
@@ -243,6 +250,7 @@ final class PrivacyLock {
     isLocked = true
     lastRefusal = nil
     Self.journal(locked: reason)
+    onLocked?()
   }
 
   /// Asks for Touch ID or the password, and takes the cover away when it passes. `reason` is
@@ -267,7 +275,9 @@ final class PrivacyLock {
   }
 
   /// Takes the cover away and forgets the wrong passwords and the pause: the owner is here.
-  private func uncover() {
+  private func uncover(by method: PrivacyJournalEntry.UnlockMethod = .touchID) {
+    let wasLocked = isLocked
+    defer { if wasLocked { onUnlocked?(method) } }
     isLocked = false
     isChoosingNewPassword = false
     resetGrantUntil = nil
@@ -370,7 +380,7 @@ final class PrivacyLock {
         [LogPair("seconds", .count(Int(Self.pauseSeconds)))])
       return .paused(until: until)
     }
-    uncover()
+    uncover(by: .password)
     AppLog.info("privacy.passwordUnlock", .ui, "the windows were uncovered")
     return .unlocked
   }
