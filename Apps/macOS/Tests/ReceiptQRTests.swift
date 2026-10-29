@@ -7,6 +7,7 @@ import XCTest
 @testable import OhMyMoney
 
 /// The picture side of «Чек по QR»: a QR code drawn here, read back by Vision.
+@MainActor
 final class ReceiptQRDetectorTests: XCTestCase {
   private func picture(of text: String, scale: CGFloat = 12) throws -> CGImage {
     let filter = CIFilter.qrCodeGenerator()
