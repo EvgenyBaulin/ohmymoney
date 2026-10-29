@@ -60,6 +60,7 @@ extension EntryDraftModel {
   func answerMileage(_ km: Int?, previous: FuelFill?) {
     mileageAnswered = true
     guard let km, km > 0 else { return }
-    draft.odometerKm = previous == nil ? km : FuelEconomy.odometer(afterDriving: km, since: previous)
+    draft.odometerKm =
+      previous == nil ? km : FuelEconomy.odometer(afterDriving: km, since: previous)
   }
 }

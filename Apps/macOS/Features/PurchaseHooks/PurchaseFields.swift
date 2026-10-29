@@ -53,6 +53,9 @@ enum PurchaseFieldRules {
 }
 
 struct PurchaseFields: View {
+  /// The discount is a small cell of its own in the flow of the panel; the rest stands apart.
+  enum Part { case discount, rest }
+  let part: Part
   @Dependency(\.environment) private var environment
   @Binding var draft: TransactionDraft
   let tree: CategoryTree
@@ -62,10 +65,14 @@ struct PurchaseFields: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
-      if PurchaseFieldRules.showsDiscount(draft) { discountField }
-      if PurchaseFieldRules.isFillUp(draft, tree: tree) { mileageField }
-      if PurchaseFieldRules.showsWaitingRefund(draft) { refundField }
-      if PurchaseFieldRules.showsRegret(draft, editsSaved: editsSaved) { regretBlock }
+      switch part {
+      case .discount:
+        if PurchaseFieldRules.showsDiscount(draft) { discountField }
+      case .rest:
+        if PurchaseFieldRules.isFillUp(draft, tree: tree) { mileageField }
+        if PurchaseFieldRules.showsWaitingRefund(draft) { refundField }
+        if PurchaseFieldRules.showsRegret(draft, editsSaved: editsSaved) { regretBlock }
+      }
     }
     .accessibilityElement(children: .contain)
     .accessibilityIdentifier("entry.purchase")
@@ -77,16 +84,17 @@ struct PurchaseFields: View {
 
   // MARK: Discount
 
+  /// One small field, its name as the placeholder: it stands beside the amount of the operation.
   private var discountField: some View {
-    VStack(alignment: .leading, spacing: 4) {
-      label("purchase.discount.title")
-      AmountField(
-        amount: Binding(
-          get: { draft.discountE4 ?? .zero },
-          set: { draft.discountE4 = $0.raw > 0 ? $0 : nil })
-      )
-      .accessibilityIdentifier("entry.discount")
-    }
+    AmountField(
+      amount: Binding(
+        get: { draft.discountE4 ?? .zero },
+        set: { draft.discountE4 = $0.raw > 0 ? $0 : nil }),
+      prompt: t("purchase.discount.title")
+    )
+    .frame(width: 110)
+    .accessibilityLabel(t("purchase.discount.title"))
+    .accessibilityIdentifier("entry.discount")
   }
 
   // MARK: Mileage

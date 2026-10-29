@@ -35,7 +35,8 @@ enum PurchaseHookText {
     "look.purchase.eventName", "person.birthday", "person.birthday.add", "person.birthday.remove",
     "person.birthday.day", "person.birthday.month", "person.birthday.year",
     "person.birthday.yearPrompt", "person.giftBudget", "person.giftBudget.hint",
-    "calendar.birthday", "calendar.birthday.mark", "calendar.birthdayBudget", "calendar.birthday.turns",
+    "calendar.birthday", "calendar.birthday.mark", "calendar.birthdayBudget",
+    "calendar.birthday.turns",
     "calendar.birthday.createEvent", "calendar.birthday.created", "calendar.birthday.notCreated",
     "planning.birthdays.title", "planning.birthdays.line", "planning.birthdays.lineBudget",
     "planning.birthdays.today",
@@ -104,7 +105,8 @@ enum PurchaseHookText {
         f("calendar.birthdayBudget", environment, day.name, environment.money.rounded($0))
       } ?? f("calendar.birthday", environment, day.name)
     if let age = day.turnsAge, age > 0 {
-      line += " · " + environment.language.format("calendar.birthday.turns", table: table, counts: age)
+      line +=
+        " · " + environment.language.format("calendar.birthday.turns", table: table, counts: age)
     }
     return line
   }

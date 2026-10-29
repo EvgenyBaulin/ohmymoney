@@ -21,7 +21,8 @@ struct PersonGiftFields: View {
         .accessibilityIdentifier("person.birthday.day")
         Picker(selection: month(birthday)) {
           ForEach(1...12, id: \.self) { number in
-            Text(verbatim: environment.dates.shortMonth(MonthKey(year: 2000, month: number))).tag(number)
+            Text(verbatim: environment.dates.shortMonth(MonthKey(year: 2000, month: number))).tag(
+              number)
           }
         } label: {
           Text(verbatim: t("person.birthday.month"))
