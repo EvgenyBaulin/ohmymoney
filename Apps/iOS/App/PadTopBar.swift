@@ -105,6 +105,7 @@ struct PadMoreList: View {
     switch row {
     case .section(let item):
       environment.language(item.titleKey, table: item.titleTable ?? "Common")
+    case .purchases: environment.language("section.purchases")
     case .whatIf: environment.language("window.whatIf")
     case .trip: environment.language("nav.more.trip", table: "Navigation")
     case .reconcile: environment.language("action.reconcile")
@@ -119,6 +120,7 @@ struct PadMoreList: View {
   private func perform(_ row: MoreRow) {
     switch row {
     case .section(let item): router.open(nav: item)
+    case .purchases: router.open(section: .purchases)
     case .whatIf: router.open(screen: .whatIf)
     case .trip: environment.showsTrip = true
     case .reconcile: environment.showsReconciliation = true

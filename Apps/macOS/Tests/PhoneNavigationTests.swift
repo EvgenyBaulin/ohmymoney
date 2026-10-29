@@ -22,6 +22,7 @@ final class PhoneNavigationTests: XCTestCase {
       case .debts: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .debts))
       case .calendar: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .calendar))
       case .capital: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .capital))
+      case .purchases: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .purchases))
       }
     }
   }
@@ -228,6 +229,7 @@ final class PhoneNavigationTests: XCTestCase {
         .section(.goals), .section(.reports),
       ])
     XCTAssertTrue(menu.sections.contains(.whatIf))
+    XCTAssertTrue(menu.sections.contains(.purchases), "«Покупки» has a row in «Ещё»")
     XCTAssertFalse(menu.sections.contains(.trip), "no trip, no row")
     XCTAssertEqual(menu.app, [.settings, .tour, .whatsNew, .problemReport])
     let travelling = MoreMenu.make(more: [], tripIsOn: true)

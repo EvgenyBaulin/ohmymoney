@@ -145,6 +145,21 @@ public struct DatasetRepository: Sendable {
         storedValues: try SettingsRepository.values(of: BankSettings.storageKeys, db: db)))
     bankData.conditions.removeAll { $0.isEmpty }
     extras.set(bankData, for: Dataset.bankDataKey)
+    // The wishes with their prices, the shopping list, the things and the settings of the
+    // purchases come in the same read.
+    let wishes = try Row.fetchAll(db, sql: "SELECT * FROM wishes ORDER BY sort, priority, created_on, id")
+      .compactMap { try? Wish(row: $0) }.filter { !$0.archived }
+    let wishPrices = try Row.fetchAll(
+      db, sql: "SELECT * FROM wish_prices ORDER BY wish_id, on_date, rowid"
+    ).compactMap { try? WishPrice(row: $0) }
+    let shoppingItems = try Row.fetchAll(
+      db, sql: "SELECT * FROM shopping_items ORDER BY done, sort, created_on, id"
+    ).compactMap { try? ShoppingItem(row: $0) }
+    let ownedItems = try Row.fetchAll(
+      db, sql: "SELECT * FROM owned_items ORDER BY bought_on DESC, name, id"
+    ).compactMap { try? OwnedItem(row: $0) }.filter { !$0.archived }
+    let purchaseSettings = PurchaseSettings(
+      storedValues: try SettingsRepository.values(of: PurchaseSettings.storageKeys, db: db))
     try Task.checkCancellation()
     return Dataset(
       entries: entries,
@@ -188,6 +203,11 @@ public struct DatasetRepository: Sendable {
       weekendWindow: weekendWindow,
       workHours: workHours,
       savedViews: savedViews,
-      extras: extras)
+      extras: extras,
+      wishes: wishes,
+      wishPrices: wishPrices,
+      shoppingItems: shoppingItems,
+      ownedItems: ownedItems,
+      purchaseSettings: purchaseSettings)
   }
 }

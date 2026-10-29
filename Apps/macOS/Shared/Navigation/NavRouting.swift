@@ -65,7 +65,7 @@ extension PhoneRouter {
       case .capital: return .capital
       case .analytics: return .analytics
       case .reports: return .reports
-      case .settings, .whatIf, .conflicts, nil: return nil
+      case .settings, .whatIf, .conflicts, .purchases, nil: return nil
       }
     }
   }

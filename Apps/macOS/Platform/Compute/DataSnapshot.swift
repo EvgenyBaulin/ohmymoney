@@ -205,6 +205,26 @@ struct DataSnapshot: Sendable {
     return snapshot
   }
 
+  /// The refunds waited for and the lines of «Стоит посмотреть» about the purchases.
+  private static func addPurchases(
+    to planning: inout PlanningSnapshot, ledger: Ledger, today: DateOnly,
+    context: SnapshotContext
+  ) {
+    let dataset = ledger.dataset
+    let waiting = WaitingRefunds.list(entries: dataset.entries, calendar: ledger.calendar)
+    let free = planning.freeMoney.main
+    let threshold = PurchasePause.threshold(
+      freeRubE4: free, settings: dataset.purchaseSettings)
+    let regret = RegretSchedule.due(
+      entries: dataset.entries, tree: ledger.tree, settings: dataset.purchaseSettings,
+      thresholdRubE4: threshold, today: today, calendar: ledger.calendar)
+    planning.waitingRefunds = waiting
+    planning.purchaseNotes = PurchaseNotes.list(
+      wishes: dataset.wishes, rates: context.rubPerUnit, freeRubE4: free, waiting: waiting,
+      gifts: GiftCalendar.upcoming(people: dataset.people, today: today), regret: regret,
+      today: today, dismissed: context.debtReminders.dismissed)
+  }
+
   /// The figures of the credits, the credit cards, the allocation of income and
   /// self-employment, each from its own rule over the same ledger and planning.
   private static func addCreditsAndAllocation(
@@ -266,6 +286,7 @@ struct DataSnapshot: Sendable {
     planning.banks = BankReport.build(
       ledger: ledger, accounts: planning.accounts, today: today, rubPerUnit: rubPerUnit)
     planning.bankNotes = planning.banks.notes(dismissed: context.debtReminders.dismissed)
+    addPurchases(to: &planning, ledger: ledger, today: today, context: context)
     planning.npd =
       dataset.selfEmployment.enabled
       ? NPDTax.state(

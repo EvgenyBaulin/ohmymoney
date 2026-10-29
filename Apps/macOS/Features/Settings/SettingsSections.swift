@@ -16,6 +16,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
   case planning
   case rules
   case attachments
+  case purchases
   case backups
 
   /// The name of the section, a key of the Settings table.
@@ -32,6 +33,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
     case .planning: "settings.tab.planning"
     case .rules: "settings.tab.rules"
     case .attachments: "settings.tab.attachments"
+    case .purchases: "settings.tab.purchases"
     case .backups: "settings.tab.backups"
     }
   }
@@ -131,6 +133,12 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .attachments("att.settings.trashWord"), .attachments("att.settings.openTrash"),
         .attachments("att.trash.title"),
       ]
+    case .purchases:
+      [
+        .purchases("purchases.settings.title"), .purchases("purchases.settings.pause"),
+        .purchases("purchases.settings.pausePercent"), .purchases("purchases.settings.regret"),
+        .purchases("purchases.settings.askAfter"), .purchases("purchases.settings.mileage"),
+      ]
     case .backups:
       [
         .settings("settings.backups.folder"), .settings("settings.backups.choose"),
@@ -180,6 +188,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func attachments(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Attachments")
+  }
+
+  static func purchases(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "Purchases")
   }
 
   static func incomeSavings(_ key: String) -> SettingsCaption {

@@ -111,6 +111,16 @@ public struct Dataset: Sendable {
   /// subscriptions (`CorePlanning`) —, so it is one moment with the operations and travels with
   /// every copy of the dataset.
   public var extras: DatasetExtras
+  /// «Хочу купить»: the wishes not archived, bought ones included, in the owner's order.
+  public var wishes: [Wish]
+  /// The prices noted for the wishes, the oldest first.
+  public var wishPrices: [WishPrice]
+  /// The shopping list, ticked lines included.
+  public var shoppingItems: [ShoppingItem]
+  /// The things noted apart from the capital, archived ones left out.
+  public var ownedItems: [OwnedItem]
+  /// The pause before a purchase and the question «Не пожалели?».
+  public var purchaseSettings: PurchaseSettings
 
   public init(
     entries: [TransactionEntry] = [],
@@ -152,7 +162,12 @@ public struct Dataset: Sendable {
     weekendWindow: WeekendWindow = .standard,
     workHours: WorkHoursSettings = WorkHoursSettings(),
     savedViews: SavedViewsBook = SavedViewsBook(),
-    extras: DatasetExtras = DatasetExtras()
+    extras: DatasetExtras = DatasetExtras(),
+    wishes: [Wish] = [],
+    wishPrices: [WishPrice] = [],
+    shoppingItems: [ShoppingItem] = [],
+    ownedItems: [OwnedItem] = [],
+    purchaseSettings: PurchaseSettings = PurchaseSettings()
   ) {
     self.entries = entries
     self.links = links
@@ -194,6 +209,11 @@ public struct Dataset: Sendable {
     self.workHours = workHours
     self.savedViews = savedViews
     self.extras = extras
+    self.wishes = wishes
+    self.wishPrices = wishPrices
+    self.shoppingItems = shoppingItems
+    self.ownedItems = ownedItems
+    self.purchaseSettings = purchaseSettings
   }
 
   public static let empty = Dataset()

@@ -248,6 +248,11 @@ struct AppCommands: Commands {
         NotificationCenter.default.post(name: .selectSection, object: 6)
       }
       .keyboardShortcut("6", modifiers: .command)
+
+      Button(environment.language("section.purchases")) {
+        NotificationCenter.default.post(name: .selectSection, object: 7)
+      }
+      .keyboardShortcut("7", modifiers: .command)
     }
 
     // «Перейти → Команды…» (⌘K): the palette of commands. Every fixed command of the palette is
@@ -781,6 +786,7 @@ struct MainWindow: View {
       case .section(.debts): DebtsView()
       case .section(.calendar): CalendarView(actions: overviewActions)
       case .section(.capital): CapitalView { selection = .account($0) }
+      case .section(.purchases): PurchasesScreen()
       case .account(let id):
         AccountScreen(accountId: id, actions: overviewActions)
           .id(id)

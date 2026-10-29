@@ -141,7 +141,7 @@ final class OperationsSectionTests: XCTestCase {
   func testOperationsStandsUnderOverviewInPlaceOfSpending() {
     XCTAssertEqual(
       MainWindow.Section.allCases,
-      [.overview, .operations, .planning, .debts, .calendar, .capital])
+      [.overview, .operations, .planning, .debts, .calendar, .capital, .purchases])
     XCTAssertEqual(Self.russian(MainWindow.Section.operations.titleKey), "Операции")
     XCTAssertEqual(
       environment.language(MainWindow.Section.operations.titleKey).isEmpty, false)

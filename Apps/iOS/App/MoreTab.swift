@@ -134,6 +134,8 @@ struct MoreTab: View {
       sectionScreen(titleKey: "window.analytics") { AnalyticsWindow(deps: deps) }
     case .reports:
       sectionScreen(titleKey: "window.reports") { ReportsWindow(deps: deps) }
+    case .purchases:
+      sectionScreen(titleKey: "section.purchases") { PurchasesScreen() }
     case .whatIf:
       sectionScreen(titleKey: "window.whatIf") { WhatIfWindow(deps: deps) }
     case .settings:
@@ -171,6 +173,7 @@ struct MoreTab: View {
     switch row {
     case .section(let item):
       environment.language(item.titleKey, table: item.titleTable ?? "Common")
+    case .purchases: environment.language("section.purchases")
     case .whatIf: environment.language("window.whatIf")
     case .trip: n("nav.more.trip")
     case .reconcile: environment.language("action.reconcile")
@@ -204,6 +207,8 @@ struct MoreTab: View {
       NavigationLink(value: MoreDestination.settings) { label }
     case .conflicts:
       NavigationLink(value: MoreDestination.conflicts) { label }
+    case .purchases:
+      NavigationLink(value: MoreDestination.purchases) { label }
     case .whatIf:
       NavigationLink(value: MoreDestination.whatIf) { label }
     case .trip:
@@ -407,6 +412,7 @@ struct PhoneSettingsList: View {
     case .planning: PlanningSettingsView()
     case .rules: RulesSettingsView()
     case .attachments: AttachmentsSettingsView()
+    case .purchases: PurchasesSettingsView()
     case .backups: BackupSettingsView()
     }
   }

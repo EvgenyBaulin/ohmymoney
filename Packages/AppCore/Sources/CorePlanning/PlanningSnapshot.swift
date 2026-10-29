@@ -164,6 +164,11 @@ public struct PlanningSnapshot: Hashable, Sendable {
   public var banks: BankReport = .empty
   /// The lines of «Стоит посмотреть» about them, those put away already left out.
   public var bankNotes: [BankNote] = []
+  /// The lines of «Стоит посмотреть» about the purchases (`PurchaseNotes.list`), those put away
+  /// already left out.
+  public var purchaseNotes: [PurchaseNote] = []
+  /// The refunds of purchases still waited for (`WaitingRefunds.list`).
+  public var waitingRefunds: WaitingRefunds = WaitingRefunds(items: [])
 
   public init(
     today: DateOnly, now: Date, rubPerUnit: [CurrencyCode: Decimal], book: PlanningBook,

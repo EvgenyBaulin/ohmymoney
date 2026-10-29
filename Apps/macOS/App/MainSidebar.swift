@@ -77,6 +77,7 @@ enum SidebarItem: Hashable, Sendable {
         Section {
           ForEach(MainWindow.Section.allCases) { item in
             sectionRow(item)
+            if item == .purchases { purchasesRows }
           }
           // Analytics is a window of its own, not a screen of this one: a button, never lit.
           Button {
@@ -128,6 +129,34 @@ enum SidebarItem: Hashable, Sendable {
       .onReceive(NotificationCenter.default.publisher(for: .openSidebarItem)) { note in
         guard let item = note.object as? SidebarItem else { return }
         selection = item
+      }
+    }
+
+    /// The pages of «Покупки» under its row: «Хочу купить», «Вещи», «Ждут зачисления». A click
+    /// opens the section on that page; the two lists left out (the shopping list and the savings)
+    /// are behind the switch of the screen.
+    private var purchasesRows: some View {
+      ForEach([PurchasesText.Page.wishes, .things, .waiting]) { page in
+        let lit =
+          selection == .section(.purchases) && PurchasesNavigation.shared.page == page
+        Button {
+          PurchasesNavigation.shared.page = page
+          selection = .section(.purchases)
+        } label: {
+          Text(verbatim: PurchasesText.t(page.titleKey, environment))
+            .appFont(.callout)
+            .foregroundStyle(
+              Color(lit ? theme.palette.accentContent : theme.palette.contentPrimary)
+            )
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 2)
+            .padding(.leading, 30)
+            .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .listRowBackground(Color.clear)
+        .accessibilityAddTraits(lit ? [.isSelected] : [])
+        .accessibilityIdentifier("sidebar.purchases.\(page.rawValue)")
       }
     }
 
