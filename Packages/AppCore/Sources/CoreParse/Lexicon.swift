@@ -72,6 +72,7 @@ enum Lexicon {
   static let transferToMarkers: Set<String> =
     englishTransferToMarkers.union(russianTransferToMarkers)
   static let cashbackWords: Set<String> = englishCashbackWords.union(russianCashbackWords)
+  static let discountWords: Set<String> = englishDiscountWords.union(russianDiscountWords)
   static let cashbackPhrases: [[String]] = englishCashbackPhrases
   static let percentWords: Set<String> = englishPercentWords.union(russianPercentWords)
   static let timeMarkers: Set<String> = englishTimeMarkers.union(russianTimeMarkers)

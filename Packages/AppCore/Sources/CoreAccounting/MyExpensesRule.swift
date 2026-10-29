@@ -189,7 +189,10 @@ public enum MyExpensesRule {
     // A refund goes through the same debt gate as the expense it takes back. Without it a
     // refund of a payment that was never an expense — a payment on something bought in
     // instalments, or on a debt the caller did not supply — pushed my spending below zero.
+    // A refund still waited for (`refundWaitingUntil`) is not money back yet: it takes nothing off
+    // my spending until it is credited.
     guard !transaction.isDeleted, transaction.kind == .refund,
+      transaction.refundWaitingUntil == nil,
       debtAllowsCounting(transaction, debt: debt, creditDebt: creditDebt)
     else { return .zero }
     // A refund of something bought for somebody else takes back money that was never mine.

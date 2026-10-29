@@ -49,6 +49,8 @@ public struct RefundIndex: Hashable, Sendable {
               part: part, in: transaction, debt: debt, creditDebt: creditDebt))
         }
       case .refund:
+        // A refund still on its way takes nothing off the purchase until it is credited.
+        if transaction.refundWaitingUntil != nil { continue }
         if entry.parts.contains(where: { $0.refundOfPartId != nil }) { refunds.append(entry) }
       case .income, .reimbursement:
         continue

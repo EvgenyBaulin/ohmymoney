@@ -104,6 +104,8 @@ extension Lexicon {
   static let englishPlaceMarkers: Set<String> = ["at", "in"]
   /// The cashback the bank gave for the purchase: "cashback 9.76", "cash back 3%".
   static let englishCashbackWords: Set<String> = ["cashback", "cash-back"]
+  /// "discount 300": the money the price fell by.
+  static let englishDiscountWords: Set<String> = ["discount", "discounted"]
   static let englishCashbackPhrases: [[String]] = [["cash", "back"]]
   /// "cashback 5 percent".
   static let englishPercentWords: Set<String> = ["%", "percent", "pct"]

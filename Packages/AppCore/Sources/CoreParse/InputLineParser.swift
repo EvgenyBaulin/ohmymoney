@@ -113,7 +113,8 @@ public struct InputLineParser: Sendable {
       timePhrase: session.timePhrase, cashback: session.cashback,
       cashbackPhrase: session.cashbackPhrase, selfEmployed: session.selfEmployed,
       warranty: session.warranty, warrantyPhrase: session.warrantyPhrase,
-      returnTerm: session.returnTerm, returnPhrase: session.returnPhrase)
+      returnTerm: session.returnTerm, returnPhrase: session.returnPhrase,
+      discount: session.discount, discountPhrase: session.discountPhrase)
   }
 }
 
@@ -146,6 +147,8 @@ private struct ParseSession {
   var warrantyPhrase: String?
   var returnTerm: TermReading?
   var returnPhrase: String?
+  var discount: Decimal?
+  var discountPhrase: String?
 
   init(
     text: String, vocabulary: ParserVocabulary, calendar: CalendarContext, today: DateOnly,
@@ -176,6 +179,7 @@ private struct ParseSession {
     if readingTimeAndCashback {
       readTime()
       readCashback()
+      readDiscount()
     }
     readCurrency()
     readDate()
@@ -1026,6 +1030,38 @@ private struct ParseSession {
       }
       cashbackPhrase = marked(index..<end)
       claim(index..<end, as: nil)
+      return
+    }
+  }
+
+  /// The number right behind the word of the discount: «скидка 300», "discount 300". Money read by
+  /// the rules of amounts typed by hand, above zero, while another number is left to be the
+  /// amount; income, money back and transfers have no discount. A percent is no money: the words
+  /// stay where they were.
+  mutating func readDiscount() {
+    let namesKind = claims.contains { $0.role == .kind }
+    let kind = namesKind || panelKind == nil ? result.kind : panelKind
+    guard kind != .income, kind != .reimbursement, result.transfer == nil else { return }
+    for index in words.indices
+    where !words[index].claimed && Lexicon.discountWords.contains(words[index].normalized) {
+      let next = index + 1
+      guard next < words.count, !words[next].claimed else { continue }
+      let number = words[next]
+      let text = number.amountText
+      guard let first = text.first, ExpressionLexer.isDigit(first), !text.hasSuffix("%"),
+        let value = try? ExpressionEvaluator.evaluate(text), value > 0
+      else { continue }
+      if next + 1 < words.count, !words[next + 1].claimed,
+        Lexicon.percentWords.contains(words[next + 1].normalized)
+      {
+        continue
+      }
+      guard isAmountish(number), amountCandidates().contains(where: { $0 != next }) else {
+        continue
+      }
+      discount = value
+      discountPhrase = marked(index..<(next + 1))
+      claim(index..<(next + 1), as: nil)
       return
     }
   }

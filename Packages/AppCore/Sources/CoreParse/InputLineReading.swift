@@ -55,13 +55,21 @@ public struct InputLineReading: Hashable, Sendable {
   /// operation takes none.
   public var warrantyPhrase: String?
   public var returnPhrase: String?
+  /// «скидка 300», "discount 300": how much the price fell, in the currency of the operation. Money
+  /// only, above zero, and only while another number is left to be the amount.
+  public var discount: Decimal?
+  /// The words that named the discount, as typed.
+  public var discountPhrase: String?
 
   public init(
     parsed: ParsedInput, timeOfDay: TimeOfDay? = nil, timeProblem: String? = nil,
     timePhrase: String? = nil, cashback: CashbackReading? = nil, cashbackPhrase: String? = nil,
     selfEmployed: Bool = false, warranty: TermReading? = nil, warrantyPhrase: String? = nil,
-    returnTerm: TermReading? = nil, returnPhrase: String? = nil
+    returnTerm: TermReading? = nil, returnPhrase: String? = nil, discount: Decimal? = nil,
+    discountPhrase: String? = nil
   ) {
+    self.discount = discount
+    self.discountPhrase = discountPhrase
     self.warranty = warranty
     self.warrantyPhrase = warrantyPhrase
     self.returnTerm = returnTerm

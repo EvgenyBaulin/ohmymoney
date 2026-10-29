@@ -142,6 +142,8 @@ extension Lexicon {
   static let russianFromMarkers: Set<String> = ["от"]
   static let russianPlaceMarkers: Set<String> = ["в", "во"]
   /// The cashback the bank gave for the purchase, in every spelling people type: «кэшбэк»,
+  /// «скидка 300»: the money the price fell by.
+  static let russianDiscountWords: Set<String> = ["скидка", "скидку", "скидки", "скидкой"]
   /// «кэшбек», «кешбэк», «кешбек» (and «ё» folds into «е»).
   static let russianCashbackWords: Set<String> = [
     "кэшбэк", "кэшбек", "кешбэк", "кешбек", "кэшбэка", "кэшбека", "кешбэка", "кешбека",
