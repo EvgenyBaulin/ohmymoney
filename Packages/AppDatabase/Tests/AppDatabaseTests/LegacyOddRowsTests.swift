@@ -36,7 +36,7 @@ struct LegacyOddRowsTests {
     let before = try book.read { db in try ExactTables.read(db) }
     let stack = try DatabaseStack(url: book.url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 13)
+    #expect(stack.applied.applied == 14)
     try stack.writer.read { (db: Database) throws in
       #expect(
         try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM payment_methods WHERE id IS NULL") == 1)

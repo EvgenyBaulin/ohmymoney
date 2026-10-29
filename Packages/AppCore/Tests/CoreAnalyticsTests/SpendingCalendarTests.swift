@@ -30,7 +30,7 @@ struct SpendingCalendarTests {
       part.reimbursementStatus = .expected
     }
     draft.parts = [part]
-    var entry = try draft.materialize()
+    var entry = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     entry.transaction.externalId = externalId
     return entry
   }
@@ -151,7 +151,10 @@ struct SpendingCalendarTests {
       occurredAt: CalendarContext.utc.startOfDay(day(10, 3)), amount: AmountE4(raw: 1_004_000))
     second.parts = [PartDraft(categoryId: food.id, amount: AmountE4(raw: 1_004_000))]
     let calendar = SpendingCalendar.build(
-      ledger: ledger([try first.materialize(), try second.materialize()]), scope: .month,
+      ledger: ledger([
+        try first.materialize(timeZone: CalendarContext.utc.timeZone),
+        try second.materialize(timeZone: CalendarContext.utc.timeZone),
+      ]), scope: .month,
       anchor: today, today: today, firstWeekday: 1)
     #expect(calendar.day(day(10, 2))?.spent == AmountE4(whole: 100))  // 100.40
     #expect(calendar.spent == AmountE4(whole: 201))  // 200.80

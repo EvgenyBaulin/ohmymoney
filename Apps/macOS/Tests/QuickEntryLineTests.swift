@@ -146,7 +146,7 @@ final class QuickEntryLineTests: XCTestCase {
       occurredAt: CalendarContext.utc.moment(today, hour: 12, minute: 0),
       amount: AmountE4(whole: 1250), note: "Пятёрочка")
     draft.normalizeSinglePart()
-    let known = try draft.materialize()
+    let known = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     let items = [
       BankListItem(source: "a", message: message()),
       BankListItem(

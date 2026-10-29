@@ -1538,38 +1538,32 @@ struct EntryBar<Accessory: View>: View {
         [LogPair("field", .token(gap.rawValue))])
       return
     }
-    // A date after today: a record, or a plan of Planning's? Asked once.
-    if askingForGaps, let plan = model.planAhead(today: environment.today) {
-      aheadQuestion = AheadQuestion(
-        plan: plan, day: environment.calendar.day(of: model.draft.occurredAt))
-      AppLog.info(
-        "entry.aheadAsked", .ui, "an operation dated ahead was asked about",
-        [LogPair("plan", .token("\(plan)"))])
-      return
-    }
-    // Spending that takes a credit card past its limit: said before it is written, the bank
-    // may charge a fee. Written all the same on «Записать всё равно».
+    // The questions every new operation answers before it is written, in one place for the line
+    // and for the form (`EntrySaveQuestions`): a date after today (a record or a plan of
+    // Planning's), a card past its limit, an account below the balance its bank asks to keep —
+    // each written all the same on «Записать всё равно» — and a repeat of the last minutes.
     if askingForGaps,
-      let warning = model.creditLimitWarning(cards: compute.snapshot?.planning.creditCards ?? [:])
+      let question = EntrySaveQuestions.next(
+        for: model, environment: environment, money: .init(compute.snapshot), now: Date())
     {
-      overLimitQuestion = OverLimitQuestion(over: warning.over, currency: warning.currency)
-      AppLog.info("entry.overLimitAsked", .ui, "spending past a card limit was asked about")
-      return
-    }
-    // Spending that takes an account below the balance its bank asks to keep: said before it is
-    // written, the rate of the month may go. Written all the same on «Записать всё равно».
-    if askingForGaps, let snapshot = compute.snapshot,
-      let warning = model.minBalanceWarning(
-        accounts: snapshot.planning.accounts, bank: snapshot.dataset.bankData)
-    {
-      minBalanceQuestion = MinBalanceQuestion(warning: warning)
-      AppLog.info("entry.minBalanceAsked", .ui, "spending below a minimum balance was asked about")
-      return
-    }
-    // What was written a moment ago with the same amount is shown before it is written again.
-    if askingForGaps, let same = model.repeatedOperation() {
-      repeatQuestion = RepeatQuestion(entry: same)
-      AppLog.info("entry.repeatAsked", .ui, "a repeat of an operation just written was asked about")
+      switch question {
+      case .ahead(let ahead):
+        aheadQuestion = ahead
+        AppLog.info(
+          "entry.aheadAsked", .ui, "an operation dated ahead was asked about",
+          [LogPair("plan", .token("\(ahead.plan)"))])
+      case .overLimit(let over):
+        overLimitQuestion = over
+        AppLog.info("entry.overLimitAsked", .ui, "spending past a card limit was asked about")
+      case .minBalance(let minimum):
+        minBalanceQuestion = minimum
+        AppLog.info(
+          "entry.minBalanceAsked", .ui, "spending below a minimum balance was asked about")
+      case .repeated(let same):
+        repeatQuestion = same
+        AppLog.info(
+          "entry.repeatAsked", .ui, "a repeat of an operation just written was asked about")
+      }
       return
     }
     // Dated on the day of counts of its balances and saved after them: whether its money was

@@ -15,6 +15,7 @@ final class CountAnswerMemoryTests: XCTestCase {
 
   override func setUp() async throws {
     environment = AppEnvironment()
+    environment.calendar = .utc  // days are UTC days here
     await environment.start(preparing: {
       try DatabaseStack(inMemory: BundleSchemaSource(bundle: .main))
     })

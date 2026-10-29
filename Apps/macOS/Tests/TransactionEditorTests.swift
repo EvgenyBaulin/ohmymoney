@@ -28,6 +28,7 @@ final class TransactionEditorTests: XCTestCase {
     store.attach(
       repository, references: references, planning: PlanningRepository(writer: stack.writer))
     environment = AppEnvironment()
+    environment.calendar = .utc  // days are UTC days here
   }
 
   private var evening: Date {
@@ -48,7 +49,7 @@ final class TransactionEditorTests: XCTestCase {
         amount: AmountE4(whole: 1_700), forWhom: .friends, reimbursable: true,
         debtorPersonId: alex.id),
     ]
-    let dinner = try draft.materialize()
+    let dinner = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     try repository.save(dinner)
     return dinner
   }
@@ -184,7 +185,7 @@ final class TransactionEditorTests: XCTestCase {
         occurredAt: start.addingTimeInterval(TimeInterval(index) * 60),
         amount: AmountE4(whole: 100), note: "row \(index)")
       draft.normalizeSinglePart()
-      return try draft.materialize()
+      return try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     }
     try repository.insert(others)
     let editor = TransactionEditorModel(entry: dinner, environment: environment)
@@ -246,7 +247,7 @@ final class TransactionEditorTests: XCTestCase {
     let payment = try TransactionDraft(
       occurredAt: noon, amount: AmountE4(whole: amount), note: "Loan", debtId: debt.id,
       parts: [PartDraft(amount: AmountE4(whole: amount))]
-    ).materialize()
+    ).materialize(timeZone: CalendarContext.utc.timeZone)
     let change = try XCTUnwrap(
       EntryCommit.change(
         entry: payment, openedCredit: nil, paidDebt: debt, expectedIncomeId: nil,
@@ -295,7 +296,7 @@ final class TransactionEditorTests: XCTestCase {
       occurredAt: evening, amount: AmountE4(whole: 800), amountExpression: "(1000+600)/2",
       note: "taxi")
     draft.normalizeSinglePart()
-    let taxi = try draft.materialize()
+    let taxi = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     try repository.save(taxi)
 
     let editor = TransactionEditorModel(entry: taxi, environment: environment)
@@ -348,7 +349,7 @@ final class TransactionEditorTests: XCTestCase {
     let purchase = try TransactionDraft(
       occurredAt: noon, amount: AmountE4(whole: 60_000), note: "Phone", creditDebtId: phone.id,
       parts: [PartDraft(amount: AmountE4(whole: 60_000))]
-    ).materialize()
+    ).materialize(timeZone: CalendarContext.utc.timeZone)
     XCTAssertTrue(
       store.apply(
         try XCTUnwrap(
@@ -608,7 +609,7 @@ final class TransactionEditorTests: XCTestCase {
     let purchase = try TransactionDraft(
       occurredAt: noon, amount: AmountE4(whole: 60_000), note: "Phone", creditDebtId: phone.id,
       parts: [PartDraft(amount: AmountE4(whole: 60_000))]
-    ).materialize()
+    ).materialize(timeZone: CalendarContext.utc.timeZone)
     XCTAssertTrue(
       store.apply(
         try XCTUnwrap(
@@ -664,7 +665,7 @@ final class TransactionEditorTests: XCTestCase {
     let expense = try TransactionDraft(
       occurredAt: noon, amount: AmountE4(whole: 7_000), note: "Loan",
       parts: [PartDraft(amount: AmountE4(whole: 7_000))]
-    ).materialize()
+    ).materialize(timeZone: CalendarContext.utc.timeZone)
     try repository.save(expense)
 
     let editor = TransactionEditorModel(entry: expense, environment: environment)
@@ -692,7 +693,7 @@ final class TransactionEditorTests: XCTestCase {
     var draft = TransactionDraft(
       occurredAt: evening, amount: AmountE4(whole: 8_000), note: "Missing")
     draft.parts = [PartDraft(categoryId: groceries.id, amount: AmountE4(whole: 8_000))]
-    var difference = try draft.materialize()
+    var difference = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     difference.transaction.externalId =
       OperationLink.reconciledBalance(reconciliation: UUID(), balance: UUID()).externalId
     try repository.save(difference)
@@ -748,6 +749,7 @@ final class TransactionEditorAccountsTests: XCTestCase {
     store.attach(
       repository, references: references, planning: PlanningRepository(writer: stack.writer))
     environment = AppEnvironment()
+    environment.calendar = .utc  // days are UTC days here
   }
 
   private func moment(_ day: DateOnly, _ hour: Int, _ minute: Int = 0, _ second: Int = 0) -> Date {
@@ -787,7 +789,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
       occurredAt: moment(today, 15), currency: .usd, amount: AmountE4(whole: 12), rate: 90,
       rateDate: today, rateSource: .cbr, note: "books", paymentMethodId: freedom.id)
     draft.normalizeSinglePart()
-    return try repository.save(try draft.materialize(now: moment(today, 15)))
+    return try repository.save(
+      try draft.materialize(now: moment(today, 15), timeZone: CalendarContext.utc.timeZone))
   }
 
   // MARK: What the account is charged
@@ -853,7 +856,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
     draft.accountCurrency = .rub
     draft.accountAmount = AmountE4(whole: 1_000_000)
     draft.normalizeSinglePart()
-    let purchase = try repository.save(try draft.materialize(now: moment(yesterday, 12)))
+    let purchase = try repository.save(
+      try draft.materialize(now: moment(yesterday, 12), timeZone: CalendarContext.utc.timeZone))
     XCTAssertEqual(purchase.transaction.amountRubE4, AmountE4(whole: 1_000_000))
 
     let part = purchase.parts[0]
@@ -866,7 +870,9 @@ final class TransactionEditorAccountsTests: XCTestCase {
     let rubles = RefundRules.rubles(
       refundAmount: AmountE4(whole: 3_000), part: part, refundedBefore: (.zero, .zero))
     let refund = try repository.save(
-      try refundDraft.materialize(now: moment(today, 10), rublesConverter: { _ in rubles }))
+      try refundDraft.materialize(
+        now: moment(today, 10), timeZone: CalendarContext.utc.timeZone,
+        rublesConverter: { _ in rubles }))
     try showDatabase()
     return (purchase, refund)
   }
@@ -950,7 +956,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
     var draft = TransactionDraft(
       occurredAt: at, amount: AmountE4(whole: 500), note: "taxi", paymentMethodId: card.id)
     draft.normalizeSinglePart()
-    return try repository.save(try draft.materialize(now: at))
+    return try repository.save(
+      try draft.materialize(now: at, timeZone: CalendarContext.utc.timeZone))
   }
 
   // Yesterday at noon UTC stays «yesterday» in any zone of the Mac, which the editor reads days in.
@@ -981,7 +988,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
       occurredAt: moment(today, 16), amount: AmountE4(whole: 500), note: "taxi",
       paymentMethodId: freedom.id, accountCurrency: .usd, accountAmount: AmountE4(whole: 6))
     draft.normalizeSinglePart()
-    let taxi = try repository.save(try draft.materialize(now: moment(today, 16)))
+    let taxi = try repository.save(
+      try draft.materialize(now: moment(today, 16), timeZone: CalendarContext.utc.timeZone))
     let saved = moment(today, 17)
     let editor = editor(of: taxi)
     editor.draft.setPaymentMethod(card.id)
@@ -1021,7 +1029,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
       kind: .reimbursement, occurredAt: moment(yesterday, 12), amount: AmountE4(whole: 1_700),
       paymentMethodId: card.id)
     draft.normalizeSinglePart()
-    let back = try repository.save(try draft.materialize(now: moment(yesterday, 12)))
+    let back = try repository.save(
+      try draft.materialize(now: moment(yesterday, 12), timeZone: CalendarContext.utc.timeZone))
     let saved = moment(today, 15)
     let balances = countedAt1405(now: saved)
     let editor = editor(of: back)
@@ -1069,7 +1078,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
       occurredAt: moment(yesterday, 7), amount: AmountE4(whole: 5_000), note: "groceries",
       paymentMethodId: cash.id)
     draft.normalizeSinglePart()
-    let purchase = try repository.save(try draft.materialize(now: moment(yesterday, 7)))
+    let purchase = try repository.save(
+      try draft.materialize(now: moment(yesterday, 7), timeZone: CalendarContext.utc.timeZone))
     cash.archived = true
     try references.save(cash)
     try await showEverything()

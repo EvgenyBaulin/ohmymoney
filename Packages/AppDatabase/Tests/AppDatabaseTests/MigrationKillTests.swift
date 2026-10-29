@@ -79,6 +79,7 @@ struct MigrationKillTests {
           "0013_spending_rules",
           "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0016_rate_source",
           "0017_attachments",
         ], "seed \(seed)")
 

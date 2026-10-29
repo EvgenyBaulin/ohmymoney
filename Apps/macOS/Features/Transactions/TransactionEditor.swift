@@ -29,6 +29,12 @@ final class TransactionEditorModel {
   /// another operation is opened or the inspector is folded away. Set while the editor is
   /// on screen, so those saves ask about a count as the button does.
   @ObservationIgnored var balancesNow: (@MainActor () -> AccountBalances)?
+  /// «Выйдет за лимит карты» or «Остаток станет ниже минимума», waiting for «Записать всё
+  /// равно» before an edit that makes either worse is saved (`save`, `answerSaveQuestion`).
+  var saveQuestion: EntrySaveQuestions.Question?
+  /// The cards and balances of the window showing this editor, read by a save that is handed
+  /// none, the way `balancesNow` is. Nil for an editor no window shows: it asks nothing.
+  @ObservationIgnored var moneyNow: (@MainActor () -> EntrySaveQuestions.Money)?
 
   /// The operation being edited.
   var id: UUID { entry.id }
@@ -51,6 +57,7 @@ final class TransactionEditorModel {
     draft.draft = TransactionDraft(entry: entry)
     self.draft = draft
     self.baseline = draft.draft
+    draft.rememberSaved(entry)
   }
 
   /// Something was changed and not saved yet: switching to another operation asks first.
@@ -122,8 +129,17 @@ final class TransactionEditorModel {
   /// asks first where the money goes (`archivedLeftovers`); the save goes on with `settling`,
   /// the transfers that keep that account at zero, written with the edit in one step of ⌘Z.
   /// A comment, a category or any edit that moves no money is saved without asking.
+  ///
+  /// An edit that makes spending on a credit card pass its limit, or an account fall below the
+  /// balance its bank asks to keep, asks the question a new operation asks (`saveQuestion`,
+  /// `EntrySaveQuestions`) — only when the edit itself makes it worse than the saved operation
+  /// was: a larger amount, another card, a later day that now counts. A description, a
+  /// category, a smaller amount or an account already past the line asks nothing. `money` are
+  /// the cards and balances as the data has them — none handed in, those of the window
+  /// (`moneyNow`).
   func save(
     store: TransactionsStore, environment: AppEnvironment, balances: AccountBalances? = nil,
+    money: EntrySaveQuestions.Money? = nil,
     now: Date = Date(), settling: [Transfer]? = nil
   ) -> Bool {
     if let refusal = draft.saveRefusalKey {
@@ -132,6 +148,13 @@ final class TransactionEditorModel {
     }
     guard !store.isWritingInBackground else {
       errorKey = "entry.error.notSaved"
+      return false
+    }
+    if let money = money ?? moneyNow?(),
+      let question = EntrySaveQuestions.next(
+        for: draft, environment: environment, money: money, now: now)
+    {
+      saveQuestion = question
       return false
     }
     let balances = balances ?? balancesNow?() ?? .empty
@@ -229,6 +252,17 @@ final class TransactionEditorModel {
         != choice.chosenCategoryId
     else { return nil }
     return choice
+  }
+
+  /// «Записать всё равно»: the edit is saved with the worse position, and is not asked about it
+  /// again; the caller saves once more.
+  func answerSaveQuestion() {
+    switch saveQuestion {
+    case .overLimit: draft.overLimitAnswered = true
+    case .minBalance: draft.minBalanceAnswered = true
+    case .ahead, .repeated, nil: break
+    }
+    saveQuestion = nil
   }
 
   /// The owner's answer to «Это было до сверки?»: the operation is dated before or after the
@@ -470,11 +504,19 @@ struct TransactionEditor: View {
     }
     // While it is on screen, a save made from a question of the window asks about a count by
     // the balances the window has. Folded away, the editor asks nothing it could not show.
+    .editSaveQuestions($editor.saveQuestion) {
+      editor.answerSaveQuestion()
+      save()
+    }
     .onAppear {
       let compute = self.compute
       editor.balancesNow = { compute.snapshot?.planning.accounts.balances ?? .empty }
+      editor.moneyNow = { .init(compute.snapshot) }
     }
-    .onDisappear { editor.balancesNow = nil }
+    .onDisappear {
+      editor.balancesNow = nil
+      editor.moneyNow = nil
+    }
   }
 
   /// Return in a text field of the panel: the save, when «Save» is on.

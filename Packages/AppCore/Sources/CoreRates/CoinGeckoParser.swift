@@ -45,8 +45,8 @@ public enum CryptoRates {
 
   /// The rates a set of prices gives for `day`. A currency whose coin has no price gets none, and
   /// one that already has a rate typed by hand for `day` (`protectedToday`) is left alone: a rate
-  /// the owner typed is never overwritten. The rate is stored as a network one, not a manual one,
-  /// so the next price of the day replaces it.
+  /// the owner typed is never overwritten. The rate is stored as a network one (`coingecko`), not a manual
+  /// one, so the next price of the day replaces it.
   public static func rates(
     prices: [String: Decimal], currencies: [CustomCurrency], day: DateOnly,
     protectedToday: Set<CurrencyCode> = [], fetchedAt: Date
@@ -62,8 +62,6 @@ public enum CryptoRates {
     .sorted { $0.currency.code < $1.currency.code }
   }
 
-  /// The mark a network price is stored under. The table of rates knows four marks (the bank,
-  /// its mirror, manual, imported) and only the last two are kept from overwriting; a network
-  /// price must be replaced by the next one, so it carries the bank's mark, the one that is.
-  public static let networkMark: RateSource = .cbr
+  /// The mark a network price is stored under in the table of rates.
+  public static let networkMark: RateSource = .coingecko
 }

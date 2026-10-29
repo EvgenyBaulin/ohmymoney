@@ -25,7 +25,9 @@ public final class AppEnvironment {
   /// Light or dark and the accent colour, kept in `UserDefaults` beside the language: the
   /// first window is drawn before the database is open.
   public let theme: AppTheme
-  public let calendar = CalendarContext.system
+  /// The calendar days are read in: the zone of the Mac. `var` for the tests, which read days in a
+  /// calendar of their own.
+  public var calendar = CalendarContext.system
 
   public private(set) var stack: DatabaseStack?
 

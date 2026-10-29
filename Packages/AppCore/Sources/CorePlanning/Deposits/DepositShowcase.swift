@@ -8,9 +8,16 @@ import Foundation
 ///
 /// Every field the source did not state is `nil` and reads as «unknown», never as zero or as
 /// «no»: a rate that is `nil` is shown as «уточните на сайте банка».
-public struct DepositShowcaseEntry: Identifiable, Hashable, Sendable {
-  public enum Origin: Hashable, Sendable {
+public struct DepositShowcaseEntry: Identifiable, Hashable, Sendable, Codable {
+  public enum Origin: Hashable, Sendable, Codable {
     case builtIn
+    /// Read from banki.ru on the day the entry carries, when the owner switched the parser on.
+    case bankiRu
+    /// The Bank of Russia. It publishes one indicator for the ten biggest banks, not a rate of a
+    /// bank, so it is shown as a block of its own (`CentralBankIndicator`), never as an entry.
+    case centralBank
+    /// Another public aggregator, by the name it is shown under.
+    case aggregator(String)
     case own(UUID)
   }
 
@@ -127,12 +134,31 @@ public enum DepositShowcase {
     }
   }
 
+  /// The built-in list with the fetched entries over it: a bank the fetched list names is shown
+  /// by the fetched entries only (they are newer than the built-in ones); every other bank keeps
+  /// its built-in entries. Without fetched entries the built-in list is returned unchanged.
+  public static func merged(
+    builtIn: [DepositShowcaseEntry], fetched: [DepositShowcaseEntry]
+  ) -> [DepositShowcaseEntry] {
+    guard !fetched.isEmpty else { return builtIn }
+    let named = Set(fetched.map { bankKey($0.bankName) })
+    return builtIn.filter { !named.contains(bankKey($0.bankName)) } + fetched
+  }
+
+  public static func bankKey(_ name: String) -> String {
+    name.lowercased().replacingOccurrences(of: "ё", with: "е")
+      .trimmingCharacters(in: .whitespacesAndNewlines)
+  }
+
   /// The entries a filter admits, by rate.
   public static func entries(
-    builtIn: [DepositShowcaseEntry] = DepositShowcaseData.entries, own: [DepositOffer] = [],
+    builtIn: [DepositShowcaseEntry] = DepositShowcaseData.entries,
+    fetched: [DepositShowcaseEntry] = [], own: [DepositOffer] = [],
     filter: DepositFilter = .none
   ) -> [DepositShowcaseEntry] {
-    let all = builtIn + own.filter { !$0.archived }.map(DepositShowcaseEntry.init)
+    let all =
+      merged(builtIn: builtIn, fetched: fetched)
+      + own.filter { !$0.archived }.map(DepositShowcaseEntry.init)
     return sorted(all.filter(filter.admits))
   }
 }

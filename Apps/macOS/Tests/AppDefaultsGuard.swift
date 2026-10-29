@@ -9,6 +9,7 @@ import XCTest
 final class TestBundlePrincipal: NSObject {
   override init() {
     super.init()
+    TestTimeZone.pin()
     XCTestObservationCenter.shared.addTestObserver(AppDefaultsGuard.shared)
     AppDefaultsGuard.isRegistered = true
   }

@@ -28,7 +28,7 @@ struct Migration0010Tests {
   @Test func aNewDatabaseHasNoScenariosAndTheGoalsAreNotPlaced() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().contains("0010_scenarios"))
-    #expect(stack.applied.onDisk == 16)
+    #expect(stack.applied.onDisk == 17)
     try stack.writer.read { db in
       #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM scenarios") == 0)
       let columns = try db.columns(in: "scenarios").map(\.name)
@@ -68,11 +68,12 @@ struct Migration0010Tests {
           "0010_scenarios", "0011_travel", "0012_sync", "0013_spending_rules",
           "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0016_rate_source",
           "0017_attachments",
         ])
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 7)
+    #expect(stack.applied.applied == 8)
     #expect(stack.applied.dataSteps.isEmpty)
     let goals = try ReferenceRepository(writer: stack.writer).goals()
     #expect(goals.map(\.name) == ["Машина", "Отпуск"], "alphabetical, as before")

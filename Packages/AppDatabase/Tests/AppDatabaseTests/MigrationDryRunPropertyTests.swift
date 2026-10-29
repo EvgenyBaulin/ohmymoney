@@ -49,7 +49,7 @@ struct MigrationDryRunPropertyTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "seed \(seed): \(output)")
-    #expect(output.contains("schema: 3 -> 16 (applied 13)"), "seed \(seed)")
+    #expect(output.contains("schema: 3 -> 17 (applied 14)"), "seed \(seed)")
     #expect(output.contains("result: equal"), "seed \(seed)")
     #expect(output.contains("loads: ok"), "seed \(seed)")
     // The update gives no account the terms of a credit card, and every open debt it finds is
@@ -86,7 +86,7 @@ struct MigrationDryRunPropertyTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 16 -> 16 (applied 0)"))
+    #expect(output.contains("schema: 17 -> 17 (applied 0)"))
     #expect(output.contains("data step: none"))
     #expect(output.contains("result: equal"))
   }

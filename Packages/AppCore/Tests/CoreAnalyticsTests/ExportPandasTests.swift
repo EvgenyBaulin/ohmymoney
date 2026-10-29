@@ -94,7 +94,7 @@ struct ExportPandasTests {
       ExportTables.partTags, ExportTables.rules, ExportTables.dayNotes,
       ExportTables.budgetMonthExceptions, ExportTables.eventBudgetItems,
       ExportTables.eventTemplates, ExportTables.subscriptionTerms, ExportTables.subscriptionUsage,
-      ExportTables.subscriptionUsers, ExportTables.subscriptionKeepGroups,
+      ExportTables.subscriptionUsers, ExportTables.subscriptionKeepGroups, ExportTables.attachments,
     ] where rows[table] == nil {
       rows[table] = []
     }

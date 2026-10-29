@@ -13,7 +13,7 @@ import Testing
 /// removed takes its attachments with it, and the rows travel with the exchange between devices.
 @Suite("The attachment tables come in without touching a value")
 struct Migration0017Tests {
-  private static let older = FilteredSchemaSource(upTo: "0015_bank_conditions")
+  private static let older = FilteredSchemaSource(upTo: "0016_rate_source")
   static let hashA = String(repeating: "a", count: 64)
   static let hashB = String(repeating: "b", count: 64)
 

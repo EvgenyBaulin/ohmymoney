@@ -1728,6 +1728,10 @@ struct DetailsPanel: View {
         Text(verbatim: t("entry.rateManual"))
           .appFont(.caption)
           .foregroundStyle(.secondary)
+      } else if model.draft.rateSource == .coingecko {
+        Text(verbatim: t("entry.rateCoingecko"))
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
       }
     }
   }

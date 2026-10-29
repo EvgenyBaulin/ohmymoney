@@ -34,7 +34,7 @@ struct Migration0013Tests {
   @Test func aNewDatabaseHasTheColumnsAtTheirDefaultsAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().last == "0017_attachments")
-    #expect(stack.applied.onDisk == 16)
+    #expect(stack.applied.onDisk == 17)
     try stack.writer.read { (db: Database) throws in
       for table in Self.newTables {
         #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") == 0, "\(table)")
@@ -78,12 +78,13 @@ struct Migration0013Tests {
         == [
           "0013_spending_rules", "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0016_rate_source",
           "0017_attachments",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 4)
+    #expect(stack.applied.applied == 5)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -477,9 +478,9 @@ struct SpendingRulesTravelTests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 16)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 17)
     #expect(opened.csvTables.count == 45)
-    #expect(opened.manifest.schemaVersion == 16)
+    #expect(opened.manifest.schemaVersion == 17)
     #expect(opened.manifest.rowCounts["tags"] == 1)
     #expect(opened.manifest.rowCounts["rules"] == 1)
     let inside = folder.appendingPathComponent("inside.sqlite")

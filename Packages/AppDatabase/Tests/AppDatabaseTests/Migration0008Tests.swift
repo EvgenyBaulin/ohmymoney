@@ -65,8 +65,8 @@ struct Migration0008Tests {
   @Test func aNewDatabaseHasTheColumnsAndTablesWithTheirDefaults() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().last == "0017_attachments")
-    #expect(try stack.appliedMigrations().count == 16)
-    #expect(stack.applied.onDisk == 16)
+    #expect(try stack.appliedMigrations().count == 17)
+    #expect(stack.applied.onDisk == 17)
     let accountId = UUID().uuidString
     let categoryId = UUID().uuidString
     let assetId = UUID().uuidString
@@ -148,7 +148,7 @@ struct Migration0008Tests {
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
     #expect(try stack.appliedMigrations().last == "0017_attachments")
-    #expect(stack.applied.applied == 9)
+    #expect(stack.applied.applied == 10)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
       for (table, old) in before {

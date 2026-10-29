@@ -101,9 +101,16 @@ public enum RateSource: String, Codable, Sendable, CaseIterable {
   case cbrMirror = "cbr_mirror"
   case manual
   case imported = "import"
+  /// The price of a coin from the network. Not protected: the next price of the day replaces it.
+  case coingecko
 
   /// Manual rates and rates that came with an import are never overwritten automatically.
   public var isProtected: Bool { self == .manual || self == .imported }
+
+  /// The mark an operation stores for a rate taken from this source. The column of operations
+  /// knows four marks (a table with children cannot be rebuilt to widen it), so a price from the
+  /// network is kept there as the bank's mark, the one that stays open to refinement.
+  public var operationMark: RateSource { self == .coingecko ? .cbr : self }
 }
 
 public enum DebtDirection: String, Codable, Sendable, CaseIterable {

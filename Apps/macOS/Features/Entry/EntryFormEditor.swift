@@ -98,11 +98,22 @@ struct EntryFormEditor: View {
         .handingOver(dependencies)
       }
     }
+    .editSaveQuestions(
+      $editor.saveQuestion,
+      answered: {
+        editor.answerSaveQuestion()
+        save()
+      }
+    )
     .onAppear {
       let compute = self.compute
       editor.balancesNow = { compute.snapshot?.planning.accounts.balances ?? .empty }
+      editor.moneyNow = { .init(compute.snapshot) }
     }
-    .onDisappear { editor.balancesNow = nil }
+    .onDisappear {
+      editor.balancesNow = nil
+      editor.moneyNow = nil
+    }
   }
 
   /// Return in a text field of the form: the save, when «Сохранить» is on.

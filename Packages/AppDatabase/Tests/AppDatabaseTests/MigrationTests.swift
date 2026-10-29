@@ -277,7 +277,7 @@ extension MigrationTests {
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     #expect(try stack.appliedMigrations().last == "0017_attachments")
-    #expect(stack.applied.applied == 13)
+    #expect(stack.applied.applied == 14)
 
     // The two values the update may change are the flag of the main account and the account
     // of an operation that had none; they are checked on their own below.

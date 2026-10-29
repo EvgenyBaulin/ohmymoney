@@ -60,6 +60,8 @@ struct CoinGeckoTests {
       prices: prices, currencies: currencies, day: day, fetchedAt: now)
     #expect(all.map(\.currency.code) == ["BTC", "ETH"])
     #expect(all.allSatisfy { !$0.source.isProtected && $0.nominal == 1 && $0.date == day })
+    #expect(all.allSatisfy { $0.source == .coingecko }, "a coin's price has a mark of its own")
+    #expect(RateSource.coingecko.rawValue == "coingecko")
     let kept = CryptoRates.rates(
       prices: prices, currencies: currencies, day: day, protectedToday: [CurrencyCode("BTC")],
       fetchedAt: now)

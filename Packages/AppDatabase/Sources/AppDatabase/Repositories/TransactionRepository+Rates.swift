@@ -115,7 +115,7 @@ extension TransactionRepository {
             """,
           arguments: [
             RowMapping.string(refinement.rate.perUnit), refinement.rate.date.iso,
-            refinement.rate.source.rawValue, refinement.isProvisional, rubles.raw,
+            refinement.rate.source.operationMark.rawValue, refinement.isProvisional, rubles.raw,
             StoredInstant.databaseValue(instant),
             CurrencyCode.rub.code, rubles.raw,
             usage.id.uuidString, usage.currency.code, usage.appliedRateDate?.iso,

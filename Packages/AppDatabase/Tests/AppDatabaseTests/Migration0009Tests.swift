@@ -91,7 +91,7 @@ struct Migration0009Tests {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().contains("0009_credit_and_allocation"))
     #expect(try stack.appliedMigrations().last == "0017_attachments")
-    #expect(stack.applied.onDisk == 16)
+    #expect(stack.applied.onDisk == 17)
     let account = UUID().uuidString
     let category = UUID().uuidString
     let debt = UUID().uuidString
@@ -171,12 +171,13 @@ struct Migration0009Tests {
           "0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync",
           "0013_spending_rules", "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0016_rate_source",
           "0017_attachments",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     #expect(try stack.appliedMigrations().last == "0017_attachments")
-    #expect(stack.applied.applied == 8)
+    #expect(stack.applied.applied == 9)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -257,6 +258,7 @@ struct Migration0009Tests {
           "0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync",
           "0013_spending_rules", "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0016_rate_source",
           "0017_attachments",
         ])
     let debts = try DatabaseStack.rowCounts(fileAt: url)["debts"] ?? 0
@@ -269,6 +271,7 @@ struct Migration0009Tests {
           "0009_credit_and_allocation", "0010_scenarios", "0011_travel", "0012_sync",
           "0013_spending_rules", "0014_import_year_questions_subscriptions",
           "0015_bank_conditions",
+          "0016_rate_source",
           "0017_attachments",
         ])
     let counts = try DatabaseStack.rowCounts(fileAt: url)

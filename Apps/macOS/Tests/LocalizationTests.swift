@@ -313,7 +313,11 @@ final class LocalizationTests: XCTestCase {
   /// A text with a Latin word the same in both languages is one of the few that are meant to
   /// be: the badge of a Debug build and the name of English written in English.
   func testNoRussianTextIsTheEnglishOneCopiedOver() throws {
-    let meantToBeTheSame: Set<String> = ["common.debugBadge", "settings.language.en"]
+    let meantToBeTheSame: Set<String> = [
+      "common.debugBadge", "settings.language.en",
+      // The name of a service is one in both languages, like the name of the app.
+      "entry.rateCoingecko",
+    ]
     let word = try NSRegularExpression(pattern: "[A-Za-z]{3,}")
     let specifier = try NSRegularExpression(pattern: "%([0-9]+\\$)?(@|lld|ld|d|f)")
     let english = try XCTUnwrap(Bundle.main.url(forResource: "en", withExtension: "lproj"))

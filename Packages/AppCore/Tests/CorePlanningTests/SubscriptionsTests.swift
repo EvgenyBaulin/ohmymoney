@@ -38,7 +38,7 @@ enum SubFixtures {
       occurredAt: CalendarContext.utc.startOfDay(charged), currency: payment.currency,
       amount: rub(amount))
     draft.parts = [PartDraft(amount: rub(amount))]
-    var entry = try draft.materialize()
+    var entry = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     entry.transaction.externalId =
       "sched:\(payment.id.uuidString.lowercased()):\((due ?? charged).iso)"
     return entry

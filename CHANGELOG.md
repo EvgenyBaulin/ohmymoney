@@ -7,6 +7,45 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.3.1] — 2026-10-29
+
+Follow-ups to 2.3. The database schema is 16; opening the app upgrades the database after a
+verified copy, and older data reads as before.
+
+### Added
+
+- Deposit rates from open sources: a switch «Take rates from open sources» (off by default). When
+  it is on, the showcase shows a block «According to the Bank of Russia» with the average maximum
+  rate of the ten largest banks (a market guide, not the rate of any bank), compares the sources
+  and marks a bank whose rates differ with «rates differ, worth checking». If the rates cannot be
+  read, a grey line says so and the built-in list stays as it was.
+- Editing a saved operation asks about a card limit or a kept minimum balance, but only when the
+  edit itself creates or deepens the excess; the line at the bottom, the form on the right and the
+  edit window share one planner of questions.
+- A test run can be repeated under six time zones (`scripts/test-zones.sh`), and
+  `scripts/check-test-zones.sh` guards the list.
+
+### Changed
+
+- The database schema is 16: the table of rates takes the source «CoinGecko», so the rates of coins
+  from 2.3 are marked honestly instead of «Bank of Russia»; the old rows come over unchanged.
+- The entry panel shows the label «CoinGecko» next to the rate of a coin.
+- Raiffeisenbank is removed from the deposit showcase: it has no deposits.
+- Tests no longer depend on the time zone of the Mac: the zone is pinned to UTC (or the one named
+  by `OHMYMONEY_TEST_TZ`), and the tests that failed in Asia/Baku, Auckland and Los Angeles are
+  fixed.
+- Correction to 2.3: the entry form on the right did ask about a limit and a minimum balance for a
+  new operation; only the edit of a saved one did not.
+
+### Known limits
+
+- The rates of a bank are not read from a website: banki.ru is closed by protection, and a reader
+  for sravni.ru needs the site's permission. The built-in list, your own offers and the guide of the
+  Bank of Russia are all there is.
+- An operation in a coin keeps the label «Bank of Russia» in the operations table (the table cannot
+  hold another one); its rate in the table of rates is marked «CoinGecko».
+- A quick move of an operation in the calendar asks no questions.
+
 ## [2.3.0] — 2026-10-29
 
 Banks, conditions and deposits. The database schema is 15; opening the app upgrades the database
@@ -51,7 +90,7 @@ after a verified copy, and older data reads as before.
   there yet.
 - The rate of a coin from the network is stored with the label of the Bank of Russia.
 - The rates of two banks in the showcase are not filled in.
-- The entry form on the right does not ask about a credit limit or a minimum balance.
+- Editing a saved operation does not ask about a credit limit or a minimum balance (fixed in 2.3.1).
 
 ## [2.2.0] — 2026-10-23
 

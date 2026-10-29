@@ -108,7 +108,9 @@ public final class EntryDraftModel {
   private let transactions: TransactionRepository?
   private let calendar: CalendarContext
   /// The draft is a saved operation in the editor — the sheet or the inspector — not the
-  /// entry line's new one.
+  /// entry line's new one. Such a draft skips the questions of a new operation (a date ahead,
+  /// a repeat) and asks about a card's limit and the kept balance only when the edit makes
+  /// them worse than the operation was saved (`savedOperation`, `addedSpend`).
   let editsSavedOperation: Bool
   /// The kind the draft had when its debt «on credit» came with it. In the editor the debt
   /// only ever comes with the saved operation, so this is the kind it was saved with.
@@ -2646,43 +2648,89 @@ public final class EntryDraftModel {
     return RecentDuplicate.match(of: draftForSaving, among: recent, now: now)
   }
 
+  /// The operation a saved-operation editor opened, as it was saved: what an edit is compared
+  /// with, so that only a change that makes things worse is asked about (`creditLimitWarning`,
+  /// `minBalanceWarning`). Nil for the line and the form of a new operation, and for an editor
+  /// that was not told — which then asks nothing.
+  private(set) var savedOperation: TransactionDraft?
+  private var savedWasDifference = false
+
+  /// Tells the editor which saved operation it edits.
+  func rememberSaved(_ entry: TransactionEntry) {
+    savedOperation = TransactionDraft(entry: entry)
+    savedWasDifference = Self.isReconcileDifference(entry.transaction)
+  }
+
+  /// What `operation` takes from `account` as its balance stands today: its amount for spending
+  /// in the account's own currency dated no later than now, else nothing — a purchase on credit,
+  /// a goal and the difference of a count move no money, and a day ahead is not in the balance
+  /// yet.
+  private func charged(
+    _ operation: TransactionDraft, to account: PaymentMethod, difference: Bool
+  ) -> AmountE4 {
+    guard operation.kind == .expense, operation.creditDebtId == nil, !difference,
+      !KindFields.isGoalOnly(operation, tree: categoryTree),
+      operation.currency == account.mainCurrency,
+      (operation.paymentMethodId ?? mainAccount?.id) == account.id,
+      operation.occurredAt <= Date()
+    else { return .zero }
+    return operation.amount
+  }
+
+  /// How much more the spending takes from `account` than it did: a new operation takes all of
+  /// its amount; a saved one being edited, the amount it takes now less what it took as it was
+  /// saved — on this account only, so moving it to another card adds its whole amount there and
+  /// lowering it adds nothing. `nil` when an editor does not know the saved operation.
+  private func addedSpend(on account: PaymentMethod) -> AmountE4? {
+    guard editsSavedOperation else { return draft.amount }
+    guard let saved = savedOperation else { return nil }
+    return charged(draft, to: account, difference: isReconcileDifference)
+      - charged(saved, to: account, difference: savedWasDifference)
+  }
+
   /// How far past its limit the credit card the spending is charged to would be once it is
   /// written, with the card's name and currency; `nil` when it stays within the limit, the
   /// account is no credit card, the money is in another currency than the card's, or nothing
-  /// moves (a saved operation being edited, a purchase on credit, a goal, the difference of a
-  /// count) — or once «Записать всё равно» was said. `cards` are the cards today
+  /// moves (a purchase on credit, a goal, the difference of a count) — or once «Записать всё
+  /// равно» was said. A saved operation being edited is asked about only when the edit makes
+  /// things worse: the card was within its limit and the edit takes it past, or it was past
+  /// and the edit takes it further (`addedSpend`). `cards` are the cards today
   /// (`CreditStatements.now`).
   public func creditLimitWarning(
     cards: [UUID: CreditCardNow]
   ) -> (account: String, over: AmountE4, currency: CurrencyCode)? {
-    guard !editsSavedOperation, !overLimitAnswered, draft.kind == .expense, !isOnCredit,
+    guard !overLimitAnswered, draft.kind == .expense, !isOnCredit,
       !isReconcileDifference, !isGoalOnly,
       let account = selectedAccount, account.credit != nil, !account.archived,
-      account.mainCurrency == draft.currency, let now = cards[account.id]
+      account.mainCurrency == draft.currency, let now = cards[account.id],
+      let spend = addedSpend(on: account)
     else { return nil }
-    let over = CreditCardStates.overshoot(now: now, spendE4: draft.amount)
-    return over.raw > 0 ? (account.name, over, account.mainCurrency) : nil
+    let over = CreditCardStates.overshoot(now: now, spendE4: spend)
+    let alreadyOver: AmountE4 = editsSavedOperation ? CreditCardStates.overLimit(now) : .zero
+    return over > alreadyOver ? (account.name, over, account.mainCurrency) : nil
   }
 
   /// The balance the account the spending is charged to would fall below, with what the bank
   /// asks to keep; `nil` when it stays above, the account states no minimum, the money is in
-  /// another currency than the conditions, nothing moves (a saved operation being edited, a
-  /// purchase on credit, a goal, the difference of a count), or once «Записать всё равно» was
-  /// said. An account already below its minimum is not asked about again at every record.
+  /// another currency than the conditions, nothing moves (a purchase on credit, a goal, the
+  /// difference of a count), or once «Записать всё равно» was said. An account already below its
+  /// minimum is not asked about again at every record, nor at every edit: a saved operation
+  /// being edited is asked about only when the edit takes the account below it (`addedSpend`).
   public func minBalanceWarning(
     accounts: AccountsSnapshot, bank: BankData
   ) -> MinBalanceWarning? {
-    guard !editsSavedOperation, !minBalanceAnswered, draft.kind == .expense, !isOnCredit,
+    guard !minBalanceAnswered, draft.kind == .expense, !isOnCredit,
       !isReconcileDifference, !isGoalOnly,
       let account = selectedAccount, !account.archived,
       let conditions = bank.conditions(account: account.id),
       let minimum = conditions.minBalanceE4, conditions.currency == draft.currency,
       account.mainCurrency == draft.currency,
       let balance = accounts.line(of: account.id)?.keys
-        .first(where: { $0.key.currency == draft.currency })?.balance
+        .first(where: { $0.key.currency == draft.currency })?.balance,
+      let spend = addedSpend(on: account)
     else { return nil }
     return BankMinBalance.warning(
-      balanceE4: balance, spendE4: draft.amount, minimumE4: minimum, currency: draft.currency)
+      balanceE4: balance, spendE4: spend, minimumE4: minimum, currency: draft.currency)
   }
 
   /// The plan a new operation dated after today may become — a payment from an expense, an

@@ -77,7 +77,7 @@ struct Migration0007Tests {
   @Test func aNewDatabaseHasTheColumnsWithTheirDefaults() throws {
     let stack = try TestSupport.makeStack()
     #expect(try stack.appliedMigrations().last == "0017_attachments")
-    #expect(try stack.appliedMigrations().count == 16)
+    #expect(try stack.appliedMigrations().count == 17)
     let debtId = UUID().uuidString
     let accountId = UUID().uuidString
     let entryId = UUID().uuidString

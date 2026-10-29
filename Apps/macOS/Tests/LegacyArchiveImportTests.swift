@@ -243,8 +243,8 @@ final class LegacyArchiveImportTests: XCTestCase {
     let environment = await start()
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().count, 16)
-    XCTAssertEqual(stack.applied.applied, 12)
+    XCTAssertEqual(try stack.appliedMigrations().count, 17)
+    XCTAssertEqual(stack.applied.applied, 14)
     XCTAssertEqual(
       UpgradeFromFirstVersionTests.accountsStep(stack.applied.dataSteps),
       ["mainKept": 1, "mainChosen": 0, "mainCreated": 0, "defaultsCleared": 2, "assigned": 3])
@@ -264,6 +264,7 @@ final class LegacyArchiveImportTests: XCTestCase {
         "0013_spending_rules",
         "0014_import_year_questions_subscriptions",
         "0015_bank_conditions",
+        "0016_rate_source",
         "0017_attachments",
       ],
       "the copy is not the database as the older version left it")
@@ -344,7 +345,7 @@ final class MigrationAtStartTests: XCTestCase {
     let environment = await start()
 
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 16)
+    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 17)
     let copy = try XCTUnwrap(
       copies().first { (BackupService.isBeforeMigration($0) && $0.hasSuffix(".sqlite")) })
     let url = AppPaths.backupsDirectory.appendingPathComponent(copy)
@@ -360,6 +361,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0013_spending_rules",
         "0014_import_year_questions_subscriptions",
         "0015_bank_conditions",
+        "0016_rate_source",
         "0017_attachments",
       ])
     // The copy, then what the update did — counts, never a value.
@@ -408,6 +410,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0013_spending_rules",
         "0014_import_year_questions_subscriptions",
         "0015_bank_conditions",
+        "0016_rate_source",
         "0017_attachments",
       ],
       "the database was updated without a copy")
@@ -425,7 +428,7 @@ final class MigrationAtStartTests: XCTestCase {
     XCTAssertTrue(environment.forgetFailedStart())
     await environment.start()
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 16)
+    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 17)
     XCTAssertEqual(
       copies().filter { (BackupService.isBeforeMigration($0) && $0.hasSuffix(".sqlite")) }.count, 1)
   }
@@ -456,6 +459,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0013_spending_rules",
         "0014_import_year_questions_subscriptions",
         "0015_bank_conditions",
+        "0016_rate_source",
         "0017_attachments",
       ],
       "a damaged database was updated")
