@@ -58,6 +58,7 @@ final class QuickEntryFormTests: XCTestCase {
 
   /// ⌘N in the form puts the keyboard in the quick line.
   func testANewOperationPutsTheKeyboardInTheQuickLine() async throws {
+    try TestEnvironment.requireActiveApp()
     let host = try await openForm()
     let line = try quickLine(of: host)
     // A line read into the fields, and the keyboard in one of them.
