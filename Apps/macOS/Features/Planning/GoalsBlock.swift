@@ -89,7 +89,9 @@ struct GoalsBlock: View {
       }
       Button(environment.language("action.cancel"), role: .cancel) { deleting = nil }
     } message: {
-      Text(verbatim: t("form.goal.delete.message"))
+      Text(
+        verbatim: GoalWhyMoments.deletionMessage(
+          t("form.goal.delete.message"), goal: deleting, environment))
     }
   }
 

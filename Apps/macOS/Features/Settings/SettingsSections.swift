@@ -133,6 +133,9 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .summaries("summaries.settings.title"), .summaries("summaries.settings.week"),
         .summaries("summaries.settings.month"), .summaries("summaries.settings.year"),
         .summaries("summaries.settings.open"),
+        .habits("settings.habits.title"), .habits("settings.habits.missedAfter"),
+        .habits("settings.habits.evening"), .habits("settings.habits.eveningHour"),
+        .habits("settings.habits.beginner"),
       ]
     case .rules:
       [
@@ -227,6 +230,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func incomeSavings(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "IncomeSavings")
+  }
+
+  static func habits(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "Habits")
   }
 }
 

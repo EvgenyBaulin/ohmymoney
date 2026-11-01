@@ -77,6 +77,8 @@ enum WorthALookNoteText {
       return WarrantyText.note(reminder, names: warrantyNames, environment)
     case .purchase(let purchase):
       return PurchaseHookText.note(purchase, environment)
+    case .habit(let habit):
+      return HabitText.note(habit, environment)
     case .lowCopySpace(let free):
       return f(
         "look.lowCopySpace", ByteCountFormatter.string(fromByteCount: free, countStyle: .file))
@@ -108,6 +110,7 @@ enum WorthALookNoteText {
     case .databaseProblems: "stethoscope"
     case .warranty(let reminder): WarrantyText.symbol(reminder)
     case .purchase(let purchase): PurchaseHookText.symbol(purchase)
+    case .habit(let habit): HabitText.symbol(habit)
     }
   }
 
@@ -155,6 +158,9 @@ enum WorthALookNoteText {
     case openWishes
     case openRefunds
     case credited
+    /// The habits: the wizard of the days missed opens; the day is marked «трат не было».
+    case restoreMissed
+    case noSpend
 
     /// The actions of the purchase notes have their words in the catalog of the purchases.
     var isPurchase: Bool {
@@ -166,7 +172,12 @@ enum WorthALookNoteText {
       }
     }
 
-    var table: String { isPurchase ? PurchaseHookText.table : WorthALookNoteText.table }
+    /// The actions of the habits have their words in the catalog of the habits.
+    var isHabit: Bool { self == .restoreMissed || self == .noSpend }
+
+    var table: String {
+      isHabit ? HabitText.table : (isPurchase ? PurchaseHookText.table : WorthALookNoteText.table)
+    }
 
     var key: String {
       switch self {
@@ -175,6 +186,7 @@ enum WorthALookNoteText {
       case .regretSkip: "purchase.regret.skip"
       case .createEvent, .openWishes, .openRefunds, .credited:
         "look.purchase.action.\(rawValue)"
+      case .restoreMissed, .noSpend: "habit.action.\(rawValue)"
       default: "look.action.\(rawValue)"
       }
     }
@@ -201,6 +213,7 @@ enum WorthALookNoteText {
     case .depositEnds: [.openDeposits]
     case .warranty: [.openWarranty, .done]
     case .purchase(let purchase): purchaseActions(purchase)
+    case .habit(let habit): HabitText.actions(habit)
     }
   }
 
@@ -223,7 +236,7 @@ enum WorthALookNoteText {
       "look.npdLimit", "look.npdLimitExceeded", "look.burnout", "look.lowCopySpace",
       "look.databaseProblems",
     ] + WarrantyText.noteKeys + bankKeys
-    + Action.allCases.filter { !$0.isPurchase }.map(\.key)
+    + Action.allCases.filter { !$0.isPurchase && !$0.isHabit }.map(\.key)
 }
 
 extension WorthALookNoteText {
@@ -369,7 +382,8 @@ extension WorthALook {
       warranty: WarrantyReminders.list(
         WarrantyList.items(from: snapshot.dataset.entries), today: snapshot.today,
         dismissed: DebtReminderMarks.read(from: defaults).dismissed),
-      purchases: snapshot.planning.purchaseNotes)
+      purchases: snapshot.planning.purchaseNotes,
+      habits: HabitNotesOnMac.notes(of: snapshot, defaults: defaults))
   }
 }
 
@@ -382,10 +396,12 @@ enum WorthALookSheet: Identifiable {
   case forgotten
   case rebind(UUID)
   case warranty
+  case missedDays(MissedDays)
 
   var id: String {
     switch self {
     case .warranty: "warranty"
+    case .missedDays(let gap): gap.id
     case .showcase: "showcase"
     case .forgotten: "forgotten"
     case .rebind(let id): "rebind:\(id)"
@@ -468,6 +484,11 @@ struct WorthALookNoteRow: View {
   private func perform(_ action: WorthALookNoteText.Action) {
     switch action {
     case .done:
+      if case .habit(let habit) = note {
+        DebtReminderMarks.dismiss(habit.id, in: .standard)
+        settle()
+        return
+      }
       if case .purchase(let purchase) = note {
         DebtReminderMarks.dismiss(purchase.id, in: .standard)
         settle()
@@ -566,6 +587,11 @@ struct WorthALookNoteRow: View {
         return
       }
       if PurchaseActions(dependencies).credit(id) == .done { settled(note.id) }
+    case .restoreMissed:
+      if case .habit(.missedDays(let gap)) = note { open(.missedDays(gap)) }
+    case .noSpend:
+      guard let dependencies, case .habit(.evening(let check)) = note else { return }
+      if HabitActions(dependencies).markNoSpend(check.day) { settled(note.id) }
     case .openWishes:
       NotificationCenter.default.post(name: .openPurchaseList, object: "wishes")
     case .openRefunds:

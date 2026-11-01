@@ -75,6 +75,9 @@ enum WorthALookCover {
     case .npdDue, .salaryLate, .monthRest, .npdLimit, .burnout, .lowCopySpace,
       .databaseProblems:
       return false
+    // The lines of the habits name no account: the wizard asks only about the accounts shown.
+    case .habit:
+      return false
     }
   }
 }

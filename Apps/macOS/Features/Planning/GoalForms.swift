@@ -91,7 +91,13 @@ struct GoalForm: View {
           .foregroundStyle(.secondary)
           .fixedSize(horizontal: false, vertical: true)
         }
+        // «Зачем коплю»: the note, and — when the plan of a saved goal is lowered — the note
+        // again, under the change.
+        if GoalWhyMoments.planLowered(original: original, edited: goal), let original {
+          GoalWhyReminder(key: "goal.why.lowered", goal: original)
+        }
         GoalAccountFields(goal: $goal)
+        GoalWhyField(goal: $goal)
       }
       .formStyle(.grouped)
       FormButtons(
@@ -107,7 +113,7 @@ struct GoalForm: View {
       }
     }
     .padding(20)
-    .sheetFrame(width: 460, height: 520)
+    .sheetFrame(width: 460, height: 600)
     .onAppear {
       guard !loaded else { return }
       loaded = true
@@ -126,7 +132,9 @@ struct GoalForm: View {
       }
       Button(environment.language("action.cancel"), role: .cancel) { deleting = nil }
     } message: {
-      Text(verbatim: t("form.goal.delete.message"))
+      Text(
+        verbatim: GoalWhyMoments.deletionMessage(
+          t("form.goal.delete.message"), goal: deleting, environment))
     }
   }
 
@@ -437,6 +445,8 @@ struct GoalMoveForm: View {
         } else {
           AccountPicker(title: t("form.method"), accounts: choices.methods, selection: $method)
         }
+        // Taking money out of a goal is one of its hard moments: «Зачем коплю» under it.
+        if withdraw { GoalWhyReminder(goal: status.goal) }
         if !withdraw, let needed = status.neededMonthly {
           Text(
             verbatim: environment.format(

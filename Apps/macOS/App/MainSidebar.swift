@@ -89,6 +89,7 @@ enum SidebarItem: Hashable, Sendable {
               Image(systemName: "chart.xyaxis.line")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .beginnerQuiet(.analytics)
             .contentShape(.rect)
           }
           .buttonStyle(.plain)
@@ -183,6 +184,7 @@ enum SidebarItem: Hashable, Sendable {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 3)
         .padding(.horizontal, 6)
+        .beginnerQuiet(BeginnerModeOnMac.section(of: item))
         .background(lit.plate(theme), in: .rect(cornerRadius: 8))
         .contentShape(.rect)
       }

@@ -61,7 +61,7 @@ public struct AnonymizerLabels: Hashable, Sendable {
 ///   (`sched:`, `alloc:` …) stay; parts: the comment;
 /// * people (name, aliases, birthday, gift budget), places and events (name, aliases),
 ///   accounts, banks, groups of accounts, cards (name, aliases, last four digits, comment);
-/// * goals, debts (name, comment, the groups and descriptions of the journal), what the loans
+/// * goals (name, «why I save»), debts (name, comment, the groups and descriptions of the journal), what the loans
 ///   cost (name), assets and their valuations, owned things, wishes (name, link, comment),
 ///   the shopping list, tags, rules (name and the text a rule looks for), the day notes;
 /// * scheduled payments (name, cancel link), expected incomes (name), the articles and own
@@ -86,7 +86,7 @@ public enum Anonymizer {
     "person.name", "person.aliases", "person.birthday", "person.giftBudget",
     "place.name", "place.aliases", "event.name", "paymentMethod.name", "paymentMethod.aliases",
     "bank.name", "accountGroup.name", "card.name", "card.aliases", "card.last4", "card.details",
-    "goal.name", "debt.name", "debt.note", "debtEntry.groupName", "debtEntry.description",
+    "goal.name", "goal.whyNote", "debt.name", "debt.note", "debtEntry.groupName", "debtEntry.description",
     "debtEntry.note", "debtCost.name", "asset.name", "asset.note", "assetValuation.note",
     "ownedItem.name", "ownedItem.note", "wish.name", "wish.url", "wish.note",
     "shoppingItem.name", "shoppingItem.note", "tag.name", "rule.name", "rule.textContains",
@@ -155,6 +155,7 @@ public enum Anonymizer {
     }
     for (number, index) in d.goals.indices.enumerated() {
       d.goals[index].name = name(labels.goal, number)
+      d.goals[index].whyNote = nil
     }
     // Live and deleted debts are numbered as one run, live first.
     var debtNumber = 0
@@ -274,7 +275,7 @@ public enum Anonymizer {
     texts += dataset.banks.map(\.name) + dataset.accountGroups.map(\.name)
     texts += dataset.cards.map(\.name) + dataset.cards.flatMap(\.aliases)
     texts += dataset.cards.map(\.details)
-    texts += dataset.goals.map(\.name)
+    texts += dataset.goals.flatMap { [$0.name, $0.whyNote] }
     texts += (dataset.debts + dataset.deletedDebts).flatMap { [$0.name, $0.note] }
     texts += dataset.assets.flatMap { [$0.name, $0.note] }
     texts += dataset.ownedItems.flatMap { [$0.name, $0.note] }

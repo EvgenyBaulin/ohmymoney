@@ -166,12 +166,13 @@ public enum ExportTables {
   /// plan counts from. `account_id` and `transfer_on_contribution` came with
   /// `Schema/0009_credit_and_allocation.sql`: the account the money of the goal is kept on.
   /// `sort` came with `Schema/0010_scenarios.sql`: the place the owner dragged the goal to.
+  /// `why_note` came with `Schema/0020_habits.sql`: why the owner saves for it, empty for none.
   public static let goals = ExportTable(
     fileName: "goals.csv",
     columns: [
       "id", "name", "target", "target_date", "monthly_plan", "subcategory_id",
       "archived", "currency", "plan_start_month", "account_id", "transfer_on_contribution",
-      "sort",
+      "sort", "why_note",
     ])
 
   /// `deleted_at` came with `Schema/0005_cards.sql`: the instant the debt was deleted. The
@@ -445,13 +446,27 @@ public enum ExportTables {
       "sale_transaction_id", "note", "archived",
     ])
 
-  /// All 49 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// The badges earned and the days marked «трат не было» came with `Schema/0020_habits.sql` and
+  /// go last. A badge is its `key` (`<kind>:<period>`), its `kind` (`entry7`, `entry30`, `entry100`, `countMonth`, `count3`,
+  /// `count12`; a later build may write more), its `period` — the first day of the streak
+  /// `YYYY-MM-DD` or the month `YYYY-MM` —, the day it was earned on and the UTC instant it was
+  /// written. A day without spending is the day and the UTC instant of the answer. «Зачем коплю» of
+  /// a goal goes last in `goals.csv`, empty for none.
+  public static let habitBadges = ExportTable(
+    fileName: HabitStorage.badgesCSV,
+    columns: ["key", "kind", "period", "earned_on", "earned_at"])
+
+  public static let noSpendDays = ExportTable(
+    fileName: HabitStorage.noSpendCSV, columns: ["day", "marked_at"])
+
+  /// All 51 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
   /// of days, then the month limits, event articles and templates and the subscription extras, then
   /// the conditions of bank products and the deposits of the owner, then the attachments, then the
-  /// wishes, their prices, the shopping list and the things outside the capital.
+  /// wishes, their prices, the shopping list and the things outside the capital, then the badges
+  /// and the days without spending.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
@@ -460,7 +475,7 @@ public enum ExportTables {
     debtInstalments, debtCosts, allocationRules, customCurrencies, settings, tags, partTags, rules,
     dayNotes, budgetMonthExceptions, eventBudgetItems, eventTemplates, subscriptionTerms,
     subscriptionUsage, subscriptionUsers, subscriptionKeepGroups, bankConditions, depositOffers,
-    attachments, wishes, wishPrices, shoppingItems, ownedItems,
+    attachments, wishes, wishPrices, shoppingItems, ownedItems, habitBadges, noSpendDays,
   ]
 }
 
@@ -686,6 +701,7 @@ extension ExportTables {
       CSVValue.string(goal.accountId),
       CSVValue.string(bool: goal.transfersOnContribution),
       String(goal.sort),
+      CSVValue.string(goal.whyNote),
     ]
   }
 
@@ -1115,6 +1131,17 @@ extension ExportTables {
       item.createdOn.iso,
       String(item.sort),
     ]
+  }
+
+  public static func row(_ badge: HabitBadge) -> [String] {
+    [
+      badge.key, badge.kindText, badge.period, badge.earnedOn.iso,
+      CSVValue.string(instant: badge.earnedAt),
+    ]
+  }
+
+  public static func row(_ day: NoSpendDay) -> [String] {
+    [day.day.iso, CSVValue.string(instant: day.markedAt)]
   }
 
   public static func row(_ item: OwnedItem) -> [String] {

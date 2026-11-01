@@ -36,6 +36,15 @@ struct SampleAllocation19Tests {
   }
 
   /// Everything under the layer is kept: it only adds.
+  /// The goal of the layer says why it is saved for, so the hard moments of a goal show on the
+  /// sample: «Зачем коплю» in the language of the set.
+  @Test func theGoalSaysWhyItIsSavedFor() throws {
+    let english = try #require(Self.layered().goals.last)
+    #expect(english.whyNote == "The sea in July, with the whole family")
+    let russian = try #require(Self.layered(language: "ru").goals.last)
+    #expect(russian.whyNote == "Море в июле, всей семьёй")
+  }
+
   @Test func theLayersUnderItAreKept() {
     let earlier = Self.earlier()
     let set = Self.layered()

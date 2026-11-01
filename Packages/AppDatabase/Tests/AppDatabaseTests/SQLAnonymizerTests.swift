@@ -93,6 +93,7 @@ struct SQLAnonymizerTests {
           db, "goals",
           [
             ("id", UUID().uuidString), ("name", "Vacation"), ("target_e4", 1_000_000_000),
+            ("why_note", "Secret beach with Masha"),
           ])
         try put(
           db, "debts",
@@ -378,7 +379,7 @@ struct SQLAnonymizerTests {
     ],
     "places": ["name", "aliases"], "events": ["name"],
     "payment_methods": ["name", "aliases"], "banks": ["name"], "account_groups": ["name"],
-    "cards": ["name", "aliases", "last4", "details"], "goals": ["name"],
+    "cards": ["name", "aliases", "last4", "details"], "goals": ["name", "why_note"],
     "debts": ["name", "note"], "debt_costs": ["name"],
     "debt_entries": ["group_name", "description", "note"],
     "assets": ["name", "note"], "asset_valuations": ["note"],

@@ -133,10 +133,11 @@ final class GuideStore {
   /// The cards were seen through or skipped: they do not come again for this version.
   func cardsDone(version: String, skipped: Bool) {
     guard let shown = cards else { return }
-    if case .firstLaunch = shown.kind {
-      progress.firstLaunchWasShown(in: version)
-    } else {
-      progress.whatsNewSeen = version
+    switch shown.kind {
+    case .firstLaunch: progress.firstLaunchWasShown(in: version)
+    // A lesson is read on demand and says nothing about what is new.
+    case .lesson: break
+    case .whatsNew, .tutorial: progress.whatsNewSeen = version
     }
     save()
     cards = nil

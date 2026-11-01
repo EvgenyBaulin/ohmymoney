@@ -487,6 +487,7 @@ public enum GuideCatalog {
     whatsNew112,
     whatsNew113,
     whatsNew27,
+    whatsNew28,
   ]
 
   public static let whatsNew14 = GuideScenario(

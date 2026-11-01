@@ -177,7 +177,7 @@ struct GuideCatalogTests {
   }
 
   /// «Что нового в 1.13»: the trip strip, the summary of a trip, the cards abroad and the
-  /// exchange-rate difference.
+  /// exchange-rate difference — the latest version of 1.x.
   @Test func whatsNewOfOnePointThirteenTellsOfTheTrips() throws {
     let scenario = GuideCatalog.whatsNew113
     #expect(scenario.kind == .whatsNew(version: GuideVersion(major: 1, minor: 13)))
@@ -185,7 +185,12 @@ struct GuideCatalogTests {
     #expect(scenario.cards.map(\.id) == ["new113.trip", "new113.summary", "new113.rate"])
     #expect(scenario.cards.allSatisfy { !$0.symbol.isEmpty && $0.title.isComplete })
     #expect(scenario.cards.allSatisfy { $0.body.isComplete })
-    #expect(GuideCatalog.whatsNew.contains { $0.id == scenario.id })
+    let index = try #require(GuideCatalog.whatsNew.firstIndex { $0.id == scenario.id })
+    #expect(
+      GuideCatalog.whatsNew.dropFirst(index + 1).allSatisfy {
+        if case .whatsNew(let version) = $0.kind { return version.major >= 2 }
+        return false
+      })
     // 1.12 and 1.13 came out as one build, so a database of 1.11 is told of both.
     var progress = GuideProgress(firstLaunchShown: true, whatsNewSeen: "1.11.0")
     #expect(
@@ -348,7 +353,7 @@ struct GuideProgressTests {
   }
 
   /// «Что нового в 2.7»: Shortcuts and AppleScript, the notifications, Spotlight and the Focus,
-  /// the windows, Numbers and printing — the latest version, told to a database that saw 1.13.
+  /// the windows, Numbers and printing — told to a database that saw 1.13; only 2.8 comes after it.
   @Test func whatsNewOfTwoPointSevenTellsOfTheMac() throws {
     let scenario = GuideCatalog.whatsNew27
     #expect(scenario.kind == .whatsNew(version: GuideVersion(major: 2, minor: 7)))
@@ -358,7 +363,7 @@ struct GuideProgressTests {
         == ["new27.shortcuts", "new27.notifications", "new27.spotlight", "new27.windows"])
     #expect(scenario.cards.allSatisfy { !$0.symbol.isEmpty && $0.title.isComplete })
     #expect(scenario.cards.allSatisfy { $0.body.isComplete })
-    #expect(GuideCatalog.whatsNew.last?.id == scenario.id)
+    #expect(GuideCatalog.whatsNew.suffix(2).first?.id == scenario.id)
     let progress = GuideProgress(firstLaunchShown: true, whatsNewSeen: "1.13.0")
     #expect(
       progress.whatsNewDue(current: "2.7.0", catalog: GuideCatalog.whatsNew).map(\.id)

@@ -457,6 +457,7 @@ enum OverviewText {
 /// accounts of the summary, with both figures and the way to the goals.
 struct GoalsExceedRow: View {
   @Dependency(\.environment) private var environment
+  @Dependency(\.compute) private var compute
   let goals: AmountE4
   let money: AmountE4
 
@@ -476,6 +477,10 @@ struct GoalsExceedRow: View {
       .appFont(.caption.monospacedDigit())
       .foregroundStyle(.secondary)
       .fixedSize(horizontal: false, vertical: true)
+      // «Зачем коплю» of the goals that hold money: the owner's own words, in the hard moment.
+      ForEach(GoalWhyMoments.exceeded(compute.snapshot?.planning.goals ?? []), id: \.id) { goal in
+        GoalWhyReminder(goal: goal)
+      }
       Button(environment.language("overview.openGoals", table: "Overview")) {
         // The goals are on the Planning screen, the second section.
         NotificationCenter.default.post(name: .selectSection, object: 2)
@@ -611,6 +616,7 @@ struct AnomaliesCard: View {
       case .forgotten: ForgottenMoneySheet().handingOver(dependencies)
       case .rebind(let cardId): CardRebindSheet(cardId: cardId).handingOver(dependencies)
       case .warranty: WarrantyScreen().handingOver(dependencies)
+      case .missedDays(let gap): MissedDaysSheet(gap: gap).handingOver(dependencies)
       }
     }
     // A new read brings the marks of this Mac in: what was settled is gone from the data.

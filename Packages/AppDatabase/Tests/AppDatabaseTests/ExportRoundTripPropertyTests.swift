@@ -31,7 +31,7 @@ struct ExportRoundTripPropertyTests {
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
     "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at",
-    "arrived_at", "added_at", "trashed_at",
+    "arrived_at", "added_at", "trashed_at", "earned_at", "marked_at",
   ]
   /// Columns holding a decimal kept as text.
   private static let decimals: Set<String> = [
@@ -127,6 +127,8 @@ struct ExportRoundTripPropertyTests {
           case "custom_currencies": ["code"]
           case "settings": ["key"]
           case "subscription_terms": ["payment_id"]
+          case "habit_badges": ["key"]
+          case "no_spend_days": ["day"]
           default: ["id"]
           }
         let stored = try Row.fetchAll(db, sql: "SELECT * FROM \(name)")
@@ -312,6 +314,15 @@ struct ExportRoundTripPropertyTests {
       try db.execute(
         sql: "UPDATE custom_currencies SET rate_source = 'coingecko', coin_id = 'bitcoin'")
       try db.execute(sql: "UPDATE expected_income SET payout_kind = 'dividend'")
+      // A badge, a day without spending and the note of a goal.
+      try db.execute(
+        sql: """
+          INSERT INTO habit_badges (key, kind, period, earned_on, earned_at)
+          VALUES ('entry7:2026-09-01', 'entry7', '2026-09-01', '2026-09-07', '2026-09-07 10:00:00.000')
+          """)
+      try db.execute(
+        sql: "INSERT INTO no_spend_days (day, marked_at) VALUES ('2026-09-03', '2026-09-03 21:00:00.000')")
+      try db.execute(sql: "UPDATE goals SET why_note = 'море, «в июле»'")
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -360,17 +371,17 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 19)
+    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 20)
     #expect(plain.files == files)
-    #expect(plain.csvTables.count == 49)
-    #expect(plain.manifest.schemaVersion == 19)
+    #expect(plain.csvTables.count == 51)
+    #expect(plain.manifest.schemaVersion == 20)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 19)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 20)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -438,7 +449,7 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 19)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 20)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 
@@ -461,6 +472,7 @@ struct ExportRoundTripPropertyTests {
           "0017_attachments",
           "0018_purchases",
           "0019_privacy",
+          "0020_habits",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -636,7 +648,10 @@ struct ExportRoundTripPropertyTests {
 
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
-    .union(addedByThePurchases)
+    .union(addedByThePurchases).union(addedByTheHabits)
+
+  /// The column the habits added (`0020_habits`).
+  private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]
 
   /// The columns the purchases (schema 18) added to the operations and the people.
   private static let addedByThePurchases: Set<String> = Set(

@@ -83,6 +83,7 @@ struct MigrationKillTests {
           "0017_attachments",
           "0018_purchases",
           "0019_privacy",
+          "0020_habits",
         ], "seed \(seed)")
 
     let made = UUID()

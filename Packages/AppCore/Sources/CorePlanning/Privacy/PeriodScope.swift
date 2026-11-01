@@ -92,6 +92,10 @@ public enum PeriodScope {
       range.contains(TravelDay.day(of: $0.occurredAt, zoneId: nil))
     }
     d.dayNotes = dataset.dayNotes.filter { range.contains($0.day) }
+    var habits = dataset.habits
+    habits.noSpendDays = habits.noSpendDays.filter { range.contains($0.day) }
+    habits.badges = habits.badges.filter { range.contains($0.earnedOn) }
+    d.habits = habits
     d.assetValuations = dataset.assetValuations.filter { range.contains($0.day) }
 
     var planning = dataset.planning
