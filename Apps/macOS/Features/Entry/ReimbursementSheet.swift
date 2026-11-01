@@ -593,7 +593,9 @@ struct ReimbursementSheet: View {
   private func reload() {
     people = (try? environment.references?.people()) ?? []
     owed = (try? environment.transactions?.owedParts()) ?? []
-    accounts = environment.shield.offered((try? environment.references?.paymentMethods()) ?? [])
+    // An account already chosen stays on offer even when hidden; the other hidden ones do not.
+    accounts = environment.shield.offered(
+      (try? environment.references?.paymentMethods()) ?? [], keeping: accountId)
     rates = (try? environment.rates?.table()) ?? RateTable()
     if accountId == nil { accountId = accounts.first(where: \.isDefault)?.id }
     debts = ((try? environment.references?.debts()) ?? []).filter {

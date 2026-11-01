@@ -125,6 +125,10 @@ struct GroupScreen: View {
           section.withoutRate.map(\.code).joined(separator: ", ")))
     }
     if !section.inSummary { lines.append(t("group.screen.excluded")) }
+    // The total holds money of a hidden account: said, never how much.
+    if scope.isPartHidden(compute.snapshot?.coveredAccounts) {
+      lines.append(environment.language("privacy.partHidden", table: "PrivacyScreens"))
+    }
     return ScreenHero(
       caption: t("sidebar.total"),
       figure: section.totalRub.map { environment.money.rounded($0) } ?? "\u{2014}",

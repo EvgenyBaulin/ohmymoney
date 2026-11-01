@@ -91,7 +91,7 @@ struct DayList<Header: View, MenuItems: View>: View {
           }
         }
       } header: {
-        DayHeader(day: group.day, totals: group.totals)
+        DayHeader(day: group.day, totals: group.totals, partHidden: group.partHidden)
       }
     }
   }
@@ -153,6 +153,8 @@ struct DayHeader: View {
   let day: DateOnly
   var sideKey: String?
   let totals: RowTotals
+  /// The totals hold operations of a covered hidden account that the day does not list.
+  var partHidden = false
 
   var body: some View {
     HStack(alignment: .firstTextBaseline) {
@@ -162,6 +164,7 @@ struct DayHeader: View {
         .foregroundStyle(Color(theme.palette.accentContent))
         .accessibilityAddTraits(.isHeader)
       Spacer()
+      if partHidden { PartHiddenNote() }
       RowTotalsLine(totals: totals)
     }
   }

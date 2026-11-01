@@ -40,7 +40,9 @@ struct AnalyticsSectionView: View {
   private var isWide: Bool { width >= Self.wideWidth }
 
   private var headerLine: String {
-    AnalyticsText.sectionHeader(section, title: title, model: state.value, environment)
+    let line = AnalyticsText.sectionHeader(section, title: title, model: state.value, environment)
+    guard state.value?.partHidden == true else { return line }
+    return "\(line) · \(PartHiddenNote.text(environment.language))"
   }
 
   @ViewBuilder

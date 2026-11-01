@@ -19,13 +19,24 @@ struct OverviewHero: View {
     #endif
   }
 
+  /// The line under the figure, with «часть скрыта» after it when the free sum holds money of a
+  /// hidden account.
+  static func line(_ line: String?, partHidden: String?) -> String? {
+    guard let partHidden else { return line }
+    return line.map { "\($0) · \(partHidden)" } ?? partHidden
+  }
+
   var body: some View {
     if let snapshot = compute.snapshot,
       let content = PlanningHero.make(free: snapshot.planning.freeMoney, environment: environment)
     {
       PhoneHeroCard(
         caption: content.caption, figure: content.figure,
-        line: content.lines.first, figureIdentifier: "overview.hero.figure")
+        line: Self.line(
+          content.lines.first,
+          partHidden: OverviewPartHidden.shows(.freeMoney, covered: snapshot.coveredAccounts)
+            ? environment.language("privacy.partHidden", table: "PrivacyScreens") : nil),
+        figureIdentifier: "overview.hero.figure")
     }
   }
 }

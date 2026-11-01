@@ -58,6 +58,29 @@ extension HiddenAccounts {
     return accounts.filter { !isHidden($0.id) }
   }
 
+  /// What the picker of a form offers for a record that already names `kept`: the accounts
+  /// `offered(_:visibility:)` gives, and `kept` itself even when it is hidden — a saved
+  /// payment, goal or operation on a hidden account opens on that account and saves on it,
+  /// never on another one the form fell back to. The order of `accounts` is kept.
+  public func offered(
+    _ accounts: [PaymentMethod], visibility: PrivacyVisibility, keeping kept: UUID?
+  ) -> [PaymentMethod] {
+    guard visibility == .covered, !isEmpty else { return accounts }
+    return accounts.filter { !isHidden($0.id) || $0.id == kept }
+  }
+
+  /// The cards a picker offers: the cards of hidden accounts are left out while covered, except
+  /// a card named in `kept` and the cards of an account named there — those of the record the
+  /// form edits. The order of `cards` is kept.
+  public func offeredCards(
+    _ cards: [PaymentCard], visibility: PrivacyVisibility, keeping kept: Set<UUID>
+  ) -> [PaymentCard] {
+    guard visibility == .covered, !isEmpty else { return cards }
+    return cards.filter {
+      !isHidden($0.accountId) || kept.contains($0.id) || kept.contains($0.accountId)
+    }
+  }
+
   /// The ids of the accounts a dataset marks hidden.
   public init(accounts: [PaymentMethod]) {
     self.init(ids: accounts.filter(\.hidden).map(\.id))

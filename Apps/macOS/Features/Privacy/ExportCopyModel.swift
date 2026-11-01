@@ -66,6 +66,12 @@ final class ExportCopyModel {
   var periodStart: Date
   var periodEnd: Date
   var anonymize = false
+
+  /// Whether the neutral words of an anonymized copy are English for the language of the
+  /// interface: Russian for Russian, English for any other (`AnonymizerLabels.forLanguage`).
+  nonisolated static func isEnglish(_ languageCode: String) -> Bool {
+    AnonymizerLabels.forLanguage(languageCode) == .english
+  }
   /// «Включая скрытые»: off by default, so a copy for somebody else never carries a hidden
   /// account unless the owner says so.
   var includeHidden = false
@@ -145,8 +151,10 @@ final class ExportCopyModel {
 
   /// Makes the copy in a temporary place, away from the main thread (the key derivation is slow),
   /// and leaves it waiting in `pending`. The live database and its files are not touched.
+  /// `english` — the interface is in English: the neutral words of an anonymized copy are too.
   func prepare(
-    with service: ExportCopyService, settings: [String: String], today: DateOnly
+    with service: ExportCopyService, settings: [String: String], today: DateOnly,
+    english: Bool = false
   ) async {
     guard let request = request() else { return }
     stage = .working
@@ -156,7 +164,7 @@ final class ExportCopyModel {
     do {
       try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
       let report = try await Task.detached(priority: .userInitiated) {
-        try service.export(request, to: url, settings: settings)
+        try service.export(request, to: url, settings: settings, english: english)
       }.value
       pending = (report, url)
     } catch {

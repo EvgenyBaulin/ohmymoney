@@ -37,6 +37,10 @@ struct CalendarTileCard: View {
               CalendarText.money(calendar.spent, of: calendar, environment))
           )
           .appFont(.callout.monospacedDigit())
+          // The block hands over the whole snapshot; what is covered is the presented one's.
+          if let shown = compute.snapshot, CalendarScreen.partHidden(of: calendar, in: shown) {
+            PartHiddenNote()
+          }
           Spacer(minLength: 6)
           Button(CalendarText.t("calendar.open", environment)) {
             NotificationCenter.default.post(

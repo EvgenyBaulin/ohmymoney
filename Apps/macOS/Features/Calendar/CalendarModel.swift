@@ -33,16 +33,27 @@ enum CalendarScreen {
   }
 
   /// The operations of `day` as the lists of the app show a day: the rows of «Траты», newest
-  /// first, with the day's header.
+  /// first, with the day's header. While the hidden accounts are covered their operations are
+  /// not listed, and the header keeps the day's whole figure — the one its cell in the grid
+  /// shows — with «часть скрыта».
   static func groups(
     of day: SpendingCalendarDay?, in snapshot: DataSnapshot, calendar: CalendarContext
   ) -> [TransactionsStore.DayGroup] {
     guard let day, !day.transactionIds.isEmpty else { return [] }
     let ledger = snapshot.ledger
     let entries = day.transactionIds.compactMap { ledger.entry($0) }
+    let hidden = HiddenOperations(snapshot: snapshot)
     return TransactionsStore.group(
       entries, calendar: calendar, debts: snapshot.dataset.debtsById,
-      refunds: ledger.refundIndex)
+      refunds: ledger.refundIndex
+    ).map { $0.covering(hidden) }
+  }
+
+  /// The figure of the shown days holds spending of a covered hidden account: «часть скрыта»
+  /// stands next to it.
+  static func partHidden(of calendar: SpendingCalendar, in snapshot: DataSnapshot) -> Bool {
+    HiddenOperations(snapshot: snapshot).touches(
+      calendar.range, in: snapshot.ledger, kinds: [.expense, .refund, .reimbursement])
   }
 }
 

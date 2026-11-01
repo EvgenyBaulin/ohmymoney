@@ -444,6 +444,8 @@ private struct LeaksSection: View {
     var consumption: LimitConsumption
     /// Names of the three largest purchases, by position.
     var titles: [String]
+    /// The spending holds purchases of a covered hidden account, counted among the others.
+    var partHidden = false
   }
 
   private struct EatenRequest: Hashable, Sendable {
@@ -496,15 +498,17 @@ private struct LeaksSection: View {
           guard let id = request.categoryId else {
             return .empty(reason: t("spending.limit.empty"))
           }
-          let eaten = try await compute.analysis.spending.limitConsumption(
+          let whole = try await compute.analysis.spending.limitConsumption(
             snapshot, categoryId: id, month: request.month)
-          guard eaten.spent.raw > 0 else { return .empty(reason: t("spending.limit.empty")) }
+          guard whole.spent.raw > 0 else { return .empty(reason: t("spending.limit.empty")) }
+          let (eaten, partHidden) = whole.covering(
+            HiddenOperations(snapshot: snapshot), in: snapshot.ledger)
           let titles = eaten.largest.map { purchase in
             snapshot.ledger.entry(purchase.transactionId).flatMap {
               OverviewSummary.title(of: $0, tree: snapshot.ledger.tree)
             } ?? "—"
           }
-          return .ready(EatenDisplay(consumption: eaten, titles: titles))
+          return .ready(EatenDisplay(consumption: eaten, titles: titles, partHidden: partHidden))
         },
         accessory: { categoryPicker }
       ) { display in
@@ -563,11 +567,14 @@ private struct LeaksSection: View {
     let money = environment.money
     let consumption = display.consumption
     VStack(alignment: .leading, spacing: 6) {
-      Text(
-        verbatim: SpendingText.format(
-          "spending.limit.spent", environment, money.rounded(consumption.spent))
-      )
-      .appFont(.callout.weight(.semibold).monospacedDigit())
+      HStack(alignment: .firstTextBaseline, spacing: 8) {
+        Text(
+          verbatim: SpendingText.format(
+            "spending.limit.spent", environment, money.rounded(consumption.spent))
+        )
+        .appFont(.callout.weight(.semibold).monospacedDigit())
+        if display.partHidden { PartHiddenNote() }
+      }
       ForEach(Array(consumption.largest.enumerated()), id: \.offset) { index, purchase in
         HStack {
           Text(verbatim: display.titles[index]).lineLimit(1)
@@ -607,4 +614,31 @@ private struct LeaksSection: View {
   }
 
   private func t(_ key: String) -> String { SpendingText.t(key, environment) }
+}
+
+extension LimitConsumption {
+  /// The card as it is shown while the hidden accounts are covered: a purchase of a hidden
+  /// account is not named among the largest, it is counted with the others, and what was spent
+  /// stays the whole figure. `partHidden` — a purchase of a hidden account was among the largest;
+  /// the others are a count and a sum, which name nobody.
+  func covering(
+    _ hidden: HiddenOperations, in ledger: Ledger
+  ) -> (LimitConsumption, partHidden: Bool) {
+    guard !hidden.isEmpty else { return (self, false) }
+    var copy = self
+    var partHidden = false
+    var kept: [Purchase] = []
+    for purchase in largest {
+      if hidden.hides(operation: purchase.transactionId, in: ledger) {
+        partHidden = true
+        copy.othersCount += 1
+        copy.othersTotal += purchase.amount
+        copy.othersLargest = max(copy.othersLargest ?? purchase.amount, purchase.amount)
+      } else {
+        kept.append(purchase)
+      }
+    }
+    copy.largest = kept
+    return (copy, partHidden)
+  }
 }

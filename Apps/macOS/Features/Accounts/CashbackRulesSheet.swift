@@ -472,7 +472,9 @@ struct CashbackRulesSheet: View {
     _ current: CashbackRulesDraft, model: Binding<CashbackRulesDraft>
   ) -> some View {
     let chosen = current.settings.pointsAccountId
-    let others = CashbackPoints.choices(for: accountId, among: accounts)
+    // A hidden account is not offered while covered; the one the points go to now stays below.
+    let others = CashbackPoints.choices(
+      for: accountId, among: environment.shield.offered(accounts))
     let kept = chosen.flatMap { id in accounts.first { $0.id == id } }
     Picker(selection: model.settings.pointsAccountId) {
       Text(verbatim: t("cashback.points.money")).tag(UUID?.none)

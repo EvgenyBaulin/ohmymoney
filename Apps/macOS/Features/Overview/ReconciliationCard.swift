@@ -31,8 +31,11 @@ struct ReconciliationCard: View {
           )
           .appFont(.caption)
           .foregroundStyle(.secondary)
+          // The data step's snapshot is whole: the counts of a hidden account are left out
+          // while they are covered, so the card names no hidden account and no amount of one.
           if let found = Self.found(
-            by: last, balances: snapshot.dataset.planning.reconciledBalances,
+            by: last,
+            balances: Self.visible(snapshot.dataset.planning.reconciledBalances, hiding: hidden),
             accounts: snapshot.dataset.paymentMethods, environment)
           {
             Text(verbatim: found)
@@ -45,7 +48,7 @@ struct ReconciliationCard: View {
             .foregroundStyle(.secondary)
             .fixedSize(horizontal: false, vertical: true)
         }
-        if let offer = Self.offer(in: snapshot) {
+        if let offer = Self.offer(in: snapshot), !hidden.isHidden(offer.candidate.key?.accountId) {
           firstCountOffer(offer, snapshot: snapshot)
         }
         // Content, not a floating control: a plain small button, never glass.
@@ -84,6 +87,18 @@ struct ReconciliationCard: View {
       language: environment.language, rounded: true)
     guard case .differences = ReconcileSheet.findings(balances) else { return text }
     return difference(text)
+  }
+
+  /// The hidden accounts the card leaves out right now; none once they are shown.
+  private var hidden: HiddenAccounts {
+    compute.snapshot?.hiding ?? HiddenAccounts(ids: [UUID]())
+  }
+
+  /// The counted balances without those of the accounts in `hiding`.
+  static func visible(
+    _ balances: [ReconciledBalance], hiding: HiddenAccounts
+  ) -> [ReconciledBalance] {
+    balances.filter { !hiding.isHidden($0.accountId) }
   }
 
   // MARK: The first count

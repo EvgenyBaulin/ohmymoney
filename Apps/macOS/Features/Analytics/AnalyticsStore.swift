@@ -79,8 +79,11 @@ final class AnalyticsStore {
     if let waiting = data.waiting { return waiting.never() }
     if let forecast, let waiting = forecast.waiting { return waiting.never() }
     if let anomalies, let waiting = anomalies.waiting { return waiting.never() }
+    // A model made while the hidden accounts were shown is not shown once they are covered,
+    // not even for the moment the new one takes.
     guard let model, let at, model.request.section == wanted.section,
-      model.request.period == wanted.period, model.request.today == wanted.today
+      model.request.period == wanted.period, model.request.today == wanted.today,
+      model.request.hiding == wanted.hiding
     else { return .calculating }
     return .ready(model, at: at)
   }

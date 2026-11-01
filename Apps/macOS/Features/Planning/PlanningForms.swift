@@ -34,11 +34,22 @@ struct PlanningChoices {
   /// Every event, archived ones included, by start: a form offers the live ones not over yet
   /// (`events(keeping:today:)`) and keeps the one a record already names.
   let allEvents: [Event]
+  /// Every live account, hidden ones too: where a form looks up the account a record names.
+  /// `methods` is what a picker offers; it has no hidden account while they are covered.
+  let allMethods: [PaymentMethod]
+  /// Every card, archived ones and those of hidden accounts too.
+  let allCards: [PaymentCard]
+  /// The hidden accounts the lists leave out right now; none once they are revealed.
+  let hiding: HiddenAccounts
 
   init(_ compute: ComputeStore, _ environment: AppEnvironment) {
     let dataset = compute.snapshot?.dataset
     categories = (dataset?.categories ?? []).filter { !$0.archived }
     methods = (dataset?.paymentMethods ?? []).filter { !$0.archived }
+    let whole = compute.wholeSnapshot?.dataset ?? dataset
+    allMethods = (whole?.paymentMethods ?? []).filter { !$0.archived }
+    allCards = whole?.cards ?? []
+    hiding = compute.snapshot?.hiding ?? HiddenAccounts(ids: [UUID]())
     people = (dataset?.people ?? []).filter { !$0.archived }
     allEvents = (dataset?.events ?? []).sorted { left, right in
       left.startDate != right.startDate
@@ -58,6 +69,40 @@ struct PlanningChoices {
         + own.filter { $0.parentId == root.id }.sorted { ($0.sort, $0.name) < ($1.sort, $1.name) }
     }
     .filter { !acceptingLimits || (tree?.acceptsLimit($0.id) ?? true) }
+  }
+
+  /// The accounts the picker of a form offers for a record that names `kept`: those of
+  /// `methods`, and `kept` even when it is hidden — a payment, a goal or a debt on a hidden
+  /// account opens on that account, not on the main one the form would fall back to.
+  func methods(keeping kept: UUID?) -> [PaymentMethod] {
+    Self.offered(allMethods, hiding: hiding, keeping: kept)
+  }
+
+  /// The cards the picker of a form offers for a record that names the account or card in
+  /// `kept`: none of a hidden account while covered, except those the record names.
+  func cards(keeping kept: Set<UUID>) -> [PaymentCard] {
+    Self.offeredCards(allCards, hiding: hiding, keeping: kept)
+  }
+
+  /// `methods(keeping:)` without the rest of the choices: for a form of another section that
+  /// only needs the accounts.
+  static func methods(_ compute: ComputeStore, keeping kept: UUID?) -> [PaymentMethod] {
+    let whole = compute.wholeSnapshot?.dataset ?? compute.snapshot?.dataset
+    return offered(
+      (whole?.paymentMethods ?? []).filter { !$0.archived },
+      hiding: compute.snapshot?.hiding ?? HiddenAccounts(ids: [UUID]()), keeping: kept)
+  }
+
+  static func offered(
+    _ accounts: [PaymentMethod], hiding: HiddenAccounts, keeping kept: UUID?
+  ) -> [PaymentMethod] {
+    hiding.offered(accounts, visibility: .covered, keeping: kept)
+  }
+
+  static func offeredCards(
+    _ cards: [PaymentCard], hiding: HiddenAccounts, keeping kept: Set<UUID>
+  ) -> [PaymentCard] {
+    hiding.offeredCards(cards, visibility: .covered, keeping: kept)
   }
 
   func label(_ category: CoreKit.Category) -> String {

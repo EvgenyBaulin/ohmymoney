@@ -128,12 +128,7 @@ struct AccountsSidebarSection: View {
   }
 
   /// «часть скрыта»: the figure above holds money of an account the owner hid. Never how much.
-  private var partHiddenNote: some View {
-    Text(verbatim: environment.language("privacy.partHidden", table: "PrivacyScreens"))
-      .appFont(.caption)
-      .foregroundStyle(.secondary)
-      .lineLimit(1)
-  }
+  private var partHiddenNote: some View { PartHiddenNote() }
 
   private func groupRow(_ section: AccountsSnapshot.Section, _ group: AccountGroup) -> some View {
     HStack(alignment: .firstTextBaseline) {

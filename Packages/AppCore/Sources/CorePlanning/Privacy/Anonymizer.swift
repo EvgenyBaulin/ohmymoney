@@ -44,6 +44,12 @@ public struct AnonymizerLabels: Hashable, Sendable {
     shoppingItem: "Purchase", tag: "Tag", rule: "Rule", scheduledPayment: "Payment",
     expectedIncome: "Income", dayNote: "Note", eventItem: "Line", eventTemplate: "Template",
     ruleText: "Text")
+
+  /// The words in the language of the interface, by its two-letter code: Russian for «ru»,
+  /// English for any other — the interface itself is English on every Mac that is not Russian.
+  public static func forLanguage(_ code: String) -> AnonymizerLabels {
+    code.lowercased().hasPrefix("ru") ? .russian : .english
+  }
 }
 
 /// The copy of the data that can be shown to somebody else: every word the owner wrote is

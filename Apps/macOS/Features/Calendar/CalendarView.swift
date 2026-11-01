@@ -242,6 +242,9 @@ struct CalendarView: View {
         CalendarText.money(calendar.spent, of: calendar, environment))
     )
     .monospacedDigit()
+    if let snapshot = compute.snapshot, CalendarScreen.partHidden(of: calendar, in: snapshot) {
+      PartHiddenNote()
+    }
     if let usual = calendar.usual {
       Text(
         verbatim: environment.format(

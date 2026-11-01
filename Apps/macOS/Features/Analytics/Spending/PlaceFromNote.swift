@@ -19,7 +19,10 @@ struct PlaceFromNotePlan: Equatable, Sendable {
 
   var operationCount: Int { proposals.reduce(0) { $0 + $1.ids.count } }
 
-  static func build(entries: [TransactionEntry], places: [Place]) -> PlaceFromNotePlan {
+  /// `hiding`: the operations of covered hidden accounts are neither offered nor written.
+  static func build(
+    entries: [TransactionEntry], places: [Place], hiding: HiddenOperations = .none
+  ) -> PlaceFromNotePlan {
     var owners: [String: [UUID]] = [:]
     for place in places where !place.archived {
       for name in [place.name] + place.aliases {
@@ -32,7 +35,7 @@ struct PlaceFromNotePlan: Equatable, Sendable {
     for entry in entries {
       let transaction = entry.transaction
       guard transaction.deletedAt == nil, transaction.kind == .expense,
-        transaction.placeId == nil, let note = transaction.note
+        transaction.placeId == nil, !hiding.hides(transaction), let note = transaction.note
       else { continue }
       let key = NameKey.fold(note)
       guard let matching = owners[key], matching.count == 1, let placeId = matching.first else {
@@ -146,7 +149,9 @@ struct PlaceFromNoteSheet: View {
     .task {
       let entries = compute.snapshot?.dataset.entries ?? []
       let places = compute.snapshot?.dataset.places ?? []
-      plan = PlaceFromNotePlan.build(entries: entries, places: places)
+      plan = PlaceFromNotePlan.build(
+        entries: entries, places: places,
+        hiding: compute.snapshot.map(HiddenOperations.init(snapshot:)) ?? .none)
       included = Set(plan.proposals.map(\.placeId))
       loaded = true
     }

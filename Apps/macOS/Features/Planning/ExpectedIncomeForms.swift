@@ -162,8 +162,10 @@ struct ExpectedIncomeForm: View {
         Picker(t("form.toAccount"), selection: $income.paymentMethodId) {
           ForEach(
             ExpectedIncomeAccounts.options(
-              compute.snapshot?.dataset.paymentMethods ?? [], selection: income.paymentMethodId,
-              auto: t("form.toAccount.auto"), locale: environment.language.locale), id: \.self
+              compute.wholeSnapshot?.dataset.paymentMethods ?? [],
+              hiding: PlanningChoices(compute, environment).hiding,
+              selection: income.paymentMethodId, auto: t("form.toAccount.auto"),
+              locale: environment.language.locale), id: \.self
           ) { option in
             Text(verbatim: option.title).tag(option.id)
           }
@@ -226,7 +228,8 @@ struct ExpectedIncomeForm: View {
 /// «На счёт» of an expected income: where its money is to come to. The first choice leaves it
 /// open — the account of the latest income received for it, else the main one —; then the
 /// live accounts in the order of every menu, the main one first. An account chosen before and
-/// archived since stays in the list, so the form shows what is stored.
+/// archived since stays in the list, so the form shows what is stored; so does a hidden one,
+/// while the other hidden accounts are left out as long as they are covered.
 @MainActor
 enum ExpectedIncomeAccounts {
   struct Option: Hashable {
@@ -235,8 +238,10 @@ enum ExpectedIncomeAccounts {
   }
 
   static func options(
-    _ accounts: [PaymentMethod], selection: UUID?, auto: String, locale: Locale
+    _ every: [PaymentMethod], hiding: HiddenAccounts = HiddenAccounts(ids: [UUID]()),
+    selection: UUID?, auto: String, locale: Locale
   ) -> [Option] {
+    let accounts = hiding.offered(every, visibility: .covered, keeping: selection)
     let offered = FormAccounts.offered(accounts, locale: locale)
     var options = [Option(id: nil, title: auto)]
     options += offered.map { Option(id: $0.id, title: $0.name) }

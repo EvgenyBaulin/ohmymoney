@@ -10,12 +10,15 @@ import Foundation
 struct PlanningActions {
   let environment: AppEnvironment
   let store: TransactionsStore
+  /// The whole books, hidden accounts and their cards included: a write looks an account or a
+  /// card up by id here, so a payment, a debt or a goal on a hidden account is written on it,
+  /// not on the main account a covered list would fall back to.
   let snapshot: DataSnapshot?
 
   init(_ deps: AppDependencies) {
     environment = deps.environment
     store = deps.store
-    snapshot = deps.compute.snapshot
+    snapshot = deps.compute.wholeSnapshot
   }
 
   var tree: CategoryTree? { snapshot?.ledger.tree }

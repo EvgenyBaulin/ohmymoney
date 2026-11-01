@@ -22,7 +22,9 @@ public struct ExportCopyReport: Equatable, Sendable {
 /// live database, its files and its settings are never changed. The copy is cut to the span of
 /// days, loses the hidden accounts when asked, has its names replaced when asked, and is packed
 /// as a transfer archive (the database, the CSV files, the settings) or as the CSV files alone.
-/// The names are replaced by `SQLAnonymizer` unless the caller hands in another way.
+/// The names are replaced by `SQLAnonymizer` unless the caller hands in another way; its
+/// neutral words («Человек 1» or «Person 1») are in the language of the interface at the moment
+/// the copy is made.
 /// Both are locked with the archive's own scheme: PBKDF2-HMAC-SHA256 and AES-256-GCM.
 public struct ExportCopyService: Sendable {
   private let maker: ExportCopyMaker
@@ -54,13 +56,22 @@ public struct ExportCopyService: Sendable {
   /// What the manifest takes in the container, a roomy figure.
   private static let manifestAllowance: Int64 = 4_000_000
 
+  /// The way names are replaced in one copy: the app's own `SQLAnonymizer` speaks the language
+  /// asked for; one a caller handed in is used as it is.
+  func anonymizer(english: Bool) -> (any ExportCopyAnonymizing)? {
+    guard anonymizer is SQLAnonymizer else { return anonymizer }
+    return SQLAnonymizer(english: english)
+  }
+
   /// Writes the copy to `url`, reads it back with the password before handing it over, and takes
-  /// it away again if it does not read.
+  /// it away again if it does not read. `english` — the interface is in English, and so are the
+  /// words that replace the names; otherwise they are Russian.
   @discardableResult
   public func export(
     _ request: ExportCopyRequest, to url: URL, settings: [String: String] = [:],
-    now: Date = Date()
+    now: Date = Date(), english: Bool = false
   ) throws -> ExportCopyReport {
+    let anonymizer = anonymizer(english: english)
     guard !request.password.isEmpty else { throw ExportCopyError.passwordMissing }
     if request.anonymize && anonymizer == nil { throw ExportCopyError.anonymizerMissing }
 

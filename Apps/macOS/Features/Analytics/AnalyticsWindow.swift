@@ -89,7 +89,8 @@ struct AnalyticsWindow: View {
       section: section,
       period: section.followsThePeriod ? period.period : .month(today.monthKey),
       today: today, forecast: inputs,
-      anomalies: section == .anomalies ? compute.states.anomalies.value : nil)
+      anomalies: section == .anomalies ? compute.states.anomalies.value : nil,
+      hiding: compute.snapshot.map(HiddenOperations.init(snapshot:)) ?? .none)
   }
 
   private var state: BlockState<AnalyticsModel> {

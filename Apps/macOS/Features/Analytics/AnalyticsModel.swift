@@ -87,6 +87,10 @@ struct AnalyticsRequest: Hashable, Sendable {
   /// The anomalies section's part of the pipeline: what step 6 found, hidden ones included.
   /// The other sections leave it out.
   var anomalies: AnomalyReport?
+  /// The hidden accounts covered right now: their operations, accounts and cards are not
+  /// listed, the figures keep their money and the section says «часть скрыта». A part of the
+  /// key, so a model made while they were shown is never shown once they are covered.
+  var hiding: HiddenOperations = .none
 
   /// What the person chose: the section and its period. The day and the forecast's inputs
   /// change with a refresh of the data, which `--measure` does not time.
@@ -182,6 +186,9 @@ struct AnalyticsModel: Sendable {
   var header: AnalyticsHeader
   var names: AnalyticsNames
   var content: Content
+  /// Some figure of the section holds money of a covered hidden account, or a line of one was
+  /// left out: the line above the section says «часть скрыта», never how much.
+  var partHidden = false
 
   /// Every chart of the section, as `--measure` waits for them to appear.
   var blockIDs: [String] {

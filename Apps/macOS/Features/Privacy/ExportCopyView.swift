@@ -233,8 +233,10 @@ struct ExportCopyView: View {
     guard let service = environment.exportCopies else { return }
     let settings = environment.portableSettings()
     let today = environment.today
+    // Taken now, on the main actor: the copy is made away from it.
+    let english = ExportCopyModel.isEnglish(environment.language.resolvedCode)
     Task {
-      await model.prepare(with: service, settings: settings, today: today)
+      await model.prepare(with: service, settings: settings, today: today, english: english)
       moving = model.pending != nil
     }
   }

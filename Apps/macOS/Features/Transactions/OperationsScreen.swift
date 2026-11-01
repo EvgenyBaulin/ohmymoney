@@ -487,15 +487,19 @@ struct OperationsScreen: View {
   /// after the data arrives goes at once; later ones wait 150 ms, so typing in the search box
   /// filters once.
   private func refilter() async {
-    guard let ledger = compute.snapshot?.ledger else { return }
+    guard let snapshot = compute.snapshot else { return }
+    let ledger = snapshot.ledger
     if pages.listing != nil {
       try? await Task.sleep(for: ComputeStore.debounce)
       guard !Task.isCancelled else { return }
     }
     var chosen = state.filters.entryFilter(today: environment.today)
-    // Covered, the hidden accounts' operations are in neither the table nor the search.
-    chosen.hiddenAccountIds = environment.shield.covering.ids
-    chosen.hiddenCardIds = environment.shield.coveredCardIds
+    // Covered, the hidden accounts' operations are in neither the table nor the search. Read
+    // from the snapshot itself, which knows them from its first frame; the shield learns them
+    // only after the data step, and a first listing made before would show them.
+    let hidden = HiddenOperations(snapshot: snapshot)
+    chosen.hiddenAccountIds = hidden.accounts.ids
+    chosen.hiddenCardIds = hidden.cards
     let (filter, months) = (chosen, pages.monthsShown)
     guard
       let result = try? await compute.compute({

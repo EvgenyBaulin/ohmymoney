@@ -848,8 +848,19 @@ struct DebtSheetView: View {
   }
 
   private var people: [Person] { (compute.snapshot?.dataset.people ?? []).filter { !$0.archived } }
+  /// The live accounts the picker offers: no hidden one while covered, except the account the
+  /// sheet was opened on — the one a reminder pays from or a money back came to —, so the
+  /// payment is written where it was meant to be, not on the main account.
   private var methods: [PaymentMethod] {
-    (compute.snapshot?.dataset.paymentMethods ?? []).filter { !$0.archived }
+    PlanningChoices.methods(compute, keeping: Self.keptAccount(of: sheet))
+  }
+
+  /// The account a sheet is opened on, if it names one.
+  static func keptAccount(of sheet: DebtSheet) -> UUID? {
+    switch sheet {
+    case .payAt(_, _, let account), .repay(_, _, let account): account
+    default: nil
+    }
   }
   /// The live account, or the account of a live card, a new debt of this name is called after.
   private func accountAnswering(to name: String) -> DebtNaming.Match? {

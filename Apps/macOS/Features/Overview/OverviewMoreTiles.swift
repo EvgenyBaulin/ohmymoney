@@ -134,6 +134,9 @@ struct BalanceForecastCard: View {
         )
         .appFont(.caption)
         .foregroundStyle(.secondary)
+        if OverviewPartHidden.shows(.balanceForecast, covered: compute.snapshot?.coveredAccounts) {
+          PartHiddenNote()
+        }
         if model.leftOut {
           Label {
             Text(verbatim: t("overview.balanceForecast.notCounted"))
@@ -158,16 +161,23 @@ struct BalanceForecastCard: View {
   }
 
   /// The forecast step's remainder laid over the plan of the current data, for the accounts of
-  /// the summary. No counted balance among them: nothing to forecast from.
+  /// the summary — the hidden ones too: the tile shows totals only, and a total keeps all the
+  /// money (it says «часть скрыта» instead). No counted balance among them: nothing to forecast
+  /// from.
   private var state: BlockState<BalanceForecastModel> {
     compute.states.forecast.flatMap { remainder, at in
-      guard let snapshot = compute.snapshot else { return .calculating }
-      let ids = BalanceForecastModel.summaryAccountIds(
-        snapshot.planning.accounts, locale: environment.language.locale)
+      guard let snapshot = compute.wholeSnapshot else { return .calculating }
+      let ids = Self.summaryAccountIds(of: snapshot, locale: environment.language.locale)
       let model = BalanceForecastModel(
         forecast: snapshot.accountPlan.forecast(remainder: remainder), accountIds: ids)
       return model.totals.isEmpty ? .notEnoughData : .ready(model, at: at)
     }
+  }
+
+  /// The accounts of the summary the tile adds up. Handed the whole snapshot, it holds the
+  /// hidden ones; a presented one has lost them from its lists.
+  static func summaryAccountIds(of snapshot: DataSnapshot, locale: Locale) -> [UUID] {
+    BalanceForecastModel.summaryAccountIds(snapshot.planning.accounts, locale: locale)
   }
 
   private func t(_ key: String) -> String {
@@ -343,6 +353,20 @@ struct LastCountAndRecordCard: View {
   }
 }
 
+// MARK: - Money of hidden accounts
+
+/// Which tiles of Overview say «часть скрыта»: those whose figure adds up the money of the
+/// accounts of the summary, while a hidden account is among them and the hidden accounts are
+/// covered (`covered` is `nil` once they are shown). The figure itself never changes.
+enum OverviewPartHidden {
+  /// The tiles of this section whose figure is the money of the accounts of the summary.
+  static let tiles: Set<OverviewTile> = [.freeMoney, .balanceForecast, .currencyBalances]
+
+  static func shows(_ tile: OverviewTile, covered: CoveredAccounts?) -> Bool {
+    tiles.contains(tile) && covered?.partHidden == true
+  }
+}
+
 // MARK: - The free sum
 
 /// «Свободные средства»: what can be spent now, what is left of it once the plans until the end
@@ -369,6 +393,9 @@ struct FreeMoneyCard: View {
         Text(verbatim: t(free.goalSavings > .zero ? "free.mainSpendable" : "free.main"))
           .appFont(.caption)
           .foregroundStyle(.secondary)
+        if OverviewPartHidden.shows(.freeMoney, covered: compute.snapshot?.coveredAccounts) {
+          PartHiddenNote()
+        }
         let grey = free.grey ?? .zero
         HStack(alignment: .firstTextBaseline, spacing: 8) {
           Text(verbatim: t("free.grey"))

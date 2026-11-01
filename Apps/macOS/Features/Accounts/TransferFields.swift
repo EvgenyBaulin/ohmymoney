@@ -536,7 +536,12 @@ struct TransferFields: View {
       all: allAccounts,
       banks: entry.books?.dataset.banks
         ?? AccountActions(environment: environment, store: store).banks,
-      keeping: entry.kept, locale: environment.language.locale)
+      keeping: entry.kept,
+      // A hidden account the transfer already names stays: its own, or the one whose screen
+      // it was opened from.
+      hiding: environment.shield.covering.ids.subtracting(
+        [form.fromAccountId, form.toAccountId].compactMap { $0 }),
+      locale: environment.language.locale)
   }
 
   private func account(_ id: UUID?) -> PaymentMethod? {

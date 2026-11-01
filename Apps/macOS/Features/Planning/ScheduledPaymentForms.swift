@@ -61,10 +61,10 @@ struct ScheduledPaymentForm: View {
           }
         }
         AccountPicker(
-          title: t("form.method"), accounts: choices.methods, cards: cards,
-          selection: accountBinding)
+          title: t("form.method"), accounts: choices.methods(keeping: keptAccount),
+          cards: cards, selection: accountBinding)
         if let archived = Self.archivedAccount(
-          of: draft.payment, among: compute.snapshot?.dataset.paymentMethods ?? [])
+          of: draft.payment, among: compute.wholeSnapshot?.dataset.paymentMethods ?? [])
         {
           Label {
             Text(
@@ -398,8 +398,16 @@ struct ScheduledPaymentForm: View {
       set: { draft.payment = Self.returning(draft.payment, in: $0, rubPerUnit: rubPerUnit) })
   }
 
-  /// Every card: the picker offers the live ones under their accounts.
-  private var cards: [PaymentCard] { compute.snapshot?.dataset.cards ?? [] }
+  /// The account the payment was saved on (or started from): offered even when it is hidden,
+  /// so the form neither shows nor saves another one in its place.
+  private var keptAccount: UUID? { (original ?? start)?.paymentMethodId }
+
+  /// Every card the picker may offer: the live ones under their accounts, none of a hidden
+  /// account while covered but those of the payment itself.
+  private var cards: [PaymentCard] {
+    PlanningChoices(compute, environment).cards(
+      keeping: Set([keptAccount, (original ?? start)?.cardId].compactMap { $0 }))
+  }
 
   /// A payment on no account, or on an archived one, shows the main one, which is the account it
   /// is paid from; only a pick writes an account. A live card it names is shown; picking a card
@@ -408,11 +416,14 @@ struct ScheduledPaymentForm: View {
     Binding(
       get: {
         Self.shownChoice(
-          draft.payment, among: PlanningChoices(compute, environment).methods, cards: cards)
+          draft.payment,
+          among: PlanningChoices(compute, environment).methods(keeping: keptAccount),
+          cards: cards)
       },
       set: { id in
         draft.payment = Self.choosing(
-          id, for: draft.payment, methods: PlanningChoices(compute, environment).methods,
+          id, for: draft.payment,
+          methods: PlanningChoices(compute, environment).methods(keeping: keptAccount),
           cards: cards, currencyChosen: currencyChosen,
           defaultCurrency: environment.defaultCurrency)
       })
@@ -522,7 +533,8 @@ struct MarkAsPaidForm: View {
         }
         AccountPicker(
           title: environment.language("entry.account.from", table: "Entry"),
-          accounts: choices.methods, cards: cards, selection: $method)
+          accounts: choices.methods(keeping: payment.paymentMethodId), cards: cards,
+          selection: $method)
         ChargeRow(charge: $charge)
         if payment.kind == .subscription, amount != status.amountNext {
           Toggle(t("form.updatePrice"), isOn: $updatePrice)
@@ -570,15 +582,21 @@ struct MarkAsPaidForm: View {
       loaded = true
       rates = (try? environment.rates?.table()) ?? RateTable()
       amount = status.amountNext
-      method = Self.startingChoice(payment, among: choices.methods, cards: cards)
+      method = Self.startingChoice(
+        payment, among: choices.methods(keeping: payment.paymentMethodId), cards: cards)
       date = PlanningActions.paidAt(
         due: status.nextDue, today: environment.today, calendar: environment.calendar)
       refreshCharge()
     }
   }
 
-  /// Every card: the picker offers the live ones under their accounts.
-  private var cards: [PaymentCard] { compute.snapshot?.dataset.cards ?? [] }
+  /// Every card the picker may offer: the live ones under their accounts, none of a hidden
+  /// account while covered but those of the payment itself — a payment from a hidden account
+  /// is paid from it.
+  private var cards: [PaymentCard] {
+    PlanningChoices(compute, environment).cards(
+      keeping: Set([status.payment.paymentMethodId, status.payment.cardId].compactMap { $0 }))
+  }
 
   /// The account the operation goes on: the one picked, or the account of the card picked.
   private var account: UUID? { CardRules.resolve(selection: method, cards: cards).accountId }
@@ -611,7 +629,8 @@ struct MarkAsPaidForm: View {
   }
 
   private func refreshCharge() {
-    let accounts = PlanningChoices(compute, environment).methods
+    let accounts = PlanningChoices(compute, environment).methods(
+      keeping: status.payment.paymentMethodId)
     charge.refresh(
       FormAccounts.charge(
         amount: amount, currency: status.payment.currency, at: date,

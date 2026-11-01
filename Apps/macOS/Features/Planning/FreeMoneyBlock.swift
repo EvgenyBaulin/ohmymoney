@@ -190,6 +190,10 @@ struct FreeMoneyBlock: View {
       noReconciliation
     case .main(let main, let spendable):
       mainLine(main, spendable: spendable, free, snapshot)
+      // The figure holds the money of a hidden account: said, never how much.
+      if OverviewPartHidden.shows(.freeMoney, covered: compute.snapshot?.coveredAccounts) {
+        PartHiddenNote()
+      }
     case .mainWithoutRate(let currencies):
       caption(environment.format("free.mainWithoutRate", table: "Planning", codes(currencies)))
     case .unanchored(let keys):

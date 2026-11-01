@@ -16,6 +16,9 @@ extension TransactionsStore {
     /// A refund taken back from a purchase counts on the purchase's day, as the purchase
     /// made cheaper, and adds nothing on its own day.
     public let totals: RowTotals
+    /// Some operation of the day is of a covered hidden account: it is not among `items`, but
+    /// its money is still in `totals`, and the header says «часть скрыта» (`covering(_:)`).
+    public private(set) var partHidden = false
 
     /// `refunds` are the refunds of the whole ledger: a purchase listed here shows what a
     /// refund made on a later day took back, and a refund listed here whose purchase is on
@@ -28,6 +31,32 @@ extension TransactionsStore {
       self.day = day
       self.items = items
       self.totals = RowTotals(entries: items.compactMap(\.entry), debts: debts, refunds: refunds)
+    }
+
+    private init(day: DateOnly, items: [DayItem], totals: RowTotals, partHidden: Bool) {
+      self.day = day
+      self.items = items
+      self.totals = totals
+      self.partHidden = partHidden
+    }
+
+    /// The day as a list shows it while the hidden accounts are covered: their operations and
+    /// the transfers between two of them are gone, the totals keep all the money and the group
+    /// says that part of it is hidden. Nothing hidden: the group as it is.
+    func covering(_ hidden: HiddenOperations) -> DayGroup {
+      guard !hidden.isEmpty else { return self }
+      let shown = items.filter { item in
+        switch item {
+        case .operation(let entry): !hidden.hides(entry)
+        case .transfer(let transfer): !hidden.hides(transfer)
+        }
+      }
+      guard shown.count != items.count else { return self }
+      let lost = items.contains { item in
+        if case .operation(let entry) = item { return hidden.hides(entry) }
+        return false
+      }
+      return DayGroup(day: day, items: shown, totals: totals, partHidden: partHidden || lost)
     }
 
     public var id: String { day.iso }

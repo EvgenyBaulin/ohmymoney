@@ -52,6 +52,12 @@ final class PrivacyShield {
     allHidden.offered(accounts, visibility: visibility)
   }
 
+  /// The accounts the picker of a form offers for a record that already names `kept`: the
+  /// hidden ones are left out while covered, except `kept`, so the record keeps its account.
+  func offered(_ accounts: [PaymentMethod], keeping kept: UUID?) -> [PaymentMethod] {
+    allHidden.offered(accounts, visibility: visibility, keeping: kept)
+  }
+
   /// Puts the hidden accounts back under cover: «Скрыть», and the lock taking hold.
   func cover() {
     guard visibility != .covered else { return }

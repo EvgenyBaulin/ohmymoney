@@ -93,6 +93,11 @@ struct CurrencyBalancesCard: View {
       VStack(alignment: .leading, spacing: 6) {
         Text(verbatim: environment.money.rounded(balances.totalRub))
           .appFont(.title2.monospacedDigit())
+        // The data step's snapshot is whole: the total and the lines hold the hidden money.
+        if OverviewPartHidden.shows(.currencyBalances, covered: compute.snapshot?.coveredAccounts)
+        {
+          PartHiddenNote()
+        }
         ForEach(balances.lines.prefix(OverviewFigures.topCount), id: \.currency) { line in
           VStack(alignment: .leading, spacing: 3) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {

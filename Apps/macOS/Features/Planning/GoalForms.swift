@@ -312,7 +312,8 @@ struct GoalAccountFields: View {
 
   var body: some View {
     let accounts = Self.offered(
-      compute.snapshot?.dataset.paymentMethods ?? [], keeping: goal.accountId)
+      compute.wholeSnapshot?.dataset.paymentMethods ?? [],
+      hiding: PlanningChoices(compute, environment).hiding, keeping: goal.accountId)
     let locale = environment.language.locale
     let items = AccountCardChoices.items(
       accounts: FormAccounts.offered(accounts, locale: locale), cards: [],
@@ -336,9 +337,13 @@ struct GoalAccountFields: View {
   }
 
   /// The live accounts, and the goal's own when it was archived since — a form never drops what
-  /// the goal holds.
-  static func offered(_ accounts: [PaymentMethod], keeping kept: UUID?) -> [PaymentMethod] {
-    accounts.filter { !$0.archived || $0.id == kept }
+  /// the goal holds. The hidden accounts are left out while covered, the goal's own excepted.
+  static func offered(
+    _ accounts: [PaymentMethod], hiding: HiddenAccounts = HiddenAccounts(ids: [UUID]()),
+    keeping kept: UUID?
+  ) -> [PaymentMethod] {
+    hiding.offered(accounts, visibility: .covered, keeping: kept)
+      .filter { !$0.archived || $0.id == kept }
   }
 
   /// The goal with `accountId`; without an account there is nothing to transfer to, so the

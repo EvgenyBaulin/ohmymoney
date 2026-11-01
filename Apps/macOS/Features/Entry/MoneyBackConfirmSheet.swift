@@ -833,7 +833,9 @@ struct MoneyBackConfirmSheet: View {
     people = (try? environment.references?.people()) ?? []
     owed = (try? environment.transactions?.owedParts()) ?? []
     debts = (try? environment.references?.debts()) ?? []
-    accounts = environment.shield.offered((try? environment.references?.paymentMethods()) ?? [])
+    // The account the money came to stays on offer even when hidden: the line named it.
+    accounts = environment.shield.offered(
+      (try? environment.references?.paymentMethods()) ?? [], keeping: accountId)
     rates = (try? environment.rates?.table()) ?? RateTable()
     purchases = [:]
     for id in Set(owed.filter { $0.currency != .rub }.map(\.transactionId)) {

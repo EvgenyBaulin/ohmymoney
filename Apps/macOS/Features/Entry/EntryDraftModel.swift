@@ -57,9 +57,14 @@ public final class EntryDraftModel {
   var allDebtsById: [UUID: Debt] {
     Dictionary(allDebts.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
   }
-  /// Every card, archived ones too: the account picker offers the live cards of the live
-  /// accounts, and a saved operation keeps the card it names whatever became of it.
+  /// Every card, archived ones and those of hidden accounts too: the account picker offers the
+  /// live cards of the live accounts, and a saved operation keeps the card it names whatever
+  /// became of it. What the picker leaves out while the hidden accounts are covered is left out
+  /// where it offers (`accountCardChoices`), never here: the cashback and the card rules read
+  /// this list and have to see every card.
   public private(set) var cards: [PaymentCard] = []
+  /// The accounts and the cards the picker leaves out right now (`readsCovered`).
+  private var covered: (accounts: Set<UUID>, cards: Set<UUID>) = ([], [])
   /// The banks the accounts are filed under, archived ones included: they name the accounts in the
   /// account picker (`AccountLabels`).
   public private(set) var banks: [Bank] = []
@@ -409,9 +414,9 @@ public final class EntryDraftModel {
     reloadQualityRules()
     cachedRates = nil
     cashRates = [:]
-    let covered: (accounts: Set<UUID>, cards: Set<UUID>) = readsCovered?() ?? ([], [])
+    covered = readsCovered?() ?? ([], [])
     if let read = readsCards?() {
-      cards = read.cards.filter { !covered.cards.contains($0.id) }
+      cards = read.cards
       cashbackRules = read.rules
     }
     guard let references else { return }
@@ -504,9 +509,9 @@ public final class EntryDraftModel {
   /// back — is offered the accounts alone.
   public func accountCardChoices(locale: Locale) -> [AccountChoice] {
     let accounts = accountChoices(locale: locale)
-    let offered = has(.card) ? cards : []
+    let offered = has(.card) ? offeredCards : []
     var items = AccountCardChoices.items(
-      accounts: accounts, cards: offered, banks: banks, among: allAccounts, locale: locale
+      accounts: accounts, cards: offered, banks: banks, among: namingAccounts, locale: locale
     ).map {
       AccountChoice(id: $0.id, name: $0.name, isCard: $0.isCard, archived: false)
     }
@@ -1741,8 +1746,30 @@ public final class EntryDraftModel {
   /// archived since is offered that account too, so the picker still shows where it is.
   public func accountChoices(locale: Locale) -> [PaymentMethod] {
     let live = AccountRules.ordered(paymentMethods, locale: locale)
-    guard let current = selectedAccount, current.archived else { return live }
+    // A saved operation on an account archived since, or on a hidden one while covered, keeps
+    // that account on offer: the picker shows where it is and the save keeps it there.
+    guard let current = selectedAccount, current.archived || covered.accounts.contains(current.id)
+    else { return live }
     return live + [current]
+  }
+
+  /// The cards the picker offers: none of a hidden account while covered, but the card the
+  /// operation names and the cards of its own account — a saved operation on a hidden account
+  /// is shown as it was written.
+  var offeredCards: [PaymentCard] {
+    guard !covered.cards.isEmpty else { return cards }
+    let account = draft.paymentMethodId
+    return cards.filter {
+      !covered.cards.contains($0.id) || $0.id == draft.cardId || $0.accountId == account
+    }
+  }
+
+  /// The accounts the banks are named among in the picker: without the hidden ones while
+  /// covered, so no label hints that a bank holds another account.
+  private var namingAccounts: [PaymentMethod] {
+    guard !covered.accounts.isEmpty else { return allAccounts }
+    let kept = draft.paymentMethodId
+    return allAccounts.filter { !covered.accounts.contains($0.id) || $0.id == kept }
   }
 
   /// The account the owner chose — named in the line, picked in the panel, or the one whose

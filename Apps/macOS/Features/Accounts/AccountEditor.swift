@@ -466,14 +466,16 @@ struct AccountEditor: View {
   }
 
   /// Where the interest may go besides this account: the other live accounts, and the one it
-  /// goes to now even from the archive, named as every list names them.
+  /// goes to now even from the archive or a hidden one, named as every list names them. The
+  /// other hidden accounts are not offered while covered.
   private var payoutChoices: [AccountCardChoices.Item] {
+    let shown = environment.shield.offered(accounts, keeping: draft.interest.payoutAccountId)
     let offered = AccountRules.ordered(
-      accounts.filter {
+      shown.filter {
         $0.id != draft.id && (!$0.archived || $0.id == draft.interest.payoutAccountId)
       }, locale: environment.language.locale, includeArchived: true)
     return AccountCardChoices.accountItems(
-      accounts: offered, banks: banks, among: accounts.filter { !$0.archived },
+      accounts: offered, banks: banks, among: shown.filter { !$0.archived },
       locale: environment.language.locale)
   }
 

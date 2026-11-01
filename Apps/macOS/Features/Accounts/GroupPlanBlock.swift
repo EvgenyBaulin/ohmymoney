@@ -25,6 +25,17 @@ enum GroupScope: Hashable, Sendable {
         withoutRate: snapshot.inSummaryWithoutRate)
     }
   }
+
+  /// Whether the total of this screen holds money of a hidden account while they are covered
+  /// (`covered` is `nil` once they are shown): «Всего» when a hidden account is in the summary,
+  /// a group when one of its accounts is hidden.
+  func isPartHidden(_ covered: CoveredAccounts?) -> Bool {
+    guard let covered else { return false }
+    switch self {
+    case .group(let id): return covered.sectionsWithHiddenPart.contains(id)
+    case .summary: return covered.partHidden
+    }
+  }
 }
 
 /// A group's screen, or that of «Всего»: the group (none for «Всего»), its accounts, whether it

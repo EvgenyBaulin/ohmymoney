@@ -47,9 +47,13 @@ enum AnalyticsBuilder {
       // ledger alone: the model only keeps the request.
       content = .planned
     }
-    return AnalyticsModel(
-      request: request, header: AnalyticsHeader(period: period, today: today),
-      names: AnalyticsNames(dataset: ledger.dataset), content: content)
+    // Built from the whole ledger, so every figure keeps the money of the hidden accounts;
+    // only then is what would show them taken off.
+    return covering(
+      AnalyticsModel(
+        request: request, header: AnalyticsHeader(period: period, today: today),
+        names: AnalyticsNames(dataset: ledger.dataset), content: content),
+      ledger: ledger)
   }
 
   // MARK: - Model quality

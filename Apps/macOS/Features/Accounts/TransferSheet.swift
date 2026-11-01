@@ -46,14 +46,20 @@ struct TransferSheet: View {
 
   /// What the account menus offer: the live accounts, and the archived ones `kept` — those of
   /// the transfer being edited —, named as every list of accounts names them (`AccountLabels`):
-  /// the bank alone for a bank with one live account, «Банк › Счёт» for one with several.
+  /// the bank alone for a bank with one live account, «Банк › Счёт» for one with several. The
+  /// accounts in `hiding` — the hidden ones while covered, but those the transfer names — are
+  /// left out; the banks are named among the accounts offered, so no label hints at a hidden
+  /// one.
   static func accountItems(
-    all: [PaymentMethod], banks: [Bank], keeping kept: Set<UUID>, locale: Locale
+    all: [PaymentMethod], banks: [Bank], keeping kept: Set<UUID>,
+    hiding: Set<UUID> = [], locale: Locale
   ) -> [AccountCardChoices.Item] {
+    let shown = all.filter { !hiding.contains($0.id) }
     let offered = AccountRules.ordered(
-      all.filter { !$0.archived || kept.contains($0.id) }, locale: locale, includeArchived: true)
+      shown.filter { !$0.archived || kept.contains($0.id) }, locale: locale,
+      includeArchived: true)
     return AccountCardChoices.accountItems(
-      accounts: offered, banks: banks, among: all, locale: locale)
+      accounts: offered, banks: banks, among: hiding.isEmpty ? all : shown, locale: locale)
   }
 
   var body: some View {
