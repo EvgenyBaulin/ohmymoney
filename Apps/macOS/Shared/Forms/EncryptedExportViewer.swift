@@ -130,7 +130,8 @@ struct ArchiveTables: Equatable, Sendable {
       // the language, the theme and the size of the text here, as the roots of the scenes do.
       window.contentViewController = NSHostingController(
         rootView: ArchiveTablesView(
-          tables: tables, environment: environment, close: { [weak window] in window?.performClose(nil) }
+          tables: tables, environment: environment,
+          close: { [weak window] in window?.performClose(nil) }
         )
         .environment(\.locale, environment.language.locale)
         .modifier(AppThemeModifier(theme: environment.theme))

@@ -457,11 +457,15 @@ final class HiddenLeaksTests: XCTestCase {
         limitRub: rub(1_400_000), on: today)
     }
     XCTAssertEqual(
-      CapitalInsuranceSection.shown(banks, accounts: accounts, hiding: HiddenAccounts(ids: [secret.id]))
-        .map(\.bankId), [openBank])
+      CapitalInsuranceSection.shown(
+        banks, accounts: accounts, hiding: HiddenAccounts(ids: [secret.id])
+      )
+      .map(\.bankId), [openBank])
     XCTAssertEqual(
-      CapitalInsuranceSection.shown(banks, accounts: accounts, hiding: HiddenAccounts(ids: [UUID]()))
-        .count, 2)
+      CapitalInsuranceSection.shown(
+        banks, accounts: accounts, hiding: HiddenAccounts(ids: [UUID]())
+      )
+      .count, 2)
   }
 
   // MARK: Subscriptions, the year, the currency gain
@@ -546,7 +550,8 @@ final class HiddenLeaksTests: XCTestCase {
         accounts: accounts, hiding: HiddenAccounts(accounts: accounts), environment),
       "Основной счёт (скрыт)")
     XCTAssertNil(
-      AccountPicker.noneTitle(accounts: accounts, hiding: HiddenAccounts(ids: [UUID]()), environment))
+      AccountPicker.noneTitle(
+        accounts: accounts, hiding: HiddenAccounts(ids: [UUID]()), environment))
     XCTAssertNil(
       AccountPicker.noneTitle(
         accounts: [open, secret], hiding: HiddenAccounts(accounts: [open, secret]), environment))

@@ -650,7 +650,8 @@ enum ArchiveImportFlow {
     // at, which replace nothing. Its password comes first, and «Загрузить этот архив?» only for
     // an archive that carries a database.
     if archives.isEncryptedSafely(at: url) {
-      run(url, archives: archives, backups: backups, questions: questions, confirmsAfterOpening: true)
+      run(
+        url, archives: archives, backups: backups, questions: questions, confirmsAfterOpening: true)
       return
     }
     guard questions.confirm() else { return }

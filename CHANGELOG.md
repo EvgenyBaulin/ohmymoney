@@ -7,6 +7,36 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.6.1] — 2026-11-01
+
+Finishing touches of privacy. The database schema stays 19; nothing to upgrade.
+
+### Fixed
+
+- Hidden accounts no longer show anywhere while they are covered: pick lists of scheduled payments,
+  goals, debts, transfers and the entry line; the lists of a day, the calendar, analytics,
+  subscriptions, Capital, the cushion, planned payments, «Worth a look» and the year plan. Totals
+  still count their money and say «part hidden».
+- Marking a scheduled payment of a hidden account as paid wrote it to the main account and dropped
+  its card; it now keeps its own account and card.
+- The neutral labels of an anonymised copy follow the interface language.
+
+### Added
+
+- The exports of a trip, of reports and of «Banks for the year» ask «Encrypt» before saving, on by
+  default; the file is sealed with the password format of «Export copy» and opens only in OhMyMoney.
+- A file with a password that holds only tables (those exports and «Export copy» as CSV) opens as a
+  read-only view of its tables with «Save CSV…»; nothing is imported and the database is not touched.
+
+### Known limits
+
+- On Mac there is no reliable sign of screen recording: amounts hide on mirroring, and ⌃⌘H is the
+  manual way.
+- A file with a password opens only in OhMyMoney; «Compare with archive» does not take a file of
+  tables.
+- The journal on Mac does not tell Touch ID from the Mac password.
+- The new screens were not looked at in a live window.
+
 ## [2.6.0] — 2026-10-30
 
 Privacy. This release also carries 2.4.0 and 2.5.0, which were not published on their own. The
