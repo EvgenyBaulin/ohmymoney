@@ -27,8 +27,12 @@ enum HabitNudgeRoute {
   /// The last answer of the deliverer: the reminder goes as a notification.
   private(set) static var delivers = false
 
+  /// The reminder last routed, for a deliverer whose settings changed.
+  private(set) static var lastAsked: HabitNudge?
+
   /// Hands the reminder due now to the deliverer; without one, the line of the evening carries it.
   static func route(_ nudge: HabitNudge?) {
+    lastAsked = nudge
     guard let deliverer else {
       delivers = false
       return

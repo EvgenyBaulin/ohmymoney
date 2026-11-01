@@ -885,6 +885,93 @@
         }
       }
     },
+    "mac.notify.evening.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Or say in OhMyMoney that there was none today."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Или отметьте в OhMyMoney, что сегодня трат не было."
+          }
+        }
+      }
+    },
+    "mac.notify.evening.streak": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Keep your streak of %lld day going."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Keep your streak of %lld days going."
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не прерывайте серию: %lld дня подряд."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не прерывайте серию: %lld дней подряд."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не прерывайте серию: %lld день подряд."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Не прерывайте серию: %lld дня подряд."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "mac.notify.evening.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record today’s spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запишите траты за день"
+          }
+        }
+      }
+    },
     "mac.notify.explain.allow": {
       "extractionState": "manual",
       "localizations": {
@@ -1374,6 +1461,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Версия OhMyMoney: %@"
+          }
+        }
+      }
+    },
+    "mac.settings.evening": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evening reminder to record spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вечером — напомнить записать траты"
           }
         }
       }

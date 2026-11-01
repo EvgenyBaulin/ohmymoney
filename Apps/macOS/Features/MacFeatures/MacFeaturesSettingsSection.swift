@@ -10,6 +10,7 @@ struct MacFeaturesSettingsSection: View {
   @AppStorage(MacNotifications.key(for: .payments)) private var payments = true
   @AppStorage(MacNotifications.key(for: .limits)) private var limits = true
   @AppStorage(MacNotifications.key(for: .summaries)) private var summaries = true
+  @AppStorage(MacNotifications.key(for: .evening)) private var evening = true
   @AppStorage(MacNotifications.privacyKey) private var privacy = NotificationPlan.Privacy.standard
     .rawValue
 
@@ -41,6 +42,10 @@ struct MacFeaturesSettingsSection: View {
         .accessibilityIdentifier("settings.mac.limits")
       Toggle(isOn: $summaries) { Text(verbatim: t("mac.settings.summaries")) }
         .accessibilityIdentifier("settings.mac.summaries")
+      Toggle(isOn: $evening) { Text(verbatim: t("mac.settings.evening")) }
+        .accessibilityIdentifier("settings.mac.evening")
+        // Off takes back a reminder already scheduled; on schedules today's.
+        .onChange(of: evening) { _, _ in HabitNudgeRoute.route(HabitNudgeRoute.lastAsked) }
       // What a notification may say about amounts and hidden accounts.
       Picker(selection: $privacy) {
         ForEach(NotificationPlan.Privacy.allCases, id: \.self) { choice in

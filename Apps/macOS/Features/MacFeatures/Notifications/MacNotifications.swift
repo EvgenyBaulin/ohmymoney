@@ -79,6 +79,11 @@ final class MacNotifications: NSObject {
   @ObservationIgnored var defaults: UserDefaults = .standard
   @ObservationIgnored private var dependencies: AppDependencies?
   @ObservationIgnored private var working = false
+  /// What the system said about permission at the last look; `nil` before the first.
+  @ObservationIgnored private(set) var permissionNow: NotificationPlan.Permission?
+  /// The reminder of the evening last handed in (`HabitNudgeDelivering`), asked again when the
+  /// permission changes.
+  @ObservationIgnored private var lastNudge: HabitNudge?
 
   init(posting: any NotificationPosting) {
     self.posting = posting
@@ -89,6 +94,8 @@ final class MacNotifications: NSObject {
   func install() {
     let center = UNUserNotificationCenter.current()
     center.delegate = self
+    // The reminder of the evening of the habits is a notification from now on.
+    HabitNudgeRoute.deliverer = self
     let record = UNNotificationAction(
       identifier: Self.recordAction,
       title: AppLanguage()("mac.notify.record", table: MacCommands.table), options: [])
@@ -141,8 +148,10 @@ final class MacNotifications: NSObject {
     let stale = await posting.pendingIds().filter { Self.isOurs($0) && !active.contains($0) }
     if !stale.isEmpty { posting.removePending(stale) }
 
+    let permission = await posting.permission()
+    notePermission(permission)
     switch NotificationPlan.step(
-      notices: fresh, permission: await posting.permission(),
+      notices: fresh, permission: permission,
       explained: defaults.bool(forKey: Self.explainedKey))
     {
     case .nothing:
@@ -162,8 +171,10 @@ final class MacNotifications: NSObject {
           identifier: notice.id, content: content,
           trigger: trigger(for: notice.day, today: today, calendar: environment.calendar)))
     }
-    posted = NotificationPlan.posted(
-      keeping: posted, adding: Set(fresh.map(\.id)), active: active)
+    // The reminders of the evening are not this plan's: they are kept as they are.
+    posted =
+      NotificationPlan.posted(keeping: posted, adding: Set(fresh.map(\.id)), active: active)
+      .union(posted.filter { $0.hasPrefix(Self.eveningPrefix) })
     AppLog.info(
       "notify.posted", .ui, "notifications were posted", [LogPair("count", .count(fresh.count))])
   }
@@ -174,6 +185,7 @@ final class MacNotifications: NSObject {
     defaults.set(true, forKey: Self.explainedKey)
     guard allow else { return }
     _ = await posting.requestPermission()
+    notePermission(await posting.permission())
     if let dependencies { await refresh(dependencies) }
   }
 
@@ -225,6 +237,82 @@ final class MacNotifications: NSObject {
     NSApp.activate()
     NotificationCenter.default.post(name: .openSidebarItem, object: SidebarItem.section(section))
     _ = AppWindows.bringForward(.main)
+  }
+}
+
+// MARK: - The reminder of the evening
+
+extension MacNotifications: HabitNudgeDelivering {
+  /// The id of every reminder of the evening starts so (`HabitNudge.id`).
+  nonisolated static let eveningPrefix = "habits.nudge:"
+
+  /// Permission as the system says it now. A change hands the reminder of the evening to the
+  /// route again, so «Стоит посмотреть» stops saying it once the notification can.
+  func notePermission(_ permission: NotificationPlan.Permission) {
+    let changed = permissionNow != nil && permissionNow != permission
+    permissionNow = permission
+    if changed { HabitNudgeRoute.route(lastNudge) }
+  }
+
+  /// «Запишите траты за день» at the hour of the evening (`nudge.at`), keyed by its day: the same
+  /// day handed in again is not shown twice; `nil` takes back what was scheduled. `false` — no
+  /// permission yet or any more, or the evening switched off in «За пределами приложения»: the
+  /// line of «Стоит посмотреть» says it then. With permission never asked, the app's explanation
+  /// comes up — there is something to say now.
+  func schedule(_ nudge: HabitNudge?) -> Bool {
+    lastNudge = nudge
+    let scheduled = posted.filter { $0.hasPrefix(Self.eveningPrefix) }
+    guard let nudge, kinds().contains(.evening) else {
+      takeBack(scheduled)
+      return false
+    }
+    // Another day's reminder, not shown yet, goes.
+    takeBack(scheduled.subtracting([nudge.id]))
+    switch permissionNow {
+    case .allowed:
+      break
+    case .undetermined:
+      if !defaults.bool(forKey: Self.explainedKey) { explaining = true }
+      return false
+    case .denied, nil:
+      return false
+    }
+    guard !posted.contains(nudge.id) else { return true }
+    let content = EveningWords(language: dependencies?.environment.language ?? AppLanguage())
+      .content(of: nudge)
+    let now = dependencies?.environment.now() ?? Date()
+    let trigger: UNNotificationTrigger? =
+      nudge.at > now
+      ? UNTimeIntervalNotificationTrigger(timeInterval: nudge.at.timeIntervalSince(now), repeats: false)
+      : nil
+    posting.post(UNNotificationRequest(identifier: nudge.id, content: content, trigger: trigger))
+    posted = posted.union([nudge.id])
+    AppLog.info("notify.evening", .ui, "the reminder of the evening was scheduled")
+    return true
+  }
+
+  private func takeBack(_ ids: Set<String>) {
+    guard !ids.isEmpty else { return }
+    posting.removePending(Array(ids))
+    posted = posted.subtracting(ids)
+  }
+}
+
+/// The words of the reminder of the evening: no amount in it, so nothing to hide.
+@MainActor
+struct EveningWords {
+  let language: AppLanguage
+
+  func content(of nudge: HabitNudge) -> UNMutableNotificationContent {
+    let content = UNMutableNotificationContent()
+    content.title = language("mac.notify.evening.title", table: MacCommands.table)
+    if let streak = nudge.streakDays, streak > 0 {
+      content.body = language.counted("mac.notify.evening.streak", table: MacCommands.table, [streak])
+    } else {
+      content.body = language("mac.notify.evening.body", table: MacCommands.table)
+    }
+    content.userInfo = ["section": MainWindow.Section.overview.rawValue]
+    return content
   }
 }
 

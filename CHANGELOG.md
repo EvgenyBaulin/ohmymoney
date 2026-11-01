@@ -7,6 +7,51 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.9.0] — 2026-11-02
+
+Mac features, habits and the groundwork of sync with the cashback advisor. This release also
+carries 2.7.0 and 2.8.0, which were not published on their own. The database schema is 21;
+opening the app upgrades the database after a verified copy, and older data reads as before. The
+export has 53 files.
+
+### Added
+
+- From 2.7 — Mac: Shortcuts actions and AppleScript (add, change, delete and find operations, month
+  summary, Markdown export of a month); a Focus filter that hides amounts; notifications for a
+  payment due tomorrow (with Record Payment), limits, summaries and the evening reminder, with a
+  privacy choice for hidden amounts and hidden accounts; operations in Spotlight (description and
+  place only, off by default, never hidden accounts); any section in its own window (⌥⌘N); drag or
+  copy operations to Numbers and Mail as a table; print Operations, Reports and summaries; a
+  compact view of Operations, Debts and Purchases; a Quick Look preview of a transfer archive.
+- From 2.8 — habits and learning: restore missed days from account balances, then by day; an
+  evening «No spending today?» line; entry streaks that forgive one missed day a week; badges for
+  streaks and monthly counts in Summaries (kept once earned, also for past months); a «Why I save»
+  note on goals shown in hard moments; a first-month checklist in the guide; five short lessons;
+  a beginner mode that dims advanced sections until they make sense. Schema 20: `goals.why_note`,
+  `habit_badges`, `no_spend_days`.
+- 2.9 — cashback: a monthly cap per rule and per account, the day the bank opens the choice of
+  categories, a sheet that suggests the categories of the month and maps the bank's categories to
+  yours, «Which card here» and the cashback trap in «Worth a look», and missed cashback for three
+  months.
+- 2.9 — sync groundwork: a permanent history of changes by device and time, shown in a «History»
+  tab of an operation; a delete against an edit is settled by time; a sync key in the keychain with
+  a printable 24-word recovery sheet with a QR code. Schema 21: `sync_history`, cashback caps,
+  `bank_cashback_categories`, `cashback_offers`.
+
+### Fixed
+
+- «Export copy» no longer carries the bookkeeping of the exchange, which held rows of hidden
+  accounts and days outside the period.
+- The missed-days wizard no longer puts a restored spending before the last count of an account.
+
+### Known limits
+
+- Shortcuts may not list the app while it is signed locally; then the actions come with the paid
+  developer account.
+- The exchange folder is still not encrypted; the format and the key are ready.
+- The lessons were written without the owner's review yet.
+- The new screens were not looked at in a live window.
+
 ## [2.6.1] — 2026-11-01
 
 Finishing touches of privacy. The database schema stays 19; nothing to upgrade.

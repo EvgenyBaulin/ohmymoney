@@ -123,6 +123,49 @@ final class MacNotificationsTests: XCTestCase {
     XCTAssertFalse(anonymous.content.body.contains("650"), anonymous.content.body)
   }
 
+  /// The reminder of the evening of the habits: keyed by its day, shown once, taken back by
+  /// `nil`, refused without permission or with the evening switched off; permission never asked
+  /// brings up the app's explanation.
+  func testTheReminderOfTheEveningIsANotification() throws {
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: "MacNotificationsEvening-\(UUID())"))
+    let posting = CountingPosting()
+    let notifications = MacNotifications(posting: posting)
+    notifications.defaults = defaults
+    let today = DateOnly(year: 2026, month: 11, day: 2)
+    let nudge = HabitNudge(day: today, at: Date().addingTimeInterval(3_600), streakDays: 4)
+
+    // Before the system was asked: nothing is scheduled.
+    XCTAssertFalse(notifications.schedule(nudge))
+    notifications.notePermission(.undetermined)
+    XCTAssertFalse(notifications.schedule(nudge))
+    XCTAssertTrue(notifications.explaining, "there is something to say: the explanation comes up")
+    XCTAssertTrue(posting.posted.isEmpty)
+
+    notifications.explaining = false
+    notifications.notePermission(.allowed)
+    XCTAssertTrue(notifications.schedule(nudge))
+    XCTAssertTrue(notifications.schedule(nudge), "the same day again")
+    XCTAssertEqual(posting.posted.map(\.identifier), [nudge.id], "shown once")
+    let content = try XCTUnwrap(posting.posted.first?.content)
+    XCTAssertFalse(content.title.isEmpty)
+    XCTAssertFalse(content.body.contains("mac."), content.body)
+    XCTAssertNotNil(posting.posted.first?.trigger, "waits for the hour of the evening")
+
+    // Spending recorded: the reminder is taken back.
+    XCTAssertFalse(notifications.schedule(nil))
+    XCTAssertEqual(posting.removed, [nudge.id])
+
+    // The evening switched off in «За пределами приложения».
+    defaults.set(false, forKey: MacNotifications.key(for: .evening))
+    XCTAssertFalse(notifications.schedule(nudge))
+    XCTAssertEqual(posting.posted.count, 1)
+
+    // Denied: refused, the line of «Стоит посмотреть» says it.
+    defaults.set(true, forKey: MacNotifications.key(for: .evening))
+    notifications.notePermission(.denied)
+    XCTAssertFalse(notifications.schedule(nudge))
+  }
+
   /// Spotlight: off — the index is emptied; on — description and place only, never a hidden
   /// account's operation.
   func testSpotlightGetsOnlyWhatMayBeIndexed() async throws {
@@ -172,9 +215,11 @@ private actor RecordingIndex: SpotlightIndexing {
 @MainActor
 private final class CountingPosting: NotificationPosting {
   var posted: [UNNotificationRequest] = []
-  func permission() async -> NotificationPlan.Permission { .allowed }
+  var removed: [String] = []
+  var answer = NotificationPlan.Permission.allowed
+  func permission() async -> NotificationPlan.Permission { answer }
   func requestPermission() async -> Bool { true }
   func pendingIds() async -> [String] { [] }
-  func removePending(_ ids: [String]) {}
+  func removePending(_ ids: [String]) { removed += ids }
   func post(_ request: UNNotificationRequest) { posted.append(request) }
 }

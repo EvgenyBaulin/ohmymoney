@@ -11,11 +11,14 @@ import Foundation
 /// a notice is posted once, a payment paid early takes its pending notice away, and next
 /// month's limit is news again.
 public enum NotificationPlan {
-  /// The three kinds the owner can switch on and off one by one.
+  /// The kinds the owner can switch on and off one by one. `evening` — the reminder of the
+  /// evening of the habits, «Запишите траты за день» — is scheduled by the app on its own day
+  /// (`HabitNudge`), not by this plan.
   public enum Kind: String, CaseIterable, Hashable, Sendable {
     case payments
     case limits
     case summaries
+    case evening
   }
 
   public enum Subject: Hashable, Sendable {
