@@ -262,6 +262,11 @@ struct DataSnapshot: Sendable {
       wishes: dataset.wishes, rates: context.rubPerUnit, freeRubE4: free, waiting: waiting,
       gifts: GiftCalendar.upcoming(people: dataset.people, today: today), regret: regret,
       today: today, dismissed: context.debtReminders.dismissed)
+    // Cashback: the month's choice to make, where another card pays more, the trap. Hidden
+    // accounts are taken out by the card that shows the lines (`WorthALookCover`).
+    planning.cashbackNotes = CashbackNote.list(
+      ledger: ledger, today: today, offers: dataset.cashbackChoice.offers,
+      dismissed: context.debtReminders.dismissed)
   }
 
   /// The figures of the credits, the credit cards, the allocation of income and

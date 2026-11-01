@@ -18,6 +18,21 @@ public struct PayHereHint: Hashable, Sendable, Identifiable {
   /// Rubles the last 30 days' purchases there would have earned more with `best`.
   public var gainRub: AmountE4
 
+  public init(
+    month: MonthKey, placeId: UUID?, categoryId: UUID?, best: CashbackCandidate,
+    bestPercent: CashbackPercent, usual: CashbackCandidate?, usualPercent: CashbackPercent,
+    gainRub: AmountE4
+  ) {
+    self.month = month
+    self.placeId = placeId
+    self.categoryId = categoryId
+    self.best = best
+    self.bestPercent = bestPercent
+    self.usual = usual
+    self.usualPercent = usualPercent
+    self.gainRub = gainRub
+  }
+
   public var id: String {
     let subject = (placeId ?? categoryId)?.uuidString.lowercased() ?? "none"
     return "cashback.payHere:\(month.iso):\(subject)"
@@ -34,6 +49,17 @@ public struct CashbackTrap: Hashable, Sendable, Identifiable {
   public var cashbackRub: AmountE4
   /// The median of the months before.
   public var usualRub: AmountE4
+
+  public init(
+    month: MonthKey, categoryId: UUID, spentRub: AmountE4, cashbackRub: AmountE4,
+    usualRub: AmountE4
+  ) {
+    self.month = month
+    self.categoryId = categoryId
+    self.spentRub = spentRub
+    self.cashbackRub = cashbackRub
+    self.usualRub = usualRub
+  }
 
   public var id: String { "cashback.trap:\(month.iso):\(categoryId.uuidString.lowercased())" }
 }

@@ -35,7 +35,8 @@ public enum CashbackRules {
   /// that rule is deleted in the same save. Two rows of the sheet swapped, a rule taken away and
   /// added again, or a row moved to another category then never meet the database's
   /// one-rule-per-key index halfway and never lose a rule. A key whose percent did not change
-  /// writes nothing. `old` and `new` are the rules of the holders the sheet edits.
+  /// writes nothing; a new ceiling of a rule is a change of it. `old` and `new` are the rules
+  /// of the holders the sheet edits.
   public static func diff(
     old: [CashbackRule], new: [CashbackRule]
   ) -> (upserts: [CashbackRule], deletions: [UUID]) {
@@ -46,9 +47,11 @@ public enum CashbackRules {
     var kept: Set<CashbackRuleKey> = []
     for rule in new where kept.insert(rule.key).inserted {
       if let previous = oldByKey[rule.key] {
-        guard previous.percent != rule.percent else { continue }
+        guard previous.percent != rule.percent || previous.monthlyCapE4 != rule.monthlyCapE4
+        else { continue }
         var updated = previous
         updated.percent = rule.percent
+        updated.monthlyCapE4 = rule.monthlyCapE4
         upserts.append(updated)
       } else {
         var added = rule
@@ -97,7 +100,7 @@ public enum CashbackRules {
     .map { rule in
       CashbackRule(
         accountId: rule.accountId, cardId: rule.cardId, categoryId: rule.categoryId, month: to,
-        percent: rule.percent)
+        percent: rule.percent, monthlyCapE4: rule.monthlyCapE4)
     }
   }
 

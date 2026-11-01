@@ -163,6 +163,11 @@ public struct ChangeJournalRepository: Sendable {
     self.writer = writer
   }
 
+  /// On an open database of the app.
+  public init(stack: DatabaseStack) {
+    self.writer = stack.writer
+  }
+
   /// The lines of an operation and its parts, in journal order.
   public func records(ofOperation id: UUID) throws -> [ChangeRecord] {
     try writer.read { db in

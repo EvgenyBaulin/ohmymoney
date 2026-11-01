@@ -122,6 +122,9 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
   /// A wish that can be bought now, a refund that did not arrive, a birthday in a week, the
   /// question «Не пожалели?» (`PurchaseNotes`).
   case purchase(PurchaseNote)
+  /// The month's choice of cashback categories to make, a place to pay with another card, the
+  /// cashback trap (`CashbackNote.list`).
+  case cashback(CashbackNote)
 
   public var id: String {
     switch self {
@@ -138,6 +141,7 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
     case .depositEnds(let advice): "depositEnds:\(advice.id)"
     case .warranty(let reminder): reminder.id
     case .purchase(let note): note.id
+    case .cashback(let note): note.id
     }
   }
 }
@@ -155,7 +159,7 @@ extension WorthALook {
     burnoutEnabled: Bool = true, burnoutLastShownWeek: String? = nil, copyFreeBytes: Int64? = nil,
     lowCopySpaceBytes: Int64 = 1_000_000_000, databaseProblems: Int = 0,
     depositEnds: [DepositEndAdvice] = [], warranty: [WarrantyReminder] = [],
-    purchases: [PurchaseNote] = []
+    purchases: [PurchaseNote] = [], cashback: [CashbackNote] = []
   ) -> [WorthALookNote] {
     var notes = planning.debtReminders.map(WorthALookNote.debt)
     notes += planning.bankNotes.map(WorthALookNote.bank)
@@ -194,6 +198,7 @@ extension WorthALook {
     notes += depositEnds.map(WorthALookNote.depositEnds)
     notes += warranty.map(WorthALookNote.warranty)
     notes += purchases.map(WorthALookNote.purchase)
+    notes += cashback.map(WorthALookNote.cashback)
     return notes
   }
 }

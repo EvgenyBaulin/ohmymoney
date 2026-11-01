@@ -14,7 +14,7 @@ enum WorthALookNoteText {
   static func text(
     _ note: WorthALookNote, debts: [UUID: String], accounts: [UUID: String],
     currencies: [UUID: CurrencyCode] = [:], warrantyNames: [UUID: String] = [:],
-    _ environment: AppEnvironment
+    labels: [UUID: String] = [:], _ environment: AppEnvironment
   ) -> String {
     let money = environment.money
     let day = { (day: DateOnly) in environment.dates.dayAndMonth(day) }
@@ -75,6 +75,8 @@ enum WorthALookNoteText {
       return DepositText.endsLine(advice, accounts: accounts, environment)
     case .warranty(let reminder):
       return WarrantyText.note(reminder, names: warrantyNames, environment)
+    case .cashback(let cashback):
+      return CashbackNoteText.text(cashback, accounts: accounts, labels: labels, environment)
     case .purchase(let purchase):
       return PurchaseHookText.note(purchase, environment)
     case .lowCopySpace(let free):
@@ -108,6 +110,7 @@ enum WorthALookNoteText {
     case .databaseProblems: "stethoscope"
     case .warranty(let reminder): WarrantyText.symbol(reminder)
     case .purchase(let purchase): PurchaseHookText.symbol(purchase)
+    case .cashback(let cashback): CashbackNoteText.symbol(cashback)
     }
   }
 
@@ -155,6 +158,8 @@ enum WorthALookNoteText {
     case openWishes
     case openRefunds
     case credited
+    /// Opens the sheet of the month's choice of cashback categories.
+    case chooseCashback
 
     /// The actions of the purchase notes have their words in the catalog of the purchases.
     var isPurchase: Bool {
@@ -166,7 +171,10 @@ enum WorthALookNoteText {
       }
     }
 
-    var table: String { isPurchase ? PurchaseHookText.table : WorthALookNoteText.table }
+    var table: String {
+      if self == .chooseCashback { return CashbackNoteText.table }
+      return isPurchase ? PurchaseHookText.table : WorthALookNoteText.table
+    }
 
     var key: String {
       switch self {
@@ -175,6 +183,7 @@ enum WorthALookNoteText {
       case .regretSkip: "purchase.regret.skip"
       case .createEvent, .openWishes, .openRefunds, .credited:
         "look.purchase.action.\(rawValue)"
+      case .chooseCashback: "cashback.note.action.choose"
       default: "look.action.\(rawValue)"
       }
     }
@@ -201,6 +210,8 @@ enum WorthALookNoteText {
     case .depositEnds: [.openDeposits]
     case .warranty: [.openWarranty, .done]
     case .purchase(let purchase): purchaseActions(purchase)
+    case .cashback(.choose): [.chooseCashback, .done]
+    case .cashback: [.done]
     }
   }
 
@@ -223,7 +234,7 @@ enum WorthALookNoteText {
       "look.npdLimit", "look.npdLimitExceeded", "look.burnout", "look.lowCopySpace",
       "look.databaseProblems",
     ] + WarrantyText.noteKeys + bankKeys
-    + Action.allCases.filter { !$0.isPurchase }.map(\.key)
+    + Action.allCases.filter { !$0.isPurchase && $0 != .chooseCashback }.map(\.key)
 }
 
 extension WorthALookNoteText {
@@ -369,7 +380,7 @@ extension WorthALook {
       warranty: WarrantyReminders.list(
         WarrantyList.items(from: snapshot.dataset.entries), today: snapshot.today,
         dismissed: DebtReminderMarks.read(from: defaults).dismissed),
-      purchases: snapshot.planning.purchaseNotes)
+      purchases: snapshot.planning.purchaseNotes, cashback: snapshot.planning.cashbackNotes)
   }
 }
 
@@ -382,10 +393,12 @@ enum WorthALookSheet: Identifiable {
   case forgotten
   case rebind(UUID)
   case warranty
+  case cashbackChoice(accountId: UUID, month: MonthKey)
 
   var id: String {
     switch self {
     case .warranty: "warranty"
+    case .cashbackChoice(let id, let month): "cashbackChoice:\(id):\(month.iso)"
     case .showcase: "showcase"
     case .forgotten: "forgotten"
     case .rebind(let id): "rebind:\(id)"
@@ -422,7 +435,10 @@ struct WorthALookNoteRow: View {
             currencies: Dictionary(
               snapshot.dataset.paymentMethods.map { ($0.id, $0.mainCurrency) },
               uniquingKeysWith: { first, _ in first }),
-            warrantyNames: untitledWarranty, environment)
+            warrantyNames: untitledWarranty,
+            labels: names(
+              snapshot.dataset.places.map { ($0.id, $0.name) }
+                + snapshot.dataset.categories.map { ($0.id, $0.name) }), environment)
         )
         .monospacedDigit()
         .fixedSize(horizontal: false, vertical: true)
@@ -475,6 +491,11 @@ struct WorthALookNoteRow: View {
       }
       if case .warranty(let reminder) = note {
         DebtReminderMarks.dismiss(reminder.id, in: .standard)
+        settle()
+        return
+      }
+      if case .cashback(let cashback) = note {
+        DebtReminderMarks.dismiss(cashback.id, in: .standard)
         settle()
         return
       }
@@ -550,6 +571,10 @@ struct WorthALookNoteRow: View {
       open(.showcase)
     case .openWarranty:
       open(.warranty)
+    case .chooseCashback:
+      if case .cashback(.choose(let due)) = note {
+        open(.cashbackChoice(accountId: due.accountId, month: due.month))
+      }
     case .createEvent:
       guard let dependencies, case .purchase(.birthday(let day)) = note else { return }
       if PurchaseHookActions.createEvent(for: day, deps: dependencies) { settled(note.id) }

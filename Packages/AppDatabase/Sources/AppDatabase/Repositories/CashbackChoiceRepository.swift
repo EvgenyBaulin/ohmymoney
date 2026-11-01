@@ -15,6 +15,11 @@ public struct CashbackChoiceRepository: Sendable {
     self.writer = writer
   }
 
+  /// On an open database of the app.
+  public init(stack: DatabaseStack) {
+    self.writer = stack.writer
+  }
+
   /// Everything, in a stable order; rows that do not read are left out.
   static func book(_ db: Database) throws -> CashbackChoiceBook {
     CashbackChoiceBook(

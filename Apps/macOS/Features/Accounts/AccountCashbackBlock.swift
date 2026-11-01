@@ -113,6 +113,8 @@ struct AccountCashbackBlock: View {
 
   @State private var model: AccountCashbackModel?
   @State private var editsRules = false
+  @State private var choosesCategories = false
+  @State private var showsMissed = false
 
   private func t(_ key: String) -> String { environment.language(key, table: CardText.table) }
 
@@ -139,8 +141,23 @@ struct AccountCashbackBlock: View {
           approximateIncome(model)
         }
         notes(model)
-        Button(t("cashback.rules")) { editsRules = true }
-          .accessibilityIdentifier("account.cashback.rules")
+        HStack {
+          Button(t("cashback.rules")) { editsRules = true }
+            .accessibilityIdentifier("account.cashback.rules")
+          // The bank's choice of the month, for an account whose bank offers one.
+          if compute.snapshot?.dataset.paymentMethods.first(where: { $0.id == accountId })?
+            .cashbackChoiceDay != nil
+          {
+            Button(environment.language("cashback.choice.open", table: "SyncHistory")) {
+              choosesCategories = true
+            }
+            .accessibilityIdentifier("account.cashback.choice")
+          }
+          Button(environment.language("cashback.missed.open", table: "SyncHistory")) {
+            showsMissed = true
+          }
+          .accessibilityIdentifier("account.cashback.missed")
+        }
       }
       .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -157,6 +174,12 @@ struct AccountCashbackBlock: View {
     .sheet(isPresented: $editsRules) {
       CashbackRulesSheet(accountId: accountId) { editsRules = false }
         .handingOver(dependencies)
+    }
+    .sheet(isPresented: $choosesCategories) {
+      CashbackChoiceSheet(accountId: accountId, month: month).handingOver(dependencies)
+    }
+    .sheet(isPresented: $showsMissed) {
+      MissedCashbackSheet().handingOver(dependencies)
     }
   }
 

@@ -167,6 +167,9 @@ public struct PlanningSnapshot: Hashable, Sendable {
   /// The lines of «Стоит посмотреть» about the purchases (`PurchaseNotes.list`), those put away
   /// already left out.
   public var purchaseNotes: [PurchaseNote] = []
+  /// The lines of «Стоит посмотреть» about cashback (`CashbackNote.list`): the month's choice to
+  /// make, where another card pays more, the cashback trap; those put away already left out.
+  public var cashbackNotes: [CashbackNote] = []
   /// The refunds of purchases still waited for (`WaitingRefunds.list`).
   public var waitingRefunds: WaitingRefunds = WaitingRefunds(items: [])
 

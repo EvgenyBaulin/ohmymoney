@@ -72,6 +72,13 @@ enum WorthALookCover {
       case .regret(let question): return operation(question.transactionId)
       case .wishReady, .birthday: return false
       }
+    case .cashback(let cashback):
+      switch cashback {
+      case .choose(let due): return account(due.accountId)
+      case .payHere(let hint):
+        return account(hint.best.accountId) || hint.usual.map { account($0.accountId) } == true
+      case .trap: return false
+      }
     case .npdDue, .salaryLate, .monthRest, .npdLimit, .burnout, .lowCopySpace,
       .databaseProblems:
       return false

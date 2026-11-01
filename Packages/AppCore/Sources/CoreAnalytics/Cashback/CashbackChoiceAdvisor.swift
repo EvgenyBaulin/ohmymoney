@@ -179,6 +179,12 @@ public enum CashbackChoiceAdvisor {
 public struct CashbackChoiceDue: Hashable, Sendable, Identifiable {
   public var accountId: UUID
   public var month: MonthKey
+
+  public init(accountId: UUID, month: MonthKey) {
+    self.accountId = accountId
+    self.month = month
+  }
+
   public var id: String { "cashback.choice:\(accountId.uuidString.lowercased()):\(month.iso)" }
 
   /// The accounts whose choice of `today`'s month is open and not made: no month rule of the

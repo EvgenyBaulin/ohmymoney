@@ -96,7 +96,7 @@ struct ExportPandasTests {
       ExportTables.eventTemplates, ExportTables.subscriptionTerms, ExportTables.subscriptionUsage,
       ExportTables.subscriptionUsers, ExportTables.subscriptionKeepGroups, ExportTables.attachments,
       ExportTables.wishes, ExportTables.wishPrices, ExportTables.shoppingItems,
-      ExportTables.ownedItems,
+      ExportTables.ownedItems, ExportTables.bankCashbackCategories, ExportTables.cashbackOffers,
     ] where rows[table] == nil {
       rows[table] = []
     }
@@ -158,7 +158,7 @@ struct ExportPandasTests {
       months: 6, endingOn: Synthetic.endingOn, calendar: Synthetic.calendar, language: "ru"
     ).withAccounts(seed: 20_260_918, calendar: Synthetic.calendar, language: "ru")
     let rows = Self.rows(of: set)
-    #expect(ExportTables.all.count == 49)
+    #expect(ExportTables.all.count == 51)
     #expect(Set(rows.keys) == Set(ExportTables.all), "a file of Export has no rows here")
     for table in [
       ExportTables.accountGroups, ExportTables.transfers, ExportTables.reconciliationBalances,
@@ -190,7 +190,7 @@ struct ExportPandasTests {
     try #require(run.status == 0, "pandas failed: \(run.output)")
     let readings = try JSONDecoder().decode(
       [String: Reading].self, from: Data(contentsOf: output))
-    #expect(readings.count == 49)
+    #expect(readings.count == ExportTables.all.count)
     for (path, table) in paths.sorted(by: { $0.key < $1.key }) {
       let reading = try #require(readings[path], "pandas did not read \(table.fileName)")
       #expect(reading.rows == (rows[table] ?? []).count, "\(table.fileName): rows")
@@ -345,7 +345,7 @@ struct ExportPandasTests {
     try #require(run.status == 0, "pandas failed: \(run.output)")
     let readings = try JSONDecoder().decode(
       [String: TextReading].self, from: Data(contentsOf: output))
-    #expect(readings.count == 49)
+    #expect(readings.count == ExportTables.all.count)
     for (path, table) in paths.sorted(by: { $0.key < $1.key }) {
       let reading = try #require(readings[path], "pandas did not read \(table.fileName)")
       #expect(reading.rows == (rows[table] ?? []).count, "\(table.fileName): rows")
