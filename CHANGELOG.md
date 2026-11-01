@@ -43,6 +43,10 @@ export has 53 files.
 - «Export copy» no longer carries the bookkeeping of the exchange, which held rows of hidden
   accounts and days outside the period.
 - The missed-days wizard no longer puts a restored spending before the last count of an account.
+- iPhone and iPad no longer offer a problem report after the system ends the app in the
+  background; a report from the phone says «iOS».
+- The Iranian rial is no longer left out of the Bank of Russia rates: its per-unit rate comes in
+  scientific notation.
 
 ### Known limits
 
