@@ -245,7 +245,7 @@ struct MissedDaysSheet: View {
     return VStack(alignment: .leading, spacing: 6) {
       HStack {
         Picker("", selection: line.day) {
-          ForEach(gap.days, id: \.self) { day in
+          ForEach(days(of: line.wrappedValue.key), id: \.self) { day in
             Text(verbatim: environment.dates.dayAndMonth(day)).tag(day)
           }
         }
@@ -311,13 +311,18 @@ struct MissedDaysSheet: View {
     lines.removeAll { missing[$0.key] == nil }
     for (key, amount) in missing.sorted(by: { $0.key < $1.key })
     where !lines.contains(where: { $0.key == key }) {
-      lines += MissedDaysWizard.spread(amount, over: gap.days, key: key)
+      lines += MissedDaysWizard.spread(amount, over: days(of: key), key: key)
     }
     step = .days
   }
 
   private func addLine(_ key: BalanceKey, amount: AmountE4) {
-    lines.append(MissedDayLine(day: gap.days.last ?? gap.today, key: key, amountE4: amount))
+    lines.append(MissedDayLine(day: days(of: key).last ?? gap.today, key: key, amountE4: amount))
+  }
+
+  /// The days a line of a balance may take: not before its latest count.
+  private func days(of key: BalanceKey) -> [DateOnly] {
+    balances.first { $0.key == key }?.days(of: gap, calendar: environment.calendar) ?? gap.days
   }
 
   private func fillUnknown() {

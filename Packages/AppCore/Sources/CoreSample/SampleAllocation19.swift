@@ -46,7 +46,9 @@ extension SampleDataSet {
       sort: set.categories.filter { $0.parentId == goalsRoot.id }.count)
     let vacation = Goal(
       id: goalStream.nextUUID(), name: vacationName, targetE4: AmountE4(whole: 150_000),
-      subcategoryId: vacationCategory.id)
+      subcategoryId: vacationCategory.id,
+      // «Зачем коплю»: the note the hard moments of the goal show.
+      whyNote: layer.word("The sea in July, with the whole family", "Море в июле, всей семьёй"))
     set.categories.append(vacationCategory)
     set.goals.append(vacation)
     let cushion = set.paymentMethods.first { $0.cushion && !$0.archived }

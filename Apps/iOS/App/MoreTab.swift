@@ -77,6 +77,7 @@ struct MoreTab: View {
             }
             .accessibilityIdentifier("more.receipt")
           }
+          LessonsSection(environment: environment)
           dataSection
           // A real profile with no records of its own can take the data another device left in
           // the exchange folder.

@@ -36,11 +36,24 @@ public struct MissedDaysBalance: Hashable, Sendable, Identifiable {
   public var key: BalanceKey
   /// What the app counts on it now, in the key's currency.
   public var expected: AmountE4
+  /// The moment of the latest count the balance starts from: money spent before it is already
+  /// in that count, so a restored line goes no earlier than its day.
+  public var anchorAt: Date?
 
-  public init(account: PaymentMethod, key: BalanceKey, expected: AmountE4) {
+  public init(account: PaymentMethod, key: BalanceKey, expected: AmountE4, anchorAt: Date? = nil) {
     self.account = account
     self.key = key
     self.expected = expected
+    self.anchorAt = anchorAt
+  }
+
+  /// The days of a gap a line of this balance may take: those not before the day of its latest
+  /// count; the last day of the gap when every day is before it.
+  public func days(of gap: MissedDays, calendar: CalendarContext) -> [DateOnly] {
+    guard let anchorAt else { return gap.days }
+    let first = calendar.day(of: anchorAt)
+    let allowed = gap.days.filter { $0 >= first }
+    return allowed.isEmpty ? [gap.today] : allowed
   }
 
   public var id: BalanceKey { key }
@@ -83,7 +96,8 @@ public enum MissedDaysWizard {
       section.accounts.filter { !$0.account.archived }.flatMap { line in
         line.keys.compactMap { key -> MissedDaysBalance? in
           guard key.anchorAt != nil, let balance = key.balance else { return nil }
-          return MissedDaysBalance(account: line.account, key: key.key, expected: balance)
+          return MissedDaysBalance(
+            account: line.account, key: key.key, expected: balance, anchorAt: key.anchorAt)
         }
       }
     }

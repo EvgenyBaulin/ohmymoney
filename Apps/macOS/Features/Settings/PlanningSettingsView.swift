@@ -35,6 +35,7 @@ struct PlanningSettingsView: View {
       IncomeSavingsSettingsSection()
       PlanningHintsSection()
       SummariesSettingsSection()
+      HabitsSettingsSection()
       SpendingAnalysisSettingsSection()
 
       Section {

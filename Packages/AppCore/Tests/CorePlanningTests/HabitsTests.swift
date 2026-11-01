@@ -441,3 +441,27 @@ struct HabitPrivacyTests {
     #expect(GoalWhy.clean(String(repeating: "а", count: 400))?.count == GoalWhy.maxLength)
   }
 }
+
+@Suite("Habits: the days a restored line may take")
+struct MissedDaysAnchorTests {
+  typealias F = HabitFixture
+
+  @Test("a line goes no earlier than the day of the latest count; all before it — today")
+  func anchored() {
+    let gap = MissedDays(lastActive: F.monday, today: F.monday.adding(days: 4))
+    let key = BalanceKey(accountId: UUID(), currency: .rub)
+    let account = PaymentMethod(name: "Card")
+    let free = MissedDaysBalance(account: account, key: key, expected: .zero)
+    #expect(free.days(of: gap, calendar: F.calendar) == gap.days)
+    let counted = MissedDaysBalance(
+      account: account, key: key, expected: .zero,
+      anchorAt: F.calendar.noon(of: F.monday.adding(days: 3)))
+    #expect(
+      counted.days(of: gap, calendar: F.calendar)
+        == [F.monday.adding(days: 3), F.monday.adding(days: 4)])
+    let late = MissedDaysBalance(
+      account: account, key: key, expected: .zero,
+      anchorAt: F.calendar.noon(of: F.monday.adding(days: 9)))
+    #expect(late.days(of: gap, calendar: F.calendar) == [gap.today])
+  }
+}
