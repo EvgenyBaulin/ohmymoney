@@ -150,13 +150,31 @@ struct YearGridCard: View {
 
   // MARK: The menu of a cell
 
+  /// The items of a cell its menu names: covered, not a payment or an income of a hidden account.
+  static func listed(_ items: [YearPlanItem], hiding: HiddenPlans) -> [YearPlanItem] {
+    items.filter { item in
+      guard let id = item.sourceId else { return true }
+      switch item.kind {
+      case .payments: return !hiding.hides(scheduled: id)
+      case .income: return !hiding.hides(expected: id)
+      case .goals, .bigSpends: return true
+      }
+    }
+  }
+
   @ViewBuilder
   private func cellMenu(_ cell: YearPlanCell, kind: YearPlanRowKind) -> some View {
     if !cell.items.isEmpty {
+      // Covered, a plan of a hidden account is not named; the figure of the cell keeps it.
+      let shown = Self.listed(
+        cell.items, hiding: compute.snapshot.map { HiddenPlans(snapshot: $0) } ?? .none)
       Section {
-        ForEach(cell.items) { item in
+        ForEach(shown) { item in
           Button(YearText.itemTitle(item, environment)) { openSource(of: item) }
             .disabled(item.sourceId == nil)
+        }
+        if shown.count != cell.items.count {
+          Text(verbatim: PartHiddenNote.text(environment.language))
         }
       }
     }

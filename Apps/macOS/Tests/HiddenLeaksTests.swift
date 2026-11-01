@@ -464,6 +464,101 @@ final class HiddenLeaksTests: XCTestCase {
         .count, 2)
   }
 
+  // MARK: Subscriptions, the year, the currency gain
+
+  func testTheSubscriptionNoticesNameNoPaymentOfAHiddenAccount() {
+    var books = books()
+    let tomorrow = today.adding(days: 1)
+    let secretTrial = ScheduledPayment(
+      name: "Secret stream", kind: .subscription, amountE4: rub(399), paymentMethodId: secret.id,
+      day: tomorrow.day, nextDate: tomorrow, trialEnd: tomorrow)
+    let openTrial = ScheduledPayment(
+      name: "Music", kind: .subscription, amountE4: rub(199), paymentMethodId: open.id,
+      day: tomorrow.day, nextDate: tomorrow, trialEnd: tomorrow)
+    books.dataset.planning.scheduled += [secretTrial, openTrial]
+    let (whole, covered) = snapshots(books.dataset)
+    let notices = SubscriptionWatch.notices(
+      book: whole.dataset.planning, subscriptions: whole.dataset.subscriptions, today: today)
+    XCTAssertEqual(Set(notices.map(\.paymentId)), [secretTrial.id, openTrial.id])
+    XCTAssertEqual(
+      SubscriptionNoticeRows.visible(
+        notices, dismissed: [], hiding: HiddenPlans(snapshot: covered)
+      ).map(\.paymentId), [openTrial.id])
+    XCTAssertEqual(
+      SubscriptionNoticeRows.visible(notices, dismissed: [], hiding: HiddenPlans(snapshot: whole))
+        .count, 2)
+  }
+
+  func testTheYearNamesNoPlanOfAHiddenAccountAndKeepsTheCellFigure() throws {
+    let books = books()
+    let (whole, covered) = snapshots(books.dataset)
+    let plan = YearPlanInputs.plan(covered, window: .rolling(from: today.monthKey))
+    let payments = try XCTUnwrap(plan.cell(.payments, today.monthKey))
+    let incomes = try XCTUnwrap(plan.cell(.income, today.monthKey))
+    XCTAssertTrue(payments.items.contains { $0.sourceId == books.hiddenBill.id })
+    let hidden = HiddenPlans(snapshot: covered)
+    let shownPayments = YearGridCard.listed(payments.items, hiding: hidden)
+    XCTAssertFalse(shownPayments.contains { $0.title == books.hiddenBill.name })
+    XCTAssertFalse(shownPayments.contains { $0.title == books.cardBill.name })
+    XCTAssertTrue(shownPayments.contains { $0.title == books.openBill.name })
+    XCTAssertFalse(
+      YearGridCard.listed(incomes.items, hiding: hidden).contains {
+        $0.sourceId == books.hiddenIncome.id
+      })
+    XCTAssertEqual(
+      payments.total,
+      try XCTUnwrap(
+        YearPlanInputs.plan(whole, window: .rolling(from: today.monthKey))
+          .cell(.payments, today.monthKey)
+      ).total, "the figure of the cell keeps the hidden payments")
+    XCTAssertEqual(YearGridCard.listed(payments.items, hiding: .none), payments.items)
+  }
+
+  func testTheCurrencyGainSaysPartIsHiddenWhenAHiddenAccountHoldsForeignMoney() {
+    let inputs = [
+      CurrencyGain.Input(
+        key: BalanceKey(accountId: secret.id, currency: .usd), balanceAtStart: nil,
+        balanceAtEnd: nil, flows: []),
+      CurrencyGain.Input(
+        key: BalanceKey(accountId: open.id, currency: .usd), balanceAtStart: nil,
+        balanceAtEnd: nil, flows: []),
+    ]
+    let gain = CurrencyGain(
+      inputs: inputs, rates: .empty, from: today.monthKey.firstDay, to: today)
+    XCTAssertTrue(CurrencyGainSection.touchesHidden(gain, hiding: HiddenAccounts(ids: [secret.id])))
+    XCTAssertFalse(CurrencyGainSection.touchesHidden(gain, hiding: HiddenAccounts(ids: [UUID]())))
+    let visibleOnly = CurrencyGain(
+      inputs: [inputs[1]], rates: .empty, from: today.monthKey.firstDay, to: today)
+    XCTAssertFalse(
+      CurrencyGainSection.touchesHidden(visibleOnly, hiding: HiddenAccounts(ids: [secret.id])))
+  }
+
+  func testTheFormsOfAPaymentSayTheMainAccountIsHiddenWithoutNamingIt() {
+    var hiddenMain = secret
+    hiddenMain.isDefault = true
+    var plain = open
+    plain.isDefault = false
+    let accounts = [plain, hiddenMain]
+    let environment = AppEnvironment()
+    environment.language.choice = .russian
+    XCTAssertEqual(
+      AccountPicker.noneTitle(
+        accounts: accounts, hiding: HiddenAccounts(accounts: accounts), environment),
+      "Основной счёт (скрыт)")
+    XCTAssertNil(
+      AccountPicker.noneTitle(accounts: accounts, hiding: HiddenAccounts(ids: [UUID]()), environment))
+    XCTAssertNil(
+      AccountPicker.noneTitle(
+        accounts: [open, secret], hiding: HiddenAccounts(accounts: [open, secret]), environment))
+    // The form of an expected income says «as last time, else the main one» for no pick and
+    // never lists the hidden main account.
+    let options = ExpectedIncomeAccounts.options(
+      accounts, hiding: HiddenAccounts(accounts: accounts), selection: nil, auto: "auto",
+      locale: Locale(identifier: "en"))
+    XCTAssertEqual(options.first, ExpectedIncomeAccounts.Option(id: nil, title: "auto"))
+    XCTAssertFalse(options.contains { $0.title == secret.name })
+  }
+
   // MARK: 7. The goal form
 
   func testTheGoalFormSaysTheMainAccountIsHiddenWithoutNamingIt() {

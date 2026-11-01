@@ -19,7 +19,10 @@ struct SubscriptionNoticeRows: View {
     let names = Dictionary(
       (compute.snapshot?.dataset.planning.scheduled ?? []).map { ($0.id, $0.name) },
       uniquingKeysWith: { first, _ in first })
-    let visible = Self.visible(notices, dismissed: dismissed)
+    // Covered, a subscription of a hidden account is not named (`HiddenPlans`).
+    let visible = Self.visible(
+      notices, dismissed: dismissed,
+      hiding: compute.snapshot.map { HiddenPlans(snapshot: $0) } ?? .none)
     VStack(alignment: .leading, spacing: 6) {
       ForEach(visible) { notice in
         VStack(alignment: .leading, spacing: 4) {
@@ -52,13 +55,16 @@ struct SubscriptionNoticeRows: View {
     .onAppear { dismissed = DebtReminderMarks.read(from: .standard).dismissed }
   }
 
-  /// The notices to show: those not put away, soonest first, the first few.
+  /// The notices to show: those not put away and, while the hidden accounts are covered, not
+  /// those of a payment of a hidden account; soonest first, the first few.
   static func visible(
-    _ notices: [SubscriptionNotice], dismissed: Set<String>
+    _ notices: [SubscriptionNotice], dismissed: Set<String>, hiding: HiddenPlans = .none
   )
     -> [SubscriptionNotice]
   {
-    Array(notices.filter { !dismissed.contains($0.id) }.prefix(shown))
+    Array(
+      notices.filter { !dismissed.contains($0.id) && !hiding.hides(scheduled: $0.paymentId) }
+        .prefix(shown))
   }
 
   private func load() async {

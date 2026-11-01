@@ -54,6 +54,8 @@ struct CurrencyGainSection: View {
           Image(systemName: Self.symbol(of: gain.total))
         }
         .accessibilityIdentifier("travel.gain.total")
+        // The total counts the foreign money of a covered hidden account; no line names one.
+        if Self.touchesHidden(gain, hiding: snapshot.hiding) { PartHiddenNote() }
         Text(verbatim: TravelText.t("travel.gain.note", environment))
           .appFont(.caption)
           .foregroundStyle(.secondary)
@@ -78,6 +80,14 @@ struct CurrencyGainSection: View {
       }
       .accessibilityIdentifier("travel.gain")
     }
+  }
+
+  /// Some pair of the gain — counted, not counted yet or without a rate — is of a hidden account
+  /// the snapshot on screen leaves out: the figures hold its money.
+  static func touchesHidden(_ gain: CurrencyGain, hiding: HiddenAccounts) -> Bool {
+    guard !hiding.isEmpty else { return false }
+    let keys = gain.pairs.map(\.key) + gain.uncounted + gain.unpriced
+    return keys.contains { hiding.isHidden($0.accountId) }
   }
 
   /// An arrow by the sign of the whole rubles: up, down or level — never the colour of good or

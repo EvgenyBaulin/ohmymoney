@@ -62,7 +62,10 @@ struct ScheduledPaymentForm: View {
         }
         AccountPicker(
           title: t("form.method"), accounts: choices.methods(keeping: keptAccount),
-          cards: cards, selection: accountBinding)
+          cards: cards, selection: accountBinding,
+          noneTitle: AccountPicker.noneTitle(
+            accounts: compute.wholeSnapshot?.dataset.paymentMethods ?? [],
+            hiding: choices.hiding, environment))
         if let archived = Self.archivedAccount(
           of: draft.payment, among: compute.wholeSnapshot?.dataset.paymentMethods ?? [])
         {
@@ -534,7 +537,10 @@ struct MarkAsPaidForm: View {
         AccountPicker(
           title: environment.language("entry.account.from", table: "Entry"),
           accounts: choices.methods(keeping: payment.paymentMethodId), cards: cards,
-          selection: $method)
+          selection: $method,
+          noneTitle: AccountPicker.noneTitle(
+            accounts: compute.wholeSnapshot?.dataset.paymentMethods ?? [],
+            hiding: choices.hiding, environment))
         ChargeRow(charge: $charge)
         if payment.kind == .subscription, amount != status.amountNext {
           Toggle(t("form.updatePrice"), isOn: $updatePrice)
@@ -1073,6 +1079,10 @@ struct AccountPicker: View {
   /// The cards offered under their accounts, «Т-Банк › Black»; none — the accounts alone.
   var cards: [PaymentCard] = []
   @Binding var selection: UUID?
+  /// What no pick says when it means something: «Основной счёт (скрыт)» while the main account,
+  /// which no pick falls back to, is hidden and covered (`noneTitle(accounts:hiding:)`). It is
+  /// then always offered, so the owner can go back to it.
+  var noneTitle: String? = nil
 
   var body: some View {
     let locale = environment.language.locale
@@ -1081,11 +1091,23 @@ struct AccountPicker: View {
       accounts: FormAccounts.offered(accounts, locale: locale), cards: cards,
       banks: compute.snapshot?.dataset.banks ?? [], among: accounts, locale: locale)
     Picker(title, selection: $selection) {
-      if offered.isEmpty || !offered.contains(where: { $0.id == selection }) {
+      if let noneTitle {
+        Text(verbatim: noneTitle).tag(UUID?.none)
+      } else if offered.isEmpty || !offered.contains(where: { $0.id == selection }) {
         Text(verbatim: "—").tag(UUID?.none)
       }
       ForEach(offered) { Text(verbatim: $0.name).tag(Optional($0.id)) }
     }
+  }
+
+  /// The words of no pick in a form whose record, with no account, is paid from the main one:
+  /// «Основной счёт (скрыт)» while that account is hidden and covered — never its name; `nil`
+  /// otherwise, and the picker says «—» as before. `accounts` are all of them, hidden ones too.
+  static func noneTitle(
+    accounts: [PaymentMethod], hiding: HiddenAccounts, _ environment: AppEnvironment
+  ) -> String? {
+    guard GoalMoveForm.hidesMain(accounts, hiding: hiding) else { return nil }
+    return environment.language("form.method.mainHidden", table: "Planning")
   }
 }
 
