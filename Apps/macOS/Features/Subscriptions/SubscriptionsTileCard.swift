@@ -59,6 +59,12 @@ struct SubscriptionsTileCard: View {
         Text(verbatim: figure.caption)
           .appFont(.caption.monospacedDigit())
           .foregroundStyle(.secondary)
+        // The figures count subscriptions of a covered hidden account; the tile names none.
+        if let page, let shown = compute.snapshot,
+          page.covering(HiddenPlans(snapshot: shown)).partHidden
+        {
+          PartHiddenNote()
+        }
         if !compact {
           ForEach(figure.details, id: \.self) { line in
             Text(verbatim: line)

@@ -75,12 +75,14 @@ struct SubscriptionsScreen: View {
   // MARK: Content
 
   @ViewBuilder
-  private func content(_ page: SubscriptionsPage, snapshot: DataSnapshot) -> some View {
+  private func content(_ whole: SubscriptionsPage, snapshot: DataSnapshot) -> some View {
+    // Covered, a subscription of a hidden account is not listed; the totals keep it.
+    let page = whole.covering(HiddenPlans(snapshot: snapshot))
     let names = Dictionary(
       page.rows.map { ($0.id, $0.line.payment.name) }, uniquingKeysWith: { first, _ in first })
     let people = Dictionary(
       snapshot.dataset.people.map { ($0.id, $0.name) }, uniquingKeysWith: { first, _ in first })
-    if page.rows.isEmpty {
+    if page.rows.isEmpty && !page.partHidden {
       Text(verbatim: t("subs.empty"))
         .appFont(.callout)
         .foregroundStyle(.secondary)
@@ -128,6 +130,7 @@ struct SubscriptionsScreen: View {
       lines.append(
         SubscriptionsText.count("subs.hero.noRate", environment, page.totals.withoutRate.count))
     }
+    if page.partHidden { lines.append(PartHiddenNote.text(environment.language)) }
     return ScreenHero(
       caption: t("subs.hero.caption"), figure: money.rounded(page.totals.monthlyRub), lines: lines,
       figureIdentifier: "subs.hero.figure")

@@ -11,19 +11,33 @@ enum SubscriptionCalendarDay {
     var id: DateOnly { day }
     /// Two or more charges on one day: where the charges bunch up.
     var isBunched: Bool { items.count >= 2 }
+    /// A charge of a covered hidden account is in `totalRub` and not among `items`.
+    var partHidden = false
   }
 
-  /// The charges of a month grouped by day, in the order of the days.
+  /// The charges of a month grouped by day, in the order of the days. Covered (`hiding`), a
+  /// charge of a hidden account is not listed and its day keeps it in its total; a day left with
+  /// none listed goes, as its total alone would give the charge away.
   static func groups(
-    _ items: [SubscriptionCalendarItem], rubPerUnit: [CurrencyCode: Decimal]
+    _ items: [SubscriptionCalendarItem], rubPerUnit: [CurrencyCode: Decimal],
+    hiding: HiddenPlans = .none
   ) -> [Group] {
-    SubscriptionCalendar.byDay(items).map { day, items in
+    SubscriptionCalendar.byDay(items).compactMap { day, items -> Group? in
       let sorted = items.sorted { ($0.name, $0.id) < ($1.name, $1.id) }
       let rub = sorted.compactMap {
         SubscriptionMath.rubles($0.amount, in: $0.currency, rubPerUnit: rubPerUnit)
       }
-      return Group(day: day, items: sorted, totalRub: AmountE4.sum(rub))
+      let shown = sorted.filter { !hiding.hides(scheduled: $0.paymentId) }
+      guard !shown.isEmpty else { return nil }
+      return Group(
+        day: day, items: shown, totalRub: AmountE4.sum(rub),
+        partHidden: shown.count != sorted.count)
     }.sorted { $0.day < $1.day }
+  }
+
+  /// Some charge of the month is of a covered hidden account: the total of the month says so.
+  static func partHidden(_ items: [SubscriptionCalendarItem], hiding: HiddenPlans) -> Bool {
+    items.contains { hiding.hides(scheduled: $0.paymentId) }
   }
 }
 
@@ -41,13 +55,16 @@ struct SubscriptionCalendarCard: View {
 
   var body: some View {
     let rates = compute.snapshot?.context.rubPerUnit ?? [:]
+    let hiding = compute.snapshot.map { HiddenPlans(snapshot: $0) } ?? .none
     VStack(alignment: .leading, spacing: 10) {
-      ScreenCardHeader(title: t("subs.calendar.only"), caption: caption(items, rates: rates))
+      ScreenCardHeader(
+        title: t("subs.calendar.only"), caption: caption(items, rates: rates, hiding: hiding))
       if let items {
         if items.isEmpty {
           Text(verbatim: t("subs.calendar.none")).foregroundStyle(.secondary)
         }
-        ForEach(SubscriptionCalendarDay.groups(items, rubPerUnit: rates)) { group in
+        ForEach(SubscriptionCalendarDay.groups(items, rubPerUnit: rates, hiding: hiding)) {
+          group in
           dayRow(group)
         }
       } else {
@@ -61,14 +78,18 @@ struct SubscriptionCalendarCard: View {
   }
 
   private func caption(
-    _ items: [SubscriptionCalendarItem]?, rates: [CurrencyCode: Decimal]
+    _ items: [SubscriptionCalendarItem]?, rates: [CurrencyCode: Decimal], hiding: HiddenPlans
   )
     -> String?
   {
     guard let items, !items.isEmpty else { return nil }
+    // Every charge of the month, hidden ones too: the total keeps all the money.
     let total = AmountE4.sum(
       SubscriptionCalendarDay.groups(items, rubPerUnit: rates).map(\.totalRub))
-    return SubscriptionsText.f("subs.calendar.total", environment, environment.money.rounded(total))
+    let line = SubscriptionsText.f(
+      "subs.calendar.total", environment, environment.money.rounded(total))
+    guard SubscriptionCalendarDay.partHidden(items, hiding: hiding) else { return line }
+    return line + " · " + PartHiddenNote.text(environment.language)
   }
 
   private func dayRow(_ group: SubscriptionCalendarDay.Group) -> some View {
@@ -84,6 +105,7 @@ struct SubscriptionCalendarCard: View {
           )
           .appFont(.caption)
         }
+        if group.partHidden { PartHiddenNote() }
         Spacer(minLength: 6)
         if group.totalRub.raw != 0 {
           Text(verbatim: environment.money.rounded(group.totalRub))

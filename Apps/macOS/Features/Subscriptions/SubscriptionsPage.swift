@@ -41,6 +41,9 @@ struct SubscriptionsPage: Sendable {
   /// laid out by the app.
   var appStoreCandidates: [SubscriptionCandidate]
   var today: DateOnly
+  /// The page leaves out subscriptions of a covered hidden account (`covering(_:)`); its
+  /// totals still count them.
+  var partHidden = false
 
   func row(_ id: UUID) -> Row? { rows.first { $0.id == id } }
 
@@ -122,6 +125,26 @@ struct SubscriptionsPage: Sendable {
   /// The notices not put away on this Mac.
   func shownNotices(dismissed: Set<String>) -> [SubscriptionNotice] {
     notices.filter { !dismissed.contains($0.id) }
+  }
+
+  /// The page as it is shown while the hidden accounts are covered: no line, notice or advice
+  /// names a subscription of a hidden account (`HiddenPlans`). The totals, the cost of a day and
+  /// what cancelling would save are not counted again — they keep all the money, and the page
+  /// says «часть скрыта». A group of duplicates with a hidden member goes whole: what it would
+  /// save would give that member away.
+  func covering(_ hidden: HiddenPlans) -> SubscriptionsPage {
+    guard !hidden.isEmpty else { return self }
+    let shown = { (id: UUID) in !hidden.hides(scheduled: id) }
+    var copy = self
+    copy.rows = rows.filter { shown($0.id) }
+    copy.notices = notices.filter { shown($0.paymentId) }
+    copy.advice.unused = advice.unused.filter { shown($0.paymentId) }
+    copy.advice.duplicates = advice.duplicates.filter { $0.paymentIds.allSatisfy(shown) }
+    copy.partHidden =
+      copy.rows.count != rows.count || copy.notices.count != notices.count
+      || copy.advice.unused.count != advice.unused.count
+      || copy.advice.duplicates.count != advice.duplicates.count
+    return copy
   }
 }
 

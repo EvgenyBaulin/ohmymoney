@@ -559,6 +559,79 @@ final class HiddenLeaksTests: XCTestCase {
     XCTAssertFalse(options.contains { $0.title == secret.name })
   }
 
+  // MARK: The screen, the tile and the calendar of the subscriptions
+
+  /// A subscription on the visible account, one on the hidden account and one on its card, all
+  /// due in three days.
+  private func subscriptions() -> (Dataset, open: ScheduledPayment, hidden: [ScheduledPayment]) {
+    var dataset = books().dataset
+    let soon = today.adding(days: 3)
+    let open = ScheduledPayment(
+      name: "Music", kind: .subscription, amountE4: rub(300), paymentMethodId: self.open.id,
+      day: soon.day, nextDate: soon)
+    let hidden = [
+      ScheduledPayment(
+        name: "Secret stream", kind: .subscription, amountE4: rub(500),
+        paymentMethodId: secret.id, day: soon.day, nextDate: soon),
+      ScheduledPayment(
+        name: "Secret games", kind: .subscription, amountE4: rub(700), day: soon.day,
+        nextDate: soon, cardId: secretCard.id),
+    ]
+    dataset.planning.scheduled = [open] + hidden
+    return (dataset, open, hidden)
+  }
+
+  func testTheSubscriptionsPageListsNoSubscriptionOfAHiddenAccountAndKeepsItsTotals() {
+    let (dataset, open, hidden) = subscriptions()
+    let (whole, covered) = snapshots(dataset)
+    let page = SubscriptionsPage.build(covered)
+    XCTAssertEqual(page.rows.count, 3, "the page is counted over everything")
+    let shown = page.covering(HiddenPlans(snapshot: covered))
+    XCTAssertEqual(shown.rows.map(\.id), [open.id])
+    XCTAssertEqual(shown.totals, page.totals, "the totals keep all the money")
+    XCTAssertEqual(shown.perDayRub, page.perDayRub)
+    XCTAssertTrue(shown.partHidden)
+    XCTAssertFalse(shown.notices.contains { hidden.map(\.id).contains($0.paymentId) })
+    XCTAssertFalse(shown.advice.unused.contains { hidden.map(\.id).contains($0.paymentId) })
+    XCTAssertFalse(
+      shown.advice.duplicates.contains { !Set($0.paymentIds).isDisjoint(with: hidden.map(\.id)) })
+    let same = SubscriptionsPage.build(whole).covering(HiddenPlans(snapshot: whole))
+    XCTAssertEqual(same.rows.count, 3)
+    XCTAssertFalse(same.partHidden)
+  }
+
+  func testTheSubscriptionTileSaysPartIsHiddenAndKeepsItsFigure() {
+    let (dataset, _, _) = subscriptions()
+    let (_, covered) = snapshots(dataset)
+    let page = SubscriptionsPage.build(covered)
+    let environment = AppEnvironment()
+    XCTAssertEqual(
+      SubscriptionsTileFigure.make(page, environment)?.value,
+      environment.money.rounded(page.totals.monthlyRub), "the tile's figure is the whole one")
+    XCTAssertTrue(page.covering(HiddenPlans(snapshot: covered)).partHidden)
+  }
+
+  func testTheSubscriptionCalendarListsNoChargeOfAHiddenAccountAndKeepsTheDayTotal() throws {
+    let (dataset, open, hidden) = subscriptions()
+    let (_, covered) = snapshots(dataset)
+    let items = SubscriptionCalendar.items(
+      in: today.monthKey, ledger: covered.ledger, book: covered.dataset.planning, today: today)
+    XCTAssertEqual(Set(items.map(\.paymentId)), Set([open.id] + hidden.map(\.id)))
+    let hiding = HiddenPlans(snapshot: covered)
+    let all = try XCTUnwrap(SubscriptionCalendarDay.groups(items, rubPerUnit: [:]).first)
+    let shown = try XCTUnwrap(
+      SubscriptionCalendarDay.groups(items, rubPerUnit: [:], hiding: hiding).first)
+    XCTAssertEqual(shown.items.map(\.name), [open.name])
+    XCTAssertEqual(shown.totalRub, all.totalRub, "the day keeps the hidden charges")
+    XCTAssertTrue(shown.partHidden)
+    XCTAssertTrue(SubscriptionCalendarDay.partHidden(items, hiding: hiding))
+    XCTAssertFalse(SubscriptionCalendarDay.partHidden(items, hiding: .none))
+    let onlyHidden = items.filter { $0.paymentId != open.id }
+    XCTAssertTrue(
+      SubscriptionCalendarDay.groups(onlyHidden, rubPerUnit: [:], hiding: hiding).isEmpty,
+      "a day of hidden charges alone is not shown: its total would give them away")
+  }
+
   // MARK: 7. The goal form
 
   func testTheGoalFormSaysTheMainAccountIsHiddenWithoutNamingIt() {
