@@ -617,6 +617,8 @@ struct AnomaliesCard: View {
       case .rebind(let cardId): CardRebindSheet(cardId: cardId).handingOver(dependencies)
       case .warranty: WarrantyScreen().handingOver(dependencies)
       case .missedDays(let gap): MissedDaysSheet(gap: gap).handingOver(dependencies)
+      case .cashbackChoice(let accountId, let month):
+        CashbackChoiceSheet(accountId: accountId, month: month).handingOver(dependencies)
       }
     }
     // A new read brings the marks of this Mac in: what was settled is gone from the data.

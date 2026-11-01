@@ -26,8 +26,8 @@ struct Migration0012Tests {
 
   @Test func aNewDatabaseHasTheBookkeepingEmptyAndRecordingOff() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0020_habits")
-    #expect(stack.applied.onDisk == 20)
+    #expect(try stack.appliedMigrations().last == TestSupport.lastMigration)
+    #expect(stack.applied.onDisk == TestSupport.migrationCount)
     try stack.writer.read { db in
       for table in SyncTables.bookkeeping {
         let rows = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)")
@@ -65,11 +65,12 @@ struct Migration0012Tests {
           "0018_purchases",
           "0019_privacy",
           "0020_habits",
+          "0021_history_and_cashback_choice",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 9)
+    #expect(stack.applied.applied == TestSupport.migrationCount - 11)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))

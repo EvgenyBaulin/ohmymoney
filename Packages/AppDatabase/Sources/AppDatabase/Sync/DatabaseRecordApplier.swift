@@ -87,6 +87,14 @@ final class DatabaseRecordApplier: RecordApplier, @unchecked Sendable {
             return .commit
           }
           try SyncBook.setHead(db, target, record.winner.stamp)
+          // The journal of changes keeps the other device's version, named later by the
+          // exchange (`ChangeJournal.nameDevices`).
+          let current = try SyncRows.current(db, table: target.table, key: target.uuid)
+          if let op = ChangeHistory.op(current: current, last: try ChangeJournal.last(db, target)) {
+            try ChangeJournal.append(
+              db, key: target, op: op, at: record.winner.stamp.updatedAt,
+              deviceId: record.winner.stamp.deviceId, deviceName: "", fields: current ?? [:])
+          }
           batch.applied += 1
         } catch let error as GRDB.DatabaseError where error.resultCode == .SQLITE_CONSTRAINT {
           try SyncBook.defer_(db, record.key)

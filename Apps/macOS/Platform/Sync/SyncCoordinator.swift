@@ -118,8 +118,19 @@ final class SyncCoordinator {
   /// waits, and one exchange runs once the changes have stopped coming. Without a folder there
   /// is nothing to run.
   func changed() {
-    guard exchange != nil, !isStopped else { return }
+    guard let exchange, !isStopped else { return }
     refresh()
+    // The journal of changes is kept with or without a folder: the change goes in now, off the
+    // main thread, before any exchange empties the outbox.
+    Task.detached(priority: .utility) {
+      do {
+        try exchange.captureHistory()
+      } catch {
+        AppLog.warning(
+          "sync.historyNotKept", .db, "a change was not taken into the journal",
+          [LogPair("error", .error(error))])
+      }
+    }
     guard bookmarks.isStored else { return }
     debounce?.cancel()
     let delay = debounceDelay

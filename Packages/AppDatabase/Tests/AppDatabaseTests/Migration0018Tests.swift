@@ -29,7 +29,7 @@ struct Migration0018Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmptyAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0020_habits")
+    #expect(try stack.appliedMigrations().last == TestSupport.lastMigration)
     try stack.writer.read { (db: Database) throws in
       for table in ["wishes", "wish_prices", "shopping_items", "owned_items"] {
         #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") == 0, "\(table)")
@@ -72,10 +72,10 @@ struct Migration0018Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0018_purchases", "0019_privacy", "0020_habits"])
+        == ["0018_purchases", "0019_privacy", "0021_history_and_cashback_choice"])
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 3)
+    #expect(stack.applied.applied == TestSupport.migrationCount - 17)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))

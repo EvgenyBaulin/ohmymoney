@@ -78,8 +78,13 @@ public struct ExportCopyMaker: Sendable {
     // Deleted rows must not stay readable in the free pages of the file.
     try queue.writeWithoutTransaction { db in try db.execute(sql: "PRAGMA secure_delete = ON") }
     try queue.write { db in
-      // The copy is not a device taking part in the exchange.
+      // The copy is not a device taking part in the exchange, and what the exchange remembers
+      // is this device's: the journal of changes keeps every old description, place and sum
+      // of every row, hidden accounts and days outside the period too — none of it leaves.
       try db.execute(sql: "UPDATE sync_meta SET value = '0' WHERE key = 'recording'")
+      for table in SyncTables.bookkeeping where table != "sync_meta" {
+        if try db.tableExists(table) { try db.execute(sql: "DELETE FROM \(table)") }
+      }
       try Self.cut(request, db: db)
     }
     if request.anonymize, let anonymizer {

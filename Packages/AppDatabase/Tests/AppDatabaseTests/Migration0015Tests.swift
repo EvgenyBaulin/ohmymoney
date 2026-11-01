@@ -48,8 +48,8 @@ struct Migration0015Tests {
 
   @Test func aNewDatabaseHasTheColumnsEmptyAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0020_habits")
-    #expect(stack.applied.onDisk == 20)
+    #expect(try stack.appliedMigrations().last == TestSupport.lastMigration)
+    #expect(stack.applied.onDisk == TestSupport.migrationCount)
     try stack.writer.read { (db: Database) throws in
       for table in Self.newTables {
         #expect(try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") == 0, "\(table)")
@@ -97,11 +97,12 @@ struct Migration0015Tests {
           "0015_bank_conditions", "0016_rate_source", "0017_attachments", "0018_purchases",
           "0019_privacy",
           "0020_habits",
+          "0021_history_and_cashback_choice",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 6)
+    #expect(stack.applied.applied == TestSupport.migrationCount - 14)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -378,9 +379,12 @@ struct Migration0015Tests {
     let counts = try export.rowCounts()
     #expect(counts["bank_conditions"] == 1 && counts["deposit_offers"] == 1)
     let tables = try export.tables()
-    #expect(tables.count == 51)
-    #expect(
-      tables.dropLast(7).suffix(2).map(\.fileName) == ["bank_conditions.csv", "deposit_offers.csv"])
+    #expect(tables.count == ExportTables.all.count)
+    // In their place in the list: right after the subscription extras, before what came later.
+    let names = tables.map(\.fileName)
+    let at = try #require(names.firstIndex(of: "bank_conditions.csv"))
+    #expect(names[at + 1] == "deposit_offers.csv")
+    #expect(names[at - 1] == "subscription_keep_groups.csv")
     func rows(_ name: String) throws -> [[String: String]] {
       try CSVReader.dictionaries(from: try #require(tables.first { $0.name == name }).data)
     }
@@ -413,9 +417,9 @@ struct Migration0015Tests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 20)
-    #expect(opened.csvTables.count == 51)
-    #expect(opened.manifest.schemaVersion == 20)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
+    #expect(opened.csvTables.count == ExportTables.all.count)
+    #expect(opened.manifest.schemaVersion == TestSupport.migrationCount)
     #expect(opened.manifest.rowCounts["bank_conditions"] == 1)
     #expect(opened.manifest.rowCounts["deposit_offers"] == 0)
     // An archive of schema 16 does not open in a build that knows schema 15.

@@ -458,7 +458,41 @@ struct SyncConflictFlowTests {
     #expect(try folder.listNames() == before)
   }
 
-  @Test func aDeleteMadeApartFromAnEditIsAConflictToo() throws {
+  /// A delete against an edit made on the other device waits for nobody: the later stands. The
+  /// phone deleted after the Mac edited, so the operation is deleted on both and the list of
+  /// conflicts stays empty.
+  @Test func aDeleteMadeAfterAnEditStandsWithoutAsking() throws {
+    let (mac, phone, folder) = try deleteAgainstEdit(editAt: "10:05", deleteAt: "10:06")
+    #expect(try mac.exchange.conflicts().isEmpty)
+    #expect(try phone.exchange.conflicts().isEmpty)
+    #expect(try deletedAt(mac) != nil, "the later delete is applied on the Mac")
+    #expect(try deletedAt(phone) != nil)
+    #expect(try mac.books() == phone.books())
+    _ = folder
+  }
+
+  /// An edit made after the delete on the other device brings the operation back, on both.
+  @Test func anEditMadeAfterADeleteBringsTheOperationBack() throws {
+    let (mac, phone, _) = try deleteAgainstEdit(editAt: "10:07", deleteAt: "10:06")
+    #expect(try mac.exchange.conflicts().isEmpty)
+    #expect(try phone.exchange.conflicts().isEmpty)
+    #expect(try deletedAt(phone) == nil, "the phone's delete gave way to the later edit")
+    #expect(try phone.note("t1") == "edited")
+    #expect(try deletedAt(mac) == nil)
+    #expect(try mac.books() == phone.books())
+  }
+
+  private func deletedAt(_ device: TestDevice) throws -> String? {
+    try device.stack.writer.read { db in
+      try String.fetchOne(db, sql: "SELECT deleted_at FROM transactions WHERE id = 't1'")
+    }
+  }
+
+  /// The Mac edits and the phone deletes the same operation apart, at the given minutes; then
+  /// both exchange until nothing new comes.
+  private func deleteAgainstEdit(
+    editAt: String, deleteAt: String
+  ) throws -> (TestDevice, TestDevice, InMemoryFolder) {
     let mac = try TestDevice("mac")
     let phone = try TestDevice("phone")
     let folder = InMemoryFolder()
@@ -467,19 +501,15 @@ struct SyncConflictFlowTests {
     _ = try mac.exchange.exchange(with: folder)
     _ = try phone.exchange.exchange(with: folder)
     try mac.setNote("t1", "edited")
-    try mac.stamp("2026-10-22T10:05:00Z")
-    try phone.sql("UPDATE transactions SET deleted_at = '2026-10-22 10:06:00.000' WHERE id = 't1'")
-    try phone.stamp("2026-10-22T10:06:00Z")
-    _ = try mac.exchange.exchange(with: folder)
-    _ = try phone.exchange.exchange(with: folder)
-    _ = try mac.exchange.exchange(with: folder)
-    let conflict = try #require(mac.exchange.conflicts().first)
-    #expect(conflict.theirs.isDeleted && !conflict.mine.isDeleted)
-    #expect(try mac.note("t1") == "edited")
-    let alive = try mac.stack.writer.read { db in
-      try String.fetchOne(db, sql: "SELECT deleted_at FROM transactions WHERE id = 't1'")
+    try mac.stamp("2026-10-22T\(editAt):00Z")
+    try phone.sql(
+      "UPDATE transactions SET deleted_at = '2026-10-22 \(deleteAt):00.000' WHERE id = 't1'")
+    try phone.stamp("2026-10-22T\(deleteAt):00Z")
+    for _ in 0..<2 {
+      _ = try mac.exchange.exchange(with: folder)
+      _ = try phone.exchange.exchange(with: folder)
     }
-    #expect(alive == nil, "the delete is not applied until the owner says so")
+    return (mac, phone, folder)
   }
 }
 

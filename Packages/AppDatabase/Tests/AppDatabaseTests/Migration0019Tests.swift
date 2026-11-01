@@ -29,7 +29,7 @@ struct Migration0019Tests {
 
   @Test func aNewDatabaseHasTheColumnAndNoPrivacySetting() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0020_habits")
+    #expect(try stack.appliedMigrations().last == TestSupport.lastMigration)
     try stack.writer.read { (db: Database) throws in
       #expect(try db.columns(in: "payment_methods").map(\.name).contains("hidden"))
       let keys = try String.fetchAll(
@@ -56,10 +56,10 @@ struct Migration0019Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0019_privacy", "0020_habits"])
+        == ["0019_privacy", "0021_history_and_cashback_choice"])
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 2)
+    #expect(stack.applied.applied == TestSupport.migrationCount - 18)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -98,12 +98,14 @@ struct Migration0019Tests {
     #expect(try accounts.accounts().first { $0.id == other.id }?.hidden == true)
   }
 
-  @Test func theCSVCarriesTheFlagLast() throws {
-    #expect(ExportTables.paymentMethods.columns.last == "hidden")
-    #expect(ExportTables.all.count == 51, "no file of its own: the two after it are the habits")
+  @Test func theCSVCarriesTheFlagAfterTheAccent() throws {
+    // Last when it came; later columns go after it.
+    let columns = ExportTables.paymentMethods.columns
+    let index = try #require(columns.firstIndex(of: "hidden"))
+    #expect(columns[index - 1] == "accent")
     let row = ExportTables.row(PaymentMethod(name: "Скрытая", hidden: true))
-    #expect(row.last == "true")
-    #expect(ExportTables.row(PaymentMethod(name: "Обычная")).last == "false")
+    #expect(row[index] == "true")
+    #expect(ExportTables.row(PaymentMethod(name: "Обычная"))[index] == "false")
   }
 
   @Test func theChangedFlagGoesToTheOutboxOfTheExchange() throws {

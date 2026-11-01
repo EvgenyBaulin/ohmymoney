@@ -428,16 +428,37 @@ struct TransactionEditor: View {
   /// Called when the editing is over: saved, cancelled, or the operation deleted.
   let close: () -> Void
 
+  /// «Операция» — the fields; «История» — what changed, when and where (`OperationHistoryView`).
+  enum Tab: Hashable { case details, history }
+  @State private var tab: Tab = .details
+
   var body: some View {
     VStack(alignment: .leading, spacing: style == .sheet ? 16 : 12) {
       header
+      Picker(selection: $tab) {
+        Text(verbatim: environment.language("history.tab.details", table: "SyncHistory"))
+          .tag(Tab.details)
+        Text(verbatim: environment.language("history.tab.history", table: "SyncHistory"))
+          .tag(Tab.history)
+      } label: {
+        EmptyView()
+      }
+      .pickerStyle(.segmented)
+      .labelsHidden()
+      .fixedSize()
+      .accessibilityIdentifier("editor.tabs")
       ScrollView {
         // Return in a text field saves, as «Save» does when it is on.
         VStack(alignment: .leading, spacing: 16) {
-          DetailsPanel(
-            model: editor.draft, submit: saveOnReturn, hasRoomForSegments: style == .sheet
-          )
-          AttachedFilesCard(owner: .transaction, id: editor.id)
+          switch tab {
+          case .details:
+            DetailsPanel(
+              model: editor.draft, submit: saveOnReturn, hasRoomForSegments: style == .sheet
+            )
+            AttachedFilesCard(owner: .transaction, id: editor.id)
+          case .history:
+            OperationHistoryView(operationId: editor.id)
+          }
         }
         .padding(.vertical, 2)
       }

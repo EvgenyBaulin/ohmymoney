@@ -10,18 +10,37 @@ struct CashbackRuleRow: Identifiable, Equatable {
   /// `nil`: always.
   var month: MonthKey?
   var percentText: String
+  /// «Не больше N ₽ в месяц» as typed; empty — no ceiling.
+  var capText: String
 
-  init(id: UUID = UUID(), categoryId: UUID? = nil, month: MonthKey? = nil, percentText: String) {
+  init(
+    id: UUID = UUID(), categoryId: UUID? = nil, month: MonthKey? = nil, percentText: String,
+    capText: String = ""
+  ) {
     self.id = id
     self.categoryId = categoryId
     self.month = month
     self.percentText = percentText
+    self.capText = capText
   }
 
   init(_ rule: CashbackRule) {
     self.init(
       id: rule.id, categoryId: rule.categoryId, month: rule.month,
-      percentText: NumberText.plain(rule.percent.decimal))
+      percentText: NumberText.plain(rule.percent.decimal),
+      capText: rule.monthlyCapE4.map { NumberText.plain($0.decimal) } ?? "")
+  }
+
+  /// The ceiling typed: `.some(nil)` for an empty field, `nil` when it does not read.
+  var cap: AmountE4?? { CashbackRuleRow.ceiling(capText) }
+
+  /// A ceiling as typed: empty — none (`.some(nil)`), an amount of rubles not below zero, or
+  /// `nil` when it does not read.
+  static func ceiling(_ text: String) -> AmountE4?? {
+    let trimmed = text.trimmingCharacters(in: .whitespaces)
+    if trimmed.isEmpty { return .some(nil) }
+    guard case .amount(let amount)? = CashbackInput.read(trimmed) else { return nil }
+    return .some(amount)
   }
 
   /// The percent typed: a number from 0 to 100 with at most four decimals, «%» allowed after
@@ -61,6 +80,16 @@ struct CashbackRulesDraft: Equatable {
   var settings: CashbackAccountSettings
   /// The day the payout picker offers while the bank pays «later».
   private(set) var laterDay: Int
+  /// «Не больше N ₽ в месяц» of the whole account, as typed; empty — no ceiling.
+  var accountCapText: String
+
+  /// The settings to save, with the account's ceiling as typed; `nil` while it does not read.
+  var settingsToSave: CashbackAccountSettings? {
+    guard let cap = CashbackRuleRow.ceiling(accountCapText) else { return nil }
+    var result = settings
+    result.monthlyCapE4 = cap
+    return result
+  }
 
   init(
     holders: [CashbackHolder], accountId: UUID, holder: CashbackHolder? = nil,
@@ -78,6 +107,7 @@ struct CashbackRulesDraft: Equatable {
     self.rows = rows
     self.settings = settings
     self.laterDay = settings.payout?.day ?? 10
+    self.accountCapText = settings.monthlyCapE4.map { NumberText.plain($0.decimal) } ?? ""
   }
 
   /// The rules shown are the account's own, and the settings with them.
@@ -141,7 +171,9 @@ struct CashbackRulesDraft: Equatable {
     let taken = Set(ofMonth.map(\.categoryId))
     let copies = current.filter { $0.month == month.previous && !taken.contains($0.categoryId) }
       .map { rule in
-        CashbackRuleRow(categoryId: rule.categoryId, month: month, percentText: rule.percentText)
+        CashbackRuleRow(
+          categoryId: rule.categoryId, month: month, percentText: rule.percentText,
+          capText: rule.capText)
       }
     rows[holder, default: []].append(contentsOf: copies)
   }
@@ -155,7 +187,7 @@ struct CashbackRulesDraft: Equatable {
     for held in holders {
       var seen: Set<String> = []
       for row in rows[held] ?? [] {
-        if row.percent == nil { result.insert(row.id) }
+        if row.percent == nil || row.cap == nil { result.insert(row.id) }
         let key = "\(row.month?.iso ?? "")|\(row.categoryId?.uuidString ?? "")"
         if !seen.insert(key).inserted { result.insert(row.id) }
       }
@@ -199,11 +231,11 @@ struct CashbackRulesDraft: Equatable {
       case .account: cardId = nil
       }
       for row in rows[held] ?? [] {
-        guard let percent = row.percent else { return nil }
+        guard let percent = row.percent, let cap = row.cap else { return nil }
         result.append(
           CashbackRule(
             id: row.id, accountId: accountId, cardId: cardId, categoryId: row.categoryId,
-            month: row.month, percent: percent))
+            month: row.month, percent: percent, monthlyCapE4: cap))
       }
     }
     return result
@@ -290,7 +322,8 @@ struct CashbackRulesSheet: View {
         Button(environment.language("action.save"), action: save)
           .keyboardShortcut(.defaultAction)
           .buttonStyle(.borderedProminent)
-          .disabled(draft?.rules == nil || store.isWritingInBackground)
+          .disabled(
+            draft?.rules == nil || draft?.settingsToSave == nil || store.isWritingInBackground)
       }
     }
     .padding(20)
@@ -459,6 +492,13 @@ struct CashbackRulesSheet: View {
         .accessibilityIdentifier("cashback.payout.day")
       }
       pointsPicker(current, model: model)
+      CashbackCapField(text: model.accountCapText, labelKey: "cashback.cap.account")
+      if CashbackRuleRow.ceiling(current.accountCapText) == nil {
+        Text(verbatim: environment.language("cashback.cap.unreadable", table: "SyncHistory"))
+          .appFont(.caption)
+          .foregroundStyle(.orange)
+      }
+      CashbackChoiceDayPicker(day: model.settings.choiceDay)
     } header: {
       Text(verbatim: t("cashback.settings.header"))
     } footer: {
@@ -499,6 +539,8 @@ struct CashbackRulesSheet: View {
     let problem: String? =
       row.percent == nil
       ? t("cashback.refusal.percent")
+      : row.cap == nil
+      ? environment.language("cashback.cap.unreadable", table: "SyncHistory")
       : (draft?.isDuplicate(row) == true
         ? environment.format(
           "cashback.refusal.duplicate", table: CardText.table, categoryName(row.categoryId))
@@ -540,6 +582,15 @@ struct CashbackRulesSheet: View {
         Text(verbatim: "%").foregroundStyle(.secondary)
         removeButton(row)
       }
+      CashbackCapField(
+        text: Binding(
+          get: { row.capText },
+          set: { value in
+            var edited = row
+            edited.capText = value
+            draft?.update(edited)
+          }),
+        labelKey: "cashback.cap.rule")
       if let problem {
         Label {
           Text(verbatim: problem)
@@ -568,10 +619,10 @@ struct CashbackRulesSheet: View {
   }
 
   private func save() {
-    guard let draft, let rules = draft.rules else { return }
+    guard let draft, let rules = draft.rules, let settings = draft.settingsToSave else { return }
     let stored = accounts.first { $0.id == accountId }
     switch actions.saveRules(
-      of: draft.holders, rules, account: stored.map { draft.settings.applied(to: $0) })
+      of: draft.holders, rules, account: stored.map { settings.applied(to: $0) })
     {
     case .done: finish()
     case .refused(let reason): refusal = reason

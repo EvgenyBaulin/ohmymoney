@@ -10,7 +10,8 @@ import Testing
 /// of allocation, the custom currencies and the settings, then the tags, their links, the rules
 /// and the notes of days, then the month limits, the articles and templates of events and the
 /// extras of subscriptions, then the conditions of bank products and the deposits of the owner, then the attachments, then the wishes, their prices, the shopping list
-/// and the things outside the capital, then the badges and the days without spending.
+/// and the things outside the capital, then the badges and the days without spending, then
+/// each bank's table of cashback categories and the offers of the months.
 private let specifiedFileNames = [
   "transactions.csv", "transaction_parts.csv", "reimbursement_links.csv", "people.csv",
   "payment_methods.csv", "places.csv", "events.csv", "categories.csv", "templates.csv",
@@ -26,6 +27,7 @@ private let specifiedFileNames = [
   "wishes.csv",
   "wish_prices.csv", "shopping_items.csv", "owned_items.csv", "habit_badges.csv",
   "no_spend_days.csv",
+  "bank_cashback_categories.csv", "cashback_offers.csv",
 ]
 
 @Suite("ExportTables describes the 51 files of the export")
@@ -34,7 +36,7 @@ struct ExportTablesDescriptionTests {
     #expect(ExportTables.all.count == 51)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.suffix(30) == [
+      ExportTables.all.dropLast(2).suffix(30) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -71,11 +73,16 @@ struct ExportTablesDescriptionTests {
       ])
     #expect(ExportTables.settings.columns == ["key", "value"])
     #expect(
-      Array(ExportTables.paymentMethods.columns.suffix(16)) == [
+      Array(ExportTables.paymentMethods.columns.dropLast(2).suffix(16)) == [
         "cushion", "credit_limit", "credit_grace", "credit_statement_day", "credit_pay_days",
         "credit_grace_days", "credit_purchase_rate", "credit_cash_rate", "credit_min_percent",
         "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
         "credit_cash_no_grace", "main_card_id", "accent", "hidden",
+      ])
+    // The ceilings of cashback and the day of the bank's choice came after them.
+    #expect(
+      Array(ExportTables.paymentMethods.columns.suffix(2)) == [
+        "cashback_monthly_cap", "cashback_choice_day",
       ])
     #expect(
       Array(ExportTables.categories.columns.suffix(4)) == [
@@ -174,7 +181,7 @@ struct ExportTablesDescriptionTests {
       ])
     #expect(
       ExportTables.cashbackRules.columns == [
-        "id", "payment_method_id", "card_id", "category_id", "month", "percent",
+        "id", "payment_method_id", "card_id", "category_id", "month", "percent", "monthly_cap",
       ])
     #expect(ExportTables.banks.columns == ["id", "name", "sort", "archived"])
     // The account of a bank and the settings of its cashback: the columns they brought, after
@@ -215,7 +222,7 @@ struct ExportTablesDescriptionTests {
     }
     #expect(ExportTables.transactions.columns.count == 41)
     #expect(ExportTables.transactionParts.columns.count == 17)
-    #expect(ExportTables.paymentMethods.columns.count == 38)
+    #expect(ExportTables.paymentMethods.columns.count == 40)
     #expect(ExportTables.templates.columns.count == 8)
     #expect(ExportTables.goals.columns.count == 13)
     #expect(ExportTables.debtEntries.columns.count == 18)

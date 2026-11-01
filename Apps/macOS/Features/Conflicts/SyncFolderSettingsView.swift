@@ -15,6 +15,7 @@ struct SyncFolderSettingsView: View {
   var body: some View {
     folderSection
     SyncBootstrapSection(coordinator: coordinator)
+    SyncKeySection()
   }
 
   private var folderSection: some View {

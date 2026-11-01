@@ -298,8 +298,8 @@ final class ExportAndArchiveTests: XCTestCase {
     let data = try Data(contentsOf: url)
 
     let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 20)
-    XCTAssertEqual(opened.manifest.schemaVersion, 20)
-    XCTAssertEqual(opened.csvTables.count, 51)
+    XCTAssertEqual(opened.manifest.schemaVersion, 21)
+    XCTAssertEqual(opened.csvTables.count, 53)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))
     XCTAssertTrue(opened.csvTables.contains("cards"))
     XCTAssertTrue(opened.csvTables.contains("cashback_rules"))

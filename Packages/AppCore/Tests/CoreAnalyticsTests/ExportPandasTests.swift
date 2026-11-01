@@ -97,6 +97,7 @@ struct ExportPandasTests {
       ExportTables.subscriptionUsers, ExportTables.subscriptionKeepGroups, ExportTables.attachments,
       ExportTables.wishes, ExportTables.wishPrices, ExportTables.shoppingItems,
       ExportTables.ownedItems, ExportTables.habitBadges, ExportTables.noSpendDays,
+      ExportTables.bankCashbackCategories, ExportTables.cashbackOffers,
     ] where rows[table] == nil {
       rows[table] = []
     }
@@ -190,7 +191,7 @@ struct ExportPandasTests {
     try #require(run.status == 0, "pandas failed: \(run.output)")
     let readings = try JSONDecoder().decode(
       [String: Reading].self, from: Data(contentsOf: output))
-    #expect(readings.count == 51)
+    #expect(readings.count == ExportTables.all.count)
     for (path, table) in paths.sorted(by: { $0.key < $1.key }) {
       let reading = try #require(readings[path], "pandas did not read \(table.fileName)")
       #expect(reading.rows == (rows[table] ?? []).count, "\(table.fileName): rows")
@@ -345,7 +346,7 @@ struct ExportPandasTests {
     try #require(run.status == 0, "pandas failed: \(run.output)")
     let readings = try JSONDecoder().decode(
       [String: TextReading].self, from: Data(contentsOf: output))
-    #expect(readings.count == 51)
+    #expect(readings.count == ExportTables.all.count)
     for (path, table) in paths.sorted(by: { $0.key < $1.key }) {
       let reading = try #require(readings[path], "pandas did not read \(table.fileName)")
       #expect(reading.rows == (rows[table] ?? []).count, "\(table.fileName): rows")
