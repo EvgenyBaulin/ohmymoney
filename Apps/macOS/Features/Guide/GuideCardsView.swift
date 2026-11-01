@@ -96,6 +96,7 @@ struct GuideCardsView: View {
     case .firstLaunch: t("guide.firstLaunch.title")
     case .whatsNew(let version): String(format: t("guide.whatsNew.title"), "\(version)")
     case .tutorial: t("guide.tutorial.title")
+    case .lesson(let id): GuideLessons.lesson(id)?.title.text(russian: russian) ?? ""
     }
   }
 

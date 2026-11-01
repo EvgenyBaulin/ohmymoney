@@ -177,7 +177,7 @@ struct GuideCatalogTests {
   }
 
   /// «Что нового в 1.13»: the trip strip, the summary of a trip, the cards abroad and the
-  /// exchange-rate difference — the latest version.
+  /// exchange-rate difference — the latest version of 1.x.
   @Test func whatsNewOfOnePointThirteenTellsOfTheTrips() throws {
     let scenario = GuideCatalog.whatsNew113
     #expect(scenario.kind == .whatsNew(version: GuideVersion(major: 1, minor: 13)))
@@ -185,8 +185,12 @@ struct GuideCatalogTests {
     #expect(scenario.cards.map(\.id) == ["new113.trip", "new113.summary", "new113.rate"])
     #expect(scenario.cards.allSatisfy { !$0.symbol.isEmpty && $0.title.isComplete })
     #expect(scenario.cards.allSatisfy { $0.body.isComplete })
-    let last = try #require(GuideCatalog.whatsNew.last)
-    #expect(last.id == scenario.id)
+    let index = try #require(GuideCatalog.whatsNew.firstIndex { $0.id == scenario.id })
+    #expect(
+      GuideCatalog.whatsNew.dropFirst(index + 1).allSatisfy {
+        if case .whatsNew(let version) = $0.kind { return version.major >= 2 }
+        return false
+      })
     // 1.12 and 1.13 came out as one build, so a database of 1.11 is told of both.
     var progress = GuideProgress(firstLaunchShown: true, whatsNewSeen: "1.11.0")
     #expect(

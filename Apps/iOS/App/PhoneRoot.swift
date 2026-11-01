@@ -134,6 +134,7 @@ struct PhoneRoot: View {
     .modifier(PhoneLaunch(deps: deps, router: router))
     .onChange(of: deps.compute.generation, initial: true) { _, _ in
       if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
+      HabitAwards.check(deps.compute.snapshot, environment: deps.environment)
     }
   }
 

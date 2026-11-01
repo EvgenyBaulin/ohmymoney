@@ -125,6 +125,7 @@ struct SummariesScreen: View {
       SummaryRibbon(
         cards: content.cards(hideAmounts: environment.amounts.isHidingNow), text: text)
       question(for: content, today: snapshot.today)
+      if let range = selected?.range { HabitBadgesSection(range: range, snapshot: snapshot) }
       actions
     } else {
       Text(verbatim: t("summaries.noData"))

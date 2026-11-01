@@ -105,6 +105,7 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
     try db.execute(
       sql: "UPDATE cards SET aliases = '', last4 = NULL, details = NULL")
     try rename(db, table: "goals", labels.goal)
+    try db.execute(sql: "UPDATE goals SET why_note = NULL")
     try rename(db, table: "tags", labels.tag)
   }
 

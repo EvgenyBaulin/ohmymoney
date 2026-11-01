@@ -288,12 +288,15 @@ public struct Goal: Identifiable, Hashable, Sendable, Codable {
   public var transfersOnContribution: Bool
   /// The place the owner dragged it to; 0 everywhere means alphabetical.
   public var sort: Int
+  /// «Зачем коплю»: why the owner saves for it, in his words (`GoalWhy.clean`); shown in the hard
+  /// moments — goal money looks spent, the plan is lowered, the goal is deleted. `nil`: none.
+  public var whyNote: String?
 
   public init(
     id: UUID = UUID(), name: String, targetE4: AmountE4, targetDate: DateOnly? = nil,
     monthlyPlanE4: AmountE4? = nil, subcategoryId: UUID? = nil, archived: Bool = false,
     currency: CurrencyCode = .rub, planStartMonth: MonthKey? = nil, accountId: UUID? = nil,
-    transfersOnContribution: Bool = false, sort: Int = 0
+    transfersOnContribution: Bool = false, sort: Int = 0, whyNote: String? = nil
   ) {
     self.id = id
     self.name = name
@@ -307,6 +310,7 @@ public struct Goal: Identifiable, Hashable, Sendable, Codable {
     self.accountId = accountId
     self.transfersOnContribution = transfersOnContribution
     self.sort = sort
+    self.whyNote = whyNote
   }
 }
 

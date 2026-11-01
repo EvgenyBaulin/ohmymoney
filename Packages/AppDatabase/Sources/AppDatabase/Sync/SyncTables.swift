@@ -29,6 +29,7 @@ public enum SyncTables {
     "subscription_usage": "id", "subscription_users": "id", "subscription_keep_groups": "id",
     "bank_conditions": "id", "deposit_offers": "id", "attachments": "id", "week_answers": "week",
     "wishes": "id", "wish_prices": "id", "shopping_items": "id", "owned_items": "id",
+    "habit_badges": "key", "no_spend_days": "day",
   ]
 
   /// The bookkeeping tables of the exchange: not part of the books, left out of every copy of

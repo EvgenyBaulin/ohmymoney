@@ -30,6 +30,14 @@ struct HelpCommands: Commands {
       Button(environment.language("guide.menu.whereToClick", table: "Guide")) {
         AppWindows.intoMain { GuideStore.shared.showsWhereToClick = true }
       }
+      // «Уроки»: five short lessons of money, five cards each.
+      Menu(environment.language("lessons.menu", table: "Habits")) {
+        ForEach(GuideLessons.all) { lesson in
+          Button(lesson.title.text(russian: environment.language.resolvedCode.hasPrefix("ru"))) {
+            AppWindows.intoMain { GuideStore.shared.show(lesson.scenario) }
+          }
+        }
+      }
       Divider()
       if GuideStore.shared.isTutorial {
         Button(environment.language("guide.tutorial.exit", table: "Guide")) {

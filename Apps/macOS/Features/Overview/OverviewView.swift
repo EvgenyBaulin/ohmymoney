@@ -118,6 +118,7 @@ private struct OverviewHeader: View {
       }
       OverviewEditBar(screen: screen)
       SummaryAnnouncementCard()
+      FirstMonthCard()
       if OverviewHero.shows(forWidth: width) { OverviewHero() }
       if OverviewAccountsStrip.shows { OverviewAccountsStrip() }
       if AccountsSetupCard.shows(setup: environment.accountSetup) {

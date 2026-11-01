@@ -209,6 +209,8 @@ public struct GuideScenario: Hashable, Sendable, Identifiable {
     case firstLaunch
     case whatsNew(version: GuideVersion)
     case tutorial
+    /// A short lesson, by its id (`GuideLessons`).
+    case lesson(String)
   }
 
   public var kind: Kind
@@ -222,6 +224,7 @@ public struct GuideScenario: Hashable, Sendable, Identifiable {
     case .firstLaunch: "firstLaunch"
     case .whatsNew(let version): "whatsNew.\(version)"
     case .tutorial: "tutorial"
+    case .lesson(let id): "lesson.\(id)"
     }
   }
 

@@ -54,6 +54,7 @@ struct MigrationRollbackTests {
           "0017_attachments",
           "0018_purchases",
           "0019_privacy",
+          "0020_habits",
         ])
   }
 
@@ -72,7 +73,7 @@ struct MigrationRollbackTests {
       })
     #expect(failure.migration == "0004_accounts")
     #expect(failure.from == 3)
-    #expect(failure.to == 19)
+    #expect(failure.to == 20)
     #expect(try DatabaseStack.sameData(fileAt: before, as: book.url))
     let tables = try book.read { db in
       try String.fetchSet(db, sql: "SELECT name FROM sqlite_master WHERE type = 'table'")

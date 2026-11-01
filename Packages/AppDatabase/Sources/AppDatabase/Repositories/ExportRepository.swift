@@ -280,6 +280,23 @@ public struct ExportRepository: Sendable {
               + [Self.flag(row, "archived", false)])
         }
       }
+    case ExportTables.habitBadges.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM habit_badges ORDER BY earned_on, key") {
+        // A row this build can not read still goes out, in the text of the database.
+        if let badge = try? HabitBadge(row: row) {
+          csv.append(ExportTables.row(badge))
+        } else {
+          csv.append(Self.text(row, ["key", "kind", "period", "earned_on", "earned_at"]))
+        }
+      }
+    case ExportTables.noSpendDays.fileName:
+      for row in try Row.fetchAll(db, sql: "SELECT * FROM no_spend_days ORDER BY day") {
+        if let day = try? NoSpendDay(row: row) {
+          csv.append(ExportTables.row(day))
+        } else {
+          csv.append(Self.text(row, ["day", "marked_at"]))
+        }
+      }
     case ExportTables.depositOffers.fileName:
       for row in try Row.fetchAll(db, sql: "SELECT * FROM deposit_offers ORDER BY id") {
         // An offer this build can not read still goes out, in the text of the database.

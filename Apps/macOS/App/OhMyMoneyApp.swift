@@ -601,6 +601,8 @@ struct MainWindow: View {
     // The tutorial's tasks are found done by what the data holds after every change.
     .onChange(of: compute.generation, initial: true) { _, _ in
       if let dataset = compute.snapshot?.dataset { guide.check(dataset) }
+      // The badges earned are written, the reminder of the evening is routed.
+      HabitAwards.check(compute.snapshot, environment: environment)
     }
     // ↓ in the entry line over a screen without a list: «Операции» opens and takes it.
     .onReceive(NotificationCenter.default.publisher(for: .walkOperationsList)) { _ in

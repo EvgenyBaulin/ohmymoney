@@ -145,6 +145,8 @@ public struct DatasetRepository: Sendable {
         storedValues: try SettingsRepository.values(of: BankSettings.storageKeys, db: db)))
     bankData.conditions.removeAll { $0.isEmpty }
     extras.set(bankData, for: Dataset.bankDataKey)
+    // The badges, the days without spending and the settings of the habits.
+    extras.set(try HabitRepository.data(db), for: Dataset.habitsKey)
     // The wishes with their prices, the shopping list, the things and the settings of the
     // purchases come in the same read.
     let wishes = try Row.fetchAll(

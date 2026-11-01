@@ -348,7 +348,8 @@ extension Goal: @retroactive FetchableRecord, @retroactive PersistableRecord {
       accountId: RowMapping.optionalUUID(row, "account_id"),
       transfersOnContribution: (try? RowMapping.flag(
         row, "transfer_on_contribution", fallback: false)) ?? false,
-      sort: try RowMapping.optionalInteger(row, "sort") ?? 0)
+      sort: try RowMapping.optionalInteger(row, "sort") ?? 0,
+      whyNote: GoalWhy.clean(row["why_note"]))
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -364,6 +365,7 @@ extension Goal: @retroactive FetchableRecord, @retroactive PersistableRecord {
     container["account_id"] = accountId?.uuidString
     container["transfer_on_contribution"] = transfersOnContribution
     container["sort"] = sort
+    container["why_note"] = GoalWhy.clean(whyNote)
   }
 }
 

@@ -53,6 +53,9 @@ public final class AppEnvironment {
   public private(set) var shopping: ShoppingRepository?
   public private(set) var ownedItems: OwnedItemRepository?
   public private(set) var purchaseSettings: PurchaseSettingsRepository?
+  /// The badges, the days without spending and the settings of the habits
+  /// (`Schema/0020_habits.sql`).
+  public private(set) var habits: HabitRepository?
   /// The settings of the privacy features (`privacy.*` keys of `settings`) and the hidden-account
   /// switch of an account (`Schema/0019_privacy.sql`).
   public private(set) var privacySettings: PrivacySettingsRepository?
@@ -973,6 +976,7 @@ public final class AppEnvironment {
     shopping = nil
     ownedItems = nil
     purchaseSettings = nil
+    habits = nil
     privacySettings = nil
     exportCopies = nil
     savedViews = nil
@@ -1054,6 +1058,7 @@ public final class AppEnvironment {
     self.shopping = ShoppingRepository(writer: stack.writer)
     self.ownedItems = OwnedItemRepository(writer: stack.writer)
     self.purchaseSettings = PurchaseSettingsRepository(writer: stack.writer)
+    self.habits = HabitRepository(writer: stack.writer)
     self.privacySettings = PrivacySettingsRepository(writer: stack.writer)
     // Read-only: the barrier refuses writes of the owner's books at the database, the shield
     // keeps the choice in the settings, and the mode of the last session is taken up here.

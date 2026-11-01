@@ -118,7 +118,7 @@ final class EncryptedExportTests: XCTestCase {
       try EncryptedExport.read(data, password: "other", schemaVersion: 19, cipher: cipher),
       "a stranger's password does not open it")
     XCTAssertThrowsError(
-      try ArchiveOpener.open(data, supportedSchemaVersion: 19), "without a password it is shut")
+      try ArchiveOpener.open(data, supportedSchemaVersion: 20), "without a password it is shut")
   }
 
   func testOneTableGoesInUnderItsOwnName() throws {
@@ -128,7 +128,7 @@ final class EncryptedExportTests: XCTestCase {
       [file], password: "secret", appVersion: "2.6.1", schemaVersion: 19, cipher: cipher,
       iterations: rounds)
     let opened = try ArchiveOpener.open(
-      data, password: "secret", cipher: cipher, supportedSchemaVersion: 19)
+      data, password: "secret", cipher: cipher, supportedSchemaVersion: 20)
     XCTAssertEqual(opened.csvTables, ["bank-fees-2026"], "no «.csv.csv» inside")
     XCTAssertEqual(opened.csv(table: "bank-fees-2026"), csv, "the same bytes as the plain CSV")
   }

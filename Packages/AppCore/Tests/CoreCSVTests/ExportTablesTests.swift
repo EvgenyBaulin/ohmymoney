@@ -10,7 +10,7 @@ import Testing
 /// of allocation, the custom currencies and the settings, then the tags, their links, the rules
 /// and the notes of days, then the month limits, the articles and templates of events and the
 /// extras of subscriptions, then the conditions of bank products and the deposits of the owner, then the attachments, then the wishes, their prices, the shopping list
-/// and the things outside the capital.
+/// and the things outside the capital, then the badges and the days without spending.
 private let specifiedFileNames = [
   "transactions.csv", "transaction_parts.csv", "reimbursement_links.csv", "people.csv",
   "payment_methods.csv", "places.csv", "events.csv", "categories.csv", "templates.csv",
@@ -24,16 +24,17 @@ private let specifiedFileNames = [
   "subscription_terms.csv", "subscription_usage.csv", "subscription_users.csv",
   "subscription_keep_groups.csv", "bank_conditions.csv", "deposit_offers.csv", "attachments.csv",
   "wishes.csv",
-  "wish_prices.csv", "shopping_items.csv", "owned_items.csv",
+  "wish_prices.csv", "shopping_items.csv", "owned_items.csv", "habit_badges.csv",
+  "no_spend_days.csv",
 ]
 
-@Suite("ExportTables describes the 49 files of the export")
+@Suite("ExportTables describes the 51 files of the export")
 struct ExportTablesDescriptionTests {
   @Test func theFortyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 49)
+    #expect(ExportTables.all.count == 51)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.suffix(28) == [
+      ExportTables.all.suffix(30) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -44,6 +45,7 @@ struct ExportTablesDescriptionTests {
         ExportTables.subscriptionKeepGroups, ExportTables.bankConditions,
         ExportTables.depositOffers, ExportTables.attachments, ExportTables.wishes,
         ExportTables.wishPrices, ExportTables.shoppingItems, ExportTables.ownedItems,
+        ExportTables.habitBadges, ExportTables.noSpendDays,
       ])
   }
 
@@ -80,8 +82,8 @@ struct ExportTablesDescriptionTests {
         "essential", "tax_rate", "tax_npd", "basket",
       ])
     #expect(
-      Array(ExportTables.goals.columns.suffix(4)) == [
-        "plan_start_month", "account_id", "transfer_on_contribution", "sort",
+      Array(ExportTables.goals.columns.suffix(5)) == [
+        "plan_start_month", "account_id", "transfer_on_contribution", "sort", "why_note",
       ])
     #expect(
       Array(ExportTables.debts.columns.suffix(14)) == [
@@ -215,7 +217,7 @@ struct ExportTablesDescriptionTests {
     #expect(ExportTables.transactionParts.columns.count == 17)
     #expect(ExportTables.paymentMethods.columns.count == 38)
     #expect(ExportTables.templates.columns.count == 8)
-    #expect(ExportTables.goals.columns.count == 12)
+    #expect(ExportTables.goals.columns.count == 13)
     #expect(ExportTables.debtEntries.columns.count == 18)
     #expect(ExportTables.reconciliations.columns.count == 10)
     #expect(
@@ -663,6 +665,26 @@ struct ExportTablesRowTests {
     let inDollars = Goal(name: "Trip", targetE4: AmountE4(whole: 2_000), currency: .usd)
     let again = try roundTrip(ExportTables.goals, row: ExportTables.row(inDollars))
     #expect(again["currency"] == "USD")
+    #expect(again["why_note"] == "")
+    let why = Goal(name: "Море", targetE4: AmountE4(whole: 1), whyNote: "всей семьёй, \"в июле\"")
+    #expect(try roundTrip(ExportTables.goals, row: ExportTables.row(why))["why_note"] == "всей семьёй, \"в июле\"")
+  }
+
+  @Test func habitTablesRoundTrip() throws {
+    #expect(ExportTables.habitBadges.columns == ["key", "kind", "period", "earned_on", "earned_at"])
+    #expect(ExportTables.noSpendDays.columns == ["day", "marked_at"])
+    let instant = Date(timeIntervalSince1970: 1_800_000_000)
+    let badge = HabitBadge(
+      kind: .entry7, period: "2026-11-02", earnedOn: DateOnly(year: 2026, month: 11, day: 8),
+      earnedAt: instant)
+    let read = try roundTrip(ExportTables.habitBadges, row: ExportTables.row(badge))
+    #expect(read["kind"] == "entry7")
+    #expect(read["period"] == "2026-11-02")
+    #expect(read["earned_on"] == "2026-11-08")
+    #expect(read["earned_at"] == CSVValue.string(instant: instant))
+    let day = NoSpendDay(day: DateOnly(year: 2026, month: 11, day: 3), markedAt: instant)
+    let marked = try roundTrip(ExportTables.noSpendDays, row: ExportTables.row(day))
+    #expect(marked["day"] == "2026-11-03")
   }
 
   @Test func debtRoundTrips() throws {

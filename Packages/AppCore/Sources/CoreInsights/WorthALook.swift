@@ -122,6 +122,8 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
   /// A wish that can be bought now, a refund that did not arrive, a birthday in a week, the
   /// question «Не пожалели?» (`PurchaseNotes`).
   case purchase(PurchaseNote)
+  /// «Вы не вводили 4 дня — восстановить по остаткам?», «Сегодня трат не было?» (`HabitNotes`).
+  case habit(HabitNote)
 
   public var id: String {
     switch self {
@@ -138,6 +140,7 @@ public enum WorthALookNote: Hashable, Sendable, Identifiable {
     case .depositEnds(let advice): "depositEnds:\(advice.id)"
     case .warranty(let reminder): reminder.id
     case .purchase(let note): note.id
+    case .habit(let note): note.id
     }
   }
 }
@@ -155,7 +158,7 @@ extension WorthALook {
     burnoutEnabled: Bool = true, burnoutLastShownWeek: String? = nil, copyFreeBytes: Int64? = nil,
     lowCopySpaceBytes: Int64 = 1_000_000_000, databaseProblems: Int = 0,
     depositEnds: [DepositEndAdvice] = [], warranty: [WarrantyReminder] = [],
-    purchases: [PurchaseNote] = []
+    purchases: [PurchaseNote] = [], habits: [HabitNote] = []
   ) -> [WorthALookNote] {
     var notes = planning.debtReminders.map(WorthALookNote.debt)
     notes += planning.bankNotes.map(WorthALookNote.bank)
@@ -194,6 +197,8 @@ extension WorthALook {
     notes += depositEnds.map(WorthALookNote.depositEnds)
     notes += warranty.map(WorthALookNote.warranty)
     notes += purchases.map(WorthALookNote.purchase)
+    // The habits come first: a gap of entry makes every other figure less sure.
+    notes.insert(contentsOf: habits.map(WorthALookNote.habit), at: 0)
     return notes
   }
 }
