@@ -10,6 +10,8 @@ struct MacFeaturesSettingsSection: View {
   @AppStorage(MacNotifications.key(for: .payments)) private var payments = true
   @AppStorage(MacNotifications.key(for: .limits)) private var limits = true
   @AppStorage(MacNotifications.key(for: .summaries)) private var summaries = true
+  @AppStorage(MacNotifications.privacyKey) private var privacy = NotificationPlan.Privacy.standard
+    .rawValue
 
   private func t(_ key: String) -> String { environment.language(key, table: MacCommands.table) }
 
@@ -39,10 +41,19 @@ struct MacFeaturesSettingsSection: View {
         .accessibilityIdentifier("settings.mac.limits")
       Toggle(isOn: $summaries) { Text(verbatim: t("mac.settings.summaries")) }
         .accessibilityIdentifier("settings.mac.summaries")
+      // What a notification may say about amounts and hidden accounts.
+      Picker(selection: $privacy) {
+        ForEach(NotificationPlan.Privacy.allCases, id: \.self) { choice in
+          Text(verbatim: t("mac.settings.privacy.\(choice.rawValue)")).tag(choice.rawValue)
+        }
+      } label: {
+        Text(verbatim: t("mac.settings.privacy"))
+      }
+      .accessibilityIdentifier("settings.mac.privacy")
     } header: {
       Text(verbatim: t("mac.settings.title")).settingsHeaderStyle()
     } footer: {
-      Text(verbatim: t("mac.settings.footer"))
+      Text(verbatim: t("mac.settings.footer.\(privacy)"))
         .appFont(.callout).foregroundStyle(.secondary)
         .fixedSize(horizontal: false, vertical: true)
     }

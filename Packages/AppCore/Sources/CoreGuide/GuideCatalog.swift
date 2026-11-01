@@ -486,6 +486,7 @@ public enum GuideCatalog {
     whatsNew111,
     whatsNew112,
     whatsNew113,
+    whatsNew27,
   ]
 
   public static let whatsNew14 = GuideScenario(
@@ -909,5 +910,42 @@ public enum GuideCatalog {
           "«Cards abroad…»: type the conversion and ATM fees from the tariff and the app shows which card loses least. «Capital» now names the exchange-rate difference for the month and the year: how many rubles the rate brought on your accounts. It is neither income nor expense."
         ),
         symbol: "creditcard", target: GuideTarget.sidebarCapital),
+    ])
+
+  public static let whatsNew27 = GuideScenario(
+    kind: .whatsNew(version: GuideVersion(major: 2, minor: 7)),
+    cards: [
+      GuideCard(
+        id: "new27.shortcuts",
+        title: GuideText("«Быстрые команды» и AppleScript", "Shortcuts and AppleScript"),
+        body: GuideText(
+          "В «Быстрых командах» у OhMyMoney есть действия: добавить операцию строкой, как в строке ввода, изменить, удалить, найти, сводка месяца и экспорт месяца в Markdown — его можно запускать по расписанию. Записи проходят те же проверки, отменяются ⌘Z и не работают при блокировке и в режиме «Только просмотр».",
+          "OhMyMoney has actions in Shortcuts: add an operation with a line, as in the entry line, change, delete, find, the summary of a month and the export of a month as Markdown, which can run on a schedule. Writes pass the same checks, are undone with ⌘Z and do nothing while the app is locked or read-only."
+        ),
+        symbol: "square.stack.3d.up"),
+      GuideCard(
+        id: "new27.notifications",
+        title: GuideText("Уведомления", "Notifications"),
+        body: GuideText(
+          "Накануне платежа — «Платёж завтра» с кнопкой «Записать оплату» прямо в уведомлении; ещё — когда лимит почти исчерпан и когда готовы итоги. Что они говорят о суммах и скрытых счетах, выбирается в «Настройки → Приватность».",
+          "The day before a payment, «Payment due tomorrow» with «Record Payment» right in the notification; also when a limit is nearly spent and when a summary is ready. What they say about amounts and hidden accounts is chosen in Settings → Privacy."
+        ),
+        symbol: "bell.badge"),
+      GuideCard(
+        id: "new27.spotlight",
+        title: GuideText("Spotlight и фокус", "Spotlight and Focus"),
+        body: GuideText(
+          "Включите в «Настройки → Приватность» — и операции находятся через ⌘Пробел: только описание и место, без сумм, без скрытых счетов. Фильтр фокуса «Скрыть суммы» прячет суммы, пока идёт, например, рабочий фокус.",
+          "Turn it on in Settings → Privacy and operations are found with ⌘Space: the description and the place only, no amounts, no hidden accounts. The Focus filter «Hide Amounts» hides the amounts while, say, a work Focus is on."
+        ),
+        symbol: "magnifyingglass"),
+      GuideCard(
+        id: "new27.windows",
+        title: GuideText("Окна, Numbers, печать", "Windows, Numbers, printing"),
+        body: GuideText(
+          "⌥⌘N открывает раздел в отдельном окне — два счёта или два раздела рядом. Выделенные операции перетаскиваются в Numbers и Почту таблицей. ⌘P печатает «Операции» и «Отчёты», в «Итогах» — «Печать…» и «Markdown…». Кнопка «Компактно» уплотняет список.",
+          "⌥⌘N opens a section in a window of its own: two accounts or two sections side by side. Selected operations drag into Numbers and Mail as a table. ⌘P prints Operations and Reports; Summaries have «Print…» and «Markdown…». The «Compact» button packs a list tighter."
+        ),
+        symbol: "macwindow.on.rectangle"),
     ])
 }

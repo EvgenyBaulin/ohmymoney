@@ -27,12 +27,41 @@ public enum NotificationPlan {
     case summary(SummaryID)
   }
 
+  /// What a notification may say, the owner's choice in Settings: a notice is seen outside the
+  /// app — on the screen, in the Notification Center — so by default it keeps to what «Скрыть
+  /// суммы» and the hidden accounts keep.
+  public enum Privacy: String, CaseIterable, Hashable, Sendable {
+    /// No amount while the amounts are hidden; nothing about a hidden account. The default.
+    case quiet
+    /// As `quiet`, but a payment of a hidden account is announced too — «Платёж завтра», with
+    /// neither its name nor its amount.
+    case anonymous
+    /// Always the name and the amount, hidden accounts and hidden amounts too.
+    case always
+
+    public static let standard = Privacy.quiet
+
+    /// Whether a notice says an amount, given whether the amounts are hidden now.
+    public func saysAmount(hidesAmounts: Bool) -> Bool {
+      self == .always || !hidesAmounts
+    }
+  }
+
   public struct Notice: Hashable, Sendable, Identifiable {
     public var id: String
     public var subject: Subject
     /// The day the notice is shown on — the morning of the day before a payment; today or
     /// earlier means at once.
     public var day: DateOnly
+    /// A payment of a hidden account announced without its name and amount (`Privacy.anonymous`).
+    public var anonymous: Bool = false
+
+    public init(id: String, subject: Subject, day: DateOnly, anonymous: Bool = false) {
+      self.id = id
+      self.subject = subject
+      self.day = day
+      self.anonymous = anonymous
+    }
 
     public var kind: Kind {
       switch subject {
@@ -49,23 +78,25 @@ public enum NotificationPlan {
   ///   - limits: the limits of this month (`PlanningSnapshot.limits`).
   ///   - summaries: the summaries ready today (`SummaryScheduler.ready`).
   ///   - posted: ids already shown; a notice shown once is not shown again.
-  ///   - hiddenPayments: payments of hidden accounts. A notice is seen outside the app —
-  ///     on the screen, in the Notification Center — where hidden accounts are never named, so
-  ///     they are not announced at all.
+  ///   - hiddenPayments: payments of hidden accounts: not announced (`quiet`), announced
+  ///     without name and amount (`anonymous`) or as any other (`always`), as `privacy` says.
   public static func notices(
     today: DateOnly, reminders: [Reminder], limits: [LimitLine], summaries: [SummaryID],
-    posted: Set<String>, kinds: Set<Kind> = Set(Kind.allCases), hiddenPayments: Set<UUID> = []
+    posted: Set<String>, kinds: Set<Kind> = Set(Kind.allCases), hiddenPayments: Set<UUID> = [],
+    privacy: Privacy = .standard
   ) -> [Notice] {
     var notices: [Notice] = []
     if kinds.contains(.payments) {
       for reminder in reminders where reminder.kind == .payment {
-        guard let due = reminder.due, let payment = reminder.subjectId, due > today,
-          !hiddenPayments.contains(payment)
-        else { continue }
+        guard let due = reminder.due, let payment = reminder.subjectId, due > today else {
+          continue
+        }
+        let hidden = hiddenPayments.contains(payment)
+        if hidden, privacy == .quiet { continue }
         notices.append(
           Notice(
             id: reminder.id, subject: .paymentTomorrow(paymentId: payment, due: due),
-            day: due.adding(days: -1)))
+            day: due.adding(days: -1), anonymous: hidden && privacy == .anonymous))
       }
     }
     if kinds.contains(.limits) {

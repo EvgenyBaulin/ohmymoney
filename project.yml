@@ -92,6 +92,8 @@ targets:
         product: AppDatabase
       - package: Sparkle
         product: Sparkle
+      # The preview of an archive in Finder, embedded in Contents/PlugIns.
+      - target: OhMyMoney-QuickLook
     settings:
       base:
         PRODUCT_NAME: OhMyMoney
@@ -156,6 +158,35 @@ targets:
           # here it has anything to do. Debug and Release — the builds that run all day —
           # keep the script sandbox on.
           ENABLE_USER_SCRIPT_SANDBOXING: NO
+
+  # The preview of an archive of OhMyMoney in Finder (space bar): the day, the version and the
+  # operations from the open manifest, or «encrypted». Sandboxed, reads only the file it is shown.
+  OhMyMoney-QuickLook:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: Apps/macOS/QuickLook
+        excludes: ["Info.plist", "*.entitlements", "**/*.md"]
+      # Shared with the app, so the two say the same.
+      - path: Apps/macOS/Features/MacFeatures/QuickLook/ArchivePreviewText.swift
+      - path: Apps/macOS/Resources/Strings/MacFeatures.xcstrings
+    dependencies:
+      - package: AppCore
+        product: AppCore
+      - package: AppCore
+        product: CoreKit
+    settings:
+      base:
+        PRODUCT_NAME: OhMyMoneyQuickLook
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney.quicklook
+        INFOPLIST_FILE: Apps/macOS/QuickLook/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Apps/macOS/QuickLook/QuickLook.entitlements
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        SKIP_INSTALL: YES
+      configs:
+        Debug:
+          # Inside the Debug app, whose id it has to start with.
+          PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney.debug.quicklook
 
   OhMyMoney-iOS:
     type: application

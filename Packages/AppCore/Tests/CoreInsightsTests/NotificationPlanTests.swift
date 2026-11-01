@@ -124,4 +124,28 @@ struct NotificationPlanTests {
     #expect(
       NotificationPlan.step(notices: [notice], permission: .denied, explained: true) == .nothing)
   }
+
+  /// The owner's choice for hidden accounts: not at all (default), anonymous, or as any other.
+  @Test func hiddenPaymentsFollowTheOwnersChoice() {
+    let tomorrow = today.adding(days: 1)
+    let reminders = [payment(internet, due: tomorrow), payment(rent, due: tomorrow)]
+    func made(_ privacy: NotificationPlan.Privacy) -> [NotificationPlan.Notice] {
+      NotificationPlan.notices(
+        today: today, reminders: reminders, limits: [], summaries: [], posted: [],
+        hiddenPayments: [rent], privacy: privacy)
+    }
+    #expect(made(.quiet).map(\.subject) == [.paymentTomorrow(paymentId: internet, due: tomorrow)])
+    #expect(made(.anonymous).map(\.anonymous) == [false, true])
+    #expect(made(.always).count == 2)
+    #expect(made(.always).allSatisfy { !$0.anonymous })
+    #expect(NotificationPlan.Privacy.standard == .quiet)
+  }
+
+  /// An amount is said while the amounts are shown, or always when the owner chose so.
+  @Test func anAmountIsSaidAsTheOwnerChose() {
+    #expect(NotificationPlan.Privacy.quiet.saysAmount(hidesAmounts: false))
+    #expect(!NotificationPlan.Privacy.quiet.saysAmount(hidesAmounts: true))
+    #expect(!NotificationPlan.Privacy.anonymous.saysAmount(hidesAmounts: true))
+    #expect(NotificationPlan.Privacy.always.saysAmount(hidesAmounts: true))
+  }
 }

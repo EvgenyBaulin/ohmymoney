@@ -64,16 +64,27 @@ struct PurchasesScreen: View {
         ScreenTitleBlock(
           title: t("purchases.title"), subtitle: t("purchases.subtitle"),
           identifier: "purchases.title")
-        Picker(selection: $selected) {
-          ForEach(PurchasesText.Page.allCases) { page in
-            Text(verbatim: t(page.titleKey)).tag(page)
+        HStack(spacing: 12) {
+          Picker(selection: $selected) {
+            ForEach(PurchasesText.Page.allCases) { page in
+              Text(verbatim: t(page.titleKey)).tag(page)
+            }
+          } label: {
+            Text(verbatim: t("purchases.title"))
           }
-        } label: {
-          Text(verbatim: t("purchases.title"))
+          .pickerStyle(.segmented)
+          .labelsHidden()
+          .accessibilityIdentifier("purchases.pages")
+          #if os(macOS)
+            // «Компактно» / «Подробно»: this list's own choice, on this Mac.
+            ListDensityToggle(
+              list: .purchases,
+              compactTitle: environment.language("mac.density.compact", table: "MacFeatures"),
+              detailedTitle: environment.language("mac.density.detailed", table: "MacFeatures")
+            )
+            .labelStyle(.iconOnly)
+          #endif
         }
-        .pickerStyle(.segmented)
-        .labelsHidden()
-        .accessibilityIdentifier("purchases.pages")
         if let refusal {
           Label {
             Text(verbatim: refusal).fixedSize(horizontal: false, vertical: true)
@@ -85,6 +96,7 @@ struct PurchasesScreen: View {
           .accessibilityIdentifier("purchases.refusal")
         }
         content
+          .listDensity(.purchases)
       }
       .padding(20)
       .frame(maxWidth: .infinity, alignment: .leading)

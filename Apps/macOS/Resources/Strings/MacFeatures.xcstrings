@@ -1021,6 +1021,23 @@
         }
       }
     },
+    "mac.notify.payment.anonymous": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payment due tomorrow"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платёж завтра"
+          }
+        }
+      }
+    },
     "mac.notify.payment.body": {
       "extractionState": "manual",
       "localizations": {
@@ -1225,19 +1242,189 @@
         }
       }
     },
-    "mac.settings.footer": {
+    "mac.quicklook.created": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Notifications show no amounts while they are hidden, and never name a hidden account."
+            "value": "Made: %@"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пока суммы скрыты, уведомления их не показывают; скрытые счета не называются никогда."
+            "value": "Создан: %@"
+          }
+        }
+      }
+    },
+    "mac.quicklook.encrypted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encrypted"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зашифровано"
+          }
+        }
+      }
+    },
+    "mac.quicklook.encryptedHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The contents can be seen only in OhMyMoney, with the password."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Содержимое видно только в OhMyMoney, после пароля."
+          }
+        }
+      }
+    },
+    "mac.quicklook.operations": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operations: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операций: %@"
+          }
+        }
+      }
+    },
+    "mac.quicklook.tables": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tables: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таблиц: %@"
+          }
+        }
+      }
+    },
+    "mac.quicklook.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney Archive"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архив OhMyMoney"
+          }
+        }
+      }
+    },
+    "mac.quicklook.unreadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This file cannot be read as an archive of OhMyMoney."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот файл не читается как архив OhMyMoney."
+          }
+        }
+      }
+    },
+    "mac.quicklook.version": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By OhMyMoney %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия OhMyMoney: %@"
+          }
+        }
+      }
+    },
+    "mac.settings.footer.always": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications always show the name and the amount, hidden accounts included. They can be seen on the screen by anyone near the Mac."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления всегда показывают название и сумму, в том числе скрытых счетов. Их увидит любой, кто рядом с Mac."
+          }
+        }
+      }
+    },
+    "mac.settings.footer.anonymous": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "While the amounts are hidden, notifications show none; a payment of a hidden account is announced as “Payment due tomorrow”, without its name and amount."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока суммы скрыты, уведомления их не показывают; платёж скрытого счёта приходит как «Платёж завтра» — без имени и суммы."
+          }
+        }
+      }
+    },
+    "mac.settings.footer.quiet": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "While the amounts are hidden, notifications show none, and a hidden account is never mentioned."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока суммы скрыты, уведомления их не показывают; о скрытых счетах уведомлений нет."
           }
         }
       }
@@ -1289,6 +1476,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "С кнопкой «Записать оплату» в уведомлении."
+          }
+        }
+      }
+    },
+    "mac.settings.privacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What notifications say"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что говорят уведомления"
+          }
+        }
+      }
+    },
+    "mac.settings.privacy.always": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Always with the amount"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всегда с суммой"
+          }
+        }
+      }
+    },
+    "mac.settings.privacy.anonymous": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hidden accounts: “Payment due tomorrow” without name or amount"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрытые — «Платёж завтра» без имени и суммы"
+          }
+        }
+      }
+    },
+    "mac.settings.privacy.quiet": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No amounts while hidden, nothing about hidden accounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без сумм, о скрытых не уведомлять"
           }
         }
       }

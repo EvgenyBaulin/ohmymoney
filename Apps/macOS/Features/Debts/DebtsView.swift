@@ -39,6 +39,7 @@ struct DebtsView: View {
           // A phone: the list, and the card of the chosen debt in its place with a way back.
           if selection == nil {
             overviewPane(overview, snapshot: snapshot)
+              .listDensity(.debts)
           } else {
             Button {
               selection = nil
@@ -56,6 +57,7 @@ struct DebtsView: View {
           }
         } else if selection == nil {
           overviewPane(overview, snapshot: snapshot)
+            .listDensity(.debts)
         } else {
           HStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
@@ -68,6 +70,7 @@ struct DebtsView: View {
               .padding(.horizontal, 16).padding(.vertical, 8)
               .accessibilityIdentifier("debts.all")
               list(overview, snapshot: snapshot)
+                .listDensity(.debts)
             }
             .frame(width: 300)
             Divider()
@@ -231,6 +234,15 @@ struct DebtsView: View {
         ) { creditSheet = .review(review) }
         .accessibilityIdentifier("debts.review.open")
       }
+      #if os(macOS)
+        // «Компактно» / «Подробно»: this list's own choice, on this Mac.
+        ListDensityToggle(
+          list: .debts,
+          compactTitle: environment.language("mac.density.compact", table: "MacFeatures"),
+          detailedTitle: environment.language("mac.density.detailed", table: "MacFeatures")
+        )
+        .labelStyle(.iconOnly)
+      #endif
       Button(t("debts.add")) { creating = true }
         .buttonStyle(.bordered)
         .guideTarget(GuideTarget.debtsAdd)

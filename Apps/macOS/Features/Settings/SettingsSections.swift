@@ -49,7 +49,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
       [
         .macFeatures("mac.settings.title"), .macFeatures("mac.settings.spotlight"),
         .macFeatures("mac.settings.payments"), .macFeatures("mac.settings.limits"),
-        .macFeatures("mac.settings.summaries"),
+        .macFeatures("mac.settings.summaries"), .macFeatures("mac.settings.privacy"),
       ]
     #else
       []

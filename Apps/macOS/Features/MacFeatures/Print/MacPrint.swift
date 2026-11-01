@@ -81,6 +81,8 @@ struct TablePrintPage: View {
 @MainActor
 enum MacPrint {
   static func run<Page: View>(_ page: Page, width: CGFloat, jobTitle: String) {
+    // dependencies: none — a printed page is plain text and figures handed in, it reads
+    // nothing of the app's.
     let host = NSHostingView(rootView: page)
     host.frame = NSRect(x: 0, y: 0, width: width, height: 10)
     let size = host.fittingSize

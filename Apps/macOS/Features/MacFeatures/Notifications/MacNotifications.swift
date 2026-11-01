@@ -60,6 +60,9 @@ final class MacNotifications: NSObject {
   /// The keys of `UserDefaults` of this Mac.
   nonisolated static let postedKey = "notifications.posted"
   nonisolated static let explainedKey = "notifications.explained"
+  /// What a notification may say about amounts and hidden accounts (`NotificationPlan.Privacy`:
+  /// `quiet` by default, `anonymous`, `always`).
+  nonisolated static let privacyKey = "notifications.privacy"
   nonisolated static func key(for kind: NotificationPlan.Kind) -> String {
     "notifications.\(kind.rawValue)"
   }
@@ -102,6 +105,11 @@ final class MacNotifications: NSObject {
       })
   }
 
+  func privacy() -> NotificationPlan.Privacy {
+    defaults.string(forKey: Self.privacyKey).flatMap(NotificationPlan.Privacy.init(rawValue:))
+      ?? .standard
+  }
+
   private var posted: Set<String> {
     get { Set(defaults.stringArray(forKey: Self.postedKey) ?? []) }
     set { defaults.set(newValue.sorted(), forKey: Self.postedKey) }
@@ -124,7 +132,8 @@ final class MacNotifications: NSObject {
       snapshot.dataset.planning.scheduled.filter { hidden.isHidden($0.paymentMethodId) }.map(\.id))
     let all = NotificationPlan.notices(
       today: today, reminders: snapshot.planning.reminders, limits: snapshot.planning.limits,
-      summaries: summaries, posted: [], kinds: kinds(), hiddenPayments: hiddenPayments)
+      summaries: summaries, posted: [], kinds: kinds(), hiddenPayments: hiddenPayments,
+      privacy: privacy())
     let fresh = all.filter { !posted.contains($0.id) }
 
     // A pending notice the data no longer says — the payment paid early — goes.
@@ -144,7 +153,8 @@ final class MacNotifications: NSObject {
     case .post:
       break
     }
-    let words = NotificationWords(environment: environment, snapshot: snapshot)
+    let words = NotificationWords(
+      environment: environment, snapshot: snapshot, privacy: privacy())
     for notice in fresh {
       guard let content = words.content(of: notice) else { continue }
       posting.post(
@@ -246,11 +256,13 @@ extension MacNotifications: UNUserNotificationCenterDelegate {
   }
 }
 
-/// The words of a notification, in the interface language. No amount with «Скрыть суммы» on.
+/// The words of a notification, in the interface language, as the owner's choice says
+/// (`NotificationPlan.Privacy`): by default no amount with «Скрыть суммы» on.
 @MainActor
 struct NotificationWords {
   let environment: AppEnvironment
   let snapshot: DataSnapshot
+  var privacy: NotificationPlan.Privacy = .standard
 
   private func t(_ key: String) -> String { environment.language(key, table: MacCommands.table) }
 
@@ -258,7 +270,17 @@ struct NotificationWords {
     String(format: t(key), locale: environment.language.locale, arguments: arguments)
   }
 
-  private var hidesAmounts: Bool { environment.amounts.isHidingNow }
+  private var saysAmount: Bool {
+    privacy.saysAmount(hidesAmounts: environment.amounts.isHidingNow)
+  }
+
+  /// Amounts written in full: a notice says one only when it may (`saysAmount`), and then the
+  /// mask of the screen is not what it means.
+  private var money: MoneyFormatter {
+    MoneyFormatter(
+      locale: environment.language.locale, hidesAmounts: false,
+      currencyStyle: environment.theme.currencyStyle, catalog: environment.currencyCatalog)
+  }
 
   func content(of notice: NotificationPlan.Notice) -> UNMutableNotificationContent? {
     let content = UNMutableNotificationContent()
@@ -266,15 +288,21 @@ struct NotificationWords {
     case .paymentTomorrow(let paymentId, let due):
       guard let payment = snapshot.dataset.planning.scheduled.first(where: { $0.id == paymentId })
       else { return nil }
-      content.title = f("mac.notify.payment.title", payment.name)
       let amount = SubscriptionMath.price(
         of: payment, on: due, prices: snapshot.dataset.planning.prices)
-      content.body =
-        hidesAmounts
-        ? f("mac.notify.payment.bodyHidden", environment.dates.longDay(due))
-        : f(
-          "mac.notify.payment.body", environment.money.exact(amount, currency: payment.currency),
-          environment.dates.longDay(due))
+      if notice.anonymous {
+        // A payment of a hidden account: neither its name nor its amount.
+        content.title = t("mac.notify.payment.anonymous")
+        content.body = f("mac.notify.payment.bodyHidden", environment.dates.longDay(due))
+      } else {
+        content.title = f("mac.notify.payment.title", payment.name)
+        content.body =
+          saysAmount
+          ? f(
+            "mac.notify.payment.body", money.exact(amount, currency: payment.currency),
+            environment.dates.longDay(due))
+          : f("mac.notify.payment.bodyHidden", environment.dates.longDay(due))
+      }
       content.categoryIdentifier = MacNotifications.paymentCategory
       content.userInfo = [
         "payment": paymentId.uuidString, "due": due.iso,
@@ -290,11 +318,9 @@ struct NotificationWords {
       if case .limitOver = notice.subject { over = true } else { over = false }
       content.title = f(over ? "mac.notify.limit.over" : "mac.notify.limit.near", name)
       content.body =
-        hidesAmounts
-        ? t("mac.notify.limit.bodyHidden")
-        : f(
-          "mac.notify.limit.body", environment.money.rounded(line.spent),
-          environment.money.rounded(line.available))
+        saysAmount
+        ? f("mac.notify.limit.body", money.rounded(line.spent), money.rounded(line.available))
+        : t("mac.notify.limit.bodyHidden")
       content.userInfo = ["section": MainWindow.Section.planning.rawValue]
     case .summary(let id):
       content.title = SummaryAnnouncementText.headline(of: id, language: environment.language)

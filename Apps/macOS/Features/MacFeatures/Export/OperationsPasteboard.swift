@@ -5,9 +5,9 @@ import UniformTypeIdentifiers
 
 /// Operations dragged out of «Операции» into Numbers or Mail, or copied with ⌘C: a table with a
 /// header row (`OperationsPasteTable`) — tab-separated text for Numbers and any text field, an
-/// HTML table for Mail. With «Скрыть суммы» on, the table carries no amounts, as the screen shows
-/// none. Only operations go: a transfer between the owner's accounts is neither income nor
-/// spending and has no row in such a table.
+/// HTML table for Mail. The amounts go with it even while «Скрыть суммы» hides them on the screen:
+/// a drag is a deliberate hand-over. Only operations go: a transfer between the owner's accounts
+/// is neither income nor spending and has no row in such a table.
 @MainActor
 enum OperationsPasteboard {
   /// The words of the table in the interface language.
@@ -44,7 +44,9 @@ enum OperationsPasteboard {
   static func table(ids: Set<UUID>, deps: AppDependencies) -> PasteTable? {
     let entries = deps.store.entries(ids: ids)
     guard !entries.isEmpty else { return nil }
-    return table(entries, deps: deps, hidesAmounts: deps.environment.amounts.isHidingNow)
+    // With amounts even while «Скрыть суммы» is on: a table dragged out on purpose is for the
+    // spreadsheet it goes to (owner's answer).
+    return table(entries, deps: deps, hidesAmounts: false)
   }
 
   /// One item that is the whole table, in the three forms another app may ask for.
