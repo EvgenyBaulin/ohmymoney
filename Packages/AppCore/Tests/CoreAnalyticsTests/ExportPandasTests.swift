@@ -159,7 +159,7 @@ struct ExportPandasTests {
       months: 6, endingOn: Synthetic.endingOn, calendar: Synthetic.calendar, language: "ru"
     ).withAccounts(seed: 20_260_918, calendar: Synthetic.calendar, language: "ru")
     let rows = Self.rows(of: set)
-    #expect(ExportTables.all.count == 51)
+    #expect(ExportTables.all.count == 53)
     #expect(Set(rows.keys) == Set(ExportTables.all), "a file of Export has no rows here")
     for table in [
       ExportTables.accountGroups, ExportTables.transfers, ExportTables.reconciliationBalances,

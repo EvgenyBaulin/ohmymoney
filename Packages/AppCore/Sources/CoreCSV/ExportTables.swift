@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 51 files of Export, always in the same order.
+/// The 53 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -474,7 +474,7 @@ public enum ExportTables {
     fileName: "cashback_offers.csv",
     columns: ["id", "payment_method_id", "card_id", "month", "label", "percent", "chosen"])
 
-  /// All 51 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// All 53 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes

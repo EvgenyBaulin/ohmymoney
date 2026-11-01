@@ -58,7 +58,7 @@ final class DataScenarioArchiveRoundTripTests: XCTestCase {
     _ = try service().exportArchive(to: url("same"))
     let opened = try service().openArchive(at: url("same"))
     let tables = try ExportRepository(writer: stack.writer).tables()
-    XCTAssertEqual(tables.count, 51)
+    XCTAssertEqual(tables.count, 53)
     for table in tables {
       XCTAssertEqual(opened.csv(table: table.name), table.data, table.name)
     }

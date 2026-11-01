@@ -170,8 +170,8 @@ final class UpgradeFromOnePointOneTests: XCTestCase {
   private func expectUpdated(_ environment: AppEnvironment, counts: [String: Int]) throws {
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().count, 20)
-    XCTAssertEqual(stack.applied.applied, 16)
+    XCTAssertEqual(try stack.appliedMigrations().count, 21)
+    XCTAssertEqual(stack.applied.applied, 17)
     XCTAssertEqual(stack.applied.dataSteps["cardsCreated"], 1)
     XCTAssertEqual(stack.applied.dataSteps["cardsSkipped"], 0)
     XCTAssertEqual(stack.applied.dataSteps["countsRecorded"], 1)

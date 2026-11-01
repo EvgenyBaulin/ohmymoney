@@ -30,10 +30,10 @@ private let specifiedFileNames = [
   "bank_cashback_categories.csv", "cashback_offers.csv",
 ]
 
-@Suite("ExportTables describes the 51 files of the export")
+@Suite("ExportTables describes the 53 files of the export")
 struct ExportTablesDescriptionTests {
   @Test func theFortyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 51)
+    #expect(ExportTables.all.count == 53)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
       ExportTables.all.dropLast(2).suffix(30) == [

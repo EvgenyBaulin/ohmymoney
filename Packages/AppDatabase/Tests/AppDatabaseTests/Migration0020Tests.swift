@@ -31,7 +31,7 @@ struct Migration0020Tests {
 
   @Test func aNewDatabaseHasTheColumnAndTheTablesEmpty() throws {
     let stack = try TestSupport.makeStack()
-    #expect(try stack.appliedMigrations().last == "0020_habits")
+    #expect(try stack.appliedMigrations().last == TestSupport.lastMigration)
     try stack.writer.read { (db: Database) throws in
       #expect(try db.columns(in: "goals").map(\.name).contains("why_note"))
       for table in ["habit_badges", "no_spend_days"] {
@@ -67,10 +67,10 @@ struct Migration0020Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == ["0020_habits"])
+        == ["0020_habits", "0021_history_and_cashback_choice"])
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 1)
+    #expect(stack.applied.applied == TestSupport.migrationCount - 19)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -207,8 +207,8 @@ struct Migration0020Tests {
       try Goal(name: "Море", targetE4: AmountE4(whole: 1), whyNote: "всей семьёй").insert(db)
     }
     let tables = try ExportRepository(writer: stack.writer).tables()
-    #expect(tables.count == 51)
-    #expect(tables.suffix(2).map(\.fileName) == ["habit_badges.csv", "no_spend_days.csv"])
+    #expect(tables.count == ExportTables.all.count)
+    #expect(tables.dropLast(2).suffix(2).map(\.fileName) == ["habit_badges.csv", "no_spend_days.csv"])
     let badges = try CSVReader.dictionaries(
       from: try #require(tables.first { $0.name == "habit_badges" }).data)
     #expect(badges.first?["kind"] == "count3" && badges.first?["period"] == "2026-08")

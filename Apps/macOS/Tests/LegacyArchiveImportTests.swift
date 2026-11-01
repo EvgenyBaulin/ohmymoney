@@ -243,8 +243,8 @@ final class LegacyArchiveImportTests: XCTestCase {
     let environment = await start()
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().count, 20)
-    XCTAssertEqual(stack.applied.applied, 17)
+    XCTAssertEqual(try stack.appliedMigrations().count, 21)
+    XCTAssertEqual(stack.applied.applied, 18)
     XCTAssertEqual(
       UpgradeFromFirstVersionTests.accountsStep(stack.applied.dataSteps),
       ["mainKept": 1, "mainChosen": 0, "mainCreated": 0, "defaultsCleared": 2, "assigned": 3])
@@ -349,7 +349,7 @@ final class MigrationAtStartTests: XCTestCase {
     let environment = await start()
 
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 20)
+    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 21)
     let copy = try XCTUnwrap(
       copies().first { (BackupService.isBeforeMigration($0) && $0.hasSuffix(".sqlite")) })
     let url = AppPaths.backupsDirectory.appendingPathComponent(copy)
@@ -440,7 +440,7 @@ final class MigrationAtStartTests: XCTestCase {
     XCTAssertTrue(environment.forgetFailedStart())
     await environment.start()
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 20)
+    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 21)
     XCTAssertEqual(
       copies().filter { (BackupService.isBeforeMigration($0) && $0.hasSuffix(".sqlite")) }.count, 1)
   }
