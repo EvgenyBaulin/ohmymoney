@@ -318,7 +318,7 @@ final class LocalizationTests: XCTestCase {
       // The name of a service is one in both languages, like the name of the app.
       "entry.rateCoingecko",
       // The name of a file format is the same in both languages.
-      "summaries.pdf",
+      "summaries.pdf", "mac.markdown.button",
     ]
     let word = try NSRegularExpression(pattern: "[A-Za-z]{3,}")
     let specifier = try NSRegularExpression(pattern: "%([0-9]+\\$)?(@|lld|ld|d|f)")

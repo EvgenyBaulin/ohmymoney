@@ -272,6 +272,10 @@ check-toolchain:
 	    if [ -n "$$SWIFT_EXEC" ]; then \
 	        pkg=$$("$$SWIFT_EXEC" --version 2>&1 | sed -nE 's/.*Swift version ([0-9]+\.[0-9]+).*/\1/p' | sed -n 1p); \
 	    fi; \
+	    if [ -z "$$xcc" ] && [ -n "$$pkg" ] && ! xcodebuild -version > /dev/null 2>&1; then \
+	        echo "toolchain: Xcode cannot be run from here (a sandbox): the comparison with Xcode's Swift is left to a build that can"; \
+	        exit 0; \
+	    fi; \
 	    if [ -z "$$pkg" ] || [ -z "$$xcv" ] || [ "$$pkg" != "$$xcv" ]; then \
 	        echo "toolchain: the packages would build with Swift $${pkg:-?}, Xcode builds with Swift $${xcv:-?}" >&2; \
 	        echo "toolchain: swift on PATH: $$(command -v swift); TOOLCHAINS=$${TOOLCHAINS:-<unset>}; SWIFT_EXEC=$${SWIFT_EXEC:-<unset>}" >&2; \
