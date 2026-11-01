@@ -82,6 +82,30 @@ struct TransactionsTable<MenuItems: View>: View {
       guard !selection.isEmpty else { return }
       deleteAction(selection)
     }
+    // ⌘P: the operations listed — what the filters and the search show — on paper.
+    .focusedSceneValue(\.printableTable, printable)
+    // ⌘C: the selected operations as a table with a header, as a drag hands them.
+    .onCopyCommand {
+      guard let table = OperationsPasteboard.table(ids: selection, deps: deps) else { return [] }
+      return [OperationsPasteboard.provider(for: table)]
+    }
+  }
+
+  private var printable: PrintableTable {
+    let ids = Set(OperationsArrows.rows(of: listing))
+    return PrintableTable(
+      title: environment.language("mac.print.operations", table: MacCommands.table)
+    ) { [deps] withAmounts in
+      let entries = deps.store.entries(ids: ids)
+      guard !entries.isEmpty else { return nil }
+      return OperationsPasteboard.table(entries, deps: deps, hidesAmounts: !withAmounts)
+    }
+  }
+
+  private func dragItem(_ operation: UUID) -> NSItemProvider? {
+    OperationsPasteboard.dragItem(
+      for: operation, selection: selection, listedOrder: OperationsArrows.rows(of: listing),
+      deps: deps)
   }
 
   /// The table selects rows; the window keeps operations and transfers. A part never gets
@@ -106,6 +130,8 @@ struct TransactionsTable<MenuItems: View>: View {
         OutlineGroup(section.rows, children: \.parts) { item in
           TableRow(item)
             .selectionDisabled(item.isPart)
+            // Dragged into Numbers or Mail: the selection as one table (`OperationsPasteboard`).
+            .itemProvider(item.isPart ? nil : { dragItem(item.transactionId) })
         }
       } header: {
         DayHeader(day: section.day, totals: section.totals)

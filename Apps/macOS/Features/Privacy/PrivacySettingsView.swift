@@ -70,6 +70,10 @@ struct PrivacySettingsView: View {
           .appFont(.callout).foregroundStyle(.secondary)
           .fixedSize(horizontal: false, vertical: true)
       }
+      #if os(macOS)
+        // What the Mac shows outside the app: Spotlight and the notifications.
+        MacFeaturesSettingsSection()
+      #endif
     }
     .formStyle(.grouped)
     .sheet(isPresented: environment.lock.presenting($showsJournal)) {

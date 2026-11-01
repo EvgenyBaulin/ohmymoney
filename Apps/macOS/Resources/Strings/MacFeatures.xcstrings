@@ -1,0 +1,1927 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "intent.add.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adds an operation or a transfer written as in the entry line, for example “coffee 250” or “transfer 5000 from Sber to T-Bank”. It is checked as the entry line checks it, and ⌘Z in OhMyMoney takes it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавляет операцию или перевод, записанные как в строке ввода, например «кофе 250» или «перевод 5000 сбер т-банк». Проверки — как у строки ввода, отменить — ⌘Z в OhMyMoney."
+          }
+        }
+      }
+    },
+    "intent.add.line": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Line"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Строка"
+          }
+        }
+      }
+    },
+    "intent.add.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Operation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить операцию"
+          }
+        }
+      }
+    },
+    "intent.delete.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deletes an operation, as “Delete” in the list does. ⌘Z in OhMyMoney brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удаляет операцию, как «Удалить» в списке. Вернуть — ⌘Z в OhMyMoney."
+          }
+        }
+      }
+    },
+    "intent.delete.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Operation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить операцию"
+          }
+        }
+      }
+    },
+    "intent.edit.amount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amount"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма"
+          }
+        }
+      }
+    },
+    "intent.edit.category": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория"
+          }
+        }
+      }
+    },
+    "intent.edit.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changes the description, the amount or the category of an operation. Fields left empty stay as they are."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меняет описание, сумму или категорию операции. Пустые поля остаются как были."
+          }
+        }
+      }
+    },
+    "intent.edit.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Description"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Описание"
+          }
+        }
+      }
+    },
+    "intent.edit.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change Operation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить операцию"
+          }
+        }
+      }
+    },
+    "intent.find.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finds operations by a word of the description, the place or the category. Operations of hidden accounts are never found."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ищет операции по слову из описания, места или категории. Операции скрытых счетов не находятся никогда."
+          }
+        }
+      }
+    },
+    "intent.find.text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Текст"
+          }
+        }
+      }
+    },
+    "intent.find.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find Operations"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найти операции"
+          }
+        }
+      }
+    },
+    "intent.focus.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hides the amounts in OhMyMoney while this Focus is on and shows them again when it ends. Amounts you hid yourself stay hidden."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрывает суммы в OhMyMoney, пока включён этот фокус, и показывает снова, когда он закончится. Суммы, скрытые вами вручную, останутся скрытыми."
+          }
+        }
+      }
+    },
+    "intent.focus.hidden": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amounts hidden"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Суммы скрыты"
+          }
+        }
+      }
+    },
+    "intent.focus.hide": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide amounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть суммы"
+          }
+        }
+      }
+    },
+    "intent.focus.shown": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amounts shown"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Суммы видны"
+          }
+        }
+      }
+    },
+    "intent.focus.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide Amounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть суммы"
+          }
+        }
+      }
+    },
+    "intent.markdown.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The summary of a month as a Markdown file — add “Save File” after it to put it into a folder, and run the shortcut on a schedule."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сводка месяца файлом Markdown — добавьте после неё «Сохранить файл», чтобы положить его в папку, и запускайте команду по расписанию."
+          }
+        }
+      }
+    },
+    "intent.markdown.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Export Month as Markdown"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспорт месяца в Markdown"
+          }
+        }
+      }
+    },
+    "intent.month": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месяц"
+          }
+        }
+      }
+    },
+    "intent.operation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операция"
+          }
+        }
+      }
+    },
+    "intent.operation.type": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операция"
+          }
+        }
+      }
+    },
+    "intent.summary.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The summary of a month as text: income, spending, categories, places. Without a month — the last finished one. With “Hide Amounts” on, without amounts."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сводка месяца текстом: доходы, расходы, категории, места. Без месяца — последний закончившийся. При «Скрыть суммы» — без сумм."
+          }
+        }
+      }
+    },
+    "intent.summary.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Month Summary"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сводка месяца"
+          }
+        }
+      }
+    },
+    "mac.command.archivedLeftovers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The change would leave money on an archived account: finish it in OhMyMoney."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правка оставит деньги на счёте в архиве: закончите её в OhMyMoney."
+          }
+        }
+      }
+    },
+    "mac.command.badDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The date or the time of the line cannot be read."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не понял дату или время в строке."
+          }
+        }
+      }
+    },
+    "mac.command.badMonth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The month is written as YYYY-MM, for example 2026-10."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Месяц пишется как ГГГГ-ММ, например 2026-10."
+          }
+        }
+      }
+    },
+    "mac.command.categoryMissing": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The line names no category: add it to the line, for example “coffee 250 cafe”, or choose it in OhMyMoney."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В строке нет категории: допишите её, например «кофе 250 кафе», или выберите в OhMyMoney."
+          }
+        }
+      }
+    },
+    "mac.command.categoryUnknown": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no category “%@”."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категории «%@» нет."
+          }
+        }
+      }
+    },
+    "mac.command.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Record it anyway?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Всё равно записать?"
+          }
+        }
+      }
+    },
+    "mac.command.countQuestion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The balance was reconciled that day: say in OhMyMoney whether the operation was before the count."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В этот день была сверка: ответьте в OhMyMoney, была ли операция до неё."
+          }
+        }
+      }
+    },
+    "mac.command.deleteRefused": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This operation cannot be deleted from here: open it in OhMyMoney."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эту операцию отсюда удалить нельзя: откройте её в OhMyMoney."
+          }
+        }
+      }
+    },
+    "mac.command.deleted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deleted: %@. ⌘Z in OhMyMoney brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалено: %@. Вернуть — ⌘Z в OhMyMoney."
+          }
+        }
+      }
+    },
+    "mac.command.edited": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changed: %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменено: %@."
+          }
+        }
+      }
+    },
+    "mac.command.instalmentReturn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A return of something bought in instalments is recorded in OhMyMoney."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат покупки в рассрочку записывается в OhMyMoney."
+          }
+        }
+      }
+    },
+    "mac.command.locked": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney is locked. Open the app and unlock it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney заблокирован. Откройте приложение и разблокируйте его."
+          }
+        }
+      }
+    },
+    "mac.command.mileage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The mileage since the last fill-up will not be recorded."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробег с прошлой заправки не будет записан."
+          }
+        }
+      }
+    },
+    "mac.command.moneyBack": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money given back by a person is recorded in OhMyMoney: there you choose what it closes."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат денег от человека записывается в OhMyMoney: там выбирается, что он закрывает."
+          }
+        }
+      }
+    },
+    "mac.command.notFound": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The operation was not found."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операция не найдена."
+          }
+        }
+      }
+    },
+    "mac.command.notReady": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney has not opened its data yet. Open the app and try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ещё не открыл данные. Откройте приложение и повторите."
+          }
+        }
+      }
+    },
+    "mac.command.prepayQuestion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The payment is above its due: choose in OhMyMoney whether it shortens the term, lowers the payment or pays ahead."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платёж больше срочного: выберите в OhMyMoney, уменьшить срок, платёж или это платёж вперёд."
+          }
+        }
+      }
+    },
+    "mac.command.readOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Read Only” is on: nothing can be added, changed or deleted."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включён режим «Только просмотр»: ничего нельзя добавить, изменить или удалить."
+          }
+        }
+      }
+    },
+    "mac.command.refundPurchase": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A refund: choose the purchase it takes money back from in OhMyMoney."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат: выберите в OhMyMoney покупку, за которую вернули деньги."
+          }
+        }
+      }
+    },
+    "mac.command.saved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recorded: %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано: %@."
+          }
+        }
+      }
+    },
+    "mac.command.splitAmount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The operation has several parts: change its amount in OhMyMoney."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У операции несколько частей: сумму меняйте в OhMyMoney."
+          }
+        }
+      }
+    },
+    "mac.command.transferIncomplete": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A transfer: name both accounts in one currency, for example “transfer 5000 Sber T-Bank”."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевод: назовите оба счёта в одной валюте, например «перевод 5000 сбер т-банк»."
+          }
+        }
+      }
+    },
+    "mac.command.unchanged": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing to change: %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Менять нечего: %@."
+          }
+        }
+      }
+    },
+    "mac.command.untitled": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операция"
+          }
+        }
+      }
+    },
+    "mac.density.compact": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compact"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Компактно"
+          }
+        }
+      }
+    },
+    "mac.density.detailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detailed"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подробно"
+          }
+        }
+      }
+    },
+    "mac.markdown.button": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown…"
+          }
+        }
+      }
+    },
+    "mac.notify.explain.allow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешить…"
+          }
+        }
+      }
+    },
+    "mac.notify.explain.later": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Now"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не сейчас"
+          }
+        }
+      }
+    },
+    "mac.notify.explain.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney can tell you the day before a payment is due — with “Record Payment” right in the notification — when a limit is nearly spent, and when the summary of a week or a month is ready. With “Hide Amounts” on, notifications show no amounts, and hidden accounts are never named. You can turn each kind off in Settings → Privacy."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney может напомнить накануне платежа — с кнопкой «Записать оплату» прямо в уведомлении, — сказать, что лимит почти исчерпан, и что готовы итоги недели или месяца. При «Скрыть суммы» уведомления без сумм, скрытые счета не называются никогда. Каждый вид можно выключить в Настройках → Приватность."
+          }
+        }
+      }
+    },
+    "mac.notify.explain.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications from OhMyMoney?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уведомления OhMyMoney?"
+          }
+        }
+      }
+    },
+    "mac.notify.limit.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent %1$@ of %2$@ this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрачено %1$@ из %2$@ за месяц"
+          }
+        }
+      }
+    },
+    "mac.notify.limit.bodyHidden": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Planning to see the limit"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте «Планирование», чтобы посмотреть лимит"
+          }
+        }
+      }
+    },
+    "mac.notify.limit.near": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The limit “%@” is nearly spent"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит «%@» почти исчерпан"
+          }
+        }
+      }
+    },
+    "mac.notify.limit.over": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The limit “%@” is overspent"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит «%@» превышен"
+          }
+        }
+      }
+    },
+    "mac.notify.payment.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ on %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, %2$@"
+          }
+        }
+      }
+    },
+    "mac.notify.payment.bodyHidden": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Due on %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Срок — %@"
+          }
+        }
+      }
+    },
+    "mac.notify.payment.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Due tomorrow: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завтра платёж: %@"
+          }
+        }
+      }
+    },
+    "mac.notify.record": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record Payment"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записать оплату"
+          }
+        }
+      }
+    },
+    "mac.notify.summary.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open OhMyMoney to look at it"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Откройте OhMyMoney, чтобы посмотреть"
+          }
+        }
+      }
+    },
+    "mac.print.ask": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Print with amounts?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Печатать с суммами?"
+          }
+        }
+      }
+    },
+    "mac.print.askMessage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The amounts are hidden on the screen. A printed page can be seen by anyone."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На экране суммы скрыты. Напечатанную страницу может увидеть кто угодно."
+          }
+        }
+      }
+    },
+    "mac.print.button": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Print…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Печать…"
+          }
+        }
+      }
+    },
+    "mac.print.menu": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Print…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Печать…"
+          }
+        }
+      }
+    },
+    "mac.print.operations": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operations"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операции"
+          }
+        }
+      }
+    },
+    "mac.print.with": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "With Amounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С суммами"
+          }
+        }
+      }
+    },
+    "mac.print.without": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Without Amounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без сумм"
+          }
+        }
+      }
+    },
+    "mac.settings.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications show no amounts while they are hidden, and never name a hidden account."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока суммы скрыты, уведомления их не показывают; скрытые счета не называются никогда."
+          }
+        }
+      }
+    },
+    "mac.settings.limits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limit nearly spent or overspent"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лимит почти исчерпан или превышен"
+          }
+        }
+      }
+    },
+    "mac.settings.payments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payment due tomorrow"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платёж завтра"
+          }
+        }
+      }
+    },
+    "mac.settings.payments.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "With “Record Payment” in the notification."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С кнопкой «Записать оплату» в уведомлении."
+          }
+        }
+      }
+    },
+    "mac.settings.spotlight": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operations in Spotlight"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операции в Spotlight"
+          }
+        }
+      }
+    },
+    "mac.settings.spotlight.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only the description and the place go into the index of this Mac — no amounts. Operations of hidden accounts are never indexed."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В индекс этого Mac попадают только описание и место — без сумм. Операции скрытых счетов не индексируются никогда."
+          }
+        }
+      }
+    },
+    "mac.settings.summaries": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summaries ready"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итоги готовы"
+          }
+        }
+      }
+    },
+    "mac.settings.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outside the App"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За пределами приложения"
+          }
+        }
+      }
+    },
+    "mac.table.account": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт"
+          }
+        }
+      }
+    },
+    "mac.table.amount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amount"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма"
+          }
+        }
+      }
+    },
+    "mac.table.category": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория"
+          }
+        }
+      }
+    },
+    "mac.table.currency": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Currency"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        }
+      }
+    },
+    "mac.table.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
+        }
+      }
+    },
+    "mac.table.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Description"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Описание"
+          }
+        }
+      }
+    },
+    "mac.table.kind": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тип"
+          }
+        }
+      }
+    },
+    "mac.table.kind.expense": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expense"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расход"
+          }
+        }
+      }
+    },
+    "mac.table.kind.income": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Income"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доход"
+          }
+        }
+      }
+    },
+    "mac.table.kind.refund": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refund"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат покупки"
+          }
+        }
+      }
+    },
+    "mac.table.kind.reimbursement": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат денег"
+          }
+        }
+      }
+    },
+    "mac.table.rubles": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In rubles"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В рублях"
+          }
+        }
+      }
+    },
+    "mac.window.accounts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счета"
+          }
+        }
+      }
+    },
+    "mac.window.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open in New Window"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть в новом окне"
+          }
+        }
+      }
+    },
+    "mac.window.section": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Section"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Раздел"
+          }
+        }
+      }
+    },
+    "markdown.amount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amount"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма"
+          }
+        }
+      }
+    },
+    "markdown.amountsHidden": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amounts are hidden."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Суммы скрыты."
+          }
+        }
+      }
+    },
+    "markdown.cashback": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэк"
+          }
+        }
+      }
+    },
+    "markdown.categories": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categories"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категории"
+          }
+        }
+      }
+    },
+    "markdown.category": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория"
+          }
+        }
+      }
+    },
+    "markdown.change": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending against last month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расходы к прошлому месяцу"
+          }
+        }
+      }
+    },
+    "markdown.closedDebts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debts closed"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрытые долги"
+          }
+        }
+      }
+    },
+    "markdown.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No operations this month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За этот месяц операций нет."
+          }
+        }
+      }
+    },
+    "markdown.expenses": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расходы"
+          }
+        }
+      }
+    },
+    "markdown.income": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Income"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доходы"
+          }
+        }
+      }
+    },
+    "markdown.item": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Item"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Статья"
+          }
+        }
+      }
+    },
+    "markdown.net": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Left"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осталось"
+          }
+        }
+      }
+    },
+    "markdown.place": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Place"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Место"
+          }
+        }
+      }
+    },
+    "markdown.places": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Places"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Места"
+          }
+        }
+      }
+    },
+    "markdown.saved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранено"
+          }
+        }
+      }
+    },
+    "markdown.share": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доля"
+          }
+        }
+      }
+    },
+    "markdown.totals": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Totals"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итог"
+          }
+        }
+      }
+    },
+    "markdown.value": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Value"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Значение"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

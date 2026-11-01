@@ -23,6 +23,15 @@ enum AppLaunch {
     (environment: AppEnvironment, compute: ComputeStore, store: TransactionsStore)?
 
   static var hasStarted: Bool { running != nil }
+
+  /// What this launch started, for what reaches the app from outside a window — a command of
+  /// «Быстрые команды» or AppleScript, a notification's button, a Spotlight result. `nil` until
+  /// the database is open.
+  static var startedDependencies: AppDependencies? {
+    running.map {
+      AppDependencies(environment: $0.environment, store: $0.store, compute: $0.compute)
+    }
+  }
   /// Whether the session of this process has begun: the journal open, the mark of a running
   /// session left, the updater started. Not `hasStarted`: `running` is set at the end of a
   /// start, so two windows restored together both found it empty, and the second read the

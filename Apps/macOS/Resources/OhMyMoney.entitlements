@@ -10,6 +10,10 @@
 	<true/>
 	<key>com.apple.security.files.bookmarks.app-scope</key>
 	<true/>
+	<!-- «Печать…» of a month and of a table: a sandboxed app reaches the printers only with
+	     this key. -->
+	<key>com.apple.security.print</key>
+	<true/>
 	<!-- Sparkle in the sandbox, by its own guide: the updater talks to its installer and
 	     its status monitor over two Mach services named after the bundle id. Direct only —
 	     OhMyMoney-AppStore.entitlements has neither, and the AppStore build has no Sparkle at

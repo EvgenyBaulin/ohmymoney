@@ -162,6 +162,14 @@ struct SummariesScreen: View {
         }
       }
       .accessibilityIdentifier("summaries.pdf")
+      #if os(macOS)
+        // «Печать…» of any summary and «Markdown…» of a month.
+        if let content {
+          SummaryMacActions(id: selected, hasData: content.hasData) {
+            page(for: content, withAmounts: $0)
+          }
+        }
+      #endif
       if let shareURL {
         ShareLink(item: shareURL) { Text(verbatim: t("summaries.share")) }
           .accessibilityIdentifier("summaries.share")
