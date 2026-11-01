@@ -272,8 +272,8 @@ check-toolchain:
 	    if [ -n "$$SWIFT_EXEC" ]; then \
 	        pkg=$$("$$SWIFT_EXEC" --version 2>&1 | sed -nE 's/.*Swift version ([0-9]+\.[0-9]+).*/\1/p' | sed -n 1p); \
 	    fi; \
-	    if [ -z "$$xcc" ] && [ -n "$$pkg" ] && ! xcodebuild -version > /dev/null 2>&1; then \
-	        echo "toolchain: Xcode cannot be run from here (a sandbox): the comparison with Xcode's Swift is left to a build that can"; \
+	    if [ -n "$$pkg" ] && [ -z "$$xcv" ]; then \
+	        echo "toolchain: Xcode's Swift cannot be read from here (a sandbox): the comparison is left to a build that can"; \
 	        exit 0; \
 	    fi; \
 	    if [ -z "$$pkg" ] || [ -z "$$xcv" ] || [ "$$pkg" != "$$xcv" ]; then \

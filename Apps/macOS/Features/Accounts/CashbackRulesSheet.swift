@@ -540,11 +540,11 @@ struct CashbackRulesSheet: View {
       row.percent == nil
       ? t("cashback.refusal.percent")
       : row.cap == nil
-      ? environment.language("cashback.cap.unreadable", table: "SyncHistory")
-      : (draft?.isDuplicate(row) == true
-        ? environment.format(
-          "cashback.refusal.duplicate", table: CardText.table, categoryName(row.categoryId))
-        : nil)
+        ? environment.language("cashback.cap.unreadable", table: "SyncHistory")
+        : (draft?.isDuplicate(row) == true
+          ? environment.format(
+            "cashback.refusal.duplicate", table: CardText.table, categoryName(row.categoryId))
+          : nil)
     return VStack(alignment: .leading, spacing: 4) {
       HStack {
         Picker(

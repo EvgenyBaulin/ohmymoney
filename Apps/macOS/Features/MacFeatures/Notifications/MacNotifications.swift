@@ -283,7 +283,8 @@ extension MacNotifications: HabitNudgeDelivering {
     let now = dependencies?.environment.now() ?? Date()
     let trigger: UNNotificationTrigger? =
       nudge.at > now
-      ? UNTimeIntervalNotificationTrigger(timeInterval: nudge.at.timeIntervalSince(now), repeats: false)
+      ? UNTimeIntervalNotificationTrigger(
+        timeInterval: nudge.at.timeIntervalSince(now), repeats: false)
       : nil
     posting.post(UNNotificationRequest(identifier: nudge.id, content: content, trigger: trigger))
     posted = posted.union([nudge.id])
@@ -307,7 +308,8 @@ struct EveningWords {
     let content = UNMutableNotificationContent()
     content.title = language("mac.notify.evening.title", table: MacCommands.table)
     if let streak = nudge.streakDays, streak > 0 {
-      content.body = language.counted("mac.notify.evening.streak", table: MacCommands.table, [streak])
+      content.body = language.counted(
+        "mac.notify.evening.streak", table: MacCommands.table, [streak])
     } else {
       content.body = language("mac.notify.evening.body", table: MacCommands.table)
     }

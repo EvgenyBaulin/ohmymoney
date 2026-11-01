@@ -164,11 +164,11 @@ public struct CashbackReport: Sendable {
         !caps.isEmpty
         ? (row.isFirstPart ? capped[row.transactionId] : nil)
         : row.isFirstPart && (row.kind == .expense || row.kind == .refund)
-        ? ledger.entry(row.transactionId).flatMap { entry in
-          CashbackMath.expected(
-            entry, holder: holder, book: book, tree: ledger.tree, calendar: ledger.calendar,
-            refunded: { ledger.refunded(forPart: $0) })
-        } : nil
+          ? ledger.entry(row.transactionId).flatMap { entry in
+            CashbackMath.expected(
+              entry, holder: holder, book: book, tree: ledger.tree, calendar: ledger.calendar,
+              refunded: { ledger.refunded(forPart: $0) })
+          } : nil
       guard !row.contribution.isZero || turnover != nil || expectation != nil else { continue }
       cells[slot, default: Cell(holder: holderKey, month: month)].record(
         spending: row.contribution, turnover: turnover, expectation: expectation)

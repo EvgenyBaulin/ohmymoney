@@ -208,7 +208,8 @@ struct Migration0020Tests {
     }
     let tables = try ExportRepository(writer: stack.writer).tables()
     #expect(tables.count == ExportTables.all.count)
-    #expect(tables.dropLast(2).suffix(2).map(\.fileName) == ["habit_badges.csv", "no_spend_days.csv"])
+    #expect(
+      tables.dropLast(2).suffix(2).map(\.fileName) == ["habit_badges.csv", "no_spend_days.csv"])
     let badges = try CSVReader.dictionaries(
       from: try #require(tables.first { $0.name == "habit_badges" }).data)
     #expect(badges.first?["kind"] == "count3" && badges.first?["period"] == "2026-08")

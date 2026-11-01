@@ -25,7 +25,8 @@ struct MigrationTests {
     let expected = [
       "account_groups", "allocation_rules", "anomaly_dismissals", "asset_valuations",
       "assets", "attachments", "bank_cashback_categories", "bank_conditions", "banks",
-      "budget_month_exceptions", "budgets", "cards", "cashback_offers", "cashback_rules", "categories", "category_feedback",
+      "budget_month_exceptions", "budgets", "cards", "cashback_offers", "cashback_rules",
+      "categories", "category_feedback",
       "currencies", "custom_currencies", "day_notes", "debt_costs",
       "debt_entries", "debt_instalments", "debts", "deposit_offers", "event_budget_items",
       "event_templates", "events", "expected_income", "expected_income_links",

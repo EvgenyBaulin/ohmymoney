@@ -247,7 +247,7 @@ enum WorthALookNoteText {
       "look.databaseProblems",
     ] + WarrantyText.noteKeys + bankKeys
     + Action.allCases.filter { !$0.isPurchase && !$0.isHabit && $0 != .chooseCashback }
-      .map(\.key)
+    .map(\.key)
 }
 
 extension WorthALookNoteText {

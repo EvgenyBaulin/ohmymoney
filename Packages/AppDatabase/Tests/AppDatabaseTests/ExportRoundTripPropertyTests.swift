@@ -321,11 +321,14 @@ struct ExportRoundTripPropertyTests {
           VALUES ('entry7:2026-09-01', 'entry7', '2026-09-01', '2026-09-07', '2026-09-07 10:00:00.000')
           """)
       try db.execute(
-        sql: "INSERT INTO no_spend_days (day, marked_at) VALUES ('2026-09-03', '2026-09-03 21:00:00.000')")
+        sql:
+          "INSERT INTO no_spend_days (day, marked_at) VALUES ('2026-09-03', '2026-09-03 21:00:00.000')"
+      )
       try db.execute(sql: "UPDATE goals SET why_note = 'море, «в июле»'")
       // The ceilings of cashback, a bank's table of categories and an offer of a month.
       try db.execute(
-        sql: "UPDATE payment_methods SET cashback_monthly_cap_e4 = 30000000, cashback_choice_day = 5 WHERE id = ?",
+        sql:
+          "UPDATE payment_methods SET cashback_monthly_cap_e4 = 30000000, cashback_choice_day = 5 WHERE id = ?",
         arguments: [account])
       try db.execute(sql: "UPDATE cashback_rules SET monthly_cap_e4 = 5000000")
       if let bank = try String.fetchOne(db, sql: "SELECT id FROM banks LIMIT 1"),
@@ -333,11 +336,13 @@ struct ExportRoundTripPropertyTests {
           db, sql: "SELECT id FROM categories WHERE kind = 'expense' LIMIT 1")
       {
         try db.execute(
-          sql: "INSERT INTO bank_cashback_categories (id, bank_id, label, category_id) VALUES (?, ?, 'Кафе, «рестораны»', ?)",
+          sql:
+            "INSERT INTO bank_cashback_categories (id, bank_id, label, category_id) VALUES (?, ?, 'Кафе, «рестораны»', ?)",
           arguments: [UUID().uuidString, bank, category])
       }
       try db.execute(
-        sql: "INSERT INTO cashback_offers (id, payment_method_id, month, label, percent_e4, chosen) VALUES (?, ?, '2026-09', 'Кафе', 50000, 1)",
+        sql:
+          "INSERT INTO cashback_offers (id, payment_method_id, month, label, percent_e4, chosen) VALUES (?, ?, '2026-09', 'Кафе', 50000, 1)",
         arguments: [UUID().uuidString, account])
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
@@ -387,7 +392,8 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
+    let plain = try ArchiveOpener.open(
+      try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
     #expect(plain.files == files)
     #expect(plain.csvTables.count == ExportTables.all.count)
     #expect(plain.manifest.schemaVersion == TestSupport.migrationCount)
@@ -397,7 +403,8 @@ struct ExportRoundTripPropertyTests {
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: TestSupport.migrationCount)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(),
+      supportedSchemaVersion: TestSupport.migrationCount)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -465,7 +472,8 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
+    let opened = try ArchiveOpener.open(
+      try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 

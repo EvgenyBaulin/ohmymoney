@@ -780,7 +780,9 @@ struct MigrationDryRunTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 3 -> \(TestSupport.migrationCount) (applied \(TestSupport.migrationCount - 3))"))
+    #expect(
+      output.contains(
+        "schema: 3 -> \(TestSupport.migrationCount) (applied \(TestSupport.migrationCount - 3))"))
     #expect(output.contains(" assigned=\(book.unassignedCount) "))
     #expect(output.contains(" defaultsCleared=2 "))
     #expect(output.contains(" cardsCreated=\(book.cardsStep["cardsCreated"] ?? -1) "))

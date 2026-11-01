@@ -417,7 +417,8 @@ struct Migration0015Tests {
       try builder.add(path: ArchivePaths.csv(table: table.name), data: table.data)
     }
     try builder.add(path: ArchivePaths.settings, data: Data(#"{"language":"ru"}"#.utf8))
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
+    let opened = try ArchiveOpener.open(
+      try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
     #expect(opened.csvTables.count == ExportTables.all.count)
     #expect(opened.manifest.schemaVersion == TestSupport.migrationCount)
     #expect(opened.manifest.rowCounts["bank_conditions"] == 1)

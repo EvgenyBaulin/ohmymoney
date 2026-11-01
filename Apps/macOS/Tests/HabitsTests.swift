@@ -178,7 +178,8 @@ final class HabitsTests: AccountsScenarioDatabaseCase {
 
   func testADayMarkedWithoutSpendingCountsAndTheMarkIsOnce() async throws {
     let habits = try XCTUnwrap(environment.habits)
-    let deps = AppDependencies(environment: environment, store: store, compute: ComputeStore(calendar: .system))
+    let deps = AppDependencies(
+      environment: environment, store: store, compute: ComputeStore(calendar: .system))
     XCTAssertTrue(HabitActions(deps).markNoSpend(today))
     XCTAssertTrue(HabitActions(deps).markNoSpend(today), "marking again keeps the mark")
     XCTAssertEqual(try habits.data().noSpendDays.map(\.day), [today])
@@ -284,7 +285,8 @@ final class HabitsTests: AccountsScenarioDatabaseCase {
 
   func testTheSettingOfTheDaysMissedIsKeptInTheDatabase() throws {
     let habits = try XCTUnwrap(environment.habits)
-    let deps = AppDependencies(environment: environment, store: store, compute: ComputeStore(calendar: .system))
+    let deps = AppDependencies(
+      environment: environment, store: store, compute: ComputeStore(calendar: .system))
     XCTAssertTrue(HabitActions(deps).save(HabitSettings(missedDaysAfter: 6)))
     XCTAssertEqual(try habits.data().settings.missedDaysAfter, 6)
   }

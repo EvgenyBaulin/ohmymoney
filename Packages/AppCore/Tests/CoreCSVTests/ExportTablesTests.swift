@@ -674,11 +674,14 @@ struct ExportTablesRowTests {
     #expect(again["currency"] == "USD")
     #expect(again["why_note"] == "")
     let why = Goal(name: "Море", targetE4: AmountE4(whole: 1), whyNote: "всей семьёй, \"в июле\"")
-    #expect(try roundTrip(ExportTables.goals, row: ExportTables.row(why))["why_note"] == "всей семьёй, \"в июле\"")
+    #expect(
+      try roundTrip(ExportTables.goals, row: ExportTables.row(why))["why_note"]
+        == "всей семьёй, \"в июле\"")
   }
 
   @Test func habitTablesRoundTrip() throws {
-    #expect(ExportTables.habitBadges.columns == ["key", "kind", "period", "earned_on", "earned_at"])
+    #expect(
+      ExportTables.habitBadges.columns == ["key", "kind", "period", "earned_on", "earned_at"])
     #expect(ExportTables.noSpendDays.columns == ["day", "marked_at"])
     let instant = Date(timeIntervalSince1970: 1_800_000_000)
     let badge = HabitBadge(
