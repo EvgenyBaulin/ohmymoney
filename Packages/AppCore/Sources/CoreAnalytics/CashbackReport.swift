@@ -127,6 +127,29 @@ public struct CashbackReport: Sendable {
     }
     var cells: [Slot: Cell] = [:]
 
+    // A monthly ceiling counts every purchase of the month, so the purchases are weighed from
+    // the first day of the period's first month, in the order they were made.
+    let caps = CashbackCaps(rules: dataset.cashbackRules, accounts: dataset.paymentMethods)
+    var capped: [UUID: CashbackExpectation] = [:]
+    if !caps.isEmpty, !period.range.isEmpty {
+      let from = period.range.start.monthKey.firstDay
+      var seen = Set<UUID>()
+      let purchases = ledger.rows(in: DayRange(from, period.range.end))
+        .filter { $0.isFirstPart && ($0.kind == .expense || $0.kind == .refund) }
+        .compactMap { row -> TransactionEntry? in
+          guard seen.insert(row.transactionId).inserted else { return nil }
+          return ledger.entry(row.transactionId)
+        }
+      capped = CashbackMath.cappedExpectations(
+        purchases,
+        holder: { entry in
+          CashbackHolders.holder(
+            accountId: entry.transaction.paymentMethodId, cardId: entry.transaction.cardId,
+            mainAccountId: mainId)
+        }, book: book, caps: caps, tree: ledger.tree, calendar: ledger.calendar,
+        refunded: { ledger.refunded(forPart: $0) })
+    }
+
     for row in ledger.rows(in: period.range) {
       let (holderKey, holder) = key(row)
       let month = row.day.monthKey
@@ -138,7 +161,9 @@ public struct CashbackReport: Sendable {
       case .refund, .income, .reimbursement: turnover = nil
       }
       let expectation =
-        row.isFirstPart && (row.kind == .expense || row.kind == .refund)
+        !caps.isEmpty
+        ? (row.isFirstPart ? capped[row.transactionId] : nil)
+        : row.isFirstPart && (row.kind == .expense || row.kind == .refund)
         ? ledger.entry(row.transactionId).flatMap { entry in
           CashbackMath.expected(
             entry, holder: holder, book: book, tree: ledger.tree, calendar: ledger.calendar,

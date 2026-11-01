@@ -36,6 +36,13 @@ struct AppliedFile: Hashable, Sendable, Codable {
   var checksum: UInt64
 }
 
+/// A device as its newest journal file names it.
+public struct KnownDevice: Hashable, Sendable, Codable {
+  public var name: String
+  /// The sequence of the file the name was read from: a later file's name wins.
+  public var sequence: Int
+}
+
 /// The ledger and the memory of the exchange on one device: which files are applied and every
 /// version of every row they carried. It is a value, persisted by the app through
 /// `SyncStateStore`; it never touches a disk or a database itself.
@@ -47,10 +54,14 @@ struct AppliedFile: Hashable, Sendable, Codable {
 ///   brings a deleted row back and a newer delete removes it;
 /// - a version is *superseded* when a later version names it (transitively) as its `base`;
 ///   every version that is not superseded and is not the winner is a conflict: an edit made
-///   apart, which the winner overruled. Nothing is dropped.
+///   apart, which the winner overruled. Nothing is dropped;
+/// - a delete and an edit made apart wait for nobody: the later stands (`contested`).
 public struct SyncState: Hashable, Sendable, Codable {
   var files: [String: AppliedFile] = [:]
   var versions: [RecordKey: [RecordVersion]] = [:]
+  /// The names the devices gave themselves, by device id, for the history of a row. Absent in
+  /// a state saved before names were kept: it fills from the next file of each device.
+  var devices: [String: KnownDevice]? = nil
 
   public init() {}
 
@@ -91,6 +102,11 @@ public struct SyncState: Hashable, Sendable, Codable {
       touched.insert(key)
     }
     files[name] = fingerprint
+    var known = devices ?? [:]
+    if (known[file.deviceId]?.sequence ?? -1) <= file.sequence, !file.deviceName.isEmpty {
+      known[file.deviceId] = KnownDevice(name: file.deviceName, sequence: file.sequence)
+    }
+    devices = known
     return Set(touched.filter { resolve($0) != before[$0]! })
   }
 
@@ -127,10 +143,17 @@ public struct SyncState: Hashable, Sendable, Codable {
     return ResolvedRecord(key: key, winner: winner, conflicts: conflicts)
   }
 
-  /// Every row that has a lost, unsuperseded version — what the conflict list shows.
+  /// Every row with a version made apart that waits for a choice (`ResolvedRecord.contested`).
+  /// A delete against an edit is decided by time and is not listed.
   public func conflicts() -> [ResolvedRecord] {
-    versions.keys.sorted().compactMap { resolve($0) }.filter { !$0.conflicts.isEmpty }
+    versions.keys.sorted().compactMap { resolve($0) }.filter { !$0.contested.isEmpty }
   }
+
+  /// The name a device gave itself in its newest file; `nil` for a device never heard from.
+  public func deviceName(of deviceId: String) -> String? { devices?[deviceId]?.name }
+
+  /// Every version of a row seen so far, oldest first (by stamp, then file and place).
+  public func versions(of key: RecordKey) -> [RecordVersion] { versions[key] ?? [] }
 
   public func allRecords() -> [ResolvedRecord] {
     versions.keys.sorted().compactMap { resolve($0) }

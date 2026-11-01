@@ -117,12 +117,17 @@ private func ingest(
     #expect(results == ["0"])
   }
 
-  @Test func aDeleteAgainstAnEditIsAConflictOfTheDeletedKind() throws {
+  /// A delete against an edit made apart is decided by time, not by the owner: the later
+  /// delete stands on both devices, and nothing waits in the list.
+  @Test func aLaterDeleteAgainstAnEditIsNoConflict() throws {
     var s = SyncState()
     try ingest(&s, "mac", 0, entry("kept", 5, base: stamp(1, "x")))
     try ingest(&s, "phone", 0, entry("kept", 6, op: .deleted, base: stamp(1, "x")))
-    let c = try #require(s.openConflicts(ownDeviceId: "mac").first)
-    #expect(c.differingFields == ["deleted"])
+    #expect(s.openConflicts(ownDeviceId: "mac").isEmpty)
+    #expect(s.openConflicts(ownDeviceId: "phone").isEmpty)
+    #expect(s.resolve(key)?.disposition(ownDeviceId: "mac") == .applyWinner)
+    #expect(s.resolve(key)?.disposition(ownDeviceId: "phone") == .keepLocal)
+    #expect(s.resolve(key)?.isDeleted == true)
   }
 }
 

@@ -297,7 +297,7 @@ final class ExportAndArchiveTests: XCTestCase {
     _ = try service.exportArchive(to: url)
     let data = try Data(contentsOf: url)
 
-    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 19)
+    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 20)
     XCTAssertEqual(opened.manifest.schemaVersion, 19)
     XCTAssertEqual(opened.csvTables.count, 49)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))

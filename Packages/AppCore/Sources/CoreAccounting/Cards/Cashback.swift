@@ -222,12 +222,19 @@ public struct CashbackExpectation: Hashable, Sendable {
   public var rubles: AmountE4
   public var holder: CashbackHolder?
   public var source: Source
+  /// What each rule gave before the one rounding, in the money that moved: how a monthly
+  /// ceiling of one rule (`CashbackCapTracker`) knows its share. Empty for a typed figure.
+  public var byRule: [UUID: Decimal]
 
-  public init(money: Money, rubles: AmountE4, holder: CashbackHolder?, source: Source) {
+  public init(
+    money: Money, rubles: AmountE4, holder: CashbackHolder?, source: Source,
+    byRule: [UUID: Decimal] = [:]
+  ) {
     self.money = money
     self.rubles = rubles
     self.holder = holder
     self.source = source
+    self.byRule = byRule
   }
 }
 
@@ -293,6 +300,7 @@ public enum CashbackMath {
       .monthKey
     var value = Decimal(0)
     var used: [UUID] = []
+    var byRule: [UUID: Decimal] = [:]
     for (part, base) in zip(entry.parts, bases) {
       guard !tree.isLoanCategory(part.categoryId),
         let rule = book.rule(for: holder, categoryId: part.categoryId, month: month)
@@ -301,12 +309,16 @@ public enum CashbackMath {
       let amount = part.amountE4.decimal
       let left =
         amount.isZero ? Decimal(0) : max(0, (amount - refunded(part.id).decimal) / amount)
-      value += base.decimal * left * rule.percent.fraction
+      let earned = base.decimal * left * rule.percent.fraction
+      value += earned
+      byRule[rule.id, default: 0] += sign * earned
     }
     guard !used.isEmpty else { return nil }
-    return expectation(
+    var result = expectation(
       sign * value, of: transaction, holder: holder, source: .rules(used),
       rounding: book.rounding(for: holder))
+    result?.byRule = byRule
+    return result
   }
 
   /// The same for the ↓ panel, before anything is saved: nothing refunded yet, the typed

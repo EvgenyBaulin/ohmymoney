@@ -297,6 +297,29 @@ public struct ExportRepository: Sendable {
               ] + Self.text(row, ["rate_on", "note"]) + [Self.flag(row, "archived", false)])
         }
       }
+    case ExportTables.bankCashbackCategories.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM bank_cashback_categories ORDER BY bank_id, label, category_id")
+      {
+        if let mapping = try? BankCategoryMapping(row: row) {
+          csv.append(ExportTables.row(mapping))
+        } else {
+          csv.append(Self.text(row, ["id", "bank_id", "label", "category_id"]))
+        }
+      }
+    case ExportTables.cashbackOffers.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM cashback_offers ORDER BY payment_method_id, month, label, id")
+      {
+        // An offer this build can not read still goes out, in the text of the database.
+        if let offer = try? CashbackOffer(row: row) {
+          csv.append(ExportTables.row(offer))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "payment_method_id", "card_id", "month", "label"])
+              + [CSVValue.string(row["percent_e4"] as Int?), Self.flag(row, "chosen", false)])
+        }
+      }
     default:
       // A table the list gains before its rows are mapped still gets its header row.
       break

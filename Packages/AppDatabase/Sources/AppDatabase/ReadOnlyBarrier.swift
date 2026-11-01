@@ -38,6 +38,7 @@ public final class ReadOnlyBarrier: @unchecked Sendable {
   public static let writableTables: Set<String> = [
     "settings", "rates", "rates_new", "ml_models", "category_feedback", "sync_meta",
     "sync_outbox", "sync_heads", "sync_deferred", "sync_resolutions", "sync_state",
+    "sync_history",
   ]
 
   /// Whether a write of `kind` to `table` goes through while the barrier is on. `kind` is the

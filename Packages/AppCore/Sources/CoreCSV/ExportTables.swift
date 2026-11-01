@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 49 files of Export, always in the same order.
+/// The 51 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -92,7 +92,8 @@ public enum ExportTables {
       "deposit_ends_on", "cushion", "credit_limit", "credit_grace", "credit_statement_day",
       "credit_pay_days", "credit_grace_days", "credit_purchase_rate", "credit_cash_rate",
       "credit_min_percent", "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
-      "credit_cash_no_grace", "main_card_id", "accent", "hidden",
+      "credit_cash_no_grace", "main_card_id", "accent", "hidden", "cashback_monthly_cap",
+      "cashback_choice_day",
     ])
 
   public static let places = ExportTable(
@@ -273,7 +274,9 @@ public enum ExportTables {
   /// «always», an empty `card_id` the account's own rule.
   public static let cashbackRules = ExportTable(
     fileName: "cashback_rules.csv",
-    columns: ["id", "payment_method_id", "card_id", "category_id", "month", "percent"])
+    columns: [
+      "id", "payment_method_id", "card_id", "category_id", "month", "percent", "monthly_cap",
+    ])
 
   /// Columns match `Schema/0006_banks.sql`: the banks the accounts belong to.
   public static let banks = ExportTable(
@@ -445,13 +448,26 @@ public enum ExportTables {
       "sale_transaction_id", "note", "archived",
     ])
 
-  /// All 49 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// Columns match `Schema/0021_history_and_cashback_choice.sql`: each bank's table «категория
+  /// банка → ваша» (one row per label and category) and the categories a bank offered for a
+  /// month, with the percent and whether the owner took it. The monthly ceilings came with the
+  /// same file: `monthly_cap` goes last in `cashback_rules.csv`, `cashback_monthly_cap` and
+  /// `cashback_choice_day` (the day the bank opens the choice) last in `payment_methods.csv`.
+  public static let bankCashbackCategories = ExportTable(
+    fileName: "bank_cashback_categories.csv", columns: ["id", "bank_id", "label", "category_id"])
+
+  public static let cashbackOffers = ExportTable(
+    fileName: "cashback_offers.csv",
+    columns: ["id", "payment_method_id", "card_id", "month", "label", "percent", "chosen"])
+
+  /// All 51 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
   /// of days, then the month limits, event articles and templates and the subscription extras, then
   /// the conditions of bank products and the deposits of the owner, then the attachments, then the
-  /// wishes, their prices, the shopping list and the things outside the capital.
+  /// wishes, their prices, the shopping list and the things outside the capital, then the banks'
+  /// tables of cashback categories and the offers of the months.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
@@ -460,7 +476,8 @@ public enum ExportTables {
     debtInstalments, debtCosts, allocationRules, customCurrencies, settings, tags, partTags, rules,
     dayNotes, budgetMonthExceptions, eventBudgetItems, eventTemplates, subscriptionTerms,
     subscriptionUsage, subscriptionUsers, subscriptionKeepGroups, bankConditions, depositOffers,
-    attachments, wishes, wishPrices, shoppingItems, ownedItems,
+    attachments, wishes, wishPrices, shoppingItems, ownedItems, bankCashbackCategories,
+    cashbackOffers,
   ]
 }
 
@@ -599,6 +616,8 @@ extension ExportTables {
       CSVValue.string(method.mainCardId),
       CSVValue.string(method.accent),
       CSVValue.string(bool: method.hidden),
+      CSVValue.string(amount: method.cashbackMonthlyCapE4),
+      CSVValue.string(method.cashbackChoiceDay),
     ]
   }
 
@@ -945,6 +964,28 @@ extension ExportTables {
       CSVValue.string(rule.categoryId),
       CSVValue.string(month: rule.month),
       CSVValue.string(decimal: rule.percent.decimal),
+      CSVValue.string(amount: rule.monthlyCapE4),
+    ]
+  }
+
+  public static func row(_ mapping: BankCategoryMapping) -> [String] {
+    [
+      mapping.id.uuidString,
+      mapping.bankId.uuidString,
+      mapping.label,
+      mapping.categoryId.uuidString,
+    ]
+  }
+
+  public static func row(_ offer: CashbackOffer) -> [String] {
+    [
+      offer.id.uuidString,
+      offer.accountId.uuidString,
+      CSVValue.string(offer.cardId),
+      offer.month.iso,
+      offer.label,
+      CSVValue.string(decimal: offer.percent.decimal),
+      CSVValue.string(bool: offer.chosen),
     ]
   }
 

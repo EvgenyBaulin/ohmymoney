@@ -78,7 +78,18 @@ extension CashbackRule: @retroactive FetchableRecord, @retroactive PersistableRe
       cardId: RowMapping.optionalUUID(row, "card_id"),
       categoryId: RowMapping.optionalUUID(row, "category_id"),
       month: RowMapping.month(row, "month"),
-      percent: stored.flatMap { CashbackPercent(e4: Int64($0)) } ?? .zero)
+      percent: stored.flatMap { CashbackPercent(e4: Int64($0)) } ?? .zero,
+      monthlyCapE4: Self.cap(row))
+  }
+
+  /// A ceiling below zero or that does not read — only a hand edit leaves one — reads as none.
+  private static func cap(_ row: Row) -> AmountE4? {
+    // A database of an older schema has no such column.
+    guard row.hasColumn("monthly_cap_e4"),
+      let cap = (try? RowMapping.optionalAmount(row, "monthly_cap_e4")) ?? nil,
+      !cap.isNegative
+    else { return nil }
+    return cap
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -88,5 +99,6 @@ extension CashbackRule: @retroactive FetchableRecord, @retroactive PersistableRe
     container["category_id"] = categoryId?.uuidString
     container["month"] = month?.iso
     container["percent_e4"] = percent.e4
+    container["monthly_cap_e4"] = monthlyCapE4?.raw
   }
 }

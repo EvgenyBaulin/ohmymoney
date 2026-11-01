@@ -16,8 +16,19 @@ public enum SyncDisposition: Hashable, Sendable {
 }
 
 extension ResolvedRecord {
-  /// The versions nothing builds on: the winner and the conflicts, latest first.
-  public var heads: [RecordVersion] { [winner] + conflicts }
+  /// The versions made apart that still wait for the owner's choice, latest first.
+  ///
+  /// A delete against an edit is no choice of the owner: the later of the two stands. A delete
+  /// that is the winner was made after every edit made apart from it, so the row stays deleted
+  /// and those edits are only history; an edit that is the winner was made after the deletes
+  /// made apart from it, so it brings the row back. Two edits made apart still wait (0518).
+  public var contested: [RecordVersion] {
+    guard winner.op != .deleted else { return [] }
+    return conflicts.filter { $0.op != .deleted }
+  }
+
+  /// The versions nothing builds on that still count: the winner and the contested ones.
+  public var heads: [RecordVersion] { [winner] + contested }
 
   public func disposition(ownDeviceId: String) -> SyncDisposition {
     let heads = self.heads

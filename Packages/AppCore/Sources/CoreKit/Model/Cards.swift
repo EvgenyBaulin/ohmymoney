@@ -132,11 +132,15 @@ public struct CashbackRule: Identifiable, Hashable, Sendable, Codable {
   /// `nil`: always; a month: only in that month, as a bank's categories of the month are.
   public var month: MonthKey?
   public var percent: CashbackPercent
+  /// «Не больше N в месяц»: the most this rule earns in one calendar month, in rubles; `nil`:
+  /// no ceiling. What a month's purchases would earn beyond it is not expected.
+  public var monthlyCapE4: AmountE4?
 
   public init(
     id: UUID = UUID(), accountId: UUID, cardId: UUID? = nil, categoryId: UUID? = nil,
-    month: MonthKey? = nil, percent: CashbackPercent
+    month: MonthKey? = nil, percent: CashbackPercent, monthlyCapE4: AmountE4? = nil
   ) {
+    self.monthlyCapE4 = monthlyCapE4
     self.id = id
     self.accountId = accountId
     self.cardId = cardId

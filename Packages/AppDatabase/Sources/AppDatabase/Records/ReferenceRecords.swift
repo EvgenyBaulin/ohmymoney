@@ -136,7 +136,28 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
       credit: Self.credit(row),
       mainCardId: RowMapping.optionalUUID(row, "main_card_id"),
       accent: Self.accent(row),
-      hidden: (try? RowMapping.flag(row, "hidden", fallback: false)) ?? false)
+      hidden: (try? RowMapping.flag(row, "hidden", fallback: false)) ?? false,
+      cashbackMonthlyCapE4: Self.cashbackCap(row),
+      cashbackChoiceDay: Self.cashbackChoiceDay(row))
+  }
+
+  /// The account's monthly ceiling of cashback; below zero or unreadable reads as none.
+  private static func cashbackCap(_ row: Row) -> AmountE4? {
+    // A database of an older schema has no such column.
+    guard row.hasColumn("cashback_monthly_cap_e4"),
+      let cap = (try? RowMapping.optionalAmount(row, "cashback_monthly_cap_e4")) ?? nil,
+      !cap.isNegative
+    else { return nil }
+    return cap
+  }
+
+  /// The day the bank opens the choice of categories; a day outside 1…31 reads as none.
+  private static func cashbackChoiceDay(_ row: Row) -> Int? {
+    guard row.hasColumn("cashback_choice_day"),
+      let day = (try? RowMapping.optionalInteger(row, "cashback_choice_day")) ?? nil,
+      (1...31).contains(day)
+    else { return nil }
+    return day
   }
 
   /// A palette key (`01` to `12`); any other text — only a hand edit leaves one — reads as none.
@@ -267,6 +288,8 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
     container["main_card_id"] = mainCardId?.uuidString
     container["accent"] = accent
     container["hidden"] = hidden
+    container["cashback_monthly_cap_e4"] = cashbackMonthlyCapE4?.raw
+    container["cashback_choice_day"] = cashbackChoiceDay
   }
 }
 

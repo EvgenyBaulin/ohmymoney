@@ -33,7 +33,7 @@ struct LegacyDatabaseTests {
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 19)
+    #expect(try stack.appliedMigrations().count == TestSupport.migrationCount)
 
     // Of the three accounts flagged main — the everyday card, a second live one and an
     // archived one — the card with the operations stays main.
@@ -229,7 +229,7 @@ struct LegacyDatabaseTests {
         try DatabaseStack(url: book.url, schema: TestSupport.schemaSource, context: stopping)
       })
     #expect(failure.from == 3)
-    #expect(failure.to == 19)
+    #expect(failure.to == TestSupport.migrationCount)
     #expect(failure.migration == "0004_accounts")
 
     #expect(
@@ -245,7 +245,7 @@ struct LegacyDatabaseTests {
     // And it migrates once nothing stops it.
     let stack = try DatabaseStack(
       url: book.url, schema: TestSupport.schemaSource, context: Self.context)
-    #expect(try stack.appliedMigrations().count == 19)
+    #expect(try stack.appliedMigrations().count == TestSupport.migrationCount)
     try stack.close()
   }
 
@@ -270,7 +270,7 @@ struct LegacyDatabaseTests {
     }
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource, context: Self.context)
     defer { try? stack.close() }
-    #expect(try stack.appliedMigrations().count == 19)
+    #expect(try stack.appliedMigrations().count == TestSupport.migrationCount)
     #expect(stack.applied.dataSteps["mainCreated"] == 1)
     let orphans = try stack.writer.read { db in
       try Row.fetchAll(db, sql: "PRAGMA foreign_key_check").count
@@ -674,6 +674,7 @@ struct PendingMigrationsTests {
           "0017_attachments",
           "0018_purchases",
           "0019_privacy",
+          "0021_history_and_cashback_choice",
         ])
     // Asking leaves the folder as it was: no log is left for the next file of that name.
     #expect(try FileManager.default.contentsOfDirectory(atPath: folder).sorted() == files)
@@ -778,7 +779,7 @@ struct MigrationDryRunTests {
     let (status, output) = try run([book.url.path, TestSupport.schemaDirectory.path])
 
     #expect(status == 0, "\(output)")
-    #expect(output.contains("schema: 3 -> 19 (applied 16)"))
+    #expect(output.contains("schema: 3 -> \(TestSupport.migrationCount) (applied \(TestSupport.migrationCount - 3))"))
     #expect(output.contains(" assigned=\(book.unassignedCount) "))
     #expect(output.contains(" defaultsCleared=2 "))
     #expect(output.contains(" cardsCreated=\(book.cardsStep["cardsCreated"] ?? -1) "))
@@ -823,6 +824,7 @@ struct MigrationDryRunTests {
           "0017_attachments",
           "0018_purchases",
           "0019_privacy",
+          "0021_history_and_cashback_choice",
         ])
   }
 

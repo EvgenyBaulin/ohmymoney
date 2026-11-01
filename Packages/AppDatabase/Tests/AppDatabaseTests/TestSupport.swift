@@ -22,6 +22,13 @@ enum TestSupport {
     DirectorySchemaSource(directory: schemaDirectory)
   }
 
+  /// The names of every migration of the schema, in order: the tests that ask «is this the
+  /// newest schema» read them here, so a migration added later needs no edit of each test.
+  static var migrationNames: [String] { (try? schemaSource.migrations().map(\.name)) ?? [] }
+  static var lastMigration: String { migrationNames.last ?? "" }
+  /// The version of the schema: how many migrations it has.
+  static var migrationCount: Int { migrationNames.count }
+
   static func makeStack() throws -> DatabaseStack {
     try DatabaseStack(inMemory: schemaSource)
   }

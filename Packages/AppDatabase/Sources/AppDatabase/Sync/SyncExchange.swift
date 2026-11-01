@@ -150,6 +150,18 @@ public final class SyncExchange: Sendable {
     }
   }
 
+  // MARK: The journal of changes
+
+  /// Takes this device's changes waiting in the outbox into the journal of changes kept for
+  /// ever (`ChangeJournal`). Cheap when nothing changed; the app calls it after every write, so
+  /// the history of an operation is there without any folder chosen.
+  @discardableResult
+  public func captureHistory() throws -> Int {
+    try writer.write { db in
+      try ChangeJournal.capture(db, deviceId: deviceId, deviceName: deviceName)
+    }
+  }
+
   // MARK: Writing out
 
   /// Turns the outbox into journal files, one change per row however many times it changed.
@@ -157,6 +169,8 @@ public final class SyncExchange: Sendable {
   /// outbox as it was.
   @discardableResult
   public func flush(to folder: any JournalFolder) throws -> Int {
+    // The journal of changes reads the outbox first: once a line is in a file it is gone.
+    try captureHistory()
     let planned = try writer.read { db in try plan(db) }
     guard !planned.entries.isEmpty else {
       if planned.consumedUpTo > 0 { try retire(planned) }
@@ -276,6 +290,9 @@ public final class SyncExchange: Sendable {
         outcome.entriesWritten += try flush(to: watched)
         _ = try run(watched)
       }
+      // The lines of other devices' changes take the names the devices gave themselves.
+      let state = try store.load()
+      try writer.write { db in try ChangeJournal.nameDevices(db, state: state) }
       let tally = applier.takeTally()
       outcome.recordsApplied = tally.applied
       outcome.deferred = try writer.read { try SyncBook.deferredKeys($0).count }

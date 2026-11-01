@@ -26,7 +26,7 @@ struct ExportRoundTripPropertyTests {
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
     "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
     "owner_uses", "new_client_only", "needs_subscription", "topup", "keep_forever", "done",
-    "hidden",
+    "hidden", "chosen",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
@@ -312,6 +312,22 @@ struct ExportRoundTripPropertyTests {
       try db.execute(
         sql: "UPDATE custom_currencies SET rate_source = 'coingecko', coin_id = 'bitcoin'")
       try db.execute(sql: "UPDATE expected_income SET payout_kind = 'dividend'")
+      // The ceilings of cashback, a bank's table of categories and an offer of a month.
+      try db.execute(
+        sql: "UPDATE payment_methods SET cashback_monthly_cap_e4 = 30000000, cashback_choice_day = 5 WHERE id = ?",
+        arguments: [account])
+      try db.execute(sql: "UPDATE cashback_rules SET monthly_cap_e4 = 5000000")
+      if let bank = try String.fetchOne(db, sql: "SELECT id FROM banks LIMIT 1"),
+        let category = try String.fetchOne(
+          db, sql: "SELECT id FROM categories WHERE kind = 'expense' LIMIT 1")
+      {
+        try db.execute(
+          sql: "INSERT INTO bank_cashback_categories (id, bank_id, label, category_id) VALUES (?, ?, 'Кафе, «рестораны»', ?)",
+          arguments: [UUID().uuidString, bank, category])
+      }
+      try db.execute(
+        sql: "INSERT INTO cashback_offers (id, payment_method_id, month, label, percent_e4, chosen) VALUES (?, ?, '2026-09', 'Кафе', 50000, 1)",
+        arguments: [UUID().uuidString, account])
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -360,17 +376,17 @@ struct ExportRoundTripPropertyTests {
     try builder.add(path: ArchivePaths.settings, data: settings)
     files[ArchivePaths.settings] = settings
 
-    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 19)
+    let plain = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
     #expect(plain.files == files)
-    #expect(plain.csvTables.count == 49)
-    #expect(plain.manifest.schemaVersion == 19)
+    #expect(plain.csvTables.count == ExportTables.all.count)
+    #expect(plain.manifest.schemaVersion == TestSupport.migrationCount)
 
     var random = SeededRandom(seed: 7)
     let sealed = try builder.build(
       password: "пароль 🔑", cipher: RoundTripCipher(), random: &random, iterations: 1_000)
     #expect(ArchiveOpener.isEncrypted(sealed))
     let opened = try ArchiveOpener.open(
-      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: 19)
+      sealed, password: "пароль 🔑", cipher: RoundTripCipher(), supportedSchemaVersion: TestSupport.migrationCount)
     #expect(opened.files == files)
 
     let inside = folder.appendingPathComponent("inside.sqlite")
@@ -438,7 +454,7 @@ struct ExportRoundTripPropertyTests {
     }
     try builder.add(path: ArchivePaths.settings, text: #"{"language":"ru"}"#)
 
-    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: 19)
+    let opened = try ArchiveOpener.open(try builder.build(), supportedSchemaVersion: TestSupport.migrationCount)
     #expect(opened.manifest.schemaVersion == 3)
     #expect(opened.csvTables.count == 18)
 
@@ -461,6 +477,7 @@ struct ExportRoundTripPropertyTests {
           "0017_attachments",
           "0018_purchases",
           "0019_privacy",
+          "0021_history_and_cashback_choice",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -549,7 +566,7 @@ struct ExportRoundTripPropertyTests {
       tables.subtracting(exported) == [
         "anomaly_dismissals", "category_feedback", "currencies", "expected_income_links",
         "identity_items", "import_batches", "import_mappings", "ml_models", "saved_views",
-        "scenarios", "statement_profiles", "sync_deferred", "sync_heads",
+        "scenarios", "statement_profiles", "sync_deferred", "sync_heads", "sync_history",
         "sync_meta", "sync_outbox", "sync_resolutions", "sync_state", "week_answers",
       ])
   }
@@ -634,8 +651,15 @@ struct ExportRoundTripPropertyTests {
   /// The column the privacy added (`0019_privacy`).
   private static let addedByThePrivacy: Set<String> = ["payment_methods.csv:hidden"]
 
+  /// The columns the ceilings of cashback added (`0021_history_and_cashback_choice`).
+  private static let addedByTheCeilings: Set<String> = [
+    "payment_methods.csv:cashback_monthly_cap", "payment_methods.csv:cashback_choice_day",
+    "cashback_rules.csv:monthly_cap",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
+    .union(addedByTheCeilings)
     .union(addedByThePurchases)
 
   /// The columns the purchases (schema 18) added to the operations and the people.

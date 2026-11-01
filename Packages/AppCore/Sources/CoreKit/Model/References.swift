@@ -144,6 +144,12 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
   /// The owner hid the account: it is left out of the screens until unlocked, and counted in the
   /// totals with a note that a part is hidden.
   public var hidden: Bool
+  /// «Не больше N в месяц» of the whole account, cards and categories together, in rubles;
+  /// `nil`: no ceiling. A rule may have a ceiling of its own besides (`CashbackRule`).
+  public var cashbackMonthlyCapE4: AmountE4?
+  /// The day of the month the bank opens the choice of the month's cashback categories (1…31,
+  /// the last day of a shorter month standing in); `nil`: the bank offers no choice.
+  public var cashbackChoiceDay: Int?
 
   public init(
     id: UUID = UUID(), name: String, kind: PaymentMethodKind = .card,
@@ -153,8 +159,10 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
     cashbackRounding: CashbackRounding = .standard, cashbackPayout: CashbackPayout? = nil,
     cashbackPointsAccountId: UUID? = nil, interest: DepositTerms? = nil, cushion: Bool = false,
     credit: CreditCardTerms? = nil, mainCardId: UUID? = nil, accent: String? = nil,
-    hidden: Bool = false
+    hidden: Bool = false, cashbackMonthlyCapE4: AmountE4? = nil, cashbackChoiceDay: Int? = nil
   ) {
+    self.cashbackMonthlyCapE4 = cashbackMonthlyCapE4
+    self.cashbackChoiceDay = cashbackChoiceDay
     self.id = id
     self.name = name
     self.kind = kind
