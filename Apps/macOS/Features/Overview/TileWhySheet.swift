@@ -240,10 +240,56 @@ enum TileWhy {
   ) -> TileExplanation? {
     guard let snapshot = compute.snapshot else { return nil }
     let states = compute.states
+    // The tile adds up the accounts of the summary, hidden ones too; so does its breakdown, with
+    // their lines folded into one that names nothing.
+    if tile == .balanceForecast, let whole = compute.wholeSnapshot {
+      return balanceForecast(
+        whole: whole, shown: snapshot, remainder: states.forecast.value,
+        locale: environment.language.locale)
+    }
     return explanation(
       of: tile, snapshot: snapshot, remainder: states.forecast.value,
-      owed: states.owed.value?.amount, anomalies: states.anomalies.value, rates: rates,
-      environment: environment)
+      owed: states.owed.value?.amount,
+      anomalies: states.anomalies.value.map { AnomaliesCard.covering($0, shown: snapshot) },
+      rates: rates, environment: environment)
+  }
+
+  /// «Почему так» of «Прогноз остатка» counted over the whole snapshot, as the tile counts it, so
+  /// the total is the tile's figure. While the hidden accounts are covered (`shown`), their lines
+  /// go and one line «часть скрыта» without an amount stands in their place: the total less the
+  /// lines shown would be the hidden amount, so the line never carries one.
+  static func balanceForecast(
+    whole: DataSnapshot, shown: DataSnapshot, remainder: MonthForecast.Remainder?,
+    locale: Locale
+  ) -> TileExplanation {
+    let ids = BalanceForecastCard.summaryAccountIds(of: whole, locale: locale)
+    let explanation = TileExplanations.balanceForecast(
+      whole.accountPlan, remainder: remainder, accountIds: ids)
+    guard !shown.hiding.isEmpty, let remainder, explanation.state == .ready else {
+      return explanation
+    }
+    let model = BalanceForecastModel(
+      forecast: whole.accountPlan.forecast(remainder: remainder), accountIds: ids)
+    var copy = explanation
+    copy.sections = explanation.sections.enumerated().map { index, section in
+      guard model.totals.indices.contains(index) else { return section }
+      let currency = model.totals[index].currency
+      let lines = model.lines.filter { $0.currency == currency }
+      var kept: [TileRow]
+      if lines.count == section.rows.count {
+        kept = zip(section.rows, lines).filter { !shown.hiding.isHidden($0.1.accountId) }
+          .map(\.0)
+      } else {
+        // The rows cannot be told apart: none is named rather than a hidden one.
+        kept = lines.contains { shown.hiding.isHidden($0.accountId) } ? [] : section.rows
+      }
+      guard kept.count != section.rows.count else { return section }
+      kept.append(TileRow(TilePhrase("privacy.partHidden", table: "PrivacyScreens")))
+      var covered = section
+      covered.rows = kept
+      return covered
+    }
+    return copy
   }
 
   /// The breakdown from the values the tiles read: the snapshot of the data step and what the
@@ -253,11 +299,12 @@ enum TileWhy {
     owed: AmountE4?, anomalies: AnomalyReport?, rates: TileRateSeries?,
     environment: AppEnvironment
   ) -> TileExplanation {
-    TileExplanations.explain(
-      tile,
-      inputs(
-        snapshot: snapshot, remainder: remainder, owed: owed, anomalies: anomalies, rates: rates,
-        environment: environment))
+    let inputs = inputs(
+      snapshot: snapshot, remainder: remainder, owed: owed, anomalies: anomalies, rates: rates,
+      environment: environment)
+    // Covered, a line naming what is hidden folds into «часть скрыта»; the figure stays.
+    return TileWhyCover.covering(
+      TileExplanations.explain(tile, inputs), inputs: inputs, shown: snapshot)
   }
 
   /// What the core reads, gathered the way each tile gathers it: the limits in the order and

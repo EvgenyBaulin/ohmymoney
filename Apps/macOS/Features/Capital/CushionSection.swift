@@ -72,6 +72,9 @@ struct CushionSection: View {
         Text(verbatim: CushionText.summaryLine(status, environment))
           .appFont(.callout.monospacedDigit())
           .foregroundStyle(.secondary)
+        if CushionText.touchesHidden(status, hiding: compute.snapshot?.hiding) {
+          PartHiddenNote()
+        }
         if let breakdown = CushionText.breakdown(of: status.obligatory) {
           breakdownLines(breakdown)
         }
@@ -80,9 +83,10 @@ struct CushionSection: View {
           .appFont(.caption.monospacedDigit())
           .foregroundStyle(.secondary)
           .fixedSize(horizontal: false, vertical: true)
-        if !status.unanchored.isEmpty {
+        let unanchored = CushionText.unanchored(status.unanchored, hiding: compute.snapshot?.hiding)
+        if !unanchored.isEmpty {
           Label {
-            Text(verbatim: CushionText.unanchoredLine(status.unanchored, dataset, environment))
+            Text(verbatim: CushionText.unanchoredLine(unanchored, dataset, environment))
           } icon: {
             Image(systemName: "hourglass")
           }
@@ -381,6 +385,20 @@ enum CushionText {
       text += "; " + t("cushion.goal.paceNever", environment)
     }
     return text
+  }
+
+  /// A cushion account is hidden and covered (`hiding`): the cushion counts money the screen
+  /// does not show.
+  static func touchesHidden(_ status: CushionStatus, hiding: HiddenAccounts?) -> Bool {
+    guard let hiding, !hiding.isEmpty else { return false }
+    return status.accounts.contains { hiding.isHidden($0) }
+  }
+
+  /// The balances never counted that the screen may name: covered, not those of a hidden
+  /// account — its name would be the line.
+  static func unanchored(_ keys: [BalanceKey], hiding: HiddenAccounts?) -> [BalanceKey] {
+    guard let hiding else { return keys }
+    return keys.filter { !hiding.isHidden($0.accountId) }
   }
 
   /// «Не сверен: Сбер RUB, Наличные USD».

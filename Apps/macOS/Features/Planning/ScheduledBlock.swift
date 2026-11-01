@@ -27,7 +27,11 @@ struct ScheduledBlock: View {
       style: hosted ? .plain : .card, retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
       let planning = snapshot.planning
-      let statuses = planning.scheduled.filter { kind == nil || $0.payment.kind == kind }
+      // The block hands over the whole snapshot; what is covered is the presented one's.
+      let presented = compute.snapshot ?? snapshot
+      let hidden = HiddenPlans(snapshot: presented)
+      let all = planning.scheduled.filter { kind == nil || $0.payment.kind == kind }
+      let statuses = Self.listed(all, hiding: hidden)
       let shown = PlanningShortListView.shown(
         statuses, length: length, expanded: showsAll, date: { $0.nextUnpaid })
       VStack(alignment: .leading, spacing: 10) {
@@ -41,6 +45,8 @@ struct ScheduledBlock: View {
           .appFont(.caption.monospacedDigit())
           .foregroundStyle(.secondary)
         }
+        // The totals keep the payments of a hidden account the list does not show.
+        if statuses.count != all.count { PartHiddenNote() }
         if statuses.isEmpty, hosted, kind == .bill {
           PlanningEmptyHint(block: .payments) { add() }
             .guideTarget("planning.addPayment")
@@ -80,10 +86,15 @@ struct ScheduledBlock: View {
             .accessibilityIdentifier("planning.subscriptions.screen")
         }
         if kind != .subscription, !planning.funding.isEmpty {
-          FundingLines(lines: planning.funding, methods: snapshot.dataset.paymentMethods)
+          FundingLines(
+            lines: Self.funding(planning.funding, hiding: presented.hiding),
+            methods: presented.dataset.paymentMethods)
         }
         if kind != .bill {
-          ForEach(planning.candidates.prefix(3)) { candidate in
+          ForEach(
+            Self.candidates(planning.candidates, hiding: HiddenOperations(snapshot: presented))
+              .prefix(3)
+          ) { candidate in
             HStack(spacing: 6) {
               Image(systemName: "sparkle.magnifyingglass").accessibilityHidden(true)
               Text(
@@ -122,6 +133,24 @@ struct ScheduledBlock: View {
     case .subscription: "layout.block.subscriptions"
     case nil: "scheduled.title"
     }
+  }
+
+  /// The payments the block lists: covered, those of a hidden account are not among them.
+  static func listed(_ statuses: [ScheduledStatus], hiding: HiddenPlans) -> [ScheduledStatus] {
+    statuses.filter { !hiding.hides(scheduled: $0.payment.id) }
+  }
+
+  /// What each account needs, without the lines of a hidden account: its name would be the line.
+  static func funding(_ lines: [FundingLine], hiding: HiddenAccounts) -> [FundingLine] {
+    lines.filter { !hiding.isHidden($0.paymentMethodId) }
+  }
+
+  /// The subscriptions the purchases suggest, without those paid from a hidden account: the
+  /// suggestion is named after its operations.
+  static func candidates(
+    _ candidates: [SubscriptionCandidate], hiding: HiddenOperations
+  ) -> [SubscriptionCandidate] {
+    candidates.filter { !hiding.hides(account: $0.paymentMethodId, card: $0.cardId) }
   }
 
   /// «+ Платёж» opens an empty payment; in «Подписки» the form starts as a subscription.
@@ -491,7 +520,7 @@ private struct MatchedDues: View {
   private static let shown = 3
 
   var body: some View {
-    let dues = status.matchedDues.keys.sorted(by: >)
+    let dues = Self.dues(status, shown: compute.snapshot)
     if !dues.isEmpty {
       VStack(alignment: .leading, spacing: 2) {
         ForEach(dues.prefix(Self.shown), id: \.self) { due in
@@ -509,6 +538,15 @@ private struct MatchedDues: View {
         }
       }
     }
+  }
+
+  /// The matched due dates, latest first; covered, not those an operation of a hidden account
+  /// paid — the line would show that operation.
+  static func dues(_ status: ScheduledStatus, shown: DataSnapshot?) -> [DateOnly] {
+    guard let shown else { return status.matchedDues.keys.sorted(by: >) }
+    let hidden = HiddenOperations(snapshot: shown)
+    return status.matchedDues.filter { !hidden.hides(operation: $0.value, in: shown.ledger) }
+      .keys.sorted(by: >)
   }
 
   private func line(due: DateOnly, operationId: UUID) -> some View {

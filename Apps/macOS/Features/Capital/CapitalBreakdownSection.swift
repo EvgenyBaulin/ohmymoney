@@ -153,6 +153,8 @@ struct CapitalBreakdownSection: View {
         Text(verbatim: name)
           .appFont(.subheadline.weight(.semibold))
           .lineLimit(1)
+        // The total counts accounts the block does not list.
+        if group.partHidden { PartHiddenNote() }
         Spacer(minLength: 8)
         if let share {
           Text(verbatim: share)

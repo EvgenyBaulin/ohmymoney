@@ -147,8 +147,10 @@ struct DataSnapshot: Sendable {
   let accountPlan: AccountMonthPlan
   let owed: OwedSummary
   /// The days of the previous and the current month, and any later — Overview lists these.
-  let recentGroups: [TransactionsStore.DayGroup]
-  let recentIds: Set<UUID>
+  /// A presented snapshot has them without the operations of the hidden accounts.
+  var recentGroups: [TransactionsStore.DayGroup]
+  /// What those days let select; a presented snapshot leaves out what its days do not show.
+  var recentIds: Set<UUID>
   let context: SnapshotContext
   let today: DateOnly
   let version: DataVersion
@@ -186,6 +188,12 @@ struct DataSnapshot: Sendable {
     let covered = hidden.cover(planning.accounts)
     copy.planning.accounts = covered.snapshot
     copy.coveredAccounts = covered
+    // The days listed lose the operations of the hidden accounts and keep their totals.
+    let operations = HiddenOperations(snapshot: copy)
+    copy.recentGroups = recentGroups.map { $0.covering(operations) }
+    let listed = Set(recentGroups.flatMap(\.selectableIds))
+    let kept = Set(copy.recentGroups.flatMap(\.selectableIds))
+    copy.recentIds = recentIds.subtracting(listed.subtracting(kept))
     return copy
   }
 

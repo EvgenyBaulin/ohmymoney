@@ -14,7 +14,9 @@ struct CushionTileCard: View {
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
       CushionTileContent(
-        status: snapshot.planning.cushion, settings: snapshot.dataset.capitalSettings)
+        status: snapshot.planning.cushion, settings: snapshot.dataset.capitalSettings,
+        partHidden: CushionText.touchesHidden(
+          snapshot.planning.cushion, hiding: compute.snapshot?.hiding))
     }
   }
 }
@@ -24,6 +26,8 @@ struct CushionTileContent: View {
   @Dependency(\.environment) private var environment
   let status: CushionStatus
   let settings: CapitalSettings
+  /// A cushion account is hidden and covered: the months count its money, the tile says so.
+  var partHidden = false
 
   var body: some View {
     VStack(alignment: .leading, spacing: 6) {
@@ -33,6 +37,7 @@ struct CushionTileContent: View {
           .accessibilityIdentifier("overview.cushion.months")
         CushionBar(status: status, settings: settings)
       }
+      if partHidden { PartHiddenNote() }
       Text(verbatim: CushionText.tileHint(status, settings: settings, environment))
         .appFont(.caption.monospacedDigit())
         .foregroundStyle(.secondary)

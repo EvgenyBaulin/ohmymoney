@@ -10,6 +10,14 @@ struct CapitalInsuranceSection: View {
 
   private var over: [BankInsurance] { banks.filter(\.isOver) }
 
+  /// The banks the section may name while the hidden accounts are covered: not one that holds
+  /// nothing but hidden accounts (`WorthALookCover.hidesBank`).
+  static func shown(
+    _ banks: [BankInsurance], accounts: [PaymentMethod], hiding: HiddenAccounts
+  ) -> [BankInsurance] {
+    banks.filter { !WorthALookCover.hidesBank($0.bankId, accounts: accounts, hiding: hiding) }
+  }
+
   var body: some View {
     if !over.isEmpty {
       ComputedBlock(

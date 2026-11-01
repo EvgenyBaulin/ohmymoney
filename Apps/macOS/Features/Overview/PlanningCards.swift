@@ -68,7 +68,9 @@ struct UpcomingPaymentsCard: View {
       title: OverviewTileText.name(of: .upcoming, environment),
       state: compute.states.data, fillsHeight: true, retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
-      let upcoming = snapshot.planning.upcoming
+      // The block hands over the whole snapshot; what is covered is the presented one's.
+      let upcoming = Self.listed(
+        snapshot.planning.upcoming, hiding: HiddenPlans(snapshot: compute.snapshot ?? snapshot))
       let target = snapshot.dataset.accountSettings.defaultCurrency
       if upcoming.isEmpty {
         Text(verbatim: environment.language("overview.upcomingNone", table: "Planning"))
@@ -118,6 +120,11 @@ struct UpcomingPaymentsCard: View {
 }
 
 extension UpcomingPaymentsCard {
+  /// The payments the tile lists: covered, not those of a hidden account.
+  static func listed(_ payments: [UpcomingPayment], hiding: HiddenPlans) -> [UpcomingPayment] {
+    payments.filter { !hiding.hides($0) }
+  }
+
   /// The grey line under a payment's amount: «≈ 269 ₽» in the default currency, «нет курса»
   /// when a rate is missing, nothing for a payment in the default currency.
   static func approximateText(
@@ -145,7 +152,10 @@ struct ExpectedIncomeCard: View {
       fillsHeight: true,
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
-      let open = snapshot.planning.expected.filter { !$0.isFulfilled }
+      // The figure keeps an income of a hidden account; the list does not name it.
+      let open = ExpectedIncomeBlock.listed(
+        snapshot.planning.expected, hiding: HiddenPlans(snapshot: compute.snapshot ?? snapshot)
+      ).filter { !$0.isFulfilled }
       if open.isEmpty {
         Text(verbatim: t("overview.expectedNone")).foregroundStyle(.secondary)
       } else {
@@ -153,6 +163,9 @@ struct ExpectedIncomeCard: View {
           PlanningFigure(
             label: t("overview.expectedThisMonth"),
             amount: snapshot.planning.income.expectedRemaining)
+          if open.count != snapshot.planning.expected.filter({ !$0.isFulfilled }).count {
+            PartHiddenNote()
+          }
           ForEach(open.prefix(3), id: \.income.id) { status in
             HStack(alignment: .firstTextBaseline, spacing: 6) {
               Text(verbatim: status.income.name).lineLimit(1)

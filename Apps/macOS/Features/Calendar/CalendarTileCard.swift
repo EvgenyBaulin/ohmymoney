@@ -17,7 +17,8 @@ struct CalendarTileCard: View {
     ) { snapshot in
       let calendar = CalendarScreen.calendar(
         of: snapshot, scope: .week, anchor: snapshot.today,
-        firstWeekday: CalendarScreen.firstWeekday(locale: environment.language.locale))
+        firstWeekday: CalendarScreen.firstWeekday(locale: environment.language.locale),
+        shown: compute.snapshot)
       VStack(alignment: .leading, spacing: 6) {
         HStack(spacing: 4) {
           ForEach(calendar.weeks.first ?? []) { day in

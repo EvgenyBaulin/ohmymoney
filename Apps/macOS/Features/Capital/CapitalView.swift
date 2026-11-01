@@ -29,14 +29,18 @@ struct CapitalView: View {
           if let snapshot = compute.snapshot {
             let model = CapitalViewModel(
               capital: snapshot.planning.capital, accountGroups: snapshot.dataset.accountGroups,
-              debts: snapshot.dataset.debts)
+              debts: snapshot.dataset.debts, hiding: snapshot.hiding)
             columns(
               count: ScreenColumns.count(forWidth: proxy.size.width - 40),
               left: [
                 AnyView(header),
                 AnyView(CurrencyGainSection(snapshot: snapshot)),
                 AnyView(CapitalBreakdownSection(model: model, open: open)),
-                AnyView(CapitalInsuranceSection(banks: snapshot.planning.banks.insurance)),
+                AnyView(
+                  CapitalInsuranceSection(
+                    banks: CapitalInsuranceSection.shown(
+                      snapshot.planning.banks.insurance,
+                      accounts: snapshot.ledger.dataset.paymentMethods, hiding: snapshot.hiding))),
                 AnyView(
                   AssetsSection(
                     assets: snapshot.dataset.assets, valuations: snapshot.dataset.assetValuations,
@@ -123,8 +127,9 @@ struct CapitalView: View {
   }
 
   private var heroLines: [String] {
-    guard let capital = compute.snapshot?.planning.capital else { return [] }
-    let model = CapitalViewModel(capital: capital)
+    guard let snapshot = compute.snapshot else { return [] }
+    let capital = snapshot.planning.capital
+    let model = CapitalViewModel(capital: capital, hiding: snapshot.hiding)
     var lines: [String] = []
     if let change = model.change, let since = model.sinceMonth {
       lines.append(
@@ -135,6 +140,7 @@ struct CapitalView: View {
       CapitalText.format(
         "capital.hero.haveOwe", environment, environment.money.rounded(capital.now.haveRub),
         environment.money.rounded(capital.now.iOweRub)))
+    if model.partHidden { lines.append(PartHiddenNote.text(environment.language)) }
     return lines
   }
 
@@ -247,6 +253,9 @@ struct CapitalViewModel: Hashable {
     /// The block's share of its column: the shares of its rows added up, so the folded row and
     /// its rows never disagree; `nil` while no row of it has a share.
     var shareBp: Int?
+    /// Rows of covered hidden accounts are not among `rows`; `totalRub` and `shareBp` still
+    /// count them, and the block says «часть скрыта».
+    var partHidden = false
 
     var id: String {
       [kind.rawValue, accountGroupId?.uuidString, assetKind?.rawValue]
@@ -275,6 +284,9 @@ struct CapitalViewModel: Hashable {
   var countedTwice: [String]
   /// The points of the chart, oldest first, «now» last.
   var points: [CapitalPoint]
+  /// Some line of a covered hidden account is counted and not listed: the figures say «часть
+  /// скрыта».
+  var partHidden = false
 
   /// Nothing counted at all: no account, no asset, no debt.
   var isEmpty: Bool { haveGroups.isEmpty && oweGroups.isEmpty }
@@ -284,7 +296,12 @@ struct CapitalViewModel: Hashable {
     .accounts, .deposits, .outOfSummary, .assets, .owedToMe,
   ]
 
-  init(capital: CapitalSnapshot, accountGroups: [AccountGroup] = [], debts: [Debt] = []) {
+  /// `hiding` are the hidden accounts the screen is drawn without while they are covered: their
+  /// lines are counted in every figure and listed nowhere, not even by name in a warning.
+  init(
+    capital: CapitalSnapshot, accountGroups: [AccountGroup] = [], debts: [Debt] = [],
+    hiding: HiddenAccounts = HiddenAccounts(ids: [UUID]())
+  ) {
     let now = capital.now
     net = now.netRub
     have = now.haveRub
@@ -295,15 +312,56 @@ struct CapitalViewModel: Hashable {
     sinceMonth = capital.changeThisMonth == nil ? nil : ends.last?.day.monthKey
     let names = Dictionary(
       accountGroups.map { ($0.id, $0.name) }, uniquingKeysWith: { first, _ in first })
-    haveGroups = Self.groups(
-      capital.breakdown.have, order: Self.haveOrder, groupNames: names)
-    oweGroups = Self.groups(capital.breakdown.owe, order: [.iOwe], groupNames: names)
-    let lines = capital.breakdown.have + capital.breakdown.owe
+    let (have, haveCut) = Self.covering(
+      Self.groups(capital.breakdown.have, order: Self.haveOrder, groupNames: names),
+      hiding: hiding)
+    let (owe, oweCut) = Self.covering(
+      Self.groups(capital.breakdown.owe, order: [.iOwe], groupNames: names), hiding: hiding)
+    haveGroups = have
+    oweGroups = owe
+    partHidden = haveCut || oweCut
+    let shown = CapitalBreakdown(
+      have: capital.breakdown.have.filter { !Self.isHidden($0, hiding) },
+      owe: capital.breakdown.owe.filter { !Self.isHidden($0, hiding) })
+    let lines = shown.have + shown.owe
     warnings = [CapitalLine.Issue.unanchored, .withoutRate, .unvalued].compactMap { issue in
       let named = lines.filter { $0.issue == issue }.map(\.name)
       return named.isEmpty ? nil : Warning(issue: issue, names: Self.unique(named))
     }
-    countedTwice = Self.countedTwice(capital.breakdown, debts: debts)
+    countedTwice = Self.countedTwice(shown, debts: debts)
+  }
+
+  /// A line of a hidden account.
+  static func isHidden(_ line: CapitalLine, _ hiding: HiddenAccounts) -> Bool {
+    if case .account(let id) = line.source { return hiding.isHidden(id) }
+    return false
+  }
+
+  /// Some line of `capital` is of a hidden account: a figure of it holds hidden money.
+  static func touchesHidden(_ capital: CapitalSnapshot, hiding: HiddenAccounts) -> Bool {
+    guard !hiding.isEmpty else { return false }
+    return (capital.breakdown.have + capital.breakdown.owe).contains { isHidden($0, hiding) }
+  }
+
+  /// The blocks without the rows of hidden accounts. A block keeps its total and share, made
+  /// before, and says «часть скрыта»; a block left with no row is dropped — its total alone would
+  /// give the hidden amount away — except «Счета в сводке», whose money the summary shows anyway.
+  static func covering(
+    _ groups: [Group], hiding: HiddenAccounts
+  ) -> (groups: [Group], removed: Bool) {
+    guard !hiding.isEmpty else { return (groups, false) }
+    var removed = false
+    let kept = groups.compactMap { group -> Group? in
+      let rows = group.rows.filter { !isHidden($0.line, hiding) }
+      guard rows.count != group.rows.count else { return group }
+      removed = true
+      guard !rows.isEmpty || group.kind == .accounts else { return nil }
+      var covered = group
+      covered.rows = rows
+      covered.partHidden = true
+      return covered
+    }
+    return (kept, removed)
   }
 
   /// The lines of one column in blocks, in `order`; inside a block they keep the core's order.

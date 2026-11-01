@@ -132,6 +132,7 @@ struct CushionSetup: Equatable {
 struct CushionSetupSheet: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
+  @Dependency(\.compute) private var compute
 
   let finish: () -> Void
 
@@ -221,7 +222,9 @@ struct CushionSetupSheet: View {
 
   private func load() {
     guard setup == nil else { return }
-    let accounts = (try? environment.accounts?.accounts(includeArchived: true)) ?? []
+    // Covered, a hidden account is not offered; its mark of the cushion stays as it is.
+    let accounts = (compute.snapshot?.hiding ?? HiddenAccounts(ids: [UUID]())).offered(
+      (try? environment.accounts?.accounts(includeArchived: true)) ?? [], visibility: .covered)
     let categories = (try? environment.references?.categories(includeArchived: true)) ?? []
     setup = CushionSetup(
       accounts: AccountRules.ordered(

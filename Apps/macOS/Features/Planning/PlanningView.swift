@@ -60,7 +60,8 @@ struct PlanningView: View {
               .accessibilityIdentifier("planning.summary")
             }
             if let snapshot {
-              PlanningRibbonView(ribbon: Self.ribbon(of: snapshot), open: open)
+              PlanningRibbonView(
+                ribbon: Self.ribbon(of: snapshot, shown: compute.snapshot), open: open)
               PlanningBirthdaysStrip(snapshot: snapshot)
             }
             if editing {
@@ -145,15 +146,18 @@ struct PlanningView: View {
     }
   }
 
-  /// The next 14 days, from what the calendar plans for them.
-  static func ribbon(of snapshot: DataSnapshot) -> PlanningRibbon {
+  /// The next 14 days, from what the calendar plans for them. `shown` is the snapshot the screen
+  /// presents, when `snapshot` is the whole one: its covered accounts decide which plans are not
+  /// on the ribbon.
+  static func ribbon(of snapshot: DataSnapshot, shown: DataSnapshot? = nil) -> PlanningRibbon {
     let planning = snapshot.planning
     let range = PlanningRibbon.range(today: snapshot.today)
     let plans = CalendarPlans.collect(
       ledger: snapshot.ledger, book: planning.book, today: snapshot.today, through: range.end,
       rubPerUnit: planning.rubPerUnit, matches: planning.matches)
-    return PlanningRibbon.build(
-      plans: plans, today: snapshot.today, rubPerUnit: planning.rubPerUnit)
+    // Covered, a plan of a hidden account is not on its day; the two sums keep its money.
+    return HiddenPlans(snapshot: shown ?? snapshot).covering(
+      PlanningRibbon.build(plans: plans, today: snapshot.today, rubPerUnit: planning.rubPerUnit))
   }
 
   /// A plan of the ribbon opens what it is: an income its form, a payment or a subscription its

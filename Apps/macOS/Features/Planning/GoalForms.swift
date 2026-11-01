@@ -430,7 +430,13 @@ struct GoalMoveForm: View {
         DatePicker(t("form.date"), selection: $date)
         // A contribution names the account the money is set aside on; it moves no money on
         // it, so nothing is charged apart.
-        AccountPicker(title: t("form.method"), accounts: choices.methods, selection: $method)
+        if Self.hidesMain(
+          compute.wholeSnapshot?.dataset.paymentMethods ?? [], hiding: choices.hiding)
+        {
+          hiddenMainPicker(choices)
+        } else {
+          AccountPicker(title: t("form.method"), accounts: choices.methods, selection: $method)
+        }
         if !withdraw, let needed = status.neededMonthly {
           Text(
             verbatim: environment.format(
@@ -468,6 +474,27 @@ struct GoalMoveForm: View {
       method = FormAccounts.account(nil, among: choices.methods)?.id
       rates = (try? environment.rates?.table()) ?? RateTable()
     }
+  }
+
+  /// The main account is hidden and covered: without an account chosen the money is set aside
+  /// on it (`PlanningActions.move`), and the picker says so in words that name no account.
+  static func hidesMain(_ accounts: [PaymentMethod], hiding: HiddenAccounts) -> Bool {
+    guard let main = accounts.first(where: { $0.isDefault && !$0.archived }) else { return false }
+    return hiding.isHidden(main.id)
+  }
+
+  /// The picker of the account while the main one is hidden: «Основной счёт (скрыт)» for no
+  /// choice, then the accounts that can be seen.
+  private func hiddenMainPicker(_ choices: PlanningChoices) -> some View {
+    let locale = environment.language.locale
+    let offered = AccountCardChoices.items(
+      accounts: FormAccounts.offered(choices.methods, locale: locale), cards: [],
+      banks: compute.snapshot?.dataset.banks ?? [], among: choices.methods, locale: locale)
+    return Picker(t("form.method"), selection: $method) {
+      Text(verbatim: t("form.method.mainHidden")).tag(UUID?.none)
+      ForEach(offered) { Text(verbatim: $0.name).tag(Optional($0.id)) }
+    }
+    .accessibilityIdentifier("goal.move.account")
   }
 
   /// Whether «Забрать» can take `amount` out of the goal.

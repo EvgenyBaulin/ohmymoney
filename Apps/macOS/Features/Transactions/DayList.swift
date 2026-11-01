@@ -22,6 +22,7 @@ import SwiftUI
 /// root of the screen instead.
 struct DayList<Header: View, MenuItems: View>: View {
   @Dependency(\.environment) private var environment
+  @Dependency(\.compute) private var compute
 
   let groups: [TransactionsStore.DayGroup]
   @Binding var selection: Set<UUID>
@@ -69,6 +70,7 @@ struct DayList<Header: View, MenuItems: View>: View {
   private var rows: some View {
     // Once for the whole list, not for every transfer row.
     let names = accountNames
+    let hiding = DayListHiding.accounts(of: compute.snapshot)
     header()
     if let waiting {
       ComputedBlock(waiting: waiting.state, retry: waiting.retry)
@@ -86,7 +88,7 @@ struct DayList<Header: View, MenuItems: View>: View {
           case .operation(let entry):
             row(entry)
           case .transfer(let transfer):
-            TransferRow(transfer: transfer, accounts: names)
+            TransferRow(transfer: transfer, accounts: names, hiding: hiding)
               .tag(transfer.id)
           }
         }
@@ -362,9 +364,12 @@ struct TransferRow: View {
   let transfer: Transfer
   /// The names of the accounts by id.
   let accounts: [UUID: String]
+  /// The hidden accounts the list is drawn without (`DayListHiding`): a transfer to one names
+  /// none of them.
+  let hiding: HiddenAccounts
 
   var body: some View {
-    let text = TransferRowText(transfer, names: accounts, hiding: environment.shield.covering)
+    let text = TransferRowText(transfer, names: accounts, hiding: hiding)
     HStack(spacing: 12) {
       Image(systemName: TransferSymbol.name)
         .foregroundStyle(.secondary)
@@ -500,5 +505,14 @@ extension View {
     #else
       self
     #endif
+  }
+}
+
+/// The hidden accounts a list of days is drawn without: those of the snapshot on screen, which
+/// knows them from its first frame — not what the shield learned after the data step, so the
+/// first frame cannot show the name of a hidden account in a transfer.
+enum DayListHiding {
+  static func accounts(of snapshot: DataSnapshot?) -> HiddenAccounts {
+    snapshot?.hiding ?? HiddenAccounts(ids: [UUID]())
   }
 }

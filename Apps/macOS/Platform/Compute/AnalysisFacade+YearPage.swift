@@ -19,7 +19,9 @@ extension YearAnalysisFacade {
   func yearlyExpenses(
     _ snapshot: DataSnapshot, dismissed: Set<String> = []
   ) async throws -> [YearlyExpense] {
-    try await core.cached("year.yearly|\(dismissed.sorted())", snapshot) {
+    try await core.cached(
+      "year.yearly|\(dismissed.sorted())|\(YearPlanInputs.hidingKey(snapshot))", snapshot
+    ) {
       YearPlanInputs.yearlyExpenses(snapshot, dismissed: dismissed)
     }
   }
@@ -28,7 +30,9 @@ extension YearAnalysisFacade {
   func propertyTax(
     _ snapshot: DataSnapshot, dismissed: Set<String> = []
   ) async throws -> [PropertyTaxHint] {
-    try await core.cached("year.tax|\(dismissed.sorted())", snapshot) {
+    try await core.cached(
+      "year.tax|\(dismissed.sorted())|\(YearPlanInputs.hidingKey(snapshot))", snapshot
+    ) {
       YearPlanInputs.propertyTax(snapshot, dismissed: dismissed)
     }
   }
@@ -66,11 +70,20 @@ enum YearPlanInputs {
     return YearPlan.build(window: window, today: today, inputs: inputs)
   }
 
-  /// My spending, one record per row, in rubles: what the history of the year counts.
-  static func yearlyRecords(_ ledger: Ledger) -> [YearlyRecord] {
+  /// The hidden accounts a snapshot is presented without, as part of a key of the cache: the
+  /// presented and the whole snapshot share their version, and what is said from the
+  /// descriptions of the operations differs between them.
+  static func hidingKey(_ snapshot: DataSnapshot) -> String {
+    snapshot.hiding.ids.map(\.uuidString).sorted().joined(separator: ",")
+  }
+
+  /// My spending, one record per row, in rubles: what the history of the year counts. The
+  /// records are said by their descriptions, so `hidden` operations — those of a covered hidden
+  /// account — are none of them.
+  static func yearlyRecords(_ ledger: Ledger, hidden: HiddenOperations = .none) -> [YearlyRecord] {
     ledger.rows.compactMap { row in
       guard row.contribution.raw > 0, !row.isGoalContribution, row.debtId == nil,
-        row.systemRole == nil, row.link?.isBookkeeping != true
+        row.systemRole == nil, row.link?.isBookkeeping != true, !hidden.hides(row)
       else { return nil }
       return YearlyRecord(
         day: row.day, amount: row.contribution, categoryId: row.categoryId, placeId: row.placeId,
@@ -97,7 +110,7 @@ enum YearPlanInputs {
   static func yearlyExpenses(
     _ snapshot: DataSnapshot, dismissed: Set<String>
   ) -> [YearlyExpense] {
-    let records = yearlyRecords(snapshot.ledger)
+    let records = yearlyRecords(snapshot.ledger, hidden: HiddenOperations(snapshot: snapshot))
     let found = YearlyExpenseFinder.find(records: records)
     return YearlyExpenseFinder.suggestions(
       records: records, today: snapshot.today,
@@ -111,11 +124,12 @@ enum YearPlanInputs {
 
   /// Payments under «Налоги и сборы»; the self-employed tax (the category the app pays it in, and
   /// the operations it keyed `npd:` and `tax:`) is no property tax and stays out.
-  static func taxRecords(_ ledger: Ledger) -> [TaxRecord] {
+  /// Like the yearly records, they are said by their descriptions: `hidden` operations are none.
+  static func taxRecords(_ ledger: Ledger, hidden: HiddenOperations = .none) -> [TaxRecord] {
     let tree = ledger.tree
     let own = ledger.dataset.selfEmployment.taxCategoryId
     return ledger.rows.compactMap { row in
-      guard row.contribution.raw > 0, row.categoryId != own,
+      guard row.contribution.raw > 0, row.categoryId != own, !hidden.hides(row),
         let root = tree.root(of: row.categoryId), taxesNames.contains(NameKey.fold(root.name))
       else { return nil }
       let key = ledger.entry(row.transactionId)?.transaction.externalId ?? ""
@@ -129,7 +143,8 @@ enum YearPlanInputs {
 
   static func propertyTax(_ snapshot: DataSnapshot, dismissed: Set<String>) -> [PropertyTaxHint] {
     PropertyTaxHints.hints(
-      records: taxRecords(snapshot.ledger), today: snapshot.today,
+      records: taxRecords(snapshot.ledger, hidden: HiddenOperations(snapshot: snapshot)),
+      today: snapshot.today,
       planned: snapshot.dataset.planning.scheduled, dismissed: dismissed)
   }
 

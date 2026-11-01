@@ -15,9 +15,12 @@ enum CalendarScreen {
   }
 
   /// The calendar of `scope` around `anchor` as of the snapshot's today, in the default
-  /// currency, with what is planned for today and the days ahead.
+  /// currency, with what is planned for today and the days ahead. `shown` is the snapshot the
+  /// screen presents, when `snapshot` is the whole one a block hands over: its covered accounts
+  /// decide which plans are not listed.
   static func calendar(
-    of snapshot: DataSnapshot, scope: CalendarScope, anchor: DateOnly, firstWeekday: Int
+    of snapshot: DataSnapshot, scope: CalendarScope, anchor: DateOnly, firstWeekday: Int,
+    shown: DataSnapshot? = nil
   ) -> SpendingCalendar {
     let planning = snapshot.planning
     let today = snapshot.today
@@ -25,11 +28,13 @@ enum CalendarScreen {
     let plans = CalendarPlans.collect(
       ledger: snapshot.ledger, book: planning.book, today: today, through: range.end,
       rubPerUnit: planning.rubPerUnit, matches: planning.matches)
-    return SpendingCalendar.build(
+    let built = SpendingCalendar.build(
       ledger: snapshot.ledger, scope: scope, anchor: anchor, today: today,
       firstWeekday: firstWeekday, plans: plans,
       currency: snapshot.dataset.accountSettings.defaultCurrency,
       rubPerUnit: planning.rubPerUnit)
+    // Covered, a plan of a hidden account is not listed on its day; the day's sums keep it.
+    return HiddenPlans(snapshot: shown ?? snapshot).covering(built)
   }
 
   /// The operations of `day` as the lists of the app show a day: the rows of «Траты», newest

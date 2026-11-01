@@ -551,7 +551,8 @@ struct AnomaliesCard: View {
       let notes = Self.notes(compute.snapshot, settled: settled)
       let lines = Self.lines(
         OverviewText.anomalyLines(
-          report, today: compute.snapshot?.today ?? environment.today,
+          Self.covering(report, shown: compute.snapshot),
+          today: compute.snapshot?.today ?? environment.today,
           free: compute.snapshot?.planning.freeMoney, shown: Self.shown, archived: archived),
         notes: notes)
       VStack(alignment: .leading, spacing: 6) {
@@ -616,10 +617,21 @@ struct AnomaliesCard: View {
     .onChange(of: compute.generation) { _, _ in settled = [] }
   }
 
-  /// The lines of 1.9 the card shows: those of the core, less those settled here.
+  /// The lines of 1.9 the card shows: those of the core, less those settled here and, while the
+  /// hidden accounts are covered, those about them (`WorthALookCover`).
   static func notes(_ snapshot: DataSnapshot?, settled: Set<String>) -> [WorthALookNote] {
     guard let snapshot else { return [] }
-    return WorthALook.notes(of: snapshot).filter { !settled.contains($0.id) }
+    return WorthALookCover.covering(
+      WorthALook.notes(of: snapshot), hidden: HiddenOperations(snapshot: snapshot),
+      ledger: snapshot.ledger
+    ).filter { !settled.contains($0.id) }
+  }
+
+  /// The anomalies the card lists: covered, not those about an operation of a hidden account.
+  static func covering(_ report: AnomalyReport, shown: DataSnapshot?) -> AnomalyReport {
+    guard let shown else { return report }
+    return WorthALookCover.covering(
+      report, hidden: HiddenOperations(snapshot: shown), ledger: shown.ledger)
   }
 
   /// «Ничего необычного» speaks only for a card with nothing else on it.

@@ -669,8 +669,13 @@ final class PlanningOverview19Tests: XCTestCase {
     let base = snapshot(dataset(today: today), today: today)
     let reminder = DebtReminder.creditHistory(half: HalfYear(containing: today))
     let with = replacing(base) { $0.debtReminders = [reminder] }
-    XCTAssertEqual(AnomaliesCard.notes(with, settled: []), [.debt(reminder)])
-    XCTAssertTrue(AnomaliesCard.notes(with, settled: ["debt:\(reminder.id)"]).isEmpty)
+    // Only the debt lines are compared: in the first days of a month the snapshot also offers
+    // the rest of the month, which has nothing to do with the reminder.
+    func debts(_ notes: [WorthALookNote]) -> [WorthALookNote] {
+      notes.filter { if case .debt = $0 { true } else { false } }
+    }
+    XCTAssertEqual(debts(AnomaliesCard.notes(with, settled: [])), [.debt(reminder)])
+    XCTAssertTrue(debts(AnomaliesCard.notes(with, settled: ["debt:\(reminder.id)"])).isEmpty)
     XCTAssertTrue(AnomaliesCard.notes(nil, settled: []).isEmpty)
   }
 

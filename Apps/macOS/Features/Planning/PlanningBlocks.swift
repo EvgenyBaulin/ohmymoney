@@ -28,12 +28,20 @@ struct ExpectedIncomeBlock: View {
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
       VStack(alignment: .leading, spacing: 8) {
-        let statuses = snapshot.planning.expected
+        // The block hands over the whole snapshot; what is covered is the presented one's.
+        let presented = compute.snapshot ?? snapshot
+        let hidden = HiddenPlans(snapshot: presented)
+        let statuses = Self.listed(snapshot.planning.expected, hiding: hidden)
         let shown = PlanningShortListView.shown(
           statuses, length: length, expanded: showsAll,
           date: { Self.nextDue(of: $0) })
-        let deposits = DepositPayoutRows.shown(
-          snapshot.planning.deposits, today: environment.today)
+        let payouts = Self.payouts(snapshot.planning.deposits, hiding: presented.hiding)
+        let deposits = DepositPayoutRows.shown(payouts, today: environment.today)
+        if statuses.count != snapshot.planning.expected.count
+          || payouts.count != snapshot.planning.deposits.count
+        {
+          PartHiddenNote()
+        }
         if statuses.isEmpty, deposits.isEmpty {
           if hosted {
             PlanningEmptyHint(block: .expectedIncome) { sheet = .expected(nil) }
@@ -94,14 +102,16 @@ struct ExpectedIncomeBlock: View {
         PlanningShowAllButton(
           block: .expectedIncome, total: statuses.count, hidden: shown.hidden,
           expanded: $showsAll)
-        DepositPayoutRows(
-          payouts: snapshot.planning.deposits, accounts: snapshot.dataset.paymentMethods)
+        DepositPayoutRows(payouts: payouts, accounts: presented.dataset.paymentMethods)
         if !(hosted && statuses.isEmpty && deposits.isEmpty) {
           Button(t("expected.add")) { sheet = .expected(nil) }
             .buttonStyle(.bordered)
             .controlSize(.small)
         }
-        archive(Self.archived(snapshot.dataset.planning.expected))
+        archive(
+          Self.archived(snapshot.dataset.planning.expected).filter {
+            !hidden.hides(expected: $0.id)
+          })
       }
     }
     .confirmationDialog(
@@ -117,6 +127,18 @@ struct ExpectedIncomeBlock: View {
     } message: {
       Text(verbatim: t("expected.deleteMessage"))
     }
+  }
+
+  /// The incomes the block lists: covered, not those that come to a hidden account.
+  static func listed(
+    _ statuses: [ExpectedIncomeStatus], hiding: HiddenPlans
+  ) -> [ExpectedIncomeStatus] {
+    statuses.filter { !hiding.hides(expected: $0.id) }
+  }
+
+  /// The interest the deposits are to pay, without that of a hidden deposit: its line names it.
+  static func payouts(_ payouts: [DepositPayout], hiding: HiddenAccounts) -> [DepositPayout] {
+    payouts.filter { !hiding.isHidden($0.accountId) }
   }
 
   /// The day an income is nearest by: the first of its dues with money still to come, else its

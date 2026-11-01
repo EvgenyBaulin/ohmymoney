@@ -37,6 +37,12 @@ struct CapitalTileCard: View {
             .appFont(.caption.monospacedDigit())
             .foregroundStyle(.secondary)
             .fixedSize(horizontal: false, vertical: true)
+          // The figures hold the money of a covered hidden account; the tile names none.
+          if let shown = compute.snapshot,
+            CapitalViewModel.touchesHidden(shown.planning.capital, hiding: shown.hiding)
+          {
+            PartHiddenNote()
+          }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
