@@ -142,7 +142,7 @@ struct CardRebindSheet: View {
 }
 
 /// «Банкам за год»: the fees and the interest on credits of a year, month by month, with the
-/// CSV of the other reports.
+/// CSV of the other reports — locked with a password unless the owner takes «Зашифровать» off.
 struct BankFeesSheet: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute

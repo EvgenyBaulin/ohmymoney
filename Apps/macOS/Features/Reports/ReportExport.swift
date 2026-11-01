@@ -13,9 +13,10 @@ import UniformTypeIdentifiers
 /// rubles — as the core's `ReportCSV`, which `pandas.read_csv` reads with no parameters.
 ///
 /// The order is that of every export of the app: first the warning that the file carries
-/// personal data (`FileCommands.confirmPersonalData`), then the save panel — which also
-/// gives the sandbox access to the one file the owner named — then the file. A failure is
-/// told to the owner in words of the interface, never swallowed.
+/// personal data, with the box «Зашифровать», on every time (`EncryptedExportPrompt`), then the
+/// save panel — which also gives the sandbox access to the one file the owner named — then the
+/// file: the CSV, or one locked file holding it. A failure is told to the owner in words of the
+/// interface, never swallowed.
 @MainActor
 enum ReportExport {
   /// Why the file was not written, for the words of the alert — from the Reports catalog, in
@@ -73,15 +74,15 @@ enum ReportExport {
   #endif
   #if os(macOS)
     static func run(model: ReportsModel, environment: AppEnvironment, compute: ComputeStore) async {
-      let answer = FileCommands.confirmExport(environment, offersLock: true)
-      guard answer != .cancel else { return }
-      let locked = answer == .locked
-      let panel = NSSavePanel()
+      guard let answer = EncryptedExportPrompt.ask(environment) else { return }
       let fileName = ReportFileName.make(for: model.request)
-      if locked {
-        panel.nameFieldStringValue =
-          (fileName as NSString).deletingPathExtension + "." + ArchiveService.fileExtension
-      } else {
+      let stem = (fileName as NSString).deletingPathExtension
+      let panel = NSSavePanel()
+      switch answer {
+      case .locked:
+        panel.nameFieldStringValue = EncryptedExport.fileName(stem)
+        panel.allowedContentTypes = [EncryptedExport.contentType]
+      case .plain:
         panel.nameFieldStringValue = fileName
         panel.allowedContentTypes = [.commaSeparatedText]
       }
@@ -91,29 +92,24 @@ enum ReportExport {
 
       let names = ReportsText.csvNames(for: model, environment)
       let table = model.table
-      if locked {
-        // «Зашифровать»: the table goes into a locked file, with a password typed twice.
-        guard let password = LockedExportPassword.ask(environment),
-          let stack = environment.stack
-        else { return }
-        let csv = Self.data(table, names: names)
-        let stem = (fileName as NSString).deletingPathExtension
-        let version = AppEnvironment.appVersion
-        let schema = stack.applied.onDisk
-        do {
-          try await compute.compute {
-            try LockedFileExport.write(
-              csv: csv, table: stem, password: password, to: url, appVersion: version,
-              schemaVersion: schema)
-          }
-        } catch {
-          report(error, environment)
-        }
-        return
-      }
       do {
-        try await compute.compute {
-          try write(table, names: names, to: url)
+        switch answer {
+        case .locked(let password):
+          // «Зашифровать»: the table goes into one locked file, read back before it is done.
+          let file = PersonalDataExport.File(
+            name: stem + ".csv", data: Self.data(table, names: names))
+          let version = AppEnvironment.appVersion
+          let schema = environment.stack?.applied.onDisk ?? 0
+          let working = EncryptedExportPrompt.showProgress(environment)
+          defer { working() }
+          try await compute.compute {
+            try EncryptedExport.write(
+              [file], password: password, to: url, appVersion: version, schemaVersion: schema)
+          }
+        case .plain:
+          try await compute.compute {
+            try write(table, names: names, to: url)
+          }
         }
       } catch {
         report(error, environment)

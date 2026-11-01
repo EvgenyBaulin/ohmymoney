@@ -27,7 +27,8 @@ struct ReportsWindow: View {
     .rawValue
   @State private var reports = ReportsStore()
   @State private var choosingPeriod = false
-  /// The CSV handed to the file exporter on a phone; the Mac asks in its save panel.
+  /// The CSV handed to the file exporter on a phone, locked into one file when the owner keeps
+  /// «Зашифровать»; the Mac asks in its save panel.
   @State private var exportRequest: PersonalDataExport?
   @State private var exportFailed = false
   /// «Банкам за год», a sheet over the window.

@@ -5,12 +5,13 @@ import Foundation
   import AppKit
 #endif
 
-/// «Выгрузить…» of «Итог поездки»: the four CSV files of `TripSummaryCSV` into a folder the owner
-/// chooses. The order is that of every export of the app: first the warning that the files carry
-/// personal data (the settlement names people), then the folder — which also gives the sandbox
-/// access to it —, then, if files with these names are there, the question whether to replace
-/// them (decision 0098), then the files; each is written whole or not at all, and the result is
-/// told in words, a failure included.
+/// «Выгрузить…» of «Итог поездки»: the four CSV files of `TripSummaryCSV`. First the warning that
+/// the files carry personal data (the settlement names people) with the box «Зашифровать», on
+/// every time (`EncryptedExportPrompt`). Locked, the four go into one file of the archive's
+/// container where the owner names it. Plain, they go into a folder the owner chooses — which
+/// also gives the sandbox access to it —, then, if files with these names are there, the question
+/// whether to replace them (decision 0098), then the files; each is written whole or not at all,
+/// and the result is told in words, a failure included.
 @MainActor
 enum TripSummaryExport {
   /// What the export did.
@@ -21,12 +22,23 @@ enum TripSummaryExport {
 
   #if !os(macOS)
     /// The iPhone screen hands the files to a file exporter instead of asking in panels.
-    static func run(files: [TripSummaryCSV.File], environment: AppEnvironment) {}
+    static func run(files: [TripSummaryCSV.File], stem: String, environment: AppEnvironment) {}
   #endif
 
   #if os(macOS)
-    static func run(files: [TripSummaryCSV.File], environment: AppEnvironment) {
-      guard FileCommands.confirmPersonalData(environment) else { return }
+    /// `stem` names the locked file («trip-turkey-summer»).
+    static func run(files: [TripSummaryCSV.File], stem: String, environment: AppEnvironment) {
+      guard let answer = EncryptedExportPrompt.ask(environment) else { return }
+      switch answer {
+      case .plain:
+        runPlain(files, environment)
+      case .locked(let password):
+        runLocked(files, stem: stem, password: password, environment)
+      }
+    }
+
+    /// The four CSV files into a folder, as before the box existed.
+    private static func runPlain(_ files: [TripSummaryCSV.File], _ environment: AppEnvironment) {
       let panel = NSOpenPanel()
       panel.canChooseFiles = false
       panel.canChooseDirectories = true
@@ -37,7 +49,37 @@ enum TripSummaryExport {
       guard panel.runModal() == .OK, let directory = panel.url else { return }
       let replaced = replacing(files, in: directory)
       guard replaced == 0 || confirmReplacing(replaced, environment) else { return }
-      let outcome = write(files, to: directory)
+      tell(write(files, to: directory), environment)
+    }
+
+    /// One locked file holding the four, where the owner names it; the save panel asks itself
+    /// before it replaces a file. The lock is made away from the main thread.
+    private static func runLocked(
+      _ files: [TripSummaryCSV.File], stem: String, password: String,
+      _ environment: AppEnvironment
+    ) {
+      let panel = NSSavePanel()
+      panel.nameFieldStringValue = EncryptedExport.fileName(stem)
+      panel.allowedContentTypes = [EncryptedExport.contentType]
+      panel.canCreateDirectories = true
+      panel.isExtensionHidden = false
+      panel.message = TravelText.t("travel.export.title", environment)
+      guard panel.runModal() == .OK, let url = panel.url else { return }
+      let csv = files.map { PersonalDataExport.File(name: $0.name, data: $0.data) }
+      let version = AppEnvironment.appVersion
+      let schema = environment.stack?.applied.onDisk ?? 0
+      let working = EncryptedExportPrompt.showProgress(environment)
+      Task { @MainActor in
+        let written = await Task.detached(priority: .userInitiated) {
+          (try? EncryptedExport.write(
+            csv, password: password, to: url, appVersion: version, schemaVersion: schema)) != nil
+        }.value
+        working()
+        tell(written ? .written(files: 1) : .failed, environment)
+      }
+    }
+
+    private static func tell(_ outcome: Outcome, _ environment: AppEnvironment) {
       let alert = NSAlert()
       switch outcome {
       case .written(let count):

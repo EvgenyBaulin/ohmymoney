@@ -21,7 +21,7 @@ enum TripSummaryCSV {
     for summary: TripSummary, tripName: String, category: (UUID?) -> String,
     person: (UUID) -> String
   ) -> [File] {
-    let stem = "trip-" + slug(tripName)
+    let stem = Self.stem(tripName: tripName)
     return [
       File(
         name: "\(stem)-by-day.csv",
@@ -37,6 +37,9 @@ enum TripSummaryCSV {
   }
 
   /// The columns every file of the family starts with.
+  /// «trip-turkey-summer»: the start of every file name of a trip, and the name of its locked file.
+  static func stem(tripName: String) -> String { "trip-" + slug(tripName) }
+
   static let columns = ["row_type", "name", "amount_rub", "amount_rub_exact", "share"]
 
   /// Items and a total, with shares.

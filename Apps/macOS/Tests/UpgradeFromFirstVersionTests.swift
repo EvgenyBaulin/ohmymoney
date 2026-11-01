@@ -1239,14 +1239,15 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
       AccountSetupOffer.asks(fresh, isTestHost: false),
       "the setup is asked of a database an archive waits to replace")
 
-    // The main window takes the archive up once the start is over; the owner confirms.
+    // The main window takes the archive up once the start is over; the password of the sealed
+    // file comes first, and the owner confirms once it is open and carries a database.
     ArchiveImportFlow.resumeDeferred(in: fresh, questions: questions)
     XCTAssertNil(fresh.pendingArchiveImport)
-    XCTAssertEqual(confirmations, 1)
     let deadline = Date().addingTimeInterval(60)
     while relaunches == 0, reports.isEmpty, Date() < deadline {
       try await Task.sleep(for: .milliseconds(20))
     }
+    XCTAssertEqual(confirmations, 1)
     XCTAssertEqual(reports, [])
     XCTAssertEqual(passwords, 1)
     XCTAssertEqual(relaunches, 1)

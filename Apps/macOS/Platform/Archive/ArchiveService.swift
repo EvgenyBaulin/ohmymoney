@@ -524,6 +524,9 @@ enum ArchiveImportFlow {
     /// Something to tell the owner about a successful import before the app restarts: words of
     /// the Attachments catalog. Nothing in a test unless it asks.
     var notice: @MainActor (String) -> Void = { _ in }
+    /// A file that carries tables and no database — a locked table export or a copy of «Только
+    /// CSV» — is shown, not imported (`ArchiveTables`). Nothing in a test unless it asks.
+    var tables: @MainActor (ArchiveOpener.OpenedArchive) -> Void = { _ in }
 
     #if !os(macOS)
       /// iPhone has no modal alerts: the archive screen asks in SwiftUI, so until it does
@@ -570,6 +573,9 @@ enum ArchiveImportFlow {
             let alert = NSAlert()
             alert.messageText = environment.language(key, table: "Attachments")
             alert.runModal()
+          },
+          tables: { opened in
+            ArchiveTablesWindow.show(ArchiveTables(opened), environment: environment)
           })
       }
     #endif
@@ -640,6 +646,13 @@ enum ArchiveImportFlow {
       }
       return
     }
+    // A locked file says what it holds only once its password is given: it may be tables to look
+    // at, which replace nothing. Its password comes first, and «Загрузить этот архив?» only for
+    // an archive that carries a database.
+    if archives.isEncryptedSafely(at: url) {
+      run(url, archives: archives, backups: backups, questions: questions, confirmsAfterOpening: true)
+      return
+    }
     guard questions.confirm() else { return }
     run(url, archives: archives, backups: backups, questions: questions)
   }
@@ -654,29 +667,56 @@ enum ArchiveImportFlow {
   /// and the digests over the whole database — runs away from the main thread while
   /// `Questions.progress` says so; on the main thread the app stood still for as long. The task
   /// returned is the rest of the import, for a test to wait on; nil when it stopped at once.
+  ///
+  /// A file that carries tables and no database is shown (`Questions.tables`) and nothing is
+  /// imported. `confirmsAfterOpening` — a double-clicked locked file: «Загрузить этот архив?» is
+  /// asked once it is open, and only when it carries a database.
   @MainActor @discardableResult
   static func run(
-    _ url: URL, archives: ArchiveService, backups: BackupService, questions: Questions
+    _ url: URL, archives: ArchiveService, backups: BackupService, questions: Questions,
+    confirmsAfterOpening: Bool = false
   ) -> Task<Void, Never>? {
-    // «Только просмотр»: an import replaces the books, so it is not started.
-    guard !ReadOnlyGate.isOn else {
+    let encrypted = archives.isEncryptedSafely(at: url)
+    // «Только просмотр»: an import replaces the books, so it is not started. A locked file may be
+    // tables to look at, so it is asked once it is open.
+    guard encrypted || !ReadOnlyGate.isOn else {
       questions.report("archive.import.readOnly")
       return nil
     }
     let password: String?
-    if archives.isEncryptedSafely(at: url) {
+    if encrypted {
       guard case .given(let typed) = questions.password() else { return nil }
       password = typed
     } else {
       password = nil
     }
-    let working = questions.progress("archive.import.working")
+    let shown = questions.progress("archive.import.working")
     return Task { @MainActor in
+      var working = shown
       var notice: String?
       do {
         let opened = try await Task.detached(priority: .userInitiated) {
           try open(url, password: password, archives: archives)
         }.value
+        if ArchiveTables.holdsOnlyTables(opened) {
+          working()
+          AppLog.info(
+            "archive.tables.opened", .archive, "a file of tables is shown; nothing is imported",
+            [LogPair("tables", .count(opened.csvTables.count))])
+          questions.tables(opened)
+          return
+        }
+        guard !ReadOnlyGate.isOn else {
+          working()
+          questions.report("archive.import.readOnly")
+          return
+        }
+        if confirmsAfterOpening {
+          // No question over the panel: it goes, and comes back for the staging.
+          working()
+          guard questions.confirm() else { return }
+          working = questions.progress("archive.import.working")
+        }
         // A copy of the current state is written first and waited for; the database is then
         // staged and swapped in at the next launch, because replacing a file the application
         // has open would race with the write-ahead log.

@@ -11,7 +11,8 @@ struct TripSummaryView: View {
   @Dependency(\.compute) private var compute
   @Environment(\.dismiss) private var dismiss
   let eventId: UUID
-  /// The four CSV files handed to the file exporter on a phone; the Mac asks in its panels.
+  /// The four CSV files handed to the file exporter on a phone, locked into one file when the owner
+  /// keeps «Зашифровать»; the Mac asks in its panels.
   @State private var exportRequest: PersonalDataExport?
   @State private var exportFailed = false
   @State private var width: CGFloat = 0
@@ -198,13 +199,12 @@ struct TripSummaryView: View {
 
   private func exportFiles() {
     guard let files = files() else { return }
+    let stem = TripSummaryCSV.stem(tripName: snapshotEventName ?? "summary")
     #if os(macOS)
-      TripSummaryExport.run(files: files, environment: environment)
+      TripSummaryExport.run(files: files, stem: stem, environment: environment)
     #else
-      let name =
-        snapshotEventName.map { "trip-\($0)" } ?? "trip-summary"
       exportRequest = PersonalDataExport(
-        defaultName: name, files: files.map { .init(name: $0.name, data: $0.data) })
+        defaultName: stem, files: files.map { .init(name: $0.name, data: $0.data) })
     #endif
   }
 
