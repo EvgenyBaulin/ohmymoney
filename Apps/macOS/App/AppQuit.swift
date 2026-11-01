@@ -77,6 +77,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
+  /// The button «Записать оплату» of a notification, and a click on one, reach the app through
+  /// the delegate set here — before any notification can be answered.
+  func applicationDidFinishLaunching(_ notification: Notification) {
+    if !AppEnvironment.isTestHost { MacNotifications.shared.install() }
+  }
+
   /// What quitting asks and does. The app's own answers stand here; a test hands in its
   /// own, because `NSApplication.shared.reply(toApplicationShouldTerminate:)` may be sent
   /// exactly once and there is no way to see that it was.

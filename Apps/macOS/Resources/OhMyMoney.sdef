@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<!-- The AppleScript dictionary of OhMyMoney. Every command answers with text: what was done,
+     the question that has to be answered first (repeat the command with «confirmed true»), or
+     why nothing was done. They run the commands «Быстрые команды» run (MacCommands). -->
+<dictionary title="OhMyMoney Terminology">
+  <suite name="Standard Suite" code="????" description="Common classes and commands for all applications.">
+    <class name="application" code="capp" description="The application's top-level scripting object.">
+      <cocoa class="NSApplication"/>
+      <property name="name" code="pnam" type="text" access="r" description="The name of the application."/>
+      <property name="version" code="vers" type="text" access="r" description="The version of the application."/>
+    </class>
+  </suite>
+  <suite name="OhMyMoney Suite" code="OMMy" description="Operations and summaries of OhMyMoney.">
+    <command name="add operation" code="OMMyaddo" description="Adds an operation or a transfer written as in the entry line, for example «coffee 250» or «перевод 5000 сбер т-банк».">
+      <cocoa class="OhMyMoneyAddOperationCommand"/>
+      <direct-parameter type="text" description="The line."/>
+      <parameter name="confirmed" code="cnfm" type="boolean" optional="yes" description="Write it even when the entry line would ask first (a repeat, a date ahead, a card past its limit).">
+        <cocoa key="confirmed"/>
+      </parameter>
+      <result type="text" description="What was written, the question to answer, or why nothing was written."/>
+    </command>
+    <command name="edit operation" code="OMMyedio" description="Changes the description, the amount or the category of an operation.">
+      <cocoa class="OhMyMoneyEditOperationCommand"/>
+      <direct-parameter type="text" description="The id of the operation, as «find operations» gives it."/>
+      <parameter name="description" code="desc" type="text" optional="yes" description="The new description.">
+        <cocoa key="note"/>
+      </parameter>
+      <parameter name="amount" code="amnt" type="text" optional="yes" description="The new amount, for example «350.50».">
+        <cocoa key="amount"/>
+      </parameter>
+      <parameter name="category" code="ctgy" type="text" optional="yes" description="The name of the new category.">
+        <cocoa key="category"/>
+      </parameter>
+      <parameter name="confirmed" code="cnfm" type="boolean" optional="yes" description="Save it even when the editor would ask first (a card past its limit, a balance below its minimum).">
+        <cocoa key="confirmed"/>
+      </parameter>
+      <result type="text"/>
+    </command>
+    <command name="delete operation" code="OMMydelo" description="Deletes an operation; ⌘Z in OhMyMoney brings it back.">
+      <cocoa class="OhMyMoneyDeleteOperationCommand"/>
+      <direct-parameter type="text" description="The id of the operation."/>
+      <result type="text"/>
+    </command>
+    <command name="find operations" code="OMMyfndo" description="Finds operations by a word of the description, the place or the category. One line per operation: id, day, title and amount, separated by tabs.">
+      <cocoa class="OhMyMoneyFindOperationsCommand"/>
+      <direct-parameter type="text" optional="yes" description="The word to look for; every operation without it."/>
+      <parameter name="limit" code="lmit" type="integer" optional="yes" description="At most this many, 50 by default.">
+        <cocoa key="limit"/>
+      </parameter>
+      <result type="text"/>
+    </command>
+    <command name="month summary" code="OMMysumm" description="The summary of a month as Markdown: income, spending, categories, places.">
+      <cocoa class="OhMyMoneyMonthSummaryCommand"/>
+      <parameter name="for" code="mnth" type="text" optional="yes" description="The month as YYYY-MM; the last finished month without it.">
+        <cocoa key="month"/>
+      </parameter>
+      <result type="text"/>
+    </command>
+  </suite>
+</dictionary>

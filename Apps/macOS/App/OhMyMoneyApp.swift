@@ -47,6 +47,8 @@ struct OhMyMoneyApp: App {
       FileCommands(environment: environment, store: store)
       HelpCommands(environment: environment)
       AboutCommands(environment: environment)
+      SectionWindowCommands(environment: environment)
+      PrintCommands(environment: environment)
       #if DEBUG
         DebugCommands(environment: environment, compute: compute)
       #endif
@@ -94,6 +96,14 @@ struct OhMyMoneyApp: App {
     }
     .defaultSize(width: 900, height: 600)
     // The item of the Window menu is `AppCommands`' own (MenuTests).
+    .commandsRemoved()
+
+    // «Открыть в новом окне»: a section, an account or a bank beside the main window.
+    WindowGroup(id: SectionWindow.scene, for: SectionWindowValue.self) { $value in
+      AppScenes.root(deps, window: .section) { SectionWindow(deps: $0, value: value) }
+        .privacyCurtain(environment)
+    }
+    .defaultSize(width: 900, height: 640)
     .commandsRemoved()
 
     Settings {
@@ -579,6 +589,9 @@ struct MainWindow: View {
     // Closing it quits the app; the secondary windows stand over it in full screen
     // (`AppWindows`).
     .appWindow(.main)
+    // Notifications, Spotlight and «Открыть в новом окне» follow what this window shows.
+    .macFeatures(deps)
+    .focusedSceneValue(\.sidebarSelection, selection)
     // ⌘K, the question sheet, filters set by an answer or a saved view, and the saved views.
     .questionsHost(deps: deps, operations: operations)
     .navigationSubtitle(RecomputeText.subtitle(compute: compute, environment: environment))

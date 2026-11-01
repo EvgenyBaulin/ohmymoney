@@ -42,6 +42,10 @@ struct ReportsWindow: View {
       header
       detail
     }
+    #if os(macOS)
+      // ⌘P: the table on screen, on paper.
+      .focusedSceneValue(\.printableTable, printable)
+    #endif
     .themedWindowBackground()
     .sheet(isPresented: $feesOpen) { BankFeesSheet().handingOver(deps) }
     .sheetFrame(minWidth: Self.minimumWidth, minHeight: 480)
@@ -60,6 +64,12 @@ struct ReportsWindow: View {
       Button(environment.language("action.ok")) {}
     }
   }
+
+  #if os(macOS)
+    private var printable: PrintableTable? {
+      state.value.map { ReportsPrint.printable($0, environment: environment) }
+    }
+  #endif
 
   /// A phone: the table is drawn as a card of plain rows and the header folds to what fits.
   private var isNarrow: Bool { windowWidth > 0 && windowWidth < 640 }

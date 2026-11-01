@@ -43,6 +43,19 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
   /// The line symbol of the section (`tileSymbol`).
   var symbol: String { tileSymbol }
 
+  /// Spotlight and the notifications, in «Приватность» on the Mac only.
+  private static var macCaptions: [SettingsCaption] {
+    #if os(macOS)
+      [
+        .macFeatures("mac.settings.title"), .macFeatures("mac.settings.spotlight"),
+        .macFeatures("mac.settings.payments"), .macFeatures("mac.settings.limits"),
+        .macFeatures("mac.settings.summaries"), .macFeatures("mac.settings.privacy"),
+      ]
+    #else
+      []
+    #endif
+  }
+
   /// The captions of the settings the section holds, as keys of the catalogs: what a search
   /// finds a section by besides its name. A caption added to a section is added here, so the
   /// search finds it (`SettingsSearchTests` checks every key has words in both languages).
@@ -148,7 +161,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .privacyExport("privacy.settings.storage"), .privacyExport("privacy.settings.exportCopy"),
         .privacyExport("privacy.settings.demo"), .privacyExport("privacy.journal.keep"),
         .privacyExport("privacy.journal.clear"), .privacyExport("privacy.copy.title"),
-      ]
+      ] + Self.macCaptions
     case .backups:
       [
         .settings("settings.backups.folder"), .settings("settings.backups.choose"),
@@ -194,6 +207,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func summaries(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Summaries")
+  }
+
+  static func macFeatures(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "MacFeatures")
   }
 
   static func attachments(_ key: String) -> SettingsCaption {

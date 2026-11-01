@@ -164,8 +164,10 @@ struct OperationsScreen: View {
       followData()
       takeSearchFocus()
       takeRange()
+      takeReveal()
       GuideStore.shared.report(GuideEvent.operationsOpened)
     }
+    .onReceive(NotificationCenter.default.publisher(for: .revealOperation)) { _ in takeReveal() }
     .onDisappear {
       isShown = false
       releaseTheEditing()
@@ -215,6 +217,13 @@ struct OperationsScreen: View {
         searchField
           .frame(maxWidth: roomy ? 260 : .infinity)
         #if !os(iOS)
+          // «Компактно» / «Подробно»: this list's own choice, on this Mac.
+          ListDensityToggle(
+            list: .operations,
+            compactTitle: environment.language("mac.density.compact", table: "MacFeatures"),
+            detailedTitle: environment.language("mac.density.detailed", table: "MacFeatures")
+          )
+          .labelStyle(.iconOnly)
           Button {
             NotificationCenter.default.post(name: .focusEntryLine, object: nil)
           } label: {
@@ -370,6 +379,7 @@ struct OperationsScreen: View {
         // The footer is an inset of the table, not a sibling under it: the table keeps its edge at
         // the bottom of the window, so the room the floating bars take reaches its scroll view.
         table(shown)
+          .listDensity(.operations)
           .scrollContentBackground(.hidden)
           .safeAreaInset(edge: .bottom, spacing: 0) {
             if shown.operationCount < listing.operationCount {
@@ -655,6 +665,22 @@ struct OperationsScreen: View {
   }
 
   // MARK: Search focus and the range of a reconciliation
+
+  /// An operation asked for from outside the screen (`OperationReveal`): its day is listed, the
+  /// row selected and the operation opened in the editor. One of a hidden account, while they
+  /// are covered, is not opened.
+  private func takeReveal() {
+    guard isShown, let id = OperationReveal.take(), let snapshot = compute.snapshot,
+      let entry = snapshot.ledger.entry(id), entry.transaction.deletedAt == nil,
+      !HiddenOperations(snapshot: snapshot).hides(entry)
+    else { return }
+    let day = environment.calendar.day(of: entry.transaction.occurredAt)
+    state.filters.customStart = day
+    state.filters.customEnd = day
+    state.filters.period = .custom
+    actions.selection = [id]
+    request(entry)
+  }
 
   /// The days a reconciliation asked to look through for missing operations.
   private func takeRange() {

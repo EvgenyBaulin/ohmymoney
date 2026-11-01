@@ -4,6 +4,8 @@ import SwiftUI
 /// The windows of the app, by the names the journal gives them.
 enum AppWindow: String, Sendable {
   case main, analytics, reports, whatIf, settings
+  /// A screen of the main window in a window of its own (`SectionWindow`).
+  case section
 }
 
 /// What was on screen, for the journal: a window opening and closing, a section shown in it.
