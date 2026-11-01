@@ -209,15 +209,31 @@ enum CBRRateCheck {
   /// the last printed place. A wider gap means the two numbers disagree and the document is
   /// not trustworthy.
   static func verify(perUnit: Decimal, against written: String, at position: Int) throws {
-    guard let declared = DecimalMath.parse(written) else {
+    // A currency quoted per million comes with a per-unit rate in scientific notation
+    // («4,33215E-05»): the mantissa is read as usual and the exponent moves its last digit.
+    let (mantissa, exponent) = splitExponent(written)
+    guard let parsed = DecimalMath.parse(mantissa) else {
       throw CoreError.malformedExpression(position: position)
     }
-    let scale = fractionDigits(of: written)
+    let declared = exponent == 0 ? parsed : parsed * power(of: exponent)
+    let scale = max(0, fractionDigits(of: mantissa) - exponent)
     let rounded = DecimalMath.round(perUnit, scale: scale)
     let tolerance = Decimal(sign: .plus, exponent: -scale, significand: 1)
     guard (rounded - declared).magnitude <= tolerance else {
       throw CoreError.malformedExpression(position: position)
     }
+  }
+
+  /// «4,33215E-05» → («4,33215», -5); a number without an exponent keeps exponent 0.
+  static func splitExponent(_ written: String) -> (String, Int) {
+    guard let mark = written.firstIndex(where: { $0 == "E" || $0 == "e" }),
+      let exponent = Int(written[written.index(after: mark)...])
+    else { return (written, 0) }
+    return (String(written[..<mark]), exponent)
+  }
+
+  private static func power(of exponent: Int) -> Decimal {
+    Decimal(sign: .plus, exponent: exponent, significand: 1)
   }
 
   static func fractionDigits(of written: String) -> Int {

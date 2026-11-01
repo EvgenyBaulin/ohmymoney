@@ -59,8 +59,12 @@ struct ShieldedRoot: View {
     }
     .onChange(of: phase) { _, now in
       switch now {
-      case .background: lock.didEnterBackground()
+      case .background:
+        lock.didEnterBackground()
+        // The system may end the app from here without a word; that is not a crash.
+        AppLaunch.sessionWentToBackground()
       case .active:
+        AppLaunch.sessionCameToFront()
         session.deps.environment.theme.applyAppearance()
         lock.didBecomeActive()
         if lock.isLocked { Task { await tryUnlock() } }

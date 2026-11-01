@@ -288,6 +288,19 @@ enum AppLaunch {
     sessionBegan = false
   }
 
+  /// iPhone and iPad: the app went to the background, where the system may end it without a
+  /// word. The session's mark is taken away so that end is not offered as a crash next time.
+  static func sessionWentToBackground() {
+    guard sessionBegan else { return }
+    SessionMarker.suspend(in: AppPaths.logsDirectory)
+  }
+
+  /// iPhone and iPad: the app is in front again, and a crash from now on must be noticed.
+  static func sessionCameToFront() {
+    guard sessionBegan else { return }
+    SessionMarker.resume(in: AppPaths.logsDirectory)
+  }
+
   /// The quit answers AppKit at its limit while the stop is still running (`AppQuit`): the
   /// process ends in a moment, and the stop will not reach the end of the session. A quit the
   /// owner asked for is not a crash, so it is not left to read as one at the next launch: the

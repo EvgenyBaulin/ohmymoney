@@ -38,6 +38,18 @@ enum SessionMarker {
     return interrupted
   }
 
+  /// The app went to the background, where iPhone and iPad end it without a word: the mark is
+  /// taken away, so that end is not read as a crash at the next launch.
+  static func suspend(in directory: URL) {
+    end(in: directory)
+  }
+
+  /// The app came back to the front: the mark is left again, so a crash from now on is noticed.
+  /// Nothing is reported — the mark was taken away on the way out.
+  static func resume(in directory: URL) {
+    begin(in: directory)
+  }
+
   static func end(in directory: URL) {
     let url = Self.url(in: directory)
     do {
