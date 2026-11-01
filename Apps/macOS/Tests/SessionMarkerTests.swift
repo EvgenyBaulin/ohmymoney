@@ -31,6 +31,24 @@ final class SessionMarkerTests: XCTestCase {
     XCTAssertTrue(FileManager.default.fileExists(atPath: marker.path), "the mark was not left")
   }
 
+  /// iPhone and iPad end an app in the background without telling it. A session that went to
+  /// the background took its mark away, so the system ending it there is not read as a crash at
+  /// the next launch; coming back to the front leaves the mark again, so a crash in front still is.
+  func testTheBackgroundEndsTheSessionAndTheFrontBeginsItAgain() {
+    SessionMarker.begin(in: directory)
+    SessionMarker.suspend(in: directory)
+    XCTAssertFalse(
+      FileManager.default.fileExists(atPath: marker.path), "the background left the mark")
+    XCTAssertFalse(
+      SessionMarker.begin(in: directory), "an app ended in the background was read as a crash")
+
+    SessionMarker.suspend(in: directory)
+    SessionMarker.resume(in: directory)
+    XCTAssertTrue(
+      FileManager.default.fileExists(atPath: marker.path), "coming back did not leave the mark")
+    XCTAssertTrue(SessionMarker.begin(in: directory), "a crash in front went unnoticed")
+  }
+
   func testACleanExitTakesTheMarkAway() {
     SessionMarker.begin(in: directory)
     SessionMarker.end(in: directory)

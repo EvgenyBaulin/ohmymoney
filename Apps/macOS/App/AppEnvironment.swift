@@ -440,7 +440,12 @@ public final class AppEnvironment {
 
   public nonisolated static var systemVersion: String {
     let version = ProcessInfo.processInfo.operatingSystemVersion
-    return "macOS \(version.majorVersion).\(version.minorVersion)"
+    #if os(iOS)
+      // A report from the phone said «macOS 27.0» and read as one from the Mac.
+      return "iOS \(version.majorVersion).\(version.minorVersion)"
+    #else
+      return "macOS \(version.majorVersion).\(version.minorVersion)"
+    #endif
   }
 
   /// Which build this is, for the journal and the problem report: the one that updates itself

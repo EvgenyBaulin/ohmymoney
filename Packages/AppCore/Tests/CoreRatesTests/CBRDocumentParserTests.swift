@@ -113,6 +113,37 @@ struct CBRDocumentParserTests {
     #expect(snapshot.rates[CurrencyCode("AMD")]?.nominal == 100)
   }
 
+  /// The bank prints the per-unit rate of a currency quoted per million in scientific notation
+  /// («4,33215E-05» for the Iranian rial); the day takes it instead of leaving the currency out.
+  @Test func aUnitRateInScientificNotationIsAccepted() throws {
+    let text = """
+      <?xml version="1.0" encoding="utf-8"?>
+      <ValCurs Date="31.10.2026" name="Foreign Currency Market">
+        <Valute ID="R01300"><NumCode>364</NumCode><CharCode>IRR</CharCode>
+        <Nominal>1000000</Nominal><Name>Иранских риалов</Name>
+        <Value>43,3215</Value><VunitRate>4,33215E-05</VunitRate></Valute>
+      </ValCurs>
+      """
+    let reading = try CBRDocumentParser.read(Data(text.utf8), source: .cbr)
+    #expect(reading.rejected.isEmpty)
+    #expect(reading.snapshot.rates[CurrencyCode("IRR")]?.nominal == 1_000_000)
+  }
+
+  /// Scientific notation that disagrees with `Value` / `Nominal` is still refused.
+  @Test func aWrongUnitRateInScientificNotationIsRefused() throws {
+    let text = """
+      <?xml version="1.0" encoding="utf-8"?>
+      <ValCurs Date="31.10.2026" name="Foreign Currency Market">
+        <Valute ID="R01300"><CharCode>IRR</CharCode><Nominal>1000000</Nominal>
+        <Value>43,3215</Value><VunitRate>4,33215E-04</VunitRate></Valute>
+        <Valute ID="R01235"><CharCode>USD</CharCode><Nominal>1</Nominal>
+        <Value>80,5573</Value><VunitRate>80,5573</VunitRate></Valute>
+      </ValCurs>
+      """
+    let reading = try CBRDocumentParser.read(Data(text.utf8), source: .cbr)
+    #expect(reading.rejected == [CurrencyCode("IRR")])
+  }
+
   @Test func commentsAndEntitiesAreUnderstood() throws {
     let text = """
       <?xml version="1.0" encoding="utf-8"?>
