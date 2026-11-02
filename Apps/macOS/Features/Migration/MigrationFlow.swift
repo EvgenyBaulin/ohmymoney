@@ -458,6 +458,11 @@ struct MigrationPreviewStep: View {
             get: { model.includesLikelyDuplicates }, set: { model.includeLikelyDuplicates($0) }))
       }
       fact("migration.preview.rate", preview.count(.waitingForRate), "hourglass")
+      fact("migration.preview.nearest", preview.count(.nearestRate), "clock.arrow.circlepath")
+      if model.isFetchingRates {
+        Label(t("migration.preview.fetchingRates"), systemImage: "arrow.down.circle")
+          .appFont(.callout).foregroundStyle(.secondary)
+      }
       fact("migration.preview.transfers", parse.transfers, "arrow.left.arrow.right")
       fact("migration.preview.unparsed", parse.unparsed.count, "exclamationmark.triangle")
       Label(t("migration.preview.backup"), systemImage: "externaldrive.badge.checkmark")
@@ -524,6 +529,7 @@ extension MigrationPreview.Disposition {
     case .duplicate: "duplicate"
     case .likelyDuplicate: "likely"
     case .waitingForRate: "rate"
+    case .nearestRate: "nearest"
     }
   }
 }

@@ -61,15 +61,33 @@ final class MigrationModel {
   /// The copy of the database before the write; `nil` only where there is no copy service (a
   /// test), and then the write goes ahead without one.
   private let backup: (() async throws -> Void)?
+  /// Asks the Bank of Russia for the rate of a day, the way the app asks for any day: the cache
+  /// first, the network for a day it lacks (`RateService.rate(for:on:)`).
+  private let fetchRate: ((CurrencyCode, DateOnly) async -> Void)?
+  /// The rates are being asked for.
+  private(set) var isFetchingRates = false
+
+  /// How many days of rates one move asks the bank for, and for how long. The rest go at the
+  /// nearest rate, marked provisional, and the pipeline refines them later.
+  nonisolated static let rateDaysLimit = 60
+  nonisolated static let rateTimeLimit: TimeInterval = 20
 
   init(
     environment: AppEnvironment, store: TransactionsStore, dataset: @escaping () -> Dataset?,
-    now: @escaping () -> Date = Date.init, backup: (() async throws -> Void)? = nil
+    now: @escaping () -> Date = Date.init, backup: (() async throws -> Void)? = nil,
+    fetchRate: ((CurrencyCode, DateOnly) async -> Void)? = nil
   ) {
     self.environment = environment
     self.store = store
     self.dataset = dataset
     self.now = now
+    if let fetchRate {
+      self.fetchRate = fetchRate
+    } else if let service = environment.rateService {
+      self.fetchRate = { currency, day in _ = await service.rate(for: currency, on: day) }
+    } else {
+      self.fetchRate = nil
+    }
     if let backup {
       self.backup = backup
     } else if let backups = environment.backups {
@@ -106,6 +124,7 @@ final class MigrationModel {
       accountMap = [:]
       categoryTargets = [:]
       reparse()
+      await fetchMissingRates()
     case .numbers:
       clear(.numbers)
     case .legacyExcel:
@@ -235,6 +254,40 @@ final class MigrationModel {
     for (id, target) in suggested { categoryTargets[id] = target }
   }
 
+  // MARK: Rates
+
+  /// The days of foreign-currency lines the cache has no rate of their own for, oldest first.
+  func missingRateDays() -> [(currency: CurrencyCode, day: DateOnly)] {
+    let table = rates()
+    var seen = Set<String>()
+    return parse.operations.map(\.operation)
+      .filter { $0.currency != .rub && $0.accountCurrency != .rub }
+      .filter { table.needsFetch(currency: $0.currency, on: $0.moment.day) }
+      .sorted { $0.moment.day < $1.moment.day }
+      .compactMap { operation in
+        let key = operation.currency.code + operation.moment.day.iso
+        guard seen.insert(key).inserted else { return nil }
+        return (operation.currency, operation.moment.day)
+      }
+  }
+
+  /// Asks the bank for the days the lines need, within `rateDaysLimit` days and
+  /// `rateTimeLimit` seconds. A day the bank does not give (no network, a holiday) takes the
+  /// nearest rate on hand, marked provisional, as any operation of such a day does.
+  func fetchMissingRates() async {
+    guard let fetchRate else { return }
+    let days = missingRateDays().prefix(Self.rateDaysLimit)
+    guard !days.isEmpty else { return }
+    isFetchingRates = true
+    defer { isFetchingRates = false }
+    let started = Date()
+    for item in days {
+      if Date().timeIntervalSince(started) > Self.rateTimeLimit { break }
+      await fetchRate(item.currency, item.day)
+    }
+    rebuildPreview()
+  }
+
   // MARK: Preview
 
   private func rates() -> RateTable { (try? environment.rates?.table()) ?? RateTable() }
@@ -261,7 +314,8 @@ final class MigrationModel {
             account: id, from: Self.shift(period.from, by: -3), to: Self.shift(period.to, by: 3)))
           ?? []
       },
-      hasRate: { resolve($0) != nil })
+      hasRate: { resolve($0) != nil },
+      rateIsProvisional: { resolve($0)?.isProvisional == true })
     ticks = preview.defaultTicks.filter {
       account(for: parse.operations[$0].operation.accountRef) != nil
     }
@@ -331,7 +385,13 @@ final class MigrationModel {
       quality: { id in
         id.flatMap { QualityResolver.resolve(categoryId: $0, categories: tree).quality }
       },
-      rubles: rubles(rates()), zoneID: TravelDay.moscowId, now: stamp)
+      rubles: rubles(rates()), zoneID: TravelDay.moscowId, now: stamp,
+      holds: { id, currency in
+        guard let account = dataset.paymentMethods.first(where: { $0.id == id }) else {
+          return true
+        }
+        return ([account.currency ?? .rub] + account.otherCurrencies).contains(currency)
+      })
     guard !write.entries.isEmpty else { return false }
     // Only the categories the written lines use are made.
     let used = Set(write.entries.flatMap { $0.parts.compactMap(\.categoryId) })

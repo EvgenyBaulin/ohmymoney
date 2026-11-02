@@ -310,6 +310,15 @@ struct MigrationPlanTests {
     #expect(preview.count(.duplicate) == 1)
   }
 
+  @Test func aLineAtTheNearestRateIsWrittenAndSaidSo() {
+    let parse = MigrationFixtures.parse(MigrationFixtures.spreadsheet)
+    let preview = MigrationPlanner.preview(
+      parse, account: account, existing: { _ in [] }, manual: { _ in [] },
+      hasRate: { _ in true }, rateIsProvisional: { $0.amount.isNegative })
+    #expect(preview.dispositions == [.nearestRate, .new, .nearestRate])
+    #expect(preview.defaultTicks == [0, 1, 2])
+  }
+
   @Test func theWriteFilesEveryLineAsImportedWithoutAnExternalID() throws {
     let parse = MigrationFixtures.parse(MigrationFixtures.spreadsheet)
     let cafe = UUID()
@@ -324,6 +333,13 @@ struct MigrationPlanTests {
     #expect(write.imports.count == 2)
     let coffee = try #require(write.entries.first)
     #expect(coffee.transaction.externalId == nil)
+    #expect(coffee.transaction.source == MigrationPlanner.source)
+    // Once a bank line completes it, it is the bank's and no longer offered as hand-typed.
+    let bank = parse.operations[0].operation
+    let completed = StatementEntryBuilder.merged(
+      coffee, with: bank, accountKey: card.uuidString, zoneID: "Europe/Moscow",
+      rubles: try #require(RubleProbe.rubles(bank)), now: at)
+    #expect(completed.transaction.source == "statement")
     #expect(coffee.transaction.note == "Кофе")
     #expect(coffee.transaction.kind == .expense)
     #expect(coffee.transaction.paymentMethodId == card)
@@ -339,6 +355,27 @@ struct MigrationPlanTests {
     #expect(cardImport.profileID == "migration.spreadsheet")
     #expect(cardImport.periodFrom == DateOnly(year: 2024, month: 2, day: 1))
     #expect(coffee.transaction.importBatchId?.uuidString == cardImport.id)
+  }
+
+  @Test func aForeignLineOnARubleAccountSaysWhatTheAccountMoved() throws {
+    var parse = MigrationFixtures.parse(MigrationFixtures.spreadsheet)
+    parse.operations[0].operation.currency = .usd
+    let write = MigrationPlanner.write(
+      parse, ticks: [0], fileName: "x.csv", account: account, category: { _, _ in nil },
+      quality: { _ in nil },
+      rubles: { StatementRubleResolver.resolve($0) { _, _ in (90, true) } },
+      zoneID: "Europe/Moscow", now: Date(), holds: { _, currency in currency == .rub })
+    let line = try #require(write.entries.first)
+    #expect(line.transaction.currency == .usd)
+    #expect(line.transaction.accountCurrency == .rub)
+    #expect(line.transaction.accountAmountE4 == AmountE4(whole: 31_500))
+    #expect(line.transaction.rateProvisional)
+    let none = MigrationPlanner.write(
+      parse, ticks: [0], fileName: "x.csv", account: account, category: { _, _ in nil },
+      quality: { _ in nil },
+      rubles: { StatementRubleResolver.resolve($0) { _, _ in (90, true) } },
+      zoneID: "Europe/Moscow", now: Date(), holds: { _, currency in currency == .eur })
+    #expect(none.entries.isEmpty)
   }
 
   @Test func unmappedAccountsAndMissingRatesAreLeftOut() {

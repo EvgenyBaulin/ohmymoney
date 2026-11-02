@@ -15,6 +15,10 @@ final class MigrationModelTests: XCTestCase {
   private var dataDirectoryBefore: String?
   private var dataset: Dataset?
   private var backups = 0
+  /// The days the move asked the bank for, and what the stand-in bank answers: the rate of the
+  /// day, or nothing (no network).
+  private var rateRequests: [String] = []
+  private var bankAnswers: [String: Decimal] = [:]
 
   override func setUp() async throws {
     dataDirectoryBefore = ProcessInfo.processInfo.environment["OHMYMONEY_DATA_DIR"]
@@ -81,6 +85,14 @@ final class MigrationModelTests: XCTestCase {
       backup: { [unowned self] in
         if failingBackup { throw CocoaError(.fileWriteNoPermission) }
         self.backups += 1
+      },
+      fetchRate: { [unowned self] currency, day in
+        self.rateRequests.append(currency.code + " " + day.iso)
+        if let rate = self.bankAnswers[currency.code + " " + day.iso] {
+          try? self.environment.rates?.save([
+            Rate(date: day, currency: currency, rubPerUnit: rate)
+          ])
+        }
       })
   }
 
@@ -271,6 +283,97 @@ final class MigrationModelTests: XCTestCase {
     if let write = store.backgroundWrite { _ = await write.value }
     XCTAssertTrue(try liveOperations().isEmpty)
     XCTAssertTrue(try XCTUnwrap(environment.statementImports).imports().isEmpty)
+  }
+
+  // MARK: A bank statement after the move
+
+  private static let bankHeader =
+    "Название продукта;Карта;Номер счёта/Кредитного договора;Дата и время операции;Списание/Зачисление;Сумма в валюте операции;Валюта операции;Сумма в валюте счёта;Валюта счёта;Комиссия в валюте счёта;Кешбэк;Наименование операции;Тип операции;Категория;Наименование ТСП;Код МСС;Комментарий к операции;Статус операции"
+
+  private func bankPurchase(_ day: String, _ amount: String, _ place: String) -> String {
+    "Мастер-счёт;220024******1111;40817810000000000402;\(day) 10:15;Списание;-\(amount);RUB;-\(amount);RUB;0,0;0,0;Покупки;Оплата товаров и услуг;Покупки;\(place);5411;;Операция выполнена"
+  }
+
+  /// The history moved in from another app is what the owner typed there by hand: a bank
+  /// statement of the same account and days completes those operations instead of doubling them,
+  /// and only the lines that are really new are written.
+  func testABankStatementAfterTheMoveCompletesTheMovedOperationsInsteadOfDoublingThem()
+    async throws
+  {
+    let account = try makeAccount("Основной")
+    let moved = """
+      Дата;Описание;Сумма;Категория;Счёт
+      14.09.2026;Кофе;-250,00;Кафе;Основной
+      15.09.2026;Обед;-300,00;Кафе;Основной
+      """
+    let migration = try await model()
+    await load(migration, moved, name: "old.csv")
+    let applied = await migration.apply()
+    XCTAssertTrue(applied)
+    XCTAssertEqual(try liveOperations().count, 2)
+
+    try await reload()
+    let statements = StatementImportModel(
+      environment: environment, store: store, dataset: { [unowned self] in self.dataset })
+    let text = ([Self.bankHeader] + [
+      bankPurchase("14.09.2026", "251,0", "SAMPLE CAFE"),
+      bankPurchase("15.09.2026", "300,0", "SAMPLE LUNCH"),
+      bankPurchase("16.09.2026", "999,0", "SAMPLE SHOP"),
+    ]).joined(separator: "\n") + "\n"
+    let url = directory.appendingPathComponent("bank.csv")
+    try Data(("\u{FEFF}" + text).utf8).write(to: url)
+    await statements.add(urls: [url])
+    statements.setAccount(account.id, for: statements.files[0].id)
+    XCTAssertTrue(statements.apply())
+    XCTAssertEqual(statements.outcome?.merged, 2)
+    XCTAssertEqual(statements.outcome?.created, 1)
+    let live = try liveOperations()
+    XCTAssertEqual(live.count, 3, "the bank lines completed the moved ones instead of doubling them")
+    // The moved operation keeps its category and name and takes the bank's amount.
+    let coffee = try XCTUnwrap(live.first { $0.transaction.note == "Кофе" })
+    XCTAssertEqual(coffee.transaction.amountE4, AmountE4(whole: 251))
+  }
+
+  // MARK: Rates of foreign-currency lines
+
+  private static let dollars = """
+    Дата;Описание;Сумма;Валюта;Категория;Счёт
+    09.03.2024;Hotel;-100;USD;Путешествия;Карта
+    """
+
+  /// The day's own rate is asked for before the preview, and the line goes at it.
+  func testTheRateOfTheDayIsAskedForAndUsed() async throws {
+    _ = try makeAccount("Карта")
+    bankAnswers = ["USD 2024-03-09": 90]
+    let model = try await model()
+    await load(model, Self.dollars, name: "usd.csv")
+    XCTAssertEqual(rateRequests, ["USD 2024-03-09"])
+    XCTAssertEqual(model.preview.dispositions, [.new])
+    let applied = await model.apply()
+    XCTAssertTrue(applied)
+    let hotel = try XCTUnwrap(try liveOperations().first)
+    XCTAssertEqual(hotel.transaction.amountRubE4, AmountE4(whole: 9_000))
+    XCTAssertFalse(hotel.transaction.rateProvisional)
+  }
+
+  /// No answer from the bank: the nearest rate on hand, marked provisional, and the preview
+  /// says how many lines go so.
+  func testWithoutTheDaysRateTheNearestOneIsUsedAndMarkedProvisional() async throws {
+    _ = try makeAccount("Карта")
+    try XCTUnwrap(environment.rates).save([
+      Rate(date: DateOnly(year: 2024, month: 3, day: 1), currency: .usd, rubPerUnit: 88)
+    ])
+    let model = try await model()
+    await load(model, Self.dollars, name: "usd.csv")
+    XCTAssertEqual(rateRequests, ["USD 2024-03-09"])
+    XCTAssertEqual(model.preview.dispositions, [.nearestRate])
+    XCTAssertEqual(model.preview.count(.nearestRate), 1)
+    XCTAssertEqual(model.toWrite, 1)
+    let applied = await model.apply()
+    XCTAssertTrue(applied)
+    let hotel = try XCTUnwrap(try liveOperations().first)
+    XCTAssertEqual(hotel.transaction.amountRubE4, AmountE4(whole: 8_800))
+    XCTAssertTrue(hotel.transaction.rateProvisional)
   }
 
   func testNumbersAndOldExcelSayWhatToDo() async throws {

@@ -411,6 +411,23 @@
         }
       }
     },
+    "migration.disposition.nearest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nearest rate"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ближайший курс"
+          }
+        }
+      }
+    },
     "migration.disposition.new": {
       "extractionState": "manual",
       "localizations": {
@@ -825,6 +842,23 @@
         }
       }
     },
+    "migration.preview.fetchingRates": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asking the Bank of Russia for the rates of those days…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запрашиваю у Банка России курсы этих дней…"
+          }
+        }
+      }
+    },
     "migration.preview.likely": {
       "extractionState": "manual",
       "localizations": {
@@ -948,6 +982,59 @@
         }
       }
     },
+    "migration.preview.nearest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld at the nearest rate on hand, marked provisional — refined when the day's rate comes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld at the nearest rate on hand, marked provisional — refined when the day's rate comes"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld — по ближайшему известному курсу, предварительно; уточнятся, когда придёт курс дня"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld — по ближайшему известному курсу, предварительно; уточнятся, когда придёт курс дня"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld — по ближайшему известному курсу, предварительно; уточнится, когда придёт курс дня"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld — по ближайшему известному курсу, предварительно; уточнятся, когда придёт курс дня"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "migration.preview.period": {
       "extractionState": "manual",
       "localizations": {
@@ -974,13 +1061,13 @@
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld in a currency without a rate for its day — not moved"
+                  "value": "%lld in a currency with no rate on hand at all — not moved"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld in a currency without a rate for their day — not moved"
+                  "value": "%lld in a currency with no rate on hand at all — not moved"
                 }
               }
             }
@@ -992,25 +1079,25 @@
               "few": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld в валюте без курса на их день — не переносятся"
+                  "value": "%lld в валюте, для которой нет ни одного курса, — не переносятся"
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld в валюте без курса на их день — не переносятся"
+                  "value": "%lld в валюте, для которой нет ни одного курса, — не переносятся"
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld в валюте без курса на её день — не переносится"
+                  "value": "%lld в валюте, для которой нет ни одного курса, — не переносится"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld в валюте без курса на их день — не переносятся"
+                  "value": "%lld в валюте, для которой нет ни одного курса, — не переносятся"
                 }
               }
             }
