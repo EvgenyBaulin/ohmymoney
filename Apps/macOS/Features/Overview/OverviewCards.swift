@@ -7,9 +7,12 @@ import SwiftUI
 /// reconciliation; «owed to me» for its card; the forecast for the forecasts. A failed step turns
 /// only its own tiles into a message with «Повторить»; the rest keep their numbers.
 enum OverviewCard {
-  /// Three columns from about 840 pt of list, two from about 560, one below that.
-  static func columns(forWidth width: CGFloat) -> Int {
-    width >= 840 ? 3 : width >= 560 ? 2 : 1
+  /// Three columns from about 840 pt of list, two from about 560, one below that — at the
+  /// regular size of the text. A larger text needs wider tiles, so the steps grow with the body
+  /// size (17 pt of «Очень крупный» against 13: three columns from about 1,100 pt).
+  static func columns(forWidth width: CGFloat, fontSize: AppFontSize = .regular) -> Int {
+    let scale = max(1, (fontSize.bodyPoints ?? AppFontSize.regularBodyPoints) / AppFontSize.regularBodyPoints)
+    return width >= 840 * scale ? 3 : width >= 560 * scale ? 2 : 1
   }
 
   /// The tiles in rows of `columns`, in order.
@@ -628,13 +631,20 @@ struct AnomaliesCard: View {
   }
 
   /// The lines of 1.9 the card shows: those of the core, less those settled here and, while the
-  /// hidden accounts are covered, those about them (`WorthALookCover`).
+  /// hidden accounts are covered, those about them (`WorthALookCover`). Of the questions «Не
+  /// пожалели?» left after that, only the newest speaks, telling how many more wait.
   static func notes(_ snapshot: DataSnapshot?, settled: Set<String>) -> [WorthALookNote] {
     guard let snapshot else { return [] }
-    return WorthALookCover.covering(
+    let shown = WorthALookCover.covering(
       WorthALook.notes(of: snapshot), hidden: HiddenOperations(snapshot: snapshot),
       ledger: snapshot.ledger
     ).filter { !settled.contains($0.id) }
+    return PurchaseNotes.oneRegretQuestion(
+      shown,
+      question: { note -> RegretQuestion? in
+        if case .purchase(.regret(let question)) = note { return question }
+        return nil
+      }, line: { WorthALookNote.purchase(.regret($0)) })
   }
 
   /// The anomalies the card lists: covered, not those about an operation of a hidden account.

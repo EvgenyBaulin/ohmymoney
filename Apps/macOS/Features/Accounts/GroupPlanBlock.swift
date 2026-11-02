@@ -53,7 +53,7 @@ struct GroupContent {
 
 /// What is planned for a group's accounts: the payments and subscriptions paid from them, by
 /// the next due date — the rule of an account's screen (`AccountPayments.on`), a payment that
-/// names no account being the main account's —, and the incomes expected to them, by the next
+/// names no account being the account its latest charge came off, else the main account's —, and the incomes expected to them, by the next
 /// due date still waiting: to the account chosen for one, else to the account its latest income
 /// came to, else to the main one (`ExpectedIncomeRules.account`); an account archived or deleted
 /// since stands for the main one, as in the forecast of the balances.
@@ -83,9 +83,10 @@ struct GroupPlanModel: Equatable {
     let dataset = ledger.dataset
     let mainId = dataset.paymentMethods.first { $0.isDefault && !$0.archived }?.id
     var payer: [UUID: UUID] = [:]
+    let charged = AccountPayments.chargedFrom(statuses: planning.scheduled, ledger: ledger)
     for accountId in accountIds {
       for status in AccountPayments.on(
-        accountId, statuses: planning.scheduled, mainAccountId: mainId)
+        accountId, statuses: planning.scheduled, mainAccountId: mainId, chargedFrom: charged)
       {
         payer[status.id] = payer[status.id] ?? accountId
       }

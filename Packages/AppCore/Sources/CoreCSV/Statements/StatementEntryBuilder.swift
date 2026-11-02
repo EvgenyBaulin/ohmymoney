@@ -174,7 +174,9 @@ public enum StatementEntryBuilder {
     entry.transaction.updatedAt = now
     // An operation moved in from another app, once a bank line has completed it, is the bank's:
     // it is not offered to the next statement as a hand-typed one again.
-    if entry.transaction.source == MigrationPlanner.source { entry.transaction.source = "statement" }
+    if entry.transaction.source == MigrationPlanner.source {
+      entry.transaction.source = "statement"
+    }
     if entry.parts.count == 1 {
       entry.parts[0].amountE4 = magnitude
       entry.parts[0].amountRubE4 = rubles.amount

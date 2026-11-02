@@ -15,11 +15,23 @@ enum ConflictText {
     environment.language.format(key, table: table, counts: value)
   }
 
-  /// The label of a row of the comparison. A column without a label of its own is «Другие
-  /// данные», which is what the comparison makes of every such column together.
+  /// The words of the comparison that came after the first screens: the labels of every other
+  /// column, «да» / «нет».
+  static let fieldsTable = "OwnerFixesConflicts"
+
+  /// The label of a row of the comparison: each column under its own name. A column this build
+  /// has no name for is still named — by its column, «Поле «x»» — never folded into one
+  /// «Другие данные» row.
   static func label(_ column: String, _ environment: AppEnvironment) -> String {
-    ConflictComparison.labelled.contains(column) || column == "other"
-      ? t("sync.field.\(column)", environment) : t("sync.field.other", environment)
+    if ConflictComparison.labelled.contains(column) || column == "other" {
+      return t("sync.field.\(column)", environment)
+    }
+    let key = "conflict.field.\(column)"
+    let named = environment.language(key, table: fieldsTable)
+    if named != key { return named }
+    return environment.language.format(
+      "conflict.field.unknown", table: fieldsTable,
+      column.replacingOccurrences(of: "_", with: " "))
   }
 
   static func cell(_ cell: ConflictComparison.Cell, _ environment: AppEnvironment) -> String {
@@ -27,6 +39,10 @@ enum ConflictText {
     case .value(let text): text
     case .empty: "—"
     case .other: t("sync.conflicts.otherValue", environment)
+    case .flag(let on):
+      environment.language(on ? "conflict.value.yes" : "conflict.value.no", table: fieldsTable)
+    case .color(let key):
+      AccountAccent(key: key).map { environment.language($0.nameKey, table: "Accounts") } ?? key
     }
   }
 

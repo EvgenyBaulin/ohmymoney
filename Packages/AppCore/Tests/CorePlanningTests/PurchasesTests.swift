@@ -167,6 +167,43 @@ struct RegretScheduleTests {
     #expect(due([Fx.expense(50_000, on: Fx.today.adding(days: -31))]).isEmpty)
   }
 
+  @Test func asksOnlyAboutTheLastTwoWeeks() {
+    #expect(due([Fx.expense(50_000, on: Fx.today.adding(days: -14))]).count == 1)
+    #expect(due([Fx.expense(50_000, on: Fx.today.adding(days: -15))]).isEmpty)
+  }
+
+  @Test func asksOnlyAboutPurchasesMadeAfterTheQuestionWasTurnedOn() {
+    let since = Fx.today.adding(days: -3)
+    let settings = PurchaseSettings(regretEnabledOn: since)
+    #expect(due([Fx.expense(50_000, on: Fx.today.adding(days: -4))], settings: settings).isEmpty)
+    #expect(due([Fx.expense(50_000, on: since)], settings: settings).count == 1)
+    let stored = PurchaseSettings(storedValues: settings.storedValues)
+    #expect(stored.regretEnabledOn == since)
+    #expect(PurchaseSettings(storedValues: [:]).regretEnabledOn == nil)
+  }
+
+  @Test func aDatabaseWithoutTheStartDayKeepsTodaySoOldPurchasesAreNotAsked() {
+    let stamped = PurchaseSettings().stampingRegretStart(today: Fx.today)
+    #expect(stamped?.regretEnabledOn == Fx.today)
+    let old = [Fx.expense(50_000, on: Fx.today.adding(days: -2))]
+    #expect(stamped.map { due(old, settings: $0) }?.isEmpty == true)
+    #expect(PurchaseSettings(regretEnabled: false).stampingRegretStart(today: Fx.today) == nil)
+    #expect(
+      PurchaseSettings(regretEnabledOn: Fx.today.adding(days: -9)).stampingRegretStart(
+        today: Fx.today) == nil)
+  }
+
+  @Test func theQuestionCarriesThePlaceAndTheCategoryToNameThePurchase() {
+    let place = Place(name: "Кофемания")
+    let entry = Fx.expense(20_000, on: Fx.today.adding(days: -2)) { $0.placeId = place.id }
+    let question = RegretSchedule.due(
+      entries: [entry], tree: Fx.tree, settings: PurchaseSettings(), thresholdRubE4: threshold,
+      today: Fx.today, calendar: Fx.calendar, places: [place]
+    ).first
+    #expect(question?.placeName == "Кофемания")
+    #expect(question?.categoryName == "Shopping")
+  }
+
   @Test func respectsTheSettings() {
     let entries = [Fx.expense(15_000, on: Fx.today.adding(days: -3))]
     #expect(due(entries, settings: PurchaseSettings(regretEnabled: false)).isEmpty)
@@ -179,10 +216,10 @@ struct RegretScheduleTests {
       ).isEmpty)
   }
 
-  @Test func theOldestQuestionComesFirst() {
+  @Test func theNewestQuestionComesFirst() {
     let older = Fx.expense(20_000, on: Fx.today.adding(days: -5))
     let newer = Fx.expense(20_000, on: Fx.today.adding(days: -2))
-    #expect(due([newer, older]).map(\.transactionId) == [older.id, newer.id])
+    #expect(due([older, newer]).map(\.transactionId) == [newer.id, older.id])
   }
 
   @Test func statisticsCountAnswersByCategory() {
@@ -640,6 +677,43 @@ struct PurchaseNotesTests {
     let birthdays = notes.filter { if case .birthday = $0 { true } else { false } }
     let regrets = notes.filter { if case .regret = $0 { true } else { false } }
     #expect(birthdays.count == 1)
-    #expect(regrets.count == RegretSchedule.maxQuestionsAtOnce)
+    #expect(regrets.count == questions.count)
+  }
+
+  @Test func oneRegretQuestionSpeaksAndTellsHowManyMoreWait() {
+    let questions = (0..<3).map { index in
+      RegretQuestion(
+        transactionId: UUID(), boughtOn: Fx.today.adding(days: -index - 1), categoryId: nil,
+        amountRubE4: Fx.rub(100), note: nil)
+    }
+    func regrets(_ dismissed: Set<String> = [], hiding: Set<UUID> = []) -> [RegretQuestion] {
+      let listed = PurchaseNotes.list(
+        wishes: [], freeRubE4: nil, waiting: WaitingRefunds(items: []), gifts: [],
+        regret: questions, today: Fx.today, dismissed: dismissed
+      ).filter { note in
+        if case .regret(let question) = note { return !hiding.contains(question.transactionId) }
+        return true
+      }
+      return PurchaseNotes.oneRegretQuestion(
+        listed,
+        question: { note -> RegretQuestion? in
+          if case .regret(let question) = note { return question }
+          return nil
+        }, line: PurchaseNote.regret
+      ).compactMap { note -> RegretQuestion? in
+        if case .regret(let question) = note { return question }
+        return nil
+      }
+    }
+    let shown = regrets()
+    #expect(shown.map(\.transactionId) == [questions[0].transactionId])
+    #expect(shown.first?.waitingMore == 2)
+    let afterDone = regrets(["purchase.regret:\(questions[0].transactionId.uuidString)"])
+    #expect(afterDone.map(\.transactionId) == [questions[1].transactionId])
+    #expect(afterDone.first?.waitingMore == 1)
+    // The newest purchase on a hidden account: the next one speaks, the hidden one is not counted.
+    let covered = regrets(hiding: [questions[0].transactionId])
+    #expect(covered.map(\.transactionId) == [questions[1].transactionId])
+    #expect(covered.first?.waitingMore == 1)
   }
 }

@@ -100,6 +100,7 @@ struct OverviewView: View {
 private struct OverviewHeader: View {
   @Dependency(\.environment) private var environment
   @Environment(\.overviewTitleRow) private var titleRow
+  @Environment(\.appFontSize) private var fontSize
   let actions: OperationActions
   let screen: OverviewScreen
   @State private var width: CGFloat = 0
@@ -125,7 +126,8 @@ private struct OverviewHeader: View {
         AccountsSetupCard()
       }
       OverviewGroupedGrid(
-        columns: OverviewCard.columns(forWidth: width), actions: actions, screen: screen)
+        columns: OverviewCard.columns(forWidth: width, fontSize: fontSize), actions: actions,
+        screen: screen)
       RecomputeStatusLine()
     }
     .frame(maxWidth: .infinity, alignment: .leading)

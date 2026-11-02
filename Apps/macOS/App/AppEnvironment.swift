@@ -1147,6 +1147,7 @@ public final class AppEnvironment {
     // an operation written without an account is given the main one.
     ensureMainAccount()
     ensureBanks()
+    ensureRegretStart()
     refreshAccountSettings()
     refreshCurrencyCatalog()
     dropFormulasThatNoLongerAddUp()
@@ -1213,6 +1214,21 @@ public final class AppEnvironment {
     } catch {
       AppLog.error(
         "accounts.repairFailed", .db, "the main account could not be checked",
+        [LogPair("error", .error(error))])
+    }
+  }
+
+  /// «Не пожалели?» asks only about purchases made after it started: a database that never kept
+  /// that day keeps today at its open, so the purchases from before are never asked about. A
+  /// failure costs only the day, which the next open keeps again; it is in the journal.
+  private func ensureRegretStart() {
+    guard let purchaseSettings else { return }
+    do {
+      guard try purchaseSettings.stampRegretStart(today: today) != nil else { return }
+      AppLog.info("purchases.regretStarted", .db, "the day the regret question started was kept")
+    } catch {
+      AppLog.error(
+        "purchases.regretStartFailed", .db, "the day the regret question started was not kept",
         [LogPair("error", .error(error))])
     }
   }

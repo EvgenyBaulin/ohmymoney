@@ -250,4 +250,18 @@ public struct PurchaseSettingsRepository: Sendable {
       }
     }
   }
+
+  /// Keeps today as the day «Не пожалели?» started, when it is on and no day is kept yet
+  /// (`PurchaseSettings.stampingRegretStart`). Returns the day kept, `nil` when nothing changed.
+  @discardableResult
+  public func stampRegretStart(today: DateOnly) throws -> DateOnly? {
+    try writer.write { db in
+      let current = PurchaseSettings(
+        storedValues: try SettingsRepository.values(of: PurchaseSettings.storageKeys, db: db))
+      guard let stamped = current.stampingRegretStart(today: today) else { return nil }
+      try SettingsRepository.set(
+        PurchaseSettings.regretEnabledOnKey, to: today.iso, in: db)
+      return stamped.regretEnabledOn
+    }
+  }
 }

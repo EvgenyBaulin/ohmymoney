@@ -304,4 +304,42 @@ final class AccountBlocksModelTests: XCTestCase {
       PlanningSheet.newPayment(ScheduledPayment(name: "Music", amountE4: .zero))
         .startCurrencyChosen, "a candidate's currency is the owner's")
   }
+
+  /// An Apple ID account in dollars, in a group outside the summary and not hidden: the
+  /// subscription saved with no account — the form showed the main account and wrote none —
+  /// and charged from the Apple ID account by «Провести» is listed on the Apple ID screen and
+  /// in its group, not on the main account's.
+  func testASubscriptionChargedFromAnOutOfSummaryDollarAccountIsOnItsScreen() throws {
+    let usd = CurrencyCode("USD")
+    let digital = AccountGroup(name: "Digital", inSummary: false)
+    let main = PaymentMethod(id: sber, name: "Sber", currency: .rub, isDefault: true)
+    let appleId = PaymentMethod(name: "Apple ID", currency: usd, groupId: digital.id)
+    let today = DateOnly(year: 2026, month: 11, day: 2)
+    let due = DateOnly(year: 2026, month: 10, day: 5)
+    let cloud = ScheduledPayment(
+      name: "iCloud+", kind: .subscription, amountE4: AmountE4(raw: 99_900), currency: usd,
+      nextDate: DateOnly(year: 2026, month: 11, day: 5))
+    let at = calendar.noon(of: due)
+    var draft = TransactionDraft(
+      kind: .expense, occurredAt: at, currency: usd, amount: AmountE4(raw: 99_900), rate: 95,
+      paymentMethodId: appleId.id)
+    draft.normalizeSinglePart()
+    var charge = try draft.materialize(now: at, timeZone: calendar.timeZone)
+    charge.transaction.externalId =
+      OperationLink.scheduled(paymentId: cloud.id, due: due).externalId
+    let dataset = Dataset(
+      entries: [charge], paymentMethods: [main, appleId],
+      planning: PlanningBook(scheduled: [cloud]), accountGroups: [digital])
+    let snapshot = DataSnapshot.build(
+      dataset: dataset, calendar: calendar, today: today,
+      context: SnapshotContext(rubPerUnit: [usd: 95], localeIdentifier: "ru"),
+      version: DataVersion(load: 1))
+
+    let onAppleId = AccountPaymentsModel(accountId: appleId.id, snapshot: snapshot)
+    XCTAssertEqual(onAppleId.rows.map(\.status.payment.name), ["iCloud+"])
+    XCTAssertEqual(AccountPaymentsModel(accountId: main.id, snapshot: snapshot).rows, [])
+    let group = GroupPlanModel(
+      accountIds: [appleId.id], planning: snapshot.planning, ledger: snapshot.ledger)
+    XCTAssertEqual(group.payments.map(\.accountId), [appleId.id])
+  }
 }

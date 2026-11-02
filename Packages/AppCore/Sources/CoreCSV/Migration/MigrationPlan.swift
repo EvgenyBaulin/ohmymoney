@@ -28,7 +28,8 @@ public struct MigrationPreview: Sendable, Hashable {
 
   /// The lines ticked to be written at first: the new ones, at their own rate or the nearest.
   public var defaultTicks: Set<Int> {
-    Set(dispositions.indices.filter { dispositions[$0] == .new || dispositions[$0] == .nearestRate })
+    Set(
+      dispositions.indices.filter { dispositions[$0] == .new || dispositions[$0] == .nearestRate })
   }
 }
 

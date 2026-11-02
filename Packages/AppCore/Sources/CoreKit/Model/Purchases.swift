@@ -155,9 +155,12 @@ public struct PurchaseSettings: Hashable, Sendable, Codable {
   public static let regretEnabledKey = "regret.enabled"
   public static let regretAskAfterDaysKey = "regret.askAfterDays"
   public static let fuelAskMileageKey = "fuel.askMileage"
+  /// The day «Не пожалели?» was last turned on, `YYYY-MM-DD`; absent until it is turned on.
+  public static let regretEnabledOnKey = "regret.enabledOn"
 
   public static let storageKeys = [
     pauseEnabledKey, pausePercentKey, regretEnabledKey, regretAskAfterDaysKey, fuelAskMileageKey,
+    regretEnabledOnKey,
   ]
 
   public static let defaultPausePercent = 20
@@ -172,17 +175,20 @@ public struct PurchaseSettings: Hashable, Sendable, Codable {
   public var regretAskAfterDays: Int
   /// A fill-up asks for the mileage of the car.
   public var fuelAskMileage: Bool
+  /// The day the question was turned on: purchases made before it are never asked about.
+  public var regretEnabledOn: DateOnly?
 
   public init(
     pauseEnabled: Bool = false, pausePercent: Int = PurchaseSettings.defaultPausePercent,
     regretEnabled: Bool = true, regretAskAfterDays: Int = PurchaseSettings.defaultAskAfterDays,
-    fuelAskMileage: Bool = true
+    fuelAskMileage: Bool = true, regretEnabledOn: DateOnly? = nil
   ) {
     self.pauseEnabled = pauseEnabled
     self.pausePercent = max(0, pausePercent)
     self.regretEnabled = regretEnabled
     self.regretAskAfterDays = max(0, regretAskAfterDays)
     self.fuelAskMileage = fuelAskMileage
+    self.regretEnabledOn = regretEnabledOn
   }
 
   /// Reads the stored texts; a key that is absent or unreadable gives its default.
@@ -201,17 +207,32 @@ public struct PurchaseSettings: Hashable, Sendable, Codable {
       regretEnabled: flag(Self.regretEnabledKey, true),
       regretAskAfterDays: storedValues[Self.regretAskAfterDaysKey].flatMap { Int($0) }
         ?? Self.defaultAskAfterDays,
-      fuelAskMileage: flag(Self.fuelAskMileageKey, true))
+      fuelAskMileage: flag(Self.fuelAskMileageKey, true),
+      regretEnabledOn: storedValues[Self.regretEnabledOnKey].flatMap {
+        DateOnly(iso: $0.trimmingCharacters(in: .whitespaces))
+      })
+  }
+
+  /// The settings with the day the question started on, when it is on and the day was never
+  /// kept (a database from before the day was kept): from then on only new purchases are asked
+  /// about. `nil` when nothing changes.
+  public func stampingRegretStart(today: DateOnly) -> PurchaseSettings? {
+    guard regretEnabled, regretEnabledOn == nil else { return nil }
+    var copy = self
+    copy.regretEnabledOn = today
+    return copy
   }
 
   /// The texts to store, one per key.
   public var storedValues: [String: String] {
-    [
+    var values = [
       Self.pauseEnabledKey: pauseEnabled ? "1" : "0",
       Self.pausePercentKey: String(pausePercent),
       Self.regretEnabledKey: regretEnabled ? "1" : "0",
       Self.regretAskAfterDaysKey: String(regretAskAfterDays),
       Self.fuelAskMileageKey: fuelAskMileage ? "1" : "0",
     ]
+    if let regretEnabledOn { values[Self.regretEnabledOnKey] = regretEnabledOn.iso }
+    return values
   }
 }

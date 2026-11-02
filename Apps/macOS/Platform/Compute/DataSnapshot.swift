@@ -256,7 +256,7 @@ struct DataSnapshot: Sendable {
       freeRubE4: free, settings: dataset.purchaseSettings)
     let regret = RegretSchedule.due(
       entries: dataset.entries, tree: ledger.tree, settings: dataset.purchaseSettings,
-      thresholdRubE4: threshold, today: today, calendar: ledger.calendar)
+      thresholdRubE4: threshold, today: today, calendar: ledger.calendar, places: dataset.places)
     planning.waitingRefunds = waiting
     planning.purchaseNotes = PurchaseNotes.list(
       wishes: dataset.wishes, rates: context.rubPerUnit, freeRubE4: free, waiting: waiting,
