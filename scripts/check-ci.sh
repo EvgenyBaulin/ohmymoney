@@ -1,17 +1,18 @@
 #!/bin/bash
-# Fails when CI runs less than `make verify` does. CI vouches for what one Mac cannot show
-# alone (a clean store bundle, a native app, glass only where it belongs), and a check that
-# `make verify` has and the workflow does not passes every
-# pull request unseen: on 24.09 the workflow ran two checks of fourteen and built the App Store
-# configuration without once looking inside it.
+# The rule of the minimum (02.11). The checking happens on the author's Mac, before a push:
+# `make verify` — builds from scratch, every test, every check — and `make verify-full` before a
+# release. CI keeps the minimum a clean machine adds: the app builds from a fresh checkout with
+# the same compiler, and the store configuration, built, carries no updater. A run of the whole
+# verify on the runner took an hour and a half to two hours, and a minute of macOS there costs
+# ten once the repository is private. So:
 #
-# Every prerequisite of `verify` must be reached by a `make` the workflow runs, directly or
-# through a target whose prerequisites include it. Left out on purpose: `fmt`, which rewrites
-# files instead of judging them; `lint`, advisory in style, which
-# the Makefile runs within `ci-checks` for the one rule it enforces; `check-toolchain`, which
-# `test-core` asks for itself; `bench`, whose time budgets are set for the author's Mac and say
-# nothing on a runner of another speed; and `check-skips`, since CI skips what its screen and
-# its session cannot show (TestEnvironment) — on the author's Mac no test is skipped.
+# Every target of CI_MINIMUM below must be reached by a `make` build.yml runs, directly or
+# through a target whose prerequisites include it: on 24.09 the workflow built the App Store
+# configuration without once looking inside it, and this keeps that look from being dropped.
+#
+# And every check of the Makefile — every target named `check-…` — is reached from `verify`,
+# through its prerequisites: CI no longer runs a check that `make verify` forgot, so a check
+# added to the Makefile and not to verify would run nowhere. Left out: none.
 #
 # And every job of every workflow has a limit of its own (`timeout-minutes`), and every
 # `xcodebuild … test` gives each test one: without them a test that hangs holds a runner for
@@ -58,6 +59,8 @@ set -u
 here="$(cd "$(dirname "$0")" && pwd)"
 root="$(cd "${here}/.." && pwd)"
 optional=" fmt lint check-toolchain bench check-skips "
+# What build.yml must still run (the rule of the minimum above).
+CI_MINIMUM="build check-appstore-clean"
 
 # The prerequisites of one rule, one per line. Lines ending in a backslash are joined first; a
 # line that sets a variable for a target (`test-one: XCB_TIME = 600`) is not a rule.
@@ -147,17 +150,36 @@ closure() {
   done
 }
 
-# Prints what verify runs and the workflow does not; exit 1 when that is anything.
-missing() {
-  local makefile="$1" workflow="$2" reached wanted target found=""
-  reached=" $(closure "${makefile}" "$(invoked "${workflow}" | tr '\n' ' ')" | tr '\n' ' ')"
+# The prerequisites of verify but the optional ones, on one line.
+verify_wanted() {
+  local target wanted=""
   # A loop, not a case inside $(…): bash 3.2 reads the `)` of a pattern there as the end.
-  wanted=""
-  for target in $(prerequisites verify "${makefile}"); do
+  for target in $(prerequisites verify "$1"); do
     case "${optional}" in *" ${target} "*) continue ;; esac
     wanted="${wanted} ${target}"
   done
+  echo "${wanted}"
+}
+
+# Prints each of the wanted targets (and what they bring in) the workflow does not reach; exit 1
+# when that is anything. Arguments: <Makefile> <workflow> <targets…>
+missing() {
+  local makefile="$1" workflow="$2" wanted="$3" reached target found=""
+  reached=" $(closure "${makefile}" "$(invoked "${workflow}" | tr '\n' ' ')" | tr '\n' ' ')"
   for target in $(closure "${makefile}" "${wanted}"); do
+    case "${reached}" in *" ${target} "*) continue ;; esac
+    echo "${target}"
+    found="yes"
+  done
+  [ -z "${found}" ]
+}
+
+# Prints each target named check-… of a Makefile that `verify` does not reach through its
+# prerequisites; exit 1 when there is any.
+unchecked() {
+  local makefile="$1" reached target found=""
+  reached=" $(closure "${makefile}" verify | tr '\n' ' ')"
+  for target in $(sed -nE 's/^(check-[A-Za-z0-9_-]+):([^=]|$).*/\1/p' "${makefile}" | sort -u); do
     case "${reached}" in *" ${target} "*) continue ;; esac
     echo "${target}"
     found="yes"
@@ -372,14 +394,29 @@ unnamed() {
 
 if [ "${1:-}" = "--self-test" ]; then
   fixtures="${here}/fixtures/ci"
-  if ! missing "${fixtures}/Makefile.txt" "${fixtures}/good.yml.txt" > /dev/null; then
+  wanted="$(verify_wanted "${fixtures}/Makefile.txt")"
+  if ! missing "${fixtures}/Makefile.txt" "${fixtures}/good.yml.txt" "${wanted}" > /dev/null; then
     echo "check-ci self-test: good.yml.txt runs everything verify runs, and was refused:"
-    missing "${fixtures}/Makefile.txt" "${fixtures}/good.yml.txt"
+    missing "${fixtures}/Makefile.txt" "${fixtures}/good.yml.txt" "${wanted}"
     exit 1
   fi
-  found="$(missing "${fixtures}/Makefile.txt" "${fixtures}/bad.yml.txt" | tr '\n' ' ')"
+  found="$(missing "${fixtures}/Makefile.txt" "${fixtures}/bad.yml.txt" "${wanted}" | tr '\n' ' ')"
   if [ "${found}" != "check-b ci-checks check-c check-d " ]; then
     echo "check-ci self-test: expected check-b ci-checks check-c check-d missing from bad.yml.txt, got: ${found}"
+    exit 1
+  fi
+  found="$(missing "${fixtures}/Makefile.txt" "${fixtures}/bad.yml.txt" "check-a" | tr '\n' ' ')"
+  if [ -n "${found}" ]; then
+    echo "check-ci self-test: bad.yml.txt reaches check-a, and it was said missing: ${found}"
+    exit 1
+  fi
+  if unchecked "${fixtures}/Makefile.txt" > /dev/null; then
+    echo "check-ci self-test: Makefile.txt has check-orphan outside verify, and it passed"
+    exit 1
+  fi
+  found="$(unchecked "${fixtures}/Makefile.txt" | tr '\n' ' ')"
+  if [ "${found}" != "check-orphan " ]; then
+    echo "check-ci self-test: expected check-orphan alone outside verify in Makefile.txt, got: ${found}"
     exit 1
   fi
   if ! unlimited "${fixtures}/good.yml.txt" > /dev/null; then
@@ -462,8 +499,12 @@ makefile="${1:-${root}/Makefile}"
 workflow="${2:-${root}/.github/workflows/build.yml}"
 status=0
 untimed "${makefile}" || status=1
-if ! found="$(missing "${makefile}" "${workflow}")"; then
-  echo "ci: ${workflow##*/} does not run what make verify runs:" ${found}
+if ! found="$(missing "${makefile}" "${workflow}" "${CI_MINIMUM}")"; then
+  echo "ci: ${workflow##*/} does not run the minimum CI keeps:" ${found}
+  status=1
+fi
+if ! found="$(unchecked "${makefile}")"; then
+  echo "ci: make verify does not run these checks, and CI no longer does:" ${found}
   status=1
 fi
 undeclared "${workflow}" || status=1
@@ -478,4 +519,4 @@ docs=""
 for doc in ${instructions}; do docs="${docs} ${root}/${doc}"; done
 unnamed "${docs}" "${root}"/.github/workflows/*.yml || status=1
 [ "${status}" = "0" ] || exit 1
-echo "ci: runs what make verify runs, every job and test with a limit, here and on CI, pandas for the AppCore tests, one XcodeGen, actions on Node 24, every step an expression reads declared, every secret asked for"
+echo "ci: the minimum on CI, every check in make verify, every job and test with a limit, here and on CI, pandas for the AppCore tests, one XcodeGen, actions on Node 24, every step an expression reads declared, every secret asked for"

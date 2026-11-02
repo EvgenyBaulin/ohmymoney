@@ -2,7 +2,8 @@
 # Frees disk by deleting only the temporary build folders the parallel lanes leave behind in
 # ~/Library/Developer/OhMyMoney/: DerivedData-<lane>, spm-<lane>, logs-<lane>.
 # Never touched: DerivedData, SourcePackages, logs, pyenv, release, xcodegen.cache,
-# spm-appcore, spm-appdatabase, spm-appcore-release, spm-appdatabase-release, test-times.tsv,
+# spm-appcore, spm-appdatabase, spm-appcore-release, spm-appdatabase-release, spm-sources,
+# test-times.tsv,
 # and anything outside that folder (the repository, backups, the owner's data).
 #
 #   scripts/clean-lane-builds.sh             delete them
@@ -22,6 +23,8 @@ keep() {
   case "$1" in
     DerivedData | SourcePackages | logs | pyenv | release | xcodegen.cache | test-times.tsv) return 0 ;;
     spm-appcore | spm-appdatabase | spm-appcore-release | spm-appdatabase-release) return 0 ;;
+    # The sources of GRDB every fresh `swift test` starts from without a network (make packages).
+    spm-sources) return 0 ;;
   esac
   return 1
 }

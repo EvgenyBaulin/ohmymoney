@@ -21,3 +21,10 @@ verify: check-toolchain fmt lint test-core build check-a \
 
 ci-checks: check-c check-d
 	@echo "checks: ok"
+
+# A check verify reaches, and one it does not.
+check-a:
+	@echo a
+
+check-orphan:
+	@echo never run

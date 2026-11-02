@@ -5,7 +5,8 @@
 #
 #   1. checks: the branch, the version not out yet, nothing untracked outside the folders of
 #      source code, tests and scripts, the author and the hooks;
-#   2. make verify — any failure stops here, before a commit;
+#   2. make verify, or make verify-full with RELEASE_VERIFY=verify-full (the slow Mac and the
+#      app's tests in one copy of the host besides) — any failure stops here, before a commit;
 #   3. the commit of the working tree (files named one by one, never `git add -A`);
 #   4. the build, its signature and the Sparkle archive (make release-local), checked as an
 #      installed copy would meet it (make release-check CANDIDATE=…);
@@ -41,7 +42,13 @@ author_email="e.baulin@icloud.com"
 archive_dir="${root}/Personal/Archive/ohmymoney-archive"
 release_dir="${HOME}/Library/Developer/OhMyMoney/release"
 journal="${archive_dir}/releases.log"
-ci_minutes="${RELEASE_CI_MINUTES:-90}"
+# CI only builds and looks into the store bundle now (build.yml): a quarter of an hour, not two.
+ci_minutes="${RELEASE_CI_MINUTES:-60}"
+# What runs before the commit: make verify; RELEASE_VERIFY=verify-full adds the slow Mac
+# (make test-slow) and the tests of the app in one copy of the host (make test-solo), what CI
+# found before it stopped running tests. Not yet the default: neither has run on this Mac yet.
+verify_goal="${RELEASE_VERIFY:-verify}"
+case "${verify_goal}" in verify | verify-full) ;; *) echo "release: RELEASE_VERIFY is verify or verify-full" >&2; exit 2 ;; esac
 
 export GIT_TERMINAL_PROMPT=0 GIT_EDITOR=true GH_PROMPT_DISABLED=1 GH_NO_UPDATE_NOTIFIER=1
 exec < /dev/null
@@ -127,7 +134,7 @@ changed="$( (git diff --name-only; git diff --cached --name-only; printf '%s\n' 
 plan() {
   cat << EOF
 release: plan
-  1. make verify                          — must end with «verify: green» and «pandas: checked»
+  1. make ${verify_goal}                     — must end with «verify: green» and «pandas: checked»
   2. commit $(printf '%s\n' "${changed}" | grep -c . || true) file(s) as «${RELEASE_MESSAGE:-OhMyMoney ${version}}» (git add -- <files>)
   3. make release-local ARGS=--dry-run, then make release-local
                                           — Release build, signature, ${release_dir##*/}/OhMyMoney-${version}.zip, appcast entry
@@ -162,8 +169,11 @@ say "log: ${log}"
 # --- 2. make verify --------------------------------------------------------------------------
 
 verify_log="$(mktemp -t ohmymoney-release-verify)"
-if ! make verify 2>&1 | tee "${verify_log}"; then
-  stop "make verify failed; nothing was committed or published"
+if ! make "${verify_goal}" 2>&1 | tee "${verify_log}"; then
+  stop "make ${verify_goal} failed; nothing was committed or published"
+fi
+if [ "${verify_goal}" = "verify-full" ]; then
+  grep -qx 'verify-full: green' "${verify_log}" || stop "make verify-full did not say «verify-full: green»"
 fi
 grep -qx 'verify: green' "${verify_log}" || stop "make verify did not say «verify: green»"
 grep -qx 'pandas: checked' "${verify_log}" || stop "make verify did not check the CSV with pandas (make pyenv)"
