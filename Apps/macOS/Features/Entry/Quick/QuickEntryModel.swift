@@ -94,7 +94,7 @@ final class QuickEntryModel {
         let offer = QuickBank.offer(
           for: message, cards: compute.snapshot?.dataset.cards ?? [],
           places: environment.vocabulary.places, parser: parser(environment),
-          today: environment.today)
+          today: environment.today, names: AutoEntryLearning.names(environment))
         bank = offer
         suggestions = []
         return offer.line
@@ -277,7 +277,7 @@ final class QuickEntryModel {
       let offer = QuickBank.offer(
         for: message, cards: compute.snapshot?.dataset.cards ?? [],
         places: environment.vocabulary.places, parser: parser(environment),
-        today: environment.today)
+        today: environment.today, names: AutoEntryLearning.names(environment))
       let model = EntryDraftModel(environment: environment)
       model.assisted = true
       model.reload()

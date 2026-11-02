@@ -1735,6 +1735,13 @@ struct EntryBar<Accessory: View>: View {
         window.makeFirstResponder(nil)
       }
     #endif
+    // A shop of a bank text written under a place of the owner's list is offered under that
+    // place from now on — whether the text was pasted or came as a draft from the bank.
+    let bankMerchant =
+      fast.bank?.message.merchant
+      ?? fast.drafts.finishing.flatMap { AutoEntryLearning.takeMerchant(ofDraft: $0) }
+    AutoEntryLearning.written(
+      merchant: bankMerchant, placeId: model.draft.placeId, environment: environment)
     model.reset()
     // The draft this line was finished from is done; the next part of a «;» line is next.
     fast.drafts.lineWritten()

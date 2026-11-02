@@ -176,7 +176,15 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
     // The reminder text for a debtor is a setting of the database.
     try db.execute(
       sql: "DELETE FROM settings WHERE key = ?", arguments: [DebtSettings.nudgeTemplateKey])
+    // The names the owner gave the shops of bank texts, and the lines kept for later (the
+    // drafts of «Запишу потом», made by hand or from a bank's text), are his own words too.
+    try db.execute(
+      sql: "DELETE FROM settings WHERE key IN (?, ?)",
+      arguments: [AutoEntryNames.settingsKey, Self.pendingDraftsKey])
   }
+
+  /// The setting the drafts of «Запишу потом» are kept in.
+  static let pendingDraftsKey = "entry.pendingDrafts"
 
   // MARK: - Planning
 

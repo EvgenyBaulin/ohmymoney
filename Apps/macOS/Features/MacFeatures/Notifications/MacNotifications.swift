@@ -75,9 +75,9 @@ final class MacNotifications: NSObject {
   /// The app's explanation is on screen, waiting for «Разрешить» or «Не сейчас».
   var explaining = false
 
-  @ObservationIgnored private let posting: any NotificationPosting
+  @ObservationIgnored let posting: any NotificationPosting
   @ObservationIgnored var defaults: UserDefaults = .standard
-  @ObservationIgnored private var dependencies: AppDependencies?
+  @ObservationIgnored private(set) var dependencies: AppDependencies?
   @ObservationIgnored private var working = false
   /// What the system said about permission at the last look; `nil` before the first.
   @ObservationIgnored private(set) var permissionNow: NotificationPlan.Permission?
@@ -96,12 +96,20 @@ final class MacNotifications: NSObject {
     center.delegate = self
     // The reminder of the evening of the habits is a notification from now on.
     HabitNudgeRoute.deliverer = self
+    // So is the reminder of the drafts of «Запишу потом».
+    NotificationCenter.default.addObserver(
+      forName: .draftsChanged, object: nil, queue: .main
+    ) { _ in
+      Task { @MainActor in await MacNotifications.shared.refreshDrafts() }
+    }
     let record = UNNotificationAction(
       identifier: Self.recordAction,
       title: AppLanguage()("mac.notify.record", table: MacCommands.table), options: [])
+    // The categories replace each other as a whole: every one the app has is set here.
     center.setNotificationCategories([
       UNNotificationCategory(
-        identifier: Self.paymentCategory, actions: [record], intentIdentifiers: [], options: [])
+        identifier: Self.paymentCategory, actions: [record], intentIdentifiers: [], options: []),
+      Self.autoEntryCategory(),
     ])
   }
 
@@ -125,6 +133,7 @@ final class MacNotifications: NSObject {
   /// What the data says now, posted: called whenever the figures change.
   func refresh(_ dependencies: AppDependencies) async {
     self.dependencies = dependencies
+    await refreshDrafts()
     guard !working, let snapshot = dependencies.compute.wholeSnapshot else { return }
     working = true
     defer { working = false }
@@ -334,6 +343,18 @@ extension MacNotifications: UNUserNotificationCenterDelegate {
     let payment = (info["payment"] as? String).flatMap(UUID.init(uuidString:))
     let due = (info["due"] as? String).flatMap(DateOnly.init(iso:))
     let section = (info["section"] as? String).flatMap(MainWindow.Section.init(rawValue:))
+    let draft = (info[Self.autoEntryDraftKey] as? String).flatMap(UUID.init(uuidString:))
+    if let draft {
+      await MacNotifications.shared.answerAutoEntry(action: action, draft: draft)
+      return
+    }
+    if info[Self.openDraftsKey] != nil {
+      await MainActor.run {
+        MacNotifications.shared.open(.overview)
+        NotificationCenter.default.post(name: .openDrafts, object: nil)
+      }
+      return
+    }
     await MainActor.run {
       if action == Self.recordAction, let payment, let due {
         if !MacNotifications.shared.recordPayment(paymentId: payment, due: due) {
