@@ -15,9 +15,12 @@ The run fails when any worker fails, and — on this Mac, not on CI — when any
 a skipped test is a check that did not happen. All logs are joined into one, in the order of the
 workers, so the checks that read the log of the tests read all of it.
 
+`--select FILE` runs only some classes: a line of the file is a class name, which must exist, or
+`/<regular expression>/`, which picks every class whose name it finds (`make test-slow`).
+
 Usage:
   test-parallel.py --products DIR --logs DIR --workers N --serial FILE --times FILE
-                   --sign IDENTITY [--only Class ...] -- <arguments for xcodebuild>
+                   --sign IDENTITY [--only Class ...] [--select FILE] -- <arguments for xcodebuild>
 """
 
 import argparse
@@ -216,6 +219,7 @@ def main():
     parser.add_argument("--times")
     parser.add_argument("--sign", default="-")
     parser.add_argument("--only", nargs="*", default=[])
+    parser.add_argument("--select", help="a file of class names and /regular expressions/")
     parser.add_argument("--prepend", help="a log to put first in test.log (the build)")
     parser.add_argument("extra", nargs=argparse.REMAINDER)
     args = parser.parse_args()
@@ -233,6 +237,15 @@ def main():
 
     began = time.time()
     classes = enumerate_classes(original, args.logs)
+    if args.select:
+        chosen = []
+        for entry in read_list(args.select):
+            if len(entry) > 2 and entry.startswith("/") and entry.endswith("/"):
+                pattern = re.compile(entry[1:-1])
+                chosen += [n for n in classes if pattern.search(n)]
+            else:
+                chosen.append(entry)
+        args.only = list(dict.fromkeys(args.only + chosen))
     if args.only:
         missing = [n for n in args.only if n not in classes]
         if missing:

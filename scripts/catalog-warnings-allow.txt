@@ -1,0 +1,9 @@
+# Keys of a String Catalog whose build warning `make check-warnings` excuses, `<file> <key>` a
+# line. Each is a plural with two numbers and no explicit substitution («Cannot reliably infer
+# argument number for plural variation»): CI printed these from 22.10 on and never failed on
+# them, since the warning carries no line. They wait for a fix (a substitution `%#@…@` with its
+# own `argNum`); the line goes with the fix. A key not listed here fails the check.
+Habits.xcstrings beginner.unlock.entryDays
+Overview.xcstrings why.look.burnout
+Spending.xcstrings why.usualDay.basis
+Spending.xcstrings why.usualDay.none

@@ -23,6 +23,22 @@ SPM_PKGS     := $(BUILD_ROOT)/SourcePackages
 # a folder of its own, `SPM_SCRATCH=<folder>`: SwiftPM locks its scratch directory, so two runs
 # over one wait for each other or fail.
 SPM_SCRATCH  ?= $(BUILD_DIR)
+# The builds work without a network: the owner unplugs the Mac. What was downloaded stays —
+# Xcode's packages (GRDB, Sparkle) in SPM_PKGS, and the sources of GRDB for SwiftPM in
+# SPM_SOURCES, a resolved scratch folder without a build in it (`make packages` fills both, with
+# the network on; `make check-offline` says whether they match the pins). xcodebuild is told not
+# to look for updates of what it has. A scratch folder of `swift test` that has no sources yet
+# gets those of SPM_SOURCES as an APFS clone (`cp -c`: no room taken, no time), and SwiftPM is
+# told to take the versions of Package.resolved and resolve nothing else: a fresh scratch folder
+# would otherwise clone GRDB from github.com again, and fail offline.
+SPM_SOURCES  := $(BUILD_ROOT)/spm-sources
+XCB_OFFLINE  := -skipPackageUpdates
+SPM_OFFLINE  := --disable-automatic-resolution
+SPM_SEED      = @if [ ! -f "$(1)/workspace-state.json" ]; then \
+	            test -f "$(SPM_SOURCES)/appdatabase/workspace-state.json" || \
+	            { echo "packages: no sources of GRDB in $(SPM_SOURCES); run make packages with the network on"; exit 1; }; \
+	            mkdir -p "$(1)" && cp -c -R "$(SPM_SOURCES)/appdatabase/repositories" \
+	            "$(SPM_SOURCES)/appdatabase/checkouts" "$(SPM_SOURCES)/appdatabase/workspace-state.json" "$(1)/"; fi
 DEST         := platform=macOS,arch=arm64
 SIGN         := CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=""
 # The Debug build, its tests and the UI-test runner are signed with the owner's self-signed
@@ -49,7 +65,7 @@ AWAKE        := caffeinate -i
 XCB_TIME     ?= 1800
 XCB_BASE      = $(AWAKE) $(TMO) $(XCB_TIME) xcodebuild -project $(PROJECT) -destination '$(DEST)' \
 	            -derivedDataPath $(DERIVED) -clonedSourcePackagesDirPath $(SPM_PKGS) \
-	            $(XCB_TOOLCHAIN)
+	            $(XCB_OFFLINE) $(XCB_TOOLCHAIN)
 XCB           = $(XCB_BASE) $(SIGN)
 XCB_DEV       = $(XCB_BASE) $(SIGN_DEV)
 # A test that hangs should end as a failure, not as half an hour of silence. The allowance is
@@ -80,7 +96,30 @@ PYENV        := $(BUILD_ROOT)/pyenv
 PYENV_PYTHON := $(PYENV)/bin/python
 PYENV_MARKER := $(PYENV)/pandas.ok
 
+# Every build and every test run starts from scratch, in a folder made for the run and deleted
+# when it ends, also when it fails (scripts/fresh-build.sh): DERIVED and SPM_SCRATCH point
+# there. A build from scratch prints the warnings of every file and cannot lean on a module an
+# older tree left behind — the two things only the runner of CI used to see. The packages that
+# were downloaded (SourcePackages) stay shared. `REUSE_BUILD=1` builds incrementally in the
+# folders of before, for debugging by hand. The goals that open the app (`run`, `sample`, `demo`,
+# `bench-app`) are left incremental: the app they open lives in the build folder.
+FRESH_GOALS := build test test-one test-ui test-solo test-slow test-core test-db bench build-ios test-ios \
+	    run-ios build-appstore check-appstore-clean archive-appstore eval-model migration-dry-run \
+	    verify verify-full
+GOALS       := $(or $(MAKECMDGOALS),all)
+FRESH_WRAP  := $(if $(FRESH_ROOT)$(filter 1,$(REUSE_BUILD)),,$(if $(filter $(FRESH_GOALS),$(GOALS)),yes))
+
+ifeq ($(FRESH_WRAP),yes)
+# One run of the script for all the goals of the command line, in one folder.
+.PHONY: $(GOALS)
+$(firstword $(GOALS)):
+	@OHMYMONEY_BUILD_ROOT="$(BUILD_ROOT)" $(AWAKE) scripts/fresh-build.sh $(MAKE) $(GOALS)
+$(filter-out $(firstword $(GOALS)),$(GOALS)):
+	@:
+else
+
 .PHONY: all generate build-dir build run test test-core test-db test-ui fmt lint verify test-one eval-model migration-dry-run \
+	    verify-full verify-first test-solo test-slow drop-package-builds check-offline packages check-core-linux check-build-warnings \
 	    check-core-purity check-toolchain check-warnings check-scripts check-chart-double check-privacy check-environment check-geometry check-stale check-attribution check-native check-glass check-fonts check-names check-ci check-log-names check-strings ci-checks hooks clean install \
 	    archive-appstore build-appstore check-appstore-clean release-local release-check sample sample-large demo \
 	    bench bench-app pyenv build-ios test-ios run-ios run-ios-go
@@ -144,7 +183,7 @@ IOS_SCHEME   := OhMyMoney-iOS
 IOS_SIM      ?= iPhone 17
 IOS_XCB       = $(AWAKE) $(TMO) $(XCB_TIME) xcodebuild -project $(PROJECT) -scheme $(IOS_SCHEME) \
 	            -derivedDataPath $(DERIVED) -clonedSourcePackagesDirPath $(SPM_PKGS) \
-	            $(XCB_TOOLCHAIN) CODE_SIGNING_ALLOWED=NO
+	            $(XCB_OFFLINE) $(XCB_TOOLCHAIN) CODE_SIGNING_ALLOWED=NO
 
 build-ios: generate
 	@mkdir -p $(LOGS)
@@ -313,8 +352,9 @@ pyenv: build-dir
 test-db: build-dir check-toolchain
 	@mkdir -p $(LOGS)
 	@cp Packages/AppDatabase/Package.resolved $(BUILD_DIR)/appdatabase-resolved.before
+	$(call SPM_SEED,$(SPM_SCRATCH)/spm-appdatabase)
 	set -o pipefail; $(AWAKE) $(TMO) 900 $(SWIFT) test --package-path Packages/AppDatabase \
-	    --scratch-path $(SPM_SCRATCH)/spm-appdatabase --skip PerformanceTests \
+	    --scratch-path $(SPM_SCRATCH)/spm-appdatabase $(SPM_OFFLINE) --skip PerformanceTests \
 	    2>&1 | tee $(LOGS)/test-db.log
 	@cmp -s $(BUILD_DIR)/appdatabase-resolved.before Packages/AppDatabase/Package.resolved || \
 	    (echo "test-db: the run rewrote Packages/AppDatabase/Package.resolved; commit SwiftPM's own file" && exit 1)
@@ -327,12 +367,13 @@ test-db: build-dir check-toolchain
 # scratch directory of its own, so it never throws away the debug one.
 bench: build-dir check-toolchain
 	@mkdir -p $(LOGS)
+	$(call SPM_SEED,$(SPM_SCRATCH)/spm-appdatabase-release)
 	set -o pipefail; { OHMYMONEY_BENCH=1 $(AWAKE) $(TMO) 1800 $(SWIFT) test -c release \
 	    --package-path Packages/AppCore --scratch-path $(SPM_SCRATCH)/spm-appcore-release \
 	    --filter Performance && \
 	  OHMYMONEY_BENCH=1 $(AWAKE) $(TMO) 1800 $(SWIFT) test -c release \
 	    --package-path Packages/AppDatabase --scratch-path $(SPM_SCRATCH)/spm-appdatabase-release \
-	    --filter Performance; } 2>&1 | tee $(LOGS)/bench.log
+	    $(SPM_OFFLINE) --filter Performance; } 2>&1 | tee $(LOGS)/bench.log
 
 # The tests of the app run in TEST_WORKERS copies of the test host at once, each with a bundle id
 # and so a container, settings and files of its own (scripts/test-parallel.py); the classes of
@@ -355,7 +396,9 @@ test: generate
 # A test that never runs is a failure too — a class that the project does not know about yet
 # would otherwise leave xcodebuild happy with nothing done. `DT=1` sends the os_log of the test
 # host to stderr, which is how messages that only the log holds end up in the build output.
-test-one: XCB_TIME = 600
+# A build from scratch of the app and its tests comes first (scripts/fresh-build.sh), so the
+# whole run gets 25 minutes there; with REUSE_BUILD=1, ten as before.
+test-one: XCB_TIME = $(if $(FRESH_ROOT),1500,600)
 test-one: generate
 	@test -n "$(T)" || (echo "test-one: T=OhMyMoneyTests/Class[/test] is required" && exit 1)
 	@mkdir -p $(LOGS)
@@ -376,7 +419,7 @@ test-one: generate
 # is meant to be pasted into a report. It writes nothing anywhere: the build output goes to
 # /dev/null and the tool itself opens no database, no model file and no journal.
 EVAL_CSV     := Packages/AppCore/Tests/CoreInsightsTests/Fixtures/export
-EVAL_SCRATCH := $(BUILD_DIR)/spm-appcore-release
+EVAL_SCRATCH := $(SPM_SCRATCH)/spm-appcore-release
 
 eval-model: build-dir check-toolchain
 	@$(SWIFT) build -c release --package-path Packages/AppCore \
@@ -394,13 +437,14 @@ eval-model: build-dir check-toolchain
 # copy a killed run left is deleted by the next. It never opens the original. Quit the app that
 # uses the file first: a copy taken while it writes may not be whole. Exits non-zero on
 # anything that differs.
-MIGRATION_SCRATCH := $(BUILD_DIR)/spm-appdatabase-release
+MIGRATION_SCRATCH := $(SPM_SCRATCH)/spm-appdatabase-release
 
 migration-dry-run: build-dir check-toolchain
 	@test -n "$(DB)" || (echo "migration-dry-run: DB=<path of a finance.sqlite> is required" && exit 1)
-	@$(SWIFT) build -c release --package-path Packages/AppDatabase \
+	$(call SPM_SEED,$(MIGRATION_SCRATCH))
+	@$(SWIFT) build -c release --package-path Packages/AppDatabase $(SPM_OFFLINE) \
 	    --scratch-path $(MIGRATION_SCRATCH) --product ohmymoney-migration-dry-run > /dev/null
-	@"$$($(SWIFT) build -c release --package-path Packages/AppDatabase \
+	@"$$($(SWIFT) build -c release --package-path Packages/AppDatabase $(SPM_OFFLINE) \
 	    --scratch-path $(MIGRATION_SCRATCH) --show-bin-path)/ohmymoney-migration-dry-run" \
 	    "$(DB)" "$(or $(SCHEMA),Schema)"
 
@@ -483,6 +527,19 @@ check-geometry:
 	@scripts/check-geometry.sh --self-test > /dev/null || scripts/check-geometry.sh --self-test
 	@scripts/check-geometry.sh Apps
 
+# The warnings of our own code in a log on standard input, each once: diagnostics with a line,
+# and those of a String Catalog not excused by scripts/catalog-warnings-allow.txt
+# (`<file>.xcstrings <key>` a line).
+CATALOG_ALLOW := scripts/catalog-warnings-allow.txt
+OUR_WARNINGS   = awk -v root="$(CURDIR)/" -v allow="$(CATALOG_ALLOW)" ' \
+	        BEGIN { while ((getline line < allow) > 0) if (line !~ /^\#/ && line != "") ok[line] = 1 } \
+	        index($$0, root) != 1 { next } \
+	        { rest = substr($$0, length(root) + 1) } \
+	        rest ~ /^(Apps|Packages)\/[^:]+:[0-9]+:[0-9]+: warning: / { print; next } \
+	        rest ~ /^Apps\/[^:]+\.xcstrings: warning: / { file = rest; sub(/: warning:.*/, "", file); \
+	            sub(/.*\//, "", file); key = rest; sub(/.*\([a-zA-Z-]+: /, "", key); sub(/\)$$/, "", key); \
+	            if (!((file " " key) in ok)) print }' | sort -u
+
 # Our own code builds without a single warning. Only diagnostics whose path starts with this
 # repository count: a warning of a package we depend on is not ours to fix, and the tools say
 # things of their own («Metadata extraction skipped») that are not warnings about code.
@@ -491,8 +548,15 @@ check-geometry:
 # else in that folder belongs to another run.
 #
 # A build repeats a warning only for the files it recompiles, so this reads the logs of the
-# build that just ran — and the whole picture needs a build from scratch, which `make verify`
-# gets after `rm -rf Build.nosync/DerivedData`.
+# build that just ran — and the whole picture needs a build from scratch, which every build of
+# `make verify` is (scripts/fresh-build.sh). That is how the warnings only CI used to see are
+# seen here: actor isolation and Sendable in tests nobody touched, an unused value, a needless
+# `try`, a deprecated call.
+#
+# A String Catalog warns without a line («Cannot reliably infer argument number for plural
+# variation»: a plural with two numbers and no explicit substitution); those count too, except
+# the keys of scripts/catalog-warnings-allow.txt, which carried theirs before this was read and
+# wait for a fix. A new key with a warning fails.
 # The logs have to be there. Read from a folder `make clean` emptied, both this check and the
 # one below print «none» having looked at nothing at all — which is the eye-check that let the
 # 1433 stale files through in the first place.
@@ -505,10 +569,17 @@ check-warnings:
 	    echo "warnings: nothing to read —$$missing; build and test first"; exit 1; \
 	fi
 	@found=$$(cat $(LOGS)/build.log $(LOGS)/test.log $(LOGS)/test-core.log $(LOGS)/test-db.log \
-	    $(LOGS)/build-appstore.log 2>/dev/null | \
-	    grep -oE "^$(CURDIR)/(Apps|Packages)/[^:]+:[0-9]+:[0-9]+: warning: .*" | sort -u); \
+	    $(LOGS)/build-appstore.log 2>/dev/null | $(OUR_WARNINGS)); \
 	    if [ -n "$$found" ]; then echo "$$found"; echo "warnings: our own code has some"; exit 1; fi
 	@echo "warnings: none"
+
+# The first half of the same check, right after `build`: a warning of the app stops a run of
+# `make verify` at its fifth minute, not after half an hour of tests.
+check-build-warnings:
+	@test -f $(LOGS)/build.log || (echo "warnings: nothing to read — $(LOGS)/build.log; build first" && exit 1)
+	@found=$$(cat $(LOGS)/build.log | $(OUR_WARNINGS)); \
+	    if [ -n "$$found" ]; then echo "$$found"; echo "warnings: the build of the app has some"; exit 1; fi
+	@echo "warnings: none in the build of the app"
 
 # A build from scratch used to leave every intermediate behind: reached through the
 # `Build.nosync` link, xcodebuild judged them «outside of the allowed root paths» and refused to
@@ -552,6 +623,7 @@ check-stale:
 check-scripts:
 	@scripts/check-scripts.sh --self-test > /dev/null || scripts/check-scripts.sh --self-test
 	@scripts/check-scripts.sh
+	@scripts/fresh-build.sh --self-test
 	@scripts/release-entry.sh --self-test
 	@scripts/release-version.sh --self-test
 	@scripts/check-release.sh --self-test
@@ -718,18 +790,112 @@ check-strings:
 	@scripts/check-strings.sh
 
 # The checks of `make verify` that read what the builds and tests left behind and change
-# nothing. CI runs them after its own builds and tests (.github/workflows/build.yml).
-ci-checks: lint check-warnings check-stale check-core-purity check-environment check-geometry \
-	    check-scripts check-privacy check-attribution check-native check-glass check-fonts check-names check-ci \
-	    check-log-names check-strings
+# nothing. Only this Mac runs them now: CI builds and looks into the store bundle, no more
+# (.github/workflows/build.yml, scripts/check-ci.sh).
+ci-checks: lint check-warnings check-stale check-core-purity check-core-linux check-environment \
+	    check-geometry check-scripts check-privacy check-attribution check-native check-glass \
+	    check-fonts check-names check-ci check-log-names check-strings
+
+# What Linux would refuse in AppCore, read from the sources (core-linux.yml builds it there).
+check-core-linux:
+	@scripts/check-core-linux.sh --self-test > /dev/null || scripts/check-core-linux.sh --self-test
+	@scripts/check-core-linux.sh
+
+# The cache of downloaded packages matches the pins, and SwiftPM resolves from it with no way
+# out (scripts/check-offline.sh). `make packages` fills it, with the network on.
+check-offline: build-dir
+	@scripts/check-offline.sh --self-test > /dev/null || scripts/check-offline.sh --self-test
+	@scripts/check-offline.sh "$(BUILD_ROOT)" "$(CURDIR)"
+
+packages: generate
+	$(AWAKE) xcodebuild -project $(PROJECT) -scheme $(SCHEME) -resolvePackageDependencies \
+	    -clonedSourcePackagesDirPath $(SPM_PKGS) $(XCB_TOOLCHAIN)
+	$(SWIFT) package resolve --package-path Packages/AppDatabase --scratch-path $(SPM_SOURCES)/appdatabase
+	@$(MAKE) --no-print-directory check-offline
+
+# Inside a build from scratch the debug builds of the packages are read by nothing after the
+# tests: they go before the store configuration and `bench` are built, so the build folder never
+# holds everything at once (scripts/fresh-build.sh). Outside one this does nothing.
+drop-package-builds:
+	@if [ -n "$(FRESH_ROOT)" ]; then rm -rf "$(SPM_SCRATCH)/spm-appcore" "$(SPM_SCRATCH)/spm-appdatabase"; \
+	    echo "scratch: the debug builds of the packages deleted"; fi
+
+# The tests of the packages and the build of the app. One after another, as always; with
+# `VERIFY_PARALLEL=1` all three at once, each in a folder of its own (the packages in
+# SPM_SCRATCH/spm-*, the app in DERIVED) and with a log of its own (Build.nosync/logs/
+# verify-<part>.out besides the usual ones), which on a failure is shown from its end. SwiftPM
+# and xcodebuild each use every core anyway; together they leave fewer of them idle while one
+# links or waits for a test. `bench` runs later, alone: a stopwatch under load says nothing.
+VERIFY_PARALLEL ?=
+# `make -n` runs a line that names $(MAKE): the dry run takes the serial branch, which only prints.
+DRY_RUN := $(findstring n,$(firstword -$(MAKEFLAGS)))
+verify-first: build-dir
+ifeq ($(VERIFY_PARALLEL)$(DRY_RUN),1)
+	@mkdir -p $(LOGS); echo "verify: the packages and the app at once (VERIFY_PARALLEL=1)"; \
+	    $(MAKE) --no-print-directory test-core > $(LOGS)/verify-core.out 2>&1 & core=$$!; \
+	    $(MAKE) --no-print-directory test-db > $(LOGS)/verify-db.out 2>&1 & db=$$!; \
+	    $(MAKE) --no-print-directory build > $(LOGS)/verify-build.out 2>&1 & app=$$!; \
+	    trap 'kill $$core $$db $$app 2> /dev/null' INT TERM; \
+	    status=0; \
+	    for part in core:$$core db:$$db build:$$app; do \
+	        if wait "$${part#*:}"; then echo "verify: $${part%%:*} done"; \
+	        else echo "verify: $${part%%:*} FAILED — the end of $(LOGS)/verify-$${part%%:*}.out:"; \
+	            tail -n 60 "$(LOGS)/verify-$${part%%:*}.out"; status=1; fi; \
+	    done; \
+	    exit $$status
+else
+	@$(MAKE) --no-print-directory test-core test-db build
+endif
 
 # `check-appstore-clean` comes before `check-warnings` on purpose: it is what builds the store
-# configuration, and `check-warnings` reads that build's log with the others.
-verify: check-toolchain fmt lint test-core test-db bench build test check-appstore-clean \
-	    ci-checks check-skips
+# configuration, and `check-warnings` reads that build's log with the others. Every build here
+# is from scratch (scripts/fresh-build.sh), and a warning of the app stops the run right after
+# its build (check-build-warnings).
+verify: check-toolchain check-offline fmt lint verify-first check-build-warnings test \
+	    drop-package-builds check-appstore-clean bench ci-checks check-skips
 	@if [ -f "$(PYENV_MARKER)" ]; then echo "pandas: checked"; \
 	    else echo "pandas: NOT checked (run make pyenv)"; fi
 	@echo "verify: green"
+
+# The tests of the app once more, all of them in one copy of the test host, one class after
+# another, the way the runner of CI ran them: a class that leaves something behind for the
+# next — a default, a shared cache, a window still open — passes in the copies of `make test`,
+# where it rarely meets that neighbour, and failed on CI. Its logs go to Build.nosync/logs/solo.
+test-solo: generate
+	@mkdir -p $(LOGS)/solo
+	set -o pipefail; $(XCB_DEV) -scheme $(SCHEME) -configuration Debug \
+	    -only-testing:OhMyMoneyTests build-for-testing 2>&1 | tee $(LOGS)/solo/test-build.log
+	$(AWAKE) $(TMO) 5400 scripts/test-parallel.py --products $(DERIVED)/Build/Products \
+	    --logs $(LOGS)/solo --workers 1 --serial scripts/serial-tests.txt \
+	    --sign "$(DEV_IDENTITY)" --prepend $(LOGS)/solo/test-build.log -- $(TEST_TIME)
+
+# This Mac made as slow as a runner of CI, for the classes that failed there and passed here
+# (scripts/slow-tests.txt) and the classes of scripts/serial-tests.txt: SLOW_WORKERS copies of the
+# host (three, the cores of a runner) started under `taskpolicy -c background`, which keeps a
+# process on the efficiency cores of Apple silicon, beside SLOW_LOAD busy loops of `yes` (every
+# core but three), which are stopped with the run, also when it fails. The limits of a test are
+# those of `make test`. A test that fails here and nowhere else waits for a pause where it should
+# wait for a condition. Its logs go to Build.nosync/logs/slow.
+SLOW_WORKERS ?= 3
+SLOW_LOAD    ?= $(shell n=$$(sysctl -n hw.ncpu); [ "$$n" -gt 4 ] && echo $$((n - 3)) || echo 0)
+test-slow: generate
+	@mkdir -p $(LOGS)/slow
+	set -o pipefail; $(XCB_DEV) -scheme $(SCHEME) -configuration Debug \
+	    -only-testing:OhMyMoneyTests build-for-testing 2>&1 | tee $(LOGS)/slow/test-build.log
+	@loops=""; i=0; while [ $$i -lt $(SLOW_LOAD) ]; do yes > /dev/null & loops="$$loops $$!"; i=$$((i + 1)); done; \
+	    trap 'kill $$loops 2> /dev/null' EXIT INT TERM; \
+	    echo "test-slow: $(SLOW_WORKERS) copies of the host on the efficiency cores, $(SLOW_LOAD) busy loops beside them"; \
+	    $(AWAKE) $(TMO) $(XCB_TIME) taskpolicy -c background scripts/test-parallel.py \
+	        --products $(DERIVED)/Build/Products --logs $(LOGS)/slow --workers $(SLOW_WORKERS) \
+	        --serial scripts/serial-tests.txt --select scripts/slow-tests.txt \
+	        --only $$(sed 's/#.*//' scripts/serial-tests.txt) \
+	        --sign "$(DEV_IDENTITY)" --prepend $(LOGS)/slow/test-build.log -- $(TEST_TIME)
+
+# `make verify`, then the slow Mac and the tests of the app in one copy of the host, in the same
+# build from scratch: what `make release` runs before anything is committed when it is told to
+# (RELEASE_VERIFY=verify-full).
+verify-full: verify test-slow test-solo
+	@echo "verify-full: green"
 
 # Opens the app on synthetic data generated from a fixed seed, in a data set of its own:
 # six months, or about 20 000 operations over two years. The set's folder is made anew each
@@ -835,5 +1001,11 @@ archive-appstore: generate
 	$(XCB) -scheme $(SCHEME_STORE) -configuration AppStore \
 	    -archivePath $(BUILD_DIR)/OhMyMoney-AppStore.xcarchive archive
 
+# Everything built goes; what was downloaded stays, so the next build needs no network: Xcode's
+# packages (SourcePackages), the sources of GRDB for SwiftPM (spm-sources) and the venv of pandas.
 clean:
-	rm -rf "$(BUILD_ROOT)" $(BUILD_DIR) $(PROJECT)
+	@if [ -d "$(BUILD_ROOT)" ]; then find "$(BUILD_ROOT)" -mindepth 1 -maxdepth 1 ! -name SourcePackages \
+	    ! -name spm-sources ! -name pyenv -exec rm -rf {} +; fi
+	rm -rf $(BUILD_DIR) $(PROJECT)
+
+endif
