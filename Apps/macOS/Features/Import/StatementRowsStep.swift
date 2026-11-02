@@ -175,6 +175,18 @@ struct StatementRowView: View {
             )
             .appFont(.caption).foregroundStyle(.secondary).lineLimit(1)
           }
+          if model.learnedFills[ref] != nil {
+            Label(
+              environment.language(
+                "statementLearning.row.learned", table: "StatementLearning"),
+              systemImage: "clock.arrow.circlepath"
+            )
+            .appFont(.caption).foregroundStyle(.secondary).lineLimit(1)
+            .help(
+              environment.language(
+                "statementLearning.row.learnedHelp", table: "StatementLearning"))
+            .accessibilityIdentifier("import.row.learned")
+          }
           if row.isOwnTransfer {
             Label(t("import.row.ownTransfer"), systemImage: "arrow.left.arrow.right")
               .appFont(.caption).foregroundStyle(.secondary)

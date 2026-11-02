@@ -619,6 +619,32 @@ struct SQLAnonymizerTests {
     }
   }
 
+  /// What the texts of the owner's banks were taught to mean — his places, words, people — is
+  /// his own: a copy for someone else forgets it whole.
+  @Test func learnedBankTextsAreDropped() throws {
+    let stack = try TestSupport.makeStack()
+    try Self.seed(stack)
+    var memory = BankTextMemory()
+    memory.learn(
+      scope: .init(accountId: UUID()), kind: .expense, text: "SAMPLE CAFE",
+      fill: BankTextFill(note: "Кофе с Машей", forWhom: .partner))
+    let text = try #require(memory.encoded())
+    try stack.writer.write { db in
+      try db.execute(
+        sql: "INSERT INTO settings (key, value) VALUES (?, ?)",
+        arguments: [BankTextMemory.settingsKey, text])
+    }
+    try SQLAnonymizer().anonymize(copy: ExportCopyDatabase(writer: stack.writer))
+    try stack.writer.read { db in
+      let learned = try Self.value(
+        db, "SELECT value FROM settings WHERE key = '\(BankTextMemory.settingsKey)'")
+      let kept = try Self.value(
+        db, "SELECT value FROM settings WHERE key = 'planning.listLength'")
+      #expect(learned == nil)
+      #expect(kept == "5")
+    }
+  }
+
   /// The list of own-key prefixes is `Anonymizer`'s: each one it keeps, a bank's reference it drops.
   @Test func theOwnKeyPrefixesAreTheDatasetAnonymizersOwn() throws {
     var dataset = Dataset()

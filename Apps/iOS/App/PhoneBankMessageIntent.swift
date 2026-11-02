@@ -80,6 +80,8 @@ enum PhoneAutoEntry {
     guard let reading = AutoEntryReading(text, environment: environment, snapshot: snapshot) else {
       return .refused(t("autoEntry.notBank"))
     }
+    // A text about an operation typed by hand teaches what its shop means (`BankTextMemory`).
+    reading.teach(environment: environment, accounts: snapshot.dataset.paymentMethods)
     if reading.isInBooks || reading.isWaiting(environment: environment) {
       return .done(t("autoEntry.duplicate"))
     }

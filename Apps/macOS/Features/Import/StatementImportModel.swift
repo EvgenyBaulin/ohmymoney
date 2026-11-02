@@ -45,6 +45,8 @@ struct StatementImportOutcome: Equatable {
   var waitingForRate = 0
   var staleDeleted = 0
   var remembered = 0
+  /// Lines filled from what earlier operations typed by hand taught (`BankTextMemory`).
+  var learned = 0
 }
 
 /// The loading of statements: files in, a preview per file with ticks, the pairing of transfers
@@ -108,6 +110,12 @@ final class StatementImportModel {
   private(set) var outcome: StatementImportOutcome?
   private var nextFileID = 0
   private var ruleCategories: [StatementRowRef: UUID] = [:]
+  /// What earlier operations typed by hand — and the merges of this loading — taught about each
+  /// new line's text (`BankTextMemory`), with what no longer holds taken out.
+  private(set) var learnedFills: [StatementRowRef: BankTextFill] = [:]
+  /// The memory as it stands after the merges of this loading: written with the operations, in
+  /// the same step of ⌘Z.
+  private var sessionMemory = BankTextMemory()
 
   // MARK: Dependencies
 
@@ -285,6 +293,7 @@ final class StatementImportModel {
   func setTicked(_ on: Bool, row: Int, file: Int) {
     guard let index = files.firstIndex(where: { $0.id == file }) else { return }
     if on { files[index].ticks.insert(row) } else { files[index].ticks.remove(row) }
+    refreshLearned()
     refreshQuestions()
   }
 
@@ -293,6 +302,7 @@ final class StatementImportModel {
       let rows = files[index].preview?.rows
     else { return }
     files[index].ticks = on ? Set(rows.filter { $0.disposition.changesBooks }.map(\.index)) : []
+    refreshLearned()
     refreshQuestions()
   }
 
@@ -300,6 +310,8 @@ final class StatementImportModel {
     guard let index = files.firstIndex(where: { $0.id == file }) else { return }
     files[index].manualPicks[row] = candidate
     if candidate != nil { files[index].ticks.insert(row) }
+    refreshLearned()
+    refreshQuestions()
   }
 
   func setDeleteStaleHeld(_ on: Bool, file: Int) {
@@ -359,6 +371,7 @@ final class StatementImportModel {
     transfers.softPairs.removeAll { knownTransferLegs.contains($0.outgoing) }
     confirmedSoft = confirmedSoft.intersection(transfers.pairedLines)
     refreshRuleCategories()
+    refreshLearned()
     refreshQuestions()
   }
 
@@ -430,6 +443,47 @@ final class StatementImportModel {
     }
   }
 
+  /// Teaches the memory with the merges the loading will write (a line that merged with an
+  /// operation typed by hand, or one the person picked), then fills every new line whose text
+  /// it knows for its account or another account of the same bank.
+  private func refreshLearned() {
+    learnedFills = [:]
+    var memory = BankTextLearning.memory(environment)
+    guard let dataset = dataset() else {
+      sessionMemory = memory
+      return
+    }
+    let accounts = dataset.paymentMethods
+    for file in files {
+      guard let preview = file.preview, let account = file.accountID else { continue }
+      StatementLearning.teach(
+        &memory, preview: preview, ticks: file.ticks, picks: file.manualPicks,
+        scope: BankTextLearning.scope(account: account, accounts: accounts),
+        entry: { self.handEntry($0) })
+    }
+    sessionMemory = memory
+    guard !memory.isEmpty else { return }
+    let places = Set(dataset.places.map(\.id))
+    let people = Set(dataset.people.map(\.id))
+    for file in files {
+      guard let preview = file.preview, let account = file.accountID else { continue }
+      let scope = BankTextLearning.scope(account: account, accounts: accounts)
+      for row in preview.rows {
+        switch row.disposition {
+        case .new: break
+        case .manualAsk where file.manualPicks[row.index] == nil: break
+        default: continue
+        }
+        guard let found = StatementLearning.fill(memory, line: row.operation, scope: scope)
+        else { continue }
+        let fill = StatementLearning.checked(
+          found, kind: StatementEntryBuilder.kind(of: row.operation),
+          categories: dataset.categories, places: places, people: people)
+        if !fill.isEmpty { learnedFills[StatementRowRef(file: file.id, row: row.index)] = fill }
+      }
+    }
+  }
+
   private func subject(of operation: ImportedOperation, account: UUID?) -> RuleSubject {
     RuleSubject(
       kind: StatementEntryBuilder.kind(of: operation), accountId: account,
@@ -449,7 +503,12 @@ final class StatementImportModel {
       for row in preview.rows where row.disposition == .new && file.ticks.contains(row.index) {
         let ref = StatementRowRef(file: file.id, row: row.index)
         // A line a rule of the person's already files, or half of a transfer, is not asked about.
-        if paired.contains(ref) || ruleCategories[ref] != nil { continue }
+        // So is a line whose text an operation typed by hand already taught.
+        if paired.contains(ref) || ruleCategories[ref] != nil
+          || learnedFills[ref]?.categoryId != nil
+        {
+          continue
+        }
         operations.append(row.operation)
         refs.append(ref)
       }
@@ -485,7 +544,7 @@ final class StatementImportModel {
       let categories = dataset()?.categories ?? []
       if categories.first(where: { $0.id == id })?.kind == kind.categoryKind { return id }
     }
-    return ruleCategories[ref]
+    return ruleCategories[ref] ?? learnedFills[ref]?.categoryId
   }
 
   // MARK: Words for the screen
@@ -617,6 +676,8 @@ final class StatementImportModel {
     var records: [(StatementImportRecord, String?)] = []
     var usesUnsorted = false
     var keysSeen: [UUID: [StatementDedupKey: Int]] = [:]
+    let storedMemory = BankTextLearning.memory(environment)
+    var memory = sessionMemory
 
     func rubles(_ operation: ImportedOperation) -> StatementRubles? {
       StatementRubleResolver.resolve(operation) { currency, day in
@@ -695,15 +756,32 @@ final class StatementImportModel {
           let card = operation.cardTail.flatMap { tail in
             cards.first { $0.last4 == tail }?.id
           }
-          created.append(
-            StatementEntryBuilder.entry(
-              for: operation, accountID: accountID, accountKey: accountKey, importID: importID,
-              zoneID: file.zoneID, rubles: money,
-              choice: StatementEntryChoice(
-                categoryID: categoryID,
-                categorySource: ruleCategories[ref] != nil ? .imported : .manual,
-                quality: quality, placeID: verdictPlace, cardID: card),
-              now: stamp))
+          // Only the person's answer is his choice of this line; a rule's or a learned category
+          // is the app's, and the category model does not learn from it as from his word.
+          let answered =
+            categoryID != ruleCategories[ref] && categoryID != learnedFills[ref]?.categoryId
+          var choice = StatementEntryChoice(
+            categoryID: categoryID,
+            categorySource: answered ? .manual : .imported,
+            quality: quality, placeID: verdictPlace, cardID: card)
+          let learned = learnedFills[ref]
+          if let learned {
+            choice = StatementLearning.choice(
+              over: choice, ruleSetCategory: ruleCategories[ref] != nil || answered,
+              ruleSetPlace: verdictPlace != nil, fill: learned)
+          }
+          let entry = StatementEntryBuilder.entry(
+            for: operation, accountID: accountID, accountKey: accountKey, importID: importID,
+            zoneID: file.zoneID, rubles: money, choice: choice, now: stamp)
+          if learned != nil {
+            made.learned += 1
+            // The owner's later edit of this operation teaches its text anew.
+            memory.filled(
+              operation: entry.id,
+              scope: BankTextLearning.scope(account: accountID, accounts: dataset.paymentMethods),
+              kind: kind, text: StatementLearning.text(of: operation))
+          }
+          created.append(entry)
           written += 1
         }
       }
@@ -766,10 +844,16 @@ final class StatementImportModel {
     var change = PlanningChange(
       created: created, upsert: PlanningRows(transfers: newTransfers), rewritten: rewritten,
       softDeleted: softDeleted, at: stamp)
+    var settings: [String: String?] = [:]
     if usesUnsorted {
       change.upsert.categories = unsorted.made
-      change.settings = unsorted.settings
+      settings.merge(unsorted.settings) { _, new in new }
     }
+    // What the merges taught and the lines it filled go with the operations: one ⌘Z takes both.
+    if memory != storedMemory, let text = memory.encoded() {
+      settings[BankTextMemory.settingsKey] = text
+    }
+    change.settings = settings
     let isEmpty =
       created.isEmpty && rewritten.isEmpty && newTransfers.isEmpty
       && softDeleted.isEmpty
@@ -783,7 +867,7 @@ final class StatementImportModel {
       [
         LogPair("files", .count(records.count)), LogPair("new", .count(made.created)),
         LogPair("merged", .count(made.merged)), LogPair("upgraded", .count(made.upgraded)),
-        LogPair("transfers", .count(made.transfers)),
+        LogPair("transfers", .count(made.transfers)), LogPair("learned", .count(made.learned)),
       ])
     return true
   }
