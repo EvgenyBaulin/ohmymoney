@@ -73,6 +73,8 @@ struct PrivacySettingsView: View {
       #if os(macOS)
         // What the Mac shows outside the app: Spotlight and the notifications.
         MacFeaturesSettingsSection()
+        // What a text of a bank passed on by «Быстрые команды» becomes.
+        AutoEntrySettingsSection()
       #endif
     }
     .formStyle(.grouped)

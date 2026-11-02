@@ -27,14 +27,16 @@ enum QuickBank {
 
   /// The offer for one text of a bank. The line is the one `BankMessage.suggestedLine` makes
   /// with the place as the owner's list names it, and the name of the card the digits found
-  /// when the line reads back to that very card.
+  /// when the line reads back to that very card. A shop the owner once wrote under a name of
+  /// his own is offered under that name (`names`).
   static func offer(
     for message: BankMessage, cards: [PaymentCard], places: [ParserVocabulary.Entry],
-    parser: InputLineParser, today: DateOnly
+    parser: InputLineParser, today: DateOnly, names: AutoEntryNames = AutoEntryNames()
   ) -> BankOffer {
+    let shown = AutoEntryLearning.applying(names, to: message)
     let lookup = index(of: cards).lookup(message)
-    let merchant = message.merchant.flatMap { BankMerchants.resolve($0, places: places) }
-    var line = message.suggestedLine(merchantName: merchant?.name)
+    let merchant = shown.merchant.flatMap { BankMerchants.resolve($0, places: places) }
+    var line = shown.suggestedLine(merchantName: merchant?.name)
     var found: CardDigits?
     if case .card(let digits) = lookup {
       found = digits

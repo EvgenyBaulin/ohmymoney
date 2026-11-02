@@ -43,14 +43,15 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
   /// The line symbol of the section (`tileSymbol`).
   var symbol: String { tileSymbol }
 
-  /// Spotlight and the notifications, in «Приватность» on the Mac only.
+  /// Spotlight, the notifications and the bank messages, in «Приватность» on the Mac only.
   private static var macCaptions: [SettingsCaption] {
     #if os(macOS)
       [
         .macFeatures("mac.settings.title"), .macFeatures("mac.settings.spotlight"),
         .macFeatures("mac.settings.payments"), .macFeatures("mac.settings.limits"),
         .macFeatures("mac.settings.summaries"), .macFeatures("mac.settings.privacy"),
-        .macFeatures("mac.settings.evening"),
+        .macFeatures("mac.settings.evening"), .autoEntry("autoEntry.settings.title"),
+        .autoEntry("autoEntry.settings.mode"),
       ]
     #else
       []
@@ -215,6 +216,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func macFeatures(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "MacFeatures")
+  }
+
+  static func autoEntry(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "AutoEntry")
   }
 
   static func attachments(_ key: String) -> SettingsCaption {

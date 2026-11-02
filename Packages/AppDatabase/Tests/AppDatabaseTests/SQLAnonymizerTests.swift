@@ -592,6 +592,33 @@ struct SQLAnonymizerTests {
     }
   }
 
+  /// The shops' names the owner taught auto entry and the drafts of «Запишу потом» are his own
+  /// words: a copy for someone else has neither.
+  @Test func shopNamesAndDraftsAreDropped() throws {
+    let stack = try TestSupport.makeStack()
+    try Self.seed(stack)
+    try stack.writer.write { db in
+      try db.execute(
+        sql: "INSERT INTO settings (key, value) VALUES (?, ?), (?, ?)",
+        arguments: [
+          AutoEntryNames.settingsKey, #"{"names":{"kofemaniya":"Кофемания"},"order":[]}"#,
+          "entry.pendingDrafts", #"[{"text":"Кофемания 450"}]"#,
+        ])
+    }
+    try SQLAnonymizer().anonymize(copy: ExportCopyDatabase(writer: stack.writer))
+    try stack.writer.read { db in
+      let names = try Self.value(
+        db, "SELECT value FROM settings WHERE key = '\(AutoEntryNames.settingsKey)'")
+      let drafts = try Self.value(
+        db, "SELECT value FROM settings WHERE key = 'entry.pendingDrafts'")
+      let kept = try Self.value(
+        db, "SELECT value FROM settings WHERE key = 'planning.listLength'")
+      #expect(names == nil)
+      #expect(drafts == nil)
+      #expect(kept == "5")
+    }
+  }
+
   /// The list of own-key prefixes is `Anonymizer`'s: each one it keeps, a bank's reference it drops.
   @Test func theOwnKeyPrefixesAreTheDatasetAnonymizersOwn() throws {
     var dataset = Dataset()
