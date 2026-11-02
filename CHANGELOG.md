@@ -7,10 +7,11 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
-## [2.9.0] — 2026-11-02
+## [2.13.0] — 2026-11-02
 
-Mac features, habits and the groundwork of sync with the cashback advisor. This release also
-carries 2.7.0 and 2.8.0, which were not published on their own. The database schema is 21;
+Mac features, habits, the groundwork of sync with the cashback advisor, moving in from other
+apps and bank messages. This release carries 2.7, 2.8, 2.9, 2.11 and 2.13, which were not
+published on their own. The database schema is 21;
 opening the app upgrades the database after a verified copy, and older data reads as before. The
 export has 53 files.
 
@@ -37,6 +38,19 @@ export has 53 files.
   tab of an operation; a delete against an edit is settled by time; a sync key in the keychain with
   a printable 24-word recovery sheet with a QR code. Schema 21: `sync_history`, cashback caps,
   `bank_cashback_categories`, `cashback_offers`.
+
+- 2.11 — move in from another app: File → Move In from Another App… (Settings → Accounts on
+  iPhone and iPad) reads CSV, tab-separated text and Excel (.xlsx) exports of CoinKeeper, Zenmoney,
+  Money Manager or any spreadsheet; columns are guessed and remembered, accounts and categories
+  are paired with yours, a preview shows the count, period and duplicates, a copy of the database
+  is made first and one ⌘Z takes the whole move back. A bank statement loaded later completes the
+  moved operations instead of doubling them; foreign lines take the rate of their day.
+- 2.13 — bank messages become operations: pass an SMS or a push with Shortcuts; by default a
+  notification offers to record it («record at once» is a setting), duplicates are not offered
+  again, the names you give shops are learned, the bank's balance is compared with the account's,
+  and the message itself is never stored. On iPhone the action comes with the paid account.
+- Figures recount quietly: a block keeps its last value until the new one is ready, every write
+  starts a full recount, and a block counted before the last write says «as of HH:MM».
 
 ### Fixed
 
