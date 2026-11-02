@@ -67,6 +67,8 @@ enum AccountRefusal: Error, Hashable, Sendable {
   case otherBank
   /// «Объединить с…» of a bank: the banks are not two live banks.
   case bankMerge(BankMergeIssue)
+  /// The account cannot be someone else's card: its money would have to be the owner's.
+  case borrowed(BorrowedCardIssue)
   case notFound
   /// The money on the key is not what the question showed any more — something was written
   /// meanwhile —: nothing was written, and the amounts are shown again.
@@ -862,6 +864,7 @@ struct AccountActions {
     {
       return .inArchive(archived.id)
     }
+    if let issue = BorrowedCardRules.issue(account) { return .borrowed(issue) }
     let issues = AccountRules.validate(
       account, previous: previous, balances: books.balances, enabled: enabled, others: all,
       groups: groups)
@@ -1087,6 +1090,10 @@ enum AccountText {
     case .otherBank: return t("account.refusal.otherBank")
     case .bankMerge(.archived): return t("bank.merge.refusal.archived")
     case .bankMerge(.notFound), .bankMerge(.sameBank): return t("account.refusal.notFound")
+    case .borrowed(.main):
+      return environment.language("borrowed.editor.mainStays", table: BorrowedCardText.table)
+    case .borrowed:
+      return environment.language("borrowed.refusal.ownMoney", table: BorrowedCardText.table)
     case .notFound: return t("account.refusal.notFound")
     case .interest(let issue): return t(InterestText.issueKey(issue))
     case .credit(let issue): return t(issue.messageKey)

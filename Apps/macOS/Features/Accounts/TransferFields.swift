@@ -382,12 +382,16 @@ struct TransferFields: View {
           accountPicker(from: false)
           currencyPicker(from: false)
           receivedRows
+          if let note = borrowedNote { caption(note) }
         } header: {
           Text(verbatim: t("transfer.sheet.to"))
         }
         Section {
-          amountRow(t("transfer.sheet.fee"), amount: $entry.form.fee, currency: form.fromCurrency)
-          feeCaptions
+          if !fromBorrowed {
+            amountRow(
+              t("transfer.sheet.fee"), amount: $entry.form.fee, currency: form.fromCurrency)
+            feeCaptions
+          }
           datePicker
           noteField
         }
@@ -424,12 +428,15 @@ struct TransferFields: View {
           }
         }
         row(nil) { caption(rateCaption) }
-        row("transfer.sheet.fee") {
-          amountControl(amount: $entry.form.fee, currency: form.fromCurrency)
-            .modifier(TransferFocused(focus: focus, value: .transferFee))
-            .accessibilityIdentifier("transfer.fee")
+        if let note = borrowedNote { row(nil) { caption(note) } }
+        if !fromBorrowed {
+          row("transfer.sheet.fee") {
+            amountControl(amount: $entry.form.fee, currency: form.fromCurrency)
+              .modifier(TransferFocused(focus: focus, value: .transferFee))
+              .accessibilityIdentifier("transfer.fee")
+          }
+          row(nil) { feeCaptions }
         }
-        row(nil) { feeCaptions }
         row("transfer.sheet.date") {
           momentPicker.modifier(TransferFocused(focus: focus, value: .transferDate))
         }
@@ -561,7 +568,13 @@ struct TransferFields: View {
       if selection == nil {
         Text(verbatim: "—").tag(UUID?.none)
       }
-      ForEach(accountItems) { item in
+      // Money of the owner never goes onto someone else's card: such a card is offered only as
+      // the side the money leaves (or while the form already names it, to say why it may not).
+      ForEach(
+        accountItems.filter { item in
+          from || item.id == selection || !(account(item.id)?.isBorrowed ?? false)
+        }
+      ) { item in
         Text(verbatim: item.name).tag(UUID?.some(item.id))
       }
     } label: {
@@ -570,6 +583,19 @@ struct TransferFields: View {
     .modifier(TransferFocused(focus: focus, value: from ? .transferFrom : .transferTo))
     .modifier(HiddenLabel(hidden: layout != .sheet))
     .accessibilityIdentifier(from ? "transfer.from" : "transfer.to")
+  }
+
+  /// The money leaves someone else's card: it is written as income, with no fee.
+  private var fromBorrowed: Bool {
+    form.previous == nil && account(form.fromAccountId)?.isBorrowed == true
+  }
+
+  /// «С чужой карты: запишется доходом в «Помощь семьи»», or why money cannot go onto one.
+  private var borrowedNote: String? {
+    BorrowedCardText.transferNote(
+      from: form.previous == nil ? account(form.fromAccountId) : nil,
+      to: account(form.toAccountId),
+      categories: entry.books?.dataset.categories ?? [], environment)
   }
 
   private func sideKey(_ from: Bool) -> String {

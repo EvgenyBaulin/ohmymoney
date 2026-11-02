@@ -867,6 +867,7 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
         "0019_privacy",
         "0020_habits",
         "0021_history_and_cashback_choice",
+        "0022_borrowed_card",
       ])
     let copies = copiesBeforeAnUpdate()
     XCTAssertEqual(copies.count, 1)

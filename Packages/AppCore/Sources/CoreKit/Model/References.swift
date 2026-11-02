@@ -150,6 +150,9 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
   /// The day of the month the bank opens the choice of the month's cashback categories (1…31,
   /// the last day of a shorter month standing in); `nil`: the bank offers no choice.
   public var cashbackChoiceDay: Int?
+  /// Someone else's card (`BorrowedCardTerms`): whose it is and the category of money moved from
+  /// it; `nil`: the owner's own account.
+  public var borrowed: BorrowedCardTerms?
 
   public init(
     id: UUID = UUID(), name: String, kind: PaymentMethodKind = .card,
@@ -159,8 +162,10 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
     cashbackRounding: CashbackRounding = .standard, cashbackPayout: CashbackPayout? = nil,
     cashbackPointsAccountId: UUID? = nil, interest: DepositTerms? = nil, cushion: Bool = false,
     credit: CreditCardTerms? = nil, mainCardId: UUID? = nil, accent: String? = nil,
-    hidden: Bool = false, cashbackMonthlyCapE4: AmountE4? = nil, cashbackChoiceDay: Int? = nil
+    hidden: Bool = false, cashbackMonthlyCapE4: AmountE4? = nil, cashbackChoiceDay: Int? = nil,
+    borrowed: BorrowedCardTerms? = nil
   ) {
+    self.borrowed = borrowed
     self.cashbackMonthlyCapE4 = cashbackMonthlyCapE4
     self.cashbackChoiceDay = cashbackChoiceDay
     self.id = id

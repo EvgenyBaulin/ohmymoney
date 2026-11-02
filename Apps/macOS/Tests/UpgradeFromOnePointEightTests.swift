@@ -111,13 +111,14 @@ final class UpgradeFromOnePointEightTests: XCTestCase {
         "0019_privacy",
         "0020_habits",
         "0021_history_and_cashback_choice",
+        "0022_borrowed_card",
       ])
 
     let environment = await start()
 
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().last, "0021_history_and_cashback_choice")
+    XCTAssertEqual(try stack.appliedMigrations().last, "0022_borrowed_card")
     XCTAssertEqual(stack.applied.applied, 13)
     let copies = try copiesBeforeAnUpdate()
     XCTAssertEqual(copies.count, 1, "no copy of the database before its update")
@@ -134,6 +135,7 @@ final class UpgradeFromOnePointEightTests: XCTestCase {
         "0019_privacy",
         "0020_habits",
         "0021_history_and_cashback_choice",
+        "0022_borrowed_card",
       ],
       "the copy is not the database as 1.8 left it")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: copy), counts)

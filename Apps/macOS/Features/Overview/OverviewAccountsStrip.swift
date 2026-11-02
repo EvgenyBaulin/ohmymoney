@@ -78,12 +78,14 @@ struct OverviewAccountsStrip: View {
     var accent: AccountAccent? = nil
   }
 
-  /// The live accounts of the summary in the owner's order, one card each.
+  /// The live accounts of the summary in the owner's order, one card each. Someone else's card
+  /// is no money of the summary and has no balance to show.
   @MainActor
   static func lines(_ accounts: AccountsSnapshot?, environment: AppEnvironment) -> [Line] {
     guard let accounts else { return [] }
     let ordered = accounts.ordered(locale: environment.language.locale)
-    return ordered.sections.filter(\.inSummary).flatMap(\.accounts).map { line in
+    let lines = ordered.sections.filter(\.inSummary).flatMap(\.accounts)
+    return lines.filter(\.account.hasBalance).map { line in
       let figure = SidebarFigure.of(
         line, money: environment.money,
         words: { environment.language($0, table: AccountText.table) },

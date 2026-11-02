@@ -74,10 +74,10 @@ struct Migration0021Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == [Self.name])
+        == TestSupport.migrationNames.filter { $0 >= Self.name })
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
-    #expect(stack.applied.applied == 1)
+    #expect(stack.applied.applied == TestSupport.migrationNames.filter { $0 >= Self.name }.count)
     #expect(stack.applied.dataSteps.isEmpty)
     try stack.writer.read { (db: Database) throws in
       let after = try TestSupport.contents(db, columns: before.mapValues(\.columns))
@@ -151,16 +151,17 @@ struct Migration0021Tests {
 
   @Test func theCSVCarriesTheNewColumnsLastAndTheNewTablesAtTheEnd() throws {
     #expect(ExportTables.cashbackRules.columns.last == "monthly_cap")
-    #expect(
-      Array(ExportTables.paymentMethods.columns.suffix(2))
-        == ["cashback_monthly_cap", "cashback_choice_day"])
+    let accountColumns = ExportTables.paymentMethods.columns
+    let capAt = try #require(accountColumns.firstIndex(of: "cashback_monthly_cap"))
+    #expect(accountColumns[capAt + 1] == "cashback_choice_day")
+    #expect(accountColumns.firstIndex(of: "hidden").map { $0 < capAt } == true)
     let names = ExportTables.all.map(\.fileName)
     #expect(names.contains("bank_cashback_categories.csv"))
     #expect(names.last == "cashback_offers.csv")
     let account = PaymentMethod(
       name: "Карта", cashbackMonthlyCapE4: AmountE4(whole: 3_000), cashbackChoiceDay: 5)
-    #expect(Array(ExportTables.row(account).suffix(2)) == ["3000", "5"])
-    #expect(Array(ExportTables.row(PaymentMethod(name: "Без")).suffix(2)) == ["", ""])
+    #expect(Array(ExportTables.row(account)[capAt...(capAt + 1)]) == ["3000", "5"])
+    #expect(Array(ExportTables.row(PaymentMethod(name: "Без"))[capAt...(capAt + 1)]) == ["", ""])
     for table in [ExportTables.bankCashbackCategories, ExportTables.cashbackOffers] {
       #expect(!table.columns.contains { $0.hasSuffix("_e4") })
     }

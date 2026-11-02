@@ -526,6 +526,19 @@ struct AccountScreen: View {
             .appFont(.caption)
             .foregroundStyle(.secondary)
           }
+          if account.isBorrowed {
+            Label {
+              Text(
+                verbatim: BorrowedCardText.badge(
+                  account, people: compute.snapshot?.dataset.people ?? [], environment))
+            } icon: {
+              Image(systemName: "person.crop.rectangle")
+            }
+            .labelStyle(.titleAndIcon)
+            .appFont(.caption)
+            .foregroundStyle(.secondary)
+            .accessibilityIdentifier("account.screen.borrowed")
+          }
           if account.cushion {
             Label {
               Text(verbatim: t("accounts.cushion"))
@@ -574,7 +587,7 @@ struct AccountScreen: View {
       }
     } trailing: {
       actionRow
-      if line != nil { AccountForecastCard(accountId: accountId) }
+      if line != nil, hasBalance { AccountForecastCard(accountId: accountId) }
       if account != nil {
         AccountCashbackBlock(accountId: accountId)
         AccountInterestBlock(accountId: accountId)
@@ -582,7 +595,7 @@ struct AccountScreen: View {
     } stacked: {
       balance
       actionRow
-      if line != nil { AccountForecastCard(accountId: accountId) }
+      if line != nil, hasBalance { AccountForecastCard(accountId: accountId) }
       if account != nil {
         AccountCreditBlock(accountId: accountId)
         AccountCardsBlock(accountId: accountId)
@@ -598,7 +611,10 @@ struct AccountScreen: View {
   /// what is owed — and, for an account in several currencies, each currency under it.
   @ViewBuilder
   private var balance: some View {
-    if let line {
+    if let account, account.isBorrowed {
+      // Someone else's card has no balance: what was spent with it this month instead.
+      BorrowedCardSpentCard(account: account)
+    } else if let line {
       if line.account.credit == nil {
         ScreenHero(
           caption: hero(line).caption, figure: hero(line).figure, lines: hero(line).lines,
@@ -628,10 +644,23 @@ struct AccountScreen: View {
       money: environment.money)
   }
 
+  /// Every account but someone else's card keeps a balance: a forecast, a count.
+  private var hasBalance: Bool { account?.hasBalance ?? true }
+
   private var actionRow: some View {
-    AccountActionRow(actions: [
+    AccountActionRow(actions: actionItems)
+      .disabled(account == nil)
+  }
+
+  /// «Перевод…» — «Перевести себе» on someone else's card —, «Сверить…» for an account with a
+  /// balance, «Изменить…».
+  private var actionItems: [AccountActionRow.Action] {
+    let all: [AccountActionRow.Action] = [
       .init(
-        id: "account.transfer", title: t("accounts.transfer"),
+        id: "account.transfer",
+        title: hasBalance
+          ? t("accounts.transfer")
+          : environment.language("borrowed.screen.transferHome", table: BorrowedCardText.table),
         symbol: "arrow.left.arrow.right",
         run: {
           guard let account else { return }
@@ -649,8 +678,8 @@ struct AccountScreen: View {
       .init(
         id: "account.edit", title: t("accounts.edit"), symbol: "pencil",
         run: { if let account { sheet = .edit(account) } }),
-    ])
-    .disabled(account == nil)
+    ]
+    return hasBalance ? all : all.filter { $0.id != "account.reconcile" }
   }
 
   /// The group of the account, and that its money is kept out of the summary.

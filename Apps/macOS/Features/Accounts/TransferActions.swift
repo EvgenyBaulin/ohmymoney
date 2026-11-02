@@ -647,6 +647,14 @@ struct TransferActions {
       return .failure(.issue(issue))
     }
     guard form.fee.raw >= 0 else { return .failure(.negativeFee) }
+    // Money from someone else's card is income from the person whose card it is, written on the
+    // account it arrived at; no transfer and no fee are written.
+    if form.previous == nil,
+      BorrowedCardRules.isIncome(
+        fromAccountId: transfer.fromAccountId, accounts: dataset.paymentMethods)
+    {
+      return incomeFromBorrowed(transfer, dataset: dataset, now: now)
+    }
 
     var rows = PlanningRows(transfers: [transfer])
     var change = PlanningChange(upsert: rows, at: now)
@@ -715,6 +723,49 @@ struct TransferActions {
       var entry = try draft.materialize(now: now, rublesConverter: convert)
       entry.transaction.externalId = TransferRules.feeKey(of: transfer.id)
       change.created = [entry]
+    } catch {
+      return .failure(.rateMissing(draft.currency))
+    }
+    return .success(change)
+  }
+
+  /// A transfer from someone else's card as the income it is (`BorrowedCardRules.incomeDraft`):
+  /// one operation on the account the money arrived at, in the card's income category — brought
+  /// back from the archive with its parent, or made as «Помощь семьи» the first time —, one step
+  /// of ⌘Z with the category.
+  func incomeFromBorrowed(
+    _ transfer: Transfer, dataset: Dataset, now: Date
+  ) -> Result<PlanningChange, TransferRefusal> {
+    guard let card = dataset.paymentMethods.first(where: { $0.id == transfer.fromAccountId })
+    else { return .failure(.notFound) }
+    let categories = store.categories()
+    let tree = CategoryTree(categories)
+    var rows = PlanningRows()
+    let categoryId: UUID
+    switch BorrowedCardRules.incomeCategory(for: card, categories: categories) {
+    case .existing(let id):
+      categoryId = id
+    case .revive(let id, let parent):
+      rows.categories = [parent, id].compactMap { tree.category($0) }.map { category in
+        var category = category
+        category.archived = false
+        return category
+      }
+      categoryId = id
+    case .create(let nameKey):
+      let roots = categories.filter { $0.parentId == nil && $0.kind == .income }
+      let made = CoreKit.Category(
+        kind: .income, name: environment.language(nameKey, table: BorrowedCardText.table),
+        sort: (roots.map(\.sort).max() ?? 0) + 1)
+      rows.categories = [made]
+      categoryId = made.id
+    }
+    var change = PlanningChange(upsert: rows, at: now)
+    var draft = BorrowedCardRules.incomeDraft(transfer: transfer, categoryId: categoryId)
+    environment.applyRate(to: &draft)
+    let convert = environment.rublesConverter(for: draft)
+    do {
+      change.created = [try draft.materialize(now: now, rublesConverter: convert)]
     } catch {
       return .failure(.rateMissing(draft.currency))
     }
@@ -815,6 +866,9 @@ enum TransferText {
       case .archivedAccount: return t("transfer.refusal.archived")
       case .amountsDiffer: return t("transfer.refusal.amountsDiffer")
       case .notPositive: return t("transfer.refusal.notPositive")
+      case .toBorrowed:
+        return environment.language(
+          "borrowed.transfer.refusal.to", table: BorrowedCardText.table)
       }
     }
   }
