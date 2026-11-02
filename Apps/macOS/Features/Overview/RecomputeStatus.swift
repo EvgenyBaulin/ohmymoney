@@ -5,15 +5,14 @@ import SwiftUI
 /// Overview.
 @MainActor
 enum RecomputeText {
-  /// «Пересчитано в 14:32», with the date when it was not today; «Пересчитывается…» during a
-  /// full run; «Считается, ожидайте» while the first one goes. A light refresh after a new
+  /// «Пересчитано в 14:32», with the date when it was not today, also while a later run goes
+  /// (a recalculation is not shown); «Считается, ожидайте» while the first one goes. A light refresh after a new
   /// operation, «Повторить» after a run and the forecast of a new day do not move the time:
   /// none of them is a recalculation.
   static func subtitle(compute: ComputeStore, environment: AppEnvironment) -> String {
     switch phase(isAttached: compute.isAttached, run: compute.states.run) {
     case .silent: ""
     case .calculating: environment.language("common.calculating")
-    case .recomputing: environment.language("compute.recomputing")
     case .recomputed(let at): recomputed(at, environment: environment)
     }
   }
@@ -22,7 +21,6 @@ enum RecomputeText {
   enum Phase: Equatable {
     case silent
     case calculating
-    case recomputing
     case recomputed(Date)
   }
 
@@ -32,7 +30,9 @@ enum RecomputeText {
     guard isAttached else { return .silent }
     // Only the first run of the launch is «Считается»: once one has ended — even with its
     // data failed — the next is a recalculation.
-    if run.isRunning { return run.hasEnded ? .recomputing : .calculating }
+    // A later run is not shown: the subtitle keeps the end of the last one, and the blocks
+    // keep their numbers until the new ones are there.
+    if run.isRunning, !run.hasEnded { return .calculating }
     if let lastCompletedAt = run.lastCompletedAt { return .recomputed(lastCompletedAt) }
     // No full run has ended with its data — the first one failed on it — and none is going:
     // nothing is being calculated. The lists say what failed and offer «Повторить».

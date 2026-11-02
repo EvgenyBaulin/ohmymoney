@@ -35,13 +35,18 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
   let emptyReason: String?
   /// «Повторить» for a failed block; `nil` shows the message alone.
   let retry: (() -> Void)?
+  /// When the value shown was counted, for a value counted from data older than the last
+  /// write (`ComputeStore.States.asOf`): a grey «цифры от 14:32» beside the title. `nil` — the
+  /// ordinary case — shows nothing.
+  let asOf: Date?
   let content: (Value) -> Content
 
   init(
     title: String?, state: BlockState<Value>, style: Style = .card, fillsHeight: Bool = false,
-    emptyReason: String? = nil, retry: (() -> Void)?,
+    emptyReason: String? = nil, asOf: Date? = nil, retry: (() -> Void)?,
     @ViewBuilder content: @escaping (Value) -> Content
   ) {
+    self.asOf = state.phase == .ready ? asOf : nil
     self.title = title
     self.state = state
     self.style = style
@@ -62,11 +67,22 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
 
   private var stack: some View {
     VStack(alignment: .leading, spacing: 8) {
-      if let title {
-        Text(verbatim: title)
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
-          .accessibilityAddTraits(.isHeader)
+      if title != nil || asOf != nil {
+        HStack(alignment: .firstTextBaseline, spacing: 6) {
+          if let title {
+            Text(verbatim: title)
+              .appFont(.caption)
+              .foregroundStyle(.secondary)
+              .accessibilityAddTraits(.isHeader)
+          }
+          if let asOf {
+            Spacer(minLength: 4)
+            Text(verbatim: ComputedBlockText.asOf(asOf, environment))
+              .appFont(.caption)
+              .foregroundStyle(.secondary)
+              .accessibilityIdentifier("block.asOf")
+          }
+        }
       }
       bodyOfState
         .frame(minHeight: style == .card ? 64 : nil, alignment: .topLeading)
@@ -178,5 +194,16 @@ struct ContentCard: ViewModifier {
 extension View {
   func contentCard(fillsHeight: Bool = false) -> some View {
     modifier(ContentCard(fillsHeight: fillsHeight))
+  }
+}
+
+/// The words of a block whose numbers are older than the data.
+@MainActor
+enum ComputedBlockText {
+  /// «цифры от 14:32», or «цифры от 17 сент., 14:32» when the value was not counted today.
+  static func asOf(_ instant: Date, _ environment: AppEnvironment) -> String {
+    let today = environment.calendar.day(of: instant) == environment.today
+    let moment = today ? environment.dates.time(instant) : environment.dates.moment(instant)
+    return environment.format("common.asOf", table: "Common", moment)
   }
 }

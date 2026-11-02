@@ -214,7 +214,8 @@ private struct ForecastCard: View {
   var body: some View {
     ComputedBlock(
       title: OverviewTileText.name(of: .spendingForecast, environment),
-      state: state, fillsHeight: true, retry: { compute.retry(ComputeStep.forecast) }
+      state: state, fillsHeight: true, asOf: compute.states.asOf(ComputeStep.forecast),
+      retry: { compute.retry(ComputeStep.forecast) }
     ) { model in
       let forecast = model.forecast
       VStack(alignment: .leading, spacing: 4) {
@@ -551,6 +552,7 @@ struct AnomaliesCard: View {
     ComputedBlock(
       title: OverviewTileText.name(of: .worthALook, environment),
       state: compute.states.anomalies, fillsHeight: true,
+      asOf: compute.states.asOf(ComputeStep.anomalies),
       retry: { compute.retry(ComputeStep.anomalies) }
     ) { report in
       let notes = Self.notes(compute.snapshot, settled: settled)

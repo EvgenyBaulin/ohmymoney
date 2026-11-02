@@ -926,7 +926,8 @@ struct MainWindow: View {
       .help(PrivacyCommands.amountsTitle(environment))
       .accessibilityIdentifier("toolbar.hideAmounts")
 
-      if compute.isRunning {
+      // Only the first run of the launch shows that it counts; a later one is not shown.
+      if compute.isRunning, !compute.states.run.hasEnded {
         ProgressView()
           .controlSize(.small)
           .accessibilityLabel(Text(verbatim: environment.language("compute.recomputing")))
