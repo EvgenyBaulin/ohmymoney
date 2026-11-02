@@ -245,6 +245,12 @@ final class SyncCoordinator {
       AppLog.info(
         "sync.done", .db, "the exchange went through",
         outcome.logPairs.map { LogPair($0.0, .count($0.1)) })
+      if outcome.settledAsSame > 0 {
+        AppLog.info(
+          "sync.settledAsSame", .db,
+          "conflicts that differed only in bookkeeping were settled without asking",
+          [LogPair("count", .count(outcome.settledAsSame))])
+      }
       lastOutcome = outcome
       conflicts = (try? exchange.conflicts()) ?? conflicts
       status = .synced(at: Date())

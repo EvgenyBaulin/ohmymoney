@@ -32,8 +32,8 @@ public enum PurchaseNotes {
 
   /// The lines for `today`, `dismissed` holding the `id`s put away with «Готово»:
   /// wishes whose price is within `freeRubE4` (priority first, then the dearer), refunds past
-  /// their expected day, birthdays a week away or nearer, the questions «Не пожалели?» (at most
-  /// `RegretSchedule.maxQuestionsAtOnce`). Wishes already bought or archived, and without a price,
+  /// their expected day, birthdays a week away or nearer, every open question «Не пожалели?»
+  /// (`regret` comes newest first; the card keeps one, `oneRegretQuestion`). Wishes already bought or archived, and without a price,
   /// are left out. `rates` turns a price in another currency into rubles; a currency without a
   /// rate is skipped.
   public static func list(
@@ -75,7 +75,26 @@ public enum PurchaseNotes {
           daysLate: max(0, item.expectedBy.days(to: today))))
     }
     notes += gifts.filter(\.reminderDue).map(PurchaseNote.birthday)
-    notes += regret.prefix(RegretSchedule.maxQuestionsAtOnce).map(PurchaseNote.regret)
+    // Every open question, newest first: the card covers the hidden accounts first and only then
+    // keeps one (`oneRegretQuestion`), so a hidden purchase neither hides nor counts the others.
+    notes += regret.map(PurchaseNote.regret)
     return notes.filter { !dismissed.contains($0.id) }
+  }
+
+  /// One question «Не пожалели?» at a time: the first (newest) one stays, telling how many more
+  /// wait; the others leave the list until it is answered. `question` reads a line's question.
+  public static func oneRegretQuestion<Line>(
+    _ lines: [Line], question: (Line) -> RegretQuestion?,
+    line: (RegretQuestion) -> Line
+  ) -> [Line] {
+    let waiting = lines.filter { question($0) != nil }.count
+    var kept = false
+    return lines.compactMap { item in
+      guard var asked = question(item) else { return item }
+      if kept { return nil }
+      kept = true
+      asked.waitingMore = waiting - 1
+      return line(asked)
+    }
   }
 }

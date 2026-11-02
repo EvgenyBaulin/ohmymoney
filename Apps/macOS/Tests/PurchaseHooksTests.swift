@@ -291,6 +291,62 @@ final class PurchaseHooksTests: XCTestCase {
       expectedBy: book.today, daysWaiting: 5, daysLate: 0)
     XCTAssertFalse(PurchaseHookText.isAlarm(waiting))
     XCTAssertTrue(PurchaseHookText.note(waiting, russian).contains("5 дней"))
+    XCTAssertFalse(PurchaseHookText.note(waiting, russian).contains("«покупка»"))
+    XCTAssertFalse(PurchaseHookText.note(waiting, english).contains("“a purchase”"))
+  }
+
+  func testARegretQuestionWithoutADescriptionIsNamedByThePlaceOrTheCategoryNeverAStub() {
+    let russian = environment(.russian)
+    let english = environment(.english)
+    let day = DateOnly(year: 2026, month: 10, day: 3)
+    var question = RegretQuestion(
+      transactionId: UUID(), boughtOn: day, categoryId: nil, amountRubE4: AmountE4(whole: 1_995),
+      note: nil, placeName: "Кофемания", categoryName: "Кафе")
+    let atPlace = PurchaseHookText.note(.regret(question), russian)
+    XCTAssertTrue(atPlace.contains("Кофемания"), atPlace)
+    XCTAssertTrue(atPlace.contains("3\u{00A0}октября"), atPlace)
+    XCTAssertTrue(atPlace.contains("1,995"), atPlace)
+    XCTAssertFalse(atPlace.contains("«покупка»"), atPlace)
+    XCTAssertFalse(atPlace.contains("3 октября"), "the day and the month never split: \(atPlace)")
+    question.placeName = nil
+    let inCategory = PurchaseHookText.note(.regret(question), russian)
+    XCTAssertTrue(inCategory.contains("Кафе") && inCategory.contains("3\u{00A0}октября"), inCategory)
+    question.categoryName = nil
+    let dated = PurchaseHookText.note(.regret(question), english)
+    XCTAssertTrue(dated.contains("October"), dated)
+    XCTAssertFalse(dated.contains("a purchase”"), dated)
+    question.note = "Наушники"
+    XCTAssertTrue(PurchaseHookText.note(.regret(question), russian).contains("«Наушники»"))
+  }
+
+  func testTheRegretLineSaysHowManyMoreQuestionsWait() {
+    let question = RegretQuestion(
+      transactionId: UUID(), boughtOn: DateOnly(year: 2026, month: 10, day: 30), categoryId: nil,
+      amountRubE4: AmountE4(whole: 5_000), note: "Куртка", waitingMore: 2)
+    XCTAssertTrue(
+      PurchaseHookText.note(.regret(question), environment(.russian)).contains(
+        "ещё 2 покупки ждут ответа"))
+    XCTAssertTrue(
+      PurchaseHookText.note(.regret(question), environment(.english)).contains(
+        "2 more purchases wait"))
+  }
+
+  func testTheOpenKeepsTheDayTheRegretQuestionStartedOnce() throws {
+    let repository = try XCTUnwrap(book.environment.purchaseSettings)
+    let kept = try XCTUnwrap(try repository.settings().regretEnabledOn, "the open keeps the day")
+    XCTAssertEqual(kept, book.environment.today)
+    XCTAssertNil(try repository.stampRegretStart(today: kept.adding(days: 5)), "kept once")
+    XCTAssertEqual(try repository.settings().regretEnabledOn, kept)
+  }
+
+  func testTurningTheRegretQuestionOnRemembersTheDay() {
+    var settings = PurchaseSettings(regretEnabled: false)
+    let day = DateOnly(year: 2026, month: 11, day: 2)
+    PurchasesSettingsView.turnRegret(true, in: &settings, today: day)
+    XCTAssertTrue(settings.regretEnabled)
+    XCTAssertEqual(settings.regretEnabledOn, day)
+    PurchasesSettingsView.turnRegret(true, in: &settings, today: day.adding(days: 3))
+    XCTAssertEqual(settings.regretEnabledOn, day, "already on: the day stays")
   }
 
   func testTheBirthdayLinesNameThePersonTheDayAndTheBudget() {

@@ -457,14 +457,6 @@ public enum GuideCatalog {
         "Что есть минус что должны, по месяцам.", "What you have minus what you owe, by month."),
       keys: "⌘6"),
     GuideHint(
-      target: GuideTarget.toolbarTransactions,
-      text: GuideText(
-        "Таблица операций — на панели вверху", "The table of operations — in the toolbar"),
-      why: GuideText(
-        "Все операции с фильтрами и правкой нескольких сразу.",
-        "Every operation with filters and editing many at once."),
-      keys: "⌘⇧T"),
-    GuideHint(
       target: GuideTarget.toolbarReconcile,
       text: GuideText("Сверка остатка — на панели вверху", "Count the balance — in the toolbar"),
       why: GuideText(

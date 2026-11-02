@@ -43,6 +43,8 @@ public struct SyncOutcome: Sendable, Equatable {
   public var rowsSeeded = 0
   /// A fresh copy of the whole database was put in the folder (set by the caller that does it).
   public var snapshotWritten = false
+  /// Conflicts that differed only in bookkeeping and were settled without asking.
+  public var settledAsSame = 0
 
   public init() {}
 
@@ -52,7 +54,7 @@ public struct SyncOutcome: Sendable, Equatable {
       ("written", entriesWritten), ("files", filesApplied), ("applied", recordsApplied),
       ("conflicts", conflictsOpen), ("deferred", deferred), ("newer", filesFromNewerVersion),
       ("damaged", filesDamaged), ("seeded", rowsSeeded),
-      ("snapshot", snapshotWritten ? 1 : 0),
+      ("snapshot", snapshotWritten ? 1 : 0), ("same", settledAsSame),
     ]
   }
 }
@@ -281,11 +283,14 @@ public final class SyncExchange: Sendable {
       // parts on both) have nothing to choose between: the answer is written without asking.
       // Only the device with the smaller id answers: if both did, each answer would be a new
       // version made apart from the other's, and the two would settle each other for ever.
-      let identical = try conflicts().filter {
-        $0.differingFields.isEmpty && $0.mine.isDeleted == $0.theirs.isDeleted
-          && deviceId < $0.theirs.deviceId
+      // The same goes for two versions that differ only in bookkeeping (the moment of the save,
+      // the order in a list, a new column one build leaves empty and another fills with its
+      // default): there is nothing the owner could choose between.
+      let identical = try allConflicts().filter {
+        $0.isOnlyBookkeeping && deviceId < $0.theirs.deviceId
       }
       if !identical.isEmpty {
+        outcome.settledAsSame = identical.count
         for conflict in identical { try settle(conflict.key, takingTheirs: false) }
         outcome.entriesWritten += try flush(to: watched)
         _ = try run(watched)
@@ -329,8 +334,15 @@ public final class SyncExchange: Sendable {
   // MARK: Conflicts
 
   /// The rows waiting for the owner's choice. A row the owner already chose for and whose
-  /// answer is not in a file yet is not listed.
+  /// answer is not in a file yet is not listed, and neither is one whose two versions differ only
+  /// in bookkeeping: the device with the smaller id settles it without asking, the other waits
+  /// for that answer quietly.
   public func conflicts() throws -> [SyncConflict] {
+    try allConflicts().filter { !$0.isOnlyBookkeeping }
+  }
+
+  /// Every open conflict, the ones that differ only in bookkeeping too.
+  func allConflicts() throws -> [SyncConflict] {
     let state = try store.load()
     let answered = try writer.read { try SyncBook.pendingResolutionKeys($0) }
     return state.openConflicts(ownDeviceId: deviceId)

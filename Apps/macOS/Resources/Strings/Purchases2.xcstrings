@@ -396,6 +396,40 @@
         }
       }
     },
+    "look.purchase.refundLateNoName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refund of %@ is late"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат на %@ просрочен"
+          }
+        }
+      }
+    },
+    "look.purchase.refundNoName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refund of %@ is waiting to be credited"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат на %@ ждёт зачисления"
+          }
+        }
+      }
+    },
     "look.purchase.regret": {
       "extractionState": "manual",
       "localizations": {
@@ -409,6 +443,110 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке «%1$@» (%2$@, %3$@)?"
+          }
+        }
+      }
+    },
+    "look.purchase.regretCategory": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Any regrets about the purchase in “%1$@” on %2$@ (%3$@)?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не пожалели о покупке в категории «%1$@» %2$@ (%3$@)?"
+          }
+        }
+      }
+    },
+    "look.purchase.regretDated": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Any regrets about the purchase on %1$@ (%2$@)?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не пожалели о покупке %1$@ (%2$@)?"
+          }
+        }
+      }
+    },
+    "look.purchase.regretMore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld more purchase waits for an answer"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld more purchases wait for an answer"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ещё %lld покупки ждут ответа"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ещё %lld покупок ждут ответа"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ещё %lld покупка ждёт ответа"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ещё %lld покупки ждут ответа"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "look.purchase.regretPlace": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Any regrets about the purchase at %1$@ on %2$@ (%3$@)?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не пожалели о покупке: %1$@, %2$@ (%3$@)?"
           }
         }
       }

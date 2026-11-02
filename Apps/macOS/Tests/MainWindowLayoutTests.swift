@@ -708,8 +708,8 @@ final class MainWindowLayoutTests: XCTestCase {
 
   // MARK: - The toolbar
 
-  /// «На панели инструментов: Add, Recompute, Reconcile, Analytics, Transactions, Reports,
-  /// Export, Check for Updates». The last two lived in the menus only.
+  /// «На панели инструментов: Add, Recompute, Reconcile, Reports, Export, Check for Updates».
+  /// «Операции» and «Аналитика» are not there: the sidebar and the menu hold them.
   func testTheToolbarOffersEveryAction() throws {
     let window = makeWindow()
     try waitForList(window)
@@ -719,13 +719,17 @@ final class MainWindowLayoutTests: XCTestCase {
     let labels = Set(Self.labels(of: toolbar.items))
     let expected = [
       environment.language("action.add"), environment.language("action.recompute"),
-      environment.language("action.reconcile"), environment.language("window.transactions"),
-      environment.language("window.analytics"), environment.language("window.reports"),
+      environment.language("action.reconcile"), environment.language("window.reports"),
       environment.language("action.export"), UpdateService.title(environment),
       PrivacyCommands.amountsTitle(environment),
     ]
     for title in expected {
       XCTAssertTrue(labels.contains(title), "the toolbar has no «\(title)»: \(labels.sorted())")
+    }
+    for title in [
+      environment.language("window.transactions"), environment.language("window.analytics"),
+    ] {
+      XCTAssertFalse(labels.contains(title), "the sidebar holds «\(title)», not the toolbar")
     }
     XCTAssertEqual(AppDependencies.missingReaders, [])
   }

@@ -78,18 +78,19 @@ struct GuideWalkthroughTests {
   }
 
   /// «Показать, куда нажимать»: the line, its fields, every section of the sidebar and the
-  /// three buttons of the toolbar, each with keys where it has them.
+  /// two buttons of the toolbar, each with keys where it has them. «Операции» is told once, by
+  /// the sidebar: the toolbar no longer has its button.
   @Test func whereToClickNamesEveryPlace() throws {
     let walk = try #require(GuideWalkthrough.whereToClick())
     #expect(
       walk.steps.map(\.target) == [
         GuideTarget.entryLine, GuideTarget.entryDetails, GuideTarget.sidebarOverview,
         GuideTarget.sidebarPlanning, GuideTarget.sidebarDebts, GuideTarget.sidebarOperations,
-        GuideTarget.sidebarCalendar, GuideTarget.sidebarCapital, GuideTarget.toolbarTransactions,
-        GuideTarget.toolbarReconcile, GuideTarget.toolbarSettings,
+        GuideTarget.sidebarCalendar, GuideTarget.sidebarCapital, GuideTarget.toolbarReconcile,
+        GuideTarget.toolbarSettings,
       ])
     #expect(
-      walk.steps.map(\.keys) == ["⌘N", "Tab", "⌘1", "⌘2", "⌘3", "⌘4", "⌘5", "⌘6", "⌘⇧T", nil, "⌘,"])
+      walk.steps.map(\.keys) == ["⌘N", "Tab", "⌘1", "⌘2", "⌘3", "⌘4", "⌘5", "⌘6", nil, "⌘,"])
     for step in walk.steps {
       #expect(step.text.isComplete && step.why?.isComplete == true, "\(step.target)")
     }

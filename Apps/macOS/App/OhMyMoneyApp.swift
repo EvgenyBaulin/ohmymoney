@@ -967,26 +967,8 @@ struct MainWindow: View {
       .help(TravelText.t("travel.start.help", environment))
       .accessibilityIdentifier("toolbar.trip")
 
-      Button {
-        selection = .section(.operations)
-      } label: {
-        Label {
-          Text(verbatim: environment.language("window.transactions"))
-        } icon: {
-          Image(systemName: "list.bullet")
-        }
-      }
-
-      Button {
-        AppWindows.open("analytics", with: openWindow)
-      } label: {
-        Label {
-          Text(verbatim: environment.language("window.analytics"))
-        } icon: {
-          Image(systemName: "chart.xyaxis.line")
-        }
-      }
-
+      // «Операции» and «Аналитика» live in the sidebar and the menu (⌘⇧T, ⌘⇧A); the toolbar
+      // keeps only what has no place there yet.
       Button {
         AppWindows.open("reports", with: openWindow)
       } label: {
