@@ -659,6 +659,7 @@ struct MainWindow: View {
     }
     // Statements: from the File menu, or files dropped on the window.
     .statementImportSheet(deps)
+    .migrationSheet(deps)
     .receiptSheet(deps)
     .privacySheets(deps)
     .sheet(isPresented: environment.lock.presenting($showsConflicts)) {

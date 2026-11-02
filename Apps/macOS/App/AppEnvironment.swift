@@ -141,6 +141,10 @@ public final class AppEnvironment {
   /// it (with the picture, when there is one) and the request is cleared.
   var receiptRequest: ReceiptRequest?
 
+  /// «Файл» → «Перенести из другого приложения…»: the move of a history from another tracker or a
+  /// spreadsheet opens over the main window and the request is cleared.
+  var migrationRequest: MigrationRequest?
+
   /// The reconciliation sheet of the main window is open: the toolbar, the Overview card and
   /// a reminder ask for it from wherever they are.
   public var showsReconciliation = false

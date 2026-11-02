@@ -14,6 +14,7 @@ struct StatementImportSettingsRows: View {
   @State private var imports: [StoredImport] = []
   @State private var identity = StatementIdentity()
   @State private var loading = false
+  @State private var migrating = false
   @State private var editsIdentity = false
   @State private var undoing: StoredImport?
   @State private var failed = false
@@ -28,6 +29,15 @@ struct StatementImportSettingsRows: View {
         Label(t("import.settings.load"), systemImage: "tray.and.arrow.down")
       }
       .accessibilityIdentifier("import.settings.load")
+      // A history from another tracker or a spreadsheet, moved in once.
+      Button {
+        migrating = true
+      } label: {
+        Label(
+          environment.language("migration.settings.open", table: MigrationText.table),
+          systemImage: "arrow.right.doc.on.clipboard")
+      }
+      .accessibilityIdentifier("migration.settings.open")
       Button {
         editsIdentity = true
       } label: {
@@ -50,6 +60,9 @@ struct StatementImportSettingsRows: View {
     .task(id: compute.generation) { reload() }
     .sheet(isPresented: $loading, onDismiss: reload) {
       StatementImportFlow(urls: []).handingOver(dependencies)
+    }
+    .sheet(isPresented: $migrating, onDismiss: reload) {
+      MigrationFlow().handingOver(dependencies)
     }
     .sheet(isPresented: $editsIdentity) {
       StatementIdentitySheet(identity: identity) { new in

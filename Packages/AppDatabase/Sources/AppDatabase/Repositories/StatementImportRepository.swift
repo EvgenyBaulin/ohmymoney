@@ -210,7 +210,9 @@ public struct StatementImportRepository: Sendable {
   }
 
   /// The operations the owner typed by hand on an account in a span of days, for the matching
-  /// with the bank's lines (`StatementManualMatcher`).
+  /// with the bank's lines (`StatementManualMatcher`). History moved in from another app
+  /// (`source = 'migration'`) was typed by hand there and is matched the same way, until a bank
+  /// line has completed it.
   public func manualEntries(
     account: UUID, from: DateOnly, to: DateOnly
   ) throws -> [StatementManualEntry] {
@@ -219,8 +221,10 @@ public struct StatementImportRepository: Sendable {
         db,
         sql: """
           SELECT id, kind, occurred_at, time_zone, amount_e4, currency FROM transactions
-          WHERE payment_method_id = ? AND dedup_key IS NULL AND deleted_at IS NULL
-            AND (source IS NULL OR source = 'manual') AND kind IN ('expense', 'income')
+          WHERE payment_method_id = ? AND deleted_at IS NULL
+            AND ((dedup_key IS NULL AND (source IS NULL OR source = 'manual'))
+              OR source = 'migration')
+            AND kind IN ('expense', 'income')
           ORDER BY occurred_at, id
           """,
         arguments: [account.uuidString]

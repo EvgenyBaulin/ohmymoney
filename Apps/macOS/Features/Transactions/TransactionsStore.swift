@@ -178,6 +178,9 @@ public final class TransactionsStore {
     /// A write of the year plan, the subscription extras, the saved views or the loading of a
     /// statement.
     case later(LaterUndo)
+    /// A move from another application: its operations and new categories (a change of
+    /// planning) and the import rows they point at, taken back together.
+    case migrated(PlanningUndo, imports: [String])
 
     /// How many operations undoing it writes.
     var size: Int {
@@ -185,7 +188,7 @@ public final class TransactionsStore {
       case .created, .edited: 1
       case .editedMany(let before, _), .editedManySettling(let before, _, _): before.count
       case .deletedMany(let ids, let effects): ids.count + effects.companionIds.count
-      case .planned(let undo):
+      case .planned(let undo), .migrated(let undo, _):
         max(
           1,
           undo.createdTransactionIds.count + undo.rewrittenBefore.count
@@ -387,6 +390,29 @@ public final class TransactionsStore {
       finishWrite(Self.applied(change, undo: undo))
       return true
     } catch {
+      failed(.planning, error, file: file)
+      return false
+    }
+  }
+
+  /// A move from another application in one step of ⌘Z: the import rows first — the operations
+  /// point at them —, then the operations and the new categories as one change of planning. If
+  /// the change is refused the rows are taken away again, so a failure leaves nothing behind.
+  @discardableResult
+  public func applyMigration(
+    _ change: PlanningChange, imports records: [StatementImportRecord], file: String = #fileID
+  ) -> Bool {
+    guard !refuses("applyMigration", file) else { return false }
+    guard let planning, let imports, !isWritingInBackground else { return false }
+    func takeBack() { for record in records { try? imports.deleteImport(id: record.id) } }
+    do {
+      for record in records { try imports.record(record) }
+      let undo = try planning.apply(change)
+      push(.migrated(undo, imports: records.map(\.id)))
+      finishWrite(Self.applied(change, undo: undo))
+      return true
+    } catch {
+      takeBack()
       failed(.planning, error, file: file)
       return false
     }
@@ -1201,12 +1227,13 @@ public final class TransactionsStore {
     guard let repository, !isWritingInBackground, let step = undoStack.last else { return }
     if Self.writesInBackground(step.size) {
       undoStack.removeLast()
-      let (planning, spending) = (planning, spending)
+      let (planning, spending, imports) = (planning, spending, imports)
       runInBackground(.undo, file: file, undone: step) {
         Landed(
           step: nil,
           write: try await Self.undoInBackground(
-            step, repository: repository, planning: planning, spending: spending))
+            step, repository: repository, planning: planning, spending: spending,
+            imports: imports))
       }
       return
     }
@@ -1275,6 +1302,14 @@ public final class TransactionsStore {
         write = try undo.revert(
           year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports,
           attachments: attachments)
+      case .migrated(let undo, let ids):
+        guard let planning else { return }
+        let counts = try planning.revert(undo)
+        for id in ids { try imports?.deleteImport(id: id) }
+        let back = Self.broughtBack(by: undo)
+        var readBack: [TransactionEntry] = []
+        if !back.isEmpty { readBack = try repository.entries(ids: back) }
+        write = Self.reverted(undo, readBack: readBack, counts: counts)
       }
       // Nothing else runs on the main actor meanwhile: the step is still the last one.
       undoStack.removeLast()
@@ -1288,7 +1323,7 @@ public final class TransactionsStore {
   /// the steps of many operations ever get here; the others go the way `undo` takes them.
   private nonisolated static func undoInBackground(
     _ step: UndoStep, repository: TransactionRepository, planning: PlanningRepository?,
-    spending: SpendingRulesRepository?
+    spending: SpendingRulesRepository?, imports: StatementImportRepository? = nil
   ) async throws -> StoreWrite {
     switch step {
     case .created(let id, let counts):
@@ -1343,6 +1378,15 @@ public final class TransactionsStore {
     case .later:
       // Its steps are single small writes (`LaterUndo.size`), so they never take this path.
       throw PlanningUndoUnavailable()
+    case .migrated(let undo, let ids):
+      // Years of history moved in at once: taken back off the main thread, rows last.
+      guard let planning else { throw PlanningUndoUnavailable() }
+      let counts = try await planning.revertInBackground(undo)
+      for id in ids { try imports?.deleteImport(id: id) }
+      let back = broughtBack(by: undo)
+      var readBack: [TransactionEntry] = []
+      if !back.isEmpty { readBack = try await repository.entriesInBackground(ids: back) }
+      return reverted(undo, readBack: readBack, counts: counts)
     }
   }
 
