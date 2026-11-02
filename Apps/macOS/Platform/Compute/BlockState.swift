@@ -84,6 +84,9 @@ enum ComputeStep {
 
   /// In their fixed order, from the rates to the reminders.
   static let all: [StepID] = [rates, data, owed, model, forecast, anomalies, advice, reminders]
+  /// The steps whose values are counted from the run's read of the data, apart from the data
+  /// itself: their blocks can be out of date after a write (`States.asOf`).
+  static let countsFromData: Set<StepID> = [model, forecast, anomalies, advice, reminders]
 
   /// What each step waits for. The pipeline gets the same graph (`ComputeSources.steps`).
   /// The advice needs the remainder of the month the forecast counts («можно отложить»).

@@ -15,7 +15,8 @@ struct CanSaveCard: View {
   var body: some View {
     ComputedBlock(
       title: OverviewTileText.name(of: .canSave, environment), state: state, fillsHeight: true,
-      emptyReason: t("advice.reason.noIncome"), retry: { compute.retry(ComputeStep.forecast) }
+      emptyReason: t("advice.reason.noIncome"), asOf: compute.states.asOf(ComputeStep.forecast),
+      retry: { compute.retry(ComputeStep.forecast) }
     ) { canSave in
       VStack(alignment: .leading, spacing: 4) {
         Text(verbatim: "≈ \(environment.money.rounded(canSave.p50 ?? .zero))")

@@ -118,6 +118,7 @@ struct BalanceForecastCard: View {
     ComputedBlock(
       title: OverviewTileText.name(of: .balanceForecast, environment),
       state: state, fillsHeight: true, emptyReason: t("overview.balanceForecast.none"),
+      asOf: compute.states.asOf(ComputeStep.forecast),
       retry: { compute.retry(ComputeStep.forecast) }
     ) { model in
       VStack(alignment: .leading, spacing: 4) {

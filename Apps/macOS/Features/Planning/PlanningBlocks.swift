@@ -277,7 +277,8 @@ struct AdviceBlock: View {
       .foregroundStyle(.secondary)
       ComputedBlock(
         title: hosted ? nil : t("advice.title"), state: compute.states.advice,
-        style: hosted ? .plain : .card, retry: { compute.retry(ComputeStep.advice) }
+        style: hosted ? .plain : .card, asOf: compute.states.asOf(ComputeStep.advice),
+        retry: { compute.retry(ComputeStep.advice) }
       ) { report in
         VStack(alignment: .leading, spacing: 12) {
           ForEach(report.items) { advice in

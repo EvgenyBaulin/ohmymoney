@@ -146,14 +146,11 @@ final class ComputeStoreTests: XCTestCase {
     XCTAssertEqual(states.run.lastCompletedAt, at)
   }
 
-  /// ⌘R after a finished run puts every block back to «Считается», the model and the
-  /// anomalies too: the card «Стоит посмотреть» must not keep the last run's report as ready
-  /// while the data it came from is being read again.
-  func testASecondRunPutsEveryBlockBackToCalculating() throws {
+  /// ⌘R after a finished run shows nothing being counted: every block keeps its value, ready,
+  /// and the new one replaces it quietly when its step ends (the owner, 02.11: «показывать
+  /// старое, загрузилось — показать новое»).
+  func testASecondRunKeepsEveryBlockReadyWithItsValue() throws {
     let finished = finishedRun(read([try entry("coffee")], load: 0))
-    XCTAssertEqual(finished.anomalies.phase, .ready)
-    XCTAssertEqual(finished.model.phase, .ready)
-
     let states = Store.starting(finished)
     let phases: [StepID: BlockPhase] = [
       ComputeStep.rates: states.rates.phase, ComputeStep.data: states.data.phase,
@@ -163,9 +160,71 @@ final class ComputeStoreTests: XCTestCase {
     ]
     XCTAssertEqual(Set(phases.keys), Set(ComputeStep.all), "a block of every step")
     XCTAssertEqual(
-      phases.filter { $0.value != .calculating }.keys.map(\.rawValue).sorted(), [String](),
-      "blocks still showing the last run")
-    XCTAssertEqual(notes(states.snapshot), ["coffee"], "the lists keep their data")
+      phases.filter { $0.value != .ready }.keys.map(\.rawValue).sorted(), [String](),
+      "blocks that went to «Считается» although they had a value")
+    XCTAssertEqual(notes(states.data.value), ["coffee"], "the old value stays on screen")
+    XCTAssertEqual(states.forecast.value, finished.forecast.value)
+    XCTAssertTrue(states.run.isRunning, "the run itself goes on")
+
+    // The new values replace the old ones when their steps end.
+    let data = read([try entry("coffee"), try entry("tea", 120)], load: 1)
+    let later = play(states, run: 2, [(ComputeStep.data, .succeeded(data))])
+    XCTAssertEqual(later.data.phase, .ready)
+    XCTAssertEqual(notes(later.data.value), ["coffee", "tea"])
+  }
+
+  /// A block that had nothing to show yet still says «Считается» while a later run goes.
+  func testASecondRunCountsVisiblyOnlyWhatHadNoValue() throws {
+    let finished = finishedRun(
+      read([try entry("coffee")], load: 0),
+      forecast: .failed(StepFailure(type: "X", message: "y")))
+    let states = Store.starting(finished)
+    XCTAssertEqual(states.forecast.phase, .calculating)
+    XCTAssertEqual(states.data.phase, .ready)
+  }
+
+  /// A step that fails while its block shows an older value leaves that value, without
+  /// «Повторить»; so do the steps skipped after it. A failed reload of the data is still
+  /// said in the status line.
+  func testAStepThatFailsInALaterRunKeepsTheLastValue() throws {
+    let finished = finishedRun(read([try entry("coffee")], load: 0))
+    let states = play(
+      Store.starting(finished), run: 2,
+      [
+        (ComputeStep.data, .failed(StepFailure(type: "IOError", message: "disk"))),
+        (ComputeStep.owed, .skipped(dependencyFailed: ComputeStep.data)),
+        (ComputeStep.forecast, .skipped(dependencyFailed: ComputeStep.data)),
+        (ComputeStep.advice, .skipped(dependencyFailed: ComputeStep.data)),
+        (ComputeStep.reminders, .skipped(dependencyFailed: ComputeStep.data)),
+        (ComputeStep.model, .skipped(dependencyFailed: ComputeStep.data)),
+        (ComputeStep.anomalies, .skipped(dependencyFailed: ComputeStep.data)),
+        (ComputeStep.rates, .failed(StepFailure(type: "URLError", message: "offline"))),
+      ])
+    for phase in [
+      states.rates.phase, states.data.phase, states.owed.phase, states.forecast.phase,
+      states.model.phase, states.anomalies.phase, states.advice.phase, states.reminders.phase,
+    ] {
+      XCTAssertEqual(phase, .ready)
+    }
+    XCTAssertEqual(notes(states.data.value), ["coffee"])
+    XCTAssertTrue(states.skippedBecause.isEmpty, "nothing offers «Повторить»")
+    XCTAssertTrue(states.reloadFailed, "the status line says the data was not read again")
+    XCTAssertFalse(states.run.isRunning)
+  }
+
+  /// ⌘R during a later run replaces it: the run it replaced reports its cancellations into
+  /// the void, and the new run starts with the same values on screen.
+  func testAReplacedLaterRunLeavesTheBlocksReady() throws {
+    let finished = finishedRun(read([try entry("coffee")], load: 0))
+    var states = Store.starting(finished)
+    states = play(states, run: 2, [(ComputeStep.forecast, .running)])
+    states = Store.starting(states)
+    states = Store.reduce(
+      states, event(2, ComputeStep.forecast, .cancelled), currentRun: RunID(3))
+    states = play(states, run: 3, [(ComputeStep.model, .cancelled)])
+    XCTAssertEqual(states.forecast.phase, .ready)
+    XCTAssertEqual(states.model.phase, .ready)
+    XCTAssertEqual(states.data.phase, .ready)
   }
 
   /// A failed step shows its message; the steps that wait for it say why they did not run,
@@ -305,19 +364,19 @@ final class ComputeStoreTests: XCTestCase {
     typealias Run = Store.RunState
     XCTAssertEqual(Words.phase(isAttached: false, run: Run(isRunning: true)), .silent)
     XCTAssertEqual(Words.phase(isAttached: true, run: Run(isRunning: true)), .calculating)
+    // A later run is not shown at all: the subtitle keeps the time of the last one.
     XCTAssertEqual(
       Words.phase(
         isAttached: true, run: Run(isRunning: true, lastCompletedAt: at, hasEnded: true)),
-      .recomputing)
+      .recomputed(at))
     XCTAssertEqual(
       Words.phase(isAttached: true, run: Run(lastCompletedAt: at, hasEnded: true)),
       .recomputed(at))
     XCTAssertEqual(Words.phase(isAttached: true, run: Run(hasEnded: true)), .silent)
   }
 
-  /// «Считается, ожидайте» belongs to the first run of the launch; any run after one has
-  /// ended says «Пересчитывается…» — ⌘R after a first run whose data failed too, although no
-  /// run has brought its data yet.
+  /// «Считается, ожидайте» belongs to the first run of the launch; a run after one has ended is
+  /// not shown in the subtitle at all — ⌘R after a first run whose data failed too.
   func testARunAfterAFailedFirstOneIsARecalculation() {
     typealias Words = RecomputeText
     let first = Store.starting(Store.States())
@@ -330,7 +389,9 @@ final class ComputeStoreTests: XCTestCase {
     XCTAssertNil(failed.run.lastCompletedAt)
     XCTAssertEqual(Words.phase(isAttached: true, run: failed.run), .silent)
     let second = Store.starting(failed)
-    XCTAssertEqual(Words.phase(isAttached: true, run: second.run), .recomputing)
+    XCTAssertEqual(
+      Words.phase(isAttached: true, run: second.run), .silent,
+      "a later run says nothing; the blocks that had no value say «Считается» themselves")
   }
 
   /// The «·» of the status line stands between two parts: rates that say nothing — not
@@ -446,7 +507,7 @@ final class ComputeStoreTests: XCTestCase {
     XCTAssertEqual(states.data.phase, .ready)
 
     states = Store.starting(states)
-    XCTAssertEqual(states.data.phase, .calculating)
+    XCTAssertEqual(states.data.phase, .ready, "a block with a value never shows «Считается»")
     XCTAssertEqual(notes(states.snapshot), ["coffee"], "the lists keep their data during a run")
 
     // The write of the tea is the second; the reload after it has seen it.
@@ -705,6 +766,105 @@ final class ComputeStoreTests: XCTestCase {
     XCTAssertTrue(ended.first?.contains(" run=2 ms=0ms dataRead=yes") == true, "\(ended)")
   }
 
+  // MARK: Numbers older than the data
+
+  /// A block counted from a read made before a write says «цифры от …» until the run after the
+  /// write has counted it again; the data itself is never older (it is laid over at once).
+  func testABlockCountedBeforeAWriteSaysWhenUntilItIsCountedAgain() throws {
+    let coffee = try entry("coffee")
+    var states = finishedRun(read([coffee], load: 0))
+    XCTAssertNil(states.asOf(ComputeStep.forecast), "nothing to say in the ordinary case")
+
+    states = Store.overlaying(states, Overlay(mark: 1, StoreWrite(upserted: [try entry("tea")])))
+    XCTAssertEqual(states.asOf(ComputeStep.forecast), at)
+    XCTAssertEqual(states.asOf(ComputeStep.anomalies), at)
+    XCTAssertNil(states.asOf(ComputeStep.data))
+
+    let later = at.addingTimeInterval(60)
+    states = Store.starting(states)
+    XCTAssertEqual(states.asOf(ComputeStep.forecast), at, "still old while the run goes")
+    let fresh = read([coffee, try entry("tea")], load: 1)
+    states = Store.reduce(
+      states, event(2, ComputeStep.data, .succeeded(fresh), at: later), currentRun: RunID(2))
+    states = Store.reduce(
+      states, event(2, ComputeStep.forecast, .succeeded(remainder()), at: later),
+      currentRun: RunID(2))
+    XCTAssertNil(states.asOf(ComputeStep.forecast), "counted from the data after the write")
+    XCTAssertEqual(states.asOf(ComputeStep.anomalies), at, "not counted again yet")
+  }
+
+  /// A recount after a write that fails leaves the old numbers, and they keep saying how old.
+  func testAFailedRecountAfterAWriteKeepsSayingHowOld() throws {
+    var states = finishedRun(read([try entry("coffee")], load: 0))
+    states = Store.overlaying(states, Overlay(mark: 1, StoreWrite(upserted: [try entry("tea")])))
+    states = play(
+      Store.starting(states), run: 2,
+      [(ComputeStep.forecast, .failed(StepFailure(type: "X", message: "y")))])
+    XCTAssertEqual(states.forecast.phase, .ready)
+    XCTAssertEqual(states.asOf(ComputeStep.forecast), at)
+  }
+
+  // MARK: A full run after every write
+
+  private func attachedStore() -> ComputeStore {
+    let empty = read([], load: 0)
+    let compute = ComputeStore(calendar: .utc, clock: FixedClock(at), rebuildsInline: true)
+    compute.attach(
+      ComputeSources(loadData: { _, _, _ in empty }, refineRates: { RefinementResult() }),
+      changes: nil)
+    compute.runAfterWritePause = .milliseconds(200)
+    return compute
+  }
+
+  private func waitForRuns(_ compute: ComputeStore, _ count: Int) async throws {
+    let deadline = Date().addingTimeInterval(5)
+    repeat {
+      try await Task.sleep(for: .milliseconds(20))
+    } while (compute.runsStarted < count || compute.isRunning) && Date() < deadline
+  }
+
+  /// A write starts one full run after the pause; five writes in a row start one, not five.
+  func testWritesInARowStartOneFullRun() async throws {
+    let compute = attachedStore()
+    compute.overlay(StoreWrite(upserted: [try entry("coffee")]))
+    try await waitForRuns(compute, 1)
+    try await Task.sleep(for: .milliseconds(400))
+    XCTAssertEqual(compute.runsStarted, 1, "a write starts a full run")
+
+    for index in 0..<5 {
+      compute.overlay(StoreWrite(upserted: [try entry("tea \(index)")]))
+      try await Task.sleep(for: .milliseconds(20))
+    }
+    try await waitForRuns(compute, 2)
+    try await Task.sleep(for: .milliseconds(400))
+    XCTAssertEqual(compute.runsStarted, 2, "five writes in a row are one run")
+    XCTAssertFalse(compute.isRunning)
+    await compute.stop()
+  }
+
+  /// ⌘Z is a write like any other: its run follows. The run's own end writes nothing that
+  /// starts another: no chain of runs.
+  func testAnUndoStartsARunAndRunsDoNotChain() async throws {
+    let compute = attachedStore()
+    let coffee = try entry("coffee")
+    compute.overlay(StoreWrite(removed: [coffee.id]))
+    try await waitForRuns(compute, 1)
+    try await Task.sleep(for: .milliseconds(600))
+    XCTAssertEqual(compute.runsStarted, 1)
+    XCTAssertFalse(compute.isRunning)
+    await compute.stop()
+  }
+
+  /// No pipeline, no run: a store that was never attached (the test host) only lays the
+  /// write over its data.
+  func testAWriteOnAStoreWithoutAPipelineStartsNothing() async throws {
+    let compute = ComputeStore(calendar: .utc, clock: FixedClock(at), rebuildsInline: true)
+    compute.runAfterWritePause = .milliseconds(10)
+    compute.overlay(StoreWrite(upserted: [try entry("coffee")]))
+    try await Task.sleep(for: .milliseconds(100))
+    XCTAssertEqual(compute.runsStarted, 0)
+  }
+
   /// The data step of the app, on a database and a rate service that ask nothing outside.
   private struct NoFeed: RatesFetching {
     func dailyRates(on day: DateOnly) async throws -> RateSnapshot { throw CancellationError() }
@@ -841,8 +1001,9 @@ final class ComputeStoreTests: XCTestCase {
     compute.run()
     try await finish()
     await compute.stop()
-    XCTAssertEqual(compute.states.data.phase, .failed)
-    XCTAssertTrue(compute.states.reloadFailed, "the data of run 1 stays on screen")
+    XCTAssertEqual(
+      compute.states.data.phase, .ready, "the data of run 1 stays on screen, without «Повторить»")
+    XCTAssertTrue(compute.states.reloadFailed, "the status line says the data is old")
     XCTAssertNil(compute.lastRunDurations["data"], "the data step failed in the last run")
     XCTAssertNil(compute.lastRunDurations["forecast"], "skipped in the last run")
     XCTAssertNotNil(compute.lastRunDurations["rates"], "the rates of the last run")

@@ -72,6 +72,34 @@ final class ComputeStore {
     var lastModel: (CategoryModelService.Result, Date)?
     var lastAnomalies: (AnomalyReport, Date)?
     var lastReminders: ([Reminder], Date)?
+
+    /// The mark of the last write of the app (`Overlay.mark`): a value counted from a read made
+    /// before it is out of date.
+    var lastWriteMark = -1
+    /// The mark the data step of the current run read at.
+    var runReadMark: Int?
+    /// The mark of the read each block of the run was counted from.
+    var countedFrom: [StepID: Int] = [:]
+
+    /// When the value a block shows was counted, if it was counted from data older than the
+    /// last write — the recount after that write has not ended, or failed: the block says
+    /// «цифры от 14:32». `nil` in the ordinary case.
+    func asOf(_ step: StepID) -> Date? {
+      guard let counted = countedFrom[step], counted < lastWriteMark else { return nil }
+      return readyAt(step)
+    }
+
+    func readyAt(_ step: StepID) -> Date? {
+      switch step {
+      case ComputeStep.rates: rates.readyAt
+      case ComputeStep.forecast: forecast.readyAt
+      case ComputeStep.model: model.readyAt
+      case ComputeStep.anomalies: anomalies.readyAt
+      case ComputeStep.advice: advice.readyAt
+      case ComputeStep.reminders: reminders.readyAt
+      default: nil
+      }
+    }
   }
 
   /// The bookkeeping of the full run in progress.
@@ -144,6 +172,13 @@ final class ComputeStore {
   @ObservationIgnored private var debounceTask: Task<Void, Never>?
   @ObservationIgnored private var lightTask: Task<Void, Never>?
   @ObservationIgnored private var rebuildTask: Task<Void, Never>?
+  /// The full run that follows the writes of the app, waiting for the pause after the last one.
+  @ObservationIgnored private var runAfterWriteTask: Task<Void, Never>?
+  /// The pause between the last write and the full run it starts: a bulk action or a series of
+  /// writes is one run. A test shortens it.
+  @ObservationIgnored var runAfterWritePause: Duration = .milliseconds(500)
+  /// How many full runs started, for the tests.
+  @ObservationIgnored private(set) var runsStarted = 0
   @ObservationIgnored private var observers: [NSObjectProtocol] = []
 
   /// The pause between a change of the database and the reload it causes, as in
@@ -207,12 +242,10 @@ final class ComputeStore {
   /// and `retry` do nothing afterwards.
   func stop() async {
     isStopped = true
-    for task in [eventsTask, changesTask, debounceTask, lightTask, rebuildTask] {
-      task?.cancel()
-    }
-    for task in [eventsTask, changesTask, debounceTask, lightTask, rebuildTask] {
-      await task?.value
-    }
+    let tasks = [eventsTask, changesTask, debounceTask, lightTask, rebuildTask, runAfterWriteTask]
+    for task in tasks { task?.cancel() }
+    for task in tasks { await task?.value }
+    runAfterWriteTask = nil
     eventsTask = nil
     changesTask = nil
     debounceTask = nil
@@ -246,6 +279,7 @@ final class ComputeStore {
     }
     AppLog.info("pipeline.run.started", .compute, "a full run started", pairs)
     runStartedAt = clock.now
+    runsStarted += 1
     currentRun = id
     knownToday = today
     states = Self.starting(states)
@@ -284,6 +318,24 @@ final class ComputeStore {
     // Rows of planning are not laid over the snapshot: they are read again at once, so the
     // list of payments moves on in the same moment as the operation «Mark as paid» wrote.
     if write.planningChanged { refreshLight() }
+    scheduleRunAfterWrite()
+  }
+
+  /// Every write of the app — an operation, a transfer, an edit, a deletion, a reconciliation, a
+  /// payment, an import, ⌘Z — is followed by a full run of every step, quietly: the blocks keep
+  /// their numbers until the new ones are there. Writes in a row are one run, after the pause
+  /// that follows the last; a run started meanwhile is replaced. Only writes of the app start it,
+  /// never a change of the database alone: what the run itself writes (refined rates) and what is
+  /// written after it (the badges) cannot start a chain of runs.
+  private func scheduleRunAfterWrite() {
+    guard !isStopped, pipeline != nil else { return }
+    runAfterWriteTask?.cancel()
+    let pause = runAfterWritePause
+    runAfterWriteTask = Task { [weak self] in
+      try? await Task.sleep(for: pause)
+      guard !Task.isCancelled else { return }
+      self?.run()
+    }
   }
 
   /// Reads the data again and rebuilds what the lists and the data cards show, without
@@ -538,13 +590,15 @@ final class ComputeStore {
 // MARK: - Transitions
 
 extension ComputeStore {
-  /// A full run starts: the blocks of the steps go to «Считается»; the lists keep their data.
-  /// Every step of the run, taken from `ComputeStep.all`, so a step added later cannot keep
-  /// the last run's value on screen while the run goes.
+  /// A full run starts without showing it: a block that shows a value keeps it, ready, and the
+  /// new value replaces it quietly when its step ends; only a block with nothing to show yet
+  /// (the first run, a new set of data, a block that failed) goes to «Считается». The lists
+  /// keep their data. Every step of the run, taken from `ComputeStep.all`.
   nonisolated static func starting(_ states: States) -> States {
     var next = states
-    for step in ComputeStep.all { next.setCalculating(step) }
+    for step in ComputeStep.all where !next.isReady(step) { next.setCalculating(step) }
     next.skippedBecause = [:]
+    next.runReadMark = nil
     next.run = RunState(
       pending: Set(ComputeStep.all), isRunning: true, dataSucceeded: false,
       lastCompletedAt: states.run.lastCompletedAt, hasEnded: states.run.hasEnded)
@@ -605,6 +659,11 @@ extension ComputeStore {
       break
     case .succeeded(let value):
       next.skippedBecause[step] = nil
+      if step == ComputeStep.data, let snapshot = value as? DataSnapshot {
+        next.runReadMark = snapshot.version.load
+      } else if ComputeStep.countsFromData.contains(step), let mark = next.runReadMark {
+        next.countedFrom[step] = mark
+      }
       switch step {
       case ComputeStep.rates:
         if let result = value as? RefinementResult {
@@ -649,11 +708,15 @@ extension ComputeStore {
         break
       }
     case .failed:
-      next.setFailed(step, messageKey: ComputeStep.failureKey(step))
+      // A block that shows an older value keeps it: the failure is in the journal, and
+      // «Повторить» is offered only where there is nothing to show.
+      if !next.isReady(step) { next.setFailed(step, messageKey: ComputeStep.failureKey(step)) }
       if step == ComputeStep.data, next.snapshot != nil { next.reloadFailed = true }
     case .skipped(let dependency):
-      next.setFailed(step, messageKey: ComputeStep.skippedKey)
-      next.skippedBecause[step] = next.skippedBecause[dependency] ?? dependency
+      if !next.isReady(step) {
+        next.setFailed(step, messageKey: ComputeStep.skippedKey)
+        next.skippedBecause[step] = next.skippedBecause[dependency] ?? dependency
+      }
     case .cancelled:
       next.restore(step, at: event.at)
     }
@@ -681,6 +744,7 @@ extension ComputeStore {
   nonisolated static func overlaying(_ states: States, _ overlay: Overlay) -> States {
     var next = states
     next.track.add(overlay)
+    next.lastWriteMark = max(next.lastWriteMark, overlay.mark)
     next.needsRebuild = next.track.base != nil
     return next
   }
@@ -742,6 +806,21 @@ extension ComputeStore.States {
     serial += 1
     data = .ready(snapshot, at: instant)
     if owedToo { owed = .ready(snapshot.owed, at: instant) }
+  }
+
+  /// The block of the step shows a value.
+  fileprivate func isReady(_ step: StepID) -> Bool {
+    switch step {
+    case ComputeStep.rates: rates.phase == .ready
+    case ComputeStep.data: data.phase == .ready
+    case ComputeStep.owed: owed.phase == .ready
+    case ComputeStep.forecast: forecast.phase == .ready
+    case ComputeStep.model: model.phase == .ready
+    case ComputeStep.anomalies: anomalies.phase == .ready
+    case ComputeStep.advice: advice.phase == .ready
+    case ComputeStep.reminders: reminders.phase == .ready
+    default: false
+    }
   }
 
   fileprivate mutating func setCalculating(_ step: StepID) {
