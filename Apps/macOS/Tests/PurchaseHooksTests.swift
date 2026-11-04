@@ -310,7 +310,8 @@ final class PurchaseHooksTests: XCTestCase {
     XCTAssertFalse(atPlace.contains("3 октября"), "the day and the month never split: \(atPlace)")
     question.placeName = nil
     let inCategory = PurchaseHookText.note(.regret(question), russian)
-    XCTAssertTrue(inCategory.contains("Кафе") && inCategory.contains("3\u{00A0}октября"), inCategory)
+    XCTAssertTrue(
+      inCategory.contains("Кафе") && inCategory.contains("3\u{00A0}октября"), inCategory)
     question.categoryName = nil
     let dated = PurchaseHookText.note(.regret(question), english)
     XCTAssertTrue(dated.contains("October"), dated)

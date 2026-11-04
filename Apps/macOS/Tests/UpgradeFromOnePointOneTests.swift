@@ -211,7 +211,9 @@ final class UpgradeFromOnePointOneTests: XCTestCase {
     XCTAssertEqual(modes.map { $0[1] }, [nil, nil, "1"])
     let migrated = try DatabaseStack.rowCounts(fileAt: AppPaths.databaseURL)
     for (table, count) in counts {
-      XCTAssertEqual(migrated[table], count, table)
+      // Opening the app keeps the day «Не пожалели?» started: one new row, nothing else moves.
+      let added = table == "settings" ? 1 : 0
+      XCTAssertEqual(migrated[table], count + added, table)
     }
     XCTAssertEqual(migrated["cashback_rules"], 0)
   }

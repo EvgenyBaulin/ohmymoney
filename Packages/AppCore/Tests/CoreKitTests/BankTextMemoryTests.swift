@@ -38,7 +38,8 @@ struct BankTextMemoryTests {
     var memory = BankTextMemory()
     let taught1 = memory.learn(scope: scope, kind: .expense, text: "CAFE", fill: BankTextFill())
     #expect(!taught1)
-    let taught2 = memory.learn(scope: scope, kind: .expense, text: "CAFE", fill: BankTextFill(forWhom: .me))
+    let taught2 = memory.learn(
+      scope: scope, kind: .expense, text: "CAFE", fill: BankTextFill(forWhom: .me))
     #expect(!taught2)
     let taught3 = memory.learn(scope: scope, kind: .expense, text: "***", fill: .init(note: "x"))
     #expect(!taught3)
@@ -49,11 +50,14 @@ struct BankTextMemoryTests {
 
   @Test func latestWordWinsAndTheSameWordChangesNothing() {
     var memory = BankTextMemory()
-    let taught5 = memory.learn(scope: scope, kind: .expense, text: "CAFE", fill: .init(note: "Кофе"))
+    let taught5 = memory.learn(
+      scope: scope, kind: .expense, text: "CAFE", fill: .init(note: "Кофе"))
     #expect(taught5)
-    let taught6 = memory.learn(scope: scope, kind: .expense, text: "CAFE", fill: .init(note: "Кофе"))
+    let taught6 = memory.learn(
+      scope: scope, kind: .expense, text: "CAFE", fill: .init(note: "Кофе"))
     #expect(!taught6)
-    let taught7 = memory.learn(scope: scope, kind: .expense, text: "CAFE", fill: .init(note: "Обед"))
+    let taught7 = memory.learn(
+      scope: scope, kind: .expense, text: "CAFE", fill: .init(note: "Обед"))
     #expect(taught7)
     #expect(memory.fill(scope: scope, kind: .expense, text: "cafe")?.note == "Обед")
   }

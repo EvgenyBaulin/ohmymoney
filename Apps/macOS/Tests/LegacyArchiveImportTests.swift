@@ -277,7 +277,9 @@ final class LegacyArchiveImportTests: XCTestCase {
     // Every row came over; the three tables of the accounts are new and empty.
     let migrated = try DatabaseStack.rowCounts(fileAt: AppPaths.databaseURL)
     for (table, count) in counts {
-      XCTAssertEqual(migrated[table], count, table)
+      // Opening the app keeps the day «Не пожалели?» started: one new row, nothing else moves.
+      let added = table == "settings" ? 1 : 0
+      XCTAssertEqual(migrated[table], count + added, table)
     }
     for table in ["account_groups", "transfers", "reconciliation_balances"] {
       XCTAssertEqual(migrated[table], 0, table)

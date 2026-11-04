@@ -225,8 +225,8 @@ struct StatementLearningTests {
     let row = try #require(
       asked.rows.first { if case .manualAsk = $0.disposition { true } else { false } })
     let taught5 = StatementLearning.teach(
-        &memory, preview: asked, ticks: [row.index], picks: [row.index: coffee.id.uuidString],
-        scope: scope, entry: { $0 == coffee.id.uuidString ? coffee : nil })
+      &memory, preview: asked, ticks: [row.index], picks: [row.index: coffee.id.uuidString],
+      scope: scope, entry: { $0 == coffee.id.uuidString ? coffee : nil })
     #expect(taught5)
     #expect(!memory.isEmpty)
   }
@@ -240,14 +240,14 @@ struct StatementLearningTests {
     // The next line was filled: the operation written from it is remembered.
     let filledID = UUID()
     let taught6 = memory.filled(
-        operation: filledID, scope: scope, kind: .expense, text: StatementLearning.text(of: line))
+      operation: filledID, scope: scope, kind: .expense, text: StatementLearning.text(of: line))
     #expect(taught6)
     #expect(memory.remembers(operation: filledID))
     // The owner corrects it: a lunch for himself, not a coffee for his partner.
     let lunch = UUID()
     let taught7 = memory.relearn(
-        operation: filledID,
-        fill: BankTextFill(placeId: place, note: "Обед", categoryId: lunch, forWhom: .me))
+      operation: filledID,
+      fill: BankTextFill(placeId: place, note: "Обед", categoryId: lunch, forWhom: .me))
     #expect(taught7)
     let fill = try #require(StatementLearning.fill(memory, line: line, scope: scope))
     #expect(fill.note == "Обед")

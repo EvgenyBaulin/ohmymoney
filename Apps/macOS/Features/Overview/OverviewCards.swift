@@ -11,7 +11,8 @@ enum OverviewCard {
   /// regular size of the text. A larger text needs wider tiles, so the steps grow with the body
   /// size (17 pt of «Очень крупный» against 13: three columns from about 1,100 pt).
   static func columns(forWidth width: CGFloat, fontSize: AppFontSize = .regular) -> Int {
-    let scale = max(1, (fontSize.bodyPoints ?? AppFontSize.regularBodyPoints) / AppFontSize.regularBodyPoints)
+    let scale = max(
+      1, (fontSize.bodyPoints ?? AppFontSize.regularBodyPoints) / AppFontSize.regularBodyPoints)
     return width >= 840 * scale ? 3 : width >= 560 * scale ? 2 : 1
   }
 

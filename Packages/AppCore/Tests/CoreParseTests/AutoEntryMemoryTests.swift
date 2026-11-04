@@ -43,8 +43,8 @@ struct AutoEntryMemoryTests {
     var memory = BankTextMemory()
     // What a statement line «Оплата в KOFEMANIYA MOSCOW RUS» merged with taught.
     let taught1 = memory.learn(
-        scope: scope, kind: .expense, text: "KOFEMANIYA",
-        fill: BankTextFill(placeId: place, note: "Кофе", categoryId: category, forWhom: .partner))
+      scope: scope, kind: .expense, text: "KOFEMANIYA",
+      fill: BankTextFill(placeId: place, note: "Кофе", categoryId: category, forWhom: .partner))
     #expect(taught1)
     let sms = try #require(message("MIR-4417 07:55 Покупка 450р KOFEMANIYA Баланс: 12300р"))
     let fill = try #require(AutoEntryMemory.fill(memory, message: sms, scope: scope))

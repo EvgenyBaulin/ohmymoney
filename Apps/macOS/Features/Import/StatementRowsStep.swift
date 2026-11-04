@@ -184,7 +184,8 @@ struct StatementRowView: View {
             .appFont(.caption).foregroundStyle(.secondary).lineLimit(1)
             .help(
               environment.language(
-                "statementLearning.row.learnedHelp", table: "StatementLearning"))
+                "statementLearning.row.learnedHelp", table: "StatementLearning")
+            )
             .accessibilityIdentifier("import.row.learned")
           }
           if row.isOwnTransfer {

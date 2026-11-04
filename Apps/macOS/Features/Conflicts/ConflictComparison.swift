@@ -54,8 +54,7 @@ struct ConflictComparison: Equatable {
 
   /// - Parameter names: the names of the rows a reference points to, by id, so a bank or a
   ///   group reads by its name; an id missing here reads "other".
-  static func make(_ conflict: SyncConflict, names: [String: String] = [:]) -> ConflictComparison
-  {
+  static func make(_ conflict: SyncConflict, names: [String: String] = [:]) -> ConflictComparison {
     let mine = conflict.mine
     let theirs = conflict.theirs
     let columns = Set(mine.fields.keys).union(theirs.fields.keys)

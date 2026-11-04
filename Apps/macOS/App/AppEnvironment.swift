@@ -1228,7 +1228,7 @@ public final class AppEnvironment {
       AppLog.info("purchases.regretStarted", .db, "the day the regret question started was kept")
     } catch {
       AppLog.error(
-        "purchases.regretStartFailed", .db, "the day the regret question started was not kept",
+        "purchases.regretFailed", .db, "the day the regret question started was not kept",
         [LogPair("error", .error(error))])
     }
   }

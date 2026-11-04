@@ -121,7 +121,9 @@ struct AccountPaymentsTests {
       PaymentMethod(id: appleId, name: "Apple ID", currency: CurrencyCode("USD")),
     ]
     let utc = TimeZone(identifier: "UTC")!
-    func operation(_ number: Int, day: String, account: UUID?, card: UUID? = nil) throws
+    func operation(
+      _ number: Int, day: String, account: UUID?, card: UUID? = nil
+    ) throws
       -> TransactionEntry
     {
       let at = CalendarContext(timeZone: utc).noon(of: DateOnly(iso: day)!)

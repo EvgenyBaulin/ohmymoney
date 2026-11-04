@@ -173,15 +173,15 @@ struct ConflictDetailView: View {
       }
       Text(verbatim: ConflictText.cell(cell, environment))
     }
-      .appFont(.callout.monospacedDigit())
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(8)
-      .background(.background.secondary, in: .rect(cornerRadius: 8))
-      .overlay {
-        if differs {
-          RoundedRectangle(cornerRadius: 8).strokeBorder(Color.accentColor, lineWidth: 1)
-        }
+    .appFont(.callout.monospacedDigit())
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(8)
+    .background(.background.secondary, in: .rect(cornerRadius: 8))
+    .overlay {
+      if differs {
+        RoundedRectangle(cornerRadius: 8).strokeBorder(Color.accentColor, lineWidth: 1)
       }
+    }
   }
 
   private var deletedLine: some View {
