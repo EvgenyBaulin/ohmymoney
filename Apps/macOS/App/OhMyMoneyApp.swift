@@ -154,10 +154,14 @@ struct AppCommands: Commands {
       .disabled(editing.undoTarget(storeCanUndo: store?.canUndo == true) == .none)
 
       Button(environment.language("action.redo")) {
-        _ = TextEditingUndo.redoInFocusedField()
+        switch TextEditingUndo.redoTarget(storeCanRedo: store?.canRedo == true) {
+        case .field: _ = TextEditingUndo.redoInFocusedField()
+        case .store: store?.redo()
+        case .none: NSSound.beep()
+        }
       }
       .keyboardShortcut("z", modifiers: [.command, .shift])
-      .disabled(!editing.canRedo)
+      .disabled(editing.redoTarget(storeCanRedo: store?.canRedo == true) == .none)
     }
 
     CommandGroup(after: .toolbar) {
@@ -385,6 +389,22 @@ enum TextEditingUndo {
     if isEditingText, fieldCanUndo { return .field }
     guard !inSheet else { return .none }
     return storeCanUndo ? .store : .none
+  }
+
+  /// What ⇧⌘Z puts back now, in the key window as it is (`State.current()`).
+  static func redoTarget(storeCanRedo: Bool) -> UndoTarget {
+    State.current().redoTarget(storeCanRedo: storeCanRedo)
+  }
+
+  /// The same rule as ⌘Z, the other way: the typing taken back in the focused field comes
+  /// first; from a sheet or a popover the store is never reached; otherwise the last write
+  /// ⌘Z took back.
+  static func redoTarget(
+    isEditingText: Bool, fieldCanRedo: Bool, storeCanRedo: Bool, inSheet: Bool
+  ) -> UndoTarget {
+    if isEditingText, fieldCanRedo { return .field }
+    guard !inSheet else { return .none }
+    return storeCanRedo ? .store : .none
   }
 
   /// Returns true when the keystroke was handled by the text field.
