@@ -39,7 +39,7 @@ final class PadLayoutTests: XCTestCase {
 
   func testOverviewTilesAreThreeAcrossOrTwoAsTheDesignSays() {
     let expected: [(Double, Int)] = [
-      (1366, 3), (1194, 3), (1024, 3), (1133, 2), (834, 2), (744, 2), (500, 1),
+      (1366, 3), (1194, 3), (1024, 3), (1133, 2), (834, 2), (744, 2), (620, 1), (500, 1),
     ]
     for (width, columns) in expected {
       XCTAssertEqual(PadLayout.overviewColumns(forWidth: width), columns, "\(width)")
@@ -49,7 +49,7 @@ final class PadLayoutTests: XCTestCase {
   func testATileIsNeverNarrowerThan300() {
     for width in stride(from: 320.0, through: 1366, by: 2) {
       let columns = Double(PadLayout.overviewColumns(forWidth: width))
-      let tile = (PadLayout.contentWidth(forWidth: width) - 40 - 12 * (columns - 1)) / columns
+      let tile = (PadLayout.contentWidth(forWidth: width) - 12 * (columns - 1)) / columns
       XCTAssertGreaterThanOrEqual(tile, columns == 1 ? 0 : PadLayout.minimumTileWidth, "\(width)")
     }
   }

@@ -41,7 +41,7 @@ enum PadLayout {
   static func overviewColumns(forWidth width: Double) -> Int {
     switch mode(forWidth: width) {
     case .firstScreen: return 1
-    case .overlay: return width >= 1000 ? 3 : 2
+    case .overlay: return width >= 1000 ? 3 : width >= 652 ? 2 : 1
     case .permanent: return width >= inspectorFrom ? 3 : 2
     }
   }
