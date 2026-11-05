@@ -288,6 +288,8 @@ public struct PlanningUndo: Sendable, Hashable {
   public var movedCards: [MovedCardReference]
   /// What an account merge of the change did, for ⌘Z.
   public var accountMerge: AccountMergeUndo?
+  /// The change as it was asked for, so ⇧⌘Z can make it again after ⌘Z took it back.
+  public var change: PlanningChange?
 
   public init(
     createdTransactionIds: [UUID] = [], inserted: PlanningRowIDs = .empty,
@@ -297,8 +299,9 @@ public struct PlanningUndo: Sendable, Hashable {
     deletion: DeletionEffects = .none, releasedRefunds: [UUID: UUID] = [:],
     written: [TransactionEntry] = [], countTouch: CountTouch = .none,
     counts: CountsSettled = .none, movedCards: [MovedCardReference] = [],
-    accountMerge: AccountMergeUndo? = nil
+    accountMerge: AccountMergeUndo? = nil, change: PlanningChange? = nil
   ) {
+    self.change = change
     self.accountMerge = accountMerge
     self.movedCards = movedCards
     self.countTouch = countTouch
@@ -633,7 +636,7 @@ public struct PlanningRepository: Sendable {
       cleared: journal.cleared, rewrittenBefore: rewrites.before,
       removedLinks: rewrites.removedLinks, deletion: deletion,
       releasedRefunds: rewrites.releasedRefunds, written: written, countTouch: touch,
-      counts: counts, movedCards: moved, accountMerge: merged)
+      counts: counts, movedCards: moved, accountMerge: merged, change: change)
   }
 
   /// Points what named each merged card at its kept card (`PlanningChange.movingCards`): the

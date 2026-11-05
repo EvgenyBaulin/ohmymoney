@@ -213,6 +213,8 @@ public final class TransactionsStore {
     case save(TransactionEntry)
     /// A deletion: the same operations deleted again, with whatever the rules take along.
     case delete([UUID])
+    /// An action of planning (or an account merge or deletion): the same change written again.
+    case apply(PlanningChange)
   }
 
   /// What a write leaves behind once it has landed: the step that takes it back — none for
@@ -1315,6 +1317,7 @@ public final class TransactionsStore {
       case .planned(let undo):
         guard let planning else { return }
         let counts = try planning.revert(undo)
+        redo = undo.change.map { .apply($0) }
         let back = Self.broughtBack(by: undo)
         var readBack: [TransactionEntry] = []
         if !back.isEmpty { readBack = try repository.entries(ids: back) }
@@ -1364,6 +1367,7 @@ public final class TransactionsStore {
     switch step {
     case .save(let entry): landed = save(entry, file: file)
     case .delete(let ids): landed = delete(ids: ids, file: file)
+    case .apply(let change): landed = apply(change, file: file)
     }
     if !landed { redoStack.removeAll() }
   }
