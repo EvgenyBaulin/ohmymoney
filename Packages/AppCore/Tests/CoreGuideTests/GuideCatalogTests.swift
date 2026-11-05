@@ -69,7 +69,7 @@ struct GuideCatalogTests {
         == ["whatsNew.1.6"])
   }
 
-  /// «Что нового в 1.7»: the capital on its own screen (⌘6) with the property valued by hand,
+  /// «Что нового в 1.7»: the capital on its own screen (⌘5) with the property valued by hand,
   /// the safety cushion in months of living without income, and the cushion goal with the
   /// switch of the free sum — three to four cards.
   @Test func whatsNewOfOnePointSevenTellsOfTheCapitalAndTheCushion() throws {
@@ -82,7 +82,7 @@ struct GuideCatalogTests {
         == ["new17.capital", "new17.assets", "new17.cushion", "new17.cushionGoal"])
     #expect(scenario.cards.allSatisfy { !$0.symbol.isEmpty && $0.id.hasPrefix("new17.") })
     let capital = try #require(scenario.cards.first)
-    #expect(capital.body.russian.contains("⌘6") && capital.body.english.contains("⌘6"))
+    #expect(capital.body.russian.contains("⌘5") && capital.body.english.contains("⌘5"))
     let goal = try #require(scenario.cards.last)
     #expect(goal.body.russian.contains("Не считать подушку в свободной сумме"))
     let progress = GuideProgress(firstLaunchShown: true, whatsNewSeen: "1.6.0")

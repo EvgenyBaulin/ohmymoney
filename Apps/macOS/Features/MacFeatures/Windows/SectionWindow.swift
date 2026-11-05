@@ -118,6 +118,8 @@ struct SectionWindow: View {
       case .section(.calendar): CalendarView(actions: actions)
       case .section(.capital): CapitalView { item = .account($0) }
       case .section(.purchases): PurchasesScreen()
+      case .section(.analytics): AnalyticsWindow(deps: deps, embedded: true)
+      case .section(.reports): ReportsWindow(deps: deps, embedded: true)
       case .account(let id): AccountScreen(accountId: id, actions: actions).id(id)
       case .group(let id):
         GroupScreen(scope: .group(id), actions: actions) { item = .account($0) }.id(id)

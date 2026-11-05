@@ -54,36 +54,6 @@ struct OhMyMoneyApp: App {
       #endif
     }
 
-    Window(environment.language("window.analytics"), id: "analytics") {
-      AppScenes.root(deps, window: .analytics) { deps in
-        SecondaryWindow(
-          titleKey: "window.analytics", scene: "analytics", minWidth: AnalyticsWindow.minimumWidth
-        ) {
-          AnalyticsWindow(deps: deps)
-        }
-      }
-      .privacyCurtain(environment)
-    }
-    .defaultSize(width: 1100, height: 760)
-    // The item of the Window menu is `AppCommands`' own: a `Window` scene given
-    // `.keyboardShortcut` listed itself there without the key (MenuTests).
-    .commandsRemoved()
-
-    Window(environment.language("window.reports"), id: "reports") {
-      AppScenes.root(deps, window: .reports) { deps in
-        SecondaryWindow(
-          titleKey: "window.reports", scene: "reports", minWidth: ReportsWindow.minimumWidth
-        ) {
-          ReportsWindow(deps: deps)
-        }
-      }
-      .privacyCurtain(environment)
-    }
-    .defaultSize(width: 960, height: 680)
-    // The item of the Window menu is `AppCommands`' own: a `Window` scene given
-    // `.keyboardShortcut` listed itself there without the key (MenuTests).
-    .commandsRemoved()
-
     Window(environment.language("window.whatIf"), id: "whatif") {
       AppScenes.root(deps, window: .whatIf) { deps in
         SecondaryWindow(
@@ -170,6 +140,12 @@ struct AppCommands: Commands {
       Button(environment.language("action.recompute")) { compute.run() }
         .keyboardShortcut("r", modifiers: .command)
 
+      // «Сверка» has no button in the toolbar: the toolbar keeps only what belongs to the
+      // screen. ⌥⌘R, since ⌘R recounts and ⇧⌘R opens Reports.
+      Button(environment.language("action.reconcile")) { environment.showsReconciliation = true }
+        .keyboardShortcut("r", modifiers: [.command, .option])
+        .disabled(environment.shield.isReadOnly)
+
       // «Проверить обновления…» where an update can arrive, «Перезапустить» where it cannot; in
       // the store build the page of the app is where updates come from.
       //
@@ -232,20 +208,20 @@ struct AppCommands: Commands {
       .keyboardShortcut("f", modifiers: .command)
     }
 
-    // «Операции» of the main window and the secondary windows, each with its shortcut: ⌘⇧T,
-    // ⌘⇧A, ⌘⇧R. Transactions is a screen of the main window now; the shortcut the owner has
-    // used since 1.0 brings it forward.
+    // «Операции», «Аналитика» and «Отчёты» are screens of the main window; ⌘⇧T, ⌘⇧A and ⌘⇧R,
+    // the shortcuts the owner has used since 1.0, bring the main window forward on them.
+    // «Что если…» is the one window of its own left.
     CommandGroup(before: .windowList) {
       Button(environment.language("window.transactions")) {
         OperationsScreenOpening.open(with: openWindow)
       }
       .keyboardShortcut("t", modifiers: [.command, .shift])
       Button(environment.language("window.analytics")) {
-        AppWindows.open("analytics", with: openWindow)
+        OperationsScreenOpening.open(.analytics, with: openWindow)
       }
       .keyboardShortcut("a", modifiers: [.command, .shift])
       Button(environment.language("window.reports")) {
-        AppWindows.open("reports", with: openWindow)
+        OperationsScreenOpening.open(.reports, with: openWindow)
       }
       .keyboardShortcut("r", modifiers: [.command, .shift])
       Button(environment.language("window.whatIf")) {
@@ -254,42 +230,16 @@ struct AppCommands: Commands {
       Divider()
     }
 
+    // ⌘1 … ⌘9 in the order of the sidebar (`MainWindow.Section.shortcutIndex`).
     CommandGroup(after: .sidebar) {
       Divider()
-      Button(environment.language("section.overview")) {
-        NotificationCenter.default.post(name: .selectSection, object: 1)
+      ForEach(MainWindow.Section.allCases) { section in
+        Button(environment.language(section.titleKey)) {
+          NotificationCenter.default.post(name: .selectSection, object: section.shortcutIndex)
+        }
+        .keyboardShortcut(
+          KeyEquivalent(Character(String(section.shortcutIndex))), modifiers: .command)
       }
-      .keyboardShortcut("1", modifiers: .command)
-
-      Button(environment.language("section.planning")) {
-        NotificationCenter.default.post(name: .selectSection, object: 2)
-      }
-      .keyboardShortcut("2", modifiers: .command)
-
-      Button(environment.language("section.debts")) {
-        NotificationCenter.default.post(name: .selectSection, object: 3)
-      }
-      .keyboardShortcut("3", modifiers: .command)
-
-      Button(environment.language("section.operations")) {
-        NotificationCenter.default.post(name: .selectSection, object: 4)
-      }
-      .keyboardShortcut("4", modifiers: .command)
-
-      Button(environment.language("section.calendar")) {
-        NotificationCenter.default.post(name: .selectSection, object: 5)
-      }
-      .keyboardShortcut("5", modifiers: .command)
-
-      Button(environment.language("section.capital")) {
-        NotificationCenter.default.post(name: .selectSection, object: 6)
-      }
-      .keyboardShortcut("6", modifiers: .command)
-
-      Button(environment.language("section.purchases")) {
-        NotificationCenter.default.post(name: .selectSection, object: 7)
-      }
-      .keyboardShortcut("7", modifiers: .command)
     }
 
     // «Перейти → Команды…» (⌘K): the palette of commands. Every fixed command of the palette is
@@ -324,7 +274,7 @@ struct SavedViewsCommands: Commands {
     let book = compute.snapshot?.dataset.savedViews ?? SavedViewsBook()
     CommandMenu(QuestionsText.t("questions.menu.reports", environment)) {
       Button(environment.language("window.reports")) {
-        AppWindows.open("reports", with: openWindow)
+        OperationsScreenOpening.open(.reports, with: openWindow)
       }
       Divider()
       Section(QuestionsText.t("questions.saved.reports", environment)) {
@@ -652,6 +602,9 @@ struct MainWindow: View {
       if LaunchOptions.current.windows.contains(.transactions) {
         selection = .section(.operations)
       }
+      // `--open analytics,reports` opened windows of their own once; they are sections now.
+      if LaunchOptions.current.windows.contains(.analytics) { selection = .section(.analytics) }
+      if LaunchOptions.current.windows.contains(.reports) { selection = .section(.reports) }
       if let name = LaunchOptions.current.section, let chosen = Section.named(name) {
         selection = .section(chosen)
       }
@@ -856,6 +809,9 @@ struct MainWindow: View {
       case .section(.calendar): CalendarView(actions: overviewActions)
       case .section(.capital): CapitalView { selection = .account($0) }
       case .section(.purchases): PurchasesScreen()
+      // Handed the dependencies explicitly: a column of the split view is a host of its own.
+      case .section(.analytics): AnalyticsWindow(deps: deps, embedded: true)
+      case .section(.reports): ReportsWindow(deps: deps, embedded: true)
       case .account(let id):
         AccountScreen(accountId: id, actions: overviewActions)
           .id(id)
@@ -933,47 +889,6 @@ struct MainWindow: View {
       .help("\(QuestionsText.t("questions.menu.palette", environment)) ⌘K")
       .accessibilityIdentifier("toolbar.palette")
 
-      // «Скрыть суммы» — the eye says what a click will do, the label says it in words.
-      Button {
-        environment.amounts.toggle()
-      } label: {
-        Label {
-          Text(verbatim: PrivacyCommands.amountsTitle(environment))
-        } icon: {
-          Image(systemName: environment.amounts.hidesAmounts ? "eye" : "eye.slash")
-        }
-      }
-      .help(PrivacyCommands.amountsTitle(environment))
-      .accessibilityIdentifier("toolbar.hideAmounts")
-
-      // Only the first run of the launch shows that it counts; a later one is not shown.
-      if compute.isRunning, !compute.states.run.hasEnded {
-        ProgressView()
-          .controlSize(.small)
-          .accessibilityLabel(Text(verbatim: environment.language("compute.recomputing")))
-      }
-      Button {
-        compute.run()
-      } label: {
-        Label {
-          Text(verbatim: environment.language("action.recompute"))
-        } icon: {
-          Image(systemName: "arrow.clockwise")
-        }
-      }
-      .help("\(environment.language("action.recompute")) ⌘R")
-
-      Button {
-        environment.showsReconciliation = true
-      } label: {
-        Label {
-          Text(verbatim: environment.language("action.reconcile"))
-        } icon: {
-          Image(systemName: "checkmark.seal")
-        }
-      }
-      .help(environment.language("reconcile.help", table: "Planning"))
-
       // «Я в поездке»: the trip mode on for a trip to pick or make, or off again.
       Button {
         environment.showsTrip = true
@@ -986,59 +901,10 @@ struct MainWindow: View {
       }
       .help(TravelText.t("travel.start.help", environment))
       .accessibilityIdentifier("toolbar.trip")
-
-      // «Операции» and «Аналитика» live in the sidebar and the menu (⌘⇧T, ⌘⇧A); the toolbar
-      // keeps only what has no place there yet.
-      Button {
-        AppWindows.open("reports", with: openWindow)
-      } label: {
-        Label {
-          Text(verbatim: environment.language("window.reports"))
-        } icon: {
-          Image(systemName: "tablecells")
-        }
-      }
-
-      // The last two actions of the toolbar. Each runs the flow of its menu item —
-      // the warning about personal data first for the export, Sparkle's check or a plain restart
-      // by the build for the other — rather than a copy of it.
-      Button {
-        FileCommands(environment: environment, store: store).exportCSV()
-      } label: {
-        Label {
-          Text(verbatim: environment.language("action.export"))
-        } icon: {
-          Image(systemName: "square.and.arrow.up")
-        }
-      }
-
-      Button {
-        UpdateService.press()
-      } label: {
-        Label {
-          Text(verbatim: UpdateService.title(environment))
-        } icon: {
-          Image(systemName: UpdateService.symbol)
-        }
-      }
-      .help(UpdateService.title(environment))
-
-      // ⌘, opens the settings from the menu bar and always did; the owner asked for a way in
-      // that can be seen without opening a menu (21.09). It rides in the same group as the
-      // other seven, so it shares their system glass and no glass lands on glass.
-      // No shortcut of its own: ⌘, is a system combination and already belongs to the item
-      // the `Settings` scene makes («Системные сочетания не перехватывать»).
-      Button {
-        openSettings()
-      } label: {
-        Label {
-          Text(verbatim: environment.language("settings.title", table: "Settings"))
-        } icon: {
-          Image(systemName: "gearshape")
-        }
-      }
-      .accessibilityIdentifier("toolbar.settings")
     }
+    // The toolbar has no button of a section (they stand in the sidebar) and none of the
+    // actions of the whole app: «Сверка» (⌥⌘R), «Экспорт» (File), «Пересчитать» (⌘R),
+    // «Скрыть суммы» (⌃⌘H), «Обновления» and «Настройки» (⌘,) are items of the menu bar.
   }
 
   /// «OhMyMoney — DEBUG», and the data set when one is open: «OhMyMoney — DEBUG · SAMPLE», or

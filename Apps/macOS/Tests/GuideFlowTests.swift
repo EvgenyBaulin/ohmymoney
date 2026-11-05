@@ -293,17 +293,17 @@ final class GuideFlowTests: XCTestCase {
 
   /// The places «Показать, куда нажимать» walks through, one at a time, with their keys:
   /// «Запись операции ⌘N», «Все поля Tab», the six sections of the sidebar «Обзор ⌘1» to
-  /// «Капитал ⌘6», and the two buttons of the toolbar — named in words, since a toolbar item
-  /// lends the window no place to cut out.
+  /// «Долги ⌘6» in the order of the sidebar, then «Сверка» (a menu item) and the settings —
+  /// named in words, since a menu item lends the window no place to cut out.
   func testWhereToClickNamesEveryPlaceWithItsKeys() {
     XCTAssertEqual(
       GuideCatalog.whereToClick.map { step in
         [step.text.russian, step.keys].compactMap { $0 }.joined(separator: " ")
       },
       [
-        "Запись операции ⌘N", "Все поля Tab", "Обзор ⌘1", "Планирование ⌘2", "Долги ⌘3",
-        "Операции ⌘4", "Календарь ⌘5", "Капитал ⌘6", "Сверка остатка — на панели вверху",
-        "Настройки — на панели вверху ⌘,",
+        "Запись операции ⌘N", "Все поля Tab", "Обзор ⌘1", "Операции ⌘2", "Планирование ⌘3",
+        "Календарь ⌘4", "Капитал ⌘5", "Долги ⌘6", "Сверка остатка — в меню «Вид» ⌥⌘R",
+        "Настройки — внизу боковой панели ⌘,",
       ])
     guide.showsWhereToClick = true
     XCTAssertEqual(guide.walk?.current.target, GuideTarget.entryLine)

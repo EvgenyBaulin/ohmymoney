@@ -1,7 +1,8 @@
 import Foundation
 import SwiftUI
 
-/// The screens that are windows of their own on the Mac and covers on the phone.
+/// The screens that are not tabs of the phone: on the Mac, «Что если…» and the settings are
+/// windows and «Аналитика» and «Отчёты» sections of the main window; on the phone, pages of «Ещё».
 enum AppScreen: String, Hashable, Sendable, CaseIterable {
   case analytics, reports, whatIf
   /// The settings: a window of the `Settings` scene on the Mac, the list in «Ещё» on the phone.
@@ -28,7 +29,12 @@ enum AppScreens {
   @MainActor
   static func open(_ screen: AppScreen, with openWindow: OpenWindowAction) {
     #if os(macOS)
-      openWindow(id: screen.sceneId)
+      // Analytics and Reports are sections of the main window; the others have windows.
+      switch screen {
+      case .analytics: OperationsScreenOpening.open(.analytics, with: openWindow)
+      case .reports: OperationsScreenOpening.open(.reports, with: openWindow)
+      case .whatIf, .settings: openWindow(id: screen.sceneId)
+      }
     #else
       NotificationCenter.default.post(name: .openAppScreen, object: screen)
     #endif

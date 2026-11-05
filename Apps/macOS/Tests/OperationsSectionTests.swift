@@ -6,7 +6,7 @@ import XCTest
 
 @testable import OhMyMoney
 
-/// «Операции» in the sidebar, under «Обзор» (⌘4, and ⌘⇧T, ⌘F and the button of the toolbar from
+/// «Операции» in the sidebar, under «Обзор» (⌘2, and ⌘⇧T, ⌘F and the button of the toolbar from
 /// anywhere): the table of every operation in the main window, its search through the whole
 /// history, its filters, its columns, the arrows and ↓ of the line, and the editor beside it —
 /// or the form at the side. And an amount in another currency shows grey «≈ … ₽» — before Enter
@@ -141,11 +141,14 @@ final class OperationsSectionTests: XCTestCase {
   func testOperationsStandsUnderOverviewInPlaceOfSpending() {
     XCTAssertEqual(
       MainWindow.Section.allCases,
-      [.overview, .operations, .planning, .debts, .calendar, .capital, .purchases])
+      [
+        .overview, .operations, .planning, .calendar, .capital, .debts, .purchases, .analytics,
+        .reports,
+      ])
     XCTAssertEqual(Self.russian(MainWindow.Section.operations.titleKey), "Операции")
     XCTAssertEqual(
       environment.language(MainWindow.Section.operations.titleKey).isEmpty, false)
-    XCTAssertEqual(MainWindow.Section.operations.shortcutIndex, 4)
+    XCTAssertEqual(MainWindow.Section.operations.shortcutIndex, 2)
     XCTAssertEqual(MainWindow.Section.operations.rawValue, "operations")
     XCTAssertFalse(SidebarItem.section(.overview).listsOperations)
     XCTAssertTrue(SidebarItem.section(.operations).listsOperations)
@@ -165,23 +168,23 @@ final class OperationsSectionTests: XCTestCase {
     XCTAssertEqual(Self.russian("window.transactions"), "Операции")
   }
 
-  /// ⌘4 is an item of the menu bar, and what it posts brings «Операции» on screen.
-  func testCommandFourOpensOperations() throws {
+  /// ⌘2 is an item of the menu bar, and what it posts brings «Операции» on screen.
+  func testCommandTwoOpensOperations() throws {
     let four = Self.items(NSApp.mainMenu).filter {
-      $0.keyEquivalent == "4"
+      $0.keyEquivalent == "2"
         && $0.keyEquivalentModifierMask.intersection(.deviceIndependentFlagsMask) == .command
     }
-    XCTAssertEqual(four.count, 1, "⌘4: \(four.map(\.title))")
+    XCTAssertEqual(four.count, 1, "⌘2: \(four.map(\.title))")
     XCTAssertTrue(
       [Self.russian("section.operations"), "Transactions"].contains(four.first?.title ?? ""),
-      "⌘4 is «\(four.first?.title ?? "")»")
+      "⌘2 is «\(four.first?.title ?? "")»")
 
     compute.applyLight(snapshot([try entry("кофе", daysAgo: 0)]))
     _ = mainWindow()
     XCTAssertTrue(shown("overview"))
-    NotificationCenter.default.post(name: .selectSection, object: 4)
+    NotificationCenter.default.post(name: .selectSection, object: 2)
     settle()
-    XCTAssertTrue(shown("operations"), "⌘4 did not bring «Операции»")
+    XCTAssertTrue(shown("operations"), "⌘2 did not bring «Операции»")
   }
 
   /// ⌘⇧T, ⌘F, the toolbar and the reconciliation come to «Операции» of the main window: there is
@@ -202,6 +205,45 @@ final class OperationsSectionTests: XCTestCase {
     XCTAssertTrue(shown("operations"), "⌘⇧T did not bring «Операции»")
     // `--open transactions` of the recipes opens no window of its own.
     XCTAssertTrue(LaunchOptions.Window.allCases.contains(.transactions))
+  }
+
+  /// «Аналитика» and «Отчёты» are sections of the main window, the last two of the sidebar: ⌘8 and
+  /// ⌘9 bring them, and ⌘⇧A and ⌘⇧R (`OperationsScreenOpening`) choose the same.
+  func testAnalyticsAndReportsAreSectionsOfTheMainWindow() throws {
+    compute.applyLight(snapshot([try entry("кофе", daysAgo: 0)]))
+    _ = mainWindow()
+    XCTAssertTrue(shown("overview"))
+    NotificationCenter.default.post(name: .selectSection, object: 8)
+    settle()
+    XCTAssertTrue(shown("analytics"), "⌘8 did not bring «Аналитика»")
+    NotificationCenter.default.post(name: .selectSection, object: 9)
+    settle()
+    XCTAssertTrue(shown("reports"), "⌘9 did not bring «Отчёты»")
+    NotificationCenter.default.post(name: .selectSection, object: 1)
+    settle()
+    OperationsScreenOpening.choose(.analytics)
+    settle()
+    XCTAssertEqual(
+      Logbook.shared.lines().filter {
+        $0.contains(" section.shown ") && $0.hasSuffix(" window=main section=analytics")
+      }.count, 2, "⌘⇧A did not bring «Аналитика» again")
+    OperationsScreenOpening.choose(.reports)
+    settle()
+    XCTAssertEqual(
+      Logbook.shared.lines().filter {
+        $0.contains(" section.shown ") && $0.hasSuffix(" window=main section=reports")
+      }.count, 2, "⌘⇧R did not bring «Отчёты» again")
+    XCTAssertFalse(
+      Logbook.shared.lines().contains { $0.contains("dependencies.missing") },
+      "Analytics or Reports got no dependencies in the column")
+  }
+
+  /// Both screens list no operations: no selection bar floats over them.
+  func testAnalyticsAndReportsListNoOperations() {
+    XCTAssertFalse(SidebarItem.section(.analytics).listsOperations)
+    XCTAssertFalse(SidebarItem.section(.reports).listsOperations)
+    XCTAssertEqual(SidebarItem.section(.analytics).journalToken, "analytics")
+    XCTAssertEqual(SidebarItem.section(.reports).journalToken, "reports")
   }
 
   /// ↓ in the empty line over Overview: «Операции» opens and its newest row is selected.
@@ -422,7 +464,7 @@ final class OperationsSectionTests: XCTestCase {
     _ = mainWindow(on: .section(.operations), operations: state)
     NotificationCenter.default.post(name: .selectSection, object: 1)
     settle()
-    NotificationCenter.default.post(name: .selectSection, object: 4)
+    NotificationCenter.default.post(name: .selectSection, object: 2)
     settle()
     XCTAssertEqual(state.filters.search, "кофе")
   }

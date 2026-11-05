@@ -12,9 +12,11 @@ struct FileCommands: Commands {
 
   var body: some Commands {
     CommandGroup(after: .saveItem) {
+      // ⇧⌘E: the toolbar has no «Экспорт» button, so it has a key.
       Button(environment.language("action.export")) {
         exportCSV()
       }
+      .keyboardShortcut("e", modifiers: [.command, .shift])
 
       Button(environment.language("archive.export", table: "Settings")) {
         exportArchive()

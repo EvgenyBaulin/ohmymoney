@@ -127,7 +127,7 @@ public enum FirstMonth {
         GuideHint(
           target: GuideTarget.planningAddPayment,
           text: GuideText("«Планирование» → «Добавить платёж»", "Planning → Add payment"),
-          keys: "⌘2")
+          keys: "⌘3")
       ],
       done: .scheduledPayment),
     FirstMonthTask(
@@ -146,7 +146,7 @@ public enum FirstMonth {
       hints: [
         GuideHint(
           target: GuideTarget.sidebarPlanning,
-          text: GuideText("«Планирование» → «Лимиты»", "Planning → Limits"), keys: "⌘2")
+          text: GuideText("«Планирование» → «Лимиты»", "Planning → Limits"), keys: "⌘3")
       ],
       done: .limit),
     FirstMonthTask(
@@ -158,7 +158,7 @@ public enum FirstMonth {
       hints: [
         GuideHint(
           target: GuideTarget.toolbarReconcile,
-          text: GuideText("«Сверить» на панели вверху", "Reconcile in the toolbar"))
+          text: GuideText("«Вид» → «Сверка» (⌥⌘R)", "View → Count (⌥⌘R)"))
       ],
       done: .counts(1)),
     FirstMonthTask(
@@ -170,7 +170,7 @@ public enum FirstMonth {
       hints: [
         GuideHint(
           target: GuideTarget.planningAddGoal,
-          text: GuideText("«Планирование» → «Новая цель»", "Planning → New goal"), keys: "⌘2")
+          text: GuideText("«Планирование» → «Новая цель»", "Planning → New goal"), keys: "⌘3")
       ],
       done: .goal),
     FirstMonthTask(
@@ -189,7 +189,7 @@ public enum FirstMonth {
       hints: [
         GuideHint(
           target: GuideTarget.toolbarReconcile,
-          text: GuideText("«Сверить» на панели вверху", "Reconcile in the toolbar"))
+          text: GuideText("«Вид» → «Сверка» (⌥⌘R)", "View → Count (⌥⌘R)"))
       ],
       done: .counts(2)),
   ]

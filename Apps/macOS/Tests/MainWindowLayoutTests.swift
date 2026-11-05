@@ -121,7 +121,8 @@ final class MainWindowLayoutTests: XCTestCase {
   // MARK: - The window
 
   private func makeWindow(
-    width: CGFloat = 1120, height: CGFloat = 760, opensDetails: Bool = false
+    width: CGFloat = 1120, height: CGFloat = 760, opensDetails: Bool = false,
+    selection: SidebarItem = .section(.operations)
   ) -> NSWindow {
     let deps = AppDependencies(environment: environment, store: store, compute: compute)
     let actions = OperationActions()
@@ -133,7 +134,7 @@ final class MainWindowLayoutTests: XCTestCase {
         // «Траты» lists the operations the selection bar and the room under it are about.
         MainWindow(
           deps: deps, actions: actions, opensDetails: opensDetails,
-          selection: .section(.operations))
+          selection: selection)
       }
       .environment(\.windowWidth, width)
       .defaultAppStorage(defaults)
@@ -349,6 +350,34 @@ final class MainWindowLayoutTests: XCTestCase {
     try waitForList(window)
     settle(window, "opening «Операции»")
     probe.assertQuiet(about: loopMessages, comparedWith: before, "opening «Операции»")
+  }
+
+  /// «Аналитика» and «Отчёты» are sections of this window: chosen by ⌘8 and ⌘9 (what the menu
+  /// posts) they lay out without a loop, and the table of «Отчёты» is made empty and filled one
+  /// turn later, never touched from its own delegate. Counted from before the window exists.
+  func testOpeningAnalyticsAndReportsTouchesNoTableFromItsOwnDelegate() throws {
+    let probe = LogProbe()
+    let before = probe.counts(of: loopMessages)
+    let window = makeWindow()
+    try waitForList(window)
+    for section in [MainWindow.Section.analytics, .reports, .operations, .reports] {
+      NotificationCenter.default.post(name: .selectSection, object: section.shortcutIndex)
+      for _ in 0..<20 { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
+      settle(window, "opening «\(section.rawValue)»")
+    }
+    probe.assertQuiet(about: loopMessages, comparedWith: before, "opening Analytics and Reports")
+  }
+
+  /// A window opened on «Отчёты» (`--open reports` of the recipes) draws its table from the
+  /// first frame without touching it from its delegate.
+  func testAWindowOpenedOnReportsTouchesNoTableFromItsOwnDelegate() throws {
+    let probe = LogProbe()
+    let before = probe.counts(of: loopMessages)
+    let window = makeWindow(selection: .section(.reports))
+    for _ in 0..<40 { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
+    settle(window, "opening on «Отчёты»")
+    probe.assertQuiet(about: loopMessages, comparedWith: before, "opening on «Отчёты»")
+    XCTAssertEqual(AppDependencies.missingReaders, [])
   }
 
   func testOpeningTheOperationsBesideTheFormTouchesNoTableFromItsOwnDelegate() throws {
@@ -633,7 +662,7 @@ final class MainWindowLayoutTests: XCTestCase {
     settle(window, passes: 10, "on Overview")
     let room = try overviewRoom(window)
 
-    NotificationCenter.default.post(name: .selectSection, object: 2)
+    NotificationCenter.default.post(name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
     Self.wait { Self.planningScroll(in: window) != nil }
     settle(window, passes: 20, "on Planning")
     let planning = try XCTUnwrap(Self.planningScroll(in: window), "Planning did not open")

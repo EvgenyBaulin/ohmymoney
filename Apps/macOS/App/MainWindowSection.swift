@@ -2,7 +2,8 @@ import Foundation
 
 extension MainWindow {
   enum Section: String, CaseIterable, Identifiable {
-    case overview, operations, planning, debts, calendar, capital, purchases
+    // The order of the sidebar, and of ⌘1 … ⌘9 with it.
+    case overview, operations, planning, calendar, capital, debts, purchases, analytics, reports
 
     var id: String { rawValue }
 
@@ -21,6 +22,8 @@ extension MainWindow {
       case .calendar: "section.calendar"
       case .capital: "section.capital"
       case .purchases: "section.purchases"
+      case .analytics: "window.analytics"
+      case .reports: "window.reports"
       }
     }
 
@@ -33,21 +36,15 @@ extension MainWindow {
       case .calendar: "calendar"
       case .capital: "chart.bar"
       case .purchases: "bag"
+      case .analytics: "chart.xyaxis.line"
+      case .reports: "tablecells"
       }
     }
 
-    /// ⌘1 / ⌘2 / ⌘3, the first three sections; «Операции», added
-    /// after them, is ⌘4, «Календарь» ⌘5, «Капитал» ⌘6 and «Покупки» ⌘7.
+    /// ⌘1 … ⌘9: the place in the sidebar, counted from 1. The order and the shortcuts are one
+    /// thing, so they cannot drift apart.
     var shortcutIndex: Int {
-      switch self {
-      case .overview: 1
-      case .planning: 2
-      case .debts: 3
-      case .operations: 4
-      case .calendar: 5
-      case .capital: 6
-      case .purchases: 7
-      }
+      (Self.allCases.firstIndex(of: self) ?? 0) + 1
     }
   }
 }
