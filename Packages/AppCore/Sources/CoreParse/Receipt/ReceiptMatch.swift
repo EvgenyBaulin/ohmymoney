@@ -103,7 +103,8 @@ public enum ReceiptMatch {
     let moment = receipt.moment(in: calendar)
     let kind = receipt.operation.transactionKind
     let allowed = tolerance(of: receipt.amountE4)
-    return candidates
+    return
+      candidates
       .filter { $0.kind == kind && $0.currency == .rub }
       .compactMap { candidate -> (ReceiptCandidate, Int64, TimeInterval)? in
         let apart = abs(candidate.amountE4.raw - receipt.amountE4.raw)

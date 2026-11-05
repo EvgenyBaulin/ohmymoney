@@ -74,7 +74,8 @@ struct LimitsCard: View {
   }
 
   private func openPlanning() {
-    NotificationCenter.default.post(name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
+    NotificationCenter.default.post(
+      name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
   }
 
   private func t(_ key: String) -> String { environment.language(key, table: "Planning") }

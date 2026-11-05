@@ -168,7 +168,6 @@ struct ReceiptSupplementZoneTests {
 @Suite("Чек: почти подходящие операции")
 struct ReceiptNearMatchTests {
 
-
   @Test func aTipOrARoundingGivesASuggestionNeverAMatch() {
     // 1 250.50 on the receipt; the owner wrote 1 300 (a tip) and 1 250 (a rounding).
     let tip = ReceiptMatchTests.candidate("01", day: 29, amount: 13_000_000)

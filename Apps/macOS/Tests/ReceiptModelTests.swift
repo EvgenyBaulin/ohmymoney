@@ -150,7 +150,8 @@ final class ReceiptModelTests: XCTestCase {
     XCTAssertEqual(
       CalendarContext.moscow.timeOfDay(written.transaction.occurredAt),
       TimeOfDay(hour: 18, minute: 32))
-    XCTAssertEqual(written.transaction.amountE4, dinner.transaction.amountE4, "the sum is the owner's")
+    XCTAssertEqual(
+      written.transaction.amountE4, dinner.transaction.amountE4, "the sum is the owner's")
   }
 
   func testNothingFittingGivesANewOperationWithTheReceiptsFacts() async throws {

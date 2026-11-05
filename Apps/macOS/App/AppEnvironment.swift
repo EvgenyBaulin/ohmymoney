@@ -220,8 +220,7 @@ public final class AppEnvironment {
   nonisolated static let entryHistoryHintsKey = "entry.historyHints"
 
   /// A switch `UserDefaults` keeps; on when there is none.
-  nonisolated static func storedFlag(_ key: String, in defaults: UserDefaults = .standard) -> Bool
-  {
+  nonisolated static func storedFlag(_ key: String, in defaults: UserDefaults = .standard) -> Bool {
     defaults.object(forKey: key) == nil ? true : defaults.bool(forKey: key)
   }
 

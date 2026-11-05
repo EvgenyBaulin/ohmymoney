@@ -662,7 +662,8 @@ final class MainWindowLayoutTests: XCTestCase {
     settle(window, passes: 10, "on Overview")
     let room = try overviewRoom(window)
 
-    NotificationCenter.default.post(name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
+    NotificationCenter.default.post(
+      name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
     Self.wait { Self.planningScroll(in: window) != nil }
     settle(window, passes: 20, "on Planning")
     let planning = try XCTUnwrap(Self.planningScroll(in: window), "Planning did not open")

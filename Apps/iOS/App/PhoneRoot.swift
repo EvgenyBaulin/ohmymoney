@@ -42,50 +42,50 @@ struct PhoneRoot: View {
 
   var body: some View {
     root
-    .environment(\.fadesOverNavBar, layout.placement == .bottom)
-    .environment(\.phoneEntryGate, entryGate)
-    // The round «+» that brings up the entry line: above the bar of a phone, in the corner of a
-    // tablet. It is gone while the line is up and on the sections that have no line.
-    .overlay(alignment: .bottomTrailing) {
-      if entryGate.showsPlus, environment.state == .ready {
-        PhoneEntryButton(
-          gate: entryGate, title: environment.language("phone.entry.new", table: "Phone")
-        )
-        .padding(.trailing, PhoneEntryButton.sideMargin)
-        .padding(
-          .bottom,
-          PhoneEntryButton.bottomPadding(placement: layout.placement, barHeight: barHeight)
-        )
-        .transition(.scale.combined(with: .opacity))
+      .environment(\.fadesOverNavBar, layout.placement == .bottom)
+      .environment(\.phoneEntryGate, entryGate)
+      // The round «+» that brings up the entry line: above the bar of a phone, in the corner of a
+      // tablet. It is gone while the line is up and on the sections that have no line.
+      .overlay(alignment: .bottomTrailing) {
+        if entryGate.showsPlus, environment.state == .ready {
+          PhoneEntryButton(
+            gate: entryGate, title: environment.language("phone.entry.new", table: "Phone")
+          )
+          .padding(.trailing, PhoneEntryButton.sideMargin)
+          .padding(
+            .bottom,
+            PhoneEntryButton.bottomPadding(placement: layout.placement, barHeight: barHeight)
+          )
+          .transition(.scale.combined(with: .opacity))
+        }
       }
-    }
-    // A section switched to puts the line away with its keyboard; none opens the keyboard.
-    .onChange(of: entryTab, initial: true) { _, tab in entryGate.send(.tabChanged(tab)) }
-    // ⌘N on a hardware keyboard: the line comes up with the keyboard.
-    .background {
-      Button("") {
-        NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+      // A section switched to puts the line away with its keyboard; none opens the keyboard.
+      .onChange(of: entryTab, initial: true) { _, tab in entryGate.send(.tabChanged(tab)) }
+      // ⌘N on a hardware keyboard: the line comes up with the keyboard.
+      .background {
+        Button("") {
+          NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+        }
+        .keyboardShortcut("n", modifiers: .command)
+        .opacity(0)
+        .accessibilityHidden(true)
       }
-      .keyboardShortcut("n", modifiers: .command)
-      .opacity(0)
-      .accessibilityHidden(true)
-    }
-    .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
-    .environment(\.windowWidth, width)
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
-    .modifier(PhoneRequests(router: router))
-    .modifier(PhoneSheets(deps: deps, router: router))
-    // The palette, the question sheet and the saved views, as on the Mac.
-    .questionsHost(deps: deps, operations: operations)
-    .modifier(PhoneLaunch(deps: deps, router: router))
-    .onChange(of: deps.compute.generation, initial: true) { _, _ in
-      if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
-      HabitAwards.check(deps.compute.snapshot, environment: deps.environment)
-    }
+      .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
+      .environment(\.windowWidth, width)
+      .onGeometryChange(for: CGFloat.self) {
+        $0.size.width
+      } action: {
+        width = $0
+      }
+      .modifier(PhoneRequests(router: router))
+      .modifier(PhoneSheets(deps: deps, router: router))
+      // The palette, the question sheet and the saved views, as on the Mac.
+      .questionsHost(deps: deps, operations: operations)
+      .modifier(PhoneLaunch(deps: deps, router: router))
+      .onChange(of: deps.compute.generation, initial: true) { _, _ in
+        if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
+        HabitAwards.check(deps.compute.snapshot, environment: deps.environment)
+      }
   }
 
   /// The iPad's sidebar, or the tabs of a phone with the bar of the sections at the bottom.

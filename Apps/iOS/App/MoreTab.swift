@@ -127,7 +127,9 @@ struct MoreTab: View {
     switch row {
     case .section(let item):
       if let destination = item.moreDestination {
-        NavigationLink(value: destination) { label.beginnerQuiet(BeginnerModeOnMac.section(of: item)) }
+        NavigationLink(value: destination) {
+          label.beginnerQuiet(BeginnerModeOnMac.section(of: item))
+        }
       } else {
         Button {
           router.open(nav: item)
