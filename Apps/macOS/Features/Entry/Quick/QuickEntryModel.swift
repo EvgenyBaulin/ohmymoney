@@ -117,7 +117,9 @@ final class QuickEntryModel {
   private func updateSuggestions(
     for line: String, environment: AppEnvironment, compute: ComputeStore
   ) {
-    guard let snapshot = compute.snapshot, let prefix = QuickSuggest.prefix(of: line) else {
+    guard environment.entryHistoryHintsShown, let snapshot = compute.snapshot,
+      let prefix = QuickSuggest.prefix(of: line)
+    else {
       suggestions = []
       suggestionPrefix = nil
       return

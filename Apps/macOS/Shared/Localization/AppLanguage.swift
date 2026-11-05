@@ -120,10 +120,24 @@ public final class AppLanguage {
   /// comes back as itself, which makes it obvious in the interface instead of silently empty.
   /// The first can never ship: `testEveryEnglishKeyIsTranslatedIntoRussian` walks every table
   /// compiled into the bundle, so a Russian gap fails the tests rather than showing English.
+  ///
+  /// On an iPhone and an iPad a key `x.y` may have a sibling `x.y.touch` (`Self.touchSuffix`):
+  /// the same sentence for a screen with no keyboard, which names the «Отменить» button where
+  /// the Mac names ⌘Z. The sibling wins there; the Mac never reads it.
   public func callAsFunction(_ key: String, table: String = "Common") -> String {
+    #if os(iOS)
+      if !key.hasSuffix(Self.touchSuffix) {
+        let touchKey = key + Self.touchSuffix
+        let touch = bundle.localizedString(forKey: touchKey, value: nil, table: table)
+        if touch != touchKey { return touch }
+      }
+    #endif
     let value = bundle.localizedString(forKey: key, value: nil, table: table)
     return value == key ? Bundle.main.localizedString(forKey: key, value: key, table: table) : value
   }
+
+  /// The ending of a key that words an instruction for a touch screen (see `callAsFunction`).
+  public static let touchSuffix = ".touch"
 
   /// Convenience for interpolated strings: `language.format("transactions.paidFor", name)`.
   public func format(_ key: String, table: String = "Common", _ arguments: CVarArg...) -> String {

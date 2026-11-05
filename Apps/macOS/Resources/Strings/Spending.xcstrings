@@ -1643,6 +1643,23 @@
         }
       }
     },
+    "spending.places.setFromNote.rule.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An expense with no place gets the place whose name or alias is exactly its description. You can switch lines off; one “Undo” takes it all back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Трата без места получает место, название или псевдоним которого в точности совпадает с описанием. Строки можно снять; одно нажатие «Отменить» вернёт всё назад."
+          }
+        }
+      }
+    },
     "spending.places.setPlaces": {
       "extractionState": "manual",
       "localizations": {

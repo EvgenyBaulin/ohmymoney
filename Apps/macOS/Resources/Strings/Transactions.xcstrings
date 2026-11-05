@@ -844,6 +844,23 @@
         }
       }
     },
+    "bulk.undoHint.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Undo” brings everything back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Отменить» вернёт всё обратно."
+          }
+        }
+      }
+    },
     "editor.reconcileDifference.locked": {
       "extractionState": "manual",
       "localizations": {
@@ -1218,23 +1235,6 @@
         }
       }
     },
-    "operations.row.transfer": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Transfer"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Перевод"
-          }
-        }
-      }
-    },
     "operations.chip.all": {
       "extractionState": "manual",
       "localizations": {
@@ -1435,6 +1435,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ширина %@"
+          }
+        }
+      }
+    },
+    "operations.row.transfer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfer"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевод"
           }
         }
       }
@@ -1743,6 +1760,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "База не приняла запись. Ничего не изменилось, шаг остался: ⌘Z попробует его снова. Ошибка записана в журнал («Справка» → «Собрать отчёт о проблеме…»)."
+          }
+        }
+      }
+    },
+    "store.failure.undoOther.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The database didn’t accept the write. Nothing changed, and the step stays: “Undo” will try it again. The error is in the journal (Settings → Help → Collect a Problem Report)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "База не приняла запись. Ничего не изменилось, шаг остался: «Отменить» попробует его снова. Ошибка записана в журнал."
           }
         }
       }

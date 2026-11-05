@@ -3169,13 +3169,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Operations, transfers, payments and debt entries move to «%1$@», and «%2$@» goes to the archive with a zero balance; its name becomes another name of «%1$@». A merge cannot be undone."
+            "value": "Operations, transfers, payments and debt entries move to «%1$@», and «%2$@» goes to the archive with a zero balance; its name becomes another name of «%1$@». ⌘Z brings everything back."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Операции, переводы, платежи и записи долгов перейдут на «%1$@», а «%2$@» уйдёт в архив с нулевым остатком; его название станет другим названием «%1$@». Объединение не отменить."
+            "value": "Операции, переводы, платежи и записи долгов перейдут на «%1$@», а «%2$@» уйдёт в архив с нулевым остатком; его название станет другим названием «%1$@». ⌘Z вернёт всё как было."
+          }
+        }
+      }
+    },
+    "account.merge.message.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operations, transfers, payments and debt entries move to «%1$@», and «%2$@» goes to the archive with a zero balance; its name becomes another name of «%1$@». “Undo” brings everything back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операции, переводы, платежи и записи долгов перейдут на «%1$@», а «%2$@» уйдёт в архив с нулевым остатком; его название станет другим названием «%1$@». «Отменить» вернёт всё как было."
           }
         }
       }
@@ -4429,13 +4446,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nothing refers to it. Deleting cannot be undone."
+            "value": "Nothing refers to it. ⌘Z brings it back."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "На него ничто не ссылается. Удаление не отменить."
+            "value": "На него ничто не ссылается. ⌘Z вернёт его."
+          }
+        }
+      }
+    },
+    "accounts.delete.message.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing refers to it. “Undo” brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На него ничто не ссылается. «Отменить» вернёт его."
           }
         }
       }
@@ -4446,13 +4480,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nothing refers to them. Deleting cannot be undone."
+            "value": "Nothing refers to them. ⌘Z brings them back."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "На них ничто не ссылается. Удаление не отменить."
+            "value": "На них ничто не ссылается. ⌘Z вернёт их."
+          }
+        }
+      }
+    },
+    "accounts.delete.messageMany.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing refers to them. “Undo” brings them back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На них ничто не ссылается. «Отменить» вернёт их."
           }
         }
       }
@@ -4463,13 +4514,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The balance %@ leaves every total with it. Nothing refers to the account. Deleting cannot be undone."
+            "value": "The balance %@ leaves every total with it. Nothing refers to the account. ⌘Z brings it back."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Остаток %@ пропадёт из итогов. На счёт ничто не ссылается. Удаление не отменить."
+            "value": "Остаток %@ пропадёт из итогов. На счёт ничто не ссылается. ⌘Z вернёт его."
+          }
+        }
+      }
+    },
+    "accounts.delete.messageMoney.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The balance %@ leaves every total with it. Nothing refers to the account. “Undo” brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток %@ пропадёт из итогов. На счёт ничто не ссылается. «Отменить» вернёт его."
           }
         }
       }
@@ -4480,13 +4548,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The balances %@ leave every total with them. Nothing refers to the accounts. Deleting cannot be undone."
+            "value": "The balances %@ leave every total with them. Nothing refers to the accounts. ⌘Z brings them back."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Остатки %@ пропадут из итогов. На счета ничто не ссылается. Удаление не отменить."
+            "value": "Остатки %@ пропадут из итогов. На счета ничто не ссылается. ⌘Z вернёт их."
+          }
+        }
+      }
+    },
+    "accounts.delete.messageMoneyMany.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The balances %@ leave every total with them. Nothing refers to the accounts. “Undo” brings them back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остатки %@ пропадут из итогов. На счета ничто не ссылается. «Отменить» вернёт их."
           }
         }
       }
@@ -4567,13 +4652,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "No account is under it. Deleting cannot be undone."
+            "value": "No account is under it. ⌘Z brings it back."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Под ним нет ни одного счёта. Удаление не отменить."
+            "value": "Под ним нет ни одного счёта. ⌘Z вернёт его."
+          }
+        }
+      }
+    },
+    "accounts.deleteBank.message.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No account is under it. “Undo” brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Под ним нет ни одного счёта. «Отменить» вернёт его."
           }
         }
       }
@@ -4601,13 +4703,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "No account is filed under it. Deleting cannot be undone."
+            "value": "No account is filed under it. ⌘Z brings it back."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "К ней не отнесён ни один счёт. Удаление не отменить."
+            "value": "К ней не отнесён ни один счёт. ⌘Z вернёт её."
+          }
+        }
+      }
+    },
+    "accounts.deleteGroup.message.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No account is filed under it. “Undo” brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "К ней не отнесён ни один счёт. «Отменить» вернёт её."
           }
         }
       }
@@ -6785,6 +6904,23 @@
         }
       }
     },
+    "bank.merge.undo.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Undo” brings the bank back as it was."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Отменить» вернёт банк как был."
+          }
+        }
+      }
+    },
     "bank.min.below": {
       "extractionState": "manual",
       "localizations": {
@@ -7227,6 +7363,23 @@
         }
       }
     },
+    "card.delete.message.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Its own cashback rules go with it. “Undo” brings everything back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Её собственные правила кэшбэка удалятся вместе с ней. «Отменить» вернёт всё."
+          }
+        }
+      }
+    },
     "card.delete.title": {
       "extractionState": "manual",
       "localizations": {
@@ -7478,6 +7631,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Операции карты «%1$@» (и в корзине) и её платежи перейдут на «%2$@», а её название и другие названия станут другими названиями «%2$@». Карта «%1$@» удалится. Деньги не двигаются: обе карты одного счёта, остатки и сверки не меняются. ⌘Z вернёт всё."
+          }
+        }
+      }
+    },
+    "card.merge.message.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operations of “%1$@” (in the bin too) and its scheduled payments move to “%2$@”, and its name and other names become other names of “%2$@”. The card “%1$@” is deleted. No money moves: both cards are of one account, so balances and reconciliations stay as they are. “Undo” brings everything back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операции карты «%1$@» (и в корзине) и её платежи перейдут на «%2$@», а её название и другие названия станут другими названиями «%2$@». Карта «%1$@» удалится. Деньги не двигаются: обе карты одного счёта, остатки и сверки не меняются. «Отменить» вернёт всё."
           }
         }
       }

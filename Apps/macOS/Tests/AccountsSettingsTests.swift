@@ -378,7 +378,9 @@ final class AccountsSettingsTests: XCTestCase {
     XCTAssertTrue(store.canUndo)
     XCTAssertEqual(actions.deleteGroup(empty.id), .done)
     XCTAssertFalse(try groups().contains { $0.id == empty.id })
-    XCTAssertFalse(store.canUndo, "a deletion is not undone, and ⌘Z forgets what came before")
+    XCTAssertTrue(store.canUndo, "a deletion is a step of ⌘Z")
+    store.undo()
+    XCTAssertTrue(try groups().contains { $0.id == empty.id }, "⌘Z brings the group back")
   }
 
   /// An account brought back brings its archived group back — unless a live group has taken
@@ -697,7 +699,7 @@ final class AccountsSettingsTests: XCTestCase {
   }
 
   /// Only an account nothing points at is deleted — the operations in the bin count — and a
-  /// deletion forgets the ⌘Z history. The main account goes once another takes over.
+  /// deletion is one step of ⌘Z. The main account goes once another takes over.
   func testOnlyAnAccountNothingPointsAtIsDeleted() async throws {
     let main = try account("Сбер", main: true)
     let used = try account("Альфа")
@@ -714,7 +716,10 @@ final class AccountsSettingsTests: XCTestCase {
     XCTAssertTrue(store.canUndo)
     XCTAssertEqual(actions.delete([unused.id]), .done)
     XCTAssertFalse(try stored().contains { $0.id == unused.id })
-    XCTAssertFalse(store.canUndo, "⌘Z forgets what came before a deletion")
+    XCTAssertTrue(store.canUndo, "a deletion is a step of ⌘Z")
+    store.undo()
+    XCTAssertTrue(try stored().contains { $0.id == unused.id }, "⌘Z brings the account back")
+    XCTAssertEqual(actions.delete([unused.id]), .done)
 
     let other = try account("Наличные")
     XCTAssertEqual(actions.delete([main.id]), .refused(.needsNewMain))

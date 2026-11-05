@@ -239,6 +239,23 @@
         }
       }
     },
+    "receipt.done.undo.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Undo” takes it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Отменить» вернёт всё назад."
+          }
+        }
+      }
+    },
     "receipt.drop": {
       "extractionState": "manual",
       "localizations": {
@@ -575,6 +592,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Навести камеру"
+          }
+        }
+      }
+    },
+    "receipt.similar.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Or is it one of these? The sum differs a little (a rounding or a tip)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Или это одна из этих? Сумма чуть отличается (округление или чаевые)."
           }
         }
       }

@@ -2069,6 +2069,23 @@
         }
       }
     },
+    "import.stale.hint.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A refused hold disappears from the statement. The lines go to the bin and “Undo” brings them back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отклонённая блокировка пропадает из выписки. Строки уходят в корзину, «Отменить» вернёт их."
+          }
+        }
+      }
+    },
     "import.stale.title": {
       "extractionState": "manual",
       "localizations": {
@@ -2150,6 +2167,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пока вы не нажали «Записать», ничего не пишется. ⌘Z вернёт всё назад."
+          }
+        }
+      }
+    },
+    "import.subtitle.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing is written until you press Write. “Undo” takes it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока вы не нажали «Записать», ничего не пишется. «Отменить» вернёт всё назад."
           }
         }
       }

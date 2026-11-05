@@ -409,6 +409,23 @@
         }
       }
     },
+    "entry.ahead.planned.income.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An income is expected on %@ — it is in Planning, “Undo” takes it back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поступление ожидается %@ — оно в «Планировании», «Отменить» вернёт"
+          }
+        }
+      }
+    },
     "entry.ahead.planned.payment": {
       "extractionState": "manual",
       "localizations": {
@@ -422,6 +439,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Платёж запланирован на %@ — он в «Планировании», ⌘Z вернёт"
+          }
+        }
+      }
+    },
+    "entry.ahead.planned.payment.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A payment is planned for %@ — it is in Planning, “Undo” takes it back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платёж запланирован на %@ — он в «Планировании», «Отменить» вернёт"
           }
         }
       }

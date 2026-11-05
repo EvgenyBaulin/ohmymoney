@@ -195,6 +195,36 @@ public final class AppEnvironment {
     }
   }
 
+  /// Whether the chips of the templates stand under the entry line (and in the quick entry):
+  /// «Чипы шаблонов под строкой». On by default; a habit like `entryStyle`, carried by the
+  /// archive, never a step of ⌘Z.
+  public var entryChipsShown: Bool = AppEnvironment.storedFlag(AppEnvironment.entryChipsKey) {
+    didSet {
+      guard entryChipsShown != oldValue else { return }
+      UserDefaults.standard.set(entryChipsShown, forKey: Self.entryChipsKey)
+    }
+  }
+
+  /// Whether the entry suggests places and the latest alike operations from the history while
+  /// the owner types: «Подсказки по истории». On by default; kept like `entryChipsShown`.
+  public var entryHistoryHintsShown: Bool = AppEnvironment.storedFlag(
+    AppEnvironment.entryHistoryHintsKey)
+  {
+    didSet {
+      guard entryHistoryHintsShown != oldValue else { return }
+      UserDefaults.standard.set(entryHistoryHintsShown, forKey: Self.entryHistoryHintsKey)
+    }
+  }
+
+  nonisolated static let entryChipsKey = "entry.chips"
+  nonisolated static let entryHistoryHintsKey = "entry.historyHints"
+
+  /// A switch `UserDefaults` keeps; on when there is none.
+  nonisolated static func storedFlag(_ key: String, in defaults: UserDefaults = .standard) -> Bool
+  {
+    defaults.object(forKey: key) == nil ? true : defaults.bool(forKey: key)
+  }
+
   /// The key of `entryStyle` in `UserDefaults` and in the archive's `settings.json`.
   nonisolated static let entryStyleKey = "entry.style"
 
@@ -749,6 +779,8 @@ public final class AppEnvironment {
       "theme.id": theme.themeID.rawValue,
       Self.entryFieldOrderKey: EntryFieldOrder.encode(entryFieldOrder),
       Self.entryStyleKey: entryStyle.rawValue,
+      Self.entryChipsKey: entryChipsShown ? "1" : "0",
+      Self.entryHistoryHintsKey: entryHistoryHintsShown ? "1" : "0",
       Self.overviewTilesKey: OverviewTiles.encode(overviewTiles),
       Self.overviewLayoutKey: overviewLayout.encode(),
       PlanningLayoutStore.orderKey: PlanningLayoutStore.portableOrder(in: .standard),

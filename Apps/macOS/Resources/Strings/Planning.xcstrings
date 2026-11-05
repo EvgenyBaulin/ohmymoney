@@ -2897,6 +2897,23 @@
         }
       }
     },
+    "expected.deleteMessage.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The income already received stays; only the expectation and its links go. “Undo” brings them back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Полученные доходы останутся, удалится только ожидание и привязки к нему. «Отменить» вернёт их."
+          }
+        }
+      }
+    },
     "expected.deleteTitle": {
       "extractionState": "manual",
       "localizations": {
@@ -3819,6 +3836,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Её взносы останутся расходами, как были, а подкатегория цели уйдёт в архив. Новая цель начнётся с нуля. Отменить можно через ⌘Z."
+          }
+        }
+      }
+    },
+    "form.goal.delete.message.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Its contributions stay spending as they were, and the goal's subcategory goes to the archive. A new goal starts from zero. “Undo” takes it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Её взносы останутся расходами, как были, а подкатегория цели уйдёт в архив. Новая цель начнётся с нуля. «Отменить» вернёт цель."
           }
         }
       }

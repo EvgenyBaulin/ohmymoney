@@ -132,24 +132,14 @@ extension AccountActions {
 
   // MARK: For good
 
-  /// Deletes a bank no account is filed under, archived accounts included, for good; the ⌘Z
-  /// history is forgotten after it.
+  /// Deletes a bank no account is filed under, archived accounts included, in one step of ⌘Z.
   func deleteBank(_ id: UUID) -> AccountActionOutcome {
-    guard let repository = environment.accounts else { return .failed }
-    do {
-      try repository.deleteBank(id)
-    } catch AccountWriteError.bankInUse {
-      return .refused(.bankInUse)
-    } catch AccountWriteError.notFound {
-      return .refused(.notFound)
-    } catch {
-      AppLog.error(
-        "accounts.deleteBank", .db, "a bank was not deleted",
-        [LogPair("error", .error(error)), LogPair("code", .count((error as NSError).code))])
-      return .failed
-    }
-    settleForGood()
-    return .done
+    guard banks.contains(where: { $0.id == id }) else { return .refused(.notFound) }
+    guard !all.contains(where: { $0.bankId == id }) else { return .refused(.bankInUse) }
+    let outcome = apply(
+      PlanningChange(delete: PlanningRowIDs(banks: [id]), at: environment.now()))
+    if outcome == .done { settle() }
+    return outcome
   }
 
   // MARK: Where an account goes
