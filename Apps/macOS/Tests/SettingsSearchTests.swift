@@ -16,9 +16,10 @@ final class SettingsSearchTests: XCTestCase {
       SettingsSection.allCases,
       [
         .general, .appearance, .currencies, .accounts, .categories, .references, .entry,
-        .templates, .planning, .rules, .attachments, .purchases, .privacy, .backups,
+        .templates, .planning, .rules, .attachments, .purchases, .privacy, .categoryHints,
+        .backups,
       ])
-    XCTAssertEqual(Set(SettingsSection.allCases.map(\.symbol)).count, 14, "no two share a symbol")
+    XCTAssertEqual(Set(SettingsSection.allCases.map(\.symbol)).count, 15, "no two share a symbol")
   }
 
   /// Every name and every caption of the index has words in both languages: a caption without

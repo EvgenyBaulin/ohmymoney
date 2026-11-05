@@ -18,6 +18,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
   case attachments
   case purchases
   case privacy
+  case categoryHints
   case backups
 
   /// The name of the section, a key of the Settings table.
@@ -36,6 +37,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
     case .attachments: "settings.tab.attachments"
     case .purchases: "settings.tab.purchases"
     case .privacy: "settings.tab.privacy"
+    case .categoryHints: "settings.tab.categoryHints"
     case .backups: "settings.tab.backups"
     }
   }
@@ -65,7 +67,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
     switch self {
     case .general:
       [
-        .settings("settings.language"), .settings("settings.starter"),
+        .settings("settings.language"), .settings("settings.numbers"), .settings("settings.starter"),
         .settings("settings.tips.off"), .settings("settings.privacy"),
         .settings("settings.privacy.hideAmounts"), .settings("settings.privacy.lock"),
         .settings("settings.privacy.idle"), .settings("settings.privacy.password"),
@@ -168,6 +170,11 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .privacyExport("privacy.settings.demo"), .privacyExport("privacy.journal.keep"),
         .privacyExport("privacy.journal.clear"), .privacyExport("privacy.copy.title"),
       ] + Self.macCaptions
+    case .categoryHints:
+      [
+        .settings("settings.categoryHints.title"), .analytics("analytics.block.modelCategories"),
+        .analytics("analytics.block.modelForecast"),
+      ]
     case .backups:
       [
         .settings("settings.backups.folder"), .settings("settings.backups.choose"),
@@ -193,6 +200,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func sync(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Sync")
+  }
+
+  static func analytics(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "Analytics")
   }
 
   static func spending(_ key: String) -> SettingsCaption {

@@ -78,18 +78,21 @@ struct GuideWalkthroughTests {
   }
 
   /// «Показать, куда нажимать»: the line, its fields, the sections of the sidebar in its order
-  /// (⌘1 … ⌘6), «Сверка» (a menu item, ⌥⌘R) and the settings, each with keys.
+  /// (⌘1 … ⌘9), «Сверка» (a menu item, ⌥⌘R) and the settings, each with keys.
   @Test func whereToClickNamesEveryPlace() throws {
     let walk = try #require(GuideWalkthrough.whereToClick())
     #expect(
       walk.steps.map(\.target) == [
         GuideTarget.entryLine, GuideTarget.entryDetails, GuideTarget.sidebarOverview,
         GuideTarget.sidebarOperations, GuideTarget.sidebarPlanning, GuideTarget.sidebarCalendar,
-        GuideTarget.sidebarCapital, GuideTarget.sidebarDebts, GuideTarget.toolbarReconcile,
+        GuideTarget.sidebarCapital, GuideTarget.sidebarDebts, GuideTarget.sidebarPurchases,
+        GuideTarget.sidebarAnalytics, GuideTarget.sidebarReports, GuideTarget.toolbarReconcile,
         GuideTarget.toolbarSettings,
       ])
     #expect(
-      walk.steps.map(\.keys) == ["⌘N", "Tab", "⌘1", "⌘2", "⌘3", "⌘4", "⌘5", "⌘6", "⌥⌘R", "⌘,"])
+      walk.steps.map(\.keys) == [
+        "⌘N", "Tab", "⌘1", "⌘2", "⌘3", "⌘4", "⌘5", "⌘6", "⌘7", "⌘8", "⌘9", "⌥⌘R", "⌘,",
+      ])
     for step in walk.steps {
       #expect(step.text.isComplete && step.why?.isComplete == true, "\(step.target)")
     }
@@ -123,7 +126,8 @@ struct GuideWalkthroughTests {
       GuideTarget.entryLine, GuideTarget.entryDetails, GuideTarget.entryForWhom,
       GuideTarget.entryQuick, GuideTarget.sidebarOverview, GuideTarget.sidebarPlanning,
       GuideTarget.sidebarDebts, GuideTarget.sidebarOperations, GuideTarget.sidebarCalendar,
-      GuideTarget.sidebarCapital, GuideTarget.operationsSearch, GuideTarget.operationsList,
+      GuideTarget.sidebarCapital, GuideTarget.sidebarPurchases, GuideTarget.sidebarAnalytics,
+      GuideTarget.sidebarReports, GuideTarget.operationsSearch, GuideTarget.operationsList,
       GuideTarget.planningAddPayment, GuideTarget.planningAddGoal,
       GuideTarget.planningFreeToSpend, GuideTarget.debtsAdd,
     ]).union(GuideTarget.outsideTheContent)

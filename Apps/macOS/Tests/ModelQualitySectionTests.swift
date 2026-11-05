@@ -100,4 +100,32 @@ final class ModelQualitySectionTests: XCTestCase {
       XCTAssertNil(section.plannedFor, "\(section)")
     }
   }
+
+  /// 0577: «Качество модели» is in Settings → «Подсказки категорий», not in Analytics.
+  func testTheModelQualityLivesInSettingsNotInAnalytics() throws {
+    XCTAssertFalse(AnalyticsSection.listed.contains(.modelQuality))
+    XCTAssertEqual(AnalyticsSection.listed.count, AnalyticsSection.allCases.count - 1)
+    let sections = SettingsSection.allCases
+    let hints = try XCTUnwrap(sections.firstIndex(of: .categoryHints))
+    XCTAssertEqual(sections[hints + 1], .backups)
+    XCTAssertEqual(sections[hints - 1], .privacy)
+    XCTAssertFalse(SettingsSection.categoryHints.index.isEmpty)
+  }
+
+  @MainActor
+  func testTheSettingsSectionAndItsCaptionsSpeakBothLanguages() throws {
+    for code in ["ru", "en"] {
+      let bundle = try XCTUnwrap(
+        Bundle.main.path(forResource: code, ofType: "lproj").flatMap(Bundle.init(path:)))
+      let title = bundle.localizedString(
+        forKey: SettingsSection.categoryHints.titleKey, value: nil, table: "Settings")
+      XCTAssertNotEqual(title, SettingsSection.categoryHints.titleKey, code)
+      if code == "ru" { XCTAssertEqual(title, "Подсказки категорий") }
+      for caption in SettingsSection.categoryHints.index {
+        XCTAssertNotEqual(
+          bundle.localizedString(forKey: caption.key, value: nil, table: caption.table),
+          caption.key, "\(code) \(caption.key)")
+      }
+    }
+  }
 }

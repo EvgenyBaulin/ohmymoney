@@ -1495,7 +1495,7 @@ private struct ModelQualitySection: View {
 }
 
 /// One line per way of forecasting, the one in use marked.
-private struct ForecastQualityTable: View {
+struct ForecastQualityTable: View {
   @Dependency(\.environment) private var environment
   let backtest: ForecastBacktest
 

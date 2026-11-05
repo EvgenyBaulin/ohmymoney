@@ -347,6 +347,18 @@ final class PurchasesPageTests: XCTestCase {
     }
   }
 
+  func testClearDoneIsRussianInRussianAndEnglishInEnglish() throws {
+    for (code, word) in [("ru", "Очистить сделанные"), ("en", "Clear done")] {
+      let bundle = try XCTUnwrap(
+        Bundle.main.path(forResource: code, ofType: "lproj").flatMap(Bundle.init(path:)))
+      let format = bundle.localizedString(
+        forKey: "purchases.shopping.clear", value: nil, table: "Purchases")
+      let text = String(format: format, locale: Locale(identifier: code), 3)
+      XCTAssertTrue(text.hasPrefix(word), "\(code): \(text)")
+      XCTAssertTrue(text.hasSuffix("(3)"), "\(code): \(text)")
+    }
+  }
+
   func testThePagesHaveWordsAndSymbolsOfTheirOwn() {
     let pages = PurchasesText.Page.allCases
     XCTAssertEqual(Set(pages.map(\.symbol)).count, pages.count)

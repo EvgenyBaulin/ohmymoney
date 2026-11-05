@@ -22,6 +22,10 @@ enum AnalyticsSection: String, CaseIterable, Identifiable, Hashable, Sendable {
 
   var id: String { rawValue }
 
+  /// The sections the window lists. «Качество модели» is not one of them: it lives in
+  /// Settings → «Подсказки категорий» on every platform (0577).
+  static var listed: [AnalyticsSection] { allCases.filter { $0 != .modelQuality } }
+
   var titleKey: String { "analytics.section.\(rawValue)" }
 
   var symbol: String {

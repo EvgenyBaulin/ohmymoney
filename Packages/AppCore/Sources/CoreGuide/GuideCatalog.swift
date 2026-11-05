@@ -457,6 +457,24 @@ public enum GuideCatalog {
       why: GuideText("Кому должны вы и кто должен вам.", "Whom you owe and who owes you."),
       keys: "⌘6"),
     GuideHint(
+      target: GuideTarget.sidebarPurchases, text: GuideText("Покупки", "Purchases"),
+      why: GuideText(
+        "Список покупок, подарки, вещи и гарантии.",
+        "The shopping list, gifts, belongings and warranties."),
+      keys: "⌘7"),
+    GuideHint(
+      target: GuideTarget.sidebarAnalytics, text: GuideText("Аналитика", "Analytics"),
+      why: GuideText(
+        "Куда уходят деньги: разрезы, прогноз и аномалии.",
+        "Where the money goes: breakdowns, the forecast and anomalies."),
+      keys: "⌘8"),
+    GuideHint(
+      target: GuideTarget.sidebarReports, text: GuideText("Отчёты", "Reports"),
+      why: GuideText(
+        "Таблицы за любой период и выгрузка в файл.",
+        "Tables for any period and an export to a file."),
+      keys: "⌘9"),
+    GuideHint(
       target: GuideTarget.toolbarReconcile,
       text: GuideText(
         "Сверка остатка — в меню «Вид»", "Count the balance — in the View menu"),
@@ -483,6 +501,9 @@ public enum GuideCatalog {
     whatsNew113,
     whatsNew27,
     whatsNew28,
+    whatsNew29,
+    whatsNew211,
+    whatsNew213,
   ]
 
   public static let whatsNew14 = GuideScenario(

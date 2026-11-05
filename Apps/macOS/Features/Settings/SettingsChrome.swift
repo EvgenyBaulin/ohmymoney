@@ -34,6 +34,7 @@ extension SettingsSection {
     case .attachments: "paperclip"
     case .purchases: "bag"
     case .privacy: "hand.raised"
+    case .categoryHints: "checkmark.seal"
     case .backups: "clock.arrow.circlepath"
     }
   }
@@ -57,6 +58,7 @@ extension SettingsSection {
     case .attachments: 0x6C7A89
     case .purchases: 0xD9822B
     case .privacy: 0x5B6B7F
+    case .categoryHints: 0x34A58B
     case .backups: 0x2F5DE8
     }
   }

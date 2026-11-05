@@ -353,7 +353,7 @@ struct GuideProgressTests {
   }
 
   /// «Что нового в 2.7»: Shortcuts and AppleScript, the notifications, Spotlight and the Focus,
-  /// the windows, Numbers and printing — told to a database that saw 1.13; only 2.8 comes after it.
+  /// the windows, Numbers and printing — told to a database that saw 1.13; 2.8 and the versions after it come later.
   @Test func whatsNewOfTwoPointSevenTellsOfTheMac() throws {
     let scenario = GuideCatalog.whatsNew27
     #expect(scenario.kind == .whatsNew(version: GuideVersion(major: 2, minor: 7)))
@@ -363,7 +363,7 @@ struct GuideProgressTests {
         == ["new27.shortcuts", "new27.notifications", "new27.spotlight", "new27.windows"])
     #expect(scenario.cards.allSatisfy { !$0.symbol.isEmpty && $0.title.isComplete })
     #expect(scenario.cards.allSatisfy { $0.body.isComplete })
-    #expect(GuideCatalog.whatsNew.suffix(2).first?.id == scenario.id)
+    #expect(GuideCatalog.whatsNew.suffix(5).first?.id == scenario.id)
     let progress = GuideProgress(firstLaunchShown: true, whatsNewSeen: "1.13.0")
     #expect(
       progress.whatsNewDue(current: "2.7.0", catalog: GuideCatalog.whatsNew).map(\.id)

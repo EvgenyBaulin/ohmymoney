@@ -10303,6 +10303,74 @@
         }
       }
     },
+    "settings.numbers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Number format"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запись чисел"
+          }
+        }
+      }
+    },
+    "settings.numbers.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only what you read on screen changes. CSV files and the transfer archive always use a point."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Меняется только то, что вы читаете на экране. Файлы CSV и архив переноса всегда пишутся с точкой."
+          }
+        }
+      }
+    },
+    "settings.tab.categoryHints": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category hints"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подсказки категорий"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How well the category hints guess"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Насколько точны подсказки категорий"
+          }
+        }
+      }
+    },
     "settings.tips.off": {
       "extractionState": "manual",
       "localizations": {

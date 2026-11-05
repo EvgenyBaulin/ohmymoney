@@ -237,7 +237,7 @@ struct AnalyticsWindow: View {
 
   private var sectionChips: some View {
     FlowRow(spacing: 6, lineSpacing: 6) {
-      ForEach(AnalyticsSection.allCases) { item in
+      ForEach(AnalyticsSection.listed) { item in
         SectionChip(
           title: t(item.titleKey), symbol: item.symbol, selected: item == section
         ) { sectionName = item.rawValue }
