@@ -737,28 +737,31 @@ final class MainWindowLayoutTests: XCTestCase {
 
   // MARK: - The toolbar
 
-  /// «На панели инструментов: Add, Recompute, Reconcile, Reports, Export, Check for Updates».
-  /// «Операции» and «Аналитика» are not there: the sidebar and the menu hold them.
-  func testTheToolbarOffersEveryAction() throws {
+  /// The toolbar keeps the buttons of the screen: Add, the palette and the trip. No button of a
+  /// section (they stand in the sidebar) and none of the actions of the whole app — Reconcile,
+  /// Export, Recompute, Hide Amounts, Updates, Settings are items of the menu bar
+  /// (`NavigationShellTests`).
+  func testTheToolbarOffersOnlyTheButtonsOfTheScreen() throws {
     let window = makeWindow()
     try waitForList(window)
     settle(window, passes: 10, "with the toolbar")
 
     let toolbar = try XCTUnwrap(window.toolbar, "the main window has no toolbar")
     let labels = Set(Self.labels(of: toolbar.items))
-    let expected = [
-      environment.language("action.add"), environment.language("action.recompute"),
-      environment.language("action.reconcile"), environment.language("window.reports"),
-      environment.language("action.export"), UpdateService.title(environment),
-      PrivacyCommands.amountsTitle(environment),
-    ]
-    for title in expected {
+    for title in [
+      environment.language("action.add"), QuestionsText.t("questions.menu.palette", environment),
+      TravelText.t("travel.start.button", environment),
+    ] {
       XCTAssertTrue(labels.contains(title), "the toolbar has no «\(title)»: \(labels.sorted())")
     }
     for title in [
       environment.language("window.transactions"), environment.language("window.analytics"),
+      environment.language("window.reports"), environment.language("action.recompute"),
+      environment.language("action.reconcile"), environment.language("action.export"),
+      UpdateService.title(environment), PrivacyCommands.amountsTitle(environment),
+      environment.language("settings.title", table: "Settings"),
     ] {
-      XCTAssertFalse(labels.contains(title), "the sidebar holds «\(title)», not the toolbar")
+      XCTAssertFalse(labels.contains(title), "«\(title)» belongs to the menu, not the toolbar")
     }
     XCTAssertEqual(AppDependencies.missingReaders, [])
   }

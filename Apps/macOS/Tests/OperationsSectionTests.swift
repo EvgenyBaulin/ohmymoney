@@ -221,18 +221,19 @@ final class OperationsSectionTests: XCTestCase {
     XCTAssertTrue(shown("reports"), "⌘9 did not bring «Отчёты»")
     NotificationCenter.default.post(name: .selectSection, object: 1)
     settle()
+    func count(_ section: String) -> Int {
+      Logbook.shared.lines().filter {
+        $0.contains(" section.shown ") && $0.hasSuffix(" window=main section=\(section)")
+      }.count
+    }
+    var before = count("analytics")
     OperationsScreenOpening.choose(.analytics)
     settle()
-    XCTAssertEqual(
-      Logbook.shared.lines().filter {
-        $0.contains(" section.shown ") && $0.hasSuffix(" window=main section=analytics")
-      }.count, 2, "⌘⇧A did not bring «Аналитика» again")
+    XCTAssertGreaterThan(count("analytics"), before, "⌘⇧A did not bring «Аналитика» again")
+    before = count("reports")
     OperationsScreenOpening.choose(.reports)
     settle()
-    XCTAssertEqual(
-      Logbook.shared.lines().filter {
-        $0.contains(" section.shown ") && $0.hasSuffix(" window=main section=reports")
-      }.count, 2, "⌘⇧R did not bring «Отчёты» again")
+    XCTAssertGreaterThan(count("reports"), before, "⌘⇧R did not bring «Отчёты» again")
     XCTAssertFalse(
       Logbook.shared.lines().contains { $0.contains("dependencies.missing") },
       "Analytics or Reports got no dependencies in the column")
