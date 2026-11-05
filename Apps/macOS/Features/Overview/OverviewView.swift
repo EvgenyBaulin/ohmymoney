@@ -125,6 +125,7 @@ private struct OverviewHeader: View {
       SummaryAnnouncementCard()
       FirstMonthCard()
       if OverviewHero.shows(forWidth: width) { OverviewHero() }
+      OverviewDoNowCard(screen: screen)
       if OverviewAccountsStrip.shows { OverviewAccountsStrip() }
       if AccountsSetupCard.shows(setup: environment.accountSetup) {
         AccountsSetupCard()

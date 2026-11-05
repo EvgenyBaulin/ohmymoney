@@ -12,14 +12,14 @@ import XCTest
 final class PhoneOverviewAppearanceTests: XCTestCase {
   // MARK: Overview
 
-  func testTheHeroStandsFirstOnAPhoneAndOnATablet() {
+  func testTheMainCardStandsFirstOnAPhoneAndOnATablet() {
     for width in [320, 390, 430, 700, 1_000] {
       XCTAssertTrue(OverviewHero.shows(forWidth: CGFloat(width)), "width \(width)")
     }
   }
 
-  func testTheStripOfAccountsStandsOnThePhone() {
-    XCTAssertTrue(OverviewAccountsStrip.shows)
+  func testTheStripOfAccountsIsGoneFromOverviewAndKeepsItsSize() {
+    XCTAssertFalse(OverviewAccountsStrip.shows)
     XCTAssertEqual(OverviewAccountsStrip.cardSize, CGSize(width: 230, height: 112))
   }
 

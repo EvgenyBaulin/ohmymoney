@@ -43,6 +43,18 @@ final class OverviewScreen {
     isEditing = false
   }
 
+  /// «Стоит посмотреть» is no tile of Overview: its full list opens from «Все» of «Что сделать
+  /// сейчас». A pair that held it keeps its other tile alone.
+  static func withoutWorthALook(_ cells: [OverviewLayout.Cell]) -> [OverviewLayout.Cell] {
+    cells.compactMap { cell in
+      switch cell {
+      case .single(let tile): tile == .worthALook ? nil : cell
+      case .pair(let first, let second):
+        if first == .worthALook { .single(second) } else if second == .worthALook { .single(first) } else { cell }
+      }
+    }
+  }
+
   /// The groups the screen shows, in the owner's order: outside editing a group with no tile
   /// shown is left out; while editing every group is there, to drop a tile into.
   static func groups(
@@ -50,7 +62,9 @@ final class OverviewScreen {
   ) -> [OverviewTileGroup] {
     editing
       ? layout.groups
-      : layout.groups.filter { !layout.visibleTiles(in: $0, facts: facts).isEmpty }
+      : layout.groups.filter {
+        layout.visibleTiles(in: $0, facts: facts).contains { $0 != .worthALook }
+      }
   }
 
   /// Whether the tiles of `group` are laid out under its name: unless it is collapsed — and
@@ -78,11 +92,18 @@ struct OverviewEditBar: View {
         // «Готово» stands in the navigation bar on a phone, beside the title.
         if !editsInChrome {
           Button(t("overview.edit.done")) { screen.done() }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.primaryAction)
             .accessibilityIdentifier("overview.edit.done")
         }
       } else if !editsInChrome {
+        // One orange button with words, the rest grey.
+        Button(t("overview.newOperation")) {
+          NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+        }
+        .buttonStyle(.primaryAction)
+        .accessibilityIdentifier("overview.newOperation")
         Button(t("overview.edit")) { screen.edit() }
+          .buttonStyle(.quietAction)
           .accessibilityIdentifier("overview.edit")
       }
     }
@@ -112,7 +133,7 @@ struct OverviewGroupedGrid: View {
           if OverviewScreen.showsTiles(
             of: group, collapsed: environment.overviewCollapsed, editing: editing)
           {
-            let cells = layout.cells(in: group, facts: facts)
+            let cells = OverviewScreen.withoutWorthALook(layout.cells(in: group, facts: facts))
             if cells.isEmpty {
               OverviewEmptyGroup(group: group)
             } else {

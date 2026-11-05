@@ -1,23 +1,12 @@
 import AppCore
 import SwiftUI
 
-/// «Можно тратить сейчас» on the theme's hero gradient, over the groups of tiles on a phone or a
-/// tablet: the one figure of the screen, the free sum with its sentence about the day. The
-/// «Свободные средства» tile keeps the terms it is made of. Content, never glass; the figures
-/// are the core's, only put into words (`PlanningHero`).
+/// The main card of Overview on every platform: «Свободно … — хватает» with the days to the
+/// end of the free sum's window, in the white calm card of the one style (`OverviewHeadlineCard`).
+/// The coloured gradient card belongs to «Капитал» and «Итоги» only. Content, never glass.
 struct OverviewHero: View {
-  @Dependency(\.environment) private var environment
-  @Dependency(\.compute) private var compute
-
-  /// The hero stands first on every screen of the phone and the tablet, as the design draws it;
-  /// on the Mac the free-sum tile carries the figure.
-  static func shows(forWidth width: CGFloat) -> Bool {
-    #if os(iOS)
-      true
-    #else
-      false
-    #endif
-  }
+  /// The main card stands first on every screen, wide or narrow.
+  static func shows(forWidth width: CGFloat) -> Bool { true }
 
   /// The line under the figure, with «часть скрыта» after it when the free sum holds money of a
   /// hidden account.
@@ -26,19 +15,7 @@ struct OverviewHero: View {
     return line.map { "\($0) · \(partHidden)" } ?? partHidden
   }
 
-  var body: some View {
-    if let snapshot = compute.snapshot,
-      let content = PlanningHero.make(free: snapshot.planning.freeMoney, environment: environment)
-    {
-      PhoneHeroCard(
-        caption: content.caption, figure: content.figure,
-        line: Self.line(
-          content.lines.first,
-          partHidden: OverviewPartHidden.shows(.freeMoney, covered: snapshot.coveredAccounts)
-            ? environment.language("privacy.partHidden", table: "PrivacyScreens") : nil),
-        figureIdentifier: "overview.hero.figure")
-    }
-  }
+  var body: some View { OverviewHeadlineCard() }
 }
 
 /// The hero card of the phone design: radius 28, 20 × 18 of margin, the caption in 14 pt medium,

@@ -25,15 +25,22 @@ public struct DoNowItem: Hashable, Sendable, Identifiable {
   public var day: DateOnly?
   /// How many things wait behind a «Разобрать» item.
   public var count: Int
+  /// The account a «Загрузить» item is about.
+  public var accountId: UUID?
+  /// How many days ago the last statement of that account was loaded.
+  public var daysAgo: Int
 
   public init(
-    id: String, action: Action, paymentId: UUID? = nil, day: DateOnly? = nil, count: Int = 1
+    id: String, action: Action, paymentId: UUID? = nil, day: DateOnly? = nil, count: Int = 1,
+    accountId: UUID? = nil, daysAgo: Int = 0
   ) {
     self.id = id
     self.action = action
     self.paymentId = paymentId
     self.day = day
     self.count = count
+    self.accountId = accountId
+    self.daysAgo = daysAgo
   }
 
   /// A payment whose day has passed.
@@ -48,10 +55,14 @@ public struct DoNowItem: Hashable, Sendable, Identifiable {
 public struct DoNowSource: Hashable, Sendable {
   public var id: String
   public var count: Int
+  public var accountId: UUID?
+  public var daysAgo: Int
 
-  public init(id: String, count: Int) {
+  public init(id: String, count: Int, accountId: UUID? = nil, daysAgo: Int = 0) {
     self.id = id
     self.count = count
+    self.accountId = accountId
+    self.daysAgo = daysAgo
   }
 }
 
@@ -81,7 +92,9 @@ public enum WhatToDoNow {
     .sorted { ($0.day ?? today, $0.id) < ($1.day ?? today, $1.id) }
     func items(_ sources: [DoNowSource], _ action: DoNowItem.Action) -> [DoNowItem] {
       sources.filter { $0.count > 0 }.sorted { $0.id < $1.id }.map {
-        DoNowItem(id: "\(action.rawValue):\($0.id)", action: action, count: $0.count)
+        DoNowItem(
+          id: "\(action.rawValue):\($0.id)", action: action, count: $0.count,
+          accountId: $0.accountId, daysAgo: $0.daysAgo)
       }
     }
     let all = due + items(reviews, .review) + items(statements, .load)

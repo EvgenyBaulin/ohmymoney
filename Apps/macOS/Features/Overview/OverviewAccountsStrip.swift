@@ -14,14 +14,9 @@ struct OverviewAccountsStrip: View {
 
   static let cardSize = CGSize(width: 230, height: 112)
 
-  /// The strip stands on the phone and the tablet; the Mac has the accounts in its sidebar.
-  static var shows: Bool {
-    #if os(iOS)
-      true
-    #else
-      false
-    #endif
-  }
+  /// The design of Overview has no strip of accounts over the tiles on any platform: the
+  /// accounts are in the sidebar and in the tab «Счета».
+  static var shows: Bool { false }
 
   /// The colours of the cards, one after another; the accent first.
   private var tints: [Color] {
