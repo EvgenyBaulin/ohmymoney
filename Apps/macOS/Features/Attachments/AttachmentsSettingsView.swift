@@ -214,7 +214,7 @@ struct AttachmentTrashView: View {
       }
       .buttonStyle(.borderless)
       Button(t("att.trash.deleteNow"), role: .destructive) { deletion.ask(item) }
-      .buttonStyle(.borderless)
+        .buttonStyle(.borderless)
     }
   }
 

@@ -67,7 +67,8 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
     switch self {
     case .general:
       [
-        .settings("settings.language"), .settings("settings.numbers"), .settings("settings.starter"),
+        .settings("settings.language"), .settings("settings.numbers"),
+        .settings("settings.starter"),
         .settings("settings.tips.off"), .settings("settings.privacy"),
         .settings("settings.privacy.hideAmounts"), .settings("settings.privacy.lock"),
         .settings("settings.privacy.idle"), .settings("settings.privacy.password"),

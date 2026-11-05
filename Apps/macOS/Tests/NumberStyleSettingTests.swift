@@ -27,7 +27,8 @@ final class NumberStyleSettingTests: XCTestCase {
     theme.numberStyle = .space
     XCTAssertEqual(NumberText.style, .space)
     XCTAssertEqual(money.exact(amount), "1\(nbsp)234,56\(nbsp)₽")
-    XCTAssertEqual(MoneyFormatter(locale: Locale(identifier: "ru")).exact(amount), "1\(nbsp)234,56\(nbsp)₽")
+    XCTAssertEqual(
+      MoneyFormatter(locale: Locale(identifier: "ru")).exact(amount), "1\(nbsp)234,56\(nbsp)₽")
     theme.numberStyle = .point
     XCTAssertEqual(money.exact(amount), "1,234.56\(nbsp)₽")
   }

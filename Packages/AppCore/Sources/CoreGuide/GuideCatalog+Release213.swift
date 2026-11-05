@@ -35,7 +35,7 @@ extension GuideCatalog {
           "«Файл → Перенести из другого приложения…» (на iPhone и iPad — «Настройки → Счета») читает выгрузки CoinKeeper, Zenmoney, Money Manager и любой таблицы: CSV, текст с табуляцией и Excel. Колонки угадываются, счета и категории сопоставляются с вашими, перед записью виден предпросмотр. Сначала делается копия базы, а один ⌘Z возвращает весь перенос.",
           "«File → Move In from Another App…» (Settings → Accounts on iPhone and iPad) reads exports of CoinKeeper, Zenmoney, Money Manager and any spreadsheet: CSV, tab-separated text and Excel. Columns are guessed, accounts and categories are paired with yours, and a preview shows before anything is written. A copy of the database is made first, and one ⌘Z takes the whole move back."
         ),
-        symbol: "square.and.arrow.down.on.square"),
+        symbol: "square.and.arrow.down.on.square")
     ])
 
   public static let whatsNew213 = GuideScenario(

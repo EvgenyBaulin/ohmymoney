@@ -17,7 +17,9 @@ struct WhatToDoNowTests {
 
   @Test func nothingToDoIsAnEmptyList() {
     let list = WhatToDoNow.list(
-      payments: [payment("later", due: today.adding(days: 1)), payment("off", due: today, active: false)],
+      payments: [
+        payment("later", due: today.adding(days: 1)), payment("off", due: today, active: false),
+      ],
       reviews: [DoNowSource(id: "a", count: 0)], today: today)
     #expect(list.isEmpty)
     #expect(list.more == 0)

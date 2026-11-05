@@ -343,7 +343,8 @@ final class AttachmentsSectionTests: XCTestCase {
       "att.settings.trashWord", "att.settings.footer", "att.settings.files",
       "att.settings.size", "att.settings.inTrash", "att.settings.openTrash", "att.trash.title",
       "att.trash.empty", "att.trash.restore", "att.trash.deleteNow", "att.trash.emptyAll",
-      "att.trash.confirm", "att.trash.confirmOne", "att.trash.confirmHint", "att.trash.daysLeft", "att.archive.with",
+      "att.trash.confirm", "att.trash.confirmOne", "att.trash.confirmHint", "att.trash.daysLeft",
+      "att.archive.with",
       "att.archive.partial", "att.import.without",
     ]
     for code in ["ru", "en"] {
