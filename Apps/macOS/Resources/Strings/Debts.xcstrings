@@ -1301,6 +1301,23 @@
         }
       }
     },
+    "debts.delete.undo.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Undo” brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вернуть можно кнопкой «Отменить»."
+          }
+        }
+      }
+    },
     "debts.deleteFailed": {
       "extractionState": "manual",
       "localizations": {
@@ -6004,6 +6021,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "One gesture undoes it: ⌘Z"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отмена одним жестом — «Отменить»"
+          }
+        }
+      }
+    },
+    "wizard.how.undo.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One gesture undoes it: “Undo”"
           }
         },
         "ru": {

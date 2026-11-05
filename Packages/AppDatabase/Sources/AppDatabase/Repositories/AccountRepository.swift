@@ -90,14 +90,13 @@ public struct BankRepair: Hashable, Sendable {
   }
 }
 
-/// The accounts and their groups: reading them, and the writes that cannot be undone — the
-/// setup of the accounts, a merge, a deletion. Everything else about an account (a new one, a
-/// rename, the archive, the order, a group) is a `PlanningChange`, one step of ⌘Z.
+/// The accounts and their groups: reading them, and the writes that are no step of ⌘Z — the
+/// setup of the accounts and the deletions kept for the repair tools. Everything else about an
+/// account (a new one, a rename, the archive, the order, a group, a deletion, a merge) is a
+/// `PlanningChange`, one step of ⌘Z (`PlanningChange.mergingAccounts`, `.delete`).
 ///
-/// A write of this repository is no step of ⌘Z, and a step taken before it may name what it
-/// deleted or moved: taking that step back would fail on an account that is gone, or put rows
-/// back on an account merged away. So the caller forgets the ⌘Z history after each one
-/// (`TransactionsStore.forgetUndoHistory()`), as after recording money back.
+/// A write of this repository that is no step of ⌘Z may name what an earlier step names: the
+/// caller forgets the ⌘Z history after it (`TransactionsStore.forgetUndoHistory()`).
 public struct AccountRepository: Sendable {
   private let writer: any DatabaseWriter
 
@@ -251,8 +250,9 @@ public struct AccountRepository: Sendable {
 
   // MARK: Merging
 
-  /// Merges one account into another in one write, for good (a merge is not undone, as with
-  /// every other merge of the reference books). The plan is worked out beforehand
+  /// Merges one account into another in one write. The app writes it through
+  /// `PlanningChange.mergingAccounts`, which makes it one step of ⌘Z (`revertMerge`); this
+  /// entry keeps no way back. The plan is worked out beforehand
   /// (`AccountMergePlan`): the repository only writes it. Only two accounts of one bank merge:
   /// any other pair is refused with `AccountWriteError.otherBank` and nothing is written.
   ///
@@ -277,58 +277,128 @@ public struct AccountRepository: Sendable {
   ///
   /// The fees of the deleted transfers lose their key `transfer:<id>:fee` in the same write:
   /// the transfer they pointed at is gone. `calendar` gives the reconciliation its day.
-  /// Forget the ⌘Z history after it (see the type).
   public func merge(_ plan: AccountMergePlan, calendar: CalendarContext) throws {
     guard plan.sourceId != plan.target.id else { return }
-    try writer.write { db in
-      guard try PaymentMethod.exists(db, key: plan.sourceId.uuidString),
-        try PaymentMethod.exists(db, key: plan.target.id.uuidString)
-      else { throw AccountWriteError.notFound }
-      try Self.refuseOtherBanks(plan.sourceId, plan.target.id, db: db)
-      let wasMain =
-        try Bool.fetchOne(
-          db,
-          sql: """
-            SELECT EXISTS (
-              SELECT 1 FROM payment_methods
-              WHERE is_default = 1 AND archived = 0 AND id IN (?, ?))
-            """,
-          arguments: [plan.sourceId.uuidString, plan.target.id.uuidString]) ?? false
-      for transferId in plan.deletedTransferIds {
-        try db.execute(
-          sql: "UPDATE transactions SET external_id = NULL WHERE external_id = ?",
-          arguments: [OperationLink.transferFee(transferId).externalId])
-      }
-      _ = try Transfer.deleteAll(db, keys: plan.deletedTransferIds.map(\.uuidString))
-      try Self.dropCollidingRules(of: plan.sourceId, into: plan.target.id, db: db)
-      // An account cannot be its own points account: if the one that stays took its points to
-      // the one merged away, it takes them as money now.
-      try db.execute(
-        sql: """
-          UPDATE payment_methods SET cashback_points_account_id = NULL
-          WHERE id = ? AND cashback_points_account_id = ?
-          """, arguments: [plan.target.id.uuidString, plan.sourceId.uuidString])
-      try Self.dropPayoutToItself(of: plan.sourceId, into: plan.target.id, db: db)
-      try ReferenceRepository.repoint(
-        "payment_methods", from: plan.sourceId, to: plan.target.id, db: db)
-      var target = plan.target
-      target.isDefault = target.isDefault || wasMain
-      if target.cashbackPointsAccountId == plan.sourceId { target.cashbackPointsAccountId = nil }
-      if target.interest?.payoutAccountId == plan.sourceId {
-        target.interest?.payoutAccountId = nil
-      }
-      // The target's main card is written only while it is a card of the target: a plan
-      // worked out before a card moved or was merged away must not stop the merge.
-      try ReferenceRepository.save(Self.keepingOwnMainCard(target, db: db), db: db)
-      try db.execute(
-        sql: "UPDATE payment_methods SET archived = 1, is_default = 0 WHERE id = ?",
-        arguments: [plan.sourceId.uuidString])
+    _ = try writer.write { db in try Self.merge(plan, calendar: calendar, db: db) }
+  }
 
-      for moment in plan.countsByMoment {
-        try Self.writeOpening(
-          at: moment.at, calendar: calendar,
-          balances: moment.counts.map { ($0.key, $0.actual, nil) }, origin: .merge, db: db)
+  /// The merge inside a write that is already open, with what it takes to put everything back
+  /// (`revertMerge`). `PlanningChange.mergingAccounts` runs it, so a merge is one step of ⌘Z.
+  static func merge(
+    _ plan: AccountMergePlan, calendar: CalendarContext, db: Database
+  ) throws -> AccountMergeUndo {
+    var undo = AccountMergeUndo()
+    guard plan.sourceId != plan.target.id else { return undo }
+    guard try PaymentMethod.exists(db, key: plan.sourceId.uuidString),
+      try PaymentMethod.exists(db, key: plan.target.id.uuidString)
+    else { throw AccountWriteError.notFound }
+    try Self.refuseOtherBanks(plan.sourceId, plan.target.id, db: db)
+    let accountsBefore = try RowSnapshot.rows("payment_methods", db: db)
+    let reconciliationsBefore = Set(try String.fetchAll(db, sql: "SELECT id FROM reconciliations"))
+    let wasMain =
+      try Bool.fetchOne(
+        db,
+        sql: """
+          SELECT EXISTS (
+            SELECT 1 FROM payment_methods
+            WHERE is_default = 1 AND archived = 0 AND id IN (?, ?))
+          """,
+        arguments: [plan.sourceId.uuidString, plan.target.id.uuidString]) ?? false
+    for transferId in plan.deletedTransferIds {
+      let key = OperationLink.transferFee(transferId).externalId
+      for id in try String.fetchAll(
+        db, sql: "SELECT id FROM transactions WHERE external_id = ?", arguments: [key])
+      {
+        undo.freedKeys.append(FreedKey(operationId: id, externalId: key))
       }
+      try db.execute(
+        sql: "UPDATE transactions SET external_id = NULL WHERE external_id = ?", arguments: [key])
+    }
+    let transfers = try RowSnapshot.rows(
+      "transfers", where: "id IN (\(databaseQuestionMarks(count: plan.deletedTransferIds.count)))",
+      arguments: StatementArguments(plan.deletedTransferIds.map(\.uuidString)), db: db)
+    undo.removed += transfers
+    _ = try Transfer.deleteAll(db, keys: plan.deletedTransferIds.map(\.uuidString))
+    var own: [RowSnapshot] = []
+    for table in ["cashback_rules", "bank_conditions"] {
+      own += try RowSnapshot.rows(
+        table, where: "payment_method_id = ? AND card_id IS NULL",
+        arguments: [plan.sourceId.uuidString], db: db)
+    }
+    try Self.dropCollidingRules(of: plan.sourceId, into: plan.target.id, db: db)
+    for row in own where try !RowSnapshot.exists(row.table, rowid: row.rowid, db: db) {
+      undo.removed.append(row)
+    }
+    // An account cannot be its own points account: if the one that stays took its points to
+    // the one merged away, it takes them as money now.
+    try db.execute(
+      sql: """
+        UPDATE payment_methods SET cashback_points_account_id = NULL
+        WHERE id = ? AND cashback_points_account_id = ?
+        """, arguments: [plan.target.id.uuidString, plan.sourceId.uuidString])
+    try Self.dropPayoutToItself(of: plan.sourceId, into: plan.target.id, db: db)
+    // What pointed at the source points at the target; the rows are kept by rowid, so ⌘Z moves
+    // back exactly those and not what pointed at the target all along. The accounts' own
+    // columns are restored with the accounts.
+    for (table, column) in ReferenceRepository.mergedColumns["payment_methods"] ?? []
+    where table != "payment_methods" {
+      let rowids = try Int64.fetchAll(
+        db, sql: "SELECT rowid FROM \(table) WHERE \(column) = ?",
+        arguments: [plan.sourceId.uuidString])
+      for rowid in rowids {
+        undo.moved.append(MovedReference(table: table, column: column, rowid: rowid))
+      }
+    }
+    try ReferenceRepository.repoint(
+      "payment_methods", from: plan.sourceId, to: plan.target.id, db: db)
+    var target = plan.target
+    target.isDefault = target.isDefault || wasMain
+    if target.cashbackPointsAccountId == plan.sourceId { target.cashbackPointsAccountId = nil }
+    if target.interest?.payoutAccountId == plan.sourceId {
+      target.interest?.payoutAccountId = nil
+    }
+    // The target's main card is written only while it is a card of the target: a plan
+    // worked out before a card moved or was merged away must not stop the merge.
+    try ReferenceRepository.save(Self.keepingOwnMainCard(target, db: db), db: db)
+    try db.execute(
+      sql: "UPDATE payment_methods SET archived = 1, is_default = 0 WHERE id = ?",
+      arguments: [plan.sourceId.uuidString])
+
+    for moment in plan.countsByMoment {
+      try Self.writeOpening(
+        at: moment.at, calendar: calendar,
+        balances: moment.counts.map { ($0.key, $0.actual, nil) }, origin: .merge, db: db)
+    }
+    let accountsAfter = Dictionary(
+      uniqueKeysWithValues: try RowSnapshot.rows("payment_methods", db: db).map { ($0.rowid, $0) })
+    undo.changed = accountsBefore.filter { accountsAfter[$0.rowid] != $0 }
+    undo.addedReconciliations = try String.fetchAll(db, sql: "SELECT id FROM reconciliations")
+      .filter { !reconciliationsBefore.contains($0) }
+    undo.sourceId = plan.sourceId
+    undo.targetId = plan.target.id
+    return undo
+  }
+
+  /// Puts back what `merge` did, in the same order of care: the reconciliations it added go,
+  /// the accounts and the rows it removed come back as they were, and what it moved to the
+  /// target points at the source again — unless the owner moved it elsewhere since.
+  static func revertMerge(_ undo: AccountMergeUndo, db: Database) throws {
+    for id in undo.addedReconciliations {
+      try db.execute(
+        sql: "DELETE FROM reconciliation_balances WHERE reconciliation_id = ?", arguments: [id])
+      try db.execute(sql: "DELETE FROM reconciliations WHERE id = ?", arguments: [id])
+    }
+    for row in undo.changed { try row.restore(db: db) }
+    for row in undo.removed { try row.restore(db: db) }
+    for move in undo.moved {
+      try db.execute(
+        sql: "UPDATE \(move.table) SET \(move.column) = ? WHERE rowid = ? AND \(move.column) = ?",
+        arguments: [undo.sourceId.uuidString, move.rowid, undo.targetId.uuidString])
+    }
+    for freed in undo.freedKeys {
+      try db.execute(
+        sql: "UPDATE transactions SET external_id = ? WHERE id = ? AND external_id IS NULL",
+        arguments: [freed.externalId, freed.operationId])
     }
   }
 
@@ -625,6 +695,83 @@ public struct AccountRepository: Sendable {
         currency: balance.key.currency, actualE4: balance.actual, expectedE4: balance.expected,
         differenceE4: balance.expected.map { balance.actual - $0 }
       ).insert(db)
+    }
+  }
+}
+
+/// Everything `AccountRepository.revertMerge` needs to take an account merge back.
+public struct AccountMergeUndo: Hashable, Sendable {
+  var sourceId = UUID()
+  var targetId = UUID()
+  /// The accounts the merge changed, as they were.
+  var changed: [RowSnapshot] = []
+  /// Transfers between the two accounts, and the rules and conditions of the source's own that
+  /// the target already had: removed by the merge.
+  var removed: [RowSnapshot] = []
+  /// Rows that pointed at the source and point at the target now.
+  var moved: [MovedReference] = []
+  /// The keys the fees of the removed transfers lost.
+  var freedKeys: [FreedKey] = []
+  /// The reconciliations the merge wrote.
+  var addedReconciliations: [String] = []
+
+  init() {}
+}
+
+struct MovedReference: Hashable, Sendable {
+  var table: String
+  var column: String
+  var rowid: Int64
+}
+
+struct FreedKey: Hashable, Sendable {
+  var operationId: String
+  var externalId: String
+}
+
+/// One row of any table as it was, by rowid, written back without a schema of its own: the
+/// columns and their values.
+struct RowSnapshot: Hashable, Sendable {
+  var table: String
+  var rowid: Int64
+  var columns: [String]
+  var values: [DatabaseValue]
+
+  static func rows(
+    _ table: String, where condition: String = "1", arguments: StatementArguments = [],
+    db: Database
+  ) throws -> [RowSnapshot] {
+    try Row.fetchAll(
+      db, sql: "SELECT rowid AS _rowid_, * FROM \(table) WHERE \(condition) ORDER BY rowid",
+      arguments: arguments
+    ).map { row in
+      let names = Array(row.columnNames.dropFirst())
+      return RowSnapshot(
+        table: table, rowid: row["_rowid_"], columns: names,
+        values: names.map { row[$0] as DatabaseValue })
+    }
+  }
+
+  static func exists(_ table: String, rowid: Int64, db: Database) throws -> Bool {
+    try Bool.fetchOne(
+      db, sql: "SELECT EXISTS (SELECT 1 FROM \(table) WHERE rowid = ?)", arguments: [rowid])
+      ?? false
+  }
+
+  /// Updates the row when it is there, inserts it at its rowid when it is not. Never a
+  /// `REPLACE`: that would delete the row first, and its cascades with it.
+  func restore(db: Database) throws {
+    if try Self.exists(table, rowid: rowid, db: db) {
+      let sets = columns.map { "\($0) = ?" }.joined(separator: ", ")
+      try db.execute(
+        sql: "UPDATE \(table) SET \(sets) WHERE rowid = ?",
+        arguments: StatementArguments(values + [rowid.databaseValue]))
+    } else {
+      let names = (["rowid"] + columns).joined(separator: ", ")
+      let marks = databaseQuestionMarks(count: columns.count + 1)
+      try db.execute(
+        sql: "INSERT INTO \(table) (\(names)) VALUES (\(marks))",
+        arguments: StatementArguments([rowid.databaseValue] + values))
     }
   }
 }

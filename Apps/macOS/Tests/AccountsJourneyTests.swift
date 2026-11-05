@@ -1110,7 +1110,7 @@ final class AccountsJourneyTests: XCTestCase {
 
   /// The actions on accounts and groups the sidebar offers are one step of ⌘Z each: making
   /// another account main, renaming a group, an account into the archive (its group, still
-  /// holding it, is refused). A merge is not undone, and ⌘Z forgets what came before it. The
+  /// holding it, is refused). A merge is one step of ⌘Z like the rest. The
   /// archive of a group, «Вернуть», the drag, «по алфавиту», the deletion of a transfer and a
   /// contribution are in `testAnEmptyGroupGoesToTheArchive…` and
   /// `testRestoreDragAlphabetTransferDeletionAndContributionAreOneStepEach`.
@@ -1143,11 +1143,12 @@ final class AccountsJourneyTests: XCTestCase {
     let preview = try XCTUnwrap(
       accounts.mergePreview(spare.id, into: books.freedom.id, books: current))
     XCTAssertEqual(accounts.merge(preview), .done)
-    XCTAssertFalse(store.canUndo, "a merge left steps of ⌘Z that may name the account gone")
-    store.undo()
+    XCTAssertTrue(store.canUndo, "a merge is a step of ⌘Z")
     let after = try await freshBooks()
     XCTAssertEqual(after.dataset.transfers.count, 1)
     XCTAssertEqual(accounts.all.first { $0.id == spare.id }?.archived, true)
+    store.undo()
+    XCTAssertEqual(accounts.all.first { $0.id == spare.id }?.archived, false, "⌘Z of the merge")
   }
 
   /// An edit of a transfer — 10 000 ₽ becomes 12 000 ₽, the fee 100 ₽ becomes 150 ₽ — moves
@@ -1703,7 +1704,8 @@ final class AccountsJourneyTests: XCTestCase {
 
     XCTAssertEqual(accounts.deleteGroup(dacha.id), .done)
     XCTAssertFalse(accounts.groups.contains { $0.id == dacha.id })
-    XCTAssertFalse(store.canUndo, "a deletion forgets the steps that may name the group")
+    store.undo()
+    XCTAssertTrue(accounts.groups.contains { $0.id == dacha.id }, "⌘Z brings the group back")
   }
 
   /// Freedom moved out of «Казахстан» (left out of the summary) brings its 130 000 ₽ (1 000 $

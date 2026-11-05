@@ -214,6 +214,12 @@ public struct PlanningChange: Sendable, Hashable {
   /// since the account stays. A card of another account, or one that is not there, refuses the
   /// change with `AccountWriteError.cardOfAnotherAccount`.
   public var movingCards: [UUID: UUID]
+  /// An account merged into another, worked out beforehand (`AccountMergePlan`): the transfers
+  /// between the two, the rules the target already has, what pointed at the source, the
+  /// accounts and the opening reconciliations are written as `AccountRepository.merge` writes
+  /// them, and ⌘Z puts all of it back (`PlanningUndo.accountMerge`). Only two accounts of one
+  /// bank merge (`AccountWriteError.otherBank`).
+  public var mergingAccounts: AccountMergePlan?
 
   public init(
     created: [TransactionEntry] = [], upsert: PlanningRows = .empty,
@@ -222,8 +228,9 @@ public struct PlanningChange: Sendable, Hashable {
     unlinking: PlanningRowIDs = .empty, settles: Set<BalanceKey> = [],
     expectingBalances: [BalanceKey: AmountE4] = [:],
     expectingBalancesNow: [BalanceKey: AmountE4] = [:], settlingPlanned: Set<UUID>? = nil,
-    movingCards: [UUID: UUID] = [:]
+    movingCards: [UUID: UUID] = [:], mergingAccounts: AccountMergePlan? = nil
   ) {
+    self.mergingAccounts = mergingAccounts
     self.created = created
     self.upsert = upsert
     self.delete = delete
@@ -279,6 +286,8 @@ public struct PlanningUndo: Sendable, Hashable {
   /// The operations whose card `PlanningChange.movingCards` moved, live and in the bin, for ⌘Z
   /// to give each its card back.
   public var movedCards: [MovedCardReference]
+  /// What an account merge of the change did, for ⌘Z.
+  public var accountMerge: AccountMergeUndo?
 
   public init(
     createdTransactionIds: [UUID] = [], inserted: PlanningRowIDs = .empty,
@@ -287,8 +296,10 @@ public struct PlanningUndo: Sendable, Hashable {
     rewrittenBefore: [TransactionEntry] = [], removedLinks: [ReimbursementLink] = [],
     deletion: DeletionEffects = .none, releasedRefunds: [UUID: UUID] = [:],
     written: [TransactionEntry] = [], countTouch: CountTouch = .none,
-    counts: CountsSettled = .none, movedCards: [MovedCardReference] = []
+    counts: CountsSettled = .none, movedCards: [MovedCardReference] = [],
+    accountMerge: AccountMergeUndo? = nil
   ) {
+    self.accountMerge = accountMerge
     self.movedCards = movedCards
     self.countTouch = countTouch
     self.counts = counts
@@ -541,6 +552,9 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.reconciliations, db: db)
     try journal.upsert(rows.reconciledBalances, db: db)
     let moved = try Self.moveCards(change.movingCards, journal: &journal, db: db)
+    let merged = try change.mergingAccounts.map {
+      try AccountRepository.merge($0, calendar: context.calendar, db: db)
+    }
     // The lists show the live operations with their new card; one in the bin is not shown.
     written += try TransactionRepository.entries(ids: moved.map(\.rowId), db: db)
       .filter { !$0.transaction.isDeleted }
@@ -619,7 +633,7 @@ public struct PlanningRepository: Sendable {
       cleared: journal.cleared, rewrittenBefore: rewrites.before,
       removedLinks: rewrites.removedLinks, deletion: deletion,
       releasedRefunds: rewrites.releasedRefunds, written: written, countTouch: touch,
-      counts: counts, movedCards: moved)
+      counts: counts, movedCards: moved, accountMerge: merged)
   }
 
   /// Points what named each merged card at its kept card (`PlanningChange.movingCards`): the
@@ -845,6 +859,7 @@ public struct PlanningRepository: Sendable {
   }
 
   private static func revertRows(_ undo: PlanningUndo, at instant: Date, db: Database) throws {
+    if let merge = undo.accountMerge { try AccountRepository.revertMerge(merge, db: db) }
     if !undo.deletion.deletedIds.isEmpty {
       try TransactionRepository.restore(
         ids: undo.deletion.deletedIds, at: instant, effects: undo.deletion, db: db)

@@ -15,8 +15,7 @@ import SwiftUI
 /// put back in alphabetical order, edited, made main, merged, archived and brought back, and
 /// deleted while nothing points at them. The groups carry «Учитывать в общей сводке». The cards
 /// of an account are lines inside its row, each with its own «…»: edit, cashback rules, archive,
-/// delete while unused. Each change is one step of ⌘Z, but a merge and a deletion of an account
-/// or a group, which are not undone.
+/// delete while unused. Each change, a merge and a deletion included, is one step of ⌘Z.
 struct AccountsSettingsView: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
@@ -991,7 +990,7 @@ struct AccountsSettingsView: View {
   }
 
   /// That nothing refers to the account — or to the accounts —, how much money leaves the
-  /// totals with them, and that a deletion is not undone.
+  /// totals with them, and that ⌘Z brings it back.
   private func deleteMessage(_ question: Deletion) -> String {
     AccountText.deleteMessage(count: question.ids.count, held: question.held, environment)
   }

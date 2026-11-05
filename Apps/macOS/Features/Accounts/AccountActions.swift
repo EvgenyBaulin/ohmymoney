@@ -162,9 +162,9 @@ struct AccountMergePreview: Sendable {
 /// Every action on the accounts and their groups that the settings and the sidebar offer.
 ///
 /// A new account, an edit, the archive and «Вернуть», the main account passed on, the order
-/// and the groups are one `PlanningChange` each — one step of ⌘Z. A merge and a deletion are
-/// not undone (`AccountRepository`): after each the history of ⌘Z is forgotten, as after
-/// money back is recorded, since a step taken before may name the account that is gone.
+/// and the groups, a merge and a deletion are one `PlanningChange` each — one step of ⌘Z (on an
+/// iPhone and an iPad, the «Отменить» button): a deleted account comes back with its counts, a
+/// merged one with everything that pointed at it.
 @MainActor
 struct AccountActions {
   let environment: AppEnvironment
@@ -202,7 +202,7 @@ struct AccountActions {
   }
 
   /// The books as the database has them this moment. Read fresh rather than from the last
-  /// calculation, which can be a moment behind a write — and a merge is not undone.
+  /// calculation, which can be a moment behind a write.
   func books() async -> AccountBooks? {
     guard let writer = environment.stack?.writer else { return nil }
     let at = environment.now()
@@ -717,10 +717,9 @@ struct AccountActions {
       balancesAfter: AccountMerge.balancesAfter(plan, source: source.id, balances: books.balances))
   }
 
-  /// Merges the account into another of its bank, for good; the ⌘Z history is forgotten after
-  /// it. Accounts of two banks are refused (`otherBank`), here and by the repository.
+  /// Merges the account into another of its bank, in one step of ⌘Z. Accounts of two banks are
+  /// refused (`otherBank`), here and by the repository.
   func merge(_ preview: AccountMergePreview) -> AccountActionOutcome {
-    guard let repository = environment.accounts else { return .failed }
     let all = self.all
     guard let source = all.first(where: { $0.id == preview.plan.sourceId }),
       let target = all.first(where: { $0.id == preview.plan.target.id })
@@ -731,32 +730,24 @@ struct AccountActions {
     {
       return .refused(.mainInExcludedGroup)
     }
-    do {
-      try repository.merge(preview.plan, calendar: environment.calendar)
-    } catch AccountWriteError.notFound {
-      return .refused(.notFound)
-    } catch AccountWriteError.otherBank {
-      return .refused(.otherBank)
-    } catch {
-      AppLog.error(
-        "accounts.merge", .db, "the accounts were not merged",
-        [LogPair("error", .error(error)), LogPair("code", .count((error as NSError).code))])
-      return .failed
-    }
+    guard
+      store.apply(
+        PlanningChange(at: environment.now(), mergingAccounts: preview.plan))
+    else { return .failed }
     AppLog.info(
       "accounts.merged", .db, "two accounts were merged",
       [
         LogPair("transfers", .count(preview.deletedTransfers)),
         LogPair("counted", .count(preview.plan.opening.count)),
       ])
-    settleForGood()
+    settle()
     return .done
   }
 
-  /// Deletes accounts nothing points at, for good; the ⌘Z history is forgotten after it. An
-  /// account a count says holds money stays, as it stays out of the archive: its money would
-  /// leave every total for good. When the main account is among them, `newMain` takes the flag
-  /// first — a step of its own, forgotten with the rest.
+  /// Deletes accounts nothing points at, in one step of ⌘Z: they come back with the balances
+  /// counted on them. An account a count says holds money stays, as it stays out of the
+  /// archive: its money would leave every total until ⌘Z. When the main account is among them,
+  /// `newMain` takes the flag in the same step.
   func delete(
     _ ids: [UUID], newMain: UUID? = nil, losingMoney: Bool = false
   ) -> AccountActionOutcome {
@@ -778,33 +769,15 @@ struct AccountActions {
     // Money typed or counted on an account nothing points at leaves the totals with it: only
     // after the owner was told how much.
     if !held.isEmpty, !losingMoney { return .refused(.deletesWithMoney) }
-    if let nextMain {
-      guard
-        store.apply(
-          PlanningChange(upsert: PlanningRows(paymentMethods: [nextMain]), at: environment.now()))
-      else { return .failed }
-    }
-    var deleted = 0
-    defer {
-      if deleted > 0 {
-        AppLog.info(
-          "accounts.deleted", .db, "accounts were deleted", [LogPair("count", .count(deleted))])
-        settleForGood()
-      }
-    }
-    for id in ids {
-      do {
-        try repository.delete(id)
-        deleted += 1
-      } catch AccountWriteError.inUse(let usage) {
-        return .refused(.inUse(id, usage))
-      } catch {
-        AppLog.error(
-          "accounts.delete", .db, "an account was not deleted",
-          [LogPair("error", .error(error)), LogPair("code", .count((error as NSError).code))])
-        return .failed
-      }
-    }
+    guard
+      store.apply(
+        PlanningChange(
+          upsert: PlanningRows(paymentMethods: nextMain.map { [$0] } ?? []),
+          delete: PlanningRowIDs(paymentMethods: ids), at: environment.now()))
+    else { return .failed }
+    AppLog.info(
+      "accounts.deleted", .db, "accounts were deleted", [LogPair("count", .count(ids.count))])
+    settle()
     return .done
   }
 
@@ -825,22 +798,15 @@ struct AccountActions {
     }.sorted { $0.currency.code < $1.currency.code }
   }
 
-  /// Deletes a group nothing is filed under, for good; the ⌘Z history is forgotten after it.
+  /// Deletes a group nothing is filed under, in one step of ⌘Z.
   func deleteGroup(_ id: UUID) -> AccountActionOutcome {
-    guard let repository = environment.accounts else { return .failed }
-    do {
-      try repository.deleteGroup(id)
-    } catch AccountWriteError.groupInUse {
-      return .refused(.groupInUse)
-    } catch AccountWriteError.notFound {
-      return .refused(.notFound)
-    } catch {
-      AppLog.error(
-        "accounts.deleteGroup", .db, "a group was not deleted",
-        [LogPair("error", .error(error)), LogPair("code", .count((error as NSError).code))])
-      return .failed
-    }
-    settleForGood()
+    guard groups.contains(where: { $0.id == id }) else { return .refused(.notFound) }
+    guard !all.contains(where: { $0.groupId == id }) else { return .refused(.groupInUse) }
+    guard
+      store.apply(
+        PlanningChange(delete: PlanningRowIDs(accountGroups: [id]), at: environment.now()))
+    else { return .failed }
+    settle()
     return .done
   }
 
@@ -971,9 +937,8 @@ struct AccountActions {
     return .done
   }
 
-  /// After a write that is not undone: the steps of ⌘Z taken before may name what it removed.
-  func settleForGood() {
-    store.forgetUndoHistory()
+  /// After a merge or a deletion: the backup and the words of the entry line follow it.
+  func settle() {
     environment.scheduleBackup()
     environment.refreshVocabulary()
   }
@@ -1217,7 +1182,7 @@ struct MainHandOverSheet: View {
 
 /// The merge of one account into another, asked before it is made: into which account, what
 /// the merged account will hold, what the owner still has to count, how many transfers between
-/// the two go. A merge is not undone, and the sheet says so.
+/// the two go. A merge is one step of undo, and the sheet says so.
 struct AccountMergeSheet: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store

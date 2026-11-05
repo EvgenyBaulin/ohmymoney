@@ -117,7 +117,7 @@ final class AccountMergeFlowTests: XCTestCase {
 
   /// Operations follow the merge; a transfer between the two in one currency goes, since it
   /// would move money from the account to itself; an exchange between them stays. A merge is
-  /// not undone, and ⌘Z forgets what came before it.
+  /// one step of ⌘Z: taking it back brings the transfer and the operations back.
   func testAMergeTakesTheOperationsAndDeletesTransfersBetweenTheTwo() async throws {
     let main = try account("Сбер", main: true, currencies: [.rub, .usd])
     let other = try account("Сбер-2", currencies: [.rub, .usd])
@@ -140,12 +140,19 @@ final class AccountMergeFlowTests: XCTestCase {
       actions.mergePreview(other.id, into: main.id, books: books5))
     XCTAssertEqual(preview.deletedTransfers, 1, "the dialog says how many go")
     XCTAssertEqual(actions.merge(preview), .done)
-    XCTAssertFalse(store.canUndo, "a merge is not undone")
+    XCTAssertTrue(store.canUndo, "a merge is one step of ⌘Z")
 
     let books = try await freshBooks()
     XCTAssertEqual(books.dataset.transfers.map(\.id), [exchange.id])
     XCTAssertEqual(
       books.dataset.entries.first { $0.id == spent.id }?.transaction.paymentMethodId, main.id)
+
+    store.undo()
+    let back = try await freshBooks()
+    XCTAssertEqual(Set(back.dataset.transfers.map(\.id)), [sameCurrency.id, exchange.id])
+    XCTAssertEqual(
+      back.dataset.entries.first { $0.id == spent.id }?.transaction.paymentMethodId, other.id)
+    XCTAssertEqual(try stored(other.id).archived, false, "the merged account is live again")
   }
 
   /// A key the books cannot work out is asked: typed, it is counted now; left empty, the

@@ -444,7 +444,9 @@ final class AccountsScenarioAccountActionTests: AccountsScenarioDatabaseCase {
     let spare = try await make(PaymentMethod(name: "Лишний"), openings: [.rub: .zero])
     XCTAssertEqual(accounts.delete([spare.id]), .done)
     XCTAssertNil(accounts.all.first { $0.id == spare.id })
-    XCTAssertFalse(store.canUndo, "a deletion for good forgets the steps of ⌘Z")
+    XCTAssertTrue(store.canUndo, "a deletion is a step of ⌘Z")
+    store.undo()
+    XCTAssertNotNil(accounts.all.first { $0.id == spare.id }, "⌘Z brings the account back")
   }
 
   func testAnAccountACountSaysHoldsMoneyIsNotDeleted() async throws {
@@ -463,7 +465,11 @@ final class AccountsScenarioAccountActionTests: AccountsScenarioDatabaseCase {
     XCTAssertEqual(accounts.delete([card.id]), .refused(.deletesWithMoney))
     XCTAssertEqual(accounts.delete([card.id], losingMoney: true), .done)
     XCTAssertNil(accounts.all.first { $0.id == card.id })
-    XCTAssertFalse(store.canUndo, "a deletion for good forgets the steps of ⌘Z")
+    store.undo()
+    XCTAssertNotNil(accounts.all.first { $0.id == card.id }, "⌘Z brings the card account back")
+    XCTAssertEqual(
+      accounts.heldMoney(on: [card.id]), [HeldMoney(currency: .rub, amount: rub(-15_000))],
+      "with the balance typed on it")
   }
 
   func testAccountWithoutMoneyHoldsNothingToLose() async throws {
