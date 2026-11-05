@@ -107,7 +107,8 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
       [.settings("settings.people"), .settings("settings.places"), .settings("settings.events")]
     case .entry:
       [
-        .settings("settings.entry.style"), .settings("settings.entry.order"),
+        .settings("settings.entry.style"), .settings("settings.entry.chips"),
+        .settings("settings.entry.historyHints"), .settings("settings.entry.order"),
         .overview("overview.small.field.title"),
       ]
     case .templates:

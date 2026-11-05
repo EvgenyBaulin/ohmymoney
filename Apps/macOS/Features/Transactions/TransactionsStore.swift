@@ -215,6 +215,11 @@ public final class TransactionsStore {
     case delete([UUID])
     /// An action of planning (or an account merge or deletion): the same change written again.
     case apply(PlanningChange)
+    /// A bulk change: the operations as the change left them, written over the rows again.
+    case bulk([TransactionEntry])
+    /// A write of the spending screens: `inverse` makes the change again, `original` is the step
+    /// of ⌘Z that takes it back once it is made.
+    case spending(inverse: SpendingUndo, original: UndoStep)
   }
 
   /// What a write leaves behind once it has landed: the step that takes it back — none for
@@ -1276,6 +1281,8 @@ public final class TransactionsStore {
         let back = try repository.revert(change)
         write = Self.laid(back, over: Self.revertedEdit(change))
       case .editedMany(let before, let counts):
+        // What the change left, kept for ⇧⌘Z before the rows go back.
+        redo = .bulk(try repository.entries(ids: before.map(\.id)))
         // My change is taken back from the rows as they are now: a part written off or a
         // rate refined since the change stays as it is.
         let snapshots = Self.byId(before)
@@ -1328,6 +1335,9 @@ public final class TransactionsStore {
         write = Self.laid(counts, over: Self.revertedMoneyBack(recorded, readBack: readBack))
       case .spending(let undo):
         guard let spending else { return }
+        if let inverse = try undo.reapplying(spending: spending) {
+          redo = .spending(inverse: inverse, original: step)
+        }
         write = try undo.revert(spending: spending, transactions: repository)
       case .later(let undo):
         write = try undo.revert(
@@ -1368,6 +1378,22 @@ public final class TransactionsStore {
     case .save(let entry): landed = save(entry, file: file)
     case .delete(let ids): landed = delete(ids: ids, file: file)
     case .apply(let change): landed = apply(change, file: file)
+    case .bulk(let after):
+      let snapshots = Self.byId(after)
+      landed = modifyMany(after.map(\.id), file: file) { fresh in
+        snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
+      }
+    case .spending(let inverse, let original):
+      do {
+        guard let spending, let repository else { throw PlanningUndoUnavailable() }
+        let write = try inverse.revert(spending: spending, transactions: repository)
+        push(original)
+        finishWrite(write)
+        landed = true
+      } catch {
+        failed(.change, error, file: file)
+        landed = false
+      }
     }
     if !landed { redoStack.removeAll() }
   }

@@ -7609,6 +7609,23 @@
         }
       }
     },
+    "settings.entry.chips": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Template chips under the line"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чипы шаблонов под строкой"
+          }
+        }
+      }
+    },
     "settings.entry.field.account": {
       "extractionState": "manual",
       "localizations": {
@@ -7843,6 +7860,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Оценка"
+          }
+        }
+      }
+    },
+    "settings.entry.hintsHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chips are the templates you repeat; hints are the places and alike operations offered as you type. Switching them off hides them, it deletes nothing."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чипы — шаблоны, которые вы повторяете; подсказки — места и похожие операции, пока вы печатаете. Выключение только прячет их, ничего не удаляет."
+          }
+        }
+      }
+    },
+    "settings.entry.historyHints": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hints from history"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подсказки по истории"
           }
         }
       }

@@ -308,6 +308,34 @@ final class LocalizationTests: XCTestCase {
     }
   }
 
+  /// A `x.touch` key words the same sentence for a touch screen (`AppLanguage.touchSuffix`): it
+  /// has a base key `x`, and in each language the same format specifiers in the same order, so
+  /// either can be handed the arguments of the other.
+  func testEveryTouchKeyHasABaseKeyWithTheSameSpecifiers() throws {
+    let specifier = try NSRegularExpression(pattern: "%([0-9]+\\$)?(@|lld|ld|d|f)")
+    func specifiers(_ text: String) -> [String] {
+      specifier.matches(in: text, range: NSRange(text.startIndex..., in: text)).map {
+        String(text[Range($0.range, in: text)!])
+      }
+    }
+    var checked = 0
+    for code in ["en", "ru"] {
+      let folder = try XCTUnwrap(Bundle.main.url(forResource: code, withExtension: "lproj"))
+      for table in try FileManager.default.contentsOfDirectory(atPath: folder.path)
+      where table.hasSuffix(".strings") {
+        let strings =
+          NSDictionary(contentsOf: folder.appendingPathComponent(table)) as? [String: String] ?? [:]
+        for (key, text) in strings where key.hasSuffix(AppLanguage.touchSuffix) {
+          let base = String(key.dropLast(AppLanguage.touchSuffix.count))
+          let baseText = try XCTUnwrap(strings[base], "\(table): \(key) has no base key (\(code))")
+          XCTAssertEqual(specifiers(text), specifiers(baseText), "\(table): \(key) (\(code))")
+          checked += 1
+        }
+      }
+    }
+    XCTAssertGreaterThan(checked, 40)
+  }
+
   /// A Russian text is not the English one copied over: «Pinball loss P10 / P50 / P90» stood
   /// in the Russian table of Analytics as the only English caption of the Russian interface.
   /// A text with a Latin word the same in both languages is one of the few that are meant to

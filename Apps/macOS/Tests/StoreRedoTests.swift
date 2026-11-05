@@ -92,6 +92,30 @@ final class StoreRedoTests: XCTestCase {
     XCTAssertEqual(try repository.count(), before, "one ⌘Z gives all of it back")
   }
 
+  /// A bulk change taken back is written over the rows again, as one step of ⌘Z.
+  func testABulkChangeIsMadeAgain() throws {
+    let first = try entry("a")
+    let second = try entry("b", minutes: 5)
+    XCTAssertTrue(store.save(first))
+    XCTAssertTrue(store.save(second))
+    let ids = [first.id, second.id]
+    XCTAssertTrue(
+      store.modifyMany(ids, file: "test") { fresh in
+        var changed = fresh
+        changed.transaction.isOneOff = true
+        return changed
+      })
+    store.undo()
+    XCTAssertEqual(try repository.entry(id: first.id)?.transaction.isOneOff, false)
+    XCTAssertTrue(store.canRedo)
+
+    store.redo()
+    XCTAssertEqual(try repository.entry(id: first.id)?.transaction.isOneOff, true)
+    XCTAssertEqual(try repository.entry(id: second.id)?.transaction.isOneOff, true)
+    store.undo()
+    XCTAssertEqual(try repository.entry(id: second.id)?.transaction.isOneOff, false)
+  }
+
   func testSeveralUndosAreRedoneNewestFirst() throws {
     let first = try entry("first", minutes: 1)
     let second = try entry("second", minutes: 2)

@@ -684,13 +684,15 @@ struct EntryBar<Accessory: View>: View {
   private var lineBody: some View {
     GlassEffectContainer(spacing: 12) {
       VStack(alignment: .leading, spacing: EntryBarMetrics.spacing) {
-        TemplatesStrip(
-          model: templates,
-          currencyOf: { Templates.currency(of: $0, in: environment, model: model) }
-        ) { template in
-          // A chip with a blank («Такси до работы — ? ₽») puts its words in and waits for the sum.
-          text = QuickSuggest.lineForBlank(template) ?? templateLine(for: template)
-          focused = true
+        if environment.entryChipsShown {
+          TemplatesStrip(
+            model: templates,
+            currencyOf: { Templates.currency(of: $0, in: environment, model: model) }
+          ) { template in
+            // A chip with a blank («Такси до работы — ? ₽») puts its words in and waits for the sum.
+            text = QuickSuggest.lineForBlank(template) ?? templateLine(for: template)
+            focused = true
+          }
         }
 
         accessory()
@@ -923,9 +925,12 @@ struct EntryBar<Accessory: View>: View {
   /// The templates and the latest operations like the line: a click puts their line in the field.
   @ViewBuilder
   private var quickSuggestions: some View {
-    let similar = QuickEntrySuggestions.lines(
-      typed: text, entries: compute.snapshot?.dataset.entries ?? [], money: environment.money)
-    let chips = Array(templates.templates.prefix(4))
+    let similar =
+      environment.entryHistoryHintsShown
+      ? QuickEntrySuggestions.lines(
+        typed: text, entries: compute.snapshot?.dataset.entries ?? [], money: environment.money)
+      : []
+    let chips = environment.entryChipsShown ? Array(templates.templates.prefix(4)) : []
     if !similar.isEmpty || !chips.isEmpty {
       FlowRow(spacing: 6, lineSpacing: 6) {
         ForEach(similar, id: \.self) { line in

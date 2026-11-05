@@ -240,6 +240,23 @@ final class SpendingPlumbingTests: XCTestCase {
 
   // MARK: Notes of days and baskets
 
+  /// ⇧⌘Z of a note of a day: the text ⌘Z took back comes back, and ⌘Z takes it away again.
+  func testANoteOfADayIsMadeAgainByRedo() async throws {
+    let day = DateOnly(year: 2026, month: 10, day: 12)
+    XCTAssertTrue(store.setDayNote("первая", on: day))
+    XCTAssertTrue(store.setDayNote("вторая", on: day))
+    store.undo()
+    var texts = try await noteTexts()
+    XCTAssertEqual(texts, ["первая"])
+    XCTAssertTrue(store.canRedo)
+    store.redo()
+    texts = try await noteTexts()
+    XCTAssertEqual(texts, ["вторая"])
+    store.undo()
+    texts = try await noteTexts()
+    XCTAssertEqual(texts, ["первая"], "the redo is a step of ⌘Z again")
+  }
+
   func testANoteOfADayIsAStepAndAnEmptyTextTakesItAway() async throws {
     let day = DateOnly(year: 2026, month: 10, day: 12)
     XCTAssertTrue(store.setDayNote("день рождения мамы", on: day))

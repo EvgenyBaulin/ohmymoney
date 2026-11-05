@@ -257,6 +257,15 @@ struct ReceiptSheet: View {
         .fixedSize(horizontal: false, vertical: true)
       Text(verbatim: t(model.canCreate ? "receipt.new.category" : "receipt.new.refundHint"))
         .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+      if !model.similar.isEmpty {
+        Text(verbatim: t("receipt.similar.title")).appFont(.headline)
+        ForEach(model.similar.prefix(3), id: \.id) { choice in
+          Button("\(model.title(of: choice.id)) · \(model.dayText(of: choice.id))") {
+            model.useSimilar(choice.id)
+          }
+          .accessibilityIdentifier("receipt.similar")
+        }
+      }
     }
     Spacer(minLength: 0)
     HStack {
