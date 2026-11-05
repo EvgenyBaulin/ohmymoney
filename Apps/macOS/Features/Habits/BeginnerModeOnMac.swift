@@ -46,6 +46,8 @@ enum BeginnerModeOnMac {
     switch item {
     case .capital: .capital
     case .debts: .debts
+    case .analytics: .analytics
+    case .reports: .reports
     default: nil
     }
   }

@@ -5,8 +5,9 @@ import SwiftUI
   import AppKit
 #endif
 
-/// The Analytics window: the sections in the sidebar, the period in the toolbar, the cards of
-/// the section in the middle.
+/// The Analytics screen: the period and the sections as chips at the top, the cards of the
+/// section below. A section of the main window on the Mac («Аналитика» in its sidebar), a page
+/// of «Ещё» on the phone.
 ///
 /// The model of a section is built from the ledger of `ComputeStore` off the main thread,
 /// through `compute(_:)` in `.task(id:)`, never in `body`, and kept by the version of the data
@@ -15,9 +16,13 @@ import SwiftUI
 /// is opened again. A data set keeps its own (`storageKey`).
 struct AnalyticsWindow: View {
   let deps: AppDependencies
+  /// Shown inside the main window (or a window of a section): its minimum width and its
+  /// subtitle are the window's own, not this screen's.
+  let embedded: Bool
 
-  init(deps: AppDependencies) {
+  init(deps: AppDependencies, embedded: Bool = false) {
     self.deps = deps
+    self.embedded = embedded
   }
 
   private var environment: AppEnvironment { deps.environment }
@@ -42,8 +47,7 @@ struct AnalyticsWindow: View {
       .id(section)
     }
     .themedWindowBackground()
-    .navigationSubtitle(subtitle)
-    .sheetFrame(minWidth: Self.minimumWidth, minHeight: 560)
+    .modifier(WindowFit(embedded: embedded, subtitle: subtitle))
     .environment(analytics)
     .journalsSection(section.rawValue, in: .analytics)
     .onAppear { beginMeasurement() }
@@ -53,6 +57,23 @@ struct AnalyticsWindow: View {
   }
 
   // MARK: What is shown
+
+  /// The size and the subtitle of a screen of its own; an embedded one leaves both to the window
+  /// it is in, whose subtitle says when the figures are from (`RecomputeText`).
+  private struct WindowFit: ViewModifier {
+    let embedded: Bool
+    let subtitle: String
+
+    func body(content: Content) -> some View {
+      if embedded {
+        content
+      } else {
+        content
+          .navigationSubtitle(subtitle)
+          .sheetFrame(minWidth: AnalyticsWindow.minimumWidth, minHeight: 560)
+      }
+    }
+  }
 
   private var section: AnalyticsSection {
     AnalyticsSection(rawValue: sectionName) ?? .overview

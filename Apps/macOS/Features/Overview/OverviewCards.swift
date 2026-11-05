@@ -487,8 +487,8 @@ struct GoalsExceedRow: View {
         GoalWhyReminder(goal: goal)
       }
       Button(environment.language("overview.openGoals", table: "Overview")) {
-        // The goals are on the Planning screen, the second section.
-        NotificationCenter.default.post(name: .selectSection, object: 2)
+        // The goals are on the Planning screen.
+        NotificationCenter.default.post(name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
       }
       .buttonStyle(.bordered)
       .controlSize(.small)

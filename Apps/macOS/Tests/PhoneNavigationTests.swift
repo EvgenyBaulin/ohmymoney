@@ -23,6 +23,8 @@ final class PhoneNavigationTests: XCTestCase {
       case .calendar: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .calendar))
       case .capital: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .capital))
       case .purchases: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .purchases))
+      case .analytics: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .analytics))
+      case .reports: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .reports))
       }
     }
   }

@@ -3,7 +3,7 @@ import XCTest
 
 @testable import OhMyMoney
 
-/// «Капитал» is the last section of the sidebar, ⌘6, with its symbol and its name in both
+/// «Капитал» is a section of the sidebar, ⌘5, with its symbol and its name in both
 /// languages; its two tiles are named on Overview and are not among the twelve of the default.
 @MainActor
 final class CapitalSectionTests: XCTestCase {
@@ -15,10 +15,10 @@ final class CapitalSectionTests: XCTestCase {
     return environment.language(key, table: table)
   }
 
-  func testTheSectionIsCommandSix() {
-    // «Покупки» came after it (⌘7); the capital is the last of the six old sections.
-    XCTAssertEqual(MainWindow.Section.allCases.dropLast().last, .capital)
-    XCTAssertEqual(MainWindow.Section.capital.shortcutIndex, 6)
+  func testTheSectionIsCommandFive() {
+    // «Календарь» stands before it, «Долги» after it.
+    XCTAssertEqual(MainWindow.Section.allCases.firstIndex(of: .capital), 4)
+    XCTAssertEqual(MainWindow.Section.capital.shortcutIndex, 5)
     XCTAssertEqual(MainWindow.Section.capital.symbol, "chart.bar")
     XCTAssertEqual(MainWindow.Section.capital.titleKey, "section.capital")
     XCTAssertEqual(
