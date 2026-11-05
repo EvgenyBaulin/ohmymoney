@@ -9,6 +9,9 @@ extension EnvironmentValues {
   /// with it (the phone and the tablet, whose navigation bar is hidden); `nil` where the window
   /// has a title bar of its own.
   @Entry var overviewTitleRow: OverviewTitleRow?
+  /// Tiles in a row fixed by the host (an iPad, whose window width and sidebar decide it, not
+  /// the width of the page); `nil` lets the page count by its own width.
+  @Entry var overviewColumnsOverride: Int?
 }
 
 /// The large title of Overview with what stands at its right edge.
@@ -100,6 +103,7 @@ struct OverviewView: View {
 private struct OverviewHeader: View {
   @Dependency(\.environment) private var environment
   @Environment(\.overviewTitleRow) private var titleRow
+  @Environment(\.overviewColumnsOverride) private var columnsOverride
   @Environment(\.appFontSize) private var fontSize
   let actions: OperationActions
   let screen: OverviewScreen
@@ -126,7 +130,8 @@ private struct OverviewHeader: View {
         AccountsSetupCard()
       }
       OverviewGroupedGrid(
-        columns: OverviewCard.columns(forWidth: width, fontSize: fontSize), actions: actions,
+        columns: columnsOverride ?? OverviewCard.columns(forWidth: width, fontSize: fontSize),
+        actions: actions,
         screen: screen)
       RecomputeStatusLine()
     }

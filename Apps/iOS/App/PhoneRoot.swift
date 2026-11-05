@@ -3,8 +3,8 @@ import SwiftUI
 import UIKit
 
 /// The tabs of the phone: Overview, Operations, Planning, Accounts and More. The same shared
-/// screens the Mac window shows, in a `NavigationStack` each; on an iPad they simply get more
-/// room (no layout of its own). The entry bar floats over the bottom of the first four, as it
+/// screens the Mac window shows, in a `NavigationStack` each; an iPad has no tabs, its sidebar
+/// (`PadRoot`) opens the same screens. The entry bar floats over the bottom of the first four, as it
 /// floats over the Mac window. What the Mac opens as a window of its own — Analytics, Reports,
 /// «Что если…» — covers the tabs here, and the shared screens ask for it the way they ask the
 /// Mac window: by notification (`PhoneRouter`).
@@ -18,7 +18,6 @@ struct PhoneRoot: View {
   @State private var operations = OperationsScreenState()
   @State private var width: CGFloat = 0
   @State private var phoneTabs = PhoneTabsPreference.load()
-  @State private var showsMore = false
   @State private var overviewScreen = OverviewScreen()
   /// Whether the entry line is up. By default it is not, and the keyboard with it.
   @State private var entryGate = PhoneEntryGate()
@@ -28,17 +27,81 @@ struct PhoneRoot: View {
   private var environment: AppEnvironment { deps.environment }
   private var guide: GuideStore { GuideStore.shared }
 
+  private var isPad: Bool { UIDevice.current.userInterfaceIdiom == .pad }
+
   private var layout: NavLayout {
-    NavLayout.make(
-      width: Double(width), isPad: UIDevice.current.userInterfaceIdiom == .pad,
-      phoneTabs: phoneTabs)
+    NavLayout.make(width: Double(width), isPad: isPad, phoneTabs: phoneTabs)
   }
+
+  /// The tab whose entry line is up: an iPad has the line on every section but the settings.
+  private var entryTab: PhoneTab { isPad ? router.padEntryHost : router.tab }
 
   private func title(_ item: NavItem) -> String {
     environment.language(item.titleKey, table: item.titleTable ?? "Common")
   }
 
   var body: some View {
+    root
+    .environment(\.fadesOverNavBar, layout.placement == .bottom)
+    .environment(\.phoneEntryGate, entryGate)
+    // The round «+» that brings up the entry line: above the bar of a phone, in the corner of a
+    // tablet. It is gone while the line is up and on the sections that have no line.
+    .overlay(alignment: .bottomTrailing) {
+      if entryGate.showsPlus, environment.state == .ready {
+        PhoneEntryButton(
+          gate: entryGate, title: environment.language("phone.entry.new", table: "Phone")
+        )
+        .padding(.trailing, PhoneEntryButton.sideMargin)
+        .padding(
+          .bottom,
+          PhoneEntryButton.bottomPadding(placement: layout.placement, barHeight: barHeight)
+        )
+        .transition(.scale.combined(with: .opacity))
+      }
+    }
+    // A section switched to puts the line away with its keyboard; none opens the keyboard.
+    .onChange(of: entryTab, initial: true) { _, tab in entryGate.send(.tabChanged(tab)) }
+    // ⌘N on a hardware keyboard: the line comes up with the keyboard.
+    .background {
+      Button("") {
+        NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+      }
+      .keyboardShortcut("n", modifiers: .command)
+      .opacity(0)
+      .accessibilityHidden(true)
+    }
+    .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
+    .environment(\.windowWidth, width)
+    .onGeometryChange(for: CGFloat.self) {
+      $0.size.width
+    } action: {
+      width = $0
+    }
+    .modifier(PhoneRequests(router: router))
+    .modifier(PhoneSheets(deps: deps, router: router))
+    // The palette, the question sheet and the saved views, as on the Mac.
+    .questionsHost(deps: deps, operations: operations)
+    .modifier(PhoneLaunch(deps: deps, router: router))
+    .onChange(of: deps.compute.generation, initial: true) { _, _ in
+      if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
+      HabitAwards.check(deps.compute.snapshot, environment: deps.environment)
+    }
+  }
+
+  /// The iPad's sidebar, or the tabs of a phone with the bar of the sections at the bottom.
+  @ViewBuilder
+  private var root: some View {
+    if isPad {
+      PadRoot(
+        deps: deps, session: session, lock: lock, router: router, actions: actions,
+        operations: operations, overviewScreen: overviewScreen, width: width
+      ) { entryBar($0) }
+    } else {
+      phoneTabsView
+    }
+  }
+
+  private var phoneTabsView: some View {
     TabView(selection: $router.tab) {
       overviewPage
       page(.operations, titleKey: "section.operations", symbol: "list.bullet.rectangle") {
@@ -67,7 +130,7 @@ struct PhoneRoot: View {
       .tag(PhoneTab.more)
     }
     // The system bar is hidden on every tab (it must be said on the tab's own content, not on
-    // the `TabView`): the bar of the app (`PhoneTabBar`, `PadTopBar`) takes its place.
+    // the `TabView`): the bar of the app (`PhoneTabBar`) takes its place.
     .safeAreaInset(edge: .bottom, spacing: 0) {
       if layout.placement == .bottom {
         PhoneTabBar(
@@ -81,61 +144,6 @@ struct PhoneRoot: View {
         }
       }
     }
-    .safeAreaInset(edge: .top, spacing: 0) {
-      if layout.placement == .top {
-        PadTopBar(
-          layout: layout, router: router, title: title,
-          moreTitle: environment.language("phone.tab.more", table: "Phone"),
-          showsMore: $showsMore
-        ) {
-          PadMoreList(deps: deps, layout: layout, router: router) { showsMore = false }
-        }
-      }
-    }
-    .environment(\.fadesOverNavBar, layout.placement == .bottom)
-    .environment(\.phoneEntryGate, entryGate)
-    // The round «+» that brings up the entry line: above the bar of a phone, in the corner of a
-    // tablet. It is gone while the line is up and on the sections that have no line.
-    .overlay(alignment: .bottomTrailing) {
-      if entryGate.showsPlus, environment.state == .ready {
-        PhoneEntryButton(
-          gate: entryGate, title: environment.language("phone.entry.new", table: "Phone")
-        )
-        .padding(.trailing, PhoneEntryButton.sideMargin)
-        .padding(
-          .bottom,
-          PhoneEntryButton.bottomPadding(placement: layout.placement, barHeight: barHeight)
-        )
-        .transition(.scale.combined(with: .opacity))
-      }
-    }
-    // A section switched to puts the line away with its keyboard; none opens the keyboard.
-    .onChange(of: router.tab, initial: true) { _, tab in entryGate.send(.tabChanged(tab)) }
-    // ⌘N on a hardware keyboard: the line comes up with the keyboard.
-    .background {
-      Button("") {
-        NotificationCenter.default.post(name: .focusEntryLine, object: nil)
-      }
-      .keyboardShortcut("n", modifiers: .command)
-      .opacity(0)
-      .accessibilityHidden(true)
-    }
-    .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
-    .environment(\.windowWidth, width)
-    .onGeometryChange(for: CGFloat.self) {
-      $0.size.width
-    } action: {
-      width = $0
-    }
-    .modifier(PhoneRequests(router: router))
-    .modifier(PhoneSheets(deps: deps, router: router))
-    // The palette, the question sheet and the saved views, as on the Mac.
-    .questionsHost(deps: deps, operations: operations)
-    .modifier(PhoneLaunch(deps: deps, router: router))
-    .onChange(of: deps.compute.generation, initial: true) { _, _ in
-      if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
-      HabitAwards.check(deps.compute.snapshot, environment: deps.environment)
-    }
   }
 
   /// A tab with a stack of its own, the toolbar of the phone and the entry bar at the bottom.
@@ -146,8 +154,6 @@ struct PhoneRoot: View {
       PhoneContent(deps: deps, actions: actions, content: content) { entryBar(tag) }
         .navigationTitle(environment.language(titleKey))
         .navigationBarTitleDisplayMode(.inline)
-        // On an iPad the bar of the app stands in the row of the title: the title would run under it.
-        .toolbar(removing: layout.placement == .top ? .title : nil)
         .phoneToolbar(deps: deps, router: router)
     }
     .toolbarVisibility(.hidden, for: .tabBar)
@@ -173,11 +179,9 @@ struct PhoneRoot: View {
           trailing: AnyView(
             OverviewTitleActions(deps: deps, router: router, screen: overviewScreen)))
       )
-      // On a tablet the bar of the app floats in the row of the empty navigation bar, and the
-      // title row starts under it; on a phone the bar is gone and the row starts at the top.
-      .toolbarVisibility(layout.placement == .top ? .automatic : .hidden, for: .navigationBar)
+      // The row starts at the top: the navigation bar is hidden.
+      .toolbarVisibility(.hidden, for: .navigationBar)
       .navigationBarTitleDisplayMode(.inline)
-      .toolbar(removing: layout.placement == .top ? .title : nil)
     }
     .toolbarVisibility(.hidden, for: .tabBar)
     .tabItem {

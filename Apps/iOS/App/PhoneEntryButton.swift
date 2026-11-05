@@ -1,8 +1,9 @@
 import SwiftUI
 
 /// The round «+» that brings up the entry line. It floats on the right: just above the bar of
-/// the sections on a phone, in the bottom corner of the screen on a tablet whose bar is at the
-/// top. Tapping it shows the line and gives it the keyboard — nothing else does.
+/// the sections on a phone, in the bottom corner of the screen on a tablet, which has a
+/// sidebar instead of a bar. Tapping it shows the line and gives it the keyboard — nothing else
+/// does.
 struct PhoneEntryButton: View {
   let gate: PhoneEntryGate
   let title: String

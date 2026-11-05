@@ -37,16 +37,12 @@ struct MoreTab: View {
   /// The four sections of the phone bar, edited here.
   @Binding var phoneTabs: [NavItem]
 
-  @State private var picking = false
-  @State private var failure: String?
   @State private var query = ""
   @State private var editsTabs = false
 
   private var environment: AppEnvironment { deps.environment }
   private func t(_ key: String) -> String { environment.language(key, table: "Phone") }
   private func n(_ key: String) -> String { environment.language(key, table: "Navigation") }
-
-  @State private var starterSet = SettingsStarterSet.shared
 
   private var isSearching: Bool {
     !query.trimmingCharacters(in: .whitespaces).isEmpty
@@ -67,25 +63,7 @@ struct MoreTab: View {
           Section { ForEach(rows.app) { row in rowView(row) } }
         }
         if !isSearching {
-          Section {
-            Button {
-              environment.receiptRequest = ReceiptRequest(urls: [])
-            } label: {
-              Label(
-                environment.language("receipt.menu", table: "Receipt"),
-                systemImage: "qrcode.viewfinder")
-            }
-            .accessibilityIdentifier("more.receipt")
-          }
-          LessonsSection(environment: environment)
-          dataSection
-          // A real profile with no records of its own can take the data another device left in
-          // the exchange folder.
-          if session.profile == .real, let sync = environment.sync {
-            SyncBootstrapSection(coordinator: sync)
-          }
-          folderSection
-          privacySection
+          MoreExtrasSections(deps: deps, session: session, lock: lock)
         }
       }
       .searchable(text: $query, prompt: Text(verbatim: n("nav.more.search")))
@@ -102,60 +80,13 @@ struct MoreTab: View {
       .sheet(isPresented: $editsTabs) {
         PhoneTabsEditor(deps: deps, tabs: $phoneTabs)
       }
-      .fileImporter(isPresented: $picking, allowedContentTypes: [.folder]) { result in
-        take(result)
-      }
       .navigationDestination(for: MoreDestination.self) { destination in
-        screen(destination)
-          .appDependencies(deps)
+        MoreDestinationScreen(
+          deps: deps, router: router, actions: actions, destination: destination
+        ) { EmptyView() }
+        .appDependencies(deps)
       }
     }
-    // «Выбрать стартовый набор…» of «Основные»: the set, on a sheet over the settings.
-    .sheet(
-      isPresented: deps.environment.lock.presenting(
-        Binding(get: { starterSet.isUp }, set: { if !$0 { starterSet.isUp = false } }))
-    ) {
-      StarterSetSheet().appDependencies(deps)
-    }
-  }
-
-  /// What each destination shows. The sections of the Mac sidebar keep their entry bar below.
-  @ViewBuilder
-  private func screen(_ destination: MoreDestination) -> some View {
-    switch destination {
-    case .debts:
-      sectionScreen(titleKey: "section.debts") { DebtsView() }
-    case .calendar:
-      sectionScreen(titleKey: "section.calendar") { CalendarView(actions: actions) }
-    case .capital:
-      sectionScreen(titleKey: "section.capital") {
-        CapitalView { router.open(item: .account($0)) }
-      }
-    case .analytics:
-      sectionScreen(titleKey: "window.analytics") { AnalyticsWindow(deps: deps) }
-    case .reports:
-      sectionScreen(titleKey: "window.reports") { ReportsWindow(deps: deps) }
-    case .purchases:
-      sectionScreen(titleKey: "section.purchases") { PurchasesScreen() }
-    case .whatIf:
-      sectionScreen(titleKey: "window.whatIf") { WhatIfWindow(deps: deps) }
-    case .settings:
-      PhoneSettingsList(deps: deps)
-    case .conflicts:
-      if let sync = environment.sync {
-        ConflictsList(coordinator: sync)
-      } else {
-        EmptyView()
-      }
-    }
-  }
-
-  private func sectionScreen<Content: View>(
-    titleKey: String, @ViewBuilder content: () -> Content
-  ) -> some View {
-    PhoneContent(deps: deps, actions: actions, content: content) { EmptyView() }
-      .navigationTitle(environment.language(titleKey))
-      .navigationBarTitleDisplayMode(.inline)
   }
 
   // MARK: Sections and tools
@@ -242,6 +173,116 @@ struct MoreTab: View {
       } label: {
         label
       }
+    }
+  }
+}
+
+/// What each page of «Ещё» shows. The sections of the Mac sidebar keep their entry bar below;
+/// on an iPad the sidebar opens the same pages.
+struct MoreDestinationScreen<Entry: View>: View {
+  let deps: AppDependencies
+  let router: PhoneRouter
+  let actions: OperationActions
+  let destination: MoreDestination
+  @ViewBuilder let entry: Entry
+
+  init(
+    deps: AppDependencies, router: PhoneRouter, actions: OperationActions,
+    destination: MoreDestination, @ViewBuilder entry: () -> Entry
+  ) {
+    self.deps = deps
+    self.router = router
+    self.actions = actions
+    self.destination = destination
+    self.entry = entry()
+  }
+
+  private var environment: AppEnvironment { deps.environment }
+
+  var body: some View {
+    switch destination {
+    case .debts:
+      sectionScreen(titleKey: "section.debts") { DebtsView() }
+    case .calendar:
+      sectionScreen(titleKey: "section.calendar") { CalendarView(actions: actions) }
+    case .capital:
+      sectionScreen(titleKey: "section.capital") {
+        CapitalView { router.open(item: .account($0)) }
+      }
+    case .analytics:
+      sectionScreen(titleKey: "window.analytics") { AnalyticsWindow(deps: deps) }
+    case .reports:
+      sectionScreen(titleKey: "window.reports") { ReportsWindow(deps: deps) }
+    case .purchases:
+      sectionScreen(titleKey: "section.purchases") { PurchasesScreen() }
+    case .whatIf:
+      sectionScreen(titleKey: "window.whatIf") { WhatIfWindow(deps: deps) }
+    case .settings:
+      PhoneSettingsList(deps: deps)
+    case .conflicts:
+      if let sync = environment.sync {
+        ConflictsList(coordinator: sync)
+      } else {
+        EmptyView()
+      }
+    }
+  }
+
+  private func sectionScreen<Content: View>(
+    titleKey: String, @ViewBuilder content: () -> Content
+  ) -> some View {
+    PhoneContent(deps: deps, actions: actions, content: content) { entry }
+      .navigationTitle(environment.language(titleKey))
+      .navigationBarTitleDisplayMode(.inline)
+  }
+}
+
+/// The part of «Ещё» that is no list of sections: the receipt by QR, the lessons, the set of
+/// data, the exchange folder and the privacy. The phone shows it in the page; an iPad in the
+/// sheet of the tools.
+struct MoreExtrasSections: View {
+  let deps: AppDependencies
+  let session: AppSession
+  let lock: AppLock
+
+  @State private var picking = false
+  @State private var failure: String?
+  @State private var starterSet = SettingsStarterSet.shared
+
+  private var environment: AppEnvironment { deps.environment }
+  private func t(_ key: String) -> String { environment.language(key, table: "Phone") }
+
+  var body: some View {
+    Group {
+      Section {
+        Button {
+          environment.receiptRequest = ReceiptRequest(urls: [])
+        } label: {
+          Label(
+            environment.language("receipt.menu", table: "Receipt"),
+            systemImage: "qrcode.viewfinder")
+        }
+        .accessibilityIdentifier("more.receipt")
+      }
+      LessonsSection(environment: environment)
+      dataSection
+      // A real profile with no records of its own can take the data another device left in
+      // the exchange folder.
+      if session.profile == .real, let sync = environment.sync {
+        SyncBootstrapSection(coordinator: sync)
+      }
+      folderSection
+      privacySection
+    }
+    .fileImporter(isPresented: $picking, allowedContentTypes: [.folder]) { result in
+      take(result)
+    }
+    // «Выбрать стартовый набор…» of «Основные»: the set, on a sheet over the settings.
+    .sheet(
+      isPresented: deps.environment.lock.presenting(
+        Binding(get: { starterSet.isUp }, set: { if !$0 { starterSet.isUp = false } }))
+    ) {
+      StarterSetSheet().appDependencies(deps)
     }
   }
 
@@ -400,7 +441,7 @@ struct PhoneSettingsList: View {
   }
 
   @ViewBuilder
-  private func content(of section: SettingsSection) -> some View {
+  func content(of section: SettingsSection) -> some View {
     switch section {
     case .general: GeneralSettingsView()
     case .appearance: AppearanceSettingsView()
