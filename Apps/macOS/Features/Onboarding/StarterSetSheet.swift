@@ -123,6 +123,7 @@ struct StarterSetSheet: View {
 
   private func close(applied: Bool) {
     StarterSetActions.markAsked()
+    StarterSetOffer.shared.noteAnswered()
     AppLog.info(
       "starter.closed", .ui, "the starter set was closed",
       [LogPair("applied", .flag(applied)), LogPair("lifestyles", .count(choice.lifestyles.count))])
@@ -137,11 +138,11 @@ enum StarterSetActions {
   /// Asked once on the first launch, then from Settings whenever the owner wants.
   static let askedKey = "starter.asked"
 
-  static func markAsked(in defaults: UserDefaults = .standard) {
+  static func markAsked(in defaults: UserDefaults = FirstRunMemory.defaults) {
     defaults.set(true, forKey: askedKey)
   }
 
-  static func wasAsked(in defaults: UserDefaults = .standard) -> Bool {
+  static func wasAsked(in defaults: UserDefaults = FirstRunMemory.defaults) -> Bool {
     defaults.bool(forKey: askedKey)
   }
 
@@ -195,10 +196,18 @@ enum StarterSetActions {
 final class StarterSetOffer {
   static let shared = StarterSetOffer()
   var isRequested = false
+  /// Counts the answers given. The memory of «asked» is in `UserDefaults`, which SwiftUI does not
+  /// watch: reading this in `isDue` is what makes the window look again once the sheet is
+  /// answered, even when the answer wrote nothing else (an empty starter set).
+  private(set) var answers = 0
+
+  func noteAnswered() { answers += 1 }
 
   /// Due on a new database: after the cards of the guide, before the account questionnaire.
   static func isDue(_ environment: AppEnvironment, guide: GuideStore) -> Bool {
-    environment.state == .ready && !AppEnvironment.isTestHost && AppPaths.dataSet == nil
+    _ = shared.answers
+    return environment.state == .ready && !AppEnvironment.isTestHost
+      && FirstRunMemory.questionsDataSet == nil
       && environment.accountSetup == nil && guide.cards == nil && !StarterSetActions.wasAsked()
   }
 }

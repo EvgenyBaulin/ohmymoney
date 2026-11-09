@@ -67,7 +67,8 @@ final class GuideStore {
   }
 
   init(
-    defaults: UserDefaults = AppEnvironment.isTestHost ? GuideStore.testDefaults : .standard,
+    defaults: UserDefaults = AppEnvironment.isTestHost
+      ? GuideStore.testDefaults : FirstRunMemory.defaults,
     tutorial: Bool? = nil
   ) {
     self.defaults = defaults

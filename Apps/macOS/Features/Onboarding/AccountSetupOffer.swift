@@ -48,7 +48,7 @@ struct AccountSetupOffer: ViewModifier {
   ) -> Bool {
     asks(
       setup: environment.accountSetup, isOpen: environment.state == .ready,
-      isTestHost: isTestHost, dataSet: AppPaths.dataSet,
+      isTestHost: isTestHost, dataSet: FirstRunMemory.questionsDataSet,
       archiveWaits: environment.pendingArchiveImport != nil)
   }
 

@@ -155,9 +155,86 @@ final class DataSetTests: XCTestCase {
     XCTAssertEqual(AppPaths.DataSet.sampleLarge.badge, "SAMPLE-LARGE")
   }
 
+  func testAnEmptyFirstRunSetNeedsASetAndIsNeverAGeneration() {
+    let empty = LaunchOptions(
+      arguments: ["OhMyMoney", "--data-set", "ui-test", "--generate", "empty"], debug: true)
+    XCTAssertTrue(empty.startsEmpty)
+    XCTAssertNil(empty.generation)
+    XCTAssertEqual(empty.dataSet, .uiTest)
+
+    // Without a set the Debug database could be wiped: the flag is passed over.
+    let bare = LaunchOptions(arguments: ["OhMyMoney", "--generate", "empty"], debug: true)
+    XCTAssertFalse(bare.startsEmpty)
+    XCTAssertNil(bare.generation)
+    XCTAssertNil(bare.dataSet)
+
+    // Never outside Debug, and never on the tutorial's set, which the app makes itself.
+    XCTAssertFalse(
+      LaunchOptions(
+        arguments: ["OhMyMoney", "--data-set", "ui-test", "--generate", "empty"], debug: false
+      ).startsEmpty)
+    XCTAssertFalse(
+      LaunchOptions(
+        arguments: ["OhMyMoney", "--data-set", "learn", "--generate", "empty"], debug: true
+      ).startsEmpty)
+  }
+
+  /// The memory of a first run is a suite of its own: what the Debug defaults hold (a starter
+  /// set the owner already answered) is not read through it, and nothing written to it lands there.
+  func testTheMemoryOfAFirstRunDoesNotReadOrWriteTheDebugDefaults() throws {
+    let key = StarterSetActions.askedKey
+    let standard = UserDefaults.standard
+    let before = standard.object(forKey: key)
+    defer { if let before { standard.set(before, forKey: key) } else { standard.removeObject(forKey: key) } }
+    standard.set(true, forKey: key)
+
+    let name = "ohmymoney.firstrun.test-\(UUID().uuidString)"
+    let suite = try XCTUnwrap(UserDefaults(suiteName: name))
+    defer { suite.removePersistentDomain(forName: name) }
+    XCTAssertFalse(StarterSetActions.wasAsked(in: suite))
+    StarterSetActions.markAsked(in: suite)
+    XCTAssertTrue(StarterSetActions.wasAsked(in: suite))
+    standard.removeObject(forKey: key)
+    XCTAssertTrue(StarterSetActions.wasAsked(in: suite))
+    XCTAssertNil(standard.object(forKey: key))
+  }
+
+  func testTheTestFolderOfTheFilePanelsAndItsFilesComeOnlyInDebug() {
+    let text = Data("a;b\n".utf8).base64EncodedString()
+    let arguments = ["OhMyMoney", "--test-io", "--test-io-file", "statement.csv=\(text)"]
+    let debug = LaunchOptions(arguments: arguments, debug: true)
+    XCTAssertTrue(debug.usesTestIO)
+    XCTAssertEqual(debug.testIOFiles["statement.csv"], Data("a;b\n".utf8))
+    let release = LaunchOptions(arguments: arguments, debug: false)
+    XCTAssertFalse(release.usesTestIO)
+    XCTAssertTrue(release.testIOFiles.isEmpty)
+    // A word that is no `name=base64` pair is passed over.
+    XCTAssertTrue(
+      LaunchOptions(arguments: ["OhMyMoney", "--test-io-file", "nonsense"], debug: true)
+        .testIOFiles.isEmpty)
+  }
+
   // MARK: Writing a set
 
   #if DEBUG
+    /// An empty set is a migrated database with no operations, made anew over what was there,
+    /// and only ever inside a `Sets` folder.
+    func testAnEmptySetIsMadeAnewWithNoOperationsAndOnlyUnderSets() throws {
+      let directory = scratch.appendingPathComponent("Sets/ui-test", isDirectory: true)
+      let schema = BundleSchemaSource(bundle: .main)
+      try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+      let leftover = directory.appendingPathComponent("leftover.txt")
+      try Data("x".utf8).write(to: leftover)
+
+      let stack = try DataSetGeneration.prepareEmpty(directory: directory, schema: schema)
+      XCTAssertFalse(FileManager.default.fileExists(atPath: leftover.path))
+      XCTAssertEqual(try ExportRepository(writer: stack.writer).rowCounts()["transactions"], 0)
+      try stack.close()
+
+      let elsewhere = scratch.appendingPathComponent("Other/ui-test", isDirectory: true)
+      XCTAssertThrowsError(try DataSetGeneration.prepareEmpty(directory: elsewhere, schema: schema))
+    }
+
     private func prepare(_ directory: URL) throws -> DatabaseStack {
       try DataSetGeneration.prepare(
         directory: directory, generation: .months(2),

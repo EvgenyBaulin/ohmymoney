@@ -61,7 +61,9 @@ enum AppLaunch {
     }
     #if DEBUG
       // A data set generated at launch is written before anything opens it.
-      if let generation = LaunchOptions.current.generation {
+      if LaunchOptions.current.startsEmpty {
+        await DataSetGeneration.startEmpty(environment)
+      } else if let generation = LaunchOptions.current.generation {
         let wrote = await DataSetGeneration.start(environment, generation: generation)
         if LaunchOptions.current.generatesOnly {
           // Only the window that wrote the set quits. A second window restored at launch is
