@@ -82,7 +82,11 @@ struct BeginnerQuiet: ViewModifier {
           .appFont(.caption2)
           .foregroundStyle(.secondary)
           .fixedSize(horizontal: false, vertical: true)
-          .padding(.leading, 34)
+          // Under the name of the section, past its icon.
+          .padding(
+            .leading,
+            SidebarMetrics.rowHorizontal + SidebarMetrics.icon + SidebarMetrics.iconGap
+              - SidebarMetrics.listOutset)
       }
       .accessibilityElement(children: .combine)
       .accessibilityHint(Text(verbatim: HabitText.t("beginner.caption", environment)))

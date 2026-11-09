@@ -107,6 +107,11 @@ struct OverviewEditBar: View {
           Button(t("overview.edit")) { screen.edit() }
             .buttonStyle(.quietAction)
             .accessibilityIdentifier("overview.edit")
+          // «Поездка»: the trip mode on for a trip to pick or make, or off again.
+          Button(t("overview.trip")) { environment.showsTrip = true }
+            .buttonStyle(.quietAction)
+            .help(TravelText.t("travel.start.help", environment))
+            .accessibilityIdentifier("overview.trip")
           Button(t("overview.newOperation")) {
             NotificationCenter.default.post(name: .focusEntryLine, object: nil)
           }

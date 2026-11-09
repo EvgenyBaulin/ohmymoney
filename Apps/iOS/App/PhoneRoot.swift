@@ -23,6 +23,9 @@ struct PhoneRoot: View {
   @State private var entryGate = PhoneEntryGate()
   /// The height of the bar of the sections at the bottom, for the «+» above it.
   @State private var barHeight: CGFloat = 0
+  /// The tablet with the form at the right chosen: the form docked beside the content, or
+  /// folded into the «+» and open over it.
+  @State private var formPresence = EntryFormPresence()
 
   private var environment: AppEnvironment { deps.environment }
   private var guide: GuideStore { GuideStore.shared }
@@ -41,51 +44,151 @@ struct PhoneRoot: View {
   }
 
   var body: some View {
-    root
-      .environment(\.fadesOverNavBar, layout.placement == .bottom)
-      .environment(\.phoneEntryGate, entryGate)
-      // The round «+» that brings up the entry line: above the bar of a phone, in the corner of a
-      // tablet. It is gone while the line is up and on the sections that have no line.
-      .overlay(alignment: .bottomTrailing) {
-        if entryGate.showsPlus, environment.state == .ready {
-          PhoneEntryButton(
-            gate: entryGate, title: environment.language("phone.entry.new", table: "Phone")
-          )
-          .padding(.trailing, PhoneEntryButton.sideMargin)
-          .padding(
-            .bottom,
-            PhoneEntryButton.bottomPadding(placement: layout.placement, barHeight: barHeight)
-          )
-          .transition(.scale.combined(with: .opacity))
+    HStack(spacing: 0) {
+      root
+      // The tablet, the form at the right chosen and room for it: a column of its own.
+      if padFormPlacement == .docked, showsPadForm {
+        Divider()
+        padEntryForm
+      }
+    }
+    .environment(\.fadesOverNavBar, layout.placement == .bottom)
+    .environment(\.phoneEntryGate, entryGate)
+    // The form opened from the «+» of a narrow tablet window: over the dimmed content, which a
+    // tap folds it back from.
+    .overlay(alignment: .trailing) {
+      if padForm.floats, showsPadForm {
+        ZStack(alignment: .trailing) {
+          Color.black.opacity(EntryPlusMetrics.padDim)
+            .ignoresSafeArea()
+            .onTapGesture { formPresence.apply(.tappedOutside) }
+            .accessibilityHidden(true)
+          padEntryForm
+        }
+        .transition(.opacity)
+      }
+    }
+    // The round «+»: above the bar of a phone, in the corner of a tablet. It brings up the line,
+    // or on a tablet with the form chosen the folded form. It is gone while the line or the
+    // form is up and on the sections that have no line.
+    .overlay(alignment: .bottomTrailing) {
+      if showsPlus, environment.state == .ready {
+        plusButton.transition(.scale.combined(with: .opacity))
+      }
+    }
+    .animation(.snappy, value: padForm)
+    // A section switched to puts the line away with its keyboard; none opens the keyboard.
+    .onChange(of: entryTab, initial: true) { _, tab in entryGate.send(.tabChanged(tab)) }
+    .onChange(of: padFormPlacement, initial: true) { _, placement in
+      formPresence.apply(.placementChanged(placement))
+    }
+    // ⌘N opens the folded form; once it is there it takes the request itself.
+    .onReceive(NotificationCenter.default.publisher(for: .focusEntryLine)) { _ in
+      guard formPresence.showsPlus else { return }
+      formPresence.apply(.newEntryRequested)
+      focusTheFormSoon()
+    }
+    .onReceive(NotificationCenter.default.publisher(for: .entryFormSaved)) { _ in
+      formPresence.apply(.saved)
+    }
+    // ⌘N on a hardware keyboard: the line comes up with the keyboard, or the form opens.
+    .background {
+      Button("") {
+        NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+      }
+      .keyboardShortcut("n", modifiers: .command)
+      .opacity(0)
+      .accessibilityHidden(true)
+    }
+    .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
+    .environment(\.windowWidth, width)
+    .onGeometryChange(for: CGFloat.self) {
+      $0.size.width
+    } action: {
+      width = $0
+    }
+    .modifier(PhoneRequests(router: router))
+    .modifier(PhoneSheets(deps: deps, router: router))
+    // The palette, the question sheet and the saved views, as on the Mac.
+    .questionsHost(deps: deps, operations: operations)
+    .modifier(PhoneLaunch(deps: deps, router: router))
+    .onChange(of: deps.compute.generation, initial: true) { _, _ in
+      if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
+      HabitAwards.check(deps.compute.snapshot, environment: deps.environment)
+    }
+  }
+
+  /// What the «+» of a tablet opens, as chosen in Settings → «Ввод»: the line at the bottom, or
+  /// the form at the right — docked while the window holds it beside the content.
+  private var padFormPlacement: EntryFormDock.Placement {
+    guard isPad else { return .line }
+    return EntryFormDock.placement(
+      style: environment.entryStyle,
+      contentWidth: CGFloat(PadLayout.contentWidth(forWidth: Double(width))))
+  }
+
+  /// The presence of the form, read only on a tablet with the form chosen.
+  private var padForm: EntryFormPresence { formPresence }
+
+  private var showsPadForm: Bool {
+    isPad && environment.state == .ready && !environment.shield.isReadOnly
+      && !router.showsSettingsScreen
+  }
+
+  private var showsPlus: Bool {
+    switch EntryFormDock.plusOpens(padFormPlacement) {
+    case .line: entryGate.showsPlus
+    case .form: padForm.showsPlus && showsPadForm
+    case nil: false
+    }
+  }
+
+  @ViewBuilder
+  private var plusButton: some View {
+    if isPad {
+      EntryPlusButton(
+        diameter: EntryPlusMetrics.padDiameter,
+        label: environment.language("phone.entry.new", table: "Phone")
+      ) {
+        switch EntryFormDock.plusOpens(padFormPlacement) {
+        case .line: entryGate.send(.plusTapped)
+        case .form:
+          formPresence.apply(.plusTapped)
+          focusTheFormSoon()
+        case nil: break
         }
       }
-      // A section switched to puts the line away with its keyboard; none opens the keyboard.
-      .onChange(of: entryTab, initial: true) { _, tab in entryGate.send(.tabChanged(tab)) }
-      // ⌘N on a hardware keyboard: the line comes up with the keyboard.
-      .background {
-        Button("") {
-          NotificationCenter.default.post(name: .focusEntryLine, object: nil)
-        }
-        .keyboardShortcut("n", modifiers: .command)
-        .opacity(0)
-        .accessibilityHidden(true)
-      }
-      .onChange(of: phoneTabs) { _, tabs in PhoneTabsPreference.save(tabs) }
-      .environment(\.windowWidth, width)
-      .onGeometryChange(for: CGFloat.self) {
-        $0.size.width
-      } action: {
-        width = $0
-      }
-      .modifier(PhoneRequests(router: router))
-      .modifier(PhoneSheets(deps: deps, router: router))
-      // The palette, the question sheet and the saved views, as on the Mac.
-      .questionsHost(deps: deps, operations: operations)
-      .modifier(PhoneLaunch(deps: deps, router: router))
-      .onChange(of: deps.compute.generation, initial: true) { _, _ in
-        if let dataset = deps.compute.snapshot?.dataset { guide.check(dataset) }
-        HabitAwards.check(deps.compute.snapshot, environment: deps.environment)
-      }
+      .padding(EntryPlusMetrics.padMargin)
+    } else {
+      PhoneEntryButton(
+        gate: entryGate, title: environment.language("phone.entry.new", table: "Phone")
+      )
+      .padding(.trailing, PhoneEntryButton.sideMargin)
+      .padding(
+        .bottom,
+        PhoneEntryButton.bottomPadding(placement: layout.placement, barHeight: barHeight)
+      )
+    }
+  }
+
+  /// The form of a new operation at the right of a tablet, 360 pt.
+  private var padEntryForm: some View {
+    EntryBar(windowWidth: width, detailWidth: 0, style: .form, operations: actions) {
+      EmptyView()
+    }
+    .frame(width: EntryFormDock.width)
+    .frame(maxHeight: .infinity)
+    .background(.background)
+  }
+
+  /// The form opened from the «+» is made only now: once it is there, it gets the request for
+  /// a new operation.
+  private func focusTheFormSoon() {
+    Task { @MainActor in
+      try? await Task.sleep(for: .milliseconds(150))
+      guard formPresence.floats else { return }
+      NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+    }
   }
 
   /// The iPad's sidebar, or the tabs of a phone with the bar of the sections at the bottom.
@@ -94,7 +197,8 @@ struct PhoneRoot: View {
     if isPad {
       PadRoot(
         deps: deps, session: session, lock: lock, router: router, actions: actions,
-        operations: operations, overviewScreen: overviewScreen, width: width
+        operations: operations, overviewScreen: overviewScreen, width: width,
+        besideTheForm: padFormPlacement == .docked && showsPadForm
       ) { entryBar($0) }
     } else {
       phoneTabsView
@@ -194,6 +298,9 @@ struct PhoneRoot: View {
   private func entryBar(_ tab: PhoneTab) -> some View {
     if environment.shield.isReadOnly {
       ReadOnlyStrip()
+    } else if padFormPlacement != .line {
+      // The tablet with the form at the right chosen: no line at the bottom.
+      EmptyView()
     } else {
       EntryBar(
         windowWidth: width, detailWidth: width, operations: actions,

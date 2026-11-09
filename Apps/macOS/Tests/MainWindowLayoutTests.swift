@@ -484,7 +484,8 @@ final class MainWindowLayoutTests: XCTestCase {
   /// the line.
   func testTheMainWindowSettlesWithTheFormAtTheSide() throws {
     environment.entryStyle = .form
-    let window = makeWindow()
+    // Wide enough to hold the form beside the content (`EntryFormDock`).
+    let window = makeWindow(width: 1_280)
     try waitForList(window)
     let probe = LogProbe()
     let before = probe.counts(of: loopMessages)
@@ -539,7 +540,8 @@ final class MainWindowLayoutTests: XCTestCase {
   /// The choice in Settings moves the entry at once: the line is there with the line style, the
   /// form's fields with the form, and each leaves nothing of the other.
   func testTheChoiceInSettingsMovesTheEntryAtOnce() throws {
-    let window = makeWindow()
+    // Wide enough to hold the form beside the content (`EntryFormDock`).
+    let window = makeWindow(width: 1_280)
     try waitForList(window)
     let prompt = environment.language("entry.placeholder", table: "Entry")
     func textFields() -> [NSTextField] {
@@ -738,24 +740,20 @@ final class MainWindowLayoutTests: XCTestCase {
 
   // MARK: - The toolbar
 
-  /// The toolbar keeps the buttons of the screen: Add, the palette and the trip. No button of a
-  /// section (they stand in the sidebar) and none of the actions of the whole app — Reconcile,
-  /// Export, Recompute, Hide Amounts, Updates, Settings are items of the menu bar
-  /// (`NavigationShellTests`).
-  func testTheToolbarOffersOnlyTheButtonsOfTheScreen() throws {
+  /// The toolbar holds no button of its own: the buttons of a screen stand in its header
+  /// («Изменить», «Поездка», «Новая операция» on Overview), sections in the sidebar, and every
+  /// action of the whole app — Add, the palette, the trip, Reconcile, Export, Recompute, Hide
+  /// Amounts, Updates, Settings — is an item of the menu bar (`NavigationShellTests`,
+  /// `ShellLayoutTests`).
+  func testTheToolbarHoldsNoButtonOfItsOwn() throws {
     let window = makeWindow()
     try waitForList(window)
     settle(window, passes: 10, "with the toolbar")
 
-    let toolbar = try XCTUnwrap(window.toolbar, "the main window has no toolbar")
-    let labels = Set(Self.labels(of: toolbar.items))
+    let labels = Set(Self.labels(of: window.toolbar?.items ?? []))
     for title in [
       environment.language("action.add"), QuestionsText.t("questions.menu.palette", environment),
       TravelText.t("travel.start.button", environment),
-    ] {
-      XCTAssertTrue(labels.contains(title), "the toolbar has no «\(title)»: \(labels.sorted())")
-    }
-    for title in [
       environment.language("window.transactions"), environment.language("window.analytics"),
       environment.language("window.reports"), environment.language("action.recompute"),
       environment.language("action.reconcile"), environment.language("action.export"),
@@ -765,6 +763,74 @@ final class MainWindowLayoutTests: XCTestCase {
       XCTAssertFalse(labels.contains(title), "«\(title)» belongs to the menu, not the toolbar")
     }
     XCTAssertEqual(AppDependencies.missingReaders, [])
+  }
+
+  /// The rows of the sidebar by the numbers of the design: the column 232 wide, a row 34 high
+  /// (7 + a line of 14 + 7, and 3 between two rows), the list's rows 16 from the edges and the
+  /// chosen one's plate, drawn 4 beyond its row, 12 from them.
+  func testTheRowsOfTheSidebarHaveTheNumbersOfTheDesign() throws {
+    let window = makeWindow()
+    try waitForList(window)
+    settle(window, passes: 10, "with the sidebar")
+    var outlines: [NSOutlineView] = []
+    Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &outlines)
+    let sidebar = try XCTUnwrap(
+      outlines.first { $0.convert($0.bounds, to: nil).minX < 1 }, "no sidebar")
+    XCTAssertEqual(sidebar.bounds.width, SidebarMetrics.width, accuracy: 1, "the column")
+    // Row 0 is the header of the list of sections; then the sections in their order.
+    let sections = MainWindow.Section.allCases
+    let chosenRow = try 1 + XCTUnwrap(sections.firstIndex(of: .operations))
+    // The pages of «Покупки» follow its row: the sections up to it stand one after another.
+    // A row the mode of a beginner quiets carries a line more.
+    for row in 1...(1 + (sections.firstIndex(of: .purchases) ?? 0))
+    where BeginnerModeOnMac.section(of: sections[row - 1]) == nil {
+      XCTAssertEqual(sidebar.rect(ofRow: row).height, 34, accuracy: 0.5, "row \(row)")
+    }
+    let cell = try XCTUnwrap(sidebar.view(atColumn: 0, row: chosenRow, makeIfNecessary: false))
+    let cellFrame = cell.convert(cell.bounds, to: sidebar)
+    XCTAssertEqual(cellFrame.minX, SidebarMetrics.listRowInset, accuracy: 0.5, "the list's inset")
+    XCTAssertEqual(
+      sidebar.bounds.width - cellFrame.maxX, SidebarMetrics.listRowInset, accuracy: 0.5)
+
+    // The plate: the button of the chosen section as an assistive client reads it from the
+    // cell — the plate is its background, so its frame is the plate's.
+    var found: [(String, CGRect)] = []
+    func walk(_ element: Any, depth: Int) {
+      guard depth < 16, let object = element as? NSObject else { return }
+      if let id = WindowAccessibility.attribute(object, "accessibilityIdentifier") as? String,
+        !id.isEmpty
+      {
+        found.append((id, WindowAccessibility.frame(of: object)))
+      }
+      for child in WindowAccessibility.attribute(object, "accessibilityChildren") as? [Any] ?? [] {
+        walk(child, depth: depth + 1)
+      }
+    }
+    walk(cell, depth: 0)
+    let button = try XCTUnwrap(found.first { $0.0 == "sidebar.operations" }?.1, "no button")
+    let column = window.convertToScreen(sidebar.convert(sidebar.bounds, to: nil))
+    // The button is laid out in the list's row, 16 from the edges; its plate is drawn 4 beyond
+    // it, 12 from them — nothing on the way clips it.
+    XCTAssertEqual(
+      button.minX - SidebarMetrics.listOutset - column.minX, 12, accuracy: 0.5,
+      "the plate 12 from the left of the column")
+    XCTAssertEqual(
+      column.maxX - button.maxX - SidebarMetrics.listOutset, 12, accuracy: 0.5,
+      "the plate 12 from the right")
+    XCTAssertEqual(button.height, 31, accuracy: 1, "7 + a line of 14 + 7")
+    let plate = button.insetBy(dx: -SidebarMetrics.listOutset, dy: 0)
+    var view: NSView? = cell
+    var clipping: [NSView] = cell.subviews.filter(\.clipsToBounds)
+    while let current = view, current !== sidebar {
+      if current.clipsToBounds || current.layer?.masksToBounds == true { clipping.append(current) }
+      view = current.superview
+    }
+    for view in clipping {
+      let bounds = window.convertToScreen(view.convert(view.bounds, to: nil))
+      XCTAssertTrue(
+        bounds.insetBy(dx: -0.5, dy: -0.5).contains(plate),
+        "\(type(of: view)) \(bounds) cuts the plate \(plate) off")
+    }
   }
 
   /// The labels of the toolbar's items, those of the items of a group included.

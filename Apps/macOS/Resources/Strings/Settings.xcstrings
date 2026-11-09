@@ -10763,6 +10763,108 @@
           }
         }
       }
+    },
+    "settings.entry.plusOpens": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The «+» button opens"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кнопка «+» открывает"
+          }
+        }
+      }
+    },
+    "settings.entry.plusOpens.form": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The form at the right"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Форму справа"
+          }
+        }
+      }
+    },
+    "settings.entry.plusOpens.formDetail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "every field at once, in a column at the right"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "все поля сразу, колонкой справа"
+          }
+        }
+      }
+    },
+    "settings.entry.plusOpens.line": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The line at the bottom"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Строку снизу"
+          }
+        }
+      }
+    },
+    "settings.entry.plusOpens.lineDetail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a line above the keyboard, «coffee 250»"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "строка над клавиатурой, «кофе 250»"
+          }
+        }
+      }
+    },
+    "settings.entry.plusOpensHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The entry line is hidden behind the round «+» in the bottom right corner. «+» or ⌘N opens what is chosen: the line at the bottom with the keyboard, or the form at the right. In a narrow window the form folds into the button."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Строка ввода спрятана за круглой «+» в правом нижнем углу. «+» или ⌘N открывает выбранное: строку снизу с клавиатурой или форму справа. В узком окне форма сворачивается в кнопку."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

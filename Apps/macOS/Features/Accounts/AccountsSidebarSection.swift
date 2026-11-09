@@ -67,7 +67,11 @@ struct AccountsSidebarSection: View {
 
   private func header(live: [PaymentMethod]) -> some View {
     HStack(spacing: 4) {
+      // «СЧЕТА»: 11 semibold in capitals, the secondary ink, as the design names a block.
       Text(verbatim: t("accounts.section.accounts"))
+        .appFont(SidebarType.header)
+        .textCase(.uppercase)
+        .foregroundStyle(.secondary)
       Spacer()
       Menu {
         Button(t("accounts.newAccount")) { model.sheet = .account(nil) }
