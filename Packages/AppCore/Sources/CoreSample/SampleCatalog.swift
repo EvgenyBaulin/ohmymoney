@@ -1,7 +1,7 @@
 import CoreKit
 import Foundation
 
-/// Declarative seed for one starter category: its name in both interface languages, its
+/// Declarative seed for one starter category: its names in the supported languages, its
 /// optional parent (by English name, within the same `kind`), and the defaults the app
 /// assigns on first launch.
 ///
@@ -32,6 +32,22 @@ public struct CategorySeed: Sendable {
     self.systemRole = systemRole
     self.quality = quality
   }
+
+  public func translation(language: String) -> StarterTranslation {
+    let language = StarterLanguage(identifier: language)
+    let text: String
+    switch language {
+    case .ru: text = russian
+    case .en: text = english
+    default: text = StarterCategoryNames.name(english: english, language: language) ?? english
+    }
+    return StarterTranslation(text: text, verification: language.translationVerification)
+  }
+
+  /// All known names identify the same seed when applying a set after a language change.
+  public var names: Set<String> {
+    Set(StarterLanguage.allCases.map { translation(language: $0.rawValue).text })
+  }
 }
 
 /// Starter category tree, shared by first-run seeding (`StarterCategories.tree` in the app,
@@ -43,7 +59,7 @@ public enum SampleCatalog {
   /// to number `sort`.
   public static let categorySeeds: [CategorySeed] = expenseSeeds + incomeSeeds
 
-  /// Builds the starter category tree in the given interface language ("en" or "ru"),
+  /// Builds the starter category tree in the language chosen on the first launch,
   /// with `id`, `parentId` and per-parent `sort` filled in.
   ///
   /// `idGenerator` defaults to a fresh random `UUID` per category, which is what a real
@@ -54,7 +70,6 @@ public enum SampleCatalog {
     seeds categorySeeds: [CategorySeed] = categorySeeds,
     idGenerator: () -> UUID = UUID.init
   ) -> [CoreKit.Category] {
-    let useRussian = language.lowercased().hasPrefix("ru")
     var idsByKey: [SeedKey: UUID] = [:]
     var nextSortByParent: [ParentKey: Int] = [:]
     var categories: [CoreKit.Category] = []
@@ -91,7 +106,7 @@ public enum SampleCatalog {
           id: id,
           parentId: parentId,
           kind: seed.kind,
-          name: useRussian ? seed.russian : seed.english,
+          name: seed.translation(language: language).text,
           sort: sort,
           quality: quality,
           systemRole: seed.systemRole))
