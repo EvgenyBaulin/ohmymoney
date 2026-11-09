@@ -16,14 +16,37 @@ public enum AppPaths {
   /// small one of the UI test, the year of `make demo` drawn from a new seed every time. A Debug
   /// build fills it at launch; a Release build only opens one that is there. Its name is on the
   /// title of the main window, so a set is never taken for the real data.
-  public enum DataSet: String, CaseIterable, Sendable {
-    case sample
-    case sampleLarge = "sample-large"
-    case bench
-    case uiTest = "ui-test"
-    case demo
+  public struct DataSet: RawRepresentable, Hashable, CaseIterable, Sendable {
+    public let rawValue: String
+
+    public static let sample = Self(name: "sample")
+    public static let sampleLarge = Self(name: "sample-large")
+    public static let bench = Self(name: "bench")
+    public static let uiTest = Self(name: "ui-test")
+    public static let demo = Self(name: "demo")
     /// The tutorial of «Справка → Учебный режим»: made by the app itself, in Release too.
-    case learn
+    public static let learn = Self(name: "learn")
+
+    public static let allCases: [Self] = [.sample, .sampleLarge, .bench, .uiTest, .demo, .learn]
+
+    /// A single path component: no separators, dots, whitespace or control characters.
+    public init?(rawValue: String) {
+      guard !rawValue.isEmpty,
+        rawValue.utf8.allSatisfy({ byte in
+          (65...90).contains(byte) || (97...122).contains(byte)
+            || (48...57).contains(byte) || byte == 45 || byte == 95
+        })
+      else { return nil }
+      self.rawValue = rawValue
+    }
+
+    private init(name: String) { rawValue = name }
+
+    /// Refused input gets a new disposable set, never the default database.
+    static func temporary() -> Self { Self(name: "temporary-\(UUID().uuidString)") }
+
+    /// Custom folder names can contain personal information and never enter the journal.
+    var logToken: String { Self.allCases.contains(self) ? rawValue : "custom" }
 
     /// What the title of the main window says: «SAMPLE», «BENCH», «DEMO». The tutorial's says
     /// «УЧЕБНЫЙ» in the language of the interface (`MainWindow.windowTitle`).
@@ -67,7 +90,9 @@ public enum AppPaths {
 
   public static var dataDirectory: URL {
     if let placement = placementBox.current { return placement.directory }
-    if let override = ProcessInfo.processInfo.environment["OHMYMONEY_DATA_DIR"] {
+    if let override = ProcessInfo.processInfo.environment["OHMYMONEY_DATA_DIR"],
+      !LaunchOptions.current.rejectedDataSetName
+    {
       return URL(fileURLWithPath: override, isDirectory: true)
     }
     let base =
@@ -75,7 +100,20 @@ public enum AppPaths {
       .urls(for: .applicationSupportDirectory, in: .userDomainMask)
       .first ?? URL(fileURLWithPath: NSTemporaryDirectory())
     let root = base.appendingPathComponent("OhMyMoney", isDirectory: true)
-    if let dataSet { return directory(of: dataSet, in: root) }
+    return directory(for: LaunchOptions.current, in: root)
+  }
+
+  /// Invalid input is confined to a fresh set in the sandbox's temporary directory.
+  static func directory(
+    for options: LaunchOptions, in root: URL,
+    temporaryRoot: URL = FileManager.default.temporaryDirectory
+  ) -> URL {
+    if let dataSet = options.dataSet {
+      let setRoot =
+        options.rejectedDataSetName
+        ? temporaryRoot.appendingPathComponent("OhMyMoney", isDirectory: true) : root
+      return directory(of: dataSet, in: setRoot)
+    }
     #if DEBUG
       return root.appendingPathComponent("Debug", isDirectory: true)
     #else
@@ -89,9 +127,8 @@ public enum AppPaths {
       .appendingPathComponent(dataSet.rawValue, isDirectory: true)
   }
 
-  /// A data set opened without being generated must be there already: a Release build
-  /// never makes one, and an empty folder in its place would give `make bench-app` the
-  /// times of an empty history.
+  /// A Release data set must be there already: an empty folder in its place would give
+  /// `make bench-app` the times of an empty history. Debug and temporary sets may start empty.
   public struct DataSetMissing: Error {}
 
   /// The measurements of `--measure-runs`, one line each, where `make bench-app` reads them.

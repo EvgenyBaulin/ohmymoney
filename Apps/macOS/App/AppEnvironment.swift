@@ -826,9 +826,10 @@ public final class AppEnvironment {
   private nonisolated static func openDatabase(
     noting staging: StagingNotes, context: MigrationContext
   ) throws -> DatabaseStack {
-    // A data set that was not generated at this launch must be there already: the
-    // Release build never makes one.
-    if AppPaths.dataSet != nil,
+    // Release measurements need an existing history. Debug and refused launch arguments
+    // may open a fresh set, always apart from the Debug and Release databases.
+    if !LaunchOptions.isDebug, !LaunchOptions.current.rejectedDataSetName,
+      AppPaths.dataSet != nil,
       !FileManager.default.fileExists(atPath: AppPaths.databaseURL.path)
     {
       throw AppPaths.DataSetMissing()

@@ -5,8 +5,9 @@ import SwiftUI
 /// What the app was launched with, for the checks and the measurements of the build.
 /// An owner who opens the app from the Dock passes none of these.
 ///
-/// * `--data-set <sample|sample-large|bench|ui-test|demo>` — a folder of its own for synthetic
-///   data (`AppPaths.DataSet`); the Debug and Release databases are never touched.
+/// * `--data-set <name>` — a folder of its own for synthetic data (`AppPaths.DataSet`);
+///   letters, digits, dashes and underscores are accepted. Invalid or missing names open a
+///   fresh temporary set; the Debug and Release databases are never touched.
 /// * `--generate <months|large>`, and the older `--generate-sample` for six months — Debug
 ///   only: the set's folder is made anew and filled with a generated history before the
 ///   app opens it. Without `--data-set` the set is `sample`, or `sample-large` for `large`.
@@ -81,6 +82,8 @@ struct LaunchOptions: Equatable, Sendable {
   }
 
   var dataSet: AppPaths.DataSet?
+  /// A malformed `--data-set` uses a fresh temporary folder and is reported without its value.
+  private(set) var rejectedDataSetName = false
   var generation: Generation?
   /// `--seed`: what the generated set is drawn from; `nil` — the fixed seed.
   var seed: UInt64?
@@ -119,8 +122,7 @@ struct LaunchOptions: Equatable, Sendable {
     #endif
   }
 
-  /// Unknown words and values are passed over: a mistyped argument opens the app as usual
-  /// rather than somewhere unexpected.
+  /// Unknown options are passed over. A malformed data set never selects the default database.
   init(arguments: [String], debug: Bool) {
     func value(after flag: String) -> String? {
       guard let index = arguments.firstIndex(of: flag), index + 1 < arguments.count else {
@@ -132,6 +134,14 @@ struct LaunchOptions: Equatable, Sendable {
     measures = arguments.contains("--measure")
     measureRuns = value(after: "--measure-runs").flatMap(Int.init).filter { $0 > 0 }
     dataSet = value(after: "--data-set").flatMap(AppPaths.DataSet.init(rawValue:))
+    if arguments.contains("--data-set"), dataSet == nil {
+      rejectedDataSetName = true
+      dataSet = .temporary()
+      // Refused input opens an empty disposable set; generation and measurement stay off.
+      measures = false
+      measureRuns = nil
+      return
+    }
 
     if debug {
       if value(after: "--generate") == "empty", dataSet != nil, dataSet != .learn {
@@ -149,7 +159,9 @@ struct LaunchOptions: Equatable, Sendable {
       usesTestIO = arguments.contains("--test-io")
       for (index, word) in arguments.enumerated() where word == "--test-io-file" {
         guard index + 1 < arguments.count, let split = arguments[index + 1].firstIndex(of: "="),
-          let data = Data(base64Encoded: String(arguments[index + 1][arguments[index + 1].index(after: split)...]))
+          let data = Data(
+            base64Encoded: String(arguments[index + 1][arguments[index + 1].index(after: split)...])
+          )
         else { continue }
         testIOFiles[String(arguments[index + 1][..<split])] = data
       }

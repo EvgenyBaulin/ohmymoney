@@ -5,8 +5,7 @@ import XCTest
 /// attachments kept in the result bundle, and waiting for a condition.
 @MainActor
 class E2EMacTestCase: XCTestCase {
-  /// The set every journey runs on (`AppPaths.DataSet.uiTest`): a name the app does not know
-  /// opens the Debug database itself, so only a known one may be used.
+  /// The isolated set shared by the journeys; each launch can generate it anew.
   static let dataSet = "ui-test"
 
   override func setUp() {

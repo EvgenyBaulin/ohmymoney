@@ -129,9 +129,79 @@ final class DataSetTests: XCTestCase {
     XCTAssertNil(measured.generation)
   }
 
-  func testMistypedArgumentsOpenTheAppAsUsual() {
+  func testUnknownValidDataSetNamesHaveTheirOwnFolders() throws {
+    for name in ["journey-42", "Custom_Set9", "0", "Debug", "Release"] {
+      let options = LaunchOptions(arguments: ["OhMyMoney", "--data-set", name], debug: true)
+      let dataSet = try XCTUnwrap(options.dataSet)
+      XCTAssertEqual(dataSet.rawValue, name)
+      let directory = AppPaths.directory(for: options, in: scratch).standardizedFileURL
+      XCTAssertEqual(directory, scratch.appendingPathComponent("Sets/\(name)", isDirectory: true))
+      XCTAssertNotEqual(directory, scratch.appendingPathComponent("Debug", isDirectory: true))
+      XCTAssertFalse(options.rejectedDataSetName)
+      XCTAssertEqual(dataSet.logToken, "custom")
+      XCTAssertNil(options.generation)
+      XCTAssertFalse(options.startsEmpty)
+    }
+  }
+
+  func testInvalidDataSetNamesNeverSelectTheDebugFolder() throws {
+    let invalidNames = [
+      "", ".", "..", "../Debug", "Sets/Debug", "/Debug", "a\\b", "a..b", "a b", "a\n", "a\0b",
+    ]
+    let temporaryRoot = scratch.appendingPathComponent("Temporary", isDirectory: true)
+    for debug in [true, false] {
+      for name in invalidNames {
+        XCTAssertNil(AppPaths.DataSet(rawValue: name))
+        let arguments = ["OhMyMoney", "--data-set", name]
+        let first = LaunchOptions(arguments: arguments, debug: debug)
+        let second = LaunchOptions(arguments: arguments, debug: debug)
+        let dataSet = try XCTUnwrap(first.dataSet)
+        XCTAssertTrue(first.rejectedDataSetName)
+        XCTAssertNotEqual(first.dataSet, second.dataSet, "a refused name gets a fresh set")
+        let directory = AppPaths.directory(
+          for: first, in: scratch, temporaryRoot: temporaryRoot
+        ).standardizedFileURL
+        XCTAssertEqual(
+          directory.deletingLastPathComponent(),
+          temporaryRoot.appendingPathComponent("OhMyMoney/Sets", isDirectory: true))
+        XCTAssertEqual(dataSet.logToken, "custom")
+        XCTAssertNotEqual(directory, scratch.appendingPathComponent("Debug", isDirectory: true))
+        XCTAssertNotEqual(directory, scratch.appendingPathComponent("Release", isDirectory: true))
+      }
+    }
+  }
+
+  func testAMissingDataSetNameNeverSelectsTheDebugFolder() {
+    for debug in [true, false] {
+      let options = LaunchOptions(arguments: ["OhMyMoney", "--data-set"], debug: debug)
+      XCTAssertNotNil(options.dataSet)
+      XCTAssertTrue(options.rejectedDataSetName)
+      let directory = AppPaths.directory(
+        for: options, in: scratch, temporaryRoot: scratch
+      ).standardizedFileURL
+      XCTAssertEqual(directory.deletingLastPathComponent().lastPathComponent, "Sets")
+      XCTAssertNotEqual(directory, scratch.appendingPathComponent("Debug", isDirectory: true))
+    }
+  }
+
+  func testInvalidDataSetNamesDoNotGenerateOrMeasure() {
     let options = LaunchOptions(
-      arguments: ["OhMyMoney", "--data-set", "real", "--generate", "0", "--measure-runs", "-2"],
+      arguments: [
+        "OhMyMoney", "--data-set", "../Debug", "--generate", "large", "--generate-only",
+        "--measure", "--measure-runs", "8",
+      ], debug: true)
+    XCTAssertTrue(options.rejectedDataSetName)
+    XCTAssertNotNil(options.dataSet)
+    XCTAssertNil(options.generation)
+    XCTAssertFalse(options.startsEmpty)
+    XCTAssertFalse(options.generatesOnly)
+    XCTAssertFalse(options.measures)
+    XCTAssertNil(options.measureRuns)
+  }
+
+  func testMistypedNonDataSetArgumentsOpenTheAppAsUsual() {
+    let options = LaunchOptions(
+      arguments: ["OhMyMoney", "--generate", "0", "--measure-runs", "-2"],
       debug: true)
     XCTAssertNil(options.dataSet)
     XCTAssertNil(options.generation)
@@ -152,6 +222,7 @@ final class DataSetTests: XCTestCase {
       AppPaths.directory(of: .sampleLarge, in: root).path,
       "/tmp/Application Support/OhMyMoney/Sets/sample-large")
     XCTAssertEqual(AppPaths.DataSet.bench.badge, "BENCH")
+    XCTAssertEqual(AppPaths.DataSet.bench.logToken, "bench")
     XCTAssertEqual(AppPaths.DataSet.sampleLarge.badge, "SAMPLE-LARGE")
   }
 
@@ -185,7 +256,13 @@ final class DataSetTests: XCTestCase {
     let key = StarterSetActions.askedKey
     let standard = UserDefaults.standard
     let before = standard.object(forKey: key)
-    defer { if let before { standard.set(before, forKey: key) } else { standard.removeObject(forKey: key) } }
+    defer {
+      if let before {
+        standard.set(before, forKey: key)
+      } else {
+        standard.removeObject(forKey: key)
+      }
+    }
     standard.set(true, forKey: key)
 
     let name = "ohmymoney.firstrun.test-\(UUID().uuidString)"
