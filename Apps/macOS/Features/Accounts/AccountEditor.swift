@@ -37,6 +37,11 @@ struct AccountDraft: Equatable {
   var accent: String?
   /// «Скрытый счёт»: kept out of the lists while the hidden accounts are covered.
   var isHidden = false
+  /// «Чужая карта»: someone else's money (`BorrowedCardTerms`), with whose it is and the income
+  /// category of a transfer from it to an account of the owner; `nil` — the default one.
+  var isBorrowed = false
+  var borrowedPersonId: UUID?
+  var borrowedIncomeCategoryId: UUID?
 
   /// The fields of an account there is.
   init(_ account: PaymentMethod) {
@@ -54,6 +59,9 @@ struct AccountDraft: Equatable {
     mainCardId = account.mainCardId
     accent = account.accent
     isHidden = account.hidden
+    isBorrowed = account.isBorrowed
+    borrowedPersonId = account.borrowed?.personId
+    borrowedIncomeCategoryId = account.borrowed?.incomeCategoryId
   }
 
   /// A new account: a bank account in the default currency, in no group, under a bank — `bank`
@@ -87,6 +95,17 @@ struct AccountDraft: Equatable {
     account.mainCardId = mainCardId
     account.accent = accent
     account.hidden = isHidden
+    account.borrowed =
+      isBorrowed
+      ? BorrowedCardTerms(personId: borrowedPersonId, incomeCategoryId: borrowedIncomeCategoryId)
+      : nil
+    if isBorrowed {
+      // Someone else's money is none of the owner's: not his main account, in no group (no
+      // total of a group holds it), not his cushion.
+      account.isDefault = false
+      account.groupId = nil
+      account.cushion = false
+    }
     return account
   }
 
@@ -201,6 +220,7 @@ struct AccountEditor: View {
         } label: {
           Text(verbatim: t("account.editor.kind"))
         }
+        BorrowedCardSection(draft: $draft, wasMain: wasMain)
         bankSection
         currenciesSection
         Section {
@@ -213,23 +233,7 @@ struct AccountEditor: View {
           Text(verbatim: t("account.editor.accentHint"))
             .foregroundStyle(.secondary)
         }
-        Section {
-          Picker(selection: $draft.groupId) {
-            Text(verbatim: t("account.editor.noGroup")).tag(UUID?.none)
-            ForEach(groupChoices, id: \.id) { group in
-              Text(verbatim: AccountText.groupTitle(group, environment)).tag(UUID?.some(group.id))
-            }
-          } label: {
-            Text(verbatim: t("account.editor.group"))
-          }
-          Toggle(isOn: $draft.isMain) {
-            Text(verbatim: t("account.editor.main"))
-          }
-          .disabled(wasMain || previous?.archived == true)
-        } footer: {
-          Text(verbatim: t(wasMain ? "account.editor.mainStays" : "account.editor.mainHint"))
-            .foregroundStyle(.secondary)
-        }
+        if !draft.isBorrowed { groupAndMainSection }
         Section {
           Toggle(isOn: $draft.isHidden) {
             Text(verbatim: environment.language("account.editor.hidden", table: "PrivacyScreens"))
@@ -244,9 +248,11 @@ struct AccountEditor: View {
         if !cards.isEmpty {
           AccountMainCardPicker(selection: $draft.mainCardId, cards: cards)
         }
-        AccountCreditSection(
-          draft: $draft.credit, currency: draft.currencies.first ?? .rub)
-        if draft.credit.isOn, cards.isEmpty {
+        if !draft.isBorrowed {
+          AccountCreditSection(
+            draft: $draft.credit, currency: draft.currencies.first ?? .rub)
+        }
+        if !draft.isBorrowed, draft.credit.isOn, cards.isEmpty {
           Section {
             NameField(
               title: t("account.credit.firstCard"), text: $draft.firstCardName,
@@ -257,17 +263,21 @@ struct AccountEditor: View {
               .foregroundStyle(.secondary)
           }
         }
-        AccountInterestSection(draft: $draft.interest, payoutChoices: payoutChoices)
+        if !draft.isBorrowed {
+          AccountInterestSection(draft: $draft.interest, payoutChoices: payoutChoices)
+        }
         BankConditionsSection(
           draft: $conditions, currency: draft.currencies.first ?? .rub, isAccount: true)
-        Section {
-          Toggle(isOn: $draft.cushion) {
-            Text(verbatim: t("account.editor.cushion"))
+        if !draft.isBorrowed {
+          Section {
+            Toggle(isOn: $draft.cushion) {
+              Text(verbatim: t("account.editor.cushion"))
+            }
+            .accessibilityIdentifier("account.editor.cushion")
+          } footer: {
+            Text(verbatim: t("account.editor.cushionHint"))
+              .foregroundStyle(.secondary)
           }
-          .accessibilityIdentifier("account.editor.cushion")
-        } footer: {
-          Text(verbatim: t("account.editor.cushionHint"))
-            .foregroundStyle(.secondary)
         }
         Section {
           AccountOtherNames(names: $draft.aliases)
@@ -319,6 +329,27 @@ struct AccountEditor: View {
     }
     .onChange(of: draft) { _, _ in refusal = nil }
     .refusedWriteAlert($failed, environment)
+  }
+
+  /// The group to file it under and «Основной счёт»; someone else's card has neither.
+  private var groupAndMainSection: some View {
+    Section {
+      Picker(selection: $draft.groupId) {
+        Text(verbatim: t("account.editor.noGroup")).tag(UUID?.none)
+        ForEach(groupChoices, id: \.id) { group in
+          Text(verbatim: AccountText.groupTitle(group, environment)).tag(UUID?.some(group.id))
+        }
+      } label: {
+        Text(verbatim: t("account.editor.group"))
+      }
+      Toggle(isOn: $draft.isMain) {
+        Text(verbatim: t("account.editor.main"))
+      }
+      .disabled(wasMain || previous?.archived == true)
+    } footer: {
+      Text(verbatim: t(wasMain ? "account.editor.mainStays" : "account.editor.mainHint"))
+        .foregroundStyle(.secondary)
+    }
   }
 
   // MARK: The bank
@@ -472,7 +503,8 @@ struct AccountEditor: View {
     let shown = environment.shield.offered(accounts, keeping: draft.interest.payoutAccountId)
     let offered = AccountRules.ordered(
       shown.filter {
-        $0.id != draft.id && (!$0.archived || $0.id == draft.interest.payoutAccountId)
+        $0.id != draft.id
+          && ((!$0.archived && $0.hasBalance) || $0.id == draft.interest.payoutAccountId)
       }, locale: environment.language.locale, includeArchived: true)
     return AccountCardChoices.accountItems(
       accounts: offered, banks: banks, among: shown.filter { !$0.archived },
@@ -498,7 +530,8 @@ struct AccountEditor: View {
 
   /// A currency never counted and never moved asks for its balance now.
   private func countsOpening(_ currency: CurrencyCode) -> Bool {
-    guard let books else { return false }
+    // Someone else's card has no balance to type.
+    guard !draft.isBorrowed, let books else { return false }
     return !books.balances.hasHistory(key(currency))
   }
 
@@ -518,20 +551,26 @@ struct AccountEditor: View {
       return
     }
     var account = draft.account(over: previous)
-    switch draft.interest.terms(accountId: draft.id) {
-    case .success(let terms): account.interest = terms
-    case .failure(let issue):
-      refusal = .interest(issue)
-      return
-    }
-    switch draft.credit.terms() {
-    case .success(let terms): account.credit = terms
-    case .failure(let issue):
-      refusal = .credit(issue)
-      return
+    if draft.isBorrowed {
+      // Someone else's money earns the owner no interest and is no debt of his to a bank.
+      account.interest = nil
+      account.credit = nil
+    } else {
+      switch draft.interest.terms(accountId: draft.id) {
+      case .success(let terms): account.interest = terms
+      case .failure(let issue):
+        refusal = .interest(issue)
+        return
+      }
+      switch draft.credit.terms() {
+      case .success(let terms): account.credit = terms
+      case .failure(let issue):
+        refusal = .credit(issue)
+        return
+      }
     }
     switch actions.save(
-      account, previous: previous, openings: openings, books: books,
+      account, previous: previous, openings: draft.isBorrowed ? [:] : openings, books: books,
       newBankNamed: draft.bankId == nil ? draft.newBankName : nil,
       firstCardNamed: draft.firstCardName)
     {

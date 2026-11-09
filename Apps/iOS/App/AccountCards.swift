@@ -148,8 +148,11 @@ struct AccountCardsSection: View {
     _ line: AccountsSnapshot.AccountLine, tint: Color, live: [PaymentMethod],
     snapshot: AccountsSnapshot
   ) -> some View {
-    let figure = SidebarFigure.of(
-      line, money: environment.money, words: t, withoutRate: withoutRate)
+    // Someone else's card has no balance: what was spent with it this month instead.
+    let figure =
+      line.account.isBorrowed
+      ? SidebarFigure.borrowed(line.account, snapshot: compute.snapshot, environment: environment)
+      : SidebarFigure.of(line, money: environment.money, words: t, withoutRate: withoutRate)
     let account = line.account
     return VStack(alignment: .leading, spacing: 4) {
       HStack(spacing: 6) {
@@ -205,6 +208,10 @@ struct AccountCardsSection: View {
   /// «сверено сегодня» / «сверено 20 октября» — the latest count of any currency of the
   /// account —, or «не сверен».
   private func countedCaption(_ line: AccountsSnapshot.AccountLine) -> String {
+    // Someone else's card is never counted, and never «не сверен».
+    if line.account.isBorrowed {
+      return environment.language("borrowed.screen.spentMonth", table: BorrowedCardText.table)
+    }
     guard let latest = line.keys.compactMap(\.anchorAt).max() else {
       return t("sidebar.notCounted")
     }
@@ -221,15 +228,22 @@ struct AccountCardsSection: View {
   private func accountMenu(
     _ account: PaymentMethod, live: [PaymentMethod], snapshot: AccountsSnapshot
   ) -> some View {
-    Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: account)) }
-    Button(t("accounts.reconcile")) {
-      selection = .account(account.id)
-      environment.focusedAccountId = account.id
-      environment.showsReconciliation = true
+    if account.isBorrowed {
+      // Someone else's card: money moves only from it, as income, and there is nothing to count.
+      Button(environment.language("borrowed.screen.transferHome", table: BorrowedCardText.table)) {
+        model.sheet = .transfer(newTransfer(from: account))
+      }
+    } else {
+      Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: account)) }
+      Button(t("accounts.reconcile")) {
+        selection = .account(account.id)
+        environment.focusedAccountId = account.id
+        environment.showsReconciliation = true
+      }
     }
     Divider()
     Button(t("accounts.edit")) { model.sheet = .account(account) }
-    if !account.isDefault {
+    if !account.isDefault, !account.isBorrowed {
       Button(t("accounts.makeMain")) { model.perform(actions.makeMain(account.id), about: account) }
     }
     if live.contains(where: {

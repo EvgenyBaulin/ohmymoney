@@ -1,0 +1,499 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "borrowed.analytics.cut": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · someone else's card, %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · с чужой карты, %2$@"
+          }
+        }
+      }
+    },
+    "borrowed.analytics.cutUnsaid": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · someone else's card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · с чужой карты"
+          }
+        }
+      }
+    },
+    "borrowed.badge": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Someone else's card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чужая карта"
+          }
+        }
+      }
+    },
+    "borrowed.badge.whose": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@'s card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карта: %@"
+          }
+        }
+      }
+    },
+    "borrowed.category.familyHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Family help"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помощь семьи"
+          }
+        }
+      }
+    },
+    "borrowed.category.gifts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gifts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарки"
+          }
+        }
+      }
+    },
+    "borrowed.editor.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money that isn't yours: a parent's, a partner's or a company card. What you buy with it is your spending, in every total, category and limit, but the card has no balance: it isn't counted, isn't in «Total», groups or capital and never lowers «Можно тратить»."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деньги не ваши: карта родителя, партнёра, корпоративная. Покупки с неё — ваши расходы во всех итогах, категориях и лимитах, но остатка у неё нет: её не сверяют, её нет во «Всего», группах и «Капитале», и она не уменьшает «Можно тратить»."
+          }
+        }
+      }
+    },
+    "borrowed.editor.income": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A transfer to my account is income in"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевод себе — доход в"
+          }
+        }
+      }
+    },
+    "borrowed.editor.income.default": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Family help (by default)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помощь семьи (по умолчанию)"
+          }
+        }
+      }
+    },
+    "borrowed.editor.incomeHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money moved from this card to your account is written as income in this category, not as a transfer. Your money can't be moved onto the card."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевод с этой карты на ваш счёт записывается доходом в этой категории, а не переводом. Переводить свои деньги на эту карту нельзя."
+          }
+        }
+      }
+    },
+    "borrowed.editor.mainStays": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The main account is your own money: it can't be someone else's card."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основной счёт — ваши деньги: чужой картой он быть не может."
+          }
+        }
+      }
+    },
+    "borrowed.editor.person": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whose card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чья карта"
+          }
+        }
+      }
+    },
+    "borrowed.editor.person.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not said"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не указано"
+          }
+        }
+      }
+    },
+    "borrowed.editor.toggle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Someone else's card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чужая карта"
+          }
+        }
+      }
+    },
+    "borrowed.refusal.ownMoney": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A credit card, a deposit or the safety cushion is your own money: it can't be someone else's card."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитка, вклад и подушка безопасности — ваши деньги: чужой картой они быть не могут."
+          }
+        }
+      }
+    },
+    "borrowed.screen.noBalance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Someone else's money: no balance and no count."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чужие деньги: остатка и сверки нет."
+          }
+        }
+      }
+    },
+    "borrowed.screen.spentMonth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрачено за месяц"
+          }
+        }
+      }
+    },
+    "borrowed.screen.transferHome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move to my account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевести себе"
+          }
+        }
+      }
+    },
+    "borrowed.sidebar.spent": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ this month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ за месяц"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.asIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From someone else's card: it will be written as income in «%@»."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С чужой карты: запишется доходом в «%@»."
+          }
+        }
+      }
+    },
+    "borrowed.transfer.note.advance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An advance: not spending. What you buy with the card is counted as yours when you spend it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аванс: не расход. Траты с карты считаются вашими, когда вы их совершаете."
+          }
+        }
+      }
+    },
+    "borrowed.transfer.note.debtRepayment": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repayment: it will be written as a payment of your open debt to this person, not as a transfer."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат долга: запишется платежом по вашему открытому долгу этому человеку, а не переводом."
+          }
+        }
+      }
+    },
+    "borrowed.transfer.note.gift": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A gift: it will be written as an expense in «Gifts», not as a transfer."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарок: запишется расходом в «Подарки», а не переводом."
+          }
+        }
+      }
+    },
+    "borrowed.transfer.purpose.advance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advance for my spending with this card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аванс для моих трат с этой карты"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.purpose.debtRepayment": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repaying a debt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат долга"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.purpose.gift": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gift"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарок"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.purposeLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What the money is for"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для чего эти деньги"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.refusal.noDebt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no open debt to this person in this currency to pay back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет открытого долга этому человеку в этой валюте, который можно вернуть."
+          }
+        }
+      }
+    },
+    "borrowed.transfer.refusal.to": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money can't be moved from one card that isn't yours to another."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Между чужими картами переводить нечего: ни те, ни другие деньги не ваши."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

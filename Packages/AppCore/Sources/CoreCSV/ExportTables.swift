@@ -82,6 +82,9 @@ public enum ExportTables {
   /// `Schema/0009_credit_and_allocation.sql`: the limit, the grace period (`statement` — the
   /// statement day and the days to pay it, `purchase` — the days from a purchase), the rates, the
   /// minimum payment, the fee for cash and transfers, and the card a purchase is made with.
+  /// `borrowed`, `borrowed_person_id` and `borrowed_income_category_id` came with
+  /// `Schema/0022_borrowed_card.sql` and go last: `true` for someone else's card, whose it is (a
+  /// person) and the income category of money moved from it, empty for none.
   public static let paymentMethods = ExportTable(
     fileName: "payment_methods.csv",
     columns: [
@@ -93,7 +96,7 @@ public enum ExportTables {
       "credit_pay_days", "credit_grace_days", "credit_purchase_rate", "credit_cash_rate",
       "credit_min_percent", "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
       "credit_cash_no_grace", "main_card_id", "accent", "hidden", "cashback_monthly_cap",
-      "cashback_choice_day",
+      "cashback_choice_day", "borrowed", "borrowed_person_id", "borrowed_income_category_id",
     ])
 
   public static let places = ExportTable(
@@ -633,6 +636,9 @@ extension ExportTables {
       CSVValue.string(bool: method.hidden),
       CSVValue.string(amount: method.cashbackMonthlyCapE4),
       CSVValue.string(method.cashbackChoiceDay),
+      CSVValue.string(bool: method.isBorrowed),
+      CSVValue.string(method.borrowed?.personId),
+      CSVValue.string(method.borrowed?.incomeCategoryId),
     ]
   }
 
