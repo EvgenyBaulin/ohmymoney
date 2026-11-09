@@ -24,6 +24,18 @@ public struct AppliedTagEdit: Sendable {
   public var rulesBefore: [Rule]
   /// Rules left with no action and deleted, as they were.
   public var rulesRemoved: [Rule]
+  /// The merge the rules followed, so the same change can be made again.
+  public var merged: (source: UUID, target: UUID)?
+
+  public init(
+    edit: TagEdit, rulesBefore: [Rule], rulesRemoved: [Rule],
+    merged: (source: UUID, target: UUID)? = nil
+  ) {
+    self.edit = edit
+    self.rulesBefore = rulesBefore
+    self.rulesRemoved = rulesRemoved
+    self.merged = merged
+  }
 }
 
 /// The tags, the rules, the notes of days and the settings of «Доход и сбережения»
@@ -86,7 +98,8 @@ public struct SpendingRulesRepository: Sendable {
           _ = try Rule.deleteOne(db, key: id.uuidString)
         }
       }
-      return AppliedTagEdit(edit: edit, rulesBefore: before, rulesRemoved: removed)
+      return AppliedTagEdit(
+        edit: edit, rulesBefore: before, rulesRemoved: removed, merged: merged)
     }
   }
 
@@ -352,6 +365,15 @@ public struct SpendingRulesRepository: Sendable {
   }
 
   // MARK: - Basket of a category, weekend, price in hours
+
+  /// The basket of a category (`nil`: none of its own).
+  public func basket(ofCategory id: UUID) throws -> BudgetBasket? {
+    try writer.read { db in
+      try String.fetchOne(
+        db, sql: "SELECT basket FROM categories WHERE id = ?", arguments: [id.uuidString]
+      ).flatMap(BudgetBasket.init(rawValue:))
+    }
+  }
 
   /// Sets the basket of a category (`nil`: none of its own, so it reads from its parent or by the
   /// default). Returns the basket it had, for ⌘Z; a category that is not there is no error and

@@ -33,7 +33,8 @@ enum SpendingUndo: Sendable {
 
   /// The step that makes this one's change again, read from the database before ⌘Z takes the
   /// change back: reverting it is what ⇧⌘Z does. `nil` for the steps that cannot be made again
-  /// from what they keep (a change of the tag dictionary, rules applied to the past, a basket).
+  /// from what they keep; a change of the tag dictionary and rules applied to the past have
+  /// steps of their own (`TransactionsStore.RedoStep`).
   func reapplying(spending: SpendingRulesRepository) throws -> SpendingUndo? {
     switch self {
     case .tagsAttached(let links): return .tagsDetached(links)
@@ -50,7 +51,9 @@ enum SpendingUndo: Sendable {
       return .rules(
         restore: edited + removedNow,
         remove: restore.map(\.id).filter { byId[$0] == nil })
-    case .tagEdit, .backfill, .basket:
+    case .basket(let categoryId, _):
+      return .basket(categoryId: categoryId, before: try spending.basket(ofCategory: categoryId))
+    case .tagEdit, .backfill:
       return nil
     }
   }
