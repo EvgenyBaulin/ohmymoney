@@ -71,7 +71,8 @@ final class AttachmentsSectionTests: XCTestCase {
     store.undo()
     files.reload(service: service)
     XCTAssertTrue(files.files.isEmpty)
-    XCTAssertTrue(service.store.storedHashes().isEmpty, "the files nothing names are gone too")
+    XCTAssertEqual(
+      service.store.storedHashes().count, 2, "the bytes stay for ⇧⌘Z; the daily sweep takes them")
     XCTAssertFalse(store.canUndo, "one step, not two")
   }
 

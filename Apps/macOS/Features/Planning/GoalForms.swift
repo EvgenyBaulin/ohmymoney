@@ -346,12 +346,13 @@ struct GoalAccountFields: View {
 
   /// The live accounts, and the goal's own when it was archived since — a form never drops what
   /// the goal holds. The hidden accounts are left out while covered, the goal's own excepted.
+  /// Someone else's card keeps none of the owner's money, so no goal keeps its money there.
   static func offered(
     _ accounts: [PaymentMethod], hiding: HiddenAccounts = HiddenAccounts(ids: [UUID]()),
     keeping kept: UUID?
   ) -> [PaymentMethod] {
     hiding.offered(accounts, visibility: .covered, keeping: kept)
-      .filter { !$0.archived || $0.id == kept }
+      .filter { (!$0.archived && $0.hasBalance) || $0.id == kept }
   }
 
   /// The goal with `accountId`; without an account there is nothing to transfer to, so the

@@ -26,6 +26,7 @@ struct PadRoot<Entry: View>: View {
   @State private var showsTools = false
 
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.appTheme) private var theme
 
   private var environment: AppEnvironment { deps.environment }
   private var mode: PadSidebarMode { PadLayout.mode(forWidth: Double(width)) }
@@ -116,7 +117,7 @@ struct PadRoot<Entry: View>: View {
   }
 
   private func sectionRow(_ section: PadSection) -> some View {
-    let lit = router.padSection == section
+    let lit = SidebarHighlight(isSelected: router.padSection == section)
     return Button {
       router.open(pad: section)
       showDetail()
@@ -126,13 +127,15 @@ struct PadRoot<Entry: View>: View {
       } icon: {
         Image(systemName: section.symbol)
       }
-      .foregroundStyle(lit ? surfaces.accent : surfaces.primary)
+      .foregroundStyle(lit.text(theme))
       .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading)
       .contentShape(.rect)
     }
     .buttonStyle(.plain)
-    .listRowBackground(lit ? surfaces.accent.opacity(0.14) : Color.clear)
-    .accessibilityAddTraits(lit ? [.isSelected] : [])
+    .listRowBackground(
+      RoundedRectangle(cornerRadius: 8).fill(lit.plate(theme)).padding(.horizontal, 4)
+    )
+    .accessibilityAddTraits(lit.isSelected ? [.isSelected] : [])
     .accessibilityIdentifier("sidebar.\(section.rawValue)")
   }
 
@@ -274,20 +277,34 @@ struct PadSettingsScreen: View {
 
   @State private var selection: SettingsSection? = .general
   @State private var compactColumn: NavigationSplitViewColumn = .detail
+  @Environment(\.appTheme) private var theme
 
   private var environment: AppEnvironment { deps.environment }
   private var list: PhoneSettingsList { PhoneSettingsList(deps: deps) }
 
   var body: some View {
     NavigationSplitView(preferredCompactColumn: $compactColumn) {
-      List(selection: $selection) {
+      // No list selection: it would paint the system highlight over the theme's plate.
+      List {
         ForEach(SettingsSection.allCases, id: \.self) { section in
-          Label {
-            Text(verbatim: environment.language(section.titleKey, table: "Settings"))
-          } icon: {
-            Image(systemName: section.symbol)
+          let lit = SidebarHighlight(isSelected: selection == section)
+          Button {
+            selection = section
+          } label: {
+            Label {
+              Text(verbatim: environment.language(section.titleKey, table: "Settings"))
+            } icon: {
+              Image(systemName: section.symbol)
+            }
+            .foregroundStyle(lit.text(theme))
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(.rect)
           }
-          .tag(section)
+          .buttonStyle(.plain)
+          .listRowBackground(
+            RoundedRectangle(cornerRadius: 8).fill(lit.plate(theme)).padding(.horizontal, 4)
+          )
+          .accessibilityAddTraits(lit.isSelected ? [.isSelected] : [])
         }
       }
       .navigationSplitViewColumnWidth(PadLayout.settingsSidebarWidth)

@@ -2,7 +2,8 @@ import CoreKit
 import Foundation
 
 /// Reads one line of the entry field. English and Russian are understood at the same time and
-/// independently of the interface language.
+/// independently of the interface language. `language` adds the selected language's entry words
+/// while keeping the original bilingual vocabulary available.
 ///
 /// Ambiguity is resolved by a fixed order of passes; every pass only sees the words no
 /// earlier pass has claimed, and a claimed word can never reappear in the note:
@@ -63,20 +64,24 @@ public struct InputLineParser: Sendable {
   private let calendar: CalendarContext
   /// The owner's own currencies (`custom_currencies`): their codes and symbols are read too.
   private let catalog: CurrencyCatalog
+  private let lexicon: EntryLexicon
 
   public init(
-    vocabulary: ParserVocabulary, calendar: CalendarContext, catalog: CurrencyCatalog = .empty
+    vocabulary: ParserVocabulary, calendar: CalendarContext, catalog: CurrencyCatalog = .empty,
+    language: String = "en"
   ) {
     self.vocabulary = vocabulary
     self.calendar = calendar
     self.catalog = catalog
+    self.lexicon = EntryLexicon(language: StarterLanguage(identifier: language))
   }
 
   /// `kind` is the kind the operation already has — chosen in the ↓ panel — for a line that
   /// names none: money back chosen there reads «от Ани» as whom it came from.
   public func parse(_ text: String, today: DateOnly, kind: TransactionKind? = nil) -> ParsedInput {
     var session = ParseSession(
-      text: text, vocabulary: vocabulary, calendar: calendar, today: today, catalog: catalog)
+      text: text, vocabulary: vocabulary, calendar: calendar, today: today, catalog: catalog,
+      lexicon: lexicon)
     session.panelKind = kind
     session.run(readingTimeAndCashback: false)
     return session.finish()
@@ -105,7 +110,8 @@ public struct InputLineParser: Sendable {
     _ text: String, today: DateOnly, kind: TransactionKind? = nil
   ) -> InputLineReading {
     var session = ParseSession(
-      text: text, vocabulary: vocabulary, calendar: calendar, today: today, catalog: catalog)
+      text: text, vocabulary: vocabulary, calendar: calendar, today: today, catalog: catalog,
+      lexicon: lexicon)
     session.panelKind = kind
     session.run(readingTimeAndCashback: true)
     return InputLineReading(
@@ -141,6 +147,7 @@ private struct ParseSession {
   var cashback: CashbackReading?
   var cashbackPhrase: String?
   let catalog: CurrencyCatalog
+  let lexicon: EntryLexicon
   /// «смз» was read.
   var selfEmployed = false
   var warranty: TermReading?
@@ -152,9 +159,10 @@ private struct ParseSession {
 
   init(
     text: String, vocabulary: ParserVocabulary, calendar: CalendarContext, today: DateOnly,
-    catalog: CurrencyCatalog = .empty
+    catalog: CurrencyCatalog = .empty, lexicon: EntryLexicon
   ) {
-    self.words = InputWord.split(text)
+    self.lexicon = lexicon
+    self.words = InputWord.localizedSplit(text, lexicon: lexicon, vocabulary: vocabulary)
     self.vocabulary = vocabulary
     self.calendar = calendar
     self.today = today
@@ -256,7 +264,7 @@ private struct ParseSession {
         }
       }
     }
-    for phrase in Lexicon.kindPhrases {
+    for phrase in lexicon.kindPhrases {
       for index in words.indices where matches(phrase.words, at: index, loose: false) {
         if phrase.words.count == 1, Lexicon.russianAdvanceWords.contains(phrase.words[0]),
           paysForAJob(after: index + 1)
@@ -344,28 +352,33 @@ private struct ParseSession {
 
   mutating func readGoalAndDebt() {
     result.goalId = readMarked(
-      markers: Lexicon.goalMarkers, entries: vocabulary.goals, role: .goal)
+      markers: Lexicon.goalMarkers, phrases: lexicon.goalPhrases, entries: vocabulary.goals,
+      role: .goal)
     result.debtId = readMarked(
-      markers: Lexicon.debtMarkers, entries: vocabulary.debts, role: .debt)
+      markers: Lexicon.debtMarkers, phrases: lexicon.debtPhrases, entries: vocabulary.debts,
+      role: .debt)
   }
 
   /// A goal or a debt: the marker word plus the name. The name usually follows the marker,
   /// but "Ипотека 30000 кредит" also works — and a name that is itself the marker
   /// ("ипотека") is matched on the marker word.
   private mutating func readMarked(
-    markers: Set<String>, entries: [ParserVocabulary.Entry], role: ParsedRole
+    markers: Set<String>, phrases: [[String]], entries: [ParserVocabulary.Entry], role: ParsedRole
   ) -> UUID? {
     guard !entries.isEmpty else { return nil }
     for index in words.indices where !words[index].claimed {
-      guard markers.contains(words[index].normalized) else { continue }
-      if let match = bestMatch(entries, at: index + 1, loose: true) {
+      let count =
+        phrases.first(where: { matches($0, at: index, loose: false) })?.count
+        ?? (markers.contains(words[index].normalized) ? 1 : 0)
+      guard count > 0 else { continue }
+      if let match = bestMatch(entries, at: index + count, loose: true) {
         let phrase = index..<match.range.upperBound
         claim(phrase, as: role, text: marked(phrase))
         return match.entry.id
       }
       for other in words.indices where !words[other].claimed {
         guard let match = bestMatch(entries, at: other, loose: false) else { continue }
-        if !match.range.contains(index) { claim(index, as: nil) }
+        if !match.range.contains(index) { claim(index..<(index + count), as: nil) }
         claim(match.range, as: role)
         return match.entry.id
       }
@@ -512,7 +525,7 @@ private struct ParseSession {
         dateReading(
           from: words[next].normalized, written: words[next].original,
           allowDayMonth: false) == nil,
-        !Lexicon.datePhrases.contains(where: { matches($0.words, at: next, loose: false) }),
+        !lexicon.datePhrases.contains(where: { matches($0.words, at: next, loose: false) }),
         !Lexicon.timeWords.contains(words[next].normalized),
         !isClockTime(words[next].normalized)
       else { continue }
@@ -618,12 +631,18 @@ private struct ParseSession {
   /// accounts are read here and not the first one alone.
   mutating func readTransfer() {
     guard
-      let word = words.indices.first(where: {
-        !words[$0].claimed && Lexicon.transferWords.contains(words[$0].normalized)
+      let word = words.indices.first(where: { index in
+        lexicon.transferPhrases.contains { matches($0, at: index, loose: false) }
       }),
       result.personId == nil, result.unknownPersonName == nil, result.goalId == nil,
       result.debtId == nil, !claims.contains(where: { $0.role == .kind })
     else { return }
+
+    let transferCount =
+      lexicon.transferPhrases.first {
+        matches($0, at: word, loose: false)
+      }?.count ?? 1
+    let transferRange = word..<(word + transferCount)
 
     struct Side {
       var account: UUID
@@ -631,7 +650,7 @@ private struct ParseSession {
       var range: Range<Int>
       var marker: Int?
     }
-    let markers = Lexicon.transferFromMarkers.union(Lexicon.transferToMarkers)
+    let markers = lexicon.transferFromMarkers.union(lexicon.transferToMarkers)
     var sides: [Side] = []
     // Every word that named an account, the same one twice included.
     var named = Set<Int>()
@@ -646,7 +665,7 @@ private struct ParseSession {
     }
     var index = 0
     while index < words.count {
-      guard !words[index].claimed, index != word else {
+      guard !words[index].claimed, !transferRange.contains(index) else {
         index += 1
         continue
       }
@@ -678,14 +697,14 @@ private struct ParseSession {
       // One account: a transfer only when a word stands where the other one would — a word
       // that is no number, no currency, no date, no «for whom» and no other known name.
       for candidate in words.indices
-      where !words[candidate].claimed && candidate != word
+      where !words[candidate].claimed && !transferRange.contains(candidate)
         && !sides[0].range.contains(candidate) && !named.contains(candidate)
         && sides[0].marker != candidate
         && !markers.contains(words[candidate].normalized) && !isAmountish(words[candidate])
         && currencyAffix(in: words[candidate].amountText) == nil
         && customCurrency(at: candidate) == nil
         && Lexicon.forWhomWords[words[candidate].normalized] == nil
-        && !Lexicon.datePhrases.contains(where: { matches($0.words, at: candidate, loose: false) })
+        && !lexicon.datePhrases.contains(where: { matches($0.words, at: candidate, loose: false) })
       {
         let marker =
           candidate > 0 && markers.contains(words[candidate - 1].normalized) ? candidate - 1 : nil
@@ -698,7 +717,7 @@ private struct ParseSession {
     // Who is who: a «с»/«на» decides; otherwise the order of the line.
     func isFrom(_ marker: Int?) -> Bool? {
       guard let marker else { return nil }
-      return Lexicon.transferFromMarkers.contains(words[marker].normalized)
+      return lexicon.transferFromMarkers.contains(words[marker].normalized)
     }
     var from: Side?
     var to: Side?
@@ -722,7 +741,7 @@ private struct ParseSession {
     var reading = TransferReading(
       fromAccountId: from?.account, fromCardId: from?.card, toAccountId: to?.account,
       toCardId: to?.card)
-    claim(word, as: .kind)
+    claim(transferRange, as: .kind)
     for side in [from, to].compactMap({ $0 }) {
       let range = (side.marker ?? side.range.lowerBound)..<side.range.upperBound
       if !words[side.range.lowerBound].claimed {
@@ -1195,7 +1214,7 @@ private struct ParseSession {
 
   mutating func readDate() {
     guard result.date == nil else { return }
-    for phrase in Lexicon.datePhrases {
+    for phrase in lexicon.datePhrases {
       for index in words.indices where matches(phrase.words, at: index, loose: false) {
         result.date = calendar.adding(days: phrase.meaning, to: today)
         claim(index..<(index + phrase.words.count), as: .date)
@@ -1288,6 +1307,19 @@ private struct ParseSession {
   /// comes out negative or is larger than one amount may be — takes every shorter piece of
   /// itself down with it: "10" of "кофе 10 / 0" is not what was typed. A number next to it is
   /// still free to be the amount. When nothing is found, `amountProblem` says why.
+  private func amountCandidate(in range: Range<Int>) -> String {
+    var candidate = ""
+    for index in range {
+      if lexicon.isThousand(words[index].normalized) {
+        candidate += "k"
+      } else {
+        if !candidate.isEmpty { candidate += " " }
+        candidate += words[index].amountText
+      }
+    }
+    return candidate
+  }
+
   private mutating func readAmount(in run: ClosedRange<Int>) -> Bool {
     var refused: [Range<Int>] = []
     for length in stride(from: min(run.count, Self.amountWindow), through: 1, by: -1) {
@@ -1300,7 +1332,7 @@ private struct ParseSession {
             $0.lowerBound <= range.lowerBound && range.upperBound <= $0.upperBound
           })
         else { continue }
-        let candidate = range.map { words[$0].amountText }.joined(separator: " ")
+        let candidate = amountCandidate(in: range)
         let value: Decimal
         do {
           value = try ExpressionEvaluator.evaluate(candidate)
@@ -1325,7 +1357,7 @@ private struct ParseSession {
           result.amountExpression = candidate
         }
         if candidate.first == "+" { readSignOfTheAmount() }
-        claim(range, as: .amount, text: candidate)
+        claim(range, as: .amount, text: lexicon.localized == nil ? candidate : marked(range))
         return true
       }
     }
@@ -1515,7 +1547,7 @@ private struct ParseSession {
   ) -> (code: CurrencyCode, residual: String, text: String)? {
     let trimmed = raw.trimmingCharacters(in: .whitespaces)
     guard !trimmed.isEmpty else { return nil }
-    if let code = Lexicon.currencyWords[TextNormalizer.normalized(trimmed)] {
+    if let code = lexicon.currencyWords[TextNormalizer.normalized(trimmed)] {
       return (CurrencyCode(code), "", trimmed)
     }
     let characters = Array(trimmed)
@@ -1549,7 +1581,7 @@ private struct ParseSession {
     guard cut > 0, cut < characters.count else { return nil }
     let letters = String(characters[cut...])
     let residual = String(characters[..<cut])
-    guard let code = Lexicon.currencyWords[TextNormalizer.normalized(letters)],
+    guard let code = lexicon.currencyWords[TextNormalizer.normalized(letters)],
       residual.contains(where: ExpressionLexer.isDigit)
     else { return nil }
     return (CurrencyCode(code), residual, letters)

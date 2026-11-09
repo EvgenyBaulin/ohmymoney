@@ -18,6 +18,9 @@ public enum TransferIssue: Hashable, Sendable {
   case amountsDiffer
   /// Nothing, or less than nothing, sent or received.
   case notPositive
+  /// Money would move from one card that is not the owner's to another: none of it is his, so
+  /// there is nothing to write (`BorrowedCardRules`).
+  case toBorrowed
 }
 
 /// Where the fee of a transfer goes.
@@ -58,6 +61,7 @@ public enum TransferRules {
     guard let from = byId[transfer.fromAccountId], let to = byId[transfer.toAccountId],
       usable(from), usable(to)
     else { return .archivedAccount }
+    guard !(to.isBorrowed && from.isBorrowed) else { return .toBorrowed }
     guard from.holds(transfer.fromCurrency) else { return .currencyNotHeld(.from) }
     guard to.holds(transfer.toCurrency) else { return .currencyNotHeld(.to) }
     if !transfer.isExchange, transfer.fromAmountE4 != transfer.toAmountE4 { return .amountsDiffer }

@@ -113,17 +113,15 @@ struct SettingsSectionTitle: View {
 struct SettingsSidebarLabel: View {
   let section: SettingsSection
   let title: String
-  let isSelected: Bool
+  let highlight: SidebarHighlight
   @Environment(\.appTheme) private var theme
 
   var body: some View {
     HStack(spacing: 10) {
       SettingsIconTile(symbol: section.tileSymbol, color: section.tileColor)
       Text(verbatim: title)
-        .foregroundStyle(
-          isSelected ? Color(theme.palette.accentContent) : Color(theme.palette.contentPrimary)
-        )
-        .fontWeight(isSelected ? .semibold : .regular)
+        .foregroundStyle(highlight.text(theme))
+        .fontWeight(highlight.isSelected ? .semibold : .regular)
     }
     .frame(minHeight: SettingsChromeMetrics.rowHeight - 4)
   }

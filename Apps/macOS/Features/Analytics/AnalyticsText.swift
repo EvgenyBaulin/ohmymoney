@@ -159,8 +159,17 @@ enum AnalyticsText {
       return name.archived ? environment.format("common.archivedName", name.text) : name.text
     }
     switch key {
-    case .category(let id), .person(let id), .place(let id), .event(let id),
-      .paymentMethod(let id):
+    case .paymentMethod(let id):
+      // «Карта папы · с чужой карты, Папа»: the cut of the spending paid with someone else's
+      // money names the card and whose it is.
+      guard let name = names[id], name.borrowed else { return named(id) }
+      guard let owner = name.owner else {
+        return environment.format(
+          "borrowed.analytics.cutUnsaid", table: BorrowedCardText.table, named(id))
+      }
+      return environment.format(
+        "borrowed.analytics.cut", table: BorrowedCardText.table, named(id), owner)
+    case .category(let id), .person(let id), .place(let id), .event(let id):
       return named(id)
     case .uncategorized: return environment.language("category.uncategorized")
     case .noSubcategory: return t("analytics.none.subcategory", environment)

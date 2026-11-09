@@ -137,6 +137,10 @@ struct AnalyticsNames: Sendable {
   struct Name: Hashable, Sendable {
     var text: String
     var archived: Bool
+    /// Someone else's card (`BorrowedCardTerms`): the line says so, with whose it is.
+    var borrowed = false
+    /// The name of the person whose card it is, when said.
+    var owner: String? = nil
   }
 
   private var byId: [UUID: Name] = [:]
@@ -149,7 +153,9 @@ struct AnalyticsNames: Sendable {
     for item in dataset.places { byId[item.id] = Name(text: item.name, archived: item.archived) }
     for item in dataset.events { byId[item.id] = Name(text: item.name, archived: item.archived) }
     for item in dataset.paymentMethods {
-      byId[item.id] = Name(text: item.name, archived: item.archived)
+      byId[item.id] = Name(
+        text: item.name, archived: item.archived, borrowed: item.isBorrowed,
+        owner: BorrowedCardText.personName(of: item, people: dataset.people))
     }
     for item in dataset.cards { byId[item.id] = Name(text: item.name, archived: item.archived) }
     // The scheduled payments, so «По подпискам за других» can name a bar. A payment that is

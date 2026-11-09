@@ -115,6 +115,8 @@ public struct CreditOpening: Hashable, Sendable {
 /// * Money borrowed or lent through a debt journal alone moves the account of its line.
 /// * Nothing is converted: a balance is in its own currency, and rates never make a
 ///   difference.
+/// * Someone else's card (`PaymentMethod.isBorrowed`) has no balance: it has no key, and what
+///   moved on it or was counted on it is left out. The other side of a transfer still moves.
 public struct AccountBalances: Hashable, Sendable {
   /// One count of a key: the balance counted, its moment and the day of that moment.
   private struct Anchor: Hashable, Sendable {
@@ -212,6 +214,12 @@ public struct AccountBalances: Hashable, Sendable {
       else { continue }
       movements[moved.key, default: []].append(moved)
     }
+    // Someone else's card keeps no balance: what it moved is not the owner's money, so none of
+    // its keys is kept, counted or listed (`PaymentMethod.hasBalance`).
+    let borrowed = Set(accounts.filter(\.isBorrowed).map(\.id))
+    if !borrowed.isEmpty {
+      movements = movements.filter { !borrowed.contains($0.key.accountId) }
+    }
     for key in movements.keys {
       movements[key]?.sort(by: Self.oldestFirst)
     }
@@ -222,14 +230,14 @@ public struct AccountBalances: Hashable, Sendable {
       },
       uniquingKeysWith: { first, _ in first })
     var anchors: [BalanceKey: [Anchor]] = [:]
-    for balance in balances {
+    for balance in balances where !borrowed.contains(balance.key.accountId) {
       guard let at = counted[balance.reconciliationId] else { continue }
       anchors[balance.key, default: []].append(
         Anchor(balance: balance, at: at, day: calendar.day(of: at)))
     }
 
     var keys = Set(movements.keys).union(anchors.keys)
-    for account in accounts where !account.archived {
+    for account in accounts where !account.archived && account.hasBalance {
       for currency in account.currencies {
         keys.insert(BalanceKey(accountId: account.id, currency: currency))
       }

@@ -12,6 +12,11 @@ extension EnvironmentValues {
   /// Tiles in a row fixed by the host (an iPad, whose window width and sidebar decide it, not
   /// the width of the page); `nil` lets the page count by its own width.
   @Entry var overviewColumnsOverride: Int?
+  /// The width the window gives the screen (the detail column between the sidebar and the entry
+  /// form), set by the host; `nil` lets the page measure itself. A page that counts its columns
+  /// from the width it measured of its own content can keep itself too wide: columns that ask
+  /// for more than the room keep the page wide, and the wide page keeps its columns.
+  @Entry var overviewRoom: CGFloat?
 }
 
 /// The large title of Overview with what stands at its right edge.
@@ -104,10 +109,16 @@ private struct OverviewHeader: View {
   @Dependency(\.environment) private var environment
   @Environment(\.overviewTitleRow) private var titleRow
   @Environment(\.overviewColumnsOverride) private var columnsOverride
+  @Environment(\.overviewRoom) private var room
   @Environment(\.appFontSize) private var fontSize
   let actions: OperationActions
   let screen: OverviewScreen
-  @State private var width: CGFloat = 0
+  @State private var measured: CGFloat = 0
+
+  /// The room the page has: the host's, less the margins, else the measured width.
+  private var width: CGFloat {
+    room.map { max($0 - 2 * OverviewView.sideMargin, 0) } ?? measured
+  }
 
   var body: some View {
     VStack(alignment: .leading, spacing: 14) {
@@ -136,11 +147,12 @@ private struct OverviewHeader: View {
         screen: screen)
       RecomputeStatusLine()
     }
+    .accessibilityIdentifier("overview.grid")
     .frame(maxWidth: .infinity, alignment: .leading)
     .onGeometryChange(for: CGFloat.self) {
       $0.size.width
     } action: {
-      width = $0
+      measured = $0
     }
     .padding(.vertical, 8)
     .listRowSeparator(.hidden)

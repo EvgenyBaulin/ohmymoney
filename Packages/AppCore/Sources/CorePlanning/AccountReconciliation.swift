@@ -104,7 +104,8 @@ public enum AccountReconciliation {
     }
     var rows: [ReconcileRow] = []
     var listed: Set<BalanceKey> = []
-    for account in AccountRules.ordered(accounts, locale: locale) {
+    // Someone else's card has no balance to count.
+    for account in AccountRules.ordered(accounts, locale: locale) where account.hasBalance {
       for currency in account.currencies {
         let key = BalanceKey(accountId: account.id, currency: currency)
         rows.append(row(key, held: true))

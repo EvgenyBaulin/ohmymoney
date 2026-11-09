@@ -26,7 +26,7 @@ struct ExportRoundTripPropertyTests {
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
     "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
     "owner_uses", "new_client_only", "needs_subscription", "topup", "keep_forever", "done",
-    "hidden", "chosen",
+    "hidden", "chosen", "borrowed",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
@@ -50,7 +50,8 @@ struct ExportRoundTripPropertyTests {
   private static func expectedCell(
     column: String, databaseColumn: String, raw: DatabaseValue
   ) -> String? {
-    if raw.isNull { return column == "hidden" ? "false" : "" }
+    // A flag an update added reads NULL on the rows it found: the export writes it as «false».
+    if raw.isNull { return ["hidden", "borrowed"].contains(column) ? "false" : "" }
     if databaseColumn.hasSuffix("_e4"), let stored = Int64.fromDatabaseValue(raw) {
       return "e4:\(stored)"
     }
@@ -498,6 +499,7 @@ struct ExportRoundTripPropertyTests {
           "0019_privacy",
           "0020_habits",
           "0021_history_and_cashback_choice",
+          "0022_borrowed_card",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -677,9 +679,15 @@ struct ExportRoundTripPropertyTests {
     "cashback_rules.csv:monthly_cap",
   ]
 
+  /// The columns someone else's card added (`0022_borrowed_card`).
+  private static let addedByTheBorrowedCard: Set<String> = [
+    "payment_methods.csv:borrowed", "payment_methods.csv:borrowed_person_id",
+    "payment_methods.csv:borrowed_income_category_id",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
-    .union(addedByTheCeilings)
+    .union(addedByTheCeilings).union(addedByTheBorrowedCard)
     .union(addedByThePurchases).union(addedByTheHabits)
 
   /// The column the habits added (`0020_habits`).

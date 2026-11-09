@@ -198,7 +198,7 @@ public enum StarterSets {
 
   /// What the choice would add to a database holding `existing` categories (archived ones
   /// too), `budgets` and the Overview `tiles`. A category is there already when one of the same
-  /// kind under the same parent has its English or Russian name (case and «ё» aside), archived
+  /// kind under the same parent has any of its translated names (case and «ё» aside), archived
   /// or not; a missing parent is added too when the set has it, and a category whose parent is
   /// nowhere or in the archive is left out. A limit goes only on a category without one, never on a category of
   /// the app; the first limit of a category wins.
@@ -207,23 +207,23 @@ public enum StarterSets {
     budgets: [Budget], tiles: [OverviewTile], startMonth: MonthKey,
     idGenerator: () -> UUID = UUID.init
   ) -> StarterAdditions {
-    let russian = language.lowercased().hasPrefix("ru")
     var all = existing
     var added: [CoreKit.Category] = []
     let seeds = categorySeeds(for: choice)
     let catalog = SampleCatalog.categorySeeds + seeds
 
     func names(of english: String, kind: CategoryKind) -> Set<String> {
-      var result: Set<String> = [NameKey.fold(english)]
+      var result: Set<String> = [StarterCategoryNames.searchKey(english)]
       for seed in catalog where seed.kind == kind && seed.english == english {
-        result.insert(NameKey.fold(seed.russian))
+        result.formUnion(seed.names.map(StarterCategoryNames.searchKey))
       }
       return result
     }
     func find(_ english: String, parent: UUID?, kind: CategoryKind) -> CoreKit.Category? {
       let wanted = names(of: english, kind: kind)
       return all.first {
-        $0.kind == kind && $0.parentId == parent && wanted.contains(NameKey.fold($0.name))
+        $0.kind == kind && $0.parentId == parent
+          && wanted.contains(StarterCategoryNames.searchKey($0.name))
       }
     }
     func parentId(of seed: CategorySeed) -> UUID?? {
@@ -239,7 +239,7 @@ public enum StarterSets {
       let siblings = all.filter { $0.kind == seed.kind && $0.parentId == parent }
       let category = CoreKit.Category(
         id: idGenerator(), parentId: parent, kind: seed.kind,
-        name: russian ? seed.russian : seed.english,
+        name: seed.translation(language: language).text,
         sort: (siblings.map(\.sort).max() ?? -1) + 1,
         quality: seed.kind == .income
           ? nil : (parent == nil ? (seed.quality ?? .neutral) : seed.quality))

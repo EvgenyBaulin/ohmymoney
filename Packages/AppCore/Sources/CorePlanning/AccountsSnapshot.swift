@@ -18,6 +18,8 @@ import Foundation
 /// * «Всего» (`inSummaryTotalRub`) adds the sections in the summary: the accounts of no group
 ///   and the groups that count in it. A group left out keeps its own total apart, and its
 ///   income and spending still count everywhere else.
+/// * Someone else's card (`PaymentMethod.isBorrowed`) stays in its section so the sidebar lists
+///   it, with no currency, no total and no «не сверен»; it is in `leftOut`.
 public struct AccountsSnapshot: Hashable, Sendable {
   /// One currency of one account.
   public struct KeyLine: Hashable, Sendable {
@@ -218,7 +220,8 @@ public struct AccountsSnapshot: Hashable, Sendable {
       var sectionCounted = false
       var sectionWithoutRate: [CurrencyCode] = []
       for account in section.accounts {
-        let held = account.currencies
+        // Someone else's card has no balance: no currency to count, nothing «не сверен».
+        let held = account.hasBalance ? account.currencies : []
         let others = (otherKeys[account.id] ?? []).filter { !account.holds($0.currency) }
           .sorted { $0.currency.code < $1.currency.code }
         let keys = held.map { BalanceKey(accountId: account.id, currency: $0) } + others
@@ -279,9 +282,13 @@ public struct AccountsSnapshot: Hashable, Sendable {
     // Kept out of «Всего» is decided by the group, archived accounts too: an archived group is
     // no group, as in the sidebar.
     let excludedGroups = Set(groups.filter { !$0.archived && !$0.inSummary }.map(\.id))
+    // Someone else's card is out of «Всего» whatever its group: its money is not the owner's,
+    // and a payment planned from it takes nothing from the money in the summary.
     let leftOut = Set(
-      accounts.filter { account in account.groupId.map(excludedGroups.contains) ?? false }
-        .map(\.id))
+      accounts.filter { account in
+        account.isBorrowed || (account.groupId.map(excludedGroups.contains) ?? false)
+      }
+      .map(\.id))
 
     return AccountsSnapshot(
       sections: sections, inSummaryTotalRub: summaryCounted ? summaryTotal : nil,

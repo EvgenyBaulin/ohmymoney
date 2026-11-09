@@ -506,6 +506,7 @@ struct MainWindow: View {
         GeometryReader { proxy in
           content
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .environment(\.overviewRoom, proxy.size.width)
             .themedWindowBackground()
             // The tutorial's strip: «Учебный режим · 3 из 10», the tasks, the way out.
             .safeAreaInset(edge: .top, spacing: 0) {
