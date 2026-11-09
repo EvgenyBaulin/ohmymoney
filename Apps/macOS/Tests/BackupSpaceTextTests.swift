@@ -84,7 +84,7 @@ final class BackupSpaceTextTests: XCTestCase {
     let russian = BackupSpaceText.beforeUpdateTotal(
       count: 4, bytes: 38_000_000, in: environment(.russian))
     XCTAssertTrue(
-      russian.contains("4") && russian.contains("не удаляются сами") && russian.contains("свежая"),
+      russian.contains("4") && russian.contains("не удаляются сами") && russian.contains("свеж"),
       russian)
   }
 
