@@ -278,6 +278,7 @@ public enum AccountReconciliation {
   /// count of its day came before the save (`countsOfTheDay`); otherwise the questions about
   /// those counts, oldest first, with the answers `remembered` for their reconciliations
   /// (reconciliation → «до») applied — and when those settle every count, the moment itself.
+  /// With `momentIsExact` — the owner typed the time — no question is asked at all.
   /// The questions know which of the counts an answer can be remembered for
   /// (`CountQuestions.remembers`).
   ///
@@ -287,11 +288,14 @@ public enum AccountReconciliation {
   /// that account's movements — they are asked about it again, without the offer to remember.
   public static func countToAsk(
     occurredAt: Date, savedAt: Date, keys: [BalanceKey], balances: AccountBalances,
-    calendar: CalendarContext, remembered: [UUID: Bool]
+    calendar: CalendarContext, remembered: [UUID: Bool], momentIsExact: Bool = false
   ) -> CountAsk {
     let counts = countsOfTheDay(
       occurredAt: occurredAt, savedAt: savedAt, keys: keys, balances: balances,
       calendar: calendar)
+    // A time the owner typed places the movement by itself, before the count or after it:
+    // nothing is asked and the moment is kept as typed.
+    if momentIsExact { return counts.isEmpty ? .none : .answered(stamp: occurredAt) }
     let day = calendar.day(of: occurredAt)
     var countedAgain: Set<UUID> = []
     for key in Set(keys) {

@@ -55,16 +55,25 @@ public struct StatementEntryChoice: Sendable, Hashable {
   /// The card the line was paid with, when a card of the account carries the last digits the
   /// file names.
   public var cardID: UUID?
+  /// The description the owner gave this text of the bank before (`BankTextMemory`); `nil`
+  /// keeps the bank's own wording.
+  public var note: String?
+  public var forWhom: ForWhom?
+  public var forPersonID: UUID?
 
   public init(
     categoryID: UUID?, categorySource: CategorySource = .imported, quality: Quality? = nil,
-    placeID: UUID? = nil, cardID: UUID? = nil
+    placeID: UUID? = nil, cardID: UUID? = nil, note: String? = nil, forWhom: ForWhom? = nil,
+    forPersonID: UUID? = nil
   ) {
     self.categoryID = categoryID
     self.categorySource = categorySource
     self.quality = quality
     self.placeID = placeID
     self.cardID = cardID
+    self.note = note
+    self.forWhom = forWhom
+    self.forPersonID = forPersonID
   }
 }
 
@@ -112,7 +121,8 @@ public enum StatementEntryBuilder {
       accountCurrency = currency
       accountAmount = amount.magnitude
     }
-    let note = operation.merchant ?? operation.counterparty.name ?? operation.description
+    let note =
+      choice.note ?? operation.merchant ?? operation.counterparty.name ?? operation.description
     var cashback: Money?
     if kind == .expense, let accrued = operation.cashbackAccrued, !accrued.isZero {
       cashback = Money(
@@ -134,7 +144,8 @@ public enum StatementEntryBuilder {
       quality: kind.hasQuality ? choice.quality : nil,
       qualitySource: kind.hasQuality && choice.quality != nil ? .category : nil,
       amountE4: magnitude,
-      amountRubE4: rubles.amount)
+      amountRubE4: rubles.amount, forWhom: choice.forWhom ?? .me,
+      forPersonId: choice.forPersonID)
     return TransactionEntry(transaction: transaction, parts: [part])
   }
 
@@ -163,7 +174,9 @@ public enum StatementEntryBuilder {
     entry.transaction.updatedAt = now
     // An operation moved in from another app, once a bank line has completed it, is the bank's:
     // it is not offered to the next statement as a hand-typed one again.
-    if entry.transaction.source == MigrationPlanner.source { entry.transaction.source = "statement" }
+    if entry.transaction.source == MigrationPlanner.source {
+      entry.transaction.source = "statement"
+    }
     if entry.parts.count == 1 {
       entry.parts[0].amountE4 = magnitude
       entry.parts[0].amountRubE4 = rubles.amount

@@ -383,6 +383,11 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
         now = now.map {
           var row = $0; row[flag] = nil; return row
         }
+      case "settings":
+        // Opening the app keeps the day «Не пожалели?» started: one new row, nothing else moves.
+        let started = now.filter { $0[0] == PurchaseSettings.regretEnabledOnKey }
+        XCTAssertEqual(started.count, 1, "the day the regret question started is not kept")
+        now.removeAll { $0[0] == PurchaseSettings.regretEnabledOnKey }
       case "transactions":
         // The formulas are read again at every open by today's rule: the one that no longer
         // comes to its amount goes, the amount stays.

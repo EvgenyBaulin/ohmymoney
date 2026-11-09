@@ -8,7 +8,7 @@ import XCTest
 /// «Календарь»: the data step's snapshot becomes the core's calendar with the plans of Planning
 /// laid on it; a day lists its operations as «Траты» lists a day; the weeks start on Monday in
 /// Russian; every level of a day is said in words and by a symbol, never by the tint alone; the
-/// section is ⌘5 after «Траты», and its tile is one Overview can add.
+/// section is ⌘4 after «Планирование», and its tile is one Overview can add.
 @MainActor
 final class CalendarScreenTests: XCTestCase {
   private let today = DateOnly(year: 2026, month: 10, day: 14)
@@ -216,10 +216,10 @@ final class CalendarScreenTests: XCTestCase {
 
   // MARK: - The section and the tile
 
-  /// «Календарь» stands after «Траты» and is ⌘5; it lists no operations of the selection bar.
-  func testTheSectionIsCommandFive() {
-    XCTAssertEqual(MainWindow.Section.allCases.firstIndex(of: .calendar), 4)
-    XCTAssertEqual(MainWindow.Section.calendar.shortcutIndex, 5)
+  /// «Календарь» stands after «Планирование» and is ⌘4; it lists no operations of the selection bar.
+  func testTheSectionIsCommandFour() {
+    XCTAssertEqual(MainWindow.Section.allCases.firstIndex(of: .calendar), 3)
+    XCTAssertEqual(MainWindow.Section.calendar.shortcutIndex, 4)
     XCTAssertEqual(
       Set(MainWindow.Section.allCases.map(\.shortcutIndex)).count,
       MainWindow.Section.allCases.count, "two sections share a shortcut")

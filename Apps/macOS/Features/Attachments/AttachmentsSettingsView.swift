@@ -121,6 +121,22 @@ struct AttachmentsSummary: Equatable, Sendable {
   }
 }
 
+/// Asks before one trashed file goes for good, like every other deletion: «Удалить сейчас» only
+/// raises the question; the file is deleted by `confirm` and by nothing else.
+struct TrashDeletionRequest: Equatable {
+  private(set) var pending: AttachedFile?
+
+  mutating func ask(_ file: AttachedFile) { pending = file }
+  mutating func cancel() { pending = nil }
+
+  /// Deletes the asked file through `delete` and forgets the question.
+  mutating func confirm(_ delete: ([UUID]) throws -> Void) rethrows {
+    guard let file = pending else { return }
+    pending = nil
+    try delete([file.id])
+  }
+}
+
 /// «Корзина вложений»: what was sent to the trash and is still there, with the days left, and
 /// «Вернуть», «Удалить сейчас» and «Очистить корзину». A file goes for good only here, or when its
 /// days run out.
@@ -130,6 +146,7 @@ struct AttachmentTrashView: View {
   @State private var items: [AttachedFile] = []
   @State private var settings = AttachmentSettings()
   @State private var confirmsEmptying = false
+  @State private var deletion = TrashDeletionRequest()
 
   private func t(_ key: String) -> String { AttachmentsText.t(key, environment) }
   private var service: AttachmentService? { environment.attachments }
@@ -168,6 +185,19 @@ struct AttachmentTrashView: View {
     } message: {
       Text(verbatim: t("att.trash.confirmHint"))
     }
+    .confirmationDialog(
+      t("att.trash.confirmOne"),
+      isPresented: Binding(
+        get: { deletion.pending != nil }, set: { if !$0 { deletion.cancel() } }),
+      titleVisibility: .visible
+    ) {
+      Button(t("att.trash.deleteNow"), role: .destructive) {
+        try? deletion.confirm { try service?.delete(ids: $0) }
+        reload()
+      }
+    } message: {
+      Text(verbatim: t("att.trash.confirmHint"))
+    }
   }
 
   private func row(_ item: AttachedFile) -> some View {
@@ -183,11 +213,8 @@ struct AttachmentTrashView: View {
         reload()
       }
       .buttonStyle(.borderless)
-      Button(t("att.trash.deleteNow"), role: .destructive) {
-        try? service?.delete(ids: [item.id])
-        reload()
-      }
-      .buttonStyle(.borderless)
+      Button(t("att.trash.deleteNow"), role: .destructive) { deletion.ask(item) }
+        .buttonStyle(.borderless)
     }
   }
 

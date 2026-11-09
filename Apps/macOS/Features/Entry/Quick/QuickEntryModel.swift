@@ -94,7 +94,9 @@ final class QuickEntryModel {
         let offer = QuickBank.offer(
           for: message, cards: compute.snapshot?.dataset.cards ?? [],
           places: environment.vocabulary.places, parser: parser(environment),
-          today: environment.today, names: AutoEntryLearning.names(environment))
+          today: environment.today, names: AutoEntryLearning.names(environment),
+          learned: BankTextLearning.memory(environment),
+          accounts: compute.snapshot?.dataset.paymentMethods ?? [])
         bank = offer
         suggestions = []
         return offer.line
@@ -115,7 +117,9 @@ final class QuickEntryModel {
   private func updateSuggestions(
     for line: String, environment: AppEnvironment, compute: ComputeStore
   ) {
-    guard let snapshot = compute.snapshot, let prefix = QuickSuggest.prefix(of: line) else {
+    guard environment.entryHistoryHintsShown, let snapshot = compute.snapshot,
+      let prefix = QuickSuggest.prefix(of: line)
+    else {
       suggestions = []
       suggestionPrefix = nil
       return
@@ -277,7 +281,9 @@ final class QuickEntryModel {
       let offer = QuickBank.offer(
         for: message, cards: compute.snapshot?.dataset.cards ?? [],
         places: environment.vocabulary.places, parser: parser(environment),
-        today: environment.today, names: AutoEntryLearning.names(environment))
+        today: environment.today, names: AutoEntryLearning.names(environment),
+        learned: BankTextLearning.memory(environment),
+        accounts: compute.snapshot?.dataset.paymentMethods ?? [])
       let model = EntryDraftModel(environment: environment)
       model.assisted = true
       model.reload()

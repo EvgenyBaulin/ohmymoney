@@ -164,3 +164,86 @@ struct ReceiptSupplementZoneTests {
     #expect(moscow.day(of: moment) == DateOnly(year: 2026, month: 10, day: 29))
   }
 }
+
+@Suite("Чек: почти подходящие операции")
+struct ReceiptNearMatchTests {
+
+  @Test func aTipOrARoundingGivesASuggestionNeverAMatch() {
+    // 1 250.50 on the receipt; the owner wrote 1 300 (a tip) and 1 250 (a rounding).
+    let tip = ReceiptMatchTests.candidate("01", day: 29, amount: 13_000_000)
+    let rounded = ReceiptMatchTests.candidate("02", day: 29, amount: 12_500_000)
+    let far = ReceiptMatchTests.candidate("03", day: 29, amount: 20_000_000)
+    let proposal = ReceiptMatch.propose(
+      ReceiptMatchTests.receipt, among: [tip, rounded, far], calendar: ReceiptMatchTests.calendar)
+    guard case .new(let draft) = proposal else {
+      Issue.record("a near sum is not the receipt's own")
+      return
+    }
+    #expect(draft.similar.map(\.id) == [Fixture.id("02"), Fixture.id("01")], "nearest sum first")
+  }
+
+  @Test func theMomentMustBeWithinHoursAndAnExactMatchHidesTheSuggestions() {
+    // The receipt is at 18:32 on the 29th: the same day at 05:00 is too far, the evening is not.
+    let early = ReceiptMatchTests.candidate("01", day: 29, hour: 5, amount: 13_000_000)
+    let evening = ReceiptMatchTests.candidate("02", day: 29, hour: 20, amount: 13_000_000)
+    let near = ReceiptMatch.similar(
+      to: ReceiptMatchTests.receipt, among: [early, evening], calendar: ReceiptMatchTests.calendar)
+    #expect(near.map(\.id) == [Fixture.id("02")])
+
+    let exact = ReceiptMatchTests.candidate("03", day: 29)
+    let proposal = ReceiptMatch.propose(
+      ReceiptMatchTests.receipt, among: [evening, exact], calendar: ReceiptMatchTests.calendar)
+    guard case .supplement(let found, _, let others) = proposal else {
+      Issue.record("expected the exact match")
+      return
+    }
+    #expect(found.id == Fixture.id("03") && others.isEmpty)
+  }
+}
+
+@Suite("Чек, разделённый вручную")
+struct ReceiptSplitTests {
+  let food = Fixture.id("0a")
+  let home = Fixture.id("0b")
+  let total = AmountE4(whole: 1_000)
+
+  @Test func theRemainderGoesToTheChosenCategoryAndPartsAddUp() throws {
+    let split = ReceiptSplit(
+      total: total, lines: [.init(categoryId: food, amountE4: AmountE4(whole: 700))])
+    #expect(split.remainder == AmountE4(whole: 300))
+    let parts = try split.parts(remainderCategory: home).get()
+    #expect(parts.map(\.categoryId) == [food, home])
+    #expect(AmountE4.sum(parts.map(\.amountE4)) == total)
+  }
+
+  @Test func anIncompleteOrOverfullSplitIsRefused() {
+    let some = ReceiptSplit(
+      total: total, lines: [.init(categoryId: food, amountE4: AmountE4(whole: 700))])
+    #expect(some.parts() == .failure(.notAllAssigned))
+    let over = ReceiptSplit(
+      total: total, lines: [.init(categoryId: food, amountE4: AmountE4(whole: 1_200))])
+    #expect(over.parts(remainderCategory: home) == .failure(.exceedsTotal))
+    let negative = ReceiptSplit(
+      total: total, lines: [.init(categoryId: food, amountE4: AmountE4(whole: -5))])
+    #expect(negative.parts(remainderCategory: home) == .failure(.nonPositiveLine))
+  }
+
+  @Test func linesOfOneCategoryMergeAndEmptyOnesGo() throws {
+    let split = ReceiptSplit(
+      total: total,
+      lines: [
+        .init(categoryId: food, amountE4: AmountE4(whole: 400)),
+        .init(categoryId: home, amountE4: .zero),
+        .init(categoryId: food, amountE4: AmountE4(whole: 600)),
+      ])
+    let parts = try split.parts().get()
+    #expect(parts == [.init(categoryId: food, amountE4: total)])
+  }
+
+  @Test func anEvenSplitNeverLosesACent() throws {
+    let odd = AmountE4(raw: 1_000_001)
+    let split = ReceiptSplit.evenly(total: odd, among: [food, home, Fixture.id("0c")])
+    #expect(split.remainder.isZero)
+    #expect(try split.parts().get().count == 3)
+  }
+}

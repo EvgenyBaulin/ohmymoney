@@ -585,6 +585,23 @@
         }
       }
     },
+    "migration.done.undo.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Undo” takes the whole move back. The copy of the database made before it is among the backups."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Отменить» отменяет перенос целиком. Копия базы, сделанная перед ним, лежит среди бэкапов."
+          }
+        }
+      }
+    },
     "migration.empty.body": {
       "extractionState": "manual",
       "localizations": {
@@ -1719,6 +1736,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Таблица, выгруженная из CoinKeeper, Дзен-мани, Money Manager, Excel или Numbers. До «Перенести» ничего не записывается; перед записью делается копия базы, а ⌘Z отменяет перенос целиком."
+          }
+        }
+      }
+    },
+    "migration.subtitle.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A table exported from CoinKeeper, Zenmoney, Money Manager, Excel or Numbers. Nothing is written before «Move In»; a copy of the database is made first, and “Undo” takes the whole move back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таблица, выгруженная из CoinKeeper, Дзен-мани, Money Manager, Excel или Numbers. До «Перенести» ничего не записывается; перед записью делается копия базы, а «Отменить» отменяет перенос целиком."
           }
         }
       }

@@ -64,6 +64,9 @@ final class AutoEntryCenter {
       reading.isInBooks || repeated
       || reading.isWaiting(environment: environment, defaults: defaults)
     let mismatch = reading.mismatch(includesOperation: duplicate)
+    // A text about an operation the owner typed by hand teaches what its shop means — for the
+    // next texts and the statements of the same account alike.
+    reading.teach(environment: environment, accounts: whole.dataset.paymentMethods)
 
     // An operation of a hidden account is always offered: written at once it would land on the
     // main card, since its line does not name the card.

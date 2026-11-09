@@ -7,6 +7,31 @@ All notable changes to OhMyMoney are recorded here. The format follows
 The database schema and the transfer-archive format are versioned separately from the app,
 and both move forward only.
 
+## [2.13.1] — 2026-11-04
+
+Fixes from using 2.13.0, and a statement that learns from what was entered by hand. The database
+schema stays 21.
+
+### Added
+
+- A statement learns from hand entry: a row already entered by hand merges with it, and the pairs
+  it finds are confirmed before anything is written.
+
+### Changed
+
+- The toolbar no longer has the buttons the sidebar already has; their menu items and shortcuts
+  stay.
+- The «Subscriptions only» switch is gone from the calendar.
+- The Overview takes fewer columns at the largest font sizes.
+
+### Fixed
+
+- A payment with no account chosen shows on the account it was last paid from.
+- A conflict compares only meaningful fields, reads empty and zero alike, and settles itself when
+  nothing differs.
+- «Any regrets?» names a purchase by place and date, asks only about recent purchases made after
+  it was switched on, and asks one at a time.
+
 ## [2.13.0] — 2026-11-02
 
 Mac features, habits, the groundwork of sync with the cashback advisor, moving in from other

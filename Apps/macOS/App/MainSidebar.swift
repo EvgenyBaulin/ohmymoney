@@ -58,7 +58,7 @@ enum SidebarItem: Hashable, Sendable {
 }
 
 #if os(macOS)
-  /// The sidebar of the main window: its sections, chosen by a click or by ⌘1 … ⌘6,
+  /// The sidebar of the main window: its sections, chosen by a click or by ⌘1 … ⌘9,
   /// whose menu items, and the limits card of Overview, post `.selectSection` with the number of
   /// the section; and under them the accounts and their groups (`AccountsSidebarSection`).
   struct MainSidebar: View {
@@ -69,7 +69,6 @@ enum SidebarItem: Hashable, Sendable {
     @State private var accounts = AccountsSidebarModel()
 
     @Environment(\.appTheme) private var theme
-    @Environment(\.openWindow) private var openWindow
     @Environment(\.openSettings) private var openSettings
 
     var body: some View {
@@ -79,21 +78,6 @@ enum SidebarItem: Hashable, Sendable {
             sectionRow(item)
             if item == .purchases { purchasesRows }
           }
-          // Analytics is a window of its own, not a screen of this one: a button, never lit.
-          Button {
-            AppWindows.open("analytics", with: openWindow)
-          } label: {
-            Label {
-              Text(verbatim: environment.language("window.analytics"))
-            } icon: {
-              Image(systemName: "chart.xyaxis.line")
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .beginnerQuiet(.analytics)
-            .contentShape(.rect)
-          }
-          .buttonStyle(.plain)
-          .accessibilityIdentifier("sidebar.analytics")
         }
         if environment.state == .ready {
           AccountsSidebarSection(model: accounts, selection: $selection)
@@ -203,26 +187,30 @@ extension Notification.Name {
   static let openSidebarItem = Notification.Name("io.github.EvgenyBaulin.ohmymoney.openSidebarItem")
 }
 
-/// The way into «Операции» from outside the sidebar: ⌘⇧T, ⌘F, the button of the toolbar and the
-/// reconciliation's «look for the missing operations». There is no window of Transactions any
-/// more: the main window comes forward on its screen of operations.
+/// The way into a section from outside the sidebar: ⌘⇧T, ⌘⇧A, ⌘⇧R, ⌘F, the «Отчёты» menu, the
+/// palette, the answer cards and the reconciliation's «look for the missing operations». There
+/// is no window of Transactions, Analytics or Reports any more: the main window comes forward on
+/// the section.
 @MainActor
 enum OperationsScreenOpening {
   static func open(with openWindow: OpenWindowAction) {
+    open(.operations, with: openWindow)
+  }
+
+  static func open(_ section: MainWindow.Section, with openWindow: OpenWindowAction) {
     // Closing the main window quits the app, so it is there; a test host may have none.
     #if os(macOS)
-      if !choose(), !AppEnvironment.isTestHost { openWindow(id: "main") }
+      if !choose(section), !AppEnvironment.isTestHost { openWindow(id: "main") }
     #else
-      choose()
+      choose(section)
     #endif
   }
 
-  /// Every main window shows «Операции», and the main window comes forward. Whether there was
-  /// one to bring.
+  /// Every main window shows `section` (by default «Операции»), and the main window comes
+  /// forward. Whether there was one to bring.
   @discardableResult
-  static func choose() -> Bool {
-    NotificationCenter.default.post(
-      name: .openSidebarItem, object: SidebarItem.section(.operations))
+  static func choose(_ section: MainWindow.Section = .operations) -> Bool {
+    NotificationCenter.default.post(name: .openSidebarItem, object: SidebarItem.section(section))
     #if os(macOS)
       return AppWindows.bringForward(.main) != nil
     #else

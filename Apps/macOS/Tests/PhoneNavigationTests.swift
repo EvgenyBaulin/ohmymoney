@@ -23,6 +23,8 @@ final class PhoneNavigationTests: XCTestCase {
       case .calendar: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .calendar))
       case .capital: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .capital))
       case .purchases: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .purchases))
+      case .analytics: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .analytics))
+      case .reports: XCTAssertEqual(route, PhoneRoute(tab: .more, more: .reports))
       }
     }
   }
@@ -97,47 +99,12 @@ final class PhoneNavigationTests: XCTestCase {
 
   // MARK: The bar
 
-  func testTheIPadBarGrowsWithTheWindow() {
-    let expected: [(Double, Int)] = [
-      (744, 4), (834, 5), (1024, 7), (1133, 8), (1194, 8), (1366, 10),
-    ]
-    for (width, slots) in expected {
+  func testAnIPadHasNoBarWhateverTheWidth() {
+    for width in [320.0, 507, 744, 834, 1024, 1133, 1366] {
       let layout = NavLayout.make(width: width, isPad: true)
-      XCTAssertEqual(layout.placement, .top, "\(width)")
-      XCTAssertEqual(layout.visible.count, slots, "\(width)")
-      XCTAssertEqual(layout.visible + layout.more, NavItem.allCases, "\(width)")
-      XCTAssertLessThanOrEqual(
-        NavLayout.padBarWidth(slots: layout.visible.count), width * 0.5, "\(width)")
-    }
-  }
-
-  func testTheIPadSectionsAppearInTheAgreedOrder() {
-    XCTAssertEqual(
-      NavItem.allCases,
-      [
-        .overview, .operations, .planning, .accounts, .calendar, .capital, .debts, .analytics,
-        .goals, .reports,
-      ])
-    let layout = NavLayout.make(width: 834, isPad: true)
-    XCTAssertEqual(
-      layout.visible, [.overview, .operations, .planning, .accounts, .calendar])
-    XCTAssertEqual(layout.more.first, .capital)
-  }
-
-  func testAnIPadWindowThatShrinksLosesSectionsAndGetsThemBack() {
-    var widths = [1366.0, 1024, 834, 744, 1024, 1366]
-    var counts: [Int] = []
-    while !widths.isEmpty {
-      counts.append(NavLayout.make(width: widths.removeFirst(), isPad: true).visible.count)
-    }
-    XCTAssertEqual(counts, [10, 7, 5, 4, 7, 10])
-  }
-
-  func testANarrowIPadWindowWearsThePhoneBar() {
-    for width in [320.0, 507, 639, 743] {
-      let layout = NavLayout.make(width: width, isPad: true)
-      XCTAssertEqual(layout.placement, .bottom, "\(width)")
-      XCTAssertEqual(layout.visible, NavItem.defaultPhoneTabs, "\(width)")
+      XCTAssertEqual(layout.placement, .sidebar, "\(width)")
+      XCTAssertEqual(layout.visible, NavItem.allCases, "\(width)")
+      XCTAssertTrue(layout.more.isEmpty, "\(width)")
     }
   }
 

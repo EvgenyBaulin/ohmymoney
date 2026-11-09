@@ -15,6 +15,9 @@ public enum GuideTarget {
   public static let sidebarOperations = "sidebar.operations"
   public static let sidebarCalendar = "sidebar.calendar"
   public static let sidebarCapital = "sidebar.capital"
+  public static let sidebarPurchases = "sidebar.purchases"
+  public static let sidebarAnalytics = "sidebar.analytics"
+  public static let sidebarReports = "sidebar.reports"
 
   public static let operationsSearch = "transactions.search"
   public static let operationsList = "operations.list"

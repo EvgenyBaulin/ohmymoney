@@ -17,6 +17,9 @@ struct AutoEntryReading {
   let isHidden: Bool
   /// The books have an operation of the same day, kind and amount.
   let isInBooks: Bool
+  /// The one operation typed by hand on the card's account that the text is about, when there
+  /// is exactly one: what the owner made of the shop is learned from it.
+  let handTyped: TransactionEntry?
   /// What the books say is on the card's account in the currency of the reported balance.
   private let ledgerBalance: AmountE4?
   private let isCredit: Bool
@@ -37,18 +40,29 @@ struct AutoEntryReading {
     let parser = InputLineParser(
       vocabulary: environment.vocabulary, calendar: environment.calendar,
       catalog: environment.currencyCatalog)
+    let learned = BankTextLearning.memory(environment)
     let offer = QuickBank.offer(
       for: message, cards: dataset.cards, places: places, parser: parser, today: today,
-      names: names)
+      names: names, learned: learned, accounts: dataset.paymentMethods)
     let accountId = offer.card?.accountId
     let isHidden = HiddenAccounts(accounts: dataset.paymentMethods).isHidden(accountId)
-    let shown = AutoEntryLearning.applying(names, to: message)
+    let shown = QuickBank.shown(
+      message, account: accountId, names: names, learned: learned,
+      accounts: dataset.paymentMethods, places: places)
     let place = shown.merchant.flatMap { BankMerchants.resolve($0, places: places) }
     self.message = message
     self.placeName = place?.name
     self.line = isHidden ? shown.suggestedLine(merchantName: place?.name) : offer.line
     self.accountId = accountId
     self.isHidden = isHidden
+    if let accountId {
+      let day = message.day ?? today
+      self.handTyped = AutoEntryMemory.handTyped(
+        for: message, account: accountId, on: day, entries: dataset.entries,
+        dayOf: { environment.calendar.day(of: $0.occurredAt, recordedIn: $0.timeZoneId) })
+    } else {
+      self.handTyped = nil
+    }
     self.isInBooks =
       QuickBank.candidates(
         [BankListItem(source: "", message: message)], entries: dataset.entries,
@@ -63,6 +77,17 @@ struct AutoEntryReading {
     } else {
       ledgerBalance = nil
     }
+  }
+
+  /// A text about an operation the owner typed by hand teaches what its shop means — for the
+  /// next texts and the statements of the same account alike (`BankTextMemory`). Says whether
+  /// it taught.
+  @discardableResult
+  func teach(environment: AppEnvironment, accounts: [PaymentMethod]) -> Bool {
+    guard let handTyped, let accountId else { return false }
+    return BankTextLearning.matched(
+      message: message, account: accountId, entry: handTyped, accounts: accounts,
+      environment: environment)
   }
 
   /// The fields kept of the text, never the text.

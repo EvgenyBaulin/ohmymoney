@@ -77,8 +77,10 @@ struct ConflictDetailView: View {
   @Environment(\.dismiss) private var dismiss
   let coordinator: SyncCoordinator
   let conflict: SyncConflict
+  /// The names of the banks, groups, categories… the differing references point to.
+  @State private var names: [String: String] = [:]
 
-  private var comparison: ConflictComparison { ConflictComparison.make(conflict) }
+  private var comparison: ConflictComparison { ConflictComparison.make(conflict, names: names) }
 
   var body: some View {
     ScrollView {
@@ -127,6 +129,10 @@ struct ConflictDetailView: View {
       .padding(16)
     }
     .navigationTitle(comparison.title ?? ConflictText.t(comparison.tableKey, environment))
+    .task(id: conflict.id) {
+      names =
+        coordinator.exchange?.names(of: ConflictComparison.referencedIds(conflict)) ?? [:]
+    }
   }
 
   private var header: some View {
@@ -160,16 +166,22 @@ struct ConflictDetailView: View {
   }
 
   private func cell(_ cell: ConflictComparison.Cell, differs: Bool) -> some View {
-    Text(verbatim: ConflictText.cell(cell, environment))
-      .appFont(.callout.monospacedDigit())
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(8)
-      .background(.background.secondary, in: .rect(cornerRadius: 8))
-      .overlay {
-        if differs {
-          RoundedRectangle(cornerRadius: 8).strokeBorder(Color.accentColor, lineWidth: 1)
-        }
+    HStack(spacing: 6) {
+      if case .color(let key) = cell, let accent = AccountAccent(key: key) {
+        Circle().fill(accent.swatch).frame(width: 12, height: 12)
+          .accessibilityHidden(true)
       }
+      Text(verbatim: ConflictText.cell(cell, environment))
+    }
+    .appFont(.callout.monospacedDigit())
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(8)
+    .background(.background.secondary, in: .rect(cornerRadius: 8))
+    .overlay {
+      if differs {
+        RoundedRectangle(cornerRadius: 8).strokeBorder(Color.accentColor, lineWidth: 1)
+      }
+    }
   }
 
   private var deletedLine: some View {

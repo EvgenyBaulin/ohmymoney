@@ -16,6 +16,13 @@ final class SettingsStarterSet {
   }
 }
 
+extension GeneralSettingsView {
+  /// A number in the style, for its row: «1,234.56» or «1 234,56».
+  static func numberStyleSample(_ style: NumberStyle) -> String {
+    NumberText.amount(AmountE4(raw: 12_345_600), style: style)
+  }
+}
+
 struct GeneralSettingsView: View {
   @Dependency(\.environment) private var environment
   /// A write the database refused; the alert says so (`AppEnvironment.attempt`).
@@ -31,6 +38,7 @@ struct GeneralSettingsView: View {
 
   var body: some View {
     @Bindable var language = environment.language
+    @Bindable var theme = environment.theme
     Form {
       Picker(selection: $language.choice) {
         ForEach(AppLanguage.Choice.allCases, id: \.self) { choice in
@@ -41,6 +49,22 @@ struct GeneralSettingsView: View {
         Text(verbatim: environment.language("settings.language", table: "Settings"))
       }
       .pickerStyle(.inline)
+
+      // «Запись чисел» (0563): how the interface writes a number; files stay as they are.
+      Section {
+        Picker(selection: $theme.numberStyle) {
+          ForEach(NumberStyle.allCases, id: \.self) { style in
+            Text(verbatim: Self.numberStyleSample(style)).tag(style)
+          }
+        } label: {
+          Text(verbatim: environment.language("settings.numbers", table: "Settings"))
+        }
+        .accessibilityIdentifier("settings.numbers")
+      } footer: {
+        Text(verbatim: environment.language("settings.numbers.hint", table: "Settings"))
+          .appFont(.callout)
+          .foregroundStyle(.secondary)
+      }
 
       // «Стартовый набор»: categories, limits and tiles for the way the owner lives; only adds.
       Section {

@@ -199,7 +199,7 @@ final class BankActionsTests: XCTestCase {
     XCTAssertEqual(actions.banks.count, 2)
   }
 
-  func testAnEmptyBankIsDeletedForGood() async throws {
+  func testAnEmptyBankIsDeletedAndComesBackWithUndo() async throws {
     try await makeBank("Сбер")
     let tBank = try await makeBank("Т-Банк")
     XCTAssertEqual(actions.delete([tBank]), .done)
@@ -207,6 +207,8 @@ final class BankActionsTests: XCTestCase {
     XCTAssertEqual(actions.deleteBank(empty.id), .done)
     XCTAssertEqual(actions.banks.map(\.name), ["Сбер"])
     XCTAssertEqual(actions.deleteBank(empty.id), .refused(.notFound))
+    store.undo()
+    XCTAssertEqual(actions.banks.map(\.name).sorted(), ["Сбер", "Т-Банк"], "⌘Z brings it back")
   }
 
   // MARK: The archive

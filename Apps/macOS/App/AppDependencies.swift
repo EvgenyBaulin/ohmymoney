@@ -143,6 +143,9 @@ private struct AppTheming: ViewModifier {
       .modifier(AppThemeModifier(theme: theme))
       // The size of the text chosen in Settings → Appearance, for every window and sheet.
       .modifier(AppFontSizing(size: theme.fontSize))
+      // Every number is written by `NumberText`, which no view observes: a new style makes the
+      // window draw again, so the switch in «Запись чисел» is live.
+      .id(theme.numberStyle)
   }
 }
 

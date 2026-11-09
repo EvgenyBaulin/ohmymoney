@@ -272,6 +272,11 @@ struct StatementImportDone: View {
         line("import.done.unsorted", outcome.unsorted)
         line("import.done.waiting", outcome.waitingForRate)
         line("import.done.remembered", outcome.remembered)
+        if outcome.learned > 0 {
+          Text(
+            verbatim: environment.language.counted(
+              "statementLearning.done.learned", table: "StatementLearning", [outcome.learned]))
+        }
       }
       .monospacedDigit()
       if !undone, !outcome.imports.isEmpty {

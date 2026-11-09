@@ -6,17 +6,30 @@ import Foundation
 /// exactly the same text. The words around a number — a currency, «млн», the space before «%» —
 /// belong to the interface; this only writes the number.
 public enum NumberText {
+  /// How the interface writes a number: the owner's choice in Settings → «Запись чисел». Only
+  /// what a person reads follows it; text a field is typed in, CSV and the archive always keep
+  /// the point (`grouping: false`, `plain`, `TypedNumber.canonical`).
+  public static var style: NumberStyle {
+    get { StyleBox.shared.value }
+    set { StyleBox.shared.value = newValue }
+  }
+
   /// The typographic minus (U+2212) the interface writes before a negative number.
   public static let minus = "\u{2212}"
 
   /// Digits with a comma between every three from the right: "1234567" becomes "1,234,567".
   /// Anything but ASCII digits is returned as it is.
   public static func grouped(_ digits: String) -> String {
+    grouped(digits, separator: ",")
+  }
+
+  /// `grouped(_:)` with the separator of a style between the thousands.
+  public static func grouped(_ digits: String, separator: Character) -> String {
     guard digits.count > 3, digits.allSatisfy({ $0 >= "0" && $0 <= "9" }) else { return digits }
     var result = ""
     result.reserveCapacity(digits.count + digits.count / 3)
     for (offset, digit) in digits.enumerated() {
-      if offset > 0 && (digits.count - offset) % 3 == 0 { result.append(",") }
+      if offset > 0 && (digits.count - offset) % 3 == 0 { result.append(separator) }
       result.append(digit)
     }
     return result
@@ -26,26 +39,28 @@ public enum NumberText {
   /// with at least the two digits of kopecks and up to the four the amount is stored with —
   /// «250», «1,234.50», «4.625», «0.0001». Exact: nothing is rounded.
   public static func amount(
-    _ amount: AmountE4, grouping: Bool = true, minus: String = NumberText.minus
+    _ amount: AmountE4, grouping: Bool = true, minus: String = NumberText.minus,
+    style: NumberStyle = NumberText.style
   ) -> String {
     let magnitude = amount.raw.magnitude
     let units = UInt64(AmountE4.unitsPerWhole)
     let whole = String(magnitude / units)
-    var text = grouping ? grouped(whole) : whole
+    var text = grouping ? grouped(whole, separator: style.groupSeparator) : whole
     let fraction = magnitude % units
     if fraction != 0 {
       let padded = String(repeating: "0", count: 4 - String(fraction).count) + String(fraction)
-      text += "." + trimmingZeros(padded, keeping: 2)
+      text += (grouping ? style.decimalSeparator : ".") + trimmingZeros(padded, keeping: 2)
     }
     return amount.raw < 0 ? minus + text : text
   }
 
   /// A whole number with its thousands grouped: «1,250», «−3,400».
   public static func integer(
-    _ value: Int64, grouping: Bool = true, minus: String = NumberText.minus
+    _ value: Int64, grouping: Bool = true, minus: String = NumberText.minus,
+    style: NumberStyle = NumberText.style
   ) -> String {
     let digits = String(value.magnitude)
-    let text = grouping ? grouped(digits) : digits
+    let text = grouping ? grouped(digits, separator: style.groupSeparator) : digits
     return value < 0 ? minus + text : text
   }
 
@@ -55,10 +70,11 @@ public enum NumberText {
   /// number, so −0.04 with one digit is «0.0», never «−0.0».
   public static func decimal(
     _ value: Decimal, fractionDigits: ClosedRange<Int> = 0...4, grouping: Bool = true,
-    minus: String = NumberText.minus
+    minus: String = NumberText.minus, style: NumberStyle = NumberText.style
   ) -> String {
     let rounded = DecimalMath.round(value, scale: fractionDigits.upperBound)
-    return written(rounded, keeping: fractionDigits.lowerBound, grouping: grouping, minus: minus)
+    return written(
+      rounded, keeping: fractionDigits.lowerBound, grouping: grouping, minus: minus, style: style)
   }
 
   /// Every digit of the number, nothing rounded: the text a field shows for a rate, so that
@@ -66,11 +82,12 @@ public enum NumberText {
   public static func plain(
     _ value: Decimal, grouping: Bool = false, minus: String = "-"
   ) -> String {
-    written(value, keeping: 0, grouping: grouping, minus: minus)
+    written(value, keeping: 0, grouping: grouping, minus: minus, style: .point)
   }
 
   private static func written(
-    _ value: Decimal, keeping minimumFraction: Int, grouping: Bool, minus: String
+    _ value: Decimal, keeping minimumFraction: Int, grouping: Bool, minus: String,
+    style: NumberStyle
   ) -> String {
     guard !value.isNaN else { return "0" }
     let negative = value < 0
@@ -82,8 +99,8 @@ public enum NumberText {
       fraction += String(repeating: "0", count: minimumFraction - fraction.count)
     }
     fraction = trimmingZeros(fraction, keeping: minimumFraction)
-    var text = grouping ? grouped(whole) : whole
-    if !fraction.isEmpty { text += "." + fraction }
+    var text = grouping ? grouped(whole, separator: style.groupSeparator) : whole
+    if !fraction.isEmpty { text += (grouping ? style.decimalSeparator : ".") + fraction }
     let isZero = whole.allSatisfy { $0 == "0" } && fraction.allSatisfy { $0 == "0" }
     return negative && !isZero ? minus + text : text
   }
@@ -94,7 +111,9 @@ public enum NumberText {
   /// number, and a format groups it the way the language does — a space in Russian, a comma in
   /// English — or not at all. A run of digits that is not one of the counts, or that is part of
   /// a longer number («12.1250», «1250,5»), stays as it is.
-  public static func groupingCounts(_ counts: [Int64], in text: String) -> String {
+  public static func groupingCounts(
+    _ counts: [Int64], in text: String, style: NumberStyle = NumberText.style
+  ) -> String {
     let wanted = Set(counts.filter { $0.magnitude >= 1_000 }.map { String($0.magnitude) })
     guard !wanted.isEmpty else { return text }
     let characters = Array(text)
@@ -134,7 +153,7 @@ public enum NumberText {
         (isSeparator(index - 1) && isDigit(index - 2)) || (isSeparator(end) && isDigit(end + 1))
       result +=
         wanted.contains(digits) && !partOfANumber
-        ? grouped(digits) : String(characters[index..<end])
+        ? grouped(digits, separator: style.groupSeparator) : String(characters[index..<end])
       index = end
     }
     return result
@@ -152,5 +171,27 @@ public enum NumberText {
     let description = value.description
     guard description.contains("e") || description.contains("E") else { return description }
     return NSDecimalNumber(decimal: value).stringValue
+  }
+}
+
+/// The two ways to write a number (0563). «1,234.56» is the default (0206); «1 234,56» puts a
+/// no-break space between the thousands and a comma before the fraction. Nothing stored or
+/// exchanged follows it.
+public enum NumberStyle: String, CaseIterable, Sendable {
+  case point
+  case space
+
+  public var groupSeparator: Character { self == .point ? "," : "\u{00A0}" }
+  public var decimalSeparator: String { self == .point ? "." : "," }
+}
+
+/// The current style, safe to read from any thread.
+private final class StyleBox: @unchecked Sendable {
+  static let shared = StyleBox()
+  private let lock = NSLock()
+  private var style = NumberStyle.point
+  var value: NumberStyle {
+    get { lock.withLock { style } }
+    set { lock.withLock { style = newValue } }
   }
 }

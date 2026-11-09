@@ -32,6 +32,13 @@ extension TextEditingUndo {
 
     /// Whether ⌘⇧Z has typing to put back.
     var canRedo: Bool { isEditingText && fieldCanRedo }
+
+    /// What ⇧⌘Z puts back, by the one rule of `TextEditingUndo.redoTarget`.
+    @MainActor func redoTarget(storeCanRedo: Bool) -> UndoTarget {
+      TextEditingUndo.redoTarget(
+        isEditingText: isEditingText, fieldCanRedo: fieldCanRedo, storeCanRedo: storeCanRedo,
+        inSheet: inSheet)
+    }
   }
 }
 

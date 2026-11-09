@@ -6,7 +6,7 @@ import XCTest
 
 @testable import OhMyMoney
 
-/// «Календарь» in the main window: ⌘5 is its item of the menu bar, and what it posts brings the
+/// «Календарь» in the main window: ⌘4 is its item of the menu bar, and what it posts brings the
 /// calendar on screen; the screen and the Overview tile are laid out with every dependency they
 /// need — no stand-in, no `dependencies.missing` in the journal.
 @MainActor
@@ -108,24 +108,24 @@ final class CalendarWindowTests: XCTestCase {
     Logbook.shared.lines().contains { $0.contains("dependencies.missing") }
   }
 
-  /// ⌘5 is one item of the menu bar, and what it posts brings «Календарь» on screen.
-  func testCommandFiveOpensTheCalendar() throws {
+  /// ⌘4 is one item of the menu bar, and what it posts brings «Календарь» on screen.
+  func testCommandFourOpensTheCalendar() throws {
     func items(_ menu: NSMenu?) -> [NSMenuItem] {
       (menu?.items ?? []).flatMap { [$0] + items($0.submenu) }
     }
-    let five = items(NSApp.mainMenu).filter {
-      $0.keyEquivalent == "5"
+    let four = items(NSApp.mainMenu).filter {
+      $0.keyEquivalent == "4"
         && $0.keyEquivalentModifierMask.intersection(.deviceIndependentFlagsMask) == .command
     }
-    XCTAssertEqual(five.count, 1, "⌘5: \(five.map(\.title))")
-    XCTAssertTrue(["Календарь", "Calendar"].contains(five.first?.title ?? ""))
+    XCTAssertEqual(four.count, 1, "⌘4: \(four.map(\.title))")
+    XCTAssertTrue(["Календарь", "Calendar"].contains(four.first?.title ?? ""))
 
     compute.applyLight(try snapshot())
     _ = mainWindow()
     XCTAssertTrue(shown("overview"))
-    NotificationCenter.default.post(name: .selectSection, object: 5)
+    NotificationCenter.default.post(name: .selectSection, object: 4)
     settle()
-    XCTAssertTrue(shown("calendar"), "⌘5 did not bring «Календарь»")
+    XCTAssertTrue(shown("calendar"), "⌘4 did not bring «Календарь»")
     XCTAssertFalse(missingDependencies)
   }
 

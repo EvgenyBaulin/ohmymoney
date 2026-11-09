@@ -82,7 +82,8 @@ final class ScreenJournalTests: XCTestCase {
 
   func testTheMainWindowSaysWhichSectionIsOnScreen() {
     show(AppScenes.root(dependencies(), window: .main, launches: false) { MainWindow(deps: $0) })
-    NotificationCenter.default.post(name: .selectSection, object: 2)
+    NotificationCenter.default.post(
+      name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
     settle()
 
     let shown = lines("section.shown")

@@ -55,3 +55,10 @@ OhMyMoney-report-*.zip
 
 # Machine-specific make settings (build folder of a sandbox that names another one)
 .local-paths.mk
+
+# Environment and Python caches.
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]

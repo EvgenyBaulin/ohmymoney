@@ -37,7 +37,7 @@ struct PurchasesSettingsView: View {
           .fixedSize(horizontal: false, vertical: true)
       }
       Section {
-        Toggle(isOn: flag(\.regretEnabled)) {
+        Toggle(isOn: regretEnabled) {
           Text(verbatim: t("purchases.settings.regret"))
           Text(verbatim: t("purchases.settings.regretHint"))
         }
@@ -69,6 +69,21 @@ struct PurchasesSettingsView: View {
     Binding(
       get: { values[keyPath: path] },
       set: { value in save { $0[keyPath: path] = value } })
+  }
+
+  /// Turning the question on remembers the day: purchases made before it are never asked about.
+  private var regretEnabled: Binding<Bool> {
+    Binding(
+      get: { values.regretEnabled },
+      set: { value in
+        let today = environment.today
+        save { PurchasesSettingsView.turnRegret(value, in: &$0, today: today) }
+      })
+  }
+
+  static func turnRegret(_ on: Bool, in settings: inout PurchaseSettings, today: DateOnly) {
+    if on && !settings.regretEnabled { settings.regretEnabledOn = today }
+    settings.regretEnabled = on
   }
 
   private var pausePercent: Binding<Int> {

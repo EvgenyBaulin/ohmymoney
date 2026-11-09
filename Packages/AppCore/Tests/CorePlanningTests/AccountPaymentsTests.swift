@@ -1,3 +1,5 @@
+import CoreAccounting
+import CoreAnalytics
 import CoreKit
 import Foundation
 import Testing
@@ -72,5 +74,83 @@ struct AccountPaymentsTests {
       AccountPayments.on(tBank, statuses: statuses, mainAccountId: sber).map(\.id) == [
         Self.id(12), Self.id(11), Self.id(10),
       ])
+  }
+
+  /// A payment saved with no account — the form shows the main account until another is
+  /// picked and writes none — whose charges come off another account (an Apple ID account
+  /// in dollars, outside the summary) is paid from that account: its screen lists it, the main
+  /// account's does not.
+  @Test func noAccountButChargedFromAnotherAccountListsThere() {
+    let appleId = Self.id(3)
+    let statuses = [
+      status(10, "iCloud+", account: nil, next: "2026-11-05"),
+      status(11, "Water", account: nil, next: "2026-11-10"),
+    ]
+    let charged = [Self.id(10): appleId]
+    #expect(
+      AccountPayments.on(
+        appleId, statuses: statuses, mainAccountId: sber, chargedFrom: charged
+      ).map(\.id) == [Self.id(10)])
+    #expect(
+      AccountPayments.on(sber, statuses: statuses, mainAccountId: sber, chargedFrom: charged)
+        .map(\.id) == [Self.id(11)])
+  }
+
+  /// A payment that names an account stays on it wherever a charge came from: the owner's
+  /// pick wins.
+  @Test func aNamedAccountWinsOverWhereItWasCharged() {
+    let appleId = Self.id(3)
+    let statuses = [status(10, "Gym", account: sber, next: "2026-11-05")]
+    let charged = [Self.id(10): appleId]
+    #expect(
+      AccountPayments.on(appleId, statuses: statuses, mainAccountId: sber, chargedFrom: charged)
+        .isEmpty)
+    #expect(
+      AccountPayments.on(sber, statuses: statuses, mainAccountId: sber, chargedFrom: charged)
+        .map(\.id) == [Self.id(10)])
+  }
+
+  /// Where the charges of a payment came from: its latest operation, written by «Провести» or
+  /// matched by amount and category — the account the operation names, or the account of the
+  /// card it names; an operation with no account says nothing.
+  @Test func chargedFromReadsTheLatestOperationsAccount() throws {
+    let appleId = Self.id(3)
+    let card = PaymentCard(id: Self.id(30), accountId: appleId, name: "Apple Card")
+    let methods = [
+      PaymentMethod(id: sber, name: "Sber", currency: .rub, isDefault: true),
+      PaymentMethod(id: appleId, name: "Apple ID", currency: CurrencyCode("USD")),
+    ]
+    let utc = TimeZone(identifier: "UTC")!
+    func operation(
+      _ number: Int, day: String, account: UUID?, card: UUID? = nil
+    ) throws
+      -> TransactionEntry
+    {
+      let at = CalendarContext(timeZone: utc).noon(of: DateOnly(iso: day)!)
+      var draft = TransactionDraft(
+        kind: .expense, occurredAt: at, currency: CurrencyCode("USD"),
+        amount: AmountE4(whole: 10), rate: 90, paymentMethodId: account, cardId: card)
+      draft.normalizeSinglePart()
+      return try draft.materialize(id: Self.id(number), now: at, timeZone: utc)
+    }
+    let entries = [
+      try operation(100, day: "2026-10-05", account: sber),
+      try operation(101, day: "2026-11-01", account: appleId),
+      try operation(102, day: "2026-10-20", account: nil, card: card.id),
+      try operation(103, day: "2026-10-21", account: nil),
+    ]
+    let dataset = Dataset(entries: entries, paymentMethods: methods, cards: [card])
+    let ledger = Ledger(dataset: dataset, calendar: CalendarContext(timeZone: utc))
+    var matched = status(10, "iCloud+", account: nil, next: "2026-10-05")
+    matched.matchedDues = [
+      DateOnly(iso: "2026-10-05")!: Self.id(100), DateOnly(iso: "2026-11-05")!: Self.id(101),
+    ]
+    var byCard = status(11, "Music", account: nil, next: "2026-10-20")
+    byCard.matchedDues = [DateOnly(iso: "2026-10-20")!: Self.id(102)]
+    var nowhere = status(12, "Water", account: nil, next: "2026-10-21")
+    nowhere.matchedDues = [DateOnly(iso: "2026-10-21")!: Self.id(103)]
+    let charged = AccountPayments.chargedFrom(
+      statuses: [matched, byCard, nowhere], ledger: ledger)
+    #expect(charged == [Self.id(10): appleId, Self.id(11): appleId])
   }
 }

@@ -31,6 +31,30 @@ enum SpendingUndo: Sendable {
     return 1
   }
 
+  /// The step that makes this one's change again, read from the database before ⌘Z takes the
+  /// change back: reverting it is what ⇧⌘Z does. `nil` for the steps that cannot be made again
+  /// from what they keep (a change of the tag dictionary, rules applied to the past, a basket).
+  func reapplying(spending: SpendingRulesRepository) throws -> SpendingUndo? {
+    switch self {
+    case .tagsAttached(let links): return .tagsDetached(links)
+    case .tagsDetached(let links): return .tagsAttached(links)
+    case .ruleOrder:
+      return .ruleOrder(try spending.rules().map(\.id))
+    case .dayNote(let day, _):
+      return .dayNote(day: day, before: try spending.note(on: day))
+    case .rules(let restore, let remove):
+      let current = try spending.rules()
+      let byId = Dictionary(current.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+      let edited = restore.compactMap { byId[$0.id] }
+      let removedNow = current.filter { remove.contains($0.id) }
+      return .rules(
+        restore: edited + removedNow,
+        remove: restore.map(\.id).filter { byId[$0] == nil })
+    case .tagEdit, .backfill, .basket:
+      return nil
+    }
+  }
+
   /// Puts the database back. The write it returns makes the pipeline read the data again; the
   /// operations a backfill rewrote are read back so the lists follow at once.
   func revert(

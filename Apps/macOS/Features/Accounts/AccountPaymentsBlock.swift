@@ -2,7 +2,8 @@ import AppCore
 import SwiftUI
 
 /// What «Платежи и подписки» of an account's screen shows: the payments paid from the account
-/// or any of its cards — on the main account also those that name none —, by the next due date.
+/// or any of its cards, and those that name no account but whose latest charge came off it —
+/// on the main account the rest that name none —, by the next due date.
 struct AccountPaymentsModel: Equatable {
   struct Row: Equatable, Identifiable {
     var status: ScheduledStatus
@@ -15,13 +16,28 @@ struct AccountPaymentsModel: Equatable {
 
   var rows: [Row]
 
-  init(accountId: UUID, statuses: [ScheduledStatus], cards: [PaymentCard], mainAccountId: UUID?) {
+  init(
+    accountId: UUID, statuses: [ScheduledStatus], cards: [PaymentCard], mainAccountId: UUID?,
+    chargedFrom: [UUID: UUID] = [:]
+  ) {
     let byId = Dictionary(cards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-    rows = AccountPayments.on(accountId, statuses: statuses, mainAccountId: mainAccountId).map {
-      status in
+    rows = AccountPayments.on(
+      accountId, statuses: statuses, mainAccountId: mainAccountId, chargedFrom: chargedFrom
+    ).map { status in
       let card = status.payment.cardId.flatMap { byId[$0] }
       return Row(status: status, cardName: card?.name, cardArchived: card?.archived == true)
     }
+  }
+
+  /// The block for the data of `snapshot`: its payments, its cards, its main account, and
+  /// where the charges of the payments that name no account came off.
+  init(accountId: UUID, snapshot: DataSnapshot) {
+    let dataset = snapshot.dataset
+    self.init(
+      accountId: accountId, statuses: snapshot.planning.scheduled, cards: dataset.cards,
+      mainAccountId: dataset.paymentMethods.first { $0.isDefault && !$0.archived }?.id,
+      chargedFrom: AccountPayments.chargedFrom(
+        statuses: snapshot.planning.scheduled, ledger: snapshot.ledger))
   }
 
   /// A short list opens by itself; a long one waits to be opened.
@@ -45,10 +61,7 @@ struct AccountPaymentsBlock: View {
 
   private var model: AccountPaymentsModel? {
     guard let snapshot = compute.snapshot else { return nil }
-    let dataset = snapshot.dataset
-    return AccountPaymentsModel(
-      accountId: accountId, statuses: snapshot.planning.scheduled, cards: dataset.cards,
-      mainAccountId: dataset.paymentMethods.first { $0.isDefault && !$0.archived }?.id)
+    return AccountPaymentsModel(accountId: accountId, snapshot: snapshot)
   }
 
   var body: some View {

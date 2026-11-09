@@ -25,16 +25,38 @@ enum QuickBank {
       })
   }
 
+  /// The message with its shop as the owner wrote it before: the place a statement line or a
+  /// text of the same shop on this card's account (or another account of its bank) was matched
+  /// with (`BankTextMemory`) first, else the name he once gave the shop (`names`).
+  static func shown(
+    _ message: BankMessage, account: UUID?, names: AutoEntryNames, learned: BankTextMemory,
+    accounts: [PaymentMethod], places: [ParserVocabulary.Entry]
+  ) -> BankMessage {
+    if let name = BankTextLearning.placeName(
+      for: message, account: account, accounts: accounts, places: places, memory: learned)
+    {
+      var renamed = message
+      renamed.merchant = name
+      return renamed
+    }
+    return AutoEntryLearning.applying(names, to: message)
+  }
+
   /// The offer for one text of a bank. The line is the one `BankMessage.suggestedLine` makes
   /// with the place as the owner's list names it, and the name of the card the digits found
   /// when the line reads back to that very card. A shop the owner once wrote under a name of
-  /// his own is offered under that name (`names`).
+  /// his own is offered under that name (`names`, `learned`).
   static func offer(
     for message: BankMessage, cards: [PaymentCard], places: [ParserVocabulary.Entry],
-    parser: InputLineParser, today: DateOnly, names: AutoEntryNames = AutoEntryNames()
+    parser: InputLineParser, today: DateOnly, names: AutoEntryNames = AutoEntryNames(),
+    learned: BankTextMemory = BankTextMemory(), accounts: [PaymentMethod] = []
   ) -> BankOffer {
-    let shown = AutoEntryLearning.applying(names, to: message)
     let lookup = index(of: cards).lookup(message)
+    var account: UUID?
+    if case .card(let digits) = lookup { account = digits.accountId }
+    let shown = shown(
+      message, account: account, names: names, learned: learned, accounts: accounts,
+      places: places)
     let merchant = shown.merchant.flatMap { BankMerchants.resolve($0, places: places) }
     var line = shown.suggestedLine(merchantName: merchant?.name)
     var found: CardDigits?

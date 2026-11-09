@@ -132,6 +132,28 @@ final class ReceiptModelTests: XCTestCase {
       DateOnly(year: 2026, month: 10, day: 29))
   }
 
+  /// A tip makes the owner's sum differ from the receipt's: the operation is offered, never
+  /// chosen for the owner, and once picked it gets the time like an exact match.
+  func testANearSumIsOfferedAndTakenOnlyWhenPicked() async throws {
+    let dinner = try purchase("Ужин", rubles: 1_300, day: 29, hour: 19)
+    let model = try await model()
+    model.read(payload: "t=20261029T183245&s=1250.00&n=1")
+    XCTAssertFalse(model.isSupplementing, "not taken for the receipt's own")
+    XCTAssertEqual(model.similar.map(\.id), [dinner.id])
+    XCTAssertNil(model.chosenId)
+
+    model.useSimilar(dinner.id)
+    XCTAssertTrue(model.isSupplementing)
+    XCTAssertEqual(model.chosenId, dinner.id)
+    XCTAssertTrue(model.confirm())
+    let written = try XCTUnwrap(live().first { $0.id == dinner.id })
+    XCTAssertEqual(
+      CalendarContext.moscow.timeOfDay(written.transaction.occurredAt),
+      TimeOfDay(hour: 18, minute: 32))
+    XCTAssertEqual(
+      written.transaction.amountE4, dinner.transaction.amountE4, "the sum is the owner's")
+  }
+
   func testNothingFittingGivesANewOperationWithTheReceiptsFacts() async throws {
     try purchase("Другая сумма", rubles: 251, day: 29)
     let model = try await model()

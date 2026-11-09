@@ -458,6 +458,45 @@ struct SyncConflictFlowTests {
     #expect(try folder.listNames() == before)
   }
 
+  /// Saved apart, the two versions differ only in bookkeeping: the moment of the save, and a
+  /// column one build leaves empty while the other writes its default. Nothing to choose, so
+  /// the phone (the larger id) never lists it and the Mac settles it without asking.
+  @Test func versionsThatDifferOnlyInBookkeepingAreNoConflict() throws {
+    let (mac, phone, folder) = try apart()
+    try mac.sql(
+      "UPDATE transactions SET note = 'same', amount_e4 = 5, amount_rub_e4 = 5, amount_expr = NULL, updated_at = 'u1' WHERE id = 't1'"
+    )
+    try phone.sql(
+      "UPDATE transactions SET note = 'same', amount_e4 = 5, amount_rub_e4 = 5, amount_expr = '', updated_at = 'u2' WHERE id = 't1'"
+    )
+    try mac.stamp("2026-10-22T10:07:00Z")
+    try phone.stamp("2026-10-22T10:08:00Z")
+    _ = try mac.exchange.exchange(with: folder)
+    _ = try phone.exchange.exchange(with: folder)
+    #expect(try phone.exchange.conflicts().isEmpty, "nothing the owner could choose between")
+    let outcome = try mac.exchange.exchange(with: folder)  // the smaller id answers
+    #expect(outcome.settledAsSame == 1)
+    #expect(outcome.logPairs.contains { $0.0 == "same" && $0.1 == 1 })
+    _ = try phone.exchange.exchange(with: folder)
+    #expect(try mac.exchange.conflicts().isEmpty)
+    #expect(try phone.exchange.conflicts().isEmpty)
+  }
+
+  @Test func bookkeepingAndEmptyValuesAreNotDifferences() {
+    #expect(SyncConflict.isService("updated_at"))
+    #expect(SyncConflict.isService("sort"))
+    #expect(SyncConflict.isService("sync_seq"))
+    #expect(!SyncConflict.isService("note"))
+    #expect(!SyncConflict.differs("hidden", nil, .int(0)))
+    #expect(!SyncConflict.differs("hidden", .null, .bool(false)))
+    #expect(!SyncConflict.differs("cashback_monthly_cap_e4", .null, .int(0)))
+    #expect(!SyncConflict.differs("cashback_choice_day", nil, .null))
+    #expect(!SyncConflict.differs("hidden", .bool(true), .int(1)))
+    #expect(SyncConflict.differs("hidden", .int(0), .int(1)))
+    #expect(SyncConflict.differs("accent", .string("01"), .string("02")))
+    #expect(!SyncConflict.differs("updated_at", .string("a"), .string("b")))
+  }
+
   /// A delete against an edit made on the other device waits for nobody: the later stands. The
   /// phone deleted after the Mac edited, so the operation is deleted on both and the list of
   /// conflicts stays empty.

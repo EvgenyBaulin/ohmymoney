@@ -211,6 +211,8 @@ final class TransactionEditorModel {
       errorKey = nil
       CategoryLearning.saved(
         updated, replacing: entry, choice: categoryChoice(), environment: environment)
+      // An operation a bank's text was filled from, or taught by, teaches that text anew.
+      BankTextLearning.edited(updated, environment: environment)
       return true
     case .gone:
       // Deleted elsewhere meanwhile: the edit stays, with the reason, until «Cancel» — in

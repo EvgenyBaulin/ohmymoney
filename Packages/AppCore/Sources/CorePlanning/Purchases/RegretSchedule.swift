@@ -10,17 +10,25 @@ public struct RegretQuestion: Hashable, Sendable, Identifiable {
   public var categoryId: UUID?
   public var amountRubE4: AmountE4
   public var note: String?
+  /// What names the purchase when it has no description: the place, else the category.
+  public var placeName: String?
+  public var categoryName: String?
+  /// How many other questions wait behind this one; only one is put at a time.
+  public var waitingMore: Int
   public var id: UUID { transactionId }
 
   public init(
     transactionId: UUID, boughtOn: DateOnly, categoryId: UUID?, amountRubE4: AmountE4,
-    note: String?
+    note: String?, placeName: String? = nil, categoryName: String? = nil, waitingMore: Int = 0
   ) {
     self.transactionId = transactionId
     self.boughtOn = boughtOn
     self.categoryId = categoryId
     self.amountRubE4 = amountRubE4
     self.note = note
+    self.placeName = placeName
+    self.categoryName = categoryName
+    self.waitingMore = waitingMore
   }
 }
 
@@ -50,23 +58,27 @@ public struct RegretCategoryStat: Hashable, Sendable, Identifiable {
 
 /// «Не пожалели?»: which purchases to ask about and what the answers say.
 public enum RegretSchedule {
-  /// A purchase older than this is not asked about any more: a question asked a month late is no
+  /// A purchase older than this is not asked about any more: a question asked weeks late is no
   /// help, and a first start must not flood the owner with old ones.
-  public static let maxAgeDays = 30
-  public static let maxQuestionsAtOnce = 3
+  public static let maxAgeDays = 14
+  /// Only the newest question is put; the rest wait behind it, counted in its line.
+  public static let maxQuestionsAtOnce = 1
 
   /// The purchases to ask about on `today`. A purchase is asked about when:
   /// it is a live expense of my own, not a line the app wrote for its books; the part that counts
   /// (not paid for somebody else, not a goal contribution, not a system category, not in a
   /// category marked as an essential expense) is above `thresholdRubE4` — see
   /// `PurchasePause.threshold` —; it has no answer and was not asked yet; and
-  /// `settings.regretAskAfterDays` have passed since it, but no more than `maxAgeDays`. The
-  /// oldest question first. With the setting off, or no threshold, nothing is asked.
+  /// `settings.regretAskAfterDays` have passed since it, but no more than `maxAgeDays`, and it
+  /// was made on or after the day the question was turned on. The newest question first. With
+  /// the setting off, or no threshold, nothing is asked. `places` name a purchase without a
+  /// description.
   public static func due(
     entries: [TransactionEntry], tree: CategoryTree, settings: PurchaseSettings,
-    thresholdRubE4: AmountE4?, today: DateOnly, calendar: CalendarContext
+    thresholdRubE4: AmountE4?, today: DateOnly, calendar: CalendarContext, places: [Place] = []
   ) -> [RegretQuestion] {
     guard settings.regretEnabled, let threshold = thresholdRubE4 else { return [] }
+    let placeNames = Dictionary(places.map { ($0.id, $0.name) }, uniquingKeysWith: { a, _ in a })
     var found: [RegretQuestion] = []
     for entry in entries {
       let transaction = entry.transaction
@@ -83,14 +95,18 @@ public enum RegretSchedule {
       let day = calendar.day(of: transaction.occurredAt, recordedIn: transaction.timeZoneId)
       let age = day.days(to: today)
       guard age >= settings.regretAskAfterDays, age <= maxAgeDays else { continue }
+      if let since = settings.regretEnabledOn, day < since { continue }
       let main = counted.max { $0.amountRubE4 < $1.amountRubE4 }
+      let placeName = transaction.placeId.flatMap { placeNames[$0] }
       found.append(
         RegretQuestion(
           transactionId: transaction.id, boughtOn: day, categoryId: main?.categoryId,
-          amountRubE4: sum, note: transaction.note))
+          amountRubE4: sum, note: transaction.note,
+          placeName: placeName.flatMap { $0.isEmpty ? nil : $0 },
+          categoryName: tree.category(main?.categoryId)?.name))
     }
     return found.sorted { left, right in
-      if left.boughtOn != right.boughtOn { return left.boughtOn < right.boughtOn }
+      if left.boughtOn != right.boughtOn { return left.boughtOn > right.boughtOn }
       return left.transactionId.uuidString < right.transactionId.uuidString
     }
   }

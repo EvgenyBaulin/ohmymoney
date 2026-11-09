@@ -121,7 +121,8 @@ final class MainWindowLayoutTests: XCTestCase {
   // MARK: - The window
 
   private func makeWindow(
-    width: CGFloat = 1120, height: CGFloat = 760, opensDetails: Bool = false
+    width: CGFloat = 1120, height: CGFloat = 760, opensDetails: Bool = false,
+    selection: SidebarItem = .section(.operations)
   ) -> NSWindow {
     let deps = AppDependencies(environment: environment, store: store, compute: compute)
     let actions = OperationActions()
@@ -133,7 +134,7 @@ final class MainWindowLayoutTests: XCTestCase {
         // «Траты» lists the operations the selection bar and the room under it are about.
         MainWindow(
           deps: deps, actions: actions, opensDetails: opensDetails,
-          selection: .section(.operations))
+          selection: selection)
       }
       .environment(\.windowWidth, width)
       .defaultAppStorage(defaults)
@@ -349,6 +350,34 @@ final class MainWindowLayoutTests: XCTestCase {
     try waitForList(window)
     settle(window, "opening «Операции»")
     probe.assertQuiet(about: loopMessages, comparedWith: before, "opening «Операции»")
+  }
+
+  /// «Аналитика» and «Отчёты» are sections of this window: chosen by ⌘8 and ⌘9 (what the menu
+  /// posts) they lay out without a loop, and the table of «Отчёты» is made empty and filled one
+  /// turn later, never touched from its own delegate. Counted from before the window exists.
+  func testOpeningAnalyticsAndReportsTouchesNoTableFromItsOwnDelegate() throws {
+    let probe = LogProbe()
+    let before = probe.counts(of: loopMessages)
+    let window = makeWindow()
+    try waitForList(window)
+    for section in [MainWindow.Section.analytics, .reports, .operations, .reports] {
+      NotificationCenter.default.post(name: .selectSection, object: section.shortcutIndex)
+      for _ in 0..<20 { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
+      settle(window, "opening «\(section.rawValue)»")
+    }
+    probe.assertQuiet(about: loopMessages, comparedWith: before, "opening Analytics and Reports")
+  }
+
+  /// A window opened on «Отчёты» (`--open reports` of the recipes) draws its table from the
+  /// first frame without touching it from its delegate.
+  func testAWindowOpenedOnReportsTouchesNoTableFromItsOwnDelegate() throws {
+    let probe = LogProbe()
+    let before = probe.counts(of: loopMessages)
+    let window = makeWindow(selection: .section(.reports))
+    for _ in 0..<40 { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
+    settle(window, "opening on «Отчёты»")
+    probe.assertQuiet(about: loopMessages, comparedWith: before, "opening on «Отчёты»")
+    XCTAssertEqual(AppDependencies.missingReaders, [])
   }
 
   func testOpeningTheOperationsBesideTheFormTouchesNoTableFromItsOwnDelegate() throws {
@@ -633,7 +662,8 @@ final class MainWindowLayoutTests: XCTestCase {
     settle(window, passes: 10, "on Overview")
     let room = try overviewRoom(window)
 
-    NotificationCenter.default.post(name: .selectSection, object: 2)
+    NotificationCenter.default.post(
+      name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
     Self.wait { Self.planningScroll(in: window) != nil }
     settle(window, passes: 20, "on Planning")
     let planning = try XCTUnwrap(Self.planningScroll(in: window), "Planning did not open")
@@ -708,24 +738,31 @@ final class MainWindowLayoutTests: XCTestCase {
 
   // MARK: - The toolbar
 
-  /// «На панели инструментов: Add, Recompute, Reconcile, Analytics, Transactions, Reports,
-  /// Export, Check for Updates». The last two lived in the menus only.
-  func testTheToolbarOffersEveryAction() throws {
+  /// The toolbar keeps the buttons of the screen: Add, the palette and the trip. No button of a
+  /// section (they stand in the sidebar) and none of the actions of the whole app — Reconcile,
+  /// Export, Recompute, Hide Amounts, Updates, Settings are items of the menu bar
+  /// (`NavigationShellTests`).
+  func testTheToolbarOffersOnlyTheButtonsOfTheScreen() throws {
     let window = makeWindow()
     try waitForList(window)
     settle(window, passes: 10, "with the toolbar")
 
     let toolbar = try XCTUnwrap(window.toolbar, "the main window has no toolbar")
     let labels = Set(Self.labels(of: toolbar.items))
-    let expected = [
-      environment.language("action.add"), environment.language("action.recompute"),
-      environment.language("action.reconcile"), environment.language("window.transactions"),
-      environment.language("window.analytics"), environment.language("window.reports"),
-      environment.language("action.export"), UpdateService.title(environment),
-      PrivacyCommands.amountsTitle(environment),
-    ]
-    for title in expected {
+    for title in [
+      environment.language("action.add"), QuestionsText.t("questions.menu.palette", environment),
+      TravelText.t("travel.start.button", environment),
+    ] {
       XCTAssertTrue(labels.contains(title), "the toolbar has no «\(title)»: \(labels.sorted())")
+    }
+    for title in [
+      environment.language("window.transactions"), environment.language("window.analytics"),
+      environment.language("window.reports"), environment.language("action.recompute"),
+      environment.language("action.reconcile"), environment.language("action.export"),
+      UpdateService.title(environment), PrivacyCommands.amountsTitle(environment),
+      environment.language("settings.title", table: "Settings"),
+    ] {
+      XCTAssertFalse(labels.contains(title), "«\(title)» belongs to the menu, not the toolbar")
     }
     XCTAssertEqual(AppDependencies.missingReaders, [])
   }

@@ -46,6 +46,22 @@ enum BeginnerModeOnMac {
     switch item {
     case .capital: .capital
     case .debts: .debts
+    case .analytics: .analytics
+    case .reports: .reports
+    default: nil
+    }
+  }
+}
+
+extension BeginnerModeOnMac {
+  /// The same for the rows of «Ещё» on an iPhone and an iPad, which list every section as a
+  /// `NavItem`: the rules and the threshold are the ones the Mac sidebar uses.
+  static func section(of item: NavItem) -> BeginnerSection? {
+    switch item {
+    case .capital: .capital
+    case .debts: .debts
+    case .analytics: .analytics
+    case .reports: .reports
     default: nil
     }
   }

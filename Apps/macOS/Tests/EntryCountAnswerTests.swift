@@ -114,4 +114,38 @@ final class EntryCountAnswerTests: XCTestCase {
     XCTAssertEqual(questions.count, at(21))
     XCTAssertEqual(questions.reconciliation, sheetCount.id)
   }
+
+  /// A time set in the panel is kept as it is: the coffee at 02:51 stands before both counts,
+  /// the day's counts ask nothing, and the answer never moves it to the count's time.
+  func testATimeSetInThePanelIsKeptWithoutAQuestion() throws {
+    let model = coffee()
+    model.setDate(at(2, 51), today: day)
+    guard
+      case .answered(let stamp) = model.countAsk(
+        savedAt: at(22, 5), balances: balances(now: at(22, 5)), remembered: [:])
+    else { return XCTFail("a typed time needs no question") }
+    XCTAssertEqual(stamp, at(2, 51))
+    model.stampCount(stamp)
+    XCTAssertEqual(model.draft.occurredAt, at(2, 51))
+  }
+
+  /// «в 2:51» in the line is kept the same way, even when «Нет» was ticked «Больше не
+  /// спрашивать» for the evening count: the answer for the clock's moment never replaces a
+  /// time the owner typed.
+  func testATimeOfTheLineIsKeptEvenWithARememberedAfter() throws {
+    let model = EntryDraftModel(
+      references: references, transactions: transactions, calendar: calendar)
+    model.reload()
+    let reading = CoreLineInterpreter(vocabulary: .empty, calendar: calendar).read(
+      "coffee в 2:51 250", today: day, kind: nil)
+    XCTAssertEqual(reading.timeOfDay, TimeOfDay(hour: 2, minute: 51))
+    model.apply(reading, amount: AmountE4(whole: 250), today: day)
+    model.setPaymentMethod(card.id)
+    guard
+      case .answered(let stamp) = model.countAsk(
+        savedAt: at(22, 5), balances: balances(now: at(22, 5)),
+        remembered: [sheetCount.id: false])
+    else { return XCTFail("a typed time needs no question") }
+    XCTAssertEqual(stamp, at(2, 51))
+  }
 }

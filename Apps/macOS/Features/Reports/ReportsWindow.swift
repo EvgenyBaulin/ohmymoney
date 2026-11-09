@@ -1,8 +1,9 @@
 import AppCore
 import SwiftUI
 
-/// The Reports window: the period, the tables and «Группировать по» in the sidebar, one table
-/// at a time in the middle, «Выгрузить CSV…» in the toolbar.
+/// The Reports screen: the period, the tables and «Группировать по» at the top, one table at a
+/// time below, «Выгрузить CSV…» in the header. A section of the main window on the Mac
+/// («Отчёты» in its sidebar), a page of «Ещё» on the phone.
 ///
 /// The table is built by the core's `ReportBuilder` from the ledger of `ComputeStore` off the
 /// main thread, through `compute(_:)` in `.task(id:)`, never in `body`. The table, the period
@@ -12,9 +13,13 @@ struct ReportsWindow: View {
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.windowWidth) private var windowWidth
   let deps: AppDependencies
+  /// Shown inside the main window (or a window of a section): its minimum width is the
+  /// window's own.
+  let embedded: Bool
 
-  init(deps: AppDependencies) {
+  init(deps: AppDependencies, embedded: Bool = false) {
     self.deps = deps
+    self.embedded = embedded
   }
 
   private var environment: AppEnvironment { deps.environment }
@@ -48,7 +53,7 @@ struct ReportsWindow: View {
     #endif
     .themedWindowBackground()
     .sheet(isPresented: $feesOpen) { BankFeesSheet().handingOver(deps) }
-    .sheetFrame(minWidth: Self.minimumWidth, minHeight: 480)
+    .modifier(MinimumFit(embedded: embedded))
     .task(id: loadKey) { await load() }
     .onChange(of: request) { _, _ in collapsed = [] }
     .journalsSection(selection.kind.journalName, in: .reports)
@@ -70,6 +75,18 @@ struct ReportsWindow: View {
       state.value.map { ReportsPrint.printable($0, environment: environment) }
     }
   #endif
+
+  private struct MinimumFit: ViewModifier {
+    let embedded: Bool
+
+    func body(content: Content) -> some View {
+      if embedded {
+        content
+      } else {
+        content.sheetFrame(minWidth: ReportsWindow.minimumWidth, minHeight: 480)
+      }
+    }
+  }
 
   /// A phone: the table is drawn as a card of plain rows and the header folds to what fits.
   private var isNarrow: Bool { windowWidth > 0 && windowWidth < 640 }
@@ -443,18 +460,34 @@ struct ReportTableView: View {
   }
 
   var body: some View {
+    // The columns differ from one table to another: each gets a table of its own, and the
+    // stage that fills it is made again with it, so a new table starts empty too.
+    ReportTableStage(model: model, collapsed: $collapsed)
+      .id(model.request.kind)
+  }
+}
+
+/// The table, created empty and filled from `onAppear`. A `Table` made with its disclosure rows
+/// expands them inside `makeNSView`, and AppKit touches the table from its own delegate
+/// («reentrant operation»): the lines come one turn later.
+private struct ReportTableStage: View {
+  @Dependency(\.environment) private var environment
+  let model: ReportsModel
+  @Binding var collapsed: Set<String>
+  @State private var filled = false
+
+  var body: some View {
     Table(of: ReportLine.self) {
       columns
     } rows: {
       rows
     }
-    // The columns differ from one table to another: each gets a table of its own.
-    .id(model.request.kind)
+    .onAppear { filled = true }
   }
 
   @TableRowBuilder<ReportLine>
   private var rows: some TableRowContent<ReportLine> {
-    ForEach(model.lines) { line in
+    ForEach(filled ? model.lines : []) { line in
       if line.children.isEmpty {
         TableRow(line)
       } else {
@@ -475,9 +508,9 @@ struct ReportTableView: View {
       })
   }
 
-  private var measures: [MeasureColumn] {
+  private var measures: [ReportTableView.MeasureColumn] {
     model.table.measures.enumerated().map { index, measure in
-      MeasureColumn(index: index, title: ReportsText.column(measure, environment))
+      ReportTableView.MeasureColumn(index: index, title: ReportsText.column(measure, environment))
     }
   }
 

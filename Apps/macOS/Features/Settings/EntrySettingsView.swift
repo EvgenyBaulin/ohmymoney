@@ -31,6 +31,20 @@ struct EntrySettingsView: View {
       .fixedSize()
       .accessibilityIdentifier("settings.entry.style")
       hint("settings.entry.styleHint")
+      Toggle(
+        t("settings.entry.chips"),
+        isOn: Binding(
+          get: { environment.entryChipsShown }, set: { environment.entryChipsShown = $0 })
+      )
+      .accessibilityIdentifier("settings.entry.chips")
+      Toggle(
+        t("settings.entry.historyHints"),
+        isOn: Binding(
+          get: { environment.entryHistoryHintsShown },
+          set: { environment.entryHistoryHintsShown = $0 })
+      )
+      .accessibilityIdentifier("settings.entry.historyHints")
+      hint("settings.entry.hintsHint")
       Divider()
       SmallPurchaseLimitField()
       Divider()

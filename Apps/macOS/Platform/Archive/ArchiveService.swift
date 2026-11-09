@@ -488,6 +488,11 @@ enum ArchiveImportFlow {
     if let style = values[AppEnvironment.entryStyleKey], EntryStyle(rawValue: style) != nil {
       defaults.set(style, forKey: AppEnvironment.entryStyleKey)
     }
+    for key in [AppEnvironment.entryChipsKey, AppEnvironment.entryHistoryHintsKey] {
+      if let flag = values[key], flag == "0" || flag == "1" {
+        defaults.set(flag == "1", forKey: key)
+      }
+    }
     // The tiles of Overview are read as a list the grid can show before they are kept: a tile
     // this build does not know goes.
     if let tiles = values[AppEnvironment.overviewTilesKey] {

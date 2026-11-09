@@ -261,6 +261,18 @@ final class HabitsTests: AccountsScenarioDatabaseCase {
     XCTAssertFalse(BeginnerModeOnMac.enabled(defaults))
   }
 
+  /// The rows of «Ещё» on an iPhone and an iPad are quieted by the same rules as the Mac
+  /// sidebar: the four sections the mode knows, nothing else.
+  func testTheRowsOfMoreAreQuietedByTheSameSections() {
+    XCTAssertEqual(BeginnerModeOnMac.section(of: NavItem.capital), .capital)
+    XCTAssertEqual(BeginnerModeOnMac.section(of: NavItem.debts), .debts)
+    XCTAssertEqual(BeginnerModeOnMac.section(of: NavItem.analytics), .analytics)
+    XCTAssertEqual(BeginnerModeOnMac.section(of: NavItem.reports), .reports)
+    for item in NavItem.allCases where ![.capital, .debts, .analytics, .reports].contains(item) {
+      XCTAssertNil(BeginnerModeOnMac.section(of: item), "\(item)")
+    }
+  }
+
   func testABookInUseNeverGetsTheFirstMonthNorTheBeginnerMode() throws {
     let calendar = environment.calendar
     let long = today.adding(days: -60)

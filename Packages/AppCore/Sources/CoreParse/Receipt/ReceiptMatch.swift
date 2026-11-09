@@ -42,6 +42,10 @@ public struct ReceiptDraft: Hashable, Sendable {
   public var moment: Date
   public var day: DateOnly
   public var time: TimeOfDay
+  /// Operations of the same kind that are close without being the same: the sum differs by a
+  /// rounding or a tip and the moment is within a few hours (`ReceiptMatch.similar`). Offered
+  /// to choose from, never taken for the receipt's own.
+  public var similar: [ReceiptCandidate] = []
 }
 
 public enum ReceiptMatch {
@@ -76,7 +80,44 @@ public enum ReceiptMatch {
       return .supplement(
         first, moment: receipt.moment(in: zone), others: Array(fitting.dropFirst()))
     }
-    return .new(draft(for: receipt, calendar: calendar))
+    var draft = draft(for: receipt, calendar: calendar)
+    draft.similar = similar(to: receipt, among: candidates, calendar: calendar)
+    return .new(draft)
+  }
+
+  /// The largest difference of sums that still looks like the same purchase: a rounding up to
+  /// 10 ₽, or a tip of up to 15 % of the receipt.
+  static func tolerance(of receipt: AmountE4) -> Int64 {
+    max(100_000, receipt.raw * 15 / 100)
+  }
+
+  /// The longest distance between the moment of the receipt and the operation's.
+  static let window: TimeInterval = 12 * 3_600
+
+  /// Operations of the receipt's kind in roubles whose sum is within `tolerance` of the receipt
+  /// (but not the same) and whose moment is within `window` of the receipt's; the nearest sum
+  /// first, then the nearest moment. A suggestion only: the owner picks it.
+  public static func similar(
+    to receipt: ReceiptQR, among candidates: [ReceiptCandidate], calendar: CalendarContext
+  ) -> [ReceiptCandidate] {
+    let moment = receipt.moment(in: calendar)
+    let kind = receipt.operation.transactionKind
+    let allowed = tolerance(of: receipt.amountE4)
+    return
+      candidates
+      .filter { $0.kind == kind && $0.currency == .rub }
+      .compactMap { candidate -> (ReceiptCandidate, Int64, TimeInterval)? in
+        let apart = abs(candidate.amountE4.raw - receipt.amountE4.raw)
+        let distance = abs(candidate.occurredAt.timeIntervalSince(moment))
+        guard apart != 0, apart <= allowed, distance <= window else { return nil }
+        return (candidate, apart, distance)
+      }
+      .sorted {
+        if $0.1 != $1.1 { return $0.1 < $1.1 }
+        if $0.2 != $1.2 { return $0.2 < $1.2 }
+        return $0.0.id.uuidString < $1.0.id.uuidString
+      }
+      .map(\.0)
   }
 
   /// A new operation with the sum, the day and the time of the receipt, on the clock of `calendar`.

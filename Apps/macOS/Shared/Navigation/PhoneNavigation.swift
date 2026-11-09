@@ -41,10 +41,12 @@ enum PhoneNavigation {
     case .calendar: PhoneRoute(tab: .more, more: .calendar)
     case .capital: PhoneRoute(tab: .more, more: .capital)
     case .purchases: PhoneRoute(tab: .more, more: .purchases)
+    case .analytics: PhoneRoute(tab: .more, more: .analytics)
+    case .reports: PhoneRoute(tab: .more, more: .reports)
     }
   }
 
-  /// ⌘1 … ⌘6 of the Mac: the number `.selectSection` carries.
+  /// ⌘1 … ⌘9 of the Mac: the number `.selectSection` carries.
   static func route(forShortcutIndex index: Int) -> PhoneRoute? {
     MainWindow.Section.allCases.first { $0.shortcutIndex == index }.map(route(forSection:))
   }

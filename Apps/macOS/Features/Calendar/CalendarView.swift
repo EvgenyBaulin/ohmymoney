@@ -26,7 +26,6 @@ struct CalendarView: View {
   /// The day under a dragged operation, to show where it would land.
   @State private var dropTarget: DateOnly?
   /// «Только подписки»: the grid gives way to the days subscriptions are charged on.
-  @State private var subscriptionsOnly = false
   /// What the button «Создать событие с бюджетом» said last.
   @State private var giftMessage: String?
 
@@ -90,15 +89,7 @@ struct CalendarView: View {
           .foregroundStyle(.secondary)
           .accessibilityIdentifier("calendar.birthday.message")
       }
-      Toggle(isOn: $subscriptionsOnly) {
-        Text(verbatim: SubscriptionsText.t("subs.calendar.only", environment))
-      }
-      .toggleStyle(.button)
-      .controlSize(.small)
-      .accessibilityIdentifier("calendar.subscriptionsOnly")
-      if subscriptionsOnly {
-        SubscriptionCalendarCard(month: calendar.anchor.monthKey)
-      } else if wide {
+      if wide {
         HStack(alignment: .top, spacing: 16) {
           dayList
             .clipShape(.rect(cornerRadius: 12))

@@ -182,25 +182,16 @@ final class HiddenAmountsTests: XCTestCase {
     view.subviews.flatMap { [$0] + subviews(of: $0) }
   }
 
-  func testTheEyeOnTheToolbarSwitchesTheAmounts() throws {
+  func testTheToolbarHasNoEyeAndTheAmountsStillSwitch() throws {
     try TestEnvironment.requireScreen(width: 1120)
-    try TestEnvironment.requireActiveApp()
     let window = mainWindow()
-    let hide = environment.language("privacy.hideAmounts")
-    let show = environment.language("privacy.showAmounts")
+    XCTAssertNil(
+      eye(in: window, titled: environment.language("privacy.hideAmounts")),
+      "the toolbar keeps what a screen needs; hiding the amounts lives in the menu")
     XCTAssertFalse(environment.amounts.hidesAmounts)
-    let item = try XCTUnwrap(
-      eye(in: window, titled: hide),
-      "the toolbar has no «\(hide)»: \(Self.items(of: window.toolbar?.items ?? []).map(\.label))")
-    // The button of SwiftUI on the toolbar is reached the way VoiceOver reaches it.
-    try TestEnvironment.requireSwiftUIAccessibility()
-    XCTAssertTrue(click(item), "the eye could not be clicked")
-    wait { self.environment.amounts.hidesAmounts }
-    XCTAssertTrue(environment.amounts.hidesAmounts, "the eye did not hide the amounts")
-    wait { self.eye(in: window, titled: show) != nil }
-    let again = try XCTUnwrap(eye(in: window, titled: show), "the eye now offers «\(show)»")
-    XCTAssertTrue(click(again))
-    wait { !self.environment.amounts.hidesAmounts }
-    XCTAssertFalse(environment.amounts.hidesAmounts, "the eye did not show them again")
+    environment.amounts.toggle()
+    XCTAssertTrue(environment.amounts.hidesAmounts)
+    environment.amounts.toggle()
+    XCTAssertFalse(environment.amounts.hidesAmounts)
   }
 }

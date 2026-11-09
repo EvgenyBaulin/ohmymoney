@@ -1,8 +1,8 @@
 import Foundation
 
-/// The sections the bar of the phone and the iPad can carry, in the order an iPad shows them as
-/// its window widens. The Mac has a sidebar and does not use the bar, but the list and the
-/// layout are plain logic and live here so one test covers them on every platform.
+/// The sections the bar of the phone can carry. The Mac and the iPad have a sidebar and do not
+/// use the bar, but the list and the layout are plain logic and live here so one test covers
+/// them on every platform.
 enum NavItem: String, CaseIterable, Hashable, Sendable, Identifiable {
   case overview, operations, planning, accounts, calendar, capital, debts, analytics, goals,
     reports
@@ -53,13 +53,14 @@ enum NavItem: String, CaseIterable, Hashable, Sendable, Identifiable {
   static let defaultPhoneTabs: [NavItem] = [.overview, .operations, .planning, .accounts]
 }
 
-/// Which sections the bar shows and which wait in «Ещё», for a window of a given width.
+/// Which sections the bar shows and which wait in «Ещё», for a window of a given width. An iPad
+/// has no bar: its sections stand in the sidebar (`PadLayout`), all of them.
 struct NavLayout: Equatable, Sendable {
   enum Placement: Equatable, Sendable {
-    /// Full width, at the bottom: a phone, or an iPad window as narrow as one.
+    /// Full width, at the bottom: a phone.
     case bottom
-    /// At the top, no wider than half the window: an iPad.
-    case top
+    /// In the sidebar: an iPad, whatever the width of its window.
+    case sidebar
   }
 
   var placement: Placement
@@ -68,22 +69,6 @@ struct NavLayout: Equatable, Sendable {
 
   /// A phone bar always has this many sections besides «Ещё».
   static let phoneSlots = 4
-  /// Width of one section of the iPad bar, and what is left of it for «Ещё» and the margins.
-  static let slotWidth: Double = 52
-  static let reservedWidth: Double = 146
-  /// The widest share of the window the iPad bar may take.
-  static let widthShare: Double = 0.5
-  /// An iPad window narrower than this (Split View, Slide Over) wears the phone bar.
-  static let padMinimumWidth: Double = 744
-
-  /// How many sections fit on the iPad bar at `width`, «Ещё» not counted.
-  static func padSlots(width: Double) -> Int {
-    let slots = ((widthShare * width - reservedWidth) / slotWidth).rounded(.down)
-    return max(0, min(NavItem.allCases.count, Int(slots)))
-  }
-
-  /// The width the iPad bar takes with `slots` sections.
-  static func padBarWidth(slots: Int) -> Double { Double(slots) * slotWidth + reservedWidth }
 
   /// - Parameters:
   ///   - width: the width of the window, in points.
@@ -92,11 +77,8 @@ struct NavLayout: Equatable, Sendable {
   static func make(
     width: Double, isPad: Bool, phoneTabs: [NavItem] = NavItem.defaultPhoneTabs
   ) -> NavLayout {
-    if isPad && width >= padMinimumWidth {
-      let slots = padSlots(width: width)
-      let all = NavItem.allCases
-      return NavLayout(
-        placement: .top, visible: Array(all.prefix(slots)), more: Array(all.dropFirst(slots)))
+    if isPad {
+      return NavLayout(placement: .sidebar, visible: NavItem.allCases, more: [])
     }
     let chosen = PhoneTabsPreference.validated(phoneTabs) ?? NavItem.defaultPhoneTabs
     return NavLayout(

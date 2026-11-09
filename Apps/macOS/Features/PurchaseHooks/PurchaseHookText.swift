@@ -30,6 +30,8 @@ enum PurchaseHookText {
     "look.purchase.refund", "look.purchase.refundLate", "look.purchase.refundDays",
     "look.purchase.birthday", "look.purchase.birthdayBudget", "look.purchase.birthdayToday",
     "look.purchase.birthdayTodayBudget", "look.purchase.regret", "look.purchase.untitled",
+    "look.purchase.refundNoName", "look.purchase.refundLateNoName", "look.purchase.regretPlace",
+    "look.purchase.regretCategory", "look.purchase.regretDated",
     "look.purchase.action.createEvent", "look.purchase.action.openWishes",
     "look.purchase.action.openRefunds", "look.purchase.action.credited",
     "look.purchase.eventName", "person.birthday", "person.birthday.add", "person.birthday.remove",
@@ -51,22 +53,58 @@ enum PurchaseHookText {
     case .wishReady(_, let name, let price):
       return f("look.purchase.wish", environment, name, money.rounded(price))
     case .refundWaiting(_, let title, let amount, _, let waiting, let late):
-      let name = title.flatMap { $0.isEmpty ? nil : $0 } ?? t("look.purchase.untitled", environment)
-      let base = f(
-        late > 0 ? "look.purchase.refundLate" : "look.purchase.refund", environment, name,
-        money.rounded(amount))
+      // Without a description the refund is told by its sum alone, never by a stub.
+      let name = title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+      let base =
+        name.isEmpty
+        ? f(
+          late > 0 ? "look.purchase.refundLateNoName" : "look.purchase.refundNoName",
+          environment, money.rounded(amount))
+        : f(
+          late > 0 ? "look.purchase.refundLate" : "look.purchase.refund", environment, name,
+          money.rounded(amount))
       let days = environment.language.format(
         "look.purchase.refundDays", table: table, counts: late > 0 ? late : waiting)
       return base + " · " + days
     case .birthday(let day):
       return birthday(day, environment)
     case .regret(let question):
-      let name =
-        question.note.flatMap { $0.isEmpty ? nil : $0 } ?? t("look.purchase.untitled", environment)
-      return f(
-        "look.purchase.regret", environment, name, money.rounded(question.amountRubE4),
-        environment.dates.dayAndMonth(question.boughtOn))
+      return regret(question, environment)
     }
+  }
+
+  /// «Не пожалели о покупке …?»: a purchase is named by its description; without one, by the
+  /// place and the day; without a place, by the category and the day — never by a stub. When
+  /// more questions wait behind it, the line says how many.
+  static func regret(_ question: RegretQuestion, _ environment: AppEnvironment) -> String {
+    let amount = environment.money.rounded(question.amountRubE4)
+    let date = unbroken(environment.dates.dayAndMonth(question.boughtOn))
+    func named(_ text: String?) -> String? {
+      let trimmed = text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+      return trimmed.isEmpty ? nil : trimmed
+    }
+    var line: String
+    if let note = named(question.note) {
+      line = f("look.purchase.regret", environment, note, amount, date)
+    } else if let place = named(question.placeName) {
+      line = f("look.purchase.regretPlace", environment, place, date, amount)
+    } else if let category = named(question.categoryName) {
+      line = f("look.purchase.regretCategory", environment, category, date, amount)
+    } else {
+      line = f("look.purchase.regretDated", environment, date, amount)
+    }
+    if question.waitingMore > 0 {
+      line +=
+        " · "
+        + environment.language.format(
+          "look.purchase.regretMore", table: table, counts: question.waitingMore)
+    }
+    return line
+  }
+
+  /// A day and month that a line break never splits: «3 октября» stays on one line.
+  nonisolated static func unbroken(_ text: String) -> String {
+    text.replacingOccurrences(of: " ", with: "\u{00A0}")
   }
 
   /// «Маше 14 марта, бюджет 5 000 ₽»-style line of a birthday: the name, the day, the budget.

@@ -966,7 +966,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
     let saved = moment(today, 15)
     let balances = countedAt1405(now: saved)
     let editor = editor(of: taxi)
-    editor.draft.setDate(moment(today, 9), today: today)
+    // Only the day moves: a time the owner sets himself asks nothing and stays as he set it.
+    editor.draft.setDate(moment(today, 12), today: today)
 
     // Nothing is written until the owner says whether it was before the count.
     XCTAssertFalse(
@@ -1008,7 +1009,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
     let balances = countedAt1405(now: saved)
     let editor = editor(of: taxi)
     editor.balancesNow = { balances }
-    editor.draft.setDate(moment(today, 9), today: today)
+    // Only the day moves: a time the owner sets himself asks nothing and stays as he set it.
+    editor.draft.setDate(moment(today, 12), today: today)
 
     XCTAssertFalse(editor.save(store: store, environment: environment, now: saved))
     XCTAssertEqual(editor.countQuestion?.count, moment(today, 14, 5))
@@ -1017,7 +1019,7 @@ final class TransactionEditorAccountsTests: XCTestCase {
     // Balances handed in win over the window's.
     let elsewhere = self.editor(of: taxi)
     elsewhere.balancesNow = { balances }
-    elsewhere.draft.setDate(moment(today, 9), today: today)
+    elsewhere.draft.setDate(moment(today, 12), today: today)
     XCTAssertTrue(
       elsewhere.save(store: store, environment: environment, balances: .empty, now: saved))
   }
@@ -1034,7 +1036,7 @@ final class TransactionEditorAccountsTests: XCTestCase {
     let saved = moment(today, 15)
     let balances = countedAt1405(now: saved)
     let editor = editor(of: back)
-    editor.draft.setDate(moment(today, 10), today: today)
+    editor.draft.setDate(moment(today, 12), today: today)
 
     XCTAssertFalse(
       editor.save(store: store, environment: environment, balances: balances, now: saved))
@@ -1210,7 +1212,8 @@ final class TransactionEditorAccountsTests: XCTestCase {
       references: references, transactions: transactions, calendar: calendar,
       editsSavedOperation: true)
     let editor = TransactionEditorModel(entry: taxi, draft: panel)
-    editor.draft.setDate(calendar.moment(today, hour: 16, minute: 0), today: today)
+    // Only the day moves: a time the owner sets himself asks nothing and stays as he set it.
+    editor.draft.setDate(calendar.moment(today, hour: 20, minute: 0), today: today)
 
     XCTAssertFalse(editor.save(store: store, environment: app, balances: balances, now: saved))
     XCTAssertEqual(editor.countQuestion?.count, early, "the earlier count is asked first")

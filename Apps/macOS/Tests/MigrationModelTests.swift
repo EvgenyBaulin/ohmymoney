@@ -315,11 +315,12 @@ final class MigrationModelTests: XCTestCase {
     try await reload()
     let statements = StatementImportModel(
       environment: environment, store: store, dataset: { [unowned self] in self.dataset })
-    let text = ([Self.bankHeader] + [
-      bankPurchase("14.09.2026", "251,0", "SAMPLE CAFE"),
-      bankPurchase("15.09.2026", "300,0", "SAMPLE LUNCH"),
-      bankPurchase("16.09.2026", "999,0", "SAMPLE SHOP"),
-    ]).joined(separator: "\n") + "\n"
+    let text =
+      ([Self.bankHeader] + [
+        bankPurchase("14.09.2026", "251,0", "SAMPLE CAFE"),
+        bankPurchase("15.09.2026", "300,0", "SAMPLE LUNCH"),
+        bankPurchase("16.09.2026", "999,0", "SAMPLE SHOP"),
+      ]).joined(separator: "\n") + "\n"
     let url = directory.appendingPathComponent("bank.csv")
     try Data(("\u{FEFF}" + text).utf8).write(to: url)
     await statements.add(urls: [url])
@@ -328,7 +329,8 @@ final class MigrationModelTests: XCTestCase {
     XCTAssertEqual(statements.outcome?.merged, 2)
     XCTAssertEqual(statements.outcome?.created, 1)
     let live = try liveOperations()
-    XCTAssertEqual(live.count, 3, "the bank lines completed the moved ones instead of doubling them")
+    XCTAssertEqual(
+      live.count, 3, "the bank lines completed the moved ones instead of doubling them")
     // The moved operation keeps its category and name and takes the bank's amount.
     let coffee = try XCTUnwrap(live.first { $0.transaction.note == "Кофе" })
     XCTAssertEqual(coffee.transaction.amountE4, AmountE4(whole: 251))

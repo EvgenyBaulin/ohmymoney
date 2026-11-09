@@ -310,6 +310,26 @@ final class AttachmentsSectionTests: XCTestCase {
 
   // MARK: Words
 
+  func testDeleteNowAsksBeforeDeleting() throws {
+    let file = AttachedFile(
+      ownerKind: .transaction, ownerId: UUID(), contentHash: String(repeating: "a", count: 64),
+      fileName: "x.pdf", byteSize: 1)
+    var deleted: [UUID] = []
+    var request = TrashDeletionRequest()
+    request.ask(file)
+    XCTAssertEqual(request.pending, file)
+    XCTAssertTrue(deleted.isEmpty, "asking must not delete")
+    request.cancel()
+    try request.confirm { deleted += $0 }
+    XCTAssertTrue(deleted.isEmpty, "a cancelled question deletes nothing")
+    request.ask(file)
+    try request.confirm { deleted += $0 }
+    XCTAssertEqual(deleted, [file.id])
+    XCTAssertNil(request.pending)
+    try request.confirm { deleted += $0 }
+    XCTAssertEqual(deleted, [file.id], "a second confirm has nothing to delete")
+  }
+
   func testEveryWordOfTheAttachmentsHasBothLanguages() {
     let keys = [
       "att.title", "att.add", "att.add.file", "att.add.photo", "att.add.camera", "att.empty",
@@ -323,7 +343,8 @@ final class AttachmentsSectionTests: XCTestCase {
       "att.settings.trashWord", "att.settings.footer", "att.settings.files",
       "att.settings.size", "att.settings.inTrash", "att.settings.openTrash", "att.trash.title",
       "att.trash.empty", "att.trash.restore", "att.trash.deleteNow", "att.trash.emptyAll",
-      "att.trash.confirm", "att.trash.confirmHint", "att.trash.daysLeft", "att.archive.with",
+      "att.trash.confirm", "att.trash.confirmOne", "att.trash.confirmHint", "att.trash.daysLeft",
+      "att.archive.with",
       "att.archive.partial", "att.import.without",
     ]
     for code in ["ru", "en"] {

@@ -217,7 +217,7 @@ public enum GuideCatalog {
         title: GuideText("Поменяйте категорию операции", "Change the category of an operation"),
         hints: [
           open(
-            GuideTarget.sidebarOperations, "Операции", "Transactions", keys: "⌘4",
+            GuideTarget.sidebarOperations, "Операции", "Transactions", keys: "⌘2",
             why: GuideText("Здесь все операции, новые сверху.", "Every operation, newest first.")),
           GuideHint(
             target: GuideTarget.operationsList,
@@ -235,7 +235,7 @@ public enum GuideCatalog {
         title: GuideText("Найдите трату за прошлую неделю", "Find an expense from last week"),
         hints: [
           open(
-            GuideTarget.sidebarOperations, "Операции", "Transactions", keys: "⌘4",
+            GuideTarget.sidebarOperations, "Операции", "Transactions", keys: "⌘2",
             why: GuideText("Поиск — вверху списка.", "The search is at the top of the list.")),
           GuideHint(
             target: GuideTarget.operationsSearch,
@@ -251,7 +251,7 @@ public enum GuideCatalog {
         title: GuideText("Заведите платёж по подписке", "Add a subscription payment"),
         hints: [
           open(
-            GuideTarget.sidebarPlanning, "Планирование", "Planning", keys: "⌘2",
+            GuideTarget.sidebarPlanning, "Планирование", "Planning", keys: "⌘3",
             why: GuideText(
               "Здесь платежи, подписки, лимиты и цели.",
               "Payments, subscriptions, limits and goals live here.")),
@@ -271,8 +271,8 @@ public enum GuideCatalog {
           GuideHint(
             target: GuideTarget.toolbarReconcile,
             text: GuideText(
-              "Нажмите «Сверка» на панели инструментов вверху окна",
-              "Press Count in the toolbar at the top of the window"),
+              "Выберите «Вид» → «Сверка» в строке меню",
+              "Choose View → Count in the menu bar"),
             why: GuideText(
               "Впишите, сколько денег на счёте на самом деле, — разница станет видна сразу.",
               "Write what the account really holds, and any difference shows at once."))
@@ -284,7 +284,7 @@ public enum GuideCatalog {
           "Посмотрите, сколько свободно до конца месяца", "See what is free to spend this month"),
         hints: [
           open(
-            GuideTarget.sidebarPlanning, "Планирование", "Planning", keys: "⌘2",
+            GuideTarget.sidebarPlanning, "Планирование", "Planning", keys: "⌘3",
             why: GuideText(
               "Свободная сумма — в начале экрана.", "The free sum is at the top of the screen.")),
           GuideHint(
@@ -333,7 +333,7 @@ public enum GuideCatalog {
         title: GuideText("Заведите кредит или долг", "Add a loan or a debt"),
         hints: [
           open(
-            GuideTarget.sidebarDebts, "Долги", "Debts", keys: "⌘3",
+            GuideTarget.sidebarDebts, "Долги", "Debts", keys: "⌘6",
             why: GuideText(
               "Здесь «Я должен» и «Мне должны».", "«I owe» and «Owed to me» live here.")),
           GuideHint(
@@ -350,7 +350,7 @@ public enum GuideCatalog {
         title: GuideText("Заведите цель «Подушка»", "Add a goal «Cushion»"),
         hints: [
           open(
-            GuideTarget.sidebarPlanning, "Планирование", "Planning", keys: "⌘2",
+            GuideTarget.sidebarPlanning, "Планирование", "Planning", keys: "⌘3",
             why: GuideText("Цели — внизу экрана.", "Goals are further down the screen.")),
           GuideHint(
             target: GuideTarget.planningAddGoal,
@@ -430,49 +430,62 @@ public enum GuideCatalog {
       target: GuideTarget.sidebarOverview, text: GuideText("Обзор", "Overview"),
       why: GuideText("Месяц одним взглядом.", "The month at a glance."), keys: "⌘1"),
     GuideHint(
-      target: GuideTarget.sidebarPlanning, text: GuideText("Планирование", "Planning"),
-      why: GuideText(
-        "Платежи, подписки, лимиты, цели и свободная сумма.",
-        "Payments, subscriptions, limits, goals and the free sum."),
-      keys: "⌘2"),
-    GuideHint(
-      target: GuideTarget.sidebarDebts, text: GuideText("Долги", "Debts"),
-      why: GuideText("Кому должны вы и кто должен вам.", "Whom you owe and who owes you."),
-      keys: "⌘3"),
-    GuideHint(
       target: GuideTarget.sidebarOperations, text: GuideText("Операции", "Transactions"),
       why: GuideText(
         "Все операции списком и поиск по истории.",
         "Every operation in a list and a search through the history."),
-      keys: "⌘4"),
+      keys: "⌘2"),
+    GuideHint(
+      target: GuideTarget.sidebarPlanning, text: GuideText("Планирование", "Planning"),
+      why: GuideText(
+        "Платежи, подписки, лимиты, цели и свободная сумма.",
+        "Payments, subscriptions, limits, goals and the free sum."),
+      keys: "⌘3"),
     GuideHint(
       target: GuideTarget.sidebarCalendar, text: GuideText("Календарь", "Calendar"),
       why: GuideText(
         "Сколько стоил каждый день и какие платежи впереди.",
         "What each day cost and which payments are ahead."),
-      keys: "⌘5"),
+      keys: "⌘4"),
     GuideHint(
       target: GuideTarget.sidebarCapital, text: GuideText("Капитал", "Capital"),
       why: GuideText(
         "Что есть минус что должны, по месяцам.", "What you have minus what you owe, by month."),
+      keys: "⌘5"),
+    GuideHint(
+      target: GuideTarget.sidebarDebts, text: GuideText("Долги", "Debts"),
+      why: GuideText("Кому должны вы и кто должен вам.", "Whom you owe and who owes you."),
       keys: "⌘6"),
     GuideHint(
-      target: GuideTarget.toolbarTransactions,
-      text: GuideText(
-        "Таблица операций — на панели вверху", "The table of operations — in the toolbar"),
+      target: GuideTarget.sidebarPurchases, text: GuideText("Покупки", "Purchases"),
       why: GuideText(
-        "Все операции с фильтрами и правкой нескольких сразу.",
-        "Every operation with filters and editing many at once."),
-      keys: "⌘⇧T"),
+        "Список покупок, подарки, вещи и гарантии.",
+        "The shopping list, gifts, belongings and warranties."),
+      keys: "⌘7"),
+    GuideHint(
+      target: GuideTarget.sidebarAnalytics, text: GuideText("Аналитика", "Analytics"),
+      why: GuideText(
+        "Куда уходят деньги: разрезы, прогноз и аномалии.",
+        "Where the money goes: breakdowns, the forecast and anomalies."),
+      keys: "⌘8"),
+    GuideHint(
+      target: GuideTarget.sidebarReports, text: GuideText("Отчёты", "Reports"),
+      why: GuideText(
+        "Таблицы за любой период и выгрузка в файл.",
+        "Tables for any period and an export to a file."),
+      keys: "⌘9"),
     GuideHint(
       target: GuideTarget.toolbarReconcile,
-      text: GuideText("Сверка остатка — на панели вверху", "Count the balance — in the toolbar"),
+      text: GuideText(
+        "Сверка остатка — в меню «Вид»", "Count the balance — in the View menu"),
       why: GuideText(
         "Впишите, сколько денег на самом деле, — разница видна сразу.",
-        "Write what you really have, and any difference shows at once.")),
+        "Write what you really have, and any difference shows at once."),
+      keys: "⌥⌘R"),
     GuideHint(
       target: GuideTarget.toolbarSettings,
-      text: GuideText("Настройки — на панели вверху", "Settings — in the toolbar"),
+      text: GuideText(
+        "Настройки — внизу боковой панели", "Settings — at the foot of the sidebar"),
       why: GuideText(
         "Счета, категории, валюты, оформление.", "Accounts, categories, currencies, appearance."),
       keys: "⌘,"),
@@ -488,6 +501,9 @@ public enum GuideCatalog {
     whatsNew113,
     whatsNew27,
     whatsNew28,
+    whatsNew29,
+    whatsNew211,
+    whatsNew213,
   ]
 
   public static let whatsNew14 = GuideScenario(
@@ -567,8 +583,8 @@ public enum GuideCatalog {
         id: "new15.calendar",
         title: GuideText("Календарь трат", "A spending calendar"),
         body: GuideText(
-          "Месяц или неделя: сколько потрачено в каждый день, дорогие дни отмечены, впереди — платежи. ⌘5.",
-          "A month or a week: what each day cost, costly days marked, payments ahead. ⌘5."),
+          "Месяц или неделя: сколько потрачено в каждый день, дорогие дни отмечены, впереди — платежи. ⌘4.",
+          "A month or a week: what each day cost, costly days marked, payments ahead. ⌘4."),
         symbol: "calendar", target: GuideTarget.sidebarCalendar),
       GuideCard(
         id: "new15.hide",
@@ -652,8 +668,8 @@ public enum GuideCatalog {
         id: "new17.capital",
         title: GuideText("Капитал", "Capital"),
         body: GuideText(
-          "Что есть минус что должен: счета, вклады, имущество и долги — и график по концам месяцев. ⌘6.",
-          "What you have minus what you owe: accounts, deposits, property and debts, with a chart of month ends. ⌘6."
+          "Что есть минус что должен: счета, вклады, имущество и долги — и график по концам месяцев. ⌘5.",
+          "What you have minus what you owe: accounts, deposits, property and debts, with a chart of month ends. ⌘5."
         ),
         symbol: "building.columns", target: GuideTarget.sidebarCapital),
       GuideCard(

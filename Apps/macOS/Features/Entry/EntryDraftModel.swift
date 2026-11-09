@@ -158,6 +158,9 @@ public final class EntryDraftModel {
   /// it is saved — the draft is made when the line appears or right after the last save, and
   /// may wait hours for the next one.
   private var dateFollowsTheClock = true
+  /// The owner typed the time of the operation — «в 2:51» in the line, or the time in the
+  /// panel: a count of its day never moves it, it already stands before the count or after it.
+  private var momentIsExact = false
   /// The payment method the defaults last chose — of the place, otherwise the default one.
   /// While the draft still holds it, a better default replaces it (another place was chosen);
   /// a method the line named or the owner picked is never replaced.
@@ -810,6 +813,7 @@ public final class EntryDraftModel {
       draft.occurredAt = occurredAt(for: parsed.date, at: timeOfTheLine, today: today)
       dateFromTheLine = draft.occurredAt
       dateFollowsTheClock = timeOfTheLine == nil && (parsed.date == nil || parsed.date == today)
+      momentIsExact = timeOfTheLine != nil
     }
     suggestedPersonName = parsed.unknownPersonName
     suggestedPlaceName = parsed.unknownPlaceName
@@ -2111,7 +2115,7 @@ public final class EntryDraftModel {
       of: entry, mainId: paymentMethods.first(where: \.isDefault)?.id, tree: categoryTree)
     return AccountReconciliation.countToAsk(
       occurredAt: draft.occurredAt, savedAt: savedAt, keys: keys, balances: balances,
-      calendar: calendar, remembered: remembered)
+      calendar: calendar, remembered: remembered, momentIsExact: momentIsExact)
   }
 
   /// The moment the answers about the counts gave: the operation is saved at it, and the save
@@ -2138,10 +2142,16 @@ public final class EntryDraftModel {
     answeredCount = count
   }
 
+  private func timeOfDay(of moment: Date) -> TimeInterval {
+    moment.timeIntervalSince(calendar.startOfDay(calendar.day(of: moment)))
+  }
+
   /// A new date is a new day: the event covering it is offered instead of the old one's.
   public func setDate(_ date: Date, today: DateOnly) {
     guard draft.occurredAt != date else { return }
     noteTheOpenedDraft()
+    // Only a changed time of day is the owner's word: moving the day keeps the clock's time.
+    if timeOfDay(of: date) != timeOfDay(of: draft.occurredAt) { momentIsExact = true }
     draft.occurredAt = date
     applyDefaults(today: today)
   }
@@ -3155,6 +3165,7 @@ public final class EntryDraftModel {
     dateFromTheLine = draft.occurredAt
     amountFromTheLine = nil
     dateFollowsTheClock = true
+    momentIsExact = false
     paymentMethodFromDefaults = nil
     forWhomFromDefaults = .me
     // So were the suggestions: the event, the chips, where each came from, what the model said.

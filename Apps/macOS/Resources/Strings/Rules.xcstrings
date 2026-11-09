@@ -86,6 +86,23 @@
         }
       }
     },
+    "backfill.hint.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is what the rules would change in the operations already written. Nothing is written until «Apply»; one “Undo” takes everything back. Operations you edited by hand are unticked: your decision is worth more than a rule."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вот что правила изменили бы в уже записанных операциях. Пока вы не нажмёте «Применить», ничего не пишется; один «Отменить» вернёт всё. Операции, которые вы правили руками, не отмечены: ваше решение ценнее правила."
+          }
+        }
+      }
+    },
     "backfill.line.category": {
       "extractionState": "manual",
       "localizations": {
@@ -167,6 +184,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запись ещё идёт. Она появится через мгновение; ⌘Z вернёт её."
+          }
+        }
+      }
+    },
+    "backfill.notLanded.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The write is still on its way. It will show in a moment; “Undo” takes it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запись ещё идёт. Она появится через мгновение; «Отменить» вернёт её."
           }
         }
       }
@@ -373,6 +407,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "⌘Z вернёт всё одним шагом, вместе с прежними датами правки."
+          }
+        }
+      }
+    },
+    "backfill.undoHint.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Undo” takes it all back in one step, with the dates of the last edit as they were."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Отменить» вернёт всё одним шагом, вместе с прежними датами правки."
           }
         }
       }
@@ -1104,6 +1155,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "⌘Z вернёт правила, а затем теги. Добавленные категории остаются: уберите их в настройках, если не нужны."
+          }
+        }
+      }
+    },
+    "exchange.import.undoHint.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Undo” takes back the rules, then the tags. Added categories stay: remove them in the settings if you do not need them."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Отменить» вернёт правила, а затем теги. Добавленные категории остаются: уберите их в настройках, если не нужны."
           }
         }
       }

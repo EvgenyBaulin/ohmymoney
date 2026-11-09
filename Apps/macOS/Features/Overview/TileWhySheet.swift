@@ -568,7 +568,7 @@ enum TileWhyNavigation {
           forKey: AnalyticsWindow.periodKey)
       }
       #if os(macOS)
-        if let openWindow { AppWindows.open("analytics", with: openWindow) }
+        if let openWindow { OperationsScreenOpening.open(.analytics, with: openWindow) }
       #else
         NotificationCenter.default.post(name: .openAppScreen, object: AppScreen.analytics)
       #endif

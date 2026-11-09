@@ -1,3 +1,4 @@
+import AppCore
 import Foundation
 import Observation
 import SwiftUI
@@ -169,6 +170,25 @@ public final class AppTheme {
     }
   }
 
+  /// How numbers are written (`NumberStyle`, `app.numberStyle`; Settings → General → «Запись
+  /// чисел»). Setting it also sets `NumberText.style`, which every number the interface writes
+  /// reads. This device only, never in the archive or the CSV; the test host does not store it.
+  public var numberStyle: NumberStyle {
+    didSet {
+      guard numberStyle != oldValue else { return }
+      NumberText.style = numberStyle
+      habits?.set(numberStyle.rawValue, forKey: Self.numberStyleKey)
+    }
+  }
+
+  /// The key of `UserDefaults` for `numberStyle`.
+  public static let numberStyleKey = "app.numberStyle"
+
+  /// The style kept in `defaults`; the point style for nothing or a word this build does not know.
+  public static func storedNumberStyle(in defaults: UserDefaults?) -> NumberStyle {
+    defaults?.string(forKey: numberStyleKey).flatMap(NumberStyle.init(rawValue:)) ?? .point
+  }
+
   /// Where the size of the text and the style of the currency are kept: nil in the test host.
   @ObservationIgnored private let habits: UserDefaults?
 
@@ -180,6 +200,8 @@ public final class AppTheme {
     habits = AppEnvironment.isTestHost ? nil : defaults
     fontSize = AppFontSize.stored(in: habits)
     currencyStyle = CurrencyStyle.stored(in: habits)
+    numberStyle = Self.storedNumberStyle(in: habits)
+    NumberText.style = numberStyle
   }
 
   /// Light or dark, for the whole application. It reaches the alerts and the open/save panels

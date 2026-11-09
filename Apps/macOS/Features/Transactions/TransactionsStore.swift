@@ -134,6 +134,12 @@ public final class TransactionsStore {
   /// What the last rules applied to the past wrote (`TransactionsStore+Spending`).
   @ObservationIgnored let backfillBox = BackfillBox()
   private var undoStack: [UndoStep] = []
+  /// What ⇧⌘Z puts back: the writes ⌘Z took back, the newest undone first. Only a step that can
+  /// be replayed through the store's own write leaves one (`RedoStep`); undoing any other step,
+  /// or writing anything new, empties it.
+  private var redoStack: [RedoStep] = []
+  /// A redo is replaying its write: the steps that write pushes do not empty `redoStack`.
+  private var isRedoing = false
   /// How far back ⌘Z reaches; a test sets smaller numbers.
   @ObservationIgnored var undoDepth = UndoDepth()
   /// Moves on every time the history is forgotten. A bulk write that set off before that
@@ -199,6 +205,21 @@ public final class TransactionsStore {
       case .later(let step): step.size
       }
     }
+  }
+
+  /// A write ⌘Z took back that ⇧⌘Z can make again by the same path it was first made.
+  enum RedoStep: Sendable {
+    /// An operation created or edited: written again as it was.
+    case save(TransactionEntry)
+    /// A deletion: the same operations deleted again, with whatever the rules take along.
+    case delete([UUID])
+    /// An action of planning (or an account merge or deletion): the same change written again.
+    case apply(PlanningChange)
+    /// A bulk change: the operations as the change left them, written over the rows again.
+    case bulk([TransactionEntry])
+    /// A write of the spending screens: `inverse` makes the change again, `original` is the step
+    /// of ⌘Z that takes it back once it is made.
+    case spending(inverse: SpendingUndo, original: UndoStep)
   }
 
   /// What a write leaves behind once it has landed: the step that takes it back — none for
@@ -1206,11 +1227,17 @@ public final class TransactionsStore {
     !undoStack.isEmpty && !isWritingInBackground && isReadOnly?() != true
   }
 
+  /// Whether ⇧⌘Z has an undone write to make again; off exactly where ⌘Z is.
+  public var canRedo: Bool {
+    !redoStack.isEmpty && !isWritingInBackground && isReadOnly?() != true
+  }
+
   /// Undo steps only make sense against the database they were taken from, and only up to
   /// a write that ⌘Z cannot describe (a reimbursement, a part written off). A bulk write
   /// still on its way was asked for before it and is forgotten with the rest when it lands.
   public func forgetUndoHistory() {
     undoStack.removeAll()
+    redoStack.removeAll()
     undoEpoch += 1
   }
 
@@ -1227,6 +1254,7 @@ public final class TransactionsStore {
     guard let repository, !isWritingInBackground, let step = undoStack.last else { return }
     if Self.writesInBackground(step.size) {
       undoStack.removeLast()
+      redoStack.removeAll()
       let (planning, spending, imports) = (planning, spending, imports)
       runInBackground(.undo, file: file, undone: step) {
         Landed(
@@ -1239,14 +1267,22 @@ public final class TransactionsStore {
     }
     do {
       let write: StoreWrite
+      var redo: RedoStep?
       switch step {
       case .created(let id, let counts):
+        // The row is gone for good once purged: what redo writes again is read first.
+        redo = try repository.entry(id: id).map { .save($0) }
         let back = try repository.purge(id: id, templates: counts.operationsBefore)
         write = Self.laid(back, over: StoreWrite(removed: [id]))
       case .edited(let change):
+        // An edit that reached journal lines, money back or transfers cannot be made again by
+        // saving the operation.
+        redo = change.reachesBeyondTheOperation ? nil : .save(change.after)
         let back = try repository.revert(change)
         write = Self.laid(back, over: Self.revertedEdit(change))
       case .editedMany(let before, let counts):
+        // What the change left, kept for ⇧⌘Z before the rows go back.
+        redo = .bulk(try repository.entries(ids: before.map(\.id)))
         // My change is taken back from the rows as they are now: a part written off or a
         // rate refined since the change stays as it is.
         let snapshots = Self.byId(before)
@@ -1276,6 +1312,7 @@ public final class TransactionsStore {
           back,
           over: StoreWrite(upserted: changed.compactMap { reverted[$0.id] }, planningChanged: true))
       case .deletedMany(let ids, let effects):
+        redo = .delete(ids)
         let back = try repository.restore(ids: ids, effects: effects)
         // What comes back is whatever the rows are now; the few of them are read again.
         let restored = try repository.entries(ids: ids + effects.companionIds)
@@ -1287,6 +1324,7 @@ public final class TransactionsStore {
       case .planned(let undo):
         guard let planning else { return }
         let counts = try planning.revert(undo)
+        redo = undo.change.map { .apply($0) }
         let back = Self.broughtBack(by: undo)
         var readBack: [TransactionEntry] = []
         if !back.isEmpty { readBack = try repository.entries(ids: back) }
@@ -1297,6 +1335,9 @@ public final class TransactionsStore {
         write = Self.laid(counts, over: Self.revertedMoneyBack(recorded, readBack: readBack))
       case .spending(let undo):
         guard let spending else { return }
+        if let inverse = try undo.reapplying(spending: spending) {
+          redo = .spending(inverse: inverse, original: step)
+        }
         write = try undo.revert(spending: spending, transactions: repository)
       case .later(let undo):
         write = try undo.revert(
@@ -1313,10 +1354,48 @@ public final class TransactionsStore {
       }
       // Nothing else runs on the main actor meanwhile: the step is still the last one.
       undoStack.removeLast()
+      // A step that cannot be made again breaks the chain: the ones undone before it would
+      // be replayed over a state they were not taken from.
+      if let redo { redoStack.append(redo) } else { redoStack.removeAll() }
       finishWrite(write)
     } catch {
       failed(.undo, error, file: file)
     }
+  }
+
+  /// ⇧⌘Z. The newest write ⌘Z took back is made again through the store's own write, so the
+  /// counts, the backup and the journal follow it, and it is one step of ⌘Z like the first
+  /// time. A replay that fails empties the chain.
+  public func redo(file: String = #fileID) {
+    guard !refuses("redo", file), !isWritingInBackground, let step = redoStack.last else {
+      return
+    }
+    redoStack.removeLast()
+    isRedoing = true
+    defer { isRedoing = false }
+    let landed: Bool
+    switch step {
+    case .save(let entry): landed = save(entry, file: file)
+    case .delete(let ids): landed = delete(ids: ids, file: file)
+    case .apply(let change): landed = apply(change, file: file)
+    case .bulk(let after):
+      let snapshots = Self.byId(after)
+      landed = modifyMany(after.map(\.id), file: file) { fresh in
+        snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
+      }
+    case .spending(let inverse, let original):
+      do {
+        guard let spending, let repository else { throw PlanningUndoUnavailable() }
+        let write = try inverse.revert(spending: spending, transactions: repository)
+        push(original)
+        finishWrite(write)
+        landed = true
+      } catch {
+        failed(.change, error, file: file)
+        landed = false
+      }
+    }
+    if !landed { redoStack.removeAll() }
   }
 
   /// The undo of a bulk step too large for the main thread: the same rules, awaited. Only
@@ -1472,6 +1551,7 @@ public final class TransactionsStore {
   /// Puts a step at `slot`, unless the history was forgotten since.
   private func keep(_ step: UndoStep, at slot: Int, epoch: Int) {
     guard epoch == undoEpoch else { return }
+    if !isRedoing { redoStack.removeAll() }
     // Nothing is popped or trimmed while a bulk write is on its way, and forgetting moves
     // the epoch, so the slot is still inside the stack; `min` only keeps it so.
     undoStack.insert(step, at: min(slot, undoStack.count))
@@ -1480,6 +1560,7 @@ public final class TransactionsStore {
 
   /// Keeps the step of a write that has just landed on the main thread.
   private func push(_ step: UndoStep) {
+    if !isRedoing { redoStack.removeAll() }
     undoStack.append(step)
     trimUndoHistory()
   }

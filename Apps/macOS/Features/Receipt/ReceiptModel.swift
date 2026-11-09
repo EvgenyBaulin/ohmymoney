@@ -141,6 +141,22 @@ final class ReceiptModel {
     return [first] + others
   }
 
+  /// Operations that nearly fit (a rounding, a tip) when none fits exactly: offered, never chosen
+  /// for the owner.
+  var similar: [ReceiptCandidate] {
+    guard case .new(let draft) = proposal, !wantsNew else { return [] }
+    return draft.similar
+  }
+
+  /// The owner picked a similar operation: the time goes to it like to an exact match.
+  func useSimilar(_ id: UUID) {
+    guard let receipt, let found = similar.first(where: { $0.id == id }) else { return }
+    let zone = CalendarContext(timeZone: environment.calendar.zone(recordedIn: found.timeZoneId))
+    proposal = .supplement(found, moment: receipt.moment(in: zone), others: [])
+    wantsNew = false
+    chosenId = id
+  }
+
   var isSupplementing: Bool { !wantsNew && !choices.isEmpty }
 
   /// A refund the books have no refund for is not made out of thin air: a refund is always of a
