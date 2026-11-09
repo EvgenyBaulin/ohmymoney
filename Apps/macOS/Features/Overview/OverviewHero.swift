@@ -1,10 +1,10 @@
 import AppCore
 import SwiftUI
 
-/// «Можно тратить сейчас» on the theme's hero gradient, over the groups of tiles on a phone or a
-/// tablet: the one figure of the screen, the free sum with its sentence about the day. The
+/// The configured free sum on the theme's hero gradient, over the tiles on a phone or a
+/// tablet: the money left after commitments through the selected horizon. The
 /// «Свободные средства» tile keeps the terms it is made of. Content, never glass; the figures
-/// are the core's, only put into words (`PlanningHero`).
+/// are the core's, only put into words.
 struct OverviewHero: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
@@ -26,9 +26,30 @@ struct OverviewHero: View {
     return line.map { "\($0) · \(partHidden)" } ?? partHidden
   }
 
+  @MainActor
+  static func content(
+    free: FreeMoney, horizon: FreeMoneyHorizon, _ environment: AppEnvironment
+  ) -> PlanningHero.Content? {
+    guard free.state == .ready, let amount = free.grey else { return nil }
+    let figure = environment.money.rounded(amount)
+    let daily = environment.money.rubles(free.dailyRubles)
+    let line =
+      horizon == .nearestIncome
+      ? environment.format(
+        "free.half", table: "Planning", PlanningBlockText.dayText(free.until, environment),
+        figure, daily)
+      : environment.format("free.perDay", table: "Planning", daily, free.days)
+    return PlanningHero.Content(
+      caption: environment.language(
+        horizon == .thirtyDays ? "free.now" : "free.untilIncome", table: "Planning"),
+      figure: figure, lines: [line])
+  }
+
   var body: some View {
     if let snapshot = compute.snapshot,
-      let content = PlanningHero.make(free: snapshot.planning.freeMoney, environment: environment)
+      let content = Self.content(
+        free: snapshot.planning.configuredFreeMoney(ledger: snapshot.ledger),
+        horizon: snapshot.planning.book.settings.freeMoneyHorizon, environment)
     {
       PhoneHeroCard(
         caption: content.caption, figure: content.figure,

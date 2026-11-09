@@ -219,7 +219,7 @@ extension PlanningSettings {
     reconcileEveryDaysKey, savingsTargetKey, reserveGoalPlanKey, reserveEventBudgetsKey,
     reconcileIncludesGoalSavingsKey, dismissedRemindersKey, limitsTopNKey,
     scheduledMatchRejectionsKey, goalSavingsValuationKey, firstCountKeptKey,
-    beforeCountAnswersKey,
+    beforeCountAnswersKey, freeMoneyHorizonKey,
   ]
 
   /// Every key the planning settings are read from: their own, and the categories of the
@@ -255,7 +255,10 @@ extension PlanningSettings {
       reconcileExpenseCategoryId: values[Self.reconcileExpenseCategoryKey].flatMap(Self.id),
       reconcileIncomeCategoryId: values[Self.reconcileIncomeCategoryKey].flatMap(Self.id),
       reserveEventBudgets: values[Self.reserveEventBudgetsKey].flatMap(Self.switchValue)
-        ?? defaults.reserveEventBudgets)
+        ?? defaults.reserveEventBudgets,
+      freeMoneyHorizon: values[Self.freeMoneyHorizonKey]
+        .flatMap { FreeMoneyHorizon(rawValue: $0.trimmingCharacters(in: .whitespaces)) }
+        ?? defaults.freeMoneyHorizon)
   }
 
   /// The rows to write, ready for `PlanningChange.settings`. No dismissed reminder deletes
@@ -272,6 +275,7 @@ extension PlanningSettings {
       Self.savingsTargetKey: String(savingsTargetBp),
       Self.reserveGoalPlanKey: reserveGoalPlan ? "1" : "0",
       Self.reserveEventBudgetsKey: reserveEventBudgets ? "1" : "0",
+      Self.freeMoneyHorizonKey: freeMoneyHorizon.rawValue,
       Self.reconcileIncludesGoalSavingsKey: reconcileIncludesGoalSavings ? "1" : "0",
       Self.dismissedRemindersKey: dismissed.isEmpty ? nil : dismissed.joined(separator: "\n"),
       Self.limitsTopNKey: limitsTopN.map { String($0) } ?? Self.allLimits,

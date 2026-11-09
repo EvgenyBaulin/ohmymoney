@@ -11,6 +11,22 @@ import Testing
 /// categories of the reconciliation, which the planning only reads.
 @Suite("The planning reads its new settings from the database")
 struct PlanningSettingsTwelveTests {
+  @Test func freeMoneyHorizonUsesDefaultsAndPreservesTheStoredChoice() throws {
+    let stack = try TestSupport.makeStack()
+    let settings = SettingsRepository(writer: stack.writer)
+    let repository = PlanningRepository(writer: stack.writer)
+    #expect(try repository.book().settings.freeMoneyHorizon == .thirtyDays)
+    for horizon in FreeMoneyHorizon.allCases {
+      let undo = try repository.apply(
+        PlanningChange(settings: [PlanningSettings.freeMoneyHorizonKey: horizon.rawValue]))
+      #expect(try repository.book().settings.freeMoneyHorizon == horizon)
+      try repository.revert(undo)
+      #expect(try repository.book().settings.freeMoneyHorizon == .thirtyDays)
+    }
+    try settings.set(PlanningSettings.freeMoneyHorizonKey, to: "unknown")
+    #expect(try repository.book().settings.freeMoneyHorizon == .thirtyDays)
+  }
+
   /// Written through a change of the planning — one step of ⌘Z — and read back by the book;
   /// ⌘Z takes them away again.
   @Test func theThreeKeysRoundTripThroughTheBook() throws {

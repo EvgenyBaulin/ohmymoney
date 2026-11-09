@@ -299,8 +299,16 @@ public struct ReconciledBalance: Identifiable, Hashable, Sendable, Codable {
   public var isStartingPoint: Bool { expectedE4 == nil }
 }
 
+/// The period whose commitments the free sum holds back. Future income is never added.
+public enum FreeMoneyHorizon: String, Hashable, Sendable, Codable, CaseIterable {
+  case thirtyDays
+  case nearestIncome
+}
+
 /// Settings the planning reads, kept in `settings` under these keys and passed in by the app.
 public struct PlanningSettings: Hashable, Sendable, Codable {
+  /// `thirtyDays` (default) or `nearestIncome`; travels with the database and the archive.
+  public static let freeMoneyHorizonKey = "planning.freeMoneyHorizon"
   public static let reconcileEveryDaysKey = "planning.reconcileEveryDays"
   public static let savingsTargetKey = "planning.savingsTargetBp"
   public static let reserveGoalPlanKey = "planning.reserveGoalPlan"
@@ -355,13 +363,21 @@ public struct PlanningSettings: Hashable, Sendable, Codable {
   public var reconcileExpenseCategoryId: UUID?
   public var reconcileIncomeCategoryId: UUID?
 
+  /// Optional backing storage lets older encoded settings keep the new default on decoding.
+  private var freeMoneyHorizonChoice: FreeMoneyHorizon?
+  public var freeMoneyHorizon: FreeMoneyHorizon {
+    get { freeMoneyHorizonChoice ?? .thirtyDays }
+    set { freeMoneyHorizonChoice = newValue == .thirtyDays ? nil : newValue }
+  }
+
   public init(
     reconcileEveryDays: Int = 14, savingsTargetBp: Int = 1_000, reserveGoalPlan: Bool = true,
     reconcileIncludesGoalSavings: Bool = true, dismissedReminders: Set<String> = [],
     limitsTopN: Int? = 5, scheduledMatchRejections: Set<String> = [],
     goalSavingsValuation: GoalSavingsValuation = .today, firstCountKept: Set<UUID> = [],
     beforeCountAnswers: [UUID: Bool] = [:], reconcileExpenseCategoryId: UUID? = nil,
-    reconcileIncomeCategoryId: UUID? = nil, reserveEventBudgets: Bool = true
+    reconcileIncomeCategoryId: UUID? = nil, reserveEventBudgets: Bool = true,
+    freeMoneyHorizon: FreeMoneyHorizon = .thirtyDays
   ) {
     self.reconcileEveryDays = reconcileEveryDays
     self.savingsTargetBp = savingsTargetBp
@@ -376,6 +392,7 @@ public struct PlanningSettings: Hashable, Sendable, Codable {
     self.beforeCountAnswers = beforeCountAnswers
     self.reconcileExpenseCategoryId = reconcileExpenseCategoryId
     self.reconcileIncomeCategoryId = reconcileIncomeCategoryId
+    self.freeMoneyHorizonChoice = freeMoneyHorizon == .thirtyDays ? nil : freeMoneyHorizon
   }
 
   /// «Сверка» and its income twin: no limit is set on them, nor on anything under them — the

@@ -5,16 +5,16 @@ import XCTest
 @testable import OhMyMoney
 
 /// «Цель подушки»: six months unless set, a month to be done by only when asked, the free-sum
-/// switch off unless set; the save writes only the settings that changed, as one step of ⌘Z,
+/// switch on unless set; the save writes only the settings that changed, as one step of ⌘Z,
 /// and «Убрать цель» takes the goal and its month away.
 @MainActor
 final class CushionGoalFormTests: CushionDatabaseTestCase {
-  /// A new goal starts at six months, no month, the cushion in the free sum.
+  /// A new goal starts at six months, no month, the cushion kept out of the free sum.
   func testTheDefaults() {
     let draft = CushionGoalDraft(.standard)
     XCTAssertEqual(draft.months, 6)
     XCTAssertNil(draft.byMonth)
-    XCTAssertFalse(draft.outOfFreeMoney)
+    XCTAssertTrue(draft.outOfFreeMoney)
     let stored = CushionGoalDraft(
       CapitalSettings(
         targetMonths: 3, targetMonth: MonthKey(year: 2027, month: 3), outOfFreeMoney: true))
@@ -56,7 +56,7 @@ final class CushionGoalFormTests: CushionDatabaseTestCase {
     var draft = CushionGoalDraft(before)
     draft.months = 8
     draft.byMonth = MonthKey(year: 2027, month: 3)
-    draft.outOfFreeMoney = true
+    draft.outOfFreeMoney = false
     let change = try XCTUnwrap(
       CushionGoalDraft.change(from: before, to: draft.settings(over: before), at: Date()))
     XCTAssertEqual(
@@ -69,7 +69,7 @@ final class CushionGoalFormTests: CushionDatabaseTestCase {
     let after = CushionGoalForm.read(environment)
     XCTAssertEqual(after.targetMonths, 8)
     XCTAssertEqual(after.targetMonth, MonthKey(year: 2027, month: 3))
-    XCTAssertTrue(after.outOfFreeMoney)
+    XCTAssertFalse(after.outOfFreeMoney)
     XCTAssertEqual(after.historyMonths, CapitalSettings.defaultHistoryMonths)
     XCTAssertTrue(store.canUndo)
 
