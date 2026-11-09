@@ -27,7 +27,54 @@ final class DebtWizardLayoutTests: XCTestCase {
     }
   }
 
+  private struct ViewLayout: Equatable {
+    let id: ObjectIdentifier
+    let frame: CGRect
+    let bounds: CGRect
+    let hidden: Bool
+  }
+
+  /// Yields to SwiftUI between passes and waits for the whole view tree to stop changing.
+  /// Stable control frames alone can belong to an incomplete layout with pending ancestors.
+  private func settledFrames(in window: NSWindow, requiresControls: Bool) async throws -> [CGRect]?
+  {
+    let content = try XCTUnwrap(window.contentView)
+    let clock = ContinuousClock()
+    let deadline = clock.now + .seconds(20)
+    var previous: [ViewLayout] = []
+    var stablePasses = 0
+    while clock.now < deadline {
+      try await Task.sleep(for: .milliseconds(50))
+      window.updateConstraintsIfNeeded()
+      window.layoutIfNeeded()
+      content.layoutSubtreeIfNeeded()
+      window.displayIfNeeded()
+
+      var snapshot: [ViewLayout] = []
+      var clean = true
+      func record(_ view: NSView) {
+        snapshot.append(
+          ViewLayout(
+            id: ObjectIdentifier(view), frame: view.frame, bounds: view.bounds,
+            hidden: view.isHidden))
+        if !view.isHiddenOrHasHiddenAncestor {
+          clean = clean && !view.needsLayout && !view.needsUpdateConstraints
+        }
+        for child in view.subviews { record(child) }
+      }
+      record(content)
+      let frames = controls(in: content).filter { !$0.isHidden && $0.frame.width > 0 }
+        .map { $0.convert($0.bounds, to: nil) }
+      let ready = !requiresControls || !frames.isEmpty
+      stablePasses = ready && clean && snapshot == previous ? stablePasses + 1 : 0
+      if stablePasses >= 10 { return frames }
+      previous = snapshot
+    }
+    return nil
+  }
+
   func testEveryStepFitsItsSheet() async throws {
+    self.executionTimeAllowance = 240
     let host = try await EntryHost(opensDetails: false, width: 400)
     self.host = host
     let deps = AppDependencies(
@@ -54,34 +101,15 @@ final class DebtWizardLayoutTests: XCTestCase {
               rootView: DebtWizard(model: model).frame(width: width, height: 900)
                 .appDependencies(deps))
             window.makeKeyAndOrderFront(nil)
-            host.settle(0.3)
-            let content = try XCTUnwrap(window.contentView)
             let place = "\(language) \(width) \(kind) \(step)"
-            // A busy Mac lays the step out later than the pause above: the fields are read once
-            // their frames stop moving (up to ten seconds), so the test measures the layout the
-            // sheet settles in, not one on its way there.
-            func shown() -> [CGRect] {
-              content.layoutSubtreeIfNeeded()
-              return controls(in: content).filter { !$0.isHidden && $0.frame.width > 0 }
-                .map { $0.convert($0.bounds, to: nil) }
-            }
-            var last = shown()
-            var same = 0
-            let deadline = Date().addingTimeInterval(10)
-            while Date() < deadline {
-              host.settle(0.1)
-              let now = shown()
-              same = now == last && !content.needsLayout ? same + 1 : 0
-              if same >= 3 { break }
-              last = now
-            }
-            let found = controls(in: content).filter { !$0.isHidden && $0.frame.width > 0 }
+            let settled = try await settledFrames(
+              in: window, requiresControls: step == .amount || step == .payments)
+            let frames = try XCTUnwrap(settled, "the sheet layout did not settle: \(place)")
             // The kind and the preview are SwiftUI's own; the fields of the other steps are AppKit's.
             if step == .amount || step == .payments {
-              XCTAssertFalse(found.isEmpty, "the step has fields: \(place)")
+              XCTAssertFalse(frames.isEmpty, "the step has fields: \(place)")
             }
-            for control in found {
-              let frame = control.convert(control.bounds, to: nil)
+            for frame in frames {
               XCTAssertGreaterThanOrEqual(frame.minX, 0, "past the left edge: \(place)")
               XCTAssertLessThanOrEqual(frame.maxX, width + 0.5, "past the right edge: \(place)")
             }
