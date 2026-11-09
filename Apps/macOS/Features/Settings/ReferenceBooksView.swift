@@ -8,9 +8,9 @@ import SwiftUI
 /// Accounts have a tab of their own.
 ///
 /// A row nothing points at — no operation, the ones in the bin included, no plan, no debt —
-/// can be deleted, for good. A row something points at is merged into another (its operations
-/// move and its name becomes an other name there) or put in the archive, which the list shows
-/// when asked, each row with «Вернуть». Neither a merge nor a deletion can be taken back, so
+/// can be deleted and brought back with undo. A used row is merged into another (its operations
+/// move and its name becomes another name there) or put in the archive, which the list shows
+/// when asked, each row with «Вернуть». A merge and a deletion each take one step of undo;
 /// both are asked first. Several rows can be picked at once to delete the unused ones.
 struct ReferenceBooksView: View {
   @Dependency(\.environment) private var environment
@@ -129,6 +129,7 @@ struct ReferenceBooksView: View {
     }
     .padding()
     .onAppear(perform: reload)
+    .onChange(of: store.writeRevision) { _, _ in reload() }
     .refusedWriteAlert($refused, environment)
     .onChange(of: book) { _, _ in
       selection = []
@@ -176,7 +177,7 @@ struct ReferenceBooksView: View {
   }
 
   /// A merge of one row into another, asked before it is made: the operations move and the
-  /// row merged away goes to the archive, and nothing takes that back.
+  /// row merged away goes to the archive. One undo restores the rows and their links.
   struct MergeQuestion: Identifiable {
     let book: Book
     let source: UUID
@@ -214,7 +215,7 @@ struct ReferenceBooksView: View {
     }
   }
 
-  /// Rows nothing points at, about to be deleted for good, asked first; `skipped` rows were
+  /// Rows nothing points at, about to be deleted with undo, asked first; `skipped` rows were
   /// picked with them but are used, and stay.
   struct DeleteQuestion: Identifiable {
     let ids: [UUID]
@@ -880,16 +881,12 @@ struct ReferenceBookActions {
     return added
   }
 
-  /// A merge the owner agreed to: the operations move, the name becomes an other name of the
-  /// row that stays, the row merged away goes to the archive. Asked, not undone — and the ⌘Z
-  /// history is forgotten: a step taken before would put an operation back on the row merged
-  /// away.
+  /// Moves the references and aliases and archives the source in one step of undo.
   func merge(_ question: ReferenceBooksView.MergeQuestion) -> Outcome {
     guard
-      environment.attempt(
-        "references.merge", on: environment.references, { try question.merge($0) })
+      store.changeReferences(
+        .merge(book: question.book.stored, source: question.source, target: question.target)) != nil
     else { return .refused }
-    store.forgetUndoHistory()
     refreshed()
     return .done
   }
@@ -904,19 +901,11 @@ struct ReferenceBookActions {
     write("references.restore") { try $0.restore(id, in: book) }
   }
 
-  /// Deletes for good the rows of `ids` nothing points at — the operations in the bin count —
-  /// checked again inside the write, since something may have come to point at a row since
-  /// the question. Nil when the write was refused. There is no step of ⌘Z for it, and the ⌘Z
-  /// history is forgotten, as after every write ⌘Z cannot describe: a step taken before could
-  /// bring back an operation naming a deleted row.
+  /// Deletes unused rows in one step of undo; usage is checked inside the same write.
   func delete(_ ids: [UUID], from book: ReferenceBook) -> ReferenceDeletion? {
-    var result = ReferenceDeletion()
-    let written = environment.attempt("references.delete", on: environment.references) {
-      result = try $0.delete(ids, from: book)
-    }
-    guard written else { return nil }
+    guard let undo = store.changeReferences(.delete(book: book, ids: ids)) else { return nil }
+    let result = undo.deletion
     if !result.deleted.isEmpty {
-      store.forgetUndoHistory()
       AppLog.info(
         "references.deleted", .db, "unused rows of a reference book were deleted",
         [

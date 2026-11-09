@@ -28,7 +28,7 @@ struct BackupList: Equatable, Sendable {
   /// How many copies were written before updates.
   var beforeUpdateCount: Int { items.filter { $0.copy.isBeforeMigration }.count }
 
-  /// What the copies written before updates take — kept for ever (decision 0219).
+  /// The space taken by pre-update copies; manual cleanup can remove older ones.
   var beforeUpdateBytes: Int64 {
     items.filter { $0.copy.isBeforeMigration }.reduce(0) { $0 + $1.totalBytes }
   }

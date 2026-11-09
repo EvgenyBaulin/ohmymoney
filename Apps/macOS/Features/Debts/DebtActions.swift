@@ -359,7 +359,7 @@ struct DebtActions {
 
   /// «Удалить…»: the debt leaves every list, reminder, due date, the free sum and the pickers;
   /// its live subcategory of «Кредиты» goes to the archive. Nothing else is written — the
-  /// operations that paid it and its journal keep every figure they made. One write, one ⌘Z.
+  /// operations that paid it and its journal keep every figure they made. Confirmed and irreversible.
   @discardableResult
   func delete(_ debt: Debt, at instant: Date = Date()) -> Bool {
     guard let snapshot, debt.deletedAt == nil else { return false }
@@ -372,6 +372,7 @@ struct DebtActions {
         "debt.deleteFailed", .db, "a debt was not deleted", [LogPair("debt", .id(debt.id))])
       return false
     }
+    planning.store.forgetUndoHistory()
     AppLog.info(
       "debt.deleted", .db, "a debt was deleted",
       [

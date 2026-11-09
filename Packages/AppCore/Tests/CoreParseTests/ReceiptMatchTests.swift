@@ -182,13 +182,13 @@ struct ReceiptNearMatchTests {
     #expect(draft.similar.map(\.id) == [Fixture.id("02"), Fixture.id("01")], "nearest sum first")
   }
 
-  @Test func theMomentMustBeWithinHoursAndAnExactMatchHidesTheSuggestions() {
-    // The receipt is at 18:32 on the 29th: the same day at 05:00 is too far, the evening is not.
+  @Test func aWholeDayIsAllowedAndAnExactMatchHidesTheSuggestions() {
+    // Both operations are within a day of the receipt at 18:32 on the 29th.
     let early = ReceiptMatchTests.candidate("01", day: 29, hour: 5, amount: 13_000_000)
     let evening = ReceiptMatchTests.candidate("02", day: 29, hour: 20, amount: 13_000_000)
     let near = ReceiptMatch.similar(
       to: ReceiptMatchTests.receipt, among: [early, evening], calendar: ReceiptMatchTests.calendar)
-    #expect(near.map(\.id) == [Fixture.id("02")])
+    #expect(near.map(\.id) == [Fixture.id("02"), Fixture.id("01")])
 
     let exact = ReceiptMatchTests.candidate("03", day: 29)
     let proposal = ReceiptMatch.propose(
@@ -198,6 +198,32 @@ struct ReceiptNearMatchTests {
       return
     }
     #expect(found.id == Fixture.id("03") && others.isEmpty)
+  }
+
+  @Test func fivePercentAndOneDayAreInclusiveWithoutAnAbsoluteMinimum() throws {
+    let receipt = try #require(ReceiptQRParser.parse("t=20261029T183200&s=100.00&n=1"))
+    let moment = receipt.moment(in: ReceiptMatchTests.calendar)
+    func candidate(_ amount: Int64, _ seconds: TimeInterval) -> ReceiptCandidate {
+      ReceiptCandidate(
+        id: UUID(), kind: .expense, occurredAt: moment.addingTimeInterval(seconds),
+        amountE4: AmountE4(raw: amount))
+    }
+    for amount: Int64 in [950_000, 1_050_000] {
+      for seconds: TimeInterval in [-86_400, 86_400] {
+        let boundary = candidate(amount, seconds)
+        #expect(
+          ReceiptMatch.similar(
+            to: receipt, among: [boundary], calendar: ReceiptMatchTests.calendar) == [boundary])
+      }
+    }
+    let outside = [
+      candidate(949_999, 0), candidate(1_050_001, 0),
+      candidate(1_010_000, -86_401), candidate(1_010_000, 86_401),
+    ]
+    #expect(
+      ReceiptMatch.similar(
+        to: receipt, among: outside, calendar: ReceiptMatchTests.calendar
+      ).isEmpty)
   }
 }
 

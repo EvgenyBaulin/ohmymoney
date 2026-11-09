@@ -1284,36 +1284,19 @@
         }
       }
     },
-    "debts.delete.undo": {
+    "debts.delete.warning": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "⌘Z brings it back."
+            "value": "Deleting a debt cannot be undone."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отменить можно через ⌘Z."
-          }
-        }
-      }
-    },
-    "debts.delete.undo.touch": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "“Undo” brings it back."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Вернуть можно кнопкой «Отменить»."
+            "value": "Удаление долга нельзя отменить."
           }
         }
       }

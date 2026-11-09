@@ -75,13 +75,17 @@ final class BackupSpaceTextTests: XCTestCase {
     }
   }
 
-  func testTheTotalOfTheCopiesBeforeUpdatesSaysTheyAreKept() {
+  func testTheTotalExplainsManualCleanupAndProtectsTheNewest() {
     let english = BackupSpaceText.beforeUpdateTotal(
       count: 4, bytes: 38_000_000, in: environment(.english))
-    XCTAssertTrue(english.contains("4") && english.contains("kept for ever"), english)
+    XCTAssertTrue(
+      english.contains("4") && english.contains("not removed automatically")
+        && english.contains("newest"), english)
     let russian = BackupSpaceText.beforeUpdateTotal(
       count: 4, bytes: 38_000_000, in: environment(.russian))
-    XCTAssertTrue(russian.contains("4") && russian.contains("хранятся всегда"), russian)
+    XCTAssertTrue(
+      russian.contains("4") && russian.contains("не удаляются сами") && russian.contains("свежая"),
+      russian)
   }
 
   func testTheWarningNamesTheFreeSpaceAndPromisesNothingIsDeleted() {

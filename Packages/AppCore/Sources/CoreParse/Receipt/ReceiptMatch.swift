@@ -43,7 +43,7 @@ public struct ReceiptDraft: Hashable, Sendable {
   public var day: DateOnly
   public var time: TimeOfDay
   /// Operations of the same kind that are close without being the same: the sum differs by a
-  /// rounding or a tip and the moment is within a few hours (`ReceiptMatch.similar`). Offered
+  /// rounding or a tip and the moment is within a day (`ReceiptMatch.similar`). Offered
   /// to choose from, never taken for the receipt's own.
   public var similar: [ReceiptCandidate] = []
 }
@@ -85,14 +85,13 @@ public enum ReceiptMatch {
     return .new(draft)
   }
 
-  /// The largest difference of sums that still looks like the same purchase: a rounding up to
-  /// 10 ₽, or a tip of up to 15 % of the receipt.
+  /// The largest difference of sums that still looks like the same purchase: 5 % of the receipt.
   static func tolerance(of receipt: AmountE4) -> Int64 {
-    max(100_000, receipt.raw * 15 / 100)
+    receipt.raw / 20
   }
 
   /// The longest distance between the moment of the receipt and the operation's.
-  static let window: TimeInterval = 12 * 3_600
+  static let window: TimeInterval = 24 * 3_600
 
   /// Operations of the receipt's kind in roubles whose sum is within `tolerance` of the receipt
   /// (but not the same) and whose moment is within `window` of the receipt's; the nearest sum
