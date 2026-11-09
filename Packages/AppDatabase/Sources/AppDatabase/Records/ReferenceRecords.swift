@@ -17,7 +17,19 @@ extension CoreKit.Category: @retroactive FetchableRecord, @retroactive Persistab
       systemRole: (row["system_role"] as String?).flatMap(SystemRole.init(rawValue:)),
       essential: Self.essential(row),
       tax: Self.tax(row),
-      basket: (row["basket"] as String?).flatMap(BudgetBasket.init(rawValue:)))
+      basket: (row["basket"] as String?).flatMap(BudgetBasket.init(rawValue:)),
+      translation: Self.translation(row))
+  }
+
+  /// The English name with the name it was made of; one without the other — only a hand edit
+  /// leaves it — or a blank one reads as none. A database of an older schema has no such columns.
+  private static func translation(_ row: Row) -> CategoryTranslation? {
+    guard row.hasColumn("name_en"), let english: String = row["name_en"],
+      let source: String = row["name_en_source"]
+    else { return nil }
+    let trimmed = english.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !trimmed.isEmpty else { return nil }
+    return CategoryTranslation(english: trimmed, source: source)
   }
 
   /// The tax of an income. A rate that does not read reads as none.
@@ -49,6 +61,13 @@ extension CoreKit.Category: @retroactive FetchableRecord, @retroactive Persistab
     container["tax_rate"] = RowMapping.string(tax?.rate)
     container["tax_npd"] = tax?.npd ?? false
     container["basket"] = basket?.rawValue
+    // The English name is the device's, made in the background (`CategoryEnglishNames`). A
+    // category saved from a copy read before it was made carries none and must not erase it, so
+    // only a known one is written; a stale one says by its source that it is stale.
+    if let translation {
+      container["name_en"] = translation.english
+      container["name_en_source"] = translation.source
+    }
   }
 }
 

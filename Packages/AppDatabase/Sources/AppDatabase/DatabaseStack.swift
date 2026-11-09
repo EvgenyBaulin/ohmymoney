@@ -310,6 +310,13 @@ public final class DatabaseStack: Sendable {
     changes(of: Self.dataTables, onChange: {})
   }
 
+  /// One element after every committed transaction that changed a category, whoever wrote it —
+  /// the stream the English names of the categories follow (`CategoryEnglishNames`). Same
+  /// threading, buffer and lifetime as `ledgerChanges()`.
+  public func categoryChanges() -> AsyncStream<Void> {
+    changes(of: ["categories"], onChange: {})
+  }
+
   private func changes(
     of tables: [String], onChange: @escaping @Sendable () -> Void
   ) -> AsyncStream<Void> {

@@ -54,6 +54,17 @@ struct ReceiptSheet: View {
 
   private func t(_ key: String) -> String { ReceiptText.t(key, environment) }
 
+  /// The files the sheet reads a receipt from: pictures and PDFs. A PDF dropped on the window
+  /// itself goes to the statements; inside this sheet it is an electronic receipt.
+  static func receiptFiles(in urls: [URL]) -> [URL] {
+    urls.filter { url in
+      guard let type = UTType(filenameExtension: url.pathExtension.lowercased()) else {
+        return false
+      }
+      return type.conforms(to: .image) || type.conforms(to: .pdf)
+    }
+  }
+
   var body: some View {
     VStack(spacing: 0) {
       header
@@ -72,12 +83,12 @@ struct ReceiptSheet: View {
       model = made
       if let url = urls.first { await made.read(fileAt: url) }
     }
-    .fileImporter(isPresented: $picking, allowedContentTypes: [.image]) { result in
+    .fileImporter(isPresented: $picking, allowedContentTypes: [.image, .pdf]) { result in
       guard case .success(let chosen) = result, let model else { return }
       Task { await model.read(fileAt: chosen) }
     }
     .dropDestination(for: URL.self) { dropped, _ in
-      guard let model, let url = ReceiptPresenter.pictures(in: dropped).first else { return false }
+      guard let model, let url = Self.receiptFiles(in: dropped).first else { return false }
       Task { await model.read(fileAt: url) }
       return true
     } isTargeted: {
@@ -101,10 +112,8 @@ struct ReceiptSheet: View {
       .onChange(of: pickedPhoto) { _, item in
         guard let item, let model else { return }
         Task {
-          if let data = try? await item.loadTransferable(type: Data.self),
-            let image = ReceiptQRDetector.image(from: data)
-          {
-            await model.read(image: image, photo: ReceiptPhoto(data: data, filename: "receipt.jpg"))
+          if let data = try? await item.loadTransferable(type: Data.self) {
+            await model.read(data: data, filename: "receipt.jpg")
           } else {
             model.pictureUnreadable()
           }
@@ -147,6 +156,8 @@ struct ReceiptSheet: View {
         inputs(model)
       case .found:
         found(model)
+      case .alreadyRecorded(let id):
+        alreadyRecorded(id, model)
       case .done(let kind):
         done(kind, model)
       case .failed(let failure):
@@ -306,6 +317,27 @@ struct ReceiptSheet: View {
         Label(t("receipt.done.created"), systemImage: "checkmark.circle")
       }
       Text(verbatim: t("receipt.done.undo")).foregroundStyle(.secondary)
+      Spacer(minLength: 0)
+      HStack {
+        Spacer()
+        Button(t("receipt.anotherReceipt")) { model.reset() }
+        Button(t("receipt.done")) { dismiss() }.keyboardShortcut(.defaultAction)
+      }
+    }
+  }
+
+  /// The receipt is on an operation already: which one, and nothing to write.
+  private func alreadyRecorded(_ id: UUID, _ model: ReceiptModel) -> some View {
+    VStack(alignment: .leading, spacing: 14) {
+      Label {
+        Text(verbatim: model.alreadyRecordedText(id)).fixedSize(horizontal: false, vertical: true)
+      } icon: {
+        Image(systemName: "checkmark.circle").accessibilityHidden(true)
+      }
+      .appFont(.title3)
+      .accessibilityIdentifier("receipt.already")
+      Text(verbatim: t("receipt.already.hint")).foregroundStyle(.secondary)
+        .fixedSize(horizontal: false, vertical: true)
       Spacer(minLength: 0)
       HStack {
         Spacer()

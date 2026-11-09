@@ -11,7 +11,9 @@ import GRDB
 /// only in such columns is no conflict at all.
 extension SyncConflict {
   /// Columns that are bookkeeping, never a choice: the row's own id, the moments the app keeps,
-  /// versions, the exchange's own columns and the order in a list.
+  /// versions, the exchange's own columns, the order in a list, and the English name of a
+  /// category — each device makes its own of the same name in the background, and two devices
+  /// wording it apart is nothing the owner chose.
   public static func isService(_ column: String) -> Bool {
     if serviceColumns.contains(column) { return true }
     return column.hasPrefix("sync_") || column.hasSuffix("_version")
@@ -19,7 +21,7 @@ extension SyncConflict {
 
   static let serviceColumns: Set<String> = [
     "id", "created_at", "updated_at", "deleted_at", "version", "sort", "sort_order", "position",
-    "import_batch_id",
+    "import_batch_id", "name_en", "name_en_source",
   ]
 
   /// The value as compared: an empty text, zero, `false` and no value are all "nothing", so a

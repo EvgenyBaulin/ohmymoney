@@ -56,9 +56,7 @@ struct Migration0019Tests {
     }
     #expect(
       try DatabaseStack.pendingMigrations(fileAt: url, schema: TestSupport.schemaSource)
-        == [
-          "0019_privacy", "0020_habits", "0021_history_and_cashback_choice", "0022_borrowed_card",
-        ])
+        == TestSupport.migrationNames.filter { $0 >= "0019_privacy" })
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
     #expect(stack.applied.applied == TestSupport.migrationCount - 18)

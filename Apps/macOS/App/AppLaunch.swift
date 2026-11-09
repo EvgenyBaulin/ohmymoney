@@ -217,7 +217,53 @@ enum AppLaunch {
       // beside the first run, off the way of the window. Not in a data set — synthetic
       // history is nobody's first launch.
       if AppPaths.dataSet == nil { Task { await CurrencyCheck.runOnce(environment) } }
+      makeEnglishNames(of: environment)
     }
+  }
+
+  /// The tasks that make the English names of the categories, one per environment started: each
+  /// is stopped before its database closes (`putDown`).
+  private static var englishNames: [ObjectIdentifier: Task<Void, Never>] = [:]
+
+  /// Makes the English names of the categories in the background: every one without one right
+  /// away — on the first launch after the update, all of them — and again after every change of a
+  /// category, whoever made it. On the device only; a device that cannot translate leaves them
+  /// for a later pass, and nothing waits for it.
+  private static func makeEnglishNames(of environment: AppEnvironment) {
+    let key = ObjectIdentifier(environment)
+    guard englishNames[key] == nil, !environment.isClosed, let stack = environment.stack else {
+      return
+    }
+    let names = CategoryEnglishNames(stack: stack, translator: AppleCategoryTranslator())
+    let changes = stack.categoryChanges()
+    englishNames[key] = Task.detached(priority: .background) {
+      await runEnglishNames(names)
+      for await _ in changes {
+        guard !Task.isCancelled else { return }
+        await runEnglishNames(names)
+      }
+    }
+  }
+
+  private nonisolated static func runEnglishNames(_ names: CategoryEnglishNames) async {
+    let pass = await names.run()
+    guard pass.due > 0 else { return }
+    AppLog.info(
+      "categories.english", .db, "the English names of the categories were made",
+      [
+        LogPair("due", .count(pass.due)), LogPair("made", .count(pass.made)),
+        LogPair("left", .count(pass.left)), LogPair("unavailable", .flag(pass.unavailable)),
+      ])
+  }
+
+  /// Stops the task `makeEnglishNames` started and waits for it, so nothing is left writing to a
+  /// database about to close.
+  private static func stopEnglishNames(of environment: AppEnvironment) async {
+    guard let task = englishNames.removeValue(forKey: ObjectIdentifier(environment)) else {
+      return
+    }
+    task.cancel()
+    await task.value
   }
 
   /// The tasks that arm a copy after every change of the data, one per environment started:
@@ -290,6 +336,7 @@ enum AppLaunch {
     compute.onSnapshot = nil
     store?.detach()
     await stopObservingChangesForCopies(of: environment)
+    await stopEnglishNames(of: environment)
     await environment.close()
     if running?.environment === environment { running = nil }
     AppLog.info("app.stopped", .app, "the application was put down cleanly")

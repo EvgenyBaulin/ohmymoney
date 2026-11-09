@@ -25,6 +25,8 @@ final class ReceiptModel {
     /// A QR code, but not a cash receipt.
     case notReceipt
     case found
+    /// The same receipt is already on this operation: nothing is written, it is shown.
+    case alreadyRecorded(UUID)
     case done(DoneKind)
     case failed(FailureKind)
   }
@@ -82,12 +84,26 @@ final class ReceiptModel {
   func read(fileAt url: URL) async {
     let scoped = url.startAccessingSecurityScopedResource()
     defer { if scoped { url.stopAccessingSecurityScopedResource() } }
-    guard let data = try? Data(contentsOf: url), let image = ReceiptQRDetector.image(from: data)
-    else {
+    guard let data = try? Data(contentsOf: url) else {
       stage = .noCode
       return
     }
-    await read(image: image, photo: ReceiptPhoto(data: data, filename: url.lastPathComponent))
+    await read(data: data, filename: url.lastPathComponent)
+  }
+
+  /// A file as it came — a photo in its full size, a screenshot, the PDF of an electronic
+  /// receipt (every page) — read off the main thread.
+  func read(data: Data, filename: String) async {
+    stage = .reading
+    let reading = await Task.detached(priority: .userInitiated) {
+      ReceiptQRDetector.reading(ofFile: data)
+    }.value
+    switch reading {
+    case .receipt(let receipt):
+      accept(receipt, photo: ReceiptPhoto(data: data, filename: filename))
+    case .notReceipt: stage = .notReceipt
+    case .noCode: stage = .noCode
+    }
   }
 
   /// The text of a QR code a camera has already read.
@@ -116,21 +132,48 @@ final class ReceiptModel {
     self.photo = photo
     wantsNew = false
     let proposed = ReceiptMatch.propose(
-      receipt, among: candidates(), calendar: environment.calendar)
+      receipt, among: candidates(for: receipt), calendar: environment.calendar)
     proposal = proposed
-    if case .supplement(let found, _, _) = proposed { chosenId = found.id } else { chosenId = nil }
-    stage = .found
+    switch proposed {
+    case .alreadyRecorded(let holder):
+      chosenId = nil
+      stage = .alreadyRecorded(holder.id)
+    case .supplement(let found, _, _):
+      chosenId = found.id
+      stage = .found
+    case .new:
+      chosenId = nil
+      stage = .found
+    }
   }
 
-  private func candidates() -> [ReceiptCandidate] {
-    (dataset()?.entries ?? [])
+  /// The operations of the books, and those that already hold this receipt read from the
+  /// database: the lists may be a moment behind a write, and a second scan right after the first
+  /// must still find it.
+  private func candidates(for receipt: ReceiptQR) -> [ReceiptCandidate] {
+    var list = (dataset()?.entries ?? [])
       .filter { !$0.transaction.isDeleted }
-      .map {
-        ReceiptCandidate(
-          id: $0.id, kind: $0.transaction.kind, occurredAt: $0.transaction.occurredAt,
-          timeZoneId: $0.transaction.timeZoneId, currency: $0.transaction.currency,
-          amountE4: $0.transaction.amountE4)
-      }
+      .map { Self.candidate($0.transaction) }
+    if let numbers = receipt.numbers,
+      let holders = try? environment.transactions?.operations(holdingReceipt: numbers)
+    {
+      let known = Set(list.map(\.id))
+      list += holders.filter { !known.contains($0.id) }.map(Self.candidate)
+    }
+    return list
+  }
+
+  private static func candidate(_ transaction: CoreKit.Transaction) -> ReceiptCandidate {
+    ReceiptCandidate(
+      id: transaction.id, kind: transaction.kind, occurredAt: transaction.occurredAt,
+      timeZoneId: transaction.timeZoneId, currency: transaction.currency,
+      amountE4: transaction.amountE4, receipt: transaction.receipt)
+  }
+
+  /// The operation as the lists have it, else as the database has it.
+  private func entry(of id: UUID) -> TransactionEntry? {
+    if let entry = dataset()?.entries.first(where: { $0.id == id }) { return entry }
+    return (try? environment.transactions?.entry(id: id)) ?? nil
   }
 
   // MARK: What the screen shows
@@ -171,7 +214,7 @@ final class ReceiptModel {
 
   /// The words that name an operation: its comment, else its category, else «операция».
   func title(of id: UUID) -> String {
-    guard let entry = dataset()?.entries.first(where: { $0.id == id }) else {
+    guard let entry = entry(of: id) else {
       return ReceiptText.t("receipt.operation.generic", environment)
     }
     if let note = entry.transaction.note?.trimmingCharacters(in: .whitespaces), !note.isEmpty {
@@ -187,7 +230,7 @@ final class ReceiptModel {
   }
 
   func dayText(of id: UUID) -> String {
-    guard let transaction = dataset()?.entries.first(where: { $0.id == id })?.transaction else {
+    guard let transaction = entry(of: id)?.transaction else {
       return ""
     }
     return environment.dates.longDay(
@@ -219,6 +262,11 @@ final class ReceiptModel {
   }
 
   var canKeepPhoto: Bool { photo != nil && environment.receiptPhotosCanBeKept }
+
+  /// «Этот чек уже записан: «Кофе», 15 января 2026 г.»
+  func alreadyRecordedText(_ id: UUID) -> String {
+    ReceiptText.format("receipt.already", environment, title(of: id), dayText(of: id))
+  }
 
   // MARK: Choices and the write
 
@@ -252,6 +300,8 @@ final class ReceiptModel {
       timeZone: environment.calendar.zone(recordedIn: entry.transaction.timeZoneId))
     let moment = receipt.moment(in: zone)
     entry.transaction.occurredAt = moment
+    // The numbers of the receipt go with its time: the same receipt read again finds this one.
+    entry.transaction.receipt = receipt.numbers
     entry.transaction.updatedAt = environment.now()
     switch store.saveEdit(entry, calendar: environment.calendar) {
     case .saved:
@@ -285,7 +335,8 @@ final class ReceiptModel {
     let transaction = Transaction(
       id: id, kind: draft.kind, occurredAt: draft.moment, currency: draft.currency,
       amountE4: draft.amountE4, createdAt: now, updatedAt: now,
-      timeZoneId: TravelDay.recordedId(in: environment.calendar.timeZone))
+      timeZoneId: TravelDay.recordedId(in: environment.calendar.timeZone),
+      receipt: receipt.numbers)
     let entry = TransactionEntry(
       transaction: transaction,
       parts: [

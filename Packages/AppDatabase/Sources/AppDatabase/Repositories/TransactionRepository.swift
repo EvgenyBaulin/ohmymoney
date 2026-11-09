@@ -339,6 +339,22 @@ public struct TransactionRepository: Sendable {
     try writer.read { db in try Self.entry(id: id, db: db) }
   }
 
+  /// The live operations that already hold a cash receipt of this drive and document number,
+  /// the earliest first; the deleted ones do not count — a receipt whose operation was deleted
+  /// may be recorded again. Read from the database, not the lists: a second scan right after a
+  /// write must find the first.
+  public func operations(holdingReceipt numbers: ReceiptNumbers) throws -> [CoreKit.Transaction] {
+    try writer.read { db in
+      try CoreKit.Transaction.fetchAll(
+        db,
+        sql: """
+          SELECT * FROM transactions
+          WHERE receipt_fn = ? AND receipt_i = ? AND deleted_at IS NULL
+          ORDER BY occurred_at, id
+          """, arguments: [numbers.fiscalDrive, numbers.documentNumber])
+    }
+  }
+
   /// One operation with its parts, in the order they were written, inside a read or a
   /// write the caller already holds.
   static func entry(id: UUID, db: Database) throws -> TransactionEntry? {

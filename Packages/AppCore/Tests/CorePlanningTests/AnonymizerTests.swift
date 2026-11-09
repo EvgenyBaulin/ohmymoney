@@ -140,3 +140,24 @@ struct AnonymizerTests {
     #expect(Anonymizer.coveredFields.contains("person.name"))
   }
 }
+
+/// The numbers of a cash receipt are a key to the real receipt at the tax service: the copy has
+/// none; the English name of a category follows the category's name, which the copy keeps.
+@Suite("Anonymizer: receipt numbers and English names")
+struct AnonymizerReceiptTests {
+  @Test func theNumbersOfAReceiptGoAndTheEnglishNameStays() throws {
+    var dataset = PrivacyFixture().dataset
+    let numbers = try #require(
+      ReceiptNumbers(
+        fiscalDrive: "9999078900001111", documentNumber: "42", fiscalSign: "123456789",
+        operation: 1))
+    dataset.entries[0].transaction.receipt = numbers
+    let english = CategoryTranslation(english: "Food", source: dataset.categories[0].name)
+    dataset.categories[0].translation = english
+    let copy = Anonymizer.apply(to: dataset)
+    #expect(copy.entries.allSatisfy { $0.transaction.receipt == nil })
+    #expect(!String(describing: copy).contains("9999078900001111"))
+    #expect(copy.categories[0].translation == english)
+    #expect(Anonymizer.coveredFields.contains("transaction.receipt"))
+  }
+}

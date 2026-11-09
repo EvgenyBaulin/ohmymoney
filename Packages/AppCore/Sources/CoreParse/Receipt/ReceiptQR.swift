@@ -38,6 +38,14 @@ public struct ReceiptQR: Hashable, Sendable {
 
   public var isRefund: Bool { operation.transactionKind == .refund }
 
+  /// The numbers kept on the operation, `nil` when the code has no drive or document number:
+  /// such a receipt has no key and is never taken for one already recorded.
+  public var numbers: ReceiptNumbers? {
+    ReceiptNumbers(
+      fiscalDrive: fiscalDrive, documentNumber: documentNumber, fiscalSign: fiscalSign,
+      operation: operation.rawValue)
+  }
+
   /// The moment the receipt names on the clock of `calendar` — the owner's zone, which is
   /// where a shop on a trip is read too: the receipt carries no zone of its own.
   public func moment(in calendar: CalendarContext) -> Date {

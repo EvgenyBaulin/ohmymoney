@@ -260,6 +260,43 @@ final class ExportAndArchiveTests: XCTestCase {
     XCTAssertTrue(opened.csvTables.contains("transactions"))
   }
 
+  /// The numbers of a receipt on an operation and the English name of a category travel in the
+  /// archive: the database read back from it holds them as they were, and its CSV carries them.
+  func testTheReceiptNumbersAndTheEnglishNameSurviveTheArchive() throws {
+    let transactions = TransactionRepository(writer: stack.writer)
+    var draft = TransactionDraft(amount: AmountE4(whole: 150), note: "receipt")
+    draft.normalizeSinglePart()
+    var entry = try draft.materialize()
+    let numbers = try XCTUnwrap(
+      ReceiptNumbers(
+        fiscalDrive: "9999078900001111", documentNumber: "42", fiscalSign: "123456789",
+        operation: 2))
+    entry.transaction.receipt = numbers
+    try transactions.save(entry)
+    let references = ReferenceRepository(writer: stack.writer)
+    var category = try XCTUnwrap(try references.categories().first)
+    category.translation = CategoryTranslation(english: "Groceries", source: category.name)
+    try references.save(category)
+
+    let service = ArchiveService(stack: stack, appVersion: "0.1.0")
+    let url = directory.appendingPathComponent("receipt.ohmymoneyarchive")
+    _ = try service.exportArchive(to: url)
+    let opened = try service.openArchive(at: url)
+    let transactionsCSV = try XCTUnwrap(
+      opened.files["data/csv/transactions.csv"].map { String(decoding: $0, as: UTF8.self) })
+    XCTAssertTrue(transactionsCSV.contains("9999078900001111,42,123456789,2"))
+    let target = directory.appendingPathComponent("restored.sqlite")
+    try service.replaceDatabase(with: opened, at: target)
+    let restored = try DatabaseStack(url: target, schema: BundleSchemaSource(bundle: .main))
+    defer { try? restored.close() }
+    let read = try XCTUnwrap(try TransactionRepository(writer: restored.writer).entry(id: entry.id))
+    XCTAssertEqual(read.transaction.receipt, numbers)
+    let readCategory = try XCTUnwrap(
+      try ReferenceRepository(writer: restored.writer).categories().first { $0.id == category.id })
+    XCTAssertEqual(readCategory.translation, category.translation)
+    XCTAssertEqual(readCategory.englishName, "Groceries")
+  }
+
   /// The manifest says which schema the database inside it carries, so that an older build
   /// refuses an archive of a newer one before anything is replaced («если новее — отказ»). The
   /// number was a literal that nobody raised when `0003_model.sql` arrived: every archive said 2
@@ -291,14 +328,14 @@ final class ExportAndArchiveTests: XCTestCase {
   /// build opens an archive of schema 8 — and of the ones before it — and a build that knows only
   /// 7 refuses it.
   func testAnArchiveOfSchemaEightOpensWhereEightIsSupported() throws {
-    XCTAssertEqual(stack.applied.onDisk, 22)
+    XCTAssertEqual(stack.applied.onDisk, 23)
     let service = ArchiveService(stack: stack, appVersion: "1.6.0")
     let url = directory.appendingPathComponent("eight.ohmymoneyarchive")
     _ = try service.exportArchive(to: url)
     let data = try Data(contentsOf: url)
 
-    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 22)
-    XCTAssertEqual(opened.manifest.schemaVersion, 22)
+    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 23)
+    XCTAssertEqual(opened.manifest.schemaVersion, 23)
     XCTAssertEqual(opened.csvTables.count, 53)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))
     XCTAssertTrue(opened.csvTables.contains("cards"))
