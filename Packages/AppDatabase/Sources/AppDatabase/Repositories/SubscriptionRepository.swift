@@ -130,12 +130,17 @@ public struct SubscriptionRepository: Sendable {
     }
   }
 
-  /// ⌘Z of `setUsers`: the payment's people are exactly `rows` again.
-  public func restore(users rows: [SubscriptionUser], payment: UUID) throws {
+  /// ⌘Z of `setUsers`: the payment's people are exactly `rows` again. Returns the rows it had.
+  @discardableResult
+  public func restore(users rows: [SubscriptionUser], payment: UUID) throws -> [SubscriptionUser] {
     try writer.write { db in
+      let before = try SubscriptionUser.fetchAll(
+        db, sql: "SELECT * FROM subscription_users WHERE payment_id = ? ORDER BY rowid",
+        arguments: [payment.uuidString])
       try db.execute(
         sql: "DELETE FROM subscription_users WHERE payment_id = ?", arguments: [payment.uuidString])
       for row in rows { try row.insert(db) }
+      return before
     }
   }
 

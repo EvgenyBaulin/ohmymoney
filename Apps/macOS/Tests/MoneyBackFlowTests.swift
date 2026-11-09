@@ -395,8 +395,21 @@ extension MoneyBackFlowTests {
       try transactions.entry(id: purchase.id)?.transaction.amountRubE4,
       AmountE4(whole: 1_760 + 500 * 88))
 
-    store.recordedMoneyBack(write)
+    let replay = TransactionsStore.MoneyBackReplay(
+      outcome: outcome, reimbursement: back, extra: [surplus], debt: .none,
+      repricing: [purchase.id: 88], settlement: SettlementSetting(surplusNote: nil),
+      calendar: calendar)
+    store.recordedMoneyBack(write, replay: replay)
     XCTAssertTrue(store.canUndo, "recording money back is a step of ⌘Z")
+    store.undo()
+    XCTAssertTrue(store.canRedo)
+    store.redo()
+    XCTAssertNotNil(try transactions.entry(id: back.id), "⇧⌘Z records the money back again")
+    XCTAssertNotNil(try transactions.entry(id: surplus.id))
+    XCTAssertEqual(
+      try transactions.entry(id: purchase.id)?.transaction.amountRubE4,
+      AmountE4(whole: 1_760 + 500 * 88))
+    XCTAssertFalse(store.canRedo)
     store.undo()
 
     let after = try XCTUnwrap(try transactions.entry(id: purchase.id))

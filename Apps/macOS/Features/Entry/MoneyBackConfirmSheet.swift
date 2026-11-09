@@ -879,11 +879,15 @@ struct MoneyBackConfirmSheet: View {
         written = split.recording
         settling = split.settling
       }
-      let write = try repository.apply(
-        written.outcome, reimbursement: written.reimbursement, extra: written.extra,
+      let replay = TransactionsStore.MoneyBackReplay(
+        outcome: written.outcome, reimbursement: written.reimbursement, extra: written.extra,
         debt: settling, repricing: repricing,
         settlement: SettlementSetting(surplusNote: t("reimbursement.surplus")),
         calendar: environment.calendar)
+      let write = try repository.apply(
+        replay.outcome, reimbursement: replay.reimbursement, extra: replay.extra,
+        debt: replay.debt, repricing: replay.repricing, settlement: replay.settlement,
+        calendar: replay.calendar)
       if !write.repricedBefore.isEmpty {
         AppLog.info(
           "moneyBack.repriced", .db, "purchases were written at a rate typed for money back",
@@ -893,7 +897,7 @@ struct MoneyBackConfirmSheet: View {
       environment.scheduleBackup()
       // Several operations and the links between them went in at once, in one write: one step
       // of ⌘Z takes all of it back.
-      store.recordedMoneyBack(write)
+      store.recordedMoneyBack(write, replay: replay)
       recorded()
       dismiss()
     } catch ReimbursementError.partNoLongerOwed {
