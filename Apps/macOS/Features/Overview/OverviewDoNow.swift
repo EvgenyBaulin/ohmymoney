@@ -78,44 +78,79 @@ enum OverviewDoNow {
 }
 
 /// «Что сделать сейчас»: up to three things with a button. With nothing to do the block is not
-/// drawn at all. «Все» opens the full list of «Стоит посмотреть».
+/// drawn at all. «Все» opens the full list of «Стоит посмотреть». A white card with the theme's
+/// card edge, as the main card wears it — not the outline of a tile.
 struct OverviewDoNowCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
   @Environment(\.openWindow) private var openWindow
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.appTheme) private var theme
+  @Environment(\.colorSchemeContrast) private var contrast
   let screen: OverviewScreen
+  /// In a row of tiles the card takes the height of the row.
+  var fillsHeight = false
   @State private var failure: [String: String] = [:]
+
+  /// The colour of a row's dot: the accent for what is due, the secondary ink for the rest; the
+  /// words of the row say which it is.
+  static func dot(urgent: Bool, in theme: AppThemeColors) -> Color {
+    urgent ? theme.accentDefault : theme.contentSecondary
+  }
+
+  /// «3 дела · Все»: the secondary ink on the Mac, the accent's words on the phone, as their
+  /// frames draw it.
+  static func countInk(in theme: AppThemeColors) -> Color {
+    #if os(iOS)
+      theme.accentContent
+    #else
+      theme.contentSecondary
+    #endif
+  }
 
   var body: some View {
     if let snapshot = compute.snapshot {
       let list = OverviewDoNow.list(snapshot: snapshot, environment: environment)
       if !list.isEmpty {
-        VStack(alignment: .leading, spacing: 8) {
-          HStack(alignment: .firstTextBaseline) {
+        let shape = RoundedRectangle(cornerRadius: ContentCard.cornerRadius)
+        VStack(alignment: .leading, spacing: StyleMetrics.doNowGap) {
+          HStack(alignment: .firstTextBaseline, spacing: 8) {
             Text(verbatim: t("overview.doNow.title"))
-              .appFont(.headline)
+              .appFont(StyleType.groupName)
+              .foregroundStyle(surfaces.primary)
               .accessibilityAddTraits(.isHeader)
             Spacer(minLength: 8)
-            Text(
-              verbatim: environment.format(
-                "overview.doNow.count", table: OverviewDoNow.table, counts: list.items.count)
-            )
-            .appFont(.footnote)
-            .foregroundStyle(.secondary)
-            Button(t("overview.doNow.all")) { screen.open(.worthALook) }
-              .buttonStyle(.plain)
-              .appFont(.footnote.weight(.semibold))
-              .foregroundStyle(surfaces.accent)
-              .accessibilityIdentifier("overview.doNow.all")
+            HStack(spacing: 0) {
+              Text(
+                verbatim: environment.format(
+                  "overview.doNow.count", table: OverviewDoNow.table, counts: list.items.count)
+                  + " · ")
+              Button(t("overview.doNow.all")) { screen.open(.worthALook) }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("overview.doNow.all")
+            }
+            .appFont(StyleType.rowDetail)
+            .foregroundStyle(Self.countInk(in: theme))
           }
           ForEach(Array(list.items.enumerated()), id: \.element.id) { position, item in
-            if position > 0 { Divider() }
+            if position > 0 {
+              Rectangle().fill(theme.borderHairline).frame(height: 1)
+            }
             row(item, snapshot: snapshot)
           }
         }
-        .contentCard()
+        .frame(
+          maxWidth: .infinity, maxHeight: fillsHeight ? .infinity : nil, alignment: .topLeading
+        )
+        .padding(.horizontal, StyleMetrics.doNowHorizontal)
+        .padding(.top, StyleMetrics.doNowTop)
+        .padding(.bottom, StyleMetrics.doNowBottom)
+        .background(surfaces.card, in: shape)
+        .overlay {
+          shape.strokeBorder(surfaces.cardBorder, lineWidth: StyleMetrics.cardBorder)
+          if contrast == .increased { shape.strokeBorder(.separator, lineWidth: 1) }
+        }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("overview.doNow")
       }
@@ -125,22 +160,25 @@ struct OverviewDoNowCard: View {
   private func row(_ item: DoNowItem, snapshot: DataSnapshot) -> some View {
     let text = OverviewDoNow.text(item, snapshot: snapshot, environment: environment)
     return VStack(alignment: .leading, spacing: 2) {
-      HStack(spacing: 10) {
+      HStack(spacing: StyleMetrics.doNowRowGap) {
         Circle()
-          .fill(text.urgent ? surfaces.warning : Color.secondary)
-          .frame(width: 8, height: 8)
+          .fill(Self.dot(urgent: text.urgent, in: theme))
+          .frame(width: StyleMetrics.doNowDot, height: StyleMetrics.doNowDot)
           .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 1) {
-          Text(verbatim: text.title).appFont(.callout.weight(.medium))
+          Text(verbatim: text.title)
+            .appFont(StyleType.rowTitle)
+            .foregroundStyle(surfaces.primary)
           Text(verbatim: text.detail)
-            .appFont(.footnote)
-            .foregroundStyle(.secondary)
+            .appFont(StyleType.rowDetail)
+            .foregroundStyle(surfaces.secondary)
         }
-        Spacer(minLength: 8)
+        .frame(maxWidth: .infinity, alignment: .leading)
         Button(text.button) { perform(item, snapshot: snapshot) }
-          .buttonStyle(.quietAction)
+          .buttonStyle(.rowAction)
           .accessibilityIdentifier("overview.doNow.\(item.action.rawValue)")
       }
+      .padding(.vertical, StyleMetrics.doNowRowVertical)
       if let message = failure[item.id] {
         Text(verbatim: message).appFont(.footnote).foregroundStyle(surfaces.negative)
       }

@@ -40,12 +40,38 @@ struct OverviewView: View {
   /// Editing or not, and the tile whose «Почему так» is open.
   @State private var screen: OverviewScreen
 
-  /// The margin of the page: 16 pt on a phone and a tablet, as the design draws it, 20 on the Mac.
+  /// The margin of the page: 16 pt on a phone and a tablet, as the design draws it, 28 on the Mac.
   static var sideMargin: CGFloat {
     #if os(iOS)
       16
     #else
-      20
+      StyleMetrics.pageSide
+    #endif
+  }
+
+  /// The margins above and below the page: 16 each on a phone and a tablet; 22 and 24 on the Mac.
+  static var topMargin: CGFloat {
+    #if os(iOS)
+      16
+    #else
+      StyleMetrics.pageTop
+    #endif
+  }
+  static var bottomMargin: CGFloat {
+    #if os(iOS)
+      16
+    #else
+      StyleMetrics.pageBottom
+    #endif
+  }
+
+  /// The gap between the parts of the page stacked one under another: 14 on a phone and a tablet,
+  /// 10 on the Mac.
+  static var stackGap: CGFloat {
+    #if os(iOS)
+      14
+    #else
+      StyleMetrics.stackGap
     #endif
   }
 
@@ -60,7 +86,8 @@ struct OverviewView: View {
     ScrollView {
       OverviewHeader(actions: actions, screen: screen)
         .padding(.horizontal, OverviewView.sideMargin)
-        .padding(.vertical, 8)
+        .padding(.top, OverviewView.topMargin)
+        .padding(.bottom, OverviewView.bottomMargin)
     }
     .background(surfaces.background)
     .onAppear(perform: followData)
@@ -121,7 +148,7 @@ private struct OverviewHeader: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 14) {
+    VStack(alignment: .leading, spacing: OverviewView.stackGap) {
       if let titleRow {
         HStack(alignment: .firstTextBaseline, spacing: 12) {
           Text(verbatim: titleRow.title)
@@ -136,17 +163,21 @@ private struct OverviewHeader: View {
       SummaryAnnouncementCard()
       FirstMonthCard()
       if OverviewHero.shows(forWidth: width) { OverviewHero() }
-      OverviewDoNowCard(screen: screen)
       if OverviewAccountsStrip.shows { OverviewAccountsStrip() }
       if AccountsSetupCard.shows(setup: environment.accountSetup) {
         AccountsSetupCard()
       }
       OverviewGroupedGrid(
         columns: columnsOverride ?? OverviewCard.columns(forWidth: width, fontSize: fontSize),
+        // Only the host's room fixes the widths of the places: a width the page measured of
+        // itself would hold the page at it when the window narrows.
+        width: room == nil ? 0 : width,
         actions: actions,
         screen: screen)
       RecomputeStatusLine()
     }
+    // A container of its own, so the cards inside keep their own identifiers.
+    .accessibilityElement(children: .contain)
     .accessibilityIdentifier("overview.grid")
     .frame(maxWidth: .infinity, alignment: .leading)
     .onGeometryChange(for: CGFloat.self) {
@@ -154,7 +185,6 @@ private struct OverviewHeader: View {
     } action: {
       measured = $0
     }
-    .padding(.vertical, 8)
     .listRowSeparator(.hidden)
     .selectionDisabled()
   }

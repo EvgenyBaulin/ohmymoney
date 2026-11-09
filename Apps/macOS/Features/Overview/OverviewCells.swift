@@ -13,30 +13,52 @@ extension OverviewCard {
     #endif
   }
 
-  /// How many columns of the grid a cell takes: a chart or a list the whole width, everything
-  /// else — a tile or a pair — one.
-  static func span(of cell: OverviewLayout.Cell, columns: Int) -> Int {
-    if case .single(let tile) = cell, OverviewCatalog.isWide(tile) { return max(1, columns) }
+  /// The tiles that take two columns of a grid of four, as the design draws the limits.
+  static let doubleTiles: Set<OverviewTile> = [.limits]
+
+  /// How many columns of the grid a cell takes. In a grid of four whose places have fixed widths
+  /// (`halves`), a chart, a list and the limits take two, as the design lays them; otherwise a
+  /// chart or a list takes the whole width and the limits one — a flexible grid would size a
+  /// column two tiles wide by its content and leave the row uneven. Everything else — a tile or a
+  /// pair — takes one.
+  static func span(of cell: OverviewLayout.Cell, columns: Int, halves: Bool = true) -> Int {
+    guard case .single(let tile) = cell else { return 1 }
+    if halves, columns >= maxColumns, OverviewCatalog.isWide(tile) || doubleTiles.contains(tile) {
+      return 2
+    }
+    if OverviewCatalog.isWide(tile) { return max(1, columns) }
     return 1
   }
 
-  /// The cells in rows of `columns`: a cell that takes the whole width stands in a row of its
-  /// own, the others fill the rows in order.
-  static func rows(_ cells: [OverviewLayout.Cell], columns: Int) -> [[OverviewLayout.Cell]] {
+  /// The cells in rows of `columns`: each row is filled in order while the cells' spans fit;
+  /// a cell that does not fit begins the next row.
+  static func rows(
+    _ cells: [OverviewLayout.Cell], columns: Int, halves: Bool = true
+  ) -> [[OverviewLayout.Cell]] {
+    packed(cells, columns: columns) { span(of: $0, columns: columns, halves: halves) }
+  }
+
+  /// The items in rows of `columns` by the columns each takes.
+  static func packed<Item>(
+    _ items: [Item], columns: Int, span: (Item) -> Int
+  ) -> [[Item]] {
     let size = max(1, columns)
-    var rows: [[OverviewLayout.Cell]] = []
-    var row: [OverviewLayout.Cell] = []
-    for cell in cells {
-      if span(of: cell, columns: size) == size, size > 1 {
-        if !row.isEmpty { rows.append(row) }
+    var rows: [[Item]] = []
+    var row: [Item] = []
+    var used = 0
+    for item in items {
+      let width = min(size, max(1, span(item)))
+      if used + width > size, !row.isEmpty {
+        rows.append(row)
         row = []
-        rows.append([cell])
-      } else {
-        row.append(cell)
-        if row.count == size {
-          rows.append(row)
-          row = []
-        }
+        used = 0
+      }
+      row.append(item)
+      used += width
+      if used == size {
+        rows.append(row)
+        row = []
+        used = 0
       }
     }
     if !row.isEmpty { rows.append(row) }

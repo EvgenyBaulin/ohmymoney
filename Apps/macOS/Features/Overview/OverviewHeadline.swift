@@ -75,12 +75,13 @@ struct OverviewHeadlineCard: View {
     {
       MainCard(stripe: OverviewHeadline.stripe(content.tone, in: surfaces)) {
         HStack(alignment: .top, spacing: 8) {
-          VStack(alignment: .leading, spacing: 4) {
+          VStack(alignment: .leading, spacing: StyleMetrics.mainCardLineGap) {
             Text(verbatim: content.caption)
-              .appFont(.footnote)
-              .foregroundStyle(.secondary)
+              .appFont(StyleType.mainCaption)
+              .foregroundStyle(surfaces.secondary)
             Text(verbatim: content.title)
-              .appFont(.title2.bold().monospacedDigit())
+              .appFont(StyleType.mainFigure)
+              .foregroundStyle(surfaces.primary)
               .fixedSize(horizontal: false, vertical: true)
               .accessibilityIdentifier("overview.hero.figure")
             Text(
@@ -90,8 +91,8 @@ struct OverviewHeadlineCard: View {
                   ? environment.language("privacy.partHidden", table: "PrivacyScreens") : nil)
                 ?? content.line
             )
-            .appFont(.footnote.monospacedDigit())
-            .foregroundStyle(.secondary)
+            .appFont(StyleType.mainLine)
+            .foregroundStyle(surfaces.secondary)
             .fixedSize(horizontal: false, vertical: true)
           }
           Spacer(minLength: 4)

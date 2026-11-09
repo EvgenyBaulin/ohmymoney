@@ -7,13 +7,49 @@ import SwiftUI
 /// reconciliation; «owed to me» for its card; the forecast for the forecasts. A failed step turns
 /// only its own tiles into a message with «Повторить»; the rest keep their numbers.
 enum OverviewCard {
-  /// Three columns from about 840 pt of list, two from about 560, one below that — at the
-  /// regular size of the text. A larger text needs wider tiles, so the steps grow with the body
-  /// size (17 pt of «Очень крупный» against 13: three columns from about 1,100 pt).
+  /// As many tiles of at least 277 pt, 14 apart, as the width holds, at most four: four in the
+  /// 1,150 pt of content of a 1,440 pt window, two in the 748 pt of a 1,024 pt one, one below
+  /// 568. A larger text needs wider tiles, so the narrowest tile grows with the body size (17 pt
+  /// of «Очень крупный» against 13).
   static func columns(forWidth width: CGFloat, fontSize: AppFontSize = .regular) -> Int {
     let scale = max(
       1, (fontSize.bodyPoints ?? AppFontSize.regularBodyPoints) / AppFontSize.regularBodyPoints)
-    return width >= 840 * scale ? 3 : width >= 560 * scale ? 2 : 1
+    let tile = StyleMetrics.tileMinWidth * scale
+    let fitting = Int(((width + columnGap) / (tile + columnGap)).rounded(.down))
+    return min(maxColumns, max(1, fitting))
+  }
+
+  /// The most tiles side by side, as the widest frame of the design lays them.
+  static let maxColumns = 4
+
+  /// The gap between tiles side by side: 14 on the Mac, 12 on a phone and a tablet.
+  static var columnGap: CGFloat {
+    #if os(iOS)
+      12
+    #else
+      StyleMetrics.columnGap
+    #endif
+  }
+
+  /// The gap between rows of tiles: 10 on the Mac, 12 on a phone and a tablet.
+  static var rowGap: CGFloat {
+    #if os(iOS)
+      12
+    #else
+      StyleMetrics.stackGap
+    #endif
+  }
+
+  /// The width of a place `span` columns wide: its tiles and the gaps between them.
+  static func width(of span: Int, in width: CGFloat, columns: Int) -> CGFloat {
+    let span = CGFloat(min(max(1, span), max(1, columns)))
+    return tileWidth(in: width, columns: columns) * span + columnGap * (span - 1)
+  }
+
+  /// The width of each of `columns` tiles in `width` of content.
+  static func tileWidth(in width: CGFloat, columns: Int) -> CGFloat {
+    let count = CGFloat(max(1, columns))
+    return (width - columnGap * (count - 1)) / count
   }
 
   /// The tiles in rows of `columns`, in order.

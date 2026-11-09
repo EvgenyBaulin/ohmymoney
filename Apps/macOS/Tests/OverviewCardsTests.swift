@@ -127,12 +127,17 @@ final class MoneyWordsTests: XCTestCase {
 /// The layout rules and the words of the cards.
 @MainActor
 final class OverviewCardsTests: XCTestCase {
-  func testTheGridHasThreeTwoOrOneColumnsByWidth() {
-    XCTAssertEqual(OverviewCard.columns(forWidth: 1_200), 3)
-    XCTAssertEqual(OverviewCard.columns(forWidth: 840), 3)
-    XCTAssertEqual(OverviewCard.columns(forWidth: 839), 2)
-    XCTAssertEqual(OverviewCard.columns(forWidth: 560), 2)
-    XCTAssertEqual(OverviewCard.columns(forWidth: 559), 1)
+  /// Tiles of at least 277 pt, 14 apart, at most four: the four of the 1,150 pt content of the
+  /// design's 1,440 pt window, the two of its 1,024 pt window.
+  func testTheGridHasFourThreeTwoOrOneColumnsByWidth() {
+    XCTAssertEqual(OverviewCard.columns(forWidth: 2_000), 4)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 1_150), 4)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 1_149), 3)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 859), 3)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 858), 2)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 748), 2)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 568), 2)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 567), 1)
     XCTAssertEqual(OverviewCard.columns(forWidth: 0), 1)
   }
 
