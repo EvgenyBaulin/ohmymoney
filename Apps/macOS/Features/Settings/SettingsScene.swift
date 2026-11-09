@@ -125,24 +125,28 @@ struct SettingsSidebar: View {
 
   var body: some View {
     let found = SettingsSearch.find(navigation.query, words: words)
-    List(
-      selection: Binding(
-        get: { navigation.section },
-        set: { if let section = $0 { navigation.section = section } })
-    ) {
+    // No `selection:` on the list: a selected row of a sidebar list is painted with the system
+    // highlight, which lay over the theme's plate. The rows are buttons and the plate is theirs.
+    List {
       ForEach(found, id: \.section) { found in
-        SettingsSidebarLabel(
-          section: found.section,
-          title: environment.language(found.section.titleKey, table: "Settings"),
-          isSelected: navigation.section == found.section
-        )
-        .tag(found.section)
+        let lit = SidebarHighlight(isSelected: navigation.section == found.section)
+        Button {
+          navigation.section = found.section
+        } label: {
+          SettingsSidebarLabel(
+            section: found.section,
+            title: environment.language(found.section.titleKey, table: "Settings"),
+            highlight: lit
+          )
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
         .listRowBackground(
-          navigation.section == found.section
-            ? RoundedRectangle(cornerRadius: SettingsChromeMetrics.plateRadius)
-              .fill(Color(theme.palette.accentTint)).padding(.horizontal, 4)
-            : nil
+          RoundedRectangle(cornerRadius: SettingsChromeMetrics.plateRadius)
+            .fill(lit.plate(theme)).padding(.horizontal, 4)
         )
+        .accessibilityAddTraits(lit.isSelected ? [.isSelected] : [])
         .accessibilityIdentifier("settings.section.\(found.section.rawValue)")
         ForEach(found.captions, id: \.self) { caption in
           Button {
