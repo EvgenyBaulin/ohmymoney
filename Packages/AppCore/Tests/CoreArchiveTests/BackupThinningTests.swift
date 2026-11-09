@@ -272,6 +272,27 @@ struct BackupThinningTests {
       ).isEmpty)
   }
 
+  @Test func manualCleanupKeepsTheNewestUpdateEvenIfEveryUpdateIsOverAYearOld() {
+    let entries = [
+      Self.entry("old", ago: 900, kind: .beforeUpdate),
+      Self.entry("newest-update", ago: 500, kind: .beforeUpdate),
+      Self.entry("newer-daily", ago: 1, kind: .daily),
+    ]
+    #expect(
+      BackupSpace.beforeUpdateOlderThanAYear(
+        entries: entries, now: Self.now, calendar: Self.calendar
+      ).map(\.id) == ["old"])
+    let boundary = [
+      Self.entry("over-year", ago: 366, kind: .beforeUpdate),
+      Self.entry("year", ago: 365, kind: .beforeUpdate),
+      Self.entry("latest", ago: 1, kind: .beforeUpdate),
+    ]
+    #expect(
+      BackupSpace.beforeUpdateOlderThanAYear(
+        entries: boundary, now: Self.now, calendar: Self.calendar
+      ).map(\.id) == ["over-year"])
+  }
+
   @Test func theDailyRunIsAtThreeLocal() {
     let next = BackupSpace.nextDailyRun(after: Self.now, calendar: Self.calendar)
     #expect(next == Self.date(2026, 10, 21, 3, 0))

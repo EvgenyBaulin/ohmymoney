@@ -115,19 +115,10 @@ enum StyleType {
   static let partLabel = AppFont.footnote
 }
 
-/// What a status label says, apart from its colour.
-enum StatusTone: Hashable {
+/// What a status label says: its words always carry the meaning, the dot and the tint only
+/// repeat it.
+enum StatusTone: Hashable, CaseIterable {
   case good, attention, bad, neutral
-
-  /// The symbol that goes with the words, so the tone is never colour alone.
-  var symbol: String {
-    switch self {
-    case .good: "checkmark.circle.fill"
-    case .attention: "exclamationmark.triangle.fill"
-    case .bad: "xmark.circle.fill"
-    case .neutral: "circle.fill"
-    }
-  }
 }
 
 /// The small rounded label of a status: «хватает», «просрочен», «превышен». A dot of the tone's

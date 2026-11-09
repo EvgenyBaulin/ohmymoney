@@ -295,7 +295,7 @@ final class BackupDailyAndReadableTests: XCTestCase {
   func testTheCopiesBeforeUpdatesOlderThanAYearAreListedWithoutTheNewest() async throws {
     let old1 = try writeFakeCopy(day(1, 5), reason: .beforeMigration(to: nil))
     let old2 = try writeFakeCopy(day(2, 5), reason: .beforeMigration(to: nil))
-    try writeFakeCopy(day(8, 5), reason: .beforeMigration(to: nil))
+    let newest = try writeFakeCopy(day(8, 5), reason: .beforeMigration(to: nil))
     let backups = service()
     let now = utc.date(from: DateComponents(year: 2027, month: 9, day: 1))!
 
@@ -303,6 +303,11 @@ final class BackupDailyAndReadableTests: XCTestCase {
 
     XCTAssertEqual(
       Set(older.map(\.id)), [old1.lastPathComponent, old2.lastPathComponent])
+    let removed = await backups.remove(older)
+    XCTAssertEqual(removed, 2)
+    XCTAssertFalse(FileManager.default.fileExists(atPath: old1.path))
+    XCTAssertFalse(FileManager.default.fileExists(atPath: old2.path))
+    XCTAssertTrue(FileManager.default.fileExists(atPath: newest.path))
   }
 
   /// A copy of the sizes the plan counts: a file of a known size, named like a real copy.

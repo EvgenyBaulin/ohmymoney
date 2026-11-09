@@ -8,7 +8,7 @@ public struct CapitalSettings: Hashable, Sendable, Codable {
   public static let targetMonthsKey = "cushion.targetMonths"
   /// The month the cushion should be complete by, `YYYY-MM`; absent — not said.
   public static let targetMonthKey = "cushion.targetMonth"
-  /// `1`: the cushion money is kept out of the free sum; default `0`.
+  /// `1`: the cushion money is kept out of the free sum; default `1`. A stored `0` keeps it in.
   public static let outOfFreeMoneyKey = "cushion.outOfFreeMoney"
   /// How many full months the obligatory spending is taken over, 3…12; default 6.
   public static let historyMonthsKey = "cushion.historyMonths"
@@ -33,7 +33,7 @@ public struct CapitalSettings: Hashable, Sendable, Codable {
   public var historyMonths: Int
 
   public init(
-    targetMonths: Int? = nil, targetMonth: MonthKey? = nil, outOfFreeMoney: Bool = false,
+    targetMonths: Int? = nil, targetMonth: MonthKey? = nil, outOfFreeMoney: Bool = true,
     historyMonths: Int = CapitalSettings.defaultHistoryMonths
   ) {
     self.targetMonths = targetMonths
@@ -51,7 +51,7 @@ public struct CapitalSettings: Hashable, Sendable, Codable {
       targetMonths: values[Self.targetMonthsKey].flatMap(Self.number)
         .flatMap { Self.targetMonthsRange.contains($0) ? $0 : nil },
       targetMonth: values[Self.targetMonthKey].flatMap(Self.month),
-      outOfFreeMoney: values[Self.outOfFreeMoneyKey].flatMap(Self.switchValue) ?? false,
+      outOfFreeMoney: values[Self.outOfFreeMoneyKey].flatMap(Self.switchValue) ?? true,
       historyMonths: values[Self.historyMonthsKey].flatMap(Self.number)
         .flatMap { Self.historyMonthsRange.contains($0) ? $0 : nil }
         ?? Self.defaultHistoryMonths)

@@ -55,7 +55,9 @@ struct DebtsCountAsBeforePropertyTests {
       transfers: set.transfers, accountGroups: set.accountGroups,
       accountSettings: AccountSettings(storedValues: set.settings), cards: set.cards,
       cashbackRules: set.cashbackRules, assets: set.assets,
-      assetValuations: set.assetValuations)
+      assetValuations: set.assetValuations,
+      // Keep the historical free-sum policy explicit so the digest isolates debt rules.
+      capitalSettings: CapitalSettings(outOfFreeMoney: false))
   }
 
   /// A debt of the older kind: a loan, a purchase on credit, a personal debt either way, with

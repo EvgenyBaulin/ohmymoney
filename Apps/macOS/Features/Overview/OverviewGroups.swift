@@ -269,7 +269,9 @@ struct OverviewGroupedGrid: View {
   ) -> [OverviewGridItem] {
     guard let snapshot else { return [] }
     var items: [OverviewGridItem] = []
-    if FreeSumParts.make(snapshot.planning.freeMoney) != nil { items.append(.freeSumParts) }
+    if FreeSumParts.make(OverviewHeadline.configured(snapshot).free) != nil {
+      items.append(.freeSumParts)
+    }
     if !OverviewDoNow.list(snapshot: snapshot, environment: environment).isEmpty {
       items.append(.doNow)
     }

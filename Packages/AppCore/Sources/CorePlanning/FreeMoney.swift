@@ -110,6 +110,12 @@ public struct FreeMoney: Hashable, Sendable {
   public var grey: AmountE4?
   /// max(0, grey) ÷ `days`; zero without a grey line.
   public var dailyGuide: AmountE4
+  /// Whole rubles for display, rounded once after Decimal division, half away from zero.
+  /// Rounding the E4 guide again could turn 1,386.499996… into 1,387 rubles.
+  public var dailyRubles: Int64 {
+    let exact = max(.zero, grey ?? .zero).decimal / Decimal(max(1, days))
+    return (try? DecimalMath.int64(rounding: exact)) ?? 0
+  }
   /// What the grey line takes away, each a minus line, in the order the block shows them.
   public var lines: [FreeToSpendLine]
   /// The part of the lines due before today and unpaid (`CashPlan.overdue`).
@@ -198,5 +204,32 @@ public struct FreeMoney: Hashable, Sendable {
   public static func window(today: DateOnly, until: DateOnly?) -> DayRange {
     let latest = today.adding(months: horizonMonths)
     return DayRange(today, min(max(until ?? today.monthKey.lastDay, today), latest))
+  }
+}
+
+extension PlanningSnapshot {
+  /// The free sum for the owner's chosen horizon, including today and its final day.
+  /// With no upcoming income it uses thirty days; a late pay half still ends today.
+  /// The month snapshot and calculations for an explicit day remain available separately.
+  public func configuredFreeMoney(ledger: Ledger) -> FreeMoney {
+    let fallback = today.adding(days: 29)
+    guard book.settings.freeMoneyHorizon == .nearestIncome else {
+      return freeMoney(until: fallback, ledger: ledger)
+    }
+    if let payHalf, payHalf.late {
+      return freeMoney(until: today, ledger: ledger)
+    }
+    let latest = today.adding(months: FreeMoney.horizonMonths)
+    // Search month by month so the occurrence limit cannot drop a nearby weekly income.
+    for offset in 0...FreeMoney.horizonMonths {
+      let through = min(today.monthKey.adding(months: offset).lastDay, latest)
+      let statuses = ExpectedIncomeRules.statuses(
+        book: book, ledger: ledger, today: today, rubPerUnit: rubPerUnit, through: through)
+      let nearest = statuses.flatMap(\.occurrences)
+        .filter { !$0.isFulfilled && $0.due >= today && $0.due <= through }
+        .map(\.due).min()
+      if let nearest { return freeMoney(until: nearest, ledger: ledger) }
+    }
+    return freeMoney(until: fallback, ledger: ledger)
   }
 }

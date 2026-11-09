@@ -222,7 +222,7 @@ final class OverviewFigmaNumbersTests: XCTestCase {
       [AmountE4(whole: 126_400), AmountE4(whole: -68_800), AmountE4(whole: -16_000)])
     XCTAssertEqual(parts.parts.reduce(AmountE4.zero) { $0 + $1.amount }, parts.total)
     XCTAssertEqual(parts.days, 30)
-    XCTAssertEqual(parts.perDay, free.dailyGuide)
+    XCTAssertEqual(parts.perDayRubles, free.dailyRubles)
     XCTAssertEqual(parts.reserve, AmountE4(whole: 16_000))
   }
 

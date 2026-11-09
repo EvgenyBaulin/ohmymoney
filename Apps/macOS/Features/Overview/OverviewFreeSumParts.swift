@@ -26,7 +26,8 @@ struct FreeSumParts: Equatable {
   /// What is left: the free sum through D.
   var total: AmountE4
   var days: Int
-  var perDay: AmountE4
+  /// Whole rubles a day, as the free sum gives them.
+  var perDayRubles: Int64
   var reserve: AmountE4
   var parts: [Part]
 
@@ -38,7 +39,8 @@ struct FreeSumParts: Equatable {
     if free.cushion != .zero { parts.append(Part(kind: .reserve, amount: -free.cushion)) }
     if free.goalSavings != .zero { parts.append(Part(kind: .goals, amount: -free.goalSavings)) }
     return FreeSumParts(
-      total: total, days: free.days, perDay: free.dailyGuide, reserve: free.cushion, parts: parts)
+      total: total, days: free.days, perDayRubles: free.dailyRubles, reserve: free.cushion,
+      parts: parts)
   }
 
   static let table = "Overview"
@@ -62,7 +64,9 @@ struct OverviewFreeSumPartsCard: View {
   var fillsHeight = false
 
   var body: some View {
-    if let snapshot = compute.snapshot, let parts = FreeSumParts.make(snapshot.planning.freeMoney) {
+    if let snapshot = compute.snapshot,
+      let parts = FreeSumParts.make(OverviewHeadline.configured(snapshot).free)
+    {
       VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
         Text(verbatim: t("overview.parts.title"))
           .appFont(StyleType.tileTitle)
@@ -106,7 +110,7 @@ struct OverviewFreeSumPartsCard: View {
   }
 
   private func perDayLine(_ parts: FreeSumParts) -> String {
-    let perDay = environment.money.rounded(parts.perDay)
+    let perDay = environment.money.rubles(parts.perDayRubles)
     return parts.reserve == .zero
       ? environment.format("overview.parts.perDay", table: FreeSumParts.table, perDay)
       : environment.format(

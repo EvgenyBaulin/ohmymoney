@@ -15,43 +15,44 @@ struct OverviewHeadlineContent: Equatable {
 enum OverviewHeadline {
   static let table = "Overview"
 
-  /// `nil` while nothing is counted and there is no figure to show.
+  /// The one free sum the screen shows, for the owner's horizon (`planning.freeMoneyHorizon`)
+  /// with the cushion kept out unless the owner turned that off: the main card and «Из чего
+  /// складывается сумма» both read it from here, so they never show two figures.
   @MainActor
-  static func make(free: FreeMoney, environment: AppEnvironment) -> OverviewHeadlineContent? {
-    guard free.state == .ready, let main = free.main else { return nil }
-    return make(
-      main: main, perDay: free.dailyGuide, until: free.until, days: free.days,
-      environment: environment)
+  static func configured(
+    _ snapshot: DataSnapshot
+  ) -> (free: FreeMoney, horizon: FreeMoneyHorizon) {
+    (
+      snapshot.planning.configuredFreeMoney(ledger: snapshot.ledger),
+      snapshot.planning.book.settings.freeMoneyHorizon
+    )
   }
 
-  /// The same from the figures themselves.
+  /// The words of the card: «До 9 декабря · 30 дней», «Сейчас свободно 41 600 ₽» (or «Свободно
+  /// до дохода …», or «Не хватает …» below zero), and the line of the day as Planning says it.
+  /// `nil` while nothing is counted and there is no figure to show.
   @MainActor
   static func make(
-    main: AmountE4, perDay: AmountE4, until: DateOnly, days dayCount: Int,
-    environment: AppEnvironment
-  ) -> OverviewHeadlineContent {
-    let money = environment.money
-    let verdict = FreeVerdict(free: main)
-    let days = environment.format("overview.headline.days", table: table, counts: dayCount)
+    free: FreeMoney, horizon: FreeMoneyHorizon, environment: AppEnvironment
+  ) -> OverviewHeadlineContent? {
+    guard let words = OverviewHero.content(free: free, horizon: horizon, environment),
+      let figure = free.grey
+    else { return nil }
+    let days = environment.format("overview.headline.days", table: table, counts: free.days)
     let caption = environment.format(
       "overview.headline.until", table: table,
-      PlanningBlockText.dayText(until, environment), days)
-    let taken = environment.language("overview.headline.taken", table: table)
-    let line =
-      perDay > .zero
-      ? environment.format("overview.headline.perDay", table: table, money.rounded(perDay), taken)
-      : taken
-    switch verdict {
+      PlanningBlockText.dayText(free.until, environment), days)
+    let line = words.lines.first ?? ""
+    switch FreeVerdict(free: figure) {
     case .enough:
       return OverviewHeadlineContent(
-        caption: caption,
-        title: environment.format("overview.headline.free", table: table, money.rounded(main)),
-        line: line, verdict: environment.language("overview.verdict.enough", table: table),
-        tone: .good)
+        caption: caption, title: "\(words.caption) \(words.figure)", line: line,
+        verdict: environment.language("overview.verdict.enough", table: table), tone: .good)
     case .short:
       return OverviewHeadlineContent(
         caption: caption,
-        title: environment.format("overview.headline.short", table: table, money.rounded(-main)),
+        title: environment.format(
+          "overview.headline.short", table: table, environment.money.rounded(-figure)),
         line: line, verdict: environment.language("overview.verdict.short", table: table),
         tone: .bad)
     }
@@ -71,7 +72,8 @@ struct OverviewHeadlineCard: View {
 
   var body: some View {
     if let snapshot = compute.snapshot,
-      let content = OverviewHeadline.make(free: snapshot.planning.freeMoney, environment: environment)
+      case let (free, horizon) = OverviewHeadline.configured(snapshot),
+      let content = OverviewHeadline.make(free: free, horizon: horizon, environment: environment)
     {
       MainCard(stripe: OverviewHeadline.stripe(content.tone, in: surfaces)) {
         HStack(alignment: .top, spacing: 8) {

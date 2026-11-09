@@ -1,9 +1,10 @@
 import AppCore
 import SwiftUI
 
-/// The main card of Overview on every platform: «Свободно … — хватает» with the days to the
-/// end of the free sum's window, in the white calm card of the one style (`OverviewHeadlineCard`).
-/// The coloured gradient card belongs to «Капитал» and «Итоги» only. Content, never glass.
+/// The main card of Overview on every platform: the configured free sum («Сейчас свободно …» or
+/// «Свободно до дохода …», 0609–0611) with its verdict, in the white calm card of the one style
+/// (`OverviewHeadlineCard`). The coloured gradient card belongs to «Капитал» and «Итоги» only.
+/// Content, never glass; the figures are the core's, only put into words (`content`).
 struct OverviewHero: View {
   /// The main card stands first on every screen, wide or narrow.
   static func shows(forWidth width: CGFloat) -> Bool { true }
@@ -13,6 +14,25 @@ struct OverviewHero: View {
   static func line(_ line: String?, partHidden: String?) -> String? {
     guard let partHidden else { return line }
     return line.map { "\($0) · \(partHidden)" } ?? partHidden
+  }
+
+  @MainActor
+  static func content(
+    free: FreeMoney, horizon: FreeMoneyHorizon, _ environment: AppEnvironment
+  ) -> PlanningHero.Content? {
+    guard free.state == .ready, let amount = free.grey else { return nil }
+    let figure = environment.money.rounded(amount)
+    let daily = environment.money.rubles(free.dailyRubles)
+    let line =
+      horizon == .nearestIncome
+      ? environment.format(
+        "free.half", table: "Planning", PlanningBlockText.dayText(free.until, environment),
+        figure, daily)
+      : environment.format("free.perDay", table: "Planning", daily, free.days)
+    return PlanningHero.Content(
+      caption: environment.language(
+        horizon == .thirtyDays ? "free.now" : "free.untilIncome", table: "Planning"),
+      figure: figure, lines: [line])
   }
 
   var body: some View { OverviewHeadlineCard() }
