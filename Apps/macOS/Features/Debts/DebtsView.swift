@@ -170,7 +170,7 @@ struct DebtsView: View {
 
   /// What the confirmation says stays and goes, from the data on screen.
   private func deletionMessage(_ line: DebtLine) -> String {
-    guard let snapshot = compute.snapshot else { return t("debts.delete.undo") }
+    guard let snapshot = compute.snapshot else { return t("debts.delete.warning") }
     let deletion = DebtActions.deletion(of: line.debt, snapshot: snapshot, at: Date())
     return DebtDeletionText.message(
       deletion, personName: snapshot.dataset.people.first { $0.id == line.debt.personId }?.name,
@@ -455,7 +455,7 @@ enum DebtScheduleText {
 /// The words of the confirmation of «Удалить…»: what leaves with the debt and what stays, one
 /// sentence a line — the journal, what was left on it, the operations that paid it by what they
 /// were, the purchases on credit, the money the journal moved, the archived subcategory, the
-/// income a later repayment would be, and that ⌘Z brings it back.
+/// income a later repayment would be, and that deletion cannot be undone.
 @MainActor
 enum DebtDeletionText {
   static func message(
@@ -494,7 +494,7 @@ enum DebtDeletionText {
       lines.append(
         language.format("debts.delete.owedLater", table: "Debts", personName ?? debt.name))
     }
-    lines.append(language("debts.delete.undo", table: "Debts"))
+    lines.append(language("debts.delete.warning", table: "Debts"))
     return lines.joined(separator: "\n")
   }
 }

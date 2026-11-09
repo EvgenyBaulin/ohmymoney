@@ -419,6 +419,9 @@ final class DebtsFlowTests: XCTestCase {
         money: MoneyFormatter(locale: Locale(identifier: code)))
       let lines = text.split(separator: "\n")
       XCTAssertEqual(lines.count, 5, code)
+      XCTAssertTrue(
+        text.contains(choice == .english ? "cannot be undone" : "нельзя отменить"), text)
+      XCTAssertFalse(text.contains("⌘Z"), text)
       XCTAssertTrue(text.contains("45,000\u{00A0}"), "\(code): \(text)")
       XCTAssertTrue(text.contains("Телефон"), code)
       XCTAssertFalse(text.contains("debts.delete"), "\(code): a key left untranslated")
@@ -605,8 +608,8 @@ final class DebtActionsAgainstTheJournalTests: XCTestCase {
   }
 
   /// «Удалить…» a loan paid once: it leaves the lists, its subcategory of «Кредиты» goes to the
-  /// archive, its payment stays as it was — and one ⌘Z brings both back.
-  func testDeletingADebtIsOneUndoStep() async throws {
+  /// archive, its payment stays as it was, and undo cannot bring the debt back.
+  func testDeletingADebtCannotBeUndone() async throws {
     let loan = Debt(direction: .iOwe, type: .loan, name: "Car loan", paymentsAreExpenses: true)
     XCTAssertTrue(
       actions.create(loan, balance: AmountE4(whole: 100_000), on: today, moneyMovedNow: false))
@@ -631,12 +634,15 @@ final class DebtActionsAgainstTheJournalTests: XCTestCase {
     XCTAssertEqual(try operations().count, 1, "the payment stays")
     XCTAssertEqual(try operations().first?.transaction.debtId, loan.id)
 
+    XCTAssertFalse(store.canUndo)
+    XCTAssertFalse(store.canRedo)
     store.undo()
-    let back = try saved(loan)
-    XCTAssertNil(back.deletedAt)
+    let back = try XCTUnwrap(
+      try references.debts(includeClosed: true, includeDeleted: true).first { $0.id == loan.id })
+    XCTAssertNotNil(back.deletedAt)
     XCTAssertEqual(
       try references.categories(includeArchived: true).first { $0.id == subcategory }?.archived,
-      false)
+      true)
     XCTAssertEqual(try balance(loan), AmountE4(whole: 90_000))
   }
 

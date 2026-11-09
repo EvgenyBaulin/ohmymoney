@@ -83,12 +83,26 @@ final class ReferenceBooksTests: XCTestCase {
     XCTAssertEqual(rows.map(\.archived), [false, true])
   }
 
+  func testReferenceConfirmationsNeverClaimTheActionCannotBeUndone() {
+    for choice in [AppLanguage.Choice.english, .russian] {
+      environment.language.choice = choice
+      for key in [
+        "references.delete.message", "references.delete.messageMany",
+        "references.merge.message", "references.merge.messageEvent",
+      ] {
+        let text = environment.language(key, table: "Settings").lowercased()
+        XCTAssertFalse(text.contains("cannot be undone"), text)
+        XCTAssertFalse(text.contains("не отменить"), text)
+        XCTAssertFalse(text.contains("нельзя отменить"), text)
+      }
+    }
+  }
+
   // MARK: Deleting
 
-  /// A row nothing points at is deleted for good; one an operation in the bin names stays —
-  /// ⌘Z of that deletion would bring back an operation naming nobody. The deletion takes no
-  /// step of ⌘Z and forgets the ones before it.
-  func testOnlyWhatNothingPointsAtIsDeletedAndTheUndoHistoryGoes() throws {
+  /// An unused row is deleted in one step of undo; one an operation in the bin names stays —
+  /// restoring its operation must keep a valid reference. Earlier undo steps stay in place.
+  func testOnlyUnusedRowsAreDeletedAndOneUndoRestoresThem() throws {
     let anya = Person(name: "Аня")
     let olya = Person(name: "Оля")
     let kolya = Person(name: "Коля", archived: true)
@@ -105,7 +119,15 @@ final class ReferenceBooksTests: XCTestCase {
     XCTAssertEqual(Set(result.deleted), [olya.id, kolya.id])
     XCTAssertEqual(Array(result.kept.keys), [anya.id], "a used row is kept and named")
     XCTAssertEqual(try references.people(includeArchived: true).map(\.id), [anya.id])
-    XCTAssertFalse(store.canUndo, "⌘Z forgets what came before a deletion")
+    XCTAssertTrue(store.canUndo)
+    store.undo()
+    XCTAssertEqual(Set(try references.people(includeArchived: true)), Set([anya, olya, kolya]))
+    XCTAssertNotNil(try environment.transactions?.entry(id: spent.id)?.transaction.deletedAt)
+    store.undo()
+    XCTAssertNil(try environment.transactions?.entry(id: spent.id)?.transaction.deletedAt)
+    store.redo()
+    store.redo()
+    XCTAssertEqual(try references.people(includeArchived: true).map(\.id), [anya.id])
   }
 
   /// Nothing deleted, nothing forgotten: a deletion refused for every row leaves ⌘Z alone.
@@ -331,7 +353,7 @@ final class ReferenceBooksTests: XCTestCase {
   // MARK: Merging
 
   /// «Объединить с…» moves operations and cannot be taken back: the row's menu asks first,
-  /// naming both rows, what happens to them, and that it cannot be undone — in either language.
+  /// naming both rows and what happens to them, in either language.
   func testAMergeIsAskedFirstWithBothNames() {
     let question = ReferenceBooksView.MergeQuestion(
       book: .places, source: UUID(), sourceName: "Пятёрочка у дома", target: UUID(),
@@ -383,14 +405,13 @@ final class ReferenceBooksTests: XCTestCase {
       try references.places(includeArchived: true).first { $0.id == duplicate.id }?.archived, true)
   }
 
-  /// A merge cannot be undone, and ⌘Z forgets what came before it: a step taken before would
-  /// put an operation back on the row merged away, in the archive.
-  func testAMergeForgetsTheUndoHistory() throws {
+  /// A merge restores the names and links before undo reaches the preceding operation.
+  func testAMergeIsOneUndoAndRedoStep() throws {
     let shop = Place(name: "Пятёрочка")
     let duplicate = Place(name: "Пятёрочка у дома")
     try references.save(shop)
     try references.save(duplicate)
-    try lunch(at: duplicate.id)
+    let spent = try lunch(at: duplicate.id)
     XCTAssertTrue(store.canUndo)
 
     XCTAssertEqual(
@@ -399,7 +420,16 @@ final class ReferenceBooksTests: XCTestCase {
           book: .places, source: duplicate.id, sourceName: duplicate.name, target: shop.id,
           targetName: shop.name)),
       .done)
-    XCTAssertFalse(store.canUndo, "⌘Z would put the operation back on the merged-away row")
+    XCTAssertTrue(store.canUndo)
+    store.undo()
+    XCTAssertEqual(Set(try references.places(includeArchived: true)), Set([shop, duplicate]))
+    XCTAssertEqual(
+      try environment.transactions?.entry(id: spent.id)?.transaction.placeId, duplicate.id)
+    store.redo()
+    XCTAssertEqual(try environment.transactions?.entry(id: spent.id)?.transaction.placeId, shop.id)
+    store.undo()
+    store.undo()
+    XCTAssertNil(try environment.transactions?.entry(id: spent.id))
   }
 
   /// The questions and hints say «другое название», never «алиас» or «псевдоним».

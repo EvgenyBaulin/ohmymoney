@@ -614,7 +614,7 @@ public struct ReferenceRepository: Sendable {
   /// not added twice, and one another live row answers to is left out — two live rows with one
   /// name are two rows the entry line cannot tell apart. The row merged away may come from the
   /// archive, whose names are free for any live row to take.
-  private static func mergeAliases<T: FetchableRecord & TableRecord>(
+  static func mergeAliases<T: FetchableRecord & TableRecord>(
     _ type: T.Type, source: UUID, into target: UUID, db: Database
   ) throws {
     let table = T.databaseTableName

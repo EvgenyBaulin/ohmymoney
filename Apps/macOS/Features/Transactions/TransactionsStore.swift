@@ -95,6 +95,8 @@ public final class TransactionsStore {
   public func forgetFailure() { failure = nil }
   /// The data the lists show, from the pipeline; `nil` until its first read.
   public private(set) var listing: Ledger?
+  /// Lets reference-book lists reload after a write or its undo.
+  public private(set) var writeRevision = 0
 
   /// Bulk writes of more operations than this leave the main thread. ⌘A over the two
   /// months Overview lists selects about 1 700 operations of the large sample, and a write
@@ -198,6 +200,7 @@ public final class TransactionsStore {
         max(
           1,
           undo.createdTransactionIds.count + undo.rewrittenBefore.count
+            + (undo.referenceBook?.transactionIds.count ?? 0)
             + undo.deletion.deletedIds.count + undo.deletion.companionIds.count)
       case .moneyBack(let write, _):
         max(1, write.created.count + write.repricedBefore.count + write.refundsBefore.count)
@@ -441,6 +444,28 @@ public final class TransactionsStore {
     }
   }
 
+  /// A confirmed reference-book action, preserving the actual deletion result from the write.
+  public func changeReferences(
+    _ action: ReferenceBookChange, file: String = #fileID
+  ) -> ReferenceBookUndo? {
+    guard !refuses("changeReferences", file), !isWritingInBackground, let planning else {
+      return nil
+    }
+    let change = PlanningChange(changingReferences: action)
+    do {
+      let undo = try planning.apply(change)
+      guard let referenceBook = undo.referenceBook else { return nil }
+      if referenceBook.hasChanges {
+        push(.planned(undo))
+        finishWrite(Self.applied(change, undo: undo))
+      }
+      return referenceBook
+    } catch {
+      failed(.planning, error, file: file)
+      return nil
+    }
+  }
+
   /// A move from another application in one step of ⌘Z: the import rows first — the operations
   /// point at them —, then the operations and the new categories as one change of planning. If
   /// the change is refused the rows are taken away again, so a failure leaves nothing behind.
@@ -505,7 +530,7 @@ public final class TransactionsStore {
   /// merge of cards moved, which it gives their card back.
   nonisolated static func broughtBack(by undo: PlanningUndo) -> [UUID] {
     undo.rewrittenBefore.map(\.id) + undo.deletion.deletedIds + undo.deletion.companionIds
-      + undo.movedCards.map(\.rowId)
+      + undo.movedCards.map(\.rowId) + (undo.referenceBook?.transactionIds ?? [])
   }
 
   /// What became of the edit of a saved operation.
@@ -1741,6 +1766,7 @@ public final class TransactionsStore {
   }
 
   private func finishWrite(_ write: StoreWrite) {
+    writeRevision += 1
     didWrite?(write)
   }
 
