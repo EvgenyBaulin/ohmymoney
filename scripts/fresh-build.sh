@@ -27,7 +27,8 @@ root="${OHMYMONEY_BUILD_ROOT:-${HOME}/Library/Developer/OhMyMoney}"
 # Below this many GB free a build from scratch may run out of room half-way: it says so first.
 least_free_gb="${OHMYMONEY_LEAST_FREE_GB:-15}"
 
-# Deletes the scratch folders of runs whose process is gone. A folder of a live process is kept.
+# Deletes the scratch folders of runs whose process is gone and that nobody wrote to for six
+# hours. A folder of a live process is kept.
 sweep() {
   local dir pid
   for dir in "$1"/scratch-*; do
@@ -37,6 +38,9 @@ sweep() {
     # `kill -0` fails on a live process of another user as well, so `ps` is asked too (it is
     # not there inside the sandbox of a session, where `kill -0` answers).
     { kill -0 "${pid}" 2> /dev/null || ps -p "${pid}" > /dev/null 2>&1; } && continue
+    # Inside a sandbox `kill -0` cannot reach a process outside it and `ps` is missing, so a
+    # live run of another session looks gone: only a folder untouched for six hours is stale.
+    [ -n "$(find "${dir}" -maxdepth 0 -mmin -360 2> /dev/null)" ] && continue
     rm -rf "${dir}"
     echo "fresh-build: deleted ${dir##*/}, left by a run that is gone"
   done
@@ -44,15 +48,19 @@ sweep() {
 
 if [ "${1:-}" = "--self-test" ]; then
   tmp="$(mktemp -d "${TMPDIR:-/tmp}/fresh-build-test.XXXXXX")"
-  mkdir -p "${tmp}/scratch-$$" "${tmp}/scratch-999999" "${tmp}/scratch-name"
+  mkdir -p "${tmp}/scratch-$$" "${tmp}/scratch-999999" "${tmp}/scratch-999998" "${tmp}/scratch-name"
+  # A run that is gone left its folder long ago; a folder written to lately may belong to a run
+  # this process cannot see (a sandbox answers `kill -0` with "not permitted" and has no `ps`).
+  touch -t 202001010000 "${tmp}/scratch-999999"
   sweep "${tmp}" > /dev/null
   status=0
   [ -d "${tmp}/scratch-$$" ] || { echo "fresh-build self-test: the folder of a live run was deleted"; status=1; }
   [ ! -d "${tmp}/scratch-999999" ] || { echo "fresh-build self-test: the folder of a gone run was kept"; status=1; }
+  [ -d "${tmp}/scratch-999998" ] || { echo "fresh-build self-test: a folder written to lately was deleted"; status=1; }
   [ -d "${tmp}/scratch-name" ] || { echo "fresh-build self-test: a folder without a pid was deleted"; status=1; }
   # The folder of a run is gone after it, also after a failure.
   OHMYMONEY_BUILD_ROOT="${tmp}" OHMYMONEY_LEAST_FREE_GB=0 "$0" false > /dev/null 2>&1
-  [ "$(find "${tmp}" -maxdepth 1 -name 'scratch-*' | wc -l | tr -d ' ')" = "2" ] ||
+  [ "$(find "${tmp}" -maxdepth 1 -name 'scratch-*' | wc -l | tr -d ' ')" = "3" ] ||
     { echo "fresh-build self-test: a failed run left its folder"; status=1; }
   rm -rf "${tmp}"
   [ "${status}" = "0" ] && echo "fresh-build self-test: ok"
