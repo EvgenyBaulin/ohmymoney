@@ -26,6 +26,19 @@ public enum BorrowedCardIssue: Hashable, Sendable {
   case cushion
 }
 
+/// What money of the owner moved onto someone else's card is. He says it when he moves it; the
+/// card keeps no balance, so the answer is what the money was for.
+public enum BorrowedTransferPurpose: String, Hashable, Sendable, CaseIterable {
+  /// Money for his own spending with the card: a transfer, not spending — what he spends with the
+  /// card is counted as his own when he spends it, so counting the advance too would count it
+  /// twice. The default.
+  case advance
+  /// Money given away: spending of the owner's, in a category of gifts.
+  case gift
+  /// Money given back on what he owes the person whose card it is: a payment of that debt.
+  case debtRepayment
+}
+
 /// The rules of someone else's card (`BorrowedCardTerms`): the money of a parent's, a partner's
 /// or a company card the owner pays with.
 ///
@@ -35,8 +48,8 @@ public enum BorrowedCardIssue: Hashable, Sendable {
 ///   or the free sum, and is in no total, group, capital or forecast.
 /// * Money moved from it to an account of the owner is income from the person whose card it is,
 ///   written as an income operation on that account (`incomeDraft`), never as a transfer.
-/// * Money of the owner is never moved onto it (`TransferIssue.toBorrowed`): whether that is a
-///   gift or a repayment is the owner's to say.
+/// * Money of the owner moved onto it is an advance, a gift or a repayment of a debt, as he says
+///   (`BorrowedTransferPurpose`); an advance is the default and is not spending.
 public enum BorrowedCardRules {
   /// The name of the default income category, in the strings.
   public static let defaultIncomeNameKey = "borrowed.category.familyHelp"
@@ -96,6 +109,57 @@ public enum BorrowedCardRules {
     if let chosen, isOwnersIncome(chosen) { return revival(chosen) }
     if let archived = named.first { return revival(archived) }
     return .create(nameKey: defaultIncomeNameKey)
+  }
+
+  /// The names the category of gifts is found by, in either language, in any case.
+  private static let giftNames: Set<String> = ["подарки", "gifts"]
+
+  /// The name of the category a gift is written in when there is none, in the strings.
+  public static let giftNameKey = "borrowed.category.gifts"
+
+  /// The category a gift to the person whose card it is is written in: a live top-level expense
+  /// category named «Подарки» or "Gifts", else one from the archive, else a new one.
+  public static func giftCategory(categories: [CoreKit.Category]) -> BorrowedIncomeCategoryChoice {
+    let tree = CategoryTree(categories)
+    let named = categories.filter { category in
+      category.parentId == nil && category.kind == .expense
+        && tree.systemRole(of: category.id) == nil
+        && giftNames.contains(category.name.trimmingCharacters(in: .whitespaces).lowercased())
+    }
+    .sorted { left, right in
+      left.sort != right.sort ? left.sort < right.sort : left.id.uuidString < right.id.uuidString
+    }
+    if let live = named.first(where: { !$0.archived }) { return .existing(live.id) }
+    if let archived = named.first { return .revive(archived.id, parent: nil) }
+    return .create(nameKey: giftNameKey)
+  }
+
+  /// The debt a repayment to the person whose card it is pays: an open debt the owner owes that
+  /// person, in the currency that left his account; the first by name when there are several.
+  /// `nil` when there is none.
+  public static func debtToRepay(
+    card: PaymentMethod, currency: CurrencyCode, debts: [Debt]
+  ) -> Debt? {
+    guard let person = card.borrowed?.personId else { return nil }
+    return debts.filter {
+      $0.deletedAt == nil && !$0.closed && $0.direction == .iOwe && $0.personId == person
+        && $0.currency == currency
+    }
+    .min { left, right in
+      left.name != right.name ? left.name < right.name : left.id.uuidString < right.id.uuidString
+    }
+  }
+
+  /// A gift as the spending it is: what left, in its currency, from the account it left, in
+  /// `categoryId`, with the note of the transfer.
+  public static func giftDraft(transfer: Transfer, categoryId: UUID) -> TransactionDraft {
+    var draft = TransactionDraft(
+      kind: .expense, occurredAt: transfer.occurredAt, currency: transfer.fromCurrency,
+      amount: transfer.fromAmountE4, note: transfer.note, paymentMethodId: transfer.fromAccountId)
+    draft.normalizeSinglePart()
+    draft.parts[0].categoryId = categoryId
+    draft.parts[0].categorySource = .system
+    return draft
   }
 
   /// Whether a transfer from `fromAccountId` is income from someone else's card rather than a

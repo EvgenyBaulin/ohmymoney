@@ -86,6 +86,23 @@
         }
       }
     },
+    "borrowed.category.gifts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gifts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарки"
+          }
+        }
+      }
+    },
     "borrowed.editor.hint": {
       "extractionState": "manual",
       "localizations": {
@@ -324,19 +341,155 @@
         }
       }
     },
+    "borrowed.transfer.note.advance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An advance: not spending. What you buy with the card is counted as yours when you spend it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аванс: не расход. Траты с карты считаются вашими, когда вы их совершаете."
+          }
+        }
+      }
+    },
+    "borrowed.transfer.note.debtRepayment": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repayment: it will be written as a payment of your open debt to this person, not as a transfer."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат долга: запишется платежом по вашему открытому долгу этому человеку, а не переводом."
+          }
+        }
+      }
+    },
+    "borrowed.transfer.note.gift": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A gift: it will be written as an expense in «Gifts», not as a transfer."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарок: запишется расходом в «Подарки», а не переводом."
+          }
+        }
+      }
+    },
+    "borrowed.transfer.purpose.advance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advance for my spending with this card"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аванс для моих трат с этой карты"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.purpose.debtRepayment": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repaying a debt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возврат долга"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.purpose.gift": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gift"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарок"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.purposeLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What the money is for"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для чего эти деньги"
+          }
+        }
+      }
+    },
+    "borrowed.transfer.refusal.noDebt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no open debt to this person in this currency to pay back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет открытого долга этому человеку в этой валюте, который можно вернуть."
+          }
+        }
+      }
+    },
     "borrowed.transfer.refusal.to": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your money can't be moved onto someone else's card. If it was a gift or paying back, write it as an expense."
+            "value": "Money can't be moved from one card that isn't yours to another."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "На чужую карту переводить нельзя: это не ваши деньги. Если это подарок или возврат долга — запишите расходом."
+            "value": "Между чужими картами переводить нечего: ни те, ни другие деньги не ваши."
           }
         }
       }

@@ -48,11 +48,17 @@ struct BorrowedCardRulesTests {
     #expect(BorrowedCardRules.issue(cushion) == .cushion)
   }
 
-  @Test func noMoneyOfTheOwnersGoesOntoSomeoneElsesCard() {
+  @Test func moneyOfTheOwnersMayGoOntoSomeoneElsesCardButNotFromOneCardToAnother() {
     let accounts = [own, papa]
     #expect(
-      TransferRules.validate(transfer(from: own.id, to: papa.id), accounts: accounts)
-        == .toBorrowed)
+      TransferRules.validate(transfer(from: own.id, to: papa.id), accounts: accounts) == nil,
+      "an advance, a gift or a repayment: the form asks which")
+    var mama = papa
+    mama.id = Self.id(3)
+    mama.name = "Карта мамы"
+    #expect(
+      TransferRules.validate(
+        transfer(from: papa.id, to: mama.id), accounts: accounts + [mama]) == .toBorrowed)
     #expect(
       TransferRules.validate(transfer(from: papa.id, to: own.id), accounts: accounts) == nil,
       "money from the card is allowed: the form writes it as income")
@@ -129,5 +135,53 @@ struct BorrowedCardRulesTests {
     #expect(
       BorrowedCardRules.incomeCategory(for: papa, categories: [archivedFamily])
         == .revive(archivedFamily.id, parent: nil))
+  }
+
+  @Test func aGiftGoesToACategoryOfGiftsOfTheOwnersSpending() {
+    let income = CoreKit.Category(id: Self.id(61), kind: .income, name: "Подарки")
+    #expect(
+      BorrowedCardRules.giftCategory(categories: [income])
+        == .create(nameKey: BorrowedCardRules.giftNameKey),
+      "an income category of the same name is no category of spending")
+    let live = CoreKit.Category(id: Self.id(62), kind: .expense, name: " gifts ")
+    #expect(BorrowedCardRules.giftCategory(categories: [income, live]) == .existing(live.id))
+    let archived = CoreKit.Category(id: Self.id(63), kind: .expense, name: "Подарки", archived: true)
+    #expect(
+      BorrowedCardRules.giftCategory(categories: [archived])
+        == .revive(archived.id, parent: nil))
+    let draft = BorrowedCardRules.giftDraft(
+      transfer: transfer(from: own.id, to: papa.id, 700), categoryId: live.id)
+    #expect(draft.kind == .expense)
+    #expect(draft.paymentMethodId == own.id)
+    #expect(draft.amount == AmountE4(whole: 700))
+    #expect(draft.parts.first?.categoryId == live.id)
+    #expect(draft.note == "на обед")
+  }
+
+  @Test func aRepaymentPaysTheOpenDebtToThePersonWhoseCardItIs() {
+    func debt(_ number: Int, _ direction: DebtDirection, person: UUID?, name: String = "Долг",
+      currency: CurrencyCode = .rub, closed: Bool = false
+    ) -> Debt {
+      Debt(
+        id: Self.id(number), direction: direction, type: .loan, name: name, personId: person,
+        currency: currency, closed: closed)
+    }
+    let person = Self.id(90)
+    let debts = [
+      debt(80, .owedToMe, person: person),
+      debt(81, .iOwe, person: Self.id(91)),
+      debt(82, .iOwe, person: person, closed: true),
+      debt(83, .iOwe, person: person, currency: .usd),
+      debt(84, .iOwe, person: person, name: "Б"),
+      debt(85, .iOwe, person: person, name: "А"),
+    ]
+    #expect(
+      BorrowedCardRules.debtToRepay(card: papa, currency: .rub, debts: debts)?.id == Self.id(85))
+    #expect(BorrowedCardRules.debtToRepay(card: papa, currency: .usd, debts: debts)?.id == Self.id(83))
+    #expect(BorrowedCardRules.debtToRepay(card: papa, currency: .eur, debts: debts) == nil)
+    var unsaid = papa
+    unsaid.borrowed?.personId = nil
+    #expect(BorrowedCardRules.debtToRepay(card: unsaid, currency: .rub, debts: debts) == nil)
+    #expect(BorrowedTransferPurpose.allCases == [.advance, .gift, .debtRepayment])
   }
 }

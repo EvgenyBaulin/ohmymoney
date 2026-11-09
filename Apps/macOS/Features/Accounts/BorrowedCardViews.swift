@@ -30,13 +30,16 @@ enum BorrowedCardText {
   }
 
   /// What the transfer form says under its accounts: that money from someone else's card is
-  /// income in its category, or that money cannot go onto one; `nil` for a plain transfer.
+  /// income in its category, or what money moved onto one comes to (an advance, a gift, a repayment); `nil` for a plain transfer.
   static func transferNote(
     from: PaymentMethod?, to: PaymentMethod?, categories: [CoreKit.Category],
-    _ environment: AppEnvironment
+    purpose: BorrowedTransferPurpose = .advance, _ environment: AppEnvironment
   ) -> String? {
-    if to?.isBorrowed == true {
+    if from?.isBorrowed == true, to?.isBorrowed == true {
       return environment.language("borrowed.transfer.refusal.to", table: table)
+    }
+    if to?.isBorrowed == true {
+      return environment.language("borrowed.transfer.note.\(purpose.rawValue)", table: table)
     }
     guard let from, from.isBorrowed else { return nil }
     let name = incomeCategoryName(

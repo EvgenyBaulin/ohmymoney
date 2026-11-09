@@ -382,12 +382,13 @@ struct TransferFields: View {
           accountPicker(from: false)
           currencyPicker(from: false)
           receivedRows
+          if toBorrowed { purposePicker }
           if let note = borrowedNote { caption(note) }
         } header: {
           Text(verbatim: t("transfer.sheet.to"))
         }
         Section {
-          if !fromBorrowed {
+          if !fromBorrowed, !givenAway {
             amountRow(
               t("transfer.sheet.fee"), amount: $entry.form.fee, currency: form.fromCurrency)
             feeCaptions
@@ -428,8 +429,9 @@ struct TransferFields: View {
           }
         }
         row(nil) { caption(rateCaption) }
+        if toBorrowed { row(nil) { purposePicker } }
         if let note = borrowedNote { row(nil) { caption(note) } }
-        if !fromBorrowed {
+        if !fromBorrowed, !givenAway {
           row("transfer.sheet.fee") {
             amountControl(amount: $entry.form.fee, currency: form.fromCurrency)
               .modifier(TransferFocused(focus: focus, value: .transferFee))
@@ -568,13 +570,9 @@ struct TransferFields: View {
       if selection == nil {
         Text(verbatim: "—").tag(UUID?.none)
       }
-      // Money of the owner never goes onto someone else's card: such a card is offered only as
-      // the side the money leaves (or while the form already names it, to say why it may not).
-      ForEach(
-        accountItems.filter { item in
-          from || item.id == selection || !(account(item.id)?.isBorrowed ?? false)
-        }
-      ) { item in
+      // Someone else's card can be the side the money arrives at too: the form then asks what
+      // the money is for (`purposePicker`).
+      ForEach(accountItems) { item in
         Text(verbatim: item.name).tag(UUID?.some(item.id))
       }
     } label: {
@@ -585,6 +583,35 @@ struct TransferFields: View {
     .accessibilityIdentifier(from ? "transfer.from" : "transfer.to")
   }
 
+  /// The money arrives at someone else's card and a new transfer is being written: the form asks
+  /// what the money is for.
+  private var toBorrowed: Bool {
+    form.previous == nil && account(form.toAccountId)?.isBorrowed == true
+      && account(form.fromAccountId)?.isBorrowed != true
+  }
+
+  /// A gift or a repayment is written as spending or a payment of a debt, with no fee.
+  private var givenAway: Bool { toBorrowed && form.borrowedPurpose != .advance }
+
+  /// «Для чего эти деньги»: an advance for the owner's own spending with the card (the default,
+  /// not spending), a gift, or a repayment of a debt to the person whose card it is.
+  private var purposePicker: some View {
+    Picker(
+      selection: $entry.form.borrowedPurpose
+    ) {
+      ForEach(BorrowedTransferPurpose.allCases, id: \.self) { purpose in
+        Text(
+          verbatim: environment.language(
+            "borrowed.transfer.purpose.\(purpose.rawValue)", table: BorrowedCardText.table)
+        ).tag(purpose)
+      }
+    } label: {
+      Text(
+        verbatim: environment.language("borrowed.transfer.purposeLabel", table: BorrowedCardText.table))
+    }
+    .accessibilityIdentifier("transfer.borrowedPurpose")
+  }
+
   /// The money leaves someone else's card: it is written as income, with no fee.
   private var fromBorrowed: Bool {
     form.previous == nil && account(form.fromAccountId)?.isBorrowed == true
@@ -593,9 +620,10 @@ struct TransferFields: View {
   /// «С чужой карты: запишется доходом в «Помощь семьи»», or why money cannot go onto one.
   private var borrowedNote: String? {
     BorrowedCardText.transferNote(
-      from: form.previous == nil ? account(form.fromAccountId) : nil,
-      to: account(form.toAccountId),
-      categories: entry.books?.dataset.categories ?? [], environment)
+      from: account(form.fromAccountId),
+      to: form.previous == nil ? account(form.toAccountId) : nil,
+      categories: entry.books?.dataset.categories ?? [], purpose: form.borrowedPurpose,
+      environment)
   }
 
   private func sideKey(_ from: Bool) -> String {

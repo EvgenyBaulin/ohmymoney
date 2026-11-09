@@ -308,9 +308,42 @@ struct AccountActions {
     if account.interest != nil, !account.archived {
       addInterestCategory(to: &change, books: books)
     }
+    if account.isBorrowed, previous?.isBorrowed != true {
+      writeBorrowedHistory(of: account, into: &change, books: books)
+    }
     let outcome = apply(change)
     if outcome == .done { Self.logCredit(of: account, previous: previous) }
     return outcome
+  }
+
+  /// An account that becomes someone else's card takes what it paid to the owner's accounts
+  /// before as what it is now: every transfer from it is deleted with its fee and written as the
+  /// income it would be today (`BorrowedCardRules.incomeDraft`), in the same step of ⌘Z as the
+  /// change of the account. A transfer a refund keeps stays a transfer; money moved onto the
+  /// card stays an advance.
+  private func writeBorrowedHistory(
+    of account: PaymentMethod, into change: inout PlanningChange, books: AccountBooks
+  ) {
+    let dataset = books.dataset
+    let actions = TransferActions(environment: environment, store: store)
+    let refusals = TransferActions.deletionRefusals(
+      of: dataset.transfers.filter { $0.fromAccountId == account.id }, in: dataset,
+      refunds: TransferActions.refunds(in: dataset))
+    let old = dataset.transfers.filter { transfer in
+      transfer.fromAccountId == account.id && refusals[transfer.id] == nil
+        && !(dataset.paymentMethods.first { $0.id == transfer.toAccountId }?.isBorrowed ?? false)
+    }
+    guard !old.isEmpty,
+      case .success(let written) = actions.incomeFromBorrowed(
+        old, from: account, replacing: old, dataset: dataset, now: change.at)
+    else { return }
+    change.created += written.created
+    change.delete.transfers += written.delete.transfers
+    change.softDeleted += written.softDeleted
+    change.upsert.categories += written.upsert.categories
+    AppLog.info(
+      "account.borrowed.history", .db, "transfers from a new borrowed card became income",
+      [LogPair("transfers", .count(old.count))])
   }
 
   /// A saved account whose terms of a credit card or main card changed is said in the journal,
