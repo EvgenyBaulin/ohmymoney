@@ -28,6 +28,26 @@ struct PlanningSettingsView: View {
     Form {
       screenSection
 
+      Section {
+        Picker(
+          selection: Binding(
+            get: { values.freeMoneyHorizon }, set: { save(\.freeMoneyHorizon, $0) })
+        ) {
+          ForEach(FreeMoneyHorizon.allCases, id: \.self) { horizon in
+            Text(verbatim: t("settings.planning.freeMoneyHorizon.\(horizon.rawValue)"))
+              .tag(horizon)
+          }
+        } label: {
+          Text(verbatim: t("settings.planning.freeMoneyHorizon"))
+          Text(verbatim: t("settings.planning.freeMoneyHorizonHint"))
+        }
+        .pickerStyle(.menu)
+        .accessibilityIdentifier("settings.planning.freeMoneyHorizon")
+      } header: {
+        Text(verbatim: t("settings.planning.freeMoney"))
+          .settingsHeaderStyle()
+      }
+
       // Self-employment, the allocation of an income and the hints of 1.9: each its own
       // section, written as steps of ⌘Z (the database) or switches of this Mac (the hints).
       SelfEmploymentSettingsSection()

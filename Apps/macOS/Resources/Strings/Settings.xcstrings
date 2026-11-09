@@ -8620,13 +8620,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The money of the cushion accounts in the summary is not in «can spend now»."
+            "value": "On by default. The cushion money in the summary is held back from the free sum. Turn off to include it."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Деньги счетов подушки в сводке не входят в «можно тратить сейчас»."
+            "value": "По умолчанию включено. Деньги подушки в сводке вычитаются из свободной суммы. Выключите, чтобы учитывать их как свободные."
           }
         }
       }
@@ -10675,6 +10675,91 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "settings.planning.freeMoney": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free sum"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свободная сумма"
+          }
+        }
+      }
+    },
+    "settings.planning.freeMoneyHorizon": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free sum horizon"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Горизонт свободной суммы"
+          }
+        }
+      }
+    },
+    "settings.planning.freeMoneyHorizonHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold back commitments for the next 30 days or until the nearest income. Future income is not added. With no upcoming income, use 30 days."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Учитывать обязательства на ближайшие 30 дней или до ближайшего дохода. Будущие доходы не прибавляются. Если ближайшего дохода нет — 30 дней."
+          }
+        }
+      }
+    },
+    "settings.planning.freeMoneyHorizon.thirtyDays": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next 30 days"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ближайшие 30 дней"
+          }
+        }
+      }
+    },
+    "settings.planning.freeMoneyHorizon.nearestIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Until the nearest income"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До ближайшего дохода"
           }
         }
       }

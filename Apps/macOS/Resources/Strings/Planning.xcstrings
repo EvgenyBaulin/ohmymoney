@@ -5253,6 +5253,23 @@
         }
       }
     },
+    "free.now": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free now"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сейчас свободно"
+          }
+        }
+      }
+    },
     "free.overdue": {
       "extractionState": "manual",
       "localizations": {
@@ -5436,6 +5453,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "до"
+          }
+        }
+      }
+    },
+    "free.untilIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free until income"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свободно до дохода"
           }
         }
       }

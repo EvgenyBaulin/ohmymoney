@@ -20,7 +20,7 @@ struct CapitalSettingsTests {
     #expect(settings == .standard)
     #expect(settings.targetMonths == nil)
     #expect(settings.targetMonth == nil)
-    #expect(!settings.outOfFreeMoney)
+    #expect(settings.outOfFreeMoney)
     #expect(settings.historyMonths == 6)
   }
 
@@ -32,6 +32,14 @@ struct CapitalSettingsTests {
     #expect(rows[CapitalSettings.targetMonthKey] == "2027-03")
     #expect(rows[CapitalSettings.outOfFreeMoneyKey] == "1")
     #expect(CapitalSettings(storedValues: rows) == settings)
+  }
+
+  @Test func anExplicitCushionChoiceIsPreserved() {
+    for excluded in [true, false] {
+      let settings = CapitalSettings(outOfFreeMoney: excluded)
+      #expect(
+        CapitalSettings(storedValues: settings.storedValues.compactMapValues { $0 }) == settings)
+    }
   }
 
   @Test func noGoalDeletesItsKeys() {

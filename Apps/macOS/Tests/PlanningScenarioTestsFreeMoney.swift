@@ -372,6 +372,8 @@ final class PlanningScenarioTestsFreeMoney: XCTestCase {
     let savings = PaymentMethod(name: "Накопительный", kind: .account, cushion: true)
     world.accounts.append(savings)
     world.count(savings.id, 50_000, on: "2026-10-01")
+    XCTAssertEqual(world.snapshot(today: "2026-10-14").freeMoney.main, S.rub(100_000))
+    world.capital = CapitalSettings(outOfFreeMoney: false)
     XCTAssertEqual(world.snapshot(today: "2026-10-14").freeMoney.main, S.rub(150_000))
     world.capital = CapitalSettings(outOfFreeMoney: true)
     let free = world.snapshot(today: "2026-10-14").freeMoney
