@@ -37,7 +37,7 @@ enum BackupSpaceText {
       + environment.language("backups.beforeUpdate.newestStays", table: table)
   }
 
-  /// «Копий «перед обновлением»: 4 · 38 МБ · хранятся всегда».
+  /// The count and size of pre-update copies, followed by the manual cleanup rule.
   @MainActor
   static func beforeUpdateTotal(
     count: Int, bytes: Int64, in environment: AppEnvironment

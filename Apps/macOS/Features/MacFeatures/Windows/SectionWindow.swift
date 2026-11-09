@@ -111,7 +111,11 @@ struct SectionWindow: View {
       ProgressView()
     case .ready:
       switch item {
-      case .section(.overview): OverviewView(actions: actions)
+      case .section(.overview):
+        // The room of the window fixes the widths of the tiles, as in the main window.
+        GeometryReader { proxy in
+          OverviewView(actions: actions).environment(\.overviewRoom, proxy.size.width)
+        }
       case .section(.operations): OperationsScreen(deps: deps, actions: actions, state: operations)
       case .section(.planning): PlanningView()
       case .section(.debts): DebtsView()

@@ -72,15 +72,22 @@ public struct YearPlanRepository: Sendable {
     }
   }
 
-  /// ⌘Z of `setLimit` and `removeLimit`: the pair holds exactly `exceptions` again.
+  /// ⌘Z of `setLimit` and `removeLimit`: the pair holds exactly `exceptions` again. Returns the
+  /// exceptions it held, so ⇧⌘Z can make the change again.
+  @discardableResult
   public func restoreLimits(
     budget: UUID, month: MonthKey, to exceptions: [LimitMonthException]
-  ) throws {
+  ) throws -> [LimitMonthException] {
     try writer.write { db in
+      let before = try LimitMonthException.fetchAll(
+        db,
+        sql: "SELECT * FROM budget_month_exceptions WHERE budget_id = ? AND month = ?",
+        arguments: [budget.uuidString, month.iso])
       try db.execute(
         sql: "DELETE FROM budget_month_exceptions WHERE budget_id = ? AND month = ?",
         arguments: [budget.uuidString, month.iso])
       for exception in exceptions { try exception.insert(db) }
+      return before
     }
   }
 

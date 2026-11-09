@@ -138,7 +138,20 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
       accent: Self.accent(row),
       hidden: (try? RowMapping.flag(row, "hidden", fallback: false)) ?? false,
       cashbackMonthlyCapE4: Self.cashbackCap(row),
-      cashbackChoiceDay: Self.cashbackChoiceDay(row))
+      cashbackChoiceDay: Self.cashbackChoiceDay(row),
+      borrowed: Self.borrowed(row))
+  }
+
+  /// Someone else's card: `borrowed` set to 1, with whose it is and the category of transfers
+  /// from it; a reference that does not read as an id reads as none.
+  private static func borrowed(_ row: Row) -> BorrowedCardTerms? {
+    // A database of an older schema has no such column.
+    guard row.hasColumn("borrowed"),
+      (try? RowMapping.flag(row, "borrowed", fallback: false)) == true
+    else { return nil }
+    return BorrowedCardTerms(
+      personId: RowMapping.optionalUUID(row, "borrowed_person_id"),
+      incomeCategoryId: RowMapping.optionalUUID(row, "borrowed_income_category_id"))
   }
 
   /// The account's monthly ceiling of cashback; below zero or unreadable reads as none.
@@ -290,6 +303,9 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
     container["hidden"] = hidden
     container["cashback_monthly_cap_e4"] = cashbackMonthlyCapE4?.raw
     container["cashback_choice_day"] = cashbackChoiceDay
+    container["borrowed"] = borrowed != nil
+    container["borrowed_person_id"] = borrowed?.personId?.uuidString
+    container["borrowed_income_category_id"] = borrowed?.incomeCategoryId?.uuidString
   }
 }
 

@@ -119,11 +119,12 @@ final class OverviewNarrowWidthTests: XCTestCase {
   /// The count of columns follows the size of the text: a larger text needs wider tiles, so the
   /// steps grow with the body size and the room beside the form keeps one column.
   func testColumnsFollowTheSizeOfTheText() {
-    XCTAssertEqual(OverviewCard.columns(forWidth: 840), 3)
-    XCTAssertEqual(OverviewCard.columns(forWidth: 840, fontSize: .regular), 3)
-    XCTAssertEqual(OverviewCard.columns(forWidth: 840, fontSize: .small), 3)
-    XCTAssertEqual(OverviewCard.columns(forWidth: 840, fontSize: .xlarge), 2)
-    XCTAssertEqual(OverviewCard.columns(forWidth: 1_100, fontSize: .xlarge), 3)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 1_150), 4)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 1_150, fontSize: .regular), 4)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 1_150, fontSize: .small), 4)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 1_150, fontSize: .large), 3)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 1_150, fontSize: .xlarge), 3)
+    XCTAssertEqual(OverviewCard.columns(forWidth: 1_100, fontSize: .xlarge), 2)
     XCTAssertEqual(OverviewCard.columns(forWidth: 600, fontSize: .xlarge), 1)
     XCTAssertEqual(OverviewCard.columns(forWidth: 600, fontSize: .large), 1)
     XCTAssertEqual(OverviewCard.columns(forWidth: 600, fontSize: .regular), 2)

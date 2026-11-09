@@ -26,6 +26,117 @@ struct ReferenceBookStorageTests {
     return try draft.materialize()
   }
 
+  @Test func eachBookMergeAndDeletionCanBeUndoneAndReplayed() throws {
+    for book in ReferenceBook.allCases {
+      let stack = try TestSupport.makeStack()
+      let references = ReferenceRepository(writer: stack.writer)
+      let transactions = TransactionRepository(writer: stack.writer)
+      let planning = PlanningRepository(writer: stack.writer)
+      let source = UUID()
+      let target = UUID()
+      let person = Person(id: source, name: "Friend", aliases: ["Guest"])
+      let place = Place(id: source, name: "Corner", aliases: ["Shop"])
+      let event = Event(
+        id: source, name: "Trip", startDate: .init(year: 2026, month: 7, day: 1),
+        endDate: .init(year: 2026, month: 7, day: 10))
+      try references.save(person)
+      try references.save(Person(id: target, name: "Other friend"))
+      try references.save(place)
+      try references.save(Place(id: target, name: "Other shop"))
+      try references.save(event)
+      try references.save(
+        Event(id: target, name: "Other trip", startDate: event.startDate, endDate: event.endDate))
+      let entry = try transactions.save(
+        try operation(place: source, forPerson: source, debtor: source, event: source))
+      let binned = try transactions.save(
+        try operation(place: source, forPerson: source, event: source))
+      _ = try transactions.softDelete(id: binned.id)
+      let before = try transactions.entries(ids: [entry.id, binned.id])
+      let people = try references.people(includeArchived: true)
+      let places = try references.places(includeArchived: true)
+      let events = try references.events(includeArchived: true)
+      let change = PlanningChange(
+        changingReferences: .merge(book: book, source: source, target: target))
+      let undo = try planning.apply(change)
+      let moved = try #require(try transactions.entry(id: entry.id))
+      switch book {
+      case .people:
+        #expect(moved.parts.first?.forPersonId == target)
+        #expect(moved.parts.first?.debtorPersonId == target)
+      case .places: #expect(moved.transaction.placeId == target)
+      case .events: #expect(moved.parts.first?.eventId == target)
+      }
+      try planning.revert(undo)
+      #expect(try references.people(includeArchived: true) == people)
+      #expect(try references.places(includeArchived: true) == places)
+      #expect(try references.events(includeArchived: true) == events)
+      #expect(try transactions.entries(ids: [entry.id, binned.id]) == before)
+      let replay = try planning.apply(change)
+      try planning.revert(replay)
+      _ = try transactions.purge(id: entry.id)
+      _ = try transactions.purge(id: binned.id)
+      let deletion = try planning.apply(
+        PlanningChange(changingReferences: .delete(book: book, ids: [source, target])))
+      #expect(Set(deletion.referenceBook?.deletion.deleted ?? []) == [source, target])
+      try planning.revert(deletion)
+      #expect(try references.people(includeArchived: true) == people)
+      #expect(try references.places(includeArchived: true) == places)
+      #expect(try references.events(includeArchived: true) == events)
+    }
+  }
+
+  @Test func undoRestoresPlanningLinksAndLeavesTheTargetsExistingLinksAlone() throws {
+    for book in [ReferenceBook.people, .events] {
+      let stack = try TestSupport.makeStack()
+      let references = ReferenceRepository(writer: stack.writer)
+      let planning = PlanningRepository(writer: stack.writer)
+      let source = UUID()
+      let target = UUID()
+      for id in [source, target] {
+        try references.save(Person(id: id, name: id.uuidString))
+        try references.save(
+          Event(
+            id: id, name: id.uuidString, startDate: .init(year: 2026, month: 7, day: 1),
+            endDate: .init(year: 2026, month: 7, day: 10)))
+        try references.save(
+          Debt(direction: .owedToMe, type: .personal, name: "Loan", personId: id))
+        try stack.writer.write { db in
+          try db.execute(
+            sql: """
+              INSERT INTO scheduled_payments
+                (id, name, kind, amount_e4, for_person_id, debtor_person_id, event_id)
+              VALUES (?, 'Subscription', 'subscription', 10000, ?, ?, ?)
+              """, arguments: [id.uuidString, id.uuidString, id.uuidString, id.uuidString])
+          try db.execute(
+            sql: "INSERT INTO subscription_users (id, payment_id, person_id) VALUES (?, ?, ?)",
+            arguments: [id.uuidString, id.uuidString, id.uuidString])
+          try db.execute(
+            sql: """
+              INSERT INTO expected_income (id, name, kind, total_e4, person_id)
+              VALUES (?, 'Income', 'one_off', 10000, ?)
+              """, arguments: [id.uuidString, id.uuidString])
+          try db.execute(
+            sql: """
+              INSERT INTO event_budget_items (id, title, event_id, planned_e4)
+              VALUES (?, 'Tickets', ?, 10000)
+              """, arguments: [id.uuidString, id.uuidString])
+          try db.execute(
+            sql: """
+              INSERT INTO import_mappings
+                (id, source_kind, source_category, target_for_person_id, target_event_id)
+              VALUES (?, 'expense', ?, ?, ?)
+              """, arguments: [id.uuidString, id.uuidString, id.uuidString, id.uuidString])
+        }
+      }
+      let before = try stack.writer.read { try TestSupport.contents($0) }
+      let change = PlanningChange(
+        changingReferences: .merge(book: book, source: source, target: target))
+      let undo = try planning.apply(change)
+      try planning.revert(undo)
+      #expect(try stack.writer.read { try TestSupport.contents($0) } == before)
+    }
+  }
+
   /// Every column that points at a row counts, the operations in the bin too: a deleted
   /// operation brought back by ⌘Z would name a row that is not there. An operation naming a
   /// person twice counts once.

@@ -88,17 +88,17 @@ enum SidebarItem: Hashable, Sendable {
         Button {
           openSettings()
         } label: {
-          Label {
-            Text(verbatim: environment.language("settings.title", table: "Settings"))
-          } icon: {
-            Image(systemName: "gearshape")
-          }
-          .frame(maxWidth: .infinity, alignment: .leading)
+          SidebarRowLabel(
+            title: environment.language("settings.title", table: "Settings"),
+            symbol: "gearshape", chosen: false
+          )
+          .foregroundStyle(Color(theme.palette.contentPrimary))
           .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        // A row of a section, 12 from the edges of the column and 14 above its foot.
+        .padding(.horizontal, SidebarMetrics.sideInset)
+        .padding(.bottom, 14)
         .accessibilityIdentifier("sidebar.settings")
       }
       .accountsSidebarPresentations(accounts, selection: $selection)
@@ -140,10 +140,16 @@ enum SidebarItem: Hashable, Sendable {
             )
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, 2)
-            .padding(.leading, 30)
+            // Under the name of «Покупки».
+            .padding(
+              .leading,
+              SidebarMetrics.rowHorizontal + SidebarMetrics.icon + SidebarMetrics.iconGap
+                - SidebarMetrics.listOutset
+            )
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
+        .listRowInsets(SidebarRowLabel.insets)
         .listRowBackground(Color.clear)
         .accessibilityAddTraits(lit ? [.isSelected] : [])
         .accessibilityIdentifier("sidebar.purchases.\(page.rawValue)")
@@ -151,28 +157,28 @@ enum SidebarItem: Hashable, Sendable {
     }
 
     /// A section of the window: a line icon and the name; the chosen one lies on a plate of the
-    /// theme's accent tint with its text in the accent. A button, not a tagged row: the list's
-    /// own highlight would paint over the plate, and the lit row is the model's
-    /// (`SidebarHighlight`), also for VoiceOver (`isSelected`).
+    /// theme's accent tint with its text in the accent and a heavier weight. A button, not a
+    /// tagged row: the list's own highlight would paint over the plate, and the lit row is the
+    /// model's (`SidebarHighlight`), also for VoiceOver (`isSelected`). The numbers are the
+    /// design's (`SidebarMetrics`).
     private func sectionRow(_ item: MainWindow.Section) -> some View {
       let lit = SidebarHighlight.of(item, selection: selection)
       return Button {
         selection = .section(item)
       } label: {
-        Label {
-          Text(verbatim: environment.language(item.titleKey))
-        } icon: {
-          Image(systemName: item.symbol)
-        }
+        SidebarRowLabel(
+          title: environment.language(item.titleKey), symbol: item.symbol, chosen: lit.isSelected
+        )
         .foregroundStyle(lit.text(theme))
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 3)
-        .padding(.horizontal, 6)
         .beginnerQuiet(BeginnerModeOnMac.section(of: item))
-        .background(lit.plate(theme), in: .rect(cornerRadius: 8))
+        .background(lit.plate(theme), in: .rect(cornerRadius: SidebarMetrics.plateRadius))
+        // The list keeps its rows 16 from the column's edges; the design's plate stands 12 from
+        // them, so it reaches 4 beyond the row on each side.
+        .padding(.horizontal, -SidebarMetrics.listOutset)
         .contentShape(.rect)
       }
       .buttonStyle(.plain)
+      .listRowInsets(SidebarRowLabel.insets)
       .listRowBackground(Color.clear)
       .accessibilityAddTraits(lit.isSelected ? [.isSelected] : [])
       .accessibilityIdentifier("sidebar.\(item.rawValue)")
@@ -181,6 +187,37 @@ enum SidebarItem: Hashable, Sendable {
   }
 
 #endif
+
+/// A row of the sidebar, as the design lays it: the icon in a 17 pt square, 9 from the name in
+/// 14 medium (semibold when chosen), 10 × 7 of margin inside the plate.
+struct SidebarRowLabel: View {
+  @Environment(\.appFontSize) private var fontSize
+  let title: String
+  let symbol: String
+  let chosen: Bool
+
+  /// The list's room around a row: half of the 3 pt between two rows above and below; at the
+  /// sides the list keeps its own (`SidebarMetrics.listRowInset`).
+  static let insets = EdgeInsets(
+    top: SidebarMetrics.rowGap / 2, leading: 0, bottom: SidebarMetrics.rowGap / 2, trailing: 0)
+
+  var body: some View {
+    HStack(spacing: SidebarMetrics.iconGap) {
+      Image(systemName: symbol)
+        .appFont(SidebarType.row)
+        .frame(
+          width: fontSize.points(fromRegular: SidebarMetrics.icon),
+          height: fontSize.points(fromRegular: SidebarMetrics.icon))
+        .accessibilityHidden(true)
+      Text(verbatim: title)
+        .appFont(chosen ? SidebarType.chosenRow : SidebarType.row)
+        .lineLimit(1)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(.horizontal, SidebarMetrics.rowHorizontal)
+    .padding(.vertical, SidebarMetrics.rowVertical)
+  }
+}
 
 extension Notification.Name {
   /// Chooses an item of the sidebar of the main window; the object is the `SidebarItem`.

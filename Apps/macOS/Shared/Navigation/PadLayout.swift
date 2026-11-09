@@ -36,6 +36,13 @@ enum PadLayout {
     mode(forWidth: width) == .permanent ? width - sidebarWidth : width
   }
 
+  /// Tiles of Overview in a row beside the form at the right (`EntryFormDock`): what the panel
+  /// and the form leave, 2 from 652 pt as in a window of that width, one below.
+  static func overviewColumns(forWidth width: Double, besideTheForm: Bool) -> Int {
+    guard besideTheForm else { return overviewColumns(forWidth: width) }
+    return contentWidth(forWidth: width) - Double(EntryFormDock.width) >= 652 ? 2 : 1
+  }
+
   /// Tiles of Overview in a row: 3 at 1366, 1194 and 1024, 2 at 1133, 834 and 744, one in a
   /// window of the first screen's narrowness. A tile is never narrower than 300 pt.
   static func overviewColumns(forWidth width: Double) -> Int {
@@ -65,33 +72,12 @@ enum PadSection: String, CaseIterable, Identifiable, Sendable {
 
   var id: String { rawValue }
 
-  var titleKey: String {
-    switch self {
-    case .overview: "section.overview"
-    case .operations: "section.operations"
-    case .planning: "section.planning"
-    case .calendar: "section.calendar"
-    case .capital: "section.capital"
-    case .debts: "section.debts"
-    case .purchases: "section.purchases"
-    case .analytics: "window.analytics"
-    case .reports: "window.reports"
-    }
-  }
+  /// The section of the Mac's sidebar with the same name: its title and its icon are this one's.
+  var mac: MainWindow.Section { MainWindow.Section(rawValue: rawValue) ?? .overview }
 
-  var symbol: String {
-    switch self {
-    case .overview: "house"
-    case .operations: "list.bullet"
-    case .planning: "calendar.badge.clock"
-    case .calendar: "calendar"
-    case .capital: "chart.bar"
-    case .debts: "creditcard"
-    case .purchases: "bag"
-    case .analytics: "chart.xyaxis.line"
-    case .reports: "tablecells"
-    }
-  }
+  var titleKey: String { mac.titleKey }
+
+  var symbol: String { mac.symbol }
 
   /// Where the router goes for this section.
   var route: PhoneRoute {

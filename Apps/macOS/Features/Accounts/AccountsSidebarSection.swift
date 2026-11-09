@@ -67,7 +67,11 @@ struct AccountsSidebarSection: View {
 
   private func header(live: [PaymentMethod]) -> some View {
     HStack(spacing: 4) {
+      // «СЧЕТА»: 11 semibold in capitals, the secondary ink, as the design names a block.
       Text(verbatim: t("accounts.section.accounts"))
+        .appFont(SidebarType.header)
+        .textCase(.uppercase)
+        .foregroundStyle(.secondary)
       Spacer()
       Menu {
         Button(t("accounts.newAccount")) { model.sheet = .account(nil) }
@@ -170,8 +174,10 @@ struct AccountsSidebarSection: View {
     _ line: AccountsSnapshot.AccountLine, indented: Bool, live: [PaymentMethod],
     section: [UUID], snapshot: AccountsSnapshot
   ) -> some View {
-    let figure = SidebarFigure.of(
-      line, money: environment.money, words: t, withoutRate: withoutRate)
+    let figure =
+      line.account.isBorrowed
+      ? borrowedFigure(line.account)
+      : SidebarFigure.of(line, money: environment.money, words: t, withoutRate: withoutRate)
     return HStack(alignment: .firstTextBaseline) {
       Label {
         HStack(spacing: 4) {
@@ -213,14 +219,27 @@ struct AccountsSidebarSection: View {
     .accessibilityElement(children: .combine)
   }
 
+  /// The row of someone else's card: what was spent with it this month, and whose card it is —
+  /// never a balance or «не сверен».
+  private func borrowedFigure(_ account: PaymentMethod) -> SidebarFigure {
+    SidebarFigure.borrowed(account, snapshot: compute.snapshot, environment: environment)
+  }
+
   // MARK: Menus
 
   @ViewBuilder
   private func accountMenu(
     _ account: PaymentMethod, live: [PaymentMethod], section: [UUID], snapshot: AccountsSnapshot
   ) -> some View {
-    Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: account)) }
-    Button(t("accounts.reconcile")) { reconcile(account) }
+    if account.isBorrowed {
+      // Someone else's card: money moves only from it, as income, and there is nothing to count.
+      Button(environment.language("borrowed.screen.transferHome", table: BorrowedCardText.table)) {
+        model.sheet = .transfer(newTransfer(from: account))
+      }
+    } else {
+      Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: account)) }
+      Button(t("accounts.reconcile")) { reconcile(account) }
+    }
     Button(
       environment.format(
         "bank.screen.open", table: AccountText.table, bankName(of: account))
@@ -230,7 +249,11 @@ struct AccountsSidebarSection: View {
     Divider()
     Button(t("accounts.edit")) { model.sheet = .account(account) }
     if !account.isDefault {
-      Button(t("accounts.makeMain")) { model.perform(actions.makeMain(account.id), about: account) }
+      if !account.isBorrowed {
+        Button(t("accounts.makeMain")) {
+          model.perform(actions.makeMain(account.id), about: account)
+        }
+      }
       // Among the rows the account is shown with, as a drag moves it.
       let order = live.map(\.id)
       let main = live.first(where: \.isDefault)?.id
@@ -340,6 +363,17 @@ struct SidebarFigure: Equatable {
   var help: String?
   /// «без курса: USD» — the currencies of «≈ ₽» of several that have no rate today.
   var missing: String?
+
+  /// Someone else's card: «4,600 ₽ за месяц» — what was spent with it this month — over whose
+  /// card it is; «—» while nothing is computed. `spentWords` puts the amount into words.
+  @MainActor
+  static func borrowed(
+    spent: AmountE4?, badge: String, money: MoneyFormatter, spentWords: (String) -> String
+  ) -> SidebarFigure {
+    guard let spent else { return SidebarFigure(main: "—", caption: badge, help: badge) }
+    let main = spentWords(money.rounded(spent))
+    return SidebarFigure(main: main, caption: badge, help: "\(main)\n\(badge)")
+  }
 
   /// `withoutRate` words the codes of the currencies left out: «без курса: USD, KZT».
   @MainActor

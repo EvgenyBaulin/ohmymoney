@@ -22,6 +22,9 @@ struct TransferForm: Hashable, Sendable {
   var note: String = ""
   /// The transfer being edited; `nil` for a new one.
   var previous: Transfer?
+  /// What money of the owner moved onto someone else's card is, asked when the card is the side
+  /// it arrives at; an advance (not spending) until he says otherwise.
+  var borrowedPurpose: BorrowedTransferPurpose = .advance
 
   /// A new transfer from `account` in its main currency, on `day`. The other side is the main
   /// account when the money leaves another one, and nothing otherwise.
@@ -254,6 +257,9 @@ enum TransferRefusal: Error, Hashable, Sendable {
   /// Money a person gave back was linked to the fee: its amount and currency stay, and a fee
   /// it closed is not taken off.
   case feeMoneyBack
+  /// A repayment of a debt to the person whose card it is, with no open debt to that person in
+  /// the currency that left.
+  case noDebtToRepay
 }
 
 /// The category of fees a new fee brings back from the archive, as the sheet names it under
@@ -647,6 +653,27 @@ struct TransferActions {
       return .failure(.issue(issue))
     }
     guard form.fee.raw >= 0 else { return .failure(.negativeFee) }
+    // Money from someone else's card is income from the person whose card it is, written on the
+    // account it arrived at; no transfer and no fee are written. An edit of such a transfer
+    // written before the card was someone else's turns it into that income.
+    if BorrowedCardRules.isIncome(
+      fromAccountId: transfer.fromAccountId, accounts: dataset.paymentMethods),
+      let card = dataset.paymentMethods.first(where: { $0.id == transfer.fromAccountId })
+    {
+      return incomeFromBorrowed(
+        [transfer], from: card, replacing: form.previous.map { [$0] } ?? [], dataset: dataset,
+        now: now)
+    }
+    // Money of the owner given to someone else's card as a gift or a repayment is spending or a
+    // payment of a debt; an advance is the transfer it is.
+    if form.previous == nil, form.borrowedPurpose != .advance,
+      let card = dataset.paymentMethods.first(where: {
+        $0.id == transfer.toAccountId && $0.isBorrowed
+      })
+    {
+      return spendingOnBorrowed(
+        transfer, card: card, purpose: form.borrowedPurpose, dataset: dataset, now: now)
+    }
 
     var rows = PlanningRows(transfers: [transfer])
     var change = PlanningChange(upsert: rows, at: now)
@@ -715,6 +742,123 @@ struct TransferActions {
       var entry = try draft.materialize(now: now, rublesConverter: convert)
       entry.transaction.externalId = TransferRules.feeKey(of: transfer.id)
       change.created = [entry]
+    } catch {
+      return .failure(.rateMissing(draft.currency))
+    }
+    return .success(change)
+  }
+
+  /// Transfers from someone else's card as the income they are (`BorrowedCardRules.incomeDraft`):
+  /// one operation each on the account the money arrived at, in the card's income category —
+  /// brought back from the archive with its parent, or made as «Помощь семьи» the first time —,
+  /// one step of ⌘Z with the category. `replacing` are transfers written before the card was
+  /// someone else's: they are deleted with their fees in the same change, except those a refund
+  /// keeps (`deletionRefusals`), which are neither deleted nor written again.
+  func incomeFromBorrowed(
+    _ transfers: [Transfer], from card: PaymentMethod, replacing: [Transfer], dataset: Dataset,
+    now: Date
+  ) -> Result<PlanningChange, TransferRefusal> {
+    let refusals = Self.deletionRefusals(
+      of: replacing, in: dataset, refunds: Self.refunds(in: dataset))
+    if let refusal = replacing.compactMap({ refusals[$0.id] }).first { return .failure(refusal) }
+    let categories = store.categories()
+    let tree = CategoryTree(categories)
+    var rows = PlanningRows()
+    let categoryId: UUID
+    switch BorrowedCardRules.incomeCategory(for: card, categories: categories) {
+    case .existing(let id):
+      categoryId = id
+    case .revive(let id, let parent):
+      rows.categories = [parent, id].compactMap { tree.category($0) }.map { category in
+        var category = category
+        category.archived = false
+        return category
+      }
+      categoryId = id
+    case .create(let nameKey):
+      let roots = categories.filter { $0.parentId == nil && $0.kind == .income }
+      let made = CoreKit.Category(
+        kind: .income, name: environment.language(nameKey, table: BorrowedCardText.table),
+        sort: (roots.map(\.sort).max() ?? 0) + 1)
+      rows.categories = [made]
+      categoryId = made.id
+    }
+    var change = PlanningChange(upsert: rows, at: now)
+    change.delete = PlanningRowIDs(transfers: replacing.map(\.id))
+    change.softDeleted = replacing.compactMap { Self.fee(of: $0.id, in: dataset.entries)?.id }
+    for transfer in transfers {
+      var draft = BorrowedCardRules.incomeDraft(transfer: transfer, categoryId: categoryId)
+      environment.applyRate(to: &draft)
+      let convert = environment.rublesConverter(for: draft)
+      do {
+        change.created.append(try draft.materialize(now: now, rublesConverter: convert))
+      } catch {
+        return .failure(.rateMissing(draft.currency))
+      }
+    }
+    return .success(change)
+  }
+
+  /// Money of the owner given to someone else's card, written as what it was for: a gift is an
+  /// expense in the category of gifts (brought back from the archive or made the first time,
+  /// like the income category), a repayment is a payment of the open debt to the person whose
+  /// card it is, with its line in the journal of the debt. No transfer and no fee are written.
+  func spendingOnBorrowed(
+    _ transfer: Transfer, card: PaymentMethod, purpose: BorrowedTransferPurpose, dataset: Dataset,
+    now: Date
+  ) -> Result<PlanningChange, TransferRefusal> {
+    let categories = store.categories()
+    let tree = CategoryTree(categories)
+    var rows = PlanningRows()
+    var draft: TransactionDraft
+    var line: ((UUID) -> DebtEntry?)?
+    switch purpose {
+    case .advance:
+      return .failure(.notFound)
+    case .gift:
+      let categoryId: UUID
+      switch BorrowedCardRules.giftCategory(categories: categories) {
+      case .existing(let id):
+        categoryId = id
+      case .revive(let id, _):
+        rows.categories = [id].compactMap { tree.category($0) }.map { category in
+          var category = category
+          category.archived = false
+          return category
+        }
+        categoryId = id
+      case .create(let nameKey):
+        let roots = categories.filter { $0.parentId == nil && $0.kind == .expense }
+        let made = CoreKit.Category(
+          kind: .expense, name: environment.language(nameKey, table: BorrowedCardText.table),
+          sort: (roots.map(\.sort).max() ?? 0) + 1)
+        rows.categories = [made]
+        categoryId = made.id
+      }
+      draft = BorrowedCardRules.giftDraft(transfer: transfer, categoryId: categoryId)
+    case .debtRepayment:
+      guard
+        let debt = BorrowedCardRules.debtToRepay(
+          card: card, currency: transfer.fromCurrency, debts: Array(dataset.debtsById.values))
+      else { return .failure(.noDebtToRepay) }
+      draft = DebtRules.paymentDraft(
+        debt: debt, amount: transfer.fromAmountE4, occurredAt: transfer.occurredAt,
+        paymentMethodId: transfer.fromAccountId, loansCategoryId: tree.systemCategory(.loans)?.id)
+      draft.note = transfer.note
+      let day = environment.calendar.day(of: transfer.occurredAt)
+      line = { transactionId in
+        try? DebtRules.payment(
+          on: debt, amountE4: transfer.fromAmountE4, date: day, transactionId: transactionId
+        ).entry
+      }
+    }
+    var change = PlanningChange(upsert: rows, at: now)
+    environment.applyRate(to: &draft)
+    let convert = environment.rublesConverter(for: draft)
+    do {
+      let entry = try draft.materialize(now: now, rublesConverter: convert)
+      change.created = [entry]
+      if let line, let written = line(entry.id) { change.upsert.debtEntries = [written] }
     } catch {
       return .failure(.rateMissing(draft.currency))
     }
@@ -804,6 +948,8 @@ enum TransferText {
     case .notFound: return t("account.refusal.notFound")
     case .feeRefunded: return t("transfer.refusal.feeRefunded")
     case .feeMoneyBack: return t("transfer.refusal.feeMoneyBack")
+    case .noDebtToRepay:
+      return environment.language("borrowed.transfer.refusal.noDebt", table: BorrowedCardText.table)
     case .rateMissing(let currency):
       return environment.format(
         "transfer.refusal.rateMissing", table: AccountText.table, currency.code)
@@ -815,6 +961,9 @@ enum TransferText {
       case .archivedAccount: return t("transfer.refusal.archived")
       case .amountsDiffer: return t("transfer.refusal.amountsDiffer")
       case .notPositive: return t("transfer.refusal.notPositive")
+      case .toBorrowed:
+        return environment.language(
+          "borrowed.transfer.refusal.to", table: BorrowedCardText.table)
       }
     }
   }

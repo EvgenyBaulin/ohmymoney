@@ -6,12 +6,9 @@ import XCTest
 /// The colour themes: the data is complete, text can be read on every surface, and «Увеличить
 /// контраст» always lands on the Contrast theme.
 final class ThemeCatalogTests: XCTestCase {
-  /// Themes whose white text on the accent and on the hero gradient stays at the original
-  /// 2.1–2.8 contrast (themes 01–03 and 07–09 are the nine original variants). Every other
-  /// theme must reach 3.
-  private static let whiteOnAccentExceptions: Set<ThemeID> = [
-    .theme01, .theme02, .theme03, .theme07, .theme08, .theme09,
-  ]
+  /// The one theme whose white text on the hero gradient stays below 3 (2.4 on the light
+  /// orange of «Белый и оранжевый»), as the design file has it. Every other theme must reach 3.
+  private static let whiteOnHeroExceptions: Set<ThemeID> = [.theme02]
 
   private var palettes: [(id: ThemeID, scheme: String, palette: ThemePalette)] {
     ThemeCatalog.all.flatMap { theme in
@@ -54,21 +51,34 @@ final class ThemeCatalogTests: XCTestCase {
     XCTAssertLessThan(ThemeColor(0x0000_0080).contrast(on: white), 7)
   }
 
+  /// WCAG AA for body text (4.5:1) on the page and on a card: primary and secondary text, the
+  /// warning, the green and red of amounts and statuses, and the accent used as text.
   func testTextIsReadableOnEverySurfaceOfEveryTheme() {
     for (id, scheme, p) in palettes {
-      let label = "\(id) \(scheme)"
-      for surface in [p.surfaceBackground, p.surfaceCard] {
-        XCTAssertGreaterThanOrEqual(p.contentPrimary.contrast(on: surface), 4.5, label)
-        XCTAssertGreaterThanOrEqual(p.contentSecondary.contrast(on: surface), 3, label)
+      for (surfaceName, surface) in [("background", p.surfaceBackground), ("card", p.surfaceCard)] {
+        for (name, text) in [
+          ("primary", p.contentPrimary), ("secondary", p.contentSecondary),
+          ("warning", p.contentWarning), ("positive", p.statusPositive),
+          ("negative", p.statusNegative), ("accent text", p.accentContent),
+        ] {
+          let ratio = text.contrast(on: surface)
+          XCTAssertGreaterThanOrEqual(
+            ratio, 4.5, "\(id) \(scheme) \(name) on \(surfaceName): \(ratio)")
+        }
       }
     }
   }
 
-  func testTextOnAccentAndOnHeroIsReadableExceptInTheOriginalNine() {
-    for (id, scheme, p) in palettes where !Self.whiteOnAccentExceptions.contains(id) {
-      let label = "\(id) \(scheme)"
-      XCTAssertGreaterThanOrEqual(p.contentOnAccent.contrast(on: p.accentDefault), 3, label)
-      XCTAssertGreaterThanOrEqual(p.heroContent.contrast(on: p.heroEnd), 3, label)
+  func testTextOnTheAccentIsReadableInEveryTheme() {
+    for (id, scheme, p) in palettes {
+      let ratio = p.contentOnAccent.contrast(on: p.accentDefault)
+      XCTAssertGreaterThanOrEqual(ratio, 4.5, "\(id) \(scheme): text on accent \(ratio)")
+    }
+  }
+
+  func testTextOnTheHeroIsReadableExceptOnTheLightOrange() {
+    for (id, scheme, p) in palettes where !Self.whiteOnHeroExceptions.contains(id) {
+      XCTAssertGreaterThanOrEqual(p.heroContent.contrast(on: p.heroEnd), 3, "\(id) \(scheme)")
     }
   }
 

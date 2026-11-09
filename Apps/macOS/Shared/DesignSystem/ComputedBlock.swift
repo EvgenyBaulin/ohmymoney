@@ -25,6 +25,7 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
 
   @Dependency(\.environment) private var environment
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.cardStyle) private var cardStyle
 
   let title: String?
   let state: BlockState<Value>
@@ -66,13 +67,13 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
   }
 
   private var stack: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: cardStyle == .tile ? StyleMetrics.tileGap : 8) {
       if title != nil || asOf != nil {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
           if let title {
             Text(verbatim: title)
-              .appFont(.caption)
-              .foregroundStyle(.secondary)
+              .appFont(cardStyle == .tile ? StyleType.tileTitle : .caption)
+              .foregroundStyle(cardStyle == .tile ? surfaces.primary : surfaces.secondary)
               .accessibilityAddTraits(.isHeader)
           }
           if let asOf {
@@ -154,6 +155,18 @@ extension ComputedBlock where Content == EmptyView, Value == Never {
   private static func noContent(_ value: Never) -> EmptyView {}
 }
 
+/// How a card is drawn: the quiet card of a list or a chart, or a tile of a screen's grid — the
+/// tile of the one style has its title in 15 semibold over the figures and a 1 pt outline.
+enum CardStyle: Hashable {
+  case plain
+  case tile
+}
+
+extension EnvironmentValues {
+  /// Set by a grid of tiles (Overview) for every card in it; every other card stays plain.
+  @Entry var cardStyle: CardStyle = .plain
+}
+
 /// The card every block of content stands on: the secondary background, radius 12, 14 pt of
 /// margin — no glass, content is never glass. «Увеличить контраст» adds a 1 pt edge in the
 /// colour of separators, without which a card melts into a light window. The cards of
@@ -161,6 +174,8 @@ extension ComputedBlock where Content == EmptyView, Value == Never {
 struct ContentCard: ViewModifier {
   @Environment(\.colorSchemeContrast) private var contrast
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.appTheme) private var theme
+  @Environment(\.cardStyle) private var style
   let fillsHeight: Bool
 
   /// 12 pt on the Mac; the phone design rounds its cards to 22 and lifts them with a soft shadow.
@@ -168,22 +183,30 @@ struct ContentCard: ViewModifier {
     #if os(iOS)
       22
     #else
-      12
+      StyleMetrics.cardRadius
     #endif
+  }
+
+  /// The edge of a card: a tile wears the theme's outline at 1 pt, every other card its own
+  /// hairline at half a point.
+  static func edge(_ style: CardStyle) -> (width: CGFloat, outline: Bool) {
+    style == .tile ? (StyleMetrics.cardBorder, true) : (0.5, false)
   }
 
   func body(content: Content) -> some View {
     let shape = RoundedRectangle(cornerRadius: Self.cornerRadius)
+    let edge = Self.edge(style)
     content
       .frame(maxWidth: .infinity, maxHeight: fillsHeight ? .infinity : nil, alignment: .topLeading)
-      .padding(14)
+      .padding(StyleMetrics.tilePadding)
       .background(surfaces.card, in: shape)
       #if os(iOS)
         .shadow(color: .black.opacity(0.05), radius: 10, y: 6)
       #endif
       .overlay {
-        // The theme's own hairline always; under «Увеличить контраст» the separator edge too.
-        shape.strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
+        // The theme's own edge always; under «Увеличить контраст» the separator edge too.
+        shape.strokeBorder(
+          edge.outline ? theme.borderOutline : surfaces.cardBorder, lineWidth: edge.width)
         if contrast == .increased {
           shape.strokeBorder(.separator, lineWidth: 1)
         }

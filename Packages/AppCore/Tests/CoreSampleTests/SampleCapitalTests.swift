@@ -153,7 +153,7 @@ struct SampleCapitalTests {
     let set = Self.layered()
     let settings = CapitalSettings(storedValues: set.settings)
     #expect(settings.targetMonths == 6)
-    #expect(settings.targetMonth == nil && !settings.outOfFreeMoney)
+    #expect(settings.targetMonth == nil && settings.outOfFreeMoney)
   }
 
   /// The same seed gives the same assets; the layer is applied once.

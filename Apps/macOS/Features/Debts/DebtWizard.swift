@@ -572,11 +572,18 @@ struct DebtWizard: View {
         schedule: $model.schedule, direction: .iOwe, rate: model.rate, principal: model.amount,
         currency: model.currency)
       Section(t("wizard.loan.terms")) {
-        TextField(t("wizard.psk"), text: $model.pskText)
-        Toggle(t("wizard.prepayAnyDay"), isOn: $model.prepayAnyDay)
-        Stepper(value: $model.noticeDays, in: 0...90) {
-          Text(
-            verbatim: environment.format("wizard.notice", table: "Debts", String(model.noticeDays)))
+        VStack(alignment: .leading, spacing: 6) {
+          Text(verbatim: t("wizard.psk")).fixedSize(horizontal: false, vertical: true)
+          TextField(t("wizard.psk"), text: $model.pskText).labelsHidden()
+        }
+        Toggle(isOn: $model.prepayAnyDay) {
+          Text(verbatim: t("wizard.prepayAnyDay")).fixedSize(horizontal: false, vertical: true)
+        }
+        // The full notice stays above the native stepper so it can wrap in a narrow sheet.
+        VStack(alignment: .leading, spacing: 6) {
+          let notice = environment.format("wizard.notice", table: "Debts", String(model.noticeDays))
+          Text(verbatim: notice).fixedSize(horizontal: false, vertical: true)
+          Stepper(notice, value: $model.noticeDays, in: 0...90).labelsHidden()
         }
       }
       Section(t("costs.title")) {
@@ -591,11 +598,17 @@ struct DebtWizard: View {
       Stepper(value: $model.parts, in: 2...120) {
         Text(verbatim: environment.format("wizard.parts", table: "Debts", String(model.parts)))
       }
-      Picker(t("wizard.step.every"), selection: $model.everyTwoWeeks) {
-        Text(verbatim: t("wizard.every.twoWeeks")).tag(true)
-        Text(verbatim: t("wizard.every.month")).tag(false)
+      VStack(alignment: .leading, spacing: 6) {
+        Text(verbatim: t("wizard.step.every")).fixedSize(horizontal: false, vertical: true)
+        Picker(t("wizard.step.every"), selection: $model.everyTwoWeeks) {
+          Text(verbatim: t("wizard.every.twoWeeks"))
+            .fixedSize(horizontal: false, vertical: true).tag(true)
+          Text(verbatim: t("wizard.every.month"))
+            .fixedSize(horizontal: false, vertical: true).tag(false)
+        }
+        .labelsHidden()
+        .pickerStyle(.radioGroup)
       }
-      .pickerStyle(.segmented)
       if !model.everyTwoWeeks { dayStepper }
       LabeledContent(t("wizard.markup")) { AmountField(amount: $model.markup) }
       Text(verbatim: t("wizard.markup.hint"))

@@ -220,6 +220,8 @@ public struct PlanningChange: Sendable, Hashable {
   /// them, and ⌘Z puts all of it back (`PlanningUndo.accountMerge`). Only two accounts of one
   /// bank merge (`AccountWriteError.otherBank`).
   public var mergingAccounts: AccountMergePlan?
+  /// A deletion or merge of people, places or events, with the same undo journal as accounts.
+  public var changingReferences: ReferenceBookChange?
 
   public init(
     created: [TransactionEntry] = [], upsert: PlanningRows = .empty,
@@ -228,8 +230,10 @@ public struct PlanningChange: Sendable, Hashable {
     unlinking: PlanningRowIDs = .empty, settles: Set<BalanceKey> = [],
     expectingBalances: [BalanceKey: AmountE4] = [:],
     expectingBalancesNow: [BalanceKey: AmountE4] = [:], settlingPlanned: Set<UUID>? = nil,
-    movingCards: [UUID: UUID] = [:], mergingAccounts: AccountMergePlan? = nil
+    movingCards: [UUID: UUID] = [:], mergingAccounts: AccountMergePlan? = nil,
+    changingReferences: ReferenceBookChange? = nil
   ) {
+    self.changingReferences = changingReferences
     self.mergingAccounts = mergingAccounts
     self.created = created
     self.upsert = upsert
@@ -288,6 +292,7 @@ public struct PlanningUndo: Sendable, Hashable {
   public var movedCards: [MovedCardReference]
   /// What an account merge of the change did, for ⌘Z.
   public var accountMerge: AccountMergeUndo?
+  public var referenceBook: ReferenceBookUndo?
   /// The change as it was asked for, so ⇧⌘Z can make it again after ⌘Z took it back.
   public var change: PlanningChange?
 
@@ -299,9 +304,11 @@ public struct PlanningUndo: Sendable, Hashable {
     deletion: DeletionEffects = .none, releasedRefunds: [UUID: UUID] = [:],
     written: [TransactionEntry] = [], countTouch: CountTouch = .none,
     counts: CountsSettled = .none, movedCards: [MovedCardReference] = [],
-    accountMerge: AccountMergeUndo? = nil, change: PlanningChange? = nil
+    accountMerge: AccountMergeUndo? = nil, change: PlanningChange? = nil,
+    referenceBook: ReferenceBookUndo? = nil
   ) {
     self.change = change
+    self.referenceBook = referenceBook
     self.accountMerge = accountMerge
     self.movedCards = movedCards
     self.countTouch = countTouch
@@ -558,6 +565,13 @@ public struct PlanningRepository: Sendable {
     let merged = try change.mergingAccounts.map {
       try AccountRepository.merge($0, calendar: context.calendar, db: db)
     }
+    let referenceBook = try change.changingReferences.map {
+      try ReferenceRepository.apply($0, db: db)
+    }
+    if let referenceBook {
+      written += try TransactionRepository.entries(ids: referenceBook.transactionIds, db: db)
+        .filter { !$0.transaction.isDeleted }
+    }
     // The lists show the live operations with their new card; one in the bin is not shown.
     written += try TransactionRepository.entries(ids: moved.map(\.rowId), db: db)
       .filter { !$0.transaction.isDeleted }
@@ -636,7 +650,8 @@ public struct PlanningRepository: Sendable {
       cleared: journal.cleared, rewrittenBefore: rewrites.before,
       removedLinks: rewrites.removedLinks, deletion: deletion,
       releasedRefunds: rewrites.releasedRefunds, written: written, countTouch: touch,
-      counts: counts, movedCards: moved, accountMerge: merged, change: change)
+      counts: counts, movedCards: moved, accountMerge: merged, change: change,
+      referenceBook: referenceBook)
   }
 
   /// Points what named each merged card at its kept card (`PlanningChange.movingCards`): the
@@ -862,6 +877,9 @@ public struct PlanningRepository: Sendable {
   }
 
   private static func revertRows(_ undo: PlanningUndo, at instant: Date, db: Database) throws {
+    if let referenceBook = undo.referenceBook {
+      try ReferenceRepository.revert(referenceBook, db: db)
+    }
     if let merge = undo.accountMerge { try AccountRepository.revertMerge(merge, db: db) }
     if !undo.deletion.deletedIds.isEmpty {
       try TransactionRepository.restore(

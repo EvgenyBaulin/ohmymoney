@@ -7,12 +7,14 @@ import XCTest
 /// the tile bar stay where they are unless the host puts them in its navigation bar.
 @MainActor
 final class OverviewHeroTests: XCTestCase {
-  func testHeroNeverStandsOnTheMac() {
-    #if os(macOS)
-      for width in [400, 700, 1000, 1600] {
-        XCTAssertFalse(OverviewHero.shows(forWidth: CGFloat(width)), "width \(width)")
-      }
-    #endif
+  func testTheMainCardStandsFirstOnEveryPlatformAndWidth() {
+    for width in [320, 400, 700, 1000, 1600] {
+      XCTAssertTrue(OverviewHero.shows(forWidth: CGFloat(width)), "width \(width)")
+    }
+  }
+
+  func testNoStripOfAccountsOverTheTiles() {
+    XCTAssertFalse(OverviewAccountsStrip.shows)
   }
 
   func testEditButtonsStayInTheBarByDefault() {

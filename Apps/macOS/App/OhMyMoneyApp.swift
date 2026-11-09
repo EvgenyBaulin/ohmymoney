@@ -105,6 +105,10 @@ struct AppCommands: Commands {
       }
       .keyboardShortcut("n", modifiers: .command)
       .disabled(environment.shield.isReadOnly)
+      // «Я в поездке»: the trip mode on for a trip to pick or make, or off again. Overview has it
+      // in its header; from every other screen it is here.
+      Button(TravelText.t("travel.start.menu", environment)) { environment.showsTrip = true }
+        .disabled(environment.shield.isReadOnly)
     }
 
     // ⌘Z belongs to the operation being edited, but not while text is being typed: there
@@ -397,9 +401,6 @@ struct MainWindow: View {
   private var store: TransactionsStore { deps.store }
   private var compute: ComputeStore { deps.compute }
   @Environment(\.openWindow) private var openWindow
-  /// The public way into the `Settings` scene: the gear of the toolbar and the Help menu
-  /// both go through it, instead of the private selector the menu used to send.
-  @Environment(\.openSettings) private var openSettings
   @Environment(\.windowWidth) private var windowWidth
   /// What the sidebar has chosen: a section, an account or a group.
   @State private var selection: SidebarItem = .section(.overview)
@@ -417,6 +418,9 @@ struct MainWindow: View {
   @State private var remindersShown: RemindersShown?
   /// The list of conflicts of the exchange with the other devices, over the window.
   @State private var showsConflicts = false
+  /// The form of a new operation folded into the round «+» of a narrow window, and open over
+  /// the content or not.
+  @State private var formPresence = EntryFormPresence()
 
   struct RemindersShown: Identifiable {
     let reminders: [Reminder]
@@ -492,7 +496,7 @@ struct MainWindow: View {
   var body: some View {
     NavigationSplitView {
       MainSidebar(selection: $selection)
-        .navigationSplitViewColumnWidth(min: 190, ideal: 210, max: 280)
+        .navigationSplitViewColumnWidth(min: 190, ideal: SidebarMetrics.width, max: 280)
         // Every column of a split view is laid out in a host of its own, and on macOS 26 a
         // host of its own does not always get the environment of the scene — the crash of
         // 19.09 in the inspector, and the journal line `dependencies.missing … DayList.swift`
@@ -538,25 +542,23 @@ struct MainWindow: View {
             .guideOverlay(guide, toolbar: true)
         }
         // The form of a new operation, when the owner chose it in Settings → «Ввод»: a column
-        // of its own at the right, always there, in place of the line (`EntryStyle.form`).
-        if environment.entryStyle == .form, environment.state == .ready,
-          !environment.shield.isReadOnly
-        {
+        // of its own at the right, always there, in place of the line (`EntryStyle.form`) — as
+        // long as the window holds the content beside it (`EntryFormDock`).
+        if formPlacement == .docked, showsTheForm {
           Divider()
-          EntryBar(
-            windowWidth: windowWidth, detailWidth: 0, style: .form, operations: overviewActions
-          ) { EmptyView() }
-          .frame(width: Self.entryFormWidth)
-          .background(.background)
-          // A root of the guide of its own: the quick line of the form is cut out of its shade.
-          .guideOverlay(guide)
+          entryForm
         }
       }
+      // In a narrower window the form folds into a round «+» in the corner; the «+» or ⌘N
+      // opens it over the content, which stays as it was laid out under it.
+      .overlay(alignment: .bottomTrailing) { foldedFormPlus }
+      .overlay(alignment: .trailing) { floatingForm }
+      .animation(.snappy, value: formPresence)
       // The other column of the same split, for the same reason.
       .appDependencies(deps)
-      .toolbar { toolbarContent }
     }
     .navigationTitle(windowTitle)
+    .modifier(EntryFormFolding(presence: $formPresence, placement: formPlacement))
     // Closing it quits the app; the secondary windows stand over it in full screen
     // (`AppWindows`).
     .appWindow(.main)
@@ -752,7 +754,61 @@ struct MainWindow: View {
   }
 
   /// The width of the form of a new operation at the right of the window.
-  static let entryFormWidth: CGFloat = 380
+  static let entryFormWidth: CGFloat = EntryFormDock.width
+
+  /// Where the form stands in this window now: docked, folded into the «+», or not at all.
+  private var formPlacement: EntryFormDock.Placement {
+    EntryFormDock.placement(style: environment.entryStyle, windowWidth: windowWidth)
+  }
+
+  /// The form can be shown at all: the data is open and the app is not read-only.
+  private var showsTheForm: Bool {
+    environment.state == .ready && !environment.shield.isReadOnly
+  }
+
+  /// The form of a new operation, in its column or over the content.
+  private var entryForm: some View {
+    EntryBar(
+      windowWidth: windowWidth, detailWidth: 0, style: .form, operations: overviewActions
+    ) { EmptyView() }
+    .frame(width: Self.entryFormWidth)
+    .frame(maxHeight: .infinity)
+    .background(.background)
+    // A root of the guide of its own: the quick line of the form is cut out of its shade.
+    .guideOverlay(guide)
+  }
+
+  /// The round «+» of the folded form, 20 from the corner.
+  @ViewBuilder
+  private var foldedFormPlus: some View {
+    if formPresence.showsPlus, showsTheForm {
+      EntryPlusButton(
+        diameter: EntryPlusMetrics.macDiameter,
+        label: environment.language("entry.form.plus", table: "Entry"),
+        help: environment.language("entry.form.plus.help", table: "Entry")
+      ) {
+        formPresence.apply(.plusTapped)
+        EntryFormFolding.focusTheFormSoon($formPresence)
+      }
+      .padding(EntryPlusMetrics.macMargin)
+      .transition(.scale.combined(with: .opacity))
+    }
+  }
+
+  /// The folded form opened over the right of the content, with its shadow to the left; Esc
+  /// folds it.
+  @ViewBuilder
+  private var floatingForm: some View {
+    if formPresence.floats, showsTheForm {
+      entryForm
+        .shadow(
+          color: .black.opacity(EntryPlusMetrics.formShadowOpacity),
+          radius: EntryPlusMetrics.formShadowRadius / 2, x: EntryPlusMetrics.formShadowX
+        )
+        .onExitCommand { formPresence.apply(.escaped) }
+        .transition(.move(edge: .trailing))
+    }
+  }
 
   /// The guide of this Mac: the cards, the tutorial and «Показать, куда нажимать».
   private var guide: GuideStore { GuideStore.shared }
@@ -856,57 +912,11 @@ struct MainWindow: View {
         selection: overviewActions.selection, writing: store.isWritingInBackground) != .hidden
   }
 
-  @ToolbarContentBuilder
-  private var toolbarContent: some ToolbarContent {
-    ToolbarItem(id: "entry.add", placement: .primaryAction) {
-      Button {
-        NotificationCenter.default.post(name: .focusEntryLine, object: nil)
-      } label: {
-        Label {
-          Text(verbatim: environment.language("action.add"))
-        } icon: {
-          Image(systemName: "plus")
-        }
-      }
-      // ⌘N belongs to the menu item of `AppCommands` and is declared there once. Declared
-      // twice, the main menu shadows the toolbar anyway (`MenuTests`).
-      .labelStyle(.titleAndIcon)
-      .help("\(environment.language("action.add")) ⌘N")
-      .accessibilityIdentifier("entry.add")
-    }
-
-    ToolbarItemGroup {
-      // The palette of commands. ⌘K belongs to the menu item «Перейти → Команды…», declared there
-      // once.
-      Button {
-        NotificationCenter.default.post(name: .showCommandPalette, object: nil)
-      } label: {
-        Label {
-          Text(verbatim: QuestionsText.t("questions.menu.palette", environment))
-        } icon: {
-          Image(systemName: "command")
-        }
-      }
-      .help("\(QuestionsText.t("questions.menu.palette", environment)) ⌘K")
-      .accessibilityIdentifier("toolbar.palette")
-
-      // «Я в поездке»: the trip mode on for a trip to pick or make, or off again.
-      Button {
-        environment.showsTrip = true
-      } label: {
-        Label {
-          Text(verbatim: TravelText.t("travel.start.button", environment))
-        } icon: {
-          Image(systemName: "airplane")
-        }
-      }
-      .help(TravelText.t("travel.start.help", environment))
-      .accessibilityIdentifier("toolbar.trip")
-    }
-    // The toolbar has no button of a section (they stand in the sidebar) and none of the
-    // actions of the whole app: «Сверка» (⌥⌘R), «Экспорт» (File), «Пересчитать» (⌘R),
-    // «Скрыть суммы» (⌃⌘H), «Обновления» and «Настройки» (⌘,) are items of the menu bar.
-  }
+  // The toolbar holds no button of its own: what stands at the top of a screen are its own
+  // buttons, in its header («Изменить», «Поездка», «Новая операция» on Overview). Sections are
+  // in the sidebar; «Добавить» (⌘N), the palette (⌘K), «Я в поездке», «Сверка» (⌥⌘R),
+  // «Экспорт», «Пересчитать» (⌘R), «Скрыть суммы» (⌃⌘H), «Обновления» and «Настройки» (⌘,) are
+  // items of the menu bar.
 
   /// «OhMyMoney — DEBUG», and the data set when one is open: «OhMyMoney — DEBUG · SAMPLE», or
   /// «OhMyMoney — BENCH» in Release. Synthetic data is never taken for the real one.
@@ -922,6 +932,40 @@ struct MainWindow: View {
     }
     let name = environment.language("app.name")
     return badges.isEmpty ? name : "\(name) — \(badges.joined(separator: " · "))"
+  }
+}
+
+/// The form of a new operation follows the window: it docks, folds or goes with the width and
+/// the choice in Settings; ⌘N, «Новая операция» or the palette open it when folded, and a save
+/// folds it back.
+private struct EntryFormFolding: ViewModifier {
+  @Binding var presence: EntryFormPresence
+  let placement: EntryFormDock.Placement
+
+  func body(content: Content) -> some View {
+    content
+      .onChange(of: placement, initial: true) { _, placement in
+        presence.apply(.placementChanged(placement))
+      }
+      // The form, made just now, then takes the request itself.
+      .onReceive(NotificationCenter.default.publisher(for: .focusEntryLine)) { _ in
+        guard presence.showsPlus else { return }
+        presence.apply(.newEntryRequested)
+        Self.focusTheFormSoon($presence)
+      }
+      .onReceive(NotificationCenter.default.publisher(for: .entryFormSaved)) { _ in
+        presence.apply(.saved)
+      }
+  }
+
+  /// The form opened from the «+» is made only now: once it is there, it gets the request for
+  /// a new operation and puts the keyboard in its quick line.
+  static func focusTheFormSoon(_ presence: Binding<EntryFormPresence>) {
+    Task { @MainActor in
+      try? await Task.sleep(for: .milliseconds(150))
+      guard presence.wrappedValue.floats else { return }
+      NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+    }
   }
 }
 

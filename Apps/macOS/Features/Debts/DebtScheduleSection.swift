@@ -203,15 +203,22 @@ struct DebtScheduleSection: View {
         }
       }
       if DebtSchedule.asksOrder(rate: rate, direction: direction) {
-        Picker(t("schedule.order"), selection: $schedule.order) {
-          Text(verbatim: "—").tag(DebtSchedule.PaymentOrder?.none)
-          Text(verbatim: t("schedule.order.interestFirst"))
-            .tag(DebtSchedule.PaymentOrder?.some(.interestFirst))
-          Text(verbatim: t("schedule.order.allToDebt"))
-            .tag(DebtSchedule.PaymentOrder?.some(.allToDebt))
+        // A question beside three segments sets a minimum width wider than a 340 pt sheet.
+        VStack(alignment: .leading, spacing: 6) {
+          Text(verbatim: t("schedule.order")).fixedSize(horizontal: false, vertical: true)
+          Picker(t("schedule.order"), selection: $schedule.order) {
+            Text(verbatim: "—").tag(DebtSchedule.PaymentOrder?.none)
+            Text(verbatim: t("schedule.order.interestFirst"))
+              .fixedSize(horizontal: false, vertical: true)
+              .tag(DebtSchedule.PaymentOrder?.some(.interestFirst))
+            Text(verbatim: t("schedule.order.allToDebt"))
+              .fixedSize(horizontal: false, vertical: true)
+              .tag(DebtSchedule.PaymentOrder?.some(.allToDebt))
+          }
+          .labelsHidden()
+          .pickerStyle(.radioGroup)
+          .accessibilityIdentifier("debt.schedule.order")
         }
-        .pickerStyle(.segmented)
-        .accessibilityIdentifier("debt.schedule.order")
         caption(t(schedule.order == nil ? "schedule.order.ask" : "schedule.order.hint"))
       }
       ForEach(issues, id: \.self) { issue in

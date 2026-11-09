@@ -95,6 +95,8 @@ public final class TransactionsStore {
   public func forgetFailure() { failure = nil }
   /// The data the lists show, from the pipeline; `nil` until its first read.
   public private(set) var listing: Ledger?
+  /// Lets reference-book lists reload after a write or its undo.
+  public private(set) var writeRevision = 0
 
   /// Bulk writes of more operations than this leave the main thread. ⌘A over the two
   /// months Overview lists selects about 1 700 operations of the large sample, and a write
@@ -178,7 +180,7 @@ public final class TransactionsStore {
     /// Money back recorded by a sheet, with everything it wrote: its surplus and shortfalls,
     /// the parts it closed, the purchases repriced at a rate typed there and the money back of
     /// their parts balanced again.
-    case moneyBack(MoneyBackWrite)
+    case moneyBack(MoneyBackWrite, replay: MoneyBackReplay?)
     /// A write of tags, rules, a note of a day or a basket, or rules applied to the past.
     case spending(SpendingUndo)
     /// A write of the year plan, the subscription extras, the saved views or the loading of a
@@ -198,8 +200,9 @@ public final class TransactionsStore {
         max(
           1,
           undo.createdTransactionIds.count + undo.rewrittenBefore.count
+            + (undo.referenceBook?.transactionIds.count ?? 0)
             + undo.deletion.deletedIds.count + undo.deletion.companionIds.count)
-      case .moneyBack(let write):
+      case .moneyBack(let write, _):
         max(1, write.created.count + write.repricedBefore.count + write.refundsBefore.count)
       case .spending(let step): step.size
       case .later(let step): step.size
@@ -220,6 +223,29 @@ public final class TransactionsStore {
     /// A write of the spending screens: `inverse` makes the change again, `original` is the step
     /// of ⌘Z that takes it back once it is made.
     case spending(inverse: SpendingUndo, original: UndoStep)
+    /// A write of the plan of the year, the subscriptions, the saved views, a statement or a
+    /// file: `inverse` makes the change again, `original` takes it back once it is made.
+    case later(inverse: LaterUndo, original: UndoStep)
+    /// Rules applied to the past: the same commit written again.
+    case backfill(RuleBackfillCommit)
+    /// A change of the tag dictionary, made again with the merge its rules followed.
+    case tagEdit(TagEdit, merged: (source: UUID, target: UUID)?)
+    /// A move from another application: the import rows and the change written again.
+    case migration(PlanningChange, imports: [StatementImportRecord])
+    /// Money back recorded by a sheet, written again by the same call.
+    case moneyBack(MoneyBackReplay)
+  }
+
+  /// What a sheet gave `TransactionRepository.apply` to record money back, so ⇧⌘Z can record the
+  /// same again.
+  struct MoneyBackReplay: Sendable {
+    var outcome: ReimbursementOutcome
+    var reimbursement: TransactionEntry
+    var extra: [TransactionEntry]
+    var debt: DebtSettling
+    var repricing: [UUID: Decimal]
+    var settlement: SettlementSetting
+    var calendar: CalendarContext
   }
 
   /// What a write leaves behind once it has landed: the step that takes it back — none for
@@ -227,6 +253,8 @@ public final class TransactionsStore {
   struct Landed: Sendable {
     var step: UndoStep?
     var write: StoreWrite
+    /// For an undo that ran off the main thread: the step that makes the change again.
+    var redo: RedoStep?
   }
 
   public init(repository: TransactionRepository? = nil, references: ReferenceRepository? = nil) {
@@ -416,6 +444,28 @@ public final class TransactionsStore {
     }
   }
 
+  /// A confirmed reference-book action, preserving the actual deletion result from the write.
+  public func changeReferences(
+    _ action: ReferenceBookChange, file: String = #fileID
+  ) -> ReferenceBookUndo? {
+    guard !refuses("changeReferences", file), !isWritingInBackground, let planning else {
+      return nil
+    }
+    let change = PlanningChange(changingReferences: action)
+    do {
+      let undo = try planning.apply(change)
+      guard let referenceBook = undo.referenceBook else { return nil }
+      if referenceBook.hasChanges {
+        push(.planned(undo))
+        finishWrite(Self.applied(change, undo: undo))
+      }
+      return referenceBook
+    } catch {
+      failed(.planning, error, file: file)
+      return nil
+    }
+  }
+
   /// A move from another application in one step of ⌘Z: the import rows first — the operations
   /// point at them —, then the operations and the new categories as one change of planning. If
   /// the change is refused the rows are taken away again, so a failure leaves nothing behind.
@@ -480,7 +530,7 @@ public final class TransactionsStore {
   /// merge of cards moved, which it gives their card back.
   nonisolated static func broughtBack(by undo: PlanningUndo) -> [UUID] {
     undo.rewrittenBefore.map(\.id) + undo.deletion.deletedIds + undo.deletion.companionIds
-      + undo.movedCards.map(\.rowId)
+      + undo.movedCards.map(\.rowId) + (undo.referenceBook?.transactionIds ?? [])
   }
 
   /// What became of the edit of a saved operation.
@@ -1171,7 +1221,8 @@ public final class TransactionsStore {
     _ write: @escaping @Sendable () async throws -> Landed?
   ) {
     isWritingInBackground = true
-    let asked = Asked(slot: undoStack.count, epoch: undoEpoch, attachment: attachment)
+    let asked = Asked(
+      slot: undoStack.count, epoch: undoEpoch, attachment: attachment, redoing: isRedoing)
     backgroundWrite = Task { [weak self] in
       let result: Result<Landed?, any Error>
       do {
@@ -1191,6 +1242,8 @@ public final class TransactionsStore {
     var slot: Int
     var epoch: Int
     var attachment: Int
+    /// Asked by ⇧⌘Z: the step it leaves does not end the chain of redo.
+    var redoing: Bool
   }
 
   /// A bulk write back from off the main thread: its step kept where it was asked for, or —
@@ -1210,9 +1263,20 @@ public final class TransactionsStore {
     }
     switch result {
     case .success(let outcome):
-      if let outcome { record(outcome, at: asked.slot, epoch: asked.epoch) }
+      if let outcome {
+        record(outcome, at: asked.slot, epoch: asked.epoch, redoing: asked.redoing)
+      }
+      // An undo that landed leaves what makes it again, or ends the chain.
+      if undone != nil, asked.epoch == undoEpoch {
+        if let redo = outcome?.redo { redoStack.append(redo) } else { redoStack.removeAll() }
+      }
     case .failure(let error):
-      if let undone { keep(undone, at: asked.slot, epoch: asked.epoch) }
+      if let undone {
+        // The chain is as it was: only the step comes back.
+        keep(undone, at: asked.slot, epoch: asked.epoch, redoing: true)
+      } else if asked.redoing {
+        redoStack.removeAll()
+      }
       failed(action, error, file: file)
     }
     isWritingInBackground = false
@@ -1253,15 +1317,14 @@ public final class TransactionsStore {
     guard !refuses("undo", file) else { return }
     guard let repository, !isWritingInBackground, let step = undoStack.last else { return }
     if Self.writesInBackground(step.size) {
+      // The chain is judged when the undo has landed (`land`): a failed one leaves it alone.
       undoStack.removeLast()
-      redoStack.removeAll()
       let (planning, spending, imports) = (planning, spending, imports)
       runInBackground(.undo, file: file, undone: step) {
-        Landed(
-          step: nil,
-          write: try await Self.undoInBackground(
-            step, repository: repository, planning: planning, spending: spending,
-            imports: imports))
+        let (write, redo) = try await Self.undoInBackground(
+          step, repository: repository, planning: planning, spending: spending,
+          imports: imports)
+        return Landed(step: nil, write: write, redo: redo)
       }
       return
     }
@@ -1329,7 +1392,8 @@ public final class TransactionsStore {
         var readBack: [TransactionEntry] = []
         if !back.isEmpty { readBack = try repository.entries(ids: back) }
         write = Self.reverted(undo, readBack: readBack, counts: counts)
-      case .moneyBack(let recorded):
+      case .moneyBack(let recorded, let replay):
+        redo = replay.map { .moneyBack($0) }
         let counts = try repository.revertMoneyBack(recorded)
         let readBack = try repository.entries(ids: Self.broughtBack(by: recorded))
         write = Self.laid(counts, over: Self.revertedMoneyBack(recorded, readBack: readBack))
@@ -1337,14 +1401,34 @@ public final class TransactionsStore {
         guard let spending else { return }
         if let inverse = try undo.reapplying(spending: spending) {
           redo = .spending(inverse: inverse, original: step)
+        } else {
+          switch undo {
+          case .backfill(let applied):
+            // What the rules wrote, read before it goes back: the commit that writes it again.
+            let written = try repository.entries(ids: applied.entries.map(\.id))
+            redo = .backfill(
+              RuleBackfillCommit(
+                writes: written, tagLinksToAdd: applied.tagLinksToRemove, undo: applied))
+          case .tagEdit(let applied):
+            redo = .tagEdit(applied.edit, merged: applied.merged)
+          default: break
+          }
         }
         write = try undo.revert(spending: spending, transactions: repository)
       case .later(let undo):
-        write = try undo.revert(
+        let reverted = try undo.revertReporting(
           year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports,
           attachments: attachments)
+        write = reverted.write
+        redo = reverted.again.map { .later(inverse: $0, original: step) }
       case .migrated(let undo, let ids):
         guard let planning else { return }
+        // The import rows go with the step: they are read before they are deleted.
+        if let change = undo.change, let imports {
+          let kept = Set(ids)
+          let records = try imports.imports().map(\.record).filter { kept.contains($0.id) }
+          redo = .migration(change, imports: records)
+        }
         let counts = try planning.revert(undo)
         for id in ids { try imports?.deleteImport(id: id) }
         let back = Self.broughtBack(by: undo)
@@ -1394,6 +1478,24 @@ public final class TransactionsStore {
         failed(.change, error, file: file)
         landed = false
       }
+    case .later(let inverse, let original):
+      do {
+        let again = try inverse.revertReporting(
+          year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports,
+          attachments: attachments)
+        push(original)
+        finishWrite(again.write)
+        landed = true
+      } catch {
+        failed(.change, error, file: file)
+        landed = false
+      }
+    case .backfill(let commit): landed = applyBackfill(commit, file: file)
+    case .tagEdit(let edit, let merged): landed = apply(edit, merged: merged, file: file)
+    case .migration(let change, let records):
+      landed = applyMigration(change, imports: records, file: file)
+    case .moneyBack(let replay):
+      landed = replayMoneyBack(replay, file: file)
     }
     if !landed { redoStack.removeAll() }
   }
@@ -1401,6 +1503,36 @@ public final class TransactionsStore {
   /// The undo of a bulk step too large for the main thread: the same rules, awaited. Only
   /// the steps of many operations ever get here; the others go the way `undo` takes them.
   private nonisolated static func undoInBackground(
+    _ step: UndoStep, repository: TransactionRepository, planning: PlanningRepository?,
+    spending: SpendingRulesRepository?, imports: StatementImportRepository? = nil
+  ) async throws -> (StoreWrite, RedoStep?) {
+    // What makes the change again is read before the step goes back.
+    var redo: RedoStep?
+    switch step {
+    case .editedMany(let before, _):
+      redo = .bulk(try await repository.entriesInBackground(ids: before.map(\.id)))
+    case .deletedMany(let ids, _): redo = .delete(ids)
+    case .planned(let undo): redo = undo.change.map { .apply($0) }
+    case .moneyBack(_, let replay): redo = replay.map { .moneyBack($0) }
+    case .spending(.backfill(let applied)):
+      let written = try await repository.entriesInBackground(ids: applied.entries.map(\.id))
+      redo = .backfill(
+        RuleBackfillCommit(
+          writes: written, tagLinksToAdd: applied.tagLinksToRemove, undo: applied))
+    case .migrated(let undo, let ids):
+      if let change = undo.change, let imports {
+        let kept = Set(ids)
+        let records = try imports.imports().map(\.record).filter { kept.contains($0.id) }
+        redo = .migration(change, imports: records)
+      }
+    default: break
+    }
+    let write = try await undoWriteInBackground(
+      step, repository: repository, planning: planning, spending: spending, imports: imports)
+    return (write, redo)
+  }
+
+  private nonisolated static func undoWriteInBackground(
     _ step: UndoStep, repository: TransactionRepository, planning: PlanningRepository?,
     spending: SpendingRulesRepository?, imports: StatementImportRepository? = nil
   ) async throws -> StoreWrite {
@@ -1447,7 +1579,7 @@ public final class TransactionsStore {
       var readBack: [TransactionEntry] = []
       if !back.isEmpty { readBack = try await repository.entriesInBackground(ids: back) }
       return reverted(undo, readBack: readBack, counts: counts)
-    case .moneyBack(let recorded):
+    case .moneyBack(let recorded, _):
       let counts = try repository.revertMoneyBack(recorded)
       let readBack = try await repository.entriesInBackground(ids: broughtBack(by: recorded))
       return laid(counts, over: revertedMoneyBack(recorded, readBack: readBack))
@@ -1504,10 +1636,40 @@ public final class TransactionsStore {
   /// Money back recorded by a sheet — the line's confirmation or the parts of a person —, with
   /// everything `TransactionRepository.apply` wrote for it: one step of ⌘Z that takes all of it
   /// back (`revertMoneyBack`). What the counts its money reached wrote is laid over the lists.
-  public func recordedMoneyBack(_ write: MoneyBackWrite, file: String = #fileID) {
+  ///
+  /// `replay` is what the sheet gave `apply` to write it: with it ⇧⌘Z records the same again.
+  func recordedMoneyBack(
+    _ write: MoneyBackWrite, replay: MoneyBackReplay? = nil, file: String = #fileID
+  ) {
     guard !refuses("recordedMoneyBack", file) else { return }
-    push(.moneyBack(write))
+    push(.moneyBack(write, replay: replay))
     if !write.counts.isEmpty { finishWrite(Self.laid(write.counts, over: StoreWrite())) }
+  }
+
+  /// ⇧⌘Z of a money back: the same call that recorded it first, written again, as one step of ⌘Z.
+  private func replayMoneyBack(_ replay: MoneyBackReplay, file: String) -> Bool {
+    guard let repository else { return false }
+    do {
+      let write = try repository.apply(
+        replay.outcome, reimbursement: replay.reimbursement, extra: replay.extra,
+        debt: replay.debt, repricing: replay.repricing, settlement: replay.settlement,
+        calendar: replay.calendar)
+      push(.moneyBack(write, replay: replay))
+      let touched =
+        write.created + write.repricedBefore.map(\.id) + write.refundsBefore.map(\.id)
+        + write.settlement.operationsBefore.map(\.id) + write.settlement.createdOperations
+      let now = try repository.entries(ids: touched).filter { !$0.transaction.isDeleted }
+      finishWrite(
+        Self.laid(
+          write.counts,
+          over: StoreWrite(
+            upserted: now, partStatuses: Self.statuses(write.closedPartIds, .returned),
+            planningChanged: true)))
+      return true
+    } catch {
+      failed(.change, error, file: file)
+      return false
+    }
   }
 
   /// A write with what the counts it reached wrote laid over it (`StoreWrite.laying`); the
@@ -1543,15 +1705,15 @@ public final class TransactionsStore {
   /// Keeps the step of a write where it was asked for — at `slot`, under the steps taken
   /// while it was on its way — unless the history was forgotten since, and reports the
   /// write either way: it happened, and the backup and the lists must follow it.
-  private func record(_ landed: Landed, at slot: Int, epoch: Int) {
-    if let step = landed.step { keep(step, at: slot, epoch: epoch) }
+  private func record(_ landed: Landed, at slot: Int, epoch: Int, redoing: Bool? = nil) {
+    if let step = landed.step { keep(step, at: slot, epoch: epoch, redoing: redoing) }
     finishWrite(landed.write)
   }
 
   /// Puts a step at `slot`, unless the history was forgotten since.
-  private func keep(_ step: UndoStep, at slot: Int, epoch: Int) {
+  private func keep(_ step: UndoStep, at slot: Int, epoch: Int, redoing: Bool? = nil) {
     guard epoch == undoEpoch else { return }
-    if !isRedoing { redoStack.removeAll() }
+    if !(redoing ?? isRedoing) { redoStack.removeAll() }
     // Nothing is popped or trimmed while a bulk write is on its way, and forgetting moves
     // the epoch, so the slot is still inside the stack; `min` only keeps it so.
     undoStack.insert(step, at: min(slot, undoStack.count))
@@ -1604,6 +1766,7 @@ public final class TransactionsStore {
   }
 
   private func finishWrite(_ write: StoreWrite) {
+    writeRevision += 1
     didWrite?(write)
   }
 

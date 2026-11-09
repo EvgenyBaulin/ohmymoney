@@ -6,7 +6,7 @@ import XCTest
 
 /// A debt from its first line to its deletion through the actions of the Debts section: made,
 /// paid, offset, grown, adjusted, moved to another debt, closed, reopened and deleted — each
-/// write one step of ⌘Z, each refusal writing nothing, in rubles and in dollars.
+/// reversible write one step of undo, each refusal writing nothing, in rubles and in dollars.
 @MainActor
 final class DebtsScenarioTestsLifecycle: DebtsScenarioCase {
   // MARK: Made
@@ -364,9 +364,12 @@ final class DebtsScenarioTestsLifecycle: DebtsScenarioCase {
     let sub = try XCTUnwrap(try categories().first { $0.id == loan.loansSubcategoryId })
     XCTAssertTrue(sub.archived)
     XCTAssertEqual(try payments(of: loan.id).count, 1, "its payment counts as it did")
-    try await undo()
-    XCTAssertNotNil(try line(loan.id))
-    XCTAssertFalse(try categories().first { $0.id == loan.loansSubcategoryId }?.archived ?? true)
+    XCTAssertFalse(store.canUndo)
+    XCTAssertFalse(store.canRedo)
+    store.undo()
+    try await show()
+    XCTAssertNil(try line(loan.id))
+    XCTAssertNotNil(try debt(loan.id).deletedAt)
   }
 
   func testADeletedDebtIsNotDeletedTwice() async throws {

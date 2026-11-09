@@ -18,19 +18,20 @@ struct EntrySettingsView: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
+      let words = EntryStyleWords.of(tablet: EntryStyleWords.isTablet)
       Picker(
         selection: Binding(
           get: { environment.entryStyle }, set: { environment.entryStyle = $0 })
       ) {
-        Text(verbatim: t("settings.entry.style.line")).tag(EntryStyle.line)
-        Text(verbatim: t("settings.entry.style.form")).tag(EntryStyle.form)
+        choice(words.line, detail: words.lineDetail).tag(EntryStyle.line)
+        choice(words.form, detail: words.formDetail).tag(EntryStyle.form)
       } label: {
-        Text(verbatim: t("settings.entry.style"))
+        Text(verbatim: t(words.label))
       }
       .pickerStyle(.menu)
       .fixedSize()
       .accessibilityIdentifier("settings.entry.style")
-      hint("settings.entry.styleHint")
+      hint(words.hint)
       Toggle(
         t("settings.entry.chips"),
         isOn: Binding(
@@ -129,6 +130,19 @@ struct EntrySettingsView: View {
 
   private func t(_ key: String) -> String { environment.language(key, table: "Settings") }
 
+  /// A choice of the menu, with the line under it that says what it is, when there is one.
+  @ViewBuilder
+  private func choice(_ key: String, detail: String?) -> some View {
+    if let detail {
+      VStack(alignment: .leading) {
+        Text(verbatim: t(key))
+        Text(verbatim: t(detail))
+      }
+    } else {
+      Text(verbatim: t(key))
+    }
+  }
+
   /// What a field is called in the list.
   static func name(of field: EntryField, _ environment: AppEnvironment) -> String {
     let key: String
@@ -180,5 +194,37 @@ enum EntrySettingsActions {
   /// «Сбросить»: the order of 1.1.
   static func reset(_ environment: AppEnvironment) {
     environment.entryFieldOrder = EntryFieldOrder.standard
+  }
+}
+
+/// The words of the choice between the line and the form. On the Mac the choice is how a new
+/// operation is filled in; on a tablet the line hides behind the round «+», so it is what the
+/// «+» opens: «Строку снизу» or «Форму справа», each with what it is under it.
+struct EntryStyleWords: Equatable {
+  let label: String
+  let line: String
+  let lineDetail: String?
+  let form: String
+  let formDetail: String?
+  let hint: String
+
+  static func of(tablet: Bool) -> EntryStyleWords {
+    tablet
+      ? EntryStyleWords(
+        label: "settings.entry.plusOpens", line: "settings.entry.plusOpens.line",
+        lineDetail: "settings.entry.plusOpens.lineDetail", form: "settings.entry.plusOpens.form",
+        formDetail: "settings.entry.plusOpens.formDetail", hint: "settings.entry.plusOpensHint")
+      : EntryStyleWords(
+        label: "settings.entry.style", line: "settings.entry.style.line", lineDetail: nil,
+        form: "settings.entry.style.form", formDetail: nil, hint: "settings.entry.styleHint")
+  }
+
+  /// The settings are on a tablet.
+  static var isTablet: Bool {
+    #if os(iOS)
+      UIDevice.current.userInterfaceIdiom == .pad
+    #else
+      false
+    #endif
   }
 }

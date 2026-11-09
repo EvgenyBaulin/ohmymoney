@@ -207,7 +207,11 @@ struct AppearancePreviewSheet: View {
     let deps = dependencies ?? AppDependencies.missing(in: #fileID)
     Group {
       switch draft.screen {
-      case .overview: OverviewView(actions: actions)
+      case .overview:
+        // The canvas fixes the widths of the tiles, as the main window does.
+        GeometryReader { proxy in
+          OverviewView(actions: actions).environment(\.overviewRoom, proxy.size.width)
+        }
       case .operations:
         OperationsScreen(deps: deps, actions: actions, state: operations)
       case .planning: PlanningView()

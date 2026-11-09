@@ -97,6 +97,7 @@ struct Migration0016Tests {
         == [
           "0016_rate_source", "0017_attachments", "0018_purchases", "0019_privacy", "0020_habits",
           "0021_history_and_cashback_choice",
+          "0022_borrowed_card",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)

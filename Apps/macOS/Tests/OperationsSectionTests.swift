@@ -439,7 +439,8 @@ final class OperationsSectionTests: XCTestCase {
   }
 
   /// With the form at the side, a double click selects the operation and the form edits it:
-  /// nothing opens beside the table.
+  /// nothing opens beside the table. A window too narrow for the form folds it into the «+»,
+  /// and the operation is edited in the sheet.
   func testWithTheFormAtTheSideTheFormEdits() throws {
     let before = environment.entryStyle
     defer { environment.entryStyle = before }
@@ -448,12 +449,22 @@ final class OperationsSectionTests: XCTestCase {
     compute.applyLight(snapshot([coffee]))
     let actions = OperationActions()
     let state = OperationsScreenState()
-    _ = mainWindow(actions: actions, on: .section(.operations), operations: state, width: 1200)
+    // Wide enough to hold the form beside the content (`EntryFormDock`).
+    _ = mainWindow(actions: actions, on: .section(.operations), operations: state, width: 1_280)
     actions.edit([coffee.id], store: store)
     settle()
     XCTAssertNil(state.editor)
     XCTAssertNil(actions.editing)
     XCTAssertEqual(actions.selection, [coffee.id], "the form follows the selection")
+
+    let foldedActions = OperationActions()
+    let folded = OperationsScreenState()
+    _ = mainWindow(
+      actions: foldedActions, on: .section(.operations), operations: folded, width: 1_024)
+    foldedActions.edit([coffee.id], store: store)
+    settle()
+    XCTAssertNil(folded.editor, "nothing beside the table")
+    XCTAssertEqual(foldedActions.editing?.id, coffee.id, "the sheet, with the form folded")
   }
 
   /// The filters, the search and the editor stay while another screen is shown.

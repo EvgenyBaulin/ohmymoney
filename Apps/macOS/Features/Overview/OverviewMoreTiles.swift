@@ -387,11 +387,13 @@ struct FreeMoneyCard: View {
       fillsHeight: true, emptyReason: t("free.noReconciliation"),
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
-      let free = snapshot.planning.freeMoney
+      let free = snapshot.planning.configuredFreeMoney(ledger: snapshot.ledger)
+      let content = OverviewHero.content(
+        free: free, horizon: snapshot.planning.book.settings.freeMoneyHorizon, environment)
       VStack(alignment: .leading, spacing: 4) {
-        Text(verbatim: environment.money.rounded(free.main ?? .zero))
+        Text(verbatim: content?.figure ?? environment.money.rounded(.zero))
           .appFont(.title2.monospacedDigit())
-        Text(verbatim: t(free.goalSavings > .zero ? "free.mainSpendable" : "free.main"))
+        Text(verbatim: content?.caption ?? t("free.now"))
           .appFont(.caption)
           .foregroundStyle(.secondary)
         if OverviewPartHidden.shows(.freeMoney, covered: compute.snapshot?.coveredAccounts) {
@@ -412,27 +414,9 @@ struct FreeMoneyCard: View {
         .appFont(.callout)
         .foregroundStyle(.secondary)
         .accessibilityElement(children: .combine)
-        Text(
-          verbatim: environment.language.format(
-            "free.perDay", table: "Planning", environment.money.rounded(free.dailyGuide),
-            free.days)
-        )
-        .appFont(.caption.monospacedDigit())
-        .foregroundStyle(.secondary)
-        // A month paid twice: the free sum through the next income, as Planning says it.
-        if let half = snapshot.planning.halfFreeMoney(ledger: snapshot.ledger),
-          let grey = half.grey
-        {
-          Text(
-            verbatim: environment.format(
-              "free.half", table: "Planning",
-              PlanningBlockText.dayText(half.until, environment), environment.money.rounded(grey),
-              environment.money.rounded(half.dailyGuide))
-          )
+        Text(verbatim: content?.lines.first ?? "")
           .appFont(.caption.monospacedDigit())
-          .fixedSize(horizontal: false, vertical: true)
-          .accessibilityIdentifier("overview.free.half")
-        }
+          .foregroundStyle(.secondary)
       }
     }
   }

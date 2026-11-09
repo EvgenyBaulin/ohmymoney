@@ -73,16 +73,18 @@ struct ExportTablesDescriptionTests {
       ])
     #expect(ExportTables.settings.columns == ["key", "value"])
     #expect(
-      Array(ExportTables.paymentMethods.columns.dropLast(2).suffix(16)) == [
+      Array(ExportTables.paymentMethods.columns.dropLast(5).suffix(16)) == [
         "cushion", "credit_limit", "credit_grace", "credit_statement_day", "credit_pay_days",
         "credit_grace_days", "credit_purchase_rate", "credit_cash_rate", "credit_min_percent",
         "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
         "credit_cash_no_grace", "main_card_id", "accent", "hidden",
       ])
-    // The ceilings of cashback and the day of the bank's choice came after them.
+    // The ceilings of cashback and the day of the bank's choice came after them, then the
+    // three fields of someone else's card.
     #expect(
-      Array(ExportTables.paymentMethods.columns.suffix(2)) == [
-        "cashback_monthly_cap", "cashback_choice_day",
+      Array(ExportTables.paymentMethods.columns.suffix(5)) == [
+        "cashback_monthly_cap", "cashback_choice_day", "borrowed", "borrowed_person_id",
+        "borrowed_income_category_id",
       ])
     #expect(
       Array(ExportTables.categories.columns.suffix(4)) == [
@@ -222,7 +224,7 @@ struct ExportTablesDescriptionTests {
     }
     #expect(ExportTables.transactions.columns.count == 41)
     #expect(ExportTables.transactionParts.columns.count == 17)
-    #expect(ExportTables.paymentMethods.columns.count == 40)
+    #expect(ExportTables.paymentMethods.columns.count == 43)
     #expect(ExportTables.templates.columns.count == 8)
     #expect(ExportTables.goals.columns.count == 13)
     #expect(ExportTables.debtEntries.columns.count == 18)
@@ -539,6 +541,22 @@ struct ExportTablesRowTests {
     #expect(read["group_id"] == method.groupId?.uuidString)
     #expect(read["sort"] == "3")
     #expect(read["other_currencies"] == "USD,RUB,KZT")
+  }
+
+  /// Someone else's card travels with whose it is and the category of transfers from it.
+  @Test func someoneElsesCardRoundTrips() throws {
+    let person = UUID()
+    let category = UUID()
+    let method = PaymentMethod(
+      name: "Карта папы", borrowed: BorrowedCardTerms(personId: person, incomeCategoryId: category))
+    let read = try roundTrip(ExportTables.paymentMethods, row: ExportTables.row(method))
+    #expect(read["borrowed"] == "true")
+    #expect(read["borrowed_person_id"] == person.uuidString)
+    #expect(read["borrowed_income_category_id"] == category.uuidString)
+    let own = try roundTrip(
+      ExportTables.paymentMethods, row: ExportTables.row(PaymentMethod(name: "Моя")))
+    #expect(own["borrowed"] == "false")
+    #expect(own["borrowed_person_id"] == "")
   }
 
   @Test func placeRoundTrips() throws {

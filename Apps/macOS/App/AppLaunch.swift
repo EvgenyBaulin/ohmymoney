@@ -176,6 +176,7 @@ enum AppLaunch {
             LogPair("removed", .count(write.removed.count)),
             LogPair("planning", .flag(write.planningChanged)),
           ])
+        if write.planningChanged { environment.refreshVocabulary() }
         environment.scheduleBackup()
         compute.overlay(write)
       }

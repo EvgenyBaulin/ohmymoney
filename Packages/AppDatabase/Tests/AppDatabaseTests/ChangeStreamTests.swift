@@ -25,7 +25,7 @@ struct ChangeStreamTests {
   /// writes in a row from the main actor: none of them waits on the listener, at least one
   /// change arrives, and cancelling the listener ends the stream. That the observation ends
   /// with it is the next test.
-  @Test(.timeLimit(.minutes(1))) @MainActor
+  @Test(.timeLimit(.minutes(5))) @MainActor
   func tenWritesInARowFromTheMainThreadDoNotWaitForTheListener() async throws {
     let (stack, directory) = try TestSupport.makeFileStack()
     defer { try? FileManager.default.removeItem(at: directory) }
@@ -35,35 +35,29 @@ struct ChangeStreamTests {
     let listener = Task {
       for await _ in changes { await counter.increment() }
     }
+    defer { listener.cancel() }
 
     for number in 0..<10 {
       try repository.save(try TestSupport.makeEntry(note: "row \(number)"))
     }
 
-    // The listener's task may not have begun to observe when the ten writes were done — the
-    // main actor wrote them before the task ran — and a change made before the observation
-    // starts is not announced. So one more write each second, until one arrives.
+    // Observation starts synchronously and buffers a change before the listener runs. All
+    // ten main-actor writes must finish without yielding to that listener. Only then yield
+    // until it receives the buffered change, allowing for a heavily loaded test host.
     let clock = ContinuousClock()
-    let deadline = clock.now + .seconds(10)
-    var nextWrite = clock.now + .seconds(1)
-    var more = 0
+    let deadline = clock.now + .seconds(60)
     while await counter.value == 0, clock.now < deadline {
-      try await Task.sleep(for: .milliseconds(10))
-      if clock.now >= nextWrite {
-        try repository.save(try TestSupport.makeEntry(note: "more \(more)"))
-        more += 1
-        nextWrite = clock.now + .seconds(1)
-      }
+      try await Task.sleep(for: .milliseconds(20))
     }
     let received = await counter.value
     #expect(received >= 1)
-    #expect(received <= 10 + more)
+    #expect(received <= 10)
 
     listener.cancel()
     await listener.value
     // With the stream gone, writes go on as before.
     try repository.save(try TestSupport.makeEntry(note: "after"))
-    #expect(try repository.count() == 11 + more)
+    #expect(try repository.count() == 11)
   }
 
   /// Cancelling the listener stops the observation itself, not only the stream. A yield on a

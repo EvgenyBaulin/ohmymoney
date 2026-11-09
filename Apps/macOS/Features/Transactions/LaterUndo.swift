@@ -39,6 +39,16 @@ enum LaterUndo: Sendable {
   /// A file's kind, note or «Хранить всегда» changed: the row as it was.
   case attachmentChanged(before: AttachedFile)
 
+  /// A day of use marked again (the inverse of removing it).
+  case usageAdded([UsageMark])
+  /// An import marked undone again.
+  case importMarkedUndone(id: String)
+  /// Rows of files taken away by ⌘Z of an attach (the bytes stayed in the folder): the step
+  /// that puts them back.
+  case attachmentsRemoved([AttachedFile])
+  /// Files taken out of the trash by ⌘Z: the step that sends them back.
+  case attachmentsUntrashed(ids: [UUID])
+
   /// How many operations undoing it writes.
   var size: Int { 1 }
 
@@ -47,60 +57,108 @@ enum LaterUndo: Sendable {
     savedViews: SavedViewsRepository?, imports: StatementImportRepository?,
     attachments: AttachmentService? = nil
   ) throws -> StoreWrite {
+    try revertReporting(
+      year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports,
+      attachments: attachments
+    ).write
+  }
+
+  /// Puts the database back and returns the step that makes the change again: what the write
+  /// replaced is read in the same call, so ⇧⌘Z replays it through `revertReporting` of that
+  /// step. `again` is `nil` for a step that cannot be made again from what it keeps.
+  func revertReporting(
+    year: YearPlanRepository?, subscriptions: SubscriptionRepository?,
+    savedViews: SavedViewsRepository?, imports: StatementImportRepository?,
+    attachments: AttachmentService? = nil
+  ) throws -> (write: StoreWrite, again: LaterUndo?) {
+    var again: LaterUndo?
     switch self {
     case .monthLimit(let budget, let month, let before):
-      try need(year).restoreLimits(budget: budget, month: month, to: before)
+      let current = try need(year).restoreLimits(budget: budget, month: month, to: before)
+      again = .monthLimit(budget: budget, month: month, before: current)
     case .eventItems(let event, let before):
-      try need(year).setItems(before, ofEvent: event)
+      again = .eventItems(event: event, before: try need(year).setItems(before, ofEvent: event))
     case .eventTemplate(let id, let before):
       if let before {
-        try need(year).save(before)
+        again = .eventTemplate(id: id, before: try need(year).save(before))
       } else {
-        try need(year).deleteTemplate(id: id)
+        again = .eventTemplate(id: id, before: try need(year).deleteTemplate(id: id))
       }
     case .buffer(let before):
-      try need(year).save(buffer: before)
+      again = .buffer(before: try need(year).save(buffer: before))
     case .bufferMarks(let before):
-      try need(year).save(bufferMarks: before)
+      again = .bufferMarks(before: try need(year).save(bufferMarks: before))
     case .terms(let payment, let before):
-      try need(subscriptions).save(before ?? SubscriptionTerms(paymentId: payment))
+      let replaced = try need(subscriptions).save(before ?? SubscriptionTerms(paymentId: payment))
+      again = .terms(payment: payment, before: replaced.termsBefore)
     case .usageMarked(let mark):
-      try need(subscriptions).removeUsage(ids: [mark.id])
+      let removed = try need(subscriptions).removeUsage(ids: [mark.id])
+      again = removed.isEmpty ? nil : .usageRemoved(removed)
     case .usageRemoved(let marks):
       try need(subscriptions).restore(usage: marks)
+      again = .usageAdded(marks)
+    case .usageAdded(let marks):
+      let removed = try need(subscriptions).removeUsage(ids: marks.map(\.id))
+      again = removed.isEmpty ? nil : .usageRemoved(removed)
     case .users(let payment, let before):
-      try need(subscriptions).restore(users: before, payment: payment)
+      let current = try need(subscriptions).restore(users: before, payment: payment)
+      again = .users(payment: payment, before: current)
     case .keepGroupAdded(let group):
-      try need(subscriptions).removeKeepGroup(id: group.id)
+      let removed = try need(subscriptions).removeKeepGroup(id: group.id)
+      again = removed.map { .keepGroupRemoved($0) }
     case .keepGroupRemoved(let group):
       try need(subscriptions).restore(keepGroup: group)
+      again = .keepGroupAdded(group)
     case .savedViews(let before):
-      try need(savedViews).replace(with: before)
+      again = .savedViews(before: try need(savedViews).replace(with: before))
     case .statuses(let before):
-      try need(imports).apply(before)
+      again = .statuses(try need(imports).apply(before))
     case .identity(let before):
-      try need(imports).save(before)
+      again = .identity(before: try need(imports).save(before))
     case .profile(let id, let before):
+      let current = try need(imports).profiles().first { $0.id == id }
       if let before {
         try need(imports).save(before)
       } else {
         try need(imports).deleteProfile(id: id)
       }
+      again = .profile(id: id, before: current)
     case .importRecorded(let id):
+      // The row's own fields are not kept; a loaded statement cannot be made again from here.
       try need(imports).deleteImport(id: id)
     case .importUndone(let id):
       try need(imports).clearUndone(id: id)
+      again = .importMarkedUndone(id: id)
+    case .importMarkedUndone(let id):
+      try need(imports).markUndone(id: id)
+      again = .importUndone(id: id)
     case .attachmentsAdded(let ids):
-      try need(attachments).delete(ids: ids)
-      return StoreWrite()
+      // Only the rows go: the bytes stay for ⇧⌘Z, and the daily sweep takes them if nothing
+      // names them by then.
+      let removed = try need(attachments).repository.delete(ids: ids)
+      again = removed.isEmpty ? nil : .attachmentsRemoved(removed)
+      return (StoreWrite(), again)
+    case .attachmentsRemoved(let rows):
+      for row in rows {
+        guard try need(attachments).availability(of: row) == .present else {
+          throw LaterUndoUnavailable()
+        }
+      }
+      for row in rows { try need(attachments).repository.insert(row) }
+      again = .attachmentsAdded(ids: rows.map(\.id))
+      return (StoreWrite(), again)
     case .attachmentsTrashed(let ids):
       for id in ids { try need(attachments).restoreFromTrash(id: id) }
-      return StoreWrite()
+      return (StoreWrite(), .attachmentsUntrashed(ids: ids))
+    case .attachmentsUntrashed(let ids):
+      for id in ids { try need(attachments).moveToTrash(id: id) }
+      return (StoreWrite(), .attachmentsTrashed(ids: ids))
     case .attachmentChanged(let before):
+      let current = try need(attachments).repository.attachment(id: before.id)
       try need(attachments).repository.update(before)
-      return StoreWrite()
+      return (StoreWrite(), current.map { .attachmentChanged(before: $0) })
     }
-    return StoreWrite(planningChanged: true)
+    return (StoreWrite(planningChanged: true), again)
   }
 
   private func need<Repository>(_ repository: Repository?) throws -> Repository {
