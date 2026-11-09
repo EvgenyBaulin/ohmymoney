@@ -671,7 +671,8 @@ struct TransferActions {
         $0.id == transfer.toAccountId && $0.isBorrowed
       })
     {
-      return spendingOnBorrowed(transfer, card: card, purpose: form.borrowedPurpose, dataset: dataset, now: now)
+      return spendingOnBorrowed(
+        transfer, card: card, purpose: form.borrowedPurpose, dataset: dataset, now: now)
     }
 
     var rows = PlanningRows(transfers: [transfer])
@@ -803,7 +804,8 @@ struct TransferActions {
   /// like the income category), a repayment is a payment of the open debt to the person whose
   /// card it is, with its line in the journal of the debt. No transfer and no fee are written.
   func spendingOnBorrowed(
-    _ transfer: Transfer, card: PaymentMethod, purpose: BorrowedTransferPurpose, dataset: Dataset, now: Date
+    _ transfer: Transfer, card: PaymentMethod, purpose: BorrowedTransferPurpose, dataset: Dataset,
+    now: Date
   ) -> Result<PlanningChange, TransferRefusal> {
     let categories = store.categories()
     let tree = CategoryTree(categories)

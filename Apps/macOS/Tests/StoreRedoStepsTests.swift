@@ -108,7 +108,8 @@ final class StoreRedoStepsTests: XCTestCase {
 
   func testAnEventTemplateCreatedAndDeletedIsMadeAgain() throws {
     let template = EventTemplate(
-      id: "mine", name: "Trip", isBuiltIn: false, eventKind: .trip, totalE4: AmountE4(whole: 10), lines: [])
+      id: "mine", name: "Trip", isBuiltIn: false, eventKind: .trip, totalE4: AmountE4(whole: 10),
+      lines: [])
     XCTAssertTrue(store.saveEventTemplate(template))
     store.undo()
     XCTAssertTrue(try year.data().eventTemplates.filter { $0.id == "mine" }.isEmpty)

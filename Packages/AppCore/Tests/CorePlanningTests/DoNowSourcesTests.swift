@@ -11,7 +11,9 @@ struct DoNowSourcesTests {
   private let calendar = CalendarContext.utc
   private let food = CoreKit.Category(kind: .expense, name: "Food")
 
-  private func entry(daysAgo: Int, categorized: Bool, source: String? = nil, account: UUID? = nil)
+  private func entry(
+    daysAgo: Int, categorized: Bool, source: String? = nil, account: UUID? = nil
+  )
     throws -> TransactionEntry
   {
     let day = today.adding(days: -daysAgo)

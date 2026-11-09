@@ -185,7 +185,8 @@ struct MainCard<Content: View>: View {
         // The stripe grows with the text it stands beside.
         .frame(
           width: StyleMetrics.stripeWidth,
-          height: fontSize.points(fromRegular: StyleMetrics.stripeHeight))
+          height: fontSize.points(fromRegular: StyleMetrics.stripeHeight)
+        )
         .accessibilityHidden(true)
       content.frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -317,7 +318,9 @@ struct SegmentedTabs<Value: Hashable>: View {
       ForEach(options.indices, id: \.self) { index in
         let option = options[index]
         let selected = option.value == selection
-        Button { selection = option.value } label: {
+        Button {
+          selection = option.value
+        } label: {
           Text(verbatim: option.title)
             .appFont(.callout.weight(selected ? .semibold : .regular))
             .padding(.horizontal, 12)

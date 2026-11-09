@@ -44,11 +44,12 @@ enum OverviewDoNow {
     case .post:
       let payment = snapshot.dataset.planning.scheduled.first { $0.id == item.paymentId }
       let due = item.day ?? environment.today
-      let amount = payment.map {
-        money.rounded(
-          SubscriptionMath.price(of: $0, on: due, prices: snapshot.dataset.planning.prices),
-          currency: $0.currency)
-      } ?? ""
+      let amount =
+        payment.map {
+          money.rounded(
+            SubscriptionMath.price(of: $0, on: due, prices: snapshot.dataset.planning.prices),
+            currency: $0.currency)
+        } ?? ""
       let when: String
       if due == environment.today {
         when = environment.language("overview.doNow.today", table: table)

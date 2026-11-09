@@ -553,7 +553,8 @@ struct ExportTablesRowTests {
     #expect(read["borrowed"] == "true")
     #expect(read["borrowed_person_id"] == person.uuidString)
     #expect(read["borrowed_income_category_id"] == category.uuidString)
-    let own = try roundTrip(ExportTables.paymentMethods, row: ExportTables.row(PaymentMethod(name: "Моя")))
+    let own = try roundTrip(
+      ExportTables.paymentMethods, row: ExportTables.row(PaymentMethod(name: "Моя")))
     #expect(own["borrowed"] == "false")
     #expect(own["borrowed_person_id"] == "")
   }

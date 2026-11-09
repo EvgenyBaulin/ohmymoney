@@ -145,7 +145,8 @@ struct BorrowedCardRulesTests {
       "an income category of the same name is no category of spending")
     let live = CoreKit.Category(id: Self.id(62), kind: .expense, name: " gifts ")
     #expect(BorrowedCardRules.giftCategory(categories: [income, live]) == .existing(live.id))
-    let archived = CoreKit.Category(id: Self.id(63), kind: .expense, name: "Подарки", archived: true)
+    let archived = CoreKit.Category(
+      id: Self.id(63), kind: .expense, name: "Подарки", archived: true)
     #expect(
       BorrowedCardRules.giftCategory(categories: [archived])
         == .revive(archived.id, parent: nil))
@@ -159,7 +160,8 @@ struct BorrowedCardRulesTests {
   }
 
   @Test func aRepaymentPaysTheOpenDebtToThePersonWhoseCardItIs() {
-    func debt(_ number: Int, _ direction: DebtDirection, person: UUID?, name: String = "Долг",
+    func debt(
+      _ number: Int, _ direction: DebtDirection, person: UUID?, name: String = "Долг",
       currency: CurrencyCode = .rub, closed: Bool = false
     ) -> Debt {
       Debt(
@@ -177,7 +179,8 @@ struct BorrowedCardRulesTests {
     ]
     #expect(
       BorrowedCardRules.debtToRepay(card: papa, currency: .rub, debts: debts)?.id == Self.id(85))
-    #expect(BorrowedCardRules.debtToRepay(card: papa, currency: .usd, debts: debts)?.id == Self.id(83))
+    #expect(
+      BorrowedCardRules.debtToRepay(card: papa, currency: .usd, debts: debts)?.id == Self.id(83))
     #expect(BorrowedCardRules.debtToRepay(card: papa, currency: .eur, debts: debts) == nil)
     var unsaid = papa
     unsaid.borrowed?.personId = nil

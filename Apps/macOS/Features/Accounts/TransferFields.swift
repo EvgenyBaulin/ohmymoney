@@ -607,7 +607,8 @@ struct TransferFields: View {
       }
     } label: {
       Text(
-        verbatim: environment.language("borrowed.transfer.purposeLabel", table: BorrowedCardText.table))
+        verbatim: environment.language(
+          "borrowed.transfer.purposeLabel", table: BorrowedCardText.table))
     }
     .accessibilityIdentifier("transfer.borrowedPurpose")
   }

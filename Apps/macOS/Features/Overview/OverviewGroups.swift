@@ -50,7 +50,13 @@ final class OverviewScreen {
       switch cell {
       case .single(let tile): tile == .worthALook ? nil : cell
       case .pair(let first, let second):
-        if first == .worthALook { .single(second) } else if second == .worthALook { .single(first) } else { cell }
+        if first == .worthALook {
+          .single(second)
+        } else if second == .worthALook {
+          .single(first)
+        } else {
+          cell
+        }
       }
     }
   }
@@ -244,7 +250,8 @@ struct OverviewGroupedGrid: View {
             item(place, fillsHeight: true)
               .frame(
                 width: width > 0
-                  ? OverviewCard.width(of: span, in: width, columns: columns) : nil)
+                  ? OverviewCard.width(of: span, in: width, columns: columns) : nil
+              )
               .gridCellColumns(span)
           }
         }
