@@ -183,6 +183,7 @@ struct MigrationDryRunPathTests {
           "0020_habits",
           "0021_history_and_cashback_choice",
           "0022_borrowed_card",
+          "0023_receipt_numbers_and_category_english",
         ])
   }
 

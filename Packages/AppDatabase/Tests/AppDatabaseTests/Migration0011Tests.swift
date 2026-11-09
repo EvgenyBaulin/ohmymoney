@@ -84,6 +84,7 @@ struct Migration0011Tests {
           "0020_habits",
           "0021_history_and_cashback_choice",
           "0022_borrowed_card",
+          "0023_receipt_numbers_and_category_english",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
@@ -170,7 +171,8 @@ struct Migration0011Tests {
     #expect(Array(plain.suffix(7).prefix(4)) == ["", "", "", ""])
     let operation = CoreKit.Transaction(
       kind: .expense, occurredAt: Date(), amountE4: AmountE4(whole: 1), timeZoneId: "Asia/Tokyo")
-    #expect(ExportTables.row(operation).suffix(14).first == "Asia/Tokyo")
+    let zoneAt = try #require(ExportTables.transactions.columns.firstIndex(of: "time_zone"))
+    #expect(ExportTables.row(operation)[zoneAt] == "Asia/Tokyo")
     #expect(ExportTables.row(operation).count == ExportTables.transactions.columns.count)
     let trip = Event(
       name: "T", kind: .trip, startDate: DateOnly(year: 2026, month: 1, day: 1),

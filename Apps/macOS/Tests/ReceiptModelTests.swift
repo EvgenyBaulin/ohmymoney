@@ -1,5 +1,7 @@
 import AppCore
 import AppDatabase
+import CoreImage
+import CoreImage.CIFilterBuiltins
 import XCTest
 
 @testable import OhMyMoney
@@ -231,5 +233,122 @@ final class ReceiptModelTests: XCTestCase {
     XCTAssertFalse(model.confirm())
     XCTAssertEqual(model.stage, .failed(.gone))
     XCTAssertEqual(try live().count, 0)
+  }
+
+  // MARK: One receipt, one operation
+
+  private static let receiptText =
+    "t=20261029T183200&s=250.00&fn=9999078900001111&i=42&fp=123456789&n=1"
+  /// The same receipt as its paper prints it: the document number and the sign with zeros.
+  private static let paperText =
+    "t=20261029T183200&s=250.00&fn=9999078900001111&i=0000000042&fp=0123456789&n=1"
+
+  func testTheSameReceiptReadTwiceIsRecordedOnceAndShowsTheOperation() async throws {
+    let first = try await model()
+    first.read(payload: Self.receiptText)
+    XCTAssertTrue(first.confirm())
+    XCTAssertEqual(first.stage, .done(.created))
+    let made = try XCTUnwrap(live().first)
+    XCTAssertEqual(made.transaction.receipt?.fiscalDrive, "9999078900001111")
+    XCTAssertEqual(made.transaction.receipt?.documentNumber, "42")
+    XCTAssertEqual(made.transaction.receipt?.fiscalSign, "123456789")
+    XCTAssertEqual(made.transaction.receipt?.operation, 1)
+
+    // A second scan right away: the lists have not caught up yet, the database has.
+    let second = ReceiptModel(
+      environment: environment, store: store, dataset: { [unowned self] in self.dataset })
+    second.read(payload: Self.paperText)
+    XCTAssertEqual(second.stage, .alreadyRecorded(made.id))
+    XCTAssertFalse(second.confirm(), "nothing is written for a receipt already recorded")
+    XCTAssertTrue(second.alreadyRecordedText(made.id).contains("29"))
+    XCTAssertEqual(try live().count, 1)
+  }
+
+  func testTheTimeOfAReceiptAndItsNumbersGoTogetherAndOneUndoTakesBothBack() async throws {
+    let coffee = try purchase("Кофе", rubles: 250, day: 29)
+    let model = try await model()
+    model.read(payload: Self.receiptText)
+    XCTAssertTrue(model.isSupplementing)
+    XCTAssertTrue(model.confirm())
+    let written = try XCTUnwrap(live().first { $0.id == coffee.id })
+    XCTAssertEqual(written.transaction.receipt?.documentNumber, "42")
+
+    let again = try await self.model()
+    again.read(payload: Self.receiptText)
+    XCTAssertEqual(again.stage, .alreadyRecorded(coffee.id))
+    XCTAssertEqual(again.title(of: coffee.id), "Кофе")
+
+    store.undo()
+    XCTAssertNil(try XCTUnwrap(live().first { $0.id == coffee.id }).transaction.receipt)
+  }
+
+  func testAnOperationOfAnotherReceiptIsNotGivenThisOnesTime() async throws {
+    let coffee = try purchase("Кофе", rubles: 250, day: 29)
+    let first = try await model()
+    first.read(payload: Self.receiptText)
+    XCTAssertTrue(first.confirm())
+    // The next document of the same bar, the same sum: another purchase.
+    let next = try await model()
+    next.read(
+      payload: "t=20261029T190000&s=250.00&fn=9999078900001111&i=43&fp=555555555&n=1")
+    XCTAssertEqual(next.stage, .found)
+    XCTAssertFalse(next.isSupplementing, "the coffee already holds another receipt")
+    XCTAssertTrue(next.canCreate)
+    XCTAssertNotEqual(next.chosenId, coffee.id)
+  }
+
+  func testAReceiptWhoseOperationWasDeletedMayBeRecordedAgain() async throws {
+    let first = try await model()
+    first.read(payload: Self.receiptText)
+    XCTAssertTrue(first.confirm())
+    let made = try XCTUnwrap(live().first)
+    XCTAssertTrue(store.delete(id: made.id))
+    let again = try await model()
+    again.read(payload: Self.receiptText)
+    XCTAssertEqual(again.stage, .found)
+    XCTAssertTrue(again.confirm())
+    XCTAssertEqual(try live().count, 1)
+  }
+
+  func testARefundOfASaleNeverBecomesAPurchase() async throws {
+    try purchase("Покупка", rubles: 1_000, day: 29)
+    let model = try await model()
+    for sum in ["600.00", "100.00"] {
+      model.reset()
+      model.read(payload: "t=20261029T2200&s=\(sum)&fn=9999000000000002&i=7&fp=111&n=2")
+      XCTAssertEqual(model.stage, .found)
+      XCTAssertFalse(model.isSupplementing)
+      XCTAssertEqual(model.newDraft?.kind, .refund)
+      XCTAssertTrue(model.similar.isEmpty, "the purchase of 1000 is not offered for a refund")
+      XCTAssertFalse(model.confirm())
+    }
+    XCTAssertEqual(try live().map(\.transaction.kind), [.expense])
+  }
+
+  func testAPDFReceiptIsReadThroughTheSheetsModel() async throws {
+    let filter = CIFilter.qrCodeGenerator()
+    filter.message = Data(Self.receiptText.utf8)
+    let output = try XCTUnwrap(filter.outputImage)
+      .transformed(by: CGAffineTransform(scaleX: 4, y: 4))
+    let canvas = output.extent.insetBy(dx: -40, dy: -40)
+    let code = try XCTUnwrap(
+      CIContext().createCGImage(
+        output.composited(over: CIImage(color: .white).cropped(to: canvas)), from: canvas))
+    let data = NSMutableData()
+    var box = CGRect(x: 0, y: 0, width: 595, height: 842)
+    let context = try XCTUnwrap(
+      CGContext(consumer: try XCTUnwrap(CGDataConsumer(data: data)), mediaBox: &box, nil))
+    for page in 1...2 {
+      context.beginPDFPage(nil)
+      context.setFillColor(CGColor(gray: 1, alpha: 1))
+      context.fill(box)
+      if page == 2 { context.draw(code, in: CGRect(x: 40, y: 40, width: 200, height: 200)) }
+      context.endPDFPage()
+    }
+    context.closePDF()
+    let model = try await model()
+    await model.read(data: data as Data, filename: "Чек.pdf")
+    XCTAssertEqual(model.stage, .found)
+    XCTAssertEqual(model.receipt?.numbers?.documentNumber, "42")
   }
 }

@@ -58,7 +58,7 @@ public struct AnonymizerLabels: Hashable, Sendable {
 /// **What changes** — the free text and the names:
 /// * operations: the description, the place of the warranty, the statement's own key and
 ///   hash; an outside key (a bank's reference) is dropped, the keys the app writes
-///   (`sched:`, `alloc:` …) stay; parts: the comment;
+///   (`sched:`, `alloc:` …) stay; the numbers of the cash receipt go; parts: the comment;
 /// * people (name, aliases, birthday, gift budget), places and events (name, aliases),
 ///   accounts, banks, groups of accounts, cards (name, aliases, last four digits, comment);
 /// * goals (name, «why I save»), debts (name, comment, the groups and descriptions of the journal), what the loans
@@ -71,7 +71,7 @@ public struct AnonymizerLabels: Hashable, Sendable {
 ///   dropped altogether — their text names things.
 ///
 /// **What does not change** — sums, dates, currencies, rates, kinds, categories (the tree is
-/// the app's, not a name of a person), grades, links between records (every id stays, so a
+/// the app's, not a name of a person) and the English names made of them, grades, links between records (every id stays, so a
 /// part still points at the same operation, person and event), the amount's expression,
 /// settings that are numbers.
 ///
@@ -82,7 +82,7 @@ public enum Anonymizer {
   /// owner. Anything not named here is a number, a date, a link or a token.
   public static let coveredFields: [String] = [
     "transaction.note", "transaction.warrantyWhere", "transaction.dedupKey",
-    "transaction.externalId (outside keys)", "part.note",
+    "transaction.externalId (outside keys)", "transaction.receipt", "part.note",
     "person.name", "person.aliases", "person.birthday", "person.giftBudget",
     "place.name", "place.aliases", "event.name", "paymentMethod.name", "paymentMethod.aliases",
     "bank.name", "accountGroup.name", "card.name", "card.aliases", "card.last4", "card.details",
@@ -120,6 +120,8 @@ public enum Anonymizer {
       d.entries[index].transaction.note = nil
       d.entries[index].transaction.warrantyWhere = nil
       d.entries[index].transaction.dedupKey = nil
+      // A key to the real receipt at the tax service: the shop, the moment, the lines.
+      d.entries[index].transaction.receipt = nil
       d.entries[index].transaction.externalId = ownKey(d.entries[index].transaction.externalId)
       for part in d.entries[index].parts.indices { d.entries[index].parts[part].note = nil }
     }

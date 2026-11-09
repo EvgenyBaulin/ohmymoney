@@ -87,8 +87,8 @@ struct ExportTablesDescriptionTests {
         "borrowed_income_category_id",
       ])
     #expect(
-      Array(ExportTables.categories.columns.suffix(4)) == [
-        "essential", "tax_rate", "tax_npd", "basket",
+      Array(ExportTables.categories.columns.suffix(6)) == [
+        "essential", "tax_rate", "tax_npd", "basket", "name_en", "name_en_source",
       ])
     #expect(
       Array(ExportTables.goals.columns.suffix(5)) == [
@@ -138,7 +138,7 @@ struct ExportTablesDescriptionTests {
         "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
         "source", "bank_status", "posted_on", "dedup_key", "warranty_until", "warranty_where",
         "return_until", "discount", "regret", "regret_asked_on", "refund_waiting_until",
-        "odometer_km",
+        "odometer_km", "receipt_fn", "receipt_i", "receipt_fp", "receipt_n",
       ])
     #expect(
       ExportTables.scheduledPayments.columns == [
@@ -222,7 +222,7 @@ struct ExportTablesDescriptionTests {
       let older = Array(table.columns.prefix(before[table.fileName] ?? 0))
       #expect(Array(older.suffix(columns.count)) == columns, "\(table.fileName)")
     }
-    #expect(ExportTables.transactions.columns.count == 41)
+    #expect(ExportTables.transactions.columns.count == 45)
     #expect(ExportTables.transactionParts.columns.count == 17)
     #expect(ExportTables.paymentMethods.columns.count == 43)
     #expect(ExportTables.templates.columns.count == 8)

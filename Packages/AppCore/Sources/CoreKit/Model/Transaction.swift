@@ -81,6 +81,10 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
   public var refundWaitingUntil: DateOnly?
   /// The mileage of the car at a fill-up, whole kilometres.
   public var odometerKm: Int?
+  /// The fiscal numbers of the cash receipt the operation was recorded or completed from;
+  /// `nil`: none was read. The same receipt read again finds this operation instead of making
+  /// another.
+  public var receipt: ReceiptNumbers?
 
   public init(
     id: UUID = UUID(),
@@ -122,7 +126,8 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     regret: PurchaseRegret? = nil,
     regretAskedOn: DateOnly? = nil,
     refundWaitingUntil: DateOnly? = nil,
-    odometerKm: Int? = nil
+    odometerKm: Int? = nil,
+    receipt: ReceiptNumbers? = nil
   ) {
     self.id = id
     self.kind = kind
@@ -164,6 +169,7 @@ public struct Transaction: Identifiable, Hashable, Sendable, Codable {
     self.regretAskedOn = regretAskedOn
     self.refundWaitingUntil = refundWaitingUntil
     self.odometerKm = odometerKm
+    self.receipt = receipt
   }
 
   public var isDeleted: Bool { deletedAt != nil }

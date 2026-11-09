@@ -10,10 +10,12 @@ public struct ReceiptCandidate: Hashable, Sendable {
   public var timeZoneId: String?
   public var currency: CurrencyCode
   public var amountE4: AmountE4
+  /// The numbers of the receipt the operation already holds; `nil`: none.
+  public var receipt: ReceiptNumbers?
 
   public init(
     id: UUID, kind: TransactionKind, occurredAt: Date, timeZoneId: String? = nil,
-    currency: CurrencyCode = .rub, amountE4: AmountE4
+    currency: CurrencyCode = .rub, amountE4: AmountE4, receipt: ReceiptNumbers? = nil
   ) {
     self.id = id
     self.kind = kind
@@ -21,11 +23,14 @@ public struct ReceiptCandidate: Hashable, Sendable {
     self.timeZoneId = timeZoneId
     self.currency = currency
     self.amountE4 = amountE4
+    self.receipt = receipt
   }
 }
 
 /// What to offer for a scanned receipt.
 public enum ReceiptProposal: Hashable, Sendable {
+  /// The same receipt is already on an operation: nothing is written, the operation is shown.
+  case alreadyRecorded(ReceiptCandidate)
   /// An operation of the same sum a day either way: add the time of the receipt (and a photo).
   /// `moment` is on the clock of the zone the operation was recorded in.
   /// `others` are further operations that fit, nearest first.
@@ -53,9 +58,15 @@ public enum ReceiptMatch {
   /// day (in the zone it was recorded in) is the day of the receipt, the day before or the
   /// day after. The nearest to the receipt's moment comes first: the same day before the
   /// neighbouring ones, then by the distance in time. Nothing goes to the network.
+  ///
+  /// An operation that already holds this very receipt (`recorded`) comes before everything:
+  /// the receipt is not recorded twice and gives no time to another operation. An operation
+  /// that holds another receipt is another purchase and is never offered.
   public static func propose(
-    _ receipt: ReceiptQR, among candidates: [ReceiptCandidate], calendar: CalendarContext
+    _ receipt: ReceiptQR, among all: [ReceiptCandidate], calendar: CalendarContext
   ) -> ReceiptProposal {
+    if let holder = recorded(receipt, among: all) { return .alreadyRecorded(holder) }
+    let candidates = all.filter { $0.receipt == nil }
     let moment = receipt.moment(in: calendar)
     let kind = receipt.operation.transactionKind
     let fitting =
@@ -85,6 +96,22 @@ public enum ReceiptMatch {
     return .new(draft)
   }
 
+  /// The operation that already holds the receipt: the same drive and document number (as
+  /// numbers) and no other fiscal sign. A receipt without a key is never recorded; of several
+  /// holders — two devices that read it apart — the earliest recorded comes first.
+  public static func recorded(
+    _ receipt: ReceiptQR, among candidates: [ReceiptCandidate]
+  ) -> ReceiptCandidate? {
+    guard let numbers = receipt.numbers else { return nil }
+    return
+      candidates
+      .filter { $0.receipt.map { $0.isSameReceipt(as: numbers) } ?? false }
+      .min {
+        if $0.occurredAt != $1.occurredAt { return $0.occurredAt < $1.occurredAt }
+        return $0.id.uuidString < $1.id.uuidString
+      }
+  }
+
   /// The largest difference of sums that still looks like the same purchase: 5 % of the receipt.
   static func tolerance(of receipt: AmountE4) -> Int64 {
     receipt.raw / 20
@@ -104,7 +131,7 @@ public enum ReceiptMatch {
     let allowed = tolerance(of: receipt.amountE4)
     return
       candidates
-      .filter { $0.kind == kind && $0.currency == .rub }
+      .filter { $0.kind == kind && $0.currency == .rub && $0.receipt == nil }
       .compactMap { candidate -> (ReceiptCandidate, Int64, TimeInterval)? in
         let apart = abs(candidate.amountE4.raw - receipt.amountE4.raw)
         let distance = abs(candidate.occurredAt.timeIntervalSince(moment))

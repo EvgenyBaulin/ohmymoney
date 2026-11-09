@@ -46,7 +46,18 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
       regret: PurchaseRegret(stored: row["regret"]),
       regretAskedOn: RowMapping.day(row, "regret_asked_on"),
       refundWaitingUntil: RowMapping.day(row, "refund_waiting_until"),
-      odometerKm: (try? RowMapping.optionalInteger(row, "odometer_km")) ?? nil)
+      odometerKm: (try? RowMapping.optionalInteger(row, "odometer_km")) ?? nil,
+      receipt: Self.receipt(row))
+  }
+
+  /// The numbers of the receipt: a drive and a document number that read as numbers, or none.
+  /// A database of an older schema has no such columns.
+  private static func receipt(_ row: Row) -> ReceiptNumbers? {
+    guard row.hasColumn("receipt_fn") else { return nil }
+    return ReceiptNumbers(
+      fiscalDrive: text(row, "receipt_fn"), documentNumber: text(row, "receipt_i"),
+      fiscalSign: text(row, "receipt_fp"),
+      operation: (try? RowMapping.optionalInteger(row, "receipt_n")) ?? nil)
   }
 
   /// A blank text reads as none, like a NULL.
@@ -112,6 +123,10 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
     container["regret_asked_on"] = regretAskedOn?.iso
     container["refund_waiting_until"] = refundWaitingUntil?.iso
     container["odometer_km"] = odometerKm
+    container["receipt_fn"] = receipt?.fiscalDrive
+    container["receipt_i"] = receipt?.documentNumber
+    container["receipt_fp"] = receipt?.fiscalSign
+    container["receipt_n"] = receipt?.operation
   }
 }
 

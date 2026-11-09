@@ -35,7 +35,10 @@ public enum ExportTables {
   /// `Schema/0014_import_year_questions_subscriptions.sql`: where a statement line came from
   /// (`statement`, `screenshot`, `receipt`; empty — typed by hand), what the bank said of it
   /// (`posted`, `pending`, `declined`, `unknown`; empty — posted), the day the bank posted it and
-  /// the hash that finds the same line again.
+  /// the hash that finds the same line again. `receipt_fn`, `receipt_i`, `receipt_fp` and
+  /// `receipt_n` came with `Schema/0023_receipt_numbers_and_category_english.sql` and go last: the
+  /// fiscal drive, the document number and the fiscal sign of the cash receipt the operation was
+  /// read from, as digits without leading zeros, and its kind of settlement (1–4); empty for none.
   public static let transactions = ExportTable(
     fileName: "transactions.csv",
     columns: [
@@ -46,7 +49,7 @@ public enum ExportTables {
       "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
       "source", "bank_status", "posted_on", "dedup_key", "warranty_until", "warranty_where",
       "return_until", "discount", "regret", "regret_asked_on", "refund_waiting_until",
-      "odometer_km",
+      "odometer_km", "receipt_fn", "receipt_i", "receipt_fp", "receipt_n",
     ])
 
   /// `refund_of_part_id` came with `Schema/0004_accounts.sql`: the purchase part a refund
@@ -117,11 +120,15 @@ public enum ExportTables {
   /// `tax_npd` came with `Schema/0009_credit_and_allocation.sql`: the tax an income in the
   /// category owes, in percent, and whether it is the tax on professional income. `basket` came
   /// with `Schema/0013_spending_rules.sql`: `needs`, `wants` or `savings`, empty when not said.
+  /// `name_en` and `name_en_source` came with
+  /// `Schema/0023_receipt_numbers_and_category_english.sql` and go last: the English name the
+  /// device made and the name it was made of (when the two names differ, it is of an old name);
+  /// empty when none was made yet.
   public static let categories = ExportTable(
     fileName: "categories.csv",
     columns: [
       "id", "parent_id", "kind", "name", "sort", "archived", "quality", "system_role",
-      "essential", "tax_rate", "tax_npd", "basket",
+      "essential", "tax_rate", "tax_npd", "basket", "name_en", "name_en_source",
     ])
 
   /// `archived` came with `Schema/0004_accounts.sql`.
@@ -546,6 +553,10 @@ extension ExportTables {
       CSVValue.string(transaction.regretAskedOn?.iso),
       CSVValue.string(transaction.refundWaitingUntil?.iso),
       CSVValue.string(transaction.odometerKm),
+      CSVValue.string(transaction.receipt?.fiscalDrive),
+      CSVValue.string(transaction.receipt?.documentNumber),
+      CSVValue.string(transaction.receipt?.fiscalSign),
+      CSVValue.string(transaction.receipt?.operation),
     ]
   }
 
@@ -696,6 +707,8 @@ extension ExportTables {
       CSVValue.string(decimal: category.tax?.rate),
       CSVValue.string(bool: category.tax?.npd ?? false),
       CSVValue.string(category.basket?.rawValue),
+      CSVValue.string(category.translation?.english),
+      CSVValue.string(category.translation?.source),
     ]
   }
 

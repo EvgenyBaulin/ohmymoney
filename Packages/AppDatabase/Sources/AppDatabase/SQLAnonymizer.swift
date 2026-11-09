@@ -14,7 +14,8 @@ import GRDB
 /// the identity items, the names of attached files and scenarios, and the learned statement
 /// layouts.
 ///
-/// What it deliberately leaves: the names of categories (the tree is the app's) and of the
+/// What it deliberately leaves: the names of categories (the tree is the app's) with the English
+/// names made of them, and of the
 /// owner's own currencies, public deposit offers, and JSON that holds only numbers and ids
 /// (scenario specs, the breakdown of a reconciliation).
 public struct SQLAnonymizer: ExportCopyAnonymizing {
@@ -74,10 +75,13 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
 
   private func operations(_ db: Database) throws {
     let own = Self.ownKeyPrefixes.map { "external_id GLOB '\($0)*'" }.joined(separator: " OR ")
+    // The numbers of a cash receipt are a key to the real receipt at the tax service — the shop,
+    // the moment, the lines — so they go, all four together, as in `Anonymizer`.
     try db.execute(
       sql: """
         UPDATE transactions SET note = NULL, warranty_where = NULL, dedup_key = NULL,
-          external_id = CASE WHEN \(own) THEN external_id ELSE NULL END
+          external_id = CASE WHEN \(own) THEN external_id ELSE NULL END,
+          receipt_fn = NULL, receipt_i = NULL, receipt_fp = NULL, receipt_n = NULL
         """)
     try db.execute(sql: "UPDATE transaction_parts SET note = NULL WHERE note IS NOT NULL")
   }

@@ -24,6 +24,9 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
   /// The basket of the budget the category belongs to (`categories.basket`); `nil` on a
   /// subcategory follows its parent, on a category reads from `essential`.
   public var basket: BudgetBasket?
+  /// The English name the device made of `name` for the language model and the exchange; never
+  /// shown, never searched. `nil`: not made yet.
+  public var translation: CategoryTranslation?
 
   public init(
     id: UUID = UUID(),
@@ -36,12 +39,14 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
     systemRole: SystemRole? = nil,
     essential: Bool? = nil,
     tax: IncomeTax? = nil,
-    basket: BudgetBasket? = nil
+    basket: BudgetBasket? = nil,
+    translation: CategoryTranslation? = nil
   ) {
     self.id = id
     self.parentId = parentId
     self.kind = kind
     self.name = name
+    self.translation = translation
     self.sort = sort
     self.archived = archived
     self.quality = quality
@@ -52,9 +57,27 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
   }
 
   public var isSystem: Bool { systemRole != nil }
+  /// The English name of the category as it is named now; `nil` when none was made yet or the
+  /// one made is of a name the category no longer has.
+  public var englishName: String? {
+    guard let translation, translation.source == name else { return nil }
+    return translation.english
+  }
   public var isSubcategory: Bool { parentId != nil }
   /// Limits are forbidden on system categories.
   public var acceptsLimit: Bool { systemRole == nil }
+}
+
+/// An English name made of a category's name, with the name it was made of: a rename leaves the
+/// two apart, and the English name is made again.
+public struct CategoryTranslation: Hashable, Sendable, Codable {
+  public var english: String
+  public var source: String
+
+  public init(english: String, source: String) {
+    self.english = english
+    self.source = source
+  }
 }
 
 public struct Person: Identifiable, Hashable, Sendable, Codable {
