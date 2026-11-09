@@ -118,7 +118,7 @@ $(filter-out $(firstword $(GOALS)),$(GOALS)):
 	@:
 else
 
-.PHONY: all generate build-dir build run test test-core test-db test-ui fmt lint verify test-one eval-model migration-dry-run \
+.PHONY: all generate build-dir build run test test-core test-db test-ui test-zones check-test-zones fmt lint verify test-one eval-model migration-dry-run \
 	    verify-full verify-first test-solo test-slow drop-package-builds check-offline packages check-core-linux check-build-warnings \
 	    check-core-purity check-toolchain check-warnings check-scripts check-chart-double check-privacy check-environment check-geometry check-stale check-attribution check-native check-glass check-fonts check-names check-ci check-log-names check-strings ci-checks hooks clean install \
 	    archive-appstore build-appstore check-appstore-clean release-local release-check sample sample-large demo \
@@ -325,6 +325,12 @@ check-toolchain:
 	    if [ -n "$$onpath" ] && [ "$$onpath" != "$$pkg" ]; then \
 	        echo "toolchain: the swift on PATH would use SwiftPM $$onpath — it is not used here"; \
 	    fi
+
+test-zones:
+	@scripts/test-zones.sh $(ARGS)
+
+check-test-zones:
+	@scripts/check-test-zones.sh
 
 # With the venv of `make pyenv` in place, the Reports tables of the golden set are read back
 # with pandas as well; without it that one test is skipped and says why.
