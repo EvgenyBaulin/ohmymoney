@@ -96,10 +96,11 @@ final class EntryFormEditingTests: XCTestCase {
     let root = AppScenes.root(deps, window: .main, launches: false) { deps in
       MainWindow(deps: deps, actions: actions, opensDetails: false, selection: section)
     }
-    .environment(\.windowWidth, 1000)
+    // Wide enough to hold the form beside the content (`EntryFormDock`).
+    .environment(\.windowWidth, 1_280)
     let controller = NSHostingController(rootView: root)
     let window = NSWindow(
-      contentRect: CGRect(x: 0, y: 0, width: 1000, height: 700),
+      contentRect: CGRect(x: 0, y: 0, width: 1_280, height: 700),
       styleMask: [.titled, .closable, .resizable], backing: .buffered, defer: false)
     window.isReleasedWhenClosed = false
     window.contentViewController = controller

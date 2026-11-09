@@ -1766,6 +1766,8 @@ struct EntryBar<Accessory: View>: View {
       kindChosen = false
       quick.dismiss()
       model.focusRequest = .control(.quick)
+      // A form opened over the content from the «+» of a narrow window folds back into it.
+      NotificationCenter.default.post(name: .entryFormSaved, object: nil)
     } else {
       withAnimation(.snappy) { showsDetails = false }
     }
@@ -1806,6 +1808,8 @@ struct EntryBar<Accessory: View>: View {
 
 extension Notification.Name {
   static let focusEntryLine = Notification.Name("io.github.EvgenyBaulin.ohmymoney.focusEntryLine")
+  /// The form at the side wrote a new operation.
+  static let entryFormSaved = Notification.Name("io.github.EvgenyBaulin.ohmymoney.entryFormSaved")
 }
 
 /// The write of the entry line, once nothing is left to ask: the rate of the day, what the

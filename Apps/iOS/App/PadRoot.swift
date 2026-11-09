@@ -16,6 +16,8 @@ struct PadRoot<Entry: View>: View {
   let operations: OperationsScreenState
   let overviewScreen: OverviewScreen
   let width: CGFloat
+  /// The form of a new operation is docked at the right of the window, beside this.
+  var besideTheForm = false
   /// The entry bar of the screen on view; the argument is the tab that hosts its line.
   let entry: (PhoneTab) -> Entry
 
@@ -46,7 +48,9 @@ struct PadRoot<Entry: View>: View {
         split
       }
     }
-    .environment(\.overviewColumnsOverride, PadLayout.overviewColumns(forWidth: Double(width)))
+    .environment(
+      \.overviewColumnsOverride,
+      PadLayout.overviewColumns(forWidth: Double(width), besideTheForm: besideTheForm))
     .sheet(isPresented: $showsTools) {
       PadToolsSheet(deps: deps, session: session, lock: lock, router: router) {
         showsTools = false

@@ -27,17 +27,18 @@ extension MainWindow {
       }
     }
 
+    /// The icons of the sidebar of the design, in their SF Symbols.
     var symbol: String {
       switch self {
       case .overview: "house"
       case .operations: "list.bullet"
-      case .planning: "calendar.badge.clock"
-      case .debts: "creditcard"
+      case .planning: "chart.line.uptrend.xyaxis"
+      case .debts: "banknote"
       case .calendar: "calendar"
       case .capital: "chart.bar"
       case .purchases: "bag"
-      case .analytics: "chart.xyaxis.line"
-      case .reports: "tablecells"
+      case .analytics: "chart.pie"
+      case .reports: "doc.text"
       }
     }
 

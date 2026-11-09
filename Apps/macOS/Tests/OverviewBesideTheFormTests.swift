@@ -8,7 +8,9 @@ import XCTest
 
 /// Overview in the main window with the form of a new operation at the right: the grid of tiles
 /// stays between the sidebar and the form — no column cut off at the left, none slid under the
-/// form — whether the window opened at that width or was wide first and narrowed.
+/// form — whether the window opened at that width or was wide first and narrowed. A window too
+/// narrow for the form beside the content folds it into a round «+» that opens it over the
+/// content.
 ///
 /// The page once counted its columns from a width it measured of itself: three columns of tiles
 /// that asked for more than the room kept the page wide, the wide page kept three columns, and
@@ -205,53 +207,151 @@ final class OverviewBesideTheFormTests: XCTestCase {
     return sidebar.convert(sidebar.bounds, to: nil).maxX
   }
 
-  private func assertGridFits(_ window: NSWindow, _ what: String) throws {
+  /// The grid lies between the sidebar and the form docked at the right, or — the form folded
+  /// into the «+» of a narrower window — between the sidebar and the window's edge, over the
+  /// room the form left.
+  private func assertGridFits(_ window: NSWindow, docked: Bool, _ what: String) throws {
     let grid = try gridFrame(in: window)
     let content = try XCTUnwrap(window.contentView).bounds.width
-    let formEdge = content - MainWindow.entryFormWidth - 1
+    let formEdge = docked ? content - MainWindow.entryFormWidth - 1 : content
     let sidebar = try sidebarEdge(in: window)
     XCTAssertLessThanOrEqual(
       grid.maxX, formEdge + 0.5, "\(what): the grid slides under the form (\(grid))")
     XCTAssertGreaterThanOrEqual(
       grid.minX, sidebar - 0.5, "\(what): the grid is cut off at the left (\(grid))")
+    if !docked {
+      XCTAssertGreaterThan(
+        grid.maxX, content - MainWindow.entryFormWidth,
+        "\(what): the grid keeps out of the room of a form that is folded (\(grid))")
+    }
   }
 
-  func testTheGridStaysBetweenTheSidebarAndTheFormAt1200() throws {
+  /// The quick line of the form, found by its prompt: there while the form is on screen.
+  private func formLine(in window: NSWindow) -> NSTextField? {
+    let prompt = environment.language("entry.quick.prompt", table: "Entry")
+    var fields: [NSTextField] = []
+    Self.allSubviews(of: window.contentView!, into: &fields)
+    return fields.first { $0.placeholderString == prompt }
+  }
+
+  private func plus(in window: NSWindow) -> NSObject? {
+    WindowAccessibility.element(identified: "entry.form.plus", in: window)
+  }
+
+  /// The window of the design that holds the form beside Overview.
+  func testTheGridStaysBetweenTheSidebarAndTheFormAt1440() throws {
     try TestEnvironment.requireSwiftUIAccessibility()
-    try TestEnvironment.requireScreen(width: 1_200)
-    let window = makeWindow(width: 1_200)
+    try TestEnvironment.requireScreen(width: 1_440)
+    let window = makeWindow(width: 1_440)
     settle(window)
-    try assertGridFits(window, "1200")
-    XCTAssertEqual(window.frame.width, 1_200, accuracy: 8, "the window grew")
+    try assertGridFits(window, docked: true, "1440")
+    XCTAssertNotNil(formLine(in: window), "1440 holds the form beside the content")
+    XCTAssertNil(plus(in: window), "a docked form leaves no «+»")
+    XCTAssertEqual(window.frame.width, 1_440, accuracy: 8, "the window grew")
     XCTAssertEqual(AppDependencies.missingReaders, [])
+
+    // «Поездка» stands in the header of Overview, as in the design, not in the toolbar.
+    let trip = try XCTUnwrap(
+      WindowAccessibility.element(identified: "overview.trip", in: window), "no «Поездка»")
+    XCTAssertEqual(
+      WindowAccessibility.text(of: trip), environment.language("overview.trip", table: "Overview"))
+    let before = environment.showsTrip
+    defer { environment.showsTrip = before }
+    environment.showsTrip = false
+    WindowAccessibility.press(trip)
+    settle(window, passes: 5)
+    XCTAssertTrue(environment.showsTrip, "«Поездка» did not start a trip")
   }
 
-  func testTheGridStaysBetweenTheSidebarAndTheFormAt980() throws {
+  /// Narrower than the sidebar, two tiles and the form, the form folds into the «+» and the
+  /// grid takes the room it left.
+  func testTheFormFoldsIntoThePlusAt980() throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     let window = makeWindow(width: 980)
     settle(window)
-    try assertGridFits(window, "980")
+    try assertGridFits(window, docked: false, "980")
+    XCTAssertNil(formLine(in: window), "980 folds the form")
+    XCTAssertNotNil(plus(in: window), "the folded form has its «+»")
     XCTAssertEqual(window.frame.width, 980, accuracy: 8, "the window grew")
   }
 
+  /// The window of the design that folds the form (1024 pt): the «+» sits 20 from the right and
+  /// the bottom, 44 across; it opens the form, 360 wide, over the right of the content, which
+  /// stays where it was; a save folds it back.
+  func testThePlusOpensTheFormOverTheContentAndASaveFoldsIt() throws {
+    self.executionTimeAllowance = 240
+    try TestEnvironment.requireSwiftUIAccessibility()
+    try TestEnvironment.requireScreen(width: 1_024)
+    let window = makeWindow(width: 1_024)
+    settle(window)
+    let button = try XCTUnwrap(plus(in: window), "no «+» at 1024")
+    let content = try XCTUnwrap(window.contentView)
+    let frame = window.convertFromScreen(WindowAccessibility.frame(of: button))
+    XCTAssertEqual(frame.width, 44, accuracy: 1, "the «+» is 44 across")
+    XCTAssertEqual(frame.height, 44, accuracy: 1)
+    XCTAssertEqual(content.bounds.width - frame.maxX, 20, accuracy: 1, "20 from the right")
+    // AppKit's window coordinates grow upwards: the bottom edge is at 0.
+    XCTAssertEqual(frame.minY, 20, accuracy: 1, "20 from the bottom")
+    XCTAssertEqual(
+      WindowAccessibility.attribute(button, "accessibilityHelp") as? String
+        ?? WindowAccessibility.attribute(button, "toolTip") as? String,
+      environment.language("entry.form.plus.help", table: "Entry"))
+    let gridBefore = try gridFrame(in: window)
+
+    WindowAccessibility.press(button)
+    let deadline = Date().addingTimeInterval(5)
+    while formLine(in: window) == nil, Date() < deadline { settle(window, passes: 5) }
+    let line = try XCTUnwrap(formLine(in: window), "the «+» did not open the form")
+    let lineFrame = line.convert(line.bounds, to: nil)
+    XCTAssertGreaterThanOrEqual(
+      lineFrame.minX, content.bounds.width - MainWindow.entryFormWidth - 0.5,
+      "the form is 360 at the right edge")
+    XCTAssertNil(plus(in: window), "the «+» is hidden while the form is open")
+    settle(window)
+    let gridAfter = try gridFrame(in: window)
+    XCTAssertEqual(gridAfter.minX, gridBefore.minX, accuracy: 0.5, "the content moved")
+    XCTAssertEqual(gridAfter.width, gridBefore.width, accuracy: 0.5, "the content reflowed")
+
+    NotificationCenter.default.post(name: .entryFormSaved, object: nil)
+    settle(window)
+    let folded = Date().addingTimeInterval(5)
+    while formLine(in: window) != nil, Date() < folded { settle(window, passes: 5) }
+    XCTAssertNil(formLine(in: window), "a save folds the form back")
+    XCTAssertNotNil(plus(in: window), "the «+» is back")
+  }
+
+  /// ⌘N opens the folded form the way the «+» does.
+  func testANewEntryAskedForOpensTheFoldedForm() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    let window = makeWindow(width: 980)
+    settle(window)
+    XCTAssertNil(formLine(in: window))
+    NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+    let deadline = Date().addingTimeInterval(5)
+    while formLine(in: window) == nil, Date() < deadline { settle(window, passes: 5) }
+    XCTAssertNotNil(formLine(in: window), "⌘N did not open the folded form")
+  }
+
   /// The form appears in a window already open on Overview with the line, three columns wide
-  /// at 1200: the count follows the room the form leaves, at once.
+  /// at 1440: the count follows the room the form leaves, at once; at 980 it folds into the «+»
+  /// and the grid keeps the room.
   func testTheGridMakesRoomWhenTheFormAppears() throws {
     self.executionTimeAllowance = 240
     try TestEnvironment.requireSwiftUIAccessibility()
-    try TestEnvironment.requireScreen(width: 1_200)
+    try TestEnvironment.requireScreen(width: 1_440)
     let sizeBefore = environment.theme.fontSize
     defer { environment.theme.fontSize = sizeBefore }
     for size in AppFontSize.allCases {
       environment.theme.fontSize = size
-      for width in [CGFloat(1_200), 980] {
+      for (width, docked) in [(CGFloat(1_440), true), (980, false)] {
         environment.entryStyle = .line
         let window = makeWindow(width: width)
         settle(window)
         _ = try gridFrame(in: window)
         environment.entryStyle = .form
         settle(window)
-        try assertGridFits(window, "\(size.rawValue): the form appeared at \(Int(width))")
+        try assertGridFits(
+          window, docked: docked, "\(size.rawValue): the form appeared at \(Int(width))")
         window.contentViewController = nil
         window.close()
       }
@@ -262,12 +362,12 @@ final class OverviewBesideTheFormTests: XCTestCase {
   /// stays between the sidebar and the form.
   func testTheGridFitsWithLongNamesBesideTheForm() throws {
     try TestEnvironment.requireSwiftUIAccessibility()
-    try TestEnvironment.requireScreen(width: 1_200)
+    try TestEnvironment.requireScreen(width: 1_440)
     loadSnapshot(longNames: true)
-    for width in [CGFloat(1_200), 980] {
+    for (width, docked) in [(CGFloat(1_440), true), (980, false)] {
       let window = makeWindow(width: width)
       settle(window)
-      try assertGridFits(window, "long names at \(Int(width))")
+      try assertGridFits(window, docked: docked, "long names at \(Int(width))")
       window.contentViewController = nil
       window.close()
     }
