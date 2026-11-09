@@ -5,8 +5,9 @@ import SwiftUI
 /// What the app was launched with, for the checks and the measurements of the build.
 /// An owner who opens the app from the Dock passes none of these.
 ///
-/// * `--data-set <sample|sample-large|bench|ui-test|demo>` — a folder of its own for synthetic
-///   data (`AppPaths.DataSet`); the Debug and Release databases are never touched.
+/// * `--data-set <name>` — a folder of its own for synthetic data (`AppPaths.DataSet`);
+///   letters, digits, dashes and underscores are accepted. Invalid or missing names open a
+///   fresh temporary set; the Debug and Release databases are never touched.
 /// * `--generate <months|large>`, and the older `--generate-sample` for six months — Debug
 ///   only: the set's folder is made anew and filled with a generated history before the
 ///   app opens it. Without `--data-set` the set is `sample`, or `sample-large` for `large`.
@@ -16,6 +17,16 @@ import SwiftUI
 ///   history ends on the day of the launch and is named in that language; the journal says the
 ///   seed too (`dataset.generated`). A whole number from 0 up to `Int.max`, so the journal can
 ///   write it as a count; anything else is passed over.
+/// * `--generate empty` — Debug only, with `--data-set`: the set's folder is made anew with an
+///   empty database, and the questions of a first launch (the cards of the guide, the starter
+///   set, the setup of the accounts) are asked on it as on a new install. Their memory is kept
+///   apart from the Debug defaults (`FirstRunMemory`), so a run never changes what the Debug
+///   build remembers.
+/// * `--test-io` — Debug only: the file panels of the UI tests (the folder of the CSV export,
+///   the statement to import, the file of a report) answer with files of a folder in the app's
+///   own caches instead of opening, which an automated test cannot drive reliably. The test
+///   runner is sandboxed too and cannot write into that folder, so the files it needs come in
+///   the arguments: `--test-io-file <name>=<base64>`, once per file, written there at launch.
 /// * `--generate-only` — Debug only: quit once the set is written (`make bench-app`).
 /// * `--slow-pipeline` — Debug only: every step of the pipeline takes three seconds from the
 ///   run of the launch on, as Debug → Pipeline → «Slow down» makes it for ⌘R, so the
@@ -71,10 +82,18 @@ struct LaunchOptions: Equatable, Sendable {
   }
 
   var dataSet: AppPaths.DataSet?
+  /// A malformed `--data-set` uses a fresh temporary folder and is reported without its value.
+  private(set) var rejectedDataSetName = false
   var generation: Generation?
   /// `--seed`: what the generated set is drawn from; `nil` — the fixed seed.
   var seed: UInt64?
   var generatesOnly = false
+  /// `--generate empty`: an empty set whose first-launch questions are asked (Debug).
+  var startsEmpty = false
+  /// `--test-io`: the file panels answer from the test folder (Debug).
+  var usesTestIO = false
+  /// `--test-io-file <name>=<base64>`: the files the test folder holds from the launch on.
+  var testIOFiles: [String: Data] = [:]
   var slowsPipeline = false
   /// `--no-reminders`: the sheet of the day's reminders is not shown (Debug; the UI tests).
   var suppressesReminders = false
@@ -103,8 +122,7 @@ struct LaunchOptions: Equatable, Sendable {
     #endif
   }
 
-  /// Unknown words and values are passed over: a mistyped argument opens the app as usual
-  /// rather than somewhere unexpected.
+  /// Unknown options are passed over. A malformed data set never selects the default database.
   init(arguments: [String], debug: Bool) {
     func value(after flag: String) -> String? {
       guard let index = arguments.firstIndex(of: flag), index + 1 < arguments.count else {
@@ -116,9 +134,19 @@ struct LaunchOptions: Equatable, Sendable {
     measures = arguments.contains("--measure")
     measureRuns = value(after: "--measure-runs").flatMap(Int.init).filter { $0 > 0 }
     dataSet = value(after: "--data-set").flatMap(AppPaths.DataSet.init(rawValue:))
+    if arguments.contains("--data-set"), dataSet == nil {
+      rejectedDataSetName = true
+      dataSet = .temporary()
+      // Refused input opens an empty disposable set; generation and measurement stay off.
+      measures = false
+      measureRuns = nil
+      return
+    }
 
     if debug {
-      if let text = value(after: "--generate") {
+      if value(after: "--generate") == "empty", dataSet != nil, dataSet != .learn {
+        startsEmpty = true
+      } else if let text = value(after: "--generate") {
         generation = text == "large" ? .large : Int(text).filter { $0 > 0 }.map(Generation.months)
       } else if arguments.contains("--generate-sample") {
         generation = .months(6)
@@ -128,6 +156,15 @@ struct LaunchOptions: Equatable, Sendable {
       }
       generatesOnly = generation != nil && arguments.contains("--generate-only")
       seed = value(after: "--seed").flatMap { UInt64($0) }.filter { $0 <= UInt64(Int.max) }
+      usesTestIO = arguments.contains("--test-io")
+      for (index, word) in arguments.enumerated() where word == "--test-io-file" {
+        guard index + 1 < arguments.count, let split = arguments[index + 1].firstIndex(of: "="),
+          let data = Data(
+            base64Encoded: String(arguments[index + 1][arguments[index + 1].index(after: split)...])
+          )
+        else { continue }
+        testIOFiles[String(arguments[index + 1][..<split])] = data
+      }
       slowsPipeline = arguments.contains("--slow-pipeline")
       suppressesReminders = arguments.contains("--no-reminders")
       presents = Set(

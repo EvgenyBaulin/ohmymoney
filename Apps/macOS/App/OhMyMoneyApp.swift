@@ -582,7 +582,7 @@ struct MainWindow: View {
       guard state == .ready else { return }
       guide.begin(
         databaseInUse: environment.accountSetup != nil, version: Self.version,
-        dataSet: AppPaths.dataSet)
+        dataSet: FirstRunMemory.questionsDataSet)
     }
     // The tutorial's tasks are found done by what the data holds after every change.
     .onChange(of: compute.generation, initial: true) { _, _ in

@@ -288,6 +288,10 @@ struct FileCommands: Commands {
   }
 
   private func chooseDirectory() -> URL? {
+    if let answer = TestIO.url("csv-export") {
+      try? FileManager.default.createDirectory(at: answer, withIntermediateDirectories: true)
+      return answer
+    }
     let panel = NSOpenPanel()
     panel.canChooseDirectories = true
     panel.canChooseFiles = false

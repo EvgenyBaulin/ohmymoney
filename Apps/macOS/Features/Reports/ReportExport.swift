@@ -88,7 +88,8 @@ enum ReportExport {
       }
       panel.canCreateDirectories = true
       panel.isExtensionHidden = false
-      guard panel.runModal() == .OK, let url = panel.url else { return }
+      let answered = TestIO.url(panel.nameFieldStringValue)
+      guard let url = answered ?? (panel.runModal() == .OK ? panel.url : nil) else { return }
 
       let names = ReportsText.csvNames(for: model, environment)
       let table = model.table

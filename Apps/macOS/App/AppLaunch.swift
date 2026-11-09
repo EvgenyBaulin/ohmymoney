@@ -61,7 +61,9 @@ enum AppLaunch {
     }
     #if DEBUG
       // A data set generated at launch is written before anything opens it.
-      if let generation = LaunchOptions.current.generation {
+      if LaunchOptions.current.startsEmpty {
+        await DataSetGeneration.startEmpty(environment)
+      } else if let generation = LaunchOptions.current.generation {
         let wrote = await DataSetGeneration.start(environment, generation: generation)
         if LaunchOptions.current.generatesOnly {
           // Only the window that wrote the set quits. A second window restored at launch is
@@ -81,6 +83,10 @@ enum AppLaunch {
     if !sessionBegan, !environment.isClosed {
       sessionBegan = true
       Logbook.shared.open(directory: AppPaths.logsDirectory, threshold: AppLog.threshold)
+      if LaunchOptions.current.rejectedDataSetName {
+        AppLog.error(
+          "dataset.invalidName", .app, "invalid data set name; using a fresh temporary set")
+      }
       if SessionMarker.begin(in: AppPaths.logsDirectory) {
         AppLog.error(
           "session.interrupted", .app,
@@ -106,7 +112,7 @@ enum AppLaunch {
           LogPair("os", .version(AppEnvironment.systemVersion)),
           LogPair("language", .token(environment.language.resolvedCode)),
           LogPair("distribution", .token(AppEnvironment.distribution)),
-          LogPair("set", .token(AppPaths.dataSet?.rawValue ?? "none")),
+          LogPair("set", .token(AppPaths.dataSet?.logToken ?? "none")),
         ])
       // Once for the process, and only where an update could be verified if one came.
       #if os(macOS)

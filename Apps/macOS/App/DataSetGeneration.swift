@@ -51,6 +51,33 @@ enum DataSetGeneration {
     })
   }
 
+  /// Starts the app on an empty database in the set's folder, made anew (`--generate empty`):
+  /// what a new install opens, on synthetic ground. Returns whether this call wrote the set.
+  @MainActor
+  @discardableResult
+  static func startEmpty(
+    _ environment: AppEnvironment, directory: URL = AppPaths.dataDirectory
+  ) async -> Bool {
+    await environment.start(preparing: {
+      try prepareEmpty(directory: directory, schema: BundleSchemaSource())
+    })
+  }
+
+  /// An empty, migrated database in `directory` — only ever a folder under `Sets/`.
+  nonisolated static func prepareEmpty(
+    directory: URL, schema: any SchemaSource
+  ) throws -> DatabaseStack {
+    guard directory.deletingLastPathComponent().lastPathComponent == "Sets" else {
+      throw NotADataSetFolder()
+    }
+    let manager = FileManager.default
+    if manager.fileExists(atPath: directory.path) {
+      try manager.removeItem(at: directory)
+    }
+    try manager.createDirectory(at: directory, withIntermediateDirectories: true)
+    return try DatabaseStack(url: AppPaths.databaseURL(in: directory), schema: schema)
+  }
+
   /// Makes `directory` anew — only ever a folder under `Sets/` — and writes a history
   /// generated from `seed` into a new database there, with what `DemoShowcase` adds on top
   /// when `showcase` is set. Returns the database, open. The journal gets the seed

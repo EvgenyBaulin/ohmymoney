@@ -48,7 +48,13 @@ struct StatementImportFlow: View {
       let made = StatementImportModel(
         environment: environment, store: store, dataset: { compute.snapshot?.dataset })
       model = made
-      if urls.isEmpty { picking = true } else { await made.add(urls: urls) }
+      if !urls.isEmpty {
+        await made.add(urls: urls)
+      } else if let file = TestIO.url("statement.csv") {
+        await made.add(urls: [file])
+      } else {
+        picking = true
+      }
     }
     .fileImporter(
       isPresented: $picking, allowedContentTypes: Self.contentTypes,
