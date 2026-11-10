@@ -18,14 +18,16 @@ final class LocalizationTests: XCTestCase {
     language.choice = .english
     XCTAssertEqual(language("app.name"), "OhMyMoney")
     XCTAssertEqual(language("kind.expense"), "Expense")
-    XCTAssertEqual(language("entry.placeholder", table: "Entry"), "coffee 250")
+    XCTAssertEqual(
+      language("entry.placeholder", table: "Entry"), "What did you buy? E.g. cafe 450")
   }
 
   func testRussianComesFromItsOwnBundle() {
     language.choice = .russian
     XCTAssertEqual(language("app.name"), "OhMyMoney", "one name in both languages")
     XCTAssertEqual(language("kind.expense"), "Расход")
-    XCTAssertEqual(language("entry.placeholder", table: "Entry"), "кофе 250")
+    XCTAssertEqual(
+      language("entry.placeholder", table: "Entry"), "Что купили? Например: кафе 450")
     XCTAssertEqual(language("quality.bad"), "Плохие")
   }
 
