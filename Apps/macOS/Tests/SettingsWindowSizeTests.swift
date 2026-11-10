@@ -16,6 +16,8 @@ final class SettingsWindowSizeTests: XCTestCase {
   }
 
   func testTheSettingsOpenAtTheirIdealSizeAndNeverSmallerThanTheMinimum() {
+    XCTAssertEqual(SettingsView.idealSize, CGSize(width: 1000, height: 680))
+    XCTAssertEqual(SettingsView.minimumSize, CGSize(width: 920, height: 560))
     let view = host()
     let ideal = view.intrinsicContentSize
     XCTAssertGreaterThanOrEqual(ideal.width, SettingsView.idealSize.width)
@@ -51,7 +53,7 @@ final class SettingsWindowSizeTests: XCTestCase {
   /// The window keeps its frame and its tab in the defaults of the test host, which are the
   /// owner's Debug ones: whatever the test changed there is put back.
   func testTheSettingsWindowCanBeMadeLargerAndKeepsItsMinimum() throws {
-    try TestEnvironment.requireScreen(width: 900)
+    try TestEnvironment.requireScreen(width: SettingsView.minimumSize.width)
     let defaults = UserDefaults.standard
     let domain = try XCTUnwrap(Bundle.main.bundleIdentifier)
     let kept = defaults.persistentDomain(forName: domain) ?? [:]
@@ -89,7 +91,9 @@ final class SettingsWindowSizeTests: XCTestCase {
     // The larger size needs a screen that holds it with the title bar and the tabs above it:
     // on CI's 1024 × 768 screen the window stops at 677 points of content, the screen's limit
     // and not the window's.
-    let larger = CGSize(width: 880, height: 700)
+    let larger = CGSize(width: 1020, height: 700)
+    XCTAssertGreaterThan(larger.width, SettingsView.idealSize.width)
+    XCTAssertGreaterThan(larger.height, SettingsView.idealSize.height)
     let chrome = CGSize(
       width: window.frame.width - content.frame.width,
       height: window.frame.height - content.frame.height)
@@ -102,8 +106,8 @@ final class SettingsWindowSizeTests: XCTestCase {
 
     window.setContentSize(larger)
     RunLoop.main.run(until: Date().addingTimeInterval(0.3))
-    XCTAssertEqual(content.frame.width, 880, accuracy: 1, "not made wider; \(room())")
-    XCTAssertEqual(content.frame.height, 700, accuracy: 1, "not made taller; \(room())")
+    XCTAssertEqual(content.frame.width, larger.width, accuracy: 1, "not made wider; \(room())")
+    XCTAssertEqual(content.frame.height, larger.height, accuracy: 1, "not made taller; \(room())")
 
     // Another section: SwiftUI lays the window out again, and the corner and the size stay.
     let navigation = SettingsNavigation.shared
@@ -113,9 +117,11 @@ final class SettingsWindowSizeTests: XCTestCase {
     RunLoop.main.run(until: Date().addingTimeInterval(0.5))
     XCTAssertTrue(window.styleMask.contains(.resizable), "another section took the corner away")
     XCTAssertEqual(
-      content.frame.width, 880, accuracy: 1, "another section shrank the window; \(room())")
+      content.frame.width, larger.width, accuracy: 1,
+      "another section shrank the window; \(room())")
     XCTAssertEqual(
-      content.frame.height, 700, accuracy: 1, "another section shrank the window; \(room())")
+      content.frame.height, larger.height, accuracy: 1,
+      "another section shrank the window; \(room())")
   }
 
   /// The domain as it was: a key the test added goes, a key it changed or removed gets its

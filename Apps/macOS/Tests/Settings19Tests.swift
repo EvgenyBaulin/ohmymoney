@@ -498,13 +498,13 @@ final class Settings19SearchTests: XCTestCase {
     XCTAssertTrue(tax.contains { $0.section == .planning }, "\(tax)")
   }
 
-  /// With self-employment on and own currencies listed, the sections still fit in the 590 points
+  /// With self-employment on and own currencies listed, the sections still fit in the 680 points
   /// the smallest window leaves beside the widest sidebar, in either language.
   func testTheNewSectionsFitBesideTheSidebar() {
     let room = CGSize(
       width: SettingsView.minimumSize.width - SettingsView.sidebarWidth.max,
       height: SettingsView.minimumSize.height)
-    XCTAssertEqual(room.width, 590)
+    XCTAssertEqual(room.width, 680)
     let selfEmployed = SelfEmploymentSettings(
       enabled: true, deductionLeftE4: AmountE4(whole: 6_500),
       deductionLeftOn: DateOnly(year: 2026, month: 10, day: 1))

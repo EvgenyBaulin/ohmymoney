@@ -939,14 +939,8 @@ struct AccountsSettingsView: View {
   }
 
   /// «Правка применяется сразу, ⌘Z отменяет.» — on an iPhone and an iPad «… и отменяется»:
-  /// there undo is the button «Отменить».
-  static var undoNoteKey: String {
-    #if os(macOS)
-      "panel.note.mac"
-    #else
-      "panel.note.touch"
-    #endif
-  }
+  /// `AppLanguage` chooses the `.touch` sibling there, where undo is the button «Отменить».
+  static let undoNoteKey = "panel.note"
 
   private func archivedPanel(_ account: PaymentMethod) -> some View {
     VStack(alignment: .leading, spacing: AccountsTreeMetrics.panelGap) {

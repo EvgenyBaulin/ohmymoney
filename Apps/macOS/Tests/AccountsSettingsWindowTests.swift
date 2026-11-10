@@ -243,7 +243,7 @@ final class AccountsSettingsWindowTests: XCTestCase {
       "tree.inSummary", "tree.notInSummary", "tree.card.main", "tree.badge.borrowed",
       "tree.badge.credit", "panel.bank", "panel.group", "panel.name", "panel.currency",
       "panel.color", "panel.cashback", "panel.mainCard", "panel.inSummary", "panel.hide",
-      "panel.note.mac", "panel.note.touch", "panel.deleteAccount", "tree.edit", "tree.done",
+      "panel.note", "panel.note.touch", "panel.deleteAccount", "tree.edit", "tree.done",
     ]
     for code in ["ru", "en"] {
       let bundle = try XCTUnwrap(
