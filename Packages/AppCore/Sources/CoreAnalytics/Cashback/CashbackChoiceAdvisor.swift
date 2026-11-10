@@ -23,6 +23,9 @@ public enum CashbackChoiceAdvisor {
     var earns: [UUID: Bool] = [:]
     var totals: [UUID: Decimal] = [:]
     for row in ledger.rows(in: range) where row.kind == .expense {
+      guard !OverviewSummary.isCountDifference(row) else {
+        continue
+      }
       guard let categoryId = row.categoryId else { continue }
       let counts =
         earns[row.transactionId]

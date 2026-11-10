@@ -233,7 +233,7 @@ public struct CategoryBreakdown: Hashable, Sendable {
     let amount: (LedgerRow) -> AmountE4
     switch kind {
     case .expense:
-      rows = Array(ledger.rows(in: period.range).filter { !$0.contribution.isZero })
+      rows = SpendingRows.rows(in: period.range, of: ledger)
       amount = { $0.contribution }
     case .income:
       rows = ledger.incomeRows(in: period)

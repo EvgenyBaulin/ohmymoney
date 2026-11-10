@@ -19,19 +19,18 @@ public struct OneOffMarks: Sendable {
   public func contains(_ transactionId: UUID) -> Bool { test(transactionId) }
 }
 
-/// What every calculation of «Разбор трат» counts as spending: my expenses by the ledger's
+/// What spending reports and «Разбор трат» count as spending: my expenses by the ledger's
 /// rule (a part for somebody else once written off, refunds taken off), without the difference
 /// of a reconciliation, which is no purchase.
 enum SpendingRows {
-  static func countsAsSpending(_ row: LedgerRow, countCategories: Set<UUID>) -> Bool {
+  static func countsAsSpending(_ row: LedgerRow) -> Bool {
     !row.contribution.isZero
-      && !OverviewSummary.isCountDifference(row, countCategories: countCategories)
+      && !OverviewSummary.isCountDifference(row)
   }
 
   /// The rows of the days of `range` that count as spending, in ledger order.
   static func rows(in range: DayRange, of ledger: Ledger) -> [LedgerRow] {
-    let counts = ledger.dataset.planning.settings.limitlessCategoryIds
-    return ledger.rows(in: range).filter { countsAsSpending($0, countCategories: counts) }
+    return ledger.rows(in: range).filter { countsAsSpending($0) }
   }
 }
 

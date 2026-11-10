@@ -33,13 +33,12 @@ public struct AffordSpending: Hashable, Sendable {
     guard months.count >= monthsNeeded else {
       return AffordSpending(medianRub: nil, fullMonths: months.count)
     }
-    let counts = ledger.dataset.planning.settings.limitlessCategoryIds
     let totals = months.map { month -> AmountE4 in
       AmountE4.sum(
         ledger.rows(in: DayRange(month.firstDay, month.lastDay))
           .filter {
             !$0.isGoalContribution
-              && !OverviewSummary.isCountDifference($0, countCategories: counts)
+              && !OverviewSummary.isCountDifference($0)
           }
           .map(\.contribution))
     }

@@ -761,8 +761,7 @@ final class SampleAccountsWriter {
         categorySource: .system, quality: .neutral, qualitySource: .category,
         amountE4: -Self.cashShort, amountRubE4: -Self.cashShort)
       added.append(TransactionEntry(transaction: transaction, parts: [part]))
-      expectations.spend(
-        -Self.cashShort, in: sheetDay.monthKey, root: reconcileExpense.id, quality: .neutral)
+      // A counted shortfall adjusts the balance, not the month's spending.
     }
   }
 

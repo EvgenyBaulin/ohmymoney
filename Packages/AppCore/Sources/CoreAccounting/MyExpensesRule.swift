@@ -137,6 +137,7 @@ public struct CategoryTotals: Hashable, Sendable {
 ///
 /// My spending is every `expense` part that was not paid for somebody else, plus the
 /// parts paid for others that I later wrote off, minus refunds of my own purchases.
+/// Reconciliation links identify balance adjustments; their category alone never excludes spending.
 ///
 /// Two traps the rules exist to avoid:
 ///
@@ -152,6 +153,15 @@ public struct CategoryTotals: Hashable, Sendable {
 /// Every function is pure: the same rules run unchanged in the future Windows port.
 public enum MyExpensesRule {
 
+  /// A count's operation corrects a balance, never spending, wherever it is filed.
+  /// An ordinary purchase in the same category remains spending.
+  public static func isCountDifference(_ link: OperationLink?) -> Bool {
+    switch link {
+    case .reconciliation, .reconciledBalance: true
+    default: false
+    }
+  }
+
   // MARK: - One part
 
   /// Does this part add to my expenses?
@@ -165,7 +175,9 @@ public enum MyExpensesRule {
     part: TransactionPart, in transaction: Transaction, debt: Debt? = nil,
     creditDebt: Debt? = nil
   ) -> Bool {
-    guard !transaction.isDeleted, transaction.kind == .expense else { return false }
+    guard !transaction.isDeleted, transaction.kind == .expense,
+      !isCountDifference(OperationLink(externalId: transaction.externalId))
+    else { return false }
     guard debtAllowsCounting(transaction, debt: debt, creditDebt: creditDebt) else {
       return false
     }
@@ -193,6 +205,7 @@ public enum MyExpensesRule {
     // my spending until it is credited.
     guard !transaction.isDeleted, transaction.kind == .refund,
       transaction.refundWaitingUntil == nil,
+      !isCountDifference(OperationLink(externalId: transaction.externalId)),
       debtAllowsCounting(transaction, debt: debt, creditDebt: creditDebt)
     else { return .zero }
     // A refund of something bought for somebody else takes back money that was never mine.

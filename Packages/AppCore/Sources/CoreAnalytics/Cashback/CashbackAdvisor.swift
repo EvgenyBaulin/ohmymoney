@@ -97,7 +97,10 @@ public enum CashbackAdvisor {
     guard !range.isEmpty else { return [] }
     var seen = Set<UUID>()
     return ledger.rows(in: DayRange(range.start.monthKey.firstDay, range.end))
-      .filter { $0.isFirstPart && $0.kind == .expense }
+      .filter {
+        $0.isFirstPart && $0.kind == .expense
+          && !OverviewSummary.isCountDifference($0)
+      }
       .compactMap { row -> TransactionEntry? in
         guard seen.insert(row.transactionId).inserted, let entry = ledger.entry(row.transactionId),
           CashbackMath.earns(entry, tree: ledger.tree)

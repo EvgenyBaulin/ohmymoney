@@ -21,6 +21,16 @@ struct SampleAccountsTests {
       seed: seed, calendar: .moscow, language: language)
   }
 
+  @Test func reconciliationAdjustmentsAddNoExpectedSpending() throws {
+    let set = Self.layered()
+    let category = try #require(set.settings[PlanningSettings.reconcileExpenseCategoryKey])
+    let categoryId = try #require(UUID(uuidString: category))
+    #expect(set.entries.contains { $0.transaction.externalId?.hasPrefix("reconcile:") == true })
+    for month in set.expectations.monthKeys {
+      #expect((set.expectations[month].byRootCategory[categoryId] ?? .zero) == .zero)
+    }
+  }
+
   /// What the layer's draws decide: the ids, moments and money of the operations it adds, the
   /// charge of every operation, its transfers, its counts and the balances it expects.
   static func digest(_ set: SampleDataSet, over history: SampleDataSet) -> String {
@@ -136,6 +146,8 @@ struct SampleAccountsTests {
       byRoot[month, default: [:]][root, default: .zero] += amount
     }
     for entry in set.entries where !before.contains(entry.id) {
+      // The layer's reconciliation changes cash, never expected spending.
+      if entry.transaction.externalId?.hasPrefix("reconcile:") == true { continue }
       let month = calendar.day(of: entry.transaction.occurredAt).monthKey
       switch entry.transaction.kind {
       case .expense:

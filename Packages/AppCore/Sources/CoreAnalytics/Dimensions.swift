@@ -17,15 +17,14 @@ public struct ForWhomReport: Hashable, Sendable {
   public var months: [Month]
 
   public init(ledger: Ledger, period: Period) {
-    let rows = ledger.rows(in: period.range).filter { !$0.contribution.isZero }
+    let rows = SpendingRows.rows(in: period.range, of: ledger)
     values = Tabulation.oneLevel(rows.map { (.forWhom($0.forWhom), $0.contribution) })
     people = Tabulation.oneLevel(
       rows.map { ($0.personId.map(ReportKey.person) ?? .noPerson, $0.contribution) }
     ).filter { $0.key != .noPerson }
     months = period.months.map { month in
       var amounts: [ForWhom: AmountE4] = [:]
-      for row in ledger.rows(in: ledger.slice(of: month, in: period))
-      where !row.contribution.isZero {
+      for row in SpendingRows.rows(in: ledger.slice(of: month, in: period), of: ledger) {
         amounts[row.forWhom, default: .zero] += row.contribution
       }
       return Month(month: month, amounts: amounts)
@@ -65,14 +64,16 @@ public struct PlacesReport: Hashable, Sendable {
 
   public init(ledger: Ledger, period: Period) {
     var firstDays: [UUID: DateOnly] = [:]
-    for row in ledger.rows {
+    for row in ledger.rows
+    where !OverviewSummary.isCountDifference(row) {
       guard let placeId = row.placeId, firstDays[placeId] == nil else { continue }
       firstDays[placeId] = row.day
     }
     var spending: [UUID: AmountE4] = [:]
     var receipts: [UUID: AmountE4] = [:]
     var purchases: [UUID: Set<UUID>] = [:]
-    for row in ledger.rows(in: period.range) {
+    for row in ledger.rows(in: period.range)
+    where !OverviewSummary.isCountDifference(row) {
       // A refund taken back from a live purchase belongs to the purchase's day, which already
       // counts it: on its own day it is no visit to the place.
       guard let placeId = row.placeId, row.refundOfPartId == nil else { continue }
@@ -195,7 +196,8 @@ public struct PaymentMethodsReport: Hashable, Sendable {
     var spending: [ReportKey: AmountE4] = [:]
     var turnover: [ReportKey: AmountE4] = [:]
     var cashback: [ReportKey: AmountE4] = [:]
-    for row in ledger.rows(in: period.range) {
+    for row in ledger.rows(in: period.range)
+    where !OverviewSummary.isCountDifference(row) {
       spending[key(row), default: .zero] += row.contribution
       switch row.kind {
       case .expense: turnover[key(row), default: .zero] += row.amountRubE4 - row.refundedRubE4

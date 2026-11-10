@@ -22,7 +22,7 @@ public struct OverviewSummary: Hashable, Sendable {
   /// it is that large: unlike a table, the card ranks by amount alone.
   public var topCategories: [BreakdownNode]
   /// Every top-level category of my expenses this month with money in it, largest first,
-  /// «Сверка» left out: the first `topCount` with money spent are `topCategories`, and the
+  /// Count adjustments left out: the first `topCount` with money spent are `topCategories`, and the
   /// shares of all of them are taken of the money spent in the positive ones.
   public var categories: [BreakdownNode]
   /// Good, neutral and bad spending this month, always in that order, with shares.
@@ -54,10 +54,9 @@ public struct OverviewSummary: Hashable, Sendable {
     let rows = ledger.rows(in: span).filter { !$0.contribution.isZero }
     // The tables put «Uncategorized» last; here it would then drop out of the five however
     // large it were, and the card would hide the largest bucket behind smaller ones.
-    // The difference of a reconciliation is no purchase: «Сверка» and what a count wrote
-    // elsewhere stay out of the top, and out of the shares of it.
-    let counts = ledger.dataset.planning.settings.limitlessCategoryIds
-    let spending = rows.filter { !Self.isCountDifference($0, countCategories: counts) }
+    // Count adjustments stay out of spending and its shares; manual purchases count in
+    // every category, including the one used for reconciliation.
+    let spending = rows.filter { !Self.isCountDifference($0) }
     categories = Tabulation.oneLevel(
       spending.map { (ReportGrouping.category.outerKey(of: $0), $0.contribution) }
     )
@@ -121,17 +120,9 @@ public struct OverviewSummary: Hashable, Sendable {
     return tree.category(entry.parts.first?.categoryId)?.name
   }
 
-  /// A part of a reconciliation's difference: written by a count (its link says so), or filed
-  /// under the category a count writes to — «Сверка» or anything under it.
-  public static func isCountDifference(_ row: LedgerRow, countCategories: Set<UUID>) -> Bool {
-    switch row.link {
-    case .reconciliation, .reconciledBalance: return true
-    default: break
-    }
-    guard !countCategories.isEmpty else { return false }
-    if let id = row.categoryId, countCategories.contains(id) { return true }
-    if let root = row.rootCategoryId, countCategories.contains(root) { return true }
-    return false
+  /// A count's operation is recognized by its link, independently of its category.
+  public static func isCountDifference(_ row: LedgerRow) -> Bool {
+    MyExpensesRule.isCountDifference(row.link)
   }
 
   /// Good → neutral → bad, zero lines included so the bar keeps its order.

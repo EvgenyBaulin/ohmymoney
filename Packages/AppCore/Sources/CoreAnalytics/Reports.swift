@@ -127,7 +127,7 @@ public struct ReportBuilder: Sendable {
   }
 
   private func spendingRows(_ period: Period) -> [LedgerRow] {
-    ledger.rows(in: period.range).filter { !$0.contribution.isZero }
+    SpendingRows.rows(in: period.range, of: ledger)
   }
 
   private func breakdownTable(
@@ -175,7 +175,9 @@ public struct ReportBuilder: Sendable {
           isIncomplete: month >= current))
     }
 
-    let yearRows = ledger.rows(attributedTo: months)
+    let yearRows = ledger.rows(attributedTo: months).filter {
+      $0.kind == .income || !OverviewSummary.isCountDifference($0)
+    }
     let firstMonth = yearRows.map(\.month).min()
     let lastCompleted = min(MonthKey(year: year, month: 12), current.previous)
     var averageMonths: [MonthKey] = []
