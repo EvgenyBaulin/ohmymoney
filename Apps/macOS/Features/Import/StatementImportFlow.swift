@@ -50,7 +50,7 @@ struct StatementImportFlow: View {
       model = made
       if !urls.isEmpty {
         await made.add(urls: urls)
-      } else if let file = TestIO.url("statement.csv") {
+      } else if let file = Self.testFile {
         await made.add(urls: [file])
       } else {
         picking = true
@@ -87,6 +87,16 @@ struct StatementImportFlow: View {
 
   /// CSV, text and PDF; a bank's file with an odd extension is read by its content.
   static let contentTypes: [UTType] = [.commaSeparatedText, .pdf, .plainText, .data]
+
+  /// The statement a UI test of the Mac leaves in its folder instead of the file panel; the
+  /// iPhone and iPad have no such folder.
+  static var testFile: URL? {
+    #if os(macOS)
+      TestIO.url("statement.csv")
+    #else
+      nil
+    #endif
+  }
 
   // MARK: Header
 

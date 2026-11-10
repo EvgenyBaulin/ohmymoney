@@ -39,9 +39,13 @@ public struct AppFont: Hashable, Sendable {
   public func italic() -> AppFont { adding(.italic) }
   public func weight(_ weight: Font.Weight) -> AppFont { adding(.weight(weight)) }
 
-  /// The font this one is at `size`.
-  public func font(at size: AppFontSize) -> Font {
-    steps.reduce(baseFont(at: size)) { font, step in
+  /// The font this one is at `size`. `designPoints` draws a text style at the points of the
+  /// design's table (`AppFontSize.points(of:)`) at «Обычный» too, not at the system's size of the
+  /// style: a phone's and a tablet's frames write their type in the Mac's points, which the
+  /// styles of iOS draw several points larger. The Mac's styles are the table, so it changes
+  /// nothing there.
+  public func font(at size: AppFontSize, designPoints: Bool = false) -> Font {
+    steps.reduce(baseFont(at: size, designPoints: designPoints)) { font, step in
       switch step {
       case .monospacedDigit: font.monospacedDigit()
       case .monospaced: font.monospaced()
@@ -52,10 +56,20 @@ public struct AppFont: Hashable, Sendable {
     }
   }
 
-  private func baseFont(at size: AppFontSize) -> Font {
+  /// The size this font is drawn at, in points; `nil` for the system's own size of a style.
+  func points(at size: AppFontSize, designPoints: Bool = false) -> CGFloat? {
+    switch base {
+    case .style(let style, _):
+      size == .regular && !designPoints ? nil : size.points(of: style)
+    case .points(let points, _, _):
+      size.points(fromRegular: points)
+    }
+  }
+
+  private func baseFont(at size: AppFontSize, designPoints: Bool) -> Font {
     switch base {
     case .style(let style, let design):
-      if size == .regular {
+      if size == .regular, !designPoints {
         return design.map { Font.system(style, design: $0, weight: nil) }
           ?? Self.systemFont(of: style)
       }
@@ -177,15 +191,20 @@ extension AppFontSize {
 extension EnvironmentValues {
   /// The size of the text chosen in Settings → Appearance; «Обычный» where no window set one.
   @Entry public var appFontSize: AppFontSize = .regular
+  /// The text styles below are drawn at the design's points at «Обычный» too
+  /// (`AppFont.font(at:designPoints:)`): set by a screen of a phone or a tablet whose frame
+  /// writes its type in the Mac's points.
+  @Entry var appFontDesignPoints = false
 }
 
 /// Sets `font` at the size of the text in the environment.
 struct AppFontModifier: ViewModifier {
   @Environment(\.appFontSize) private var size
+  @Environment(\.appFontDesignPoints) private var designPoints
   let font: AppFont
 
   func body(content: Content) -> some View {
-    content.font(font.font(at: size))
+    content.font(font.font(at: size, designPoints: designPoints))
   }
 }
 

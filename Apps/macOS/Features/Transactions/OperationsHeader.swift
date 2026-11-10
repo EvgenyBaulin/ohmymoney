@@ -225,6 +225,7 @@ struct OperationsChip: View {
 /// the month (Mac 5:35460, tablet 5:76369, phone 5:7985).
 struct OperationsMonthCapsule: View {
   @Environment(\.appTheme) private var theme
+  @Environment(\.layoutIdiom) private var idiom
   let title: String
   let canGoForward: Bool
   let backTitle: String
@@ -247,7 +248,7 @@ struct OperationsMonthCapsule: View {
         .opacity(canGoForward ? 1 : 0.35)
         .accessibilityIdentifier("operations.month.forward")
     }
-    .padding(.horizontal, Self.horizontal)
+    .padding(.horizontal, Self.horizontal(LayoutIdiom.resolved(idiom)))
     .padding(.vertical, Self.vertical)
     .background(theme.surfaceCard, in: .capsule)
     .overlay { Capsule().strokeBorder(theme.borderHairline, lineWidth: StyleMetrics.cardBorder) }
@@ -283,13 +284,12 @@ struct OperationsMonthCapsule: View {
       OperationsMetrics.monthChevron
     #endif
   }
-  static var horizontal: CGFloat {
-    #if os(iOS)
-      UIDevice.current.userInterfaceIdiom == .phone
-        ? OperationsMetrics.phoneMonthHorizontal : OperationsMetrics.padMonthHorizontal
-    #else
-      OperationsMetrics.monthHorizontal
-    #endif
+  static func horizontal(_ idiom: LayoutIdiom) -> CGFloat {
+    switch idiom {
+    case .mac: OperationsMetrics.monthHorizontal
+    case .phone: OperationsMetrics.phoneMonthHorizontal
+    case .pad: OperationsMetrics.padMonthHorizontal
+    }
   }
   static var vertical: CGFloat {
     #if os(iOS)

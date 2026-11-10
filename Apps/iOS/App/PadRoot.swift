@@ -211,8 +211,9 @@ struct PadRoot<Entry: View>: View {
       .phoneToolbar(deps: deps, router: router)
   }
 
-  /// Overview keeps the large title of the design with «Изменить» on its row, scrolling with the
-  /// tiles; the navigation bar above holds the button of the panel and the tools.
+  /// Overview keeps the title of the design with «Изменить» and «Новая операция» on its row,
+  /// scrolling with the tiles; the navigation bar above holds the button of the panel and the
+  /// tools.
   private var overviewPage: some View {
     PhoneContent(
       deps: deps, actions: actions,
@@ -224,11 +225,11 @@ struct PadRoot<Entry: View>: View {
       \.overviewTitleRow,
       OverviewTitleRow(
         title: environment.language("section.overview"),
-        trailing: AnyView(
-          OverviewTitleActions(deps: deps, router: router, screen: overviewScreen)))
+        trailing: AnyView(PadOverviewTitleActions(deps: deps, screen: overviewScreen)))
     )
     .navigationBarTitleDisplayMode(.inline)
     .toolbar(removing: .title)
+    .phoneToolbar(deps: deps, router: router)
   }
 
   /// The account, group or bank chosen in the panel, with the entry bar below.

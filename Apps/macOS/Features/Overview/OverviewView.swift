@@ -19,6 +19,23 @@ extension EnvironmentValues {
   @Entry var overviewRoom: CGFloat?
 }
 
+/// The type of a phone's or a tablet's Overview in the Mac's points (`appFontDesignPoints`),
+/// with the body of every text that names no font — a message of a tile, a button — at the
+/// Mac's 13 rather than the 17 of iOS. The Mac's own page is left as it is.
+private struct OverviewDesignType: ViewModifier {
+  let on: Bool
+
+  func body(content: Content) -> some View {
+    if on {
+      content
+        .appFont(.body)
+        .environment(\.appFontDesignPoints, true)
+    } else {
+      content
+    }
+  }
+}
+
 /// The large title of Overview with what stands at its right edge.
 struct OverviewTitleRow {
   let title: String
@@ -36,44 +53,29 @@ struct OverviewView: View {
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.layoutIdiom) private var idiom
+  @Environment(\.overviewColumnsOverride) private var columnsOverride
   let actions: OperationActions
   /// Editing or not, and the tile whose «Почему так» is open.
   @State private var screen: OverviewScreen
 
-  /// The margin of the page: 16 pt on a phone and a tablet, as the design draws it, 28 on the Mac.
-  static var sideMargin: CGFloat {
+  /// The numbers of the page on this platform's own design (`OverviewPageMetrics`): the Mac's,
+  /// or the phone's where a phone and a tablet share code that is not told the idiom.
+  static var platformMetrics: OverviewPageMetrics {
     #if os(iOS)
-      16
+      .phone
     #else
-      StyleMetrics.pageSide
+      .mac
     #endif
   }
 
-  /// The margins above and below the page: 16 each on a phone and a tablet; 22 and 24 on the Mac.
-  static var topMargin: CGFloat {
-    #if os(iOS)
-      16
-    #else
-      StyleMetrics.pageTop
-    #endif
-  }
-  static var bottomMargin: CGFloat {
-    #if os(iOS)
-      16
-    #else
-      StyleMetrics.pageBottom
-    #endif
-  }
-
-  /// The gap between the parts of the page stacked one under another: 14 on a phone and a tablet,
-  /// 10 on the Mac.
-  static var stackGap: CGFloat {
-    #if os(iOS)
-      14
-    #else
-      StyleMetrics.stackGap
-    #endif
-  }
+  /// The margin of the page: 16 on a phone, 28 on the Mac and a tablet.
+  static var sideMargin: CGFloat { platformMetrics.side }
+  /// The margins above and below the page.
+  static var topMargin: CGFloat { platformMetrics.top }
+  static var bottomMargin: CGFloat { platformMetrics.bottom }
+  /// The gap between the parts of the page stacked one under another.
+  static var stackGap: CGFloat { platformMetrics.stackGap }
 
   /// `screen` is handed in by a test that drives the editing and the sheet; the window makes its
   /// own.
@@ -83,11 +85,15 @@ struct OverviewView: View {
   }
 
   var body: some View {
+    let metrics = OverviewPageMetrics.of(LayoutIdiom.resolved(idiom), columns: columnsOverride)
     ScrollView {
       OverviewHeader(actions: actions, screen: screen)
-        .padding(.horizontal, OverviewView.sideMargin)
-        .padding(.top, OverviewView.topMargin)
-        .padding(.bottom, OverviewView.bottomMargin)
+        .padding(.horizontal, metrics.side)
+        .padding(.top, metrics.top)
+        .padding(.bottom, metrics.bottom)
+        // A phone's and a tablet's frames write the type of the tiles in the Mac's points,
+        // the words without a font of their own too.
+        .modifier(OverviewDesignType(on: metrics != .mac))
     }
     .background(surfaces.background)
     .onAppear(perform: followData)
@@ -138,42 +144,71 @@ private struct OverviewHeader: View {
   @Environment(\.overviewColumnsOverride) private var columnsOverride
   @Environment(\.overviewRoom) private var room
   @Environment(\.appFontSize) private var fontSize
+  @Environment(\.layoutIdiom) private var idiom
+  @Dependency(\.compute) private var compute
   let actions: OperationActions
   let screen: OverviewScreen
   @State private var measured: CGFloat = 0
 
+  private var metrics: OverviewPageMetrics {
+    .of(LayoutIdiom.resolved(idiom), columns: columnsOverride)
+  }
+
   /// The room the page has: the host's, less the margins, else the measured width.
   private var width: CGFloat {
-    room.map { max($0 - 2 * OverviewView.sideMargin, 0) } ?? measured
+    room.map { max($0 - 2 * metrics.side, 0) } ?? measured
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: OverviewView.stackGap) {
+    let columns = columnsOverride ?? OverviewCard.columns(forWidth: width, fontSize: fontSize)
+    // A tablet lays «Что сделать сейчас» with the main card: beside it, or under it.
+    let doNowWithMain =
+      metrics.doNowWithMain
+      && OverviewGroupedGrid.extras(compute.snapshot, environment).contains(.doNow)
+    VStack(alignment: .leading, spacing: metrics.stackGap) {
       if let titleRow {
         HStack(alignment: .firstTextBaseline, spacing: 12) {
           Text(verbatim: titleRow.title)
-            .appFont(.largeTitle.bold())
+            .appFont(metrics.titleFont)
             .accessibilityAddTraits(.isHeader)
           Spacer(minLength: 8)
           titleRow.trailing
         }
-        .padding(.horizontal, 4)
+        .padding(.bottom, metrics.titleBottom)
       }
       OverviewEditBar(screen: screen)
       SummaryAnnouncementCard()
       FirstMonthCard()
-      if OverviewHero.shows(forWidth: width) { OverviewHero() }
+      if OverviewHero.shows(forWidth: width) {
+        if doNowWithMain, let side = metrics.doNowBesideMain {
+          if metrics.doNowStandsBesideMain(columns: columns) {
+            // The tablet's first row: the main card, and «Что сделать сейчас» at its right.
+            HStack(alignment: .top, spacing: metrics.columnGap) {
+              OverviewHero()
+              OverviewDoNowCard(screen: screen).frame(width: side)
+            }
+          } else {
+            VStack(alignment: .leading, spacing: metrics.columnGap) {
+              OverviewHero()
+              OverviewDoNowCard(screen: screen)
+            }
+          }
+        } else {
+          OverviewHero()
+        }
+      }
       if OverviewAccountsStrip.shows { OverviewAccountsStrip() }
       if AccountsSetupCard.shows(setup: environment.accountSetup) {
         AccountsSetupCard()
       }
       OverviewGroupedGrid(
-        columns: columnsOverride ?? OverviewCard.columns(forWidth: width, fontSize: fontSize),
+        columns: columns,
         // Only the host's room fixes the widths of the places: a width the page measured of
         // itself would hold the page at it when the window narrows.
         width: room == nil ? 0 : width,
         actions: actions,
-        screen: screen)
+        screen: screen,
+        doNowBesideMain: doNowWithMain)
       RecomputeStatusLine()
     }
     // A container of its own, so the cards inside keep their own identifiers.

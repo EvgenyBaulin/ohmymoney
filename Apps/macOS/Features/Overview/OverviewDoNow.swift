@@ -89,6 +89,7 @@ struct OverviewDoNowCard: View {
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.appTheme) private var theme
   @Environment(\.colorSchemeContrast) private var contrast
+  @Environment(\.layoutIdiom) private var idiom
   let screen: OverviewScreen
   /// In a row of tiles the card takes the height of the row.
   var fillsHeight = false
@@ -100,14 +101,10 @@ struct OverviewDoNowCard: View {
     urgent ? theme.accentDefault : theme.contentSecondary
   }
 
-  /// «3 дела · Все»: the secondary ink on the Mac, the accent's words on the phone, as their
-  /// frames draw it.
-  static func countInk(in theme: AppThemeColors) -> Color {
-    #if os(iOS)
-      theme.accentContent
-    #else
-      theme.contentSecondary
-    #endif
+  /// «3 дела · Все»: the accent's words on a phone, the secondary ink on the Mac and a tablet,
+  /// as their frames draw it.
+  static func countInk(in theme: AppThemeColors, idiom: LayoutIdiom) -> Color {
+    OverviewPageMetrics.of(idiom).countIsAccent ? theme.accentContent : theme.contentSecondary
   }
 
   var body: some View {
@@ -132,7 +129,7 @@ struct OverviewDoNowCard: View {
                 .accessibilityIdentifier("overview.doNow.all")
             }
             .appFont(StyleType.rowDetail)
-            .foregroundStyle(Self.countInk(in: theme))
+            .foregroundStyle(Self.countInk(in: theme, idiom: LayoutIdiom.resolved(idiom)))
           }
           ForEach(Array(list.items.enumerated()), id: \.element.id) { position, item in
             if position > 0 {

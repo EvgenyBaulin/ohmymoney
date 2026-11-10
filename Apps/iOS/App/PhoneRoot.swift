@@ -497,12 +497,18 @@ struct OverviewTitleActions: View {
   var body: some View {
     let environment = deps.environment
     HStack(spacing: 12) {
+      // «Изменить» of the frame (5:8097): 15 medium in the primary ink.
       if screen.isEditing {
         Button(environment.language("overview.edit.done", table: "Overview")) { screen.done() }
-          .fontWeight(.semibold)
+          .buttonStyle(.plain)
+          .appFont(OverviewTitleType.phoneDone)
+          .foregroundStyle(surfaces.primary)
           .accessibilityIdentifier("overview.edit.done")
       } else {
         Button(environment.language("overview.edit", table: "Overview")) { screen.edit() }
+          .buttonStyle(.plain)
+          .appFont(OverviewTitleType.phoneAction)
+          .foregroundStyle(surfaces.primary)
           .accessibilityIdentifier("overview.edit")
       }
       Group {
@@ -604,6 +610,46 @@ struct OverviewTitleActions: View {
         }
       }
     }
+  }
+}
+
+/// The buttons of the title row of the tablet's Overview (5:76205), as the Mac's header draws
+/// them: the grey «Изменить» (while editing the orange «Готово») and the one orange «Новая
+/// операция», which does what ⌘N does. What the phone keeps in its round menu is in the
+/// navigation bar above (`phoneToolbar`).
+struct PadOverviewTitleActions: View {
+  let deps: AppDependencies
+  let screen: OverviewScreen
+
+  var body: some View {
+    // A window too narrow for both (Slide Over) keeps «Изменить»: the round «+» writes there.
+    ViewThatFits(in: .horizontal) {
+      buttons(writes: !deps.environment.shield.isReadOnly)
+      buttons(writes: false)
+    }
+  }
+
+  private func buttons(writes: Bool) -> some View {
+    let environment = deps.environment
+    return HStack(spacing: StyleMetrics.headerButtonGap) {
+      if screen.isEditing {
+        Button(environment.language("overview.edit.done", table: "Overview")) { screen.done() }
+          .buttonStyle(.primaryAction)
+          .accessibilityIdentifier("overview.edit.done")
+      } else {
+        Button(environment.language("overview.edit", table: "Overview")) { screen.edit() }
+          .buttonStyle(.quietAction)
+          .accessibilityIdentifier("overview.edit")
+        if writes {
+          Button(environment.language("overview.newOperation", table: "Overview")) {
+            NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+          }
+          .buttonStyle(.primaryAction)
+          .accessibilityIdentifier("overview.newOperation")
+        }
+      }
+    }
+    .fixedSize()
   }
 }
 

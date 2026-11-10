@@ -108,6 +108,55 @@ enum OperationsMetrics {
   static let phoneMonthChevron: CGFloat = 14
 }
 
+/// The header of «Операции» on each design: the row of the title, the search and «Новая
+/// операция», then the chips and the month, then the list. The Mac (5:35438): the row 14 above
+/// and 10 below, the chips 6 under it and 16 over the table. The tablet (5:76348): the row 8 above
+/// and 4 below, the chips 16 under it and 16 over the card, «Новая операция» before the search.
+/// The phone (5:7984, its title in the navigation bar): the search 2 under the bar, the chips
+/// and the month 10 under it and 10 over the days.
+struct OperationsHeaderMetrics: Equatable, Sendable {
+  var side: CGFloat
+  var rowTop: CGFloat
+  var rowHeight: CGFloat
+  var rowBottom: CGFloat
+  var chipsTop: CGFloat
+  var chipsToList: CGFloat
+  var searchWidth: CGFloat
+  /// «Новая операция» stands before the search box rather than after it.
+  var newOperationFirst: Bool
+  /// The phone's frame has no «Новая операция»: the «+» of its bar writes.
+  var showsNewOperation: Bool
+
+  static let mac = OperationsHeaderMetrics(
+    side: OperationsMetrics.pageSide, rowTop: OperationsMetrics.headerTop,
+    // The row is 56 tall with 14 above and 10 below: the 34-pt controls stand a point over
+    // the 32 of its content either way, as the design centres them.
+    rowHeight: OperationsMetrics.controlHeight - 2, rowBottom: OperationsMetrics.headerBottom,
+    chipsTop: OperationsMetrics.chipsTop, chipsToList: OperationsMetrics.chipsToTable,
+    searchWidth: OperationsMetrics.searchWidth, newOperationFirst: false,
+    showsNewOperation: true)
+
+  static let pad = OperationsHeaderMetrics(
+    side: OperationsMetrics.padPageSide, rowTop: 8, rowHeight: OperationsMetrics.controlHeight,
+    rowBottom: 4, chipsTop: OperationsMetrics.padStackGap,
+    chipsToList: OperationsMetrics.padStackGap, searchWidth: OperationsMetrics.padSearchWidth,
+    newOperationFirst: true, showsNewOperation: true)
+
+  static let phone = OperationsHeaderMetrics(
+    side: OperationsMetrics.phonePageSide, rowTop: 2, rowHeight: OperationsMetrics.controlHeight,
+    rowBottom: 0, chipsTop: OperationsMetrics.phoneStackGap,
+    chipsToList: OperationsMetrics.phoneStackGap, searchWidth: OperationsMetrics.padSearchWidth,
+    newOperationFirst: false, showsNewOperation: false)
+
+  static func of(_ idiom: LayoutIdiom) -> OperationsHeaderMetrics {
+    switch idiom {
+    case .mac: .mac
+    case .phone: .phone
+    case .pad: .pad
+    }
+  }
+}
+
 /// The type of «Операции» at «Обычный»; each grows with the size chosen in Settings.
 enum OperationsType {
   /// A chip: 13 medium on the Mac; 14 medium on the tablet.
