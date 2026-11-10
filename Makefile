@@ -180,7 +180,8 @@ build: generate
 # sources are built twice, once per platform. The simulator is named, not numbered: the ids of the
 # devices differ from Mac to Mac. Tests of the iPhone target are logic-only and run on it.
 IOS_SCHEME   := OhMyMoney-iOS
-IOS_SIM      ?= iPhone 17
+# The first iPhone simulator this Mac has (the names of simulators change with Xcode releases).
+IOS_SIM      ?= $(shell scripts/ios-sim.sh)
 IOS_XCB       = $(AWAKE) $(TMO) $(XCB_TIME) xcodebuild -project $(PROJECT) -scheme $(IOS_SCHEME) \
 	            -derivedDataPath $(DERIVED) -clonedSourcePackagesDirPath $(SPM_PKGS) \
 	            $(XCB_OFFLINE) $(XCB_TOOLCHAIN) CODE_SIGNING_ALLOWED=NO
