@@ -86,9 +86,11 @@ struct EntryFieldFlow: Layout {
           rowHeight, subviews[index].sizeThatFits(.init(width: cellWidth, height: nil)).height)
       }
       for (column, index) in row.enumerated() {
+        // Keep the proposal used to measure the cell. A row's tallest cell sets the next
+        // row's origin, not the height offered to its neighbours' wrapping text and controls.
         subviews[index].place(
           at: CGPoint(x: bounds.minX + CGFloat(column) * (cellWidth + spacing), y: y),
-          anchor: .topLeading, proposal: .init(width: cellWidth, height: rowHeight))
+          anchor: .topLeading, proposal: .init(width: cellWidth, height: nil))
       }
       y += rowHeight + rowSpacing
     }
