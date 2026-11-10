@@ -121,7 +121,10 @@ struct AnalyticsWindow: View {
       section: section,
       period: section.followsThePeriod ? period.period : .month(today.monthKey),
       today: today, forecast: inputs,
-      anomalies: section == .anomalies ? compute.states.anomalies.value : nil,
+      // The first page of «Траты» shows the first anomalies of the period too; it does not
+      // wait for them: its card says «Считается» until step 6 has run.
+      anomalies: section == .anomalies || section == .overview
+        ? compute.states.anomalies.value : nil,
       hiding: compute.snapshot.map(HiddenOperations.init(snapshot:)) ?? .none)
   }
 

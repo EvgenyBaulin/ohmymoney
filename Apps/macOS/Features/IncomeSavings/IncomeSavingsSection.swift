@@ -74,8 +74,8 @@ struct IncomeSavingsCards: View {
   }
 }
 
-/// The frame every card of the section stands on: a title in `.headline`, what it is measured
-/// over in `.caption`, then the body. No glass — content is never glass.
+/// The frame every card of the section stands on, as 61:60578 draws it: a title of 15, what it
+/// is measured over in 11 under it, then the body. No glass — content is never glass.
 private struct IncomeCard<Content: View>: View {
   @Dependency(\.environment) private var environment
   let title: String
@@ -84,22 +84,11 @@ private struct IncomeCard<Content: View>: View {
   @ViewBuilder let content: Content
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      VStack(alignment: .leading, spacing: 2) {
-        Text(verbatim: title)
-          .appFont(.headline)
-          .accessibilityAddTraits(.isHeader)
-        if let subtitle {
-          Text(verbatim: subtitle)
-            .appFont(.caption)
-            .foregroundStyle(.secondary)
-            .fixedSize(horizontal: false, vertical: true)
-        }
-      }
+    VStack(alignment: .leading, spacing: AnalyticsCardMetrics.bodyGap(.detail)) {
+      AnalyticsCardHeader(title: title, subtitle: subtitle)
       content
     }
-    .frame(maxWidth: .infinity, alignment: .topLeading)
-    .contentCard()
+    .analyticsCard()
     .accessibilityElement(children: .contain)
     .accessibilityLabel(Text(verbatim: title))
     .accessibilityIdentifier(identifier)

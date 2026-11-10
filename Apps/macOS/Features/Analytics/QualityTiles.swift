@@ -4,8 +4,8 @@ import SwiftUI
 /// What the three tiles under the shares chart of «Good vs Bad» say: for each rating, the money
 /// of the whole period and its share of all the rated spending. Worked out from the columns the
 /// chart draws, so the tiles and the chart never disagree.
-struct QualityTotals: Equatable {
-  struct Tile: Equatable {
+struct QualityTotals: Hashable, Sendable {
+  struct Tile: Hashable, Sendable {
     var quality: Quality
     var value: Int64
     /// Basis points of the whole; `nil` when nothing was spent.
@@ -56,7 +56,7 @@ struct QualityTiles: View {
           .appFont(.caption.monospacedDigit())
           .foregroundStyle(.secondary)
         }
-        .contentCard()
+        .analyticsCard()
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("analytics.quality.tile.\(tile.quality.rawValue)")
       }
