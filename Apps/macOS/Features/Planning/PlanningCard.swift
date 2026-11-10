@@ -7,41 +7,57 @@ extension EnvironmentValues {
   @Entry var planningCardHosted: Bool = false
 }
 
-/// A card of the Planning screen: a header with the block's symbol, title and total, the menu
-/// of how many items a long block shows and the chevron that collapses it; below, the block.
-/// Content, never glass. Collapsing is a look of this window only, never kept: every launch
-/// opens every block.
+/// A card of the Planning screen, as the design draws it: 16 inside a 1 pt hairline, 8 between
+/// its rows; a header of the block's symbol in the accent, its title in 15 semibold, the total,
+/// «все» to the block's own tab, the menu of how many items a long block shows and the chevron
+/// that collapses it; below, the block. Content, never glass. Collapsing is a look of this
+/// window only, never kept: every launch opens every block.
 struct PlanningCard<Content: View>: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.appTheme) private var theme
+  @Environment(\.windowWidth) private var windowWidth
   let block: PlanningBlock
   /// The total of the header, or nothing to add up.
   let total: String?
   let layout: PlanningLayoutStore
   @Binding var collapsed: Bool
+  /// «все»: the block alone on its tab; nil where the card already stands alone or has no tab.
+  var showAll: (() -> Void)?
   @ViewBuilder let content: () -> Content
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    let compact = ScreenWidth.isCompact(windowWidth)
+    VStack(alignment: .leading, spacing: PlanningMetrics.cardGap(compact: compact)) {
       header
       if !collapsed {
         content()
           .environment(\.planningCardHosted, true)
       }
     }
-    .contentCard()
+    .frame(maxWidth: .infinity, alignment: .topLeading)
+    .padding(PlanningMetrics.cardInset(compact: compact) + PlanningMetrics.cardEdge)
+    .planningCardSurface()
     .accessibilityElement(children: .contain)
     .accessibilityLabel(Text(verbatim: PlanningBlockText.name(of: block, environment)))
     .accessibilityIdentifier("planning.card.\(block.rawValue)")
   }
 
   private var header: some View {
-    // The design's header is the title and a quiet caption, nothing else; the controls that
+    // The design's header is the symbol, the title and «все»; the total and the controls that
     // fold the card or set its length sit at the end, small and secondary, and on a touch
     // device the length menu moves into a long press of the title.
-    HStack(alignment: .firstTextBaseline, spacing: 8) {
+    HStack(alignment: .center, spacing: PlanningMetrics.headerIconGap) {
+      Image(systemName: PlanningBlockText.symbol(of: block))
+        .appFont(.callout.weight(.semibold))
+        .foregroundStyle(theme.accentDefault)
+        .frame(width: PlanningMetrics.headerIcon, height: PlanningMetrics.headerIcon)
+        .accessibilityHidden(true)
       Text(verbatim: PlanningBlockText.name(of: block, environment))
-        .appFont(.headline)
+        .appFont(PlanningType.cardTitle)
+        .foregroundStyle(theme.contentPrimary)
         .lineLimit(2)
+        // The title keeps its words whole; the total gives way first on a narrow card.
+        .layoutPriority(1)
         .accessibilityAddTraits(.isHeader)
         .contextMenu {
           if block.hasShortList { PlanningLengthChoices(block: block, layout: layout) }
@@ -49,11 +65,21 @@ struct PlanningCard<Content: View>: View {
       Spacer(minLength: 8)
       if let total {
         Text(verbatim: total)
-          .appFont(.callout.monospacedDigit())
-          .foregroundStyle(.secondary)
+          .appFont(PlanningType.cardLink.monospacedDigit())
+          .foregroundStyle(theme.contentSecondary)
           .lineLimit(1)
           .minimumScaleFactor(0.8)
           .accessibilityIdentifier("planning.card.\(block.rawValue).total")
+      }
+      if let showAll {
+        Button(action: showAll) {
+          Text(verbatim: PlanningBlockText.t("layout.card.all", environment))
+            .appFont(PlanningType.cardLink)
+            .foregroundStyle(theme.accentContent)
+        }
+        .buttonStyle(.plain)
+        .fixedSize()
+        .accessibilityIdentifier("planning.card.\(block.rawValue).all")
       }
       #if os(macOS)
         if block.hasShortList {

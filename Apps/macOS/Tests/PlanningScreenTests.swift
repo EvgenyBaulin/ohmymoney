@@ -448,14 +448,15 @@ final class PlanningScreenTests: XCTestCase {
   // MARK: - The window
 
   /// From 720 to 1400 pt, in both languages, with legacy and overlay scroll bars: the screen
-  /// settles — its size stops changing and nothing asks for layout again —, two columns from
-  /// 760 pt of content and one below. A layout that never converged would end in AppKit's
-  /// exception here.
+  /// settles — its size stops changing and nothing asks for layout again —, three columns from
+  /// 928 pt of content (three cards of 300 and two gaps, as the design's frames at 1440 and 1280
+  /// lay them) and one below (its frame at 1024). A layout that never converged would end in
+  /// AppKit's exception here.
   func testTheScreenSettlesAtEveryWidthInBothLanguages() throws {
-    XCTAssertEqual(PlanningView.columns(forWidth: 680), 1)
-    XCTAssertEqual(PlanningView.columns(forWidth: 759), 1)
-    XCTAssertEqual(PlanningView.columns(forWidth: 760), 2)
-    XCTAssertEqual(PlanningView.columns(forWidth: 1360), 2)
+    XCTAssertEqual(PlanningPageLayout.blockColumns(forContent: 680), 1)
+    XCTAssertEqual(PlanningPageLayout.blockColumns(forContent: 927), 1)
+    XCTAssertEqual(PlanningPageLayout.blockColumns(forContent: 928), 3)
+    XCTAssertEqual(PlanningPageLayout.blockColumns(forContent: 1360), 3)
     for style in [NSScroller.Style.legacy, .overlay] {
       try ScrollerStyleOverride.with(style) {
         for choice in [AppLanguage.Choice.russian, .english] {
