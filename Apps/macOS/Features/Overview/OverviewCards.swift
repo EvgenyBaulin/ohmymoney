@@ -22,23 +22,13 @@ enum OverviewCard {
   /// The most tiles side by side, as the widest frame of the design lays them.
   static let maxColumns = 4
 
-  /// The gap between tiles side by side: 14 on the Mac, 12 on a phone and a tablet.
-  static var columnGap: CGFloat {
-    #if os(iOS)
-      12
-    #else
-      StyleMetrics.columnGap
-    #endif
-  }
+  /// The gap between tiles side by side: 14 on the Mac and a tablet (a phone lays one tile in a
+  /// row).
+  static let columnGap = StyleMetrics.columnGap
 
-  /// The gap between rows of tiles: 10 on the Mac, 12 on a phone and a tablet.
-  static var rowGap: CGFloat {
-    #if os(iOS)
-      12
-    #else
-      StyleMetrics.stackGap
-    #endif
-  }
+  /// The gap between rows of tiles on this platform's own design: 10 on the Mac and a phone; a
+  /// tablet's 12 comes with its page (`OverviewPageMetrics.rowGap`).
+  static var rowGap: CGFloat { OverviewView.platformMetrics.rowGap }
 
   /// The width of a place `span` columns wide: its tiles and the gaps between them.
   static func width(of span: Int, in width: CGFloat, columns: Int) -> CGFloat {

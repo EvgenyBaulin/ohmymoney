@@ -60,6 +60,7 @@ struct OperationsScreen: View {
   private var compute: ComputeStore { deps.compute }
 
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.layoutIdiom) private var idiom
   @State private var choices = FilterChoices()
   /// What the filters found and the newest months of it the table shows.
   @State private var pages = TransactionPages()
@@ -211,6 +212,8 @@ struct OperationsScreen: View {
   /// «Фильтры · N» while some narrow the table): only the screen's own buttons stand on top.
   private var header: some View {
     let roomy = width == 0 || width >= Self.widthForTitle
+    let metrics = OperationsHeaderMetrics.of(LayoutIdiom.resolved(idiom))
+    let writes = metrics.showsNewOperation && !environment.shield.isReadOnly
     return VStack(alignment: .leading, spacing: 0) {
       HStack(spacing: OperationsMetrics.headerGap) {
         if roomy {
@@ -220,18 +223,15 @@ struct OperationsScreen: View {
             .accessibilityAddTraits(.isHeader)
           Spacer(minLength: 8)
         }
+        if writes, metrics.newOperationFirst { newOperationButton }
         searchField
-          .frame(width: roomy ? Self.searchWidth : nil)
+          .frame(width: roomy ? metrics.searchWidth : nil)
           .frame(maxWidth: roomy ? nil : .infinity)
-        if Self.showsNewOperation, !environment.shield.isReadOnly {
-          newOperationButton
-        }
+        if writes, !metrics.newOperationFirst { newOperationButton }
       }
-      // The row is 56 tall with 14 above and 10 below: the 34-pt controls stand a point over
-      // the 32 of its content either way, as the design centres them.
-      .frame(height: OperationsMetrics.controlHeight - 2)
-      .padding(.top, OperationsMetrics.headerTop)
-      .padding(.bottom, OperationsMetrics.headerBottom)
+      .frame(height: metrics.rowHeight)
+      .padding(.top, metrics.rowTop)
+      .padding(.bottom, metrics.rowBottom)
       // The chips scroll sideways in a narrow window; the month keeps the right edge.
       HStack(spacing: OperationsMetrics.chipGap) {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -263,10 +263,10 @@ struct OperationsScreen: View {
           back: { OperationsMonth.back(&state.filters, today: environment.today) },
           forward: { OperationsMonth.forward(&state.filters, today: environment.today) })
       }
-      .padding(.top, OperationsMetrics.chipsTop)
-      .padding(.bottom, OperationsMetrics.chipsToTable)
+      .padding(.top, metrics.chipsTop)
+      .padding(.bottom, metrics.chipsToList)
     }
-    .padding(.horizontal, Self.pageSide)
+    .padding(.horizontal, metrics.side)
     .sheet(isPresented: $showsFilters) {
       OperationFiltersSheet(filters: $state.filters, choices: choices)
         .appDependencies(deps)
@@ -303,36 +303,12 @@ struct OperationsScreen: View {
     return OperationsSearchBox { field }
   }
 
-  /// The margins of the page on each platform.
-  static var pageSide: CGFloat {
-    #if os(iOS)
-      isPhone ? OperationsMetrics.phonePageSide : OperationsMetrics.padPageSide
-    #else
-      OperationsMetrics.pageSide
-    #endif
-  }
-  static var searchWidth: CGFloat {
-    #if os(iOS)
-      OperationsMetrics.padSearchWidth
-    #else
-      OperationsMetrics.searchWidth
-    #endif
-  }
   /// «Поиск по операциям» on the Mac, «Поиск» on a tablet and a phone, as the frames write it.
   static var searchPromptKey: String {
     #if os(iOS)
       "operations.search.short"
     #else
       "operations.search.field"
-    #endif
-  }
-  /// The phone's frame has no «Новая операция»: the «+» of its bar writes.
-  static var showsNewOperation: Bool { !isPhone }
-  static var isPhone: Bool {
-    #if os(iOS)
-      UIDevice.current.userInterfaceIdiom == .phone
-    #else
-      false
     #endif
   }
 

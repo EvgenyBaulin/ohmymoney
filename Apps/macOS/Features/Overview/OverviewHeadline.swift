@@ -69,6 +69,12 @@ struct OverviewHeadlineCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.layoutIdiom) private var idiom
+
+  /// The figure: 24 bold on the Mac and a tablet, 20 on a phone.
+  static func figureFont(_ idiom: LayoutIdiom) -> AppFont {
+    idiom == .mac ? StyleType.mainFigure : OverviewPageMetrics.of(idiom).mainFigureFont
+  }
 
   var body: some View {
     if let snapshot = compute.snapshot,
@@ -82,7 +88,7 @@ struct OverviewHeadlineCard: View {
               .appFont(StyleType.mainCaption)
               .foregroundStyle(surfaces.secondary)
             Text(verbatim: content.title)
-              .appFont(StyleType.mainFigure)
+              .appFont(Self.figureFont(LayoutIdiom.resolved(idiom)))
               .foregroundStyle(surfaces.primary)
               .fixedSize(horizontal: false, vertical: true)
               .accessibilityIdentifier("overview.hero.figure")

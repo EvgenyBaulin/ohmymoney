@@ -176,6 +176,7 @@ struct ContentCard: ViewModifier {
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.appTheme) private var theme
   @Environment(\.cardStyle) private var style
+  @Environment(\.layoutIdiom) private var idiom
   let fillsHeight: Bool
 
   /// 12 pt on the Mac; the phone design rounds its cards to 22 and lifts them with a soft shadow.
@@ -193,20 +194,49 @@ struct ContentCard: ViewModifier {
     style == .tile ? (StyleMetrics.cardBorder, true) : (0.5, false)
   }
 
+  /// The edge of a card on a design: a tile of the phone's frame wears the hairline token at
+  /// 1 pt instead of the outline.
+  enum Edge: Equatable { case outline, hairline, cardBorder }
+  static func edge(
+    _ style: CardStyle, idiom: LayoutIdiom
+  ) -> (width: CGFloat, ink: Edge) {
+    switch style {
+    case .tile:
+      (
+        StyleMetrics.cardBorder,
+        OverviewPageMetrics.of(idiom).tileEdgeIsHairline ? .hairline : .outline
+      )
+    case .plain: (0.5, .cardBorder)
+    }
+  }
+
+  /// The soft shadow under a card of a phone and a tablet; the tiles of Overview have none, as
+  /// their frames draw them.
+  static func hasShadow(_ style: CardStyle, idiom: LayoutIdiom) -> Bool {
+    idiom != .mac && style == .plain
+  }
+
   func body(content: Content) -> some View {
     let shape = RoundedRectangle(cornerRadius: Self.cornerRadius)
-    let edge = Self.edge(style)
+    let design = LayoutIdiom.resolved(idiom)
+    let edge = Self.edge(style, idiom: design)
+    let ink: Color =
+      switch edge.ink {
+      case .outline: theme.borderOutline
+      case .hairline: theme.borderHairline
+      case .cardBorder: surfaces.cardBorder
+      }
     content
       .frame(maxWidth: .infinity, maxHeight: fillsHeight ? .infinity : nil, alignment: .topLeading)
       .padding(StyleMetrics.tilePadding)
       .background(surfaces.card, in: shape)
       #if os(iOS)
-        .shadow(color: .black.opacity(0.05), radius: 10, y: 6)
+        .shadow(
+          color: .black.opacity(Self.hasShadow(style, idiom: design) ? 0.05 : 0), radius: 10, y: 6)
       #endif
       .overlay {
         // The theme's own edge always; under «Увеличить контраст» the separator edge too.
-        shape.strokeBorder(
-          edge.outline ? theme.borderOutline : surfaces.cardBorder, lineWidth: edge.width)
+        shape.strokeBorder(ink, lineWidth: edge.width)
         if contrast == .increased {
           shape.strokeBorder(.separator, lineWidth: 1)
         }

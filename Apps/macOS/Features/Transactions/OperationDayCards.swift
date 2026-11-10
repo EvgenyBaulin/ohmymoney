@@ -27,6 +27,7 @@ enum OperationRowCaption {
 struct OperationDayCards<MenuItems: View>: View {
   @Dependency(\.environment) private var environment
   @Environment(\.appTheme) private var theme
+  @Environment(\.layoutIdiom) private var idiom
 
   let deps: AppDependencies
   let listing: TransactionListing
@@ -40,17 +41,13 @@ struct OperationDayCards<MenuItems: View>: View {
   /// for a description.
   static var widthForColumns: CGFloat { 720 }
 
-  /// Whether the list is drawn in columns: a tablet, wide enough.
-  static func showsColumns(width: CGFloat) -> Bool {
-    #if os(iOS)
-      UIDevice.current.userInterfaceIdiom == .pad && width >= widthForColumns
-    #else
-      width >= widthForColumns
-    #endif
+  /// Whether the list is drawn in columns: a tablet (or the Mac), wide enough.
+  static func showsColumns(width: CGFloat, idiom: LayoutIdiom) -> Bool {
+    idiom != .phone && width >= widthForColumns
   }
 
   var body: some View {
-    let columns = Self.showsColumns(width: width)
+    let columns = Self.showsColumns(width: width, idiom: LayoutIdiom.resolved(idiom))
     Group {
       if columns {
         VStack(spacing: 0) {
@@ -71,11 +68,16 @@ struct OperationDayCards<MenuItems: View>: View {
   private func list(columns: Bool) -> some View {
     let list = plainList(columns: columns)
       .environment(\.defaultMinListRowHeight, 1)
+      // The head of a day is as tall as its words and margins, not the system's header.
+      .environment(\.defaultMinListHeaderHeight, 1)
       .scrollContentBackground(.hidden)
       .contextMenu(forSelectionType: UUID.self, menu: menu, primaryAction: primaryAction)
     #if os(iOS)
       if columns {
+        // The days follow one another in the card with nothing between them but the hairline.
         list.listStyle(.plain)
+          .listSectionSpacing(0)
+          .contentMargins(.top, 0, for: .scrollContent)
       } else {
         // The cards of the days, 10 apart, 16 from the sides of the page.
         list.listStyle(.insetGrouped)
@@ -99,14 +101,22 @@ struct OperationDayCards<MenuItems: View>: View {
             .listRowInsets(rowInsets(columns: columns))
             .listRowBackground(theme.surfaceCard)
             .listRowSeparatorTint(theme.borderHairline)
-            // The hairline runs across the whole card, as the frames draw it.
-            .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
+            // The last row of a day keeps its hairline too, above the next day's head.
+            .listSectionSeparator(columns ? .visible : .hidden, edges: .bottom)
+            .listSectionSeparatorTint(theme.borderHairline)
+            // The hairline runs across the whole card, edge to edge, as the frames draw it: the
+            // row's own margin is given back on both sides.
+            .alignmentGuide(.listRowSeparatorLeading) { _ in -Self.rowSide(columns: columns) }
+            .alignmentGuide(.listRowSeparatorTrailing) { row in
+              row.width + Self.rowSide(columns: columns)
+            }
           }
         } header: {
           OperationDayHead(day: day.day, totals: day.totals)
             .padding(.horizontal, columns ? 0 : OperationsMetrics.phoneDayInset)
             .padding(.top, columns ? OperationsMetrics.padDayTop : OperationsMetrics.phoneDayInset)
-            .padding(.bottom, columns ? OperationsMetrics.padDayBottom : 0)
+            .padding(
+              .bottom, columns ? OperationsMetrics.padDayBottom : OperationsMetrics.phoneDayGap)
             .listRowInsets(
               EdgeInsets(
                 top: 0, leading: columns ? OperationsMetrics.rowHorizontal : 0, bottom: 0,
@@ -115,6 +125,11 @@ struct OperationDayCards<MenuItems: View>: View {
         }
       }
     }
+  }
+
+  /// The margin of a row at its sides: 18 in the tablet's columns, 14 in a phone's card.
+  static func rowSide(columns: Bool) -> CGFloat {
+    columns ? OperationsMetrics.rowHorizontal : OperationsMetrics.phoneRowHorizontal
   }
 
   private func rowInsets(columns: Bool) -> EdgeInsets {
@@ -283,18 +298,16 @@ struct OperationColumnsHeader: View {
 struct OperationDayHead: View {
   @Dependency(\.environment) private var environment
   @Environment(\.appTheme) private var theme
+  @Environment(\.layoutIdiom) private var idiom
   let day: DateOnly
   let totals: RowTotals
   /// The totals hold operations of a covered hidden account that the day does not list.
   var partHidden = false
 
-  /// The colour of the day's name on each platform.
-  static func nameInk(in theme: AppThemeColors) -> Color {
-    #if os(iOS)
-      UIDevice.current.userInterfaceIdiom == .phone ? theme.contentSecondary : theme.accentContent
-    #else
-      theme.accentContent
-    #endif
+  /// The colour of the day's name on each design: the accent's words on the Mac and a tablet,
+  /// the secondary ink on a phone.
+  static func nameInk(in theme: AppThemeColors, idiom: LayoutIdiom = .mac) -> Color {
+    idiom == .phone ? theme.contentSecondary : theme.accentContent
   }
 
   /// The figure of a day, or `nil` for a day that moved money only between the owner's
@@ -309,7 +322,7 @@ struct OperationDayHead: View {
       Text(verbatim: title)
         .appFont(OperationsType.dayName)
         .textCase(.uppercase)
-        .foregroundStyle(Self.nameInk(in: theme))
+        .foregroundStyle(Self.nameInk(in: theme, idiom: LayoutIdiom.resolved(idiom)))
         .accessibilityAddTraits(.isHeader)
       Spacer(minLength: 8)
       if partHidden { PartHiddenNote() }

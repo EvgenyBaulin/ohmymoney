@@ -185,23 +185,16 @@ struct OverviewGroupedGrid: View {
   var width: CGFloat = 0
   let actions: OperationActions
   let screen: OverviewScreen
+  /// «Что сделать сейчас» stands with the main card (a tablet's first row), not here.
+  var doNowBesideMain = false
+  @Environment(\.layoutIdiom) private var idiom
 
-  /// The gap between groups and under a group's name: 10 on the Mac; 20 and 8 on a phone and a
-  /// tablet.
-  static var groupGap: CGFloat {
-    #if os(iOS)
-      20
-    #else
-      StyleMetrics.stackGap
-    #endif
-  }
-  static var nameGap: CGFloat {
-    #if os(iOS)
-      8
-    #else
-      StyleMetrics.stackGap
-    #endif
-  }
+  private var metrics: OverviewPageMetrics { .of(LayoutIdiom.resolved(idiom)) }
+
+  /// The gap between groups and under a group's name on this platform's own design: 10 on the
+  /// Mac and a phone; a tablet's 12 comes with its page (`OverviewPageMetrics`).
+  static var groupGap: CGFloat { OverviewView.platformMetrics.groupGap }
+  static var nameGap: CGFloat { OverviewView.platformMetrics.nameGap }
 
   var body: some View {
     let layout = environment.overviewLayout
@@ -209,7 +202,8 @@ struct OverviewGroupedGrid: View {
     let facts = OverviewScreen.facts(compute.snapshot)
     let groups = OverviewScreen.groups(of: layout, editing: editing, facts: facts)
     let (above, extras) = OverviewGridItem.placed(
-      Self.extras(compute.snapshot, environment), columns: columns)
+      Self.extras(compute.snapshot, environment).filter { !doNowBesideMain || $0 != .doNow },
+      columns: columns)
     let doNowGroup =
       !extras.isEmpty
       ? OverviewGridItem.doNowGroup(in: groups) { group in
@@ -217,13 +211,14 @@ struct OverviewGroupedGrid: View {
           of: group, collapsed: environment.overviewCollapsed, editing: editing)
           && !OverviewScreen.withoutWorthALook(layout.cells(in: group, facts: facts)).isEmpty
       } : nil
-    VStack(alignment: .leading, spacing: Self.groupGap) {
+    VStack(alignment: .leading, spacing: metrics.groupGap) {
       ForEach(above + (doNowGroup == nil ? extras : []), id: \.self) {
         item($0, fillsHeight: false)
       }
       ForEach(groups) { group in
-        VStack(alignment: .leading, spacing: Self.nameGap) {
+        VStack(alignment: .leading, spacing: metrics.nameGap) {
           OverviewGroupHeader(group: group, screen: screen)
+            .padding(.top, metrics.nameTop)
           if OverviewScreen.showsTiles(
             of: group, collapsed: environment.overviewCollapsed, editing: editing)
           {
@@ -244,8 +239,8 @@ struct OverviewGroupedGrid: View {
   /// its own in a narrower grid.
   private func grid(_ items: [OverviewGridItem]) -> some View {
     Grid(
-      alignment: .topLeading, horizontalSpacing: OverviewCard.columnGap,
-      verticalSpacing: OverviewCard.rowGap
+      alignment: .topLeading, horizontalSpacing: metrics.columnGap,
+      verticalSpacing: metrics.rowGap
     ) {
       ForEach(OverviewGridItem.rows(items, columns: columns, halves: width > 0), id: \.self) {
         row in
@@ -299,22 +294,9 @@ struct OverviewGroupHeader: View {
   let screen: OverviewScreen
   @State private var targeted = false
 
-  /// The name of a group is a heading of 15 pt semibold on the phone, as the design draws the
-  /// headings of its sections; on the Mac a quiet secondary line of 14 semibold.
-  static var nameFont: AppFont {
-    #if os(iOS)
-      .subheadline.weight(.semibold)
-    #else
-      StyleType.groupName
-    #endif
-  }
-  static var nameIsPrimary: Bool {
-    #if os(iOS)
-      true
-    #else
-      false
-    #endif
-  }
+  /// The name of a group: a quiet secondary line of 14 semibold on every design.
+  static let nameFont = StyleType.groupName
+  static let nameIsPrimary = false
 
   var body: some View {
     let name = OverviewTileText.groupName(of: group, environment)

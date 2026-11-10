@@ -81,38 +81,50 @@ enum StyleMetrics {
 }
 
 /// The type of the one style, as the design names it in points at «Обычный»; each grows with the
-/// size of the text chosen in Settings like every other font (`AppFont`).
+/// size of the text chosen in Settings like every other font (`AppFont`). The Mac writes the
+/// system's text styles, which macOS draws at these very points; a phone and a tablet write the
+/// points themselves, since the styles of iOS are drawn several points larger than their frames.
 enum StyleType {
   /// «Обзор», «Операции»: 22 bold.
-  static let screenTitle = AppFont.title.bold()
+  static let screenTitle = type(.title, 22).bold()
   /// The caption of the main card: 12 medium.
-  static let mainCaption = AppFont.callout.weight(.medium)
+  static let mainCaption = type(.callout, 12).weight(.medium)
   /// The figure of the main card and of a tile: 24 bold.
   static let mainFigure = AppFont.system(size: 24, weight: .bold).monospacedDigit()
   /// The line under the main figure: 13.
-  static let mainLine = AppFont.body.monospacedDigit()
+  static let mainLine = type(.body, 13).monospacedDigit()
   /// A status label: 11.5 semibold.
   static let status = AppFont.system(size: 11.5, weight: .semibold)
   /// A button of the header: 13 medium.
-  static let headerButton = AppFont.body.weight(.medium)
+  static let headerButton = type(.body, 13).weight(.medium)
   /// A button in a row of a card: 11.
-  static let rowButton = AppFont.subheadline
+  static let rowButton = type(.subheadline, 11)
   /// The title of a tile: 15 semibold.
-  static let tileTitle = AppFont.title3.weight(.semibold)
+  static let tileTitle = type(.title3, 15).weight(.semibold)
   /// A line of a tile: 12.
-  static let tileRow = AppFont.callout
+  static let tileRow = type(.callout, 12)
   /// The grey hint under a figure of a tile: 11.
-  static let tileHint = AppFont.subheadline
+  static let tileHint = type(.subheadline, 11)
   /// The name of a group of tiles and the title of «Что сделать сейчас»: 14 semibold.
   static let groupName = AppFont.system(size: 14, weight: .semibold)
   /// A row of «Что сделать сейчас»: 13 medium over 12.
-  static let rowTitle = AppFont.body.weight(.medium)
-  static let rowDetail = AppFont.callout
+  static let rowTitle = type(.body, 13).weight(.medium)
+  static let rowDetail = type(.callout, 12)
   /// The second figure of a card («41 600 ₽ на 30 дней»): 16 bold; a part's figure 16 semibold
   /// over its words in 10.
   static let cardSubtitle = AppFont.system(size: 16, weight: .bold).monospacedDigit()
   static let partFigure = AppFont.system(size: 16, weight: .semibold).monospacedDigit()
-  static let partLabel = AppFont.footnote
+  static let partLabel = type(.footnote, 10)
+
+  /// The system's text style on the Mac, whose «Обычный» it is to the point; the points of the
+  /// frame on a phone and a tablet.
+  private static func type(_ style: AppFont, _ points: CGFloat) -> AppFont {
+    #if os(iOS)
+      AppFont.system(size: points)
+    #else
+      style
+    #endif
+  }
 }
 
 /// What a status label says: its words always carry the meaning, the dot and the tint only
@@ -174,8 +186,15 @@ struct MainCard<Content: View>: View {
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.colorSchemeContrast) private var contrast
   @Environment(\.appFontSize) private var fontSize
+  @Environment(\.layoutIdiom) private var idiom
   let stripe: Color
   @ViewBuilder let content: Content
+
+  /// The margins of the card: 20 × 12 on the Mac, 20 × 16 on a tablet, 14 × 16 on a phone.
+  static func margins(_ idiom: LayoutIdiom) -> (horizontal: CGFloat, vertical: CGFloat) {
+    let metrics = OverviewPageMetrics.of(idiom)
+    return (metrics.mainHorizontal, metrics.mainVertical)
+  }
 
   var body: some View {
     let shape = RoundedRectangle(cornerRadius: ContentCard.cornerRadius)
@@ -190,8 +209,8 @@ struct MainCard<Content: View>: View {
         .accessibilityHidden(true)
       content.frame(maxWidth: .infinity, alignment: .leading)
     }
-    .padding(.vertical, StyleMetrics.mainCardVertical)
-    .padding(.horizontal, StyleMetrics.mainCardHorizontal)
+    .padding(.vertical, Self.margins(LayoutIdiom.resolved(idiom)).vertical)
+    .padding(.horizontal, Self.margins(LayoutIdiom.resolved(idiom)).horizontal)
     .background(surfaces.card, in: shape)
     .overlay {
       shape.strokeBorder(surfaces.cardBorder, lineWidth: StyleMetrics.cardBorder)
