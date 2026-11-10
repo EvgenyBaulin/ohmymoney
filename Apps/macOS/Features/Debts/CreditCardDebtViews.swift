@@ -105,32 +105,6 @@ struct CreditCardDebtCards: View {
   }
 }
 
-/// The credit cards in debt as rows of the list on the left of Debts, and of a bank's tab: the
-/// name, the debt, and the words that say why it is a debt.
-struct CreditCardDebtRows: View {
-  @Dependency(\.environment) private var environment
-  let lines: [CreditCardDebtLine]
-
-  var body: some View {
-    ForEach(lines) { line in
-      let text = CreditCardDebtText(line, environment)
-      VStack(alignment: .leading, spacing: 2) {
-        HStack {
-          Label(line.name, systemImage: "creditcard").lineLimit(1)
-          Spacer(minLength: 6)
-          Text(verbatim: environment.money.rounded(line.debtE4, currency: line.currency))
-            .monospacedDigit()
-        }
-        if let over = text.overLimit {
-          Label(over, systemImage: "exclamationmark.octagon")
-            .appFont(.caption.monospacedDigit()).foregroundStyle(.red)
-        }
-      }
-      .tag(DebtsSelection.card(line.accountId))
-    }
-  }
-}
-
 /// The card of a credit card in debt: how much, why it is a debt, the grey interest, the limit,
 /// and the way to its account, where the money is.
 struct CreditCardDebtDetail: View {

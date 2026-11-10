@@ -579,6 +579,23 @@
         }
       }
     },
+    "debts.badge.owedToMe": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "owes me"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "мне должны"
+          }
+        }
+      }
+    },
     "debts.badge.purchase": {
       "extractionState": "manual",
       "localizations": {
@@ -732,6 +749,23 @@
         }
       }
     },
+    "debts.card.ofTotal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ of %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ из %2$@"
+          }
+        }
+      }
+    },
     "debts.card.open": {
       "extractionState": "manual",
       "localizations": {
@@ -783,6 +817,23 @@
         }
       }
     },
+    "debts.card.paidShare": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paid %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выплачено %@"
+          }
+        }
+      }
+    },
     "debts.card.payment": {
       "extractionState": "manual",
       "localizations": {
@@ -813,6 +864,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставка"
+          }
+        }
+      }
+    },
+    "debts.card.returnedShare": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Returned %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Возвращено %@"
           }
         }
       }
@@ -874,13 +942,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose a debt or a person on the left"
+            "value": "This debt is gone"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выберите долг или человека слева"
+            "value": "Этого долга больше нет"
           }
         }
       }
@@ -1318,6 +1386,23 @@
         }
       }
     },
+    "debts.group.instalments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Instalments"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рассрочки"
+          }
+        }
+      }
+    },
     "debts.groupTotal": {
       "extractionState": "manual",
       "localizations": {
@@ -1654,6 +1739,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Платежи в месяц"
+          }
+        }
+      }
+    },
+    "debts.new": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New debt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новый долг"
           }
         }
       }
@@ -2028,6 +2130,146 @@
           "stringUnit": {
             "state": "translated",
             "value": "по графику"
+          }
+        }
+      }
+    },
+    "debts.summary.debts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld debt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld debts"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld долга"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld долгов"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld долг"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld долга"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "debts.summary.next": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "next payment %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "следующий платёж %@"
+          }
+        }
+      }
+    },
+    "debts.summary.people": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld person"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld people"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld человека"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld человек"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld человек"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld человека"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "debts.summary.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summary"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сводка"
           }
         }
       }
@@ -3475,6 +3717,108 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сначала самая высокая ставка — меньше всего процентов."
+          }
+        }
+      }
+    },
+    "ladder.card.avalanche": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avalanche: the debt with the highest rate first — the least overpaid."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лавина: сначала долг с самой высокой ставкой — меньше переплата."
+          }
+        }
+      }
+    },
+    "ladder.card.instead": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ instead of %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ вместо %2$@"
+          }
+        }
+      }
+    },
+    "ladder.card.never": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "not with these payments"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "не с такими платежами"
+          }
+        }
+      }
+    },
+    "ladder.card.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the ladder…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть лестницу…"
+          }
+        }
+      }
+    },
+    "ladder.card.saved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest saved"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экономия на процентах"
+          }
+        }
+      }
+    },
+    "ladder.card.snowball": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Snowball: the smallest debt first — the first one goes sooner."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Снежный ком: сначала самый маленький долг — первый уйдёт быстрее."
           }
         }
       }

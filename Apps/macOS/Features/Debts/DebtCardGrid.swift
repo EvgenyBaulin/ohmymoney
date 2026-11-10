@@ -27,6 +27,10 @@ struct DebtCardModel: Identifiable, Equatable {
   let currency: CurrencyCode
   /// 0…1 of what was borrowed that is already paid; `nil` when the journal has no borrowing.
   let progress: Double?
+  /// What was borrowed on the debt and how much of it is paid, in the debt's currency: «87 400 из
+  /// 230 000 ₽»; `nil` when the journal has no borrowing.
+  let paid: AmountE4?
+  let borrowed: AmountE4?
   let payment: AmountE4?
   let nextPayment: DateOnly?
   let rate: Decimal?
@@ -39,6 +43,9 @@ struct DebtCardModel: Identifiable, Equatable {
     balance = line.balanceRub ?? line.balance
     currency = line.balanceRub == nil ? debt.currency : .rub
     progress = Self.progress(of: line)
+    let lent = Self.borrowed(of: line)
+    borrowed = lent
+    paid = lent.map { Self.paid(of: line, borrowed: $0) }
     payment = debt.monthlyPaymentE4
     nextPayment = line.nextPayment
     rate = debt.interestRate
@@ -48,6 +55,18 @@ struct DebtCardModel: Identifiable, Equatable {
     if debt.closed { return .closed }
     if debt.isInstalmentPlan { return .instalment }
     return debt.origin == .purchase ? .purchase : .existing
+  }
+
+  /// Everything borrowed on the debt: the sum of the lines of the journal that raised it.
+  static func borrowed(of line: DebtLine) -> AmountE4? {
+    let raised = AmountE4.sum(line.entries.lazy.map(\.amountE4).filter { $0.raw > 0 })
+    return raised.raw > 0 ? raised : nil
+  }
+
+  /// What of `borrowed` is paid: the part no longer owed, never below nothing or above it.
+  static func paid(of line: DebtLine, borrowed: AmountE4) -> AmountE4 {
+    let left = max(line.balance, .zero)
+    return left >= borrowed ? .zero : borrowed - left
   }
 
   /// Paid share of everything borrowed on the debt, clamped to 0…1.
@@ -60,83 +79,4 @@ struct DebtCardModel: Identifiable, Equatable {
     let value = NSDecimalNumber(decimal: share).doubleValue  // chart-only
     return min(max(value, 0), 1)
   }
-}
-
-/// The debts overview as cards, one per debt: kind badge, balance, progress, payment and the
-/// nearest due; «Закрытые» below. A click opens the card of the debt.
-struct DebtCardGrid: View {
-  @Dependency(\.environment) private var environment
-  @Environment(\.themeSurfaces) private var surfaces
-  let lines: [DebtCardModel]
-  let closed: [DebtCardModel]
-  let open: (UUID) -> Void
-  let delete: (UUID) -> Void
-
-  private let columns = [GridItem(.adaptive(minimum: 280, maximum: 480), spacing: 14)]
-
-  var body: some View {
-    VStack(alignment: .leading, spacing: 16) {
-      if lines.isEmpty {
-        Text(verbatim: t("debts.none")).foregroundStyle(.secondary)
-      }
-      LazyVGrid(columns: columns, alignment: .leading, spacing: 14) {
-        ForEach(lines) { card($0) }
-      }
-      if !closed.isEmpty {
-        Text(verbatim: t("debts.closed")).appFont(.headline).foregroundStyle(.secondary)
-        LazyVGrid(columns: columns, alignment: .leading, spacing: 14) {
-          ForEach(closed) { card($0) }
-        }
-      }
-    }
-  }
-
-  private func card(_ model: DebtCardModel) -> some View {
-    Button {
-      open(model.id)
-    } label: {
-      VStack(alignment: .leading, spacing: 8) {
-        HStack(alignment: .firstTextBaseline) {
-          Text(verbatim: model.name).appFont(.headline).lineLimit(1)
-          Spacer(minLength: 6)
-          DebtBadgeCapsule(badge: model.badge)
-        }
-        Text(verbatim: environment.money.rounded(model.balance, currency: model.currency))
-          .appFont(.title2.monospacedDigit().weight(.semibold))
-        if let rate = model.rate, rate > 0 {
-          Text(verbatim: "\(environment.money.number(rate)) %")
-            .appFont(.caption).foregroundStyle(surfaces.secondary)
-        }
-        if let progress = model.progress {
-          ProgressView(value: progress)
-            .tint(model.badge == .closed ? surfaces.positive : surfaces.accent)
-            .accessibilityLabel(t("debts.card.paid"))
-            .accessibilityValue("\(Int((progress * 100).rounded())) %")
-        }
-        row(
-          t("debts.card.payment"),
-          model.payment.map { environment.money.rounded($0, currency: model.currency) })
-        row(
-          t("debts.card.nextDue"), model.nextPayment.map { environment.dates.dayAndMonth($0) })
-      }
-      .contentShape(Rectangle())
-      .contentCard()
-    }
-    .buttonStyle(.plain)
-    .contextMenu {
-      Button(t("debts.delete"), role: .destructive) { delete(model.id) }
-    }
-    .accessibilityIdentifier("debts.card.\(model.id.uuidString)")
-  }
-
-  private func row(_ label: String, _ value: String?) -> some View {
-    HStack {
-      Text(verbatim: label)
-      Spacer(minLength: 6)
-      Text(verbatim: value ?? "—").monospacedDigit()
-    }
-    .appFont(.caption)
-  }
-
-  private func t(_ key: String) -> String { environment.language(key, table: "Debts") }
 }
