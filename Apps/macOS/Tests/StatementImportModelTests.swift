@@ -284,6 +284,37 @@ final class StatementImportModelTests: XCTestCase {
     XCTAssertTrue(try liveOperations().isEmpty, "the first ⌘Z takes all the operations at once")
   }
 
+  func testAStatementImportIsOneUndoAndOneRedoWithTheSameDatabaseState() async throws {
+    let account = try makeAccount("Synthetic account")
+    let model = try await model()
+    await model.add(urls: [
+      try file("statement.csv", csv([purchase("14.09.2026", "100,0", "SAMPLE A")]))
+    ])
+    model.setAccount(account.id, for: model.files[0].id)
+    store.forgetUndoHistory()
+    XCTAssertTrue(model.apply())
+    let operations = try liveOperations()
+    let imports = try XCTUnwrap(environment.statementImports).imports()
+    let planning = try XCTUnwrap(environment.planning).book()
+    store.undo()
+    XCTAssertTrue(try liveOperations().isEmpty)
+    XCTAssertTrue(try XCTUnwrap(environment.statementImports).imports().isEmpty)
+    XCTAssertFalse(store.canUndo, "import rows and operations are one action")
+    XCTAssertTrue(store.canRedo)
+    store.redo()
+    XCTAssertEqual(try liveOperations(), operations)
+    XCTAssertEqual(try XCTUnwrap(environment.statementImports).imports(), imports)
+    XCTAssertEqual(try XCTUnwrap(environment.planning).book(), planning)
+    store.undo()
+    XCTAssertFalse(store.canUndo)
+    XCTAssertTrue(store.canRedo)
+    var editedAccount = account
+    editedAccount.name = "Edited synthetic account"
+    XCTAssertTrue(
+      store.apply(PlanningChange(upsert: PlanningRows(paymentMethods: [editedAccount]))))
+    XCTAssertFalse(store.canRedo, "a new edit ends the import's redo chain")
+  }
+
   // MARK: Hand-typed entries
 
   func testAHandTypedEntryIsCompletedFromTheBankAndNotDoubled() async throws {

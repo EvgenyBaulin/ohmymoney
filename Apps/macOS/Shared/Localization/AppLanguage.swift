@@ -126,12 +126,19 @@ public final class AppLanguage {
   /// the Mac names ⌘Z. The sibling wins there; the Mac never reads it.
   public func callAsFunction(_ key: String, table: String = "Common") -> String {
     #if os(iOS)
-      if !key.hasSuffix(Self.touchSuffix) {
-        let touchKey = key + Self.touchSuffix
-        let touch = bundle.localizedString(forKey: touchKey, value: nil, table: table)
-        if touch != touchKey { return touch }
-      }
+      text(key, table: table, forTouch: true)
+    #else
+      text(key, table: table, forTouch: false)
     #endif
+  }
+
+  /// The same lookup for either platform, also used to check both sets of instructions.
+  func text(_ key: String, table: String, forTouch: Bool) -> String {
+    if forTouch, !key.hasSuffix(Self.touchSuffix) {
+      let touchKey = key + Self.touchSuffix
+      let touch = bundle.localizedString(forKey: touchKey, value: nil, table: table)
+      if touch != touchKey { return touch }
+    }
     let value = bundle.localizedString(forKey: key, value: nil, table: table)
     return value == key ? Bundle.main.localizedString(forKey: key, value: key, table: table) : value
   }

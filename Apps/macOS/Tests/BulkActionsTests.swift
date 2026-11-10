@@ -867,6 +867,19 @@ final class BulkActionsTests: XCTestCase {
     XCTAssertTrue(
       try repository.entries(ids: ids).allSatisfy { $0.transaction.paymentMethodId == cash.id })
     XCTAssertFalse(store.canUndo, "the change and its transfer were one step")
+    XCTAssertTrue(store.canRedo)
+    store.redo()
+    let redone = try await money(card, cash)
+    XCTAssertEqual(redone.cash, after.cash)
+    XCTAssertEqual(redone.card, after.card)
+    XCTAssertEqual(redone.transfers, after.transfers)
+    XCTAssertTrue(
+      try repository.entries(ids: ids).allSatisfy { $0.transaction.paymentMethodId == card.id })
+    store.undo()
+    XCTAssertFalse(store.canUndo, "the replay is one step too")
+    XCTAssertTrue(store.canRedo)
+    XCTAssertTrue(store.apply(.quality(.good), to: ids))
+    XCTAssertFalse(store.canRedo)
   }
 
   /// The same with more operations than are written on the main thread: the change and its
@@ -904,6 +917,26 @@ final class BulkActionsTests: XCTestCase {
     XCTAssertEqual(back.cash, .zero)
     XCTAssertEqual(back.card, AmountE4(whole: 10_000))
     XCTAssertFalse(store.canUndo)
+    XCTAssertTrue(store.canRedo)
+    store.redo()
+    XCTAssertTrue(store.isWritingInBackground)
+    let replayed = try await backgroundWriteLands()
+    XCTAssertTrue(replayed)
+    let redone = try await money(card, cash)
+    XCTAssertEqual(redone.cash, after.cash)
+    XCTAssertEqual(redone.card, after.card)
+    XCTAssertEqual(redone.transfers, after.transfers)
+    XCTAssertTrue(
+      try repository.entries(ids: ids).allSatisfy { $0.transaction.paymentMethodId == card.id })
+    store.undo()
+    let takenBack = try await backgroundWriteLands()
+    XCTAssertTrue(takenBack)
+    XCTAssertFalse(store.canUndo)
+    XCTAssertTrue(store.canRedo)
+    XCTAssertTrue(store.apply(.quality(.good), to: ids))
+    let edited = try await backgroundWriteLands()
+    XCTAssertTrue(edited)
+    XCTAssertFalse(store.canRedo)
   }
 
   /// The two cash purchases are asked about and the owner is choosing where their 5,000 ₽ go

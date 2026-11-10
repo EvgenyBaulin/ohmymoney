@@ -468,7 +468,7 @@ public final class AppEnvironment {
   /// database and writes nothing.
   init(missingDependency reader: String) {
     language = AppLanguage(missingDependency: reader)
-    theme = AppTheme()
+    theme = AppTheme(defaults: .standard, isNewInstall: false)
     amounts = AmountPrivacy(defaults: nil)
     shield = PrivacyShield()
     lock = PrivacyLock(applies: false, defaults: nil)

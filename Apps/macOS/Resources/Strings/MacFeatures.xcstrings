@@ -18,6 +18,23 @@
         }
       }
     },
+    "intent.add.description.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adds an operation or a transfer written as in the entry line, for example “coffee 250” or “transfer 5000 from Sber to T-Bank”. It is checked as the entry line checks it, and the “Undo” button in OhMyMoney takes it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавляет операцию или перевод, записанные как в строке ввода, например «кофе 250» или «перевод 5000 сбер т-банк». Проверки — как у строки ввода, отменить можно кнопкой «Отменить» в OhMyMoney."
+          }
+        }
+      }
+    },
     "intent.add.line": {
       "extractionState": "manual",
       "localizations": {
@@ -65,6 +82,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Удаляет операцию, как «Удалить» в списке. Вернуть — ⌘Z в OhMyMoney."
+          }
+        }
+      }
+    },
+    "intent.delete.description.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deletes an operation, as “Delete” in the list does. the “Undo” button in OhMyMoney brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удаляет операцию, как «Удалить» в списке. Кнопка «Отменить» в OhMyMoney вернёт её."
           }
         }
       }
@@ -575,6 +609,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Удалено: %@. Вернуть — ⌘Z в OhMyMoney."
+          }
+        }
+      }
+    },
+    "mac.command.deleted.touch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deleted: %@. the “Undo” button in OhMyMoney brings it back."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалено: %@. Кнопка «Отменить» в OhMyMoney вернёт операцию."
           }
         }
       }

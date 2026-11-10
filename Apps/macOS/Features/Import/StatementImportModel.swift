@@ -834,13 +834,6 @@ final class StatementImportModel {
     let rules = rulesToRemember(dataset: dataset)
     made.remembered = rules.count
 
-    // Each of these is a step of ⌘Z; if the write of the operations is refused, they are taken
-    // back, so a failure leaves no import row, no rule and no upgraded line behind.
-    var steps = 0
-    for record in records where store.recordImport(record.0, fileHash: record.1) { steps += 1 }
-    if !upgrades.isEmpty, store.upgradeStatements(upgrades) { steps += 1 }
-    for rule in rules where store.addRule(rule) { steps += 1 }
-
     var change = PlanningChange(
       created: created, upsert: PlanningRows(transfers: newTransfers), rewritten: rewritten,
       softDeleted: softDeleted, at: stamp)
@@ -857,10 +850,20 @@ final class StatementImportModel {
     let isEmpty =
       created.isEmpty && rewritten.isEmpty && newTransfers.isEmpty
       && softDeleted.isEmpty
-    if !isEmpty, !store.apply(change) {
-      for _ in 0..<steps { store.undo() }
-      return false
-    }
+    // The rows precede their operations, and all components share one undo/redo step.
+    // A refused component takes back everything already written by this import.
+    guard
+      store.writeStatement({
+        for record in records {
+          guard store.recordImport(record.0, fileHash: record.1) else { return false }
+        }
+        if !upgrades.isEmpty, !store.upgradeStatements(upgrades) { return false }
+        for rule in rules {
+          guard store.addRule(rule) else { return false }
+        }
+        return isEmpty || store.apply(change)
+      })
+    else { return false }
     outcome = made
     AppLog.info(
       "import.applied", .db, "statements were loaded",

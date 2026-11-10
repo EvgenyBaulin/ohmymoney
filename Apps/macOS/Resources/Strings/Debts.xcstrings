@@ -1081,13 +1081,13 @@
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "The debt and its journal (%lld entry) leave Debts, reminders and the free sum."
+                  "value": "The debt and its journal (%lld entry) will be deleted. Reminders and the free sum will no longer include this debt."
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "The debt and its journal (%lld entries) leave Debts, reminders and the free sum."
+                  "value": "The debt and its journal (%lld entries) will be deleted. Reminders and the free sum will no longer include this debt."
                 }
               }
             }
@@ -1099,25 +1099,25 @@
               "few": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Долг и его журнал (%lld записи) пропадут из «Долгов», напоминаний и свободной суммы."
+                  "value": "Долг и его журнал (%lld записи) будут удалены. Долг перестанет учитываться в напоминаниях и свободной сумме."
                 }
               },
               "many": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Долг и его журнал (%lld записей) пропадут из «Долгов», напоминаний и свободной суммы."
+                  "value": "Долг и его журнал (%lld записей) будут удалены. Долг перестанет учитываться в напоминаниях и свободной сумме."
                 }
               },
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Долг и его журнал (%lld запись) пропадут из «Долгов», напоминаний и свободной суммы."
+                  "value": "Долг и его журнал (%lld запись) будут удалены. Долг перестанет учитываться в напоминаниях и свободной сумме."
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "Долг и его журнал (%lld записи) пропадут из «Долгов», напоминаний и свободной суммы."
+                  "value": "Долг и его журнал (%lld записи) будут удалены. Долг перестанет учитываться в напоминаниях и свободной сумме."
                 }
               }
             }
@@ -6353,7 +6353,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отмена одним жестом — «Отменить»"
+            "value": "Отмена одним жестом — ⌘Z"
           }
         }
       }

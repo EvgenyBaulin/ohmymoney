@@ -278,6 +278,127 @@ final class StoreRedoStepsTests: XCTestCase {
 
   // MARK: A move from another application
 
+  func testAStatementImportRowIsMadeAgainWithItsHash() throws {
+    let record = StatementImportRecord(
+      id: UUID().uuidString, accountID: "", profileID: "synthetic", fileName: "statement.csv",
+      importedAt: Date(timeIntervalSince1970: 1_700_000_000), periodFrom: nil, periodTo: nil,
+      rowCount: 3, newCount: 1, duplicateCount: 1, declinedCount: 1, unparsedCount: 0)
+    XCTAssertTrue(store.recordImport(record, fileHash: "synthetic-hash"))
+    let after = try imports.imports()
+    store.undo()
+    XCTAssertTrue(try imports.imports().isEmpty)
+    XCTAssertTrue(store.canRedo)
+    store.redo()
+    XCTAssertEqual(try imports.imports(), after)
+    store.undo()
+    XCTAssertTrue(try imports.imports().isEmpty, "the replay is one undo step")
+    XCTAssertTrue(store.save(try entry("new edit")))
+    XCTAssertFalse(store.canRedo)
+  }
+
+  func testAStatementKeepsTheRestOfTheRedoChain() throws {
+    let earlier = try entry("earlier")
+    let imported = try entry("imported")
+    let later = try entry("later")
+    XCTAssertTrue(store.save(earlier))
+    XCTAssertTrue(store.writeStatement { store.apply(PlanningChange(created: [imported])) })
+    XCTAssertTrue(store.save(later))
+    store.undo()
+    store.undo()
+    XCTAssertTrue(store.canRedo)
+    store.redo()
+    XCTAssertNotNil(try repository.entry(id: imported.id))
+    XCTAssertTrue(store.canRedo, "the later edit can still be replayed")
+    store.redo()
+    XCTAssertNotNil(try repository.entry(id: later.id))
+    XCTAssertFalse(store.canRedo)
+  }
+
+  func testAStatementReplaysStatusUpgradesAndLearnedRulesWithItsOperations() throws {
+    var pending = try entry("pending")
+    pending.transaction.bankStatus = .pending
+    XCTAssertTrue(store.save(pending))
+    store.forgetUndoHistory()
+    let posted = StatementStatusWrite(
+      operationId: pending.id, status: .posted, postedOn: DateOnly(year: 2026, month: 9, day: 19))
+    let rule = Rule(
+      name: "Synthetic rule", conditions: [.textContains("coffee")],
+      actions: [.setCategory(UUID())])
+    let imported = try entry("imported")
+    XCTAssertTrue(
+      store.writeStatement {
+        store.upgradeStatements([posted]) && store.addRule(rule)
+          && store.apply(PlanningChange(created: [imported]))
+      })
+    let rules = try spending.rules()
+    store.undo()
+    XCTAssertEqual(try repository.entry(id: pending.id)?.transaction.bankStatus, .pending)
+    XCTAssertNil(try repository.entry(id: pending.id)?.transaction.postedOn)
+    XCTAssertTrue(try spending.rules().isEmpty)
+    XCTAssertNil(try repository.entry(id: imported.id))
+    XCTAssertFalse(store.canUndo)
+    store.redo()
+    XCTAssertEqual(try repository.entry(id: pending.id)?.transaction.bankStatus, .posted)
+    XCTAssertEqual(try repository.entry(id: pending.id)?.transaction.postedOn, posted.postedOn)
+    XCTAssertEqual(try spending.rules(), rules)
+    XCTAssertNotNil(try repository.entry(id: imported.id))
+    store.undo()
+    XCTAssertFalse(store.canUndo)
+  }
+
+  func testALargeStatementReplaysItsRowsAndOperationsAsOneStep() async throws {
+    let record = StatementImportRecord(
+      id: UUID().uuidString, accountID: "", profileID: "synthetic", fileName: "large.csv",
+      importedAt: Date(timeIntervalSince1970: 1_700_000_000), periodFrom: nil, periodTo: nil,
+      rowCount: TransactionsStore.backgroundThreshold + 1,
+      newCount: TransactionsStore.backgroundThreshold + 1, duplicateCount: 0,
+      declinedCount: 0, unparsedCount: 0)
+    let entries = try (0..<record.newCount).map { index -> TransactionEntry in
+      var made = try entry("imported \(index)", minutes: Double(index))
+      made.transaction.importBatchId = UUID(uuidString: record.id)
+      return made
+    }
+    XCTAssertTrue(
+      store.writeStatement {
+        store.recordImport(record, fileHash: "synthetic-large")
+          && store.apply(PlanningChange(created: entries))
+      })
+    let rows = try imports.imports()
+    let written = try repository.entries(ids: entries.map(\.id))
+    store.undo()
+    XCTAssertTrue(store.isWritingInBackground)
+    await settle()
+    XCTAssertNil(store.failure)
+    XCTAssertTrue(try imports.imports().isEmpty)
+    XCTAssertTrue(try repository.entries(ids: entries.map(\.id)).isEmpty)
+    XCTAssertFalse(store.canUndo)
+    XCTAssertTrue(store.canRedo)
+    store.redo()
+    await settle()
+    XCTAssertEqual(try imports.imports(), rows)
+    XCTAssertEqual(try repository.entries(ids: entries.map(\.id)), written)
+    store.undo()
+    await settle()
+    XCTAssertFalse(store.canUndo)
+    XCTAssertTrue(store.save(try entry("a new edit")))
+    XCTAssertFalse(store.canRedo)
+  }
+
+  func testARefusedStatementTakesBackItsRowsWithoutAddingHistory() throws {
+    let record = StatementImportRecord(
+      id: UUID().uuidString, accountID: "", profileID: "synthetic", fileName: "refused.csv",
+      importedAt: Date(timeIntervalSince1970: 1_700_000_000), periodFrom: nil, periodTo: nil,
+      rowCount: 1, newCount: 1, duplicateCount: 0, declinedCount: 0, unparsedCount: 0)
+    XCTAssertFalse(
+      store.writeStatement {
+        XCTAssertTrue(store.recordImport(record, fileHash: "synthetic-refused"))
+        return false
+      })
+    XCTAssertTrue(try imports.imports().isEmpty)
+    XCTAssertFalse(store.canUndo)
+    XCTAssertFalse(store.canRedo)
+  }
+
   func testAMoveFromAnotherApplicationIsMadeAgainWithItsImportRows() throws {
     let moved = try entry("moved")
     let record = StatementImportRecord(
