@@ -169,3 +169,175 @@ enum ReportsBuilder {
       request: request, table: table, lines: lines, names: AnalyticsNames(dataset: ledger.dataset))
   }
 }
+
+// MARK: - The tabs of the screen
+
+/// The tabs of the Reports screen, as the design names them: the tables by category, by event,
+/// by person, by account and by place, by month, the period total, and two that open a sheet of
+/// their own — the summaries of a week, a month and a year, and the saved reports. A tab is not
+/// stored by itself: it is read from the stored table and grouping (`ReportsSelection`), so a
+/// saved report and an older version of the window open the same tab.
+enum ReportsTab: String, CaseIterable, Identifiable, Hashable, Sendable {
+  case byCategory
+  case byEvent
+  case byPerson
+  case byAccount
+  case byPlace
+  case byMonth
+  case byPeriods
+  case total
+  case saved
+
+  var id: String { rawValue }
+  var titleKey: String { "reports.tab.\(rawValue)" }
+
+  /// The tabs of each design, in its order: all of them on the Mac; the tables of the tablet's
+  /// frame; the three a phone's width holds.
+  static func tabs(_ idiom: LayoutIdiom) -> [ReportsTab] {
+    switch idiom {
+    case .mac: allCases
+    case .pad: [.byCategory, .byMonth, .byPerson, .byPlace, .byEvent, .byAccount]
+    case .phone: [.byCategory, .byMonth, .total]
+    }
+  }
+
+  /// «По периодам» and «Сохранённые» open a sheet over the screen; the table stays as it was.
+  var opensSheet: Bool { self == .byPeriods || self == .saved }
+
+  /// The grouping of a tab of spending by one dimension.
+  var grouping: ReportGrouping? {
+    switch self {
+    case .byEvent: .event
+    case .byPerson: .forWhom
+    case .byAccount: .paymentMethod
+    case .byPlace: .place
+    default: nil
+    }
+  }
+
+  /// The tab a stored table and grouping are shown under.
+  init(kind: ReportTable.Kind, grouping: ReportGrouping) {
+    switch kind {
+    case .monthly: self = .byMonth
+    case .periodTotal: self = .total
+    case .incomeByCategory: self = .byCategory
+    case .expensesByCategory, .expensesByCategoryAndSubcategory:
+      switch grouping {
+      case .category: self = .byCategory
+      case .event: self = .byEvent
+      case .forWhom: self = .byPerson
+      case .paymentMethod: self = .byAccount
+      case .place: self = .byPlace
+      }
+    }
+  }
+
+  /// What choosing the tab stores; `nil` for a tab that opens a sheet.
+  var stored: (kind: ReportTable.Kind, grouping: ReportGrouping)? {
+    switch self {
+    case .byCategory: (.expensesByCategoryAndSubcategory, .category)
+    case .byEvent, .byPerson, .byAccount, .byPlace: (.expensesByCategory, grouping ?? .category)
+    case .byMonth: (.monthly, .category)
+    case .total: (.periodTotal, .category)
+    case .byPeriods, .saved: nil
+    }
+  }
+}
+
+extension ReportsSelection {
+  /// The tab on screen. A tab the design of this device does not show opens «По категориям».
+  func tab(_ idiom: LayoutIdiom) -> ReportsTab {
+    let tab = ReportsTab(kind: kind, grouping: grouping)
+    return ReportsTab.tabs(idiom).contains(tab) ? tab : .byCategory
+  }
+
+  /// What the screen builds for the tab: the tables it shows and the CSV writes.
+  func sheetRequest(_ idiom: LayoutIdiom, today: DateOnly) -> ReportsSheetRequest {
+    ReportsSheetRequest(tab: tab(idiom), period: period, today: today)
+  }
+}
+
+/// What a tab of the screen is built for: the tab, the chosen month or year and the day.
+struct ReportsSheetRequest: Hashable, Sendable {
+  var tab: ReportsTab
+  var period: AnalyticsPeriod
+  var today: DateOnly
+
+  /// The tables of the tab, in the order the CSV writes them. «По категориям» is the income by
+  /// category and the spending by category and subcategory; a tab of one dimension is the
+  /// spending grouped by it; «По месяцам» is the monthly table of the year; «Итого» the period
+  /// total. These are the core's tables as they always were: the CSV of a tab is theirs.
+  var tables: [ReportsRequest] {
+    let period = self.period.period
+    func request(_ kind: ReportTable.Kind, _ grouping: ReportGrouping = .category)
+      -> ReportsRequest
+    {
+      ReportsRequest(kind: kind, period: period, grouping: grouping, today: today)
+    }
+    switch tab {
+    case .byCategory:
+      return [request(.incomeByCategory), request(.expensesByCategoryAndSubcategory)]
+    case .byEvent, .byPerson, .byAccount, .byPlace:
+      return [request(.expensesByCategory, tab.grouping ?? .category)]
+    case .byMonth:
+      return [
+        ReportsRequest(
+          kind: .monthly, period: .year(self.period.month.year), grouping: .category,
+          today: today)
+      ]
+    case .total, .byPeriods, .saved:
+      return [request(.periodTotal)]
+    }
+  }
+
+  /// The months of the columns of «По месяцам»: the six months to the chosen one, or the months
+  /// of the chosen year up to the month of today.
+  var months: [MonthKey] {
+    guard tab == .byMonth else { return [] }
+    switch period.kind {
+    case .year:
+      let year = period.month.year
+      let last = year == today.year ? today.monthKey.month : 12
+      return (1...max(1, last)).map { MonthKey(year: year, month: $0) }
+    case .month, .twelveMonths, .week, .quarter:
+      return (0..<Self.monthColumns).reversed().map { period.month.adding(months: -$0) }
+    }
+  }
+
+  /// The months «По месяцам» shows for a chosen month, as the design draws them.
+  static let monthColumns = 6
+}
+
+/// A tab ready to show: its tables, and for «По месяцам» the spending and the income of every
+/// month of its columns by category.
+struct ReportsSheet: Sendable {
+  var request: ReportsSheetRequest
+  var models: [ReportsModel]
+  /// «По месяцам»: one model per month of `request.months`, in their order.
+  var monthExpenses: [ReportsModel] = []
+  var monthIncome: [ReportsModel] = []
+
+  var hasData: Bool {
+    request.tab == .byMonth
+      ? (monthExpenses + monthIncome).contains { $0.table.hasData }
+      : models.contains { $0.table.hasData }
+  }
+}
+
+enum ReportsSheetBuilder {
+  /// Every table of the tab — pure, off the main thread, never in `body`.
+  static func sheet(_ request: ReportsSheetRequest, ledger: Ledger) -> ReportsSheet {
+    let models = request.tables.map { ReportsBuilder.model($0, ledger: ledger) }
+    var sheet = ReportsSheet(request: request, models: models)
+    for month in request.months {
+      func model(_ kind: ReportTable.Kind) -> ReportsModel {
+        ReportsBuilder.model(
+          ReportsRequest(kind: kind, period: .month(month), grouping: .category, today: request.today),
+          ledger: ledger)
+      }
+      sheet.monthExpenses.append(model(.expensesByCategory))
+      sheet.monthIncome.append(model(.incomeByCategory))
+    }
+    return sheet
+  }
+}

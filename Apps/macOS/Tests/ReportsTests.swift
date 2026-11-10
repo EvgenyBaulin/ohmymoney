@@ -648,9 +648,9 @@ final class ReportsExportTests: XCTestCase {
   }
 }
 
-/// Every table drawn off screen, as the window draws it: a `Table` with a column per
-/// measure, its parents under disclosure triangles and the lines of the total and the
-/// average. SwiftUI takes every column and row, in both languages.
+/// Every table drawn off screen, as the window draws it: a card with a column per measure, its
+/// subcategories a step in under their categories and the lines of the total and the average.
+/// SwiftUI takes every column and row, in both languages.
 @MainActor
 final class ReportsRenderingTests: XCTestCase {
   /// Every kind with two groupings on the golden set's today, and the year seen on 20 July:
@@ -671,8 +671,15 @@ final class ReportsRenderingTests: XCTestCase {
       environment.language.choice = choice
       for request in requests {
         let model = ReportsBuilder.model(request, ledger: ledger)
+        let sheet = ReportsSheet(
+          request: ReportsSheetRequest(
+            // A table of the core as it is, drawn the way a tab of one table draws it.
+            tab: .total, period: AnalyticsPeriod(kind: .year, month: MonthKey(year: 2026, month: 12)),
+            today: request.today),
+          models: [model])
+        let grid = ReportGridBuilder.grid(sheet, .mac, environment)
         let host = NSHostingView(
-          rootView: ReportTableView(model: model, collapsed: .constant([]))
+          rootView: ReportGridView(grid: grid, metrics: .mac, idiom: .mac)
             .appDependencies(.forTests(environment))
             .frame(width: 900, height: 600))
         let window = NSWindow(

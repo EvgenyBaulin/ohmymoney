@@ -13,6 +13,10 @@ struct AnalyticsSectionView: View {
   let retry: () -> Void
   /// The period of the toolbar, for the sections of 2.1 that count by themselves.
   var period: AnalyticsPeriod?
+  /// The margins of the page the cards stand in, and the room above the first: the design's
+  /// numbers of the screen (`AnalyticsMetrics`).
+  var side: CGFloat = 20
+  var top: CGFloat = 20
   @State private var width: CGFloat = 0
 
   /// From here on two small charts stand side by side.
@@ -27,7 +31,9 @@ struct AnalyticsSectionView: View {
           .fixedSize(horizontal: false, vertical: true)
         sectionBody
       }
-      .padding(20)
+      .padding(.horizontal, side)
+      .padding(.top, top)
+      .padding(.bottom, 20)
       .frame(maxWidth: .infinity, alignment: .topLeading)
     }
     .onGeometryChange(for: CGFloat.self) {

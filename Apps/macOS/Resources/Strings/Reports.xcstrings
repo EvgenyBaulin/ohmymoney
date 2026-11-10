@@ -273,6 +273,23 @@
         }
       }
     },
+    "reports.column.account": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт"
+          }
+        }
+      }
+    },
     "reports.column.amount": {
       "extractionState": "manual",
       "localizations": {
@@ -290,6 +307,57 @@
         }
       }
     },
+    "reports.column.amountRub": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amount, ₽"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма, ₽"
+          }
+        }
+      }
+    },
+    "reports.column.category": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория"
+          }
+        }
+      }
+    },
+    "reports.column.event": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Event"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Событие"
+          }
+        }
+      }
+    },
     "reports.column.expenses": {
       "extractionState": "manual",
       "localizations": {
@@ -303,6 +371,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Расходы"
+          }
+        }
+      }
+    },
+    "reports.column.forWhom": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For whom"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На кого"
           }
         }
       }
@@ -371,6 +456,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Итог"
+          }
+        }
+      }
+    },
+    "reports.column.place": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Place"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Место"
           }
         }
       }
@@ -579,6 +681,40 @@
         }
       }
     },
+    "reports.export.folder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save CSV here"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить CSV сюда"
+          }
+        }
+      }
+    },
+    "reports.export.folder.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The income and the spending are saved as two CSV files in the folder you choose."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Доходы и расходы сохранятся двумя файлами CSV в выбранную папку."
+          }
+        }
+      }
+    },
     "reports.export.help": {
       "extractionState": "manual",
       "localizations": {
@@ -732,6 +868,23 @@
         }
       }
     },
+    "reports.line.difference": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Difference"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разница"
+          }
+        }
+      }
+    },
     "reports.line.expenses": {
       "extractionState": "manual",
       "localizations": {
@@ -749,6 +902,23 @@
         }
       }
     },
+    "reports.line.expensesTotal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итого расходов"
+          }
+        }
+      }
+    },
     "reports.line.income": {
       "extractionState": "manual",
       "localizations": {
@@ -762,6 +932,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доходы"
+          }
+        }
+      }
+    },
+    "reports.line.incomeTotal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total income"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итого доходов"
           }
         }
       }
@@ -813,6 +1000,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "ещё не начался"
+          }
+        }
+      }
+    },
+    "reports.monthNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amounts to the ruble; the exact ones are in the CSV."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Суммы до рубля; точные значения — в CSV."
           }
         }
       }
@@ -1085,6 +1289,159 @@
           "stringUnit": {
             "state": "translated",
             "value": "Таблицы"
+          }
+        }
+      }
+    },
+    "reports.tab.byAccount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By account"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По счетам"
+          }
+        }
+      }
+    },
+    "reports.tab.byCategory": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По категориям"
+          }
+        }
+      }
+    },
+    "reports.tab.byEvent": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By event"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По событиям"
+          }
+        }
+      }
+    },
+    "reports.tab.byMonth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По месяцам"
+          }
+        }
+      }
+    },
+    "reports.tab.byPeriods": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By period"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По периодам"
+          }
+        }
+      }
+    },
+    "reports.tab.byPerson": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By person"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По людям"
+          }
+        }
+      }
+    },
+    "reports.tab.byPlace": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By place"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По местам"
+          }
+        }
+      }
+    },
+    "reports.tab.saved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранённые"
+          }
+        }
+      }
+    },
+    "reports.tab.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итого"
           }
         }
       }

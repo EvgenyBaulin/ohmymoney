@@ -1,17 +1,19 @@
 import AppCore
 import SwiftUI
 
-/// The Reports screen: the period, the tables and «Группировать по» at the top, one table at a
-/// time below, «Выгрузить CSV…» in the header. A section of the main window on the Mac
-/// («Отчёты» in its sidebar), a page of «Ещё» on the phone.
+/// The Reports screen as the design draws it: the title with the period and «Выгрузить CSV…» at
+/// the right, the tabs under it, the table of the tab, and a line about the CSV under the table.
+/// A section of the main window on the Mac («Отчёты» in its sidebar), a page of «Ещё» on a phone
+/// and a tablet, where the phone keeps the title in its navigation bar and puts the period and
+/// the export on one line under the tabs.
 ///
-/// The table is built by the core's `ReportBuilder` from the ledger of `ComputeStore` off the
+/// The tables are built by the core's `ReportBuilder` from the ledger of `ComputeStore` off the
 /// main thread, through `compute(_:)` in `.task(id:)`, never in `body`. The table, the period
 /// and the grouping on screen are a preference of the window (`UserDefaults`), never the
-/// database: they are there again when the window is opened again.
+/// database: they are there again when the window is opened again; the tab is read from them.
 struct ReportsWindow: View {
-  @Environment(\.themeSurfaces) private var surfaces
-  @Environment(\.windowWidth) private var windowWidth
+  @Environment(\.appTheme) private var theme
+  @Environment(\.layoutIdiom) private var chosenIdiom
   let deps: AppDependencies
   /// Shown inside the main window (or a window of a section): its minimum width is the
   /// window's own.
@@ -36,26 +38,43 @@ struct ReportsWindow: View {
   /// «Зашифровать»; the Mac asks in its save panel.
   @State private var exportRequest: PersonalDataExport?
   @State private var exportFailed = false
-  /// «Банкам за год», a sheet over the window.
-  @State private var feesOpen = false
-  /// The parents the owner folded; every parent is open until then, so the table shows every
-  /// line the CSV holds. A new table, period or grouping opens them all again.
-  @State private var collapsed: Set<String> = []
+  /// «По периодам»: the summaries of a week, a month and a year, a sheet over the screen.
+  @State private var summariesOpen = false
+  /// «Сохранить отчёт…» from the menu of the table.
+  @State private var saving = false
+
+  private var idiom: LayoutIdiom { LayoutIdiom.resolved(chosenIdiom) }
+  private var metrics: ReportsMetrics { .of(idiom) }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 0) {
-      header
-      detail
+    ScrollView(.vertical) {
+      VStack(alignment: .leading, spacing: metrics.stackGap) {
+        if metrics.showsTitle { titleRow }
+        ReportsTabsRow(
+          tabs: ReportsTab.tabs(idiom), chosen: tab, metrics: metrics, idiom: idiom,
+          choose: choose)
+        if !metrics.showsTitle { phoneLine }
+        detail
+      }
+      .padding(.horizontal, metrics.side)
+      .padding(.top, metrics.top)
+      .padding(.bottom, StyleMetrics.pageBottom)
+      .frame(maxWidth: .infinity, alignment: .leading)
     }
     #if os(macOS)
       // ⌘P: the table on screen, on paper.
       .focusedSceneValue(\.printableTable, printable)
     #endif
     .themedWindowBackground()
-    .sheet(isPresented: $feesOpen) { BankFeesSheet().handingOver(deps) }
+    .sheet(isPresented: $summariesOpen) { SummariesScreen().handingOver(deps) }
+    .sheet(isPresented: $saving) {
+      SaveViewSheet(
+        subject: .report(kind: selection.kind, grouping: selection.grouping, period: period)
+      )
+      .handingOver(deps)
+    }
     .modifier(MinimumFit(embedded: embedded))
     .task(id: loadKey) { await load() }
-    .onChange(of: request) { _, _ in collapsed = [] }
     .journalsSection(selection.kind.journalName, in: .reports)
     .exportsPersonalData(
       $exportRequest, environment: environment,
@@ -71,8 +90,9 @@ struct ReportsWindow: View {
   }
 
   #if os(macOS)
+    /// The paper of ⌘P: the spending of «По категориям», the one table of the other tabs.
     private var printable: PrintableTable? {
-      state.value.map { ReportsPrint.printable($0, environment: environment) }
+      state.value?.models.last.map { ReportsPrint.printable($0, environment: environment) }
     }
   #endif
 
@@ -88,9 +108,6 @@ struct ReportsWindow: View {
     }
   }
 
-  /// A phone: the table is drawn as a card of plain rows and the header folds to what fits.
-  private var isNarrow: Bool { windowWidth > 0 && windowWidth < 640 }
-
   // MARK: What is shown
 
   /// The day the data was built for: the day of Overview, not the clock of this window.
@@ -100,17 +117,34 @@ struct ReportsWindow: View {
     ReportsSelection(table: tableName, period: periodText, grouping: groupingName, today: today)
   }
 
+  private var tab: ReportsTab { selection.tab(idiom) }
+
   private var period: AnalyticsPeriod { selection.period }
 
-  private var request: ReportsRequest { selection.request(today: today) }
+  private var request: ReportsSheetRequest { selection.sheetRequest(idiom, today: today) }
 
-  private var state: BlockState<ReportsModel> {
+  private var state: BlockState<ReportsSheet> {
     ReportsStore.state(
-      for: request, data: compute.states.data, model: reports.model, at: reports.modelAt)
+      for: request, data: compute.states.data, sheet: reports.sheet, at: reports.sheetAt)
   }
 
   private func setPeriod(_ period: AnalyticsPeriod) {
     periodText = period.clamped(to: today).storage
+  }
+
+  /// A tab of a table stores its table and grouping; «По периодам» and «Сохранённые» open their
+  /// sheets over the table on screen.
+  private func choose(_ tab: ReportsTab) {
+    switch tab {
+    case .byPeriods:
+      summariesOpen = true
+    case .saved:
+      NotificationCenter.default.post(name: .manageSavedViews, object: nil)
+    default:
+      guard let stored = tab.stored else { return }
+      tableName = stored.kind.rawValue
+      groupingName = stored.grouping.rawValue
+    }
   }
 
   /// «Повторить» reruns the data step and what depends on it.
@@ -118,10 +152,10 @@ struct ReportsWindow: View {
     compute.retry(ComputeStep.data)
   }
 
-  // MARK: Building the table
+  // MARK: Building the tables
 
   private struct LoadKey: Hashable {
-    var request: ReportsRequest
+    var request: ReportsSheetRequest
     var generation: Int
     var dataReady: Bool
   }
@@ -138,129 +172,61 @@ struct ReportsWindow: View {
     await reports.load(key.request, ledger: ledger, compute: compute)
   }
 
-  // MARK: The table
-
-  private var detail: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      VStack(alignment: .leading, spacing: 2) {
-        Text(verbatim: ReportsText.title(of: request.kind, environment))
-          .appFont(.headline)
-          .accessibilityAddTraits(.isHeader)
-        Text(verbatim: ReportsText.subtitle(request, environment))
-          .appFont(.callout)
-          .foregroundStyle(.secondary)
-      }
-      .padding(.horizontal, 20)
-      .padding(.top, 14)
-
-      if let model = state.value {
-        Group {
-          if isNarrow {
-            ReportCardTable(model: model, collapsed: $collapsed)
-          } else {
-            ReportTableView(model: model, collapsed: $collapsed)
-          }
-        }
-        .clipShape(.rect(cornerRadius: 12))
-        .overlay(
-          RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
-        )
-        .padding(.horizontal, 20)
-        Text(verbatim: t("reports.csvNote"))
-          .appFont(.caption).foregroundStyle(.secondary)
-          .padding(.horizontal, 20).padding(.bottom, 12)
-      } else {
-        ComputedBlock(
-          title: nil, state: state, style: .plain,
-          emptyReason: ReportsText.emptyReason(request.kind, environment), retry: retry
-        ) { _ in
-          EmptyView()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-      }
-    }
-  }
-
   // MARK: The header
 
-  /// The title and the period with the export on top, the tables as a row of chips under it,
-  /// «Группировать по» beside them for the tables that group.
-  private var header: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      ViewThatFits(in: .horizontal) {
-        HStack(alignment: .center, spacing: 10) {
-          Text(verbatim: t("reports.window.title"))
-            .appFont(.title2.weight(.semibold))
-            .accessibilityAddTraits(.isHeader)
-          Spacer(minLength: 12)
-          periodControls
-          exportButton
-        }
-        VStack(alignment: .leading, spacing: 10) {
-          Text(verbatim: t("reports.window.title"))
-            .appFont(.title2.weight(.semibold))
-            .accessibilityAddTraits(.isHeader)
-          HStack(spacing: 10) {
-            periodControls
-            exportButton
-          }
-        }
-        // A phone: the title and the export on one line, the period across the width under it.
-        VStack(alignment: .leading, spacing: 10) {
-          HStack {
-            Text(verbatim: t("reports.window.title"))
-              .appFont(.title2.weight(.semibold))
-              .accessibilityAddTraits(.isHeader)
-            Spacer(minLength: 8)
-            exportButton
-          }
-          compactPeriodControls
-        }
-      }
-      FlowRow(spacing: 6, lineSpacing: 6) {
-        ForEach(ReportTable.Kind.allCases, id: \.self) { kind in
-          SectionChip(
-            title: ReportsText.title(of: kind, environment), symbol: "tablecells",
-            selected: kind == selection.kind
-          ) { tableName = kind.rawValue }
-        }
-        // Not a table of the ledger by category: the fees and the interest paid to banks.
-        SectionChip(
-          title: BankText.t("bank.fees.title", environment), symbol: "building.columns",
-          selected: false
-        ) { feesOpen = true }
-        .accessibilityIdentifier("reports.bankFees")
-      }
-      .accessibilityElement(children: .contain)
-      .accessibilityIdentifier("reports.tables")
-      if selection.isGroupable {
-        HStack(spacing: 8) {
-          Text(verbatim: t("reports.sidebar.grouping"))
-            .appFont(.caption).foregroundStyle(.secondary)
-          Picker(selection: groupingSelection) {
-            ForEach(ReportGrouping.allCases, id: \.self) { grouping in
-              Text(verbatim: ReportsText.title(of: grouping, environment)).tag(grouping)
-            }
-          } label: {
-            Text(verbatim: t("reports.sidebar.grouping"))
-          }
-          .labelsHidden()
-          .fixedSize()
-        }
-      } else {
-        Text(verbatim: t("reports.grouping.spendingOnly"))
-          .appFont(.caption).foregroundStyle(.secondary)
-      }
+  /// «Отчёты», and at the right edge the period and «Выгрузить CSV…», the one orange button.
+  private var titleRow: some View {
+    ScreenTitleRow(title: t("reports.window.title")) {
+      periodButton
+      exportButton
     }
-    .padding(.horizontal, 20)
-    .padding(.top, 12)
-    .padding(.bottom, 8)
   }
 
-  /// The period as a phone shows it: «Месяц | Год» across the width, under it the steps as
-  /// arrows around the chosen period and «Текущий».
-  private var compactPeriodControls: some View {
-    VStack(spacing: 8) {
+  /// The phone: the period with its chevron at the left, «Выгрузить CSV…» in the accent at the
+  /// right, 12 pt.
+  private var phoneLine: some View {
+    HStack {
+      Button {
+        choosingPeriod = true
+      } label: {
+        HStack(spacing: 4) {
+          Text(verbatim: AnalyticsText.title(of: period, environment))
+          Image(systemName: "chevron.down").appFont(AppFont.system(size: 10, weight: .semibold))
+        }
+        .appFont(AppFont.system(size: 12))
+        .foregroundStyle(theme.contentPrimary)
+      }
+      .buttonStyle(.plain)
+      .accessibilityIdentifier("period.choose.compact")
+      .popover(isPresented: $choosingPeriod) { periodPopover }
+      Spacer(minLength: 8)
+      Button(t("reports.export")) { export() }
+        .buttonStyle(.plain)
+        .appFont(AppFont.system(size: 12, weight: .medium))
+        .foregroundStyle(theme.accentDefault)
+        .disabled(state.value == nil)
+        .accessibilityIdentifier("reports.export")
+    }
+  }
+
+  /// The chosen month or year; it opens the chooser.
+  private var periodButton: some View {
+    Button {
+      choosingPeriod = true
+    } label: {
+      Text(verbatim: AnalyticsText.title(of: period, environment)).monospacedDigit()
+    }
+    .buttonStyle(.quietAction)
+    .fixedSize()
+    .help(t("reports.period.choose"))
+    .accessibilityIdentifier("period.choose")
+    .popover(isPresented: $choosingPeriod) { periodPopover }
+    .task { if await LaunchPresentation.due(.periodChooser) { choosingPeriod = true } }
+  }
+
+  /// A month or a year, the months or the years to pick from, and «Текущий».
+  private var periodPopover: some View {
+    VStack(spacing: 10) {
       Picker(selection: periodKindSelection) {
         Text(verbatim: t("reports.period.month")).tag(AnalyticsPeriod.Kind.month)
         Text(verbatim: t("reports.period.year")).tag(AnalyticsPeriod.Kind.year)
@@ -269,110 +235,20 @@ struct ReportsWindow: View {
       }
       .pickerStyle(.segmented)
       .labelsHidden()
-      HStack(spacing: 8) {
-        Button {
-          setPeriod(period.stepped(by: -1))
-        } label: {
-          Image(systemName: "chevron.left")
-        }
-        .accessibilityLabel(Text(verbatim: t("reports.period.previous")))
-        Button {
-          choosingPeriod = true
-        } label: {
-          Text(verbatim: AnalyticsText.title(of: period, environment))
-            .monospacedDigit().lineLimit(1).frame(maxWidth: .infinity)
-        }
-        .accessibilityIdentifier("period.choose.compact")
-        .popover(isPresented: $choosingPeriod) {
-          PeriodChooser(period: period, today: today) { chosen in
-            setPeriod(chosen)
-            choosingPeriod = false
-          }
-          .appDependencies(deps)
-        }
-        Button {
-          setPeriod(period.stepped(by: 1))
-        } label: {
-          Image(systemName: "chevron.right")
-        }
-        .disabled(!period.canStepForward(today: today))
-        .accessibilityLabel(Text(verbatim: t("reports.period.next")))
-        Button(t("reports.period.current")) {
-          setPeriod(.current(period.kind, today: today))
-        }
-        .lineLimit(1)
-        .disabled(period.isCurrent(today: today))
+      PeriodChooser(period: period, today: today) { chosen in
+        setPeriod(chosen)
+        choosingPeriod = false
       }
-      .buttonStyle(.borderless)
+      Button(t("reports.period.current")) {
+        setPeriod(.current(period.kind, today: today))
+        choosingPeriod = false
+      }
+      .disabled(period.isCurrent(today: today))
     }
-  }
-
-  private var periodControls: some View {
-    HStack(spacing: 8) { periodControlsContent }
-  }
-
-  @ViewBuilder
-  private var periodControlsContent: some View {
-    Picker(selection: periodKindSelection) {
-      Text(verbatim: t("reports.period.month")).tag(AnalyticsPeriod.Kind.month)
-      Text(verbatim: t("reports.period.year")).tag(AnalyticsPeriod.Kind.year)
-    } label: {
-      Text(verbatim: t("reports.period.kind"))
-    }
-    .pickerStyle(.segmented)
-    .labelsHidden()
-
-    HStack(spacing: 4) {
-      Button {
-        setPeriod(period.stepped(by: -1))
-      } label: {
-        Image(systemName: "chevron.left")
-      }
-      .buttonStyle(.borderless)
-      .help(t("reports.period.previous"))
-      .accessibilityLabel(Text(verbatim: t("reports.period.previous")))
-
-      Spacer(minLength: 4)
-      Button {
-        choosingPeriod = true
-      } label: {
-        Text(verbatim: AnalyticsText.title(of: period, environment))
-          .monospacedDigit()
-      }
-      .accessibilityIdentifier("period.choose")
-      .buttonStyle(.borderless)
-      .help(t("reports.period.choose"))
-      .popover(isPresented: $choosingPeriod) {
-        PeriodChooser(period: period, today: today) { chosen in
-          setPeriod(chosen)
-          choosingPeriod = false
-        }
-        .appDependencies(deps)
-      }
-      .task { if await LaunchPresentation.due(.periodChooser) { choosingPeriod = true } }
-      Spacer(minLength: 4)
-
-      Button {
-        setPeriod(period.stepped(by: 1))
-      } label: {
-        Image(systemName: "chevron.right")
-      }
-      .buttonStyle(.borderless)
-      .disabled(!period.canStepForward(today: today))
-      .help(t("reports.period.next"))
-      .accessibilityLabel(Text(verbatim: t("reports.period.next")))
-    }
-
-    Button(t("reports.period.current")) {
-      setPeriod(.current(period.kind, today: today))
-    }
-    .disabled(period.isCurrent(today: today))
-  }
-
-  private var kindSelection: Binding<ReportTable.Kind> {
-    Binding(
-      get: { selection.kind },
-      set: { tableName = $0.rawValue })
+    .padding(.top, 12)
+    .padding(.bottom, 12)
+    .appDependencies(deps)
+    .presentationCompactAdaptation(.popover)
   }
 
   private var periodKindSelection: Binding<AnalyticsPeriod.Kind> {
@@ -381,50 +257,60 @@ struct ReportsWindow: View {
       set: { setPeriod(period.with(kind: $0)) })
   }
 
-  /// The chosen grouping, kept while a table without grouping is on screen.
-  private var groupingSelection: Binding<ReportGrouping> {
-    Binding(
-      get: { selection.grouping },
-      set: { groupingName = $0.rawValue })
+  // MARK: The table
+
+  @ViewBuilder
+  private var detail: some View {
+    if let sheet = state.value {
+      let grid = ReportGridBuilder.grid(sheet, idiom, environment)
+      ReportGridView(grid: grid, metrics: metrics, idiom: idiom)
+        .contextMenu {
+          Button(QuestionsText.t("questions.saved.save.report", environment)) { saving = true }
+        }
+      Text(verbatim: t(tab == .byMonth ? "reports.monthNote" : "reports.csvNote"))
+        .appFont(ReportsType.note)
+        .foregroundStyle(theme.contentSecondary)
+        .accessibilityIdentifier("reports.note")
+    } else {
+      ComputedBlock(
+        title: nil, state: state, style: .plain, emptyReason: emptyReason, retry: retry
+      ) { _ in
+        EmptyView()
+      }
+      .frame(maxWidth: .infinity, minHeight: 240)
+    }
+  }
+
+  /// Why a tab has no lines: no spending for a tab of spending, nothing at all for the others.
+  private var emptyReason: String {
+    switch tab {
+    case .byEvent, .byPerson, .byAccount, .byPlace: t("reports.empty.expenses")
+    case .byMonth where period.kind == .year: t("reports.empty.year")
+    default: t("reports.empty.periodTotal")
+    }
   }
 
   // MARK: Export
 
-  /// The saved reports next to the export: open one, keep the table on screen under a name.
+  /// «Выгрузить CSV…», the one orange button of the screen.
   private var exportButton: some View {
-    HStack(spacing: 8) {
-      SavedReportsMenu(kind: selection.kind, grouping: selection.grouping, period: period)
-      exportAction
-    }
-  }
-
-  private var exportAction: some View {
-    Button {
-      export()
-    } label: {
-      Label {
-        Text(verbatim: t("reports.export"))
-      } icon: {
-        Image(systemName: "square.and.arrow.up")
-      }
-    }
-    .buttonStyle(.borderedProminent)
-    .labelStyle(.titleAndIcon)
-    .help(t("reports.export.help"))
-    // Nothing to export while the table is computed or has no lines.
-    .disabled(state.value == nil)
+    Button(t("reports.export")) { export() }
+      .buttonStyle(.primaryAction)
+      .fixedSize()
+      .help(t("reports.export.help"))
+      // Nothing to export while the table is computed or has no lines.
+      .disabled(state.value == nil)
+      .accessibilityIdentifier("reports.export")
   }
 
   private func export() {
-    guard let model = state.value else { return }
+    guard let sheet = state.value else { return }
     #if os(macOS)
-      Task { await ReportExport.run(model: model, environment: environment, compute: compute) }
+      Task { await ReportExport.run(sheet: sheet, environment: environment, compute: compute) }
     #else
-      let names = ReportsText.csvNames(for: model, environment)
-      let name = (ReportFileName.make(for: model.request) as NSString).deletingPathExtension
       exportRequest = PersonalDataExport(
-        defaultName: name,
-        files: [.init(name: name + ".csv", data: ReportExport.data(model.table, names: names))])
+        defaultName: ReportFileName.stem(for: sheet.request),
+        files: ReportExport.files(sheet, environment: environment))
     #endif
   }
 
@@ -432,143 +318,9 @@ struct ReportsWindow: View {
 
   // MARK: Widths
 
-  static let sidebarMinWidth: CGFloat = 230
-  static let sidebarIdealWidth: CGFloat = 260
-  static let sidebarMaxWidth: CGFloat = 340
-
   /// The narrowest the content goes, and so the window's minimum (`SecondaryWindow(minWidth:)`):
-  /// a window allowed narrower cut the content off at both edges. The sidebar hidden at this
-  /// width and shown again takes its room from the content, not from the window.
+  /// a window allowed narrower cut the content off at both edges.
   static let minimumWidth: CGFloat = 760
-}
-
-/// The table on screen: a SwiftUI `Table`, no glass — content is never glass. Every line of
-/// the model, in the order of the CSV: a parent with its children under a disclosure
-/// triangle, open until the owner folds it; then the average and the total, in semibold.
-/// Amounts are whole rubles in monospaced digits on the right, shares with two decimals.
-/// A year with no completed month yet has its average line too, reading «мало данных».
-struct ReportTableView: View {
-  @Dependency(\.environment) private var environment
-  let model: ReportsModel
-  @Binding var collapsed: Set<String>
-
-  /// A column of amounts: one for most tables, spending, income and net for the monthly one.
-  struct MeasureColumn: Identifiable {
-    let index: Int
-    let title: String
-    var id: Int { index }
-  }
-
-  var body: some View {
-    // The columns differ from one table to another: each gets a table of its own, and the
-    // stage that fills it is made again with it, so a new table starts empty too.
-    ReportTableStage(model: model, collapsed: $collapsed)
-      .id(model.request.kind)
-  }
-}
-
-/// The table, created empty and filled from `onAppear`. A `Table` made with its disclosure rows
-/// expands them inside `makeNSView`, and AppKit touches the table from its own delegate
-/// («reentrant operation»): the lines come one turn later.
-private struct ReportTableStage: View {
-  @Dependency(\.environment) private var environment
-  let model: ReportsModel
-  @Binding var collapsed: Set<String>
-  @State private var filled = false
-
-  var body: some View {
-    Table(of: ReportLine.self) {
-      columns
-    } rows: {
-      rows
-    }
-    .onAppear { filled = true }
-  }
-
-  @TableRowBuilder<ReportLine>
-  private var rows: some TableRowContent<ReportLine> {
-    ForEach(filled ? model.lines : []) { line in
-      if line.children.isEmpty {
-        TableRow(line)
-      } else {
-        DisclosureTableRow(line, isExpanded: expansion(of: line)) {
-          ForEach(line.children) { child in
-            TableRow(child)
-          }
-        }
-      }
-    }
-  }
-
-  private func expansion(of line: ReportLine) -> Binding<Bool> {
-    Binding(
-      get: { !collapsed.contains(line.id) },
-      set: { isOpen in
-        if isOpen { collapsed.remove(line.id) } else { collapsed.insert(line.id) }
-      })
-  }
-
-  private var measures: [ReportTableView.MeasureColumn] {
-    model.table.measures.enumerated().map { index, measure in
-      ReportTableView.MeasureColumn(index: index, title: ReportsText.column(measure, environment))
-    }
-  }
-
-  @TableColumnBuilder<ReportLine, Never>
-  private var columns: some TableColumnContent<ReportLine, Never> {
-    TableColumn(Text(verbatim: ReportsText.nameColumn(model.table.kind, environment))) { line in
-      ReportNameCell(
-        line: line, name: ReportsText.name(of: line, in: model, environment),
-        mark: ReportsText.mark(of: line, in: model, environment))
-    }
-    .width(min: 180, ideal: 320)
-
-    TableColumnForEach(measures) { column in
-      TableColumn(Text(verbatim: column.title)) { line in
-        Text(verbatim: ReportsText.value(of: line, at: column.index, environment))
-          .monospacedDigit()
-          .fontWeight(line.isSummary && !line.lacksData ? .semibold : nil)
-          .foregroundStyle(line.values[column.index] == nil ? .secondary : .primary)
-      }
-      .width(min: 100, ideal: 140)
-      .alignment(.trailing)
-    }
-
-    if model.table.hasShares {
-      TableColumn(Text(verbatim: ReportsText.t("reports.column.share", environment))) { line in
-        Text(verbatim: ReportsText.share(line.share, environment))
-          .monospacedDigit()
-          .fontWeight(line.isSummary ? .semibold : nil)
-      }
-      .width(min: 70, ideal: 90)
-      .alignment(.trailing)
-    }
-  }
-}
-
-/// The name of a line; a month that is not over says so in words and with a symbol —
-/// «неполный», «ещё не начался» — never by the symbol alone.
-private struct ReportNameCell: View {
-  let line: ReportLine
-  let name: String
-  let mark: (text: String, symbol: String)?
-
-  var body: some View {
-    HStack(spacing: 6) {
-      Text(verbatim: name)
-        .lineLimit(1)
-        .fontWeight(line.isSummary ? .semibold : nil)
-      if let mark {
-        Label {
-          Text(verbatim: mark.text)
-        } icon: {
-          Image(systemName: mark.symbol)
-        }
-        .appFont(.caption)
-        .foregroundStyle(.secondary)
-      }
-    }
-  }
 }
 
 extension ReportTable.Kind {

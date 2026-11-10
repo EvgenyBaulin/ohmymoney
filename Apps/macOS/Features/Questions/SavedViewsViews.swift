@@ -367,48 +367,6 @@ struct SavedFiltersMenu: View {
   }
 }
 
-/// The saved reports in the Reports window: open one, save the table on screen, open the list.
-struct SavedReportsMenu: View {
-  @Dependency(\.environment) private var environment
-  @Dependency(\.compute) private var compute
-  @Environment(\.dependencies) private var dependencies
-  let kind: ReportTable.Kind
-  let grouping: ReportGrouping
-  let period: AnalyticsPeriod
-  @State private var saving = false
-
-  private func t(_ key: String) -> String { QuestionsText.t(key, environment) }
-
-  var body: some View {
-    let book = compute.snapshot?.dataset.savedViews ?? SavedViewsBook()
-    Menu {
-      ForEach(book.reports) { report in
-        Button(report.name) {
-          QuestionOpening.prepareReports(
-            report, today: compute.snapshot?.today ?? environment.today)
-        }
-      }
-      if !book.reports.isEmpty { Divider() }
-      Button(t("questions.saved.save.report")) { saving = true }
-        .accessibilityIdentifier("saved.menu.saveReport")
-      Button(t("questions.saved.manage")) {
-        NotificationCenter.default.post(name: .manageSavedViews, object: nil)
-      }
-    } label: {
-      Label {
-        Text(verbatim: t("questions.saved.menu.reports"))
-      } icon: {
-        Image(systemName: "bookmark")
-      }
-    }
-    .sheet(isPresented: $saving) {
-      SaveViewSheet(subject: .report(kind: kind, grouping: grouping, period: period))
-        .handingOver(dependencies)
-    }
-    .accessibilityIdentifier("reports.saved")
-  }
-}
-
 /// The saved filters that have a period, to move Analytics to it.
 struct SavedPeriodsMenu: View {
   @Dependency(\.environment) private var environment

@@ -153,6 +153,20 @@ enum ReportsText {
     value.map { environment.money.rubles($0) } ?? "—"
   }
 
+  /// A figure of the table on screen: whole rubles with their thousands grouped and no unit —
+  /// the column says «Сумма, ₽» —, a dash for a month still to come: «120 000».
+  static func figure(_ value: Int64?, _ environment: AppEnvironment) -> String {
+    guard let value else { return "—" }
+    if environment.money.hidesAmounts { return MoneyFormatter.mask }
+    return NumberText.integer(value)
+  }
+
+  /// A difference with its sign: «+65 700», «−1 200», «0».
+  static func signedFigure(_ value: Int64, _ environment: AppEnvironment) -> String {
+    if environment.money.hidesAmounts { return MoneyFormatter.mask }
+    return (value > 0 ? "+" : "") + NumberText.integer(value)
+  }
+
   /// A cell of a measure: the amount or a dash, and «мало данных» on the line of an
   /// average there is none to take yet.
   static func value(
@@ -193,6 +207,15 @@ enum ReportFileName {
       parts.append("by-\(slug(request.grouping))")
     }
     return parts.joined(separator: "-") + ".csv"
+  }
+
+  /// The name of what a tab writes as one locked file or offers for its folder, with no
+  /// extension: `ohmymoney-by-category-2026-09`.
+  static func stem(for request: ReportsSheetRequest) -> String {
+    let slug = request.tab.rawValue.reduce(into: "") { text, character in
+      text += character.isUppercase ? "-" + character.lowercased() : String(character)
+    }
+    return ["ohmymoney", slug, period(request.period.period)].joined(separator: "-")
   }
 
   static func slug(_ kind: ReportTable.Kind) -> String {

@@ -231,9 +231,14 @@ enum AnalyticsText {
 
   // MARK: - Periods
 
-  /// «Сентябрь 2026», «2026», «окт. 2025 – сент. 2026».
+  /// «Сентябрь 2026», «2026», «окт. 2025 – сент. 2026», «9–15 нояб.», «окт. – дек. 2026».
   static func title(of period: AnalyticsPeriod, _ environment: AppEnvironment) -> String {
     switch period.kind {
+    case .week:
+      return environment.dates.span(period.period.range)
+    case .quarter:
+      return "\(environment.dates.shortMonth(period.month)) – "
+        + environment.dates.shortMonthAndYear(period.month.adding(months: 2))
     case .month:
       return environment.dates.monthTitle(period.month)
     case .year:
