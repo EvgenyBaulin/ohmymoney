@@ -69,7 +69,7 @@ final class EntryTransferTests: XCTestCase {
     XCTAssertTrue(host.window.makeFirstResponder(line))
     try XCTUnwrap(host.window.firstResponder as? NSTextView).insertNewline(nil)
     var written: [Transfer] = []
-    let deadline = Date().addingTimeInterval(3)
+    let deadline = Date().addingTimeInterval(15)  // ten test hosts and lane builds can share the machine
     while written.isEmpty, Date() < deadline {
       host.settle(0.1)
       let books = await TransferActions(environment: host.environment, store: host.store).books()
