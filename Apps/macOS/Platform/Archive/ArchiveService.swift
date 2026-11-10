@@ -493,6 +493,12 @@ enum ArchiveImportFlow {
         defaults.set(flag == "1", forKey: key)
       }
     }
+    // «Карта или счёт» is kept when this build knows the word.
+    if let choice = values[AppEnvironment.entryFirstPurchaseKey],
+      FirstPurchasePayment(rawValue: choice) != nil
+    {
+      defaults.set(choice, forKey: AppEnvironment.entryFirstPurchaseKey)
+    }
     // The tiles of Overview are read as a list the grid can show before they are kept: a tile
     // this build does not know goes.
     if let tiles = values[AppEnvironment.overviewTilesKey] {

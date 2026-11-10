@@ -193,14 +193,18 @@ extension CardRules {
 
   /// The card of an operation on `account`, in the order the entry asks: the card the line
   /// named; none when it said «со счёта»; the card of the last purchase at the place
-  /// (`placeCard`); the default card of the account (`defaultCard`).
+  /// (`placeCard`); none for the first purchase at a place never paid at before
+  /// (`firstAtPlace`) when the owner chose «Счёт» for it (`firstPurchase`); the default card of
+  /// the account (`defaultCard`).
   public static func operationCard(
     named: UUID?, withoutCard: Bool, placeCard: UUID?, account: PaymentMethod,
-    cards: [PaymentCard]
+    cards: [PaymentCard], firstAtPlace: Bool = false,
+    firstPurchase: FirstPurchasePayment = .standard
   ) -> UUID? {
     if let named { return named }
     if withoutCard { return nil }
     if let placeCard { return placeCard }
+    if firstAtPlace, firstPurchase == .account { return nil }
     return defaultCard(account: account, cards: cards)
   }
 
@@ -223,4 +227,17 @@ extension CardRules {
     changed.mainCardId = nil
     return changed
   }
+}
+
+/// «Карта или счёт» of the settings of the entry: what the first purchase at a new place is made
+/// with. Only the first one: every later purchase at the place takes the card of the last one
+/// there, so the coffee bought again in the same café keeps its card.
+public enum FirstPurchasePayment: String, CaseIterable, Sendable {
+  /// The default card of the account — the main one, else the only one.
+  case card
+  /// The account, with no card.
+  case account
+
+  /// A purchase is made with a card unless it says otherwise.
+  public static let standard: FirstPurchasePayment = .card
 }

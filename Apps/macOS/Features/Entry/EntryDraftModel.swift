@@ -211,6 +211,13 @@ public final class EntryDraftModel {
   /// The card the defaults laid. While the draft still holds it, the defaults lay another; a card
   /// the line named or the owner picked stays.
   var cardFromDefaults: UUID?
+  /// The place of the operation was never paid at before: the first purchase there follows
+  /// «Карта или счёт» of the settings (`readsFirstPurchase`), every later one the card of the
+  /// last. Laid with the account by the defaults.
+  var isFirstAtPlace = false
+  /// «Карта или счёт» of the settings of the entry, handed over in `init(environment:)`;
+  /// without it the first purchase at a place is made with a card, as every other.
+  var readsFirstPurchase: (() -> FirstPurchasePayment)?
   /// The line said «смз»: income of the self-employed (`InputLineReading.selfEmployed`). Kept
   /// until the draft starts over, so the bar can offer to count the tax once it is written.
   public internal(set) var lineSaysSelfEmployed = false
@@ -363,6 +370,7 @@ public final class EntryDraftModel {
       defaultCurrency: environment.defaultCurrency)
     readsDefaultCurrency = { [weak environment] in environment?.defaultCurrency ?? .rub }
     readsTripDefaults = { [weak environment] in environment?.tripEntryDefaults }
+    readsFirstPurchase = { [weak environment] in environment?.entryFirstPurchase ?? .standard }
     if !editsSavedOperation {
       draft.currency = defaultCurrency
       currencyFromDefaults = defaultCurrency
@@ -1120,6 +1128,7 @@ public final class EntryDraftModel {
       let lastAtPlace = place.flatMap { place in
         history.first { $0.transaction.placeId == place }
       }.map { (accountId: $0.transaction.paymentMethodId, cardId: $0.transaction.cardId) }
+      isFirstAtPlace = place != nil && lastAtPlace == nil
       let placeCard =
         has(.card)
         ? CardRules.cardForNewOperation(
@@ -3202,6 +3211,7 @@ public final class EntryDraftModel {
     paysFromAccount = false
     paysFromAccountByTheLine = false
     cardFromDefaults = nil
+    isFirstAtPlace = false
     lineSaysSelfEmployed = false
     warrantyFromTheLine = nil
     returnFromTheLine = nil

@@ -107,8 +107,9 @@ final class ModelQualitySectionTests: XCTestCase {
     XCTAssertEqual(AnalyticsSection.listed.count, AnalyticsSection.allCases.count - 1)
     let sections = SettingsSection.allCases
     let hints = try XCTUnwrap(sections.firstIndex(of: .categoryHints))
-    XCTAssertEqual(sections[hints + 1], .backups)
-    XCTAssertEqual(sections[hints - 1], .privacy)
+    // The design's sidebar puts it right after «Ввод».
+    XCTAssertEqual(sections[hints + 1], .templates)
+    XCTAssertEqual(sections[hints - 1], .entry)
     XCTAssertFalse(SettingsSection.categoryHints.index.isEmpty)
   }
 

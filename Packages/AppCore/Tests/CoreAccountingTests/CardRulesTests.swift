@@ -195,6 +195,30 @@ struct MainCardTests {
     #expect(card(nil, false, nil) == id(12))
   }
 
+  /// «Карта или счёт» of the settings of the entry speaks only for the first purchase at a place
+  /// the history has never seen: «Счёт» makes it without a card. Every later purchase there
+  /// takes the card of the last one, and a purchase with no place keeps the main card.
+  @Test func theFirstPurchaseAtANewPlaceFollowsTheSetting() {
+    var main = account
+    main.mainCardId = id(12)
+    func card(_ place: UUID?, firstAtPlace: Bool, _ choice: FirstPurchasePayment) -> UUID? {
+      CardRules.operationCard(
+        named: nil, withoutCard: false, placeCard: place, account: main, cards: cards,
+        firstAtPlace: firstAtPlace, firstPurchase: choice)
+    }
+    #expect(card(nil, firstAtPlace: true, .account) == nil)
+    #expect(card(nil, firstAtPlace: true, .card) == id(12))
+    #expect(card(nil, firstAtPlace: false, .account) == id(12))
+    #expect(card(id(11), firstAtPlace: false, .account) == id(11))
+    // A card the line named still wins.
+    #expect(
+      CardRules.operationCard(
+        named: id(11), withoutCard: false, placeCard: nil, account: main, cards: cards,
+        firstAtPlace: true, firstPurchase: .account) == id(11))
+    #expect(FirstPurchasePayment.standard == .card)
+    #expect(FirstPurchasePayment(rawValue: "account") == .account)
+  }
+
   /// The main card into the archive: the account loses it in the same write; merged away: the
   /// kept card is main.
   @Test func archivingAndMergingTheMainCard() throws {

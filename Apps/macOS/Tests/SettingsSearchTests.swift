@@ -16,7 +16,7 @@ final class SettingsSearchTests: XCTestCase {
       SettingsSection.allCases,
       [
         .general, .appearance, .currencies, .accounts, .categories, .references, .entry,
-        .templates, .planning, .rules, .attachments, .purchases, .privacy, .categoryHints,
+        .categoryHints, .templates, .planning, .rules, .attachments, .purchases, .privacy,
         .backups,
       ])
     XCTAssertEqual(Set(SettingsSection.allCases.map(\.symbol)).count, 15, "no two share a symbol")

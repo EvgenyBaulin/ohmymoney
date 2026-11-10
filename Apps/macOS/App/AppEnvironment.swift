@@ -216,8 +216,22 @@ public final class AppEnvironment {
     }
   }
 
+  /// «Карта или счёт»: what the first purchase at a place never paid at before is made with. A
+  /// card by default; every later purchase there takes the card of the last one. Kept like
+  /// `entryChipsShown`.
+  public var entryFirstPurchase: FirstPurchasePayment =
+    UserDefaults.standard.string(forKey: AppEnvironment.entryFirstPurchaseKey)
+    .flatMap(FirstPurchasePayment.init(rawValue:)) ?? .standard
+  {
+    didSet {
+      guard entryFirstPurchase != oldValue else { return }
+      UserDefaults.standard.set(entryFirstPurchase.rawValue, forKey: Self.entryFirstPurchaseKey)
+    }
+  }
+
   nonisolated static let entryChipsKey = "entry.chips"
   nonisolated static let entryHistoryHintsKey = "entry.historyHints"
+  nonisolated static let entryFirstPurchaseKey = "entry.firstPurchase"
 
   /// A switch `UserDefaults` keeps; on when there is none.
   nonisolated static func storedFlag(_ key: String, in defaults: UserDefaults = .standard) -> Bool {
@@ -780,6 +794,7 @@ public final class AppEnvironment {
       Self.entryStyleKey: entryStyle.rawValue,
       Self.entryChipsKey: entryChipsShown ? "1" : "0",
       Self.entryHistoryHintsKey: entryHistoryHintsShown ? "1" : "0",
+      Self.entryFirstPurchaseKey: entryFirstPurchase.rawValue,
       Self.overviewTilesKey: OverviewTiles.encode(overviewTiles),
       Self.overviewLayoutKey: overviewLayout.encode(),
       PlanningLayoutStore.orderKey: PlanningLayoutStore.portableOrder(in: .standard),

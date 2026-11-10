@@ -12,13 +12,13 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
   case categories
   case references
   case entry
+  case categoryHints
   case templates
   case planning
   case rules
   case attachments
   case purchases
   case privacy
-  case categoryHints
   case backups
 
   /// The name of the section, a key of the Settings table.
@@ -44,6 +44,14 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
 
   /// The line symbol of the section (`tileSymbol`).
   var symbol: String { tileSymbol }
+
+  /// The groups of the phone's list of settings, as drawn: what the books are, how they are
+  /// entered, and the rest. Every section stands in one group, once.
+  static let phoneGroups: [[SettingsSection]] = [
+    [.general, .appearance, .currencies, .accounts],
+    [.categories, .references, .entry, .categoryHints, .templates],
+    [.planning, .rules, .attachments, .purchases, .privacy, .backups],
+  ]
 
   /// Spotlight, the notifications and the bank messages, in «Приватность» on the Mac only.
   private static var macCaptions: [SettingsCaption] {
@@ -112,7 +120,9 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
       [
         .settings("settings.entry.style"), .settings("settings.entry.chips"),
         .settings("settings.entry.historyHints"), .settings("settings.entry.order"),
-        .overview("overview.small.field.title"),
+        .overview("overview.small.field.title"), .settingsAccounts("settings.entry.mainAccount"),
+        .settingsAccounts("settings.entry.defaultCurrency"),
+        .settingsAccounts("settings.entry.firstPurchase"),
       ]
     case .templates:
       [.settings("templates.showArchive")]
@@ -197,6 +207,10 @@ struct SettingsCaption: Hashable, Sendable {
 
   static func accounts(_ key: String) -> SettingsCaption {
     SettingsCaption(key: key, table: "Accounts")
+  }
+
+  static func settingsAccounts(_ key: String) -> SettingsCaption {
+    SettingsCaption(key: key, table: "SettingsAccounts")
   }
 
   static func sync(_ key: String) -> SettingsCaption {

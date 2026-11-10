@@ -20,6 +20,9 @@ struct TemplatesSettingsView: View {
   @State private var showsArchive = false
   /// A write the database refused; the alert says so (`AppEnvironment.attempt`).
   @State private var refused = false
+  /// «Добавить шаблон…» pressed: the words of the new template, typed in the last row.
+  @State private var adding: String?
+  @FocusState private var addFieldFocused: Bool
 
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
@@ -35,6 +38,7 @@ struct TemplatesSettingsView: View {
           ForEach($templates, id: \.id) { $template in
             if !template.archived { liveRow($template) }
           }
+          addRow
         }
         if showsArchive, templates.contains(where: \.archived) {
           Section {
@@ -49,7 +53,7 @@ struct TemplatesSettingsView: View {
       }
       .frame(minHeight: 240)
 
-      Text(verbatim: t("templates.hint"))
+      Text(verbatim: environment.language("templates.hintAdded", table: EntryLinks.table))
         .appFont(.callout)
         .foregroundStyle(.secondary)
     }
@@ -57,6 +61,57 @@ struct TemplatesSettingsView: View {
     .onAppear(perform: reload)
     .onReceive(NotificationCenter.default.publisher(for: .templatesChanged)) { _ in reload() }
     .refusedWriteAlert($refused, environment)
+  }
+
+  /// «Добавить шаблон…»: a template is made by hand too, not only by what is entered. The
+  /// words are typed in the row and written with Return; a template made so is pinned, so its
+  /// chip stands under the line at once.
+  @ViewBuilder
+  private var addRow: some View {
+    if let text = adding {
+      HStack(spacing: 10) {
+        Image(systemName: "pin.fill")
+          .foregroundStyle(.secondary)
+          .accessibilityHidden(true)
+        TextField(
+          text: Binding(get: { text }, set: { adding = $0 }),
+          prompt: Text(
+            verbatim: environment.language("templates.add.prompt", table: EntryLinks.table))
+        ) { EmptyView() }
+        .labelsHidden()
+        .textFieldStyle(.plain)
+        .focused($addFieldFocused)
+        .onSubmit { add(text) }
+        .onExitCommand { adding = nil }
+        .accessibilityIdentifier("templates.add.field")
+      }
+    } else {
+      Button {
+        adding = ""
+        addFieldFocused = true
+      } label: {
+        Text(verbatim: environment.language("templates.add", table: EntryLinks.table))
+          .foregroundStyle(.tint)
+      }
+      .buttonStyle(.plain)
+      .accessibilityIdentifier("templates.add")
+    }
+  }
+
+  private func add(_ text: String) {
+    guard let template = TemplatesByHand.template(from: text) else {
+      adding = nil
+      return
+    }
+    adding = nil
+    // Words a template already holds pin that one rather than make a second chip of them.
+    if let same = templates.first(where: {
+      $0.text.caseInsensitiveCompare(template.text) == .orderedSame
+    }) {
+      write("templates.add") { try $0.setTemplate(same.id, pinned: true) }
+      return
+    }
+    write("templates.add") { try $0.save(template) }
   }
 
   /// What the pin of a row says it will do: unpin a pinned template, pin any other.
@@ -190,5 +245,25 @@ struct TemplatesSettingsView: View {
     NotificationCenter.default.post(name: .templatesChanged, object: nil)
     reload()
     environment.scheduleBackup()
+  }
+}
+
+/// A template added by hand with «Добавить шаблон…»: the words typed, an amount at their end
+/// taken as its amount («кофе 250»), pinned, used never.
+enum TemplatesByHand {
+  static func template(from typed: String) -> Template? {
+    let words = typed.trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !words.isEmpty else { return nil }
+    var parts = words.split(separator: " ").map(String.init)
+    var amount: AmountE4?
+    if parts.count > 1, let last = parts.last,
+      last.allSatisfy({ $0.isNumber || $0 == "," || $0 == "." }),
+      let value = Decimal(string: last.replacingOccurrences(of: ",", with: "."), locale: nil),
+      value > 0, let e4 = try? AmountE4(decimal: value)
+    {
+      amount = e4
+      parts.removeLast()
+    }
+    return Template(text: parts.joined(separator: " "), amountE4: amount, pinned: true)
   }
 }

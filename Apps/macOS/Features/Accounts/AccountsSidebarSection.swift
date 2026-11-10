@@ -18,6 +18,10 @@ struct AccountsSidebarSection: View {
   @Dependency(\.compute) private var compute
   let model: AccountsSidebarModel
   @Binding var selection: SidebarItem
+  /// The groups folded by their chevron, kept between launches as a habit of the window.
+  @AppStorage(AccountsSidebarFold.key) private var foldedGroups = ""
+
+  private var folded: Set<UUID> { AccountsSidebarFold.decode(foldedGroups) }
 
   private func t(_ key: String) -> String { environment.language(key, table: AccountText.table) }
 
@@ -43,17 +47,23 @@ struct AccountsSidebarSection: View {
     Section {
       if let snapshot, !snapshot.sections.isEmpty {
         totalRow(snapshot)
+        let grouped = snapshot.sections.contains { $0.group != nil }
         ForEach(snapshot.sections, id: \.sidebarId) { section in
           if let group = section.group {
             groupRow(section, group)
+          } else if grouped {
+            // «БЕЗ ГРУППЫ»: the accounts of no group, named as a block once groups stand beside.
+            noGroupHeader
           }
-          ForEach(section.accounts, id: \.account.id) { line in
-            accountRow(
-              line, indented: section.group != nil, live: live,
-              section: section.accounts.map(\.account.id), snapshot: snapshot)
-          }
-          .onMove { source, destination in
-            move(in: section, from: source, to: destination)
+          if !(section.group.map { folded.contains($0.id) } ?? false) {
+            ForEach(section.accounts, id: \.account.id) { line in
+              accountRow(
+                line, indented: section.group != nil, live: live,
+                section: section.accounts.map(\.account.id), snapshot: snapshot)
+            }
+            .onMove { source, destination in
+              move(in: section, from: source, to: destination)
+            }
           }
         }
       }
@@ -131,30 +141,54 @@ struct AccountsSidebarSection: View {
     .accessibilityIdentifier("sidebar.accounts.total")
   }
 
+  /// «БЕЗ ГРУППЫ»: 11 semibold in capitals, the secondary ink, 12 above and 4 below.
+  private var noGroupHeader: some View {
+    Text(verbatim: environment.language("tree.noGroup", table: EntryLinks.table))
+      .appFont(SidebarType.header)
+      .textCase(.uppercase)
+      .foregroundStyle(.secondary)
+      .padding(.top, 12 - AccountsSidebarMetrics.rowVertical)
+      .selectionDisabled()
+      .moveDisabled(true)
+      .accessibilityAddTraits(.isHeader)
+  }
+
   /// «часть скрыта»: the figure above holds money of an account the owner hid. Never how much.
   private var partHiddenNote: some View { PartHiddenNote() }
 
   private func groupRow(_ section: AccountsSnapshot.Section, _ group: AccountGroup) -> some View {
-    HStack(alignment: .firstTextBaseline) {
-      Label {
-        VStack(alignment: .leading, spacing: 0) {
-          Text(verbatim: group.name)
-            .lineLimit(1)
-          if !section.inSummary {
-            // Left out of the summary: said in words, with its own symbol, never by colour.
-            Text(verbatim: t("sidebar.excluded"))
-              .appFont(.caption)
-              .foregroundStyle(.secondary)
-          }
+    let isFolded = folded.contains(group.id)
+    return HStack(alignment: .firstTextBaseline, spacing: AccountsSidebarMetrics.gap) {
+      // The chevron folds the group, as drawn: 9 pt, before the name.
+      Button {
+        foldedGroups = AccountsSidebarFold.toggled(group.id, in: foldedGroups)
+      } label: {
+        Image(systemName: isFolded ? "chevron.right" : "chevron.down")
+          .font(.system(size: 8, weight: .semibold))  // font-fixed: 9 pt chevron of a group
+          .foregroundStyle(.secondary)
+          .frame(width: AccountsSidebarMetrics.dot, height: AccountsSidebarMetrics.dot)
+          .contentShape(.rect)
+      }
+      .buttonStyle(.plain)
+      .accessibilityLabel(
+        Text(verbatim: environment.language(
+          isFolded ? "tree.expandAll" : "tree.collapseAll", table: EntryLinks.table)))
+      VStack(alignment: .leading, spacing: 0) {
+        Text(verbatim: group.name)
+          .appFont(AccountsSidebarMetrics.groupName)
+          .lineLimit(1)
+        if !section.inSummary {
+          // Left out of the summary: said in words, never by colour.
+          Text(verbatim: t("sidebar.excluded"))
+            .appFont(.caption)
+            .foregroundStyle(.secondary)
         }
-      } icon: {
-        Image(systemName: section.inSummary ? "folder" : "eye.slash")
       }
       Spacer(minLength: 4)
       VStack(alignment: .trailing, spacing: 0) {
         Text(verbatim: section.totalRub.map { environment.money.rounded($0) } ?? "—")
-          .monospacedDigit()
-          .foregroundStyle(section.inSummary ? .primary : .secondary)
+          .appFont(AccountsSidebarMetrics.figure)
+          .foregroundStyle(.secondary)
         if compute.snapshot?.coveredAccounts?.isPartHidden(section) == true { partHiddenNote }
         if section.totalRub != nil, !section.withoutRate.isEmpty {
           // Money the total leaves out for want of a rate is named, not dropped in silence.
@@ -178,28 +212,23 @@ struct AccountsSidebarSection: View {
       line.account.isBorrowed
       ? borrowedFigure(line.account)
       : SidebarFigure.of(line, money: environment.money, words: t, withoutRate: withoutRate)
-    return HStack(alignment: .firstTextBaseline) {
-      Label {
-        HStack(spacing: 4) {
-          Text(verbatim: line.account.name)
-            .lineLimit(1)
-          if line.account.isDefault {
-            // The main account is told by a symbol with a spoken word, never by colour.
-            Image(systemName: "star.fill")
-              .appFont(.caption2)
-              .foregroundStyle(.secondary)
-              .accessibilityLabel(Text(verbatim: t("accounts.main")))
-          }
-        }
-      } icon: {
-        // The colour of the account, when it has one; the name stands beside it.
-        Image(systemName: AccountText.kindSymbol(line.account.kind))
-          .foregroundStyle(line.account.accountAccent?.swatch ?? Color.secondary)
-      }
+    return HStack(alignment: .firstTextBaseline, spacing: AccountsSidebarMetrics.gap) {
+      // The colour of the account as a dot, grey when it has none; the name stands beside it.
+      Circle()
+        .fill(line.account.accountAccent?.swatch ?? Color.secondary)
+        .frame(width: AccountsSidebarMetrics.dot, height: AccountsSidebarMetrics.dot)
+        .accessibilityHidden(true)
+      Text(verbatim: line.account.name)
+        .appFont(indented ? AccountsSidebarMetrics.memberName : AccountsSidebarMetrics.looseName)
+        .lineLimit(1)
+        // The main account is told in words to VoiceOver.
+        .accessibilityValue(
+          line.account.isDefault ? Text(verbatim: t("accounts.main")) : Text(verbatim: ""))
       Spacer(minLength: 4)
       VStack(alignment: .trailing, spacing: 0) {
         Text(verbatim: figure.main)
-          .monospacedDigit()
+          .appFont(AccountsSidebarMetrics.figure)
+          .foregroundStyle(.secondary)
         if let caption = figure.caption {
           Text(verbatim: caption)
             .appFont(.caption)
@@ -209,7 +238,7 @@ struct AccountsSidebarSection: View {
         }
       }
     }
-    .padding(.leading, indented ? 12 : 0)
+    .padding(.leading, indented ? AccountsSidebarMetrics.memberIndent : 0)
     .tag(SidebarItem.account(line.account.id))
     .moveDisabled(line.account.isDefault)
     .help(figure.help ?? "")
@@ -730,5 +759,35 @@ private struct AccountsSidebarPresentations: ViewModifier {
     case .archiveMoney(let account, let newMain):
       ArchivedMoneySheet(archiving: account, newMain: newMain) { _ in model.sheet = nil }
     }
+  }
+}
+
+/// The block of accounts of the main sidebar as the design draws it (Mac 565:122722, «Счета»):
+/// a group — its 9 pt chevron, the name 14 semibold, the total 12 in the secondary ink; an
+/// account of a group — a 9 pt dot of its colour 18 further in, the name 13; an account of no
+/// group — the dot and the name 14 medium; 9 between the parts.
+enum AccountsSidebarMetrics {
+  static let dot: CGFloat = 9
+  static let gap: CGFloat = 9
+  static let memberIndent: CGFloat = 18
+  static let rowVertical: CGFloat = 6
+  static let groupName = AppFont.system(size: 14, weight: .semibold)
+  static let memberName = AppFont.system(size: 13, weight: .regular)
+  static let looseName = AppFont.system(size: 14, weight: .medium)
+  static let figure = AppFont.callout.monospacedDigit()
+}
+
+/// The groups folded in the main sidebar, kept as a habit of the window: ids, comma-separated.
+enum AccountsSidebarFold {
+  static let key = "sidebar.foldedGroups"
+
+  static func decode(_ stored: String) -> Set<UUID> {
+    Set(stored.split(separator: ",").compactMap { UUID(uuidString: String($0)) })
+  }
+
+  static func toggled(_ id: UUID, in stored: String) -> String {
+    var ids = decode(stored)
+    if ids.contains(id) { ids.remove(id) } else { ids.insert(id) }
+    return ids.map(\.uuidString).sorted().joined(separator: ",")
   }
 }

@@ -416,34 +416,74 @@ struct MoreExtrasSections: View {
   }
 }
 
-/// The ten sections of the Mac settings, one row each: the shared forms, pushed.
+/// The sections of the Mac settings as the design draws the phone's list (iPhone «Настройки»):
+/// a search over the names and the captions, then three groups of rows — each the section's tile,
+/// its name and, where it says something at a glance, a count — and the shared form pushed.
 struct PhoneSettingsList: View {
   let deps: AppDependencies
+  @State private var query = ""
+  @State private var words = SettingsSearch.catalogWords()
 
   private var environment: AppEnvironment { deps.environment }
 
+  static var groups: [[SettingsSection]] { SettingsSection.phoneGroups }
+
   var body: some View {
+    let found = Set(SettingsSearch.find(query, words: words).map(\.section))
     Form {
-      ForEach(SettingsSection.allCases, id: \.self) { section in
-        NavigationLink {
-          content(of: section)
-            .navigationTitle(environment.language(section.titleKey, table: "Settings"))
-            .appDependencies(deps)
-        } label: {
-          Label {
-            Text(verbatim: environment.language(section.titleKey, table: "Settings"))
-          } icon: {
-            Image(systemName: section.symbol)
+      ForEach(Self.groups.indices, id: \.self) { index in
+        let sections = Self.groups[index].filter(found.contains)
+        if !sections.isEmpty {
+          Section {
+            ForEach(sections, id: \.self) { section in
+              NavigationLink {
+                content(of: section)
+                  .navigationTitle(environment.language(section.titleKey, table: "Settings"))
+                  .appDependencies(deps)
+              } label: {
+                HStack {
+                  SettingsSectionLabel(
+                    section: section,
+                    title: environment.language(section.titleKey, table: "Settings"))
+                  Spacer(minLength: 8)
+                  if let value = value(of: section) {
+                    Text(verbatim: value).foregroundStyle(.secondary)
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
+    .searchable(
+      text: $query,
+      prompt: Text(verbatim: environment.language("settings.search.prompt", table: "Settings")))
     .navigationTitle(environment.language("settings.title", table: "Settings"))
-    .navigationBarTitleDisplayMode(.inline)
+    .navigationBarTitleDisplayMode(.large)
   }
 
+  /// What a row says at a glance: how many currencies, accounts and templates there are.
+  private func value(of section: SettingsSection) -> String? {
+    switch section {
+    case .currencies:
+      return (try? environment.settings?.enabledCurrencies()).map { String($0.count) }
+    case .accounts:
+      return (try? environment.accounts?.accounts(includeArchived: false)).map { String($0.count) }
+    case .templates:
+      return (try? environment.references?.templates(includeArchived: false)).map {
+        String($0.count)
+      }
+    default:
+      return nil
+    }
+  }
+
+  func content(of section: SettingsSection) -> some View { Self.section(section) }
+
+  /// The form of a section, the one the Mac shows beside its sidebar.
   @ViewBuilder
-  func content(of section: SettingsSection) -> some View {
+  static func section(_ section: SettingsSection) -> some View {
     switch section {
     case .general: GeneralSettingsView()
     case .appearance: AppearanceSettingsView()

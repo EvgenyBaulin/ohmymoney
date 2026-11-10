@@ -270,7 +270,10 @@ struct ForgottenDaysSetting: View {
   var body: some View {
     let current = settings.forgottenDays
     let options = Array(Set(Self.choices + [current])).sorted()
-    VStack(alignment: .leading, spacing: 2) {
+    // The words above the choice: the panel of the settings of accounts is narrow.
+    VStack(alignment: .leading, spacing: 4) {
+      Text(verbatim: BankText.t("bank.settings.forgottenDays", environment))
+        .fixedSize(horizontal: false, vertical: true)
       Picker(
         selection: Binding(get: { current }, set: { set($0) })
       ) {
@@ -278,6 +281,7 @@ struct ForgottenDaysSetting: View {
       } label: {
         Text(verbatim: BankText.t("bank.settings.forgottenDays", environment))
       }
+      .labelsHidden()
       .fixedSize()
       .accessibilityIdentifier("settings.banks.forgottenDays")
       Text(verbatim: BankText.t("bank.settings.forgottenDays.hint", environment))
