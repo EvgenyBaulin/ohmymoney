@@ -177,11 +177,12 @@ struct DetailsPanel: View {
     Divider()
     footer
     // «Save» is inactive for these, and nothing else in the panel says why. Wraps in the
-    // width it is given: the panel is also the inspector, a column of a split view.
+    // panel's proposed width: the message's intrinsic width must not size the scroll content.
     if let refusal = model.shownRefusalKey {
       Text(verbatim: t(refusal))
         .appFont(.caption)
         .foregroundStyle(.red)
+        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
         .accessibilityIdentifier("entry.refusal")
     }
     // A record «Add…» asked for that the database refused: nothing was chosen.
@@ -189,6 +190,7 @@ struct DetailsPanel: View {
       Text(verbatim: t(failure))
         .appFont(.caption)
         .foregroundStyle(.red)
+        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
     }
   }
 
