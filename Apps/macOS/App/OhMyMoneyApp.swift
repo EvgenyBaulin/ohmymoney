@@ -94,6 +94,8 @@ struct OhMyMoneyApp: App {
 /// goes through the interface language like the rest of the app.
 struct AppCommands: Commands {
   @Environment(\.openWindow) private var openWindow
+  /// «Компактный список операций» of the menu «Вид»: the same choice the list keeps.
+  @AppStorage(DensityList.operations.key) private var compactOperations = false
   let environment: AppEnvironment
   let store: TransactionsStore?
   let compute: ComputeStore
@@ -139,6 +141,21 @@ struct AppCommands: Commands {
     }
 
     CommandGroup(after: .toolbar) {
+      // The filters, the columns and the density of «Операции»: the screen keeps only its own
+      // buttons on top (the search and «Новая операция»), the rest is here.
+      Button(environment.language("operations.menu.filters", table: "Transactions")) {
+        OperationsSheetRequest.ask(.showOperationsFilters, with: openWindow)
+      }
+      // ⇧⌘F: ⌥⌘F is the system's «Find and Replace…», ⌃⌘F full screen, ⌘F the search.
+      .keyboardShortcut("f", modifiers: [.command, .shift])
+      Button(environment.language("operations.columns", table: "Transactions")) {
+        OperationsSheetRequest.ask(.showOperationsColumns, with: openWindow)
+      }
+      Toggle(
+        environment.language("operations.menu.compact", table: "Transactions"),
+        isOn: $compactOperations)
+      Divider()
+
       // A new run replaces the one in progress («Recompute во время расчёта отменяет
       // текущий прогон»).
       Button(environment.language("action.recompute")) { compute.run() }

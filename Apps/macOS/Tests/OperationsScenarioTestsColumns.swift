@@ -41,8 +41,14 @@ final class OperationsScenarioColumnsTests: XCTestCase {
     XCTAssertEqual(fixed, [.description, .amount])
   }
 
-  func testOnlyTheEventIsHiddenByDefault() {
-    XCTAssertEqual(OperationColumn.allCases.filter { !$0.shownByDefault }, [.event])
+  /// The design's five columns are shown; the rest wait for the owner.
+  func testOnlyTheFiveColumnsOfTheDesignAreShownByDefault() {
+    XCTAssertEqual(
+      OperationColumn.allCases.filter(\.shownByDefault),
+      [.description, .category, .account, .time, .amount])
+    XCTAssertEqual(
+      OperationColumn.allCases.filter { !$0.shownByDefault },
+      [.place, .forWhom, .quality, .cashback, .note, .event])
   }
 
   func testOnlyTheAmountAndTheCashbackLineUpOnTheRight() {
@@ -78,10 +84,10 @@ final class OperationsScenarioColumnsTests: XCTestCase {
 
   // MARK: The text kept on this Mac
 
-  func testTheStandardTextNamesEveryColumnInOrderWithTheEventHidden() {
+  func testTheStandardTextNamesEveryColumnInOrderWithTheOthersHidden() {
     XCTAssertEqual(
       OperationColumnLayout.standard.storage,
-      "time,description,amount,category,account,place,forWhom,quality,cashback,note,-event")
+      "description,category,account,time,amount,-place,-forWhom,-quality,-cashback,-note,-event")
   }
 
   func testATextOfCommasAloneIsTheStandardLayout() {
@@ -99,7 +105,7 @@ final class OperationsScenarioColumnsTests: XCTestCase {
 
   func testADoubledDashIsNotAColumn() {
     let layout = OperationColumnLayout(storage: "--place")
-    XCTAssertTrue(layout.isShown(.place))
+    XCTAssertFalse(layout.isShown(.place), "the standard layout, where the place is hidden")
     XCTAssertEqual(layout, .standard)
   }
 
@@ -109,12 +115,14 @@ final class OperationsScenarioColumnsTests: XCTestCase {
     XCTAssertTrue(layout.isShown(.event))
   }
 
-  func testAColumnNamedFirstStaysFirstAndTheRestFollowInOrder() {
+  /// The named columns keep their order; the others take their standard places around them —
+  /// the description, first in the standard order, before them all.
+  func testTheColumnsNotNamedTakeTheirStandardPlacesAroundTheNamedOnes() {
     let layout = OperationColumnLayout(storage: "note,time")
     XCTAssertEqual(
       layout.order,
       [
-        .note, .time, .description, .amount, .category, .account, .place, .forWhom, .quality,
+        .description, .category, .account, .note, .time, .amount, .place, .forWhom, .quality,
         .cashback, .event,
       ])
   }
@@ -153,9 +161,10 @@ final class OperationsScenarioColumnsTests: XCTestCase {
     XCTAssertEqual(layout.width(of: .time), OperationColumn.time.maximumWidth)
   }
 
-  func testAnItemWithSpacesAroundItIsRead() {
+  func testAnItemWithSpacesAroundItIsRead() throws {
     let layout = OperationColumnLayout(storage: "  note:200 , time ")
-    XCTAssertEqual(Array(layout.order.prefix(2)), [.note, .time])
+    let note = try XCTUnwrap(layout.order.firstIndex(of: .note))
+    XCTAssertEqual(Array(layout.order[note...(note + 1)]), [.note, .time])
     XCTAssertEqual(layout.width(of: .note), 200)
   }
 
@@ -212,15 +221,15 @@ final class OperationsScenarioColumnsTests: XCTestCase {
 
   func testShowingAShownColumnChangesNothing() {
     var layout = OperationColumnLayout.standard
-    layout.setShown(true, .place)
+    layout.setShown(true, .category)
     XCTAssertEqual(layout, .standard)
   }
 
   func testHidingAndShowingAgainIsTheStandardLayout() {
     var layout = OperationColumnLayout.standard
-    layout.setShown(false, .cashback)
+    layout.setShown(false, .account)
     XCTAssertNotEqual(layout, .standard)
-    layout.setShown(true, .cashback)
+    layout.setShown(true, .account)
     XCTAssertEqual(layout, .standard)
   }
 
@@ -272,7 +281,7 @@ final class OperationsScenarioColumnsTests: XCTestCase {
   func testMovingDownAndUpAgainIsTheStandardOrder() {
     var layout = OperationColumnLayout.standard
     layout.move(.category, by: 1)
-    XCTAssertEqual(Array(layout.order[3...4]), [.account, .category])
+    XCTAssertEqual(Array(layout.order[1...2]), [.account, .category])
     layout.move(.category, by: -1)
     XCTAssertEqual(layout, .standard)
   }
@@ -301,7 +310,7 @@ final class OperationsScenarioColumnsTests: XCTestCase {
   func testADragBeyondTheEndPutsTheRowsLast() {
     var layout = OperationColumnLayout.standard
     layout.move(fromOffsets: [0], toOffset: 500)
-    XCTAssertEqual(layout.order.last, .time)
+    XCTAssertEqual(layout.order.last, .description)
   }
 
   func testADragBeforeTheStartPutsTheRowsFirst() {
@@ -313,7 +322,7 @@ final class OperationsScenarioColumnsTests: XCTestCase {
   func testRowsDraggedApartLandTogetherInTheirOrder() {
     var layout = OperationColumnLayout.standard
     layout.move(fromOffsets: [3, 1], toOffset: 0)
-    XCTAssertEqual(Array(layout.order.prefix(4)), [.description, .category, .time, .amount])
+    XCTAssertEqual(Array(layout.order.prefix(4)), [.category, .time, .description, .account])
   }
 
   func testADragKeepsTheWidthsAndTheHiddenColumns() {

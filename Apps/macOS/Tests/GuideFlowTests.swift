@@ -583,7 +583,8 @@ final class GuideFlowTests: XCTestCase {
       OperationsScreen(deps: deps, actions: OperationActions(), state: OperationsScreenState())
         .appDependencies(deps))
     XCTAssertTrue(guide.progress.events.contains(GuideEvent.operationsOpened))
-    let prompt = deps.environment.language("operations.search.prompt", table: "Transactions")
+    let prompt = deps.environment.language(
+      OperationsScreen.searchPromptKey, table: "Transactions")
     let search = try XCTUnwrap(
       textFields(in: spending.contentView).first { $0.placeholderString == prompt },
       "the search of «Операции»")

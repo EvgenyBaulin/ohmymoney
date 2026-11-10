@@ -65,6 +65,8 @@ struct TransactionsTable<MenuItems: View>: View {
     } rows: {
       allRows(rows)
     }
+    // White rows parted by hairlines, as the design draws the card — not stripes.
+    .alternatingRowBackgrounds(.disabled)
     // Inside the identity of the table: a table made again for another layout appears again,
     // empty, and is filled again.
     .onAppear { madeFor = layout }
@@ -134,31 +136,47 @@ struct TransactionsTable<MenuItems: View>: View {
             .itemProvider(item.isPart ? nil : { dragItem(item.transactionId) })
         }
       } header: {
-        DayHeader(day: section.day, totals: section.totals)
+        OperationDayHead(day: section.day, totals: section.totals)
+          .padding(.top, OperationsMetrics.dayTop)
+          .padding(.bottom, OperationsMetrics.dayBottom)
           .appDependencies(deps)
       }
     }
   }
 
+  /// The name of a column in capitals, as the design writes the header: «ОПИСАНИЕ», «СУММА».
   private func title(_ column: OperationColumn) -> Text {
-    Text(verbatim: environment.language(column.titleKey, table: "Transactions"))
+    Text(verbatim: column.headerTitle(language: environment.language))
   }
 }
 
-/// The cell of one column of a row.
+/// The cell of one column of a row: the description 15 medium in the primary colour, the
+/// amount 15 semibold, every other column 14 in the secondary colour, as the design draws them.
 private struct OperationCell: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.appTheme) private var theme
   let column: OperationColumn
   let item: TransactionRowItem
   var openPurchase: ((UUID) -> Void)? = nil
 
   var body: some View {
     switch column {
+    case .description, .amount:
+      content
+    default:
+      content
+        .appFont(OperationsType.rowCell)
+        .foregroundStyle(theme.contentSecondary)
+    }
+  }
+
+  @ViewBuilder
+  private var content: some View {
+    switch column {
     case .time:
       if !item.isPart {
         Text(verbatim: environment.dates.time(item.occurredAt))
           .monospacedDigit()
-          .foregroundStyle(.secondary)
       }
     case .description:
       DescriptionCell(item: item, openPurchase: openPurchase)
@@ -220,6 +238,8 @@ enum TransactionColumnWidths {
 /// as it was typed under it.
 private struct DescriptionCell: View {
   @Dependency(\.environment) private var environment
+  /// «Компактный список операций»: the rows keep no room of their own around the mark.
+  @AppStorage(DensityList.operations.key) private var compact = false
   let item: TransactionRowItem
   /// Opens the purchase a refund takes money back from.
   var openPurchase: ((UUID) -> Void)? = nil
@@ -233,7 +253,7 @@ private struct DescriptionCell: View {
   }
 
   var body: some View {
-    HStack(spacing: 10) {
+    HStack(spacing: OperationsMetrics.badgeGap) {
       // A part sits under its split without a mark of its own.
       if !item.isPart { OperationBadge(kind: OperationBadgeKind(item)) }
       if let transfer = item.transfer {
@@ -242,13 +262,20 @@ private struct DescriptionCell: View {
         operationBody
       }
     }
+    // The row of the design is 50 tall: the mark of 32 and 9 above and below, of which the
+    // table keeps 4 between rows itself.
+    .padding(.vertical, compact ? 0 : OperationsMetrics.rowVertical - Self.tableSpacing)
   }
+
+  /// What the table keeps between two rows of its own, half above and half below a cell.
+  static let tableSpacing: CGFloat = 4
 
   /// «Перевод: Сбер → Kaspi», the note under it: money moved between the owner's own accounts,
   /// the ⇄ mark in front and the words saying so, never a colour.
   private func transferBody(_ transfer: TransferRowText) -> some View {
     VStack(alignment: .leading, spacing: 1) {
       Text(verbatim: transfer.title(language: environment.language))
+        .appFont(OperationsType.rowTitle)
         .lineLimit(1)
       if let note = transfer.note, !note.isEmpty {
         Text(verbatim: note)
@@ -265,6 +292,7 @@ private struct DescriptionCell: View {
     VStack(alignment: .leading, spacing: 1) {
       HStack(spacing: 6) {
         title
+          .appFont(OperationsType.rowTitle)
           .lineLimit(1)
         if item.partCount > 1 {
           Label {
@@ -423,11 +451,12 @@ private struct QualityCell: View {
   }
 }
 
-/// The exact amount in the currency of the operation; a foreign one says what it came to in
-/// rubles under it.
+/// The exact amount in the currency of the operation, 15 semibold in the primary colour — income
+/// too: its «+» and the mark of the row say what it is, as the design draws it —; a part of a
+/// split in the secondary colour; a foreign currency says what it came to in rubles under it.
 private struct AmountCell: View {
   @Dependency(\.environment) private var environment
-  @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.appTheme) private var theme
   let item: TransactionRowItem
 
   var body: some View {
@@ -437,13 +466,9 @@ private struct AmountCell: View {
           kind: item.kind, isTransfer: item.isTransfer, isPart: item.isPart)
           + environment.money.exact(item.amount, currency: item.currency)
       )
+      .appFont(item.isPart ? OperationsType.rowCell : OperationsType.rowAmount)
       .monospacedDigit()
-      .fontWeight(item.isPart ? .regular : .semibold)
-      .foregroundStyle(
-        item.isPart
-          ? AnyShapeStyle(.secondary)
-          : item.kind == .income && !item.isTransfer
-            ? AnyShapeStyle(surfaces.positive) : AnyShapeStyle(.primary))
+      .foregroundStyle(item.isPart ? theme.contentSecondary : theme.contentPrimary)
       if let transfer = item.transfer {
         // An exchange says what arrived; a transfer in one currency arrives as it was sent.
         if transfer.isExchange {

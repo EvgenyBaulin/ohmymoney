@@ -224,6 +224,27 @@ extension Notification.Name {
   static let openSidebarItem = Notification.Name("io.github.EvgenyBaulin.ohmymoney.openSidebarItem")
 }
 
+/// A sheet of «Операции» asked for from the menu: the screen opens and shows it. The screen
+/// already on screen hears the notification; one still being made takes `pending` when it
+/// appears, so the first ask is not lost.
+@MainActor
+enum OperationsSheetRequest {
+  static var pending: Notification.Name?
+
+  static func ask(_ name: Notification.Name, with openWindow: OpenWindowAction) {
+    pending = name
+    OperationsScreenOpening.open(with: openWindow)
+    NotificationCenter.default.post(name: name, object: nil)
+  }
+
+  /// The sheet asked for, once: whoever takes it clears it.
+  static func take(_ name: Notification.Name) -> Bool {
+    guard pending == name else { return false }
+    pending = nil
+    return true
+  }
+}
+
 /// The way into a section from outside the sidebar: ⌘⇧T, ⌘⇧A, ⌘⇧R, ⌘F, the «Отчёты» menu, the
 /// palette, the answer cards and the reconciliation's «look for the missing operations». There
 /// is no window of Transactions, Analytics or Reports any more: the main window comes forward on
