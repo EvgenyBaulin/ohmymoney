@@ -161,3 +161,85 @@ struct NetWorthChart: View {
     }
   }
 }
+
+/// Net worth month by month as the design's card draws it: the net line in the accent over its
+/// area in the accent's tint, four quiet grid lines, no axis words — the months stand in a row
+/// under the chart (`labelled(limit:)`) — and «now» a hollow circle. What was had and what was owed
+/// at a point are told by the callout and VoiceOver, not by lines of their own: drawn on one scale
+/// with the net line they would press it flat.
+struct NetWorthAreaChart: View {
+  @Dependency(\.environment) private var environment
+  @Environment(\.appAccent) private var accent
+  @Environment(\.appTheme) private var theme
+  let model: NetWorthChartModel
+  /// «Капитал», «Есть», «Должен».
+  let names: (net: String, have: String, owe: String)
+  /// The words of a point for VoiceOver and the callout: «конец сентября 2026», «сейчас».
+  let spoken: (NetWorthChartPoint) -> String
+  /// The height of the plot: 120 on every frame.
+  var height: CGFloat = 120
+  @State private var hovered: Int?
+
+  /// The hollow circle of «now»: 10 across, a 2 pt ring.
+  static let nowSide: CGFloat = 10
+  static let lineWidth: CGFloat = 2
+
+  var body: some View {
+    let money = environment.money
+    let low = model.points.map(\.net).min() ?? 0
+    let high = model.points.map(\.net).max() ?? 1
+    // The area rests on the bottom of the plot, a sixth of the range below the lowest point.
+    let floor = low - max((high - low) / 5, 1)
+    Chart {
+      ForEach(model.points) { point in
+        AreaMark(
+          x: .value("Month", point.x), yStart: .value("Floor", floor),
+          yEnd: .value("Amount", point.net)
+        )
+        .foregroundStyle(theme.accentTint)
+        LineMark(x: .value("Month", point.x), y: .value("Amount", point.net))
+          .foregroundStyle(accent)
+          .lineStyle(StrokeStyle(lineWidth: Self.lineWidth, lineCap: .round, lineJoin: .round))
+          .accessibilityLabel(Text(verbatim: "\(names.net), \(spoken(point))"))
+          .accessibilityValue(Text(verbatim: money.rubles(point.net)))
+      }
+      if let now = model.points.last, now.isNow {
+        PointMark(x: .value("Month", now.x), y: .value("Amount", now.net))
+          .symbol {
+            Circle()
+              .strokeBorder(accent, lineWidth: Self.lineWidth)
+              .background(Circle().fill(.background))
+              .frame(width: Self.nowSide, height: Self.nowSide)
+          }
+          .accessibilityHidden(true)
+      }
+      if let hovered, let point = model.points.first(where: { $0.x == hovered }) {
+        RuleMark(x: .value("Month", hovered))
+          .foregroundStyle(.secondary)
+          .annotation(
+            position: .top, spacing: 0,
+            overflowResolution: .init(x: .fit(to: .chart), y: .disabled)
+          ) {
+            ChartCallout(
+              title: spoken(point),
+              lines: [
+                "\(names.net): \(money.rubles(point.net))",
+                "\(names.have): \(money.rubles(point.have))",
+                "\(names.owe): \(money.rubles(point.owe))",
+              ])
+          }
+          .accessibilityHidden(true)
+      }
+    }
+    .chartXSelection(value: $hovered)
+    .chartXScale(domain: (model.points.first?.x ?? 0)...(model.points.last?.x ?? 1))
+    .chartYScale(domain: floor...high)
+    .chartXAxis(.hidden)
+    .chartYAxis {
+      AxisMarks(values: .automatic(desiredCount: 4)) { _ in
+        AxisGridLine().foregroundStyle(theme.borderHairline)
+      }
+    }
+    .frame(height: height)
+  }
+}

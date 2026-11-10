@@ -392,6 +392,23 @@
         }
       }
     },
+    "capital.assets.valuedShort": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "valued %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оценка %@"
+          }
+        }
+      }
+    },
     "capital.breakdown.title": {
       "extractionState": "manual",
       "localizations": {
@@ -545,6 +562,23 @@
         }
       }
     },
+    "capital.chart.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "today"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сегодня"
+          }
+        }
+      }
+    },
     "capital.chart.year": {
       "extractionState": "manual",
       "localizations": {
@@ -562,6 +596,23 @@
         }
       }
     },
+    "capital.chart.yearShort": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 mo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 мес."
+          }
+        }
+      }
+    },
     "capital.countedTwice": {
       "extractionState": "manual",
       "localizations": {
@@ -575,6 +626,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "«%@» — и счёт в минусе, и долг по кредитной карте: его деньги могут вычитаться дважды."
+          }
+        }
+      }
+    },
+    "capital.cushion.goal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "goal %@ mo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "цель %@ мес."
+          }
+        }
+      }
+    },
+    "capital.cushion.lasts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lasts %@ mo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проживёте %@ мес."
+          }
+        }
+      }
+    },
+    "capital.cushion.monthly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "essential spending %@/mo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "обязательные траты %@/мес."
+          }
+        }
+      }
+    },
+    "capital.details.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What I have and owe"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что есть и что должен"
           }
         }
       }
@@ -1221,6 +1340,108 @@
           "stringUnit": {
             "state": "translated",
             "value": "Этой записи больше нет."
+          }
+        }
+      }
+    },
+    "capital.shares.accounts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accounts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счета"
+          }
+        }
+      }
+    },
+    "capital.shares.assets": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Property"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Имущество"
+          }
+        }
+      }
+    },
+    "capital.shares.caption": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "shares"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "доли"
+          }
+        }
+      }
+    },
+    "capital.shares.deposits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deposits"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вклады"
+          }
+        }
+      }
+    },
+    "capital.shares.have": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "have"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "есть"
+          }
+        }
+      }
+    },
+    "capital.shares.owedToMe": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Owed to me"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мне должны"
           }
         }
       }

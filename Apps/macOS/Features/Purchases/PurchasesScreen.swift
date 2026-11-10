@@ -58,32 +58,24 @@ struct PurchasesScreen: View {
 
   private func t(_ key: String) -> String { PurchasesText.t(key, environment) }
 
+  @Environment(\.layoutIdiom) private var idiom
+
   var body: some View {
-    ScrollView {
-      VStack(alignment: .leading, spacing: 16) {
-        ScreenTitleBlock(
-          title: t("purchases.title"), subtitle: t("purchases.subtitle"),
-          identifier: "purchases.title")
-        HStack(spacing: 12) {
-          Picker(selection: $selected) {
-            ForEach(PurchasesText.Page.allCases) { page in
-              Text(verbatim: t(page.titleKey)).tag(page)
-            }
-          } label: {
-            Text(verbatim: t("purchases.title"))
-          }
-          .pickerStyle(.segmented)
-          .labelsHidden()
-          .accessibilityIdentifier("purchases.pages")
-          #if os(macOS)
-            // «Компактно» / «Подробно»: this list's own choice, on this Mac.
-            ListDensityToggle(
-              list: .purchases,
-              compactTitle: environment.language("mac.density.compact", table: "MacFeatures"),
-              detailedTitle: environment.language("mac.density.detailed", table: "MacFeatures")
-            )
-            .labelStyle(.iconOnly)
-          #endif
+    let design = LayoutIdiom.resolved(idiom)
+    SectionPage {
+      VStack(alignment: .leading, spacing: PurchasesMetrics.stackGap(design)) {
+        SectionHeader(
+          title: t("purchases.title"),
+          identifier: "purchases.title",
+          primary: selected == .wishes
+            ? (t("purchases.wishes.add"), "purchases.wishes.add", { sheet = .newWish }) : nil,
+          trailing: densityToggle)
+        tabs(design)
+        // A phone has no header button: «Добавить желание» stands under the tabs, as its frame.
+        if design == .phone, selected == .wishes, !environment.shield.isReadOnly {
+          Button(t("purchases.wishes.add")) { sheet = .newWish }
+            .buttonStyle(PhoneQuietButtonStyle())
+            .accessibilityIdentifier("purchases.wishes.add")
         }
         if let refusal {
           Label {
@@ -92,16 +84,15 @@ struct PurchasesScreen: View {
             Image(systemName: "exclamationmark.triangle")
           }
           .appFont(.callout)
-          .contentCard()
+          .sectionCard()
           .accessibilityIdentifier("purchases.refusal")
         }
         content
           .listDensity(.purchases)
       }
-      .padding(20)
-      .frame(maxWidth: .infinity, alignment: .leading)
+      // The frame sets the header 24 under the top, 2 lower than the other screens.
+      .padding(.top, design == .mac ? PurchasesMetrics.macTopExtra : 0)
     }
-    .background(surfaces.background)
     .task(id: compute.generation) { await load() }
     .onChange(of: PurchasesNavigation.shared.page) { _, page in selected = page }
     .onChange(of: selected) { _, page in PurchasesNavigation.shared.page = page }
@@ -109,6 +100,40 @@ struct PurchasesScreen: View {
       sheetView(sheet).handingOver(dependencies)
     }
     .accessibilityIdentifier("purchases.screen")
+  }
+
+  /// The five pages in the order of the frame: Хочу купить · Список покупок · Вещи · Ждут
+  /// зачисления · Скидки. A phone scrolls them sideways in their track.
+  @ViewBuilder
+  private func tabs(_ design: LayoutIdiom) -> some View {
+    let options = PurchasesText.Page.allCases.map { ($0, t($0.titleKey)) }
+    let segments = SectionSegments(
+      options: options, selection: $selected, chipsOnTouch: false,
+      identifier: { "purchases.page.\($0.rawValue)" }
+    )
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("purchases.pages")
+    if design == .phone {
+      ScrollView(.horizontal, showsIndicators: false) { segments }
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+    } else {
+      segments
+    }
+  }
+
+  /// «Компактно» / «Подробно»: this list's own choice, on this Mac.
+  private var densityToggle: AnyView? {
+    #if os(macOS)
+      AnyView(
+        ListDensityToggle(
+          list: .purchases,
+          compactTitle: environment.language("mac.density.compact", table: "MacFeatures"),
+          detailedTitle: environment.language("mac.density.detailed", table: "MacFeatures")
+        )
+        .labelStyle(.iconOnly))
+    #else
+      nil
+    #endif
   }
 
   @ViewBuilder

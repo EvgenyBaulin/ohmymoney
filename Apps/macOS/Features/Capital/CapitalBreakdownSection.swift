@@ -13,12 +13,14 @@ struct CapitalBreakdownSection: View {
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
   let model: CapitalViewModel
   let open: (CapitalLine.Source) -> Void
+  /// The title of the card; «Из чего складывается» unless the screen names it otherwise.
+  var title: String?
   @State private var expansion = CapitalExpansion()
   @State private var restored = false
 
   var body: some View {
     ComputedBlock(
-      title: CapitalText.t("capital.breakdown.title", environment),
+      title: title ?? CapitalText.t("capital.breakdown.title", environment),
       state: compute.states.data.flatMap { _, at in
         model.isEmpty ? .notEnoughData : .ready(model, at: at)
       },
