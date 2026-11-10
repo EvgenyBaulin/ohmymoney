@@ -1649,12 +1649,11 @@ final class AccountsJourneyTests: XCTestCase {
 
   // MARK: The differences in the month
 
-  /// The differences of a later count are money of the month: 50 ₽ missing on Сбер and 12 $
-  /// missing on Freedom (a group left out of the summary still spends, 12 × 90 = 1 080 ₽) are
-  /// spending, 700 ₽ found on the cash is income. The month before the count spent 3 000 +
-  /// 100 fee + 1 850 = 4 950 ₽ and earned 50 000 ₽; after it 6 080 ₽ and 50 700 ₽. Each
-  /// difference is on its account's screen.
-  func testTheDifferencesOfACountAreSpendingAndIncomeOfTheMonth() async throws {
+  /// A count's shortage moves the balance but is not spending of the month, as in Reports and the
+  /// spending analysis, so every section spends the same: 50 ₽ missing on Сбер and 12 $ missing
+  /// on Freedom leave the month at 3 000 + 100 fee + 1 850 = 4 950 ₽ spent. The 700 ₽ found on
+  /// the cash is still income, 50 700 ₽. Each difference is on its account's screen.
+  func testTheShortagesOfACountAreNotSpendingOfTheMonth() async throws {
     let books = try await openTheBooks()
     try await liveTheMonth(books)
     let before = try await show()
@@ -1669,7 +1668,7 @@ final class AccountsJourneyTests: XCTestCase {
       ], record: true)
     XCTAssertNil(saved)
     let after = try await show()
-    XCTAssertEqual(after.summary.expenses.current, AmountE4(whole: 4_950 + 50 + 1_080))
+    XCTAssertEqual(after.summary.expenses.current, AmountE4(whole: 4_950))
     XCTAssertEqual(after.summary.income.current, AmountE4(whole: 50_000 + 700))
 
     let differences = try entries().filter { $0.transaction.occurredAt == noon }
