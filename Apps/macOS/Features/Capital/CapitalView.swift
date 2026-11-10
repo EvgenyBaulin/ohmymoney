@@ -21,44 +21,30 @@ struct CapitalView: View {
     self.openAccount = openAccount
   }
 
+  @Environment(\.layoutIdiom) private var idiom
+  @State private var width: CGFloat = 0
+
   var body: some View {
-    GeometryReader { proxy in
-      ScrollView {
-        VStack(alignment: .leading, spacing: 16) {
-          titleLine
-          if let snapshot = compute.snapshot {
-            let model = CapitalViewModel(
-              capital: snapshot.planning.capital, accountGroups: snapshot.dataset.accountGroups,
-              debts: snapshot.dataset.debts, hiding: snapshot.hiding)
-            columns(
-              count: ScreenColumns.count(forWidth: proxy.size.width - 40),
-              left: [
-                AnyView(header),
-                AnyView(CurrencyGainSection(snapshot: snapshot)),
-                AnyView(CapitalBreakdownSection(model: model, open: open)),
-                AnyView(
-                  CapitalInsuranceSection(
-                    banks: CapitalInsuranceSection.shown(
-                      snapshot.planning.banks.insurance,
-                      accounts: snapshot.ledger.dataset.paymentMethods, hiding: snapshot.hiding))),
-                AnyView(
-                  AssetsSection(
-                    assets: snapshot.dataset.assets, valuations: snapshot.dataset.assetValuations,
-                    sheet: $sheet, deleting: $deleting)),
-              ],
-              right: [
-                AnyView(CapitalChartSection(model: model)),
-                AnyView(CushionSection(status: snapshot.planning.cushion)),
-              ])
-          } else {
-            ComputedBlock(
-              waiting: compute.states.data.flatMap { _, _ -> BlockState<Never> in .calculating },
-              retry: { compute.retry(ComputeStep.data) })
-          }
+    let design = LayoutIdiom.resolved(idiom)
+    SectionPage {
+      VStack(alignment: .leading, spacing: SectionMetrics.headerToContent) {
+        SectionHeader(
+          title: CapitalText.t("capital.title", environment),
+          subtitle: design == .phone ? CapitalText.t("capital.subtitle", environment) : nil,
+          identifier: "capital.title",
+          primary: (
+            environment.language("operations.new", table: "Transactions"), "capital.newOperation",
+            { NotificationCenter.default.post(name: .focusEntryLine, object: nil) }
+          ))
+        if let snapshot = compute.snapshot {
+          page(snapshot, design: design)
+        } else {
+          ComputedBlock(
+            waiting: compute.states.data.flatMap { _, _ -> BlockState<Never> in .calculating },
+            retry: { compute.retry(ComputeStep.data) })
         }
-        .padding(20)
-        .frame(maxWidth: .infinity, alignment: .leading)
       }
+      .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
     }
     .accessibilityIdentifier("capital.screen")
     .sheet(item: $sheet) { sheet in
@@ -87,61 +73,54 @@ struct CapitalView: View {
     }
   }
 
-  /// The page title and its one-line subtitle.
-  private var titleLine: some View {
-    ScreenTitleBlock(
-      title: CapitalText.t("capital.title", environment),
-      subtitle: CapitalText.t("capital.subtitle", environment))
-  }
-
-  /// Two columns on a wide window — the figure and what it is made of on the left, how it moved
-  /// and the cushion on the right — and one column, in that order, on a narrow one.
+  /// The cards of the frames: on the Mac and a tablet the figure, what it is made of and the
+  /// property on the left, the months and the cushion on the right; on a phone one column — the
+  /// figure, the months, what it is made of, the cushion, the property. What the frames do not
+  /// draw follows them: the currency gain, the insurance of deposits, and the list of everything
+  /// had and owed with its clicks.
   @ViewBuilder
-  private func columns(count: Int, left: [AnyView], right: [AnyView]) -> some View {
-    if count == 2 {
-      HStack(alignment: .top, spacing: 16) {
-        column(left)
-        column(right)
+  private func page(_ snapshot: DataSnapshot, design: LayoutIdiom) -> some View {
+    let model = CapitalViewModel(
+      capital: snapshot.planning.capital, accountGroups: snapshot.dataset.accountGroups,
+      debts: snapshot.dataset.debts, hiding: snapshot.hiding)
+    let hero = AnyView(CapitalHeroCard(model: model))
+    let shares = AnyView(CapitalSharesCard(model: model))
+    let assets = AnyView(
+      CapitalAssetsCard(
+        assets: snapshot.dataset.assets, valuations: snapshot.dataset.assetValuations,
+        sheet: $sheet, deleting: $deleting))
+    let months = AnyView(CapitalMonthsCard(model: model))
+    let cushion = AnyView(CapitalCushionCard(status: snapshot.planning.cushion))
+    let extras: [AnyView] = [
+      AnyView(CurrencyGainSection(snapshot: snapshot)),
+      AnyView(
+        CapitalInsuranceSection(
+          banks: CapitalInsuranceSection.shown(
+            snapshot.planning.banks.insurance,
+            accounts: snapshot.ledger.dataset.paymentMethods, hiding: snapshot.hiding))),
+      AnyView(
+        CapitalBreakdownSection(
+          model: model, open: open, title: CapitalText.t("capital.details.title", environment))),
+    ]
+    if CapitalLayout.columns(forContent: width, idiom: design) == 2 {
+      let widths = CapitalLayout.columnWidths(forContent: width, idiom: design)
+      HStack(alignment: .top, spacing: SectionMetrics.columnGap(design)) {
+        column([hero, shares, assets] + extras)
+          .frame(width: width > 0 ? widths.0 : nil)
+        column([months, cushion])
+          .frame(width: width > 0 ? widths.1 : nil)
       }
+      .frame(maxWidth: .infinity, alignment: .leading)
     } else {
-      column(left + right)
+      column([hero, months, shares, cushion, assets] + extras)
     }
   }
 
   private func column(_ cards: [AnyView]) -> some View {
-    VStack(alignment: .leading, spacing: 16) {
+    VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
       ForEach(Array(cards.enumerated()), id: \.offset) { _, card in card }
     }
     .frame(maxWidth: .infinity, alignment: .topLeading)
-  }
-
-  /// The hero card: «Капитал 2 184 300 ₽» and how it moved since the end of last month — an
-  /// arrow and a sign, never the colour of good or bad: more debt can be a flat bought — and
-  /// what is had and what is owed.
-  private var header: some View {
-    ScreenHero(
-      caption: CapitalText.t("capital.title", environment),
-      figure: compute.snapshot.map { environment.money.rounded($0.planning.capital.now.netRub) }
-        ?? "—",
-      lines: heroLines, figureIdentifier: "capital.net")
-  }
-
-  private var heroLines: [String] {
-    guard let snapshot = compute.snapshot else { return [] }
-    let capital = snapshot.planning.capital
-    let model = CapitalViewModel(capital: capital, hiding: snapshot.hiding)
-    var lines: [String] = []
-    if let change = model.change, let since = model.sinceMonth {
-      lines.append(
-        (change.isNegative ? "↓ " : "↑ ") + environment.money.signedRounded(change) + " "
-          + CapitalText.since(since, environment))
-    }
-    lines.append(
-      CapitalText.format(
-        "capital.hero.haveOwe", environment, environment.money.rounded(capital.now.haveRub),
-        environment.money.rounded(capital.now.iOweRub)))
-    if model.partHidden { lines.append(PartHiddenNote.text(environment.language)) }
-    return lines
   }
 
   @ViewBuilder

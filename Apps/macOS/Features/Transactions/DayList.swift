@@ -41,6 +41,9 @@ struct DayList<Header: View, MenuItems: View>: View {
   var deleteAction: ((Set<UUID>) -> Void)?
   /// A row can be dragged out of the list (to another day of the calendar).
   var dragsRows = false
+  /// The title of each day over its rows; a list of one day under a title of its own (the
+  /// calendar's card of the chosen day) leaves it out.
+  var showsDayHeaders = true
 
   var body: some View {
     List(selection: $selection) { rows }
@@ -93,7 +96,9 @@ struct DayList<Header: View, MenuItems: View>: View {
           }
         }
       } header: {
-        DayHeader(day: group.day, totals: group.totals, partHidden: group.partHidden)
+        if showsDayHeaders {
+          DayHeader(day: group.day, totals: group.totals, partHidden: group.partHidden)
+        }
       }
     }
   }

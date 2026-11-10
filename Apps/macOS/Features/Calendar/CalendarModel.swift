@@ -75,7 +75,7 @@ enum CalendarLayout {
   static func isWide(width: CGFloat) -> Bool { width >= wideThreshold }
 
   /// How many upcoming events the card lists.
-  static let upcomingLimit = 6
+  static let upcomingLimit = 5
 
   /// The plans of the days shown from today on, soonest first, payments before incomes within
   /// a day, at most `limit`; the days ahead only, so a past day never appears.
@@ -140,6 +140,13 @@ enum CalendarText {
     case .payment: "clock"
     case .income: "tray.and.arrow.down"
     }
+  }
+
+  /// «Среда, 21 октября»: the title of the card of the chosen day.
+  static func dayTitle(_ day: DateOnly, _ environment: AppEnvironment) -> String {
+    let weekday = environment.dates.weekday(environment.calendar.weekdayIndex(day))
+    return weekday.prefix(1).uppercased(with: environment.language.locale) + weekday.dropFirst()
+      + ", " + environment.dates.dayAndMonth(day)
   }
 
   /// «Октябрь 2026» for a month, «12–18 окт.» for a week.

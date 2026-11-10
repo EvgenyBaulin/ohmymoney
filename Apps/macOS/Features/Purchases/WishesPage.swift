@@ -14,34 +14,26 @@ struct WishesPage: View {
   let report: (PurchaseOutcome) -> Void
   @State private var deleting: Wish?
   @State private var showsBought = false
+  @Environment(\.layoutIdiom) private var idiom
+  /// «Компактно» of this list: the rows alone, without the history of the prices under them.
+  @AppStorage(DensityList.purchases.key) private var compact = false
 
   private func t(_ key: String) -> String { PurchasesText.t(key, environment) }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 16) {
-      HStack {
-        Text(verbatim: t("purchases.wishes.heading")).appFont(.headline)
-        Spacer()
-        Button {
-          open(.newWish)
-        } label: {
-          Label {
-            Text(verbatim: t("purchases.wishes.add"))
-          } icon: {
-            Image(systemName: "plus")
-          }
-        }
-        .accessibilityIdentifier("purchases.wishes.add")
-      }
+    VStack(alignment: .leading, spacing: PurchasesMetrics.stackGap(LayoutIdiom.resolved(idiom))) {
       if page.wishes.isEmpty {
         Text(verbatim: t("purchases.wishes.empty"))
-          .appFont(.callout)
+          .appFont(SectionType.rowDetail)
           .foregroundStyle(.secondary)
-          .contentCard()
+          .fixedSize(horizontal: false, vertical: true)
+          .sectionCard()
           .accessibilityIdentifier("purchases.wishes.empty")
-      }
-      ForEach(page.wishes) { line in
-        card(line)
+      } else {
+        PurchasesListCard(count: page.wishes.count) { index in
+          row(page.wishes[index])
+        }
+        .accessibilityIdentifier("purchases.wishes.list")
       }
       if !page.bought.isEmpty {
         DisclosureGroup(isExpanded: $showsBought) {
@@ -54,9 +46,9 @@ struct WishesPage: View {
             verbatim: PurchasesText.count(
               "purchases.bought.heading", environment, page.bought.count)
           )
-          .appFont(.headline)
+          .appFont(SectionType.cardTitle)
         }
-        .contentCard()
+        .sectionCard()
         .accessibilityIdentifier("purchases.bought")
       }
     }
@@ -79,57 +71,50 @@ struct WishesPage: View {
 
   // MARK: A wish
 
-  private func card(_ line: WishLine) -> some View {
+  /// A row of the frame: the tag in its pastel circle, the name over what the pace of «can save»
+  /// says, the chip of the verdict and the price. A click opens what can be done with the wish —
+  /// a new price, «Купил», the link, a change, off the list, delete —; so does a right click. In
+  /// «Подробно» the history of the prices and the note follow under the row.
+  private func row(_ line: WishLine) -> some View {
     let wish = line.wish
-    return VStack(alignment: .leading, spacing: 8) {
-      HStack(alignment: .firstTextBaseline) {
-        VStack(alignment: .leading, spacing: 2) {
-          Text(verbatim: wish.name).appFont(.headline)
-          if wish.priority > 0 {
-            Text(
-              verbatim: PurchasesText.f("purchases.wish.priority", environment, wish.priority)
-            )
-            .appFont(.caption)
-            .foregroundStyle(.secondary)
+    let verdict = PurchasesWishVerdict.of(line)
+    return VStack(alignment: .leading, spacing: 6) {
+      Menu {
+        menu(line)
+      } label: {
+        PurchasesRow(
+          symbol: "tag", title: wish.name,
+          detail: detail(line),
+          chip: verdict.map { (t($0.titleKey), $0.tone) },
+          figure: PurchasesText.price(of: wish, environment))
+      }
+      .menuStyle(.button)
+      .buttonStyle(.plain)
+      .menuIndicator(.hidden)
+      .contextMenu { menu(line) }
+      .accessibilityIdentifier("purchases.wish.\(wish.id.uuidString)")
+      if !compact, line.tracking.history.count >= 2 || wish.note != nil {
+        VStack(alignment: .leading, spacing: 4) {
+          history(line)
+          if let note = wish.note {
+            Text(verbatim: note)
+              .appFont(SectionType.rowDetail)
+              .foregroundStyle(.secondary)
+              .fixedSize(horizontal: false, vertical: true)
           }
         }
-        Spacer(minLength: 8)
-        Text(verbatim: PurchasesText.price(of: wish, environment))
-          .appFont(.title3.monospacedDigit())
+        .padding(.horizontal, PurchasesMetrics.rowHorizontal(LayoutIdiom.resolved(idiom)))
+        .padding(.bottom, 6)
       }
-      if let text = PurchasesText.afford(line, environment) {
-        Label {
-          Text(verbatim: text).fixedSize(horizontal: false, vertical: true)
-        } icon: {
-          Image(systemName: "calendar")
-        }
-        .appFont(.callout)
-        .accessibilityIdentifier("purchases.wish.afford")
-      }
-      if let reason = line.tracking.timeToBuy {
-        Label {
-          Text(
-            verbatim: t("purchases.timeToBuy") + " · " + PurchasesText.reason(reason, environment)
-          )
-          .fixedSize(horizontal: false, vertical: true)
-        } icon: {
-          Image(systemName: "bell")
-        }
-        .appFont(.callout.weight(.semibold))
-        .accessibilityIdentifier("purchases.wish.timeToBuy")
-      }
-      history(line)
-      if let note = wish.note {
-        Text(verbatim: note)
-          .appFont(.callout)
-          .foregroundStyle(.secondary)
-          .fixedSize(horizontal: false, vertical: true)
-      }
-      actions(line)
     }
-    .contentCard()
-    .accessibilityElement(children: .contain)
-    .accessibilityIdentifier("purchases.wish.\(wish.id.uuidString)")
+  }
+
+  /// What the pace says, and why it is time to buy when the prices say so.
+  private func detail(_ line: WishLine) -> String? {
+    if let reason = line.tracking.timeToBuy {
+      return t("purchases.timeToBuy") + " · " + PurchasesText.reason(reason, environment)
+    }
+    return PurchasesText.afford(line, environment)
   }
 
   @ViewBuilder
@@ -161,41 +146,31 @@ struct WishesPage: View {
           )
         }
       }
-      .appFont(.caption.monospacedDigit())
+      .appFont(SectionType.rowDetail)
       .foregroundStyle(.secondary)
       if let change = PurchasesText.change(line, environment) {
-        Text(verbatim: change).appFont(.caption).foregroundStyle(.secondary)
+        Text(verbatim: change).appFont(SectionType.rowDetail).foregroundStyle(.secondary)
       }
     }
   }
 
-  private func actions(_ line: WishLine) -> some View {
+  @ViewBuilder
+  private func menu(_ line: WishLine) -> some View {
     let wish = line.wish
-    return HStack {
-      Button(t("purchases.wish.price")) { open(.price(wish)) }
-        .accessibilityIdentifier("purchases.wish.price")
-      Button(t("purchases.wish.bought")) { open(.bought(wish)) }
-        .accessibilityIdentifier("purchases.wish.bought")
-      if let url = PurchaseActions.link(wish.url) {
-        Button(t("purchases.wish.link")) { openURL(url) }
-          .accessibilityIdentifier("purchases.wish.link")
-      }
-      Spacer()
-      Menu {
-        Button(t("purchases.wish.edit")) { open(.editWish(wish)) }
-        Button(t("purchases.wish.archive")) {
-          if let dependencies { report(PurchaseActions(dependencies).archive(wish)) }
-        }
-        Button(environment.language("action.delete"), role: .destructive) { deleting = wish }
-      } label: {
-        Image(systemName: "ellipsis.circle")
-      }
-      .menuIndicator(.hidden)
-      .fixedSize()
-      .accessibilityLabel(Text(verbatim: t("purchases.wish.more")))
-      .accessibilityIdentifier("purchases.wish.more")
+    Button(t("purchases.wish.price")) { open(.price(wish)) }
+      .accessibilityIdentifier("purchases.wish.price")
+    Button(t("purchases.wish.bought")) { open(.bought(wish)) }
+      .accessibilityIdentifier("purchases.wish.bought")
+    if let url = PurchaseActions.link(wish.url) {
+      Button(t("purchases.wish.link")) { openURL(url) }
+        .accessibilityIdentifier("purchases.wish.link")
     }
-    .buttonStyle(.bordered)
+    Divider()
+    Button(t("purchases.wish.edit")) { open(.editWish(wish)) }
+    Button(t("purchases.wish.archive")) {
+      if let dependencies { report(PurchaseActions(dependencies).archive(wish)) }
+    }
+    Button(environment.language("action.delete"), role: .destructive) { deleting = wish }
   }
 
   // MARK: Bought

@@ -28,6 +28,7 @@ struct CalendarView: View {
   /// «Только подписки»: the grid gives way to the days subscriptions are charged on.
   /// What the button «Создать событие с бюджетом» said last.
   @State private var giftMessage: String?
+  @Environment(\.layoutIdiom) private var idiom
 
   private func t(_ key: String) -> String { CalendarText.t(key, environment) }
 
@@ -52,33 +53,27 @@ struct CalendarView: View {
     let gifts = CalendarBirthdays.gifts(
       people: snapshot.dataset.people, on: calendar.weeks.flatMap { $0 }.map(\.day),
       today: snapshot.today)
-    let wide = CalendarLayout.isWide(width: width)
-    let dayList = DayList(
-      groups: CalendarScreen.groups(of: chosenDay, in: snapshot, calendar: environment.calendar),
-      selection: $selection,
-      ledger: snapshot.ledger,
-      emptyText: chosenDay.map { _ in t("calendar.day.empty") },
-      header: {
-        plans(
-          of: chosenDay, in: calendar, gifts: gifts[chosenDay?.day ?? snapshot.today] ?? [],
-          events: snapshot.dataset.events)
-      },
-      menu: { ids in
-        BulkMenuItems(ids: ids, actions: actions, offersEdit: true)
-        if ids.count == 1, let only = ids.first {
-          Divider()
-          Button(QuickText.t("quick.move.menu", environment)) {
-            mover.picking = MoveToDayModel.Pick(id: only)
-          }
+    let design = LayoutIdiom.resolved(idiom)
+    let wide = design != .phone && CalendarLayout.isWide(width: width)
+    let content = max(0, width - 2 * SectionMetrics.side(design))
+    // The tablet's columns are 448 and 584 of its 1,052, as Capital's; the Mac's are equal.
+    let columns = CapitalLayout.columnWidths(forContent: content, idiom: design)
+    let column = wide ? columns.1 : content
+    let grid = CalendarGridCard(
+      calendar: calendar, chosen: chosen ?? calendar.today, noteDays: noteDays,
+      birthdays: Set(gifts.keys), dropTarget: dropTarget,
+      choose: { chosen = $0 }, drop: { drop($0, on: $1) },
+      target: { day, targeted in
+        if targeted {
+          dropTarget = day
+        } else if dropTarget == day {
+          dropTarget = nil
         }
-      },
-      primaryAction: { ids in actions.edit(ids, store: store) },
-      deleteAction: { ids in actions.requestDeletion(of: ids, store: store) },
-      dragsRows: true
-    )
-    .frame(minHeight: 160)
-    .accessibilityIdentifier("calendar.dayList")
-    return VStack(alignment: .leading, spacing: 12) {
+      }, width: width > 0 ? CalendarMetrics.gridWidth(column: column) : 0)
+    let dayCard = dayCard(
+      chosenDay, calendar: calendar, snapshot: snapshot,
+      gifts: gifts[chosenDay?.day ?? snapshot.today] ?? [])
+    return VStack(alignment: .leading, spacing: SectionMetrics.headerToContent) {
       header(calendar, today: snapshot.today)
       if let text = mover.message {
         QuickCalendarMessage(text: text, failed: mover.failed)
@@ -90,24 +85,39 @@ struct CalendarView: View {
           .accessibilityIdentifier("calendar.birthday.message")
       }
       if wide {
-        HStack(alignment: .top, spacing: 16) {
-          dayList
-            .clipShape(.rect(cornerRadius: 12))
-            .frame(maxWidth: 360)
-          VStack(alignment: .leading, spacing: 12) {
-            gridCard(calendar, gifts: gifts)
-            upcomingCard(calendar)
+        // The frame: the switch, the chosen day and the dearer days on the left; the month and
+        // what is ahead on the right, 16 apart.
+        HStack(alignment: .top, spacing: SectionMetrics.columnGap(design)) {
+          VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
+            scopeSwitch
+            dayCard
+            CalendarDearDaysCard(calendar: calendar) { chosen = $0 }
           }
-          .frame(maxWidth: .infinity, alignment: .top)
+          .frame(width: width > 0 ? columns.0 : nil)
+          .frame(maxHeight: .infinity, alignment: .top)
+          ScrollView {
+            VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
+              grid
+              CalendarUpcomingCard(calendar: calendar)
+            }
+          }
+          .scrollIndicators(.never)
+          .frame(width: width > 0 ? columns.1 : nil)
         }
       } else {
-        gridCard(calendar, gifts: gifts)
-        dayList.clipShape(.rect(cornerRadius: 12))
-        upcomingCard(calendar)
+        VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
+          scopeSwitch
+          grid
+          dayCard
+          CalendarUpcomingCard(calendar: calendar)
+        }
       }
     }
-    .padding(.horizontal, 20)
-    .padding(.top, 12)
+    .padding(.horizontal, SectionMetrics.side(design))
+    .padding(.top, SectionMetrics.top(design))
+    .padding(.bottom, SectionMetrics.bottom(design))
+    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    .background(surfaces.background)
     .onChange(of: compute.generation) { _, _ in actions.reloadDictionaries(from: snapshot.dataset) }
     .onAppear { actions.reloadDictionaries(from: snapshot.dataset) }
     .onChange(of: chosen) { _, _ in
@@ -122,19 +132,70 @@ struct CalendarView: View {
     }
   }
 
+  /// «Месяц | Неделя»: the track of the frame on the Mac and a tablet, the same on a phone.
+  private var scopeSwitch: some View {
+    SectionSegments(
+      options: [
+        (CalendarScope.month, t("calendar.scope.month")),
+        (CalendarScope.week, t("calendar.scope.week")),
+      ],
+      selection: $scope, chipsOnTouch: false, fillsWidth: LayoutIdiom.resolved(idiom) == .pad,
+      identifier: { "calendar.scope.\($0.rawValue)" }
+    )
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("calendar.scope")
+  }
+
+  /// The card of the chosen day: «Среда, 21 октября» and what it cost at the right, then what is
+  /// planned for it and its operations — the list of «Траты», with its selection, its menu, a
+  /// double click to edit and its rows dragged to another day.
+  private func dayCard(
+    _ chosenDay: SpendingCalendarDay?, calendar: SpendingCalendar, snapshot: DataSnapshot,
+    gifts: [GiftDay]
+  ) -> some View {
+    VStack(alignment: .leading, spacing: SectionMetrics.cardGap) {
+      SectionCardHeader(
+        title: CalendarText.dayTitle(chosenDay?.day ?? snapshot.today, environment),
+        caption: CalendarFigures.spent(on: chosenDay).map {
+          "−" + CalendarText.money($0, of: calendar, environment)
+        })
+      .accessibilityIdentifier("calendar.day.title")
+      DayList(
+        groups: CalendarScreen.groups(of: chosenDay, in: snapshot, calendar: environment.calendar),
+        selection: $selection,
+        ledger: snapshot.ledger,
+        emptyText: chosenDay.map { _ in t("calendar.day.empty") },
+        header: {
+          plans(of: chosenDay, in: calendar, gifts: gifts, events: snapshot.dataset.events)
+        },
+        menu: { ids in
+          BulkMenuItems(ids: ids, actions: actions, offersEdit: true)
+          if ids.count == 1, let only = ids.first {
+            Divider()
+            Button(QuickText.t("quick.move.menu", environment)) {
+              mover.picking = MoveToDayModel.Pick(id: only)
+            }
+          }
+        },
+        primaryAction: { ids in actions.edit(ids, store: store) },
+        deleteAction: { ids in actions.requestDeletion(of: ids, store: store) },
+        dragsRows: true,
+        showsDayHeaders: false
+      )
+      .scrollContentBackground(.hidden)
+      .frame(minHeight: CalendarMetrics.dayListMinimum)
+      .accessibilityIdentifier("calendar.dayList")
+    }
+    .sectionCard()
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("calendar.dayCard")
+  }
+
   // MARK: - Header
 
+  /// «Календарь» 22 bold, the month under it, «Новая операция» at the right; the steppers of the
+  /// month — which the frame does not draw — stand before the button.
   private func header(_ calendar: SpendingCalendar, today: DateOnly) -> some View {
-    let compact = ScreenWidth.isCompact(width)
-    let scopePicker = Picker(selection: $scope) {
-      Text(verbatim: t("calendar.scope.month")).tag(CalendarScope.month)
-      Text(verbatim: t("calendar.scope.week")).tag(CalendarScope.week)
-    } label: {
-      Text(verbatim: t("calendar.scope"))
-    }
-    .pickerStyle(.segmented)
-    .labelsHidden()
-    .accessibilityIdentifier("calendar.scope")
     let stepper = ControlGroup {
       Button {
         anchor = SpendingCalendar.step(calendar.anchor, scope: scope, by: -1)
@@ -166,211 +227,16 @@ struct CalendarView: View {
     }
     .labelStyle(.iconOnly)
     .fixedSize()
-    return Group {
-      if compact {
-        // A phone: the page title with the month under it, the steppers beside, and the
-        // month/week switch on a full line of its own, as the design has it.
-        VStack(alignment: .leading, spacing: 12) {
-          HStack(alignment: .top, spacing: 12) {
-            ScreenTitleBlock(
-              title: environment.language("section.calendar"),
-              subtitle: CalendarText.title(of: calendar, environment),
-              identifier: "calendar.title")
-            Spacer(minLength: 8)
-            stepper
-          }
-          scopePicker
-        }
-      } else {
-        #if os(iOS)
-          // A tablet draws the page title of the design itself, the month under it, with the
-          // switch and the steppers at the right.
-          HStack(alignment: .top, spacing: 12) {
-            ScreenTitleBlock(
-              title: environment.language("section.calendar"),
-              subtitle: CalendarText.title(of: calendar, environment),
-              identifier: "calendar.title")
-            Spacer(minLength: 8)
-            scopePicker.fixedSize()
-            stepper
-          }
-        #else
-          wideMacHeader(calendar, scopePicker: scopePicker, stepper: stepper)
-        #endif
-      }
-    }
-  }
-
-  /// The Mac's wide header: the month as the window's title, the switch and the steppers.
-  private func wideMacHeader(
-    _ calendar: SpendingCalendar, scopePicker: some View, stepper: some View
-  ) -> some View {
-    HStack(spacing: 12) {
-      Text(verbatim: CalendarText.title(of: calendar, environment))
-        .appFont(.title2.weight(.semibold))
-        .accessibilityAddTraits(.isHeader)
-        .accessibilityIdentifier("calendar.title")
-      Spacer(minLength: 8)
-      scopePicker.fixedSize()
-      stepper
-    }
-  }
-
-  /// What the days in scope came to, the usual day, or why there is none.
-  private func summary(_ calendar: SpendingCalendar) -> some View {
-    ViewThatFits(in: .horizontal) {
-      HStack(spacing: 16) { summaryItems(calendar) }
-      VStack(alignment: .leading, spacing: 4) { summaryItems(calendar) }
-    }
-    .appFont(.callout)
-  }
-
-  @ViewBuilder
-  private func summaryItems(_ calendar: SpendingCalendar) -> some View {
-    Text(
-      verbatim: environment.format(
-        "calendar.total", table: CalendarText.table,
-        CalendarText.money(calendar.spent, of: calendar, environment))
-    )
-    .monospacedDigit()
-    if let snapshot = compute.snapshot, CalendarScreen.partHidden(of: calendar, in: snapshot) {
-      PartHiddenNote()
-    }
-    if let usual = calendar.usual {
-      Text(
-        verbatim: environment.format(
-          "calendar.usual", table: CalendarText.table,
-          CalendarText.money(usual, of: calendar, environment))
-      )
-      .monospacedDigit()
-      .foregroundStyle(.secondary)
-    }
-    if calendar.lowData || calendar.usual == nil {
-      Label {
-        Text(verbatim: t("calendar.lowData"))
-      } icon: {
-        Image(systemName: "hourglass")
-      }
-      .foregroundStyle(.secondary)
-    }
-    if calendar.currency != .rub {
-      Text(verbatim: t("calendar.atTodaysRate"))
-        .foregroundStyle(.secondary)
-    }
-    legend
-  }
-
-  /// The symbols the cells use, each with its words.
-  private var legend: some View {
-    HStack(spacing: 10) {
-      legendItem("arrow.up", "calendar.level.higher", tint: .orange)
-      legendItem("flame", "calendar.level.muchHigher", tint: .orange)
-      legendItem(CalendarText.symbol(of: .payment), "calendar.payment", tint: .secondary)
-      legendItem(CalendarText.symbol(of: .income), "calendar.income", tint: .secondary)
-    }
-    .appFont(.caption)
-    .foregroundStyle(.secondary)
-  }
-
-  private func legendItem(_ symbol: String, _ key: String, tint: Color) -> some View {
-    Label {
-      Text(verbatim: t(key))
-    } icon: {
-      Image(systemName: symbol).foregroundStyle(tint)
-    }
-  }
-
-  // MARK: - Cards
-
-  /// The grid with the summary and the legend on one card, as in the design.
-  private func gridCard(_ calendar: SpendingCalendar, gifts: [DateOnly: [GiftDay]]) -> some View {
-    VStack(alignment: .leading, spacing: 10) {
-      summary(calendar)
-      grid(calendar, gifts: gifts)
-      Text(verbatim: t("calendar.legend.level"))
-        .appFont(.caption)
-        .foregroundStyle(.secondary)
-    }
-    .contentCard()
-  }
-
-  /// What is planned from today on, soonest first; hidden when nothing is.
-  @ViewBuilder
-  private func upcomingCard(_ calendar: SpendingCalendar) -> some View {
-    let plans = CalendarLayout.upcoming(in: calendar)
-    if !plans.isEmpty {
-      VStack(alignment: .leading, spacing: 8) {
-        HStack {
-          Text(verbatim: t("calendar.upcoming")).appFont(.headline)
-          Spacer()
-          Text(verbatim: "\(plans.count)").appFont(.caption).foregroundStyle(.secondary)
-        }
-        .accessibilityElement(children: .combine)
-        ForEach(plans) { plan in
-          HStack(spacing: 8) {
-            Image(systemName: CalendarText.symbol(of: plan.kind))
-              .foregroundStyle(plan.kind == .income ? surfaces.positive : surfaces.accent)
-              .frame(width: 22)
-              .accessibilityLabel(
-                Text(verbatim: t(plan.kind == .payment ? "calendar.payment" : "calendar.income")))
-            Text(
-              verbatim:
-                "\(environment.dates.longDay(plan.day)) · \(CalendarText.title(of: plan, environment))"
-            )
-            .lineLimit(1)
-            Spacer(minLength: 6)
-            Text(verbatim: CalendarText.amount(of: plan, environment))
-              .monospacedDigit()
-              .foregroundStyle(plan.kind == .income ? surfaces.positive : surfaces.primary)
-          }
-          .appFont(.callout)
-          .accessibilityElement(children: .combine)
-        }
-      }
-      .contentCard()
-      .accessibilityIdentifier("calendar.upcoming")
-    }
-  }
-
-  // MARK: - Grid
-
-  private func grid(_ calendar: SpendingCalendar, gifts: [DateOnly: [GiftDay]]) -> some View {
-    Grid(horizontalSpacing: 6, verticalSpacing: 6) {
-      GridRow {
-        ForEach(calendar.weekdays, id: \.self) { weekday in
-          Text(verbatim: environment.dates.shortWeekday(weekday))
-            .appFont(.caption)
-            .foregroundStyle(.secondary)
-            .frame(maxWidth: .infinity)
-        }
-      }
-      ForEach(calendar.weeks, id: \.first?.day) { week in
-        GridRow {
-          ForEach(week) { day in
-            Button {
-              chosen = day.day
-            } label: {
-              CalendarDayCell(
-                day: day, calendar: calendar, detailed: calendar.scope == .week,
-                isChosen: day.day == (chosen ?? calendar.today),
-                hasNote: noteDays.contains(day.day), hasBirthday: gifts[day.day] != nil,
-                isDropTarget: dropTarget == day.day)
-            }
-            .buttonStyle(.plain)
-            .dropDestination(for: String.self) { items, _ in
-              drop(items, on: day.day)
-            } isTargeted: { targeted in
-              if targeted {
-                dropTarget = day.day
-              } else if dropTarget == day.day {
-                dropTarget = nil
-              }
-            }
-            .accessibilityIdentifier("calendar.day.\(day.day.iso)")
-          }
-        }
-      }
-    }
+    .accessibilityIdentifier("calendar.stepper")
+    return SectionHeader(
+      title: environment.language("section.calendar"),
+      subtitle: CalendarText.title(of: calendar, environment),
+      identifier: "calendar.screenTitle",
+      primary: (
+        environment.language("operations.new", table: "Transactions"), "calendar.newOperation",
+        { NotificationCenter.default.post(name: .focusEntryLine, object: nil) }
+      ),
+      trailing: AnyView(stepper))
   }
 
   // MARK: - Moving and notes
@@ -400,8 +266,6 @@ struct CalendarView: View {
   ) -> some View {
     if let day {
       VStack(alignment: .leading, spacing: 4) {
-        Text(verbatim: environment.dates.longDay(day.day))
-          .appFont(.headline)
         DayNoteRow(
           day: day.day,
           note: compute.snapshot?.dataset.dayNotes.first { $0.day == day.day })
