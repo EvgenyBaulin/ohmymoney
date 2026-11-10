@@ -269,7 +269,9 @@ struct ReportsSheetRequest: Hashable, Sendable {
   /// total. These are the core's tables as they always were: the CSV of a tab is theirs.
   var tables: [ReportsRequest] {
     let period = self.period.period
-    func request(_ kind: ReportTable.Kind, _ grouping: ReportGrouping = .category)
+    func request(
+      _ kind: ReportTable.Kind, _ grouping: ReportGrouping = .category
+    )
       -> ReportsRequest
     {
       ReportsRequest(kind: kind, period: period, grouping: grouping, today: today)
@@ -332,7 +334,8 @@ enum ReportsSheetBuilder {
     for month in request.months {
       func model(_ kind: ReportTable.Kind) -> ReportsModel {
         ReportsBuilder.model(
-          ReportsRequest(kind: kind, period: .month(month), grouping: .category, today: request.today),
+          ReportsRequest(
+            kind: kind, period: .month(month), grouping: .category, today: request.today),
           ledger: ledger)
       }
       sheet.monthExpenses.append(model(.expensesByCategory))

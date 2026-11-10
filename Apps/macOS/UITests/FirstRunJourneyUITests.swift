@@ -32,8 +32,9 @@ final class FirstRunJourneyUITests: E2EMacTestCase {
         sheet.buttons["Skip"].click()
       } else if sheet.buttons["Add"].exists, labelled(sheet, "Working").exists {
         if !seen.contains("starter") {
-          for label in ["Working", "I have loans", "I have subscriptions", "I want a safety cushion"]
-          {
+          for label in [
+            "Working", "I have loans", "I have subscriptions", "I want a safety cushion",
+          ] {
             let toggle = labelled(sheet, label)
             if toggle.waitForExistence(timeout: 3) { toggle.click() }
           }
@@ -61,7 +62,8 @@ final class FirstRunJourneyUITests: E2EMacTestCase {
     dump("05-after-questions", of: app)
     XCTAssertTrue(seen.contains("starter"), "no starter set: \(seen)")
     XCTAssertTrue(seen.contains("accounts"), "no account setup: \(seen)")
-    XCTAssertTrue(seen.filter { $0 == "starter" }.count <= 2, "the starter set stayed open: \(seen)")
+    XCTAssertTrue(
+      seen.filter { $0 == "starter" }.count <= 2, "the starter set stayed open: \(seen)")
 
     // «кофе 250» through the entry line.
     let line = main.textFields["entry.line"]

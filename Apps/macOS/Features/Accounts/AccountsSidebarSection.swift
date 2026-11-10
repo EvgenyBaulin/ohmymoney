@@ -171,8 +171,9 @@ struct AccountsSidebarSection: View {
       }
       .buttonStyle(.plain)
       .accessibilityLabel(
-        Text(verbatim: environment.language(
-          isFolded ? "tree.expandAll" : "tree.collapseAll", table: EntryLinks.table)))
+        Text(
+          verbatim: environment.language(
+            isFolded ? "tree.expandAll" : "tree.collapseAll", table: EntryLinks.table)))
       VStack(alignment: .leading, spacing: 0) {
         Text(verbatim: group.name)
           .appFont(AccountsSidebarMetrics.groupName)

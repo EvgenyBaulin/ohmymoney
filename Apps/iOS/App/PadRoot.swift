@@ -50,7 +50,8 @@ struct PadRoot<Entry: View>: View {
     }
     .environment(
       \.overviewColumnsOverride,
-      PadLayout.overviewColumns(forWidth: Double(width), besideTheForm: besideTheForm))
+      PadLayout.overviewColumns(forWidth: Double(width), besideTheForm: besideTheForm)
+    )
     .sheet(isPresented: $showsTools) {
       PadToolsSheet(deps: deps, session: session, lock: lock, router: router) {
         showsTools = false
@@ -302,10 +303,12 @@ struct PadSettingsScreen: View {
           } label: {
             SettingsSidebarLabel(
               section: section,
-              title: environment.language(section.titleKey, table: "Settings"), highlight: lit)
+              title: environment.language(section.titleKey, table: "Settings"), highlight: lit
+            )
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(
-              lit.plate(theme), in: .rect(cornerRadius: SettingsChromeMetrics.plateRadius))
+              lit.plate(theme), in: .rect(cornerRadius: SettingsChromeMetrics.plateRadius)
+            )
             .contentShape(.rect)
           }
           .buttonStyle(.plain)
@@ -318,7 +321,8 @@ struct PadSettingsScreen: View {
       .listStyle(.plain)
       .searchable(
         text: $query, placement: .sidebar,
-        prompt: Text(verbatim: environment.language("settings.search.prompt", table: "Settings")))
+        prompt: Text(verbatim: environment.language("settings.search.prompt", table: "Settings"))
+      )
       .navigationSplitViewColumnWidth(PadLayout.settingsSidebarWidth)
       .navigationTitle(Text(verbatim: environment.language("settings.title", table: "Settings")))
       .toolbar {

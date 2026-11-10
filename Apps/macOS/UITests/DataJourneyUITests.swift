@@ -46,12 +46,13 @@ final class DataJourneyUITests: E2EMacTestCase {
       return fields.map { "\"\($0)\"" }.joined(separator: ";")
     }
     // A byte-order mark and Windows line ends, as the bank writes the file.
-    return "\u{FEFF}" + [
-      header,
-      line(2, "E2E0001", "310,00", " SAMPLE BAKERY"),
-      line(3, "E2E0002", "1 480,50", " SAMPLE MARKET"),
-      line(4, "E2E0003", "95,00", " SAMPLE KIOSK"),
-    ].joined(separator: "\r\n") + "\r\n"
+    return "\u{FEFF}"
+      + [
+        header,
+        line(2, "E2E0001", "310,00", " SAMPLE BAKERY"),
+        line(3, "E2E0002", "1 480,50", " SAMPLE MARKET"),
+        line(4, "E2E0003", "95,00", " SAMPLE KIOSK"),
+      ].joined(separator: "\r\n") + "\r\n"
   }
 
   func testAStatementIsImportedFromAFileAndItsRowsLand() throws {
@@ -71,9 +72,11 @@ final class DataJourneyUITests: E2EMacTestCase {
     let accounts = account.descendants(matching: .menuItem)
     XCTAssertTrue(accounts.firstMatch.waitForExistence(timeout: 5), "no accounts to choose from")
     let titles = accounts.allElementsBoundByIndex.map(\.title)
-    let index = titles.firstIndex { $0.hasPrefix("Every") } ?? titles.firstIndex {
-      !$0.isEmpty && !$0.hasPrefix("Choose")
-    }
+    let index =
+      titles.firstIndex { $0.hasPrefix("Every") }
+      ?? titles.firstIndex {
+        !$0.isEmpty && !$0.hasPrefix("Choose")
+      }
     accounts.element(boundBy: try XCTUnwrap(index, "no account among \(titles)")).click()
     let write = app.sheets.buttons["Write"]
     XCTAssertTrue(waitUntil(20) { write.isEnabled }, "Write stayed off after the account")

@@ -458,7 +458,8 @@ struct PhoneSettingsList: View {
     }
     .searchable(
       text: $query,
-      prompt: Text(verbatim: environment.language("settings.search.prompt", table: "Settings")))
+      prompt: Text(verbatim: environment.language("settings.search.prompt", table: "Settings"))
+    )
     .navigationTitle(environment.language("settings.title", table: "Settings"))
     .navigationBarTitleDisplayMode(.large)
   }

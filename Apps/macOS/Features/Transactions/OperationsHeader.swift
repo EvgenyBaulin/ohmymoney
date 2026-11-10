@@ -255,7 +255,9 @@ struct OperationsMonthCapsule: View {
     .fixedSize()
   }
 
-  private func chevron(_ symbol: String, label: String, action: @escaping () -> Void)
+  private func chevron(
+    _ symbol: String, label: String, action: @escaping () -> Void
+  )
     -> some View
   {
     Button(action: action) {

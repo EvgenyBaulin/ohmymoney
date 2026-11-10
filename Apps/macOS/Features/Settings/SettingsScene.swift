@@ -130,8 +130,10 @@ struct SettingsSidebar: View {
     // The search field heads the sidebar, as drawn: 34 tall, rounded 10, on the segmented
     // surface, 12 from the edges.
     VStack(spacing: 8) {
-      SettingsSearchField(query: $navigation.query, prompt: environment.language(
-        "settings.search.prompt", table: "Settings")
+      SettingsSearchField(
+        query: $navigation.query,
+        prompt: environment.language(
+          "settings.search.prompt", table: "Settings")
       ) {
         if let first = found.first { navigation.section = first.section }
       }
@@ -185,7 +187,8 @@ struct SettingsSidebar: View {
               .padding(
                 .leading,
                 SettingsChromeMetrics.rowLeading + SettingsChromeMetrics.tileSize
-                  + SettingsChromeMetrics.rowGap)
+                  + SettingsChromeMetrics.rowGap
+              )
               .frame(maxWidth: .infinity, alignment: .leading)
               .contentShape(Rectangle())
           }

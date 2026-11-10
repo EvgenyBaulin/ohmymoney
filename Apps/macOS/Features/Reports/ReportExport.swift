@@ -121,7 +121,9 @@ enum ReportExport {
   /// The files of a tab: one CSV per table of the core it is made of, each named as that table
   /// always was and holding exactly its lines — «По категориям» is two of them, the income and
   /// the spending.
-  static func files(_ sheet: ReportsSheet, environment: AppEnvironment)
+  static func files(
+    _ sheet: ReportsSheet, environment: AppEnvironment
+  )
     -> [PersonalDataExport.File]
   {
     sheet.models.map { model in
@@ -132,7 +134,9 @@ enum ReportExport {
   }
 
   #if !os(macOS)
-    static func run(sheet: ReportsSheet, environment: AppEnvironment, compute: ComputeStore)
+    static func run(
+      sheet: ReportsSheet, environment: AppEnvironment, compute: ComputeStore
+    )
       async
     {}
   #endif
@@ -140,7 +144,9 @@ enum ReportExport {
     /// «Выгрузить CSV…» of a tab. One table goes the way it always did. Two tables are two
     /// files: plain, into a folder the owner picks — the sandbox gives the app that folder, not
     /// the file beside one it was given —; with «Зашифровать», together in one locked file.
-    static func run(sheet: ReportsSheet, environment: AppEnvironment, compute: ComputeStore)
+    static func run(
+      sheet: ReportsSheet, environment: AppEnvironment, compute: ComputeStore
+    )
       async
     {
       guard sheet.models.count > 1 else {
@@ -183,8 +189,10 @@ enum ReportExport {
             return
           }
           let tables = sheet.models.map { model in
-            (model.table, ReportsText.csvNames(for: model, environment),
-              ReportFileName.make(for: model.request))
+            (
+              model.table, ReportsText.csvNames(for: model, environment),
+              ReportFileName.make(for: model.request)
+            )
           }
           try await compute.compute {
             for (table, names, name) in tables {

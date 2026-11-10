@@ -157,7 +157,8 @@ final class TouchScreensPictureTests: XCTestCase {
   /// What the content asks for at the width of the frame is no wider than the frame. A scrolling
   /// page reports the width it was offered, so this only catches a page that asks for more; the
   /// numbers themselves are checked in `TouchScreensFigmaTests`, the picture is for the eye.
-  private func assertFits(_ window: UIWindow, _ size: CGSize, file: StaticString = #filePath,
+  private func assertFits(
+    _ window: UIWindow, _ size: CGSize, file: StaticString = #filePath,
     line: UInt = #line
   ) throws {
     let controller = try XCTUnwrap(

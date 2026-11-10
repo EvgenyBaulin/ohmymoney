@@ -123,7 +123,8 @@ struct AnalyticsPeriod: Hashable, Sendable {
 
   /// The period of `today`: what the window opens on the first time and what «Текущий» gives.
   static func current(_ kind: Kind = .month, today: DateOnly) -> AnalyticsPeriod {
-    kind == .week ? AnalyticsPeriod(week: today) : AnalyticsPeriod(kind: kind, month: today.monthKey)
+    kind == .week
+      ? AnalyticsPeriod(week: today) : AnalyticsPeriod(kind: kind, month: today.monthKey)
   }
 
   var period: Period {

@@ -61,7 +61,11 @@ struct OperationDayCards<MenuItems: View>: View {
         list(columns: false)
       }
     }
-    .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+    .onGeometryChange(for: CGFloat.self) {
+      $0.size.width
+    } action: {
+      width = $0
+    }
   }
 
   @ViewBuilder
@@ -116,11 +120,13 @@ struct OperationDayCards<MenuItems: View>: View {
             .padding(.horizontal, columns ? 0 : OperationsMetrics.phoneDayInset)
             .padding(.top, columns ? OperationsMetrics.padDayTop : OperationsMetrics.phoneDayInset)
             .padding(
-              .bottom, columns ? OperationsMetrics.padDayBottom : OperationsMetrics.phoneDayGap)
+              .bottom, columns ? OperationsMetrics.padDayBottom : OperationsMetrics.phoneDayGap
+            )
             .listRowInsets(
               EdgeInsets(
                 top: 0, leading: columns ? OperationsMetrics.rowHorizontal : 0, bottom: 0,
-                trailing: columns ? OperationsMetrics.rowHorizontal : 0))
+                trailing: columns ? OperationsMetrics.rowHorizontal : 0)
+            )
             .appDependencies(deps)
         }
       }

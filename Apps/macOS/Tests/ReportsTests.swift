@@ -674,7 +674,8 @@ final class ReportsRenderingTests: XCTestCase {
         let sheet = ReportsSheet(
           request: ReportsSheetRequest(
             // A table of the core as it is, drawn the way a tab of one table draws it.
-            tab: .total, period: AnalyticsPeriod(kind: .year, month: MonthKey(year: 2026, month: 12)),
+            tab: .total,
+            period: AnalyticsPeriod(kind: .year, month: MonthKey(year: 2026, month: 12)),
             today: request.today),
           models: [model])
         let grid = ReportGridBuilder.grid(sheet, .mac, environment)

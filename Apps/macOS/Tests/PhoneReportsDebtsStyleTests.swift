@@ -23,16 +23,19 @@ final class PhoneReportsDebtsStyleTests: XCTestCase {
     let environment = AppEnvironment()
     environment.language.choice = .russian
     let request = ReportsSheetRequest(
-      tab: .byCategory, period: AnalyticsPeriod(kind: .year, month: MonthKey(year: 2026, month: 12)),
+      tab: .byCategory,
+      period: AnalyticsPeriod(kind: .year, month: MonthKey(year: 2026, month: 12)),
       today: golden.todayDay)
     let sheet = ReportsSheetBuilder.sheet(request, ledger: golden.ledger())
-    XCTAssertEqual(sheet.models.map(\.table.kind), [.incomeByCategory, .expensesByCategoryAndSubcategory])
+    XCTAssertEqual(
+      sheet.models.map(\.table.kind), [.incomeByCategory, .expensesByCategoryAndSubcategory])
     let grid = ReportGridBuilder.grid(sheet, .phone, environment)
     let lines = sheet.models.map { model in
       model.lines.filter { !$0.isSummary }.flatMap(\.flattened).count
     }
     XCTAssertEqual(grid.rows.filter { $0.style == .line }.count, lines.reduce(0, +))
-    XCTAssertEqual(grid.rows.filter { $0.style == .section }.map { $0.cells[0] }, ["Доходы", "Расходы"])
+    XCTAssertEqual(
+      grid.rows.filter { $0.style == .section }.map { $0.cells[0] }, ["Доходы", "Расходы"])
     XCTAssertEqual(
       grid.rows.filter { $0.style == .total }.map { $0.cells[0] },
       ["Итого доходов", "Итого расходов", "Разница"])

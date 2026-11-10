@@ -66,8 +66,9 @@ enum ReceiptQRDetector {
     for rect in [CGRect(x: 0, y: 0, width: image.width, height: image.height)]
       + tiles(width: image.width, height: image.height)
     {
-      guard let piece = rect.width == CGFloat(image.width) && rect.height == CGFloat(image.height)
-        ? image : image.cropping(to: rect)
+      guard
+        let piece = rect.width == CGFloat(image.width) && rect.height == CGFloat(image.height)
+          ? image : image.cropping(to: rect)
       else { continue }
       switch reading(of: piece) {
       case .receipt(let receipt): return .receipt(receipt)

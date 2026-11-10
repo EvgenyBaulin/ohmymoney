@@ -207,7 +207,8 @@ struct SidebarRowLabel: View {
         .appFont(SidebarType.row)
         .frame(
           width: fontSize.points(fromRegular: SidebarMetrics.icon),
-          height: fontSize.points(fromRegular: SidebarMetrics.icon))
+          height: fontSize.points(fromRegular: SidebarMetrics.icon)
+        )
         .accessibilityHidden(true)
       Text(verbatim: title)
         .appFont(chosen ? SidebarType.chosenRow : SidebarType.row)

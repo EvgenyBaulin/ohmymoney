@@ -12,7 +12,7 @@ enum FirstRunMemory {
   /// Whether this process pretends to be a first launch.
   static var isOn: Bool { LaunchOptions.current.startsEmpty }
 
-  /// The suite when the launch is a first run, the app's defaults otherwise. 
+  /// The suite when the launch is a first run, the app's defaults otherwise.
   nonisolated(unsafe) static let defaults: UserDefaults = {
     guard isOn, let suite = UserDefaults(suiteName: suiteName) else { return .standard }
     return suite

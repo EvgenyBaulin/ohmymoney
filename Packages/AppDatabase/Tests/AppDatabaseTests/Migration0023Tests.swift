@@ -241,7 +241,8 @@ struct Migration0023Tests {
     let phone = try TestDevice("phone")
     let folder = InMemoryFolder()
     try mac.sql(
-      "INSERT INTO categories (id, kind, name, sort, archived) VALUES ('c1', 'expense', 'Кафе', 0, 0)")
+      "INSERT INTO categories (id, kind, name, sort, archived) VALUES ('c1', 'expense', 'Кафе', 0, 0)"
+    )
     try mac.stamp("2026-11-10T10:00:00Z")
     _ = try mac.exchange.exchange(with: folder)
     _ = try phone.exchange.exchange(with: folder)

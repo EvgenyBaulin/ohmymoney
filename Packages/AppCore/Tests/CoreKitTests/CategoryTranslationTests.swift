@@ -22,7 +22,8 @@ struct CategoryTranslationTests {
     #expect(CategoryTranslation.cleaned("Groceries") == "Groceries")
     #expect(CategoryTranslation.cleaned("  \"Groceries\".  ") == "Groceries")
     #expect(CategoryTranslation.cleaned("«Taxi»") == "Taxi")
-    #expect(CategoryTranslation.cleaned("\n\nCoffee shops\nThis is a category of…") == "Coffee shops")
+    #expect(
+      CategoryTranslation.cleaned("\n\nCoffee shops\nThis is a category of…") == "Coffee shops")
     #expect(CategoryTranslation.cleaned("   ") == nil)
     #expect(CategoryTranslation.cleaned("") == nil)
     #expect(CategoryTranslation.cleaned(String(repeating: "word ", count: 30)) == nil)
