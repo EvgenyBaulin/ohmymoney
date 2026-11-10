@@ -25,14 +25,16 @@ struct SettingsView: View {
   @State private var starterSet = SettingsStarterSet.shared
   @Environment(\.themeSurfaces) private var surfaces
 
-  /// The smallest the window may be made: the sidebar and a section beside it whose grouped
-  /// form still holds a row of the accent circles and a category per row with its quality.
-  static let minimumSize = CGSize(width: 850, height: 460)
-  /// The size it opens at.
-  static let idealSize = CGSize(width: 910, height: 620)
-  /// The sidebar of the sections: the longest name, «Справочники», «Планирование», with its
-  /// symbol, in either language.
-  static let sidebarWidth: (min: CGFloat, ideal: CGFloat, max: CGFloat) = (180, 200, 260)
+  /// The smallest the window may be made: the sidebar and the tree of the accounts beside its
+  /// panel.
+  static let minimumSize = SettingsChromeMetrics.windowMinimum
+  /// The size it opens at, as the design draws the window.
+  static let idealSize = SettingsChromeMetrics.windowSize
+  /// The sidebar of the sections: 240, as drawn; the longest name, «Подсказки категорий», fits.
+  static let sidebarWidth: (min: CGFloat, ideal: CGFloat, max: CGFloat) = (
+    SettingsChromeMetrics.sidebarWidth, SettingsChromeMetrics.sidebarWidth,
+    SettingsChromeMetrics.sidebarWidth
+  )
 
   var body: some View {
     // A sidebar and a section side by side, not a `NavigationSplitView`: that one can fold its
@@ -125,6 +127,23 @@ struct SettingsSidebar: View {
 
   var body: some View {
     let found = SettingsSearch.find(navigation.query, words: words)
+    // The search field heads the sidebar, as drawn: 34 tall, rounded 10, on the segmented
+    // surface, 12 from the edges.
+    VStack(spacing: 8) {
+      SettingsSearchField(query: $navigation.query, prompt: environment.language(
+        "settings.search.prompt", table: "Settings")
+      ) {
+        if let first = found.first { navigation.section = first.section }
+      }
+      .padding(.horizontal, SettingsChromeMetrics.sidebarHorizontal)
+      .padding(.top, SettingsChromeMetrics.sidebarTop)
+      sections(found)
+    }
+    .background(surfaces.sidebar)
+    .accessibilityIdentifier("settings.sidebar")
+  }
+
+  private func sections(_ found: [SettingsSearch.Found]) -> some View {
     // No `selection:` on the list: a selected row of a sidebar list is painted with the system
     // highlight, which lay over the theme's plate. The rows are buttons and the plate is theirs.
     List {
@@ -139,13 +158,20 @@ struct SettingsSidebar: View {
             highlight: lit
           )
           .frame(maxWidth: .infinity, alignment: .leading)
+          .background(
+            lit.plate(theme), in: .rect(cornerRadius: SettingsChromeMetrics.plateRadius)
+          )
           .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .listRowBackground(
-          RoundedRectangle(cornerRadius: SettingsChromeMetrics.plateRadius)
-            .fill(lit.plate(theme)).padding(.horizontal, 4)
+        // The row's own plate, 12 from the edges of the sidebar and 2 from the next row, as
+        // drawn: the list's row background would stretch to its own insets.
+        .listRowInsets(
+          EdgeInsets(
+            top: SettingsChromeMetrics.rowSpacing / 2, leading: 0,
+            bottom: SettingsChromeMetrics.rowSpacing / 2, trailing: 0)
         )
+        .listRowBackground(Color.clear)
         .accessibilityAddTraits(lit.isSelected ? [.isSelected] : [])
         .accessibilityIdentifier("settings.section.\(found.section.rawValue)")
         ForEach(found.captions, id: \.self) { caption in
@@ -156,7 +182,10 @@ struct SettingsSidebar: View {
               .appFont(.callout)
               .foregroundStyle(.secondary)
               .lineLimit(2)
-              .padding(.leading, 26)
+              .padding(
+                .leading,
+                SettingsChromeMetrics.rowLeading + SettingsChromeMetrics.tileSize
+                  + SettingsChromeMetrics.rowGap)
               .frame(maxWidth: .infinity, alignment: .leading)
               .contentShape(Rectangle())
           }
@@ -172,15 +201,46 @@ struct SettingsSidebar: View {
     }
     .listStyle(.sidebar)
     .scrollContentBackground(.hidden)
-    .background(surfaces.sidebar)
-    .searchable(
-      text: $navigation.query, placement: .toolbar,
-      prompt: Text(verbatim: environment.language("settings.search.prompt", table: "Settings"))
-    )
-    .onSubmit(of: .search) {
-      if let first = found.first { navigation.section = first.section }
+  }
+}
+
+/// The search of the settings: a magnifier and the words, on the segmented surface.
+struct SettingsSearchField: View {
+  @Binding var query: String
+  let prompt: String
+  var submit: () -> Void = {}
+  @Environment(\.appTheme) private var theme
+
+  /// 34 tall, rounded 10, as drawn.
+  static let height: CGFloat = 34
+  static let radius: CGFloat = 10
+
+  var body: some View {
+    HStack(spacing: 8) {
+      Image(systemName: "magnifyingglass")
+        .font(.system(size: 13))  // font-fixed: 15 pt symbol of the field
+        .foregroundStyle(theme.contentSecondary)
+        .frame(width: 15, height: 15)
+        .accessibilityHidden(true)
+      TextField(text: $query, prompt: Text(verbatim: prompt)) { Text(verbatim: prompt) }
+        .labelsHidden()
+        .textFieldStyle(.plain)
+        .onSubmit(submit)
+        .accessibilityIdentifier("settings.search")
+      if !query.isEmpty {
+        Button {
+          query = ""
+        } label: {
+          Image(systemName: "xmark.circle.fill")
+            .foregroundStyle(theme.contentSecondary)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text(verbatim: prompt))
+      }
     }
-    .accessibilityIdentifier("settings.sidebar")
+    .padding(.horizontal, 10)
+    .frame(height: Self.height)
+    .background(theme.surfaceSegmented, in: .rect(cornerRadius: Self.radius))
   }
 }
 

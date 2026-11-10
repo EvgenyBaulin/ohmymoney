@@ -282,6 +282,8 @@ struct PadSettingsScreen: View {
 
   @State private var selection: SettingsSection? = .general
   @State private var compactColumn: NavigationSplitViewColumn = .detail
+  @State private var query = ""
+  @State private var words = SettingsSearch.catalogWords()
   @Environment(\.appTheme) private var theme
 
   private var environment: AppEnvironment { deps.environment }
@@ -290,28 +292,33 @@ struct PadSettingsScreen: View {
   var body: some View {
     NavigationSplitView(preferredCompactColumn: $compactColumn) {
       // No list selection: it would paint the system highlight over the theme's plate.
+      // The rows as the Mac draws them (`SettingsSidebarLabel`): the section's tile and its
+      // name on the plate of the chosen one; the search over names and captions above them.
       List {
-        ForEach(SettingsSection.allCases, id: \.self) { section in
+        ForEach(SettingsSearch.find(query, words: words).map(\.section), id: \.self) { section in
           let lit = SidebarHighlight(isSelected: selection == section)
           Button {
             selection = section
           } label: {
-            Label {
-              Text(verbatim: environment.language(section.titleKey, table: "Settings"))
-            } icon: {
-              Image(systemName: section.symbol)
-            }
-            .foregroundStyle(lit.text(theme))
+            SettingsSidebarLabel(
+              section: section,
+              title: environment.language(section.titleKey, table: "Settings"), highlight: lit)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+              lit.plate(theme), in: .rect(cornerRadius: SettingsChromeMetrics.plateRadius))
             .contentShape(.rect)
           }
           .buttonStyle(.plain)
-          .listRowBackground(
-            RoundedRectangle(cornerRadius: 8).fill(lit.plate(theme)).padding(.horizontal, 4)
-          )
+          .listRowInsets(EdgeInsets(top: 1, leading: 12, bottom: 1, trailing: 12))
+          .listRowBackground(Color.clear)
+          .listRowSeparator(.hidden)
           .accessibilityAddTraits(lit.isSelected ? [.isSelected] : [])
         }
       }
+      .listStyle(.plain)
+      .searchable(
+        text: $query, placement: .sidebar,
+        prompt: Text(verbatim: environment.language("settings.search.prompt", table: "Settings")))
       .navigationSplitViewColumnWidth(PadLayout.settingsSidebarWidth)
       .navigationTitle(Text(verbatim: environment.language("settings.title", table: "Settings")))
       .toolbar {

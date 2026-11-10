@@ -417,7 +417,10 @@ public enum AccountRules {
     }
   }
 
-  static func groupPrecedes(_ left: AccountGroup, _ right: AccountGroup, locale: Locale) -> Bool {
+  /// The order of the groups: the place the owner dragged them to, then the name, then the id.
+  public static func groupPrecedes(
+    _ left: AccountGroup, _ right: AccountGroup, locale: Locale
+  ) -> Bool {
     if left.sort != right.sort { return left.sort < right.sort }
     switch left.name.compare(right.name, options: [.caseInsensitive], range: nil, locale: locale) {
     case .orderedAscending: return true

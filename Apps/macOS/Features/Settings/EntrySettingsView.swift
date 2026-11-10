@@ -46,6 +46,7 @@ struct EntrySettingsView: View {
       )
       .accessibilityIdentifier("settings.entry.historyHints")
       hint("settings.entry.hintsHint")
+      EntryLinkedSettings()
       Divider()
       SmallPurchaseLimitField()
       Divider()

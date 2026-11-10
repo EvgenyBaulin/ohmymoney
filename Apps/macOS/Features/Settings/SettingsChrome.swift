@@ -1,24 +1,45 @@
 import SwiftUI
 
-/// The measures of the settings window's chrome, as the design draws them: a 28-point rounded
-/// tile behind each section's line symbol in the sidebar, rows 32 points tall, the same tile
-/// beside the section's title above its form. Plain numbers, so a test holds them.
+/// The measures of the settings, as the design draws them (Figma «Mac · Боковая панель
+/// настроек» and the window of «Настройки · Счета»): the sidebar 240 wide with 12 × 14 of margin,
+/// a row of 8 · 10 × 6 rounded 9 and 2 between rows, a 24-point tile rounded 7 behind a 15-point
+/// line symbol, the name 13 medium (the chosen one semibold); the title of a section above its
+/// form with a 28-point tile and an 18-point symbol, 28 from the edges. Plain numbers, so a test
+/// holds them.
 enum SettingsChromeMetrics {
-  /// The tile behind a section's symbol.
-  static let tileSize: CGFloat = 28
-  /// Its corner radius.
-  static let tileRadius: CGFloat = 8
-  /// A row of the sidebar.
-  static let rowHeight: CGFloat = 32
-  /// The plate of the selected row.
-  static let plateRadius: CGFloat = 10
-  /// The symbol inside the tile, in points.
-  static let glyphSize: CGFloat = 14
+  /// The window: 1000 × 680 as drawn, never narrower than the tree of the accounts beside its
+  /// panel needs.
+  static let windowSize = CGSize(width: 1000, height: 680)
+  static let windowMinimum = CGSize(width: 920, height: 560)
+  /// The sidebar.
+  static let sidebarWidth: CGFloat = 240
+  static let sidebarHorizontal: CGFloat = 12
+  static let sidebarTop: CGFloat = 14
+  static let rowSpacing: CGFloat = 2
+  /// A row of the sidebar: 8 before the tile, 10 after the name, 6 above and below.
+  static let rowLeading: CGFloat = 8
+  static let rowTrailing: CGFloat = 10
+  static let rowVertical: CGFloat = 6
+  static let rowGap: CGFloat = 10
+  /// The plate of the chosen row.
+  static let plateRadius: CGFloat = 9
+  /// The tile behind a section's symbol in the sidebar.
+  static let tileSize: CGFloat = 24
+  static let tileRadius: CGFloat = 7
+  static let glyphSize: CGFloat = 15
+  /// The tile beside the title of a section, and the title's margins.
+  static let headerTileSize: CGFloat = 28
+  static let headerTileRadius: CGFloat = 8
+  static let headerGlyphSize: CGFloat = 18
+  static let headerGap: CGFloat = 10
+  static let contentInset: CGFloat = 28
+  /// A row of the sidebar is the tile and its margins tall: 36.
+  static var rowHeight: CGFloat { tileSize + rowVertical * 2 }
 }
 
 extension SettingsSection {
   /// The symbol of the section in the sidebar and above its form: a line symbol, as the design
-  /// draws its icon catalogue (the old placeholders were circles). Two sections never share one.
+  /// draws its icon catalogue. Two sections never share one.
   var tileSymbol: String {
     switch self {
     case .general: "slider.horizontal.3"
@@ -30,77 +51,61 @@ extension SettingsSection {
     case .entry: "keyboard"
     case .templates: "square.on.square"
     case .planning: "calendar.badge.checkmark"
-    case .rules: "line.3.horizontal.decrease.circle"
-    case .attachments: "paperclip"
+    case .rules: "arrow.turn.down.right"
+    case .attachments: "doc.text"
     case .purchases: "bag"
-    case .privacy: "hand.raised"
-    case .categoryHints: "checkmark.seal"
+    case .privacy: "lock"
+    case .categoryHints: "sparkles"
     case .backups: "clock.arrow.circlepath"
     }
   }
 }
 
-extension SettingsSection {
-  /// The colour of the tile behind the section's symbol, as the design gives each section its
-  /// own: 0xRRGGBB. The colour only helps to find the row; the name always stands beside it.
-  var tileHex: UInt32 {
-    switch self {
-    case .general: 0x8E8E93
-    case .appearance: 0xF0932B
-    case .currencies: 0x2E9E6B
-    case .accounts: 0x3B6EF0
-    case .categories: 0xE0453A
-    case .references: 0x8B5CF6
-    case .entry: 0x14A3A3
-    case .templates: 0xF7A93B
-    case .planning: 0x8E8E93
-    case .rules: 0xC2548A
-    case .attachments: 0x6C7A89
-    case .purchases: 0xD9822B
-    case .privacy: 0x5B6B7F
-    case .categoryHints: 0x34A58B
-    case .backups: 0x2F5DE8
-    }
-  }
-
-  var tileColor: Color {
-    let hex = tileHex
-    return Color(
-      red: Double((hex >> 16) & 0xFF) / 255, green: Double((hex >> 8) & 0xFF) / 255,
-      blue: Double(hex & 0xFF) / 255)
-  }
-}
-
-/// The rounded tile a section's symbol sits on: the section's own colour behind, a white line
-/// symbol over it. The meaning never rests on the colour: the name is always beside it.
+/// The rounded tile a section's symbol sits on, in the theme's colours: the accent's tint behind
+/// the accent's line symbol, and for the chosen section the accent itself behind the symbol in
+/// the colour of text on it. The name always stands beside it.
 struct SettingsIconTile: View {
   let symbol: String
-  var color: Color = .gray
+  var isSelected = false
+  var size: CGFloat = SettingsChromeMetrics.tileSize
+  var radius: CGFloat = SettingsChromeMetrics.tileRadius
+  var glyph: CGFloat = SettingsChromeMetrics.glyphSize
+  @Environment(\.appTheme) private var theme
 
   var body: some View {
+    let colors = Self.colors(isSelected: isSelected, theme)
     Image(systemName: symbol)
-      .font(.system(size: SettingsChromeMetrics.glyphSize, weight: .medium))  // font-fixed: glyph in a fixed tile
-      .foregroundStyle(.white)
-      .frame(width: SettingsChromeMetrics.tileSize, height: SettingsChromeMetrics.tileSize)
-      .background(color, in: .rect(cornerRadius: SettingsChromeMetrics.tileRadius))
+      .font(.system(size: glyph, weight: .regular))  // font-fixed: glyph in a fixed tile
+      .foregroundStyle(colors.glyph)
+      .frame(width: size, height: size)
+      .background(colors.plate, in: .rect(cornerRadius: radius))
       .accessibilityHidden(true)
+  }
+
+  /// The plate and the symbol of a tile.
+  static func colors(isSelected: Bool, _ theme: AppThemeColors) -> (plate: Color, glyph: Color) {
+    isSelected
+      ? (Color(theme.palette.accentDefault), Color(theme.palette.contentOnAccent))
+      : (Color(theme.palette.accentTint), Color(theme.palette.accentDefault))
   }
 }
 
-/// The title of a section above its form: the tile and the name in a large type.
+/// The title of a section above its form: the tile and the name, 22 bold.
 struct SettingsSectionTitle: View {
   let section: SettingsSection
   let title: String
 
   var body: some View {
-    HStack(spacing: 10) {
-      SettingsIconTile(symbol: section.tileSymbol, color: section.tileColor)
+    HStack(spacing: SettingsChromeMetrics.headerGap) {
+      SettingsIconTile(
+        symbol: section.tileSymbol, size: SettingsChromeMetrics.headerTileSize,
+        radius: SettingsChromeMetrics.headerTileRadius,
+        glyph: SettingsChromeMetrics.headerGlyphSize)
       Text(verbatim: title)
-        .appFont(.title2)
-        .bold()
+        .appFont(StyleType.screenTitle)
     }
-    .padding(.horizontal, 20)
-    .padding(.top, 14)
+    .padding(.horizontal, SettingsChromeMetrics.contentInset)
+    .padding(.top, SettingsChromeMetrics.contentInset)
     .padding(.bottom, 4)
     .frame(maxWidth: .infinity, alignment: .leading)
     .accessibilityElement(children: .combine)
@@ -108,8 +113,8 @@ struct SettingsSectionTitle: View {
   }
 }
 
-/// A sidebar row: the tile and the name; the selected one stands on the accent tint with its
-/// name in the accent's content colour.
+/// A sidebar row: the tile and the name, 13 medium; the chosen one stands on the accent tint
+/// with its name semibold in the accent's content colour.
 struct SettingsSidebarLabel: View {
   let section: SettingsSection
   let title: String
@@ -117,13 +122,16 @@ struct SettingsSidebarLabel: View {
   @Environment(\.appTheme) private var theme
 
   var body: some View {
-    HStack(spacing: 10) {
-      SettingsIconTile(symbol: section.tileSymbol, color: section.tileColor)
+    HStack(spacing: SettingsChromeMetrics.rowGap) {
+      SettingsIconTile(symbol: section.tileSymbol, isSelected: highlight.isSelected)
       Text(verbatim: title)
+        .appFont(AppFont.body.weight(highlight.isSelected ? .semibold : .medium))
         .foregroundStyle(highlight.text(theme))
-        .fontWeight(highlight.isSelected ? .semibold : .regular)
+        .lineLimit(1)
     }
-    .frame(minHeight: SettingsChromeMetrics.rowHeight - 4)
+    .padding(.leading, SettingsChromeMetrics.rowLeading)
+    .padding(.trailing, SettingsChromeMetrics.rowTrailing)
+    .padding(.vertical, SettingsChromeMetrics.rowVertical)
   }
 }
 
@@ -135,7 +143,7 @@ struct SettingsSectionLabel: View {
 
   var body: some View {
     HStack(spacing: 12) {
-      SettingsIconTile(symbol: section.tileSymbol, color: section.tileColor)
+      SettingsIconTile(symbol: section.tileSymbol)
       Text(verbatim: title)
     }
   }

@@ -10,7 +10,9 @@ extension EntryDraftModel {
   /// (`CardRules.operationCard`) — unless it says «со счёта» (`paysFromAccount`). Any other kind
   /// takes only the card of the place, as before. A saved operation in the editor keeps its card
   /// unless the owner changes the account (`force`).
-  func layTheCard(placeCard: UUID?, force: Bool = false) {
+  /// `byTheOwner`: «Карта» chosen in «Карта · Счёт» — the setting for a new place says nothing
+  /// against the owner's choice.
+  func layTheCard(placeCard: UUID?, force: Bool = false, byTheOwner: Bool = false) {
     guard !editsSavedOperation || force else { return }
     if let card = draft.cardId, card != cardFromDefaults { return }
     let laid: UUID?
@@ -20,7 +22,9 @@ extension EntryDraftModel {
       laid = placeCard
     } else if let account = selectedAccount, !account.archived {
       laid = CardRules.operationCard(
-        named: nil, withoutCard: false, placeCard: placeCard, account: account, cards: cards)
+        named: nil, withoutCard: false, placeCard: placeCard, account: account, cards: cards,
+        firstAtPlace: isFirstAtPlace && !byTheOwner,
+        firstPurchase: readsFirstPurchase?() ?? .standard)
     } else {
       laid = placeCard
     }
@@ -51,7 +55,7 @@ extension EntryDraftModel {
       return
     }
     guard draft.cardId == nil else { return }
-    layTheCard(placeCard: nil, force: true)
+    layTheCard(placeCard: nil, force: true, byTheOwner: true)
     if draft.cardId == nil, let account = selectedAccount {
       let first = CardRules.ordered(cards, of: account.id).first?.id
       draft.cardId = first
