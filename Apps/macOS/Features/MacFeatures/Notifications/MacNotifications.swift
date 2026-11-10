@@ -63,6 +63,8 @@ final class MacNotifications: NSObject {
   /// What a notification may say about amounts and hidden accounts (`NotificationPlan.Privacy`:
   /// `quiet` by default, `anonymous`, `always`).
   nonisolated static let privacyKey = "notifications.privacy"
+  /// The summary a notice of «Итоги» opens, as `SummaryID.description`.
+  nonisolated static let summaryKey = "summary"
   nonisolated static func key(for kind: NotificationPlan.Kind) -> String {
     "notifications.\(kind.rawValue)"
   }
@@ -344,6 +346,7 @@ extension MacNotifications: UNUserNotificationCenterDelegate {
     let due = (info["due"] as? String).flatMap(DateOnly.init(iso:))
     let section = (info["section"] as? String).flatMap(MainWindow.Section.init(rawValue:))
     let draft = (info[Self.autoEntryDraftKey] as? String).flatMap(UUID.init(uuidString:))
+    let summary = (info[Self.summaryKey] as? String).flatMap(SummaryID.init(raw:))
     if let draft {
       await MacNotifications.shared.answerAutoEntry(action: action, draft: draft)
       return
@@ -356,6 +359,11 @@ extension MacNotifications: UNUserNotificationCenterDelegate {
       return
     }
     await MainActor.run {
+      if let summary {
+        NSApp.activate()
+        SummariesRoute.open(summary)
+        return
+      }
       if action == Self.recordAction, let payment, let due {
         if !MacNotifications.shared.recordPayment(paymentId: payment, due: due) {
           MacNotifications.shared.open(.planning)
@@ -436,7 +444,11 @@ struct NotificationWords {
     case .summary(let id):
       content.title = SummaryAnnouncementText.headline(of: id, language: environment.language)
       content.body = t("mac.notify.summary.body")
-      content.userInfo = ["section": MainWindow.Section.overview.rawValue]
+      // A click opens the summary itself: the tab «По периодам» of Reports.
+      content.userInfo = [
+        "section": MainWindow.Section.reports.rawValue,
+        MacNotifications.summaryKey: id.description,
+      ]
     }
     return content
   }

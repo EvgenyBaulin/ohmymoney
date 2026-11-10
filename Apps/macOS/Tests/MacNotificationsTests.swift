@@ -58,6 +58,17 @@ final class MacNotificationsTests: XCTestCase {
     XCTAssertEqual(content.categoryIdentifier, MacNotifications.paymentCategory)
   }
 
+  /// A notice of «Итоги» opens the summary itself: the tab «По периодам» of Reports.
+  func testASummaryOpensItsTabOfReports() throws {
+    let id = SummaryID.month(book.environment.today.monthKey.previous)
+    let notice = NotificationPlan.Notice(
+      id: "summary:\(id)", subject: .summary(id), day: book.environment.today, anonymous: false)
+    let content = try XCTUnwrap(try words(.quiet).content(of: notice))
+    XCTAssertEqual(content.userInfo["section"] as? String, MainWindow.Section.reports.rawValue)
+    XCTAssertEqual(content.userInfo[MacNotifications.summaryKey] as? String, id.description)
+    XCTAssertEqual(SummaryID(raw: id.description), id, "the id reads back")
+  }
+
   /// The default: no amount while the amounts are hidden.
   func testHiddenAmountsAreNotSaidByDefault() async throws {
     let (payment, due) = try await payment(on: book.sber)
