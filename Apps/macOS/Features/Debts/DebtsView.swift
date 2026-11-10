@@ -1,17 +1,15 @@
 import AppCore
 import SwiftUI
 
-/// The Debts section of the main window, ⌘3: the totals on top, «I owe» and «Owed to me» on
-/// the left — personal debts and the parts paid for others that wait to come back, by person —
-/// and the card of the chosen debt on the right with its journal by groups and its actions.
+/// The Debts section: the board — the summary, the cards by group («Я должен», «Мне должны» by
+/// person, «Рассрочки») and the payoff ladder — and, in its place, the card of a debt or a
+/// person chosen on it, with its journal by groups and its actions. No list stands beside either.
 /// Debt balances are never part of Overview, Analytics or Reports: only operations are.
 struct DebtsView: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
-  @Environment(\.windowWidth) private var windowWidth
   @State private var selection: DebtsSelection?
-  @State private var tab: DebtsTab = .iOwe
   @State private var sheet: DebtSheet?
   @State private var recordingReimbursement = false
   /// «Новый долг» step by step (`DebtWizard`).
@@ -23,6 +21,7 @@ struct DebtsView: View {
   @State private var deleteFailed = false
   /// The debt a row of «Капитал» asked to open; taken once by the screen that shows it.
   @MainActor static var debtToOpen: UUID?
+  @AppStorage(LadderSection.methodKey) private var ladderMethodRaw = LadderMethod.avalanche.rawValue
 
   var body: some View {
     ComputedBlock(
@@ -30,57 +29,31 @@ struct DebtsView: View {
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
       let overview = snapshot.planning.debts
-      VStack(alignment: .leading, spacing: 0) {
-        totals(overview)
+      if selection == nil {
+        board(overview, snapshot: snapshot)
+      } else {
+        // The card of the chosen debt in the place of the board, with the way back: there is no
+        // list beside it on any screen.
+        VStack(alignment: .leading, spacing: 0) {
+          Button {
+            selection = nil
+          } label: {
+            Label(t("debts.allDebts"), systemImage: "chevron.backward")
+          }
+          .buttonStyle(.borderless)
           .padding(.horizontal, 20)
-          .padding(.vertical, 12)
-        Divider()
-        if isNarrow {
-          // A phone: the list, and the card of the chosen debt in its place with a way back.
-          if selection == nil {
-            overviewPane(overview, snapshot: snapshot)
-              .listDensity(.debts)
-          } else {
-            Button {
-              selection = nil
-            } label: {
-              Label {
-                Text(verbatim: environment.language("section.debts"))
-              } icon: {
-                Image(systemName: "chevron.backward")
-              }
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 8)
-            detail(overview, snapshot: snapshot)
-              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-          }
-        } else if selection == nil {
-          overviewPane(overview, snapshot: snapshot)
-            .listDensity(.debts)
-        } else {
-          HStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 0) {
-              Button {
-                selection = nil
-              } label: {
-                Label(t("debts.allDebts"), systemImage: "square.grid.2x2")
-              }
-              .buttonStyle(.borderless)
-              .padding(.horizontal, 16).padding(.vertical, 8)
-              .accessibilityIdentifier("debts.all")
-              list(overview, snapshot: snapshot)
-                .listDensity(.debts)
-            }
-            .frame(width: 300)
-            Divider()
-            detail(overview, snapshot: snapshot)
-              .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-          }
+          .padding(.top, 12)
+          .accessibilityIdentifier("debts.all")
+          detail(overview, snapshot: snapshot)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
       }
     }
     .navigationTitle(environment.language("section.debts"))
+    #if os(iOS)
+      // The board draws the title of the design in the page: the bar keeps none.
+      .toolbar(removing: .title)
+    #endif
     .onAppear {
       if let id = Self.debtToOpen {
         Self.debtToOpen = nil
@@ -129,29 +102,26 @@ struct DebtsView: View {
     }
   }
 
-  /// Too narrow for the list and the card side by side. The Mac window never gets this narrow
-  /// (its minimum is wider); a width not measured yet (0) is not narrow.
-  private var isNarrow: Bool { windowWidth > 0 && windowWidth < 640 }
-
-  private func overviewPane(_ overview: DebtsOverview, snapshot: DataSnapshot) -> some View {
-    DebtOverviewPane(
-      overview: overview, people: snapshot.dataset.people, tab: $tab,
-      cardDebts: cardDebts(snapshot),
-      ladderAvailable: !LadderSection.candidates(snapshot).isEmpty,
+  private func board(_ overview: DebtsOverview, snapshot: DataSnapshot) -> some View {
+    DebtsBoardView(
+      board: DebtsBoard(overview: overview, people: snapshot.dataset.people),
+      ladder: DebtsLadderCard(
+        candidates: LadderSection.candidates(snapshot),
+        extra: snapshot.dataset.debtSettings.ladderExtraE4 ?? .zero, method: ladderMethod,
+        start: snapshot.today.monthKey),
+      cardDebts: cardDebts(snapshot), withoutRate: overview.withoutRate.count,
+      reviewCount: snapshot.planning.debtReview.count,
       select: { selection = $0 },
       delete: { id in
-        deleting = (overview.iOwe + overview.closed).first { $0.id == id }
-      })
+        deleting = (overview.iOwe + overview.closed + overview.owedToMe.flatMap(\.debts))
+          .first { $0.id == id }
+      },
+      create: { creating = true },
+      review: { creditSheet = .review(snapshot.planning.debtReview) })
   }
 
-  private func list(_ overview: DebtsOverview, snapshot: DataSnapshot) -> some View {
-    DebtsList(
-      overview: overview, people: snapshot.dataset.people, selection: $selection,
-      deleting: $deleting, instalments: snapshot.planning.instalments,
-      cardDebts: cardDebts(snapshot),
-      hasLadder: !LadderSection.candidates(snapshot).isEmpty
-    )
-  }
+  /// The order of the ladder chosen on this device (`LadderSection`).
+  private var ladderMethod: LadderMethod { LadderMethod(rawValue: ladderMethodRaw) ?? .avalanche }
 
   /// The credit cards whose grace period was lost: a view of what the accounts already hold.
   private func cardDebts(_ snapshot: DataSnapshot) -> [CreditCardDebtLine] {
@@ -212,49 +182,6 @@ struct DebtsView: View {
       account.credit != nil
     else { return }
     DebtActions(dependencies).keepOnlyAccount(debt, account: account)
-  }
-
-  private func totals(_ overview: DebtsOverview) -> some View {
-    HStack(spacing: 24) {
-      figure(t("debts.iOwe"), overview.totalIOweRub)
-      figure(t("debts.monthly"), overview.monthlyPaymentsRub)
-      figure(t("debts.owedToMe"), overview.totalOwedToMeRub)
-      if !overview.withoutRate.isEmpty {
-        Text(
-          verbatim: environment.language.format(
-            "debts.withoutRateCount", table: "Debts", counts: overview.withoutRate.count)
-        )
-        .appFont(.caption)
-        .foregroundStyle(.secondary)
-      }
-      Spacer()
-      if let review = compute.snapshot?.planning.debtReview, !review.isEmpty {
-        Button(
-          environment.language.format("review.banner", table: "Debts", counts: review.count)
-        ) { creditSheet = .review(review) }
-        .accessibilityIdentifier("debts.review.open")
-      }
-      #if os(macOS)
-        // «Компактно» / «Подробно»: this list's own choice, on this Mac.
-        ListDensityToggle(
-          list: .debts,
-          compactTitle: environment.language("mac.density.compact", table: "MacFeatures"),
-          detailedTitle: environment.language("mac.density.detailed", table: "MacFeatures")
-        )
-        .labelStyle(.iconOnly)
-      #endif
-      Button(t("debts.add")) { creating = true }
-        .buttonStyle(.bordered)
-        .guideTarget(GuideTarget.debtsAdd)
-    }
-  }
-
-  private func figure(_ label: String, _ amount: AmountE4) -> some View {
-    VStack(alignment: .leading, spacing: 2) {
-      Text(verbatim: label).appFont(.caption).foregroundStyle(.secondary)
-      Text(verbatim: environment.money.rounded(amount)).appFont(.headline.monospacedDigit())
-    }
-    .accessibilityElement(children: .combine)
   }
 
   @ViewBuilder
@@ -497,145 +424,6 @@ enum DebtDeletionText {
     lines.append(language("debts.delete.warning", table: "Debts"))
     return lines.joined(separator: "\n")
   }
-}
-
-/// «I owe», «Owed to me» by person, and the closed debts folded.
-private struct DebtsList: View {
-  @Dependency(\.environment) private var environment
-  let overview: DebtsOverview
-  let people: [Person]
-  @Binding var selection: DebtsSelection?
-  @Binding var deleting: DebtLine?
-  /// «В рассрочках …» above «Я должен».
-  var instalments: InstalmentsSummary = .empty
-  /// The credit cards in debt, under the debts I owe.
-  var cardDebts: [CreditCardDebtLine] = []
-  /// The ladder has debts on it.
-  var hasLadder = false
-  @State private var showsClosed = false
-
-  var body: some View {
-    List(selection: $selection) {
-      Section {
-        if instalments.count > 0 {
-          Text(verbatim: instalmentsLine)
-            .appFont(.caption).foregroundStyle(.secondary)
-            .accessibilityIdentifier("debts.instalments")
-        }
-        if hasLadder {
-          Label(t("ladder.title"), systemImage: "chart.line.downtrend.xyaxis")
-            .tag(DebtsSelection.ladder)
-            .accessibilityIdentifier("debts.ladder")
-        }
-        if overview.iOwe.isEmpty {
-          Text(verbatim: t("debts.none")).foregroundStyle(.secondary)
-        }
-        ForEach(overview.iOwe) { line in
-          row(
-            line.debt.name, line.balanceRub ?? line.balance,
-            currency: line.balanceRub == nil ? line.debt.currency : .rub,
-            withoutRate: overview.withoutRate.contains(line.id)
-          )
-          .tag(DebtsSelection.debt(line.id))
-          .contextMenu { deleteButton(line) }
-        }
-      } header: {
-        Text(verbatim: t("debts.iOwe"))
-      }
-      if !cardDebts.isEmpty {
-        Section {
-          CreditCardDebtRows(lines: cardDebts)
-        } header: {
-          Text(verbatim: t("debts.cards.header"))
-        }
-      }
-      Section {
-        if overview.owedToMe.isEmpty {
-          Text(verbatim: t("debts.nobodyOwes")).foregroundStyle(.secondary)
-        }
-        ForEach(OwedToMeRow.rows(of: overview)) { item in
-          switch item {
-          case .person(let group):
-            row(
-              name(group.personId), group.totalRub, currency: .rub,
-              withoutRate: group.debts.contains { overview.withoutRate.contains($0.id) }
-            )
-            .tag(item.selection)
-          case .debt(let line):
-            row(
-              line.debt.name, line.balance, currency: line.debt.currency,
-              withoutRate: overview.withoutRate.contains(line.id)
-            )
-            .padding(.leading, 14)
-            .tag(item.selection)
-            .contextMenu { deleteButton(line) }
-          }
-        }
-      } header: {
-        Text(verbatim: t("debts.owedToMe"))
-      }
-      if !overview.closed.isEmpty {
-        // Folded by default: closed debts pile up over the years. The header
-        // is its own button: an inset list on macOS draws no disclosure for a section.
-        Section {
-          if showsClosed {
-            ForEach(overview.closed) { line in
-              row(line.debt.name, line.balance, currency: line.debt.currency)
-                .foregroundStyle(.secondary)
-                .tag(DebtsSelection.debt(line.id))
-                .contextMenu { deleteButton(line) }
-            }
-          }
-        } header: {
-          Button {
-            withAnimation(.snappy) { showsClosed.toggle() }
-          } label: {
-            HStack(spacing: 4) {
-              Image(systemName: "chevron.right")
-                .rotationEffect(.degrees(showsClosed ? 90 : 0))
-                .accessibilityHidden(true)
-              Text(verbatim: "\(t("debts.closed")) (\(overview.closed.count))")
-            }
-            .contentShape(Rectangle())
-          }
-          .buttonStyle(.plain)
-        }
-      }
-    }
-    // Content, not navigation: no material under the list.
-    .listStyle(.inset)
-  }
-
-  private func row(
-    _ title: String, _ amount: AmountE4, currency: CurrencyCode, withoutRate: Bool = false
-  ) -> some View {
-    HStack {
-      Text(verbatim: title).lineLimit(1)
-      Spacer(minLength: 6)
-      if withoutRate {
-        // Not in the totals: there is no rate to count it in rubles.
-        Text(verbatim: t("debts.withoutRate")).appFont(.caption).foregroundStyle(.secondary)
-      }
-      Text(verbatim: environment.money.rounded(amount, currency: currency)).monospacedDigit()
-    }
-  }
-
-  private func name(_ id: UUID?) -> String {
-    people.first { $0.id == id }?.name ?? t("debts.noPerson")
-  }
-
-  /// «В рассрочках 34,000 ₽ · ближайшее 2,500 ₽ 14 ноября».
-  private var instalmentsLine: String {
-    DebtsInstalmentsText.line(
-      instalments, language: environment.language, money: environment.money,
-      dates: environment.dates)
-  }
-
-  private func deleteButton(_ line: DebtLine) -> some View {
-    Button(t("debts.delete"), role: .destructive) { deleting = line }
-  }
-
-  private func t(_ key: String) -> String { environment.language(key, table: "Debts") }
 }
 
 /// The card of one debt: type, balance, payment and day, rate, «payments are expenses», the
@@ -1073,21 +861,4 @@ private struct PersonDetail: View {
   }
 
   private func t(_ key: String) -> String { environment.language(key, table: "Debts") }
-}
-
-/// The line above «Я должен»: what hangs in instalments and the next payment of them.
-@MainActor
-enum DebtsInstalmentsText {
-  static func line(
-    _ summary: InstalmentsSummary, language: AppLanguage, money: MoneyFormatter,
-    dates: DateFormatting
-  ) -> String {
-    let total = language.format(
-      "instalments.total", table: "Debts", money.rounded(summary.totalRub))
-    guard let next = summary.next.first else { return total }
-    return total + " · "
-      + language.format(
-        "instalments.next", table: "Debts", money.exact(next.amountE4, currency: next.currency),
-        dates.longDay(next.due))
-  }
 }
