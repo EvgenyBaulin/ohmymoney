@@ -1,81 +1,69 @@
 import AppCore
 import SwiftUI
 
-/// The Planning section of the main window, ⌘2. At the top one sentence of where the money
-/// stands — the free sum's day, what is left of it and the payments ahead —, the «+» menu of
-/// every form and «Изменить» for the order of the blocks; then the next 14 days on a ribbon; then
-/// the blocks as cards, two columns on a wide window and one on a narrow one, in the order the
-/// owner set (`PlanningLayoutStore`). Every card has its symbol, a total in its header and a
-/// chevron that collapses it for this window; a long block lists its nearest items and keeps the
-/// rest behind «Показать все». Blocks of content, without glass, over the planning snapshot the
-/// data step builds. Every form hangs on the root of the section, and every action is one write
-/// and one step of ⌘Z.
+/// The Planning section of the main window, as the design draws it: the header with the month
+/// and the one main button «+ Добавить ▾»; the tabs — «Всё» and a tab for each block, the
+/// cushion and the plan of the year —; on «Всё» the card «Сейчас свободно», the next 14 days and
+/// the blocks as cards, three columns on a wide window and one on a narrow one, in the order the
+/// owner set (`PlanningLayoutStore`), each column a run of that order. Every card has its symbol,
+/// a total in its header, «все» to its tab and a chevron that collapses it for this window; a
+/// long block lists its nearest items and keeps the rest behind «Показать все». Blocks of
+/// content, without glass, over the planning snapshot the data step builds. Every form hangs on
+/// the root of the section, and every action is one write and one step of ⌘Z.
 struct PlanningView: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
+  @Environment(\.appFontSize) private var fontSize
+  @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.windowWidth) private var windowWidth
   /// The layout of this Mac; a test passes its own.
   var layout: PlanningLayoutStore = .shared
   @State private var sheet: PlanningSheet?
   @State private var eventForm: EventFormItem?
-  /// D of the free sum as the owner picked it: the free money block and the sentence share it.
+  /// D of the free sum as the owner picked it in the block of the free sum: the card at the top
+  /// and the sentence follow it.
   @State private var until: Date?
   /// The blocks collapsed in this window; never kept.
   @State private var collapsed: Set<PlanningBlock> = []
   @State private var editing = false
-  /// The month's blocks or the plan of the year (`YearPlanPage`); never kept.
-  @State private var area: PlanningArea = .month
+  /// The tab on screen; never kept, every window opens on «Всё».
+  @State private var tab: PlanningTab
+  /// The whole block of the free sum, opened from the title of the card at the top.
+  @State private var showsFree = false
 
-  /// Two columns from this width of content on, one below it.
-  static let twoColumnsFrom: CGFloat = 760
-
-  static func columns(forWidth width: CGFloat) -> Int {
-    width >= twoColumnsFrom ? 2 : 1
+  init(layout: PlanningLayoutStore = .shared, tab: PlanningTab = .all) {
+    self.layout = layout
+    _tab = State(initialValue: tab)
   }
 
   var body: some View {
     let snapshot = compute.states.data.value
+    let picked = until.map { environment.calendar.day(of: $0) }
     let free = snapshot.map { snapshot in
       snapshot.planning.freeMoney(
-        until: FreeMoneyBlock.day(
-          today: snapshot.today, picked: until.map { environment.calendar.day(of: $0) }),
+        until: FreeMoneyBlock.day(today: snapshot.today, picked: picked),
         ledger: snapshot.ledger)
     }
     GeometryReader { proxy in
+      let content = max(0, proxy.size.width - 2 * PlanningMetrics.pageSide)
       ScrollView {
-        VStack(alignment: .leading, spacing: 16) {
-          PlanningTopBar(editing: $editing, add: add)
-          PlanningAreaPicker(area: $area)
-          if area == .year {
-            YearPlanPage()
-          } else {
-            if let free, layout.order.contains(.freeMoney),
-              let hero = PlanningHero.make(
-                free: free, environment: environment)
-            {
-              ScreenHero(
-                caption: hero.caption, figure: hero.figure, lines: hero.lines,
-                figureIdentifier: "planning.hero.figure"
-              )
-              .accessibilityIdentifier("planning.summary")
-            }
-            if let snapshot {
-              PlanningRibbonView(
-                ribbon: Self.ribbon(of: snapshot, shown: compute.snapshot), open: open)
-              PlanningBirthdaysStrip(snapshot: snapshot)
-            }
-            if editing {
-              PlanningOrderEditor(layout: layout) { editing = false }
-            } else {
-              cards(
-                columns: Self.columns(forWidth: proxy.size.width - 40), snapshot: snapshot,
-                free: free)
-            }
-          }
+        VStack(
+          alignment: .leading,
+          spacing: compact ? PlanningMetrics.phoneStackGap : PlanningMetrics.stackGap
+        ) {
+          PlanningHeader(editing: editingBinding, add: add)
+          // A phone's frame has no tabs: «все» of a card still opens its block alone.
+          if !compact || tab != .all { PlanningTabsRow(tab: $tab) }
+          page(snapshot: snapshot, free: free, picked: picked, content: content)
         }
-        .padding(20)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, PlanningMetrics.pageSide)
+        .padding(.top, PlanningMetrics.pageTop)
+        .padding(.bottom, PlanningMetrics.pageBottom)
       }
     }
+    .background(surfaces.background)
     .screenNavigationTitle(environment.language("section.planning"))
     .sheet(item: $sheet) { sheet in
       PlanningSheetView(sheet: sheet)
@@ -85,16 +73,114 @@ struct PlanningView: View {
       EventForm(original: item.event)
         .handingOver(dependencies)
     }
+    .sheet(isPresented: $showsFree) {
+      PlanningFreeSheet(picked: $until) { showsFree = false }
+        .handingOver(dependencies)
+    }
   }
 
-  /// The cards in their columns, each column taking the blocks in turn.
-  private func cards(columns: Int, snapshot: DataSnapshot?, free: FreeMoney?) -> some View {
-    let laid = PlanningBlocks.columns(
-      PlanningBlockText.shown(layout.order, selfEmployed: snapshot?.planning.npd != nil),
-      count: columns)
-    return HStack(alignment: .top, spacing: 16) {
+  /// A phone's width: the frame of the iPhone.
+  private var compact: Bool { ScreenWidth.isCompact(windowWidth) }
+
+  /// «Изменить» orders the blocks of «Всё», so it goes there first.
+  private var editingBinding: Binding<Bool> {
+    Binding(
+      get: { editing },
+      set: { on in
+        if on { tab = .all }
+        editing = on
+      })
+  }
+
+  @ViewBuilder
+  private func page(
+    snapshot: DataSnapshot?, free: FreeMoney?, picked: DateOnly?, content: CGFloat
+  ) -> some View {
+    switch tab {
+    case .year:
+      YearPlanPage()
+    case .cushion:
+      if let snapshot {
+        CushionSection(status: snapshot.planning.cushion)
+          .padding(PlanningMetrics.cardInset(compact: compact) + PlanningMetrics.cardEdge)
+          .planningCardSurface()
+      }
+    case .all:
+      if layout.order.contains(.freeMoney) {
+        Group {
+          if let figures = snapshot.flatMap({ Self.freeFigures($0, picked: picked, environment) }) {
+            if compact {
+              PlanningFreeLine(figures: figures) { showsFree = true }
+            } else {
+              PlanningFreeCard(
+                figures: figures,
+                showsColumns: PlanningPageLayout.freeShowsColumns(
+                  forContent: content, fontSize: fontSize)
+              ) { showsFree = true }
+            }
+          } else {
+            // Nothing counted yet: the whole block, which says how to make the first count.
+            FreeMoneyBlock(picked: $until)
+          }
+        }
+        .guideTarget("planning.freeToSpend")
+        // The tutorial's task «Посмотрите, сколько свободно» is done by the card coming on
+        // screen.
+        .onAppear { GuideStore.shared.report(GuideEvent.freeToSpendSeen) }
+      }
+      if let snapshot {
+        PlanningRibbonView(
+          ribbon: Self.ribbon(of: snapshot, shown: compute.snapshot), open: open)
+        PlanningBirthdaysStrip(snapshot: snapshot)
+      }
+      if editing {
+        PlanningOrderEditor(layout: layout) { editing = false }
+      } else {
+        cards(
+          PlanningPageLayout.gridBlocks(shown(snapshot)),
+          columns: PlanningPageLayout.blockColumns(forContent: content, fontSize: fontSize),
+          snapshot: snapshot, free: free)
+      }
+    default:
+      cards(
+        tab.blocks.filter { shown(snapshot).contains($0) }, columns: 1, snapshot: snapshot,
+        free: free)
+    }
+  }
+
+  /// The blocks of the order the screen shows: the block of self-employment only while it is
+  /// on.
+  private func shown(_ snapshot: DataSnapshot?) -> [PlanningBlock] {
+    PlanningBlockText.shown(layout.order, selfEmployed: snapshot?.planning.npd != nil)
+  }
+
+  /// The free sum of the card at the top: the one Overview shows — the owner's horizon, the
+  /// cushion kept out unless turned off —, or the one to the day picked in the block of the
+  /// free sum.
+  @MainActor
+  static func freeFigures(
+    _ snapshot: DataSnapshot, picked: DateOnly?, _ environment: AppEnvironment
+  ) -> PlanningFreeFigures? {
+    if let picked {
+      let free = snapshot.planning.freeMoney(
+        until: FreeMoneyBlock.day(today: snapshot.today, picked: picked), ledger: snapshot.ledger)
+      return PlanningFreeFigures.make(free: free, horizon: nil, environment)
+    }
+    let (free, horizon) = OverviewHeadline.configured(snapshot)
+    return PlanningFreeFigures.make(free: free, horizon: horizon, environment)
+  }
+
+  /// The cards in their columns, each column a run of the order.
+  private func cards(
+    _ blocks: [PlanningBlock], columns: Int, snapshot: DataSnapshot?, free: FreeMoney?
+  ) -> some View {
+    let laid = PlanningPageLayout.deal(blocks, into: columns)
+    return HStack(alignment: .top, spacing: PlanningMetrics.columnGap) {
       ForEach(Array(laid.enumerated()), id: \.offset) { _, blocks in
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(
+          alignment: .leading,
+          spacing: compact ? PlanningMetrics.phoneStackGap : PlanningMetrics.stackGap
+        ) {
           ForEach(blocks, id: \.self) { block in
             card(block, snapshot: snapshot, free: free)
           }
@@ -121,7 +207,8 @@ struct PlanningView: View {
         get: { collapsed.contains(block) },
         set: { isCollapsed in
           if isCollapsed { collapsed.insert(block) } else { collapsed.remove(block) }
-        })
+        }),
+      showAll: tab == .all ? PlanningTab.tab(of: block).map { target in { tab = target } } : nil
     ) {
       content(of: block)
     }
@@ -182,138 +269,73 @@ struct PlanningView: View {
     }
   }
 
-  /// What «+» adds: each item opens the form the block of it has.
-  private func add(_ addition: PlanningAddition) {
+  /// What an item of «Добавить» opens: each the form the block of it has.
+  @MainActor
+  static func target(
+    of addition: PlanningAddition, _ environment: AppEnvironment
+  ) -> PlanningAddTarget {
     switch addition {
-    case .payment: sheet = .payment(nil)
-    case .subscription: sheet = .newSubscription(environment)
-    case .income: sheet = .expected(nil)
-    case .goal: sheet = .goal(nil)
+    case .payment: .sheet(.payment(nil))
+    case .subscription: .sheet(.newSubscription(environment))
+    case .income: .sheet(.expected(nil))
+    case .limit: .sheet(.budget(nil))
+    case .goal: .sheet(.goal(nil))
+    case .event: .event
+    }
+  }
+
+  private func add(_ addition: PlanningAddition) {
+    switch Self.target(of: addition, environment) {
+    case .sheet(let target): sheet = target
     case .event: eventForm = EventFormItem(event: nil)
-    case .limit: sheet = .budget(nil)
     }
   }
 }
 
-/// What the «+» menu of Planning offers, in its order.
+/// Where an item of «Добавить» leads: a form of the section's sheets, or the form of an event,
+/// which hangs on a sheet of its own.
+enum PlanningAddTarget {
+  case sheet(PlanningSheet)
+  case event
+}
+
+/// What «Добавить» of Planning offers, in the order of the design.
 enum PlanningAddition: String, CaseIterable, Identifiable {
   case payment
   case subscription
   case income
+  case limit
   case goal
   case event
-  case limit
 
   var id: String { rawValue }
 
   var titleKey: String { "layout.add.\(rawValue)" }
 }
 
-/// The line over the blocks: the title with its subtitle, and the actions — «Хватит ли?»,
-/// «Что если», «+» with every form, «Изменить». On a phone's width the four buttons would not
-/// fit beside the title, so they fold into one menu at its right.
-struct PlanningTopBar: View {
+/// The whole block of the free sum, over the screen: the day to count to, every line taken away,
+/// the cushion and «Сколько нужно в этом месяце»; the card at the top follows the day picked
+/// here.
+struct PlanningFreeSheet: View {
   @Dependency(\.environment) private var environment
-  @Environment(\.openWindow) private var openWindow
-  @Environment(\.dependencies) private var dependencies
-  @Environment(\.windowWidth) private var windowWidth
-  @State private var asksAfford = false
-  @State private var showsWarranty = false
-  @Binding var editing: Bool
-  let add: (PlanningAddition) -> Void
-
-  private var compact: Bool { ScreenWidth.isCompact(windowWidth) }
+  @Binding var picked: Date?
+  let done: () -> Void
 
   var body: some View {
-    HStack(alignment: compact ? .top : .firstTextBaseline, spacing: 12) {
-      ScreenTitleBlock(
-        title: environment.language("section.planning"),
-        subtitle: PlanningBlockText.t("layout.subtitle", environment),
-        identifier: "planning.title")
-      Spacer(minLength: 8)
-      if compact {
-        actionsMenu
-      } else {
-        wideActions
+    VStack(alignment: .leading, spacing: 12) {
+      ScrollView {
+        FreeMoneyBlock(picked: $picked)
+          .padding(.horizontal, 2)
+      }
+      HStack {
+        Spacer()
+        Button(PlanningBlockText.t("layout.done", environment), action: done)
+          .keyboardShortcut(.defaultAction)
+          .accessibilityIdentifier("planning.free.done")
       }
     }
-    .sheet(isPresented: $asksAfford) { AffordSheet().handingOver(dependencies) }
-    .sheet(isPresented: $showsWarranty) { WarrantyScreen().handingOver(dependencies) }
-  }
-
-  private var warrantyButton: some View {
-    Button(WarrantyText.t("warranty.button", environment)) { showsWarranty = true }
-      .accessibilityIdentifier("planning.warranty")
-  }
-
-  private var affordButton: some View {
-    Button(environment.language("afford.title", table: "WhatIf")) { asksAfford = true }
-      .accessibilityIdentifier("planning.afford")
-  }
-
-  private var whatIfButton: some View {
-    Button(environment.language("window.whatIf")) { AppScreens.open(.whatIf, with: openWindow) }
-      .accessibilityIdentifier("planning.whatIf")
-  }
-
-  private var editButton: some View {
-    Button(PlanningBlockText.t(editing ? "layout.done" : "layout.edit", environment)) {
-      editing.toggle()
-    }
-    .accessibilityIdentifier("planning.edit")
-  }
-
-  @ViewBuilder
-  private var addItems: some View {
-    ForEach(PlanningAddition.allCases) { addition in
-      Button(PlanningBlockText.t(addition.titleKey, environment)) { add(addition) }
-    }
-  }
-
-  private var wideActions: some View {
-    HStack(spacing: 12) {
-      affordButton.buttonStyle(.bordered).fixedSize()
-      whatIfButton.buttonStyle(.bordered).fixedSize()
-      // The warranty screen lives in the «+» menu: one more bordered button here would widen
-      // the narrowest window at the largest text size.
-      Menu {
-        addItems
-        Divider()
-        warrantyButton
-      } label: {
-        Label {
-          Text(verbatim: PlanningBlockText.t("layout.add", environment))
-        } icon: {
-          Image(systemName: "plus")
-        }
-      }
-      .menuStyle(.button)
-      .buttonStyle(.bordered)
-      .fixedSize()
-      .accessibilityIdentifier("planning.add")
-      editButton.buttonStyle(.bordered).fixedSize()
-    }
-  }
-
-  /// One round button: the forms first, then the two questions, then the order of the blocks.
-  private var actionsMenu: some View {
-    Menu {
-      Section { addItems }
-      Section {
-        affordButton
-        whatIfButton
-        warrantyButton
-        editButton
-      }
-    } label: {
-      Image(systemName: "ellipsis.circle")
-        .appFont(.title2)
-        .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.add", environment)))
-    }
-    .menuStyle(.button)
-    .buttonStyle(.borderless)
-    .fixedSize()
-    .accessibilityIdentifier("planning.actions")
+    .padding(20)
+    .frame(minWidth: 440, idealWidth: 520, minHeight: 360, idealHeight: 560)
   }
 }
 

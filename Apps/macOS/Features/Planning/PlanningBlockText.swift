@@ -37,12 +37,12 @@ enum PlanningBlockText {
   static func symbol(of block: PlanningBlock) -> String {
     switch block {
     case .freeMoney: "banknote"
-    case .payments: "calendar.badge.clock"
+    case .payments: "repeat"
     case .subscriptions: "arrow.triangle.2.circlepath"
-    case .expectedIncome: "tray.and.arrow.down"
-    case .limits: "gauge.with.dots.needle.33percent"
+    case .expectedIncome: "arrow.down"
+    case .limits: "percent"
     case .goals: "target"
-    case .events: "party.popper"
+    case .events: "airplane"
     case .advice: "lightbulb"
     case .selfEmployment: "briefcase"
     }
@@ -229,7 +229,12 @@ enum PlanningBlockText {
     "layout.empty.expected", "layout.empty.expected.add", "layout.empty.limits",
     "layout.empty.limits.add", "layout.empty.goals", "layout.empty.goals.add",
     "layout.empty.events", "layout.empty.events.add", "layout.block.selfEmployment",
-    "layout.total.selfEmployment",
+    "layout.total.selfEmployment", "layout.more", "layout.card.all", "layout.free.until",
+    "layout.free.reserveOut", "layout.free.perDay", "layout.free.noIncome",
+    "layout.free.expected", "layout.free.tax", "layout.free.cushion",
+    "layout.free.metric.until", "layout.free.metric.daily", "layout.free.metric.reserve",
+    "layout.free.metric.dues", "layout.free.hint", "layout.free.short",
+    "layout.free.metric.short", "layout.free.phoneDaily", "layout.ribbon.phoneTitle",
   ]
 
   // MARK: Which blocks show

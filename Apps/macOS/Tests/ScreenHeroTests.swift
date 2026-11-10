@@ -3,14 +3,14 @@ import XCTest
 
 @testable import OhMyMoney
 
-/// The pieces the heroes of Planning, Capital and a trip share: the column break, the dealing of
-/// cards into columns, and the words of the new page subtitles in both languages.
+/// The pieces the heroes of Capital and a trip share: the column break, the dealing of cards
+/// into columns, and the words of the new page subtitles in both languages. Planning lays its
+/// blocks by its own frames (`PlanningPageLayout`).
 @MainActor
 final class ScreenHeroTests: XCTestCase {
   func testTheBreakIsAtTheSameWidthForEveryScreen() {
     XCTAssertEqual(ScreenColumns.count(forWidth: 759), 1)
     XCTAssertEqual(ScreenColumns.count(forWidth: 760), 2)
-    XCTAssertEqual(PlanningView.columns(forWidth: 760), ScreenColumns.count(forWidth: 760))
   }
 
   func testCardsAreDealtByTurnsAndKeepTheirOrder() {
