@@ -135,7 +135,10 @@ public struct CashbackReport: Sendable {
       let from = period.range.start.monthKey.firstDay
       var seen = Set<UUID>()
       let purchases = ledger.rows(in: DayRange(from, period.range.end))
-        .filter { $0.isFirstPart && ($0.kind == .expense || $0.kind == .refund) }
+        .filter {
+          $0.isFirstPart && ($0.kind == .expense || $0.kind == .refund)
+            && !OverviewSummary.isCountDifference($0)
+        }
         .compactMap { row -> TransactionEntry? in
           guard seen.insert(row.transactionId).inserted else { return nil }
           return ledger.entry(row.transactionId)
@@ -150,7 +153,8 @@ public struct CashbackReport: Sendable {
         refunded: { ledger.refunded(forPart: $0) })
     }
 
-    for row in ledger.rows(in: period.range) {
+    for row in ledger.rows(in: period.range)
+    where !OverviewSummary.isCountDifference(row) {
       let (holderKey, holder) = key(row)
       let month = row.day.monthKey
       let slot = Slot(holder: holderKey, month: month)

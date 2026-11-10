@@ -231,7 +231,6 @@ public struct SpendingCalendar: Hashable, Sendable {
   ) -> SpendingCalendar {
     let range = range(scope: scope, anchor: anchor, firstWeekday: firstWeekday)
     let currency = rate(of: target, in: rubPerUnit) == nil ? CurrencyCode.rub : target
-    let countCategories = ledger.dataset.planning.settings.limitlessCategoryIds
 
     // Every day's spending in rubles, from the window before the first day shown through the
     // last day shown that is not ahead.
@@ -241,7 +240,7 @@ public struct SpendingCalendar: Hashable, Sendable {
     if range.start <= lastCounted {
       let counted = DayRange(range.start.adding(days: -window), lastCounted)
       for row in ledger.rows(in: counted) {
-        if !OverviewSummary.isCountDifference(row, countCategories: countCategories) {
+        if !OverviewSummary.isCountDifference(row) {
           spentRub[row.dayNumber, default: .zero] += row.contribution
         }
         if row.day >= range.start, operations[row.dayNumber]?.contains(row.transactionId) != true {

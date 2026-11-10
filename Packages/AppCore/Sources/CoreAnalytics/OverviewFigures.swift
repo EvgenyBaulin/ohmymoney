@@ -281,16 +281,15 @@ public struct OverviewFigures: Hashable, Sendable {
     public var basisPoints: Int? { Change(current: current, previous: previous).basisPoints }
 
     /// The category that grew the most and the one that shrank the most, in rubles; `nil` for
-    /// a side nothing moved on. «Сверка» and what a count wrote are not spending.
+    /// a side nothing moved on. Only operations linked to counts are balance adjustments.
     static func moves(
       ledger: Ledger, today: DateOnly
     ) -> (grew: CategoryMove?, shrank: CategoryMove?) {
-      let counts = ledger.dataset.planning.settings.limitlessCategoryIds
       func totals(_ range: DayRange) -> [ReportKey: AmountE4] {
         var sums: [ReportKey: AmountE4] = [:]
         for row in ledger.rows(in: range)
         where !row.contribution.isZero
-          && !OverviewSummary.isCountDifference(row, countCategories: counts)
+          && !OverviewSummary.isCountDifference(row)
         {
           sums[ReportGrouping.category.outerKey(of: row), default: .zero] += row.contribution
         }
@@ -324,11 +323,10 @@ public struct OverviewFigures: Hashable, Sendable {
 
     init(ledger: Ledger, span: DayRange, limit: AmountE4) {
       self.limit = limit
-      let counts = ledger.dataset.planning.settings.limitlessCategoryIds
       let rows = ledger.rows(in: span).filter { row in
         row.contribution.raw > 0 && row.contribution <= limit && row.kind == .expense
           && !row.isGoalContribution
-          && !OverviewSummary.isCountDifference(row, countCategories: counts)
+          && !OverviewSummary.isCountDifference(row)
           && !(row.categoryId.map { ledger.tree.isEssential($0) } ?? false)
       }
       count = rows.count

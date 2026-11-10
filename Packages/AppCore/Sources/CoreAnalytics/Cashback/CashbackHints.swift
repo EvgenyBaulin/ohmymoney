@@ -97,6 +97,7 @@ public enum CashbackHints {
     var groups: [String: (place: UUID?, category: UUID?, group: Group)] = [:]
     var seen = Set<UUID>()
     for row in ledger.rows(in: range) where row.isFirstPart && row.kind == .expense {
+      guard !OverviewSummary.isCountDifference(row) else { continue }
       guard seen.insert(row.transactionId).inserted, let entry = ledger.entry(row.transactionId),
         CashbackMath.earns(entry, tree: ledger.tree)
       else { continue }
@@ -221,6 +222,7 @@ public enum CashbackHints {
     func spent(_ category: UUID, in range: DayRange) -> Decimal {
       var total = Decimal(0)
       for row in ledger.rows(in: range) where row.kind == .expense {
+        guard !OverviewSummary.isCountDifference(row) else { continue }
         guard CashbackAdvisor.isUnder(row.categoryId, category, tree: ledger.tree) else { continue }
         total += (row.amountRubE4 - row.refundedRubE4).decimal
       }

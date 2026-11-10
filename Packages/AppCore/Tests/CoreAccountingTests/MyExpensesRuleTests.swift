@@ -8,6 +8,20 @@ import Testing
 struct MyExpensesRuleTests {
   let categories = StartingCategories()
 
+  @Test(arguments: [false, true])
+  func reconciliationLinksNeverContributeToSpending(_ perBalance: Bool) {
+    var adjustment = entry(
+      id(1), parts: [part(id(11), amount: money(9000), category: categories.groceries)])
+    adjustment.transaction.externalId =
+      (perBalance
+      ? OperationLink.reconciledBalance(reconciliation: UUID(), balance: UUID())
+      : OperationLink.reconciliation(UUID())).externalId
+    #expect(MyExpensesRule.total(entries: [adjustment]) == .zero)
+    #expect(!MyExpensesRule.isMySpending(part: adjustment.parts[0], in: adjustment.transaction))
+    #expect(MyExpensesRule.byCategory(entries: [adjustment]).total == .zero)
+    #expect(RowTotals(entries: [adjustment]).myExpenses == .zero)
+  }
+
   @Test func partsAddUpToTheTotal() {
     let dinner = entry(
       id(1),
@@ -19,6 +33,20 @@ struct MyExpensesRuleTests {
     #expect(dinner.isBalanced)
     #expect(dinner.partsBalance.isZero)
     #expect(dinner.isSplit)
+  }
+
+  @Test func aRefundOfAnAdjustmentDoesNotCreateNegativeSpending() {
+    var adjustment = entry(
+      id(1), parts: [part(id(11), amount: money(9000), category: categories.groceries)])
+    adjustment.transaction.externalId = OperationLink.reconciliation(UUID()).externalId
+    var refund = entry(
+      id(2), kind: .refund,
+      parts: [part(id(21), amount: money(9000), category: categories.groceries)])
+    refund.parts[0].refundOfPartId = adjustment.parts[0].id
+    let entries = [adjustment, refund]
+    let refunds = RefundIndex(entries: entries, debts: [:])
+    #expect(refunds.movedContribution(part: adjustment.parts[0].id) == .zero)
+    #expect(RowTotals(entries: entries, refunds: refunds).myExpenses == .zero)
   }
 
   @Test func aPlainExpenseIsMySpending() {

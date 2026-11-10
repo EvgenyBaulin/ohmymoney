@@ -148,8 +148,8 @@ extension SampleDataSet {
           categories: categories, countId: row.id,
           link: .reconciledBalance(reconciliation: sheet.id, balance: row.id), now: countedAt)
         balance.transactionId = entry.id
-        // Spending in «Сверка», and the money counted short gone from the cash from then on.
-        set.add(entry, calendar: calendar)
+        // The money counted short is gone from cash, without becoming spending.
+        set.add(entry, calendar: calendar, countsAsSpending: false)
       }
       set.reconciledBalances.append(balance)
     }

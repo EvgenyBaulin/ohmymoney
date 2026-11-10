@@ -12,6 +12,23 @@ import Testing
 /// only the charges written for the subscription: an ordinary operation that pays it by
 /// matching is no charge of it until it is tied with «Привязать».
 extension AnomalyRefundFoldTests {
+  @Test func reconciliationDoesNotChangeWeeklySpendingOrAnomalies() {
+    let ordinary = onTheTrip(purchase(1, "2026-09-05", "800"))
+    let adjustment = onTheTrip(
+      purchase(
+        2, "2026-09-05", "90000",
+        link: OperationLink.reconciledBalance(reconciliation: UUID(), balance: UUID()).externalId))
+    let trip = Event(
+      id: Self.trip, name: "Trip", startDate: day("2026-09-01"), endDate: day("2026-09-10"),
+      budgetE4: money("2000"))
+    let expected = ledger([ordinary], events: [trip])
+    let actual = ledger([ordinary, adjustment], events: [trip])
+    let week = WeekKey(containing: day("2026-09-05"))
+    #expect(
+      WeekCards.build(week: week, ledger: actual) == WeekCards.build(week: week, ledger: expected))
+    #expect(overBudget(actual) == overBudget(expected))
+  }
+
   static let trip = UUID(uuidString: "00000000-0000-0000-0000-00000000E001") ?? UUID()
 
   func ledger(

@@ -123,14 +123,16 @@ struct SpendingCalendarTests {
     #expect(calendar.spent == AmountE4(whole: 1_200))
   }
 
-  /// A reconciliation's difference is no purchase: by its link or by «Сверка».
+  /// A count's link excludes its adjustment; a manual purchase in the same category stays.
   @Test func aCountDifferenceIsNoSpending() throws {
     let counts = CoreKit.Category(kind: .expense, name: "Сверка")
     var book = PlanningBook()
     book.settings.reconcileExpenseCategoryId = counts.id
     let entries = [
-      try entry(300, on: day(10, 6)),
-      try entry(9_000, on: day(10, 6), category: counts),
+      try entry(300, on: day(10, 6), category: counts),
+      try entry(
+        9_000, on: day(10, 6), category: counts,
+        externalId: "reconcile:\(UUID().uuidString.lowercased())"),
       try entry(
         7_000, on: day(10, 6),
         externalId: "reconcile:\(UUID().uuidString.lowercased()):\(UUID().uuidString.lowercased())"),

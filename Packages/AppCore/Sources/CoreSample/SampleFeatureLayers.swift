@@ -170,14 +170,16 @@ extension SampleDataSet {
   /// A layer's purchase joins the set: the operation, in time order after what the set already
   /// has at its moment; the spending of its month in the known answers; the money of its
   /// account at the end.
-  mutating func add(_ entry: TransactionEntry, calendar: CalendarContext) {
+  mutating func add(
+    _ entry: TransactionEntry, calendar: CalendarContext, countsAsSpending: Bool = true
+  ) {
     let index =
       entries.firstIndex { $0.transaction.occurredAt > entry.transaction.occurredAt }
       ?? entries.endIndex
     entries.insert(entry, at: index)
     let month = calendar.day(of: entry.transaction.occurredAt).monthKey
     let byId = Dictionary(categories.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-    for part in entry.parts {
+    for part in entry.parts where countsAsSpending {
       let category = part.categoryId.flatMap { byId[$0] }
       expectations.spend(
         part.amountRubE4, in: month, root: category.map { $0.parentId ?? $0.id },

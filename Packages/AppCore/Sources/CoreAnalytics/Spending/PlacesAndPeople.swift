@@ -68,7 +68,8 @@ public struct ReceiptHistory: Hashable, Sendable {
     self.range = range
     // Per place and month: the receipt of each purchase, net of its refunds.
     var receipts: [UUID: [MonthKey: [UUID: AmountE4]]] = [:]
-    for row in ledger.rows(in: range) {
+    for row in ledger.rows(in: range)
+    where !OverviewSummary.isCountDifference(row) {
       guard let placeId = row.placeId, row.kind == .expense, row.refundOfPartId == nil
       else { continue }
       receipts[placeId, default: [:]][row.day.monthKey, default: [:]][

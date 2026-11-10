@@ -798,6 +798,8 @@ final class MainWindowLayoutTests: XCTestCase {
   /// (7 + a line of 14 + 7, and 3 between two rows), the list's rows 16 from the edges and the
   /// chosen one's plate, drawn 4 beyond its row, 12 from them.
   func testTheRowsOfTheSidebarHaveTheNumbersOfTheDesign() throws {
+    // A test run on its own has no earlier accessibility client to enable SwiftUI's tree.
+    TestEnvironment.enableAccessibilityTree()
     let window = makeWindow()
     try waitForList(window)
     settle(window, passes: 10, "with the sidebar")
@@ -805,21 +807,7 @@ final class MainWindowLayoutTests: XCTestCase {
     Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &outlines)
     let sidebar = try XCTUnwrap(
       outlines.first { $0.convert($0.bounds, to: nil).minX < 1 }, "no sidebar")
-    XCTAssertEqual(sidebar.bounds.width, SidebarMetrics.width, accuracy: 1, "the column")
-    // Row 0 is the header of the list of sections; then the sections in their order.
     let sections = MainWindow.Section.allCases
-    let chosenRow = try 1 + XCTUnwrap(sections.firstIndex(of: .operations))
-    // The pages of «Покупки» follow its row: the sections up to it stand one after another.
-    // A row the mode of a beginner quiets carries a line more.
-    for row in 1...(1 + (sections.firstIndex(of: .purchases) ?? 0))
-    where BeginnerModeOnMac.section(of: sections[row - 1]) == nil {
-      XCTAssertEqual(sidebar.rect(ofRow: row).height, 34, accuracy: 0.5, "row \(row)")
-    }
-    let cell = try XCTUnwrap(sidebar.view(atColumn: 0, row: chosenRow, makeIfNecessary: false))
-    let cellFrame = cell.convert(cell.bounds, to: sidebar)
-    XCTAssertEqual(cellFrame.minX, SidebarMetrics.listRowInset, accuracy: 0.5, "the list's inset")
-    XCTAssertEqual(
-      sidebar.bounds.width - cellFrame.maxX, SidebarMetrics.listRowInset, accuracy: 0.5)
 
     // The plate: the button of the chosen section as an assistive client reads it from the
     // cell — the plate is its background, so its frame is the plate's.
@@ -835,8 +823,40 @@ final class MainWindowLayoutTests: XCTestCase {
         walk(child, depth: depth + 1)
       }
     }
-    walk(cell, depth: 0)
-    let button = try XCTUnwrap(found.first { $0.0 == "sidebar.operations" }?.1, "no button")
+    // Find the operation's own row, independently of headers and first-run sidebar state.
+    // Layout may replace cells while the accessibility tree is being built.
+    let deadline = Date().addingTimeInterval(10)
+    var chosen: (cell: NSView, button: CGRect)?
+    while true {
+      for row in 0..<sidebar.numberOfRows {
+        guard let cell = sidebar.view(atColumn: 0, row: row, makeIfNecessary: true) else {
+          continue
+        }
+        found.removeAll()
+        walk(cell, depth: 0)
+        if let button = found.first(where: { $0.0 == "sidebar.operations" })?.1 {
+          chosen = (cell, button)
+          break
+        }
+      }
+      if chosen != nil { break }
+      if Date() >= deadline { break }
+      settle(window, passes: 10, "waiting for the sidebar's accessibility tree")
+    }
+    let cell = try XCTUnwrap(chosen?.cell, "no sidebar.operations row")
+    let button = try XCTUnwrap(chosen?.button, "no button")
+
+    XCTAssertEqual(sidebar.bounds.width, SidebarMetrics.width, accuracy: 1, "the column")
+    // The pages of «Покупки» follow its row: the sections up to it stand one after another.
+    // A row the mode of a beginner quiets carries a line more.
+    for row in 1...(1 + (sections.firstIndex(of: .purchases) ?? 0))
+    where BeginnerModeOnMac.section(of: sections[row - 1]) == nil {
+      XCTAssertEqual(sidebar.rect(ofRow: row).height, 34, accuracy: 0.5, "row \(row)")
+    }
+    let cellFrame = cell.convert(cell.bounds, to: sidebar)
+    XCTAssertEqual(cellFrame.minX, SidebarMetrics.listRowInset, accuracy: 0.5, "the list's inset")
+    XCTAssertEqual(
+      sidebar.bounds.width - cellFrame.maxX, SidebarMetrics.listRowInset, accuracy: 0.5)
     let column = window.convertToScreen(sidebar.convert(sidebar.bounds, to: nil))
     // The button is laid out in the list's row, 16 from the edges; its plate is drawn 4 beyond
     // it, 12 from them — nothing on the way clips it.
