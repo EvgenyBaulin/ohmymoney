@@ -2,60 +2,65 @@ import AppCore
 import SwiftUI
 
 /// The limits of the month in the one order of the lists of limits (`LimitLists`) — over the
-/// limit, then close to it, then by the share spent — as many as the Planning block shows but
-/// never more than five, each with its symbol and word; then what is left: how many are
-/// within, or how many more there are in Planning.
+/// limit, then close to it, then by the share spent — at most three, each with its amounts, a
+/// bar of what is spent and its status as a symbol and a word; then how many more there are in
+/// Planning. While a limit is over, the title names it and a label counts how many are
+/// (`LimitsTile`).
 struct LimitsCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.appTheme) private var theme
+  @Environment(\.layoutIdiom) private var idiom
 
   var body: some View {
+    let tile = compute.states.data.value.map { self.tile($0) }
     ComputedBlock(
-      title: OverviewTileText.name(of: .limits, environment), state: compute.states.data,
+      title: tile?.title ?? OverviewTileText.name(of: .limits, environment),
+      state: compute.states.data,
       fillsHeight: true,
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
-      let lines = Self.lines(snapshot, environment)
-      if lines.shown.isEmpty, lines.rest.isEmpty {
-        VStack(alignment: .leading, spacing: 6) {
+      let tile = self.tile(snapshot)
+      if tile.rows.isEmpty, tile.footer == nil {
+        VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
           Text(verbatim: t("overview.limitsNone"))
-            .foregroundStyle(.secondary)
+            .appFont(StyleType.tileRow)
+            .foregroundStyle(surfaces.secondary)
             .fixedSize(horizontal: false, vertical: true)
           Button(t("overview.limitsOpen"), action: openPlanning)
             .buttonStyle(.link)
+            .appFont(StyleType.tileHint)
         }
       } else {
-        let rest = lines.rest
-        VStack(alignment: .leading, spacing: 6) {
-          ForEach(lines.shown, id: \.budget.id) { line in
-            LimitStatusLine(line: line, tree: snapshot.ledger.tree)
+        VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
+          if let label = tile.overLabel {
+            StatusLabel(tone: .bad, text: label)
           }
-          if !rest.isEmpty {
-            if rest.allSatisfy({ $0.status == .ok }) {
-              Label {
-                Text(
-                  verbatim: environment.language.format(
-                    "overview.limitsWithin", table: "Planning", counts: rest.count))
-              } icon: {
-                Image(systemName: PlanningText.statusSymbol(.ok))
-              }
-              .appFont(.caption)
-              .foregroundStyle(.secondary)
-            } else {
-              // Some of the ones not shown are running out too: said as a count, with the way
-              // to all of them.
-              Button(
-                environment.language.format(
-                  "overview.limitsMore", table: "Planning", counts: rest.count),
-                action: openPlanning
-              )
-              .buttonStyle(.link)
-              .appFont(.caption)
+          ForEach(Array(tile.rows.enumerated()), id: \.offset) { _, row in
+            LimitTileRow(
+              row: row, barWidth: StyleMetrics.limitBarWidth(LayoutIdiom.resolved(idiom)))
+          }
+          if let footer = tile.footer {
+            Button(action: openPlanning) {
+              Text(verbatim: footer)
+                .appFont(StyleType.tileHint)
+                .foregroundStyle(theme.accentContent)
             }
+            .buttonStyle(.plain)
+            .accessibilityAddTraits(.isLink)
           }
         }
       }
     }
+  }
+
+  private func tile(_ snapshot: DataSnapshot) -> LimitsTile {
+    let lines = Self.lines(snapshot, environment)
+    return LimitsTile.make(
+      shown: lines.shown, rest: lines.rest,
+      names: { PlanningText.limitName($0.budget, tree: snapshot.ledger.tree, environment) },
+      environment)
   }
 
   /// The most the card lists, whatever Planning shows: the three limits closest to running out
@@ -79,6 +84,46 @@ struct LimitsCard: View {
   }
 
   private func t(_ key: String) -> String { environment.language(key, table: "Planning") }
+}
+
+/// A limit on a tile: its name and «spent / available», under them a bar in the colour of its
+/// status and the status as a symbol and a word — the words carry it, the colour repeats it.
+struct LimitTileRow: View {
+  @Environment(\.appTheme) private var theme
+  let row: LimitsTile.Row
+  let barWidth: CGFloat
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: StyleMetrics.limitBarGap) {
+      TileFigureRow(label: row.name, figure: row.amounts)
+      HStack(spacing: StyleMetrics.limitStatusGap) {
+        TileBar(fillBp: row.fillBp, ink: Self.ink(row.status, theme))
+          .frame(maxWidth: barWidth)
+        HStack(spacing: StyleMetrics.tileInlineGap) {
+          Image(systemName: LimitsTile.symbol(row.status))
+            .appFont(StyleType.tileHintMedium)
+            .foregroundStyle(Self.ink(row.status, theme))
+            .frame(width: StyleMetrics.tileIcon, height: StyleMetrics.tileIcon)
+            .accessibilityHidden(true)
+          Text(verbatim: row.statusWord)
+            .appFont(StyleType.tileHintMedium)
+            .foregroundStyle(row.status == .ok ? theme.contentPrimary : Self.ink(row.status, theme))
+            .lineLimit(1)
+        }
+        .fixedSize()
+      }
+    }
+    .accessibilityElement(children: .combine)
+  }
+
+  /// The bar and the symbol: red over the limit, the warning ink close to it, green within.
+  static func ink(_ status: LimitStatus, _ theme: AppThemeColors) -> Color {
+    switch status {
+    case .over: theme.statusNegative
+    case .warning: theme.contentWarning
+    case .ok: theme.statusPositive
+    }
+  }
 }
 
 /// One limit: its status as a symbol and a word — never colour alone — its name and

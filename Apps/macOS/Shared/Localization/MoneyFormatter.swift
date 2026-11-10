@@ -324,6 +324,27 @@ public struct DateFormatting: Sendable {
     return index < names.count ? names[index] : "\(weekday)"
   }
 
+  /// A month as it stands after a number or a comparison: «сентября», «September» — what
+  /// «Расходы на 6 % выше сентября» compares with. Russian takes the genitive of a date.
+  public func monthOfDate(_ month: Int) -> String {
+    let names = symbols.monthSymbols ?? []
+    return month - 1 < names.count && month >= 1 ? names[month - 1] : "\(month)"
+  }
+
+  /// A day with its month cut to three letters, as a line of a tile writes a due date: «15 ноя»,
+  /// «Nov 15». Russian cuts the genitive itself — the system's own short forms carry a point
+  /// and differ in length («нояб.», «сент.»).
+  public func dayAndShortMonth(_ day: DateOnly) -> String {
+    if locale.language.languageCode?.identifier == "ru" {
+      return "\(day.day)\u{00A0}\(String(monthOfDate(day.month).prefix(3)))"
+    }
+    let formatter = DateFormatter()
+    formatter.locale = locale
+    formatter.timeZone = calendar.timeZone
+    formatter.setLocalizedDateFormatFromTemplate("d MMM")
+    return formatter.string(from: calendar.startOfDay(day))
+  }
+
   /// The names of months and weekdays in the language of the interface.
   private var symbols: DateFormatter {
     let formatter = DateFormatter()

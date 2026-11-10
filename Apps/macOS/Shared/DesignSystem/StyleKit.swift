@@ -78,6 +78,33 @@ enum StyleMetrics {
   static let partLineGap: CGFloat = 3
   static let partGap: CGFloat = 8
   static let partsVertical: CGFloat = 6
+
+  /// A compact tile — one figure of a pair: 12 of margin, 3 between its three lines.
+  static let compactTilePadding: CGFloat = 12
+  static let compactTileGap: CGFloat = 3
+
+  /// Inside a line of a tile: 4 between an amount, its arrow and its percent; the arrow and the
+  /// symbol of a status 12 pt, the symbol of a quality 14.
+  static let tileInlineGap: CGFloat = 4
+  static let tileIcon: CGFloat = 12
+  static let qualityIcon: CGFloat = 14
+  /// A bar of a tile (a limit, a share): 6 tall, fully rounded, 4 under the line of a limit and
+  /// 3 under the line of a category, 8 before the status of a limit.
+  static let tileBarHeight: CGFloat = 6
+  static let limitBarGap: CGFloat = 4
+  static let shareBarGap: CGFloat = 3
+  static let limitStatusGap: CGFloat = 8
+  /// The bar of a category: 330 at most, as the phone draws it.
+  static let shareBarWidth: CGFloat = 330
+  /// A chip of a tile («просрочен»): 9 × 3 of margin, its symbol 4 from its word.
+  static let chipHorizontal: CGFloat = 9
+  static let chipVertical: CGFloat = 3
+
+  /// The bar of a limit: 400 on the Mac and a tablet, 220 on a phone; never wider than the line
+  /// leaves it.
+  static func limitBarWidth(_ idiom: LayoutIdiom) -> CGFloat {
+    idiom == .phone ? 220 : 400
+  }
 }
 
 /// The type of the one style, as the design names it in points at «Обычный»; each grows with the
@@ -115,6 +142,17 @@ enum StyleType {
   static let cardSubtitle = AppFont.system(size: 16, weight: .bold).monospacedDigit()
   static let partFigure = AppFont.system(size: 16, weight: .semibold).monospacedDigit()
   static let partLabel = type(.footnote, 10)
+  /// The figure of a line of a tile («84 300 ₽», «9 800 / 8 000 ₽»): 12 medium.
+  static let tileRowFigure = type(.callout, 12).weight(.medium).monospacedDigit()
+  /// A chip, the word of a status, the name of a quality: 11 medium.
+  static let tileHintMedium = type(.subheadline, 11).weight(.medium)
+  /// The bottom line of a tile («Разница»): 15, its figure 15 bold.
+  static let tileTotal = type(.title3, 15)
+  static let tileTotalFigure = type(.title3, 15).bold().monospacedDigit()
+  /// A range of a tile («от 18 000 до 26 000 ₽») and the figure of a compact tile: 18 bold.
+  static let tileFigure = AppFont.system(size: 18, weight: .bold).monospacedDigit()
+  /// The name and the caption of a compact tile: 11, secondary.
+  static let compactTitle = type(.subheadline, 11)
 
   /// The system's text style on the Mac, whose «Обычный» it is to the point; the points of the
   /// frame on a phone and a tablet.

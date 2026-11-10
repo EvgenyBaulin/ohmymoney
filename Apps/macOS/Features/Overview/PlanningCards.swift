@@ -5,12 +5,13 @@ import SwiftUI
 /// read the planning snapshot the data step builds with the ledger, so a new operation moves
 /// them at once, like the other cards of the data.
 
-/// «Можно отложить в этом месяце»: the middle with its range, what is already put aside and
-/// what can still be. The remainder of the month comes from the forecast step and is laid
-/// over the current data, like the forecast card does.
+/// «Можно отложить в этом месяце»: the range it can be — «от 18 000 до 26 000 ₽» — and what is
+/// already put aside. The remainder of the month comes from the forecast step and is laid over
+/// the current data, like the forecast card does.
 struct CanSaveCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Environment(\.themeSurfaces) private var surfaces
 
   var body: some View {
     ComputedBlock(
@@ -18,28 +19,21 @@ struct CanSaveCard: View {
       emptyReason: t("advice.reason.noIncome"), asOf: compute.states.asOf(ComputeStep.forecast),
       retry: { compute.retry(ComputeStep.forecast) }
     ) { canSave in
-      VStack(alignment: .leading, spacing: 4) {
-        Text(verbatim: "≈ \(environment.money.rounded(canSave.p50 ?? .zero))")
-          .appFont(.title2.monospacedDigit())
-        if let low = canSave.low, let high = canSave.high, low != high {
-          Text(
-            verbatim: String(
-              format: t("overview.canSaveRange"), locale: environment.language.locale,
-              environment.money.rounded(low), environment.money.rounded(high))
-          )
-          .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
-        }
-        PlanningFigure(label: t("overview.alreadySaved"), amount: canSave.alreadySaved)
-        PlanningFigure(label: t("overview.canSaveMore"), amount: canSave.canSaveMore ?? .zero)
+      let tile = CanSaveTile.make(canSave, environment)
+      VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
+        Text(verbatim: tile.figure)
+          .appFont(StyleType.tileFigure)
+          .foregroundStyle(surfaces.primary)
+          .fixedSize(horizontal: false, vertical: true)
+        TileFigureRow(label: tile.savedLabel, figure: tile.saved)
         if canSave.lowData {
           Label {
             Text(verbatim: environment.language("common.noData"))
           } icon: {
             Image(systemName: "hourglass")
           }
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .appFont(StyleType.tileHint)
+          .foregroundStyle(surfaces.secondary)
         }
       }
     }
@@ -57,53 +51,40 @@ struct CanSaveCard: View {
   private func t(_ key: String) -> String { environment.language(key, table: "Planning") }
 }
 
-/// Scheduled payments and debt payments due within seven days, overdue ones first. A payment
-/// in another currency than the default one says under its amount about how much it is in the
-/// default currency at today's rate, in grey — or that there is no rate, never a guess.
+/// Scheduled payments and debt payments due within seven days, overdue ones first: the title
+/// counts them with their total, «просрочен» stands under it while one is late, three are
+/// listed and the rest summed up under them. A payment in another currency than the default one
+/// says under its amount about how much it is in the default currency at today's rate, in grey —
+/// or that there is no rate, never a guess.
 struct UpcomingPaymentsCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Environment(\.themeSurfaces) private var surfaces
 
   var body: some View {
+    let tile = compute.states.data.value.map { self.tile($0) }
     ComputedBlock(
-      title: OverviewTileText.name(of: .upcoming, environment),
+      title: tile?.title ?? OverviewTileText.name(of: .upcoming, environment),
       state: compute.states.data, fillsHeight: true, retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
-      // The block hands over the whole snapshot; what is covered is the presented one's.
-      let upcoming = Self.listed(
-        snapshot.planning.upcoming, hiding: HiddenPlans(snapshot: compute.snapshot ?? snapshot))
-      let target = snapshot.dataset.accountSettings.defaultCurrency
-      if upcoming.isEmpty {
+      let tile = self.tile(snapshot)
+      if tile.rows.isEmpty {
         Text(verbatim: environment.language("overview.upcomingNone", table: "Planning"))
-          .foregroundStyle(.secondary)
+          .appFont(StyleType.tileRow)
+          .foregroundStyle(surfaces.secondary)
       } else {
-        VStack(alignment: .leading, spacing: 5) {
-          ForEach(upcoming.prefix(5), id: \.self) { payment in
-            HStack(alignment: .firstTextBaseline, spacing: 6) {
-              if payment.isOverdue {
-                Image(systemName: "exclamationmark.circle")
-                  .accessibilityLabel(
-                    Text(verbatim: environment.language("planning.overdue", table: "Planning")))
-              }
-              Text(verbatim: environment.dates.dayAndMonth(payment.due))
-                .monospacedDigit()
-                .foregroundStyle(.secondary)
-              Text(verbatim: payment.name)
-                .lineLimit(1)
-              Spacer(minLength: 6)
-              // Two lines on the right keep the name from being cut short on a narrow card.
+        VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
+          if tile.hasOverdue {
+            TileOverdueChip(text: environment.language("planning.overdue", table: "Planning"))
+          }
+          ForEach(Array(tile.rows.enumerated()), id: \.offset) { _, row in
+            TileFigureRow(label: row.label) {
               VStack(alignment: .trailing, spacing: 0) {
-                Text(
-                  verbatim: environment.money.rounded(payment.amount, currency: payment.currency)
-                )
-                .monospacedDigit()
-                if let approximate = Self.approximateText(
-                  payment.approximate(to: target, rubPerUnit: snapshot.planning.rubPerUnit),
-                  environment)
-                {
+                TileFigureText(text: row.amount)
+                if let approximate = row.approximate {
                   Text(verbatim: approximate)
-                    .appFont(.caption.monospacedDigit())
-                    .foregroundStyle(.secondary)
+                    .appFont(StyleType.tileHint.monospacedDigit())
+                    .foregroundStyle(surfaces.secondary)
                     .help(
                       Text(
                         verbatim: environment.language(
@@ -111,12 +92,26 @@ struct UpcomingPaymentsCard: View {
                 }
               }
             }
-            .appFont(.callout)
-            .accessibilityElement(children: .combine)
+          }
+          if let footer = tile.footer {
+            Text(verbatim: footer)
+              .appFont(StyleType.tileHint.monospacedDigit())
+              .foregroundStyle(surfaces.secondary)
+              .fixedSize(horizontal: false, vertical: true)
           }
         }
       }
     }
+  }
+
+  /// The words of the tile for a snapshot: covered, not naming a payment of a hidden account.
+  private func tile(_ snapshot: DataSnapshot) -> UpcomingTile {
+    // The block hands over the whole snapshot; what is covered is the presented one's.
+    UpcomingTile.make(
+      Self.listed(
+        snapshot.planning.upcoming, hiding: HiddenPlans(snapshot: compute.snapshot ?? snapshot)),
+      target: snapshot.dataset.accountSettings.defaultCurrency,
+      rubPerUnit: snapshot.planning.rubPerUnit, environment)
   }
 }
 

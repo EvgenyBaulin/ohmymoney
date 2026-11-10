@@ -338,7 +338,7 @@ final class OverviewTilesSettingTests: XCTestCase {
     }
     environment.language.choice = .russian
     XCTAssertEqual(OverviewTileText.name(of: .monthToDate, environment), "С начала месяца")
-    XCTAssertEqual(OverviewTileText.name(of: .freeMoney, environment), "Свободные средства")
+    XCTAssertEqual(OverviewTileText.name(of: .freeMoney, environment), "Деньги на счетах")
     XCTAssertEqual(
       OverviewTileGroup.allCases.map { OverviewTileText.groupName(of: $0, environment) },
       ["Деньги", "План", "Анализ"])

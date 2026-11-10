@@ -59,7 +59,9 @@ struct OverviewCardView: View {
 
   var body: some View {
     if compact, OverviewCatalog.canBeCompact(tile) {
+      // A compact tile is titled grey 11 over its figure, as one half of a pair is drawn.
       OverviewNewCardView(tile: tile, compact: true)
+        .environment(\.tileIsCompact, true)
     } else {
       regular
     }
@@ -103,31 +105,56 @@ struct OverviewCardView: View {
 
 // MARK: - The cards
 
-/// Spending, income and their difference from the 1st to today, each of the first two
-/// against the same span of the previous month.
+/// Spending, income and their difference from the 1st to today, each of the first two with the
+/// arrow and the per cent against the same days of the previous month; the title says what the
+/// spending did (`MonthToDateTile`).
 private struct MonthToDateCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.appTheme) private var theme
 
   var body: some View {
+    let tile = compute.states.data.value.map { MonthToDateTile.make($0.summary, environment) }
     ComputedBlock(
-      title: OverviewTileText.name(of: .monthToDate, environment),
+      title: tile?.title ?? OverviewTileText.name(of: .monthToDate, environment),
       state: compute.states.data, fillsHeight: true,
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
-      let summary = snapshot.summary
-      VStack(alignment: .leading, spacing: 4) {
-        FigureLine(
-          label: environment.language("overview.expenses", table: "Overview"),
-          amount: summary.expenses.current)
-        ComparisonLine(change: summary.expenses, span: summary.previousSpan)
-          .padding(.bottom, 4)
-        FigureLine(
-          label: environment.language("overview.income", table: "Overview"),
-          amount: summary.income.current)
-        ComparisonLine(change: summary.income, span: summary.previousSpan)
-          .padding(.bottom, 4)
-        FigureLine(label: environment.language("common.net"), amount: summary.net)
+      let tile = MonthToDateTile.make(snapshot.summary, environment)
+      VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
+        ForEach(tile.rows, id: \.label) { row in
+          TileFigureRow(label: row.label) {
+            TileFigureText(text: row.amount)
+            if let direction = row.direction, let percent = row.percent {
+              HStack(spacing: StyleMetrics.tileInlineGap) {
+                Image(systemName: MonthToDateTile.arrow(direction))
+                  .appFont(StyleType.tileHintMedium)
+                  .frame(width: StyleMetrics.tileIcon, height: StyleMetrics.tileIcon)
+                  .accessibilityHidden(true)
+                Text(verbatim: percent)
+                  .appFont(StyleType.tileHint.monospacedDigit())
+              }
+              .foregroundStyle(surfaces.secondary)
+              .fixedSize()
+            }
+          }
+        }
+        Rectangle()
+          .fill(theme.borderHairline)
+          .frame(height: 1)
+          .accessibilityHidden(true)
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+          Text(verbatim: tile.netLabel)
+            .appFont(StyleType.tileTotal)
+          Spacer(minLength: 8)
+          Text(verbatim: tile.net)
+            .appFont(StyleType.tileTotalFigure)
+            .lineLimit(1)
+            .fixedSize()
+        }
+        .foregroundStyle(surfaces.primary)
+        .accessibilityElement(children: .combine)
       }
     }
   }
@@ -135,9 +162,10 @@ private struct MonthToDateCard: View {
 
 /// Where my money went this month: the five largest top-level categories, each with its
 /// share of all my spending and a thin bar as long as that share.
-private struct TopCategoriesCard: View {
+struct TopCategoriesCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Environment(\.appTheme) private var theme
 
   var body: some View {
     ComputedBlock(
@@ -149,36 +177,45 @@ private struct TopCategoriesCard: View {
       emptyReason: environment.language("overview.noSpendingYet", table: "Overview"),
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
-      VStack(alignment: .leading, spacing: 8) {
+      VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
         ForEach(snapshot.summary.topCategories, id: \.key) { node in
-          VStack(alignment: .leading, spacing: 3) {
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-              Text(
-                verbatim: OverviewText.name(of: node.key, tree: snapshot.ledger.tree, environment)
-              )
-              .lineLimit(1)
-              .truncationMode(.tail)
-              Spacer(minLength: 8)
-              Text(verbatim: environment.money.rounded(node.amount))
-                .monospacedDigit()
-              ShareText(basisPoints: node.share)
-            }
-            .appFont(.callout)
-            ShareBar(basisPoints: node.share)
+          VStack(alignment: .leading, spacing: StyleMetrics.shareBarGap) {
+            TileFigureRow(
+              label: OverviewText.name(of: node.key, tree: snapshot.ledger.tree, environment),
+              figure: Self.figure(node, environment))
+            TileBar(fillBp: node.share ?? 0, ink: theme.chartBar)
+              .frame(maxWidth: StyleMetrics.shareBarWidth, alignment: .leading)
           }
           .accessibilityElement(children: .combine)
         }
       }
     }
   }
+
+  /// «28 400 ₽ · 34.0 %»: the money and its share of all my spending; a dash without a share.
+  static func figure(_ node: BreakdownNode, _ environment: AppEnvironment) -> String {
+    let share = node.share.map { environment.money.percent(basisPoints: $0) } ?? "—"
+    return "\(environment.money.rounded(node.amount)) · \(share)"
+  }
 }
 
-/// Good, neutral and bad spending this month: symbol, words, amount and share for each, a
-/// bar in the fixed order good → neutral → bad, and how bad spending moved against the same
-/// span of last month.
+/// Good, neutral and bad spending this month: the symbol, the word and the share of each, in
+/// the fixed order good → neutral → bad, and how bad spending moved against the same span of
+/// last month.
 private struct QualitiesCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Environment(\.appTheme) private var theme
+
+  /// The word of a quality: good in the primary ink, neutral grey, bad in the warning ink —
+  /// the symbol and the word say it, the ink only repeats it.
+  static func wordInk(_ quality: Quality, _ theme: AppThemeColors) -> Color {
+    switch quality {
+    case .good: theme.contentPrimary
+    case .neutral: theme.contentSecondary
+    case .bad: theme.contentWarning
+    }
+  }
 
   var body: some View {
     ComputedBlock(
@@ -193,24 +230,28 @@ private struct QualitiesCard: View {
       emptyReason: environment.language("overview.noSpendingYet", table: "Overview"),
       retry: { compute.retry(ComputeStep.data) }
     ) { summary in
-      VStack(alignment: .leading, spacing: 6) {
+      VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
         ForEach(summary.qualities, id: \.key) { node in
           if case .quality(let quality) = node.key {
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-              QualityTag(
-                quality: quality, title: environment.language(Palette.qualityKey(quality)),
-                font: .callout)
+            HStack(alignment: .center, spacing: StyleMetrics.tileInlineGap) {
+              Image(systemName: Palette.qualitySymbol(quality))
+                .appFont(StyleType.tileRowFigure)
+                .foregroundStyle(Palette.quality(quality))
+                .frame(width: StyleMetrics.qualityIcon, height: StyleMetrics.qualityIcon)
+                .accessibilityHidden(true)
+              Text(verbatim: environment.language(Palette.qualityKey(quality)))
+                .appFont(StyleType.tileRowFigure)
+                .foregroundStyle(Self.wordInk(quality, theme))
               Spacer(minLength: 8)
-              Text(verbatim: environment.money.rounded(node.amount))
-                .monospacedDigit()
-              ShareText(basisPoints: node.share)
+              Text(
+                verbatim: node.share.map { environment.money.percent(basisPoints: $0) } ?? "—"
+              )
+              .appFont(StyleType.tileRowFigure)
+              .foregroundStyle(theme.contentPrimary)
             }
-            .appFont(.callout)
             .accessibilityElement(children: .combine)
           }
         }
-        QualityBar(nodes: summary.qualities)
-          .padding(.vertical, 2)
         HStack(alignment: .firstTextBaseline, spacing: 4) {
           Image(systemName: Palette.qualitySymbol(.bad))
             .foregroundStyle(Palette.quality(.bad))
@@ -369,37 +410,6 @@ struct ShareBar: View {
       }
       .frame(height: 3)
       .accessibilityHidden(true)
-  }
-}
-
-/// Good, neutral and bad side by side, always in that order, 2 pt apart. A segment wide
-/// enough for it carries the symbol of its quality, so the bar reads without colour; a
-/// bucket without a share has no width. The lines above say the same in words, so the bar
-/// is hidden from VoiceOver.
-private struct QualityBar: View {
-  let nodes: [BreakdownNode]
-
-  var body: some View {
-    ProportionalRow(weights: nodes.map { $0.share ?? 0 }, spacing: 2) {
-      ForEach(nodes, id: \.key) { node in
-        if case .quality(let quality) = node.key {
-          RoundedRectangle(cornerRadius: 3)
-            .fill(Palette.quality(quality))
-            .overlay {
-              ViewThatFits(in: .horizontal) {
-                Image(systemName: Palette.qualitySymbol(quality))
-                  .appFont(.caption2.weight(.semibold))
-                  .foregroundStyle(.background)
-                  .padding(.horizontal, 3)
-                Color.clear
-              }
-            }
-            .clipped()
-        }
-      }
-    }
-    .frame(height: 16)
-    .accessibilityHidden(true)
   }
 }
 
