@@ -325,6 +325,10 @@ struct PhoneRequests: ViewModifier {
       .onReceive(NotificationCenter.default.publisher(for: .openSidebarItem)) { note in
         if let item = note.object as? SidebarItem { router.open(item: item) }
       }
+      // «Итоги»: the tab «По периодам» of Reports on a tablet, the page «Итоги» of a phone.
+      .onReceive(NotificationCenter.default.publisher(for: .openSummaries)) { _ in
+        router.openSummaries(isPad: UIDevice.current.userInterfaceIdiom == .pad)
+      }
       .onReceive(NotificationCenter.default.publisher(for: .openAppScreen)) { note in
         if let screen = note.object as? AppScreen { router.open(screen: screen) }
       }

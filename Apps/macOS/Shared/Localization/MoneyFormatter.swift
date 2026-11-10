@@ -283,6 +283,12 @@ public struct DateFormatting: Sendable {
     return "\(name.capitalizedFirst) \(month.year)"
   }
 
+  /// A month by itself, as a title starts: «Октябрь», «October» — the standalone name.
+  public func monthName(_ month: Int) -> String {
+    let names = symbols.standaloneMonthSymbols ?? []
+    return month >= 1 && month <= names.count ? names[month - 1].capitalizedFirst : "\(month)"
+  }
+
   /// The key of a month in the prepositional case in Common — `month.in.9`: «в сентябре»,
   /// «in September». No formatter gives that case; the catalog does.
   public static func monthInKey(_ month: MonthKey) -> String { "month.in.\(month.month)" }

@@ -18,8 +18,11 @@ struct ShareDonutChart: View {
   let slices: [ShareDonutSlice]
   let figure: String
   let caption: String
-  /// The side of the ring: 120 on every frame.
+  /// The side of the ring: 120 on the frames of Capital, 160 on those of «Итоги».
   var side: CGFloat = 120
+  /// The figure and the word in the hole: 15 bold and 11 in Capital, 13 and 9 in «Итоги».
+  var figureType: AppFont = .system(size: 15, weight: .bold)
+  var captionType: AppFont = .system(size: 11)
 
   /// The hole: the ring is 16 % of the side wide, as the frames draw it.
   static let innerRatio: CGFloat = 0.68
@@ -41,11 +44,11 @@ struct ShareDonutChart: View {
     .overlay {
       VStack(spacing: 0) {
         Text(verbatim: figure)
-          .appFont(.system(size: 15, weight: .bold).monospacedDigit())
+          .appFont(figureType.monospacedDigit())
           .lineLimit(1)
           .minimumScaleFactor(0.6)
         Text(verbatim: caption)
-          .appFont(.system(size: 11))
+          .appFont(captionType)
           .foregroundStyle(.secondary)
       }
       .frame(width: side * Self.innerRatio - 8)

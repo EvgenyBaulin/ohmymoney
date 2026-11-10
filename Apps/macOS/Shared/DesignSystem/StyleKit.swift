@@ -262,14 +262,17 @@ struct MainCard<Content: View>: View {
 struct GradientCard<Content: View>: View {
   @Environment(\.appTheme) private var theme
   @Environment(\.colorSchemeContrast) private var contrast
+  /// 16 inside and the radius of a card by default; «Итоги» takes 20 and 22 on touch.
+  var padding: CGFloat = 16
+  var cornerRadius: CGFloat = ContentCard.cornerRadius
   @ViewBuilder let content: Content
 
   var body: some View {
-    let shape = RoundedRectangle(cornerRadius: ContentCard.cornerRadius)
+    let shape = RoundedRectangle(cornerRadius: cornerRadius)
     content
       .foregroundStyle(theme.heroContent)
       .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(16)
+      .padding(padding)
       .background(
         LinearGradient(
           colors: [theme.heroStart, theme.heroEnd], startPoint: .topLeading,
