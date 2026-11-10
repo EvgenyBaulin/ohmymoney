@@ -844,6 +844,8 @@ struct MainWindow: View {
     case .line where environment.shield.isReadOnly:
       // Nothing can be typed, so the line is not there; the strip says why and how to leave.
       ReadOnlyStrip()
+    case .line where selection.section?.showsEntryLine == false:
+      EmptyView()
     case .line:
       EntryBar(
         windowWidth: windowWidth, detailWidth: detailWidth, opensDetails: opensDetails
