@@ -68,6 +68,16 @@ enum SavedViewsText {
   static func relativePeriod(for period: AnalyticsPeriod, today: DateOnly) -> RelativePeriod {
     let month = today.monthKey
     switch period.kind {
+    case .week:
+      let range = period.period.range
+      if range.start == today.weekStart { return .thisWeek }
+      if range.start == today.weekStart.adding(days: -7) { return .lastWeek }
+      return .range(range.start, range.end)
+    case .quarter:
+      let current = AnalyticsPeriod.quarterStart(month)
+      if period.month == current { return .thisQuarter }
+      if period.month == current.adding(months: -3) { return .lastQuarter }
+      return .quarter(year: period.month.year, number: (period.month.month - 1) / 3 + 1)
     case .month:
       if period.month == month { return .thisMonth }
       if period.month == month.previous { return .lastMonth }

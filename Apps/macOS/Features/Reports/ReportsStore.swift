@@ -24,6 +24,37 @@ final class ReportsStore {
     deliver(built)
   }
 
+  /// The tab on screen: its tables, built together.
+  private(set) var sheet: ReportsSheet?
+  private(set) var sheetAt: Date?
+
+  func load(_ request: ReportsSheetRequest, ledger: Ledger, compute: ComputeStore) async {
+    guard
+      let built = try? await compute.compute({
+        ReportsSheetBuilder.sheet(request, ledger: ledger)
+      }),
+      !Task.isCancelled
+    else { return }
+    deliver(built)
+  }
+
+  func deliver(_ sheet: ReportsSheet, at instant: Date = Date()) {
+    self.sheet = sheet
+    sheetAt = instant
+  }
+
+  /// What a tab shows, by the rules of `state(for:data:model:at:)`: the tab of another table or
+  /// period waits in «Считается» for its own; a tab with nothing in any of its tables has «Мало
+  /// данных».
+  nonisolated static func state<Data: Sendable>(
+    for wanted: ReportsSheetRequest, data: BlockState<Data>, sheet: ReportsSheet?, at: Date?
+  ) -> BlockState<ReportsSheet> {
+    if let waiting = data.waiting { return waiting.never() }
+    guard let sheet, let at, sheet.request == wanted else { return .calculating }
+    guard sheet.hasData else { return .notEnoughData }
+    return .ready(sheet, at: at)
+  }
+
   func deliver(_ model: ReportsModel, at instant: Date = Date()) {
     self.model = model
     modelAt = instant

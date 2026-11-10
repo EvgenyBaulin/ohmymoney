@@ -16,41 +16,63 @@ final class PhoneReportsDebtsStyleTests: XCTestCase {
     return try Golden.decode(Data(contentsOf: url))
   }
 
-  /// A folded parent hides its children and nothing else; the average and the total stay.
-  func testCardTableFoldsOnlyTheFoldedParent() throws {
+  /// «По категориям» holds every line of the income and of the spending, each part under its
+  /// name and over its total, and «Разница» last: the totals' difference, signed.
+  func testTheTableByCategoryHoldsEveryLineOfBothTables() throws {
     let golden = try golden()
-    let request = ReportsRequest(
-      kind: .expensesByCategoryAndSubcategory, period: .year(2026), grouping: .category,
+    let environment = AppEnvironment()
+    environment.language.choice = .russian
+    let request = ReportsSheetRequest(
+      tab: .byCategory, period: AnalyticsPeriod(kind: .year, month: MonthKey(year: 2026, month: 12)),
       today: golden.todayDay)
-    let model = ReportsBuilder.model(request, ledger: golden.ledger())
-    let open = ReportCardTable.visibleRows(model.lines, collapsed: [])
-    XCTAssertEqual(open.count, model.lines.flatMap(\.flattened).count)
-    guard let parent = model.lines.first(where: { !$0.children.isEmpty }) else {
-      return XCTFail("the golden set has a category with subcategories")
+    let sheet = ReportsSheetBuilder.sheet(request, ledger: golden.ledger())
+    XCTAssertEqual(sheet.models.map(\.table.kind), [.incomeByCategory, .expensesByCategoryAndSubcategory])
+    let grid = ReportGridBuilder.grid(sheet, .phone, environment)
+    let lines = sheet.models.map { model in
+      model.lines.filter { !$0.isSummary }.flatMap(\.flattened).count
     }
-    let folded = ReportCardTable.visibleRows(model.lines, collapsed: [parent.id])
-    XCTAssertEqual(open.count - folded.count, parent.flattened.count - 1)
-    XCTAssertEqual(folded.last?.line.type, .total)
-    XCTAssertTrue(open.filter { $0.depth == 0 }.allSatisfy { $0.line.id.contains("/") == false })
+    XCTAssertEqual(grid.rows.filter { $0.style == .line }.count, lines.reduce(0, +))
+    XCTAssertEqual(grid.rows.filter { $0.style == .section }.map { $0.cells[0] }, ["Доходы", "Расходы"])
+    XCTAssertEqual(
+      grid.rows.filter { $0.style == .total }.map { $0.cells[0] },
+      ["Итого доходов", "Итого расходов", "Разница"])
+    XCTAssertEqual(grid.columns.map(\.title), ["Категория", "Сумма", "Доля"])
+    let income = sheet.models[0].table.total.amount?.wholeRubles ?? 0
+    let spending = sheet.models[1].table.total.amount?.wholeRubles ?? 0
+    XCTAssertEqual(
+      grid.rows.last?.cells[1], ReportsText.signedFigure(income - spending, environment))
+    // A subcategory stands a step in under its category.
+    XCTAssertTrue(grid.rows.contains { $0.depth == 1 }, "the golden set has subcategories")
+    // Shares with two decimals; the totals 100.00 %.
+    XCTAssertEqual(
+      grid.rows.first { $0.id == "total.1" }?.cells[2], ReportsText.share(10_000, environment))
+    XCTAssertTrue(ReportsText.share(10_000, environment).hasPrefix("100.00"))
   }
 
-  /// Every table draws at the width of a phone, in both languages.
-  func testCardTableDrawsAtPhoneWidth() throws {
+  /// Every tab of every design draws at its width, in both languages.
+  func testEveryTabDrawsAtTheWidthOfItsDesign() throws {
     let golden = try golden()
     let ledger = golden.ledger()
     let environment = AppEnvironment()
+    let period = AnalyticsPeriod(kind: .month, month: golden.todayDay.monthKey)
     for choice in [AppLanguage.Choice.russian, .english] {
       environment.language.choice = choice
-      for kind in ReportTable.Kind.allCases {
-        let request = ReportsRequest(
-          kind: kind, period: .year(2026), grouping: .category, today: golden.todayDay)
-        let model = ReportsBuilder.model(request, ledger: ledger)
-        let host = NSHostingView(
-          rootView: ReportCardTable(model: model, collapsed: .constant([]))
-            .appDependencies(.forTests(environment))
-            .frame(width: 360))
-        host.layoutSubtreeIfNeeded()
-        XCTAssertGreaterThan(host.fittingSize.height, 40, "\(choice) \(kind)")
+      for (idiom, width) in [(LayoutIdiom.phone, 408.0), (.pad, 900), (.mac, 1_152)] {
+        for tab in ReportsTab.tabs(idiom) where !tab.opensSheet {
+          let sheet = ReportsSheetBuilder.sheet(
+            ReportsSheetRequest(tab: tab, period: period, today: golden.todayDay), ledger: ledger)
+          let grid = ReportGridBuilder.grid(sheet, idiom, environment)
+          XCTAssertFalse(grid.rows.isEmpty, "\(choice) \(idiom) \(tab)")
+          XCTAssertTrue(
+            grid.rows.allSatisfy { $0.cells.count == grid.columns.count },
+            "every row has a cell per column: \(idiom) \(tab)")
+          let host = NSHostingView(
+            rootView: ReportGridView(grid: grid, metrics: .of(idiom), idiom: idiom)
+              .appDependencies(.forTests(environment))
+              .frame(width: width))
+          host.layoutSubtreeIfNeeded()
+          XCTAssertGreaterThan(host.fittingSize.height, 40, "\(choice) \(idiom) \(tab)")
+        }
       }
     }
   }

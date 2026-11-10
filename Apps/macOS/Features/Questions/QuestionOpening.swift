@@ -100,7 +100,16 @@ enum QuestionOpening {
     case .month(let month): target = AnalyticsPeriod(kind: .month, month: month)
     case .year(let year): target = AnalyticsPeriod.year(year, today: today)
     case .twelveMonths(let last): target = AnalyticsPeriod(kind: .twelveMonths, month: last)
-    case .days: target = AnalyticsPeriod(kind: .month, month: period.range.end.monthKey)
+    case .days:
+      let range = period.range
+      let quarter = AnalyticsPeriod(kind: .quarter, month: range.start.monthKey)
+      if range.start == range.start.weekStart, range.dayCount == 7 {
+        target = AnalyticsPeriod(week: range.start)
+      } else if quarter.period.range == range {
+        target = quarter
+      } else {
+        target = AnalyticsPeriod(kind: .month, month: range.end.monthKey)
+      }
     }
     return target.clamped(to: today)
   }

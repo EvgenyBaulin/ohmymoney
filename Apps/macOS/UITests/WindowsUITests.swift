@@ -38,7 +38,9 @@ final class WindowsUITests: XCTestCase {
     openWindow("Analytics", app: app)
     let analytics = app.windows["Analytics"]
     XCTAssertTrue(analytics.waitForExistence(timeout: 20), "no Analytics window")
-    openPeriodChooser(in: analytics, app: app)
+    // «Свои даты» opens the sheet of the period; the current week, month, quarter and year are
+    // one click each and open nothing.
+    openPeriodChooser(in: analytics, app: app, button: "analytics.period.custom", sheet: true)
     resize(analytics, app)
 
     // Transactions: a double click on a row opens the inspector — the view that crashed.
@@ -114,11 +116,15 @@ final class WindowsUITests: XCTestCase {
     item.click()
   }
 
-  private func openPeriodChooser(in window: XCUIElement, app: XCUIApplication) {
-    let button = window.buttons["period.choose"]
+  private func openPeriodChooser(
+    in window: XCUIElement, app: XCUIApplication, button identifier: String = "period.choose",
+    sheet: Bool = false
+  ) {
+    let button = window.buttons[identifier]
     XCTAssertTrue(button.waitForExistence(timeout: 20), "no period button")
     button.click()
-    XCTAssertTrue(app.popovers.firstMatch.waitForExistence(timeout: 5), "no period chooser")
+    let chooser = sheet ? window.sheets.firstMatch : app.popovers.firstMatch
+    XCTAssertTrue(chooser.waitForExistence(timeout: 5), "no period chooser")
     app.typeKey(.escape, modifierFlags: [])
     XCTAssertEqual(app.state, .runningForeground)
   }

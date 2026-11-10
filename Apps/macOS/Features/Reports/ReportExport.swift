@@ -118,6 +118,86 @@ enum ReportExport {
     }
   #endif
 
+  /// The files of a tab: one CSV per table of the core it is made of, each named as that table
+  /// always was and holding exactly its lines — «По категориям» is two of them, the income and
+  /// the spending.
+  static func files(_ sheet: ReportsSheet, environment: AppEnvironment)
+    -> [PersonalDataExport.File]
+  {
+    sheet.models.map { model in
+      PersonalDataExport.File(
+        name: ReportFileName.make(for: model.request),
+        data: data(model.table, names: ReportsText.csvNames(for: model, environment)))
+    }
+  }
+
+  #if !os(macOS)
+    static func run(sheet: ReportsSheet, environment: AppEnvironment, compute: ComputeStore)
+      async
+    {}
+  #endif
+  #if os(macOS)
+    /// «Выгрузить CSV…» of a tab. One table goes the way it always did. Two tables are two
+    /// files: plain, into a folder the owner picks — the sandbox gives the app that folder, not
+    /// the file beside one it was given —; with «Зашифровать», together in one locked file.
+    static func run(sheet: ReportsSheet, environment: AppEnvironment, compute: ComputeStore)
+      async
+    {
+      guard sheet.models.count > 1 else {
+        if let model = sheet.models.first {
+          await run(model: model, environment: environment, compute: compute)
+        }
+        return
+      }
+      guard let answer = EncryptedExportPrompt.ask(environment) else { return }
+      let files = files(sheet, environment: environment)
+      let stem = ReportFileName.stem(for: sheet.request)
+      do {
+        switch answer {
+        case .locked(let password):
+          let panel = NSSavePanel()
+          panel.nameFieldStringValue = EncryptedExport.fileName(stem)
+          panel.allowedContentTypes = [EncryptedExport.contentType]
+          panel.canCreateDirectories = true
+          panel.isExtensionHidden = false
+          let answered = TestIO.url(panel.nameFieldStringValue)
+          guard let url = answered ?? (panel.runModal() == .OK ? panel.url : nil) else { return }
+          let version = AppEnvironment.appVersion
+          let schema = environment.stack?.applied.onDisk ?? 0
+          let working = EncryptedExportPrompt.showProgress(environment)
+          defer { working() }
+          try await compute.compute {
+            try EncryptedExport.write(
+              files, password: password, to: url, appVersion: version, schemaVersion: schema)
+          }
+        case .plain:
+          let panel = NSOpenPanel()
+          panel.canChooseFiles = false
+          panel.canChooseDirectories = true
+          panel.canCreateDirectories = true
+          panel.allowsMultipleSelection = false
+          panel.prompt = ReportsText.t("reports.export.folder", environment)
+          panel.message = ReportsText.t("reports.export.folder.message", environment)
+          let answered = TestIO.url(stem)
+          guard let folder = answered ?? (panel.runModal() == .OK ? panel.url : nil) else {
+            return
+          }
+          let tables = sheet.models.map { model in
+            (model.table, ReportsText.csvNames(for: model, environment),
+              ReportFileName.make(for: model.request))
+          }
+          try await compute.compute {
+            for (table, names, name) in tables {
+              try write(table, names: names, to: folder.appendingPathComponent(name))
+            }
+          }
+        }
+      } catch {
+        report(error, environment)
+      }
+    }
+  #endif
+
   /// The CSV of a table with the names the table showed.
   nonisolated static func data(_ table: ReportTable, names: [ReportKey: String]) -> Data {
     ReportCSV.data(table, label: { names[$0] ?? $0.description })

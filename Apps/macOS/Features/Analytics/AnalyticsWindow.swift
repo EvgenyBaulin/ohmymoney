@@ -37,12 +37,18 @@ struct AnalyticsWindow: View {
   @State private var autopilot = MeasurementAutopilot(
     changes: AnalyticsMeasurement.isRequested ? LaunchOptions.current.measureRuns : nil)
 
+  @Environment(\.layoutIdiom) private var chosenIdiom
+  @Environment(\.appTheme) private var theme
+
+  private var idiom: LayoutIdiom { LayoutIdiom.resolved(chosenIdiom) }
+  private var metrics: AnalyticsMetrics { .of(idiom) }
+
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       header
       AnalyticsSectionView(
         section: section, title: AnalyticsText.title(of: period, environment), state: state,
-        retry: retry, period: period
+        retry: retry, period: period, side: metrics.side, top: metrics.stackGap
       )
       .id(section)
     }
@@ -50,6 +56,11 @@ struct AnalyticsWindow: View {
     .modifier(WindowFit(embedded: embedded, subtitle: subtitle))
     .environment(analytics)
     .journalsSection(section.rawValue, in: .analytics)
+    .sheet(isPresented: $choosingPeriod) {
+      AnalyticsPeriodSheet(period: period, today: today) { setPeriod($0) }
+        .appDependencies(deps)
+    }
+    .task { if await LaunchPresentation.due(.periodChooser) { choosingPeriod = true } }
     .onAppear { beginMeasurement() }
     .onChange(of: measured) { _, _ in beginMeasurement() }
     .onChange(of: analytics.measurement.completed) { _, _ in driveMeasurement() }
@@ -198,172 +209,94 @@ struct AnalyticsWindow: View {
       "analytics.measure.result", environment, environment.money.count(last.milliseconds))
   }
 
-  // MARK: The period in the toolbar
+  // MARK: The header
 
-  /// The title of the section with the period under it on the left; the period controls on the
-  /// right; the sections below as a wrapping row of chips.
+  /// «Аналитика» with the period under it; at the right the choice of the period and «Новая
+  /// операция»; under them the groups and the chips of the sections of the chosen group. A
+  /// phone has the title in its navigation bar and opens the period from the line under it.
   private var header: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      ViewThatFits(in: .horizontal) {
-        HStack(alignment: .top) {
-          titleBlock
-          Spacer(minLength: 12)
-          periodControls
-        }
-        VStack(alignment: .leading, spacing: 10) {
-          titleBlock
-          periodControls
-        }
-        // A phone: the kind of the period across the width, the steps and the month under it.
-        VStack(alignment: .leading, spacing: 10) {
-          titleBlock
-          compactPeriodControls
-        }
-      }
-      sectionChips
-    }
-    .padding(.horizontal, 20)
-    .padding(.top, 12)
-    .padding(.bottom, 8)
-  }
-
-  private var titleBlock: some View {
-    VStack(alignment: .leading, spacing: 2) {
-      Text(verbatim: t(section.titleKey)).appFont(.title2.weight(.semibold))
-      Text(verbatim: AnalyticsText.title(of: period, environment))
-        .appFont(.caption).foregroundStyle(.secondary)
-    }
-  }
-
-  private var sectionChips: some View {
-    FlowRow(spacing: 6, lineSpacing: 6) {
-      ForEach(AnalyticsSection.listed) { item in
-        SectionChip(
-          title: t(item.titleKey), symbol: item.symbol, selected: item == section
-        ) { sectionName = item.rawValue }
-      }
-    }
-    .accessibilityElement(children: .contain)
-    .accessibilityIdentifier("analytics.sections")
-  }
-
-  private var periodControls: some View {
-    HStack(spacing: 8) {
-      let enabled = section.followsThePeriod
-      Button {
-        setPeriod(period.stepped(by: -1))
-      } label: {
-        Label {
-          Text(verbatim: t("analytics.period.previous"))
-        } icon: {
-          Image(systemName: "chevron.left")
-        }
-      }
-      .disabled(!enabled)
-
-      Button {
-        choosingPeriod = true
-      } label: {
-        Text(verbatim: AnalyticsText.title(of: period, environment))
-          .monospacedDigit()
-          .frame(minWidth: 130)
-      }
-      .accessibilityIdentifier("period.choose")
-      .help(t("analytics.period.choose"))
-      .disabled(!enabled)
-      .popover(isPresented: $choosingPeriod) {
-        PeriodChooser(period: period, today: today) { chosen in
-          setPeriod(chosen)
-          choosingPeriod = false
-        }
-        .appDependencies(deps)
-      }
-      .task { if await LaunchPresentation.due(.periodChooser) { choosingPeriod = true } }
-
-      Button {
-        setPeriod(period.stepped(by: 1))
-      } label: {
-        Label {
-          Text(verbatim: t("analytics.period.next"))
-        } icon: {
-          Image(systemName: "chevron.right")
-        }
-      }
-      .disabled(!enabled || !period.canStepForward(today: today))
-
-      Picker(selection: kindSelection) {
-        ForEach(AnalyticsPeriod.Kind.allCases, id: \.self) { kind in
-          Text(verbatim: t(kind.titleKey)).tag(kind)
-        }
-      } label: {
-        Text(verbatim: t("analytics.period.kind"))
-      }
-      .pickerStyle(.segmented)
-      .disabled(!enabled)
-
-      Button(t("analytics.period.current")) {
-        setPeriod(.current(period.kind, today: today))
-      }
-      .disabled(!enabled || period.isCurrent(today: today))
-
-      // The periods of the saved filters.
-      SavedPeriodsMenu { setPeriod($0) }
-        .disabled(!enabled)
-    }
-  }
-
-  /// The period controls as a phone shows them: «Месяц | Год» across the width, and under it the
-  /// two steps as arrows, the chosen period between them, and «Текущий».
-  private var compactPeriodControls: some View {
-    let enabled = section.followsThePeriod
-    return VStack(spacing: 8) {
-      Picker(selection: kindSelection) {
-        ForEach(AnalyticsPeriod.Kind.allCases, id: \.self) { kind in
-          Text(verbatim: t(kind.titleKey)).tag(kind)
-        }
-      } label: {
-        Text(verbatim: t("analytics.period.kind"))
-      }
-      .pickerStyle(.segmented)
-      .labelsHidden()
-      .disabled(!enabled)
-      HStack(spacing: 6) {
-        Button {
-          setPeriod(period.stepped(by: -1))
-        } label: {
-          Image(systemName: "chevron.left")
-        }
-        .accessibilityLabel(Text(verbatim: t("analytics.period.previous")))
-        .disabled(!enabled)
-        Button {
-          choosingPeriod = true
-        } label: {
+    VStack(alignment: .leading, spacing: metrics.stackGap) {
+      if metrics.showsTitle {
+        VStack(alignment: .leading, spacing: metrics.subtitleGap) {
+          ViewThatFits(in: .horizontal) {
+            HStack(alignment: .center, spacing: 12) {
+              title
+              Spacer(minLength: 12)
+              periodRow
+              newOperationButton
+            }
+            VStack(alignment: .leading, spacing: 10) {
+              HStack(alignment: .center, spacing: 12) {
+                title
+                Spacer(minLength: 12)
+                newOperationButton
+              }
+              periodRow
+            }
+          }
           Text(verbatim: AnalyticsText.title(of: period, environment))
-            .monospacedDigit().lineLimit(1).minimumScaleFactor(0.8)
-            .frame(maxWidth: .infinity)
+            .appFont(AnalyticsType.subtitle(idiom))
+            .foregroundStyle(theme.contentSecondary)
+            .accessibilityIdentifier("analytics.subtitle")
         }
-        .accessibilityIdentifier("period.choose.compact")
-        .disabled(!enabled)
-        Button {
-          setPeriod(period.stepped(by: 1))
-        } label: {
-          Image(systemName: "chevron.right")
-        }
-        .accessibilityLabel(Text(verbatim: t("analytics.period.next")))
-        .disabled(!enabled || !period.canStepForward(today: today))
-        Button(t("analytics.period.current")) {
-          setPeriod(.current(period.kind, today: today))
-        }
-        .lineLimit(1)
-        .disabled(!enabled || period.isCurrent(today: today))
+      } else {
+        phonePeriodLine
+      }
+      AnalyticsTabsRow(section: section, metrics: metrics, idiom: idiom) { chosen in
+        sectionName = chosen.rawValue
+      }
+    }
+    .padding(.horizontal, metrics.side)
+    .padding(.top, metrics.top)
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("analytics.header")
+  }
+
+  private var title: some View {
+    Text(verbatim: environment.language("window.analytics"))
+      .appFont(StyleType.screenTitle)
+      .accessibilityAddTraits(.isHeader)
+      .accessibilityIdentifier("analytics.title")
+  }
+
+  /// «Неделя», «Месяц», «Квартал», «Год» — the current one of each — and «Свои даты».
+  private var periodRow: some View {
+    AnalyticsPeriodRow(
+      chosen: AnalyticsPeriodChoice(period, today: today), enabled: section.followsThePeriod
+    ) { choice in
+      if let kind = choice.kind {
+        setPeriod(.current(kind, today: today))
+      } else {
+        choosingPeriod = true
       }
     }
   }
 
-  private var kindSelection: Binding<AnalyticsPeriod.Kind> {
-    Binding(
-      get: { period.kind },
-      set: { setPeriod(period.with(kind: $0)) })
+  /// The one orange button: the same as ⌘N — the line, or the form at the side.
+  private var newOperationButton: some View {
+    Button(t("analytics.newOperation")) {
+      NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+    }
+    .buttonStyle(.primaryAction)
+    .fixedSize()
+    .accessibilityIdentifier("analytics.newOperation")
+  }
+
+  /// A phone: the period with a chevron; it opens «Выбрать период».
+  private var phonePeriodLine: some View {
+    Button {
+      choosingPeriod = true
+    } label: {
+      HStack(spacing: 4) {
+        Text(verbatim: AnalyticsText.title(of: period, environment))
+        Image(systemName: "chevron.down").appFont(AppFont.system(size: 10, weight: .semibold))
+      }
+      .appFont(AnalyticsType.subtitle(idiom))
+      .foregroundStyle(theme.contentSecondary)
+    }
+    .buttonStyle(.plain)
+    .disabled(!section.followsThePeriod)
+    .accessibilityIdentifier("period.choose.compact")
   }
 
   private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }
