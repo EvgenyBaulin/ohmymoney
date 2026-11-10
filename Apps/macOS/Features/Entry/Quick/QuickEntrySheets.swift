@@ -94,6 +94,114 @@ extension View {
   }
 }
 
+// MARK: - The frame of a sheet of quick entry
+
+/// What the sheets of quick entry share, as the design draws them: the head — the title, a line
+/// under it, the cross —, a rule, the body, a rule, and the buttons at the right
+/// (`QuickSheetMetrics`). The sheet itself, its corners and its shadow are the system's.
+struct QuickSheetFrame<Content: View, Buttons: View>: View {
+  let title: String
+  var line: String? = nil
+  @ViewBuilder let content: () -> Content
+  @ViewBuilder let buttons: () -> Buttons
+  @Dependency(\.environment) private var environment
+  @Environment(\.dismiss) private var dismiss
+
+  var body: some View {
+    VStack(spacing: 0) {
+      HStack(alignment: .top, spacing: QuickSheetMetrics.rowGap) {
+        VStack(alignment: .leading, spacing: QuickSheetMetrics.headLineGap) {
+          Text(verbatim: title)
+            .appFont(QuickSheetType.title)
+            .accessibilityIdentifier("quick.sheet.title")
+          if let line {
+            Text(verbatim: line)
+              .appFont(QuickSheetType.line)
+              .foregroundStyle(.secondary)
+              .fixedSize(horizontal: false, vertical: true)
+          }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        Button {
+          dismiss()
+        } label: {
+          Image(systemName: "xmark")
+            .appFont(AppFont.system(size: 10, weight: .semibold))
+            .frame(width: 20, height: 20)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .foregroundStyle(.secondary)
+        .help(environment.language("action.close"))
+        .accessibilityLabel(Text(verbatim: environment.language("action.close")))
+        .accessibilityIdentifier("quick.sheet.close")
+      }
+      .padding(.horizontal, QuickSheetMetrics.headHorizontal)
+      .padding(.vertical, QuickSheetMetrics.headVertical)
+      Divider()
+      VStack(alignment: .leading, spacing: QuickSheetMetrics.bodyGap) {
+        content()
+      }
+      .padding(QuickSheetMetrics.body)
+      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+      Divider()
+      HStack(spacing: QuickSheetMetrics.footGap) {
+        Spacer(minLength: 0)
+        buttons()
+      }
+      .padding(.horizontal, QuickSheetMetrics.footHorizontal)
+      .padding(.vertical, QuickSheetMetrics.footVertical)
+    }
+  }
+}
+
+/// The rows of a sheet of quick entry in a card rounded 10, 12 at its sides, a rule between two
+/// rows; the rows scroll when there are more than the sheet holds.
+struct QuickSheetList<Row: View>: View {
+  let count: Int
+  @ViewBuilder let row: (Int) -> Row
+  @Environment(\.themeSurfaces) private var surfaces
+
+  var body: some View {
+    ScrollView {
+      VStack(spacing: 0) {
+        ForEach(0..<count, id: \.self) { index in
+          if index > 0 { Divider() }
+          row(index)
+            .padding(.vertical, QuickSheetMetrics.rowVertical)
+        }
+      }
+      .padding(.horizontal, QuickSheetMetrics.listSide)
+    }
+    .background(surfaces.card, in: RoundedRectangle(cornerRadius: QuickSheetMetrics.listRadius))
+    .overlay(
+      RoundedRectangle(cornerRadius: QuickSheetMetrics.listRadius)
+        .strokeBorder(surfaces.cardBorder, lineWidth: 1))
+  }
+}
+
+/// A hint of a sheet of quick entry: a dot and its words, 12 inside a plate rounded 10.
+struct QuickSheetHint: View {
+  let text: String
+  @Environment(\.appTheme) private var theme
+
+  var body: some View {
+    HStack(alignment: .firstTextBaseline, spacing: QuickSheetMetrics.rowGap) {
+      Circle()
+        .fill(.secondary)
+        .frame(width: 8, height: 8)
+        .accessibilityHidden(true)
+      Text(verbatim: text)
+        .appFont(QuickSheetType.line)
+        .foregroundStyle(.secondary)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+    .padding(12)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(theme.surfaceSegmented, in: RoundedRectangle(cornerRadius: 10))
+  }
+}
+
 // MARK: - A list pasted from the bank
 
 /// The operations of a pasted list, each with a tick; those the ledger already has are unticked
@@ -106,42 +214,33 @@ struct BillListSheet: View {
 
   var body: some View {
     let ticked = list.candidates.filter(\.isSelected).count
-    VStack(alignment: .leading, spacing: 12) {
-      Text(verbatim: QuickText.t("quick.bills.title", environment)).appFont(.headline)
-      Text(verbatim: QuickText.t("quick.bills.subtitle", environment))
-        .appFont(.callout).foregroundStyle(.secondary)
-      List {
-        ForEach(list.candidates.indices, id: \.self) { index in
-          row(index)
-        }
-      }
-      .frame(minHeight: 180)
+    QuickSheetFrame(
+      title: QuickText.t("quick.bills.title", environment),
+      line: QuickText.t("quick.bills.subtitle", environment)
+    ) {
+      QuickSheetList(count: list.candidates.count) { index in row(index) }
       if list.skipped > 0 {
         Label {
           Text(verbatim: QuickText.counted("quick.bills.skipped", environment, list.skipped))
         } icon: {
           Image(systemName: "questionmark.circle")
         }
-        .appFont(.caption).foregroundStyle(.secondary)
+        .appFont(QuickSheetType.line).foregroundStyle(.secondary)
       }
-      Text(verbatim: QuickText.t("quick.bills.categoryNote", environment))
-        .appFont(.caption).foregroundStyle(.secondary)
-      HStack {
-        Spacer()
-        Button(environment.language("action.cancel"), role: .cancel) { dismiss() }
-          .keyboardShortcut(.cancelAction)
-        Button(QuickText.counted("quick.bills.write", environment, ticked)) {
-          write(list.candidates)
-          dismiss()
-        }
-        .keyboardShortcut(.defaultAction)
-        .buttonStyle(.borderedProminent)
-        .disabled(ticked == 0)
-        .accessibilityIdentifier("quick.bills.write")
+      QuickSheetHint(text: QuickText.t("quick.bills.categoryNote", environment))
+    } buttons: {
+      Button(environment.language("action.cancel"), role: .cancel) { dismiss() }
+        .keyboardShortcut(.cancelAction)
+      Button(QuickText.counted("quick.bills.write", environment, ticked)) {
+        write(list.candidates)
+        dismiss()
       }
+      .keyboardShortcut(.defaultAction)
+      .buttonStyle(.borderedProminent)
+      .disabled(ticked == 0)
+      .accessibilityIdentifier("quick.bills.write")
     }
-    .padding(20)
-    .sheetFrame(width: 520, height: 460)
+    .sheetFrame(width: QuickSheetMetrics.width, height: 460)
   }
 
   private func row(_ index: Int) -> some View {
@@ -152,22 +251,23 @@ struct BillListSheet: View {
         get: { list.candidates[index].isSelected },
         set: { list.candidates[index].isSelected = $0 })
     ) {
-      HStack(spacing: 8) {
-        Text(verbatim: QuickBillText.title(of: message))
-          .lineLimit(1)
-        if candidate.isDuplicate {
-          Label {
-            Text(verbatim: QuickText.t("quick.bills.duplicate", environment))
-          } icon: {
-            Image(systemName: "doc.on.doc")
+      HStack(spacing: QuickSheetMetrics.rowGap) {
+        VStack(alignment: .leading, spacing: 2) {
+          Text(verbatim: QuickBillText.title(of: message))
+            .appFont(QuickSheetType.row)
+            .lineLimit(1)
+          if candidate.isDuplicate {
+            Label {
+              Text(verbatim: QuickText.t("quick.bills.duplicate", environment))
+            } icon: {
+              Image(systemName: "doc.on.doc")
+            }
+            .appFont(QuickSheetType.rowDetail).foregroundStyle(.secondary)
           }
-          .appFont(.caption).foregroundStyle(.secondary)
         }
         Spacer(minLength: 6)
-        Text(
-          verbatim: QuickBillText.amount(of: message, environment)
-        )
-        .monospacedDigit()
+        Text(verbatim: QuickBillText.amount(of: message, environment))
+          .appFont(QuickSheetType.rowFigure)
       }
     }
     .toggleStyle(.checkbox)
@@ -256,44 +356,49 @@ struct DraftsSheet: View {
 
   var body: some View {
     let waiting = model.waiting
-    VStack(alignment: .leading, spacing: 12) {
-      Text(verbatim: QuickText.t("quick.drafts.title", environment)).appFont(.headline)
-      Text(verbatim: QuickText.t("quick.drafts.hint", environment))
-        .appFont(.callout).foregroundStyle(.secondary)
+    QuickSheetFrame(title: QuickText.t("quick.drafts.title", environment)) {
       if waiting.isEmpty {
         Text(verbatim: QuickText.t("quick.drafts.empty", environment))
+          .appFont(QuickSheetType.row)
           .foregroundStyle(.secondary)
-          .frame(maxWidth: .infinity, minHeight: 80)
+          .frame(maxWidth: .infinity, minHeight: 120)
+          .accessibilityIdentifier("quick.drafts.empty")
       } else {
-        List(waiting) { draft in
-          HStack(spacing: 8) {
-            VStack(alignment: .leading, spacing: 2) {
-              Text(verbatim: draft.text).lineLimit(2)
-              Text(
-                verbatim: environment.dates.longDay(environment.calendar.day(of: draft.createdAt))
-              )
-              .appFont(.caption).foregroundStyle(.secondary)
-            }
-            Spacer(minLength: 6)
-            Button(QuickText.t("quick.drafts.finish", environment)) { finish(draft) }
-              .controlSize(.small)
-            Button(QuickText.t("quick.drafts.delete", environment), role: .destructive) {
-              model.resolve(draft.id)
-            }
-            .controlSize(.small)
-          }
-        }
-        .frame(minHeight: 160)
+        QuickSheetList(count: waiting.count) { index in row(waiting[index]) }
+        Text(verbatim: QuickText.t("quick.drafts.hint", environment))
+          .appFont(QuickSheetType.line)
+          .foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
       }
-      HStack {
-        Spacer()
-        Button(environment.language("action.close")) { dismiss() }
-          .keyboardShortcut(.cancelAction)
-      }
+    } buttons: {
+      Button(environment.language("action.close")) { dismiss() }
+        .keyboardShortcut(.cancelAction)
     }
-    .padding(20)
-    .sheetFrame(width: 480, height: 380)
+    .sheetFrame(width: QuickSheetMetrics.width, height: waiting.isEmpty ? 275 : 380)
     .onAppear { model.reload() }
+  }
+
+  private func row(_ draft: PendingDraft) -> some View {
+    HStack(spacing: QuickSheetMetrics.rowGap) {
+      VStack(alignment: .leading, spacing: 2) {
+        Text(verbatim: draft.text)
+          .appFont(QuickSheetType.row)
+          .lineLimit(2)
+        Text(verbatim: environment.dates.longDay(environment.calendar.day(of: draft.createdAt)))
+          .appFont(QuickSheetType.rowDetail)
+          .foregroundStyle(.secondary)
+      }
+      Spacer(minLength: 6)
+      Button(QuickText.t("quick.drafts.delete", environment), role: .destructive) {
+        model.resolve(draft.id)
+      }
+      .buttonStyle(.borderless)
+      .appFont(QuickSheetType.rowDetail)
+      Button(QuickText.t("quick.drafts.finish", environment)) { finish(draft) }
+        .buttonStyle(.borderless)
+        .appFont(QuickSheetType.rowFigure)
+        .accessibilityIdentifier("quick.drafts.finish")
+    }
   }
 }
 

@@ -42,6 +42,24 @@ enum EntryBarMetrics {
     return max(0, min(preferred, detailWidth - 2 * sideMargin))
   }
 
+  /// The width of the bar on a device: the Mac's by the window (above); a phone's as wide as the
+  /// column less 16 pt at each side, as its frame draws it (408 of 440); a tablet's 600, as its
+  /// frame draws it, never closer than 16 pt to the sides of the column.
+  static func columnWidth(
+    windowWidth: CGFloat, detailWidth: CGFloat, idiom: LayoutIdiom
+  ) -> CGFloat {
+    let line = EntryLineMetrics.of(idiom)
+    switch idiom {
+    case .mac:
+      return columnWidth(windowWidth: windowWidth, detailWidth: detailWidth)
+    case .phone, .pad:
+      let column = isUsable(detailWidth) ? detailWidth : windowWidth
+      guard isUsable(column) else { return line.width ?? minimumWidth }
+      let room = max(0, column - 2 * line.side)
+      return line.width.map { min($0, room) } ?? room
+    }
+  }
+
   /// The room the list keeps under the bar is no longer counted here. It is the height of the
   /// bar itself, and the safe area takes it (`safeAreaInset`): a height
   /// measured off the screen and handed back to the window is what made the window of
@@ -96,6 +114,7 @@ struct EntryBar<Accessory: View>: View {
   /// Handed to the reimbursement sheet, which SwiftUI lays out in a host of its own.
   @Environment(\.dependencies) private var dependencies
   @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.layoutIdiom) private var layoutIdiom
   @FocusState private var focused: Bool
 
   @State private var text = ""
@@ -667,7 +686,8 @@ struct EntryBar<Accessory: View>: View {
         .glassEffectID("accessory", in: glass)
     }
     .frame(
-      width: EntryBarMetrics.columnWidth(windowWidth: windowWidth, detailWidth: detailWidth))
+      width: EntryBarMetrics.columnWidth(
+        windowWidth: windowWidth, detailWidth: detailWidth, idiom: idiom))
   }
 
   /// The line is up on the phone: it asks for the keyboard once it is in the view, and again a
@@ -698,14 +718,14 @@ struct EntryBar<Accessory: View>: View {
         accessory()
           .glassEffectID("accessory", in: glass)
 
-        GlassCapsule {
-          HStack(spacing: 10) {
-            // The accent circle with its plus, as the design draws the start of the line.
-            Image(systemName: "plus")
-              .font(.system(size: 12, weight: .bold))  // font-fixed: glyph in a fixed circle
-              .foregroundStyle(surfaces.onAccent)
-              .frame(width: 26, height: 26)
-              .background(surfaces.accent, in: .circle)
+        GlassCapsule(insets: capsuleInsets) {
+          HStack(spacing: line.gap) {
+            // The sparkles in the accent, as the design draws the start of the line.
+            Image(systemName: "sparkles")
+              .appFont(AppFont.system(size: line.icon, weight: .medium))
+              .foregroundStyle(surfaces.accent)
+              .frame(width: line.icon + 2, height: line.icon + 2)
+              .accessibilityHidden(true)
               // The tip hangs on the symbol beside the line, not on the field: the field keeps
               // its keys — Tab into the panel — to itself.
               .popoverTip(EntryLineTip(), arrowEdge: .top)
@@ -719,6 +739,7 @@ struct EntryBar<Accessory: View>: View {
               Text(verbatim: environment.language("entry.amount", table: "Entry"))
             }
             .textFieldStyle(.plain)
+            .appFont(AppFont.system(size: line.text))
             .focused($focused)
             // The line was shown by the owner's «+» (or ⌘N): the keyboard comes with it.
             .onAppear { if phone != nil { focusTheLineSoon() } }
@@ -740,12 +761,12 @@ struct EntryBar<Accessory: View>: View {
             .guideTarget("entry.line")
 
             // «Вопрос»: the line asks about the data instead of writing; the mode is this button's,
-            // never the text's.
+            // never the text's. A quiet symbol of the line, as the design draws its symbols.
             Button(action: toggleQuestionMode) {
-              Image(
-                systemName: questions.isActive ? "questionmark.bubble.fill" : "questionmark.bubble")
+              lineSymbol(questions.isActive ? "questionmark.bubble.fill" : "questionmark.bubble")
             }
-            .buttonStyle(.glass)
+            .buttonStyle(.plain)
+            .foregroundStyle(questions.isActive ? surfaces.accent : surfaces.secondary)
             .help(QuestionsText.t("questions.mode.help", environment))
             .accessibilityLabel(
               Text(verbatim: QuestionsText.t("questions.mode.label", environment))
@@ -754,23 +775,27 @@ struct EntryBar<Accessory: View>: View {
             .accessibilityIdentifier("entry.question.toggle")
 
             Button(action: toggleDetails) {
-              Image(systemName: showsDetails ? "chevron.up" : "chevron.down")
+              lineSymbol(showsDetails ? "chevron.up" : "chevron.down")
                 // The closed panel still holds choices the next line will keep: a dot says
                 // so, and the help and VoiceOver say what it means.
                 .overlay(alignment: .topTrailing) {
                   if carriesChoices {
                     Circle()
-                      .fill(.tint)
+                      .fill(surfaces.accent)
                       .frame(width: 6, height: 6)
-                      .offset(x: 5, y: -3)
+                      .offset(x: 3, y: -1)
                       .accessibilityHidden(true)
                   }
                 }
             }
-            .buttonStyle(.glass)
+            .buttonStyle(.plain)
+            .foregroundStyle(surfaces.secondary)
             .help(
               environment.language(
                 carriesChoices ? "entry.detailsCarried" : "entry.details", table: "Entry")
+            )
+            .accessibilityLabel(
+              Text(verbatim: environment.language("entry.details", table: "Entry"))
             )
             .accessibilityValue(
               Text(
@@ -781,21 +806,44 @@ struct EntryBar<Accessory: View>: View {
             .accessibilityIdentifier("entry.details.toggle")
             .guideTarget("entry.details.toggle")
 
-            Button(
+            // «Записать» (or «Спросить»): the send arrow at the end of the line, in the accent
+            // while there is something to send, quiet while there is not.
+            let sendable =
+              questions.isActive
+              ? !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+              : EntrySaving.isOffered(line: text, showsDetails: showsDetails)
+            Button(action: save) {
+              Image(systemName: "arrow.up.circle")
+                .resizable()
+                .scaledToFit()
+                .fontWeight(.medium)
+                .frame(width: sendGlyph, height: sendGlyph)
+                .frame(width: line.send, height: line.send)
+                .contentShape(Circle())
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(sendable ? surfaces.accent : surfaces.secondary)
+            .help(
               questions.isActive
                 ? QuestionsText.t("questions.ask", environment)
-                : environment.language("entry.save", table: "Entry"), action: save
+                : environment.language("entry.save", table: "Entry")
             )
-            .buttonStyle(.glassProminent)
+            .accessibilityLabel(
+              Text(
+                verbatim: questions.isActive
+                  ? QuestionsText.t("questions.ask", environment)
+                  : environment.language("entry.save", table: "Entry"))
+            )
             // While the panel is open Return saves wherever the focus is — a menu, the date,
             // a checkbox — as Enter in the line does. An open menu takes Return itself.
             .keyboardShortcut(showsDetails ? .defaultAction : nil)
-            .disabled(
-              questions.isActive
-                ? text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                : !EntrySaving.isOffered(line: text, showsDetails: showsDetails))
+            .disabled(!sendable)
+            .accessibilityIdentifier("entry.line.send")
           }
+          .frame(minHeight: line.height - 2 * line.vertical)
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("entry.line.capsule")
         .glassEffectID("capsule", in: glass)
         // Above the capsule, not under it: the capsule keeps its place at the bottom of the
         // window while the result of a formula or an error comes and goes. It hangs over the
@@ -834,13 +882,44 @@ struct EntryBar<Accessory: View>: View {
     // One width for the panel, the chips and the capsule together: bounding them
     // separately would make the morph jump as the panel opens.
     .frame(
-      width: EntryBarMetrics.columnWidth(windowWidth: windowWidth, detailWidth: detailWidth)
+      width: EntryBarMetrics.columnWidth(
+        windowWidth: windowWidth, detailWidth: detailWidth, idiom: idiom)
     )
     // The space the last row of the list keeps above the bar, and the space the bar keeps
     // above the bottom of the window. Together with the bar itself they are the whole of the
     // safe area it asks for.
     .padding(.top, EntryBarMetrics.contentGap)
     .padding(.bottom, EntryBarMetrics.bottomInset)
+  }
+
+  /// The design of the device the line is drawn by.
+  private var idiom: LayoutIdiom { LayoutIdiom.resolved(layoutIdiom) }
+
+  /// The numbers of the line on this device.
+  private var line: EntryLineMetrics { EntryLineMetrics.of(idiom) }
+
+  /// The room inside the capsule: the design's, its edge counted in the height.
+  private var capsuleInsets: EdgeInsets {
+    EdgeInsets(
+      top: line.vertical, leading: line.leading, bottom: line.vertical, trailing: line.trailing)
+  }
+
+  /// The arrow inside the send circle: the whole circle on the Mac, 18 pt in the tablet's
+  /// 32 and 17 in the phone's 34 (`EntryLineMetrics.send`).
+  private var sendGlyph: CGFloat {
+    switch idiom {
+    case .mac: line.send
+    case .pad: 18
+    case .phone: 20
+    }
+  }
+
+  /// A quiet symbol of the line — the question mode, the panel —, as large as the design's.
+  private func lineSymbol(_ name: String) -> some View {
+    Image(systemName: name)
+      .appFont(AppFont.system(size: line.icon - 2, weight: .medium))
+      .frame(width: line.icon + 2, height: line.icon + 2)
+      .contentShape(Rectangle())
   }
 
   /// The form at the side of the window (`EntryStyle.form`): every field of the panel, always
@@ -1031,7 +1110,7 @@ struct EntryBar<Accessory: View>: View {
 
   /// The ↓ panel: the same fields the edit sheet shows, on glass of its own above the capsule.
   private func detailsPanel(_ model: EntryDraftModel) -> some View {
-    GlassPanel {
+    GlassPanel(padding: EntryPanelMetrics.padding) {
       VStack(alignment: .leading, spacing: 4) {
         ScrollView {
           // Return in a field of the panel saves, as Return in the line does. The close button
@@ -1170,7 +1249,7 @@ struct EntryBar<Accessory: View>: View {
   private var panelCloseCluster: some View {
     HStack(spacing: 8) {
       Text(verbatim: "Esc")
-        .appFont(.caption)
+        .appFont(EntryType.label)
         .foregroundStyle(.secondary)
         .accessibilityHidden(true)
       closeButton

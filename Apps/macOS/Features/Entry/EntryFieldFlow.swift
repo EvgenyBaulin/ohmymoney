@@ -97,10 +97,13 @@ struct EntryFieldFlow: Layout {
 
 /// The measures of the flow, as plain numbers a test holds.
 enum EntryFieldFlowMetrics {
-  /// Between two cells of a row.
-  static let cellSpacing: CGFloat = 12
-  /// Between two rows.
-  static let rowSpacing: CGFloat = 10
+  /// Between two cells of a row of the ↓ panel and the editor, as the design draws the panel.
+  static let cellSpacing: CGFloat = 10
+  /// Between two rows of the ↓ panel and the editor.
+  static let rowSpacing: CGFloat = 12
+  /// Between two cells and two rows of the form at the side (`EntryFormMetrics`).
+  static let sideCellSpacing: CGFloat = EntryFormMetrics.fieldGap
+  static let sideRowSpacing: CGFloat = EntryFormMetrics.gap
   /// Columns of the ↓ panel and the editor, 560–720 pt wide.
   static let panelColumns = 3
   /// Columns of the form at the side, about 380 pt wide, and of a phone sheet.

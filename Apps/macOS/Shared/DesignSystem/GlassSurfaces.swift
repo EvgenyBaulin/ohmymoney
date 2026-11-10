@@ -8,15 +8,21 @@ import SwiftUI
 /// adjusted — or dropped to plain system materials — in one place.
 public struct GlassCapsule<Content: View>: View {
   private let content: Content
+  private let insets: EdgeInsets
 
-  public init(@ViewBuilder content: () -> Content) {
+  /// `insets`: the room inside the capsule around its content — the entry line's are the design's
+  /// for each device; the bar of a selection keeps 14 × 10.
+  public init(
+    insets: EdgeInsets = EdgeInsets(top: 10, leading: 14, bottom: 10, trailing: 14),
+    @ViewBuilder content: () -> Content
+  ) {
+    self.insets = insets
     self.content = content()
   }
 
   public var body: some View {
     content
-      .padding(.horizontal, 14)
-      .padding(.vertical, 10)
+      .padding(insets)
       .glassEffect(.regular, in: .capsule)
   }
 }
@@ -25,14 +31,17 @@ public struct GlassCapsule<Content: View>: View {
 /// `GlassEffectContainer`, so the two morph into one another instead of stacking.
 public struct GlassPanel<Content: View>: View {
   private let content: Content
+  private let padding: CGFloat
 
-  public init(@ViewBuilder content: () -> Content) {
+  /// `padding`: the room inside the panel — the ↓ panel's is the design's 20.
+  public init(padding: CGFloat = 16, @ViewBuilder content: () -> Content) {
+    self.padding = padding
     self.content = content()
   }
 
   public var body: some View {
     content
-      .padding(16)
+      .padding(padding)
       .glassEffect(.regular, in: .rect(cornerRadius: 22))
   }
 }

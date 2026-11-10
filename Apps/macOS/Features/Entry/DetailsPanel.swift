@@ -75,20 +75,20 @@ struct DetailsPanel: View {
   private var isSideForm: Bool { arrangement == .column }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 14) {
+    VStack(alignment: .leading, spacing: rowGap) {
       if let quickLine {
         quickLine($focus)
-        Divider()
+        if !drawsAsDesign { Divider() }
       }
-      HStack(spacing: 12) {
+      HStack(spacing: 8) {
         typeRow
         if let headerTrailing { headerTrailing }
       }
       if showsFields, let transfer = model.transfer {
-        Divider()
+        if !drawsAsDesign { Divider() }
         TransferFields(entry: transfer, layout: isSideForm ? .column : .wide, focus: $focus)
       } else if showsFields {
-        Divider()
+        if !drawsAsDesign { Divider() }
         fieldsAndActions
       } else {
         Text(verbatim: t("entry.form.chooseKind"))
@@ -132,6 +132,15 @@ struct DetailsPanel: View {
       }
       .handingOver(dependencies)
     }
+  }
+
+  /// The ↓ panel and the form at the side stand as the design draws them: rows 12 and 10 apart
+  /// with no rules between them. The editor of a saved operation keeps its own rules.
+  private var drawsAsDesign: Bool { isSideForm || showsSave }
+
+  private var rowGap: CGFloat {
+    if isSideForm { return EntryFormMetrics.gap }
+    return showsSave ? EntryPanelMetrics.gap : 14
   }
 
   /// The fields are on screen: always, but in the form at the side before a kind is chosen.
@@ -197,14 +206,39 @@ struct DetailsPanel: View {
       } else {
         kindPicker.pickerStyle(.menu)
       }
-    case .column: kindTiles
+    case .column: kindTrack
     }
   }
 
-  /// The kinds in one capsule track, «Перевод» last where the panel offers a transfer.
+  /// The kinds of the form at the side, as the design draws them: one track of equal segments,
+  /// the transfer among them. None is lit before the kind is chosen; the first choice brings the
+  /// fields and the keyboard to the first of them.
+  private var kindTrack: some View {
+    EntryKindTabs(
+      tiles: EntryKindTabs.designOrder.filter { $0 != .transfer || offersTransfer },
+      chosen: showsFields ? (model.transfer == nil ? .kind(model.draft.kind) : .transfer) : nil,
+      title: { tile in
+        switch tile {
+        case .kind(let kind): environment.language("kind.\(kind.rawValue)")
+        case .transfer: t("entry.kind.transfer")
+        }
+      },
+      locked: model.hasClosedPart || model.isReconcileDifference,
+      metrics: .form
+    ) { tile in
+      let fieldsWereHidden = !showsFields
+      kindChosen?.wrappedValue = true
+      chooseKind(tile)
+      if fieldsWereHidden { model.focusRequest = .first }
+    }
+    .frame(maxWidth: .infinity)
+    .accessibilityLabel(Text(verbatim: t("entry.kind.tiles")))
+  }
+
+  /// The kinds in one rounded track, «Перевод» last where the panel offers a transfer.
   private var kindTabs: some View {
     EntryKindTabs(
-      tiles: EntryKindTiles.all.filter { $0 != .transfer || offersTransfer },
+      tiles: EntryKindTabs.designOrder.filter { $0 != .transfer || offersTransfer },
       chosen: model.transfer == nil ? .kind(model.draft.kind) : .transfer,
       title: { tile in
         switch tile {
@@ -219,75 +253,6 @@ struct DetailsPanel: View {
     // expense to income never leaves an expense category behind.
     .onChange(of: model.draft.kind) { _, _ in
       model.applyDefaults(today: environment.today)
-    }
-  }
-
-  /// The tiles of the column: the kinds, and the transfer where the panel offers one.
-  private var kindTiles: some View {
-    let tiles = EntryKindTiles.all.filter { $0 != .transfer || offersTransfer }
-    let rows = EntryKindTiles.rows(of: tiles, mostUsed: model.mostUsedKindTile)
-    let locked = model.hasClosedPart || model.isReconcileDifference
-    return VStack(spacing: 6) {
-      ForEach(rows, id: \.self) { row in
-        HStack(spacing: 6) {
-          ForEach(row, id: \.self) { tile in
-            kindTile(tile, locked: locked)
-          }
-        }
-      }
-    }
-    .frame(maxWidth: .infinity)
-    .accessibilityElement(children: .contain)
-    .accessibilityLabel(Text(verbatim: t("entry.kind.tiles")))
-  }
-
-  @ViewBuilder
-  private func kindTile(_ tile: EntryKindTile, locked: Bool) -> some View {
-    switch tile {
-    case .kind(let kind):
-      // Before a kind is chosen in the form, none of the tiles is lit.
-      let chosen = showsFields && model.transfer == nil && model.draft.kind == kind
-      Button {
-        let fieldsWereHidden = !showsFields
-        kindChosen?.wrappedValue = true
-        chooseKind(.kind(kind))
-        // The fields have just come: the keyboard goes to the first of them.
-        if fieldsWereHidden { model.focusRequest = .first }
-      } label: {
-        Label {
-          Text(verbatim: environment.language("kind.\(kind.rawValue)"))
-        } icon: {
-          Image(systemName: Self.symbol(of: kind))
-        }
-        .frame(maxWidth: .infinity)
-      }
-      .buttonStyle(.bordered)
-      .tint(chosen ? Color.accentColor : nil)
-      .fontWeight(chosen ? .semibold : .regular)
-      .disabled(locked && !chosen)
-      .accessibilityAddTraits(chosen ? .isSelected : [])
-      .accessibilityIdentifier("entry.kind.\(kind.rawValue)")
-    case .transfer:
-      let chosen = showsFields && model.transfer != nil
-      Button {
-        let fieldsWereHidden = !showsFields
-        kindChosen?.wrappedValue = true
-        chooseKind(.transfer)
-        if fieldsWereHidden { model.focusRequest = .first }
-      } label: {
-        Label {
-          Text(verbatim: t("entry.kind.transfer"))
-        } icon: {
-          Image(systemName: "arrow.left.arrow.right.circle")
-        }
-        .frame(maxWidth: .infinity)
-      }
-      .buttonStyle(.bordered)
-      .tint(chosen ? Color.accentColor : nil)
-      .fontWeight(chosen ? .semibold : .regular)
-      .disabled(locked)
-      .accessibilityAddTraits(chosen ? .isSelected : [])
-      .accessibilityIdentifier("entry.kind.transfer")
     }
   }
 
@@ -465,7 +430,11 @@ struct DetailsPanel: View {
   private func fields<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
     EntryFieldFlow(
       maxColumns: isSideForm
-        ? EntryFieldFlowMetrics.sideColumns : EntryFieldFlowMetrics.panelColumns
+        ? EntryFieldFlowMetrics.sideColumns : EntryFieldFlowMetrics.panelColumns,
+      spacing: isSideForm
+        ? EntryFieldFlowMetrics.sideCellSpacing : EntryFieldFlowMetrics.cellSpacing,
+      rowSpacing: isSideForm
+        ? EntryFieldFlowMetrics.sideRowSpacing : EntryFieldFlowMetrics.rowSpacing
     ) { content() }
     .frame(maxWidth: .infinity, alignment: .leading)
   }
@@ -1207,7 +1176,7 @@ struct DetailsPanel: View {
   private var saveRow: some View {
     HStack(spacing: 12) {
       Text(verbatim: t("entry.panel.hint"))
-        .appFont(.caption)
+        .appFont(EntryType.label)
         .foregroundStyle(.secondary)
         .fixedSize(horizontal: false, vertical: true)
       Spacer(minLength: 8)
@@ -1215,13 +1184,10 @@ struct DetailsPanel: View {
         submit?()
       } label: {
         Text(verbatim: t("entry.save"))
-          .fontWeight(.semibold)
-          .padding(.horizontal, 14)
       }
-      .buttonStyle(.borderedProminent)
-      .buttonBorderShape(.capsule)
-      .controlSize(.large)
-      .tint(surfaces.accent)
+      .buttonStyle(
+        EntryFormSaveStyle(fill: surfaces.accent, ink: surfaces.onAccent, stretches: false)
+      )
       .accessibilityIdentifier("entry.panel.save")
     }
   }
@@ -1423,7 +1389,7 @@ struct DetailsPanel: View {
   /// `marked`: the field Enter asks for — its name stands out.
   private func fieldLabel(_ key: String, marked: Bool = false) -> some View {
     Text(verbatim: t(key))
-      .appFont(.caption)
+      .appFont(EntryType.label)
       .fontWeight(marked ? .semibold : .regular)
       .foregroundStyle(marked ? Color.primary : Color.secondary)
   }
@@ -1894,7 +1860,7 @@ struct AmountField: View {
       Text(verbatim: prompt)
     }
     .labelsHidden()
-    .appFont(prominent ? .title.monospacedDigit().bold() : .body.monospacedDigit())
+    .appFont(prominent ? EntryType.amount : .body.monospacedDigit())
     .focused($isFocused)
     .onAppear { show(amount) }
     .onChange(of: amount) { _, newValue in

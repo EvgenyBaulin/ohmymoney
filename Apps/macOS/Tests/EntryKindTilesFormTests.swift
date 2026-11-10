@@ -5,9 +5,9 @@ import XCTest
 
 @testable import OhMyMoney
 
-/// The kinds of the form at the side of the window, in a window: all five always in sight, two to
-/// a row, the one used most across the first row; a tile switches the fields to its kind, and
-/// «Перевод» to the fields of a transfer, written by «Сохранить» in the form itself.
+/// The kinds of the form at the side of the window, in a window: all five always in sight, in one
+/// track of equal segments as the design draws it; a segment switches the fields to its kind, and
+/// «Перевод» to the fields of a transfer, written by «Записать» in the form itself.
 @MainActor
 final class EntryKindTilesFormTests: XCTestCase {
   private var host: EntryHost?
@@ -55,27 +55,29 @@ final class EntryKindTilesFormTests: XCTestCase {
     return host
   }
 
-  func testTheFiveTilesStandTwoToARowAndTheMostUsedStretches() async throws {
+  /// The design's track: all five in one row, each of one width, none lit before the kind is
+  /// chosen.
+  func testTheFiveKindsStandInOneRowOfOneWidth() async throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     let host = try await openForm(incomes: 0)
     let frames = try tiles(of: host)
     let expense = try XCTUnwrap(frames["entry.kind.expense"])
-    let income = try XCTUnwrap(frames["entry.kind.income"])
-    let refund = try XCTUnwrap(frames["entry.kind.refund"])
-    let transfer = try XCTUnwrap(frames["entry.kind.transfer"])
-    XCTAssertGreaterThan(expense.width, income.width * 1.6, "the expense stretches")
-    XCTAssertGreaterThan(expense.midY, income.midY + 1, "alone in the first row")
-    XCTAssertEqual(income.width, transfer.width, accuracy: 2, "the others go in pairs")
-    XCTAssertEqual(refund.midY, transfer.midY, accuracy: 2, "the last pair shares a row")
+    for (identifier, frame) in frames {
+      XCTAssertEqual(frame.midY, expense.midY, accuracy: 2, "«\(identifier)» in the one row")
+      XCTAssertEqual(frame.width, expense.width, accuracy: 2, "«\(identifier)» of one width")
+    }
   }
 
-  func testTheKindUsedMostIsTheOneThatStretches() async throws {
+  /// The kind used most no longer stretches: the order and the widths are the design's whatever
+  /// the book holds.
+  func testTheKindUsedMostKeepsItsPlace() async throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     let host = try await openForm(incomes: 3)
     let frames = try tiles(of: host)
     let expense = try XCTUnwrap(frames["entry.kind.expense"])
     let income = try XCTUnwrap(frames["entry.kind.income"])
-    XCTAssertGreaterThan(income.width, expense.width * 1.6, "the income stretches")
+    XCTAssertEqual(income.width, expense.width, accuracy: 2)
+    XCTAssertLessThan(expense.minX, income.minX, "«Расход» first, as the design draws it")
   }
 
   /// «Доход» makes the fields the fields of an income: its categories are offered, and what is

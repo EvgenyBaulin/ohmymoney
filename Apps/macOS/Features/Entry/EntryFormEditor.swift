@@ -22,25 +22,25 @@ struct EntryFormEditor: View {
     VStack(spacing: 0) {
       HStack(alignment: .firstTextBaseline) {
         Text(verbatim: environment.language("entry.form.editTitle", table: "Entry"))
-          .appFont(.title3.bold())
+          .appFont(EntryType.formTitle)
           .accessibilityIdentifier("entry.form.editTitle")
         Spacer(minLength: 8)
       }
-      .padding(.horizontal, Self.inset)
-      .padding(.vertical, 12)
-      Divider()
+      // The head of the new operation's form (`EntryFormColumn`): the same column, the same
+      // numbers.
+      .padding([.horizontal, .top], Self.inset)
+      .padding(.bottom, EntryFormMetrics.gap)
       ScrollView {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: EntryFormMetrics.gap) {
           DetailsPanel(
             model: editor.draft, submit: saveOnReturn, focusedInside: $focusedInside,
             arrangement: .column
           )
           AttachedFilesCard(owner: .transaction, id: editor.id)
         }
-        .padding(Self.inset)
+        .padding(.horizontal, Self.inset)
       }
-      Divider()
-      VStack(alignment: .leading, spacing: 8) {
+      VStack(alignment: .leading, spacing: EntryFormMetrics.gap) {
         // Wraps in the width of the column, never fixed to its full height.
         if let errorKey = editor.errorKey {
           Text(
@@ -55,18 +55,13 @@ struct EntryFormEditor: View {
         }
         HStack {
           Button(environment.language("action.cancel"), role: .cancel, action: close)
-            .controlSize(.large)
             .accessibilityIdentifier("entry.form.cancelEdit")
           Button {
             save()
           } label: {
             Text(verbatim: environment.language("action.save"))
-              .frame(maxWidth: .infinity)
           }
-          .buttonStyle(.borderedProminent)
-          .buttonBorderShape(.capsule)
-          .tint(surfaces.accent)
-          .controlSize(.large)
+          .buttonStyle(EntryFormSaveStyle(fill: surfaces.accent, ink: surfaces.onAccent))
           // Return saves from any field of the form while the focus is in it; with the focus in
           // the list beside it, Return and the arrows are the list's.
           .keyboardShortcut(focusedInside ? .defaultAction : nil)
@@ -74,7 +69,8 @@ struct EntryFormEditor: View {
           .accessibilityIdentifier("entry.form.saveEdit")
         }
       }
-      .padding(Self.inset)
+      .padding(.horizontal, Self.inset)
+      .padding(.vertical, EntryFormMetrics.gap)
     }
     // Esc in a field of the form: back to a new operation, nothing saved.
     .onExitCommand(perform: close)
