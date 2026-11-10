@@ -31,18 +31,26 @@ enum OperationBadgeKind: Equatable, Sendable {
   }
 }
 
-/// The round mark of a row: 28 pt, the symbol in the tint's own colour. Content, never glass.
+/// The round mark of a row, a circle of the kind's tint with its drawing in the tint's own
+/// colour: 32 pt with a 16-pt drawing in the table, 36 with 18 on a phone (`OperationsMetrics`).
+/// Both grow with the size of the text chosen in Settings. Content, never glass.
 struct OperationBadge: View {
   @Environment(\.appTheme) private var theme
-  @ScaledMetric(relativeTo: .body) private var side: CGFloat = 28
+  @Environment(\.appFontSize) private var fontSize
   let kind: OperationBadgeKind
+  var side: CGFloat = OperationsMetrics.badge
+  var symbolSide: CGFloat = OperationsMetrics.badgeSymbol
 
   var body: some View {
     let palette = theme.palette
+    let circle = fontSize.points(fromRegular: side)
+    let drawing = fontSize.points(fromRegular: symbolSide)
     Image(systemName: kind.symbol)
-      .appFont(.caption.weight(.semibold))
+      // The drawing fills a square of `symbolSide`, as the design's 16-pt frame holds it.
+      .font(.system(size: drawing * 0.8, weight: .semibold))  // font-fixed: grows with the badge
+      .frame(width: drawing, height: drawing)
       .foregroundStyle(foreground(palette))
-      .frame(width: side, height: side)
+      .frame(width: circle, height: circle)
       .background(tint(palette), in: .circle)
       .accessibilityHidden(true)
   }

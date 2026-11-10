@@ -61,6 +61,33 @@ struct RowTotalsTests {
     #expect(totals.myExpenses == AmountE4(raw: .max))
   }
 
+  /// The day's one signed figure, as the design's two days add up: today three purchases
+  /// (−250 − 1 840 − 560 = −2 650), yesterday a salary and two purchases
+  /// (120 000 − 299 − 1 120 = +118 581). Money paid for somebody else goes out, money given back
+  /// comes in.
+  @Test func theNetOfADayIsWhatCameInLessWhatWentOut() {
+    func spent(_ n: Int, _ amount: Int) -> TransactionEntry {
+      entry(id(n), parts: [part(id(n * 10), amount: money(amount), category: categories.groceries)])
+    }
+    let today = RowTotals(entries: [spent(1, 250), spent(2, 1840), spent(3, 560)])
+    #expect(today.net == -money(2650))
+    let salary = entry(
+      id(4), kind: .income,
+      parts: [part(id(41), amount: money(120_000), category: categories.salary)])
+    let yesterday = RowTotals(entries: [salary, spent(5, 299), spent(6, 1120)])
+    #expect(yesterday.net == money(118_581))
+    let forAnya = entry(
+      id(7),
+      parts: [
+        part(
+          id(71), amount: money(400), category: categories.groceries, reimbursable: true,
+          debtor: id(50))
+      ])
+    let back = entry(id(8), kind: .reimbursement, parts: [part(id(81), amount: money(300))])
+    #expect(RowTotals(entries: [forAnya, back]).net == -money(100))
+    #expect(RowTotals.zero.net == .zero)
+  }
+
   @Test func emptyGroupsAreNotShown() {
     let coffee = entry(
       id(1), parts: [part(id(11), amount: money(250), category: categories.groceries)])

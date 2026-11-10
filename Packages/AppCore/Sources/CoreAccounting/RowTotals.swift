@@ -97,6 +97,12 @@ public struct RowTotals: Hashable, Sendable {
 
   public var isEmpty: Bool { nonEmptyGroups.isEmpty }
 
+  /// What a day did to the owner's money, in one signed figure — the day's head in «Операции»:
+  /// the income and the money given back, less my spending and what was paid for somebody else.
+  /// A transfer is in no group, so it adds nothing; a refund already took its sum off my
+  /// spending.
+  public var net: AmountE4 { income + moneyReturned - myExpenses - forOthers }
+
   /// The totals of two lists of rows taken together: group by group.
   public static func + (lhs: RowTotals, rhs: RowTotals) -> RowTotals {
     RowTotals(

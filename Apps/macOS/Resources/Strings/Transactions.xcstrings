@@ -929,6 +929,23 @@
         }
       }
     },
+    "filters.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
+        }
+      }
+    },
     "filters.empty": {
       "extractionState": "manual",
       "localizations": {
@@ -1201,6 +1218,23 @@
         }
       }
     },
+    "inspector.editPrefix": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit · "
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правка · "
+          }
+        }
+      }
+    },
     "inspector.unsavedMessage": {
       "extractionState": "manual",
       "localizations": {
@@ -1439,6 +1473,91 @@
         }
       }
     },
+    "operations.menu.compact": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compact Operations List"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Компактный список операций"
+          }
+        }
+      }
+    },
+    "operations.menu.filters": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operation Filters…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фильтры операций…"
+          }
+        }
+      }
+    },
+    "operations.month.back": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предыдущий месяц"
+          }
+        }
+      }
+    },
+    "operations.month.forward": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Следующий месяц"
+          }
+        }
+      }
+    },
+    "operations.new": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New operation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая операция"
+          }
+        }
+      }
+    },
     "operations.row.transfer": {
       "extractionState": "manual",
       "localizations": {
@@ -1456,6 +1575,23 @@
         }
       }
     },
+    "operations.search.field": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search operations"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поиск по операциям"
+          }
+        }
+      }
+    },
     "operations.search.prompt": {
       "extractionState": "manual",
       "localizations": {
@@ -1469,6 +1605,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поиск по всей истории: слова, категория, место, счёт, сумма"
+          }
+        }
+      }
+    },
+    "operations.search.short": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поиск"
           }
         }
       }

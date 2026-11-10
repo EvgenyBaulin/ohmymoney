@@ -163,6 +163,7 @@ struct OperationsScreen: View {
       claimTheEditing()
       followData()
       takeSearchFocus()
+      takeSheetRequests()
       takeRange()
       takeReveal()
       GuideStore.shared.report(GuideEvent.operationsOpened)
@@ -201,67 +202,96 @@ struct OperationsScreen: View {
   // MARK: The search, the filters and the columns
 
   /// A screen narrower than this drops the title (the navigation bar has it) and lets the
-  /// chips and buttons scroll sideways.
+  /// chips and the month scroll sideways.
   static let widthForTitle: CGFloat = 560
 
+  /// The header of the design (Mac 5:35438, tablet 5:76348): the name of the screen, the search
+  /// box and the one orange «Новая операция»; under it the chips, and the month at the right.
+  /// The filters, the columns and the density are in the menu «Вид» (and the filters in the chip
+  /// «Фильтры · N» while some narrow the table): only the screen's own buttons stand on top.
   private var header: some View {
     let roomy = width == 0 || width >= Self.widthForTitle
-    return VStack(alignment: .leading, spacing: 12) {
-      HStack(spacing: 12) {
+    return VStack(alignment: .leading, spacing: 0) {
+      HStack(spacing: OperationsMetrics.headerGap) {
         if roomy {
           Text(verbatim: environment.language("section.operations"))
-            .appFont(.title.bold())
+            .appFont(StyleType.screenTitle)
+            .foregroundStyle(surfaces.primary)
             .accessibilityAddTraits(.isHeader)
           Spacer(minLength: 8)
         }
         searchField
-          .frame(maxWidth: roomy ? 260 : .infinity)
-        #if !os(iOS)
-          // «Компактно» / «Подробно»: this list's own choice, on this Mac.
-          ListDensityToggle(
-            list: .operations,
-            compactTitle: environment.language("mac.density.compact", table: "MacFeatures"),
-            detailedTitle: environment.language("mac.density.detailed", table: "MacFeatures")
-          )
-          .labelStyle(.iconOnly)
-          Button {
-            NotificationCenter.default.post(name: .focusEntryLine, object: nil)
-          } label: {
-            Label {
-              Text(verbatim: environment.language("action.add"))
-            } icon: {
-              Image(systemName: "plus")
-            }
-            .labelStyle(.iconOnly)
-          }
-          .buttonStyle(.borderedProminent)
-          .buttonBorderShape(.circle)
-          .help(environment.language("action.add"))
-          .accessibilityIdentifier("operations.add")
-        #endif
-      }
-      ScrollView(.horizontal, showsIndicators: false) {
-        HStack(spacing: 12) {
-          QuickFilterChips(
-            chips: OperationsQuickFilter.allCases,
-            isActive: { $0.isActive(in: state.filters, today: environment.today) },
-            title: { t($0.titleKey) },
-            choose: { chip in
-              chip.apply(to: &state.filters, tree: choices.categories, today: environment.today)
-            })
-          Spacer(minLength: 8)
-          controls
+          .frame(width: roomy ? Self.searchWidth : nil)
+          .frame(maxWidth: roomy ? nil : .infinity)
+        if Self.showsNewOperation, !environment.shield.isReadOnly {
+          newOperationButton
         }
-        .frame(minWidth: 0, maxWidth: .infinity)
       }
+      // The row is 56 tall with 14 above and 10 below: the 34-pt controls stand a point over
+      // the 32 of its content either way, as the design centres them.
+      .frame(height: OperationsMetrics.controlHeight - 2)
+      .padding(.top, OperationsMetrics.headerTop)
+      .padding(.bottom, OperationsMetrics.headerBottom)
+      // The chips scroll sideways in a narrow window; the month keeps the right edge.
+      HStack(spacing: OperationsMetrics.chipGap) {
+        ScrollView(.horizontal, showsIndicators: false) {
+          HStack(spacing: OperationsMetrics.chipGap) {
+            QuickFilterChips(
+              chips: OperationsQuickFilter.allCases,
+              isActive: { $0.isActive(in: state.filters, today: environment.today) },
+              title: { t($0.titleKey) },
+              choose: { chip in
+                chip.apply(to: &state.filters, tree: choices.categories, today: environment.today)
+              })
+            let others = OperationsMonth.otherFilters(state.filters)
+            if others > 0 {
+              OperationsChip(title: "\(t("filters.title")) · \(others)", selected: true) {
+                showsFilters = true
+              }
+              .accessibilityIdentifier("operations.filters")
+            }
+          }
+        }
+        .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
+        Spacer(minLength: 0)
+        OperationsMonthCapsule(
+          title: OperationsMonth.title(
+            state.filters, today: environment.today, environment: environment),
+          canGoForward: OperationsMonth.canGoForward(state.filters, today: environment.today),
+          backTitle: t("operations.month.back"),
+          forwardTitle: t("operations.month.forward"),
+          back: { OperationsMonth.back(&state.filters, today: environment.today) },
+          forward: { OperationsMonth.forward(&state.filters, today: environment.today) })
+      }
+      .padding(.top, OperationsMetrics.chipsTop)
+      .padding(.bottom, OperationsMetrics.chipsToTable)
     }
-    .padding(.horizontal, 16)
-    .padding(.vertical, 12)
+    .padding(.horizontal, Self.pageSide)
+    .sheet(isPresented: $showsFilters) {
+      OperationFiltersSheet(filters: $state.filters, choices: choices)
+        .appDependencies(deps)
+    }
+    .onReceive(NotificationCenter.default.publisher(for: .showOperationsFilters)) { _ in
+      takeSheetRequests()
+    }
+    .onReceive(NotificationCenter.default.publisher(for: .showOperationsColumns)) { _ in
+      takeSheetRequests()
+    }
+  }
+
+  /// The one orange button with words: the same as ⌘N — the line, or the form at the side.
+  private var newOperationButton: some View {
+    Button(t("operations.new")) {
+      NotificationCenter.default.post(name: .focusEntryLine, object: nil)
+    }
+    .buttonStyle(.primaryAction)
+    .fixedSize()
+    .accessibilityIdentifier("operations.add")
   }
 
   private var searchField: some View {
     let field = TextField(
-      text: $state.filters.search, prompt: Text(verbatim: t("operations.search.prompt"))
+      text: $state.filters.search, prompt: Text(verbatim: t(Self.searchPromptKey))
     ) {
       Text(verbatim: t("transactions.search"))
     }
@@ -270,71 +300,40 @@ struct OperationsScreen: View {
     .accessibilityIdentifier("transactions.search")
     .guideTarget(GuideTarget.operationsSearch)
     .popoverTip(SpendingSearchTip())
+    return OperationsSearchBox { field }
+  }
+
+  /// The margins of the page on each platform.
+  static var pageSide: CGFloat {
     #if os(iOS)
-      // The phone's search is a capsule with a magnifier, as the design draws it.
-      return HStack(spacing: 8) {
-        Image(systemName: "magnifyingglass")
-          .foregroundStyle(.secondary)
-          .accessibilityHidden(true)
-        field.textFieldStyle(.plain)
-      }
-      .padding(.horizontal, 14)
-      .padding(.vertical, 9)
-      .background(surfaces.card, in: .capsule)
-      .overlay { Capsule().strokeBorder(surfaces.cardBorder, lineWidth: 0.5) }
+      isPhone ? OperationsMetrics.phonePageSide : OperationsMetrics.padPageSide
     #else
-      return field.textFieldStyle(.roundedBorder)
+      OperationsMetrics.pageSide
     #endif
   }
-
-  private var controls: some View {
-    HStack(spacing: 8) {
-      Button {
-        showsFilters = true
-      } label: {
-        Label {
-          Text(verbatim: filtersTitle)
-        } icon: {
-          Image(
-            systemName: state.filters.activeCount > 0
-              ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-        }
-      }
-      .accessibilityIdentifier("operations.filters")
-      .popover(isPresented: $showsFilters, arrowEdge: .bottom) {
-        // A popover is laid out in a host of its own: the dependencies go with it.
-        TransactionFiltersForm(filters: $state.filters, choices: choices)
-          .frame(width: 340, height: 560)
-          .appDependencies(deps)
-      }
-
-      if state.filters.canReset {
-        Button(t("filters.reset")) { state.filters.reset() }
-          .accessibilityIdentifier("operations.filters.reset")
-      }
-
-      // The saved filters: apply one, save these, open the list.
-      SavedFiltersMenu()
-
-      Button {
-        showsColumns = true
-      } label: {
-        Label {
-          Text(verbatim: t("operations.columns"))
-        } icon: {
-          Image(systemName: "tablecells")
-        }
-      }
-      .labelStyle(.iconOnly)
-      .help(t("operations.columns"))
-      .accessibilityIdentifier("operations.columns")
-    }
+  static var searchWidth: CGFloat {
+    #if os(iOS)
+      OperationsMetrics.padSearchWidth
+    #else
+      OperationsMetrics.searchWidth
+    #endif
   }
-
-  /// «Фильтры», and how many narrow the table: «Фильтры · 2».
-  private var filtersTitle: String {
-    let count = state.filters.activeCount
-    return count == 0 ? t("filters.title") : "\(t("filters.title")) · \(count)"
+  /// «Поиск по операциям» on the Mac, «Поиск» on a tablet and a phone, as the frames write it.
+  static var searchPromptKey: String {
+    #if os(iOS)
+      "operations.search.short"
+    #else
+      "operations.search.field"
+    #endif
+  }
+  /// The phone's frame has no «Новая операция»: the «+» of its bar writes.
+  static var showsNewOperation: Bool { !isPhone }
+  static var isPhone: Bool {
+    #if os(iOS)
+      UIDevice.current.userInterfaceIdiom == .phone
+    #else
+      false
+    #endif
   }
 
   /// «Сбросить к настройкам по умолчанию» of the columns: the standard columns in their order
@@ -375,7 +374,8 @@ struct OperationsScreen: View {
           }
         }
       #else
-        // The table stands on a rounded card of the theme, as the design draws it.
+        // The table stands on the card of the design (5:35466): the card colour, radius 12, the
+        // hairline and a faint shadow, 4 inside above and below, 24 from the sides of the page.
         // The footer is an inset of the table, not a sibling under it: the table keeps its edge at
         // the bottom of the window, so the room the floating bars take reaches its scroll view.
         table(shown)
@@ -386,15 +386,14 @@ struct OperationsScreen: View {
               earlierMonths(hidden: listing.operationCount - shown.operationCount)
             }
           }
-          .background(surfaces.card)
-          .clipShape(.rect(cornerRadius: 16))
-          .overlay {
-            RoundedRectangle(cornerRadius: 16).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
-          }
+          // 4 inside the card at its top; at its bottom the table runs to the edge, so the room
+          // the floating bars take reaches its scroll view (a margin there cut it off).
+          .padding(.top, OperationsMetrics.cardVertical)
+          .operationsCard()
           // With the editor column open the card runs up to its divider: the column's own width is
           // what the layout keeps, and nothing of it is spent on a margin beside the table.
-          .padding(.leading, 16)
-          .padding(.trailing, editorColumnShown ? 0 : 16)
+          .padding(.leading, OperationsMetrics.pageSide)
+          .padding(.trailing, editorColumnShown ? 0 : OperationsMetrics.pageSide)
       #endif
     } else if pages.listing != nil {
       nothingFound
@@ -689,6 +688,14 @@ struct OperationsScreen: View {
     state.filters.customStart = range.start
     state.filters.customEnd = range.end
     state.filters.period = .custom
+  }
+
+  /// «Вид» → «Фильтры…» or «Настроить столбцы…»: the sheet asked for, whether the screen was
+  /// on screen already or has just appeared.
+  private func takeSheetRequests() {
+    guard isShown else { return }
+    if OperationsSheetRequest.take(.showOperationsFilters) { showsFilters = true }
+    if OperationsSheetRequest.take(.showOperationsColumns) { showsColumns = true }
   }
 
   /// ⌘F from anywhere sets the flag and opens this screen; whichever of `onAppear` and

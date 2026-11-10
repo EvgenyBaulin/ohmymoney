@@ -420,6 +420,7 @@ struct TransactionEditor: View {
     case inspector
   }
 
+  @Environment(\.appTheme) private var theme
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
@@ -505,7 +506,7 @@ struct TransactionEditor: View {
           .accessibilityIdentifier("editor.save")
       }
     }
-    .padding(style == .sheet ? 20 : 14)
+    .padding(style == .sheet ? 20 : InspectorMetrics.padding)
     .bulkConfirmation($editor.confirmation) { landed in
       if landed {
         close()
@@ -596,11 +597,32 @@ struct TransactionEditor: View {
         if let refundMark { RefundMarkLabel(mark: refundMark) }
       }
     case .inspector:
-      // The operation as it is named in the table, and when it happened.
+      // As the design heads the column (6:89248): «Правка · Обед» 17 bold and the round × at
+      // the right; under it when the operation happened.
       VStack(alignment: .leading, spacing: 2) {
-        RowTitleText(title: editor.title)
-          .appFont(.headline)
+        HStack(alignment: .center, spacing: 8) {
+          HStack(spacing: 0) {
+            Text(verbatim: environment.language("inspector.editPrefix", table: "Transactions"))
+            RowTitleText(title: editor.title)
+          }
+          .appFont(InspectorMetrics.title)
           .lineLimit(2)
+          .accessibilityElement(children: .combine)
+          .accessibilityAddTraits(.isHeader)
+          Spacer(minLength: 8)
+          Button(action: close) {
+            Image(systemName: "xmark")
+              .font(.system(size: 11, weight: .semibold))  // font-fixed: a fixed circle
+              .foregroundStyle(theme.contentSecondary)
+              .frame(width: InspectorMetrics.close, height: InspectorMetrics.close)
+              .background(theme.surfaceSegmented, in: .circle)
+              .contentShape(.circle)
+          }
+          .buttonStyle(.plain)
+          .help(environment.language("action.close"))
+          .accessibilityLabel(Text(verbatim: environment.language("action.close")))
+          .accessibilityIdentifier("editor.close")
+        }
         Text(verbatim: environment.dates.moment(editor.entry.transaction.occurredAt))
           .appFont(.caption)
           .foregroundStyle(.secondary)

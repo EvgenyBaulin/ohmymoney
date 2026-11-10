@@ -2,12 +2,16 @@ import Foundation
 
 /// A column of the table of «Операции». The raw value is what `OperationColumnLayout` keeps in
 /// `UserDefaults`: it is never renamed.
+///
+/// The order of the cases is the standard order of the table, as the design draws it: the
+/// description, the category, the account, the time and the amount; the other columns follow,
+/// hidden until the owner shows them.
 enum OperationColumn: String, CaseIterable, Identifiable, Hashable, Sendable {
-  case time
   case description
-  case amount
   case category
   case account
+  case time
+  case amount
   case place
   case forWhom
   case quality
@@ -28,8 +32,13 @@ enum OperationColumn: String, CaseIterable, Identifiable, Hashable, Sendable {
   /// The description and the amount name the row: they are always shown.
   var canBeHidden: Bool { self != .description && self != .amount }
 
-  /// Shown until the owner says otherwise.
-  var shownByDefault: Bool { self != .event }
+  /// Shown until the owner says otherwise: the five columns of the design.
+  var shownByDefault: Bool {
+    switch self {
+    case .description, .category, .account, .time, .amount: true
+    default: false
+    }
+  }
 
   /// The narrowest a column may be: what its fixed text needs (`TransactionColumnWidths`).
   var minimumWidth: Int {
@@ -42,14 +51,15 @@ enum OperationColumn: String, CaseIterable, Identifiable, Hashable, Sendable {
     }
   }
 
-  /// The width a column starts with.
+  /// The width a column starts with: the five of the design as wide as it draws them at
+  /// 1440 pt (`OperationsMetrics`), the description taking the rest of the card.
   var standardWidth: Int {
     switch self {
-    case .time: 64
-    case .description: 180
-    case .amount: 104
-    case .category: 140
-    case .account: 110
+    case .time: Int(OperationsMetrics.timeWidth)
+    case .description: 582
+    case .amount: Int(OperationsMetrics.amountWidth)
+    case .category: Int(OperationsMetrics.categoryWidth)
+    case .account: Int(OperationsMetrics.accountWidth)
     case .place: 90
     case .forWhom: 80
     case .quality: 80
@@ -67,6 +77,12 @@ enum OperationColumn: String, CaseIterable, Identifiable, Hashable, Sendable {
     case .description, .note: 600
     default: 400
     }
+  }
+
+  /// The name in the header of the table, in capitals as the design writes it: «ОПИСАНИЕ».
+  @MainActor
+  func headerTitle(language: AppLanguage) -> String {
+    language(titleKey, table: "Transactions").uppercased(with: language.locale)
   }
 
   /// Amounts line up on the right.

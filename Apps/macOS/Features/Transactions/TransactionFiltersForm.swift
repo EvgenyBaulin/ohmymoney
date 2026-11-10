@@ -1,7 +1,7 @@
 import AppCore
 import SwiftUI
 
-/// The filters of «Операции», in the popover of its «Фильтры» button: a grouped form, every
+/// The filters of «Операции», in their sheet (`OperationFiltersSheet`): a grouped form, every
 /// choice with its label.
 struct TransactionFiltersForm: View {
   @Dependency(\.environment) private var environment
@@ -149,9 +149,62 @@ private struct OptionalPicker<Value: Hashable>: View {
   }
 }
 
+/// The filters of «Операции» as the design shows them (6:139045): a sheet named «Фильтры» with
+/// its ×, the form, and «Сбросить» and «Готово» at its foot. The menu «Вид» → «Фильтры…» (⇧⌘F)
+/// and the chip «Фильтры · N» open it.
+struct OperationFiltersSheet: View {
+  @Dependency(\.environment) private var environment
+  @Environment(\.dismiss) private var dismiss
+  @Binding var filters: TransactionFilters
+  let choices: FilterChoices
+
+  var body: some View {
+    VStack(spacing: 0) {
+      HStack {
+        Text(verbatim: t("filters.title"))
+          .appFont(.headline)
+          .accessibilityAddTraits(.isHeader)
+        Spacer()
+        Button {
+          dismiss()
+        } label: {
+          Image(systemName: "xmark")
+            .accessibilityLabel(Text(verbatim: environment.language("action.close")))
+        }
+        .buttonStyle(.borderless)
+        .keyboardShortcut(.cancelAction)
+      }
+      .padding(16)
+      Divider()
+      TransactionFiltersForm(filters: $filters, choices: choices)
+      Divider()
+      HStack(spacing: StyleMetrics.headerButtonGap) {
+        Spacer()
+        Button(t("filters.reset")) { filters.reset() }
+          .buttonStyle(.quietAction)
+          .disabled(!filters.canReset)
+          .accessibilityIdentifier("operations.filters.reset")
+        Button(t("filters.done")) { dismiss() }
+          .buttonStyle(.primaryAction)
+          .keyboardShortcut(.defaultAction)
+          .accessibilityIdentifier("operations.filters.done")
+      }
+      .padding(16)
+    }
+    .sheetFrame(minWidth: 420, idealWidth: 560, minHeight: 480, idealHeight: 640)
+  }
+
+  private func t(_ key: String) -> String { environment.language(key, table: "Transactions") }
+}
+
 extension Notification.Name {
   /// Carries the section number of ⌘1 / ⌘2 / ⌘3.
   static let selectSection = Notification.Name("io.github.EvgenyBaulin.ohmymoney.selectSection")
+  /// «Вид» → «Фильтры…» and «Настроить столбцы…»: «Операции» on screen opens its sheet.
+  static let showOperationsFilters = Notification.Name(
+    "io.github.EvgenyBaulin.ohmymoney.showOperationsFilters")
+  static let showOperationsColumns = Notification.Name(
+    "io.github.EvgenyBaulin.ohmymoney.showOperationsColumns")
 }
 
 /// The editor of an operation in the column beside the table of «Операции». It takes the

@@ -310,17 +310,20 @@ final class OperationsSectionTests: XCTestCase {
 
   // MARK: The columns
 
-  /// The standard table: every column but the event, in their order, the description and the
-  /// amount first after the time.
+  /// The standard table is the design's (5:35467): the description, the category, the account,
+  /// the time and the amount; the other columns follow, hidden until the owner shows them.
   func testTheStandardColumns() {
     let layout = OperationColumnLayout.standard
+    XCTAssertEqual(layout.visible, [.description, .category, .account, .time, .amount])
     XCTAssertEqual(
-      layout.visible,
+      layout.order,
       [
-        .time, .description, .amount, .category, .account, .place, .forWhom, .quality, .cashback,
-        .note,
+        .description, .category, .account, .time, .amount, .place, .forWhom, .quality, .cashback,
+        .note, .event,
       ])
-    XCTAssertFalse(layout.isShown(.event))
+    for column in [OperationColumn.place, .forWhom, .quality, .cashback, .note, .event] {
+      XCTAssertFalse(layout.isShown(column), "\(column)")
+    }
     XCTAssertEqual(OperationColumnLayout(storage: nil), .standard)
     XCTAssertEqual(OperationColumnLayout(storage: ""), .standard)
     XCTAssertEqual(OperationColumnLayout(storage: layout.storage), .standard)
@@ -342,7 +345,7 @@ final class OperationsSectionTests: XCTestCase {
     layout.setShown(false, .description)
     layout.setShown(false, .amount)
     layout.move(.note, by: -1)
-    layout.move(.time, by: -1)
+    layout.move(.description, by: -1)
     layout.setWidth(260, of: .description)
     layout.setWidth(5, of: .amount)
     layout.setWidth(10_000, of: .note)
@@ -350,7 +353,7 @@ final class OperationsSectionTests: XCTestCase {
     XCTAssertTrue(layout.isShown(.amount))
     XCTAssertFalse(layout.isShown(.place))
     XCTAssertTrue(layout.isShown(.event))
-    XCTAssertEqual(layout.order.first, .time, "the first column moves no further up")
+    XCTAssertEqual(layout.order.first, .description, "the first column moves no further up")
     XCTAssertEqual(Array(layout.order.suffix(3)), [.note, .cashback, .event])
     XCTAssertEqual(layout.width(of: .description), 260)
     XCTAssertEqual(layout.width(of: .amount), OperationColumn.amount.minimumWidth)
@@ -365,7 +368,8 @@ final class OperationsSectionTests: XCTestCase {
   func testALayoutOfAnotherVersionIsReadSafely() {
     let layout = OperationColumnLayout(
       storage: "amount:120,-description,mystery:40,time,amount:300,-quality, place :90")
-    XCTAssertEqual(Array(layout.order.prefix(3)), [.amount, .description, .time])
+    XCTAssertEqual(
+      Array(layout.order.prefix(5)), [.amount, .description, .category, .account, .time])
     XCTAssertTrue(layout.isShown(.description))
     XCTAssertFalse(layout.isShown(.quality))
     XCTAssertEqual(layout.width(of: .amount), 120)
@@ -373,16 +377,18 @@ final class OperationsSectionTests: XCTestCase {
     XCTAssertEqual(Set(layout.order), Set(OperationColumn.allCases))
     XCTAssertEqual(layout.order.count, OperationColumn.allCases.count)
     XCTAssertFalse(layout.isShown(.event), "a column not named comes with its standard visibility")
-    // «category» stands after «time» — the last column before it in the standard order.
+    // «category» stands after «description» — the last column before it in the standard
+    // order —, and «account» after «category».
     let index = layout.order.firstIndex(of: .category)
-    XCTAssertEqual(index.map { layout.order[$0 - 1] }, .time)
+    XCTAssertEqual(index.map { layout.order[$0 - 1] }, .description)
+    XCTAssertTrue(layout.isShown(.category), "a column not named keeps its standard visibility")
   }
 
   /// A drag in the list of the sheet moves the rows where they are dropped.
   func testADragMovesTheColumns() {
     var layout = OperationColumnLayout.standard
     layout.move(fromOffsets: [0], toOffset: 3)
-    XCTAssertEqual(Array(layout.order.prefix(3)), [.description, .amount, .time])
+    XCTAssertEqual(Array(layout.order.prefix(3)), [.category, .account, .description])
     layout.move(fromOffsets: [9, 10], toOffset: 0)
     XCTAssertEqual(Array(layout.order.prefix(2)), [.note, .event])
     XCTAssertEqual(layout.order.count, OperationColumn.allCases.count)
