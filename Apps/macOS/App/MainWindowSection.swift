@@ -7,6 +7,14 @@ extension MainWindow {
 
     var id: String { rawValue }
 
+    /// Decision 0583 limits the floating line; the form at the right stays on every section.
+    var showsEntryLine: Bool {
+      switch self {
+      case .planning, .reports: false
+      case .overview, .operations, .calendar, .capital, .debts, .purchases, .analytics: true
+      }
+    }
+
     /// `--section` names a section by its raw value; «spending», the name of «Операции» when it
     /// was «Траты», still finds it.
     static func named(_ name: String) -> Section? {

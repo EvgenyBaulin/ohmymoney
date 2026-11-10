@@ -537,6 +537,45 @@ final class MainWindowLayoutTests: XCTestCase {
       about: loopMessages, comparedWith: before, "narrow, with the form and the bar shown")
   }
 
+  /// Decision 0583 hides the line on Planning (including its Goals sheet) and Reports.
+  /// Every other main section keeps it, regardless of whether it lists operations.
+  func testEntryLineVisibilityForEverySection() throws {
+    environment.entryStyle = .line
+    let prompt = environment.language("entry.placeholder", table: "Entry")
+    for section in MainWindow.Section.allCases {
+      let expected: Bool
+      switch section {
+      case .planning, .reports: expected = false
+      case .overview, .operations, .calendar, .capital, .debts, .purchases, .analytics:
+        expected = true
+      }
+      let window = makeWindow(selection: .section(section))
+      settle(window, "entry line in \(section.rawValue)")
+      var fields: [NSTextField] = []
+      Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &fields)
+      XCTAssertEqual(
+        fields.contains { $0.placeholderString == prompt }, expected, section.rawValue)
+      window.contentViewController = nil
+      window.orderOut(nil)
+    }
+
+    // Goals and What-if are separate presentations, not cases of MainWindow.Section.
+    let deps = AppDependencies(environment: environment, store: store, compute: compute)
+    let screens: [(String, AnyView)] = [
+      ("goals", AnyView(GoalsScreen())),
+      ("whatif", AnyView(WhatIfWindow(deps: deps))),
+    ]
+    for (name, screen) in screens {
+      let root = AppScenes.root(deps, window: .main, launches: false) { _ in screen }
+      let host = NSHostingView(rootView: root)
+      host.setFrameSize(NSSize(width: 1_120, height: 760))
+      host.layoutSubtreeIfNeeded()
+      var fields: [NSTextField] = []
+      Self.allSubviews(of: host, into: &fields)
+      XCTAssertFalse(fields.contains { $0.placeholderString == prompt }, name)
+    }
+  }
+
   /// The choice in Settings moves the entry at once: the line is there with the line style, the
   /// form's fields with the form, and each leaves nothing of the other.
   func testTheChoiceInSettingsMovesTheEntryAtOnce() throws {
@@ -644,45 +683,42 @@ final class MainWindowLayoutTests: XCTestCase {
       inWindow.maxY, content.bounds.height + 1, "the panel runs past the top of the window")
   }
 
-  /// Planning is a scroll view of blocks, not a list, and the bar floats over it the same way.
-  /// A screenshot of 23.09 (1371×920, the sample set) showed the chips over «+ Лимит» and
-  /// raised the question whether the section keeps the room Overview keeps. It does: the safe
-  /// area of the window gives the section's scroll view the same bottom inset, the chips
-  /// included, so at the end of the section its last line and «+ Лимит» stand clear of the
-  /// bar. Scrolled anywhere else, blocks pass under the floating bar by design.
-  ///
+  /// Decision 0583 keeps the entry line on Overview and hides it on Planning. Overview keeps
+  /// room for the capsule and chips; Planning needs none and its end remains fully visible.
   /// The window is short on purpose: the section has to scroll for its end to mean anything.
-  func testThePlanningSectionKeepsTheRoomOverviewKeepsUnderTheBar() throws {
-    try TestEnvironment.requireSwiftUIAccessibility()
+  func testPlanningNeedsNoEntryRoomWhileOverviewKeepsItsRoom() throws {
     try TestEnvironment.requireScreen(width: 1_371)
+    environment.entryStyle = .line
     // The chips are part of the room: with templates to show, it grows by their row.
     for text in ["Coffee", "Lunch", "Taxi"] {
       try XCTUnwrap(environment.references).save(Template(text: text))
     }
-    let window = makeWindow(width: 1371, height: 560)
-    try waitForList(window)
+    let window = makeWindow(width: 1371, height: 560, selection: .section(.overview))
+    Self.wait { Self.pageScroll(in: window) != nil }
     settle(window, passes: 10, "on Overview")
-    let room = try overviewRoom(window)
+    let overview = try XCTUnwrap(Self.pageScroll(in: window), "Overview did not open")
+    XCTAssertGreaterThan(overview.contentInsets.bottom, 0, "Overview keeps no room for the bar")
+    let prompt = environment.language("entry.placeholder", table: "Entry")
+    func hasEntryLine() throws -> Bool {
+      var fields: [NSTextField] = []
+      Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &fields)
+      return fields.contains { $0.placeholderString == prompt }
+    }
+    XCTAssertTrue(try hasEntryLine(), "Overview has no entry line")
 
     NotificationCenter.default.post(
       name: .selectSection, object: MainWindow.Section.planning.shortcutIndex)
-    Self.wait { Self.planningScroll(in: window) != nil }
     settle(window, passes: 20, "on Planning")
-    let planning = try XCTUnwrap(Self.planningScroll(in: window), "Planning did not open")
+    let planning = try XCTUnwrap(Self.pageScroll(in: window), "Planning did not open")
+    XCTAssertFalse(try hasEntryLine(), "Planning still shows the entry line")
     XCTAssertEqual(
-      planning.contentInsets.bottom, room, accuracy: 0.5,
-      "Planning keeps other room under the bar than Overview does")
+      planning.contentInsets.bottom, 0, accuracy: 0.5,
+      "Planning keeps room for an entry line it does not show")
 
     let document = try XCTUnwrap(planning.documentView)
     XCTAssertGreaterThan(
-      document.bounds.height, planning.contentView.bounds.height - room,
-      "the section fits above the bar, so its end proves nothing")
-    // The book has no limits: the card of limits offers its first one with the button of its
-    // friendly empty state instead of «+ Лимит».
-    let title = environment.language("layout.empty.limits.add", table: "Planning")
-    // At the top of the section the button may well sit under the bar: the screenshot's view.
-    let atTop = try Self.frameInWindow(of: title, in: window)
-    print("main layout «+ Лимит» at the top of Planning: \(atTop), room \(room)")
+      document.bounds.height, planning.contentView.bounds.height,
+      "the section fits without scrolling, so its end proves nothing")
 
     let last = CGRect(
       x: document.bounds.minX, y: document.isFlipped ? document.bounds.maxY - 1 : 0, width: 1,
@@ -690,29 +726,22 @@ final class MainWindowLayoutTests: XCTestCase {
     document.scrollToVisible(last)
     settle(window, passes: 10, "at the end of Planning")
 
-    XCTAssertGreaterThanOrEqual(
-      document.convert(last, to: nil).minY, room - 0.5,
-      "at the end of Planning its last line still sits under the chips and the capsule")
-    XCTAssertGreaterThanOrEqual(
-      try Self.frameInWindow(of: title, in: window).minY, room - 0.5,
-      "at the end of Planning «+ Лимит» still sits under the chips and the capsule")
+    let lastInWindow = document.convert(last, to: nil)
+    let viewport = planning.contentView.convert(planning.contentView.bounds, to: nil)
+    let content = try XCTUnwrap(window.contentView)
+    let windowContent = content.convert(content.bounds, to: nil)
+    XCTAssertTrue(
+      viewport.insetBy(dx: -0.5, dy: -0.5).contains(lastInWindow),
+      "the last line of Planning is clipped at the end of the scroll view")
+    XCTAssertTrue(
+      windowContent.insetBy(dx: -0.5, dy: -0.5).contains(lastInWindow),
+      "the last line of Planning extends beyond the window's bottom edge")
     XCTAssertEqual(AppDependencies.missingReaders, [])
   }
 
-  /// Where a button of the window stands, in the window's coordinates, found through
-  /// accessibility: SwiftUI draws the blocks of Planning into its own hosting layer.
-  private static func frameInWindow(of title: String, in window: NSWindow) throws -> CGRect {
-    let button = try XCTUnwrap(
-      Self.button(titled: title, in: window), "the window has no «\(title)»")
-    let onScreen = try XCTUnwrap(button.accessibilityFrame?(), "«\(title)» has no frame")
-    let inWindow = window.convertFromScreen(onScreen)
-    XCTAssertGreaterThan(inWindow.height, 0, "«\(title)» was laid out with no height")
-    return inWindow
-  }
-
-  /// The scroll view of the Planning section: tall, and without a table in it — the list of
-  /// Overview and the sidebar are tables, the chips are a strip one row high.
-  private static func planningScroll(in window: NSWindow) -> NSScrollView? {
+  /// The page scroll view of Overview or Planning: tall and without a table in it. The
+  /// sidebar is a table; the chips are a strip one row high.
+  private static func pageScroll(in window: NSWindow) -> NSScrollView? {
     guard let frame = window.contentView?.superview ?? window.contentView else { return nil }
     var scrolls: [NSScrollView] = []
     allSubviews(of: frame, into: &scrolls)
