@@ -2809,6 +2809,40 @@
         }
       }
     },
+    "overview.freeMoney.before": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Before payments and the reserve"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До вычета платежей и резерва"
+          }
+        }
+      }
+    },
+    "overview.freeMoney.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What the accounts hold, not a budget to spend"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток на счетах, не бюджет для трат"
+          }
+        }
+      }
+    },
     "overview.goalsExceed": {
       "extractionState": "manual",
       "localizations": {
@@ -3697,6 +3731,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Последняя запись: вчера, %@"
+          }
+        }
+      }
+    },
+    "overview.limits.overCount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld of %lld over"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "превышен %lld из %lld"
+          }
+        }
+      }
+    },
+    "overview.limits.overTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — over the limit"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — лимит превышен"
+          }
+        }
+      }
+    },
+    "overview.month.higher": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending is %1$@ above %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расходы на %1$@ выше %2$@"
+          }
+        }
+      }
+    },
+    "overview.month.lower": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending is %1$@ below %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расходы на %1$@ ниже %2$@"
           }
         }
       }
@@ -4663,13 +4765,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free money"
+            "value": "Money on accounts"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Свободные средства"
+            "value": "Деньги на счетах"
           }
         }
       }
@@ -5556,6 +5658,110 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поездка"
+          }
+        }
+      }
+    },
+    "overview.upcoming.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld payment"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld payments"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld платежа"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld платежей"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld платёж"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld платежа"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overview.upcoming.more": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Also %1$@ · %2$@ in all"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё %1$@ · всего %2$@"
+          }
+        }
+      }
+    },
+    "overview.upcoming.moreOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Also %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё %@"
+          }
+        }
+      }
+    },
+    "overview.upcoming.moreSum": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ for %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ на %2$@"
           }
         }
       }

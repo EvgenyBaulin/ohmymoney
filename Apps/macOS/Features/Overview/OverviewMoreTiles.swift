@@ -370,12 +370,14 @@ enum OverviewPartHidden {
 
 // MARK: - The free sum
 
-/// «Свободные средства»: what can be spent now, what is left of it once the plans until the end
-/// of the month are taken away, and how much a day — the figures of the free sum of Planning,
-/// for the end of the month. The day D and the switches stay in Planning.
+/// «Деньги на счетах»: the money on the accounts of the summary before the payments and the
+/// reserve are taken off it — the first part of the free sum, the figure «Из чего складывается
+/// сумма» starts from. The free sum itself is the main card's; the day D and the switches stay
+/// in Planning.
 struct FreeMoneyCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Environment(\.themeSurfaces) private var surfaces
 
   var body: some View {
     ComputedBlock(
@@ -387,36 +389,23 @@ struct FreeMoneyCard: View {
       fillsHeight: true, emptyReason: t("free.noReconciliation"),
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
-      let free = snapshot.planning.configuredFreeMoney(ledger: snapshot.ledger)
-      let content = OverviewHero.content(
-        free: free, horizon: snapshot.planning.book.settings.freeMoneyHorizon, environment)
-      VStack(alignment: .leading, spacing: 4) {
-        Text(verbatim: content?.figure ?? environment.money.rounded(.zero))
-          .appFont(.title2.monospacedDigit())
-        Text(verbatim: content?.caption ?? t("free.now"))
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
+      let tile = MoneyOnAccountsTile.make(OverviewHeadline.configured(snapshot).free, environment)
+      VStack(alignment: .leading, spacing: StyleMetrics.tileGap) {
+        Text(verbatim: tile.subtitle)
+          .appFont(StyleType.tileRow)
+          .foregroundStyle(surfaces.secondary)
+        Text(verbatim: tile.figure)
+          .appFont(StyleType.mainFigure)
+          .foregroundStyle(surfaces.primary)
+          .lineLimit(1)
+          .minimumScaleFactor(0.7)
+        Text(verbatim: tile.hint)
+          .appFont(StyleType.tileHint)
+          .foregroundStyle(surfaces.secondary)
+          .fixedSize(horizontal: false, vertical: true)
         if OverviewPartHidden.shows(.freeMoney, covered: compute.snapshot?.coveredAccounts) {
           PartHiddenNote()
         }
-        let grey = free.grey ?? .zero
-        HStack(alignment: .firstTextBaseline, spacing: 8) {
-          Text(verbatim: t("free.grey"))
-            .fixedSize(horizontal: false, vertical: true)
-          if grey.isNegative {
-            Image(systemName: "exclamationmark.triangle")
-              .accessibilityLabel(Text(verbatim: t("free.overspent")))
-          }
-          Spacer(minLength: 8)
-          Text(verbatim: environment.money.rounded(grey))
-            .monospacedDigit()
-        }
-        .appFont(.callout)
-        .foregroundStyle(.secondary)
-        .accessibilityElement(children: .combine)
-        Text(verbatim: content?.lines.first ?? "")
-          .appFont(.caption.monospacedDigit())
-          .foregroundStyle(.secondary)
       }
     }
   }

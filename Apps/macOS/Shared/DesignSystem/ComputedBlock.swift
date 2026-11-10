@@ -26,6 +26,7 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
   @Dependency(\.environment) private var environment
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.cardStyle) private var cardStyle
+  @Environment(\.tileIsCompact) private var compact
 
   let title: String?
   let state: BlockState<Value>
@@ -67,13 +68,13 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
   }
 
   private var stack: some View {
-    VStack(alignment: .leading, spacing: cardStyle == .tile ? StyleMetrics.tileGap : 8) {
+    VStack(alignment: .leading, spacing: lineGap) {
       if title != nil || asOf != nil {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
           if let title {
             Text(verbatim: title)
-              .appFont(cardStyle == .tile ? StyleType.tileTitle : .caption)
-              .foregroundStyle(cardStyle == .tile ? surfaces.primary : surfaces.secondary)
+              .appFont(titleFont)
+              .foregroundStyle(titleInk)
               .accessibilityAddTraits(.isHeader)
           }
           if let asOf {
@@ -90,6 +91,23 @@ struct ComputedBlock<Value: Sendable, Content: View>: View {
     }
     .accessibilityElement(children: .contain)
     .accessibilityLabel(title.map { Text(verbatim: $0) } ?? Text(verbatim: ""))
+  }
+
+  /// A tile has 6 between its lines, a compact one 3; any other card 8.
+  private var lineGap: CGFloat {
+    guard cardStyle == .tile else { return 8 }
+    return compact ? StyleMetrics.compactTileGap : StyleMetrics.tileGap
+  }
+
+  /// The title of a tile is in the primary ink; of a compact tile and any other card, grey.
+  private var titleInk: Color {
+    cardStyle == .tile && !compact ? surfaces.primary : surfaces.secondary
+  }
+
+  /// A tile is titled in 15 semibold, a compact one in the grey 11 of its caption.
+  private var titleFont: AppFont {
+    guard cardStyle == .tile else { return .caption }
+    return compact ? StyleType.compactTitle : StyleType.tileTitle
   }
 
   @ViewBuilder
@@ -165,6 +183,8 @@ enum CardStyle: Hashable {
 extension EnvironmentValues {
   /// Set by a grid of tiles (Overview) for every card in it; every other card stays plain.
   @Entry var cardStyle: CardStyle = .plain
+  /// Set by a compact tile — one figure of a pair: its name and caption grey 11, 12 of margin.
+  @Entry var tileIsCompact = false
 }
 
 /// The card every block of content stands on: the secondary background, radius 12, 14 pt of
@@ -177,6 +197,7 @@ struct ContentCard: ViewModifier {
   @Environment(\.appTheme) private var theme
   @Environment(\.cardStyle) private var style
   @Environment(\.layoutIdiom) private var idiom
+  @Environment(\.tileIsCompact) private var compact
   let fillsHeight: Bool
 
   /// 12 pt on the Mac; the phone design rounds its cards to 22 and lifts them with a soft shadow.
@@ -228,7 +249,9 @@ struct ContentCard: ViewModifier {
       }
     content
       .frame(maxWidth: .infinity, maxHeight: fillsHeight ? .infinity : nil, alignment: .topLeading)
-      .padding(StyleMetrics.tilePadding)
+      .padding(
+        style == .tile && compact ? StyleMetrics.compactTilePadding : StyleMetrics.tilePadding
+      )
       .background(surfaces.card, in: shape)
       #if os(iOS)
         .shadow(

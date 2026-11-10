@@ -11,6 +11,7 @@ import SwiftUI
 struct FigureTileCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
+  @Environment(\.themeSurfaces) private var surfaces
   let tile: OverviewTile
   var compact = false
 
@@ -28,30 +29,33 @@ struct FigureTileCard: View {
       retry: { compute.retry(ComputeStep.data) }
     ) { snapshot in
       if let figure = result(snapshot, store).figure {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: compact ? StyleMetrics.compactTileGap : 4) {
           HStack(alignment: .firstTextBaseline, spacing: 6) {
-            if let symbol = figure.symbol {
+            // A compact tile is the figure alone, as a half of a pair is drawn; its caption
+            // says what a symbol would.
+            if !compact, let symbol = figure.symbol {
               Image(systemName: symbol)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(surfaces.secondary)
                 .accessibilityHidden(true)
             }
             Text(verbatim: figure.value)
-              .appFont(compact ? .title3.monospacedDigit() : .title2.monospacedDigit())
+              .appFont(compact ? StyleType.tileFigure : StyleType.mainFigure)
+              .foregroundStyle(surfaces.primary)
               .lineLimit(compact ? 2 : 1)
               .minimumScaleFactor(0.7)
           }
           if let caption = figure.caption {
             Text(verbatim: caption)
-              .appFont(.caption.monospacedDigit())
-              .foregroundStyle(.secondary)
+              .appFont(StyleType.tileHint.monospacedDigit())
+              .foregroundStyle(surfaces.secondary)
               .lineLimit(compact ? 2 : 3)
               .fixedSize(horizontal: false, vertical: true)
           }
           if !compact {
             ForEach(figure.details, id: \.self) { line in
               Text(verbatim: line)
-                .appFont(.caption.monospacedDigit())
-                .foregroundStyle(.secondary)
+                .appFont(StyleType.tileHint.monospacedDigit())
+                .foregroundStyle(surfaces.secondary)
                 .fixedSize(horizontal: false, vertical: true)
             }
           }
@@ -434,6 +438,7 @@ struct OverviewNewCardView: View {
     case .savingsRate: SavingsNormTileCard(compact: compact)
     case .financialHealth: FinancialHealthTileCard(compact: compact)
     case .subscriptions: SubscriptionsTileCard(compact: compact)
+    case .monthRest: MonthRestTileCard(compact: compact)
     default: FigureTileCard(tile: tile, compact: compact)
     }
   }
