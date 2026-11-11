@@ -70,7 +70,10 @@ final class TouchHistoryTests: XCTestCase {
       for idiom in [LayoutIdiom.phone, .pad] {
         let bar = TouchHistoryBar(store: store)
           .environment(\.layoutIdiom, idiom)
-          .appDependencies(.forTests(environment))
+          .appDependencies(
+            AppDependencies(
+              environment: environment, store: store,
+              compute: ComputeStore(calendar: .system, rebuildsInline: true)))
         let host = UIHostingController(rootView: bar)
         let size = host.sizeThatFits(in: CGSize(width: 288, height: 300))
         XCTAssertLessThanOrEqual(size.width, 288)
