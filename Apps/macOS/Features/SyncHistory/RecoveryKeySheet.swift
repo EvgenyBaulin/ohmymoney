@@ -179,6 +179,8 @@ struct SyncKeySection: View {
       Text(verbatim: t("recovery.key.hint")).foregroundStyle(.secondary)
     }
     .task { key = store.load() }
+    .onChange(of: environment.sync?.status) { _, _ in key = store.load() }
+    .disabled(environment.sync?.isUsingPayloadKey == true)
     .confirmationDialog(
       t("recovery.key.newTitle"), isPresented: $confirmsNew, titleVisibility: .visible
     ) {
@@ -193,6 +195,7 @@ struct SyncKeySection: View {
   }
 
   private func make(replacing: Bool) {
+    guard environment.sync?.isUsingPayloadKey != true else { return }
     do {
       let made: SyncKey
       if replacing {
@@ -206,6 +209,7 @@ struct SyncKeySection: View {
       failed = false
       showing = made
       AppLog.info("sync.keyMade", .db, "a sync key was made", [LogPair("new", .flag(replacing))])
+      if replacing { Task { await environment.sync?.retry() } }
     } catch {
       failed = true
       AppLog.warning(
@@ -214,6 +218,7 @@ struct SyncKeySection: View {
   }
 
   private func restore() {
+    guard environment.sync?.isUsingPayloadKey != true else { return }
     do {
       try store.recover(from: recoveryWords)
       key = store.load()

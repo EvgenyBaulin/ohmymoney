@@ -61,31 +61,30 @@ private struct ShareComposeView: View {
       finished = true
       return
     }
-    let providers = (context?.inputItems as? [NSExtensionItem] ?? []).flatMap {
-      $0.attachments ?? []
-    }
-    guard !providers.isEmpty else {
+    let inputs = context?.inputItems as? [NSExtensionItem] ?? []
+    guard !inputs.isEmpty else {
       status = "share.unsupported"
       finished = true
       return
     }
-    // Decode every provider before publishing any item. Each published file is durable even
-    // when the extension is terminated before the next one can be saved.
+    // Publish one item at a time to keep peak memory bounded to one photo or PDF. Each
+    // published file survives the extension being terminated before the next one is saved.
     var written: [URL] = []
     do {
-      let items = try await readAll(providers)
-      for item in items { written.append(try inbox.enqueue(item)) }
-      status = "share.saved"
+      for input in inputs {
+        if let text = try SharedItemProviderReader.fallbackText(in: input) {
+          written.append(try inbox.enqueue(text))
+        }
+        for provider in input.attachments ?? [] {
+          let item = try await SharedItemProviderReader.read(provider)
+          written.append(try inbox.enqueue(item))
+        }
+      }
+      status = written.isEmpty ? "share.unsupported" : "share.saved"
     } catch {
       status = written.isEmpty ? "share.failed" : "share.partial"
     }
     finished = true
   }
 
-  @MainActor
-  private func readAll(_ providers: [NSItemProvider]) async throws -> [SharedImportItem] {
-    var items: [SharedImportItem] = []
-    for provider in providers { items.append(try await SharedItemProviderReader.read(provider)) }
-    return items
-  }
 }

@@ -53,11 +53,13 @@ final class SyncEncryptionTests: XCTestCase {
     XCTAssertEqual(store.load(), key)
   }
 
-  func testWritesCreateAndKeepOneRecoveryKey() throws {
+  func testWritingWaitsForTheRecoveryKeyAndNeverInventsOneForAnotherDevice() throws {
     let store = InMemorySyncKeyStore()
     let writer = RecoveryPayloadCodec(store: store, purpose: .journal)
+    XCTAssertThrowsError(try writer.encode(Data("{}".utf8)))
+    XCTAssertNil(store.load(), "joining a folder must not silently create a different key")
+    let saved = try store.keyCreatingIfNeeded().key
     let first = try writer.encode(Data("{}".utf8))
-    let saved = try XCTUnwrap(store.load())
     _ = try writer.encode(Data("{}".utf8))
     XCTAssertEqual(store.load(), saved)
     XCTAssertEqual(saved.recoveryWords.count, 24)

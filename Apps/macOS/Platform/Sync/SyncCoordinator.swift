@@ -61,6 +61,11 @@ final class SyncCoordinator {
   /// Whether this database exchanges at all.
   var isAvailable: Bool { exchange != nil }
   var hasFolder: Bool { bookmarks.isStored }
+  /// A recovery-key change must wait until all files of the current exchange are finished.
+  var isUsingPayloadKey: Bool {
+    if case .loading = bootstrap { return true }
+    return isRunning
+  }
 
   // MARK: Folder
 
@@ -256,7 +261,11 @@ final class SyncCoordinator {
       }
       lastOutcome = outcome
       conflicts = (try? exchange.conflicts()) ?? conflicts
-      status = .synced(at: Date())
+      if outcome.filesDamaged > 0 || outcome.filesFromNewerVersion > 0 {
+        fail(.filesNotReadable)
+      } else {
+        status = .synced(at: Date())
+      }
       if conflicts.count > before { announceConflicts() }
     case .failure(let error):
       fail((error as? SyncFailure) ?? .database, error: error)

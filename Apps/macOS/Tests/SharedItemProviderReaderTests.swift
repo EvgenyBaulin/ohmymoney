@@ -37,4 +37,17 @@ final class SharedItemProviderReaderTests: XCTestCase {
       XCTAssertEqual(error as? SharedImportItem.Failure, .invalid)
     }
   }
+
+  func testSelectedTextWithoutAnAttachmentIsAcceptedOnce() throws {
+    let item = NSExtensionItem()
+    let text = "Покупка 450 ₽. Карта *7788"
+    item.attributedContentText = NSAttributedString(string: text)
+    XCTAssertEqual(try SharedItemProviderReader.fallbackText(in: item)?.text, text)
+    item.attachments = [provider(.utf8PlainText, data: Data(text.utf8))]
+    XCTAssertNil(
+      try SharedItemProviderReader.fallbackText(in: item), "do not import the same SMS twice")
+    item.attachments = nil
+    item.attributedContentText = nil
+    XCTAssertNil(try SharedItemProviderReader.fallbackText(in: item))
+  }
 }

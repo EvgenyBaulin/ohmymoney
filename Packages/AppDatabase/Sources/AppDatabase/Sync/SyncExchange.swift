@@ -10,6 +10,8 @@ public enum SyncFailure: Error, Sendable, Equatable {
   case folderMissing
   case folderNotReadable
   case folderNotWritable
+  /// A journal cannot be decoded or authenticated. It remains in the folder for retry.
+  case filesNotReadable
   /// The local database refused. The books are as they were.
   case database
 
@@ -18,6 +20,7 @@ public enum SyncFailure: Error, Sendable, Equatable {
     case .folderMissing: "folder-missing"
     case .folderNotReadable: "folder-unreadable"
     case .folderNotWritable: "folder-readonly"
+    case .filesNotReadable: "files-unreadable"
     case .database: "database"
     }
   }
@@ -329,6 +332,7 @@ public final class SyncExchange: Sendable {
 
   private static func failure(of error: any Error, watched: WatchedFolder) -> SyncFailure {
     if let failure = error as? SyncFailure { return failure }
+    if let error = error as? SyncError, error == .codec { return .filesNotReadable }
     if let folderError = watched.firstError ?? (error as? SyncFolderError) {
       switch folderError as? SyncFolderError {
       case .missing: return .folderMissing

@@ -71,6 +71,25 @@ final class SyncWiringTests: XCTestCase {
     XCTAssertEqual(sync.language === environment.language, true)
   }
 
+  func testAnEncryptedFileWithoutTheRecoveryKeyNeverSaysSynced() async throws {
+    let stack = try makeStack()
+    let sync = try XCTUnwrap(wired(real: true, stack: stack).sync)
+    let foreignKey = SyncKey(bytes: Array(repeating: 42, count: 32))!
+    let foreign = RecoveryPayloadCodec(store: InMemorySyncKeyStore(foreignKey), purpose: .journal)
+    let journal = JournalFile(
+      deviceId: "foreign", deviceName: "Synthetic", sequence: 0, entries: [])
+    let bytes = try JournalCoder.encode(journal, codec: foreign)
+    let path = try XCTUnwrap(folder).appendingPathComponent(
+      SyncFormat.fileName(deviceId: "foreign", sequence: 0))
+    try bytes.write(to: path)
+    XCTAssertEqual(sync.choose(folder: folder, thenSync: false), .accepted)
+    await sync.syncNow()
+    XCTAssertEqual(sync.lastOutcome?.filesDamaged, 1)
+    XCTAssertEqual(sync.status, .failed(.filesNotReadable))
+    XCTAssertTrue(sync.status.offersRetry)
+    await sync.stop()
+  }
+
   func testTheDeviceKeepsOneIdentityInTheSettingsOfThisDevice() throws {
     let first = SyncWiring.deviceId(in: defaults)
     XCTAssertTrue(SyncDevice.isValid(id: first))

@@ -16,6 +16,21 @@ private struct MarkedCodec: PayloadCodec {
 
 @Suite("The database exchange uses the supplied journal and snapshot codecs")
 struct SyncCodecIntegrationTests {
+  @Test func encryptionFailureKeepsTheOutboxAndWritesNoFile() throws {
+    struct MissingKey: PayloadCodec {
+      func encode(_ plain: Data) throws -> Data { throw SyncError.codec }
+      func decode(_ stored: Data) throws -> Data { throw SyncError.codec }
+    }
+    let device = try TestDevice("mac", journalCodec: MissingKey())
+    try device.insertOperation("t1", note: "synthetic")
+    let pending = try device.outboxCount()
+    #expect(pending > 0)
+    let folder = InMemoryFolder()
+    #expect(throws: SyncError.codec) { try device.exchange.flush(to: folder) }
+    #expect(try device.outboxCount() == pending)
+    #expect(try folder.listNames().isEmpty)
+  }
+
   @Test func journalEncodingAndDecodingUseTheCodec() throws {
     let codec = MarkedCodec(marker: Data("synthetic-journal".utf8))
     let mac = try TestDevice("mac", journalCodec: codec)

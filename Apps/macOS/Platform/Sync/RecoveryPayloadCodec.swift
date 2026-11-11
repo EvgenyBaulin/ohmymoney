@@ -9,7 +9,9 @@ struct RecoveryPayloadCodec: PayloadCodec {
   let purpose: SyncKey.Purpose
 
   func encode(_ plain: Data) throws -> Data {
-    let key = try store.keyCreatingIfNeeded().key
+    // The first device makes the key explicitly; a joining device enters its recovery words.
+    // Inventing a new key here would publish unreadable files into an existing shared folder.
+    guard let key = try store.read() else { throw SyncError.codec }
     return try sealed(key).encode(plain)
   }
 

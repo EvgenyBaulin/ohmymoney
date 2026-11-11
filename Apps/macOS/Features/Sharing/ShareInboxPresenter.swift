@@ -9,11 +9,14 @@ extension View {
 
 /// One shared file at a time, after unlock and startup. A file stays in the inbox until the
 /// owner closes its sheet; a crash or a lock leaves it available on the next launch.
+@MainActor
 private struct ShareInboxPresenter: ViewModifier {
   let deps: AppDependencies
   @Environment(\.scenePhase) private var phase
   @State private var request: Request?
   @State private var offeredFile: URL?
+  @State private var shouldConsume = true
+  private let session = ShareInboxSession.shared
 
   private struct Request: Identifiable {
     let id: URL
@@ -25,16 +28,22 @@ private struct ShareInboxPresenter: ViewModifier {
       && deps.environment.state == .ready && deps.compute.wholeSnapshot != nil
       && deps.environment.receiptRequest == nil && deps.environment.statementImportRequest == nil
       && AppPaths.dataSet == nil && !AppEnvironment.isTestHost && offeredFile == nil
+      && session.file == nil
   }
 
   func body(content: Content) -> some View {
     content
       .task(id: canPresent) {
         guard canPresent, let inbox = ShareInbox.configured(),
-          let file = try? inbox.pending().first
+          let file = try? session.claimNext(in: inbox)
         else { return }
         offeredFile = file
-        request = Request(id: file, item: try? inbox.read(file))
+        let item = try? inbox.read(file)
+        shouldConsume = item != nil
+        request = Request(id: file, item: item)
+      }
+      .onDisappear {
+        if let file = offeredFile { session.release(file) }
       }
       .sheet(item: deps.environment.lock.presenting($request), onDismiss: acknowledge) { request in
         if let item = request.item {
@@ -55,10 +64,23 @@ private struct ShareInboxPresenter: ViewModifier {
   private func acknowledge() {
     // Closing sheets for the lock is not an acknowledgement by the owner.
     guard !deps.environment.lock.isCovered else {
+      request = nil
+      if let file = offeredFile { session.release(file) }
       offeredFile = nil
       return
     }
-    if let file = offeredFile { try? ShareInbox.configured()?.acknowledge(file) }
+    if let file = offeredFile {
+      if shouldConsume, let inbox = ShareInbox.configured() {
+        do {
+          try inbox.acknowledge(file)
+          session.release(file)
+        } catch {
+          session.postpone(file)
+        }
+      } else {
+        session.postpone(file)
+      }
+    }
     offeredFile = nil
   }
 }
