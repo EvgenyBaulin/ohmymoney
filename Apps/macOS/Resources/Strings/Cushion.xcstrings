@@ -16,6 +16,12 @@
             "value": "%1$@ of %2$@ mo."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ / %2$@ ай"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -37,6 +43,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Not less than today's obligatory payments: %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бүгінгі міндетті төлемдерден кем емес: %@"
           }
         },
         "ru": {
@@ -62,6 +74,12 @@
             "value": "Full months so far: %lld."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы уақытқа дейін толық айлар: %lld."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -83,6 +101,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Goal — %1$@ (%2$@): put aside %3$@ a month until %4$@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мақсат — %1$@ (%2$@): %3$@ дейін ай сайын %4$@ бөліп қою керек"
           }
         },
         "ru": {
@@ -108,6 +132,12 @@
             "value": "Complete by"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аяқтау мерзімі"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -130,6 +160,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Month"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ай"
           }
         },
         "ru": {
@@ -185,6 +221,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld айға жастық"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld айға жастық"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -232,6 +286,12 @@
             "value": "No goal yet: say how many months the cushion should cover."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мақсат әлі жоқ: жастық неше айға жетуі керектігін айтыңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -254,6 +314,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Goal…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мақсат…"
           }
         },
         "ru": {
@@ -285,6 +351,12 @@
             "value": "at the present pace — by %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "қазіргі қарқынмен — %@ дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -306,6 +378,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "at the present pace it is never reached"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "қазіргі қарқынмен оған ешқашан жетпейді"
           }
         },
         "ru": {
@@ -331,6 +409,12 @@
             "value": "Goal — %1$@ (%2$@): %3$@ a month gets there in a year"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мақсат — %1$@ (%2$@): айына %3$@ салсаңыз, бір жылда жетеді"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -352,6 +436,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Goal — %1$@ (%2$@): reached"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мақсат — %1$@ (%2$@): орындалды"
           }
         },
         "ru": {
@@ -377,6 +467,12 @@
             "value": "Remove the goal"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мақсатты жою"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -398,6 +494,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Goal of the cushion"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жастық мақсаты"
           }
         },
         "ru": {
@@ -442,6 +544,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Without income you would last %lld months"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Табыссыз %lld айға жетер едіңіз"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Табыссыз %lld айға жетер едіңіз"
                 }
               }
             }
@@ -494,6 +614,12 @@
             "value": "Without income you would last %@ months"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Табыссыз %@ айға жетер едіңіз"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -516,6 +642,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "January"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қаңтар"
           }
         },
         "ru": {
@@ -548,6 +680,12 @@
             "value": "October"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қазан"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -576,6 +714,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "November"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қараша"
           }
         },
         "ru": {
@@ -608,6 +752,12 @@
             "value": "December"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Желтоқсан"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -636,6 +786,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "February"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ақпан"
           }
         },
         "ru": {
@@ -668,6 +824,12 @@
             "value": "March"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наурыз"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -696,6 +858,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "April"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сәуір"
           }
         },
         "ru": {
@@ -728,6 +896,12 @@
             "value": "May"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мамыр"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -756,6 +930,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "June"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маусым"
           }
         },
         "ru": {
@@ -788,6 +968,12 @@
             "value": "July"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шілде"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -816,6 +1002,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "August"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тамыз"
           }
         },
         "ru": {
@@ -848,6 +1040,12 @@
             "value": "September"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қыркүйек"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -876,6 +1074,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "January"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қаңтарға дейін"
           }
         },
         "ru": {
@@ -908,6 +1112,12 @@
             "value": "October"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қазанға дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -936,6 +1146,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "November"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қарашаға дейін"
           }
         },
         "ru": {
@@ -968,6 +1184,12 @@
             "value": "December"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Желтоқсанға дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -996,6 +1218,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "February"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ақпанға дейін"
           }
         },
         "ru": {
@@ -1028,6 +1256,12 @@
             "value": "March"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наурызға дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1056,6 +1290,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "April"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сәуірге дейін"
           }
         },
         "ru": {
@@ -1088,6 +1328,12 @@
             "value": "May"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мамырға дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1116,6 +1362,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "June"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маусымға дейін"
           }
         },
         "ru": {
@@ -1148,6 +1400,12 @@
             "value": "July"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шілдеге дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1178,6 +1436,12 @@
             "value": "August"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тамызға дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1206,6 +1470,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "September"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қыркүйекке дейін"
           }
         },
         "ru": {
@@ -1261,6 +1531,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ай"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ай"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1308,6 +1596,12 @@
             "value": "Mark the accounts of the cushion, and this will show how many months it lasts without income."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жастық есеп-шоттарын белгілеңіз — сонда ол табыссыз неше айға жететіні көрсетіледі."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1329,6 +1623,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Not enough data: the obligatory spending needs 3 full months."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деректер жеткіліксіз: міндетті шығысқа 3 толық ай керек."
           }
         },
         "ru": {
@@ -1353,6 +1653,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Debts"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Берешектер"
           }
         },
         "ru": {
@@ -1384,6 +1690,12 @@
             "value": "Essential categories"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маңызды санаттар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1406,6 +1718,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Payments and subscriptions"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Төлемдер мен жазылымдар"
           }
         },
         "ru": {
@@ -1438,6 +1756,12 @@
             "value": "Safety cushion"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қаржылық жастық"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1467,6 +1791,12 @@
             "value": "Safety cushion: not enough data yet"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қаржылық жастық: деректер әлі жеткіліксіз"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1488,6 +1818,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Safety cushion: no account marked yet"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қаржылық жастық: әлі есеп-шот белгіленбеген"
           }
         },
         "ru": {
@@ -1513,6 +1849,12 @@
             "value": "Open Capital"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Капиталды ашу"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1534,6 +1876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Safety cushion: %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қаржылық жастық: %@"
           }
         },
         "ru": {
@@ -1559,6 +1907,12 @@
             "value": "Accounts of the cushion"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жастық есеп-шоттары"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1580,6 +1934,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The money of these accounts, every currency of it, is the cushion."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы есеп-шоттардың ақшасы, барлық валютасымен, жастық болып саналады."
           }
         },
         "ru": {
@@ -1604,6 +1964,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Essential spending"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маңызды шығыс"
           }
         },
         "ru": {
@@ -1635,6 +2001,12 @@
             "value": "Spending that cannot stop. With the payments, subscriptions and debts it makes the obligatory spending of a month."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тоқтатуға болмайтын шығыс. Төлемдермен, жазылымдармен және берешектермен бірге ол айдың міндетті шығысын құрайды."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1656,6 +2028,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No accounts yet."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есеп-шоттар әлі жоқ."
           }
         },
         "ru": {
@@ -1681,6 +2059,12 @@
             "value": "No expense categories of your own."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өз шығыс санаттарыңыз жоқ."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1704,6 +2088,12 @@
             "value": "Accounts and categories…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есеп-шоттар мен санаттар…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1725,6 +2115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The usual essential categories are ticked: check them and save."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әдеттегі маңызды санаттар белгіленді: тексеріп, сақтаңыз."
           }
         },
         "ru": {

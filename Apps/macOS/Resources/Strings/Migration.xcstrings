@@ -17,6 +17,12 @@
             "value": "Don't move"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жылжытпау"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account not named in the file"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлда есеп-шот аталмаған"
           }
         },
         "ru": {
@@ -77,6 +89,12 @@
             "value": "Accounts"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есеп-шоттар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -105,6 +123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Where the operations of each account of the other app go. «Don't move» leaves them out. Hidden accounts are offered only while they are shown."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқа қолданбаның әр есеп-шотының операциялары қайда барады. «Жылжытпау» оларды шығарып тастайды. Жасырын есеп-шоттар тек көрсетіліп тұрғанда ғана ұсынылады."
           }
         },
         "ru": {
@@ -137,6 +161,12 @@
             "value": "Another File…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқа файл…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -167,6 +197,12 @@
             "value": "Move In"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көшіріп алу"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -195,6 +231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categories"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санаттар"
           }
         },
         "ru": {
@@ -246,6 +288,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Create %lld missing categories"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Жетіспейтін %lld санатты жасау"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Жетіспейтін %lld санатты жасау"
                 }
               }
             }
@@ -329,6 +389,12 @@
             "value": "Paired by name and meaning («Eating out» → «Cafes»). A new category is made only where you choose «Create»."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Атауы мен мағынасы бойынша сәйкестендіріледі («Кафеде тамақтану» → «Кафелер»). Жаңа санат тек «Жасау» таңдалған жерде жасалады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -357,6 +423,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The file has no categories: everything goes to «Unsorted»."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлда санаттар жоқ: бәрі «Сұрыпталмағанға» түседі."
           }
         },
         "ru": {
@@ -389,6 +461,12 @@
             "value": "Create «%@»"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» жасау"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -417,6 +495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Unsorted"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сұрыпталмаған"
           }
         },
         "ru": {
@@ -449,6 +533,12 @@
             "value": "Choose File…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлды таңдау…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -477,6 +567,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Done"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дайын"
           }
         },
         "ru": {
@@ -509,6 +605,12 @@
             "value": "What each column holds. Your choice is remembered for the next file with the same columns."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әр бағанда не бар. Таңдауыңыз бірдей бағандары бар келесі файлға есте қалады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -537,6 +639,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose the date column and the amount (or the income and expense columns)."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күн бағанын және соманы (немесе табыс пен шығыс бағандарын) таңдаңыз."
           }
         },
         "ru": {
@@ -569,6 +677,12 @@
             "value": "Operations read: %lld · lines not read: %lld"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оқылған операциялар: %lld · оқылмаған жолдар: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -597,6 +711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dates like 03/04"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "03/04 түріндегі күндер"
           }
         },
         "ru": {
@@ -629,6 +749,12 @@
             "value": "day, then month"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "күн, сосын ай"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -657,6 +783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "month, then day"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ай, сосын күн"
           }
         },
         "ru": {
@@ -689,6 +821,12 @@
             "value": "already there"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бұрыннан бар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -717,6 +855,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "typed by hand?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "қолмен теріле ме?"
           }
         },
         "ru": {
@@ -749,6 +893,12 @@
             "value": "nearest rate"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ең жақын бағам"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -779,6 +929,12 @@
             "value": "new"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "жаңа"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -807,6 +963,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "no rate"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бағам жоқ"
           }
         },
         "ru": {
@@ -858,6 +1020,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld new categories made"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жаңа санат жасалды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жаңа санат жасалды"
                 }
               }
             }
@@ -965,6 +1145,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция көшіріліп алынды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция көшіріліп алынды"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1043,6 +1241,12 @@
             "value": "Edit → Undo (⌘Z) takes the whole move back. The copy of the database made before it is among the backups."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өңдеу → Болдырмау (⌘Z) бүкіл көшіруді қайтарады. Оның алдында жасалған дерекқор көшірмесі резервтік көшірмелердің ішінде."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1071,6 +1275,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Undo” takes the whole move back. The copy of the database made before it is among the backups."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Болдырмау» бүкіл көшіруді қайтарады. Оның алдында жасалған дерекқор көшірмесі резервтік көшірмелердің ішінде."
           }
         },
         "ru": {
@@ -1103,6 +1313,12 @@
             "value": "CSV or Excel (.xlsx) from CoinKeeper, Zenmoney, Money Manager, or any table with a date and an amount. A Numbers table: export it to CSV or Excel first."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager немесе күні мен сомасы бар кез келген кестеден CSV немесе Excel (.xlsx). Numbers кестесі болса: алдымен оны CSV немесе Excel ретінде экспорттаңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1131,6 +1347,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose an export file"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспорт файлын таңдаңыз"
           }
         },
         "ru": {
@@ -1163,6 +1385,12 @@
             "value": "Not moved in, nothing was written. The journal says why."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көшіріп алынбады, ештеңе жазылмады. Себебі журналда."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1191,6 +1419,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This is a Numbers document, and its format is closed. In Numbers choose File → Export To → CSV or Excel, then choose that file here."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл Numbers құжаты, оның пішімі жабық. Numbers-те «Файл → Экспорттау → CSV немесе Excel» таңдап, сол файлды осы жерде таңдаңыз."
           }
         },
         "ru": {
@@ -1223,6 +1457,12 @@
             "value": "The file does not read as a table with column names. Export it as CSV or .xlsx."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл бағандар аттары бар кесте ретінде оқылмайды. CSV немесе .xlsx ретінде экспорттаңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1251,6 +1491,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This is an Excel file older than 2007 (.xls). Save it again as .xlsx or CSV and choose it here."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл 2007-ден ерте Excel файлы (.xls). Оны .xlsx немесе CSV ретінде қайта сақтап, осында таңдаңыз."
           }
         },
         "ru": {
@@ -1283,6 +1529,12 @@
             "value": "Expense"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шығыс"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1311,6 +1563,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Табыс"
           }
         },
         "ru": {
@@ -1343,6 +1601,12 @@
             "value": "The file is in windows-1251 and was read as such."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл windows-1251 кодтауында, солай оқылды."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1371,6 +1635,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move In from Another App…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқа қолданбадан көшіріп алу…"
           }
         },
         "ru": {
@@ -1403,6 +1673,12 @@
             "value": "Next"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Келесі"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1431,6 +1707,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A copy of the database is made before the move."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көшірме алдында дерекқордың көшірмесі жасалады."
           }
         },
         "ru": {
@@ -1482,6 +1764,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld are already in the books — skipped"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld кітапта бұрыннан бар — өткізілді"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld кітапта бұрыннан бар — өткізілді"
                 }
               }
             }
@@ -1565,6 +1865,12 @@
             "value": "Asking the Bank of Russia for the rates of those days…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сол күндердің бағамдарын Ресей Банкінен сұрап жатыр…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1614,6 +1920,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld look like operations typed by hand — left out"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld қолмен терілген операцияға ұқсайды — шығарылды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld қолмен терілген операцияға ұқсайды — шығарылды"
                 }
               }
             }
@@ -1697,6 +2021,12 @@
             "value": "Move these in too"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұларды да көшіру"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1746,6 +2076,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "and %lld more"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "және тағы %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "және тағы %lld"
                 }
               }
             }
@@ -1853,6 +2201,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ең жақын қолда бар бағаммен, уақытша деп белгіленді — күннің бағамы келгенде нақтыланады"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ең жақын қолда бар бағаммен, уақытша деп белгіленді — күннің бағамы келгенде нақтыланады"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1931,6 +2297,12 @@
             "value": "From %1$@ to %2$@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ бастап %2$@ дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1980,6 +2352,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld in a currency with no rate on hand at all — not moved"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Қолда мүлде бағамы жоқ валютада %lld — көшірілмеді"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Қолда мүлде бағамы жоқ валютада %lld — көшірілмеді"
                 }
               }
             }
@@ -2087,6 +2477,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция көшіріліп алынады"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция көшіріліп алынады"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2184,6 +2592,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transfers between the app's own accounts — not moved"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Қолданбаның өз есеп-шоттары арасындағы %lld аударым — көшірілмеді"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Қолданбаның өз есеп-шоттары арасындағы %lld аударым — көшірілмеді"
                 }
               }
             }
@@ -2291,6 +2717,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол оқылмады"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол оқылмады"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2369,6 +2813,12 @@
             "value": "Reading the file…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлды оқып жатыр…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2397,6 +2847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есеп-шот"
           }
         },
         "ru": {
@@ -2429,6 +2885,12 @@
             "value": "Amount (signed)"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сома (таңбасымен)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2457,6 +2919,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Category"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санат"
           }
         },
         "ru": {
@@ -2489,6 +2957,12 @@
             "value": "Comment"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пікір"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2517,6 +2991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Currency"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
           }
         },
         "ru": {
@@ -2549,6 +3029,12 @@
             "value": "Date"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күні"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2577,6 +3063,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Description"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сипаттама"
           }
         },
         "ru": {
@@ -2609,6 +3101,12 @@
             "value": "Expense"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шығыс"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2637,6 +3135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "From"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайдан"
           }
         },
         "ru": {
@@ -2669,6 +3173,12 @@
             "value": "Income"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Табыс"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2697,6 +3207,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account of the income"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Табыс есеп-шоты"
           }
         },
         "ru": {
@@ -2729,6 +3245,12 @@
             "value": "Currency of the income"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Табыс валютасы"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2757,6 +3279,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Type (expense, income, transfer)"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түрі (шығыс, табыс, аударым)"
           }
         },
         "ru": {
@@ -2789,6 +3317,12 @@
             "value": "Not read"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оқылмайды"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2817,6 +3351,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Payee or shop"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Алушы немесе дүкен"
           }
         },
         "ru": {
@@ -2849,6 +3389,12 @@
             "value": "Subcategory"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ішкі санат"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2877,6 +3423,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "To"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайда"
           }
         },
         "ru": {
@@ -2909,6 +3461,12 @@
             "value": "Move In from Another App…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқа қолданбадан көшіріп алу…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2937,6 +3495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Looks like a CoinKeeper export"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper экспорты сияқты"
           }
         },
         "ru": {
@@ -2969,6 +3533,12 @@
             "value": "Looks like a Money Manager export"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money Manager экспорты сияқты"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2997,6 +3567,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A table"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кесте"
           }
         },
         "ru": {
@@ -3029,6 +3605,12 @@
             "value": "Looks like a Zenmoney export"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zenmoney экспорты сияқты"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3057,6 +3639,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Columns"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бағандар"
           }
         },
         "ru": {
@@ -3089,6 +3677,12 @@
             "value": "Accounts and categories"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есеп-шоттар мен санаттар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3117,6 +3711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Preview"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Алдын ала көрініс"
           }
         },
         "ru": {
@@ -3149,6 +3749,12 @@
             "value": "A table exported from CoinKeeper, Zenmoney, Money Manager, Excel or Numbers. Nothing is written before «Move In»; a copy of the database is made first, and ⌘Z takes the whole move back."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager, Excel немесе Numbers-тен экспортталған кесте. «Көшіріп алу» басылғанға дейін ештеңе жазылмайды; алдымен дерекқордың көшірмесі жасалады, ал ⌘Z бүкіл көшіруді қайтарады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3177,6 +3783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A table exported from CoinKeeper, Zenmoney, Money Manager, Excel or Numbers. Nothing is written before «Move In»; a copy of the database is made first, and “Undo” takes the whole move back."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager, Excel немесе Numbers-тен экспортталған кесте. «Көшіріп алу» басылғанға дейін ештеңе жазылмайды; алдымен дерекқордың көшірмесі жасалады, ал «Болдырмау» бүкіл көшіруді қайтарады."
           }
         },
         "ru": {
@@ -3228,6 +3840,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations to move in"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Көшіріп алынатын %lld операция"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Көшіріп алынатын %lld операция"
                 }
               }
             }
@@ -3309,6 +3939,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move in from another app"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқа қолданбадан көшіріп алу"
           }
         },
         "ru": {

@@ -17,6 +17,12 @@
             "value": "Account"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есеп-шот"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose an account"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есеп-шотты таңдаңыз"
           }
         },
         "ru": {
@@ -76,6 +88,12 @@
             "value": "Choose the account this statement belongs to — the lines are compared with what it already holds."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл үзінді қай есеп-шотқа тиесілі екенін таңдаңыз — жолдар онда бар нәрсемен салыстырылады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -97,6 +115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a file…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл қосу…"
           }
         },
         "ru": {
@@ -122,6 +146,12 @@
             "value": "File under"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қай санатқа"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -143,6 +173,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Decide later"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кейін шешу"
           }
         },
         "ru": {
@@ -167,6 +203,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remember"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есте сақтау"
           }
         },
         "ru": {
@@ -199,6 +241,12 @@
             "value": "Write"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазу"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -228,6 +276,12 @@
             "value": "Difference between statement totals and its lines: income %@, expenses %@. The statement is still written as it is."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінді жиындары мен оның жолдарының айырмасы: табыс %@, шығыс %@. Үзінді әлі бұрынғыдай жазылады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -249,6 +303,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The statement totals could not be read. The operations can still be written."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінді жиындарын оқу мүмкін болмады. Операцияларды әлі жазуға болады."
           }
         },
         "ru": {
@@ -274,6 +334,12 @@
             "value": "The totals at the foot do not match"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Астындағы жиындар сәйкес келмейді"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -295,6 +361,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose files…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлдарды таңдау…"
           }
         },
         "ru": {
@@ -319,6 +391,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Close"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жабу"
           }
         },
         "ru": {
@@ -369,6 +447,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld change something"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld өзгертеді"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld өзгертеді"
                 }
               }
             }
@@ -445,6 +541,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld банк қабылдамады"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld банк қабылдамады"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -511,6 +625,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld already there"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld бұрыннан бар"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld бұрыннан бар"
                 }
               }
             }
@@ -587,6 +719,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жаңа"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жаңа"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -653,6 +803,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld not read"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld оқылмады"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld оқылмады"
                 }
               }
             }
@@ -729,6 +897,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жаңа операция"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жаңа операция"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -795,6 +981,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld lines skipped, already there"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол өткізілді, бұрыннан бар"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол өткізілді, бұрыннан бар"
                 }
               }
             }
@@ -871,6 +1075,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Банктен сіздің %lld жазбаңыз толықтырылды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Банктен сіздің %lld жазбаңыз толықтырылды"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -942,6 +1164,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ереже есте сақталды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ереже есте сақталды"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -988,6 +1228,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Written"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылды"
           }
         },
         "ru": {
@@ -1043,6 +1289,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Сіздің есеп-шоттарыңыз арасында %lld аударым"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Сіздің есеп-шоттарыңыз арасында %lld аударым"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1090,6 +1354,12 @@
             "value": "Take this loading back"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл жүктеуді қайтару"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1113,6 +1383,12 @@
             "value": "Operations nobody has edited since go to the bin. Transfers between your accounts and entries of yours that the bank completed stay; delete a transfer in «Operations»."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ешкім өңдемеген операциялар себетке өтеді. Сіздің есеп-шоттарыңыз арасындағы аударымдар мен банк толықтырған жазбаларыңыз қалады; аударымды «Операциялар» ішінде жойыңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1134,6 +1410,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Taken back"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарылды"
           }
         },
         "ru": {
@@ -1178,6 +1460,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations wait in «Unsorted»"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция «Сұрыпталмағанда» күтуде"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция «Сұрыпталмағанда» күтуде"
                 }
               }
             }
@@ -1254,6 +1554,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ұсталып тұрған %lld жол енді жазылды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ұсталып тұрған %lld жол енді жазылды"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1325,6 +1643,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол валютасының бағамын күтуде"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол валюталарының бағамдарын күтуде"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1372,6 +1708,12 @@
             "value": "CSV from VTB or Raiffeisen, or a PDF certificate from T-Bank with its text. You can also drop the files on this window."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VTB немесе Raiffeisen-нен CSV, не T-Bank-тен мәтіні бар PDF анықтама. Файлдарды осы терезеге сүйреуге де болады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1393,6 +1735,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose a statement"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзіндіні таңдаңыз"
           }
         },
         "ru": {
@@ -1418,6 +1766,12 @@
             "value": "Nothing was written."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ештеңе жазылмады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1440,6 +1794,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "File"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл"
           }
         },
         "ru": {
@@ -1472,6 +1832,12 @@
             "value": "All"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлығы"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1501,6 +1867,12 @@
             "value": "Changes"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өзгерістер"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1522,6 +1894,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Already there"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұрыннан бар"
           }
         },
         "ru": {
@@ -1546,6 +1924,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көрсету"
           }
         },
         "ru": {
@@ -1577,6 +1961,12 @@
             "value": "New"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жаңа"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1599,6 +1989,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Not read"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оқылмады"
           }
         },
         "ru": {
@@ -1630,6 +2026,12 @@
             "value": "Format: %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пішім: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1651,6 +2053,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "new %lld, already there %lld"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "жаңа %lld, бұрыннан бар %lld"
           }
         },
         "ru": {
@@ -1676,6 +2084,12 @@
             "value": "No statement has been loaded yet."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әлі бірде-бір үзінді жүктелмеген."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1697,6 +2111,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The loading could not be taken back."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жүктеуді қайтару мүмкін болмады."
           }
         },
         "ru": {
@@ -1722,6 +2142,12 @@
             "value": "Take back…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтару…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1743,6 +2169,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operations nobody has edited since go to the bin. The ones you edited stay and are yours, and so do transfers between your accounts."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ешкім өңдемеген операциялар себетке өтеді. Сіз өңдегендері қалады және сіздікі болып қалады, сол сияқты сіздің есеп-шоттарыңыз арасындағы аударымдар да."
           }
         },
         "ru": {
@@ -1768,6 +2200,12 @@
             "value": "Take this loading back?"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл жүктеу қайтарылсын ба?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1789,6 +2227,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Taken back"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарылды"
           }
         },
         "ru": {
@@ -1814,6 +2258,12 @@
             "value": "A statement"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінді"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1835,6 +2285,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "One value per line. This stays in the database and the transfer archive; it is not in the CSV export or in a report about a problem."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әр жолда бір мән. Бұл дерекқорда және аударым мұрағатында сақталады; CSV экспортында немесе мәселе туралы есепте жоқ."
           }
         },
         "ru": {
@@ -1860,6 +2316,12 @@
             "value": "Cards"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карталар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1881,6 +2343,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Masked, as in statements: 2200 70** **** 1234."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзіндідегідей жасырылған: 2200 70** **** 1234."
           }
         },
         "ru": {
@@ -1906,6 +2374,12 @@
             "value": "Contracts and accounts"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Келісімшарттар мен есеп-шоттар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1927,6 +2401,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The numbers of your own contracts at other banks."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқа банктердегі өз келісімшарттарыңыздың нөмірлері."
           }
         },
         "ru": {
@@ -1952,6 +2432,12 @@
             "value": "The data could not be saved."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деректерді сақтау мүмкін болмады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1973,6 +2459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "With your phones, names and contracts a transfer to yourself is a move between your own accounts, not a gift to a stranger."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Телефондарыңызбен, аттарыңызбен және келісімшарттарыңызбен өзіңізге аударым — бұл бейтаныс адамға сый емес, өз есеп-шоттарыңыз арасындағы көшу."
           }
         },
         "ru": {
@@ -1998,6 +2490,12 @@
             "value": "Names"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аттар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2019,6 +2517,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The form banks print: name, patronymic and the first letter of the surname."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктер басып шығаратын пішім: аты, әкесінің аты және тегінің бірінші әрпі."
           }
         },
         "ru": {
@@ -2044,6 +2548,12 @@
             "value": "Who you are in statements…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінділерде сіз кіммін…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2065,6 +2575,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Phones"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Телефондар"
           }
         },
         "ru": {
@@ -2090,6 +2606,12 @@
             "value": "As the bank writes them, with or without +7."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк жазғандай, +7-мен немесе онсыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2111,6 +2633,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Who you are in statements"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінділерде сіз кіммін"
           }
         },
         "ru": {
@@ -2136,6 +2664,12 @@
             "value": "Import Statement…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзіндіні импорттау…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2157,6 +2691,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The file was not UTF-8 and was read as Windows-1251."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл UTF-8 емес еді және Windows-1251 ретінде оқылды."
           }
         },
         "ru": {
@@ -2182,6 +2722,12 @@
             "value": "This file was loaded on %@. Lines already there are skipped."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл файл %@ күні жүктелген. Бұрыннан бар жолдар өткізіледі."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2203,6 +2749,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lines not read: %lld, carrying %@. They are listed under «Not read» and are not written."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оқылмаған жолдар: %lld, сомасы %@. Олар «Оқылмады» астында тізіледі және жазылмайды."
           }
         },
         "ru": {
@@ -2228,6 +2780,12 @@
             "value": "%lld lines, %@ – %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld жол, %1$@ – %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2249,6 +2807,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "These could not be placed by a file or a rule of yours. Answer the group once; «Remember» turns the answer into a rule for the next statement."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мұны файл немесе сіздің ережеңіз орналастыра алмады. Топқа бір рет жауап беріңіз; «Есте сақтау» жауапты келесі үзіндіге арналған ережеге айналдырады."
           }
         },
         "ru": {
@@ -2274,6 +2838,12 @@
             "value": "Nothing to ask: every line has a place."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сұрайтын ешнәрсе жоқ: әр жолдың орны бар."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2295,6 +2865,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reading the files…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлдарды оқып жатыр…"
           }
         },
         "ru": {
@@ -2319,6 +2895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove from the list"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тізімнен алып тастау"
           }
         },
         "ru": {
@@ -2350,6 +2932,12 @@
             "value": "Send a request for this bank"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы банк үшін сұрау жіберу"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2371,6 +2959,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Please add a statement format. The first line of the file: %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінді пішімін қосыңыз. Файлдың бірінші жолы: %@"
           }
         },
         "ru": {
@@ -2396,6 +2990,12 @@
             "value": "Looks like your entry"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сіздің жазбаңызға ұқсайды"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2417,6 +3017,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Not the same — add as new"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бірдей емес — жаңа ретінде қосу"
           }
         },
         "ru": {
@@ -2442,6 +3048,12 @@
             "value": "Same as"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұған бірдей"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2463,6 +3075,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Already there"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұрыннан бар"
           }
         },
         "ru": {
@@ -2488,6 +3106,12 @@
             "value": "Transfer already recorded"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аударым бұрын жазылған"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2509,6 +3133,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Same as your entry — the amount becomes the bank's"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сіздің жазбаңызбен бірдей — сома банктікі болады"
           }
         },
         "ru": {
@@ -2534,6 +3164,12 @@
             "value": "New"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жаңа"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2555,6 +3191,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Own account"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өз есеп-шоты"
           }
         },
         "ru": {
@@ -2580,6 +3222,12 @@
             "value": "Held"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ұсталған"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2601,6 +3249,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Now posted — updates the held line"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Енді есепке алынған — ұсталған жолды жаңартады"
           }
         },
         "ru": {
@@ -2626,6 +3280,12 @@
             "value": "Replaces a held line"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ұсталған жолдың орнын басады"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2647,6 +3307,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose an account in «Files» to see the lines."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жолдарды көру үшін «Файлдарда» есеп-шотты таңдаңыз."
           }
         },
         "ru": {
@@ -2672,6 +3338,12 @@
             "value": "No lines here."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мұнда жол жоқ."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2693,6 +3365,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Every line was read."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлық жол оқылды."
           }
         },
         "ru": {
@@ -2718,6 +3396,12 @@
             "value": "It is a scan or a photo. Reading scans arrives in a later release; for now ask the bank for the statement as a file with text."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл скан немесе фото. Сканерлерді оқу келесі шығарылымға келеді; қазірше банктен мәтіні бар файл ретінде үзінді сұраңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2739,6 +3423,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No text in this PDF"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл PDF-те мәтін жоқ"
           }
         },
         "ru": {
@@ -2764,6 +3454,12 @@
             "value": "Load a statement…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінді жүктеу…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2785,6 +3481,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Statements"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінділер"
           }
         },
         "ru": {
@@ -2829,6 +3531,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Delete %lld held lines the bank has not posted for weeks"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Банк бірнеше апта бойы есепке алмаған %lld ұсталған жолды жою"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Банк бірнеше апта бойы есепке алмаған %lld ұсталған жолды жою"
                 }
               }
             }
@@ -2881,6 +3601,12 @@
             "value": "A refused hold disappears from the statement. The lines go to the bin and ⌘Z brings them back."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қабылданбаған ұстау үзіндіден жоғалады. Жолдар себетке өтеді және ⌘Z оларды қайтарады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2902,6 +3628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A refused hold disappears from the statement. The lines go to the bin and “Undo” brings them back."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қабылданбаған ұстау үзіндіден жоғалады. Жолдар себетке өтеді және «Болдырмау» оларды қайтарады."
           }
         },
         "ru": {
@@ -2927,6 +3659,12 @@
             "value": "Held lines nobody posted"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ешкім есепке алмаған ұсталған жолдар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2949,6 +3687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Files"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлдар"
           }
         },
         "ru": {
@@ -2980,6 +3724,12 @@
             "value": "Questions"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сұрақтар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3001,6 +3751,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lines"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жолдар"
           }
         },
         "ru": {
@@ -3026,6 +3782,12 @@
             "value": "Nothing is written until you press Write. ⌘Z takes it back."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Жазу» басылмайынша ештеңе жазылмайды. ⌘Z оны қайтарады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3047,6 +3809,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing is written until you press Write. “Undo” takes it back."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Жазу» басылмайынша ештеңе жазылмайды. «Болдырмау» оны қайтарады."
           }
         },
         "ru": {
@@ -3072,6 +3840,12 @@
             "value": "Nothing to write yet."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазуға әлі ештеңе жоқ."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3093,6 +3867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "To write: %lld · changes: %lld · transfers: %lld"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылады: %lld · өзгерістер: %lld · аударымдар: %lld"
           }
         },
         "ru": {
@@ -3117,6 +3897,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tick all"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлығын белгілеу"
           }
         },
         "ru": {
@@ -3148,6 +3934,12 @@
             "value": "Clear all"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлығын тазалау"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3169,6 +3961,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Import statements"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзінділерді импорттау"
           }
         },
         "ru": {
@@ -3193,6 +3991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A loan"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Несие"
           }
         },
         "ru": {
@@ -3224,6 +4028,12 @@
             "value": "A place"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Орын"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3245,6 +4055,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A person"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адам"
           }
         },
         "ru": {
@@ -3270,6 +4086,12 @@
             "value": "Contract income"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Келісімшарт табысы"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3293,6 +4115,12 @@
             "value": "A card of unknown owner"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Иесі белгісіз карта"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3314,6 +4142,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Money in from an unnamed sender"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Атаусыз жiберушіден кірген ақша"
           }
         },
         "ru": {
@@ -3358,6 +4192,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld sets of lines fit several others equally; they stay ordinary operations"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол жиыны басқа бірнешеуіне бірдей сәйкес келеді; олар қарапайым операция болып қалады"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол жиыны басқа бірнешеуіне бірдей сәйкес келеді; олар қарапайым операция болып қалады"
                 }
               }
             }
@@ -3410,6 +4262,12 @@
             "value": "Transfers to your account at «%@»: %lld, %@. There is no statement for it, so they stay ordinary operations in «Unsorted»."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@» банкіндегі сіздің есеп-шотыңызға аударымдар: %2$lld, %3$@. Оған үзінді жоқ, сондықтан олар «Сұрыпталмағанда» қарапайым операция болып қалады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3452,6 +4310,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transfers are on their way (up to 5 days)"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аударым жолда (5 күнге дейін)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аударым жолда (5 күнге дейін)"
                 }
               }
             }
@@ -3528,6 +4404,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аударым 5 күннен астам келмеді"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аударым 5 күннен астам келмеді"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3575,6 +4469,12 @@
             "value": "%@: %@ → %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ → %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3596,6 +4496,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sent %@, arrived %@ — tick if it is one transfer"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жіберілді %1$@, келді %2$@ — егер бұл бір аударым болса, белгілеңіз"
           }
         },
         "ru": {
@@ -3621,6 +4527,12 @@
             "value": "Transfers between your accounts"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сіздің есеп-шоттарыңыз арасындағы аударымдар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3642,6 +4554,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No known bank wrote this file. Send the request for the bank, with the first line, and a reader for it can be made."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл файлды ешбір танымал банк жазбаған. Банкке сұрауды бірінші жолымен жіберіңіз — сонда оны оқитын құрал жасалуы мүмкін."
           }
         },
         "ru": {
@@ -3667,6 +4585,12 @@
             "value": "The format is not known"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пішім белгісіз"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3688,6 +4612,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Line %lld of the file"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлдың %lld-жолы"
           }
         },
         "ru": {
@@ -3713,6 +4643,12 @@
             "value": "Both or neither amount column is filled"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сома бағандарының екеуі де, бірі де толтырылмаған"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3734,6 +4670,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The amount is not readable"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соманы оқу мүмкін емес"
           }
         },
         "ru": {
@@ -3759,6 +4701,12 @@
             "value": "The date is not readable"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күнді оқу мүмкін емес"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3780,6 +4728,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The number of columns is wrong"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бағандар саны дұрыс емес"
           }
         },
         "ru": {
@@ -3805,6 +4759,12 @@
             "value": "The sign contradicts the bank's own «debit/credit»"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таңба банктің өз «дебет/кредит» белгісіне қайшы"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3826,6 +4786,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The line does not read as an operation"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жол операция ретінде оқылмайды"
           }
         },
         "ru": {
@@ -3851,6 +4817,12 @@
             "value": "It is empty, damaged or not a statement."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ол бос, бүлінген немесе үзінді емес."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3872,6 +4844,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The file cannot be read"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлды оқу мүмкін емес"
           }
         },
         "ru": {
@@ -3896,6 +4874,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Unsorted"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сұрыпталмаған"
           }
         },
         "ru": {

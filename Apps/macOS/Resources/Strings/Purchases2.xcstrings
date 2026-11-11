@@ -16,6 +16,12 @@
             "value": "%@'s birthday"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ туған күні"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -37,6 +43,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Create an event with the budget"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджеті бар іс-шара жасау"
           }
         },
         "ru": {
@@ -62,6 +74,12 @@
             "value": "Event created"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іс-шара жасалды"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -85,6 +103,12 @@
             "value": "birthday"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "туған күн"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -106,6 +130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The event was not created: one like it is already there"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іс-шара жасалмады: осындайы бұрыннан бар"
           }
         },
         "ru": {
@@ -150,6 +180,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "turns %lld"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жасқа толады"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жасқа толады"
                 }
               }
             }
@@ -202,6 +250,12 @@
             "value": "%1$@'s birthday, budget %2$@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ туған күні, бюджет %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -223,6 +277,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Create event"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іс-шара жасау"
           }
         },
         "ru": {
@@ -248,6 +308,12 @@
             "value": "Credited"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есепке алынды"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -269,6 +335,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Refunds"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарулар"
           }
         },
         "ru": {
@@ -294,6 +366,12 @@
             "value": "Wish list"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қалаулар тізімі"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -315,6 +393,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: birthday on %2$@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: туған күні %2$@"
           }
         },
         "ru": {
@@ -340,6 +424,12 @@
             "value": "%1$@: birthday on %2$@, gift budget %3$@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: туған күні %2$@, сыйлық бюджеті %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -361,6 +451,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: birthday today"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: бүгін туған күні"
           }
         },
         "ru": {
@@ -386,6 +482,12 @@
             "value": "%1$@: birthday today, gift budget %2$@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: бүгін туған күні, сыйлық бюджеті %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -409,6 +511,12 @@
             "value": "Birthday: %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Туған күні: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -430,6 +538,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Refund of “%1$@”, %2$@, is waiting to be credited"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” қайтаруы, %2$@, есепке алынуын күтуде"
           }
         },
         "ru": {
@@ -474,6 +588,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld days"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld күн"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld күн"
                 }
               }
             }
@@ -526,6 +658,12 @@
             "value": "Refund of “%1$@”, %2$@, is late"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” қайтаруы, %2$@, кешікті"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -547,6 +685,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Refund of %@ is late"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ қайтаруы кешікті"
           }
         },
         "ru": {
@@ -572,6 +716,12 @@
             "value": "Refund of %@ is waiting to be credited"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ қайтаруы есепке алынуын күтуде"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -593,6 +743,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Any regrets about “%1$@” (%2$@, %3$@)?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” (%2$@, %3$@) туралы өкініш бар ма?"
           }
         },
         "ru": {
@@ -618,6 +774,12 @@
             "value": "Any regrets about the purchase in “%1$@” on %2$@ (%3$@)?"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” санатындағы %2$@ күнгі сатып алу туралы өкініш бар ма (%3$@)?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -639,6 +801,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Any regrets about the purchase on %1$@ (%2$@)?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ күнгі сатып алу туралы өкініш бар ма (%2$@)?"
           }
         },
         "ru": {
@@ -683,6 +851,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld more purchases wait for an answer"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Тағы %lld сатып алу жауап күтуде"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Тағы %lld сатып алу жауап күтуде"
                 }
               }
             }
@@ -735,6 +921,12 @@
             "value": "Any regrets about the purchase at %1$@ on %2$@ (%3$@)?"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ күні %1$@ орнындағы сатып алу туралы өкініш бар ма (%3$@)?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -756,6 +948,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "a purchase"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сатып алу"
           }
         },
         "ru": {
@@ -781,6 +979,12 @@
             "value": "“%1$@” can be bought: %2$@ saved"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” сатып алуға болады: %2$@ жиналды"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -803,6 +1007,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Birthday"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Туған күні"
           }
         },
         "ru": {
@@ -834,6 +1044,12 @@
             "value": "Set birthday"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Туған күнін белгілеу"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -856,6 +1072,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Day"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күн"
           }
         },
         "ru": {
@@ -888,6 +1110,12 @@
             "value": "Month"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ай"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -917,6 +1145,12 @@
             "value": "Remove birthday"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Туған күнін жою"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -938,6 +1172,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Year (optional)"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жыл (міндетті емес)"
           }
         },
         "ru": {
@@ -962,6 +1202,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Year"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жыл"
           }
         },
         "ru": {
@@ -993,6 +1239,12 @@
             "value": "Gift budget"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сыйлық бюджеті"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1016,6 +1268,12 @@
             "value": "A week before the birthday the app reminds you and offers an event with this budget."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Туған күнге бір апта қалғанда қолданба еске салып, осы бюджетпен іс-шара ұсынады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1035,6 +1293,12 @@
           }
         },
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "kk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@"
@@ -1069,6 +1333,12 @@
             "value": "%1$@: %2$@, budget %3$@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@, бюджет %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1090,6 +1360,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nearest birthdays"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жақын туған күндер"
           }
         },
         "ru": {
@@ -1115,6 +1391,12 @@
             "value": "%@: today"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: бүгін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1136,6 +1418,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Discount %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жеңілдік %@"
           }
         },
         "ru": {
@@ -1161,6 +1449,12 @@
             "value": "Discount"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жеңілдік"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1182,6 +1476,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Type the kilometres; the mileage is counted from the last fill-up."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Километрді теріңіз; жүрген жол соңғы толтырудан бері есептеледі."
           }
         },
         "ru": {
@@ -1207,6 +1507,12 @@
             "value": "This is the first fill-up with a mileage. Type what the dashboard shows."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жүрген жолмен бұл алғашқы толтыру. Панельде көрсетілгенін теріңіз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1228,6 +1534,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mileage"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жүрген жол"
           }
         },
         "ru": {
@@ -1253,6 +1565,12 @@
             "value": "Kilometres"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Километр"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1274,6 +1592,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "How far did you drive since the last fill-up?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соңғы толтырудан бері қанша жүрдіңіз?"
           }
         },
         "ru": {
@@ -1298,6 +1622,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Save"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сақтау"
           }
         },
         "ru": {
@@ -1329,6 +1659,12 @@
             "value": "Mileage, km"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жүрген жол, км"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1350,6 +1686,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Don't remember"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есімде жоқ"
           }
         },
         "ru": {
@@ -1375,6 +1717,12 @@
             "value": "%1$@ is %2$@ %% of the money you can spend now. You can record it or wait."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — қазір жұмсауға болатын ақшаңыздың %2$@ %%. Жазуға да, күтуге де болады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1396,6 +1744,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@, and no free money is counted. You can record it or wait."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, және бос ақша есептелмеген. Жазуға да, күтуге де болады."
           }
         },
         "ru": {
@@ -1420,6 +1774,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Record"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазу"
           }
         },
         "ru": {
@@ -1451,6 +1811,12 @@
             "value": "Wait with the purchase?"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сатып алуды күтейін бе?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1472,6 +1838,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Already credited"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есепке алынды"
           }
         },
         "ru": {
@@ -1496,6 +1868,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Waiting for the money"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ақшаны күту"
           }
         },
         "ru": {
@@ -1527,6 +1905,12 @@
             "value": "Waiting to be credited by"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есепке алынуын күтуде"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1548,6 +1932,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No regrets"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өкініш жоқ"
           }
         },
         "ru": {
@@ -1573,6 +1963,12 @@
             "value": "Not asked again"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайта сұралмады"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1594,6 +1990,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Regretted"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өкінемін"
           }
         },
         "ru": {
@@ -1618,6 +2020,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Change"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өзгерту"
           }
         },
         "ru": {
@@ -1649,6 +2057,12 @@
             "value": "No regrets"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өкініш жоқ"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1670,6 +2084,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Don't ask"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сұрамау"
           }
         },
         "ru": {
@@ -1695,6 +2115,12 @@
             "value": "Any regrets?"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өкініш бар ма?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1716,6 +2142,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "I regret it"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өкінемін"
           }
         },
         "ru": {
