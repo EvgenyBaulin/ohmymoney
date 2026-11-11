@@ -94,6 +94,29 @@ public struct OverviewLayout: Hashable, Sendable {
       auto: Set(OverviewTile.allCases.filter { OverviewCatalog.showsItself($0) }))
   }()
 
+  /// The Mac's default: the tiles of its frame, with both debt figures sharing one cell.
+  /// Saved layouts and the flat lists of earlier builds keep their own order and visibility.
+  public static let macDefault: OverviewLayout = {
+    let sections = [
+      Section(group: .money, tiles: [.monthToDate, .freeMoney, .canSave, .owedToMe, .iOwe]),
+      Section(group: .plan, tiles: [.upcoming, .limits, .monthRest]),
+      Section(group: .analysis, tiles: [.topCategories, .qualities]),
+    ]
+    let chosen = Set(sections.flatMap(\.tiles))
+    // Name every tile so normalization leaves the optional ones hidden.
+    let whole = sections.map { section in
+      Section(
+        group: section.group,
+        tiles: section.tiles
+          + OverviewTile.allCases.filter {
+            $0.defaultGroup == section.group && !chosen.contains($0)
+          })
+    }
+    return OverviewLayout(
+      sections: whole, hidden: Set(OverviewTile.allCases).subtracting(chosen),
+      partners: [.owedToMe: .iOwe, .iOwe: .owedToMe])
+  }()
+
   /// Nothing to reset: the layout is the standard one.
   public var isStandard: Bool { self == Self.standard }
 

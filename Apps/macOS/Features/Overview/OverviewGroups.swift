@@ -61,6 +61,22 @@ final class OverviewScreen {
     }
   }
 
+  /// Money begins directly with its cards on the Mac; editing restores the group control.
+  static func showsGroupName(
+    _ group: OverviewTileGroup, editing: Bool, idiom: LayoutIdiom
+  ) -> Bool {
+    idiom != .mac || group != .money || editing
+  }
+
+  /// A group with no visible collapse control always lays out its tiles.
+  static func laysOut(
+    _ group: OverviewTileGroup, collapsed: Set<OverviewTileGroup>, editing: Bool,
+    idiom: LayoutIdiom
+  ) -> Bool {
+    !showsGroupName(group, editing: editing, idiom: idiom)
+      || showsTiles(of: group, collapsed: collapsed, editing: editing)
+  }
+
   /// The groups the screen shows, in the owner's order: outside editing a group with no tile
   /// shown is left out; while editing every group is there, to drop a tile into.
   static func groups(
@@ -82,16 +98,17 @@ final class OverviewScreen {
   }
 }
 
-/// The bar above the tiles: «Последняя запись» at the left, and at the right «Изменить», or while
+/// The bar above the tiles: at the right «Изменить», or while
 /// editing «Добавить плитку» (the hidden tiles, a menu) and «Готово».
 struct OverviewEditBar: View {
   @Dependency(\.environment) private var environment
   @Environment(\.overviewEditsInChrome) private var editsInChrome
+  @Environment(\.layoutIdiom) private var idiom
   let screen: OverviewScreen
 
   var body: some View {
     HStack(alignment: .center, spacing: 12) {
-      LastRecordLine()
+      if LayoutIdiom.resolved(idiom) != .mac { LastRecordLine() }
       Spacer(minLength: 8)
       if screen.isEditing {
         OverviewAddMenu()
@@ -189,7 +206,11 @@ struct OverviewGroupedGrid: View {
   var doNowBesideMain = false
   @Environment(\.layoutIdiom) private var idiom
 
-  private var metrics: OverviewPageMetrics { .of(LayoutIdiom.resolved(idiom)) }
+  @Environment(\.overviewPageMetrics) private var pageMetrics
+
+  private var metrics: OverviewPageMetrics {
+    pageMetrics ?? .of(LayoutIdiom.resolved(idiom))
+  }
 
   /// The gap between groups and under a group's name on this platform's own design: 10 on the
   /// Mac and a phone; a tablet's 12 comes with its page (`OverviewPageMetrics`).
@@ -207,8 +228,9 @@ struct OverviewGroupedGrid: View {
     let doNowGroup =
       !extras.isEmpty
       ? OverviewGridItem.doNowGroup(in: groups) { group in
-        OverviewScreen.showsTiles(
-          of: group, collapsed: environment.overviewCollapsed, editing: editing)
+        OverviewScreen.laysOut(
+          group, collapsed: environment.overviewCollapsed, editing: editing,
+          idiom: LayoutIdiom.resolved(idiom))
           && !OverviewScreen.withoutWorthALook(layout.cells(in: group, facts: facts)).isEmpty
       } : nil
     VStack(alignment: .leading, spacing: metrics.groupGap) {
@@ -217,10 +239,15 @@ struct OverviewGroupedGrid: View {
       }
       ForEach(groups) { group in
         VStack(alignment: .leading, spacing: metrics.nameGap) {
-          OverviewGroupHeader(group: group, screen: screen)
-            .padding(.top, metrics.nameTop)
-          if OverviewScreen.showsTiles(
-            of: group, collapsed: environment.overviewCollapsed, editing: editing)
+          if OverviewScreen.showsGroupName(
+            group, editing: editing, idiom: LayoutIdiom.resolved(idiom))
+          {
+            OverviewGroupHeader(group: group, screen: screen)
+              .padding(.top, metrics.nameTop)
+          }
+          if OverviewScreen.laysOut(
+            group, collapsed: environment.overviewCollapsed, editing: editing,
+            idiom: LayoutIdiom.resolved(idiom))
           {
             let cells = OverviewScreen.withoutWorthALook(layout.cells(in: group, facts: facts))
             if cells.isEmpty {
@@ -250,7 +277,8 @@ struct OverviewGroupedGrid: View {
             item(place, fillsHeight: true)
               .frame(
                 width: width > 0
-                  ? OverviewCard.width(of: span, in: width, columns: columns) : nil
+                  ? OverviewCard.width(
+                    of: span, in: width, columns: columns, gap: metrics.columnGap) : nil
               )
               .gridCellColumns(span)
           }
@@ -400,6 +428,7 @@ struct OverviewTileFrame: View {
   let tile: OverviewTile
   let actions: OperationActions
   let screen: OverviewScreen
+  var embedded = false
   @State private var targeted = false
 
   var body: some View {
@@ -407,11 +436,14 @@ struct OverviewTileFrame: View {
       editing
     } else {
       OverviewCardView(
-        tile: tile, actions: actions, compact: environment.overviewLayout.isCompact(tile)
+        tile: tile, actions: actions, compact: environment.overviewLayout.isCompact(tile),
+        embedded: embedded
       )
+      .frame(maxWidth: .infinity, alignment: .topLeading)
       .contentShape(Rectangle())
       .onTapGesture { screen.open(tile) }
       .accessibilityElement(children: .contain)
+      .accessibilityIdentifier("overview.tile.\(tile.rawValue)")
       .accessibilityAction(named: Text(verbatim: t("overview.why"))) { screen.open(tile) }
     }
   }

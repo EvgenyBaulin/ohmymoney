@@ -29,6 +29,7 @@ final class OverviewFigmaWindowTests: XCTestCase {
   /// The tiles of the master frame, in its order.
   static let frameTiles: [OverviewTile] = [
     .monthToDate, .freeMoney, .canSave, .owedToMe, .iOwe, .upcoming, .limits, .monthRest,
+    .topCategories, .qualities,
   ]
 
   override func setUp() async throws {
@@ -51,9 +52,8 @@ final class OverviewFigmaWindowTests: XCTestCase {
     defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
     loadSnapshot()
     layoutBefore = environment.overviewLayout
-    var layout = OverviewLayout.standard.showingOnly(Self.frameTiles)
-    if let paired = layout.pairing(.iOwe, with: .owedToMe) { layout = paired }
-    environment.overviewLayout = layout
+    XCTAssertEqual(environment.overviewLayout, .macDefault)
+    XCTAssertEqual(environment.overviewLayout.shown, Self.frameTiles)
     environment.entryStyle = .line
     languageBefore = environment.language.choice
     environment.language.choice = .russian
@@ -209,11 +209,28 @@ final class OverviewFigmaWindowTests: XCTestCase {
       grid.minX - sidebar, StyleMetrics.pageSide, accuracy: 1.5,
       "the page stands 28 from the sidebar (\(grid), sidebar \(sidebar))")
 
+    let root = try XCTUnwrap(window.contentView)
+    for identifier in [
+      "overview.group.money", "overview.lastRecord", "overview.tile.lastRecord",
+      "overview.parts.plate.goals",
+    ] {
+      XCTAssertNil(
+        Self.element(in: root) { $0.accessibilityIdentifier?() == identifier }, identifier)
+    }
+    let debts = try frame(of: "overview.debts", in: window)
+    let owed = try frame(of: "overview.tile.owedToMe", in: window)
+    let owe = try frame(of: "overview.tile.iOwe", in: window)
+    XCTAssertTrue(debts.contains(owed), "the first figure stays in the shared card")
+    XCTAssertTrue(debts.contains(owe), "the second figure stays in the shared card")
+    XCTAssertLessThan(owed.maxX, owe.minX, "the divider separates the figures")
+    XCTAssertEqual(owed.maxY, owe.maxY, accuracy: 1)
+    XCTAssertEqual(owed.width, owe.width, accuracy: 1)
     let hero = try frame(of: "screen.hero", in: window)
     XCTAssertEqual(hero.width, grid.width, accuracy: 1, "the main card spans the page")
 
     let columns = OverviewCard.columns(forWidth: grid.width)
     let tile = OverviewCard.tileWidth(in: grid.width, columns: columns)
+    XCTAssertEqual(debts.width, tile, accuracy: 1.5, "both debts take exactly one tile")
     let double = columns >= OverviewCard.maxColumns ? 2 * tile + StyleMetrics.columnGap : tile
     let parts = try frame(of: "overview.parts", in: window)
     XCTAssertEqual(parts.width, double, accuracy: 1.5, "the card of the sum: \(parts)")
@@ -224,6 +241,57 @@ final class OverviewFigmaWindowTests: XCTestCase {
     XCTAssertEqual(parts.maxY, doNow.maxY, accuracy: 1, "the two cards share a row")
     XCTAssertEqual(
       doNow.minX - parts.maxX, StyleMetrics.columnGap, accuracy: 1, "14 between the cards")
+  }
+
+  func testEditingRestoresTheMoneyGroupAndEachDebtTilesControls() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    let window = makeWindow(width: 1_024, height: 768)
+    settle(window)
+    let edit = try XCTUnwrap(WindowAccessibility.element(identified: "overview.edit", in: window))
+    WindowAccessibility.press(edit)
+    let deadline = Date().addingTimeInterval(5)
+    while WindowAccessibility.element(identified: "overview.group.money", in: window) == nil,
+      Date() < deadline
+    {
+      settle(window, passes: 2)
+    }
+    for identifier in [
+      "overview.group.money", "overview.edit.hide.owedToMe", "overview.edit.hide.iOwe",
+      "overview.edit.unpair.owedToMe",
+    ] {
+      XCTAssertNotNil(WindowAccessibility.element(identified: identifier, in: window), identifier)
+    }
+    XCTAssertNil(WindowAccessibility.element(identified: "overview.lastRecord", in: window))
+    let done = try XCTUnwrap(
+      WindowAccessibility.element(identified: "overview.edit.done", in: window))
+    WindowAccessibility.press(done)
+    _ = try frame(of: "overview.debts", in: window)
+    XCTAssertNil(WindowAccessibility.element(identified: "overview.group.money", in: window))
+    XCTAssertEqual(environment.overviewLayout, .macDefault, "editing does not change the layout")
+  }
+
+  func testOverviewAt1024Has22PointMarginsAnd12BetweenTiles() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    try TestEnvironment.requireScreen(width: 1_024, height: 768)
+    let window = makeWindow(width: 1_024, height: 768)
+    settle(window)
+    let grid = try frame(of: "overview.grid", in: window)
+    let sidebar = try sidebarEdge(in: window)
+    let content = try XCTUnwrap(window.contentView).bounds
+    XCTAssertEqual(grid.minX - sidebar, 22, accuracy: 1.5)
+    XCTAssertEqual(content.maxX - grid.maxX, 22, accuracy: 1.5)
+    let first = try frame(of: "overview.tile.monthToDate", in: window)
+    let second = try frame(of: "overview.tile.freeMoney", in: window)
+    XCTAssertEqual(first.minX, grid.minX, accuracy: 1)
+    XCTAssertEqual(second.maxX, grid.maxX, accuracy: 1)
+    XCTAssertEqual(second.minX - first.maxX, 12, accuracy: 1)
+    XCTAssertEqual(first.width, second.width, accuracy: 1)
+    XCTAssertEqual(first.maxY, second.maxY, accuracy: 1)
+    let debts = try frame(of: "overview.debts", in: window)
+    XCTAssertEqual(debts.width, first.width, accuracy: 1)
+    let hero = try frame(of: "screen.hero", in: window)
+    XCTAssertEqual(hero.width, grid.width, accuracy: 1)
+    try attachPicture(of: window, named: "Overview 1024 × 768")
   }
 
   private static func allSubviews<V: NSView>(of view: NSView, into found: inout [V]) {

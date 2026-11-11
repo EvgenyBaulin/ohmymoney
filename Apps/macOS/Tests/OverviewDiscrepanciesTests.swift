@@ -44,7 +44,7 @@ final class OverviewDiscrepanciesTests: XCTestCase {
     if let directory { try? FileManager.default.removeItem(at: directory) }
   }
 
-  private func host(difference: Int64) throws -> NSWindow {
+  private func host(difference: Int64, inOverview: Bool = false) throws -> NSWindow {
     let environment = try XCTUnwrap(environment)
     let account = PaymentMethod(name: "Synthetic account", kind: .card)
     let store = TransactionsStore()
@@ -68,11 +68,13 @@ final class OverviewDiscrepanciesTests: XCTestCase {
         today: environment.today, context: SnapshotContext(), version: DataVersion(load: 0)))
     let deps = AppDependencies(environment: environment, store: store, compute: compute)
     let window = NSWindow(
-      contentRect: CGRect(x: 0, y: 0, width: 700, height: 320),
+      contentRect: CGRect(x: 0, y: 0, width: 700, height: inOverview ? 700 : 320),
       styleMask: [.titled, .closable], backing: .buffered, defer: false)
     window.isReleasedWhenClosed = false
-    window.contentViewController = NSHostingController(
-      rootView: OverviewDiscrepancies().appDependencies(deps))
+    let root: AnyView =
+      inOverview
+      ? AnyView(OverviewView(actions: OperationActions())) : AnyView(OverviewDiscrepancies())
+    window.contentViewController = NSHostingController(rootView: root.appDependencies(deps))
     window.orderFront(nil)
     windows.append(window)
     return window
@@ -97,6 +99,26 @@ final class OverviewDiscrepanciesTests: XCTestCase {
     let window = try host(difference: 650)
     XCTAssertNotNil(waitFor("overview.discrepancies", in: window))
     XCTAssertNotNil(waitFor("overview.reconciliation.difference", in: window))
+  }
+
+  func testTheDefaultOverviewKeepsTheReconciliationDifferenceAboveItsTiles() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    let environment = try XCTUnwrap(environment)
+    XCTAssertEqual(environment.overviewLayout, .macDefault)
+    let window = try host(difference: 650, inOverview: true)
+    let block = try XCTUnwrap(waitFor("overview.discrepancies", in: window))
+    XCTAssertNotNil(waitFor("overview.reconciliation.difference", in: window))
+    let tile = try XCTUnwrap(waitFor("overview.tile.monthToDate", in: window))
+    XCTAssertGreaterThanOrEqual(
+      WindowAccessibility.frame(of: block).minY, WindowAccessibility.frame(of: tile).maxY)
+    XCTAssertNil(WindowAccessibility.element(identified: "overview.group.money", in: window))
+    XCTAssertNil(WindowAccessibility.element(identified: "overview.lastRecord", in: window))
+    XCTAssertFalse(
+      WindowAccessibility.elements(in: window).contains { element in
+        let identifier =
+          WindowAccessibility.attribute(element, "accessibilityIdentifier") as? String
+        return identifier?.hasPrefix("overview.statement.pending.") == true
+      })
   }
 
   func testNoRowWaitsForAStatementDecisionAnyMore() throws {
