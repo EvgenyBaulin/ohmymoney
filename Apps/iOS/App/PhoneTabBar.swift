@@ -118,7 +118,9 @@ struct PhoneTabBar: View {
           colors: colors, labelsOnAll: !activeLabelOnly
         ) { router.open(nav: item) }
         .frame(maxWidth: router.current == item && activeLabelOnly ? nil : .infinity)
-        .layoutPriority(router.current == item ? 1 : 0)
+        // Only a bar that labels the active tab alone lets it widen; with every label shown the
+        // tabs share the width equally, or the active one squeezed the rest to «Tra…».
+        .layoutPriority(router.current == item && activeLabelOnly ? 1 : 0)
       }
       NavBarButton(
         title: moreTitle, symbol: "ellipsis", isActive: router.isMoreLit(visible: layout.visible),
@@ -126,7 +128,7 @@ struct PhoneTabBar: View {
       ) { router.open(PhoneRoute(tab: .more)) }
       .frame(
         maxWidth: router.isMoreLit(visible: layout.visible) && activeLabelOnly ? nil : .infinity)
-      .layoutPriority(router.isMoreLit(visible: layout.visible) ? 1 : 0)
+      .layoutPriority(router.isMoreLit(visible: layout.visible) && activeLabelOnly ? 1 : 0)
     }
     .padding(.horizontal, 8)
     .padding(.vertical, 6)
