@@ -5,7 +5,7 @@ import Foundation
 /// The markup of an instalment plan (`Debt.markupE4`), spent part by part. The purchase was spent
 /// at its price; what the plan costs above it is spending too, and each payment carries the share
 /// of the dues it closes (`DebtMarkup.split`). Beside the payment the app writes that share as an
-/// expense in the debt's subcategory of «Кредиты» (else «Кредиты»), on the debt the way a purchase
+/// expense in «Комиссии», rated as bad spending, on the debt the way a purchase
 /// on credit is (`creditDebtId`): spending once, no money of its own — the payment moved it.
 ///
 /// The markup operation points back at its payment by `external_id`
@@ -18,6 +18,13 @@ enum DebtMarkupPayment {
     debt.direction == .iOwe && debt.isInstalmentPlan && (debt.markupE4?.raw ?? 0) > 0
   }
 
+  static func existingFeeCategory(in categories: [CoreKit.Category]) -> UUID? {
+    if case .existing(let id) = TransferRules.feeCategory(categories: categories, remembered: nil) {
+      return id
+    }
+    return nil
+  }
+
   /// The markup operation of `payment`: an expense of `markup` in `categoryId` on the payment's
   /// moment, account and card, in its currency at its rate, its rubles the share of the
   /// payment's — on `debt`, so it moves no money.
@@ -28,6 +35,10 @@ enum DebtMarkupPayment {
     var entry = try DebtInterestPayment.interestOperation(
       of: payment, debt: debt, interest: markup, categoryId: categoryId, note: note, id: id,
       now: now)
+    if !entry.parts.isEmpty {
+      entry.parts[0].quality = .bad
+      entry.parts[0].qualitySource = .category
+    }
     entry.transaction.externalId = DebtMarkup.key(ofPayment: payment.id, markup: id)
     return entry
   }
@@ -156,6 +167,41 @@ enum DebtMarkupPayment {
 
 @MainActor
 extension DebtMarkupPayment {
+  /// Uses the shared category of fees, creating or reviving it in the payment's undo step.
+  static func preparingFees(
+    _ change: PlanningChange, environment: AppEnvironment, snapshot: DataSnapshot?
+  ) -> (PlanningChange, UUID?) {
+    var change = change
+    let categories =
+      (try? environment.references?.categories(includeArchived: true))
+      ?? snapshot?.dataset.categories ?? []
+    let remembered =
+      (try? environment.settings?.string(AccountSettings.transferFeeCategoryKey))
+      .flatMap { UUID(uuidString: $0) }
+      ?? snapshot?.dataset.accountSettings.transferFeeCategoryId
+    let id: UUID
+    switch TransferRules.feeCategory(categories: categories, remembered: remembered) {
+    case .existing(let found): id = found
+    case .revive(let found, let parent):
+      id = found
+      change.upsert.categories += [parent, found].compactMap { wanted in
+        guard let wanted, var category = categories.first(where: { $0.id == wanted }) else {
+          return nil
+        }
+        category.archived = false
+        return category
+      }
+    case .create(let key, let parent, let quality):
+      let category = CoreKit.Category(
+        parentId: parent, kind: .expense, name: environment.language(key, table: "Accounts"),
+        sort: (categories.map(\.sort).max() ?? 0) + 1, quality: quality)
+      id = category.id
+      change.upsert.categories.append(category)
+    }
+    change.settings.updateValue(id.uuidString, forKey: AccountSettings.transferFeeCategoryKey)
+    return (change, id)
+  }
+
   /// The words a markup operation is noted with: «Переплата по «Пылесос»».
   static func note(of debt: Debt, language: AppLanguage) -> String {
     language.format("markup.note", table: "Debts", debt.name)

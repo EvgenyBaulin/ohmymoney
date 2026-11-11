@@ -144,9 +144,9 @@ struct Migration0024Tests {
     #expect(read.appearance.isEmpty)
   }
 
-  @Test func theMarkGoesLastInTheCSVAndTheFilesStayFiftyThree() throws {
+  @Test func theMarkGoesLastInTheCSV() throws {
     #expect(Array(ExportTables.categories.columns.suffix(2)) == ["icon", "color"])
-    #expect(ExportTables.all.count == 53)
+    #expect(ExportTables.all.count == 54)
     let marked = CoreKit.Category(
       kind: .expense, name: "Такси", appearance: CategoryAppearance(icon: "car", color: "accent"))
     let row = ExportTables.row(marked)

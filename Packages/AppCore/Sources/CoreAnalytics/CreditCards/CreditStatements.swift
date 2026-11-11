@@ -60,7 +60,9 @@ public struct CreditStatement: Hashable, Sendable {
   public var purchasesE4: AmountE4
   public var cashLikeE4: AmountE4
   public var minimumE4: AmountE4
+  public var minimumIsEstimate: Bool = true
   /// What was paid in (`closesOn`, `due`].
+  public var paidSinceCloseE4: AmountE4? = nil
   public var paidByDueE4: AmountE4
   public var state: State
 
@@ -83,8 +85,12 @@ public struct CreditStatement: Hashable, Sendable {
   /// What is still to pay of the statement not to pay interest: its debt less what came by the
   /// due day, never below zero.
   public var remainingE4: AmountE4 {
-    let left = debtE4 - paidByDueE4
+    let left = debtE4 - (paidSinceCloseE4 ?? paidByDueE4)
     return left.raw > 0 ? left : .zero
+  }
+
+  public var minimumRemainingE4: AmountE4 {
+    max(.zero, minimumE4 - (paidSinceCloseE4 ?? paidByDueE4))
   }
 
   /// Whether `day` is inside the period of the statement.
@@ -101,6 +107,7 @@ public struct CreditCardNow: Hashable, Sendable {
   /// What to pay by `payBy` not to pay interest.
   public var toPayNoInterestE4: AmountE4
   public var minimumE4: AmountE4?
+  public var minimumIsEstimate: Bool = true
   public var payBy: DateOnly?
   public var nextStatement: DateOnly?
   /// The grace period still holds.
@@ -206,7 +213,8 @@ public enum CreditStatements {
 
   public static func statements(
     account: PaymentMethod, terms: CreditCardTerms, movements: [CreditMovement],
-    balances: AccountBalances, through today: DateOnly, calendar: CalendarContext
+    balances: AccountBalances, through today: DateOnly, calendar: CalendarContext,
+    overrides: [CreditStatementOverride] = []
   ) -> [CreditStatement] {
     guard case .statement(let statementDay, let payDays) = terms.grace else { return [] }
     let key = BalanceKey(accountId: account.id, currency: account.mainCurrency)
@@ -219,7 +227,8 @@ public enum CreditStatements {
       month = month.next
       guard closes > counted, closes <= today else { continue }
       let after = day(statementDay, in: closes.monthKey.previous, calendar: calendar)
-      let due = calendar.adding(days: payDays, to: closes)
+      let manual = overrides.last { $0.accountId == account.id && $0.closesOn == closes }
+      let due = manual?.due ?? calendar.adding(days: payDays, to: closes)
       let owed = -(balances.balance(key, at: calendar.endOfDay(closes)) ?? .zero)
       let debt = owed.raw > 0 ? owed : .zero
       let inPeriod = movements.filter { after < $0.day && $0.day <= closes }
@@ -227,15 +236,21 @@ public enum CreditStatements {
         inPeriod.filter { $0.kind == .purchase }.map(\.amountE4.magnitude))
       let cash = AmountE4.sum(inPeriod.filter { $0.kind == .cashLike }.map(\.amountE4.magnitude))
       let paid = AmountE4.sum(
-        movements.filter { $0.kind == .payment && closes < $0.day && $0.day <= due }
+        movements.filter { $0.kind == .payment && closes < $0.day && $0.day <= min(due, today) }
           .map(\.amountE4))
       let state: CreditStatement.State =
         debt.isZero || paid >= debt ? .paidInFull : due >= today ? .waiting : .missed
-      result.append(
-        CreditStatement(
-          periodAfter: after, closesOn: closes, due: due, debtE4: debt, purchasesE4: purchases,
-          cashLikeE4: cash, minimumE4: minimum(debt: debt, terms: terms) ?? .zero,
-          paidByDueE4: paid, state: state))
+      var statement = CreditStatement(
+        periodAfter: after, closesOn: closes, due: due, debtE4: debt, purchasesE4: purchases,
+        cashLikeE4: cash,
+        minimumE4: manual.map { min(debt, max(.zero, $0.minimumE4)) }
+          ?? minimum(debt: debt, terms: terms) ?? .zero,
+        paidByDueE4: paid, state: state)
+      statement.paidSinceCloseE4 = AmountE4.sum(
+        movements.filter { $0.kind == .payment && closes < $0.day && $0.day <= today }
+          .map(\.amountE4))
+      statement.minimumIsEstimate = manual == nil
+      result.append(statement)
     }
     return result
   }
@@ -277,13 +292,13 @@ public enum CreditStatements {
     case .statement(let statementDay, _):
       card.nextStatement = nextStatementDay(after: today, day: statementDay, calendar: calendar)
       card.graceKept = CreditInterest.graceKept(statements)
+      // A missed statement has no «pay by» any more: the grace period is gone and the whole
+      // debt is what stops the interest.
       if let last = statements.last, last.state == .waiting {
         card.toPayNoInterestE4 = last.remainingE4
         card.payBy = last.due
-        card.minimumE4 = minimum(debt: last.debtE4, terms: terms).map {
-          let left = $0 - last.paidByDueE4
-          return left.raw > 0 ? left : .zero
-        }
+        card.minimumE4 = last.minimumRemainingE4
+        card.minimumIsEstimate = last.minimumIsEstimate
       } else if !card.graceKept, debt.raw > 0 {
         card.toPayNoInterestE4 = debt
         card.minimumE4 = minimum(debt: debt, terms: terms)

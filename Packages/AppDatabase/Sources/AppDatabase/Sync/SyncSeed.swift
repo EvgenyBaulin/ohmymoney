@@ -55,6 +55,8 @@ extension SyncExchange {
           """)
       defer { try? db.execute(sql: "DROP TABLE IF EXISTS temp.sync_seed_waiting") }
       for (table, pk) in SyncTables.followed.sorted(by: { $0.key < $1.key }) {
+        // A table a later migration adds is not there yet in a database one step behind.
+        guard try db.tableExists(table) else { continue }
         let known = Set(try db.columns(in: table).map(\.name))
         let moment =
           known.contains("updated_at")

@@ -59,6 +59,7 @@ struct MigrationRollbackTests {
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
+          "0025_split_dates_and_credit_statements",
         ])
   }
 

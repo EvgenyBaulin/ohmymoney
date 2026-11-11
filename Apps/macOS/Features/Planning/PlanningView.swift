@@ -145,6 +145,7 @@ struct PlanningView: View {
       if let snapshot {
         PlanningRibbonView(
           ribbon: Self.ribbon(of: snapshot, shown: compute.snapshot), open: open)
+        CreditMinimumPlanCard(snapshot: compute.snapshot ?? snapshot)
         PlanningBirthdaysStrip(snapshot: snapshot)
       }
       if editing {

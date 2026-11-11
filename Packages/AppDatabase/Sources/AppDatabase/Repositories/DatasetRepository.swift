@@ -214,6 +214,7 @@ public struct DatasetRepository: Sendable {
       wishPrices: wishPrices,
       shoppingItems: shoppingItems,
       ownedItems: ownedItems,
-      purchaseSettings: purchaseSettings)
+      purchaseSettings: purchaseSettings,
+      creditStatements: try CreditStatementRepository.all(db))
   }
 }

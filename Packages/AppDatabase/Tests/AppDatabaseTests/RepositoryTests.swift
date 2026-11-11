@@ -356,7 +356,10 @@ struct MergeTests {
     // account, which the schema checks as each row moves.
     #expect(ReferenceRepository.mergedColumns["payment_methods"]?.first?.table == "cards")
     #expect(listed["events"]?.contains("scheduled_payments.event_id") == true)
-    #expect(kept == ["reconciliation_balances.payment_method_id"])
+    #expect(
+      kept == [
+        "reconciliation_balances.payment_method_id", "credit_statements.payment_method_id",
+      ])
   }
 
   /// The archive never holds the only main account: merged away, the main account hands the
