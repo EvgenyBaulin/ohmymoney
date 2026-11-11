@@ -55,6 +55,9 @@ struct TransactionsTable<MenuItems: View>: View {
           // would.
           OperationCell(column: column, item: item, openPurchase: { primaryAction([$0]) })
             .appDependencies(deps)
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel(Text(verbatim: column.headerTitle(language: environment.language)))
+            .accessibilityIdentifier("transactions.column.\(column.rawValue)")
         }
         .width(
           min: CGFloat(column.minimumWidth), ideal: CGFloat(layout.width(of: column)),
@@ -67,6 +70,8 @@ struct TransactionsTable<MenuItems: View>: View {
     }
     // White rows parted by hairlines, as the design draws the card — not stripes.
     .alternatingRowBackgrounds(.disabled)
+    .accessibilityLabel(Text(verbatim: environment.language("section.operations")))
+    .accessibilityIdentifier("transactions.table")
     // Inside the identity of the table: a table made again for another layout appears again,
     // empty, and is filled again.
     .onAppear { madeFor = layout }

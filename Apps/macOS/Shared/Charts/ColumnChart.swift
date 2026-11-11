@@ -66,6 +66,7 @@ struct ColumnChart: View {
               .foregroundStyle(.secondary)
           }
           .accessibilityLabel(Text(verbatim: average.label))
+          .accessibilityValue(Text(verbatim: money.rubles(average.value)))
           .accessibilityIdentifier("chart.native.average")
       }
       if !direct, let hovered, let column = byId[hovered] {

@@ -128,9 +128,9 @@ struct CapitalHeroCard: View {
     let design = LayoutIdiom.resolved(idiom)
     let shape = RoundedRectangle(cornerRadius: SectionMetrics.cardRadius)
     VStack(alignment: .leading, spacing: CapitalMetrics.heroGap) {
+      // Small captions keep the theme's ink opaque; fading it loses contrast on the gradient.
       Text(verbatim: CapitalText.t("capital.title", environment))
         .appFont(.system(size: 12, weight: .medium))
-        .opacity(CapitalMetrics.heroCaptionOpacity)
       Text(verbatim: model.map { environment.money.rounded($0.net) } ?? "—")
         .appFont(.system(size: CapitalMetrics.heroFigure(design), weight: .bold).monospacedDigit())
         .minimumScaleFactor(0.6)
@@ -139,7 +139,6 @@ struct CapitalHeroCard: View {
       if let change = changeLine {
         Text(verbatim: change)
           .appFont(.system(size: 12).monospacedDigit())
-          .opacity(CapitalMetrics.heroChangeOpacity)
           .accessibilityIdentifier("capital.hero.change")
       }
       if let model {
@@ -149,11 +148,9 @@ struct CapitalHeroCard: View {
             environment.money.rounded(model.owe))
         )
         .appFont(.system(size: 11).monospacedDigit())
-        .opacity(CapitalMetrics.heroLineOpacity)
         if model.partHidden {
           Text(verbatim: PartHiddenNote.text(environment.language))
             .appFont(.system(size: 11))
-            .opacity(CapitalMetrics.heroLineOpacity)
         }
       }
     }

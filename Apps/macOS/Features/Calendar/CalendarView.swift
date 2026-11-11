@@ -198,6 +198,7 @@ struct CalendarView: View {
       )
       .scrollContentBackground(.hidden)
       .frame(minHeight: CalendarMetrics.dayListMinimum)
+      .accessibilityLabel(Text(verbatim: environment.language("section.operations")))
       .accessibilityIdentifier("calendar.dayList")
     }
     .sectionCard()
@@ -241,6 +242,8 @@ struct CalendarView: View {
     }
     .labelStyle(.iconOnly)
     .fixedSize()
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel(Text(verbatim: environment.language("section.calendar")))
     .accessibilityIdentifier("calendar.stepper")
     return SectionHeader(
       title: environment.language("section.calendar"),

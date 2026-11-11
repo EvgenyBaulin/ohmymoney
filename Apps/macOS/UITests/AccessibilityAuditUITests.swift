@@ -87,7 +87,17 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
     }
     let split = main.buttons["Split into parts"]
     XCTAssertTrue(split.waitForExistence(timeout: 20), "No Split button in entry details")
-    split.click()
+    XCTAssertTrue(waitUntil(15) { split.isHittable }, "Split button did not become hittable")
+    // As for table rows in WindowsUITests, avoid XCUITest's implicit scrolling through a
+    // SwiftUI host that the panel's animation can replace. Click its current visible frame.
+    let splitFrame = split.frame
+    let windowFrame = main.frame
+    XCTAssertTrue(windowFrame.contains(splitFrame), "Split button is outside the main window")
+    main.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+      .withOffset(
+        CGVector(dx: splitFrame.midX - windowFrame.minX, dy: splitFrame.midY - windowFrame.minY)
+      )
+      .click()
     let remove = main.buttons.matching(identifier: "entry.split.removePart")
     XCTAssertTrue(remove.firstMatch.waitForExistence(timeout: 20), "No split removal buttons")
     XCTAssertEqual(remove.count, 2, "Splitting an entry should expose two removable parts")
@@ -138,12 +148,26 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
     defer { app.terminate() }
     app.activate()
     XCTAssertTrue(app.wait(for: .runningForeground, timeout: 10), "App is not foreground")
-    app.typeKey(",", modifierFlags: .command)
-    // The search can be exposed as a search field or a text field by AppKit. This sidebar
-    // button belongs only to Settings and does not depend on the window's changing title.
-    let settings = app.windows.containing(.button, identifier: "settings.section.general")
-      .firstMatch
-    XCTAssertTrue(settings.waitForExistence(timeout: 30), "No Settings sidebar/window after Cmd-,")
+    // As in WindowsUITests, choose the actual menu command: synthesized shortcuts depend
+    // on the active keyboard layout. The system Settings item can follow either UI language.
+    let appMenu = app.menuBars.menuBarItems.matching(
+      NSPredicate(format: "title CONTAINS %@", "OhMyMoney")
+    ).firstMatch
+    XCTAssertTrue(appMenu.waitForExistence(timeout: 10), "No application menu")
+    appMenu.click()
+    let command = app.menuBars.menuItems.matching(
+      NSPredicate(format: "title BEGINSWITH %@ OR title BEGINSWITH %@", "Settings", "Настройки")
+    ).firstMatch
+    XCTAssertTrue(command.waitForExistence(timeout: 10), "No Settings menu command")
+    command.click()
+    let settings = app.windows.containing(.any, identifier: "settings.window").firstMatch
+    guard settings.waitForExistence(timeout: 30) else {
+      dump("settings-did-not-open", of: app)
+      XCTFail(
+        "No Settings content/window after its menu command; windows: \(app.windows.allElementsBoundByIndex.map(\.title))"
+      )
+      return
+    }
     let row = settings.buttons["settings.section.\(section)"]
     XCTAssertTrue(row.waitForExistence(timeout: 20), "No Settings / \(section) sidebar row")
     row.click()
@@ -162,11 +186,12 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
     try XCTContext.runActivity(named: "Accessibility audit: \(name)") { _ in
       snapshot(name, of: window)
       dump(name, of: app)
+      let screenTree = try window.snapshot()
       var descriptions: [String] = []
       var systemDescriptions: [String] = []
       var completed = false
       // Record every finding ourselves so its first log line identifies the element. Returning
-      // true only avoids XCTest's duplicate, context-free failure after our own XCTFail.
+      // true avoids a duplicate failure, apart from the narrowly documented system exceptions.
       continueAfterFailure = true
       defer {
         continueAfterFailure = false
@@ -175,7 +200,7 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
         var report = descriptions.isEmpty ? status : descriptions.joined(separator: "\n\n")
         if !systemDescriptions.isEmpty {
           report +=
-            "\n\nSystem chart role exceptions:\n" + systemDescriptions.joined(separator: "\n\n")
+            "\n\nSystem accessibility exceptions:\n" + systemDescriptions.joined(separator: "\n\n")
         }
         let attachment = XCTAttachment(string: report)
         attachment.name = "accessibility-\(name)"
@@ -185,7 +210,8 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       try app.performAccessibilityAudit(for: auditTypes) { issue in
         var element = "identifier=<none> label=<none> elementType=<none> frame=<none>"
         var snapshotError = ""
-        var systemChartRole = false
+        var nearbyText = ""
+        var systemException: String?
         do {
           if let target = issue.element {
             // Resolve once: repeated queries can see different layouts or lose a stale node.
@@ -194,29 +220,52 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
               "identifier=\(String(reflecting: node.identifier))"
               + " label=\(String(reflecting: node.label)) elementType=\(node.elementType)"
               + " frame=\(node.frame)"
+            // Contrast audits can return OCR rectangles with no AX text or identifier. Match
+            // their screen coordinates to our real tree, retaining the original node above.
+            if issue.auditType == .contrast, node.identifier.isEmpty, node.label.isEmpty {
+              nearbyText =
+                " nearby=\(String(reflecting: self.textNear(node.frame, in: screenTree)))"
+            }
             // Swift Charts exports these mark nodes as AXUnknown. ChartContent allows labels,
             // values and identifiers, but has no role/trait setter. Exempt only that role
             // finding on our explicitly identified native marks; labels, actions, contrast,
             // parent/child issues and unmarked framework containers must still fail.
             let nativeMark =
               node.identifier == "chart.native.average"
-              || ["chart.native.column.", "chart.native.pair.", "chart.native.share."].contains {
+              || [
+                "chart.native.column.", "chart.native.pair.", "chart.native.share.",
+                "chart.native.netWorth.",
+              ].contains {
                 node.identifier.hasPrefix($0)
               }
-            systemChartRole =
-              issue.auditType == .elementDetection
+            let systemChartRole =
+              issue.auditType == .sufficientElementDescription
               && issue.compactDescription == "Unknown role" && node.elementType == .other
-              && nativeMark
+              && nativeMark && !node.label.isEmpty
+            if systemChartRole { systemException = "Swift Charts mark role" }
+            // This exact identifier belongs to SwiftUI's Table section host. Its own AX
+            // label is empty although the day header inside is described; we cannot label
+            // the framework's cell from TableRowBuilder. Never exempt an empty day header.
+            if name == "main-operations", issue.auditType == .sufficientElementDescription,
+              issue.compactDescription == "Element has no description",
+              node.identifier == "SwiftUITableSectionCellView", node.elementType == .group,
+              self.hasDescribedText(node)
+            {
+              systemException = "SwiftUI Table section host with a described header"
+            }
           }
         } catch {
           snapshotError = "\nCould not snapshot audit element: \(error)"
         }
         let headline =
-          "[\(name)] type=\(self.auditName(issue.auditType)) \(element)"
+          "[\(name)] type=\(self.auditName(issue.auditType)) \(element)\(nearbyText)"
           + " issue=\(String(reflecting: issue.compactDescription))"
-        let report = headline + "\n" + issue.detailedDescription + snapshotError
-        if systemChartRole {
-          systemDescriptions.append(report)
+        // Parent/child findings have no element; keep their reason in the first log line too.
+        let detail =
+          issue.element == nil ? " detail=\(String(reflecting: issue.detailedDescription))" : ""
+        let report = headline + detail + "\n" + issue.detailedDescription + snapshotError
+        if let systemException {
+          systemDescriptions.append("\(systemException): \(report)")
           return true
         }
         descriptions.append(report)
@@ -225,6 +274,34 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       }
       completed = true
     }
+  }
+
+  private func hasDescribedText(_ node: any XCUIElementSnapshot) -> Bool {
+    if node.elementType == .staticText,
+      !node.label.isEmpty || !((node.value as? String) ?? "").isEmpty
+    {
+      return true
+    }
+    return node.children.contains { self.hasDescribedText($0) }
+  }
+
+  private func textNear(_ frame: CGRect, in root: any XCUIElementSnapshot) -> String {
+    var matches: [(score: CGFloat, text: String)] = []
+    @MainActor func collect(_ node: any XCUIElementSnapshot) {
+      let text = node.label.isEmpty ? (node.value as? String) ?? "" : node.label
+      let role = node.elementType
+      if role == .staticText || role == .button || role == .textField, !text.isEmpty {
+        let overlap = frame.intersection(node.frame)
+        if !overlap.isNull, overlap.width > 0, overlap.height > 0 {
+          let area = max(frame.width * frame.height, node.frame.width * node.frame.height)
+          matches.append(
+            (overlap.width * overlap.height / max(area, 1), "\(node.identifier): \(text)"))
+        }
+      }
+      for child in node.children { collect(child) }
+    }
+    collect(root)
+    return matches.sorted { $0.score > $1.score }.prefix(3).map(\.text).joined(separator: " | ")
   }
 
   private func auditName(_ type: XCUIAccessibilityAuditType) -> String {

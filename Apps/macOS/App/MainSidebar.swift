@@ -108,6 +108,9 @@ enum SidebarItem: Hashable, Sendable {
           AccountsSidebarSection(model: accounts, selection: $selection)
         }
       }
+      .accessibilityElement(children: .contain)
+      .accessibilityLabel(Text(verbatim: environment.language("nav.sidebar", table: "Navigation")))
+      .accessibilityIdentifier("main.sidebar")
       // «Настройки» with the gear, at the foot of the column.
       .safeAreaInset(edge: .bottom, spacing: 0) {
         Button {

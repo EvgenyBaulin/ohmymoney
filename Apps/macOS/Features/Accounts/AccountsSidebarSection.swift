@@ -48,6 +48,12 @@ struct AccountsSidebarSection: View {
       snapshot?.sections.flatMap(\.accounts).map(\.account) ?? [],
       locale: environment.language.locale)
     Section {
+      // A native List section header is a noninteractive cell on macOS: controls placed in
+      // it lose their actions. Keep this heading as an ordinary row so its menu stays usable.
+      header(live: live)
+        .selectionDisabled()
+        .moveDisabled(true)
+        .listRowSeparator(.hidden)
       if let snapshot, !snapshot.sections.isEmpty {
         totalRow(snapshot)
         let grouped = snapshot.sections.contains { $0.group != nil }
@@ -71,8 +77,6 @@ struct AccountsSidebarSection: View {
         }
       }
       HiddenAccountsRow()
-    } header: {
-      header(live: live)
     }
   }
 
@@ -85,22 +89,22 @@ struct AccountsSidebarSection: View {
         .appFont(SidebarType.header)
         .textCase(.uppercase)
         .foregroundStyle(secondaryInk)
+        .accessibilityAddTraits(.isHeader)
       Spacer()
-      Menu {
+      Menu(t("sidebar.add"), systemImage: "plus") {
         addActions(live: live)
-      } label: {
-        Image(systemName: "plus")
       }
+      .labelStyle(.iconOnly)
       .menuStyle(.borderlessButton)
       .menuIndicator(.hidden)
       .fixedSize()
       .help(t("sidebar.add"))
       .accessibilityLabel(Text(verbatim: t("sidebar.add")))
-      // The native section header does not expose the Menu's press action. VoiceOver gets
-      // the same actions directly, including their disabled state, without opening a popup.
-      .accessibilityActions { addActions(live: live) }
       .accessibilityIdentifier("sidebar.accounts.add")
     }
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel(Text(verbatim: t("accounts.section.accounts")))
+    .accessibilityIdentifier("sidebar.accounts.header")
   }
 
   @ViewBuilder

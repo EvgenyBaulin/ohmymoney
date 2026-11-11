@@ -115,13 +115,11 @@ struct PlanningLengthMenu: View {
   let layout: PlanningLayoutStore
 
   var body: some View {
-    Menu {
+    Menu(PlanningBlockText.t("layout.length", environment), systemImage: "list.number") {
       PlanningLengthChoices(block: block, layout: layout)
-    } label: {
-      Image(systemName: "list.number")
     }
-    .menuStyle(.button)
-    .buttonStyle(.borderless)
+    .labelStyle(.iconOnly)
+    .menuStyle(.borderlessButton)
     .menuIndicator(.hidden)
     .fixedSize()
     .help(PlanningBlockText.t("layout.length", environment))

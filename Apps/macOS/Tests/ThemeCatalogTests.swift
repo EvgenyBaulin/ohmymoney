@@ -112,6 +112,17 @@ final class ThemeCatalogTests: XCTestCase {
     }
   }
 
+  func testSecondaryInkIsReadableOnTintedRowsAndCardsOfEveryTheme() {
+    for (id, scheme, p) in palettes {
+      for surface in [
+        p.surfaceBackground, p.surfaceCard, p.fillNeutral.composited(over: p.surfaceCard),
+      ] {
+        XCTAssertGreaterThanOrEqual(
+          p.contentSecondary.contrast(on: surface), 4.5, "\(id) \(scheme) secondary ink")
+      }
+    }
+  }
+
   func testTextOnTheHeroIsReadableExceptOnTheLightOrange() {
     for (id, scheme, p) in palettes where !Self.whiteOnHeroExceptions.contains(id) {
       XCTAssertGreaterThanOrEqual(p.heroContent.contrast(on: p.heroEnd), 3, "\(id) \(scheme)")

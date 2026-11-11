@@ -69,6 +69,8 @@ struct SettingsView: View {
     )
     .background(ResizableSettingsWindow(minimum: Self.minimumSize))
     // So a UI test can say the settings really opened when the gear of the toolbar is pressed.
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel(Text(verbatim: environment.language("settings.title", table: "Settings")))
     .accessibilityIdentifier("settings.window")
     // «Справка» → «Собрать отчёт о проблеме…»: the report itself, not a section to look for it
     // in. A sheet is laid out by a host of its own: the dependencies are handed over.

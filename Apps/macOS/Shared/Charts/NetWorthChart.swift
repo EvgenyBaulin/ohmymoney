@@ -197,11 +197,15 @@ struct NetWorthAreaChart: View {
           yEnd: .value("Amount", point.net)
         )
         .foregroundStyle(theme.accentTint)
+        // The line below carries the same data with its full label and value. This fill is
+        // decoration, not a second series with an artificial baseline as its spoken range.
+        .accessibilityHidden(true)
         LineMark(x: .value("Month", point.x), y: .value("Amount", point.net))
           .foregroundStyle(accent)
           .lineStyle(StrokeStyle(lineWidth: Self.lineWidth, lineCap: .round, lineJoin: .round))
           .accessibilityLabel(Text(verbatim: "\(names.net), \(spoken(point))"))
           .accessibilityValue(Text(verbatim: money.rubles(point.net)))
+          .accessibilityIdentifier("chart.native.netWorth.\(point.x)")
       }
       if let now = model.points.last, now.isNow {
         PointMark(x: .value("Month", now.x), y: .value("Amount", now.net))
