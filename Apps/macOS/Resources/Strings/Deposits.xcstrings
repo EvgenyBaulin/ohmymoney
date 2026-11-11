@@ -4,6 +4,12 @@
     "crypto.coin.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Name, unter dem CoinGecko die Münze kennt: bitcoin, ethereum, tether. Höchstens 4 Stellen nach dem Komma: Geld wird auf 1/10.000 genau geführt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -21,6 +27,12 @@
     "crypto.coin.id": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Münzen-ID"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +50,12 @@
     "crypto.coin.refusal": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Münzen-ID besteht aus Kleinbuchstaben, Ziffern und Bindestrichen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -56,6 +74,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurs"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -79,6 +103,12 @@
     "crypto.source": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krypto-Kurse"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -96,6 +126,12 @@
     "crypto.source.coingecko": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus dem Netz (CoinGecko)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -113,6 +149,12 @@
     "crypto.source.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An api.coingecko.com werden nur die ID der Münze und die Währung (Rubel) gesendet. Ohne Netz bleibt der letzte Kurs mit seinem Datum stehen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -130,6 +172,12 @@
     "crypto.source.manual": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Von Hand"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -147,6 +195,12 @@
     "dep.add": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angebot hinzufügen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +219,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ab %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -188,6 +248,12 @@
     "dep.amount.range": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -205,6 +271,12 @@
     "dep.amount.upTo": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bis %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -222,6 +294,12 @@
     "dep.cbr.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durchschnittlich höchster Satz auf Rubel-Einlagen der zehn Banken mit den meisten Einlagen: %1$@ %% pro Jahr, Stand %2$@. Ein Anhaltspunkt für den Markt, nicht der Satz einer Bank."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -239,6 +317,12 @@
     "dep.cbr.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laut Bank of Russia"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -256,6 +340,12 @@
     "dep.diverge": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Sätze weichen ab: %1$@ — %2$@ %%, %3$@ — %4$@ %%. Lohnt einen Blick auf die Seite der Bank."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -274,6 +364,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -298,6 +394,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -321,6 +423,12 @@
     "dep.filter.term": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laufzeit, Monate"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -338,6 +446,12 @@
     "dep.filter.topup": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Auffüllung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -356,6 +470,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -379,6 +499,12 @@
     "dep.form.edit": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angebot bearbeiten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -396,6 +522,12 @@
     "dep.form.max": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Höchstbetrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -413,6 +545,12 @@
     "dep.form.min": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mindestbetrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -430,6 +568,12 @@
     "dep.form.new": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neues Angebot"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -447,6 +591,12 @@
     "dep.form.newClient": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur für Neukunden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -465,6 +615,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notiz"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -489,6 +645,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zinssatz, % pro Jahr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -512,6 +674,12 @@
     "dep.form.rateInvalid": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Satz ist eine positive Zahl, zum Beispiel 15,5."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -529,6 +697,12 @@
     "dep.form.rateOn": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Satz Stand"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -546,6 +720,12 @@
     "dep.form.subscription": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Braucht ein Abo"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -563,6 +743,12 @@
     "dep.form.term": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laufzeit, Monate"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -580,6 +766,12 @@
     "dep.form.topup": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auffüllung möglich"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -597,6 +789,12 @@
     "dep.newClient": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neukunden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -614,6 +812,12 @@
     "dep.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts passt zum Filter."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -631,6 +835,12 @@
     "dep.open": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einlagen-Übersicht…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -648,6 +858,12 @@
     "dep.own": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mein Angebot"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -665,6 +881,12 @@
     "dep.parser": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sätze aus offenen Quellen übernehmen (nur die Seitenabfrage verlässt den Mac)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -682,6 +904,12 @@
     "dep.parser.failed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Sätze konnten nicht aktualisiert werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -699,6 +927,12 @@
     "dep.pick.amount": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "für %@: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -716,6 +950,12 @@
     "dep.pick.term": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "für %lld Mon.: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -733,6 +973,12 @@
     "dep.pick.topup": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mit Auffüllung: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -751,6 +997,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %%"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -774,6 +1026,12 @@
     "dep.rate.unknown": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf der Website der Bank prüfen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -791,6 +1049,12 @@
     "dep.rate.upTo": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bis %@ %%"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -808,6 +1072,12 @@
     "dep.rateOn": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Satz Stand %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -825,6 +1095,12 @@
     "dep.source.builtIn": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "die Liste der App"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -842,6 +1118,12 @@
     "dep.source.centralBank": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "die Bank of Russia"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -859,6 +1141,12 @@
     "dep.source.own": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mein Angebot"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -876,6 +1164,12 @@
     "dep.stale": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kann sich geändert haben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -893,6 +1187,12 @@
     "dep.subscription": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "braucht ein Abo"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -910,6 +1210,12 @@
     "dep.subtitle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was Banken jetzt veröffentlichen, nach Satz. Keine Finanzberatung: Prüfen Sie die Bedingungen auf der Website der Bank."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -927,6 +1233,12 @@
     "dep.term.from": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ab %lld Mon."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -944,6 +1256,12 @@
     "dep.term.one": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Mon."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -961,6 +1279,12 @@
     "dep.term.range": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld–%lld Mon."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -978,6 +1302,12 @@
     "dep.term.upTo": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bis %lld Mon."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -995,6 +1325,12 @@
     "dep.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einlagen-Übersicht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1012,6 +1348,12 @@
     "dep.topup.no": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "keine Auffüllung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1029,6 +1371,12 @@
     "dep.topup.yes": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auffüllung erlaubt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1046,6 +1394,12 @@
     "dep.version": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankliste gelesen am %@; sie wird mit jeder Version aktualisiert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1063,6 +1417,12 @@
     "look.depositEnds": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Einlage „%1$@“ endet am %2$@. Jetzt in der Übersicht (keine Finanzberatung):"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1080,6 +1440,12 @@
     "payout.asset": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anlage"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1097,6 +1463,12 @@
     "payout.coupon": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kupon"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1114,6 +1486,12 @@
     "payout.dividend": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividenden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1131,6 +1509,12 @@
     "payout.fromAsset": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erwartete Auszahlung…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1149,6 +1533,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auszahlung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1172,6 +1562,12 @@
     "payout.newTitle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Auszahlung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1189,6 +1585,12 @@
     "payout.noAssets": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Kapital gibt es noch keine Geldanlagen: Legen Sie dort eine an."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1206,6 +1608,12 @@
     "payout.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewöhnliche Einnahme"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1223,6 +1631,12 @@
     "payout.recurringHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Kupon, der alle halbe Jahre kommt, ist eine regelmäßige Einnahme: Wählen Sie oben „Regelmäßig“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1240,6 +1654,12 @@
     "payout.tag.coupon": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kupon"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1257,6 +1677,12 @@
     "payout.tag.dividend": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividenden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

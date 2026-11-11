@@ -5,6 +5,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -29,6 +35,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto wählen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -52,6 +64,12 @@
     "import.account.needed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie das Konto, zu dem dieser Auszug gehört — die Zeilen werden mit dem verglichen, was es schon enthält."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -69,6 +87,12 @@
     "import.addMore": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datei hinzufügen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -86,6 +110,12 @@
     "import.answer.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einordnen unter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -103,6 +133,12 @@
     "import.answer.later": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Später entscheiden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -121,6 +157,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Merken"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -145,6 +187,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schreiben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -168,6 +216,12 @@
     "import.check.footer.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Differenz zwischen den Summen des Auszugs und seinen Zeilen: Einnahmen %@, Ausgaben %@. Der Auszug wird trotzdem so geschrieben, wie er ist."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -185,6 +239,12 @@
     "import.check.footer.missing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Summen des Auszugs konnten nicht gelesen werden. Die Vorgänge können trotzdem geschrieben werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -202,6 +262,12 @@
     "import.check.footer.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Summen am Fuß stimmen nicht überein"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -219,6 +285,12 @@
     "import.choose": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dateien wählen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -237,6 +309,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -260,6 +338,24 @@
     "import.count.changed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ändert etwas"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ändern etwas"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -313,6 +409,24 @@
     "import.count.declined": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld von der Bank abgelehnt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld von der Bank abgelehnt"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -366,6 +480,24 @@
     "import.count.duplicate": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld schon vorhanden"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld schon vorhanden"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -419,6 +551,24 @@
     "import.count.new": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld neu"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld neu"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -472,6 +622,24 @@
     "import.count.unparsed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nicht gelesen"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nicht gelesen"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -525,6 +693,24 @@
     "import.done.created": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld neuer Vorgang"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld neue Vorgänge"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -578,6 +764,24 @@
     "import.done.duplicates": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeile übersprungen, schon vorhanden"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeilen übersprungen, schon vorhanden"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -631,6 +835,24 @@
     "import.done.merged": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Eintrag von Ihnen aus der Bank vervollständigt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Einträge von Ihnen aus der Bank vervollständigt"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -684,6 +906,24 @@
     "import.done.remembered": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Regel gemerkt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Regeln gemerkt"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -738,6 +978,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geschrieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -761,6 +1007,24 @@
     "import.done.transfers": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisung zwischen Ihren Konten"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisungen zwischen Ihren Konten"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -814,6 +1078,12 @@
     "import.done.undo": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diesen Import zurücknehmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -831,6 +1101,12 @@
     "import.done.undoHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgänge, die seither niemand bearbeitet hat, kommen in den Papierkorb. Überweisungen zwischen Ihren Konten und Ihre Einträge, die die Bank vervollständigt hat, bleiben; eine Überweisung löschen Sie unter „Vorgänge“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -848,6 +1124,12 @@
     "import.done.undone": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurückgenommen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -865,6 +1147,24 @@
     "import.done.unsorted": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang wartet unter „Unsortiert“"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge warten unter „Unsortiert“"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -918,6 +1218,24 @@
     "import.done.upgraded": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld zurückgehaltene Zeile ist jetzt gebucht"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld zurückgehaltene Zeilen sind jetzt gebucht"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -971,6 +1289,24 @@
     "import.done.waiting": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeile wartet auf einen Kurs ihrer Währung"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeilen warten auf einen Kurs ihrer Währung"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1024,6 +1360,12 @@
     "import.empty.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV von VTB oder Raiffeisen oder eine PDF-Bescheinigung der T-Bank mit ihrem Text. Sie können die Dateien auch auf dieses Fenster ziehen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1041,6 +1383,12 @@
     "import.empty.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie einen Auszug"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1058,6 +1406,12 @@
     "import.failed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts wurde geschrieben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1076,6 +1430,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datei"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1100,6 +1460,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1123,6 +1489,12 @@
     "import.filter.changed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Änderungen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1140,6 +1512,12 @@
     "import.filter.duplicates": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schon vorhanden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1158,6 +1536,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1181,6 +1565,12 @@
     "import.filter.new": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neu"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1199,6 +1589,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht gelesen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1222,6 +1618,12 @@
     "import.format": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1239,6 +1641,12 @@
     "import.history.counts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "neu %lld, schon vorhanden %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1256,6 +1664,12 @@
     "import.history.empty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch kein Auszug geladen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1273,6 +1687,12 @@
     "import.history.failed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Import konnte nicht zurückgenommen werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1290,6 +1710,12 @@
     "import.history.undo": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurücknehmen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1307,6 +1733,12 @@
     "import.history.undo.message": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgänge, die seither niemand bearbeitet hat, kommen in den Papierkorb. Die, die Sie bearbeitet haben, bleiben und gehören Ihnen, ebenso Überweisungen zwischen Ihren Konten."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1324,6 +1756,12 @@
     "import.history.undo.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diesen Import zurücknehmen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1341,6 +1779,12 @@
     "import.history.undone": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurückgenommen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1358,6 +1802,12 @@
     "import.history.unnamed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Auszug"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1375,6 +1825,12 @@
     "import.identity.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Wert pro Zeile. Das bleibt in der Datenbank und im Übertragungsarchiv; es steht nicht im CSV-Export und nicht in einem Problembericht."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1392,6 +1848,12 @@
     "import.identity.cards": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1409,6 +1871,12 @@
     "import.identity.cards.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maskiert, wie in Auszügen: 2200 70** **** 1234."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1426,6 +1894,12 @@
     "import.identity.contracts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verträge und Konten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1443,6 +1917,12 @@
     "import.identity.contracts.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Nummern Ihrer eigenen Verträge bei anderen Banken."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1460,6 +1940,12 @@
     "import.identity.failed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Daten konnten nicht gespeichert werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1477,6 +1963,12 @@
     "import.identity.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Ihren Telefonnummern, Namen und Verträgen ist eine Überweisung an sich selbst eine Umbuchung zwischen Ihren eigenen Konten, keine Zahlung an einen Fremden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1494,6 +1986,12 @@
     "import.identity.names": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Namen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1511,6 +2009,12 @@
     "import.identity.names.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Form, die Banken drucken: Name, Vatersname und der erste Buchstabe des Nachnamens."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1528,6 +2032,12 @@
     "import.identity.open": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wer Sie in Auszügen sind…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1545,6 +2055,12 @@
     "import.identity.phones": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telefonnummern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1562,6 +2078,12 @@
     "import.identity.phones.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie die Bank sie schreibt, mit oder ohne +7."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1579,6 +2101,12 @@
     "import.identity.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wer Sie in Auszügen sind"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1596,6 +2124,12 @@
     "import.menu": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auszug importieren…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1613,6 +2147,12 @@
     "import.note.encoding": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei war nicht UTF-8 und wurde als Windows-1251 gelesen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1630,6 +2170,12 @@
     "import.note.loadedBefore": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Datei wurde am %@ geladen. Zeilen, die schon vorhanden sind, werden übersprungen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1647,6 +2193,12 @@
     "import.note.unparsed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht gelesene Zeilen: %lld, Summe %@. Sie stehen unter „Nicht gelesen“ und werden nicht geschrieben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1664,6 +2216,12 @@
     "import.question.summary": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Zeilen, %@ – %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1681,6 +2239,12 @@
     "import.questions.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese konnten weder durch eine Datei noch durch eine Ihrer Regeln zugeordnet werden. Beantworten Sie die Gruppe einmal; „Merken“ macht die Antwort zur Regel für den nächsten Auszug."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1698,6 +2262,12 @@
     "import.questions.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts zu fragen: Jede Zeile hat ihren Platz."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1715,6 +2285,12 @@
     "import.reading": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dateien werden gelesen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1733,6 +2309,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus der Liste entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1756,6 +2338,12 @@
     "import.request.share": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anfrage für diese Bank senden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1773,6 +2361,12 @@
     "import.request.text": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitte fügen Sie ein Auszugsformat hinzu. Die erste Zeile der Datei: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1790,6 +2384,12 @@
     "import.row.asks": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieht nach Ihrem Eintrag aus"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1807,6 +2407,12 @@
     "import.row.asks.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht dasselbe — als neu hinzufügen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1824,6 +2430,12 @@
     "import.row.asks.pick": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dasselbe wie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1841,6 +2453,12 @@
     "import.row.duplicate": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schon vorhanden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1858,6 +2476,12 @@
     "import.row.knownTransfer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überweisung schon erfasst"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1875,6 +2499,12 @@
     "import.row.merges": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dasselbe wie Ihr Eintrag — der Betrag wird der der Bank"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1892,6 +2522,12 @@
     "import.row.new": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neu"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1909,6 +2545,12 @@
     "import.row.ownTransfer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigenes Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1926,6 +2568,12 @@
     "import.row.pending": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurückgehalten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1943,6 +2591,12 @@
     "import.row.posted": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jetzt gebucht — aktualisiert die zurückgehaltene Zeile"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1960,6 +2614,12 @@
     "import.row.replaces": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersetzt eine zurückgehaltene Zeile"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1977,6 +2637,12 @@
     "import.rows.noAccount": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie unter „Dateien“ ein Konto, um die Zeilen zu sehen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1994,6 +2660,12 @@
     "import.rows.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Zeilen hier."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2011,6 +2683,12 @@
     "import.rows.noneUnparsed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jede Zeile wurde gelesen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2028,6 +2706,12 @@
     "import.scan.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es ist ein Scan oder ein Foto. Das Lesen von Scans kommt in einer späteren Version; bitten Sie die Bank vorerst um den Auszug als Datei mit Text."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2045,6 +2729,12 @@
     "import.scan.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Text in dieser PDF"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2062,6 +2752,12 @@
     "import.settings.load": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auszug laden…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2079,6 +2775,12 @@
     "import.settings.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auszüge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2096,6 +2798,24 @@
     "import.stale.delete": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld zurückgehaltene Zeile löschen, die die Bank seit Wochen nicht gebucht hat"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld zurückgehaltene Zeilen löschen, die die Bank seit Wochen nicht gebucht hat"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -2149,6 +2869,12 @@
     "import.stale.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine abgelehnte Vormerkung verschwindet aus dem Auszug. Die Zeilen kommen in den Papierkorb, und ⌘Z holt sie zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2166,6 +2892,12 @@
     "import.stale.hint.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine abgelehnte Vormerkung verschwindet aus dem Auszug. Die Zeilen kommen in den Papierkorb, und „Rückgängig“ holt sie zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2183,6 +2915,12 @@
     "import.stale.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurückgehaltene Zeilen, die niemand gebucht hat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2201,6 +2939,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dateien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2224,6 +2968,12 @@
     "import.step.questions": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fragen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2241,6 +2991,12 @@
     "import.step.rows": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeilen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2258,6 +3014,12 @@
     "import.subtitle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts wird geschrieben, bis Sie „Schreiben“ drücken. ⌘Z nimmt es zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2275,6 +3037,12 @@
     "import.subtitle.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts wird geschrieben, bis Sie „Schreiben“ drücken. „Rückgängig“ nimmt es zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2292,6 +3060,12 @@
     "import.summary.nothing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nichts zu schreiben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2309,6 +3083,12 @@
     "import.summary.plan": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu schreiben: %lld · Änderungen: %lld · Überweisungen: %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2327,6 +3107,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle ankreuzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2350,6 +3136,12 @@
     "import.tickNone": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle abwählen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2367,6 +3159,12 @@
     "import.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auszüge importieren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2385,6 +3183,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Kredit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2408,6 +3212,12 @@
     "import.topic.merchant": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Ort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2425,6 +3235,12 @@
     "import.topic.person": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Person"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2442,6 +3258,12 @@
     "import.topic.selfEmployedIncome": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vertragseinnahme"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2459,6 +3281,12 @@
     "import.topic.unknownCard": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Karte unbekannten Besitzers"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2476,6 +3304,12 @@
     "import.topic.unknownIncomingSource": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geld von einem ungenannten Absender"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2493,6 +3327,24 @@
     "import.transfers.ambiguous": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeilengruppe passt gleich gut zu mehreren anderen; sie bleiben gewöhnliche Vorgänge"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeilengruppen passen gleich gut zu mehreren anderen; sie bleiben gewöhnliche Vorgänge"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -2546,6 +3398,12 @@
     "import.transfers.noStatement": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überweisungen auf Ihr Konto bei „%@“: %lld, %@. Dafür gibt es keinen Auszug, daher bleiben sie gewöhnliche Vorgänge unter „Unsortiert“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2563,6 +3421,24 @@
     "import.transfers.onTheWay": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisung ist unterwegs (bis zu 5 Tage)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisungen sind unterwegs (bis zu 5 Tage)"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -2616,6 +3492,24 @@
     "import.transfers.overdue": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisung ist seit über 5 Tagen nicht angekommen"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisungen sind seit über 5 Tagen nicht angekommen"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -2669,6 +3563,12 @@
     "import.transfers.pair": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@ → %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2686,6 +3586,12 @@
     "import.transfers.soft": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesendet %@, angekommen %@ — ankreuzen, wenn es eine Überweisung ist"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2703,6 +3609,12 @@
     "import.transfers.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überweisungen zwischen Ihren Konten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2720,6 +3632,12 @@
     "import.unknown.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine bekannte Bank hat diese Datei geschrieben. Senden Sie die Anfrage an die Bank mit der ersten Zeile, dann kann ein Leser dafür gebaut werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2737,6 +3655,12 @@
     "import.unknown.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Format ist nicht bekannt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2754,6 +3678,12 @@
     "import.unparsed.line": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeile %lld der Datei"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2771,6 +3701,12 @@
     "import.unparsed.reason.amountColumnsConflict": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beide oder keine der Betragsspalten sind gefüllt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2788,6 +3724,12 @@
     "import.unparsed.reason.badAmount": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Betrag ist nicht lesbar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2805,6 +3747,12 @@
     "import.unparsed.reason.badDate": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Datum ist nicht lesbar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2822,6 +3770,12 @@
     "import.unparsed.reason.columnCountMismatch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Anzahl der Spalten stimmt nicht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2839,6 +3793,12 @@
     "import.unparsed.reason.signContradictsDirection": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Vorzeichen widerspricht dem „Soll/Haben“ der Bank"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2856,6 +3816,12 @@
     "import.unparsed.reason.unreadableLine": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zeile lässt sich nicht als Vorgang lesen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2873,6 +3839,12 @@
     "import.unreadable.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie ist leer, beschädigt oder kein Auszug."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2890,6 +3862,12 @@
     "import.unreadable.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei kann nicht gelesen werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2908,6 +3886,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unsortiert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

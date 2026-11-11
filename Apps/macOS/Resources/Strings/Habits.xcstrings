@@ -4,6 +4,12 @@
     "badges.earnedOn": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "erhalten am %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -21,6 +27,12 @@
     "badges.kind.count12": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zählung jeden Monat ein Jahr lang"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +50,12 @@
     "badges.kind.count3": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zählung jeden Monat drei Monate lang"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -55,6 +73,12 @@
     "badges.kind.countMonth": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zählung in diesem Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +96,12 @@
     "badges.kind.entry100": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 Tage Einträge am Stück"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -89,6 +119,12 @@
     "badges.kind.entry30": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 Tage Einträge am Stück"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -106,6 +142,12 @@
     "badges.kind.entry7": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 Tage Einträge am Stück"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +165,12 @@
     "badges.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Abzeichen in diesem Zeitraum"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -140,6 +188,24 @@
     "badges.streakNow": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Serie jetzt: %lld Tag"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Serie jetzt: %lld Tage"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -193,6 +259,12 @@
     "badges.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abzeichen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -210,6 +282,12 @@
     "beginner.caption": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruhig im Einsteigermodus"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -227,6 +305,12 @@
     "beginner.openNow": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jetzt öffnen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -244,6 +328,24 @@
     "beginner.unlock.entryDays": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Öffnet sich bei %lld Tag mit Einträgen (jetzt %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Öffnet sich bei %lld Tagen mit Einträgen (jetzt %lld)"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -297,6 +399,12 @@
     "beginner.unlock.firstCount": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnet sich nach der ersten Zählung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -314,6 +422,24 @@
     "beginner.unlock.month": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Öffnet sich in %lld Tag, nach einem Monat Einträgen"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Öffnet sich in %lld Tagen, nach einem Monat Einträgen"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -367,6 +493,12 @@
     "goal.why.exceeded": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warum Sie sparen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -384,6 +516,12 @@
     "goal.why.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die App erinnert Sie daran, wenn das Zielgeld ausgegeben scheint, der Plan gesenkt wird oder das Ziel gelöscht wird"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -401,6 +539,12 @@
     "goal.why.lowered": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie sparen für „%1$@“, weil: %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -418,6 +562,12 @@
     "goal.why.prompt": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Meer im Juli, mit der ganzen Familie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -435,6 +585,12 @@
     "goal.why.reminder": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%1$@“: %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -452,6 +608,12 @@
     "goal.why.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warum ich spare"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -469,6 +631,12 @@
     "habit.action.noSpend": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Ausgaben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -487,6 +655,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiederherstellen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -510,6 +684,12 @@
     "lessons.cards": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 Karten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -528,6 +708,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -551,6 +737,12 @@
     "lessons.menu": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lektionen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -568,6 +760,12 @@
     "lessons.subtitle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurze Lektionen über Geld, je fünf Karten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -585,6 +783,12 @@
     "lessons.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lektionen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -602,6 +806,12 @@
     "look.habit.evening": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heute keine Ausgaben?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -619,6 +829,12 @@
     "look.habit.eveningRemind": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schreiben Sie die heutigen Ausgaben auf — oder gab es heute keine?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -636,6 +852,24 @@
     "look.habit.missed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Seit %lld Tag nichts erfasst — aus den Salden wiederherstellen?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Seit %lld Tagen nichts erfasst — aus den Salden wiederherstellen?"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -689,6 +923,24 @@
     "look.habit.streak": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Serie %lld Tag"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Serie %lld Tage"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -743,6 +995,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurück"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -766,6 +1024,12 @@
     "missed.balances.actual": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jetzt auf dem Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -783,6 +1047,12 @@
     "missed.balances.expected": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laut Aufzeichnungen: %@ — stimmt überein"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -800,6 +1070,12 @@
     "missed.balances.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tragen Sie ein, was jedes Konto jetzt hält. Konten in „Gesamt“, die mindestens einmal gezählt wurden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -817,6 +1093,12 @@
     "missed.balances.missing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laut Aufzeichnungen %1$@ · nicht notiert %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -834,6 +1116,12 @@
     "missed.balances.more": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mehr, als die Aufzeichnungen sagen — vielleicht eine nicht notierte Einnahme; sie wird nicht als Ausgabe verteilt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -851,6 +1139,12 @@
     "missed.balances.noAccounts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Konto in „Gesamt“ wurde bisher gezählt. Zählen Sie zuerst, dann weiß der Assistent, womit er vergleichen soll."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -868,6 +1162,12 @@
     "missed.balances.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jeder Saldo stimmt mit den Aufzeichnungen überein: nichts wiederherzustellen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -886,6 +1186,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbrechen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -909,6 +1215,12 @@
     "missed.changed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Salden haben sich geändert, während der Assistent offen war. Schließen Sie ihn und zählen Sie erneut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -926,6 +1238,12 @@
     "missed.days.add": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeile hinzufügen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -943,6 +1261,12 @@
     "missed.days.allUnknown": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeilen ohne Kategorie — „Unbekannt“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -961,6 +1285,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -984,6 +1314,12 @@
     "missed.days.done": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vollständig verteilt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1001,6 +1337,12 @@
     "missed.days.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jede Zeile braucht eine Kategorie; „Unbekannt“ ist auch eine Wahl. Die Zeilen eines Kontos ergeben zusammen, was darauf fehlt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1018,6 +1360,12 @@
     "missed.days.left": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch zu verteilen: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1035,6 +1383,12 @@
     "missed.days.note": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was es war (optional)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1052,6 +1406,12 @@
     "missed.days.remove": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeile entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1070,6 +1430,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weiter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1093,6 +1459,12 @@
     "missed.notSaved": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Vorgänge konnten nicht geschrieben werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1110,6 +1482,12 @@
     "missed.problem.amount": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jede Zeile braucht einen Betrag über null"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1127,6 +1505,12 @@
     "missed.problem.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie für jede Zeile eine Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1144,6 +1528,12 @@
     "missed.problem.left": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zeilen eines Kontos ergeben nicht, was darauf fehlt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1161,6 +1551,12 @@
     "missed.save": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufschreiben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1178,6 +1574,12 @@
     "missed.saved": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufgeschrieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1195,6 +1597,12 @@
     "missed.step.balances": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Was jetzt auf den Konten liegt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1212,6 +1620,12 @@
     "missed.step.days": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Die Ausgaben auf die Tage verteilen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1229,6 +1643,12 @@
     "missed.subtitle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vom %1$@ bis %2$@ wurde nichts erfasst. Zuerst die Salden, dann die Tage."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1246,6 +1666,12 @@
     "missed.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verpasste Tage wiederherstellen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1263,6 +1689,12 @@
     "month.dayOf": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tag %1$lld von %2$lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1281,6 +1713,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausblenden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1304,6 +1742,12 @@
     "month.progress": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld von %2$lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1321,6 +1765,12 @@
     "month.show": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigen, wo"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1338,6 +1788,12 @@
     "month.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der erste Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1355,6 +1811,12 @@
     "settings.habits.beginner": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einsteigermodus"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1372,6 +1834,12 @@
     "settings.habits.beginnerHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Komplexe Bereiche bleiben sichtbar, aber abgeblendet, bis es etwas zu zeigen gibt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1389,6 +1857,12 @@
     "settings.habits.evening": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Am Abend nach den heutigen Ausgaben fragen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1406,6 +1880,12 @@
     "settings.habits.eveningHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Heute keine Ausgaben?“ zählt den Tag in der Serie mit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1423,6 +1903,12 @@
     "settings.habits.eveningHour": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Abend beginnt um"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1440,6 +1926,12 @@
     "settings.habits.firstMonth": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Checkliste des ersten Monats zeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1457,6 +1949,12 @@
     "settings.habits.missedAfter": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiederherstellen anbieten nach Tagen ohne Einträge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1474,6 +1972,12 @@
     "settings.habits.missedAfterHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Zeile unter „Lohnt einen Blick“, keine Mitteilung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1492,6 +1996,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewohnheiten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

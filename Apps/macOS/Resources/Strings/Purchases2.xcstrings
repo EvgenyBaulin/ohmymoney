@@ -4,6 +4,12 @@
     "calendar.birthday": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtstag von %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -21,6 +27,12 @@
     "calendar.birthday.createEvent": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Ereignis mit dem Budget anlegen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +50,12 @@
     "calendar.birthday.created": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ereignis angelegt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -55,6 +73,12 @@
     "calendar.birthday.mark": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtstag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +96,12 @@
     "calendar.birthday.notCreated": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Ereignis wurde nicht angelegt: Ein solches gibt es bereits"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -89,6 +119,24 @@
     "calendar.birthday.turns": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "wird %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "wird %lld"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -142,6 +190,12 @@
     "calendar.birthdayBudget": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtstag von %1$@, Budget %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -159,6 +213,12 @@
     "look.purchase.action.createEvent": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ereignis anlegen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -176,6 +236,12 @@
     "look.purchase.action.credited": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gutgeschrieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -193,6 +259,12 @@
     "look.purchase.action.openRefunds": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattungen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -210,6 +282,12 @@
     "look.purchase.action.openWishes": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wunschliste"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -227,6 +305,12 @@
     "look.purchase.birthday": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: Geburtstag am %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -244,6 +328,12 @@
     "look.purchase.birthdayBudget": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: Geburtstag am %2$@, Geschenkbudget %3$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -261,6 +351,12 @@
     "look.purchase.birthdayToday": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: heute Geburtstag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -278,6 +374,12 @@
     "look.purchase.birthdayTodayBudget": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: heute Geburtstag, Geschenkbudget %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -295,6 +397,12 @@
     "look.purchase.eventName": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtstag: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -312,6 +420,12 @@
     "look.purchase.refund": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung von „%1$@“, %2$@, wartet auf die Gutschrift"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -329,6 +443,24 @@
     "look.purchase.refundDays": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Tag"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Tage"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -382,6 +514,12 @@
     "look.purchase.refundLate": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung von „%1$@“, %2$@, ist verspätet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -399,6 +537,12 @@
     "look.purchase.refundLateNoName": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung von %@ ist verspätet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -416,6 +560,12 @@
     "look.purchase.refundNoName": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung von %@ wartet auf die Gutschrift"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -433,6 +583,12 @@
     "look.purchase.regret": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereuen Sie den Kauf „%1$@“ (%2$@, %3$@)?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -450,6 +606,12 @@
     "look.purchase.regretCategory": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereuen Sie den Kauf in „%1$@“ vom %2$@ (%3$@)?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -467,6 +629,12 @@
     "look.purchase.regretDated": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereuen Sie den Kauf vom %1$@ (%2$@)?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -484,6 +652,24 @@
     "look.purchase.regretMore": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld weiterer Kauf wartet auf eine Antwort"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld weitere Käufe warten auf eine Antwort"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -537,6 +723,12 @@
     "look.purchase.regretPlace": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereuen Sie den Kauf bei %1$@ am %2$@ (%3$@)?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -554,6 +746,12 @@
     "look.purchase.untitled": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ein Kauf"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -571,6 +769,12 @@
     "look.purchase.wish": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%1$@“ kann gekauft werden: %2$@ gespart"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -589,6 +793,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtstag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -612,6 +822,12 @@
     "person.birthday.add": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtstag festlegen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -630,6 +846,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -654,6 +876,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -677,6 +905,12 @@
     "person.birthday.remove": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geburtstag entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -694,6 +928,12 @@
     "person.birthday.year": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jahr (optional)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -712,6 +952,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jahr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -735,6 +981,12 @@
     "person.giftBudget": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geschenkbudget"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -752,6 +1004,12 @@
     "person.giftBudget.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Woche vor dem Geburtstag erinnert die App Sie und bietet ein Ereignis mit diesem Budget an."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -770,6 +1028,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -793,6 +1057,12 @@
     "planning.birthdays.lineBudget": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@, Budget %3$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -810,6 +1080,12 @@
     "planning.birthdays.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nächste Geburtstage"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -827,6 +1103,12 @@
     "planning.birthdays.today": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: heute"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -844,6 +1126,12 @@
     "purchase.discount.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rabatt %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -861,6 +1149,12 @@
     "purchase.discount.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rabatt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -878,6 +1172,12 @@
     "purchase.mileage.message": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tragen Sie die Kilometer ein; der Kilometerstand wird ab dem letzten Tanken gezählt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -895,6 +1195,12 @@
     "purchase.mileage.messageFirst": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dies ist das erste Tanken mit einem Kilometerstand. Tragen Sie ein, was das Armaturenbrett zeigt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -912,6 +1218,12 @@
     "purchase.mileage.prompt": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometerstand"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -929,6 +1241,12 @@
     "purchase.mileage.prompt.km": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometer"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -946,6 +1264,12 @@
     "purchase.mileage.question": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie weit sind Sie seit dem letzten Tanken gefahren?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -964,6 +1288,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sichern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -987,6 +1317,12 @@
     "purchase.mileage.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometerstand, km"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1004,6 +1340,12 @@
     "purchase.mileage.unknown": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weiß ich nicht mehr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1021,6 +1363,12 @@
     "purchase.pause.message": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ sind %2$@ %% des Geldes, das Sie jetzt ausgeben können. Sie können es erfassen oder warten."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1038,6 +1386,12 @@
     "purchase.pause.messageNoShare": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, und es wird kein freies Geld gezählt. Sie können es erfassen oder warten."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1056,6 +1410,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1079,6 +1439,12 @@
     "purchase.pause.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit dem Kauf warten?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1096,6 +1462,12 @@
     "purchase.refund.credited": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schon gutgeschrieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1114,6 +1486,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wartet auf das Geld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1137,6 +1515,12 @@
     "purchase.refund.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wartet auf Gutschrift bis"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1154,6 +1538,12 @@
     "purchase.regret.answered.no": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Reue"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1171,6 +1561,12 @@
     "purchase.regret.answered.skip": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht erneut gefragt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1188,6 +1584,12 @@
     "purchase.regret.answered.yes": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereut"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1206,6 +1608,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ändern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1229,6 +1637,12 @@
     "purchase.regret.no": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Reue"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1246,6 +1660,12 @@
     "purchase.regret.skip": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht fragen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1263,6 +1683,12 @@
     "purchase.regret.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Irgendeine Reue?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1280,6 +1706,12 @@
     "purchase.regret.yes": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ich bereue es"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

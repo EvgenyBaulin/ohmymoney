@@ -4,6 +4,12 @@
     "cushion.bar": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ von %2$@ Mon."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -21,6 +27,12 @@
     "cushion.floor": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht weniger als die heutigen Pflichtzahlungen: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +50,12 @@
     "cushion.fullMonths": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volle Monate bisher: %lld."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -55,6 +73,12 @@
     "cushion.goal.byMonth": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel — %1$@ (%2$@): %3$@ im Monat beiseitelegen bis %4$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +96,12 @@
     "cushion.goal.byMonthToggle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erreicht bis"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -90,6 +120,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -113,6 +149,24 @@
     "cushion.goal.months": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ein Polster für %lld Monat"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ein Polster für %lld Monate"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -166,6 +220,12 @@
     "cushion.goal.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch kein Ziel: Sagen Sie, wie viele Monate das Polster decken soll."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -184,6 +244,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -207,6 +273,12 @@
     "cushion.goal.pace": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "im jetzigen Tempo — bis %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -224,6 +296,12 @@
     "cushion.goal.paceNever": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "im jetzigen Tempo wird es nie erreicht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -241,6 +319,12 @@
     "cushion.goal.perMonth": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel — %1$@ (%2$@): %3$@ im Monat erreichen es in einem Jahr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -258,6 +342,12 @@
     "cushion.goal.reached": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel — %1$@ (%2$@): erreicht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -275,6 +365,12 @@
     "cushion.goal.remove": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -292,6 +388,12 @@
     "cushion.goal.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel des Polsters"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -309,6 +411,24 @@
     "cushion.lasts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ohne Einnahmen würden Sie %lld Monat reichen"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ohne Einnahmen würden Sie %lld Monate reichen"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -362,6 +482,12 @@
     "cushion.lastsFraction": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ohne Einnahmen würden Sie %@ Monate reichen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -380,6 +506,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Januar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -404,6 +536,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oktober"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -428,6 +566,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "November"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -452,6 +596,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dezember"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -476,6 +626,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Februar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -500,6 +656,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "März"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -524,6 +686,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "April"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -548,6 +716,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mai"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -572,6 +746,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juni"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -596,6 +776,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juli"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -620,6 +806,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "August"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -644,6 +836,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "September"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -668,6 +866,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Januar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -692,6 +896,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oktober"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -716,6 +926,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "November"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -740,6 +956,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dezember"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -764,6 +986,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Februar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -788,6 +1016,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "März"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -812,6 +1046,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "April"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -836,6 +1076,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mai"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -860,6 +1106,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juni"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -884,6 +1136,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juli"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -908,6 +1166,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "August"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -932,6 +1196,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "September"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -955,6 +1225,24 @@
     "cushion.monthsCount": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Monat"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Monate"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1008,6 +1296,12 @@
     "cushion.noAccounts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markieren Sie die Konten des Polsters, dann zeigt sich hier, wie viele Monate es ohne Einnahmen reicht."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1025,6 +1319,12 @@
     "cushion.notEnough": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht genug Daten: Die Pflichtausgaben brauchen 3 volle Monate."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1043,6 +1343,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schulden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1066,6 +1372,12 @@
     "cushion.part.essential": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notwendige Kategorien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1084,6 +1396,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlungen und Abos"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1108,6 +1426,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sicherheitspolster"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1131,6 +1455,12 @@
     "cushion.planning.notEnough": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sicherheitspolster: noch nicht genug Daten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1148,6 +1478,12 @@
     "cushion.planning.notSet": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sicherheitspolster: noch kein Konto markiert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1165,6 +1501,12 @@
     "cushion.planning.open": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kapital öffnen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1182,6 +1524,12 @@
     "cushion.planning.row": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sicherheitspolster: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1199,6 +1547,12 @@
     "cushion.setup.accounts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konten des Polsters"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1216,6 +1570,12 @@
     "cushion.setup.accountsHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Geld dieser Konten, in jeder ihrer Währungen, ist das Polster."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1234,6 +1594,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notwendige Ausgaben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1257,6 +1623,12 @@
     "cushion.setup.essentialHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgaben, die nicht aufhören können. Zusammen mit Zahlungen, Abos und Schulden ergeben sie die Pflichtausgaben eines Monats."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1274,6 +1646,12 @@
     "cushion.setup.noAccounts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Konten."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1291,6 +1669,12 @@
     "cushion.setup.noCategories": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine eigenen Ausgabenkategorien."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1308,6 +1692,12 @@
     "cushion.setup.open": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konten und Kategorien…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1325,6 +1715,12 @@
     "cushion.setup.suggested": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die üblichen notwendigen Kategorien sind angekreuzt: Prüfen Sie sie und sichern Sie."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1343,6 +1739,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sicherheitspolster"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1366,6 +1768,12 @@
     "cushion.summary": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Polster %1$@ · Pflichtausgaben ≈ %2$@ im Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1383,6 +1791,12 @@
     "cushion.tile.months": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Mon."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1401,6 +1815,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sicherheitspolster"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1424,6 +1844,12 @@
     "cushion.unanchored": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nicht gezählt: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

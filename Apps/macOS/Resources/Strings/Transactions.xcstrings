@@ -4,6 +4,12 @@
     "approximate.rateOf": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurs von %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -22,6 +28,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anwenden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +57,12 @@
     "bulk.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -62,6 +80,24 @@
     "bulk.confirmDelete": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang löschen?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge löschen?"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -115,6 +151,24 @@
     "bulk.confirmEdit": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang ändern?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge ändern?"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -168,6 +222,12 @@
     "bulk.deleteAndReopen": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuld „%@“ löschen und wieder öffnen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -185,6 +245,12 @@
     "bulk.deleteClosedDebt": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zahlung hat eine Schuld beendet: %@. Wird sie gelöscht, ist wieder Geld darauf geschuldet, und die Schuld bleibt beendet, bis Sie sie wieder öffnen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -202,6 +268,12 @@
     "bulk.deleteDebtPayment": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlungen auf Schulden werden auch von ihren Schulden abgezogen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -219,6 +291,12 @@
     "bulk.deleteReimbursement": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurückgegebenes Geld nimmt seinen Überschuss oder Fehlbetrag mit, und die Teile, die es beendet hat, warten darauf, erneut zurückgezahlt zu werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -237,6 +315,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ereignis"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -261,6 +345,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für wen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -285,6 +375,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -308,6 +404,12 @@
     "bulk.nothingToChange": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts zu ändern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -325,6 +427,12 @@
     "bulk.nothingToDelete": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts zu löschen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -342,6 +450,24 @@
     "bulk.partlySkipped": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Bei %lld Vorgang bleiben einige Teile, wie sie sind:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Bei %lld Vorgängen bleiben einige Teile, wie sie sind:"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -396,6 +522,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -419,6 +551,12 @@
     "bulk.person": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Person…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -436,6 +574,12 @@
     "bulk.place": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -454,6 +598,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -477,6 +627,12 @@
     "bulk.reason.closedByReimbursement": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "für einen Teil davon wurde Geld zurückgegeben — löschen Sie zuerst diese Rückzahlung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -494,6 +650,12 @@
     "bulk.reason.creditPurchase": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "auf Kredit gekauft — geändert unter „Schulden“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -511,6 +673,12 @@
     "bulk.reason.creditPurchasePaid": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Darauf wurden schon Raten bezahlt — löschen Sie sie zuerst."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -528,6 +696,12 @@
     "bulk.reason.debtPayment": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "es ist eine Zahlung auf eine Schuld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -545,6 +719,12 @@
     "bulk.reason.fieldNotForKind": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahme und Geld zurück haben dieses Feld nicht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -562,6 +742,12 @@
     "bulk.reason.goalContribution": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "es ist ein Beitrag zu einem Ziel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -579,6 +765,12 @@
     "bulk.reason.hasRefunds": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "eine Erstattung nimmt davon Geld zurück — löschen Sie zuerst die Erstattung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -596,6 +788,12 @@
     "bulk.reason.incomeHasNoPlace": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen haben keinen Ort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -613,6 +811,12 @@
     "bulk.reason.moneyReturned": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "es ist Geld, das eine Person zurückgegeben hat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -630,6 +834,12 @@
     "bulk.reason.noQuality": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahme und Geld zurück haben keine Bewertung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -647,6 +857,12 @@
     "bulk.reason.noRateForCharge": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "noch kein Kurs, um zu berechnen, was das Konto belastet wird"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -664,6 +880,12 @@
     "bulk.reason.otherKind": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "die Kategorie ist von der anderen Art"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -681,6 +903,12 @@
     "bulk.reason.paidForSomebodyElse": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "für jemand anderen bezahlt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -698,6 +926,12 @@
     "bulk.reason.reconciliationDifference": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "es ist eine Abgleichdifferenz: Ihr Konto kommt aus der Zählung, und sie geht nie in Ziele oder eine Kategorie der App"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -715,6 +949,12 @@
     "bulk.reason.retiredCategory": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "die Kategorie wurde archiviert oder entfernt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -732,6 +972,12 @@
     "bulk.reason.systemCategory": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "eine Systemkategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -750,6 +996,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suchen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -773,6 +1025,24 @@
     "bulk.skipped": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang bleibt, wie er ist:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge bleiben, wie sie sind:"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -826,6 +1096,24 @@
     "bulk.splitWarning": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Unter den Ausgewählten ist %lld Vorgang geteilt — die Änderung betrifft alle seine Teile."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Unter den Ausgewählten sind %lld Vorgänge geteilt — die Änderung betrifft alle ihre Teile."
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -879,6 +1167,12 @@
     "bulk.undoHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z bringt alles zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -896,6 +1190,12 @@
     "bulk.undoHint.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Rückgängig“ bringt alles zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -913,6 +1213,12 @@
     "editor.reconcileDifference.locked": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das ist eine Abgleichdifferenz: Ihr Betrag, Ihre Art, Ihr Konto, Ihre Währung und Ihr Datum folgen von selbst, wenn Sie vor der Zählung Vorgänge hinzufügen oder korrigieren. Löschen Sie sie, und die Differenz dieser Zählung wird nicht mehr erfasst."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -931,6 +1237,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamte Zeit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -955,6 +1267,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -978,6 +1296,12 @@
     "filters.custom": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigener Zeitraum"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -996,6 +1320,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1019,6 +1349,12 @@
     "filters.empty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts entspricht diesen Filtern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1037,6 +1373,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Von"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1061,6 +1403,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Letzter Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1085,6 +1433,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts gefunden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1109,6 +1463,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeitraum"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1133,6 +1493,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Person"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1157,6 +1523,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurücksetzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1181,6 +1553,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geld zurück"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1205,6 +1583,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1229,6 +1613,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieses Jahr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1252,6 +1642,12 @@
     "filters.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1270,6 +1666,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bis"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1294,6 +1696,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Art"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1317,6 +1725,12 @@
     "inspector.closedMessage": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Speichern Sie sie oder verwerfen Sie sie."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1334,6 +1748,12 @@
     "inspector.closedTitle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Inspektor wurde mit nicht gespeicherten Änderungen geschlossen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1351,6 +1771,12 @@
     "inspector.discard": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht speichern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1368,6 +1794,12 @@
     "inspector.editPrefix": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeiten · "
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1385,6 +1817,12 @@
     "inspector.unsavedMessage": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein anderer Vorgang wird geöffnet. Nicht gespeicherte Änderungen gehen verloren."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1402,6 +1840,12 @@
     "inspector.unsavedTitle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Änderungen an diesem Vorgang speichern?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1420,6 +1864,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1444,6 +1894,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgaben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1468,6 +1924,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1492,6 +1954,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heute"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1515,6 +1983,12 @@
     "operations.columns": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spalten…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1533,6 +2007,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach unten verschieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1556,6 +2036,12 @@
     "operations.columns.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welche Spalten gezeigt werden, in welcher Reihenfolge und wie breit. Ziehen Sie eine Zeile oder verschieben Sie sie mit den Pfeilen. Beschreibung und Betrag werden immer gezeigt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1573,6 +2059,12 @@
     "operations.columns.reset": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf Standard zurücksetzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1590,6 +2082,12 @@
     "operations.columns.resetHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Standardspalten, ihre Reihenfolge und Breiten, ohne Filter und Suche."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1607,6 +2105,12 @@
     "operations.columns.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spalten der Tabelle"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1625,6 +2129,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach oben verschieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1648,6 +2158,12 @@
     "operations.columns.width": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Breite %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1665,6 +2181,12 @@
     "operations.menu.compact": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kompakte Liste der Vorgänge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1682,6 +2204,12 @@
     "operations.menu.filters": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filter der Vorgänge…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1699,6 +2227,12 @@
     "operations.month.back": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorheriger Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1717,6 +2251,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nächster Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1741,6 +2281,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neuer Vorgang"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1765,6 +2311,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überweisung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1788,6 +2340,12 @@
     "operations.search.field": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgänge suchen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1805,6 +2363,12 @@
     "operations.search.prompt": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die ganze Historie durchsuchen: Wörter, Kategorie, Ort, Konto, Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1823,6 +2387,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suchen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1846,6 +2416,12 @@
     "payingFor.row.evenly": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "geteilt durch %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1863,6 +2439,12 @@
     "payingFor.row.for": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "für %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1880,6 +2462,12 @@
     "payingFor.row.gift": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ein Geschenk"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1897,6 +2485,12 @@
     "payingFor.row.half": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zur Hälfte mit %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1915,6 +2509,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ändern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1938,6 +2538,12 @@
     "selection.clear": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auswahl aufheben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1956,6 +2562,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -2040,6 +2664,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löschen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2063,6 +2693,12 @@
     "selection.writing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Änderungen werden gespeichert…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2080,6 +2716,12 @@
     "store.failure.change": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Änderung wurde nicht gespeichert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2097,6 +2739,12 @@
     "store.failure.delete": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konnte nicht gelöscht werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2114,6 +2762,12 @@
     "store.failure.other": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datenbank hat die Schreibung nicht angenommen, und nichts hat sich geändert. Der Fehler steht im Journal (Hilfe → Problembericht erstellen…)."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2131,6 +2785,12 @@
     "store.failure.planOutdated": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einige dieser Vorgänge haben sich anderswo geändert, während Sie wählten, wohin das Geld geht; die Überweisung passt daher nicht mehr. Nichts hat sich geändert: Wählen Sie die Vorgänge aus und machen Sie die Änderung erneut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2148,6 +2808,12 @@
     "store.failure.undo": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konnte nicht rückgängig gemacht werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2165,6 +2831,12 @@
     "store.failure.undoOther": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datenbank hat die Schreibung nicht angenommen. Nichts hat sich geändert, und der Schritt bleibt: ⌘Z versucht es erneut. Der Fehler steht im Journal (Hilfe → Problembericht erstellen…)."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2182,6 +2854,12 @@
     "store.failure.undoOther.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datenbank hat die Schreibung nicht angenommen. Nichts hat sich geändert, und der Schritt bleibt: „Rückgängig“ versucht es erneut. Der Fehler steht im Journal (Einstellungen → Hilfe → Problembericht erstellen)."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2199,6 +2877,12 @@
     "store.failure.undoTied": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etwas, das danach getan wurde, hängt von diesem Schritt ab — zum Beispiel wurde ein Vorgang unter einer Kategorie eingeordnet, die er selbst angelegt hat —, oder der Schritt bringt etwas zurück, das auf ein seither gelöschtes Ding zeigt. Nichts hat sich geändert, und der Schritt bleibt: Klären Sie das, dann machen Sie erneut rückgängig."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2216,6 +2900,12 @@
     "totals.forOthers": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für andere"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2234,6 +2924,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2258,6 +2954,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geld zurück"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2282,6 +2984,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgegeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2306,6 +3014,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2330,6 +3044,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2354,6 +3074,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2378,6 +3104,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschreibung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2402,6 +3134,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ereignis"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2426,6 +3164,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für wen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2450,6 +3194,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kommentar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2474,6 +3224,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2498,6 +3254,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2522,6 +3284,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2546,6 +3314,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uhrzeit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2569,6 +3343,12 @@
     "transactions.dataStale": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Daten wurden nicht aktualisiert — angezeigt Stand %@ · ⌘R zum erneuten Versuch"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2586,6 +3366,12 @@
     "transactions.dayTotal": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summe des Tages"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2603,6 +3389,12 @@
     "transactions.deleteConfirm": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diesen Vorgang löschen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2620,6 +3412,12 @@
     "transactions.empty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Vorgänge. Tippen Sie den ersten in die schwebende Eingabezeile unten im Fenster."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2637,6 +3435,12 @@
     "transactions.error.linkedRefundChanged": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Erstattung kann nicht mehr sein als das, was vom Kauf zum Erstatten übrig ist, und behält die Währung und Art des Kaufs."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2654,6 +3458,12 @@
     "transactions.error.partlyReturnedPartChanged": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für diesen Teil ist schon Geld zurückgekommen: Sein Betrag, seine Währung, Art und „für jemand anderen bezahlt“ bleiben, wie sie sind — löschen Sie zuerst dieses Geld."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2671,6 +3481,12 @@
     "transactions.error.purchaseHasRefunds": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Erstattung nimmt Geld von diesem Kauf zurück — löschen Sie zuerst die Erstattung."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2688,6 +3504,12 @@
     "transactions.error.refundExceedsRemaining": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das ist mehr, als vom Kauf zum Erstatten übrig ist."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2705,6 +3527,12 @@
     "transactions.error.refundNotPositive": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Erstattung muss über null liegen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2722,6 +3550,12 @@
     "transactions.error.refundNotRefundable": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Kauf kann nicht erstattet werden: Er ist für jemand anderen bezahlt, auf Kredit, eine Zahlung auf eine Schuld oder ein Beitrag zu einem Ziel."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2739,6 +3573,12 @@
     "transactions.error.refundOtherCurrency": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Erstattung erfolgt in der Währung des Kaufs."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2756,6 +3596,12 @@
     "transactions.error.refundedPartChanged": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Erstattung nimmt Geld von diesem Kauf zurück: Seine Währung, Art, „für jemand anderen bezahlt“ und Kredit bleiben, wie sie sind — löschen Sie zuerst die Erstattung."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2773,6 +3619,12 @@
     "transactions.error.refundedPartReduced": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Teil kann nicht kleiner sein als das, was seine Erstattungen schon zurückgenommen haben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2790,6 +3642,12 @@
     "transactions.error.refundedPartRemoved": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Erstattung nimmt Geld von diesem Teil zurück — löschen Sie zuerst die Erstattung."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2807,6 +3665,12 @@
     "transactions.error.settlingRefused": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Überweisung, die das Konto im Archiv auf null hält, kann nicht geschrieben werden: Das andere Konto ist jetzt im Archiv oder führt die Währung nicht. Nichts wurde gespeichert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2825,6 +3689,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgaben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2849,6 +3719,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2873,6 +3749,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "von %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2896,6 +3778,12 @@
     "transactions.moneyBackNotIncome": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geld zurück — keine Einnahme"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2914,6 +3802,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Vorgänge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2937,6 +3831,12 @@
     "transactions.noneYetHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie werden im Hauptfenster erfasst (⌘N)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2954,6 +3854,24 @@
     "transactions.olderHidden": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld früherer Vorgang wird noch nicht gezeigt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld frühere Vorgänge werden noch nicht gezeigt"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -3007,6 +3925,12 @@
     "transactions.paidFor": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bezahlt für %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3024,6 +3948,12 @@
     "transactions.part": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teil %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3041,6 +3971,12 @@
     "transactions.refundOf": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung von „%1$@“, %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3059,6 +3995,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ erstattet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3083,6 +4025,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suchen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3106,6 +4054,12 @@
     "transactions.several": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mehrere"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3123,6 +4077,12 @@
     "transactions.showEarlier": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 weitere Monate zeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3141,6 +4101,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgänge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3164,6 +4130,12 @@
     "transactions.transfer.exchange": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umtausch in „%1$@“: %2$@ → %3$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3181,6 +4153,12 @@
     "transactions.transfer.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überweisung: %1$@ → %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3198,6 +4176,12 @@
     "transactions.transfers": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überweisungen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3215,6 +4199,24 @@
     "transactions.transfers.alsoDeleted": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Und %lld Überweisung."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Und %lld Überweisungen."
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -3268,6 +4270,24 @@
     "transactions.transfers.confirmDelete": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisung löschen?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisungen löschen?"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -3321,6 +4341,12 @@
     "transactions.transfers.feesDeleted": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ihre Gebühren, %@, werden mit ihnen gelöscht."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3338,6 +4364,24 @@
     "transactions.transfers.kept": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisung bleibt, wie sie ist."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisungen bleiben, wie sie sind."
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {

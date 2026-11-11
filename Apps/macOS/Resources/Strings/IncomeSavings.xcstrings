@@ -4,6 +4,12 @@
     "income.basket.above": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Über dem Ziel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -21,6 +27,12 @@
     "income.basket.automatic": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach den Regeln (wie beim Elternteil)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +50,12 @@
     "income.basket.below": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unter dem Ziel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -55,6 +73,12 @@
     "income.basket.line": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ bei einem Ziel von %3$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +96,12 @@
     "income.basket.menu": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget-Körbe"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -89,6 +119,12 @@
     "income.basket.needs": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notwendiges"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -106,6 +142,12 @@
     "income.basket.noIncome": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +165,12 @@
     "income.basket.onTarget": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Im Ziel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -140,6 +188,12 @@
     "income.basket.rule": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ihre Regel %1$lld / %2$lld / %3$lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -158,6 +212,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersparnisse"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -181,6 +241,12 @@
     "income.basket.wants": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wünsche"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -199,6 +265,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -222,6 +294,12 @@
     "income.baskets.noIncome": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In diesem Monat gab es keine Einnahmen, daher gibt es keine Anteile zu nehmen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -239,6 +317,12 @@
     "income.baskets.partial": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Monat ist nicht vorbei: Die Anteile ändern sich noch."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -256,6 +340,12 @@
     "income.baskets.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget-Körbe"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -273,6 +363,12 @@
     "income.cushion.basis": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Geld der Polster-Konten über die notwendigen Ausgaben eines Tages"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -290,6 +386,24 @@
     "income.cushion.days": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Reicht %lld Tag"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Reicht %lld Tage"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -343,6 +457,12 @@
     "income.cushion.detail": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Polster hält %1$@, notwendige Ausgaben ≈ %2$@ am Tag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -360,6 +480,12 @@
     "income.cushion.noAccounts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Polster-Konto ist markiert: Markieren Sie sie auf dem Bildschirm „Kapital“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -377,6 +503,12 @@
     "income.cushion.notEnough": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die notwendigen Ausgaben pro Monat sind noch nicht bekannt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -394,6 +526,12 @@
     "income.cushion.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Polster in Tagen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -411,6 +549,12 @@
     "income.header": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Letzte 12 Monate · bis %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -428,6 +572,12 @@
     "income.health.basis": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Zahl aus fünf Teilen, mit der Aufschlüsselung, aus der sie sich ergibt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -445,6 +595,12 @@
     "income.health.headline": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld von 100"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -462,6 +618,12 @@
     "income.health.leftOut": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wegen fehlender Daten nicht berücksichtigt: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -479,6 +641,12 @@
     "income.health.notCounted": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht gezählt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -496,6 +664,12 @@
     "income.health.notEnough": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es braucht Daten für mindestens zwei der fünf Teile: Polster, Schuldenlast, Sparquote, überfällige Fälligkeiten, Stabilität der Einnahmen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -513,6 +687,12 @@
     "income.health.note": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jedes Mal aus Ihren Daten berechnet, mit niemandem verglichen. Ein Anhaltspunkt, keine Note."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -531,6 +711,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Polster"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -555,6 +741,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuldenlast"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -578,6 +770,12 @@
     "income.health.part.overdue": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überfällige Fälligkeiten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -596,6 +794,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparquote"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -619,6 +823,12 @@
     "income.health.part.stability": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilität der Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -636,6 +846,12 @@
     "income.health.points": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld von %2$lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -654,6 +870,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finanzielle Gesundheit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -677,6 +899,12 @@
     "income.norm.basisAll": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Anteil der Einnahmen, der nach den Ausgaben bleibt · alle Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -694,6 +922,12 @@
     "income.norm.basisEarnings": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Anteil der Einnahmen, der nach den Ausgaben bleibt · nur Verdienst"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -711,6 +945,12 @@
     "income.norm.breakdown": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen %1$@ − Ausgaben %2$@ = behalten %3$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -728,6 +968,12 @@
     "income.norm.headline": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ der Einnahmen behalten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -745,6 +991,12 @@
     "income.norm.noIncome": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: keine Einnahmen, daher keine Quote"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -762,6 +1014,12 @@
     "income.norm.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mindestens ein Monat mit Einnahmen ist nötig."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -779,6 +1037,12 @@
     "income.norm.partialNote": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "* Der Monat ist nicht vorbei: Die Ausgaben kommen noch, daher sieht die Zahl besser aus, als sie am Ende sein wird."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -796,6 +1060,12 @@
     "income.norm.partialSpoken": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, noch nicht vorbei"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -813,6 +1083,12 @@
     "income.norm.partialValue": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (bisher)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -831,6 +1107,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparquote"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -854,6 +1136,12 @@
     "income.nudge.done": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verstanden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -871,6 +1159,12 @@
     "income.nudge.sixToSix": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In den letzten 6 Monaten Einnahmen %1$@, Ausgaben %2$@ gegenüber den 6 davor"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -888,6 +1182,12 @@
     "income.nudge.stop": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht mehr zeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -905,6 +1205,12 @@
     "income.nudge.yearOverYear": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In den letzten 3 Monaten Einnahmen %1$@, Ausgaben %2$@ gegenüber denselben Monaten vor einem Jahr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -922,6 +1228,12 @@
     "income.obligatory.basis": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kredite, Abos und notwendige Ausgaben gegenüber den üblichen Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -939,6 +1251,12 @@
     "income.obligatory.detail": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notwendig ≈ %1$@ im Monat, %2$@ bleibt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -956,6 +1274,12 @@
     "income.obligatory.headline": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ der Einnahmen sind gebunden · %2$@ zum Gestalten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -973,6 +1297,12 @@
     "income.obligatory.noIncome": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In diesen Monaten gab es keine Einnahmen, daher gibt es keinen Anteil zu nehmen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -990,6 +1320,12 @@
     "income.obligatory.noObligatory": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die notwendigen Ausgaben sind noch nicht bekannt: Dafür braucht es einige volle Monate und als notwendig markierte Kategorien."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1007,6 +1343,12 @@
     "income.obligatory.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anteil der notwendigen Ausgaben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1024,6 +1366,12 @@
     "income.salary.basis": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die ersten drei Tage nach einer Einnahme gegenüber dem Rest des Monats"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1041,6 +1389,12 @@
     "income.salary.detail": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ am Tag nach einer Einnahme gegenüber %2$@ an einem üblichen Tag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1058,6 +1412,12 @@
     "income.salary.headline": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In den ersten drei Tagen geben Sie %@× so viel aus"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1075,6 +1435,12 @@
     "income.salary.notEnough": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es braucht mindestens zwei abgeschlossene erwartete Einnahmen und sieben übliche Tage zum Vergleich."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1092,6 +1458,12 @@
     "income.salary.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gehalts-Effekt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1109,6 +1481,12 @@
     "income.settings.earningsOnly": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparquote nur aus Verdienst"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1126,6 +1504,12 @@
     "income.settings.earningsOnlyHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback, Zinsen und Überschüsse zählen dann nicht als Einnahmen für die Quote"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1143,6 +1527,12 @@
     "income.settings.footer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Anteile und Schalter werden in der Datenbank aufbewahrt und wandern mit dem Archiv. Der Korb einer Kategorie wird unter „Kategorien“ festgelegt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1160,6 +1550,12 @@
     "income.settings.needs": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notwendiges: %lld %%"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1177,6 +1573,12 @@
     "income.settings.needsLabel": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notwendiges"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1194,6 +1596,12 @@
     "income.settings.reset": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurück zu 50 / 30 / 20"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1212,6 +1620,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersparnisse"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1235,6 +1649,12 @@
     "income.settings.savingsHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was bis hundert fehlt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1253,6 +1673,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen und Ersparnisse"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1276,6 +1702,12 @@
     "income.settings.trendNudge": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sagen, wenn die Ausgaben die Einnahmen überholen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1293,6 +1725,12 @@
     "income.settings.trendNudgeHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Zeile unter „Lohnt einen Blick“, höchstens einmal im Quartal"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1310,6 +1748,12 @@
     "income.settings.wants": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wünsche: %lld %%"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1327,6 +1771,12 @@
     "income.settings.wantsLabel": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wünsche"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1344,6 +1794,12 @@
     "income.stability.bad": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein schlechter Monat für Pläne: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1361,6 +1817,12 @@
     "income.stability.basis": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volle Monate vor diesem, höchstens 24"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1378,6 +1840,24 @@
     "income.stability.lowData": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Wenig Daten: bisher nur %lld Monat"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Wenig Daten: bisher nur %lld Monate"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1431,6 +1911,12 @@
     "income.stability.notEnough": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es braucht mindestens %1$lld volle Monate mit Einnahmen, bisher sind es %2$lld."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1448,6 +1934,12 @@
     "income.stability.steady": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Einnahmen sind stetig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1465,6 +1957,12 @@
     "income.stability.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilität der Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1482,6 +1980,12 @@
     "income.stability.uneven": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen schwanken"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1499,6 +2003,12 @@
     "income.stability.usual": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein üblicher Monat: von %1$@ bis %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1516,6 +2026,12 @@
     "income.tile.health.parts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gezählte Teile: %1$lld von %2$lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1534,6 +2050,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1557,6 +2079,12 @@
     "income.tile.norm.partial": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · bisher"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1574,6 +2102,12 @@
     "income.trend.calm": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ausgaben wachsen nicht schneller als die Einnahmen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1591,6 +2125,12 @@
     "income.trend.notEnough": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dafür braucht es mehr als ein Jahr Verlauf oder mindestens ein Jahr Monate und eine Einnahme zum Vergleich."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1608,6 +2148,12 @@
     "income.trend.outpaces": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ausgaben wachsen schneller als die Einnahmen. Lohnt es, darauf zu achten, bevor es zur Gewohnheit wird."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1625,6 +2171,12 @@
     "income.trend.resume": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unter „Lohnt einen Blick“ zeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1642,6 +2194,12 @@
     "income.trend.seasonNote": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verglichen mit den Monaten davor, nicht mit dem Vorjahr: Sommer gegen Winter ist kein fairer Vergleich."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1659,6 +2217,12 @@
     "income.trend.sixToSix": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In den letzten 6 Monaten Einnahmen %1$@, Ausgaben %2$@ gegenüber den 6 davor"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1676,6 +2240,12 @@
     "income.trend.stop": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht mehr unter „Lohnt einen Blick“ zeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1693,6 +2263,12 @@
     "income.trend.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Ausgaben folgen den Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1710,6 +2286,12 @@
     "income.trend.yearOverYear": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In den letzten 3 Monaten Einnahmen %1$@, Ausgaben %2$@ gegenüber denselben Monaten vor einem Jahr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1728,6 +2310,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Polster"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1752,6 +2340,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuldenlast"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1775,6 +2369,12 @@
     "why.health.left.overdue": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überfällige Fälligkeiten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1793,6 +2393,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparquote"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1816,6 +2422,12 @@
     "why.health.left.stability": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilität der Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1833,6 +2445,12 @@
     "why.health.leftTitle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht gezählt, keine Daten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1850,6 +2468,12 @@
     "why.health.notEnough": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es können zu wenige Teile gezählt werden, um eine Zahl zu nennen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1867,6 +2491,12 @@
     "why.health.note": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die fehlenden Teile werden nicht mit null bewertet: Die übrigen werden auf hundert hochgerechnet. Die Zahl wird mit niemandem verglichen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1884,6 +2514,12 @@
     "why.health.part.cushion": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Polster (von %@)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1901,6 +2537,12 @@
     "why.health.part.debtLoad": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schuldenlast (von %@)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1918,6 +2560,12 @@
     "why.health.part.overdue": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überfällige Fälligkeiten (von %@)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1935,6 +2583,12 @@
     "why.health.part.savings": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparquote (von %@)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1952,6 +2606,12 @@
     "why.health.part.stability": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilität der Einnahmen (von %@)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1970,6 +2630,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finanzielle Gesundheit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1993,6 +2659,12 @@
     "why.norm.cushion": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ins Polster gelegt (nicht ausgegeben)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2010,6 +2682,12 @@
     "why.norm.fallback": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es gibt keine Kategorie „Verdienst“, daher wird alle Einnahme gezählt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2027,6 +2705,12 @@
     "why.norm.goals": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Ziele gelegt (beiseitegelegt, nicht ausgegeben)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2045,6 +2729,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2068,6 +2758,12 @@
     "why.norm.kept": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behalten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2085,6 +2781,12 @@
     "why.norm.noIncome": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In diesem Monat gibt es noch keine Einnahmen, daher gibt es keine Quote."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2102,6 +2804,12 @@
     "why.norm.partial": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Monat ist nicht vorbei: Die Ausgaben kommen noch, daher sieht die Quote besser aus, als sie am Ende sein wird."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2120,6 +2828,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sparquote"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2143,6 +2857,12 @@
     "why.norm.spending": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meine Ausgaben ohne Zielbeiträge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

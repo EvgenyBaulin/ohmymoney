@@ -5,6 +5,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeile so ausgefüllt, wie Sie sie früher geschrieben haben"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeilen so ausgefüllt, wie Sie sie früher geschrieben haben"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -89,6 +107,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie Sie es früher geschrieben haben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -113,6 +137,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus einem Vorgang ausgefüllt, den Sie für denselben Text dieser Bank von Hand eingetragen haben. Ändern Sie den Vorgang nach dem Laden, dann folgen die nächsten Zeilen Ihrer Änderung."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

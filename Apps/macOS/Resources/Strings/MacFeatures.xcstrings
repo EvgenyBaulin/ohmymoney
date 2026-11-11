@@ -4,6 +4,12 @@
     "intent.add.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fügt einen Vorgang oder eine Überweisung hinzu, so geschrieben wie in der Eingabezeile, zum Beispiel „Kaffee 250“ oder „Überweisung 5000 von Sber auf T-Bank“. Er wird so geprüft, wie die Eingabezeile ihn prüft, und ⌘Z in OhMyMoney nimmt ihn zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -21,6 +27,12 @@
     "intent.add.description.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fügt einen Vorgang oder eine Überweisung hinzu, so geschrieben wie in der Eingabezeile, zum Beispiel „Kaffee 250“ oder „Überweisung 5000 von Sber auf T-Bank“. Er wird so geprüft, wie die Eingabezeile ihn prüft, und die Schaltfläche „Rückgängig“ in OhMyMoney nimmt ihn zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +50,12 @@
     "intent.add.line": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeile"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -55,6 +73,12 @@
     "intent.add.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgang hinzufügen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +96,12 @@
     "intent.delete.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löscht einen Vorgang, wie „Löschen“ in der Liste. ⌘Z in OhMyMoney holt ihn zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -89,6 +119,12 @@
     "intent.delete.description.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löscht einen Vorgang, wie „Löschen“ in der Liste. Die Schaltfläche „Rückgängig“ in OhMyMoney holt ihn zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -106,6 +142,12 @@
     "intent.delete.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgang löschen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -124,6 +166,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -148,6 +196,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -171,6 +225,12 @@
     "intent.edit.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ändert die Beschreibung, den Betrag oder die Kategorie eines Vorgangs. Leer gelassene Felder bleiben, wie sie sind."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -189,6 +249,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschreibung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -212,6 +278,12 @@
     "intent.edit.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgang ändern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -229,6 +301,12 @@
     "intent.find.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Findet Vorgänge über ein Wort der Beschreibung, den Ort oder die Kategorie. Vorgänge ausgeblendeter Konten werden nie gefunden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -246,6 +324,12 @@
     "intent.find.text": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -263,6 +347,12 @@
     "intent.find.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgänge finden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -280,6 +370,12 @@
     "intent.focus.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blendet die Beträge in OhMyMoney aus, solange dieser Fokus eingeschaltet ist, und zeigt sie wieder, wenn er endet. Beträge, die Sie selbst ausgeblendet haben, bleiben ausgeblendet."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -297,6 +393,12 @@
     "intent.focus.hidden": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beträge ausgeblendet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -314,6 +416,12 @@
     "intent.focus.hide": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beträge ausblenden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -331,6 +439,12 @@
     "intent.focus.shown": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beträge angezeigt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -349,6 +463,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beträge ausblenden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -372,6 +492,12 @@
     "intent.markdown.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zusammenfassung eines Monats als Markdown-Datei — hängen Sie danach „Datei sichern“ an, um sie in einen Ordner zu legen, und lassen Sie den Kurzbefehl nach Zeitplan laufen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -389,6 +515,12 @@
     "intent.markdown.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monat als Markdown exportieren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -407,6 +539,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -431,6 +569,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgang"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -455,6 +599,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgang"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -478,6 +628,12 @@
     "intent.summary.description": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zusammenfassung eines Monats als Text: Einnahmen, Ausgaben, Kategorien, Orte. Ohne Monat — der letzte abgeschlossene. Mit eingeschaltetem „Beträge ausblenden“ ohne Beträge."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -495,6 +651,12 @@
     "intent.summary.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monatszusammenfassung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -512,6 +674,12 @@
     "mac.command.archivedLeftovers": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Änderung würde Geld auf einem archivierten Konto lassen: Schließen Sie sie in OhMyMoney ab."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -529,6 +697,12 @@
     "mac.command.badDate": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Datum oder die Uhrzeit der Zeile ist nicht lesbar."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -546,6 +720,12 @@
     "mac.command.badMonth": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Monat wird als JJJJ-MM geschrieben, zum Beispiel 2026-10."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -563,6 +743,12 @@
     "mac.command.categoryMissing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zeile nennt keine Kategorie: Fügen Sie sie der Zeile hinzu, zum Beispiel „Kaffee 250 Café“, oder wählen Sie sie in OhMyMoney."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -580,6 +766,12 @@
     "mac.command.categoryUnknown": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es gibt keine Kategorie „%@“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -597,6 +789,12 @@
     "mac.command.confirm": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Trotzdem erfassen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -614,6 +812,12 @@
     "mac.command.countQuestion": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Saldo wurde an diesem Tag abgeglichen: Sagen Sie in OhMyMoney, ob der Vorgang vor der Zählung lag."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -631,6 +835,12 @@
     "mac.command.deleteRefused": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Vorgang kann von hier nicht gelöscht werden: Öffnen Sie ihn in OhMyMoney."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -648,6 +858,12 @@
     "mac.command.deleted": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gelöscht: %@. ⌘Z in OhMyMoney holt ihn zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -665,6 +881,12 @@
     "mac.command.deleted.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gelöscht: %@. Die Schaltfläche „Rückgängig“ in OhMyMoney holt ihn zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -682,6 +904,12 @@
     "mac.command.edited": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geändert: %@."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -699,6 +927,12 @@
     "mac.command.instalmentReturn": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Rückgabe von auf Raten Gekauftem wird in OhMyMoney erfasst."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -716,6 +950,12 @@
     "mac.command.locked": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ist gesperrt. Öffnen Sie die App und entsperren Sie sie."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -733,6 +973,12 @@
     "mac.command.mileage": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Kilometerstand seit dem letzten Tanken wird nicht erfasst."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -750,6 +996,12 @@
     "mac.command.moneyBack": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geld, das eine Person zurückgegeben hat, wird in OhMyMoney erfasst: Dort wählen Sie, was es beendet."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -767,6 +1019,12 @@
     "mac.command.notFound": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Vorgang wurde nicht gefunden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -784,6 +1042,12 @@
     "mac.command.notReady": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney hat seine Daten noch nicht geöffnet. Öffnen Sie die App und versuchen Sie es erneut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -801,6 +1065,12 @@
     "mac.command.prepayQuestion": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zahlung liegt über der Fälligkeit: Wählen Sie in OhMyMoney, ob sie die Laufzeit verkürzt, die Rate senkt oder vorausbezahlt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -818,6 +1088,12 @@
     "mac.command.readOnly": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Nur ansehen“ ist eingeschaltet: Nichts kann hinzugefügt, geändert oder gelöscht werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -835,6 +1111,12 @@
     "mac.command.refundPurchase": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Erstattung: Wählen Sie in OhMyMoney den Kauf, von dem sie Geld zurücknimmt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -852,6 +1134,12 @@
     "mac.command.saved": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfasst: %@."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -869,6 +1157,12 @@
     "mac.command.splitAmount": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Vorgang hat mehrere Teile: Ändern Sie seinen Betrag in OhMyMoney."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -886,6 +1180,12 @@
     "mac.command.transferIncomplete": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Überweisung: Nennen Sie beide Konten in einer Währung, zum Beispiel „Überweisung 5000 Sber T-Bank“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -903,6 +1203,12 @@
     "mac.command.unchanged": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts zu ändern: %@."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -921,6 +1227,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgang"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -944,6 +1256,12 @@
     "mac.density.compact": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kompakt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -961,6 +1279,12 @@
     "mac.density.detailed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausführlich"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -978,6 +1302,12 @@
     "mac.markdown.button": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -995,6 +1325,12 @@
     "mac.notify.evening.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oder sagen Sie in OhMyMoney, dass es heute keine gab."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1012,6 +1348,24 @@
     "mac.notify.evening.streak": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Halten Sie Ihre Serie von %lld Tag am Laufen."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Halten Sie Ihre Serie von %lld Tagen am Laufen."
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1065,6 +1419,12 @@
     "mac.notify.evening.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heutige Ausgaben erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1082,6 +1442,12 @@
     "mac.notify.explain.allow": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erlauben…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1100,6 +1466,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht jetzt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1123,6 +1495,12 @@
     "mac.notify.explain.message": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney kann Sie einen Tag vor einer fälligen Zahlung erinnern — mit „Zahlung erfassen“ direkt in der Mitteilung — ebenso, wenn ein Limit fast aufgebraucht ist, und wenn die Zusammenfassung einer Woche oder eines Monats fertig ist. Mit eingeschaltetem „Beträge ausblenden“ zeigen Mitteilungen keine Beträge, und ausgeblendete Konten werden nie genannt. Jede Art schalten Sie unter Einstellungen → Datenschutz aus."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1140,6 +1518,12 @@
     "mac.notify.explain.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mitteilungen von OhMyMoney?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1157,6 +1541,12 @@
     "mac.notify.limit.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diesen Monat %1$@ von %2$@ ausgegeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1174,6 +1564,12 @@
     "mac.notify.limit.bodyHidden": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnen Sie die Planung, um das Limit zu sehen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1191,6 +1587,12 @@
     "mac.notify.limit.near": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Limit „%@“ ist fast aufgebraucht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1208,6 +1610,12 @@
     "mac.notify.limit.over": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Limit „%@“ ist überschritten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1225,6 +1633,12 @@
     "mac.notify.payment.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlung morgen fällig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1242,6 +1656,12 @@
     "mac.notify.payment.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ am %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1259,6 +1679,12 @@
     "mac.notify.payment.bodyHidden": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fällig am %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1276,6 +1702,12 @@
     "mac.notify.payment.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Morgen fällig: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1293,6 +1725,12 @@
     "mac.notify.record": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlung erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1310,6 +1748,12 @@
     "mac.notify.summary.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnen Sie OhMyMoney, um sie anzusehen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1327,6 +1771,12 @@
     "mac.print.ask": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Beträgen drucken?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1344,6 +1794,12 @@
     "mac.print.askMessage": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Beträge sind auf dem Bildschirm ausgeblendet. Eine gedruckte Seite kann jeder sehen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1362,6 +1818,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drucken…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1386,6 +1848,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drucken…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1410,6 +1878,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgänge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1433,6 +1907,12 @@
     "mac.print.with": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Beträgen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1450,6 +1930,12 @@
     "mac.print.without": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ohne Beträge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1467,6 +1953,12 @@
     "mac.quicklook.created": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstellt: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1484,6 +1976,12 @@
     "mac.quicklook.encrypted": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verschlüsselt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1501,6 +1999,12 @@
     "mac.quicklook.encryptedHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Inhalt ist nur in OhMyMoney zu sehen, mit dem Passwort."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1518,6 +2022,12 @@
     "mac.quicklook.operations": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgänge: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1535,6 +2045,12 @@
     "mac.quicklook.tables": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tabellen: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1553,6 +2069,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney-Archiv"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1576,6 +2098,12 @@
     "mac.quicklook.unreadable": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Datei lässt sich nicht als Archiv von OhMyMoney lesen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1593,6 +2121,12 @@
     "mac.quicklook.version": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Von OhMyMoney %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1610,6 +2144,12 @@
     "mac.settings.evening": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abendliche Erinnerung, Ausgaben zu erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1627,6 +2167,12 @@
     "mac.settings.footer.always": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mitteilungen zeigen immer Name und Betrag, auch bei ausgeblendeten Konten. Sie können von jedem in der Nähe des Mac auf dem Bildschirm gelesen werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1644,6 +2190,12 @@
     "mac.settings.footer.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solange die Beträge ausgeblendet sind, zeigen Mitteilungen keine; eine Zahlung eines ausgeblendeten Kontos wird als „Zahlung morgen fällig“ angekündigt, ohne Name und Betrag."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1661,6 +2213,12 @@
     "mac.settings.footer.quiet": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solange die Beträge ausgeblendet sind, zeigen Mitteilungen keine, und ein ausgeblendetes Konto wird nie erwähnt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1678,6 +2236,12 @@
     "mac.settings.limits": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limit fast aufgebraucht oder überschritten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1695,6 +2259,12 @@
     "mac.settings.payments": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlung morgen fällig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1712,6 +2282,12 @@
     "mac.settings.payments.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit „Zahlung erfassen“ in der Mitteilung."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1729,6 +2305,12 @@
     "mac.settings.privacy": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was Mitteilungen sagen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1746,6 +2328,12 @@
     "mac.settings.privacy.always": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immer mit dem Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1763,6 +2351,12 @@
     "mac.settings.privacy.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgeblendete Konten: „Zahlung morgen fällig“ ohne Name oder Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1780,6 +2374,12 @@
     "mac.settings.privacy.quiet": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Beträge bei ausgeblendeten, nichts über ausgeblendete Konten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1797,6 +2397,12 @@
     "mac.settings.spotlight": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgänge in Spotlight"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1814,6 +2420,12 @@
     "mac.settings.spotlight.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur Beschreibung und Ort kommen in den Index dieses Mac — keine Beträge. Vorgänge ausgeblendeter Konten werden nie indexiert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1831,6 +2443,12 @@
     "mac.settings.summaries": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zusammenfassungen fertig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1848,6 +2466,12 @@
     "mac.settings.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Außerhalb der App"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1866,6 +2490,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1890,6 +2520,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1914,6 +2550,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1938,6 +2580,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Währung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1962,6 +2610,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1986,6 +2640,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschreibung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2010,6 +2670,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Art"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2034,6 +2700,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgabe"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2058,6 +2730,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahme"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2082,6 +2760,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2106,6 +2790,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geld zurück"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2129,6 +2819,12 @@
     "mac.table.rubles": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Rubel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2147,6 +2843,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2170,6 +2872,12 @@
     "mac.window.open": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In neuem Fenster öffnen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2187,6 +2895,12 @@
     "mac.window.section": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereich"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2205,6 +2919,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2229,6 +2949,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beträge sind ausgeblendet."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2253,6 +2979,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2277,6 +3009,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2301,6 +3039,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2324,6 +3068,12 @@
     "markdown.change": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgaben gegenüber dem letzten Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2341,6 +3091,12 @@
     "markdown.closedDebts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beendete Schulden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2358,6 +3114,12 @@
     "markdown.empty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Vorgänge in diesem Monat."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2376,6 +3138,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgaben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2400,6 +3168,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2423,6 +3197,12 @@
     "markdown.item": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2441,6 +3221,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übrig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2465,6 +3251,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2489,6 +3281,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orte"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2513,6 +3311,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesichert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2537,6 +3341,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anteil"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2561,6 +3371,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2584,6 +3400,12 @@
     "markdown.value": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

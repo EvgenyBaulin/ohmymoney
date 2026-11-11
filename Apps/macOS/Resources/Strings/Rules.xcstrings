@@ -4,6 +4,12 @@
     "backfill.apply": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anwenden (%lld)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -21,6 +27,12 @@
     "backfill.conflicts": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln widersprachen sich %lld Mal; die obere Regel der Liste hat gewonnen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +50,12 @@
     "backfill.editedByHand": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie haben es nach dem Schreiben von Hand bearbeitet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -55,6 +73,12 @@
     "backfill.failed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Verlauf konnte nicht gelesen werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +96,12 @@
     "backfill.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das würden die Regeln an den bereits geschriebenen Vorgängen ändern. Nichts wird geschrieben, bis Sie „Anwenden“ drücken; ein ⌘Z nimmt alles zurück. Vorgänge, die Sie von Hand bearbeitet haben, sind abgewählt: Ihre Entscheidung wiegt mehr als eine Regel."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -89,6 +119,12 @@
     "backfill.hint.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das würden die Regeln an den bereits geschriebenen Vorgängen ändern. Nichts wird geschrieben, bis Sie „Anwenden“ drücken; ein „Rückgängig“ nimmt alles zurück. Vorgänge, die Sie von Hand bearbeitet haben, sind abgewählt: Ihre Entscheidung wiegt mehr als eine Regel."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -106,6 +142,12 @@
     "backfill.line.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie: %@ → %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +165,12 @@
     "backfill.line.forWhom": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für wen: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -140,6 +188,12 @@
     "backfill.line.place": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -157,6 +211,12 @@
     "backfill.line.quality": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -174,6 +234,12 @@
     "backfill.notLanded": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Schreibung ist noch unterwegs. Sie erscheint gleich; ⌘Z nimmt sie zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -191,6 +257,12 @@
     "backfill.notLanded.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Schreibung ist noch unterwegs. Sie erscheint gleich; „Rückgängig“ nimmt sie zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -208,6 +280,12 @@
     "backfill.nothing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Regeln würden nichts ändern: Alles sieht schon so aus, wie sie es wollen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -225,6 +303,12 @@
     "backfill.planning": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Verlauf wird durchsucht…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -243,6 +327,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle ankreuzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -266,6 +356,12 @@
     "backfill.selectNone": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle abwählen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -283,6 +379,24 @@
     "backfill.stale": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang wurde seit der Vorschau geändert und blieb, wie er war."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge wurden seit der Vorschau geändert und blieben, wie sie waren."
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -336,6 +450,12 @@
     "backfill.summary": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geprüft: %lld · passend: %lld · würde sich ändern: %lld · schon wie gewünscht: %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -353,6 +473,12 @@
     "backfill.ticked": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angekreuzt: %lld von %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -370,6 +496,12 @@
     "backfill.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln auf die Vergangenheit anwenden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -388,6 +520,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rückgängig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -411,6 +549,12 @@
     "backfill.undoHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z nimmt alles in einem Schritt zurück, mit den Daten der letzten Änderung wie zuvor."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -428,6 +572,12 @@
     "backfill.undoHint.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Rückgängig“ nimmt alles in einem Schritt zurück, mit den Daten der letzten Änderung wie zuvor."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -445,6 +595,12 @@
     "backfill.undone": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles ist wieder so, wie es war."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -462,6 +618,12 @@
     "backfill.wrote": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geschrieben: %lld Vorgänge, %lld Schlagwort-Verknüpfungen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -479,6 +641,12 @@
     "backfill.wroteNothing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts musste geschrieben werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -496,6 +664,12 @@
     "entryrule.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach Regel %@: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -513,6 +687,12 @@
     "entryrule.tag.fromLine": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "in der Zeile eingegeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -530,6 +710,12 @@
     "entryrule.tag.fromPanel": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hier hinzugefügt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -547,6 +733,12 @@
     "entryrule.tag.fromRule": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "von der Regel %@ hinzugefügt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -564,6 +756,12 @@
     "entryrule.tag.prompt": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#Schlagwort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -581,6 +779,12 @@
     "entryrule.tag.remove": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlagwort #%@ entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -599,6 +803,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlagwörter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -622,6 +832,12 @@
     "exchange.error.newerFormat": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei wurde von einer neueren Version der App erstellt. Aktualisieren Sie die App, um sie zu öffnen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -639,6 +855,12 @@
     "exchange.error.notABundle": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dies ist keine Datei mit Regeln."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -656,6 +878,12 @@
     "exchange.error.tooLarge": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei ist zu groß für eine Datei mit Regeln."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -673,6 +901,12 @@
     "exchange.error.tooManyRules": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei enthält zu viele Regeln."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -690,6 +924,12 @@
     "exchange.error.unreadable": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei konnte nicht gelesen werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -707,6 +947,12 @@
     "exchange.export": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln in eine Datei speichern…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -724,6 +970,12 @@
     "exchange.export.failed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei wurde nicht gespeichert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -741,6 +993,12 @@
     "exchange.export.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kreuzen Sie die Regeln an, die in die Datei sollen. Regeln, die ein Konto, eine Karte oder eine Person nennen, sind zunächst abgewählt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -758,6 +1016,12 @@
     "exchange.export.name": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Titel der Datei (optional)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -775,6 +1039,12 @@
     "exchange.export.personal": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nennt ein Konto, eine Karte oder eine Person"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -793,6 +1063,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sichern…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -816,6 +1092,12 @@
     "exchange.export.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln in eine Datei speichern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -833,6 +1115,12 @@
     "exchange.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Regeldatei (.ohmymoneyrules) enthält Regeln mit den Kategorien und Schlagwörtern, die sie brauchen, jeweils über den Namen. Beim Öffnen wird zuerst gezeigt, was ergänzt würde; nichts wird entfernt oder umbenannt. Regeln über Personen und Konten bleiben aus einer Datei heraus, sofern Sie sie nicht ankreuzen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -851,6 +1139,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hinzufügen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -874,6 +1168,12 @@
     "exchange.import.already": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln, die Sie schon haben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -891,6 +1191,12 @@
     "exchange.import.done": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ergänzt: Kategorien: %lld · Schlagwörter: %lld · Regeln: %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -908,6 +1214,12 @@
     "exchange.import.failed": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht alles konnte ergänzt werden. Was ergänzt wurde, bleibt; öffnen Sie die Datei erneut, um den Rest zu ergänzen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -925,6 +1237,12 @@
     "exchange.import.invalid": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "die Regel kann nicht gespeichert werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -942,6 +1260,12 @@
     "exchange.import.matched": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dasselbe wie Ihres (die Regeln zeigen auf Ihres)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -959,6 +1283,12 @@
     "exchange.import.missing.account": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie haben kein Konto „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -976,6 +1306,12 @@
     "exchange.import.missing.card": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie haben keine Karte „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -993,6 +1329,12 @@
     "exchange.import.missing.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "keine Kategorie „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1010,6 +1352,12 @@
     "exchange.import.missing.person": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie haben keine Person „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1027,6 +1375,12 @@
     "exchange.import.missing.place": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie haben keinen Ort „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1044,6 +1398,12 @@
     "exchange.import.missing.tag": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kein Schlagwort „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1061,6 +1421,12 @@
     "exchange.import.newCategories": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Kategorien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1078,6 +1444,12 @@
     "exchange.import.newTags": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Schlagwörter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1095,6 +1467,12 @@
     "exchange.import.promise": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts von Ihnen wird entfernt oder umbenannt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1112,6 +1490,12 @@
     "exchange.import.rejected": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgelassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1129,6 +1513,12 @@
     "exchange.import.sections": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei enthält auch Teile für andere Funktionen; sie bleiben dafür erhalten."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1146,6 +1536,12 @@
     "exchange.import.summary": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird ergänzt: Kategorien: %lld · Schlagwörter: %lld · Regeln: %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1164,6 +1560,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeldatei"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1187,6 +1589,12 @@
     "exchange.import.undoHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z nimmt zuerst die Regeln zurück, dann die Schlagwörter. Ergänzte Kategorien bleiben: Entfernen Sie sie in den Einstellungen, wenn Sie sie nicht brauchen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1204,6 +1612,12 @@
     "exchange.import.undoHint.touch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Rückgängig“ nimmt zuerst die Regeln zurück, dann die Schlagwörter. Ergänzte Kategorien bleiben: Entfernen Sie sie in den Einstellungen, wenn Sie sie nicht brauchen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1221,6 +1635,12 @@
     "exchange.open": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeldatei öffnen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1239,6 +1659,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeldatei"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1262,6 +1688,12 @@
     "rules.act.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1279,6 +1711,12 @@
     "rules.act.forWhom": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "für wen: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1296,6 +1734,12 @@
     "rules.act.kind.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie setzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1313,6 +1757,12 @@
     "rules.act.kind.forWhom": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Für wen“ setzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1330,6 +1780,12 @@
     "rules.act.kind.person": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Person setzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1347,6 +1803,12 @@
     "rules.act.kind.place": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort setzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1364,6 +1826,12 @@
     "rules.act.kind.quality": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung setzen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1381,6 +1849,12 @@
     "rules.act.kind.tag": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlagwort hinzufügen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1398,6 +1872,12 @@
     "rules.act.place": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1415,6 +1895,12 @@
     "rules.act.quality": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1432,6 +1918,12 @@
     "rules.and": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " und "
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1449,6 +1941,12 @@
     "rules.backfill": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf die Vergangenheit anwenden…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1466,6 +1964,12 @@
     "rules.cond.above": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag ist über %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1483,6 +1987,12 @@
     "rules.cond.account": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto ist %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1500,6 +2010,12 @@
     "rules.cond.below": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag ist unter %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1517,6 +2033,12 @@
     "rules.cond.card": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karte ist %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1534,6 +2056,12 @@
     "rules.cond.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie ist %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1551,6 +2079,12 @@
     "rules.cond.kind": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Art ist %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1569,6 +2103,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1592,6 +2132,12 @@
     "rules.cond.kind.amountAbove": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag über"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1609,6 +2155,12 @@
     "rules.cond.kind.amountBelow": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag unter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1627,6 +2179,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karte"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1651,6 +2209,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1674,6 +2238,12 @@
     "rules.cond.kind.kind": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Art des Vorgangs"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1692,6 +2262,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1715,6 +2291,12 @@
     "rules.cond.kind.text": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort oder Beschreibung enthält"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1732,6 +2314,12 @@
     "rules.cond.kind.time": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tageszeit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1749,6 +2337,12 @@
     "rules.cond.kind.weekdays": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wochentag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1766,6 +2360,12 @@
     "rules.cond.place": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort ist %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1783,6 +2383,12 @@
     "rules.cond.text": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort oder Beschreibung enthält „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1800,6 +2406,12 @@
     "rules.cond.time": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uhrzeit von %1$@ bis %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1817,6 +2429,12 @@
     "rules.cond.weekdays": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wochentag ist %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1835,6 +2453,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löschen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1859,6 +2483,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeiten…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1882,6 +2512,12 @@
     "rules.editor.addAction": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktion hinzufügen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1899,6 +2535,12 @@
     "rules.editor.addCondition": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bedingung hinzufügen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1917,6 +2559,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1941,6 +2589,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1964,6 +2618,12 @@
     "rules.editor.enabled": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Regel ist aktiv"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1981,6 +2641,12 @@
     "rules.editor.existingTags": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorhandene Schlagwörter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1998,6 +2664,12 @@
     "rules.editor.if": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wenn"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2015,6 +2687,12 @@
     "rules.editor.ifHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Bedingungen müssen gleichzeitig zutreffen („und“). Für „oder“ legen Sie zwei Regeln an."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2032,6 +2710,12 @@
     "rules.editor.name": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name (optional)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2049,6 +2733,12 @@
     "rules.editor.newTag": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "neues Schlagwort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2066,6 +2756,12 @@
     "rules.editor.refused": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Regel wurde nicht gespeichert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2083,6 +2779,12 @@
     "rules.editor.remove": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeile entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2101,6 +2803,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlagwort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2124,6 +2832,12 @@
     "rules.editor.text": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wörter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2141,6 +2855,12 @@
     "rules.editor.then": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dann"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2158,6 +2878,12 @@
     "rules.editor.thenHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlagwörter addieren sich. Von zwei Regeln, die eine Kategorie setzen, gewinnt die obere in der Liste."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2176,6 +2902,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bis"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2199,6 +2931,12 @@
     "rules.empty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Regeln. Legen Sie eine an: zum Beispiel „Ort enthält Yandex Go und Betrag über 1.000 → Schlagwort #arbeit“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2216,6 +2954,12 @@
     "rules.field.category": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2233,6 +2977,12 @@
     "rules.field.forWhom": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "für wen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2250,6 +3000,12 @@
     "rules.field.place": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2267,6 +3023,12 @@
     "rules.field.quality": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2285,6 +3047,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlagwort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2308,6 +3076,12 @@
     "rules.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Regel füllt die Zeile für Sie aus, bevor Sie Enter drücken: „Pjaterotschka → Lebensmittel“. Regeln werden von oben gelesen; setzen zwei Regeln dasselbe Feld, gewinnt die obere, und Schlagwörter addieren sich. Was Sie von Hand wählen, schlägt immer eine Regel. Eine Regel berührt nie Geld, Konto oder Datum."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2326,6 +3100,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln und Schlagwörter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2349,6 +3129,12 @@
     "rules.hub.enabled": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld eingeschaltet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2366,6 +3152,12 @@
     "rules.hub.exchange": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "exportieren oder importieren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2383,6 +3175,12 @@
     "rules.hub.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln setzen Kategorie, Schlagwörter und Bewertung, wenn Sie einen Vorgang erfassen. Ihre Anwendung auf die Vergangenheit zeigt zuerst, was sich ändern würde."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2400,6 +3198,24 @@
     "rules.hub.rules": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Regel"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Regeln"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -2453,6 +3269,24 @@
     "rules.hub.tags": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Schlagwort"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Schlagwörter"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -2507,6 +3341,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgabe"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2531,6 +3371,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahme"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2554,6 +3400,12 @@
     "rules.kind.refund": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung eines Kaufs"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2571,6 +3423,12 @@
     "rules.kind.reimbursement": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geld zurück von einer Person"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2588,6 +3446,12 @@
     "rules.more": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mehr zur Regel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2606,6 +3470,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach unten verschieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2630,6 +3500,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach oben verschieben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2653,6 +3529,12 @@
     "rules.new": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Regel…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2670,6 +3552,12 @@
     "rules.origin.exchange": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "aus einer Datei"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2687,6 +3575,12 @@
     "rules.origin.import": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "aus einem Import"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2705,6 +3599,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datei"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2728,6 +3628,12 @@
     "rules.pane.rules": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2746,6 +3652,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlagwörter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2769,6 +3681,12 @@
     "rules.problem.badTime": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Uhrzeit „von“ und „bis“ muss sich unterscheiden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2786,6 +3704,12 @@
     "rules.problem.badWeekdays": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wählen Sie mindestens einen Wochentag."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2803,6 +3727,12 @@
     "rules.problem.emptyText": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Wörter der Bedingung sind leer."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2820,6 +3750,12 @@
     "rules.problem.mixedKinds": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Einnahmekategorie und eine Ausgabenkategorie treffen sich nie in einem Vorgang."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2837,6 +3773,12 @@
     "rules.problem.negativeAmount": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Betrag kann nicht negativ sein."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2854,6 +3796,12 @@
     "rules.problem.neverFits": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Art von Vorgang nimmt diese Kategorie nie."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2871,6 +3819,12 @@
     "rules.problem.noActions": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fügen Sie hinzu, was die Regel tut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2888,6 +3842,12 @@
     "rules.problem.noConditions": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fügen Sie eine Bedingung hinzu: Eine Regel ohne eine würde alles treffen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2905,6 +3865,12 @@
     "rules.problem.retiredCategory": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kategorie „%@“ ist archiviert: Darunter kann nichts eingeordnet werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2922,6 +3888,12 @@
     "rules.problem.systemCategory": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ gehört zur App: Eine Regel kann nicht darunter einordnen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2939,6 +3911,12 @@
     "rules.problem.twoActions": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwei Aktionen setzen „%@“: Nur die erste würde zählen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2956,6 +3934,12 @@
     "rules.problem.unfinished": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einige Zeilen sind nicht fertig: Füllen Sie sie aus oder entfernen Sie sie."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2973,6 +3957,12 @@
     "rules.problem.unknownCategory": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Kategorie der Regel ist nicht mehr im Verzeichnis."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2990,6 +3980,12 @@
     "rules.problem.unknownTag": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Schlagwort der Regel gibt es nicht."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3008,6 +4004,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Änderung wurde nicht gespeichert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3031,6 +4033,12 @@
     "rules.summary": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wenn %1$@, dann %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3048,6 +4056,12 @@
     "rules.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meine Regeln"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3066,6 +4080,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ohne Beschreibung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3089,6 +4109,12 @@
     "rules.trial.none": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Vorgang des Verlaufs passt zu dieser Regel."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3106,6 +4132,12 @@
     "rules.trial.summary": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passend: %1$lld von %2$lld Vorgängen · würde sich ändern: %3$lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3123,6 +4155,12 @@
     "rules.trial.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Test am Verlauf"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3140,6 +4178,12 @@
     "rules.trial.waiting": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fügen Sie eine Bedingung und eine Aktion hinzu, um zu sehen, wie viele Vorgänge die Regel berühren würde."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3158,6 +4202,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird gezählt…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3181,6 +4231,12 @@
     "tagreport.empty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein markierter Ausgabe in diesem Zeitraum."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3198,6 +4254,12 @@
     "tagreport.found": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gefunden: %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3215,6 +4277,12 @@
     "tagreport.mode.all": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle davon"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3232,6 +4300,12 @@
     "tagreport.mode.any": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eines davon"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3249,6 +4323,12 @@
     "tagreport.open": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bericht und Vorgänge nach Schlagwort…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3266,6 +4346,12 @@
     "tagreport.overlap": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Vorgang mit mehreren Schlagwörtern zählt unter jedem von ihnen, daher ergeben die Schlagwörter zusammen %@, mehr als die %@, die sie abdecken."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3284,6 +4370,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamte Zeit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3308,6 +4400,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3332,6 +4430,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jahr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3355,6 +4459,12 @@
     "tagreport.pick": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kreuzen Sie Schlagwörter an, um ihre Vorgänge zu sehen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3372,6 +4482,12 @@
     "tagreport.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach Schlagwörtern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3390,6 +4506,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archiv"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3414,6 +4536,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "archiviert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3437,6 +4565,12 @@
     "tags.collision.merge": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#%@ mit #%@ zusammenführen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3454,6 +4588,12 @@
     "tags.collision.message": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwei Schlagwörter können keinen Namen teilen. Sie können zu einem zusammengeführt werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3471,6 +4611,12 @@
     "tags.collision.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Name gehört einem anderen Schlagwort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3489,6 +4635,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löschen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3512,6 +4664,12 @@
     "tags.delete.confirm": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Schlagwort löschen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3529,6 +4687,12 @@
     "tags.delete.message": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es wird von %lld Teilen von Vorgängen entfernt. Die Vorgänge bleiben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3546,6 +4710,12 @@
     "tags.delete.rules": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln, die es nannten, verlieren diese Aktion (%lld); Regeln, die dann nichts mehr tun, werden gelöscht (%lld)."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3563,6 +4733,12 @@
     "tags.delete.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Schlagwort löschen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3580,6 +4756,12 @@
     "tags.empty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Schlagwörter."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3597,6 +4779,12 @@
     "tags.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Schlagwort ist ein freies Wort: Tippen Sie „#urlaub“ in die Eingabezeile. Es ist kein Ereignis: keine Daten und kein Budget. Ein Vorgang kann mehrere tragen; in einem Bericht zählt er unter jedem."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3614,6 +4802,12 @@
     "tags.invalidName": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Schlagwort besteht aus Buchstaben, Ziffern, „-“ und „_“, mit mindestens einem Buchstaben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3631,6 +4825,12 @@
     "tags.menu": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktionen für das Schlagwort #%@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3648,6 +4848,12 @@
     "tags.merge": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In ein anderes zusammenführen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3666,6 +4872,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zusammenführen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3689,6 +4901,12 @@
     "tags.merge.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Vorgänge dieses Schlagworts wandern zum anderen, das Schlagwort verschwindet, und die Regeln, die es nannten, nennen das andere."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3706,6 +4924,12 @@
     "tags.merge.into": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zusammenführen mit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3723,6 +4947,12 @@
     "tags.merge.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#%@ zusammenführen mit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3741,6 +4971,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Änderung wurde nicht gespeichert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3764,6 +5000,12 @@
     "tags.rename": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umbenennen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3781,6 +5023,12 @@
     "tags.rename.field": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neuer Name"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3798,6 +5046,12 @@
     "tags.rename.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Schlagwort umbenennen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3816,6 +5070,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurückholen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3839,6 +5099,12 @@
     "tags.showArchive": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archiv zeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3857,6 +5123,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schlagwörter"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3880,6 +5152,12 @@
     "tags.unused": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "noch bei nichts"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3898,6 +5176,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {

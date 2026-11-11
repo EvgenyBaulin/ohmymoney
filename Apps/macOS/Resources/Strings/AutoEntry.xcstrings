@@ -5,6 +5,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeiten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -29,6 +35,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -53,6 +65,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schon erfasst: Dieser Vorgang steht bereits in den Büchern."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -77,6 +95,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ist gesperrt: Entsperren Sie es, um die Nachricht zu übergeben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -101,6 +125,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das sieht nicht nach einer Bank-Nachricht aus: Es fehlen Vorgang, Betrag und Karte oder Saldo."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -125,6 +155,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney öffnet noch die Bücher — versuchen Sie es gleich noch einmal."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -149,6 +185,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Vorgang eines ausgeblendeten Kontos — erfassen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -173,6 +215,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Vorgang eines ausgeblendeten Kontos wurde erfasst"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -197,6 +245,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang wartet — abschließen?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge warten — abschließen?"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -281,6 +347,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Später erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -305,6 +377,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus einer Bank-Nachricht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -329,6 +407,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Bank meldet %1$@, die App %2$@ — Zeit, das Konto zu zählen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -353,6 +437,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Saldo der Bank weicht vom Saldo der App ab — Zeit, das Konto zu zählen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -377,6 +467,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Saldo stimmt nicht überein"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -401,6 +497,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — erfassen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -425,6 +527,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfasst: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -449,6 +557,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bargeldabhebung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -473,6 +587,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gebühr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -497,6 +617,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahme"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -521,6 +647,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kauf"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -545,6 +677,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -569,6 +707,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eingehende Überweisung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -593,6 +737,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überweisung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -617,6 +767,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Weitergabe von Bank-Nachrichten auf dem iPhone wird zusammen mit Siri eingeschaltet, sobald die App in den App Store kommt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -641,6 +797,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wartet unter „Später erfassen“: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -665,6 +827,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Vorgang wartet unter „Später erfassen“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -689,6 +857,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Nur ansehen“ ist eingeschaltet: Nichts wird erfasst."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -713,6 +887,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Nachricht, die über den Kurzbefehl „Bank-Nachricht übergeben“ weitergereicht wird, wird zu einem Vorgang. Vorschlagen: Eine Mitteilung fragt „Erfassen?“, und der Vorgang wartet unter „Später erfassen“. Sofort: Er wird so erfasst, wie die Eingabezeile ihn erfasst; würde die Zeile etwas nachfragen, wird stattdessen vorgeschlagen. Behalten werden nur Betrag, Geschäft, Karte und Saldo — nie die Nachricht selbst."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -737,6 +917,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Bank-Nachricht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -761,6 +947,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sofort erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -785,6 +977,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfassen vorschlagen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -809,6 +1007,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank-Nachrichten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -833,6 +1037,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liest eine SMS oder Mitteilung einer Bank und erfasst den Vorgang oder schlägt vor, ihn zu erfassen, wie in OhMyMoney eingestellt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -857,6 +1067,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nachricht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -881,6 +1097,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank-Nachricht übergeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -905,6 +1127,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liest eine Bank-Nachricht aus der Zwischenablage, wie „Bank-Nachricht übergeben“ es tut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -929,6 +1157,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank-Nachricht aus der Zwischenablage übergeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",

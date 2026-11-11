@@ -4,6 +4,12 @@
     "privacy.copy.anonymize": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonymisieren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -21,6 +27,12 @@
     "privacy.copy.anonymize.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beschreibungen, Kommentare, Orte und Namen werden in der Kopie gelöscht. Beträge, Daten und Kategorien bleiben. Das Original ändert sich nicht."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +50,12 @@
     "privacy.copy.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anhänge einschließen (%@)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -55,6 +73,12 @@
     "privacy.copy.done": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kopie ist fertig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +96,12 @@
     "privacy.copy.done.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anhänge: %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -89,6 +119,12 @@
     "privacy.copy.done.locked": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Ihrem Passwort gesperrt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -106,6 +142,24 @@
     "privacy.copy.done.operations": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang in der Kopie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge in der Kopie"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -159,6 +213,24 @@
     "privacy.copy.done.transfers": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisung in der Kopie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisungen in der Kopie"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -212,6 +284,12 @@
     "privacy.copy.error.anonymizerMissing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonymisieren ist in diesem Build nicht verfügbar, daher wurde die Kopie nicht erstellt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -229,6 +307,12 @@
     "privacy.copy.error.hiddenInUse": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein ausgeblendetes Konto wird noch von etwas genutzt, das die Kopie behält, daher kann es nicht weggelassen werden. Schließen Sie ausgeblendete Konten ein oder zeigen Sie das Konto wieder an."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -246,6 +330,12 @@
     "privacy.copy.error.other": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kopie wurde nicht erstellt. Nichts wurde verändert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -263,6 +353,12 @@
     "privacy.copy.error.passwordMissing": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geben Sie ein Passwort ein: Eine Kopie ohne Passwort wird nicht erstellt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -280,6 +376,12 @@
     "privacy.copy.error.periodEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Zeitraum ist leer: Das Ende liegt vor dem Anfang."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -297,6 +399,12 @@
     "privacy.copy.format": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -314,6 +422,12 @@
     "privacy.copy.format.archive": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übertragungsarchiv"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -331,6 +445,12 @@
     "privacy.copy.format.csv": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur CSV"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -349,6 +469,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Von"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -372,6 +498,12 @@
     "privacy.copy.hidden": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgeblendete Konten einschließen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -389,6 +521,12 @@
     "privacy.copy.hidden.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ohne dies hat die Kopie keine ausgeblendeten Konten und keinen ihrer Vorgänge oder Überweisungen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -406,6 +544,12 @@
     "privacy.copy.hidden.warning": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kopie enthält ausgeblendete Konten."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -423,6 +567,12 @@
     "privacy.copy.leftOut": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weggelassen: %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -440,6 +590,12 @@
     "privacy.copy.originalStays": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Kopie — das Original bleibt bei Ihnen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -458,6 +614,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passwort"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -482,6 +644,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passwort wiederholen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -505,6 +673,12 @@
     "privacy.copy.passwordHint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kopie ist mit diesem Passwort gesperrt. Ohne es kann sie niemand öffnen, und sie lässt sich nicht wiederherstellen. Das Original bleibt bei Ihnen, unverändert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -522,6 +696,12 @@
     "privacy.copy.preview.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anhänge: %lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -540,6 +720,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird gezählt…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -563,6 +749,12 @@
     "privacy.copy.preview.lead": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird enthalten:"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -581,6 +773,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -664,6 +874,24 @@
     "privacy.copy.preview.transfers": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisung"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Überweisungen"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -717,6 +945,12 @@
     "privacy.copy.problem.passwordEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geben Sie ein Passwort ein: Eine Kopie ohne Passwort wird nicht erstellt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -734,6 +968,12 @@
     "privacy.copy.problem.passwordMismatch": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Passwörter stimmen nicht überein."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -751,6 +991,12 @@
     "privacy.copy.problem.periodEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Zeitraum ist leer: Das Ende liegt vor dem Anfang."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -768,6 +1014,12 @@
     "privacy.copy.save": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopie sichern…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -785,6 +1037,12 @@
     "privacy.copy.scope": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Teil des Verlaufs"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -802,6 +1060,12 @@
     "privacy.copy.scope.period": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für einen Zeitraum"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -819,6 +1083,12 @@
     "privacy.copy.scope.whole": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ganze Datenbank"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -836,6 +1106,12 @@
     "privacy.copy.showPassword": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passwort anzeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -853,6 +1129,12 @@
     "privacy.copy.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopie exportieren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -871,6 +1153,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bis"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -894,6 +1182,12 @@
     "privacy.copy.working": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopie wird erstellt…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -911,6 +1205,12 @@
     "privacy.demo.back": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zurück zu meinen Daten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -928,6 +1228,12 @@
     "privacy.demo.banner": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übungsdaten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -945,6 +1251,12 @@
     "privacy.demo.banner.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Zahlen sind erfunden. Ihre eigene Datenbank ist nicht geöffnet."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -963,6 +1275,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anzeigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -986,6 +1304,12 @@
     "privacy.demo.confirm.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die App startet mit erfundenen Daten neu. Ihre eigene Datenbank wird nicht angerührt, und ein Knopf bringt Sie zurück."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1003,6 +1327,12 @@
     "privacy.demo.confirm.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die App mit Übungsdaten anzeigen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1020,6 +1350,12 @@
     "privacy.export.lock": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verschlüsseln (öffnet sich in OhMyMoney)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1037,6 +1373,12 @@
     "privacy.journal.clear": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal leeren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1055,6 +1397,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leeren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1078,6 +1426,12 @@
     "privacy.journal.clear.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle Einträge im Journal des Starts werden entfernt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1095,6 +1449,12 @@
     "privacy.journal.clear.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal leeren?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1112,6 +1472,12 @@
     "privacy.journal.empty": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Zeilen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1129,6 +1495,12 @@
     "privacy.journal.event.exportedCopy": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Kopie wurde exportiert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1146,6 +1518,12 @@
     "privacy.journal.event.hiddenShown": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausgeblendete Konten angezeigt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1163,6 +1541,12 @@
     "privacy.journal.event.locked": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesperrt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1180,6 +1564,12 @@
     "privacy.journal.event.opened": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App geöffnet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1197,6 +1587,12 @@
     "privacy.journal.event.readOnlyOff": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur-Ansehen-Modus ausgeschaltet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1214,6 +1610,12 @@
     "privacy.journal.event.readOnlyOn": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur-Ansehen-Modus eingeschaltet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1231,6 +1633,12 @@
     "privacy.journal.event.unlockedPassword": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit dem Passwort entsperrt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1248,6 +1656,12 @@
     "privacy.journal.event.unlockedTouchID": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Touch ID entsperrt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1265,6 +1679,12 @@
     "privacy.journal.footer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Journal lebt nur auf diesem Mac. Es enthält Zeitpunkte und Arten von Ereignissen — keine Beträge, Namen oder Titel — und es geht weder in eine Kopie noch in ein Archiv."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1282,6 +1702,12 @@
     "privacy.journal.keep": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufbewahren für"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1299,6 +1725,24 @@
     "privacy.journal.term": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Tag"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Tage"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1352,6 +1796,12 @@
     "privacy.journal.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal der Starts"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1369,6 +1819,12 @@
     "privacy.lockedFile.body": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wer die Datei öffnet, braucht dieses Passwort. Es lässt sich nicht wiederherstellen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1386,6 +1842,12 @@
     "privacy.lockedFile.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei mit einem Passwort sperren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1403,6 +1865,12 @@
     "privacy.menu.exportCopy": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopie exportieren…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1420,6 +1888,12 @@
     "privacy.menu.storage": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was die App weiß…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1437,6 +1911,12 @@
     "privacy.settings.autoHide": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beträge ausblenden, während der Bildschirm aufgenommen wird"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1454,6 +1934,12 @@
     "privacy.settings.autoHide.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auch während der Bildschirm gespiegelt oder in einem Anruf geteilt wird."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1471,6 +1957,12 @@
     "privacy.settings.demo": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Übungsdaten anzeigen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1488,6 +1980,12 @@
     "privacy.settings.exportCopy": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Kopie exportieren…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1505,6 +2003,12 @@
     "privacy.settings.hand": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weitergeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1522,6 +2026,12 @@
     "privacy.settings.hand.footer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Kopie wird mit einem Passwort gesperrt; das Original bleibt unverändert. Übungsdaten sind erfundene Zahlen, und Ihre eigene Datenbank wird nicht geöffnet."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1539,6 +2049,12 @@
     "privacy.settings.journal": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal der Starts…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1556,6 +2072,12 @@
     "privacy.settings.knows": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was die App weiß"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1573,6 +2095,12 @@
     "privacy.settings.knows.footer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Journal und die Zählungen werden hier nur angezeigt; sie werden nirgendwohin gesendet."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1590,6 +2118,12 @@
     "privacy.settings.lock": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sperre und Passwort…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1607,6 +2141,12 @@
     "privacy.settings.readOnly": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur ansehen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1624,6 +2164,12 @@
     "privacy.settings.readOnly.hint": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die App zeigt alles und ändert nichts."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1642,6 +2188,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildschirm"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1665,6 +2217,12 @@
     "privacy.settings.storage": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was gespeichert wird…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1683,6 +2241,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anhänge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1706,6 +2270,12 @@
     "privacy.storage.backups": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1724,6 +2294,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Kopie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Kopien"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1807,6 +2395,24 @@
     "privacy.storage.count.files": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Datei"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Dateien"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1860,6 +2466,24 @@
     "privacy.storage.count.lines": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeile"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeilen"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1913,6 +2537,24 @@
     "privacy.storage.count.records": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Datensatz"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Datensätze"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -1966,6 +2608,12 @@
     "privacy.storage.database": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datenbank"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1983,6 +2631,12 @@
     "privacy.storage.footer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hier werden nur Anzahlen und Größen gezeigt. Nichts wird irgendwohin gesendet."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2000,6 +2654,12 @@
     "privacy.storage.journal": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal der Starts"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2017,6 +2677,12 @@
     "privacy.storage.records": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datensätze"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2034,6 +2700,12 @@
     "privacy.storage.tables": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach Tabelle"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2051,6 +2723,12 @@
     "privacy.storage.title": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was die App weiß"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2068,6 +2746,12 @@
     "privacy.storage.total": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamt auf dem Datenträger"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2085,6 +2769,12 @@
     "privacy.storage.unit.bytes": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2102,6 +2792,12 @@
     "privacy.storage.unit.gb": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2119,6 +2815,12 @@
     "privacy.storage.unit.kb": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2136,6 +2838,12 @@
     "privacy.storage.unit.mb": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2153,6 +2861,12 @@
     "privacy.storage.where": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wo es liegt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2170,6 +2884,12 @@
     "privacy.storage.where.backups": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2187,6 +2907,12 @@
     "privacy.storage.where.data": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datenordner"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2204,6 +2930,12 @@
     "privacy.storage.where.footer": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Pfade werden nur angezeigt: Die Datenbank und das Archiv enthalten sie nicht."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2221,6 +2953,12 @@
     "privacy.storage.where.mirror": {
       "extractionState": "manual",
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordner der gespiegelten Kopien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
