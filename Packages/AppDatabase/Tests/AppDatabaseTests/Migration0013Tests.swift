@@ -86,6 +86,7 @@ struct Migration0013Tests {
           "0021_history_and_cashback_choice",
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
+          "0024_category_icon_color",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
@@ -441,7 +442,7 @@ struct SpendingRulesTravelTests {
     #expect(ExportTables.partTags.columns == ["id", "part_id", "tag_id"])
     #expect(ExportTables.dayNotes.columns == ["id", "day", "text", "created_at", "updated_at"])
     #expect(ExportTables.transactions.columns[28] == "one_off")
-    #expect(ExportTables.categories.columns.dropLast(2).last == "basket")
+    #expect(ExportTables.categories.columns.dropLast(4).last == "basket")
     #expect(Array(ExportTables.cards.columns.dropLast().suffix(2)) == ["last4", "details"])
   }
 

@@ -87,8 +87,8 @@ struct ExportTablesDescriptionTests {
         "borrowed_income_category_id",
       ])
     #expect(
-      Array(ExportTables.categories.columns.suffix(6)) == [
-        "essential", "tax_rate", "tax_npd", "basket", "name_en", "name_en_source",
+      Array(ExportTables.categories.columns.suffix(8)) == [
+        "essential", "tax_rate", "tax_npd", "basket", "name_en", "name_en_source", "icon", "color",
       ])
     #expect(
       Array(ExportTables.goals.columns.suffix(5)) == [

@@ -15,7 +15,7 @@ import GRDB
 /// layouts.
 ///
 /// What it deliberately leaves: the names of categories (the tree is the app's) with the English
-/// names made of them, and of the
+/// names made of them and their symbol and colour (short lists of the app's own), and of the
 /// owner's own currencies, public deposit offers, and JSON that holds only numbers and ids
 /// (scenario specs, the breakdown of a reconciliation).
 public struct SQLAnonymizer: ExportCopyAnonymizing {

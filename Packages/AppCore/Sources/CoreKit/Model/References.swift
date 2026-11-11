@@ -27,6 +27,12 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
   /// The English name the device made of `name` for the language model and the exchange; never
   /// shown, never searched. `nil`: not made yet.
   public var translation: CategoryTranslation?
+  /// The mark of the category in the list of operations (`categories.icon`, `categories.color`):
+  /// a `CategoryIcon` name and a `CategoryTone` key as stored; `nil` means none of its own
+  /// (`CategoryTree.appearance(of:)`). Two optionals rather than one value, so that a saved
+  /// category written before they existed still decodes.
+  public var icon: String?
+  public var color: String?
 
   public init(
     id: UUID = UUID(),
@@ -40,13 +46,16 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
     essential: Bool? = nil,
     tax: IncomeTax? = nil,
     basket: BudgetBasket? = nil,
-    translation: CategoryTranslation? = nil
+    translation: CategoryTranslation? = nil,
+    appearance: CategoryAppearance = .none
   ) {
     self.id = id
     self.parentId = parentId
     self.kind = kind
     self.name = name
     self.translation = translation
+    self.icon = appearance.icon
+    self.color = appearance.color
     self.sort = sort
     self.archived = archived
     self.quality = quality
@@ -57,6 +66,14 @@ public struct Category: Identifiable, Hashable, Sendable, Codable {
   }
 
   public var isSystem: Bool { systemRole != nil }
+  /// What the category says of its own mark, before a parent is asked.
+  public var appearance: CategoryAppearance {
+    get { CategoryAppearance(icon: icon, color: color) }
+    set {
+      icon = newValue.icon
+      color = newValue.color
+    }
+  }
   /// The English name of the category as it is named now; `nil` when none was made yet or the
   /// one made is of a name the category no longer has.
   public var englishName: String? {

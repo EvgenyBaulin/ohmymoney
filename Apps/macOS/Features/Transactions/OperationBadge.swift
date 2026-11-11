@@ -38,6 +38,8 @@ struct OperationBadge: View {
   @Environment(\.appTheme) private var theme
   @Environment(\.appFontSize) private var fontSize
   let kind: OperationBadgeKind
+  /// The category's own symbol and tone, when the row has them; else the kind draws.
+  var category: CategoryMark? = nil
   var side: CGFloat = OperationsMetrics.badge
   var symbolSide: CGFloat = OperationsMetrics.badgeSymbol
 
@@ -45,7 +47,7 @@ struct OperationBadge: View {
     let palette = theme.palette
     let circle = fontSize.points(fromRegular: side)
     let drawing = fontSize.points(fromRegular: symbolSide)
-    Image(systemName: kind.symbol)
+    Image(systemName: category?.icon ?? kind.symbol)
       // The drawing fills a square of `symbolSide`, as the design's 16-pt frame holds it.
       .font(.system(size: drawing * 0.8, weight: .semibold))  // font-fixed: grows with the badge
       .frame(width: drawing, height: drawing)
@@ -56,7 +58,8 @@ struct OperationBadge: View {
   }
 
   private func tint(_ palette: ThemePalette) -> Color {
-    switch kind {
+    if let category { return Color(category.tone.tint(in: palette)) }
+    return switch kind {
     case .income: Color(palette.statusPositiveTint)
     case .expense: Color(palette.accentTint)
     case .refund: Color(palette.chart2Tint)
@@ -66,7 +69,8 @@ struct OperationBadge: View {
   }
 
   private func foreground(_ palette: ThemePalette) -> Color {
-    switch kind {
+    if let category { return Color(category.tone.ink(in: palette)) }
+    return switch kind {
     case .income: Color(palette.statusPositive)
     case .expense: Color(palette.accentDefault)
     case .refund: Color(palette.chart2)

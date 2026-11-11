@@ -297,6 +297,34 @@ final class ExportAndArchiveTests: XCTestCase {
     XCTAssertEqual(readCategory.englishName, "Groceries")
   }
 
+  /// The symbol and colour of a category travel in the archive: the database read back from it
+  /// holds them as they were, its CSV carries them last, and a category without any stays so.
+  func testTheMarkOfACategorySurvivesTheArchive() throws {
+    let references = ReferenceRepository(writer: stack.writer)
+    var all = try references.categories()
+    var marked = try XCTUnwrap(all.first)
+    marked.appearance = CategoryAppearance(icon: "cart", color: "tone1")
+    try references.save(marked)
+    all = try references.categories()
+    let bare = try XCTUnwrap(all.first { $0.id != marked.id && $0.appearance.isEmpty })
+
+    let service = ArchiveService(stack: stack, appVersion: "0.1.0")
+    let url = directory.appendingPathComponent("mark.ohmymoneyarchive")
+    _ = try service.exportArchive(to: url)
+    let opened = try service.openArchive(at: url)
+    let categoriesCSV = try XCTUnwrap(
+      opened.files["data/csv/categories.csv"].map { String(decoding: $0, as: UTF8.self) })
+    XCTAssertTrue(categoriesCSV.hasPrefix(ExportTables.categories.columns.joined(separator: ",")))
+    XCTAssertTrue(categoriesCSV.contains(",cart,tone1"))
+    let target = directory.appendingPathComponent("restored-mark.sqlite")
+    try service.replaceDatabase(with: opened, at: target)
+    let restored = try DatabaseStack(url: target, schema: BundleSchemaSource(bundle: .main))
+    defer { try? restored.close() }
+    let read = try ReferenceRepository(writer: restored.writer).categories()
+    XCTAssertEqual(read.first { $0.id == marked.id }?.appearance, marked.appearance)
+    XCTAssertEqual(read.first { $0.id == bare.id }?.appearance, CategoryAppearance.none)
+  }
+
   /// The manifest says which schema the database inside it carries, so that an older build
   /// refuses an archive of a newer one before anything is replaced («если новее — отказ»). The
   /// number was a literal that nobody raised when `0003_model.sql` arrived: every archive said 2
@@ -328,14 +356,14 @@ final class ExportAndArchiveTests: XCTestCase {
   /// build opens an archive of schema 8 — and of the ones before it — and a build that knows only
   /// 7 refuses it.
   func testAnArchiveOfSchemaEightOpensWhereEightIsSupported() throws {
-    XCTAssertEqual(stack.applied.onDisk, 23)
+    XCTAssertEqual(stack.applied.onDisk, 24)
     let service = ArchiveService(stack: stack, appVersion: "1.6.0")
     let url = directory.appendingPathComponent("eight.ohmymoneyarchive")
     _ = try service.exportArchive(to: url)
     let data = try Data(contentsOf: url)
 
-    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 23)
-    XCTAssertEqual(opened.manifest.schemaVersion, 23)
+    let opened = try ArchiveOpener.open(data, supportedSchemaVersion: 24)
+    XCTAssertEqual(opened.manifest.schemaVersion, 24)
     XCTAssertEqual(opened.csvTables.count, 53)
     XCTAssertTrue(opened.csvTables.contains("reconciliation_balances"))
     XCTAssertTrue(opened.csvTables.contains("cards"))

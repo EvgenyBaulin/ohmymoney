@@ -33,6 +33,10 @@ public struct CategorySeed: Sendable {
     self.quality = quality
   }
 
+  /// The symbol and colour the category is made with (`StarterAppearance`); none for a
+  /// subcategory and for a seed the table does not name.
+  public var appearance: CategoryAppearance { StarterAppearance.of(self) }
+
   public func translation(language: String) -> StarterTranslation {
     let language = StarterLanguage(identifier: language)
     let text: String
@@ -109,7 +113,8 @@ public enum SampleCatalog {
           name: seed.translation(language: language).text,
           sort: sort,
           quality: quality,
-          systemRole: seed.systemRole))
+          systemRole: seed.systemRole,
+          appearance: seed.appearance))
     }
     return categories
   }

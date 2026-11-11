@@ -31,14 +31,18 @@ struct ReceiptAndEnglishExportTests {
   }
 
   @Test func theEnglishNameAndItsSourceGoLast() {
-    #expect(Array(ExportTables.categories.columns.suffix(2)) == ["name_en", "name_en_source"])
+    // The mark of schema 24 comes after them.
+    #expect(
+      Array(ExportTables.categories.columns.suffix(4))
+        == ["name_en", "name_en_source", "icon", "color"])
     let category = Category(
       kind: .expense, name: "Продукты",
       translation: CategoryTranslation(english: "Groceries", source: "Продукты"))
     let row = ExportTables.row(category)
     #expect(row.count == ExportTables.categories.columns.count)
-    #expect(Array(row.suffix(2)) == ["Groceries", "Продукты"])
-    #expect(Array(ExportTables.row(Category(kind: .expense, name: "Такси")).suffix(2)) == ["", ""])
+    #expect(Array(row.suffix(4).prefix(2)) == ["Groceries", "Продукты"])
+    #expect(
+      Array(ExportTables.row(Category(kind: .expense, name: "Такси")).suffix(4)) == ["", "", "", ""])
   }
 
   @Test func theFilesStayFiftyThreeAndNoColumnEndsInE4() {
