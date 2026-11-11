@@ -41,7 +41,7 @@ struct TouchHistoryBar: View {
       .overlay {
         RoundedRectangle(cornerRadius: 12).strokeBorder(surfaces.cardBorder, lineWidth: 0.5)
       }
-      .padding(.horizontal, 16)
+      .padding(.horizontal, PhoneMetrics.screenMargin)
       .padding(.vertical, 6)
       .accessibilityElement(children: .contain)
       .accessibilityIdentifier("history.banner")

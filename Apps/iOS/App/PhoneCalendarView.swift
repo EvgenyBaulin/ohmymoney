@@ -115,6 +115,7 @@ struct PhoneCalendarView: View {
         CalendarUpcomingCard(calendar: calendar)
       }
       .padding(16)
+      .padding(.horizontal, PhoneMetrics.screenMargin - 16)
     }
     .background(surfaces.background)
     .accessibilityIdentifier("calendar.phone")
@@ -356,6 +357,7 @@ struct PhoneCalendarDayScreen: View {
       }
     }
     .padding(16)
+    .padding(.horizontal, PhoneMetrics.screenMargin - 16)
     .accessibilityIdentifier("calendar.phone.dayScreen")
   }
 

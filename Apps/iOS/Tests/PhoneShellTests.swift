@@ -75,6 +75,47 @@ final class PhoneShellTests: XCTestCase {
     }
   }
 
+  func testOneMarginKeepsPageBarAndPlusOffTheEdges() {
+    XCTAssertEqual(PhoneMetrics.screenMargin, 20)
+    XCTAssertEqual(PhoneEntryButton.sideMargin, PhoneMetrics.screenMargin)
+    XCTAssertEqual(OverviewView.sideMargin, PhoneMetrics.screenMargin)
+    XCTAssertEqual(OperationsMetrics.phonePageSide, PhoneMetrics.screenMargin)
+    XCTAssertEqual(OverviewPageMetrics.phone.side, PhoneMetrics.screenMargin)
+    XCTAssertEqual(SectionMetrics.side(.phone), PhoneMetrics.screenMargin)
+    XCTAssertEqual(SectionMetrics.side(.pad), 32)
+    XCTAssertEqual(AnalyticsMetrics.phone.side, PhoneMetrics.screenMargin)
+    XCTAssertEqual(ReportsMetrics.phone.side, PhoneMetrics.screenMargin)
+    XCTAssertGreaterThanOrEqual(PhoneMetrics.barBottomMargin, 12)
+    // Scrolling content can be lifted clear of the round «+» that floats over its bottom.
+    XCTAssertGreaterThanOrEqual(
+      PhoneEntryButton.scrollClearance, PhoneEntryButton.diameter + PhoneEntryButton.gapAboveBar)
+  }
+
+  func testTheBarKeepsItsMarginAndItsTabsReadableAtBothBigPhones() {
+    let router = PhoneRouter()
+    let colors = NavBarColors(theme: .fallback, colorScheme: .light, contrast: .standard)
+    for width in [CGFloat(402), 440] {
+      let layout = NavLayout.make(width: Double(width), isPad: false)
+      let bar = PhoneTabBar(
+        layout: layout, router: router, title: { _ in "Операции" }, moreTitle: "Ещё")
+      let size = UIHostingController(rootView: bar).sizeThatFits(
+        in: CGSize(width: width, height: 200))
+      XCTAssertLessThanOrEqual(size.width, width + 0.5)
+      // The pill inside the margins: each of the five tabs gets an equal share of what is left.
+      let slot = (width - 2 * PhoneMetrics.screenMargin - 16) / CGFloat(layout.barCount)
+      let tab = UIHostingController(
+        rootView: NavBarButton(
+          title: "Операции", symbol: "list.bullet", isActive: true, colors: colors,
+          labelsOnAll: true, action: {}
+        ).fixedSize()
+      ).sizeThatFits(in: CGSize(width: 500, height: 100))
+      XCTAssertGreaterThanOrEqual(slot, 44, "width \(width)")
+      // The name may shrink to 70 % (its minimumScaleFactor) inside the button's 20 of padding.
+      let shrunk = (tab.width - 20) * 0.7 + 20
+      XCTAssertLessThanOrEqual(shrunk, slot, "the longest name still fits at \(width)")
+    }
+  }
+
   func testPlusStandsAboveTheBarAndSavingHidesTheEntry() {
     XCTAssertEqual(PhoneEntryButton.diameter, 56)
     XCTAssertGreaterThan(

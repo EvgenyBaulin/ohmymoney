@@ -475,6 +475,10 @@ struct PhoneContent<Content: View, Entry: View>: View {
       DatabaseFailureView(failure: failure, deps: deps)
     case .ready:
       content
+        .contentMargins(
+          .bottom,
+          UIDevice.current.userInterfaceIdiom == .phone ? PhoneEntryButton.scrollClearance : 0,
+          for: .scrollContent)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         // Over the bar of the phone the page fades out instead of ending in a hard edge.
         .overlay(alignment: .bottom) { if fades { NavBarFade() } }
