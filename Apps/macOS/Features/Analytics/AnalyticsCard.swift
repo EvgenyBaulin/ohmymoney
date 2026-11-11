@@ -20,6 +20,8 @@ struct AnalyticsCard<Value: Sendable, Content: View, Accessory: View>: View {
   /// The grey figure at the right of the title: «12 месяцев», «148 200 ₽», «2».
   var caption: String?
   var style: AnalyticsCardStyle = .detail
+  /// Between the head and the body when a frame draws another than the style's (8, 0).
+  var bodyGap: CGFloat?
   let state: BlockState<ChartBlock<Value>>
   let retry: (() -> Void)?
   let accessory: Accessory
@@ -44,7 +46,7 @@ struct AnalyticsCard<Value: Sendable, Content: View, Accessory: View>: View {
 
   var body: some View {
     let serial = analytics?.serial ?? 0
-    VStack(alignment: .leading, spacing: AnalyticsCardMetrics.bodyGap(style)) {
+    VStack(alignment: .leading, spacing: bodyGap ?? AnalyticsCardMetrics.bodyGap(style)) {
       AnalyticsCardHeader(
         title: title, subtitle: subtitle, caption: caption, style: style
       ) { accessory }
@@ -64,6 +66,12 @@ struct AnalyticsCard<Value: Sendable, Content: View, Accessory: View>: View {
     .analyticsCard(style)
     .accessibilityElement(children: .contain)
     .accessibilityLabel(Text(verbatim: title))
+  }
+
+  func bodyGap(_ gap: CGFloat) -> Self {
+    var copy = self
+    copy.bodyGap = gap
+    return copy
   }
 
   /// The state of the block with its chart's data, or «Мало данных».

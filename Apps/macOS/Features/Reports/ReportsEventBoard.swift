@@ -61,7 +61,9 @@ struct ReportsEventBoard: Hashable, Sendable {
     // A category's share of the event, not of all the spending its line in the table carries.
     let breakdown = (largestRow?.children ?? []).map { child -> Line in
       var part = line(child)
-      part.share = largestRow.flatMap { amount(child).raw > 0 ? Shares.ratio(amount(child), of: amount($0)) : nil }
+      part.share = largestRow.flatMap {
+        amount(child).raw > 0 ? Shares.ratio(amount(child), of: amount($0)) : nil
+      }
       return part
     }
     .sorted { $0.value > $1.value }
@@ -323,7 +325,8 @@ struct ReportsEventColumns: Layout {
   ) -> CGSize {
     let width = proposal.width ?? 1_000
     let sizes = place(width, subviews)
-    let height = zip(subviews, sizes).map { $0.sizeThatFits(.init(width: $1, height: nil)).height }
+    let height =
+      zip(subviews, sizes).map { $0.sizeThatFits(.init(width: $1, height: nil)).height }
       .max() ?? 0
     return CGSize(width: width, height: height)
   }

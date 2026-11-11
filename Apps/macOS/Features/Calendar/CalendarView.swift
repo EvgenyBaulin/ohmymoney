@@ -158,7 +158,8 @@ struct CalendarView: View {
         title: CalendarText.dayTitle(chosenDay?.day ?? snapshot.today, environment),
         caption: CalendarFigures.spent(on: chosenDay).map {
           "−" + CalendarText.money($0, of: calendar, environment)
-        })
+        }
+      )
       .accessibilityIdentifier("calendar.day.title")
       DayList(
         groups: CalendarScreen.groups(of: chosenDay, in: snapshot, calendar: environment.calendar),

@@ -675,7 +675,6 @@ struct DebtsLadderCardView: View {
       .appFont(DebtsType.resultValue).foregroundStyle(theme.contentPrimary)
   }
 
-
   private func t(_ key: String) -> String { environment.language(key, table: "Debts") }
 }
 
