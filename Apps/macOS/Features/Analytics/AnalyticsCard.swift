@@ -1,10 +1,10 @@
 import AppCore
 import SwiftUI
 
-/// A card of the Analytics window: its title in `.headline` and the basis of its figures in
-/// `.caption` stay in every state; under them the state of its block — «Считается», a
+/// A card of the Analytics window: its title, the basis of its figures under it and its grey
+/// figure at the right stay in every state; under them the state of its block — «Считается», a
 /// failure with «Повторить», «Мало данных» with its reason, «Появится в …» — or its chart.
-/// No glass: it stands on the same card as the blocks of Overview (`contentCard`).
+/// No glass: the card of the design (`analyticsCard`).
 ///
 /// With `--measure` the card reports the first `task` of what it draws for each model to
 /// `AnalyticsMeasurement`: the chart, or «Мало данных» in its place.
@@ -17,19 +17,25 @@ struct AnalyticsCard<Value: Sendable, Content: View, Accessory: View>: View {
   let block: String
   let title: String
   var subtitle: String?
+  /// The grey figure at the right of the title: «12 месяцев», «148 200 ₽», «2».
+  var caption: String?
+  var style: AnalyticsCardStyle = .detail
   let state: BlockState<ChartBlock<Value>>
   let retry: (() -> Void)?
   let accessory: Accessory
   let content: (Value) -> Content
 
   init(
-    block: String, title: String, subtitle: String? = nil, state: BlockState<ChartBlock<Value>>,
+    block: String, title: String, subtitle: String? = nil, caption: String? = nil,
+    style: AnalyticsCardStyle = .detail, state: BlockState<ChartBlock<Value>>,
     retry: (() -> Void)?, @ViewBuilder accessory: () -> Accessory,
     @ViewBuilder content: @escaping (Value) -> Content
   ) {
     self.block = block
     self.title = title
     self.subtitle = subtitle
+    self.caption = caption
+    self.style = style
     self.state = state
     self.retry = retry
     self.accessory = accessory()
@@ -38,22 +44,10 @@ struct AnalyticsCard<Value: Sendable, Content: View, Accessory: View>: View {
 
   var body: some View {
     let serial = analytics?.serial ?? 0
-    VStack(alignment: .leading, spacing: 10) {
-      HStack(alignment: .firstTextBaseline, spacing: 8) {
-        VStack(alignment: .leading, spacing: 2) {
-          Text(verbatim: title)
-            .appFont(.headline)
-            .accessibilityAddTraits(.isHeader)
-          if let subtitle {
-            Text(verbatim: subtitle)
-              .appFont(.caption)
-              .foregroundStyle(.secondary)
-              .fixedSize(horizontal: false, vertical: true)
-          }
-        }
-        Spacer(minLength: 8)
-        accessory
-      }
+    VStack(alignment: .leading, spacing: AnalyticsCardMetrics.bodyGap(style)) {
+      AnalyticsCardHeader(
+        title: title, subtitle: subtitle, caption: caption, style: style
+      ) { accessory }
       ComputedBlock(
         title: nil, state: unwrapped, style: .plain, emptyReason: reason, retry: retry
       ) { value in
@@ -67,7 +61,7 @@ struct AnalyticsCard<Value: Sendable, Content: View, Accessory: View>: View {
         analytics?.measurement.blockAppeared(block, serial: serial)
       }
     }
-    .contentCard()
+    .analyticsCard(style)
     .accessibilityElement(children: .contain)
     .accessibilityLabel(Text(verbatim: title))
   }
@@ -89,12 +83,13 @@ struct AnalyticsCard<Value: Sendable, Content: View, Accessory: View>: View {
 
 extension AnalyticsCard where Accessory == EmptyView {
   init(
-    block: String, title: String, subtitle: String? = nil, state: BlockState<ChartBlock<Value>>,
+    block: String, title: String, subtitle: String? = nil, caption: String? = nil,
+    style: AnalyticsCardStyle = .detail, state: BlockState<ChartBlock<Value>>,
     retry: (() -> Void)?, @ViewBuilder content: @escaping (Value) -> Content
   ) {
     self.init(
-      block: block, title: title, subtitle: subtitle, state: state, retry: retry,
-      accessory: { EmptyView() }, content: content)
+      block: block, title: title, subtitle: subtitle, caption: caption, style: style,
+      state: state, retry: retry, accessory: { EmptyView() }, content: content)
   }
 }
 
@@ -122,5 +117,117 @@ struct AnalyticsPair<First: View, Second: View>: View {
       first
       second
     }
+  }
+}
+
+/// The two cards the design draws in Analytics. `summary` is the card of the first page of
+/// «Траты» (5:36907, the phone's 5:6837): 14 inside an edge of 1, a title of 14 with its grey
+/// figure at the right, 10 to the body. `detail` is the card of every other page (61:60578,
+/// 61:62017, 6:108990): 16 inside the edge, a title of 15 over a line of 11, 12 to the body.
+enum AnalyticsCardStyle: Hashable, Sendable {
+  case summary
+  case detail
+}
+
+/// The numbers of the cards of Analytics, as the frames draw them.
+enum AnalyticsCardMetrics {
+  /// The edge of a card: 1, inside it the margin of the style.
+  static let edge: CGFloat = 1
+  static func padding(_ style: AnalyticsCardStyle) -> CGFloat { style == .summary ? 14 : 16 }
+  /// Between the title (with the line under it) and the body.
+  static func bodyGap(_ style: AnalyticsCardStyle) -> CGFloat { style == .summary ? 10 : 12 }
+  /// Between the title and the line under it.
+  static let subtitleGap: CGFloat = 2
+  /// Between the title and its grey figure at the right.
+  static let captionGap: CGFloat = 8
+  /// The radius: 12 on the Mac, 22 on a phone and a tablet, as every card of the app.
+  static var radius: CGFloat { ContentCard.cornerRadius }
+}
+
+/// The type of the cards of Analytics at «Обычный»; each grows with the size chosen in Settings.
+enum AnalyticsCardType {
+  /// The title: 14 semibold on the summary card, 15 semibold on the others.
+  static func title(_ style: AnalyticsCardStyle) -> AppFont {
+    .system(size: style == .summary ? 14 : 15, weight: .semibold)
+  }
+  /// The grey figure at the right of the title: 12.
+  static let caption = AppFont.system(size: 12).monospacedDigit()
+  /// The line under the title and the notes under a body: 11.
+  static let subtitle = AppFont.system(size: 11)
+  /// A line of a body: its name 13, its figure 13 medium.
+  static let row = AppFont.system(size: 13)
+  static let rowFigure = AppFont.system(size: 13, weight: .medium).monospacedDigit()
+  /// The one figure a card leads with: «72 из 100», «Хватит на 94 дня» — 17 semibold.
+  static let lead = AppFont.system(size: 17, weight: .semibold).monospacedDigit()
+}
+
+/// The head of a card of Analytics: the title, its grey figure at the right, the line under the
+/// title, and what the card offers beside them (a switch of the step).
+struct AnalyticsCardHeader<Accessory: View>: View {
+  let title: String
+  var subtitle: String?
+  var caption: String?
+  var style: AnalyticsCardStyle = .detail
+  @ViewBuilder var accessory: Accessory
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: AnalyticsCardMetrics.subtitleGap) {
+      HStack(alignment: .firstTextBaseline, spacing: AnalyticsCardMetrics.captionGap) {
+        Text(verbatim: title)
+          .appFont(AnalyticsCardType.title(style))
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .accessibilityAddTraits(.isHeader)
+        if let caption {
+          Text(verbatim: caption)
+            .appFont(AnalyticsCardType.caption)
+            .foregroundStyle(.secondary)
+            .lineLimit(1)
+            .fixedSize()
+        }
+        accessory
+      }
+      if let subtitle {
+        Text(verbatim: subtitle)
+          .appFont(AnalyticsCardType.subtitle)
+          .foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+    }
+  }
+}
+
+extension AnalyticsCardHeader where Accessory == EmptyView {
+  init(
+    title: String, subtitle: String? = nil, caption: String? = nil,
+    style: AnalyticsCardStyle = .detail
+  ) {
+    self.init(
+      title: title, subtitle: subtitle, caption: caption, style: style, accessory: { EmptyView() })
+  }
+}
+
+/// The surface of a card of Analytics: the theme's card, its edge of 1, the margin of the style
+/// inside it. Content, never glass; «Увеличить контраст» adds the separator edge.
+struct AnalyticsCardFrame: ViewModifier {
+  @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.colorSchemeContrast) private var contrast
+  let style: AnalyticsCardStyle
+
+  func body(content: Content) -> some View {
+    let shape = RoundedRectangle(cornerRadius: AnalyticsCardMetrics.radius)
+    content
+      .frame(maxWidth: .infinity, alignment: .topLeading)
+      .padding(AnalyticsCardMetrics.padding(style) + AnalyticsCardMetrics.edge)
+      .background(surfaces.card, in: shape)
+      .overlay {
+        shape.strokeBorder(surfaces.cardBorder, lineWidth: AnalyticsCardMetrics.edge)
+        if contrast == .increased { shape.strokeBorder(.separator, lineWidth: 1) }
+      }
+  }
+}
+
+extension View {
+  func analyticsCard(_ style: AnalyticsCardStyle = .detail) -> some View {
+    modifier(AnalyticsCardFrame(style: style))
   }
 }

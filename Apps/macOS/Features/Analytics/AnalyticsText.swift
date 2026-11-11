@@ -129,6 +129,18 @@ enum AnalyticsText {
       format: t(key, environment), locale: environment.language.locale, arguments: arguments)
   }
 
+  /// The figure in the hole of a ring: whole thousands from a thousand on — «148 тыс.», «148K»
+  /// —, rounded half away from zero; a smaller sum in rubles, a million and more as an axis does.
+  static func thousands(_ whole: Int64, _ environment: AppEnvironment) -> String {
+    let money = environment.money
+    guard !money.hidesAmounts, whole.magnitude >= 1_000, whole.magnitude < 1_000_000 else {
+      return money.axis(whole)
+    }
+    let rounded = (whole.magnitude + 500) / 1_000
+    let signed = whole < 0 ? -Int64(rounded) : Int64(rounded)
+    return format("analytics.thousands", environment, money.count(signed))
+  }
+
   /// A string with one count in it, the count grouped like every number: «1,250 покупок».
   static func format(_ key: String, _ environment: AppEnvironment, count: Int) -> String {
     environment.language.format(key, table: "Analytics", counts: count)

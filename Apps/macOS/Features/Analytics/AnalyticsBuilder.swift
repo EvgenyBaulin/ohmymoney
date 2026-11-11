@@ -20,7 +20,8 @@ enum AnalyticsBuilder {
     let content: AnalyticsModel.Content
     switch request.section {
     case .overview:
-      content = .overview(overview(ledger: ledger, period: period, today: today))
+      content = .overview(
+        overview(ledger: ledger, period: period, today: today, anomalies: request.anomalies))
     case .quality:
       content = .quality(quality(ledger: ledger, period: period, today: today))
     case .others:
@@ -85,7 +86,9 @@ enum AnalyticsBuilder {
 
   // MARK: - Overview
 
-  static func overview(ledger: Ledger, period: Period, today: DateOnly) -> OverviewSectionModel {
+  static func overview(
+    ledger: Ledger, period: Period, today: DateOnly, anomalies report: AnomalyReport? = nil
+  ) -> OverviewSectionModel {
     let categories = CategoryBreakdown(ledger: ledger, period: period, kind: .expense)
     let steps = SeriesSteps(
       day: timeSeries(
@@ -103,7 +106,14 @@ enum AnalyticsBuilder {
     // neither income nor spending says that of the period.
     let noIncomeOrSpending: AnalyticsReason =
       ledger.firstDay == nil ? .noHistory : .noIncomeOrSpending
+    let qualityColumns = QualityReport(ledger: ledger, period: period, today: today).months.map {
+      shareColumn($0.month, $0.qualities)
+    }
+    let quality = QualityTotals.make(columns: qualityColumns)
     return OverviewSectionModel(
+      months: monthBars(ledger: ledger, period: period, today: today),
+      quality: quality.tiles.contains { $0.value != 0 } ? .ready(quality) : .notEnoughData(.noSpending),
+      anomalies: report.map { anomalies($0, period: period).found },
       categories: ranked(categories.nodes, else: .noSpending),
       series: steps.month.buckets.contains { $0.value != 0 }
         || steps.day.buckets.contains { $0.value != 0 }
@@ -114,6 +124,19 @@ enum AnalyticsBuilder {
       comparison: comparison(
         PeriodComparison(ledger: ledger, period: period, today: today), period: period),
       weekdays: weekdays(WeekdayProfile(ledger: ledger, period: period, today: today)))
+  }
+
+  /// «По месяцам»: the twelve months to the last month of the period that has come, that
+  /// month picked out — a quarter or a year that runs on past today ends with the month of today.
+  static func monthBars(ledger: Ledger, period: Period, today: DateOnly) -> ChartBlock<MonthBars> {
+    let last = min(period.end.monthKey, today.monthKey)
+    let series = TimeSeries(
+      ledger: ledger, period: .twelveMonths(endingWith: last), step: .month, today: today)
+    let months = series.points.map {
+      MonthBars.Month(month: $0.start.monthKey, value: $0.amount.wholeRubles)
+    }
+    guard months.contains(where: { $0.value != 0 }) else { return .notEnoughData(.noSpending) }
+    return .ready(MonthBars(months: months, highlighted: last))
   }
 
   /// The buckets of a series with the days each covers inside the period, in whole rubles.

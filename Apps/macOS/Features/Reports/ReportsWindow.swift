@@ -285,10 +285,14 @@ struct ReportsWindow: View {
       PeriodsBoardView(store: summaries)
     } else if let sheet = state.value {
       let grid = ReportGridBuilder.grid(sheet, idiom, environment)
-      ReportGridView(grid: grid, metrics: metrics, idiom: idiom)
-        .contextMenu {
-          Button(QuestionsText.t("questions.saved.save.report", environment)) { saving = true }
-        }
+      if let board = sheet.eventBoard, idiom != .phone {
+        eventBoard(board, grid: grid, names: sheet.models.first?.names ?? AnalyticsNames())
+      } else {
+        ReportGridView(grid: grid, metrics: metrics, idiom: idiom)
+          .contextMenu {
+            Button(QuestionsText.t("questions.saved.save.report", environment)) { saving = true }
+          }
+      }
       Text(verbatim: t(tab == .byMonth ? "reports.monthNote" : "reports.csvNote"))
         .appFont(ReportsType.note)
         .foregroundStyle(theme.contentSecondary)
@@ -300,6 +304,33 @@ struct ReportsWindow: View {
         EmptyView()
       }
       .frame(maxWidth: .infinity, minHeight: 240)
+    }
+  }
+
+  /// «По событиям» (62:36343): the three cards, then the table with the categories of the
+  /// largest event beside it — the table 60 % of the page, the list the rest, 16 apart.
+  private func eventBoard(
+    _ board: ReportsEventBoard, grid: ReportGrid, names: AnalyticsNames
+  ) -> some View {
+    var tableGrid = grid
+    tableGrid.spreads = true
+    var tableMetrics = metrics
+    tableMetrics.nameWidth = nil
+    if idiom == .mac {
+      tableMetrics.amountWidth = ReportsEventBoardMetrics.amountWidth
+      tableMetrics.shareWidth = ReportsEventBoardMetrics.shareWidth
+    }
+    return VStack(alignment: .leading, spacing: metrics.stackGap) {
+      ReportsEventCards(board: board, names: names, period: period)
+      ReportsEventColumns {
+        ReportGridView(grid: tableGrid, metrics: tableMetrics, idiom: idiom)
+          .contextMenu {
+            Button(QuestionsText.t("questions.saved.save.report", environment)) { saving = true }
+          }
+        if board.largest != nil, !board.breakdown.isEmpty {
+          ReportsEventList(board: board, names: names)
+        }
+      }
     }
   }
 
