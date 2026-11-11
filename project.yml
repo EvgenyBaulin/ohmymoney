@@ -338,6 +338,7 @@ targets:
       - path: Apps/macOS/Tests/PadLayoutTests.swift
       - path: Apps/macOS/Tests/ShareInboxTests.swift
       - path: Apps/macOS/Tests/SyncEncryptionTests.swift
+      - path: Apps/macOS/Tests/CloudKitTransportTests.swift
       - path: Apps/macOS/Tests/SharedItemProviderReaderTests.swift
       - path: Apps/ShareExtension/SharedItemProviderReader.swift
     dependencies:

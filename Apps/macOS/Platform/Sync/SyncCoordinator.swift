@@ -32,6 +32,7 @@ final class SyncCoordinator {
   private let notifier: any SyncNotifying
   private let defaults: UserDefaults
   private let snapshotCodec: any PayloadCodec
+  private let remoteFolder: TransportExchangeFolder?
   private var isRunning = false
   private var isStopped = false
   private var debounce: Task<Void, Never>?
@@ -46,7 +47,8 @@ final class SyncCoordinator {
     bookmarks: BookmarkStore = BookmarkStore(key: SyncCoordinator.folderKey),
     protectedFolders: @escaping @Sendable () -> [URL] = { [] },
     notifier: any SyncNotifying = SystemSyncNotifier(), defaults: UserDefaults = .standard,
-    snapshotCodec: any PayloadCodec = IdentityCodec()
+    snapshotCodec: any PayloadCodec = IdentityCodec(),
+    remoteFolder: TransportExchangeFolder? = nil
   ) {
     self.exchange = exchange
     self.bookmarks = bookmarks
@@ -54,13 +56,14 @@ final class SyncCoordinator {
     self.notifier = notifier
     self.defaults = defaults
     self.snapshotCodec = snapshotCodec
+    self.remoteFolder = remoteFolder
     self.status = .notConfigured
     refreshFolderName()
   }
 
   /// Whether this database exchanges at all.
   var isAvailable: Bool { exchange != nil }
-  var hasFolder: Bool { bookmarks.isStored }
+  var hasFolder: Bool { remoteFolder != nil || bookmarks.isStored }
   /// A recovery-key change must wait until all files of the current exchange are finished.
   var isUsingPayloadKey: Bool {
     if case .loading = bootstrap { return true }
@@ -139,7 +142,7 @@ final class SyncCoordinator {
           [LogPair("error", .error(error))])
       }
     }
-    guard bookmarks.isStored else { return }
+    guard hasFolder else { return }
     debounce?.cancel()
     let delay = debounceDelay
     debounce = Task { [weak self] in
@@ -178,10 +181,9 @@ final class SyncCoordinator {
       NotificationCenter.default.removeObserver(observer)
       foregroundObserver = nil
     }
-    var waited = 0
-    while isRunning, waited < 200 {
-      try? await Task.sleep(for: .milliseconds(50))
-      waited += 1
+    while isRunning {
+      // Closing the database must wait even when the task that requested shutdown is cancelled.
+      await Task.detached { try? await Task.sleep(for: .milliseconds(50)) }.value
     }
   }
 
@@ -191,7 +193,7 @@ final class SyncCoordinator {
   func refresh() {
     guard let exchange else { return }
     conflicts = (try? exchange.conflicts()) ?? conflicts
-    guard bookmarks.isStored else {
+    guard hasFolder else {
       status = .notConfigured
       return
     }
@@ -204,19 +206,24 @@ final class SyncCoordinator {
   /// One exchange: out, in, conflicts. Does nothing while one runs or when no folder is chosen.
   func syncNow() async {
     guard let exchange, !isRunning, !isStopped else { return }
-    guard bookmarks.isStored else {
+    guard hasFolder else {
       status = .notConfigured
       return
     }
     isRunning = true
     status = .running
     defer { isRunning = false }
-    guard let url = bookmarks.resolve() else {
+    guard let access = openFolder() else {
       fail(.folderMissing)
       return
     }
-    defer { bookmarks.release(url) }
-    refreshFolderName(url)
+    defer { closeFolder(access) }
+    if let url = access.url { refreshFolderName(url) }
+    let folder = access.folder
+    let remote = remoteFolder
+    // An existing folder supplies the original immutable history when storage changes.
+    let sourceURL = remote != nil && bookmarks.isStored ? bookmarks.resolve() : nil
+    defer { if let sourceURL { bookmarks.release(sourceURL) } }
     let before = conflicts.count
     // The launch put another database in place: the exchange drops what it remembered of the
     // old one and sends every row of the new one before anything else.
@@ -230,12 +237,20 @@ final class SyncCoordinator {
             "sync.replaced", .db, "the database was replaced; the exchange starts over",
             [LogPair("seeded", .count(rows)), LogPair("snapshot", .count(fromSnapshot ? 1 : 0))])
         }
-        let folder = DirectoryJournalFolder(url: url)
+        if let remote {
+          try exchange.prepareRemoteFolder(
+            remote, copyingFrom: sourceURL.map { DirectoryJournalFolder(url: $0) })
+        }
         var outcome = try exchange.exchange(with: folder)
         // The copy of the whole database is a courtesy to a device that joins later: when it
         // can not be written the exchange itself has still gone through.
         do {
-          outcome.snapshotWritten = try exchange.snapshotIfDue(to: folder)
+          let needsSnapshot =
+            try remote != nil
+            && !folder.snapshots().contains {
+              $0.name == SyncSnapshotName.fileName(deviceId: exchange.deviceId)
+            }
+          outcome.snapshotWritten = try exchange.snapshotIfDue(to: folder, force: needsSnapshot)
         } catch {
           AppLog.warning(
             "sync.snapshotFailed", .db, "the snapshot was not written; nothing was lost",
@@ -309,17 +324,17 @@ final class SyncCoordinator {
     backups: BackupService, schema: any SchemaSource = BundleSchemaSource(),
     target: URL = AppPaths.pendingReplacementURL
   ) async -> BootstrapResult {
-    guard let exchange, bookmarks.isStored else { return .notConfigured }
+    guard let exchange, hasFolder else { return .notConfigured }
     guard !exchange.holdsOwnerData else {
       AppLog.warning("sync.bootstrapRefused", .db, "the database holds books; no snapshot is taken")
       return .notEmpty
     }
-    guard let url = bookmarks.resolve() else { return .failed }
-    defer { bookmarks.release(url) }
+    guard let access = openFolder() else { return .failed }
+    defer { closeFolder(access) }
     let fetched = URL(fileURLWithPath: target.path + ".snapshot")
     defer { try? FileManager.default.removeItem(at: fetched) }
     do {
-      let folder = DirectoryJournalFolder(url: url)
+      let folder = access.folder
       let found: SyncSnapshotInfo? = try await Task.detached {
         try SyncSnapshots.newest(in: folder)
       }
@@ -352,17 +367,18 @@ final class SyncCoordinator {
   func lookForSnapshot() async {
     if case .loading = bootstrap { return }
     if case .staged = bootstrap { return }
-    guard let exchange, bookmarks.isStored, !exchange.holdsOwnerData else {
+    guard let exchange, hasFolder, !exchange.holdsOwnerData else {
       bootstrap = .idle
       return
     }
-    guard let url = bookmarks.resolve() else {
+    guard let access = openFolder() else {
       bootstrap = .idle
       return
     }
-    defer { bookmarks.release(url) }
+    defer { closeFolder(access) }
+    let folder = access.folder
     let found: SyncSnapshotInfo? = await Task.detached {
-      try? SyncSnapshots.newest(in: DirectoryJournalFolder(url: url))
+      try? SyncSnapshots.newest(in: folder)
     }.value
     if let found {
       bootstrap = .offered(
@@ -390,6 +406,21 @@ final class SyncCoordinator {
   }
 
   // MARK: Choices
+
+  private struct FolderAccess {
+    let folder: any JournalFolder & SnapshotFolder
+    let url: URL?
+  }
+
+  private func openFolder() -> FolderAccess? {
+    if let remoteFolder { return FolderAccess(folder: remoteFolder, url: nil) }
+    guard let url = bookmarks.resolve() else { return nil }
+    return FolderAccess(folder: DirectoryJournalFolder(url: url), url: url)
+  }
+
+  private func closeFolder(_ access: FolderAccess) {
+    if let url = access.url { bookmarks.release(url) }
+  }
 
   func keepMine(_ conflict: SyncConflict) async {
     await settle(conflict) { try $0.keepMine(conflict.key) }
