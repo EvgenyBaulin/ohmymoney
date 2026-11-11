@@ -38,6 +38,7 @@ extension SyncFailure {
     case .folderMissing: "sync.error.folderMissing"
     case .folderNotReadable: "sync.error.folderNotReadable"
     case .folderNotWritable: "sync.error.folderNotWritable"
+    case .filesNotReadable: "sync.error.filesNotReadable"
     case .database: "sync.error.database"
     }
   }

@@ -80,12 +80,15 @@ enum SyncWiring {
     deviceName: String = SyncWiring.deviceName, protected: SyncProtectedFolders,
     language: AppLanguage?,
     bookmarks: BookmarkStore = BookmarkStore(key: SyncCoordinator.folderKey),
-    notifier: (any SyncNotifying)? = nil
+    notifier: (any SyncNotifying)? = nil,
+    keyStore: any SyncKeyStoring = KeychainSyncKeyStore()
   ) -> SyncCoordinator? {
     guard isRealDatabase else { return nil }
     guard
       let exchange = try? SyncExchange(
-        writer: writer, deviceId: deviceId(in: defaults), deviceName: deviceName)
+        writer: writer, deviceId: deviceId(in: defaults), deviceName: deviceName,
+        journalCodec: RecoveryPayloadCodec(store: keyStore, purpose: .journal),
+        snapshotCodec: RecoveryPayloadCodec(store: keyStore, purpose: .snapshot))
     else {
       AppLog.warning("sync.notWired", .db, "the exchange could not be made for this database")
       return nil
@@ -100,7 +103,9 @@ enum SyncWiring {
     }
     let coordinator = SyncCoordinator(
       exchange: exchange, bookmarks: bookmarks, protectedFolders: { protected.all },
-      notifier: notifier ?? SystemSyncNotifier(), defaults: defaults)
+      notifier: notifier ?? SystemSyncNotifier(), defaults: defaults,
+      snapshotCodec: RecoveryPayloadCodec(store: keyStore, purpose: .snapshot),
+      remoteFolder: CloudKitSync.makeFolder(defaults: defaults))
     coordinator.language = language
     return coordinator
   }
@@ -122,7 +127,8 @@ extension AppEnvironment {
   func wireSync(
     writer: any DatabaseWriter, isRealDatabase: Bool, defaults: UserDefaults = .standard,
     bookmarks: BookmarkStore = BookmarkStore(key: SyncCoordinator.folderKey),
-    notifier: (any SyncNotifying)? = nil
+    notifier: (any SyncNotifying)? = nil,
+    keyStore: any SyncKeyStoring = KeychainSyncKeyStore()
   ) {
     sync = nil
     syncFolders = nil
@@ -132,6 +138,6 @@ extension AppEnvironment {
     syncFolders = folders
     sync = SyncWiring.makeCoordinator(
       writer: writer, isRealDatabase: true, defaults: defaults, protected: folders,
-      language: language, bookmarks: bookmarks, notifier: notifier)
+      language: language, bookmarks: bookmarks, notifier: notifier, keyStore: keyStore)
   }
 }

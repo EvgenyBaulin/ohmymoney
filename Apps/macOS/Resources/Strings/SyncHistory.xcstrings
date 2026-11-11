@@ -1554,13 +1554,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The key could not be kept in the keychain."
+            "value": "The recovery words are invalid or the key could not be saved."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ключ не удалось сохранить в связке ключей."
+            "value": "Слова восстановления неверны или ключ не удалось сохранить."
           }
         }
       }
@@ -1588,13 +1588,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "A random key kept in this Mac's keychain, never in the data or the archive. Another device gets it from the recovery sheet."
+            "value": "New exchange files are encrypted. On your first device, create a recovery key before exchanging. On other devices, enter the same 24 words. Files written before encryption remain readable."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Случайный ключ хранится в связке ключей этого Mac, не в данных и не в архиве. Другое устройство получает его с листа восстановления."
+            "value": "Новые файлы обмена зашифрованы. На первом устройстве перед обменом создайте ключ восстановления. На других введите те же 24 слова. Файлы, записанные до шифрования, по-прежнему читаются."
           }
         }
       }
@@ -1867,6 +1867,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Напечатать…"
+          }
+        }
+      }
+    },
+    "recovery.key.words": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24 recovery words from your other device"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24 слова восстановления с другого устройства"
+          }
+        }
+      }
+    },
+    "recovery.key.restore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use recovery key"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовать ключ восстановления"
           }
         }
       }

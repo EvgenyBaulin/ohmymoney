@@ -150,7 +150,9 @@ extension SyncExchange {
     } catch {
       throw SyncSnapshotError.notWritten
     }
-    try folder.putSnapshot(named: SyncSnapshotName.fileName(deviceId: deviceId), from: copy)
+    let sealed = scratch.appendingPathComponent("snapshot.payload")
+    try snapshotCodec.encode(Data(contentsOf: copy)).write(to: sealed, options: .atomic)
+    try folder.putSnapshot(named: SyncSnapshotName.fileName(deviceId: deviceId), from: sealed)
   }
 }
 
@@ -167,13 +169,15 @@ public enum SyncSnapshots {
   /// one it came from.
   public static func fetchVerified(
     _ info: SyncSnapshotInfo, from folder: any SnapshotFolder, to file: URL,
-    schema: any SchemaSource
+    schema: any SchemaSource, codec: any PayloadCodec = IdentityCodec()
   ) throws {
     let manager = FileManager.default
     try? manager.removeItem(at: file)
     try folder.fetchSnapshot(named: info.name, to: file)
     let verdict: DatabaseStack.FileCheck
     do {
+      let decoded = try codec.decode(Data(contentsOf: file))
+      try decoded.write(to: file, options: .atomic)
       verdict = try DatabaseStack.check(fileAt: file, schema: schema)
     } catch {
       try? manager.removeItem(at: file)

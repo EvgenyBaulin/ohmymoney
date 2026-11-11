@@ -129,6 +129,8 @@ struct EntryBar<Accessory: View>: View {
   @FocusState private var focused: Bool
 
   @State private var text = ""
+  @State private var dictation = EntryDictation()
+  @Environment(\.scenePhase) private var scenePhase
   @State private var showsDetails = false
   /// A field of the form has the keyboard: «Save» answers Return then, and only then — the rest
   /// of the time Return belongs to whatever else in the window has the focus.
@@ -233,6 +235,7 @@ struct EntryBar<Accessory: View>: View {
     // The line going away takes the keyboard and the open panel with it.
     .onChange(of: phone?.isShown) { _, shown in
       guard shown == false else { return }
+      dictation.stop()
       focused = false
       showsDetails = false
       message = nil
@@ -253,6 +256,7 @@ struct EntryBar<Accessory: View>: View {
     // The open panel shows what the line says as it is typed, not only after Enter. The notice
     // that an operation became a plan has said what it had to: the next line starts clean.
     .onChange(of: text) { old, new in
+      dictation.lineChanged(to: new)
       if message?.isNotice == true { message = nil }
       // A question is not read as an operation: no bank text, no panel, no rules.
       if questions.isActive {
@@ -275,7 +279,14 @@ struct EntryBar<Accessory: View>: View {
       followTheSelection(selection ?? [])
     }
     .onAppear { offerTheFormForEditing() }
-    .onDisappear { if style == .form { operations?.opensEditor = nil } }
+    .onDisappear {
+      dictation.stop()
+      if style == .form { operations?.opensEditor = nil }
+    }
+    .modifier(
+      DictationStops(
+        dictation: dictation, scenePhase: scenePhase,
+        language: environment.language.resolvedCode, style: style))
     .onChange(of: compute.generation) { _, _ in
       followTheEditedOperation()
       if showsDetails { model?.reload() }
@@ -436,6 +447,7 @@ struct EntryBar<Accessory: View>: View {
 
   /// «Очистить» of the form: what was typed is dropped and the defaults are laid again.
   private func clearTheForm() {
+    dictation.stop()
     guard let model else { return }
     model.reset()
     model.reload()
@@ -822,6 +834,8 @@ struct EntryBar<Accessory: View>: View {
             .accessibilityIdentifier("entry.details.toggle")
             .guideTarget("entry.details.toggle")
 
+            dictationButton
+
             // «Записать» (or «Спросить»): the send arrow at the end of the line, in the accent
             // while there is something to send, quiet while there is not.
             let sendable =
@@ -882,6 +896,7 @@ struct EntryBar<Accessory: View>: View {
                 }
                 questionNudge
               }
+              dictationHint
               caption
             })
         }
@@ -910,6 +925,43 @@ struct EntryBar<Accessory: View>: View {
     // safe area it asks for.
     .padding(.top, EntryBarMetrics.contentGap)
     .padding(.bottom, EntryBarMetrics.bottomInset)
+  }
+
+  private var dictationButton: some View {
+    let key = dictation.isActive ? "entry.dictation.stop" : "entry.dictation.start"
+    return Button {
+      let lineBinding = $text
+      Task {
+        await dictation.toggle(
+          interfaceCode: environment.language.resolvedCode,
+          readLine: { lineBinding.wrappedValue },
+          writeLine: { lineBinding.wrappedValue = $0 })
+      }
+    } label: {
+      lineSymbol(dictation.isActive ? "stop.circle.fill" : "mic")
+    }
+    .buttonStyle(.plain)
+    .foregroundStyle(dictation.isActive ? surfaces.accent : surfaces.secondary)
+    .help(environment.language(key, table: "Entry"))
+    .accessibilityLabel(Text(verbatim: environment.language(key, table: "Entry")))
+    .accessibilityAddTraits(dictation.isActive ? [.isSelected] : [])
+    .accessibilityIdentifier("entry.dictation.toggle")
+    .onDisappear { dictation.stop() }
+  }
+
+  @ViewBuilder
+  private var dictationHint: some View {
+    if let key = dictation.state.hintKey {
+      Label {
+        Text(verbatim: environment.language(key, table: "Entry"))
+      } icon: {
+        Image(systemName: dictation.state == .listening ? "mic.fill" : "info.circle")
+      }
+      .appFont(.caption)
+      .foregroundStyle(surfaces.secondary)
+      .fixedSize(horizontal: false, vertical: true)
+      .accessibilityIdentifier("entry.dictation.hint")
+    }
   }
 
   /// The design of the device the line is drawn by.
@@ -973,25 +1025,29 @@ struct EntryBar<Accessory: View>: View {
     _ model: EntryDraftModel, focus: FocusState<PanelFocus?>.Binding
   ) -> some View {
     VStack(alignment: .leading, spacing: 8) {
-      TextField(
-        text: $text,
-        prompt: Text(verbatim: environment.language("entry.quick.prompt", table: "Entry"))
-      ) {
-        Text(verbatim: environment.language("entry.quick", table: "Entry"))
+      HStack(spacing: 8) {
+        TextField(
+          text: $text,
+          prompt: Text(verbatim: environment.language("entry.quick.prompt", table: "Entry"))
+        ) {
+          Text(verbatim: environment.language("entry.quick", table: "Entry"))
+        }
+        .textFieldStyle(.roundedBorder)
+        .focused(focus, equals: .quick)
+        .onSubmit { submitQuick() }
+        // Return here is the quick line's alone: the panel around it saves on Return of its own
+        // fields, and the first Return of this line writes nothing.
+        .submitScope()
+        .onExitCommand {
+          quick.dismiss()
+          text = ""
+        }
+        .onChange(of: text) { _, _ in quick.dismiss() }
+        .accessibilityIdentifier("entry.quick")
+        .guideTarget("entry.quick")
+        dictationButton
       }
-      .textFieldStyle(.roundedBorder)
-      .focused(focus, equals: .quick)
-      .onSubmit { submitQuick() }
-      // Return here is the quick line's alone: the panel around it saves on Return of its own
-      // fields, and the first Return of this line writes nothing.
-      .submitScope()
-      .onExitCommand {
-        quick.dismiss()
-        text = ""
-      }
-      .onChange(of: text) { _, _ in quick.dismiss() }
-      .accessibilityIdentifier("entry.quick")
-      .guideTarget("entry.quick")
+      dictationHint
       if quick.confirming {
         VStack(alignment: .leading, spacing: 8) {
           Text(verbatim: environment.language("entry.quick.willWrite", table: "Entry"))
@@ -1053,6 +1109,7 @@ struct EntryBar<Accessory: View>: View {
 
   /// Return in the quick line, or «Записать»: the card first, the save on the second.
   private func submitQuick() {
+    dictation.stop()
     let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
     let reading = interpreter.read(trimmed, today: environment.today, kind: model?.draft.kind)
     let parsed = reading.parsed
@@ -1313,6 +1370,7 @@ struct EntryBar<Accessory: View>: View {
   /// (`OperationsScreen.takeSearchFocus`): a click on a toolbar can move the first
   /// responder on its way in, after the action has already run.
   private func startNewOperation() {
+    dictation.stop()
     message = nil
     prepareModel()
     // The form is always open: a new operation puts the keyboard on its first field.
@@ -1503,6 +1561,7 @@ struct EntryBar<Accessory: View>: View {
   }
 
   private func save() {
+    dictation.stop()
     // Return may reach the save twice — the field's own action and the default button — and a
     // held Return repeats: one keystroke is one save.
     #if os(macOS)
@@ -2139,3 +2198,27 @@ enum EntryPreview {
     return Templates.lineCurrency(in: environment)
   }
 }
+
+/// Ends dictation when the app leaves the foreground, the language or the entry style changes.
+/// A modifier of its own: in the long chain of the bar these checks are too much for the type
+/// checker.
+private struct DictationStops: ViewModifier {
+  let dictation: EntryDictation
+  let scenePhase: ScenePhase
+  let language: String
+  let style: EntryStyle
+
+  func body(content: Content) -> some View {
+    content
+      .onChange(of: scenePhase) { _, phase in
+        // A permission dialog briefly deactivates the scene; let that request finish, and end
+        // the recording itself when the app leaves the foreground.
+        if phase == .background || (phase == .inactive && dictation.state == .listening) {
+          dictation.stop()
+        }
+      }
+      .onChange(of: language) { _, _ in dictation.stop() }
+      .onChange(of: style) { _, _ in dictation.stop() }
+  }
+}
+

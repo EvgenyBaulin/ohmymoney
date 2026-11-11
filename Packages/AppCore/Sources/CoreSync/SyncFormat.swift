@@ -236,9 +236,8 @@ public enum SyncError: Error, Hashable, Sendable {
   case codec
 }
 
-/// Extension point for encryption: the bytes in the file are `codec.encode(json)`. Identity
-/// today (the owner's question about encrypting the folder is open); a real codec brings its
-/// key and its test vectors later.
+/// Extension point for encryption: the bytes in the file are `codec.encode(json)`. The app
+/// supplies a sealed codec with its recovery key; IdentityCodec is for legacy files and tests.
 public protocol PayloadCodec: Sendable {
   func encode(_ plain: Data) throws -> Data
   func decode(_ stored: Data) throws -> Data

@@ -45,6 +45,10 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>OhMyMoney uses the microphone to dictate entries on this device.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>OhMyMoney converts your speech into entry text on this device, without sending audio for cloud recognition.</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2026 Evgeny Baulin</string>
 	<key>OSAScriptingDefinition</key>
