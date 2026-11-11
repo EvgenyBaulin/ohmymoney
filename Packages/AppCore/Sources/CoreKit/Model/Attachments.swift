@@ -7,6 +7,8 @@ public enum AttachmentOwnerKind: String, CaseIterable, Hashable, Sendable, Codab
   case debt
   /// A row of the scheduled payments that is a subscription.
   case subscription
+  case wish
+  case ownedItem = "owned_item"
 }
 
 /// What the owner says the file is. A value a newer build writes reads as `other`.

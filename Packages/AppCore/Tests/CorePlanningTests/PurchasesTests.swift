@@ -311,7 +311,7 @@ struct OwnershipCostTests {
     #expect(found.runningRubE4 == .zero)
   }
 
-  @Test func anAssetStandsForItsFirstValuation() {
+  @Test func anAssetUsesItsLatestValueAndKeepsItsFirstDay() {
     let asset = Asset(name: "Camera", kind: .equipment)
     let valuations = [
       AssetValuation(
@@ -320,7 +320,7 @@ struct OwnershipCostTests {
         assetId: asset.id, day: DateOnly(year: 2026, month: 9, day: 1), valueE4: Fx.rub(40_000)),
     ]
     let subject = OwnershipSubject(asset: asset, valuations: valuations)
-    #expect(subject.priceRubE4 == Fx.rub(50_000))
+    #expect(subject.priceRubE4 == Fx.rub(40_000))
     #expect(subject.boughtOn == DateOnly(year: 2026, month: 3, day: 1))
   }
 

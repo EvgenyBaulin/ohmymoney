@@ -131,7 +131,9 @@ struct AttachmentsSection: View {
     .accessibilityIdentifier("attachments.section")
     #if os(iOS)
       .photosPicker(
-        isPresented: $showsPhotos, selection: $pickedPhotos, matching: .images
+        isPresented: $showsPhotos, selection: $pickedPhotos,
+        matching: .any(of: [.images, .videos]),
+        preferredItemEncoding: .current
       )
       .onChange(of: pickedPhotos) { _, items in
         guard !items.isEmpty else { return }
@@ -163,7 +165,7 @@ struct AttachmentsSection: View {
         Button {
           showsPhotos = true
         } label: {
-          Label(t("att.add.photo"), systemImage: "photo.on.rectangle")
+          Label(t("att.add.media"), systemImage: "photo.on.rectangle")
         }
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
           Button {

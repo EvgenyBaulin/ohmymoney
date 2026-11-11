@@ -14,6 +14,8 @@ public struct OwnershipSubject: Hashable, Sendable, Identifiable {
   public var source: Source
   public var name: String
   public var priceRubE4: AmountE4?
+  /// The acquisition amount used to recognise the purchase operation after revaluation.
+  public var purchasePriceRubE4: AmountE4?
   public var boughtOn: DateOnly?
   /// The day it was sold or written off; `nil`: still owned.
   public var soldOn: DateOnly?
@@ -40,6 +42,7 @@ public struct OwnershipSubject: Hashable, Sendable, Identifiable {
     self.source = source
     self.name = name
     self.priceRubE4 = priceRubE4
+    self.purchasePriceRubE4 = priceRubE4
     self.boughtOn = boughtOn
     self.soldOn = soldOn
     self.tagId = tagId
@@ -58,22 +61,24 @@ public struct OwnershipSubject: Hashable, Sendable, Identifiable {
       saleTransactionId: item.saleTransactionId)
   }
 
-  /// An asset of the capital. It keeps no price or purchase day of its own: the earliest
-  /// valuation stands for both (in the currency of the asset, `rateToRub` into rubles), and the
-  /// day it was disposed of is the day it left. `tagId` and the operations are the caller's:
-  /// an asset has no tag of its own.
+  /// An asset uses its latest valuation for value and its first valuation for the acquisition
+  /// day and amount. `tagId` and the operations are the caller's: an asset has no tag of its own.
   public init(
     asset: Asset, valuations: [AssetValuation], rateToRub: Decimal = 1, tagId: UUID? = nil,
     purchaseTransactionId: UUID? = nil, saleTransactionId: UUID? = nil
   ) {
     let first = valuations.filter { $0.assetId == asset.id }.min { $0.day < $1.day }
+    let last = valuations.filter { $0.assetId == asset.id }.max { $0.day < $1.day }
     self.init(
       source: .asset(asset.id), name: asset.name,
-      priceRubE4: first.map {
+      priceRubE4: last.map {
         asset.currency == .rub ? $0.valueE4 : PurchaseMath.converted($0.valueE4, rate: rateToRub)
       },
       boughtOn: first?.day, soldOn: asset.disposedOn, tagId: tagId,
       purchaseTransactionId: purchaseTransactionId, saleTransactionId: saleTransactionId)
+    purchasePriceRubE4 = first.map {
+      asset.currency == .rub ? $0.valueE4 : PurchaseMath.converted($0.valueE4, rate: rateToRub)
+    }
   }
 }
 
@@ -119,7 +124,7 @@ public struct OwnershipCost: Hashable, Sendable {
 
     // The purchase: named, or the tagged expense of the day of the purchase for the price.
     var purchaseId = subject.purchaseTransactionId
-    if purchaseId == nil, let day = subject.boughtOn, let price {
+    if purchaseId == nil, let day = subject.boughtOn, let price = subject.purchasePriceRubE4 {
       purchaseId =
         alive.first { entry in
           entry.transaction.kind == .expense && entry.parts.contains { tagged.contains($0.id) }

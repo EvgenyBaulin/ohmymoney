@@ -11,6 +11,34 @@ public struct WishRepository: Sendable {
     self.writer = writer
   }
 
+  public static func imageKey(_ id: UUID) -> String { "purchases.wishImage." + id.uuidString }
+
+  public func imageURL(of id: UUID) throws -> URL? {
+    try writer.read { db in
+      try String.fetchOne(
+        db, sql: "SELECT value FROM settings WHERE key = ?",
+        arguments: [Self.imageKey(id)]
+      ).flatMap(URL.init(string:))
+    }
+  }
+
+  /// Saved with the wish, so a failed metadata fetch can never discard the entered link.
+  public func save(_ wish: Wish, isNew: Bool, imageURL: URL?) throws {
+    try writer.write { db in
+      if isNew {
+        try wish.insert(db)
+        if let price = wish.priceE4 {
+          try WishPrice(wishId: wish.id, onDate: wish.createdOn, priceE4: price).insert(db)
+        }
+      } else {
+        try wish.update(db)
+      }
+      if let imageURL {
+        try SettingsRepository.set(Self.imageKey(wish.id), to: imageURL.absoluteString, in: db)
+      }
+    }
+  }
+
   // MARK: Wishes
 
   /// The wishes in the owner's order (`sort`, then the most wanted, then the oldest). A row this
@@ -91,7 +119,15 @@ public struct WishRepository: Sendable {
   /// Deletes the wishes and, with them, their prices.
   public func delete(ids: [UUID]) throws {
     try writer.write { db in
-      for id in ids { _ = try Wish.deleteOne(db, key: id.uuidString) }
+      for id in ids {
+        try db.execute(
+          sql: "DELETE FROM attachments WHERE owner_kind = 'wish' AND owner_id = ?",
+          arguments: [id.uuidString])
+        try db.execute(
+          sql: "DELETE FROM settings WHERE key = ?",
+          arguments: [Self.imageKey(id)])
+        _ = try Wish.deleteOne(db, key: id.uuidString)
+      }
     }
   }
 
@@ -223,7 +259,13 @@ public struct OwnedItemRepository: Sendable {
 
   public func delete(ids: [UUID]) throws {
     try writer.write { db in
-      for id in ids { _ = try OwnedItem.deleteOne(db, key: id.uuidString) }
+      for id in ids {
+        try db.execute(
+          sql: "DELETE FROM attachments WHERE owner_kind = 'owned_item' AND owner_id = ?",
+          arguments: [id.uuidString])
+        try ThingValuationRepository.delete(owner: .ownedItem, id: id, db: db)
+        _ = try OwnedItem.deleteOne(db, key: id.uuidString)
+      }
     }
   }
 }

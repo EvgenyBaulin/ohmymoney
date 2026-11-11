@@ -122,6 +122,23 @@
         }
       }
     },
+    "purchases.afford.until": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expect the money: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда ждать деньги: %@"
+          }
+        }
+      }
+    },
     "purchases.bought.heading": {
       "extractionState": "manual",
       "localizations": {
@@ -290,6 +307,142 @@
           "stringUnit": {
             "state": "translated",
             "value": "Продажа вещей"
+          }
+        }
+      }
+    },
+    "purchases.files.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The wish or thing was saved, but some files could not be attached. Save again to retry, or cancel adding those files."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Желание или вещь сохранены, но часть файлов не удалось прикрепить. Повторите сохранение или отмените добавление этих файлов."
+          }
+        }
+      }
+    },
+    "purchases.link.failure.address": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The address could not be read. The link remains in the field."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось прочитать адрес. Ссылка оставлена в поле."
+          }
+        }
+      }
+    },
+    "purchases.link.failure.markup": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No product details were found on the page. Your details and link remain in the form."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На странице не найдены данные товара. Данные и ссылка сохранены в форме."
+          }
+        }
+      }
+    },
+    "purchases.link.failure.network": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The page could not be loaded. Your details and link remain in the form. You can save the wish manually."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось загрузить страницу. Данные и ссылка сохранены в форме. Можно сохранить желание вручную."
+          }
+        }
+      }
+    },
+    "purchases.link.failure.response": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The page is unavailable or redirects elsewhere. Your details and link remain in the form."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Страница недоступна или перенаправляет на другой адрес. Данные и ссылка сохранены в форме."
+          }
+        }
+      }
+    },
+    "purchases.link.image": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Page picture — link without downloading"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картинка со страницы — ссылка без загрузки"
+          }
+        }
+      }
+    },
+    "purchases.link.success": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Page details filled in. Check them before saving."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Данные страницы подставлены. Проверьте их перед сохранением."
+          }
+        }
+      }
+    },
+    "purchases.link.take": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Take from link"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Взять со ссылки"
           }
         }
       }
@@ -1626,6 +1779,23 @@
         }
       }
     },
+    "purchases.thing.files": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attachments…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вложения…"
+          }
+        }
+      }
+    },
     "purchases.thing.fromCapital": {
       "extractionState": "manual",
       "localizations": {
@@ -1987,6 +2157,91 @@
         }
       }
     },
+    "purchases.valuation.amount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Value"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стоимость"
+          }
+        }
+      }
+    },
+    "purchases.valuation.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valuation date"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата оценки"
+          }
+        }
+      }
+    },
+    "purchases.valuation.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No valuations yet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оценок пока нет."
+          }
+        }
+      }
+    },
+    "purchases.valuation.history": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valuation history"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "История оценок"
+          }
+        }
+      }
+    },
+    "purchases.valuation.update": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Update value…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обновить стоимость…"
+          }
+        }
+      }
+    },
     "purchases.vehicle.average": {
       "extractionState": "manual",
       "localizations": {
@@ -2155,6 +2410,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Возврат"
+          }
+        }
+      }
+    },
+    "purchases.waiting.overdue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected by %@ — overdue"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидалось до %@ — просрочено"
           }
         }
       }
@@ -2667,40 +2939,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хочу купить"
-          }
-        }
-      }
-    },
-    "purchases.afford.until": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Expect the money: %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Когда ждать деньги: %@"
-          }
-        }
-      }
-    },
-    "purchases.waiting.overdue": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Expected by %@ — overdue"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ожидалось до %@ — просрочено"
           }
         }
       }
