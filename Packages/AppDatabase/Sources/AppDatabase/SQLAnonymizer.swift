@@ -187,9 +187,12 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
       sql: "DELETE FROM settings WHERE key IN (?, ?, ?, ?)",
       arguments: [
         AutoEntryNames.settingsKey, Self.pendingDraftsKey, BankTextMemory.settingsKey,
-        StatementReview.settingsKey,
+        Self.legacyStatementReviewKey,
       ])
   }
+
+  /// A setting an earlier build kept statement file names in; nothing reads it now, a copy drops it.
+  static let legacyStatementReviewKey = "import.pendingReviews"
 
   /// The setting the drafts of «Запишу потом» are kept in.
   static let pendingDraftsKey = "entry.pendingDrafts"

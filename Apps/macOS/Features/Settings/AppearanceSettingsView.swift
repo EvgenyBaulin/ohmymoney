@@ -122,6 +122,10 @@ extension AppearanceSettingsView {
           .foregroundStyle(.secondary)
       }
 
+      #if os(iOS)
+        PhoneTabLabelsSection()
+      #endif
+
       OverviewTilesSection()
     }
     .formStyle(.grouped)

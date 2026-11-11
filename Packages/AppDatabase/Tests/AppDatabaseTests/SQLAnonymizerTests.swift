@@ -645,18 +645,18 @@ struct SQLAnonymizerTests {
     }
   }
 
-  @Test func pendingStatementReviewsAreDroppedWithTheirFileNames() throws {
+  @Test func legacyStatementReviewsAreDroppedWithTheirFileNames() throws {
     let stack = try TestSupport.makeStack()
     try Self.seed(stack)
     try stack.writer.write { db in
       try db.execute(
         sql: "INSERT INTO settings (key, value) VALUES (?, ?)",
-        arguments: [StatementReview.settingsKey, "synthetic statement"])
+        arguments: [SQLAnonymizer.legacyStatementReviewKey, "synthetic statement"])
     }
     try SQLAnonymizer().anonymize(copy: ExportCopyDatabase(writer: stack.writer))
     let review = try stack.writer.read { db in
       try Self.value(
-        db, "SELECT value FROM settings WHERE key = '\(StatementReview.settingsKey)'")
+        db, "SELECT value FROM settings WHERE key = '\(SQLAnonymizer.legacyStatementReviewKey)'")
     }
     #expect(review == nil)
   }
@@ -730,5 +730,30 @@ struct SQLAnonymizerTests {
     // The words are not readable in the file's free pages either.
     let bytes = try Data(contentsOf: draft.databaseURL)
     #expect(bytes.range(of: Data("Marina".utf8)) == nil)
+  }
+
+  /// An older build kept a statement review list with account ids and totals in `settings`;
+  /// a copy drops it even when it keeps hidden accounts and is not anonymized.
+  @Test func aCopyNeverCarriesTheOldStatementReviewList() throws {
+    let directory = FileManager.default.temporaryDirectory
+      .appendingPathComponent("ohmymoney-legacyreview-\(UUID().uuidString)")
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let stack = try DatabaseStack(
+      url: directory.appendingPathComponent("live.sqlite"), schema: TestSupport.schemaSource)
+    try stack.writer.write { db in
+      try db.execute(
+        sql: "INSERT INTO settings (key, value) VALUES (?, ?)",
+        arguments: [SQLAnonymizer.legacyStatementReviewKey, "synthetic review"])
+    }
+    let draft = try ExportCopyMaker(writer: stack.writer).make(
+      ExportCopyRequest(includeHidden: true, password: "pw"), in: directory)
+    let copy = try DatabaseQueue(path: draft.databaseURL.path)
+    let left = try copy.read { db in
+      try String.fetchOne(
+        db, sql: "SELECT value FROM settings WHERE key = ?",
+        arguments: [SQLAnonymizer.legacyStatementReviewKey])
+    }
+    #expect(left == nil)
   }
 }

@@ -23,6 +23,30 @@ public struct PrintedReceipt: Hashable, Sendable {
   /// The paper printed fiscal numbers but they did not pass the checks (a drive number is 16
   /// digits): the receipt is offered without them and is never taken for one already recorded.
   public var numbersRejected: Bool
+  /// The shop's name, offered only for paper of another country read with confidence: the name
+  /// stands in the header, and the recognition was sure of that line and of the text as a whole.
+  /// `nil` otherwise: then only the total and the moment are proposed.
+  public var merchant: String?
+
+  public init(
+    kind: PaperKind, receipt: ReceiptQR, numbersRejected: Bool, merchant: String? = nil
+  ) {
+    self.kind = kind
+    self.receipt = receipt
+    self.numbersRejected = numbersRejected
+    self.merchant = merchant
+  }
+}
+
+/// A line of recognised text with how sure the recognition was of it (0...1).
+public struct RecognizedLine: Hashable, Sendable {
+  public var text: String
+  public var confidence: Float
+
+  public init(text: String, confidence: Float) {
+    self.text = text
+    self.confidence = confidence
+  }
 }
 
 /// The result of reading the lines of a photo.
@@ -39,7 +63,20 @@ public enum PrintedReading: Hashable, Sendable {
 /// number on a line that says «total» in one of the languages known here, or on the next one.
 public enum PrintedReceiptReader {
   public static func read(lines rawLines: [String]) -> PrintedReading {
-    let lines = rawLines.map(fold).filter { !$0.isEmpty }
+    read(entries: rawLines.map { ($0, nil) })
+  }
+
+  /// Like `read(lines:)`, and a confidently read foreign receipt also gives the shop's name.
+  public static func read(recognized: [RecognizedLine]) -> PrintedReading {
+    read(entries: recognized.map { ($0.text, $0.confidence) })
+  }
+
+  private static func read(entries rawEntries: [(text: String, confidence: Float?)])
+    -> PrintedReading
+  {
+    let entries = rawEntries.map { (text: $0.text, folded: fold($0.text), confidence: $0.confidence) }
+      .filter { !$0.folded.isEmpty }
+    let lines = entries.map(\.folded)
     guard !lines.isEmpty else { return .nothing }
     let drive = fiscalValue(["фн"], in: lines)
     let document = fiscalValue(["фд"], in: lines)
@@ -70,7 +107,43 @@ public enum PrintedReceiptReader {
       operation: operation, fiscalDrive: numbers?.fiscalDrive,
       documentNumber: numbers?.documentNumber, fiscalSign: numbers?.fiscalSign,
       currency: total.currency ?? currency(in: lines) ?? .rub)
-    return .receipt(PrintedReceipt(kind: kind, receipt: receipt, numbersRejected: rejected))
+    let merchant = kind == .other ? merchant(in: entries) : nil
+    return .receipt(
+      PrintedReceipt(kind: kind, receipt: receipt, numbersRejected: rejected, merchant: merchant))
+  }
+
+  // MARK: Shop
+
+  /// Recognition at least this sure of a line, and of the text on average, may name the shop.
+  static let merchantConfidence: Float = 0.8
+  private static let headerLines = 5
+  private static let notAName = [
+    "receipt", "check", "cheque", "invoice", "tax", "vat", "fiscal", "cashier", "date", "time",
+    "total", "subtotal", "thank", "thanks", "welcome", "tel", "phone", "чек", "кассовый",
+    "касса", "кассир", "итог", "итого", "tarix", "vaxt", "cemi", "qebz", "voen",
+  ]
+
+  /// The first line of the header that reads like a name: mostly letters, no sums, no dates,
+  /// none of the words a receipt prints about itself. Never guessed from dim text.
+  private static func merchant(
+    in entries: [(text: String, folded: String, confidence: Float?)]
+  ) -> String? {
+    let known = entries.compactMap(\.confidence)
+    guard known.count == entries.count,
+      known.reduce(0, +) / Float(known.count) >= merchantConfidence
+    else { return nil }
+    for entry in entries.prefix(headerLines) {
+      let text = entry.text.trimmingCharacters(in: .whitespaces)
+      let letters = text.filter(\.isLetter).count
+      let visible = text.filter { !$0.isWhitespace }.count
+      guard letters >= 3, Float(letters) / Float(max(visible, 1)) >= 0.7,
+        text.count <= 60, Set(words(entry.folded)).isDisjoint(with: notAName),
+        days(in: entry.folded).isEmpty, times(in: entry.folded).isEmpty
+      else { continue }
+      // The first name-like line decides: a dim one means the shop was not read well.
+      return (entry.confidence ?? 0) >= merchantConfidence ? text : nil
+    }
+    return nil
   }
 
   // MARK: Folding

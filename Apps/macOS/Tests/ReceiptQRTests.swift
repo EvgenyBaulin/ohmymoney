@@ -172,7 +172,7 @@ final class ReceiptTextTests: XCTestCase {
       ("receipt.supplement.question", 2), ("receipt.supplement.question.photo", 2),
       ("receipt.choices", 0), ("receipt.addTime", 0), ("receipt.addTimePhoto", 0),
       ("receipt.otherPurchase", 0), ("receipt.backToFound", 0), ("receipt.anotherReceipt", 0),
-      ("receipt.new.summary", 3), ("receipt.new.category", 0), ("receipt.new.refundHint", 0),
+      ("receipt.new.summary", 3), ("receipt.new.merchant", 1), ("receipt.new.category", 0), ("receipt.new.refundHint", 0),
       ("receipt.create", 0), ("receipt.createPhoto", 0), ("receipt.cancel", 0),
       ("receipt.done", 0), ("receipt.done.time", 1), ("receipt.done.created", 0),
       ("receipt.done.undo", 0), ("receipt.failed.notWritten", 0), ("receipt.failed.gone", 0),
