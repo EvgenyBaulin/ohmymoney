@@ -11,6 +11,12 @@
             "value": "Edit"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -33,6 +39,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Record"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar"
           }
         },
         "ru": {
@@ -59,6 +71,12 @@
             "value": "Already recorded: this operation is in the books."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya registrado: esta operación ya está en las cuentas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -81,6 +99,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney is locked: unlock it to pass the message."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney está bloqueada: desbloquéela para pasar el mensaje."
           }
         },
         "ru": {
@@ -107,6 +131,12 @@
             "value": "This doesn't look like a bank message: no operation, amount and card or balance in it."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto no parece un mensaje del banco: no hay operación, importe ni tarjeta o saldo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -129,6 +159,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney is still opening the books — try again in a moment."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney todavía está abriendo las cuentas: inténtelo de nuevo en un momento."
           }
         },
         "ru": {
@@ -155,6 +191,12 @@
             "value": "An operation of a hidden account — record it?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una operación de una cuenta oculta: ¿registrarla?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -177,6 +219,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "An operation of a hidden account was recorded"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se registró una operación de una cuenta oculta"
           }
         },
         "ru": {
@@ -210,6 +258,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations are waiting — finish them?"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hay %lld operaciones en espera: ¿terminarlas?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hay %lld operación en espera: ¿terminarla?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hay %lld operaciones en espera: ¿terminarlas?"
                 }
               }
             }
@@ -287,6 +359,12 @@
             "value": "Record later"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar más tarde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -309,6 +387,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "From a bank message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De un mensaje del banco"
           }
         },
         "ru": {
@@ -335,6 +419,12 @@
             "value": "The bank says %1$@, the app %2$@ — time to count the account."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El banco dice %1$@, la app %2$@: es hora de contar la cuenta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -357,6 +447,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The bank's balance differs from the app's — time to count the account."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El saldo del banco no coincide con el de la app: es hora de contar la cuenta."
           }
         },
         "ru": {
@@ -383,6 +479,12 @@
             "value": "The balance doesn't match"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El saldo no coincide"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -405,6 +507,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ — record it?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — ¿registrarla?"
           }
         },
         "ru": {
@@ -431,6 +539,12 @@
             "value": "Recorded: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrada: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -453,6 +567,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cash withdrawal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retirada de efectivo"
           }
         },
         "ru": {
@@ -479,6 +599,12 @@
             "value": "Fee"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comisión"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -501,6 +627,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingreso"
           }
         },
         "ru": {
@@ -527,6 +659,12 @@
             "value": "Purchase"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compra"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -549,6 +687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Refund"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devolución"
           }
         },
         "ru": {
@@ -575,6 +719,12 @@
             "value": "Incoming transfer"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia recibida"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -597,6 +747,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transfer"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia"
           }
         },
         "ru": {
@@ -623,6 +779,12 @@
             "value": "Passing bank messages on the iPhone will be switched on together with Siri, when the app comes to the App Store."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasar los mensajes del banco en el iPhone se activará junto con Siri, cuando la app llegue a App Store."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -645,6 +807,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Waiting in “Record later”: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En espera en «Registrar más tarde»: %@"
           }
         },
         "ru": {
@@ -671,6 +839,12 @@
             "value": "An operation is waiting in “Record later”."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hay una operación en espera en «Registrar más tarde»."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -693,6 +867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“View only” is on: nothing is recorded."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Solo ver» está activado: no se registra nada."
           }
         },
         "ru": {
@@ -719,6 +899,12 @@
             "value": "A message passed on by Shortcuts (“Pass a bank message”) becomes an operation. Offered: a notification asks “Record?” and the operation waits in “Record later”. At once: it is recorded the way the entry line records it; if the line would ask something, it is offered instead. Only the amount, the shop, the card and the balance are kept — never the message itself."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un mensaje que pasa Atajos («Pasar un mensaje del banco») se convierte en una operación. Ofrecer: una notificación pregunta «¿Registrar?» y la operación espera en «Registrar más tarde». Al momento: se registra como lo registraría la línea de entrada; si la línea preguntaría algo, se ofrece en su lugar. Solo se guardan el importe, la tienda, la tarjeta y el saldo, nunca el mensaje en sí."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -741,6 +927,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A bank message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensaje del banco"
           }
         },
         "ru": {
@@ -767,6 +959,12 @@
             "value": "Record at once"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar al momento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -789,6 +987,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Offer to record"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ofrecer registrar"
           }
         },
         "ru": {
@@ -815,6 +1019,12 @@
             "value": "Bank messages"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensajes del banco"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -837,6 +1047,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reads an SMS or a push from a bank and records the operation or offers to record it, as set in OhMyMoney."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lee un SMS o una notificación de un banco y registra la operación o la ofrece para registrar, según lo configurado en OhMyMoney."
           }
         },
         "ru": {
@@ -863,6 +1079,12 @@
             "value": "Message"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensaje"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -885,6 +1107,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pass a Bank Message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasar un mensaje del banco"
           }
         },
         "ru": {
@@ -911,6 +1139,12 @@
             "value": "Reads a bank message copied to the clipboard, as “Pass a Bank Message” does."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lee un mensaje del banco copiado al portapapeles, igual que «Pasar un mensaje del banco»."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -933,6 +1167,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pass a Bank Message from the Clipboard"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasar un mensaje del banco desde el portapapeles"
           }
         },
         "ru": {

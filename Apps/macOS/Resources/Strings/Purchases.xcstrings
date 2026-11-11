@@ -22,6 +22,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Alcanza en %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Alcanza en %lld mes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Alcanza en %lld meses"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -93,6 +117,12 @@
             "value": "Nothing to put aside yet — no date can be told"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay nada apartado — no se puede calcular una fecha"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -114,6 +144,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No rate for this currency — no date calculated"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay tipo para esta divisa — no se calcula la fecha"
           }
         },
         "ru": {
@@ -139,6 +175,12 @@
             "value": "You can afford it right now"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se puede permitir ahora mismo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -162,6 +204,12 @@
             "value": "putting aside %@ a month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "apartando %@ al mes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -183,6 +231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Expect the money: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuente con el dinero: %@"
           }
         },
         "ru": {
@@ -215,6 +269,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Bought: %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Comprados: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Comprado: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Comprados: %lld"
                 }
               }
             }
@@ -291,6 +369,12 @@
             "value": "Pick the operation among those of a similar amount in the last two months. The price of the wish is %@."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija la operación entre las de importe parecido de los últimos dos meses. El precio del deseo es %@."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -312,6 +396,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Link to the wish"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincular al deseo"
           }
         },
         "ru": {
@@ -337,6 +427,12 @@
             "value": "No description"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin descripción"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -358,6 +454,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The purchase is not among the operations"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La compra no está entre las operaciones"
           }
         },
         "ru": {
@@ -383,6 +485,12 @@
             "value": "No fitting operations in the last 60 days. Record the purchase and come back."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay operaciones que encajen en los últimos 60 días. Registre la compra y vuelva."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -404,6 +512,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bought: “%@”"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprado: «%@»"
           }
         },
         "ru": {
@@ -429,6 +543,12 @@
             "value": "Sale of things"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Venta de cosas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -450,6 +570,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Expected %@ — came to %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previsto %1$@ — salió %2$@"
           }
         },
         "ru": {
@@ -475,6 +601,12 @@
             "value": "Discounts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descuentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -496,6 +628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Shopping list"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lista de compras"
           }
         },
         "ru": {
@@ -521,6 +659,12 @@
             "value": "Things"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -542,6 +686,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Awaiting credit"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esperando crédito"
           }
         },
         "ru": {
@@ -567,6 +717,12 @@
             "value": "Want to buy"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quiero comprar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -588,6 +744,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Expected by"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previsto para el"
           }
         },
         "ru": {
@@ -613,6 +775,12 @@
             "value": "When to expect the money"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuándo esperar el dinero"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -634,6 +802,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Against the previous note: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frente a la anotación anterior: %@"
           }
         },
         "ru": {
@@ -660,6 +834,12 @@
             "value": "Date"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fecha"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -681,6 +861,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Highest %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Máximo %@"
           }
         },
         "ru": {
@@ -706,6 +892,12 @@
             "value": "Noted prices"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precios anotados"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -727,6 +919,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lowest %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mínimo %@"
           }
         },
         "ru": {
@@ -752,6 +950,12 @@
             "value": "No prices noted yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay precios anotados"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -773,6 +977,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Note the price"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anotar el precio"
           }
         },
         "ru": {
@@ -798,6 +1008,12 @@
             "value": "Price now"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precio ahora"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -819,6 +1035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove the note"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar la anotación"
           }
         },
         "ru": {
@@ -844,6 +1066,12 @@
             "value": "Price of “%@”"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precio de «%@»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -865,6 +1093,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "none"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ninguna"
           }
         },
         "ru": {
@@ -890,6 +1124,12 @@
             "value": "Could not write it. See the log."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo escribir. Vea el diario."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -911,6 +1151,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The link does not read. Check the address."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El enlace no se lee. Revise la dirección."
           }
         },
         "ru": {
@@ -936,6 +1182,12 @@
             "value": "Give it a name."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Póngale un nombre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -959,6 +1211,12 @@
             "value": "The record was not found."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró el registro."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -980,6 +1238,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The price must be above zero."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El precio debe ser mayor que cero."
           }
         },
         "ru": {
@@ -1006,6 +1270,12 @@
             "value": "To account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A la cuenta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1027,6 +1297,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Record the sale"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar la venta"
           }
         },
         "ru": {
@@ -1053,6 +1329,12 @@
             "value": "Currency"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divisa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1076,6 +1358,12 @@
             "value": "Date of the sale"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fecha de la venta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1097,6 +1385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The sale is recorded as income in the category “Sale of things”, and the thing moves to the sold ones."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La venta se registra como ingreso en la categoría «Venta de cosas», y la cosa pasa a las vendidas."
           }
         },
         "ru": {
@@ -1123,6 +1417,12 @@
             "value": "Main account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta principal"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1144,6 +1444,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sold for"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendido por"
           }
         },
         "ru": {
@@ -1169,6 +1475,12 @@
             "value": "Sold: “%@”"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendido: «%@»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1191,6 +1503,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "By month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por mes"
           }
         },
         "ru": {
@@ -1223,6 +1541,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld purchases with a discount"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compras con descuento"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compra con descuento"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compras con descuento"
                 }
               }
             }
@@ -1299,6 +1641,12 @@
             "value": "No discounts yet. Note a discount when you record a purchase — here you will see how much you saved."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay descuentos. Anote un descuento al registrar una compra — aquí verá cuánto ahorró."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1321,6 +1669,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este mes"
           }
         },
         "ru": {
@@ -1346,6 +1700,12 @@
             "value": "%@ of the price without discounts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ del precio sin descuentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1368,6 +1728,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This year"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este año"
           }
         },
         "ru": {
@@ -1400,6 +1766,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Ask after %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Preguntar tras %lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Preguntar tras %lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Preguntar tras %lld días"
                 }
               }
             }
@@ -1476,6 +1866,12 @@
             "value": "Ask the mileage at a fill-up"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preguntar el kilometraje al repostar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1497,6 +1893,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The mileage lets the app count the fuel use and the cost of a kilometre"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El kilometraje permite a la app calcular el consumo de combustible y el coste del kilómetro"
           }
         },
         "ru": {
@@ -1522,6 +1924,12 @@
             "value": "Pause before a big purchase"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa antes de una compra grande"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1543,6 +1951,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The threshold is a share of the free sum of the month. It also decides which purchase gets the question “No regrets?”."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El umbral es una parte de la suma libre del mes. También decide qué compra recibe la pregunta «¿Algún arrepentimiento?»."
           }
         },
         "ru": {
@@ -1568,6 +1982,12 @@
             "value": "A big purchase is offered to wait a night"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se ofrece esperar una noche ante una compra grande"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1589,6 +2009,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A purchase is big above %@ of the free sum"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una compra es grande por encima del %@ de la suma libre"
           }
         },
         "ru": {
@@ -1614,6 +2040,12 @@
             "value": "“No regrets?”"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«¿Algún arrepentimiento?»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1635,6 +2067,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A few days after a big purchase ask whether you would buy it again"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unos días después de una compra grande, pregunte si la volvería a comprar"
           }
         },
         "ru": {
@@ -1661,6 +2099,12 @@
             "value": "Purchases"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compras"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1682,6 +2126,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "What to buy"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué comprar"
           }
         },
         "ru": {
@@ -1706,6 +2156,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir"
           }
         },
         "ru": {
@@ -1738,6 +2194,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Clear done (%lld)"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Quitar lo hecho (%lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Quitar lo hecho (%lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Quitar lo hecho (%lld)"
                 }
               }
             }
@@ -1814,6 +2294,12 @@
             "value": "The list is empty. Type what you need to buy on the next trip to the shop."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La lista está vacía. Escriba lo que necesita comprar en la próxima visita a la tienda."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1836,6 +2322,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove from the list"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar de la lista"
           }
         },
         "ru": {
@@ -1861,6 +2353,12 @@
             "value": "Mark as done"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcar como hecho"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1882,6 +2380,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Untick"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desmarcar"
           }
         },
         "ru": {
@@ -1907,6 +2411,12 @@
             "value": "What you want to buy, what you own and what owning it costs"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que quiere comprar, lo que tiene y cuánto le cuesta tenerlo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1928,6 +2438,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bought %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprado el %@"
           }
         },
         "ru": {
@@ -1953,6 +2469,12 @@
             "value": "%@ a month · %@ in total · %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ al mes · %2$@ en total · %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1974,6 +2496,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The thing leaves the list; the operations stay."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cosa sale de la lista; las operaciones se quedan."
           }
         },
         "ru": {
@@ -2000,6 +2528,12 @@
             "value": "Delete “%@”?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Eliminar «%@»?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2022,6 +2556,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edit…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar…"
           }
         },
         "ru": {
@@ -2048,6 +2588,12 @@
             "value": "Currency"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divisa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2069,6 +2615,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Purchase date"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fecha de compra"
           }
         },
         "ru": {
@@ -2094,6 +2646,12 @@
             "value": "Thing"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2115,6 +2673,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "I know the purchase date"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conozco la fecha de compra"
           }
         },
         "ru": {
@@ -2141,6 +2705,12 @@
             "value": "Name"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2164,6 +2734,12 @@
             "value": "New thing"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nueva cosa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2185,6 +2761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No tag"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin etiqueta"
           }
         },
         "ru": {
@@ -2211,6 +2793,12 @@
             "value": "Note"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2232,6 +2820,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Purchase price"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precio de compra"
           }
         },
         "ru": {
@@ -2257,6 +2851,12 @@
             "value": "Tag"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etiqueta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2280,6 +2880,12 @@
             "value": "The tag gathers the operations on the thing: repairs, insurance, fuel."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La etiqueta reúne las operaciones de la cosa: reparaciones, seguro, combustible."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2301,6 +2907,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "From the capital"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desde el capital"
           }
         },
         "ru": {
@@ -2333,6 +2945,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "over %lld months"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "más de %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "más de %lld mes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "más de %lld meses"
                 }
               }
             }
@@ -2409,6 +3045,12 @@
             "value": "No purchase price — only what is spent on it is counted"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin precio de compra — solo se cuenta lo que se gasta en ella"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2430,6 +3072,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No tag — spending on the thing is not counted. Put a tag with its name on the operations."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin etiqueta — el gasto en la cosa no se cuenta. Ponga a las operaciones una etiqueta con su nombre."
           }
         },
         "ru": {
@@ -2455,6 +3103,12 @@
             "value": "Noted separately"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anotada aparte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2478,6 +3132,12 @@
             "value": "Sold…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendida…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2499,6 +3159,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sold for %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendida por %@"
           }
         },
         "ru": {
@@ -2525,6 +3191,12 @@
             "value": "Warranty until %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantía hasta el %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2546,6 +3218,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The warranty is over"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La garantía ha terminado"
           }
         },
         "ru": {
@@ -2571,6 +3249,12 @@
             "value": "Add a thing"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir una cosa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2594,6 +3278,12 @@
             "value": "Here are the things of the capital (investments aside) and those you note separately, each with what it costs a month to own. To count what is spent on a thing, put a tag with its name on the operations."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí están las cosas del capital (sin inversiones) y las que anota aparte, cada una con lo que cuesta al mes tenerla. Para contar lo que se gasta en una cosa, ponga a las operaciones una etiqueta con su nombre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2615,6 +3305,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Things"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosas"
           }
         },
         "ru": {
@@ -2647,6 +3343,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Sold things: %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Cosas vendidas: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Cosas vendidas: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Cosas vendidas: %lld"
                 }
               }
             }
@@ -2723,6 +3443,12 @@
             "value": "Time to buy"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Momento de comprar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2746,6 +3472,12 @@
             "value": "the price is not above what you expected"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el precio no supera lo que esperaba"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2767,6 +3499,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "the price fell by %@ from the highest"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el precio bajó %@ desde el máximo"
           }
         },
         "ru": {
@@ -2793,6 +3531,12 @@
             "value": "Purchases"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compras"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2811,6 +3555,12 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ L/100 km"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ L/100 km"
@@ -2839,6 +3589,12 @@
             "value": "Fuel %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Combustible %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2860,6 +3616,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ per km"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ por km"
           }
         },
         "ru": {
@@ -2885,6 +3647,12 @@
             "value": "Credited"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2908,6 +3676,12 @@
             "value": "No refunds are awaited. A refund that has not reached the account yet waits here without changing spending or balances."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se espera ninguna devolución. Una devolución que todavía no ha llegado a la cuenta espera aquí sin cambiar gastos ni saldos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2929,6 +3703,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Until the money arrives a refund neither lowers spending nor changes balances."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasta que llegue el dinero, una devolución no baja el gasto ni cambia los saldos."
           }
         },
         "ru": {
@@ -2961,6 +3741,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Late by %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Con %lld días de retraso"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Con %lld día de retraso"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Con %lld días de retraso"
                 }
               }
             }
@@ -3038,6 +3842,12 @@
             "value": "Refund"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devolución"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3061,6 +3871,12 @@
             "value": "Expected by %@ — overdue"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previsto para el %@ — vencido"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3082,6 +3898,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move the date…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar la fecha…"
           }
         },
         "ru": {
@@ -3114,6 +3936,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Refunds waiting: %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Devoluciones pendientes: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Devoluciones pendientes: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Devoluciones pendientes: %lld"
                 }
               }
             }
@@ -3190,6 +4036,12 @@
             "value": "Expected by %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previsto para el %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3212,6 +4064,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove from the list"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar de la lista"
           }
         },
         "ru": {
@@ -3237,6 +4095,12 @@
             "value": "Bought…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprado…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3258,6 +4122,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "no date"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sin fecha"
           }
         },
         "ru": {
@@ -3283,6 +4153,12 @@
             "value": "can buy"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "se puede comprar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3304,6 +4180,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "time to buy"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "momento de comprar"
           }
         },
         "ru": {
@@ -3329,6 +4211,12 @@
             "value": "wait"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "esperar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3350,6 +4238,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Its price history goes with it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Su historial de precios se va con ella."
           }
         },
         "ru": {
@@ -3376,6 +4270,12 @@
             "value": "Delete “%@”?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Eliminar «%@»?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3398,6 +4298,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edit…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar…"
           }
         },
         "ru": {
@@ -3424,6 +4330,12 @@
             "value": "Currency"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divisa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3447,6 +4359,12 @@
             "value": "Wish"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deseo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3468,6 +4386,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Link"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enlace"
           }
         },
         "ru": {
@@ -3494,6 +4418,12 @@
             "value": "Name"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3515,6 +4445,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "New wish"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo deseo"
           }
         },
         "ru": {
@@ -3541,6 +4477,12 @@
             "value": "Note"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3563,6 +4505,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Price"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precio"
           }
         },
         "ru": {
@@ -3588,6 +4536,12 @@
             "value": "Priority: %@ (1 is the most wanted)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prioridad: %@ (1 es el más deseado)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3609,6 +4563,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open link"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir enlace"
           }
         },
         "ru": {
@@ -3635,6 +4595,12 @@
             "value": "More"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3656,6 +4622,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "no price"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sin precio"
           }
         },
         "ru": {
@@ -3681,6 +4653,12 @@
             "value": "Price…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precio…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3702,6 +4680,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Priority %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prioridad %lld"
           }
         },
         "ru": {
@@ -3727,6 +4711,12 @@
             "value": "Add a wish"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir un deseo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3750,6 +4740,12 @@
             "value": "Nothing yet. Add what you want to buy — the app tells how many months it takes to save up and when the price is right."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía nada. Añada lo que quiere comprar — la app le dice cuántos meses hacen falta para ahorrarlo y cuándo es buen momento."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3771,6 +4767,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Want to buy"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quiero comprar"
           }
         },
         "ru": {

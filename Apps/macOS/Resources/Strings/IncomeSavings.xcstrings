@@ -10,6 +10,12 @@
             "value": "Above target"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por encima del objetivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "By the rules (as the parent)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Según las reglas (como en el padre)"
           }
         },
         "ru": {
@@ -56,6 +68,12 @@
             "value": "Below target"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por debajo del objetivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -77,6 +95,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@ against a target of %3$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ frente a un objetivo de %3$@"
           }
         },
         "ru": {
@@ -102,6 +126,12 @@
             "value": "Budget basket"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cesta de presupuesto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +153,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Needs"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesidades"
           }
         },
         "ru": {
@@ -148,6 +184,12 @@
             "value": "No income"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -171,6 +213,12 @@
             "value": "On target"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En el objetivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -192,6 +240,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Your rule %1$lld / %2$lld / %3$lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Su regla %1$lld / %2$lld / %3$lld"
           }
         },
         "ru": {
@@ -218,6 +272,12 @@
             "value": "Savings"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahorro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -241,6 +301,12 @@
             "value": "Wants"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deseos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -260,6 +326,12 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@"
@@ -288,6 +360,12 @@
             "value": "There was no income in this month, so there is nothing to take shares of."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En este mes no hubo ingresos, así que no hay partes que repartir."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -309,6 +387,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The month is not over: the shares will still change."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El mes no ha terminado: las partes todavía cambiarán."
           }
         },
         "ru": {
@@ -334,6 +418,12 @@
             "value": "Budget baskets"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cestas de presupuesto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -355,6 +445,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The money of the cushion accounts over the obligatory spending of a day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El dinero de las cuentas del colchón entre el gasto obligatorio de un día"
           }
         },
         "ru": {
@@ -387,6 +483,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Lasts %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Dura %lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Dura %lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Dura %lld días"
                 }
               }
             }
@@ -463,6 +583,12 @@
             "value": "The cushion holds %1$@, obligatory spending ≈ %2$@ a day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El colchón tiene %1$@, gasto obligatorio ≈ %2$@ al día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -484,6 +610,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No cushion account is marked: mark them on the Capital screen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ninguna cuenta del colchón marcada: márquelas en la pantalla de Capital."
           }
         },
         "ru": {
@@ -509,6 +641,12 @@
             "value": "The obligatory spending per month is not known yet."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no se conoce el gasto obligatorio al mes."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -530,6 +668,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cushion in days"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón en días"
           }
         },
         "ru": {
@@ -555,6 +699,12 @@
             "value": "Last 12 months · up to %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Últimos 12 meses · hasta %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -576,6 +726,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "One number out of five parts, with the breakdown it adds up from"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un número de cinco partes, con el desglose del que se compone"
           }
         },
         "ru": {
@@ -601,6 +757,12 @@
             "value": "%lld out of 100"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld de 100"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -622,6 +784,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Left out for lack of data: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No incluido por falta de datos: %@"
           }
         },
         "ru": {
@@ -647,6 +815,12 @@
             "value": "Not counted"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No contado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -670,6 +844,12 @@
             "value": "It needs data for at least two of the five parts: cushion, debt load, savings rate, overdue dues, stability of income."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesita datos de al menos dos de las cinco partes: colchón, carga de deudas, tasa de ahorro, vencimientos atrasados, estabilidad de los ingresos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -691,6 +871,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Counted from your data every time, compared with no one. A guide, not a mark."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se calcula cada vez con sus datos, sin compararse con nadie. Una guía, no una calificación."
           }
         },
         "ru": {
@@ -717,6 +903,12 @@
             "value": "Cushion"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -741,6 +933,12 @@
             "value": "Debt load"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carga de deudas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -762,6 +960,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Overdue dues"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vencimientos atrasados"
           }
         },
         "ru": {
@@ -788,6 +992,12 @@
             "value": "Savings rate"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tasa de ahorro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -811,6 +1021,12 @@
             "value": "Stability of income"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilidad de los ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -832,6 +1048,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld of %2$lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
           }
         },
         "ru": {
@@ -858,6 +1080,12 @@
             "value": "Financial health"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salud financiera"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -879,6 +1107,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The share of income left after spending · all income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La parte de los ingresos que queda tras los gastos · todos los ingresos"
           }
         },
         "ru": {
@@ -904,6 +1138,12 @@
             "value": "The share of income left after spending · earnings only"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La parte de los ingresos que queda tras los gastos · solo ganancias"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -925,6 +1165,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income %1$@ − spending %2$@ = kept %3$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingresos %1$@ − gastos %2$@ = guardado %3$@"
           }
         },
         "ru": {
@@ -950,6 +1196,12 @@
             "value": "%1$@: %2$@ of income kept"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: se guarda el %2$@ de los ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -971,6 +1223,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: no income, so no rate"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: sin ingresos, así que sin tasa"
           }
         },
         "ru": {
@@ -996,6 +1254,12 @@
             "value": "At least one month with income is needed."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hace falta al menos un mes con ingresos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1017,6 +1281,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "* The month is not over: spending is still to come, so the figure looks better than it will."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "* El mes no ha terminado: el gasto todavía está por llegar, así que la cifra parece mejor de lo que será."
           }
         },
         "ru": {
@@ -1042,6 +1312,12 @@
             "value": "%@, not over yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, sin terminar todavía"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1063,6 +1339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ (so far)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (hasta ahora)"
           }
         },
         "ru": {
@@ -1089,6 +1371,12 @@
             "value": "Savings rate"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tasa de ahorro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1110,6 +1398,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Got it"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entendido"
           }
         },
         "ru": {
@@ -1135,6 +1429,12 @@
             "value": "Over 6 months income %1$@, spending %2$@ against the 6 before"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En 6 meses ingresos %1$@, gastos %2$@ frente a los 6 anteriores"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1156,6 +1456,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stop showing"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejar de mostrar"
           }
         },
         "ru": {
@@ -1181,6 +1487,12 @@
             "value": "Over 3 months income %1$@, spending %2$@ against the same months a year ago"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En 3 meses ingresos %1$@, gastos %2$@ frente a los mismos meses del año pasado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1202,6 +1514,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Loans, subscriptions and necessary spending against the usual income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Préstamos, suscripciones y gastos necesarios frente a los ingresos habituales"
           }
         },
         "ru": {
@@ -1227,6 +1545,12 @@
             "value": "Obligatory ≈ %1$@ a month, %2$@ is left"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obligatorio ≈ %1$@ al mes, queda %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1248,6 +1572,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ of income is taken · %2$@ to manoeuvre"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se lleva el %1$@ de los ingresos · %2$@ para maniobrar"
           }
         },
         "ru": {
@@ -1273,6 +1603,12 @@
             "value": "These months brought no income, so there is nothing to take a share of."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En estos meses no hubo ingresos, así que no hay partes que repartir."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1294,6 +1630,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The obligatory spending is not known yet: it needs a few full months and categories marked as necessary."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no se conoce el gasto obligatorio: hacen falta algunos meses completos y categorías marcadas como necesarias."
           }
         },
         "ru": {
@@ -1319,6 +1661,12 @@
             "value": "Share of obligatory spending"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte del gasto obligatorio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1340,6 +1688,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The first three days after an income against the rest of the month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los tres primeros días tras un ingreso frente al resto del mes"
           }
         },
         "ru": {
@@ -1365,6 +1719,12 @@
             "value": "%1$@ a day after an income against %2$@ on a usual day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ al día tras un ingreso frente a %2$@ en un día habitual"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1386,6 +1746,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "In the first three days you spend %@× as much"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En los tres primeros días gasta %@× más"
           }
         },
         "ru": {
@@ -1411,6 +1777,12 @@
             "value": "It needs at least two finished expected incomes and seven usual days to compare with."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hacen falta al menos dos ingresos previstos terminados y siete días habituales para comparar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1432,6 +1804,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Salary effect"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Efecto del sueldo"
           }
         },
         "ru": {
@@ -1457,6 +1835,12 @@
             "value": "Savings rate from earnings only"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tasa de ahorro solo con ganancias"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1478,6 +1862,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cashback, interest and surpluses are then not income for the rate"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El cashback, los intereses y los excedentes entonces no cuentan como ingreso para la tasa"
           }
         },
         "ru": {
@@ -1503,6 +1893,12 @@
             "value": "The proportions and switches are kept in the database and travel with the archive. The basket of a category is set in Categories."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las proporciones y los interruptores se guardan en la base de datos y viajan con el archivo. La cesta de cada categoría se fija en Categorías."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1524,6 +1920,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Needs: %lld%%"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesidades: %lld%%"
           }
         },
         "ru": {
@@ -1549,6 +1951,12 @@
             "value": "Needs"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesidades"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1570,6 +1978,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Back to 50 / 30 / 20"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a 50 / 30 / 20"
           }
         },
         "ru": {
@@ -1596,6 +2010,12 @@
             "value": "Savings"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahorro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1617,6 +2037,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "What is left to make a hundred"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que falta para llegar a cien"
           }
         },
         "ru": {
@@ -1643,6 +2069,12 @@
             "value": "Income and savings"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingresos y ahorro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1664,6 +2096,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Say when spending outgrows income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avisar cuando el gasto supere a los ingresos"
           }
         },
         "ru": {
@@ -1689,6 +2127,12 @@
             "value": "A line in “Worth a look”, no more than once a quarter"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una línea en «Merece una mirada», como mucho una vez por trimestre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1710,6 +2154,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wants: %lld%%"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deseos: %lld%%"
           }
         },
         "ru": {
@@ -1735,6 +2185,12 @@
             "value": "Wants"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deseos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1758,6 +2214,12 @@
             "value": "A bad month for plans: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un mes malo para los planes: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1779,6 +2241,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Complete months before this one, at most 24"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meses completos anteriores a este, como máximo 24"
           }
         },
         "ru": {
@@ -1811,6 +2279,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Little data: only %lld months so far"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pocos datos: hasta ahora solo %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pocos datos: hasta ahora solo %lld mes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pocos datos: hasta ahora solo %lld meses"
                 }
               }
             }
@@ -1887,6 +2379,12 @@
             "value": "At least %1$lld full months with income are needed, there are %2$lld so far."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hacen falta al menos %1$lld meses completos con ingresos; hasta ahora hay %2$lld."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1908,6 +2406,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income is steady"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ingresos son estables"
           }
         },
         "ru": {
@@ -1933,6 +2437,12 @@
             "value": "Income stability"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilidad de los ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1954,6 +2464,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income swings"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los ingresos oscilan"
           }
         },
         "ru": {
@@ -1979,6 +2495,12 @@
             "value": "A usual month: from %1$@ to %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un mes habitual: de %1$@ a %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2002,6 +2524,12 @@
             "value": "Parts counted: %1$lld of %2$lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partes contadas: %1$lld de %2$lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2021,6 +2549,12 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@"
@@ -2049,6 +2583,12 @@
             "value": "%@ · so far"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · hasta ahora"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2070,6 +2610,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spending does not grow faster than income."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El gasto no crece más deprisa que los ingresos."
           }
         },
         "ru": {
@@ -2095,6 +2641,12 @@
             "value": "It needs more than a year of history, or at least a year of months, and an income to compare with."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necesita más de un año de historial, o al menos un año de meses, y unos ingresos con los que comparar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2116,6 +2668,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spending grows faster than income. Worth noticing before it becomes the habit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El gasto crece más deprisa que los ingresos. Conviene fijarse antes de que se convierta en costumbre."
           }
         },
         "ru": {
@@ -2141,6 +2699,12 @@
             "value": "Show it in “Worth a look”"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrarlo en «Merece una mirada»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2162,6 +2726,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Compared with the months just before, not with last year: summer against winter is not a fair comparison."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comparado con los meses inmediatamente anteriores, no con el año pasado: verano frente a invierno no es una comparación justa."
           }
         },
         "ru": {
@@ -2187,6 +2757,12 @@
             "value": "Over 6 months income %1$@, spending %2$@ against the 6 before"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En 6 meses ingresos %1$@, gastos %2$@ frente a los 6 anteriores"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2208,6 +2784,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stop showing it in “Worth a look”"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejar de mostrarlo en «Merece una mirada»"
           }
         },
         "ru": {
@@ -2233,6 +2815,12 @@
             "value": "Spending follows income"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El gasto sigue a los ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2254,6 +2842,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Over 3 months income %1$@, spending %2$@ against the same months a year ago"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En 3 meses ingresos %1$@, gastos %2$@ frente a los mismos meses del año pasado"
           }
         },
         "ru": {
@@ -2280,6 +2874,12 @@
             "value": "Cushion"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2304,6 +2904,12 @@
             "value": "Debt load"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carga de deudas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2325,6 +2931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Overdue dues"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vencimientos atrasados"
           }
         },
         "ru": {
@@ -2351,6 +2963,12 @@
             "value": "Savings rate"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tasa de ahorro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2372,6 +2990,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stability of income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilidad de los ingresos"
           }
         },
         "ru": {
@@ -2397,6 +3021,12 @@
             "value": "Not counted, no data"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No contado, sin datos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2418,6 +3048,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Too few parts can be counted to say a number."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se pueden contar muy pocas partes para dar un número."
           }
         },
         "ru": {
@@ -2443,6 +3079,12 @@
             "value": "The parts left out are not scored zero: the rest are scaled to a hundred. The number is compared with no one."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las partes no incluidas no puntúan cero: las demás se escalan a cien. El número no se compara con nadie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2464,6 +3106,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cushion (out of %@)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón (de %@)"
           }
         },
         "ru": {
@@ -2489,6 +3137,12 @@
             "value": "Debt load (out of %@)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carga de deudas (de %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2510,6 +3164,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Overdue dues (out of %@)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vencimientos atrasados (de %@)"
           }
         },
         "ru": {
@@ -2535,6 +3195,12 @@
             "value": "Savings rate (out of %@)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tasa de ahorro (de %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2556,6 +3222,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stability of income (out of %@)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilidad de los ingresos (de %@)"
           }
         },
         "ru": {
@@ -2582,6 +3254,12 @@
             "value": "Financial health"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salud financiera"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2603,6 +3281,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Moved to the cushion (not spent)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasado al colchón (no gastado)"
           }
         },
         "ru": {
@@ -2628,6 +3312,12 @@
             "value": "There is no “Earnings” category, so all income is counted."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay categoría «Ganancias», así que se cuentan todos los ingresos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2649,6 +3339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Put into goals (put aside, not spent)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aportado a objetivos (apartado, no gastado)"
           }
         },
         "ru": {
@@ -2675,6 +3371,12 @@
             "value": "Income"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2696,6 +3398,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kept"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardado"
           }
         },
         "ru": {
@@ -2721,6 +3429,12 @@
             "value": "There is no income in this month yet, so there is no rate."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay ingresos en este mes, así que no hay tasa."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2742,6 +3456,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The month is not over: spending is still to come, so the rate looks better than it will."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El mes no ha terminado: el gasto todavía está por llegar, así que la tasa parece mejor de lo que será."
           }
         },
         "ru": {
@@ -2768,6 +3488,12 @@
             "value": "Savings rate"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tasa de ahorro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2789,6 +3515,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "My spending without goal contributions"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mi gasto sin aportaciones a objetivos"
           }
         },
         "ru": {

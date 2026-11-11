@@ -10,6 +10,12 @@
             "value": "Apply (%lld)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplicar (%lld)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rules disagreed %lld times; the upper rule of the list won."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las reglas discreparon %lld veces; gana la regla de arriba de la lista."
           }
         },
         "ru": {
@@ -56,6 +68,12 @@
             "value": "You edited it by hand after writing it"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La editó a mano después de escribirla"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -77,6 +95,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The history could not be read."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer el historial."
           }
         },
         "ru": {
@@ -102,6 +126,12 @@
             "value": "This is what the rules would change in the operations already written. Nothing is written until «Apply»; one ⌘Z takes everything back. Operations you edited by hand are unticked: your decision is worth more than a rule."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto es lo que cambiarían las reglas en las operaciones ya escritas. Nada se escribe hasta pulsar «Aplicar»; un ⌘Z lo devuelve todo. Las operaciones que editó a mano están desmarcadas: su decisión vale más que una regla."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +153,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This is what the rules would change in the operations already written. Nothing is written until «Apply»; one “Undo” takes everything back. Operations you edited by hand are unticked: your decision is worth more than a rule."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto es lo que cambiarían las reglas en las operaciones ya escritas. Nada se escribe hasta pulsar «Aplicar»; un «Deshacer» lo devuelve todo. Las operaciones que editó a mano están desmarcadas: su decisión vale más que una regla."
           }
         },
         "ru": {
@@ -148,6 +184,12 @@
             "value": "Category: %@ → %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría: %1$@ → %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -169,6 +211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "For whom: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para quién: %@"
           }
         },
         "ru": {
@@ -194,6 +242,12 @@
             "value": "Place: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugar: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -215,6 +269,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rating: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valoración: %@"
           }
         },
         "ru": {
@@ -240,6 +300,12 @@
             "value": "The write is still on its way. It will show in a moment; ⌘Z takes it back."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La escritura todavía está en camino. Aparecerá en un momento; ⌘Z la deshace."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -261,6 +327,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The write is still on its way. It will show in a moment; “Undo” takes it back."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La escritura todavía está en camino. Aparecerá en un momento; «Deshacer» la deshace."
           }
         },
         "ru": {
@@ -286,6 +358,12 @@
             "value": "The rules would change nothing: everything already looks as they want it."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las reglas no cambiarían nada: todo ya tiene el aspecto que quieren."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -307,6 +385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Looking through the history…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisando el historial…"
           }
         },
         "ru": {
@@ -333,6 +417,12 @@
             "value": "Tick all"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcar todas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -354,6 +444,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Untick all"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desmarcar todas"
           }
         },
         "ru": {
@@ -386,6 +482,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations were changed since the preview and were left as they were."
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones cambiaron desde la vista previa y se dejaron como estaban."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación cambió desde la vista previa y se dejó como estaba."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones cambiaron desde la vista previa y se dejaron como estaban."
                 }
               }
             }
@@ -462,6 +582,12 @@
             "value": "Looked at: %lld · matched: %lld · would change: %lld · already as wanted: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisadas: %1$lld · encontradas: %2$lld · cambiarían: %3$lld · ya como se quiere: %4$lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -485,6 +611,12 @@
             "value": "Ticked: %lld of %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcadas: %1$lld de %2$lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -506,6 +638,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apply the rules to the past"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplicar las reglas al pasado"
           }
         },
         "ru": {
@@ -532,6 +670,12 @@
             "value": "Undo"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deshacer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -553,6 +697,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "⌘Z takes it all back in one step, with the dates of the last edit as they were."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z lo devuelve todo de un paso, con las fechas de la última edición tal como estaban."
           }
         },
         "ru": {
@@ -578,6 +728,12 @@
             "value": "“Undo” takes it all back in one step, with the dates of the last edit as they were."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Deshacer» lo devuelve todo de un paso, con las fechas de la última edición tal como estaban."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -599,6 +755,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Everything is back as it was."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo ha vuelto a como estaba."
           }
         },
         "ru": {
@@ -624,6 +786,12 @@
             "value": "Written: %lld operations, %lld tag links"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escritas: %1$lld operaciones, %2$lld enlaces de etiqueta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -645,6 +813,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing needed writing."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hacía falta escribir nada."
           }
         },
         "ru": {
@@ -670,6 +844,12 @@
             "value": "By rule %@: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por la regla %1$@: %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -691,6 +871,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "typed in the line"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "escrita en la línea"
           }
         },
         "ru": {
@@ -716,6 +902,12 @@
             "value": "added here"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "añadida aquí"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -737,6 +929,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "added by the rule %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "añadida por la regla %@"
           }
         },
         "ru": {
@@ -762,6 +960,12 @@
             "value": "#tag"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#etiqueta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -783,6 +987,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Take off the tag #%@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar la etiqueta #%@"
           }
         },
         "ru": {
@@ -809,6 +1019,12 @@
             "value": "Tags"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etiquetas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -830,6 +1046,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The file was made by a newer version of the app. Update the app to open it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo lo hizo una versión más reciente de la app. Actualice la app para abrirlo."
           }
         },
         "ru": {
@@ -855,6 +1077,12 @@
             "value": "This is not a file of rules."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto no es un archivo de reglas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -876,6 +1104,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The file is too large for a file of rules."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo es demasiado grande para ser un archivo de reglas."
           }
         },
         "ru": {
@@ -901,6 +1135,12 @@
             "value": "The file holds too many rules."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo tiene demasiadas reglas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -922,6 +1162,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The file could not be read."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer el archivo."
           }
         },
         "ru": {
@@ -947,6 +1193,12 @@
             "value": "Save rules to a file…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar reglas en un archivo…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -968,6 +1220,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The file was not saved."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo no se guardó."
           }
         },
         "ru": {
@@ -993,6 +1251,12 @@
             "value": "Tick the rules to put in the file. Rules that name an account, a card or a person start unticked."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque las reglas que quiere incluir en el archivo. Las reglas que citan una cuenta, una tarjeta o una persona empiezan desmarcadas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1016,6 +1280,12 @@
             "value": "Title of the file (optional)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Título del archivo (opcional)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1037,6 +1307,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "names an account, a card or a person"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cita una cuenta, una tarjeta o una persona"
           }
         },
         "ru": {
@@ -1063,6 +1339,12 @@
             "value": "Save…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1086,6 +1368,12 @@
             "value": "Save rules to a file"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar reglas en un archivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1107,6 +1395,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A file of rules (.ohmymoneyrules) carries rules with the categories and tags they need, by name. Opening one shows what would be added first; nothing is ever removed or renamed. Rules about people and accounts stay out of a file unless you tick them."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un archivo de reglas (.ohmymoneyrules) lleva reglas con las categorías y etiquetas que necesitan, por nombre. Al abrirlo se ve primero lo que se añadiría; nunca se elimina ni se renombra nada. Las reglas sobre personas y cuentas no van al archivo salvo que las marque."
           }
         },
         "ru": {
@@ -1133,6 +1427,12 @@
             "value": "Add"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1154,6 +1454,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rules you already have"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reglas que ya tiene"
           }
         },
         "ru": {
@@ -1179,6 +1485,12 @@
             "value": "Added: categories: %lld · tags: %lld · rules: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadido: categorías: %1$lld · etiquetas: %2$lld · reglas: %3$lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1200,6 +1512,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Not everything could be added. What was added stays; open the file again to add the rest."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo añadir todo. Lo que se añadió se queda; vuelva a abrir el archivo para añadir el resto."
           }
         },
         "ru": {
@@ -1225,6 +1543,12 @@
             "value": "the rule cannot be saved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la regla no se puede guardar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1246,6 +1570,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Same as yours (the rules will point at yours)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Igual que la suya (las reglas apuntarán a la suya)"
           }
         },
         "ru": {
@@ -1271,6 +1601,12 @@
             "value": "you have no account «%@»"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no tiene una cuenta «%@»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1292,6 +1628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "you have no card «%@»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no tiene una tarjeta «%@»"
           }
         },
         "ru": {
@@ -1317,6 +1659,12 @@
             "value": "no category «%@»"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no hay una categoría «%@»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1338,6 +1686,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "you have no person «%@»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no tiene una persona «%@»"
           }
         },
         "ru": {
@@ -1363,6 +1717,12 @@
             "value": "you have no place «%@»"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no tiene un lugar «%@»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1384,6 +1744,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "no tag «%@»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no hay una etiqueta «%@»"
           }
         },
         "ru": {
@@ -1409,6 +1775,12 @@
             "value": "New categories"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorías nuevas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1430,6 +1802,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "New tags"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etiquetas nuevas"
           }
         },
         "ru": {
@@ -1455,6 +1833,12 @@
             "value": "Nothing of yours is removed or renamed."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada suyo se elimina ni se renombra."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1476,6 +1860,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Left out"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejado fuera"
           }
         },
         "ru": {
@@ -1501,6 +1891,12 @@
             "value": "The file also carries parts for other features; they are kept for them."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo también lleva partes para otras funciones; se conservan para ellas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1522,6 +1918,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Will be added: categories: %lld · tags: %lld · rules: %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se añadirá: categorías: %1$lld · etiquetas: %2$lld · reglas: %3$lld"
           }
         },
         "ru": {
@@ -1548,6 +1950,12 @@
             "value": "File of rules"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivo de reglas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1569,6 +1977,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "⌘Z takes back the rules, then the tags. Added categories stay: remove them in the settings if you do not need them."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z quita las reglas, después las etiquetas. Las categorías añadidas se quedan: quítelas en los ajustes si no las necesita."
           }
         },
         "ru": {
@@ -1594,6 +2008,12 @@
             "value": "“Undo” takes back the rules, then the tags. Added categories stay: remove them in the settings if you do not need them."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Deshacer» quita las reglas, después las etiquetas. Las categorías añadidas se quedan: quítelas en los ajustes si no las necesita."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1615,6 +2035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open a file of rules…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir un archivo de reglas…"
           }
         },
         "ru": {
@@ -1641,6 +2067,12 @@
             "value": "File of rules"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivo de reglas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1662,6 +2094,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "category %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "categoría %@"
           }
         },
         "ru": {
@@ -1687,6 +2125,12 @@
             "value": "for whom: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "para quién: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1708,6 +2152,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Set the category"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poner la categoría"
           }
         },
         "ru": {
@@ -1733,6 +2183,12 @@
             "value": "Set «for whom»"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poner «para quién»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1754,6 +2210,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Set a person"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poner una persona"
           }
         },
         "ru": {
@@ -1779,6 +2241,12 @@
             "value": "Set the place"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poner el lugar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1800,6 +2268,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Set the rating"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poner la valoración"
           }
         },
         "ru": {
@@ -1825,6 +2299,12 @@
             "value": "Add a tag"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir una etiqueta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1846,6 +2326,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "place %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "lugar %@"
           }
         },
         "ru": {
@@ -1871,6 +2357,12 @@
             "value": "rating «%@»"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "valoración «%@»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1892,6 +2384,12 @@
           "stringUnit": {
             "state": "translated",
             "value": " and "
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " y "
           }
         },
         "ru": {
@@ -1917,6 +2415,12 @@
             "value": "Apply to the past…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplicar al pasado…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1938,6 +2442,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "amount is above %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el importe es mayor que %@"
           }
         },
         "ru": {
@@ -1963,6 +2473,12 @@
             "value": "account is %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la cuenta es %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1984,6 +2500,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "amount is below %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el importe es menor que %@"
           }
         },
         "ru": {
@@ -2009,6 +2531,12 @@
             "value": "card is %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la tarjeta es %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2032,6 +2560,12 @@
             "value": "category is %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la categoría es %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2053,6 +2587,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "kind is %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el tipo es %@"
           }
         },
         "ru": {
@@ -2079,6 +2619,12 @@
             "value": "Account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2102,6 +2648,12 @@
             "value": "Amount above"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe mayor que"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2123,6 +2675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Amount below"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe menor que"
           }
         },
         "ru": {
@@ -2149,6 +2707,12 @@
             "value": "Card"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2173,6 +2737,12 @@
             "value": "Category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2194,6 +2764,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kind of operation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo de operación"
           }
         },
         "ru": {
@@ -2220,6 +2796,12 @@
             "value": "Place"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2241,6 +2823,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Place or description contains"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El lugar o la descripción contiene"
           }
         },
         "ru": {
@@ -2266,6 +2854,12 @@
             "value": "Time of day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hora del día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2287,6 +2881,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Day of the week"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Día de la semana"
           }
         },
         "ru": {
@@ -2312,6 +2912,12 @@
             "value": "place is %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el lugar es %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2333,6 +2939,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "place or description contains «%@»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el lugar o la descripción contiene «%@»"
           }
         },
         "ru": {
@@ -2358,6 +2970,12 @@
             "value": "time from %1$@ to %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hora de %1$@ a %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2379,6 +2997,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "day of the week is %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el día de la semana es %@"
           }
         },
         "ru": {
@@ -2405,6 +3029,12 @@
             "value": "Delete"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2427,6 +3057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edit…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar…"
           }
         },
         "ru": {
@@ -2452,6 +3088,12 @@
             "value": "Add an action"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir una acción"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2473,6 +3115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a condition"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir una condición"
           }
         },
         "ru": {
@@ -2499,6 +3147,12 @@
             "value": "Amount"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2521,6 +3175,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir…"
           }
         },
         "ru": {
@@ -2546,6 +3206,12 @@
             "value": "The rule is on"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La regla está activa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2567,6 +3233,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tags that exist"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etiquetas que existen"
           }
         },
         "ru": {
@@ -2592,6 +3264,12 @@
             "value": "If"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2613,6 +3291,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "All conditions must hold at once («and»). For «or», make two rules."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas las condiciones deben cumplirse a la vez («y»). Para «o», cree dos reglas."
           }
         },
         "ru": {
@@ -2638,6 +3322,12 @@
             "value": "Name (optional)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre (opcional)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2659,6 +3349,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "new tag"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nueva etiqueta"
           }
         },
         "ru": {
@@ -2684,6 +3380,12 @@
             "value": "The rule was not saved."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La regla no se guardó."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2705,6 +3407,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove the row"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar la fila"
           }
         },
         "ru": {
@@ -2731,6 +3439,12 @@
             "value": "tag"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "etiqueta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2752,6 +3466,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Words"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Palabras"
           }
         },
         "ru": {
@@ -2777,6 +3497,12 @@
             "value": "Then"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entonces"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2798,6 +3524,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tags add up. Of two rules that set a category, the upper one in the list wins."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las etiquetas se suman. De dos reglas que fijan una categoría, gana la de arriba de la lista."
           }
         },
         "ru": {
@@ -2824,6 +3556,12 @@
             "value": "to"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2845,6 +3583,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No rules yet. Add one: for example, «place contains Yandex Go and amount above 1,000 → tag #work»."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay reglas. Añada una: por ejemplo, «el lugar contiene Yandex Go y el importe mayor que 1.000 → etiqueta #trabajo»."
           }
         },
         "ru": {
@@ -2870,6 +3614,12 @@
             "value": "category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "categoría"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2891,6 +3641,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "for whom"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "para quién"
           }
         },
         "ru": {
@@ -2916,6 +3672,12 @@
             "value": "place"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "lugar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2937,6 +3699,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "rating"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "valoración"
           }
         },
         "ru": {
@@ -2963,6 +3731,12 @@
             "value": "tag"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "etiqueta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2984,6 +3758,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A rule fills the line for you before Enter: «Pyaterochka → Groceries». Rules are read from the top; when two rules set the same field, the upper one wins, and tags add up. What you choose by hand always beats a rule. A rule never touches money, account or date."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una regla rellena la línea por usted antes de Intro: «Pyaterochka → Alimentación». Las reglas se leen desde arriba; cuando dos reglas fijan el mismo campo, gana la de arriba, y las etiquetas se suman. Lo que elija a mano siempre gana a una regla. Una regla nunca toca el dinero, la cuenta ni la fecha."
           }
         },
         "ru": {
@@ -3010,6 +3790,12 @@
             "value": "Rules and tags"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reglas y etiquetas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3031,6 +3817,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld on"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld activadas"
           }
         },
         "ru": {
@@ -3056,6 +3848,12 @@
             "value": "export or import"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "exportar o importar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3077,6 +3875,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rules set the category, tags and rating when you enter an operation. Applying them to the past shows what would change first."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las reglas fijan la categoría, las etiquetas y la valoración al introducir una operación. Aplicarlas al pasado muestra antes lo que cambiaría."
           }
         },
         "ru": {
@@ -3109,6 +3913,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld rules"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld reglas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld regla"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld reglas"
                 }
               }
             }
@@ -3197,6 +4025,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld etiquetas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld etiqueta"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld etiquetas"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3269,6 +4121,12 @@
             "value": "expense"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gasto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3291,6 +4149,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ingreso"
           }
         },
         "ru": {
@@ -3316,6 +4180,12 @@
             "value": "refund of a purchase"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "devolución de una compra"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3339,6 +4209,12 @@
             "value": "money back from a person"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dinero devuelto por una persona"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3360,6 +4236,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "More about the rule"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más sobre la regla"
           }
         },
         "ru": {
@@ -3386,6 +4268,12 @@
             "value": "Move down"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bajar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3408,6 +4296,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move up"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subir"
           }
         },
         "ru": {
@@ -3433,6 +4327,12 @@
             "value": "New rule…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nueva regla…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3456,6 +4356,12 @@
             "value": "from a file"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde un archivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3477,6 +4383,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "from an import"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde una importación"
           }
         },
         "ru": {
@@ -3503,6 +4415,12 @@
             "value": "File"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3524,6 +4442,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rules"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reglas"
           }
         },
         "ru": {
@@ -3550,6 +4474,12 @@
             "value": "Tags"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etiquetas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3571,6 +4501,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The time «from» and «to» must differ."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La hora «desde» y «hasta» deben ser distintas."
           }
         },
         "ru": {
@@ -3596,6 +4532,12 @@
             "value": "Choose at least one day of the week."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija al menos un día de la semana."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3617,6 +4559,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The words of the condition are empty."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las palabras de la condición están vacías."
           }
         },
         "ru": {
@@ -3642,6 +4590,12 @@
             "value": "An income category and an expense one never meet in one operation."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una categoría de ingreso y una de gasto nunca coinciden en una misma operación."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3663,6 +4617,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "An amount cannot be negative."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un importe no puede ser negativo."
           }
         },
         "ru": {
@@ -3688,6 +4648,12 @@
             "value": "This kind of operation never takes that category."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este tipo de operación nunca lleva esa categoría."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3709,6 +4675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add what the rule does."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añada lo que hace la regla."
           }
         },
         "ru": {
@@ -3734,6 +4706,12 @@
             "value": "Add a condition: a rule without one would match everything."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añada una condición: una regla sin ninguna se aplicaría a todo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3755,6 +4733,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The category «%@» is archived: nothing can be filed into it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La categoría «%@» está archivada: no se puede archivar nada en ella."
           }
         },
         "ru": {
@@ -3780,6 +4764,12 @@
             "value": "«%@» belongs to the app: a rule cannot file into it."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» pertenece a la app: una regla no puede archivar nada en ella."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3801,6 +4791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Two actions set «%@»: only the first would count."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dos acciones fijan «%@»: solo contaría la primera."
           }
         },
         "ru": {
@@ -3826,6 +4822,12 @@
             "value": "Some rows are not finished: fill them in or remove them."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algunas filas no están terminadas: complételas o quítelas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3849,6 +4851,12 @@
             "value": "A category of the rule is not in the dictionary any more."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una categoría de la regla ya no está en el diccionario."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3870,6 +4878,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A tag of the rule does not exist."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una etiqueta de la regla no existe."
           }
         },
         "ru": {
@@ -3896,6 +4910,12 @@
             "value": "The change was not saved."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El cambio no se guardó."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3919,6 +4939,12 @@
             "value": "If %1$@, then %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si %1$@, entonces %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3940,6 +4966,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "My rules"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mis reglas"
           }
         },
         "ru": {
@@ -3966,6 +4998,12 @@
             "value": "no description"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sin descripción"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3987,6 +5025,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No operation of the history matches this rule."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ninguna operación del historial encaja con esta regla."
           }
         },
         "ru": {
@@ -4012,6 +5056,12 @@
             "value": "Matches: %lld of %lld operations · would change: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coinciden: %1$lld de %2$lld operaciones · cambiarían: %3$lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4035,6 +5085,12 @@
             "value": "Test on the history"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba en el historial"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4056,6 +5112,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a condition and an action to see how many operations the rule would touch."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añada una condición y una acción para ver cuántas operaciones tocaría la regla."
           }
         },
         "ru": {
@@ -4082,6 +5144,12 @@
             "value": "Counting…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contando…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4103,6 +5171,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No tagged spending in this period."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay gastos etiquetados en este periodo."
           }
         },
         "ru": {
@@ -4128,6 +5202,12 @@
             "value": "Found: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontradas: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4149,6 +5229,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "All of them"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas ellas"
           }
         },
         "ru": {
@@ -4174,6 +5260,12 @@
             "value": "Any of them"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cualquiera de ellas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4197,6 +5289,12 @@
             "value": "Report and operations by tag…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informe y operaciones por etiqueta…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4218,6 +5316,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "An operation with several tags counts under each of them, so the tags add up to %@, more than the %@ they cover."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una operación con varias etiquetas cuenta en cada una de ellas, así que las etiquetas suman %1$@, más que los %2$@ que cubren."
           }
         },
         "ru": {
@@ -4244,6 +5348,12 @@
             "value": "All time"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo el tiempo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4266,6 +5376,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes"
           }
         },
         "ru": {
@@ -4292,6 +5408,12 @@
             "value": "Year"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Año"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4315,6 +5437,12 @@
             "value": "Tick tags to see their operations."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque etiquetas para ver sus operaciones."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4336,6 +5464,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "By tags"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por etiquetas"
           }
         },
         "ru": {
@@ -4362,6 +5496,12 @@
             "value": "Archive"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4384,6 +5524,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "archived"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "archivada"
           }
         },
         "ru": {
@@ -4409,6 +5555,12 @@
             "value": "Merge #%@ into #%@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusionar #%1$@ con #%2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4432,6 +5584,12 @@
             "value": "Two tags cannot share a name. They can be merged into one."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dos etiquetas no pueden tener el mismo nombre. Se pueden fusionar en una."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4453,6 +5611,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "That name is another tag's"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ese nombre es de otra etiqueta"
           }
         },
         "ru": {
@@ -4479,6 +5643,12 @@
             "value": "Delete…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4500,6 +5670,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delete the tag"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar la etiqueta"
           }
         },
         "ru": {
@@ -4525,6 +5701,12 @@
             "value": "It is taken off %lld parts of operations. The operations stay."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se quita de %lld partes de operaciones. Las operaciones se quedan."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4546,6 +5728,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rules that named it lose that action (%lld); rules left with nothing to do are deleted (%lld)."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las reglas que la citaban pierden esa acción (%1$lld); las reglas que se quedan sin nada que hacer se eliminan (%2$lld)."
           }
         },
         "ru": {
@@ -4571,6 +5759,12 @@
             "value": "Delete the tag?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Eliminar la etiqueta?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4592,6 +5786,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No tags yet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay etiquetas."
           }
         },
         "ru": {
@@ -4617,6 +5817,12 @@
             "value": "A tag is a free word: type «#vacation» in the entry line. It is not an event: no dates and no budget. An operation can carry several; in a report it counts under each."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una etiqueta es una palabra libre: escriba «#vacaciones» en la línea de entrada. No es un evento: no tiene fechas ni presupuesto. Una operación puede llevar varias; en un informe cuenta en cada una."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4638,6 +5844,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A tag is letters, digits, «-» and «_», with at least one letter."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una etiqueta son letras, cifras, «-» y «_», con al menos una letra."
           }
         },
         "ru": {
@@ -4663,6 +5875,12 @@
             "value": "Actions for the tag #%@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acciones con la etiqueta #%@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4684,6 +5902,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Merge into another…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusionar con otra…"
           }
         },
         "ru": {
@@ -4710,6 +5934,12 @@
             "value": "Merge"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusionar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4731,6 +5961,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The operations of this tag move to the other one, the tag disappears, and the rules that named it name the other."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las operaciones de esta etiqueta pasan a la otra, la etiqueta desaparece, y las reglas que la citaban citan la otra."
           }
         },
         "ru": {
@@ -4756,6 +5992,12 @@
             "value": "Merge into"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusionar con"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4777,6 +6019,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Merge #%@ into"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fusionar #%@ con"
           }
         },
         "ru": {
@@ -4803,6 +6051,12 @@
             "value": "The change was not saved."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El cambio no se guardó."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4824,6 +6078,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rename…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renombrar…"
           }
         },
         "ru": {
@@ -4849,6 +6109,12 @@
             "value": "New name"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre nuevo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4870,6 +6136,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rename the tag"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renombrar la etiqueta"
           }
         },
         "ru": {
@@ -4896,6 +6168,12 @@
             "value": "Bring back"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recuperar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4917,6 +6195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show the archive"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar el archivo"
           }
         },
         "ru": {
@@ -4943,6 +6227,12 @@
             "value": "Tags"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etiquetas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4964,6 +6254,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "on nothing yet"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "todavía en ninguna"
           }
         },
         "ru": {
@@ -4997,6 +6293,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones"
                 }
               }
             }

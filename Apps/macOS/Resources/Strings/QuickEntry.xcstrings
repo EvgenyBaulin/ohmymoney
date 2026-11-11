@@ -11,6 +11,12 @@
             "value": "Which card?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué tarjeta?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -33,6 +39,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "card %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tarjeta %@"
           }
         },
         "ru": {
@@ -59,6 +71,12 @@
             "value": "Read from the bank's text: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leído del texto del banco: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -81,6 +99,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open the reconciliation after writing (the text says %@ is left)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir la conciliación tras escribir (el texto dice que quedan %@)"
           }
         },
         "ru": {
@@ -107,6 +131,12 @@
             "value": "What the history and the model cannot file goes to «Don't remember»; change it later in the list."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que el historial y el modelo no pueden clasificar va a «No recuerdo»; cámbielo después en la lista."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -129,6 +159,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "already written"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ya escrito"
           }
         },
         "ru": {
@@ -162,6 +198,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld lines were not read"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld líneas no se leyeron"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld línea no se leyó"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld líneas no se leyeron"
                 }
               }
             }
@@ -239,6 +299,12 @@
             "value": "Tick what to write. What you already have is unticked."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque lo que quiere escribir. Lo que ya tiene está desmarcado."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -261,6 +327,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operations from the bank"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operaciones del banco"
           }
         },
         "ru": {
@@ -294,6 +366,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Write %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
                 }
               }
             }
@@ -371,6 +467,12 @@
             "value": "Written"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escrito"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -393,6 +495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Other card data"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otros datos de la tarjeta"
           }
         },
         "ru": {
@@ -419,6 +527,12 @@
             "value": "Free text: holder, expiry date. Never keep the code from the back of the card."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto libre: titular, fecha de caducidad. Nunca guarde el código del dorso de la tarjeta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -441,6 +555,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Last 4 digits"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Últimas 4 cifras"
           }
         },
         "ru": {
@@ -467,6 +587,12 @@
             "value": "Exactly four digits are needed"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se necesitan exactamente cuatro cifras"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -489,6 +615,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lets the app find this card in the bank's texts. Not the card number."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permite a la app encontrar esta tarjeta en los textos del banco. No es el número de la tarjeta."
           }
         },
         "ru": {
@@ -515,6 +647,12 @@
             "value": "Card %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -537,6 +675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The bank's texts name these digits. Which of your cards is it? The digits are kept on the card, not the number."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los textos del banco citan estas cifras. ¿Cuál de sus tarjetas es? Se guardan las cifras en la tarjeta, no el número."
           }
         },
         "ru": {
@@ -563,6 +707,12 @@
             "value": "Not any of them"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ninguna de ellas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -585,6 +735,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Card •••• %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta •••• %@"
           }
         },
         "ru": {
@@ -611,6 +767,12 @@
             "value": "Correct"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corregir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -633,6 +795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: %@ → %@. Correct it?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ → %3$@. ¿Corregirla?"
           }
         },
         "ru": {
@@ -659,6 +827,12 @@
             "value": "Corrected"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corregido"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -681,6 +855,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The correction was not saved"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La corrección no se guardó"
           }
         },
         "ru": {
@@ -707,6 +887,12 @@
             "value": "Nothing to correct: no entries of yours yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada que corregir: todavía no hay apuntes suyos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -729,6 +915,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The account was charged in another currency: change the amount in the ↓ panel"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cuenta se cargó en otra divisa: cambie el importe en el panel ↓"
           }
         },
         "ru": {
@@ -755,6 +947,12 @@
             "value": "That is not an amount to correct to"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eso no es un importe al que corregir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -777,6 +975,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Another currency is another operation: open the ↓ panel"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otra divisa es otra operación: abra el panel ↓"
           }
         },
         "ru": {
@@ -803,6 +1007,12 @@
             "value": "A debt payment is changed on the debt's own screen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un pago de deuda se cambia en la pantalla de la propia deuda"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -825,6 +1035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Money back from a person cannot change its amount: delete it and enter it again"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El dinero devuelto por una persona no puede cambiar de importe: elimínelo y vuelva a introducirlo"
           }
         },
         "ru": {
@@ -851,6 +1067,12 @@
             "value": "Something in this operation was returned or paid back: change it in the ↓ panel"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algo de esta operación se devolvió o se pagó: cámbielo en el panel ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -873,6 +1095,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The operation has no rate to price the new amount by: change it in the ↓ panel"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La operación no tiene tipo con el que valorar el nuevo importe: cámbiela en el panel ↓"
           }
         },
         "ru": {
@@ -899,6 +1127,12 @@
             "value": "The last entry, %@, was made over an hour ago: %@ → %@. Correct that one?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El último apunte, %1$@, se hizo hace más de una hora: %2$@ → %3$@. ¿Corregir ese?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -921,6 +1155,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "It was not saved"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se guardó"
           }
         },
         "ru": {
@@ -947,6 +1187,12 @@
             "value": "Kept as a draft"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardado como borrador"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -969,6 +1215,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Write later"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribir más tarde"
           }
         },
         "ru": {
@@ -1002,6 +1254,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Drafts: %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Borradores: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Borradores: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Borradores: %lld"
                 }
               }
             }
@@ -1079,6 +1355,12 @@
             "value": "Delete"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1101,6 +1383,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No drafts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay borradores"
           }
         },
         "ru": {
@@ -1127,6 +1415,12 @@
             "value": "Finish"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1149,6 +1443,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A draft is not an operation: it counts in no figure until you finish it and write it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un borrador no es una operación: no cuenta en ninguna cifra hasta que lo termine y lo escriba."
           }
         },
         "ru": {
@@ -1182,6 +1482,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld drafts are waiting to be finished"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld borradores esperan a que los termine"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld borrador espera a que lo termine"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld borradores esperan a que los termine"
                 }
               }
             }
@@ -1259,6 +1583,12 @@
             "value": "Finish…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1281,6 +1611,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Drafts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borradores"
           }
         },
         "ru": {
@@ -1307,6 +1643,12 @@
             "value": "Move the operation to a day ahead as it is?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover la operación tal cual a un día futuro?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1329,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move as it is"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover tal cual"
           }
         },
         "ru": {
@@ -1355,6 +1703,12 @@
             "value": "That day has not come yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ese día todavía no ha llegado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1377,6 +1731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover"
           }
         },
         "ru": {
@@ -1403,6 +1763,12 @@
             "value": "Moved to %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movida al %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1425,6 +1791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Drop an operation here to move it to this day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suelte una operación aquí para moverla a este día"
           }
         },
         "ru": {
@@ -1451,6 +1823,12 @@
             "value": "It was not moved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se movió"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1473,6 +1851,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move to another day…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a otro día…"
           }
         },
         "ru": {
@@ -1499,6 +1883,12 @@
             "value": "It moves to another month: limits and reports follow"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasa a otro mes: los límites y los informes se ajustan"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1521,6 +1911,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Día"
           }
         },
         "ru": {
@@ -1547,6 +1943,12 @@
             "value": "The rate of the new day is applied"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se aplica el tipo del nuevo día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1569,6 +1971,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "It is on that day already"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya está en ese día"
           }
         },
         "ru": {
@@ -1595,6 +2003,12 @@
             "value": "Move to another day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a otro día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1617,6 +2031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a note to this day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir una nota a este día"
           }
         },
         "ru": {
@@ -1643,6 +2063,12 @@
             "value": "Delete the note"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar la nota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1665,6 +2091,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edit the note of this day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar la nota de este día"
           }
         },
         "ru": {
@@ -1691,6 +2123,12 @@
             "value": "The note was not saved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La nota no se guardó"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1713,6 +2151,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Day with a note"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Día con nota"
           }
         },
         "ru": {
@@ -1739,6 +2183,12 @@
             "value": "For example, mum's birthday"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por ejemplo, el cumpleaños de mamá"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1761,6 +2211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Save"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar"
           }
         },
         "ru": {
@@ -1787,6 +2243,12 @@
             "value": "Note of the day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota del día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1811,6 +2273,12 @@
             "value": "operation"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "operación"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1833,6 +2301,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Drop the rest"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descartar el resto"
           }
         },
         "ru": {
@@ -1866,6 +2340,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld more operations of the line are waiting"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Faltan %lld operaciones más de la línea"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Falta %lld operación más de la línea"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Faltan %lld operaciones más de la línea"
                 }
               }
             }
@@ -1943,6 +2441,12 @@
             "value": "Some were left out: no exchange rate for them yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algunas se dejaron fuera: todavía no tienen tipo de cambio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1965,6 +2469,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing to repeat: no spending of yours was entered by hand that day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada que repetir: ese día no se introdujo a mano ningún gasto suyo"
           }
         },
         "ru": {
@@ -1991,6 +2501,12 @@
             "value": "What you entered by hand on %@. Tick what to write for today."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que introdujo a mano el %@. Marque lo que quiere escribir para hoy."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2013,6 +2529,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Repeat a day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repetir un día"
           }
         },
         "ru": {
@@ -2046,6 +2568,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Write %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
                 }
               }
             }
@@ -2135,6 +2681,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones escritas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación escrita"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones escritas"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2207,6 +2777,12 @@
             "value": "Exact amount of the first part"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe exacto de la primera parte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2229,6 +2805,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "First part"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primera parte"
           }
         },
         "ru": {
@@ -2255,6 +2837,12 @@
             "value": "Drag the divider between the two parts; it moves by 10."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrastre el divisor entre las dos partes; se mueve de 10 en 10."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2277,6 +2865,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Second part"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segunda parte"
           }
         },
         "ru": {
@@ -2303,6 +2897,12 @@
             "value": "Step %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paso %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2325,6 +2925,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Split the amount"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividir el importe"
           }
         },
         "ru": {
@@ -2351,6 +2957,12 @@
             "value": "Places"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugares"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2373,6 +2985,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@, usually ~%@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, normalmente ~%2$@"
           }
         },
         "ru": {

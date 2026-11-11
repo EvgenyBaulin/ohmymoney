@@ -10,6 +10,12 @@
             "value": "earned on %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "conseguida el %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A count every month for a year"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un recuento cada mes durante un año"
           }
         },
         "ru": {
@@ -56,6 +68,12 @@
             "value": "A count every month for 3 months"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un recuento cada mes durante 3 meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -77,6 +95,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A count this month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un recuento este mes"
           }
         },
         "ru": {
@@ -102,6 +126,12 @@
             "value": "100 days of entries in a row"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 días seguidos con apuntes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +153,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "30 days of entries in a row"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 días seguidos con apuntes"
           }
         },
         "ru": {
@@ -148,6 +184,12 @@
             "value": "7 days of entries in a row"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 días seguidos con apuntes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -169,6 +211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No badges in this period"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay insignias en este periodo"
           }
         },
         "ru": {
@@ -201,6 +249,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Streak now: %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Racha actual: %lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Racha actual: %lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Racha actual: %lld días"
                 }
               }
             }
@@ -277,6 +349,12 @@
             "value": "Badges"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Insignias"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -300,6 +378,12 @@
             "value": "Quiet in the beginner mode"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tranquilo en el modo principiante"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -321,6 +405,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open now"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir ahora"
           }
         },
         "ru": {
@@ -353,6 +443,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Opens at %lld days with entries (now %lld)"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre a los %lld días con apuntes (ahora %lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre al día %lld con apuntes (ahora %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre a los %lld días con apuntes (ahora %lld)"
                 }
               }
             }
@@ -429,6 +543,12 @@
             "value": "Opens after the first count"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se abre tras el primer recuento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -459,6 +579,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Opens in %lld days, after a month of entries"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre en %lld días, tras un mes de apuntes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre en %lld día, tras un mes de apuntes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Se abre en %lld días, tras un mes de apuntes"
                 }
               }
             }
@@ -535,6 +679,12 @@
             "value": "Why you save"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por qué ahorra"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -556,6 +706,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The app reminds you of it when the goal money looks spent, the plan is lowered or the goal is deleted"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app se lo recuerda cuando el dinero del objetivo parece gastado, el plan se baja o el objetivo se elimina"
           }
         },
         "ru": {
@@ -581,6 +737,12 @@
             "value": "You save for «%1$@» because: %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahorra para «%1$@» porque: %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -604,6 +766,12 @@
             "value": "The sea in July, with the whole family"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El mar en julio, con toda la familia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -622,6 +790,12 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»: %2$@"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@»: %2$@"
@@ -650,6 +824,12 @@
             "value": "Why I save"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por qué ahorro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -671,6 +851,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No spending"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin gastos"
           }
         },
         "ru": {
@@ -697,6 +883,12 @@
             "value": "Restore…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -718,6 +910,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 cards"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 tarjetas"
           }
         },
         "ru": {
@@ -744,6 +942,12 @@
             "value": "Close"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -765,6 +969,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lessons"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecciones"
           }
         },
         "ru": {
@@ -790,6 +1000,12 @@
             "value": "Short lessons of money, five cards each"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecciones breves de dinero, cinco tarjetas cada una"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -811,6 +1027,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lessons"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecciones"
           }
         },
         "ru": {
@@ -836,6 +1058,12 @@
             "value": "No spending today?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Sin gastos hoy?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -857,6 +1085,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Write down today's spending — or was there none today?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anote los gastos de hoy — ¿o hoy no hubo ninguno?"
           }
         },
         "ru": {
@@ -889,6 +1123,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Nothing entered for %lld days — restore from balances?"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "No hay apuntes desde hace %lld días — ¿restaurar desde los saldos?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "No hay apuntes desde hace %lld día — ¿restaurar desde los saldos?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "No hay apuntes desde hace %lld días — ¿restaurar desde los saldos?"
                 }
               }
             }
@@ -977,6 +1235,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "racha de %lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "racha de %lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "racha de %lld días"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1049,6 +1331,12 @@
             "value": "Back"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atrás"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1070,6 +1358,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Now on the account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahora en la cuenta"
           }
         },
         "ru": {
@@ -1095,6 +1389,12 @@
             "value": "By the records: %@ — matches"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Según los registros: %@ — coincide"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1116,6 +1416,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Type what each account holds now. Accounts in «Total» that were counted at least once."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba lo que tiene ahora cada cuenta. Cuentas en «Total» que se contaron al menos una vez."
           }
         },
         "ru": {
@@ -1141,6 +1447,12 @@
             "value": "By the records %1$@ · not written down %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Según los registros %1$@ · sin anotar %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1162,6 +1474,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "More than the records say — perhaps an income not written down; it is not laid out as spending"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más de lo que dicen los registros — quizá un ingreso sin anotar; no se reparte como gasto"
           }
         },
         "ru": {
@@ -1187,6 +1505,12 @@
             "value": "No account in «Total» was counted yet. Make a count first, and the wizard will know what to compare with."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no se contó ninguna cuenta de «Total». Haga antes un recuento y el asistente sabrá con qué comparar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1208,6 +1532,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Every balance matches the records: nothing to restore"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada saldo coincide con los registros: nada que restaurar"
           }
         },
         "ru": {
@@ -1234,6 +1564,12 @@
             "value": "Cancel"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1255,6 +1591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The balances changed while the wizard was open. Close it and count again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los saldos cambiaron mientras el asistente estaba abierto. Ciérrelo y cuente de nuevo."
           }
         },
         "ru": {
@@ -1280,6 +1622,12 @@
             "value": "Add a line"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir una línea"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1301,6 +1649,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lines without a category — «Unknown»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Líneas sin categoría — «Desconocida»"
           }
         },
         "ru": {
@@ -1327,6 +1681,12 @@
             "value": "Category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1348,6 +1708,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Laid out in full"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repartido por completo"
           }
         },
         "ru": {
@@ -1373,6 +1739,12 @@
             "value": "Each line needs a category; «Unknown» is a choice too. The lines of an account add up to what is missing on it."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada línea necesita una categoría; «Desconocida» también es una elección. Las líneas de una cuenta suman lo que falta en ella."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1394,6 +1766,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Left to lay out: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queda por repartir: %@"
           }
         },
         "ru": {
@@ -1419,6 +1797,12 @@
             "value": "What it was (optional)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué fue (opcional)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1440,6 +1824,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove the line"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar la línea"
           }
         },
         "ru": {
@@ -1466,6 +1856,12 @@
             "value": "Next"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siguiente"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1487,6 +1883,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Could not write the operations"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron escribir las operaciones"
           }
         },
         "ru": {
@@ -1512,6 +1914,12 @@
             "value": "Every line needs an amount above zero"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada línea necesita un importe mayor que cero"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1533,6 +1941,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pick a category for every line"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija una categoría para cada línea"
           }
         },
         "ru": {
@@ -1558,6 +1972,12 @@
             "value": "The lines of an account do not add up to what is missing on it"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las líneas de una cuenta no suman lo que falta en ella"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1579,6 +1999,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Write down"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anotar"
           }
         },
         "ru": {
@@ -1604,6 +2030,12 @@
             "value": "Written down"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anotado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1625,6 +2057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "1. What is on the accounts now"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Lo que hay ahora en las cuentas"
           }
         },
         "ru": {
@@ -1650,6 +2088,12 @@
             "value": "2. Lay the spending out over the days"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Repartir el gasto por días"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1671,6 +2115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing was entered from %1$@ to %2$@. First the balances, then the days."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se anotó nada desde el %1$@ hasta el %2$@. Primero los saldos, luego los días."
           }
         },
         "ru": {
@@ -1696,6 +2146,12 @@
             "value": "Restore the days missed"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar los días sin anotar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1717,6 +2173,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "day %1$lld of %2$lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "día %1$lld de %2$lld"
           }
         },
         "ru": {
@@ -1743,6 +2205,12 @@
             "value": "Hide"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1764,6 +2232,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld of %2$lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
           }
         },
         "ru": {
@@ -1789,6 +2263,12 @@
             "value": "Show where"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar dónde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1810,6 +2290,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The first month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El primer mes"
           }
         },
         "ru": {
@@ -1835,6 +2321,12 @@
             "value": "Beginner mode"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo principiante"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1856,6 +2348,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Complex sections stay visible but dimmed until they have something to show"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las secciones complejas se ven atenuadas hasta que tengan algo que mostrar"
           }
         },
         "ru": {
@@ -1881,6 +2379,12 @@
             "value": "Ask about the day's spending in the evening"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preguntar por los gastos del día por la noche"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1902,6 +2406,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«No spending today?» counts the day in the streak"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«¿Sin gastos hoy?» cuenta el día en la racha"
           }
         },
         "ru": {
@@ -1927,6 +2437,12 @@
             "value": "Evening starts at"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La noche empieza a las"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1948,6 +2464,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show the checklist of the first month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar la lista del primer mes"
           }
         },
         "ru": {
@@ -1973,6 +2495,12 @@
             "value": "Offer to restore after days without entries"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ofrecer restaurar tras días sin apuntes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1994,6 +2522,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A line in «Worth a look», not a notification"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una línea en «Merece una mirada», no una notificación"
           }
         },
         "ru": {
@@ -2018,6 +2552,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Habits"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hábitos"
           }
         },
         "ru": {

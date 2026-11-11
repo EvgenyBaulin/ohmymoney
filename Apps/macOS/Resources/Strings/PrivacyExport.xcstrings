@@ -10,6 +10,12 @@
             "value": "Anonymize"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonimizar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descriptions, comments, places and names are erased in the copy. Amounts, dates and categories stay. The original does not change."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En la copia se borran descripciones, comentarios, lugares y nombres. Los importes, las fechas y las categorías se quedan. El original no cambia."
           }
         },
         "ru": {
@@ -56,6 +68,12 @@
             "value": "Include attachments (%@)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incluir los adjuntos (%@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -77,6 +95,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The copy is ready"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia está lista"
           }
         },
         "ru": {
@@ -102,6 +126,12 @@
             "value": "Attachments: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adjuntos: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +153,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Locked with your password."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueada con su contraseña."
           }
         },
         "ru": {
@@ -155,6 +191,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations in the copy"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones en la copia"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación en la copia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones en la copia"
                 }
               }
             }
@@ -243,6 +303,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias en la copia"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencia en la copia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias en la copia"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -314,6 +398,12 @@
             "value": "Anonymizing is not available in this build, so the copy was not made."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La anonimización no está disponible en esta compilación, así que la copia no se hizo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -335,6 +425,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A hidden account is still used by something the copy keeps, so it cannot be left out. Include hidden accounts, or show the account again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una cuenta oculta todavía la usa algo que la copia conserva, así que no se puede dejar fuera. Incluya las cuentas ocultas, o vuelva a mostrar la cuenta."
           }
         },
         "ru": {
@@ -360,6 +456,12 @@
             "value": "The copy was not made. Nothing was changed."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia no se hizo. No se cambió nada."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -381,6 +483,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Enter a password: a copy without one is not made."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba una contraseña: no se hace una copia sin ella."
           }
         },
         "ru": {
@@ -406,6 +514,12 @@
             "value": "The period is empty: the end is before the start."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El periodo está vacío: el final es anterior al inicio."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -427,6 +541,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Format"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato"
           }
         },
         "ru": {
@@ -452,6 +572,12 @@
             "value": "Transfer archive"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivo de traslado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -473,6 +599,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "CSV only"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo CSV"
           }
         },
         "ru": {
@@ -499,6 +631,12 @@
             "value": "From"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -520,6 +658,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Include hidden accounts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incluir cuentas ocultas"
           }
         },
         "ru": {
@@ -545,6 +689,12 @@
             "value": "Without it the copy has no hidden accounts, and none of their operations or transfers."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin ello, la copia no tiene cuentas ocultas, ni sus operaciones ni transferencias."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -566,6 +716,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The copy will include hidden accounts."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia incluirá cuentas ocultas."
           }
         },
         "ru": {
@@ -591,6 +747,12 @@
             "value": "Left out: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejadas fuera: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -612,6 +774,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A copy — the original stays with you."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una copia — el original se queda con usted."
           }
         },
         "ru": {
@@ -638,6 +806,12 @@
             "value": "Password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraseña"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -660,6 +834,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Repeat the password"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repita la contraseña"
           }
         },
         "ru": {
@@ -685,6 +865,12 @@
             "value": "The copy is locked with this password. Nobody can open it without it, and it cannot be recovered. The original stays with you, unchanged."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia se bloquea con esta contraseña. Nadie puede abrirla sin ella, y no se puede recuperar. El original se queda con usted, sin cambios."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -706,6 +892,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "attachments: %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "adjuntos: %lld"
           }
         },
         "ru": {
@@ -732,6 +924,12 @@
             "value": "Counting…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contando…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -753,6 +951,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Will include:"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incluirá:"
           }
         },
         "ru": {
@@ -786,6 +990,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones"
                 }
               }
             }
@@ -874,6 +1102,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -945,6 +1197,12 @@
             "value": "Enter a password: a copy without one is not made."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba una contraseña: no se hace una copia sin ella."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -966,6 +1224,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The passwords differ."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las contraseñas no coinciden."
           }
         },
         "ru": {
@@ -991,6 +1255,12 @@
             "value": "The period is empty: the end is before the start."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El periodo está vacío: el final es anterior al inicio."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1012,6 +1282,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Save Copy…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar copia…"
           }
         },
         "ru": {
@@ -1037,6 +1313,12 @@
             "value": "Part of the history"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte del historial"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1058,6 +1340,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "For a period"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por periodo"
           }
         },
         "ru": {
@@ -1083,6 +1371,12 @@
             "value": "Whole database"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toda la base de datos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1106,6 +1400,12 @@
             "value": "Show the password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar la contraseña"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1127,6 +1427,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Export a copy"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar una copia"
           }
         },
         "ru": {
@@ -1153,6 +1459,12 @@
             "value": "To"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1174,6 +1486,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Making the copy…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haciendo la copia…"
           }
         },
         "ru": {
@@ -1199,6 +1517,12 @@
             "value": "Back to My Data"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a Mis datos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1222,6 +1546,12 @@
             "value": "Training data"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos de entrenamiento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1243,6 +1573,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "These numbers are made up. Your own database is not open."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estas cifras son inventadas. Su base de datos propia no está abierta."
           }
         },
         "ru": {
@@ -1269,6 +1605,12 @@
             "value": "Show"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1290,6 +1632,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The app restarts on made-up data. Your own database is not touched, and one button brings you back."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app se reinicia con datos inventados. Su base de datos propia no se toca, y un botón le devuelve."
           }
         },
         "ru": {
@@ -1315,6 +1663,12 @@
             "value": "Show the app on training data?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mostrar la app con datos de entrenamiento?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1338,6 +1692,12 @@
             "value": "Encrypt (opens in OhMyMoney)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cifrar (se abre en OhMyMoney)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1359,6 +1719,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Clear the journal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar el diario"
           }
         },
         "ru": {
@@ -1385,6 +1751,12 @@
             "value": "Clear"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1406,6 +1778,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "All entries in the opening journal will be removed."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se eliminarán todas las líneas del diario de apertura."
           }
         },
         "ru": {
@@ -1431,6 +1809,12 @@
             "value": "Clear the journal?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Borrar el diario?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1452,6 +1836,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No lines yet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay líneas."
           }
         },
         "ru": {
@@ -1477,6 +1867,12 @@
             "value": "A copy was exported"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se exportó una copia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1498,6 +1894,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hidden accounts shown"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuentas ocultas mostradas"
           }
         },
         "ru": {
@@ -1523,6 +1925,12 @@
             "value": "Locked"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1544,6 +1952,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "App opened"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App abierta"
           }
         },
         "ru": {
@@ -1569,6 +1983,12 @@
             "value": "View-only mode turned off"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo solo ver desactivado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1590,6 +2010,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "View-only mode turned on"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo solo ver activado"
           }
         },
         "ru": {
@@ -1615,6 +2041,12 @@
             "value": "Unlocked with the password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloqueada con la contraseña"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1636,6 +2068,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Unlocked with Touch ID"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloqueada con Touch ID"
           }
         },
         "ru": {
@@ -1661,6 +2099,12 @@
             "value": "The journal lives only on this Mac. It holds moments and kinds of events — no amounts, names or titles — and it does not go into a copy or an archive."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El diario vive solo en este Mac. Guarda momentos y tipos de eventos — sin importes, nombres ni títulos — y no entra en ninguna copia ni archivo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1682,6 +2126,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep for"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar"
           }
         },
         "ru": {
@@ -1714,6 +2164,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld días"
                 }
               }
             }
@@ -1790,6 +2264,12 @@
             "value": "Journal of openings"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diario de aperturas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1811,6 +2291,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Whoever opens the file needs this password. It cannot be recovered."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quien abra el archivo necesita esta contraseña. No se puede recuperar."
           }
         },
         "ru": {
@@ -1836,6 +2322,12 @@
             "value": "Lock the file with a password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloquear el archivo con una contraseña"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1857,6 +2349,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Export Copy…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar copia…"
           }
         },
         "ru": {
@@ -1882,6 +2380,12 @@
             "value": "What the App Knows…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué sabe la app…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1903,6 +2407,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hide amounts while the screen is recorded"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar importes mientras se graba la pantalla"
           }
         },
         "ru": {
@@ -1928,6 +2438,12 @@
             "value": "Also while the screen is mirrored or shared in a call."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "También mientras la pantalla se duplica o se comparte en una llamada."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1949,6 +2465,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show on Training Data…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar con datos de entrenamiento…"
           }
         },
         "ru": {
@@ -1974,6 +2496,12 @@
             "value": "Export a Copy…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar una copia…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1995,6 +2523,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Handing over"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrega"
           }
         },
         "ru": {
@@ -2020,6 +2554,12 @@
             "value": "A copy is locked with a password; the original stays unchanged. Training data are made-up numbers, and your own database is not opened."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una copia se bloquea con contraseña; el original no cambia. Los datos de entrenamiento son cifras inventadas, y su base de datos propia no se abre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2041,6 +2581,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Journal of openings…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diario de aperturas…"
           }
         },
         "ru": {
@@ -2066,6 +2612,12 @@
             "value": "What the app knows"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué sabe la app"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2087,6 +2639,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The journal and the counts are shown here only; they are not sent anywhere."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El diario y los recuentos solo se muestran aquí; no se envían a ningún sitio."
           }
         },
         "ru": {
@@ -2112,6 +2670,12 @@
             "value": "Lock and password…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueo y contraseña…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2135,6 +2699,12 @@
             "value": "View only"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo ver"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2156,6 +2726,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The app shows everything and changes nothing."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app lo muestra todo y no cambia nada."
           }
         },
         "ru": {
@@ -2182,6 +2758,12 @@
             "value": "Screen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pantalla"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2203,6 +2785,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "What is stored…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué se guarda…"
           }
         },
         "ru": {
@@ -2229,6 +2817,12 @@
             "value": "Attachments"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adjuntos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2250,6 +2844,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copies"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copias"
           }
         },
         "ru": {
@@ -2283,6 +2883,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld copies"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copias"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copias"
                 }
               }
             }
@@ -2371,6 +2995,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld archivos"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld archivo"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld archivos"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2449,6 +3097,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld lines"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld líneas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld línea"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld líneas"
                 }
               }
             }
@@ -2537,6 +3209,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registro"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2608,6 +3304,12 @@
             "value": "Database"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Base de datos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2629,6 +3331,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Only counts and sizes are shown here. Nothing is sent anywhere."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí solo se muestran recuentos y tamaños. Nada se envía a ningún sitio."
           }
         },
         "ru": {
@@ -2654,6 +3362,12 @@
             "value": "Journal of openings"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diario de aperturas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2675,6 +3389,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Records"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registros"
           }
         },
         "ru": {
@@ -2700,6 +3420,12 @@
             "value": "By table"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por tabla"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2721,6 +3447,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "What the app knows"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué sabe la app"
           }
         },
         "ru": {
@@ -2746,6 +3478,12 @@
             "value": "Total on disk"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total en el disco"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2764,6 +3502,12 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "B"
@@ -2792,6 +3536,12 @@
             "value": "GB"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2810,6 +3560,12 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "KB"
@@ -2838,6 +3594,12 @@
             "value": "MB"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2859,6 +3621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Where it lies"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dónde está"
           }
         },
         "ru": {
@@ -2884,6 +3652,12 @@
             "value": "Copies"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copias"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2905,6 +3679,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Data folder"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpeta de datos"
           }
         },
         "ru": {
@@ -2930,6 +3710,12 @@
             "value": "The paths are only shown: the database and the archive do not hold them."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las rutas solo se muestran: la base de datos y el archivo no las guardan."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2951,6 +3737,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Folder of mirrored copies"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpeta de copias reflejadas"
           }
         },
         "ru": {

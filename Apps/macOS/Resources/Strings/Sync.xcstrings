@@ -11,6 +11,12 @@
             "value": "The copy in the folder is damaged. Nothing was taken."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia de la carpeta está dañada. No se tomó nada."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -33,6 +39,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The folder holds a full copy of another device's data. You can take it as your own: the app first saves a copy of what is here, then puts the data in place the next time it starts. This is possible only while this device has none of your records."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carpeta guarda una copia completa de los datos de otro dispositivo. Puede tomarla como propia: la app primero guarda una copia de lo que hay aquí, y luego coloca los datos en su sitio al siguiente inicio. Solo es posible mientras este dispositivo no tenga ninguno de sus registros."
           }
         },
         "ru": {
@@ -59,6 +71,12 @@
             "value": "The data could not be loaded. Nothing was changed; try again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron cargar los datos. No se cambió nada; inténtelo de nuevo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -81,6 +99,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Load data from the folder"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargar los datos de la carpeta"
           }
         },
         "ru": {
@@ -107,6 +131,12 @@
             "value": "Loading the data…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargando los datos…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -129,6 +159,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The copy was written by a newer version of the app. Update this app and try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia la escribió una versión más reciente de la app. Actualice esta app e inténtelo de nuevo."
           }
         },
         "ru": {
@@ -155,6 +191,12 @@
             "value": "The folder holds no copy of the data yet. Open the app on the other device with this same folder and wait until it writes the copy."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carpeta todavía no tiene una copia de los datos. Abra la app en el otro dispositivo con esta misma carpeta y espere a que escriba la copia."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -177,6 +219,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose the exchange folder first."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija primero la carpeta de intercambio."
           }
         },
         "ru": {
@@ -203,6 +251,12 @@
             "value": "There are already records here, so they are not replaced."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí ya hay registros, así que no se reemplazan."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -225,6 +279,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copy from %@ · device %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia de %1$@ · dispositivo %2$@"
           }
         },
         "ru": {
@@ -251,6 +311,12 @@
             "value": "Close the app completely and open it again: the data is put in place at launch."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cierre la app por completo y ábrala de nuevo: los datos se colocan al iniciarse."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -273,6 +339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Restart"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reiniciar"
           }
         },
         "ru": {
@@ -299,6 +371,12 @@
             "value": "The data is ready. Restart the app to see it."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los datos están listos. Reinicie la app para verlos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -323,6 +401,12 @@
             "value": "Data from the folder"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos de la carpeta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -345,6 +429,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Changed on two devices"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiado en dos dispositivos"
           }
         },
         "ru": {
@@ -378,6 +468,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld records are waiting for your choice"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros esperan su elección"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registro espera su elección"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros esperan su elección"
                 }
               }
             }
@@ -455,6 +569,12 @@
             "value": "Deleted here"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminado aquí"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -477,6 +597,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deleted on the other device"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminado en el otro dispositivo"
           }
         },
         "ru": {
@@ -503,6 +629,12 @@
             "value": "differs"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "difiere"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -525,6 +657,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No conflicts. A record changed on two devices at once waits here."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay conflictos. Aquí espera un registro cambiado en dos dispositivos a la vez."
           }
         },
         "ru": {
@@ -551,6 +689,12 @@
             "value": "Left — mine (this device), right — the other device."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A la izquierda, el mío (este dispositivo); a la derecha, el otro dispositivo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -573,6 +717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Until you choose, the other version is not saved in your books and is in no sum."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasta que elija, la otra versión no se guarda en sus cuentas y no entra en ninguna suma."
           }
         },
         "ru": {
@@ -599,6 +749,12 @@
             "value": "Keep mine"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quedarme con el mío"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -621,6 +777,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mine"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mío"
           }
         },
         "ru": {
@@ -647,6 +809,12 @@
             "value": "other"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "otro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -669,6 +837,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Review"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisar"
           }
         },
         "ru": {
@@ -695,6 +869,12 @@
             "value": "Take the other"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tomar el otro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -717,6 +897,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Other device"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otro dispositivo"
           }
         },
         "ru": {
@@ -743,6 +929,12 @@
             "value": "Conflicts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflictos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -765,6 +957,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "waiting for a decision"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "esperando una decisión"
           }
         },
         "ru": {
@@ -791,6 +989,12 @@
             "value": "The database did not take the changes. Nothing was lost; try again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La base de datos no aceptó los cambios. No se perdió nada; inténtelo de nuevo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -813,6 +1017,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Exchange files could not be encrypted or read. Create a key on your first device or enter its 24 recovery words on other devices. Update OhMyMoney on all devices, then try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los archivos de intercambio no se pudieron cifrar ni leer. Cree una clave en su primer dispositivo o introduzca sus 24 palabras de recuperación en los demás dispositivos. Actualice OhMyMoney en todos los dispositivos e inténtelo de nuevo."
           }
         },
         "ru": {
@@ -839,6 +1049,12 @@
             "value": "The exchange folder is not available. Check that iCloud Drive is on, or choose the folder again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carpeta de intercambio no está disponible. Compruebe que iCloud Drive esté activado, o elija la carpeta de nuevo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -861,6 +1077,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The files in the exchange folder cannot be read. Nothing was lost."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los archivos de la carpeta de intercambio no se pueden leer. No se perdió nada."
           }
         },
         "ru": {
@@ -887,6 +1109,12 @@
             "value": "Nothing can be written to the exchange folder. Your changes wait and go out later."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se puede escribir nada en la carpeta de intercambio. Sus cambios esperan y se envían más tarde."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -909,6 +1137,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This folder holds or lies inside your database or its copies. Choose another one."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta carpeta guarda o está dentro de su base de datos o sus copias. Elija otra."
           }
         },
         "ru": {
@@ -935,6 +1169,12 @@
             "value": "Amount"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -957,6 +1197,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Amount in ₽"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe en ₽"
           }
         },
         "ru": {
@@ -983,6 +1229,12 @@
             "value": "Category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1005,6 +1257,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Currency"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divisa"
           }
         },
         "ru": {
@@ -1031,6 +1289,12 @@
             "value": "Date"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fecha"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1053,6 +1317,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kind"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         },
         "ru": {
@@ -1079,6 +1349,12 @@
             "value": "Name"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1101,6 +1377,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Description"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descripción"
           }
         },
         "ru": {
@@ -1127,6 +1409,12 @@
             "value": "Date"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fecha"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1149,6 +1437,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Other details"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otros datos"
           }
         },
         "ru": {
@@ -1175,6 +1469,12 @@
             "value": "Change folder…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar carpeta…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1197,6 +1497,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose folder…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir carpeta…"
           }
         },
         "ru": {
@@ -1223,6 +1529,12 @@
             "value": "Not chosen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin elegir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1245,6 +1557,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Only journal files go into this folder — never your database or its copies."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A esta carpeta solo van archivos del diario — nunca su base de datos ni sus copias."
           }
         },
         "ru": {
@@ -1271,6 +1589,12 @@
             "value": "Stop exchanging"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejar de intercambiar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1293,6 +1617,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Suggested: iCloud Drive › OhMyMoney › Sync"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sugerida: iCloud Drive › OhMyMoney › Sync"
           }
         },
         "ru": {
@@ -1319,6 +1649,12 @@
             "value": "Exchange folder"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpeta de intercambio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1341,6 +1677,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conflict"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflicto"
           }
         },
         "ru": {
@@ -1367,6 +1709,12 @@
             "value": "Retry"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reintentar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1389,6 +1737,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Exchange failed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El intercambio falló"
           }
         },
         "ru": {
@@ -1415,6 +1769,12 @@
             "value": "Exchange is off"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El intercambio está desactivado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1439,6 +1799,12 @@
             "value": "Choose a folder to exchange records with your other devices."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija una carpeta para intercambiar registros con sus otros dispositivos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1461,6 +1827,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Syncing…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizando…"
           }
         },
         "ru": {
@@ -1494,6 +1866,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld existing records sent to the folder"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros existentes enviados a la carpeta"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registro existente enviado a la carpeta"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros existentes enviados a la carpeta"
                 }
               }
             }
@@ -1571,6 +1967,12 @@
             "value": "A fresh copy of all the data is in the folder."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hay en la carpeta una copia nueva de todos los datos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1595,6 +1997,12 @@
             "value": "Synced"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1617,6 +2025,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Last exchange %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último intercambio %@"
           }
         },
         "ru": {
@@ -1650,6 +2064,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld changes in the queue"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld cambios en la cola"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld cambio en la cola"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld cambios en la cola"
                 }
               }
             }
@@ -1727,6 +2165,12 @@
             "value": "Waiting"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En espera"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1749,6 +2193,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Card"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta"
           }
         },
         "ru": {
@@ -1775,6 +2225,12 @@
             "value": "Category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1797,6 +2253,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Debt"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deuda"
           }
         },
         "ru": {
@@ -1823,6 +2285,12 @@
             "value": "Event"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1845,6 +2313,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Goal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo"
           }
         },
         "ru": {
@@ -1871,6 +2345,12 @@
             "value": "Record"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1893,6 +2373,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta"
           }
         },
         "ru": {
@@ -1919,6 +2405,12 @@
             "value": "Person"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Persona"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1941,6 +2433,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Place"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugar"
           }
         },
         "ru": {
@@ -1967,6 +2465,12 @@
             "value": "Template"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plantilla"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1989,6 +2493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Part of an operation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte de una operación"
           }
         },
         "ru": {
@@ -2015,6 +2525,12 @@
             "value": "Operation"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operación"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2037,6 +2553,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transfer"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia"
           }
         },
         "ru": {

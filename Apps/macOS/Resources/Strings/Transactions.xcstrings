@@ -10,6 +10,12 @@
             "value": "rate of %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tipo de %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -34,6 +40,12 @@
             "value": "Apply"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplicar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -55,6 +67,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Category…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría…"
           }
         },
         "ru": {
@@ -87,6 +105,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Delete %lld operations?"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Eliminar %lld operaciones?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Eliminar %lld operación?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Eliminar %lld operaciones?"
                 }
               }
             }
@@ -175,6 +217,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Cambiar %lld operaciones?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Cambiar %lld operación?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Cambiar %lld operaciones?"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -246,6 +312,12 @@
             "value": "Delete and Reopen the Debt «%@»"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar y reabrir la deuda «%@»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -267,6 +339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The payment closed a debt: %@. Once it is deleted money is owed on it again, and the debt stays closed unless you reopen it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El pago cerró una deuda: %@. Una vez eliminado, vuelve a deberse dinero en ella, y la deuda se queda cerrada salvo que la reabra."
           }
         },
         "ru": {
@@ -292,6 +370,12 @@
             "value": "Payments on debts are taken off their debts too."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los pagos de deudas también se quitan de sus deudas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -313,6 +397,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Money given back takes its surplus or shortfall along, and the parts it closed wait to be paid back again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El dinero devuelto arrastra su excedente o déficit, y las partes que cerró vuelven a esperar su devolución."
           }
         },
         "ru": {
@@ -339,6 +429,12 @@
             "value": "Event"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -361,6 +457,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "For whom"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para quién"
           }
         },
         "ru": {
@@ -387,6 +489,12 @@
             "value": "None"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ninguno"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -410,6 +518,12 @@
             "value": "Nothing to change"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada que cambiar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -431,6 +545,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing to delete"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada que eliminar"
           }
         },
         "ru": {
@@ -463,6 +583,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "In %lld operations some parts stay as they are:"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "En %lld operaciones algunas partes se quedan como están:"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "En %lld operación algunas partes se quedan como están:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "En %lld operaciones algunas partes se quedan como están:"
                 }
               }
             }
@@ -540,6 +684,12 @@
             "value": "Account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -563,6 +713,12 @@
             "value": "Person…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Persona…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -584,6 +740,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Place…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugar…"
           }
         },
         "ru": {
@@ -610,6 +772,12 @@
             "value": "Quality"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calidad"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -631,6 +799,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "money was given back for a part of it — delete that reimbursement first"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "por una de sus partes ya se devolvió dinero — elimine antes esa devolución"
           }
         },
         "ru": {
@@ -656,6 +830,12 @@
             "value": "bought on credit — changed in Debts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "comprada a crédito — se cambia en Deudas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -677,6 +857,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Instalments were already paid on it — delete them first."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya se pagaron plazos de ella — elimínelos antes."
           }
         },
         "ru": {
@@ -702,6 +888,12 @@
             "value": "it is a payment on a debt"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "es un pago de una deuda"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -723,6 +915,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "income and money given back have no such field"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "los ingresos y el dinero devuelto no tienen ese campo"
           }
         },
         "ru": {
@@ -748,6 +946,12 @@
             "value": "it is a contribution to a goal"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "es una aportación a un objetivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -769,6 +973,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "a refund takes money back from it — delete the refund first"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "una devolución le quita dinero — elimine antes la devolución"
           }
         },
         "ru": {
@@ -794,6 +1004,12 @@
             "value": "income has no place"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "los ingresos no tienen lugar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -815,6 +1031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "it is money given back by a person"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "es dinero devuelto por una persona"
           }
         },
         "ru": {
@@ -840,6 +1062,12 @@
             "value": "income and money given back have no quality"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "los ingresos y el dinero devuelto no tienen calidad"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -861,6 +1089,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "no rate yet to work out what the account is charged"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "todavía no hay tipo para calcular cuánto se cargó a la cuenta"
           }
         },
         "ru": {
@@ -886,6 +1120,12 @@
             "value": "the category is of the other kind"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la categoría es del otro tipo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -907,6 +1147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "paid for somebody else"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pagada por otra persona"
           }
         },
         "ru": {
@@ -932,6 +1178,12 @@
             "value": "it is a reconciliation difference: its account comes from the count, and it never goes to Goals or a category of the app"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "es una diferencia de conciliación: su cuenta sale del recuento, y nunca va a Objetivos ni a una categoría de la app"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -953,6 +1205,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "the category has been archived or removed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la categoría se archivó o se eliminó"
           }
         },
         "ru": {
@@ -978,6 +1236,12 @@
             "value": "a system category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "una categoría del sistema"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1000,6 +1264,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar"
           }
         },
         "ru": {
@@ -1032,6 +1302,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations stay as they are:"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones se quedan como están:"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación se queda como está:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones se quedan como están:"
                 }
               }
             }
@@ -1120,6 +1414,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Entre las seleccionadas, %lld operaciones están divididas — el cambio afecta a todas sus partes."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Entre las seleccionadas, %lld operación está dividida — el cambio afecta a todas sus partes."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Entre las seleccionadas, %lld operaciones están divididas — el cambio afecta a todas sus partes."
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1191,6 +1509,12 @@
             "value": "⌘Z brings everything back."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z lo devuelve todo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1214,6 +1538,12 @@
             "value": "“Undo” brings everything back."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Deshacer» lo devuelve todo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1235,6 +1565,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This is a reconciliation difference: its amount, type, account, currency and date follow by themselves when you add or fix operations before the count. Delete it, and this count's difference will no longer be recorded."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta es una diferencia de conciliación: su importe, tipo, cuenta, divisa y fecha se ajustan solos cuando añade o corrige operaciones antes del recuento. Si la elimina, la diferencia de este recuento ya no se registrará."
           }
         },
         "ru": {
@@ -1261,6 +1597,12 @@
             "value": "All time"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo el tiempo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1285,6 +1627,12 @@
             "value": "Any"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cualquiera"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1306,6 +1654,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Custom range"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rango a medida"
           }
         },
         "ru": {
@@ -1332,6 +1686,12 @@
             "value": "Done"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1353,6 +1713,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing matches these filters"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada cumple estos filtros"
           }
         },
         "ru": {
@@ -1379,6 +1745,12 @@
             "value": "From"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1401,6 +1773,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Last month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes pasado"
           }
         },
         "ru": {
@@ -1427,6 +1805,12 @@
             "value": "Nothing found"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró nada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1449,6 +1833,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Period"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Periodo"
           }
         },
         "ru": {
@@ -1475,6 +1865,12 @@
             "value": "Person"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Persona"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1497,6 +1893,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reset"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restablecer"
           }
         },
         "ru": {
@@ -1523,6 +1925,12 @@
             "value": "Money back"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dinero devuelto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1545,6 +1953,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este mes"
           }
         },
         "ru": {
@@ -1571,6 +1985,12 @@
             "value": "This year"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este año"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1592,6 +2012,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Filters"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtros"
           }
         },
         "ru": {
@@ -1618,6 +2044,12 @@
             "value": "To"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1640,6 +2072,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Type"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         },
         "ru": {
@@ -1665,6 +2103,12 @@
             "value": "Save them, or let them go."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guárdelos, o descártelos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1686,6 +2130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The inspector closed with changes you have not saved"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El inspector se cerró con cambios sin guardar"
           }
         },
         "ru": {
@@ -1711,6 +2161,12 @@
             "value": "Don't Save"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No guardar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1732,6 +2188,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edit · "
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar · "
           }
         },
         "ru": {
@@ -1757,6 +2219,12 @@
             "value": "Another operation is being opened. Changes that are not saved will be lost."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se está abriendo otra operación. Los cambios que no se guarden se perderán."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1778,6 +2246,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Save the changes to this operation?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Guardar los cambios de esta operación?"
           }
         },
         "ru": {
@@ -1804,6 +2278,12 @@
             "value": "All"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1826,6 +2306,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Expenses"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gastos"
           }
         },
         "ru": {
@@ -1852,6 +2338,12 @@
             "value": "Income"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1876,6 +2368,12 @@
             "value": "Today"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoy"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1897,6 +2395,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Columns…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Columnas…"
           }
         },
         "ru": {
@@ -1923,6 +2427,12 @@
             "value": "Move Down"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bajar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1944,6 +2454,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Which columns are shown, in what order and how wide. Drag a row or use the arrows to move it. The description and the amount are always shown."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué columnas se muestran, en qué orden y con qué anchura. Arrastre una fila o use las flechas para moverla. La descripción y el importe siempre se muestran."
           }
         },
         "ru": {
@@ -1969,6 +2485,12 @@
             "value": "Reset to Defaults"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a los valores por defecto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1992,6 +2514,12 @@
             "value": "The standard columns, their order and widths, and no filters or search."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las columnas estándar, su orden y anchuras, y sin filtros ni búsqueda."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2013,6 +2541,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Columns of the table"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Columnas de la tabla"
           }
         },
         "ru": {
@@ -2039,6 +2573,12 @@
             "value": "Move Up"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2060,6 +2600,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Width %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anchura %@"
           }
         },
         "ru": {
@@ -2085,6 +2631,12 @@
             "value": "Compact Operations List"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lista de operaciones compacta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2108,6 +2660,12 @@
             "value": "Operation Filters…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtros de operaciones…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2129,6 +2687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Previous month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes anterior"
           }
         },
         "ru": {
@@ -2155,6 +2719,12 @@
             "value": "Next month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes siguiente"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2177,6 +2747,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "New operation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nueva operación"
           }
         },
         "ru": {
@@ -2203,6 +2779,12 @@
             "value": "Transfer"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2226,6 +2808,12 @@
             "value": "Search operations"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar operaciones"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2247,6 +2835,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search the whole history: words, category, place, account, amount"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar en todo el historial: palabras, categoría, lugar, cuenta, importe"
           }
         },
         "ru": {
@@ -2273,6 +2867,12 @@
             "value": "Search"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2294,6 +2894,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "split %@ ways"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a partes entre %@"
           }
         },
         "ru": {
@@ -2319,6 +2925,12 @@
             "value": "for %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "para %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2342,6 +2954,12 @@
             "value": "a gift"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "un regalo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2363,6 +2981,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "half with %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a medias con %@"
           }
         },
         "ru": {
@@ -2389,6 +3013,12 @@
             "value": "Change"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2410,6 +3040,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Clear selection"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar la selección"
           }
         },
         "ru": {
@@ -2443,6 +3079,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones"
                 }
               }
             }
@@ -2520,6 +3180,12 @@
             "value": "Delete…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2541,6 +3207,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saving the changes…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardando los cambios…"
           }
         },
         "ru": {
@@ -2566,6 +3238,12 @@
             "value": "The change wasn’t saved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El cambio no se guardó"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2587,6 +3265,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Couldn’t delete"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo eliminar"
           }
         },
         "ru": {
@@ -2612,6 +3296,12 @@
             "value": "The database didn’t accept the write, and nothing changed. The error is in the journal (Help → Collect a Problem Report…)."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La base de datos no aceptó la escritura, y no cambió nada. El error está en el diario (Ayuda → Reunir informe del problema…)."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2633,6 +3323,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Some of these operations changed elsewhere while you were choosing where the money goes, so the transfer no longer matches them. Nothing changed: select the operations and make the change again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algunas de estas operaciones cambiaron en otro sitio mientras elegía adónde va el dinero, así que la transferencia ya no les corresponde. No cambió nada: seleccione las operaciones y haga el cambio de nuevo."
           }
         },
         "ru": {
@@ -2658,6 +3354,12 @@
             "value": "Couldn’t undo"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo deshacer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2679,6 +3381,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The database didn’t accept the write. Nothing changed, and the step stays: ⌘Z will try it again. The error is in the journal (Help → Collect a Problem Report…)."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La base de datos no aceptó la escritura. No cambió nada, y el paso se queda: ⌘Z lo volverá a intentar. El error está en el diario (Ayuda → Reunir informe del problema…)."
           }
         },
         "ru": {
@@ -2704,6 +3412,12 @@
             "value": "The database didn’t accept the write. Nothing changed, and the step stays: “Undo” will try it again. The error is in the journal (Settings → Help → Collect a Problem Report)."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La base de datos no aceptó la escritura. No cambió nada, y el paso se queda: «Deshacer» lo volverá a intentar. El error está en el diario (Ajustes → Ayuda → Reunir informe del problema)."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2727,6 +3441,12 @@
             "value": "Something done since depends on this step — for example, an operation was filed under a category it created — or the step brings back something that points at a thing deleted since. Nothing changed, and the step stays: sort that out, then undo again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algo hecho después depende de este paso — por ejemplo, una operación se archivó en una categoría que ese paso creó — o el paso devuelve algo que apunta a una cosa eliminada desde entonces. No cambió nada, y el paso se queda: resuelva eso y deshaga de nuevo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2748,6 +3468,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "For others"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para otros"
           }
         },
         "ru": {
@@ -2774,6 +3500,12 @@
             "value": "Income"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2796,6 +3528,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Money back"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dinero devuelto"
           }
         },
         "ru": {
@@ -2822,6 +3560,12 @@
             "value": "Spent"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gastado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2846,6 +3590,12 @@
             "value": "Amount"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2865,6 +3615,12 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Cashback"
@@ -2894,6 +3650,12 @@
             "value": "Category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2916,6 +3678,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Description"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descripción"
           }
         },
         "ru": {
@@ -2942,6 +3710,12 @@
             "value": "Event"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2964,6 +3738,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "For whom"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para quién"
           }
         },
         "ru": {
@@ -2990,6 +3770,12 @@
             "value": "Comment"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comentario"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3012,6 +3798,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta"
           }
         },
         "ru": {
@@ -3038,6 +3830,12 @@
             "value": "Place"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3060,6 +3858,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quality"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calidad"
           }
         },
         "ru": {
@@ -3086,6 +3890,12 @@
             "value": "Time"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hora"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3107,6 +3917,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The data was not refreshed — showing it as of %@ · ⌘R to retry"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los datos no se actualizaron — se muestran a fecha de %@ · ⌘R para reintentar"
           }
         },
         "ru": {
@@ -3132,6 +3948,12 @@
             "value": "Day total"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total del día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3153,6 +3975,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delete this operation?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Eliminar esta operación?"
           }
         },
         "ru": {
@@ -3178,6 +4006,12 @@
             "value": "No operations yet. Type the first one in the floating entry line at the bottom of the window."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay operaciones. Escriba la primera en la línea de entrada flotante de la parte inferior de la ventana."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3199,6 +4033,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A refund cannot be more than what is left of the purchase to refund, and keeps the purchase’s currency and type."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una devolución no puede ser mayor que lo que queda de la compra por devolver, y mantiene la divisa y el tipo de la compra."
           }
         },
         "ru": {
@@ -3224,6 +4064,12 @@
             "value": "Some money for this part has come back already: its amount, currency, type and “paid for someone else” stay as they are — delete that money back first."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya volvió parte del dinero de esta parte: su importe, divisa, tipo y «pagado por otro» se quedan como están — elimine antes ese dinero devuelto."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3245,6 +4091,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A refund takes money back from this purchase — delete the refund first."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una devolución quita dinero de esta compra — elimine antes la devolución."
           }
         },
         "ru": {
@@ -3270,6 +4122,12 @@
             "value": "That is more than is left of the purchase to refund."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eso es más de lo que queda de la compra por devolver."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3291,6 +4149,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A refund must be more than zero."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una devolución debe ser mayor que cero."
           }
         },
         "ru": {
@@ -3316,6 +4180,12 @@
             "value": "This purchase cannot be refunded: it is paid for someone else, on credit, a debt payment or a goal contribution."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta compra no se puede devolver: está pagada por otro, a crédito, es un pago de deuda o una aportación a un objetivo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3337,6 +4207,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A refund is made in the currency of the purchase."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una devolución se hace en la divisa de la compra."
           }
         },
         "ru": {
@@ -3362,6 +4238,12 @@
             "value": "A refund takes money back from this purchase: its currency, type, “paid for someone else” and credit stay as they are — delete the refund first."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una devolución quita dinero de esta compra: su divisa, tipo, «pagado por otro» y crédito se quedan como están — elimine antes la devolución."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3383,6 +4265,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The part cannot be less than what its refunds already took back."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La parte no puede ser menor de lo que ya quitaron sus devoluciones."
           }
         },
         "ru": {
@@ -3408,6 +4296,12 @@
             "value": "A refund takes money back from this part — delete the refund first."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una devolución quita dinero de esta parte — elimine antes la devolución."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3429,6 +4323,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The transfer that keeps the archived account at zero cannot be written: the other account is in the archive now or does not hold the currency. Nothing was saved."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La transferencia que deja la cuenta archivada en cero no se puede escribir: la otra cuenta ahora está en el archivo o no tiene la divisa. No se guardó nada."
           }
         },
         "ru": {
@@ -3455,6 +4355,12 @@
             "value": "Expenses"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gastos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3477,6 +4383,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingresos"
           }
         },
         "ru": {
@@ -3503,6 +4415,12 @@
             "value": "from %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3524,6 +4442,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "money back — not income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dinero devuelto — no es ingreso"
           }
         },
         "ru": {
@@ -3550,6 +4474,12 @@
             "value": "No operations yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay operaciones"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3571,6 +4501,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "They are entered in the main window (⌘N)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se introducen en la ventana principal (⌘N)"
           }
         },
         "ru": {
@@ -3603,6 +4539,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld earlier operations are not shown yet"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones anteriores todavía no se muestran"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación anterior todavía no se muestra"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones anteriores todavía no se muestran"
                 }
               }
             }
@@ -3679,6 +4639,12 @@
             "value": "paid for %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pagado para %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3702,6 +4668,12 @@
             "value": "part %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "parte %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3723,6 +4695,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "refund of “%1$@”, %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "devolución de «%1$@», %2$@"
           }
         },
         "ru": {
@@ -3749,6 +4727,12 @@
             "value": "%@ refunded"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ devuelto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3771,6 +4755,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar"
           }
         },
         "ru": {
@@ -3796,6 +4786,12 @@
             "value": "several"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "varios"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3817,6 +4813,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show 3 more months"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar 3 meses más"
           }
         },
         "ru": {
@@ -3843,6 +4845,12 @@
             "value": "Transactions"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operaciones"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3864,6 +4872,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Exchange in “%1$@”: %2$@ → %3$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambio en «%1$@»: %2$@ → %3$@"
           }
         },
         "ru": {
@@ -3889,6 +4903,12 @@
             "value": "Transfer: %1$@ → %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia: %1$@ → %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3910,6 +4930,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transfers"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencias"
           }
         },
         "ru": {
@@ -3942,6 +4968,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "And %lld transfers."
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Y %lld transferencias."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Y %lld transferencia."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Y %lld transferencias."
                 }
               }
             }
@@ -4030,6 +5080,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Eliminar %lld transferencias?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Eliminar %lld transferencia?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "¿Eliminar %lld transferencias?"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -4101,6 +5175,12 @@
             "value": "Their fees, %@, are deleted with them."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sus comisiones, %@, se eliminan con ellas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4131,6 +5211,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transfers stay as they are."
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias se quedan como están."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencia se queda como está."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias se quedan como están."
                 }
               }
             }

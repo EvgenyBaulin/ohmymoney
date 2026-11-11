@@ -11,6 +11,12 @@
             "value": "Warranties"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantías"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -33,6 +39,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar"
           }
         },
         "ru": {
@@ -59,6 +71,12 @@
             "value": "No warranties yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay garantías"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -81,6 +99,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a warranty or a return term in the panel of an operation, or type it in the line: «warranty 2y», «return 14d»."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añada una garantía o un plazo de devolución en el panel de una operación, o escríbalo en la línea: «garantía 2a», «devolución 14d»."
           }
         },
         "ru": {
@@ -107,6 +131,12 @@
             "value": "Where the original is"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dónde está el original"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -129,6 +159,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "box in the closet, folder «Appliances»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "caja en el armario, carpeta «Electrodomésticos»"
           }
         },
         "ru": {
@@ -155,6 +191,12 @@
             "value": "Can be returned until"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se puede devolver hasta el"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -177,6 +219,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Warranty until"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantía hasta el"
           }
         },
         "ru": {
@@ -210,6 +258,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld days left"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Quedan %lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Queda %lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Quedan %lld días"
                 }
               }
             }
@@ -287,6 +359,12 @@
             "value": "Can be returned until %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se puede devolver hasta el %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -309,6 +387,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Warranty until %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantía hasta el %@"
           }
         },
         "ru": {
@@ -335,6 +419,12 @@
             "value": "Nothing found"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró nada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -357,6 +447,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open the operation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir la operación"
           }
         },
         "ru": {
@@ -383,6 +479,12 @@
             "value": "term is over"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el plazo ha terminado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -405,6 +507,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pick a date"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir una fecha"
           }
         },
         "ru": {
@@ -438,6 +546,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld días"
                 }
               }
             }
@@ -527,6 +659,30 @@
             }
           }
         },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld años"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld año"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld años"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -599,6 +755,12 @@
             "value": "Original: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Original: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -621,6 +783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Can be returned until %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se puede devolver hasta el %@"
           }
         },
         "ru": {
@@ -647,6 +815,12 @@
             "value": "Warranty until %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantía hasta el %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -669,6 +843,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search by name or place"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar por nombre o lugar"
           }
         },
         "ru": {
@@ -695,6 +875,12 @@
             "value": "Ended"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminadas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -717,6 +903,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Running"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En curso"
           }
         },
         "ru": {
@@ -743,6 +935,12 @@
             "value": "What is under warranty and what can still be returned"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué está en garantía y qué todavía se puede devolver"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -765,6 +963,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Warranties"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantías"
           }
         },
         "ru": {
@@ -791,6 +995,12 @@
             "value": "last day is today"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el último día es hoy"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -813,6 +1023,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Purchase of %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compra de %@"
           }
         },
         "ru": {
