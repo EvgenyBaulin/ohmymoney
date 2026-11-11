@@ -132,7 +132,7 @@ final class ReceiptQRDetectorTests: XCTestCase {
     XCTAssertEqual(ReceiptQRDetector.reading(ofFile: Data("not a file".utf8)), .noCode)
   }
 
-  /// The sheet takes PDFs too; the window keeps sending a dropped PDF to the statements.
+  /// The sheet takes PDFs too; the entry import routes them by their recognised content.
   func testTheSheetTakesPicturesAndPDFs() {
     let urls = [
       URL(fileURLWithPath: "/tmp/a.png"), URL(fileURLWithPath: "/tmp/b.HEIC"),
@@ -149,9 +149,8 @@ final class ReceiptQRDetectorTests: XCTestCase {
     ]
     XCTAssertEqual(
       ReceiptPresenter.pictures(in: urls).map(\.lastPathComponent), ["a.png", "b.JPG"])
-    XCTAssertEqual(
-      StatementImportPresenter.statementFiles(in: urls).map(\.lastPathComponent),
-      ["c.csv", "d.pdf"])
+    XCTAssertEqual(EntryImportFileKind.of("c.csv"), .statement)
+    XCTAssertEqual(EntryImportFileKind.of("d.pdf"), .document)
   }
 }
 
@@ -172,7 +171,8 @@ final class ReceiptTextTests: XCTestCase {
       ("receipt.supplement.question", 2), ("receipt.supplement.question.photo", 2),
       ("receipt.choices", 0), ("receipt.addTime", 0), ("receipt.addTimePhoto", 0),
       ("receipt.otherPurchase", 0), ("receipt.backToFound", 0), ("receipt.anotherReceipt", 0),
-      ("receipt.new.summary", 3), ("receipt.new.merchant", 1), ("receipt.new.category", 0), ("receipt.new.refundHint", 0),
+      ("receipt.new.summary", 3), ("receipt.new.merchant", 1), ("receipt.new.category", 0),
+      ("receipt.new.refundHint", 0),
       ("receipt.create", 0), ("receipt.createPhoto", 0), ("receipt.cancel", 0),
       ("receipt.done", 0), ("receipt.done.time", 1), ("receipt.done.created", 0),
       ("receipt.done.undo", 0), ("receipt.failed.notWritten", 0), ("receipt.failed.gone", 0),

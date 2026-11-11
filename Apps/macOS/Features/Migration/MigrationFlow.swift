@@ -7,6 +7,8 @@ import UniformTypeIdentifiers
 /// preview, and one «Перенести». A copy of the database is made first, and ⌘Z takes the whole move
 /// back. Opened from the File menu on the Mac and from Settings → Счета on every device.
 struct MigrationFlow: View {
+  var importedFile: EntryImportFile? = nil
+
   enum Step: String, CaseIterable, Identifiable {
     case columns, pairing, preview
     var id: String { rawValue }
@@ -40,8 +42,10 @@ struct MigrationFlow: View {
     .sheetFrame(minWidth: 720, idealWidth: 860, minHeight: 540, idealHeight: 680)
     .task {
       guard model == nil else { return }
-      model = MigrationModel(
+      let made = MigrationModel(
         environment: environment, store: store, dataset: { compute.snapshot?.dataset })
+      model = made
+      if let importedFile { await made.load(data: importedFile.data, name: importedFile.filename) }
     }
     .fileImporter(
       isPresented: $picking, allowedContentTypes: Self.contentTypes, allowsMultipleSelection: false
