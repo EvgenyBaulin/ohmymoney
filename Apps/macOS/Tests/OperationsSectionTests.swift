@@ -436,8 +436,10 @@ final class OperationsSectionTests: XCTestCase {
     state.editor = nil
     let narrowActions = OperationActions()
     let narrow = OperationsScreenState()
+    // A window of 800 pt or less hides the sidebar (`MainSidebarVisibility`), so the screen gets
+    // the whole width: it must be under the column's 740 (360 + 380) to fall back to the sheet.
     _ = mainWindow(
-      actions: narrowActions, on: .section(.operations), operations: narrow, width: 760)
+      actions: narrowActions, on: .section(.operations), operations: narrow, width: 700)
     narrowActions.edit([coffee.id], store: store)
     settle()
     XCTAssertNil(narrow.editor)

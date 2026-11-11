@@ -67,7 +67,7 @@ struct AnalyticsSectionView: View {
     case .forWhom: ForWhomSection(state: state, retry: retry, isWide: isWide)
     case .places: PlacesSection(state: state, retry: retry, isWide: isWide)
     case .events: EventsSection(state: state, retry: retry)
-    case .paymentMethods: PaymentMethodsSection(state: state, retry: retry)
+    case .paymentMethods: PaymentMethodsSection(state: state, retry: retry, isWide: isWide)
     case .incomeSavings: IncomeSavingsSection(isWide: isWide)
     case .forecast: ForecastSection(state: state, retry: retry)
     case .anomalies: AnomaliesSection(state: state, retry: retry)
@@ -311,25 +311,7 @@ private struct QualitySection: View {
         subtitle: t("analytics.basis.byDate"), state: state.block { $0.quality?.shares },
         retry: retry
       ) { columns in
-        let styles = Quality.allCases.map { AnalyticsText.qualityStyle($0, environment) }
-        let spansYears = Set(columns.map(\.month.year)).count > 1
-        StackedShareChart(
-          columns: columns.map { column in
-            ChartStack(
-              id: column.month.iso,
-              axisLabel: environment.dates.shortMonth(column.month, withYear: spansYears),
-              spokenLabel: environment.dates.monthTitle(column.month),
-              segments: column.segments.map { segment in
-                let percent = environment.money.percent(
-                  basisPoints: segment.basisPoints, fractionDigits: 0)
-                return ChartSegment(
-                  id: segment.quality.rawValue,
-                  style: AnalyticsText.qualityStyle(segment.quality, environment),
-                  start: segment.start, end: segment.end, text: percent,
-                  spokenValue: "\(environment.money.rubles(segment.value)), \(percent)")
-              })
-          },
-          styles: styles)
+        QualityShareLines(columns: columns)
       }
 
       if case .ready(let columns)? = state.value?.quality?.shares {
@@ -369,6 +351,38 @@ private struct QualitySection: View {
   }
 
   private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }
+}
+
+/// The shares of the three ratings month by month as three lines, as the frame draws them:
+/// a solid line, its own shape and colour for each rating, no figures at the left.
+private struct QualityShareLines: View {
+  @Dependency(\.environment) private var environment
+  let columns: [ShareColumn]
+
+  var body: some View {
+    let spansYears = Set(columns.map(\.month.year)).count > 1
+    let forms: [Quality: ChartSymbol] = [.good: .circle, .neutral: .square, .bad: .triangle]
+    let series = Quality.allCases.map { quality -> ChartLineSeries in
+      let style = AnalyticsText.qualityStyle(quality, environment)
+      let points = columns.enumerated().map { index, column -> ChartLinePoint in
+        let basisPoints = column.segments.first { $0.quality == quality }?.basisPoints ?? 0
+        return ChartLinePoint(
+          x: index, value: Int64(basisPoints),
+          spokenLabel: environment.dates.monthTitle(column.month),
+          valueText: environment.money.percent(basisPoints: basisPoints, fractionDigits: 0))
+      }
+      return ChartLineSeries(
+        id: quality.rawValue, label: style.label,
+        style: ChartSeriesStyle(
+          symbol: forms[quality] ?? .circle, dash: [], tint: style.tint),
+        points: points, endText: nil)
+    }
+    let ticks = Dictionary(
+      uniqueKeysWithValues: columns.enumerated().map { index, column in
+        (index, environment.dates.shortMonth(column.month, withYear: spansYears))
+      })
+    SeriesLineChart(series: series, xLabels: ticks, height: 240, showsValueLabels: false)
+  }
 }
 
 /// «Текущая — 12 дней», «лучшая — 40 дней»: two numbers, not a chart.
@@ -500,24 +514,131 @@ private struct OthersSection: View {
         subtitle: t("analytics.basis.byPurchase"), state: state.block { $0.others?.byPerson },
         retry: retry
       ) { people in
-        StackedRowChart(
-          rows: people.map { person in
-            let name =
-              person.personId.map { AnalyticsText.name(of: .person($0), names, environment) }
-              ?? t("analytics.none.person")
-            return ChartStack(
-              id: person.personId?.uuidString ?? "none", axisLabel: name, spokenLabel: name,
-              segments: person.segments.map { segment in
-                let text = environment.money.rubles(segment.value)
-                return ChartSegment(
-                  id: segment.kind.rawValue,
-                  style: AnalyticsText.othersStyle(segment.kind, environment),
-                  start: segment.start, end: segment.end, text: text, spokenValue: text)
-              })
-          },
-          styles: OthersSegment.allCases.map { AnalyticsText.othersStyle($0, environment) })
+        OthersPeopleTable(people: people, names: names)
       }
+      .bodyGap(0)
+
+      AnalyticsCard(
+        block: AnalyticsBlock.othersDynamics.rawValue,
+        title: t("analytics.block.othersDynamics"), subtitle: t("analytics.basis.byPurchase"),
+        state: state.block { $0.others?.dynamics }, retry: retry
+      ) { months in
+        OthersDynamicsChart(months: months)
+      }
+      .bodyGap(PairedBarsMetrics.spacing)
     }
+  }
+
+  private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }
+}
+
+/// «По людям» as the frame draws it: a header of five words, a row of 36 for each person —
+/// what waits, what came back and what was written off, each with the symbol of its status,
+/// then the whole — and the line that names the symbols.
+private struct OthersPeopleTable: View {
+  @Dependency(\.environment) private var environment
+  let people: [PersonStack]
+  let names: AnalyticsNames
+
+  private static let rowHeight: CGFloat = 36
+  private static let headerHeight: CGFloat = 21
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 0) {
+      HStack(spacing: 0) {
+        Text(verbatim: t("analytics.others.col.who"))
+        Spacer(minLength: 8)
+        Text(verbatim: t("analytics.others.col.waiting"))
+        Spacer(minLength: 8)
+        Text(verbatim: t("analytics.others.col.returned"))
+        Spacer(minLength: 8)
+        Text(verbatim: t("analytics.others.col.writtenOff"))
+        Spacer(minLength: 8)
+        Text(verbatim: t("analytics.others.col.total"))
+      }
+      .appFont(.system(size: 11))
+      .foregroundStyle(.secondary)
+      .frame(height: Self.headerHeight, alignment: .top)
+      ForEach(people, id: \.personId) { person in
+        Divider()
+        HStack(spacing: 0) {
+          Text(verbatim: name(person))
+            .appFont(.system(size: 13, weight: .semibold))
+          Spacer(minLength: 8)
+          figure(.expected, person, .waiting)
+          Spacer(minLength: 8)
+          figure(.returned, person, .returned)
+          Spacer(minLength: 8)
+          figure(.writtenOff, person, .writtenOff)
+          Spacer(minLength: 8)
+          Text(verbatim: environment.money.rubles(person.paid))
+            .appFont(.system(size: 13).monospacedDigit())
+        }
+        .frame(height: Self.rowHeight)
+        .accessibilityElement(children: .combine)
+      }
+      HStack(spacing: 4) {
+        key(.expected, "analytics.others.waiting", suffix: " ·")
+        key(.returned, "analytics.others.returned", suffix: " ·")
+        key(.writtenOff, "analytics.others.writtenOff", suffix: nil)
+        Text(verbatim: t("analytics.others.legend"))
+      }
+      .appFont(.system(size: 11))
+      .foregroundStyle(.secondary)
+      .padding(.top, 0)
+    }
+  }
+
+  private func name(_ person: PersonStack) -> String {
+    person.personId.map { AnalyticsText.name(of: .person($0), names, environment) }
+      ?? t("analytics.none.person")
+  }
+
+  private func figure(
+    _ status: ReimbursementStatus, _ person: PersonStack, _ kind: OthersSegment
+  )
+    -> some View
+  {
+    let value = person.segments.first { $0.kind == kind }?.value ?? 0
+    return HStack(spacing: 4) {
+      Image(systemName: Palette.reimbursementSymbol(status))
+        .appFont(.system(size: 13))
+        .accessibilityHidden(true)
+      Text(verbatim: environment.money.rubles(value))
+        .appFont(.system(size: 13).monospacedDigit())
+    }
+  }
+
+  private func key(_ status: ReimbursementStatus, _ key: String, suffix: String?) -> some View {
+    HStack(spacing: 4) {
+      Image(systemName: Palette.reimbursementSymbol(status)).accessibilityHidden(true)
+      Text(verbatim: t(key).lowercased() + (suffix ?? ""))
+    }
+  }
+
+  private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }
+}
+
+/// «Динамика»: six months, what was paid for others filled and what came back outlined.
+private struct OthersDynamicsChart: View {
+  @Dependency(\.environment) private var environment
+  @Environment(\.appAccent) private var accent
+  let months: [OthersMonth]
+
+  var body: some View {
+    let spansYears = Set(months.map(\.month.year)).count > 1
+    PairedBarsChart(
+      bars: months.map { item in
+        PairedBar(
+          id: item.month.iso,
+          axisLabel: environment.dates.shortMonth(item.month, withYear: spansYears),
+          first: item.paid, second: item.returned,
+          spokenLabel:
+            "\(environment.dates.monthTitle(item.month)), \(t("analytics.others.series.paid")) \(environment.money.rubles(item.paid)), \(t("analytics.others.series.returned")) \(environment.money.rubles(item.returned))"
+        )
+      },
+      firstLabel: t("analytics.others.series.paid"),
+      secondLabel: t("analytics.others.series.returned"), tint: ChartTint.green.color(accent))
   }
 
   private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }
@@ -571,22 +692,25 @@ private struct ForWhomSection: View {
   var body: some View {
     let names = state.value?.names ?? AnalyticsNames()
     VStack(alignment: .leading, spacing: 16) {
-      AnalyticsPair(isWide: isWide) {
-        AnalyticsCard(
-          block: AnalyticsBlock.forWhomValues.rawValue, title: t("analytics.block.forWhomValues"),
-          subtitle: t("analytics.basis.shareOfSpending"),
-          state: state.block { $0.forWhom?.values }, retry: retry
-        ) { values in
-          RankedBarChart(bars: AnalyticsText.bars(values, names: names, environment))
+      AnalyticsCard(
+        block: AnalyticsBlock.forWhomValues.rawValue, title: t("analytics.block.forWhomTrack"),
+        subtitle: t("analytics.basis.shareOfSpending"),
+        state: state.block { $0.forWhom?.values }, retry: retry
+      ) { values in
+        VStack(alignment: .leading, spacing: 14) {
+          TrackBarsChart(rows: AnalyticsText.trackRows(values, names: names, environment))
+          Text(verbatim: t("analytics.forWhom.note"))
+            .appFont(AnalyticsCardType.subtitle)
+            .foregroundStyle(.secondary)
         }
-      } second: {
-        AnalyticsCard(
-          block: AnalyticsBlock.forWhomPeople.rawValue, title: t("analytics.block.forWhomPeople"),
-          subtitle: t("analytics.basis.shareOfSpending"),
-          state: state.block { $0.forWhom?.people }, retry: retry
-        ) { values in
-          RankedBarChart(bars: AnalyticsText.bars(values, names: names, environment))
-        }
+      }
+
+      AnalyticsCard(
+        block: AnalyticsBlock.forWhomPeople.rawValue, title: t("analytics.block.forWhomPeople"),
+        subtitle: t("analytics.basis.shareOfSpending"),
+        state: state.block { $0.forWhom?.people }, retry: retry
+      ) { values in
+        RankedBarChart(bars: AnalyticsText.bars(values, names: names, environment))
       }
 
       AnalyticsCard(
@@ -619,24 +743,22 @@ private struct PlacesSection: View {
   var body: some View {
     let names = state.value?.names ?? AnalyticsNames()
     VStack(alignment: .leading, spacing: 16) {
-      AnalyticsPair(isWide: isWide) {
-        AnalyticsCard(
-          block: AnalyticsBlock.placesByAmount.rawValue, title: t("analytics.block.placesByAmount"),
-          subtitle: t("analytics.basis.mySpending"),
-          state: state.block { $0.places?.byAmount }, retry: retry
-        ) { values in
-          RankedBarChart(bars: AnalyticsText.bars(values, names: names, environment))
-        }
-      } second: {
-        AnalyticsCard(
-          block: AnalyticsBlock.placesByPurchases.rawValue,
-          title: t("analytics.block.placesByPurchases"), subtitle: t("analytics.basis.byDate"),
-          state: state.block { $0.places?.byPurchases }, retry: retry
-        ) { values in
-          RankedBarChart(
-            bars: AnalyticsText.bars(values, names: names, counts: true, environment),
-            scale: .count, tint: .blue)
-        }
+      AnalyticsCard(
+        block: AnalyticsBlock.placesByAmount.rawValue, title: t("analytics.block.placesTop"),
+        subtitle: t("analytics.basis.mySpending"),
+        state: state.block { $0.places?.byAmount }, retry: retry
+      ) { values in
+        TrackBarsChart(rows: AnalyticsText.trackRows(values, names: names, environment))
+      }
+
+      AnalyticsCard(
+        block: AnalyticsBlock.placesByPurchases.rawValue,
+        title: t("analytics.block.placesByPurchases"), subtitle: t("analytics.basis.byDate"),
+        state: state.block { $0.places?.byPurchases }, retry: retry
+      ) { values in
+        RankedBarChart(
+          bars: AnalyticsText.bars(values, names: names, counts: true, environment),
+          scale: .count, tint: .blue)
       }
 
       AnalyticsCard(
@@ -744,6 +866,10 @@ private struct EventsSection: View {
   var body: some View {
     let names = state.value?.names ?? AnalyticsNames()
     VStack(alignment: .leading, spacing: 16) {
+      if let items = state.value?.events?.events.content {
+        EventBudgetCards(items: items, names: names)
+        EventsLastTime(items: items, names: names)
+      }
       AnalyticsCard(
         block: AnalyticsBlock.events.rawValue, title: t("analytics.block.events"),
         subtitle: t("analytics.basis.wholeEvent"), state: state.block { $0.events?.events },
@@ -770,6 +896,149 @@ private struct EventsSection: View {
   }
 
   private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }
+}
+
+/// What an event cost against its budget, as the frame draws it: a card of three in a row for
+/// each event — its name, «spent / budget», a bar of 8 and the words under it (a symbol and
+/// words, never the colour of the bar alone).
+struct EventBudgetCards: View {
+  @Dependency(\.environment) private var environment
+  @Environment(\.appTheme) private var theme
+  let items: [EventItem]
+  let names: AnalyticsNames
+
+  var body: some View {
+    LazyVGrid(
+      columns: Array(repeating: GridItem(.flexible(), spacing: 14, alignment: .top), count: 3),
+      alignment: .leading, spacing: 14
+    ) {
+      ForEach(items, id: \.eventId) { item in
+        VStack(alignment: .leading, spacing: 8) {
+          Text(verbatim: AnalyticsText.name(of: .event(item.eventId), names, environment))
+            .appFont(.system(size: 15, weight: .semibold))
+            .lineLimit(1)
+          Text(verbatim: figures(item))
+            .appFont(.system(size: 16, weight: .bold).monospacedDigit())
+            .lineLimit(1)
+            .minimumScaleFactor(0.8)
+          if let budget = item.budget, budget > 0 {
+            progress(item, budget: budget)
+          }
+          status(item)
+        }
+        .analyticsCard()
+        .accessibilityElement(children: .combine)
+      }
+    }
+  }
+
+  private func figures(_ item: EventItem) -> String {
+    let money = environment.money
+    guard let budget = item.budget else { return money.rubles(item.total) }
+    return "\(money.number(Decimal(item.total))) / \(money.rubles(budget))"
+  }
+
+  private func progress(_ item: EventItem, budget: Int64) -> some View {
+    let ratio = EventBudgetMetrics.ratio(spent: item.total, budget: budget)
+    return GeometryReader { proxy in
+      ZStack(alignment: .leading) {
+        Capsule().fill(theme.fillNeutral)
+        Capsule().fill(EventBudgetMetrics.verdict(item).color)
+          .frame(width: max(EventBudgetMetrics.minimumFill, proxy.size.width * ratio))
+      }
+    }
+    .frame(height: EventBudgetMetrics.barHeight)
+    .accessibilityHidden(true)
+  }
+
+  @ViewBuilder
+  private func status(_ item: EventItem) -> some View {
+    let verdict = EventBudgetMetrics.verdict(item)
+    HStack(spacing: 4) {
+      if let symbol = verdict.symbol {
+        Image(systemName: symbol).foregroundStyle(verdict.color)
+          .appFont(.system(size: 12))
+          .accessibilityHidden(true)
+      }
+      Text(verbatim: AnalyticsText.t(verdict.key, environment))
+        .appFont(.system(size: 11))
+        .foregroundStyle(verdict.symbol == nil ? Color.secondary : verdict.color)
+    }
+  }
+}
+
+/// The numbers of the event cards and their verdicts.
+enum EventBudgetMetrics {
+  static let barHeight: CGFloat = 8
+  /// An event with nothing spent still shows a stub of the bar: 7 of 350.
+  static let minimumFill: CGFloat = 7
+
+  enum Verdict {
+    case within, over, notStarted
+    var key: String {
+      switch self {
+      case .within: "analytics.event.within"
+      case .over: "analytics.event.over"
+      case .notStarted: "analytics.event.notStarted"
+      }
+    }
+    var symbol: String? {
+      switch self {
+      case .within: "checkmark"
+      case .over: "xmark"
+      case .notStarted: nil
+      }
+    }
+    var color: Color {
+      switch self {
+      case .within: .green
+      case .over: .red
+      case .notStarted: .secondary
+      }
+    }
+  }
+
+  static func verdict(_ item: EventItem) -> Verdict {
+    if item.total <= 0 { return .notStarted }
+    guard let budget = item.budget else { return .within }
+    return item.total > budget ? .over : .within
+  }
+
+  /// The share of the bar that is filled, 0...1; an overrun fills it all.
+  static func ratio(spent: Int64, budget: Int64) -> CGFloat {
+    guard budget > 0, spent > 0 else { return 0 }
+    return min(1, CGFloat(spent) / CGFloat(budget))
+  }
+}
+
+/// «В прошлый раз»: the same events a year before, each with what it cost then.
+struct EventsLastTime: View {
+  @Dependency(\.environment) private var environment
+  let items: [EventItem]
+  let names: AnalyticsNames
+
+  var body: some View {
+    let rows = items.compactMap { item -> (String, Int64)? in
+      guard let total = item.lastYearTotal else { return nil }
+      let name = AnalyticsText.name(of: .event(item.eventId), names, environment)
+      return (item.lastYear.map { "\(name) \($0)" } ?? name, total)
+    }
+    if !rows.isEmpty {
+      VStack(alignment: .leading, spacing: 6) {
+        AnalyticsCardHeader(title: AnalyticsText.t("analytics.block.eventsLastTime", environment))
+        ForEach(rows.indices, id: \.self) { index in
+          HStack {
+            Text(verbatim: rows[index].0)
+            Spacer(minLength: 8)
+            Text(verbatim: environment.money.rubles(rows[index].1))
+          }
+          .appFont(.system(size: 13).monospacedDigit())
+          .accessibilityElement(children: .combine)
+        }
+      }
+      .analyticsCard()
+    }
+  }
 }
 
 /// Every event of the period in a plain grid: its days, what it cost, its budget and what
@@ -868,16 +1137,28 @@ private struct PaymentMethodsSection: View {
   @Dependency(\.environment) private var environment
   let state: BlockState<AnalyticsModel>
   let retry: () -> Void
+  let isWide: Bool
 
   var body: some View {
     let names = state.value?.names ?? AnalyticsNames()
     VStack(alignment: .leading, spacing: 16) {
-      AnalyticsCard(
-        block: AnalyticsBlock.methodSpending.rawValue, title: t("analytics.block.methodSpending"),
-        subtitle: t("analytics.basis.mySpending"),
-        state: state.block { $0.paymentMethods?.spending }, retry: retry
-      ) { values in
-        RankedBarChart(bars: AnalyticsText.bars(values, names: names, environment))
+      // «Куда ушли расходы» takes two thirds, «Кэшбэк за месяц» 340 beside it.
+      let layout =
+        isWide
+        ? AnyLayout(HStackLayout(alignment: .top, spacing: 16))
+        : AnyLayout(VStackLayout(alignment: .leading, spacing: 16))
+      layout {
+        AnalyticsCard(
+          block: AnalyticsBlock.methodSpending.rawValue,
+          title: t("analytics.block.methodSpendingTrack"),
+          subtitle: t("analytics.basis.mySpending"),
+          state: state.block { $0.paymentMethods?.spending }, retry: retry
+        ) { values in
+          TrackBarsChart(
+            rows: AnalyticsText.trackRows(values, names: names, shaped: true, environment))
+        }
+        CashbackMonthCard(state: state.block { $0.paymentMethods?.table }, retry: retry)
+          .frame(maxWidth: isWide ? 340 : .infinity)
       }
       AnalyticsCard(
         block: AnalyticsBlock.methodTable.rawValue, title: t("analytics.block.methodTable"),
@@ -897,6 +1178,43 @@ private struct PaymentMethodsSection: View {
   }
 
   private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }
+}
+
+/// «Кэшбэк за месяц»: what came and what the rules of the cards expect for the period, and the
+/// line that says which of the two is income.
+private struct CashbackMonthCard: View {
+  @Dependency(\.environment) private var environment
+  let state: BlockState<ChartBlock<[MethodRow]>>
+  let retry: () -> Void
+
+  var body: some View {
+    AnalyticsCard(
+      block: AnalyticsBlock.cashbackMonth.rawValue,
+      title: AnalyticsText.t("analytics.block.cashbackMonth", environment),
+      state: state, retry: retry
+    ) { rows in
+      VStack(alignment: .leading, spacing: 8) {
+        line("analytics.cashback.received", rows.reduce(0) { $0 + $1.cashback })
+        line("analytics.cashback.expectedTotal", rows.reduce(0) { $0 + $1.expectedCashback })
+        Text(verbatim: AnalyticsText.t("analytics.cashback.note", environment))
+          .appFont(AnalyticsCardType.subtitle)
+          .foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+    }
+    .bodyGap(8)
+  }
+
+  private func line(_ key: String, _ value: Int64) -> some View {
+    HStack {
+      Text(verbatim: AnalyticsText.t(key, environment))
+      Spacer(minLength: 8)
+      Text(verbatim: environment.money.rubles(value))
+        .monospacedDigit()
+    }
+    .appFont(AnalyticsCardType.row)
+    .accessibilityElement(children: .combine)
+  }
 }
 
 /// «Кэшбэк по месяцам»: for all accounts, one account or one card, each month's expected
@@ -1039,6 +1357,22 @@ private struct ForecastSection: View {
       ) { plot in
         ForecastView(plot: plot, month: state.value?.forecast?.month)
       }
+      AnalyticsCard(
+        block: AnalyticsBlock.forecastEnd.rawValue, title: t("analytics.block.forecastEnd"),
+        state: state.block { $0.forecast?.chart }, retry: retry
+      ) { plot in
+        let money = environment.money
+        let range = String(
+          format: environment.language("overview.forecastRange", table: "Overview"),
+          locale: environment.language.locale, money.rubles(plot.p10), money.rubles(plot.p90))
+        Text(
+          verbatim:
+            "\(range) · \(AnalyticsText.format("analytics.forecast.plannedPayments", environment, money.rubles(plot.planned)))"
+        )
+        .appFont(AnalyticsCardType.subtitle.monospacedDigit())
+        .foregroundStyle(.secondary)
+      }
+      .bodyGap(AnalyticsCardMetrics.subtitleGap + 2)
       AnalyticsCard(
         block: AnalyticsBlock.accountBalances.rawValue,
         title: t("analytics.block.accountBalances"), subtitle: t("analytics.basis.accountBalances"),
@@ -1286,6 +1620,7 @@ private struct ForecastView: View {
     let money = environment.money
     VStack(alignment: .leading, spacing: 8) {
       ForecastChart(
+        height: 260,
         actual: plot.actual.map { point($0) },
         projection: plot.projection.map { point($0) },
         band: plot.band.map { band in
@@ -1385,21 +1720,23 @@ private struct AnomaliesSection: View {
         subtitle: t("analytics.basis.anomalies"), state: state.block { $0.anomalies?.found },
         retry: retry
       ) { found in
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 0) {
           ForEach(found, id: \.id) { anomaly in
+            Divider()
             AnomalyRow(anomaly: anomaly, names: names) { hide(anomaly) }
           }
         }
       }
+      .bodyGap(0)
       if let hidden = state.value?.anomalies?.hidden, !hidden.isEmpty {
-        VStack(alignment: .leading, spacing: 8) {
-          Text(verbatim: t("analytics.anomaly.hidden"))
-            .appFont(.headline)
-            .accessibilityAddTraits(.isHeader)
+        VStack(alignment: .leading, spacing: 0) {
+          AnalyticsCardHeader(title: t("analytics.anomaly.hidden"))
           ForEach(hidden, id: \.id) { anomaly in
+            Divider()
             AnomalyRow(anomaly: anomaly, names: names, isHidden: true) { show(anomaly) }
           }
         }
+        .analyticsCard()
       }
     }
   }
@@ -1422,6 +1759,15 @@ private struct AnomaliesSection: View {
   private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }
 }
 
+/// The numbers of a row of the list of anomalies.
+enum AnomalyRowMetrics {
+  static let rowHeight: CGFloat = 57
+  static let chipHeight: CGFloat = 21
+}
+
+/// A row of the list of anomalies as the frame draws it: the rule as a chip of 21, the line of
+/// what was found over a grey line of the day, «Это нормально» at the right; the row is 57
+/// high, the chip 10 from its text.
 private struct AnomalyRow: View {
   @Dependency(\.environment) private var environment
   @Environment(\.themeSurfaces) private var surfaces
@@ -1430,27 +1776,31 @@ private struct AnomalyRow: View {
   var isHidden = false
   let act: () -> Void
 
-  /// The rule as a capsule with a warning triangle: the kind is said in words and a shape, the
+  static let rowHeight = AnomalyRowMetrics.rowHeight
+  static let chipHeight = AnomalyRowMetrics.chipHeight
+
+  /// The rule as a chip with an exclamation mark: the kind is said in words and a mark, the
   /// warm tint only confirms it.
   var body: some View {
-    VStack(alignment: .leading, spacing: 8) {
-      HStack(spacing: 8) {
-        Label {
-          Text(verbatim: AnalyticsText.t("analytics.anomaly.\(anomaly.rule.rawValue)", environment))
-        } icon: {
-          Image(systemName: "exclamationmark.triangle.fill")
-        }
-        .appFont(.caption.weight(.semibold))
-        .foregroundStyle(surfaces.warning)
-        .padding(.horizontal, 8).padding(.vertical, 3)
-        .background(surfaces.warning.mix(with: surfaces.background, by: 0.86), in: .capsule)
+    HStack(spacing: 12) {
+      Text(
+        verbatim:
+          "! " + AnalyticsText.t("analytics.anomaly.\(anomaly.rule.rawValue)", environment)
+      )
+      .appFont(.system(size: 11, weight: .semibold))
+      .foregroundStyle(surfaces.warning)
+      .padding(.horizontal, 10)
+      .frame(height: Self.chipHeight)
+      .background(surfaces.warning.mix(with: surfaces.background, by: 0.86), in: .capsule)
+      VStack(alignment: .leading, spacing: 3) {
+        Text(verbatim: AnalyticsText.anomalyDetail(anomaly, names: names, environment))
+          .appFont(AnalyticsCardType.row)
+          .fixedSize(horizontal: false, vertical: true)
         Text(verbatim: environment.dates.dayAndMonth(anomaly.day))
-          .appFont(.caption)
+          .appFont(AnalyticsCardType.subtitle)
           .foregroundStyle(.secondary)
       }
-      Text(verbatim: AnalyticsText.anomalyDetail(anomaly, names: names, environment))
-        .appFont(.callout)
-        .fixedSize(horizontal: false, vertical: true)
+      .frame(maxWidth: .infinity, alignment: .leading)
       Button(
         AnalyticsText.t(
           isHidden ? "analytics.anomaly.restore" : "analytics.anomaly.normal", environment),
@@ -1460,9 +1810,7 @@ private struct AnomalyRow: View {
       .tint(surfaces.secondary)
       .foregroundStyle(surfaces.primary)
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .padding(12)
-    .background(surfaces.background, in: .rect(cornerRadius: 10))
+    .frame(minHeight: Self.rowHeight)
     .accessibilityElement(children: .combine)
   }
 }

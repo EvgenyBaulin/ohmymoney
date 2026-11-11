@@ -403,7 +403,7 @@ final class LocalizationTests: XCTestCase {
     let meantToBeTheSame: Set<String> = [
       "common.debugBadge", "settings.language.en",
       // The name of a service is one in both languages, like the name of the app.
-      "entry.rateCoingecko",
+      "entry.rateCoingecko", "currencies.source.network",
       // The name of a file format is the same in both languages.
       "summaries.pdf", "mac.markdown.button",
     ]

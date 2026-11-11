@@ -10,17 +10,46 @@ import SwiftUI
 /// Every switch here is a row of the `settings` table of the database (`privacy.*`), read back
 /// through `AppEnvironment.privacy`; none of them is a step of ⌘Z.
 struct PrivacySettingsView: View {
-  @Dependency(\.environment) private var environment
+  @Dependency(\.environment) var environment
   @Environment(\.dependencies) private var dependencies
-  @State private var showsJournal = false
-  @State private var showsStorage = false
-  @State private var showsExport = false
-  @State private var confirmsDemo = false
+  @State var showsJournal = false
+  @State var showsStorage = false
+  @State var showsExport = false
+  @State var confirmsDemo = false
 
   private static let table = "PrivacyExport"
-  private func t(_ key: String) -> String { environment.language(key, table: Self.table) }
+  func t(_ key: String) -> String { environment.language(key, table: Self.table) }
 
   var body: some View {
+    Group {
+      #if os(macOS)
+        macBody
+      #else
+        iosForm
+      #endif
+    }
+    .sheet(isPresented: environment.lock.presenting($showsJournal)) {
+      handed { PrivacyJournalView() }
+    }
+    .sheet(isPresented: environment.lock.presenting($showsStorage)) {
+      handed { StorageReportView() }
+    }
+    .sheet(isPresented: environment.lock.presenting($showsExport)) {
+      handed { ExportCopyView(model: PrivacyScreens.exportModel(environment)) }
+    }
+    .confirmationDialog(
+      t("privacy.demo.confirm.title"), isPresented: $confirmsDemo, titleVisibility: .visible
+    ) {
+      Button(t("privacy.demo.confirm.action")) { DemoDataMode.enter() }
+      Button(environment.language("action.cancel"), role: .cancel) {}
+    } message: {
+      Text(verbatim: t("privacy.demo.confirm.body"))
+    }
+  }
+
+  /// The shared Form of the phone and the tablet.
+  @ViewBuilder
+  private var iosForm: some View {
     Form {
       Section {
         Toggle(isOn: autoHide) {
@@ -78,23 +107,6 @@ struct PrivacySettingsView: View {
       #endif
     }
     .formStyle(.grouped)
-    .sheet(isPresented: environment.lock.presenting($showsJournal)) {
-      handed { PrivacyJournalView() }
-    }
-    .sheet(isPresented: environment.lock.presenting($showsStorage)) {
-      handed { StorageReportView() }
-    }
-    .sheet(isPresented: environment.lock.presenting($showsExport)) {
-      handed { ExportCopyView(model: PrivacyScreens.exportModel(environment)) }
-    }
-    .confirmationDialog(
-      t("privacy.demo.confirm.title"), isPresented: $confirmsDemo, titleVisibility: .visible
-    ) {
-      Button(t("privacy.demo.confirm.action")) { DemoDataMode.enter() }
-      Button(environment.language("action.cancel"), role: .cancel) {}
-    } message: {
-      Text(verbatim: t("privacy.demo.confirm.body"))
-    }
   }
 
   /// A sheet is laid out by a host of its own: the dependencies are handed over.
@@ -109,13 +121,13 @@ struct PrivacySettingsView: View {
 
   // MARK: Bindings
 
-  private var autoHide: Binding<Bool> {
+  var autoHide: Binding<Bool> {
     Binding(
       get: { environment.privacy.autoHideOnCapture },
       set: { value in change { $0.autoHideOnCapture = value } })
   }
 
-  private var readOnly: Binding<Bool> {
+  var readOnly: Binding<Bool> {
     Binding(
       get: { environment.privacy.readOnly },
       set: { value in

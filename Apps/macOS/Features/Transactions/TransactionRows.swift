@@ -264,6 +264,10 @@ struct TransactionRowItem: Identifiable, Hashable, Sendable {
   /// part, a transfer and an account without a colour. The name of the account is always in
   /// `paymentMethod` beside it.
   var accountAccent: AccountAccent? = nil
+  /// The symbol and colour of the operation's category for the round mark of its row; `nil` for
+  /// a part, a transfer, a refund, money given back, a split over several categories and a
+  /// category without a mark — the mark of the kind is drawn then.
+  var categoryMark: CategoryMark? = nil
 
   var isPart: Bool {
     if case .part = id { return true }
@@ -742,7 +746,11 @@ struct TransactionListing: Sendable {
       amountRub: transaction.amountRubE4, partCount: entry.parts.count,
       owedMark: owedMark(of: entry), parts: parts, refund: RefundMark.of(entry, ledger: ledger),
       cashback: transaction.cashback.flatMap { $0.amount.isZero ? nil : $0 },
-      accountAccent: names.accent(of: transaction))
+      accountAccent: names.accent(of: transaction),
+      // A refund and money given back keep their own marks: «возврат денег — не доход» and a
+      // refund read from the mark of their kind, a card of the phone has no other word for it.
+      categoryMark: transaction.kind == .expense || transaction.kind == .income
+        ? CategoryMark.of(entry.parts.map(\.categoryId), tree: ledger.tree) : nil)
   }
 
   /// The quality of an operation as a row of the list of days shows it, the way the table

@@ -45,9 +45,10 @@ SUITE_END = re.compile(
     r"([0-9.]+) \(",
     re.M,
 )
-CASE = re.compile(r"^Test Case '-\[\w+\.(\w+) (\w+)\]' (passed|failed|skipped)", re.M)
+# Not anchored to a line start: a system log line of the host can run into the result line.
+CASE = re.compile(r"Test Case '-\[\w+\.(\w+) (\w+)\]' (passed|failed|skipped)", re.M)
 CASE_TIME = re.compile(
-    r"^Test Case '-\[\w+\.(\w+) (\w+)\]' (?:passed|failed) \(([0-9.]+) seconds\)", re.M)
+    r"Test Case '-\[\w+\.(\w+) (\w+)\]' (?:passed|failed) \(([0-9.]+) seconds\)", re.M)
 
 
 def say(text):

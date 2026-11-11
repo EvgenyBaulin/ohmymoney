@@ -42,7 +42,15 @@ enum ConflictText {
     case .flag(let on):
       environment.language(on ? "conflict.value.yes" : "conflict.value.no", table: fieldsTable)
     case .color(let key):
-      AccountAccent(key: key).map { environment.language($0.nameKey, table: "Accounts") } ?? key
+      // An account's colour or a category's: the two key lists do not overlap in meaning, and
+      // a key neither knows is shown as it is.
+      AccountAccent(key: key).map { environment.language($0.nameKey, table: "Accounts") }
+        ?? CategoryTone(key: key).map { environment.language($0.nameKey, table: "Settings") }
+        ?? key
+    case .symbol(let name):
+      CategoryIcon.known(name).map {
+        environment.language(CategoryAppearanceText.iconNameKey($0), table: "Settings")
+      } ?? name
     }
   }
 

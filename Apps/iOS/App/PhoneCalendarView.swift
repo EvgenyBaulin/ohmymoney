@@ -336,9 +336,9 @@ struct PhoneCalendarDayScreen: View {
             if let selected {
               ForEach(selected.plans) { plan in
                 HStack(spacing: 8) {
-                  Image(systemName: CalendarText.symbol(of: plan.kind))
+                  Image(systemName: CalendarMark.symbol(plan.source))
                     .accessibilityLabel(
-                      CalendarText.t(CalendarMark.wordKey(plan.kind), environment))
+                      CalendarText.t(CalendarMark.wordKey(plan.source), environment))
                   Text(verbatim: CalendarText.title(of: plan, environment))
                   Spacer(minLength: 8)
                   Text(verbatim: CalendarText.amount(of: plan, environment)).monospacedDigit()

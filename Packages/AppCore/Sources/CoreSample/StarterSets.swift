@@ -242,7 +242,8 @@ public enum StarterSets {
         name: seed.translation(language: language).text,
         sort: (siblings.map(\.sort).max() ?? -1) + 1,
         quality: seed.kind == .income
-          ? nil : (parent == nil ? (seed.quality ?? .neutral) : seed.quality))
+          ? nil : (parent == nil ? (seed.quality ?? .neutral) : seed.quality),
+        appearance: seed.appearance)
       all.append(category)
       added.append(category)
     }

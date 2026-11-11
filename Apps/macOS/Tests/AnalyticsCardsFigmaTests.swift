@@ -154,7 +154,8 @@ final class AnalyticsCardsFigmaTests: XCTestCase {
     XCTAssertEqual(board.total, total.wholeRubles)
     XCTAssertEqual(board.change.current, total)
     // November is not over on the 10th: it is compared with 1–10 October, not all of it.
-    let span = DayRange(DateOnly(year: 2026, month: 10, day: 1), DateOnly(year: 2026, month: 10, day: 10))
+    let span = DayRange(
+      DateOnly(year: 2026, month: 10, day: 1), DateOnly(year: 2026, month: 10, day: 10))
     XCTAssertEqual(board.previousSpan, span)
     let before = builder.table(.expensesByCategory, period: .days(span), grouping: .event)
     XCTAssertEqual(board.change.previous, before.total.values.first ?? nil)
@@ -221,7 +222,8 @@ final class AnalyticsCardsFigmaTests: XCTestCase {
     partial.previousSpan = DayRange(
       DateOnly(year: 2026, month: 9, day: 1), DateOnly(year: 2026, month: 9, day: 10))
     XCTAssertTrue(
-      ReportsEventText.change(partial, environment).hasSuffix("к \(environment.dates.span(partial.previousSpan!))"))
+      ReportsEventText.change(partial, environment).hasSuffix(
+        "к \(environment.dates.span(partial.previousSpan!))"))
     var empty = board
     empty.change = Change(current: money("100"), previous: .zero)
     XCTAssertEqual(ReportsEventText.change(empty, environment), "не с чем сравнить")

@@ -443,7 +443,7 @@ final class AnalyticsModelTests: XCTestCase {
       forecast.inSummaryTotalRub,
       AccountForecast.Band(low: money("43000"), middle: money("45000"), high: money("46000")))
     XCTAssertTrue(model.blockIDs.contains(AnalyticsBlock.accountBalances.rawValue))
-    XCTAssertEqual(model.blockIDs.count, 2)
+    XCTAssertEqual(model.blockIDs.count, 3)
 
     let (bare, uncounted) = plan(counts: false)
     let none = AnalyticsBuilder.model(
@@ -527,11 +527,12 @@ final class AnalyticsModelTests: XCTestCase {
       // за других», is computed since 21.09.
       XCTAssertNil(section.plannedFor, "\(section)")
     }
-    // «За других» draws three cards, and the measurement waits for all three.
+    // «За других» draws four cards (totals, subscriptions, people, dynamics), and the
+    // measurement waits for all four.
     let others = AnalyticsBuilder.model(
       request(.others, .month(september), today: day(18)), ledger: ledger)
-    XCTAssertEqual(others.blockIDs.count, 3)
-    XCTAssertEqual(Set(others.blockIDs).count, 3)
+    XCTAssertEqual(others.blockIDs.count, 4)
+    XCTAssertEqual(Set(others.blockIDs).count, 4)
   }
 }
 

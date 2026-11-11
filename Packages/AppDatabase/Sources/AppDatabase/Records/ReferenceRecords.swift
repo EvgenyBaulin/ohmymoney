@@ -18,7 +18,19 @@ extension CoreKit.Category: @retroactive FetchableRecord, @retroactive Persistab
       essential: Self.essential(row),
       tax: Self.tax(row),
       basket: (row["basket"] as String?).flatMap(BudgetBasket.init(rawValue:)),
-      translation: Self.translation(row))
+      translation: Self.translation(row),
+      appearance: Self.appearance(row))
+  }
+
+  /// The mark of the category. A database of an older schema has no such columns; a blank value
+  /// reads as none.
+  private static func appearance(_ row: Row) -> CategoryAppearance {
+    func text(_ column: String) -> String? {
+      guard row.hasColumn(column), let value: String = row[column] else { return nil }
+      let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+      return trimmed.isEmpty ? nil : trimmed
+    }
+    return CategoryAppearance(icon: text("icon"), color: text("color"))
   }
 
   /// The English name with the name it was made of; one without the other — only a hand edit
@@ -68,6 +80,10 @@ extension CoreKit.Category: @retroactive FetchableRecord, @retroactive Persistab
       container["name_en"] = translation.english
       container["name_en_source"] = translation.source
     }
+    // The mark is the owner's choice, so unlike the English name it is always written, empty
+    // included: that is how the owner takes it off.
+    container["icon"] = icon
+    container["color"] = color
   }
 }
 

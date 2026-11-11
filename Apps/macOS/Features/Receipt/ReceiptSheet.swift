@@ -314,6 +314,9 @@ struct ReceiptSheet: View {
     } else {
       Text(verbatim: model.newOperationText).appFont(.title3)
         .fixedSize(horizontal: false, vertical: true)
+      if !model.merchantText.isEmpty {
+        Text(verbatim: model.merchantText).accessibilityIdentifier("receipt.merchant")
+      }
       Text(verbatim: t(model.canCreate ? "receipt.new.category" : "receipt.new.refundHint"))
         .foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
       if !model.similar.isEmpty {

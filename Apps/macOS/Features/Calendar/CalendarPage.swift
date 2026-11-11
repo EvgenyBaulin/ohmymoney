@@ -75,31 +75,45 @@ enum CalendarFigures {
 }
 
 /// The marks of the plans, as the legend of the frame draws them: an income a green circle with
-/// a plus, a payment a blue square with an arrow. The words of the legend name them.
+/// a plus, a payment a blue square with an arrow, a subscription a purple circle with a cycle, a
+/// debt a red diamond, a goal contribution a teal star. The words of the legend name them: the
+/// shape tells the kind, the colour only agrees.
 enum CalendarMark {
-  static func symbol(_ kind: CalendarPlan.Kind) -> String {
-    switch kind {
+  /// The order of the legend and of the marks of a day.
+  static let all: [CalendarPlan.Source] = [.income, .payment, .subscription, .debt, .goal]
+
+  static func symbol(_ source: CalendarPlan.Source) -> String {
+    switch source {
     case .income: "plus.circle.fill"
     case .payment: "arrow.up.right.square.fill"
+    case .subscription: "arrow.triangle.2.circlepath.circle.fill"
+    case .debt: "rhombus.fill"
+    case .goal: "star.fill"
     }
   }
 
-  static func ink(_ kind: CalendarPlan.Kind, _ theme: AppThemeColors) -> Color {
-    switch kind {
+  static func ink(_ source: CalendarPlan.Source, _ theme: AppThemeColors) -> Color {
+    switch source {
     case .income: theme.statusPositive
     case .payment: theme.chart3
+    case .subscription: theme.chart7
+    case .debt: theme.statusNegative
+    case .goal: theme.chart6
     }
   }
 
-  static func fill(_ kind: CalendarPlan.Kind, _ theme: AppThemeColors) -> Color {
-    switch kind {
+  static func fill(_ source: CalendarPlan.Source, _ theme: AppThemeColors) -> Color {
+    switch source {
     case .income: theme.statusPositiveTint
     case .payment: theme.chart3Tint
+    case .subscription: theme.chart7Tint
+    case .debt: theme.statusNegativeTint
+    case .goal: theme.chart6Tint
     }
   }
 
-  static func wordKey(_ kind: CalendarPlan.Kind) -> String {
-    kind == .payment ? "calendar.payment" : "calendar.income"
+  static func wordKey(_ source: CalendarPlan.Source) -> String {
+    "calendar.\(source.rawValue)"
   }
 }
 
@@ -167,8 +181,8 @@ struct CalendarGridCell: View {
 
   @ViewBuilder
   private var marks: some View {
-    let kinds: [CalendarPlan.Kind] = [.income, .payment].filter { kind in
-      day.plans.contains { $0.kind == kind }
+    let kinds = CalendarMark.all.filter { source in
+      day.plans.contains { $0.source == source }
     }
     if !kinds.isEmpty || hasBirthday || hasNote {
       HStack(spacing: CalendarMetrics.markGap) {
@@ -281,10 +295,10 @@ struct CalendarGridCard: View {
     .accessibilityIdentifier("calendar.day.\(day.day.iso)")
   }
 
-  /// «Поступление», «Платёж» with their marks, 10 apart.
+  /// The five kinds of plan with their marks, 10 apart.
   private var legend: some View {
     HStack(spacing: CalendarMetrics.legendGap) {
-      ForEach([CalendarPlan.Kind.income, .payment], id: \.self) { kind in
+      ForEach(CalendarMark.all, id: \.self) { kind in
         HStack(spacing: CalendarMetrics.legendMarkGap) {
           Image(systemName: CalendarMark.symbol(kind))
             .font(.system(size: CalendarMetrics.mark - 1))  // font-fixed: the mark of the legend
@@ -356,7 +370,7 @@ struct CalendarDearDaysCard: View {
                 tint: day.level == .muchHigher ? theme.statusNegative : theme.contentWarning,
                 fill: day.level == .muchHigher ? theme.statusNegativeTint : theme.accentTint),
               title: environment.dates.dayAndMonth(day.day),
-              detail: CalendarText.levelKey(day.level).map { CalendarText.t($0, environment) },
+              detail: CalendarText.levelDetail(of: day, environment),
               figure: "−" + CalendarText.money(day.spent ?? .zero, of: calendar, environment))
           }
           .buttonStyle(.plain)
@@ -385,12 +399,12 @@ struct CalendarUpcomingCard: View {
           title: CalendarText.t("calendar.upcoming", environment), caption: "\(plans.count)")
         ForEach(plans) { plan in
           HStack(spacing: SectionMetrics.rowGap) {
-            Image(systemName: CalendarMark.symbol(plan.kind))
+            Image(systemName: CalendarMark.symbol(plan.source))
               .font(.system(size: CalendarMetrics.eventGlyph - 2))  // font-fixed: a fixed badge
-              .foregroundStyle(CalendarMark.ink(plan.kind, theme))
+              .foregroundStyle(CalendarMark.ink(plan.source, theme))
               .frame(width: CalendarMetrics.eventRow, height: CalendarMetrics.eventRow)
               .background(
-                CalendarMark.fill(plan.kind, theme),
+                CalendarMark.fill(plan.source, theme),
                 in: .rect(cornerRadius: SectionMetrics.segmentRadius)
               )
               .accessibilityHidden(true)
@@ -401,7 +415,7 @@ struct CalendarUpcomingCard: View {
               )
               .appFont(SectionType.rowTitle)
               .lineLimit(1)
-              Text(verbatim: CalendarText.t(CalendarMark.wordKey(plan.kind), environment))
+              Text(verbatim: CalendarText.t(CalendarMark.wordKey(plan.source), environment))
                 .appFont(SectionType.rowDetail)
                 .foregroundStyle(.secondary)
             }

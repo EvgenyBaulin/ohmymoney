@@ -337,7 +337,9 @@ struct Migration0023Tests {
     #expect(
       Array(ExportTables.transactions.columns.suffix(4))
         == ["receipt_fn", "receipt_i", "receipt_fp", "receipt_n"])
-    #expect(Array(ExportTables.categories.columns.suffix(2)) == ["name_en", "name_en_source"])
+    #expect(
+      Array(ExportTables.categories.columns.suffix(4))
+        == ["name_en", "name_en_source", "icon", "color"], "the mark of 0024 comes after them")
     #expect(ExportTables.all.count == 53)
     #expect(SyncTables.followed["transactions"] == "id")
     #expect(SyncTables.followed["categories"] == "id")

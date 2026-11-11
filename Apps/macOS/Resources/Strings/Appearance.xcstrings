@@ -307,6 +307,40 @@
         }
       }
     },
+    "appearance.tabLabels.activeOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Label only on the active tab"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подпись только у активной вкладки"
+          }
+        }
+      }
+    },
+    "appearance.tabLabels.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By default every tab of the bottom bar shows its name. Turn this on to keep the name on the open tab only."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По умолчанию у каждой вкладки нижней панели видно название. Включите, чтобы название оставалось только у открытой вкладки."
+          }
+        }
+      }
+    },
     "appearance.theme.chosen": {
       "extractionState": "manual",
       "localizations": {

@@ -120,6 +120,57 @@
         }
       }
     },
+    "spending.cmp.col.baseline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compared with"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С чем сравниваем"
+          }
+        }
+      }
+    },
+    "spending.cmp.col.change": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменение"
+          }
+        }
+      }
+    },
+    "spending.cmp.col.current": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This period"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот период"
+          }
+        }
+      }
+    },
     "spending.cmp.current": {
       "extractionState": "manual",
       "localizations": {
@@ -1301,6 +1352,23 @@
         }
       }
     },
+    "spending.limit.spentLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spent"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрачено"
+          }
+        }
+      }
+    },
     "spending.limit.title": {
       "extractionState": "manual",
       "localizations": {
@@ -1764,6 +1832,23 @@
         }
       }
     },
+    "spending.receipt.average": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Average receipt: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Средний чек: %@"
+          }
+        }
+      }
+    },
     "spending.receipt.basis": {
       "extractionState": "manual",
       "localizations": {
@@ -2170,6 +2255,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Любой день"
+          }
+        }
+      }
+    },
+    "spending.usual.split": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekdays: %1$@ (%2$lld d.) · Weekends: %3$@ (%4$lld d.)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Будни: %1$@ (%2$lld дн.) · Выходные: %3$@ (%4$lld дн.)"
           }
         }
       }

@@ -25,6 +25,14 @@ struct TemplatesSettingsView: View {
   @FocusState private var addFieldFocused: Bool
 
   var body: some View {
+    #if os(macOS)
+      macLayout
+    #else
+      formLayout
+    #endif
+  }
+
+  private var formLayout: some View {
     VStack(alignment: .leading, spacing: 10) {
       HStack {
         Spacer()
@@ -58,9 +66,7 @@ struct TemplatesSettingsView: View {
         .foregroundStyle(.secondary)
     }
     .padding()
-    .onAppear(perform: reload)
-    .onReceive(NotificationCenter.default.publisher(for: .templatesChanged)) { _ in reload() }
-    .refusedWriteAlert($refused, environment)
+    .modifier(TemplatesLifecycle(reload: reload, refused: $refused, environment: environment))
   }
 
   /// «Добавить шаблон…»: a template is made by hand too, not only by what is entered. The
@@ -267,3 +273,177 @@ enum TemplatesByHand {
     return Template(text: parts.joined(separator: " "), amountE4: amount, pinned: true)
   }
 }
+
+/// What every layout of the templates does the same: read on appear and when the chips write,
+/// and say it when the database refuses a write.
+private struct TemplatesLifecycle: ViewModifier {
+  let reload: () -> Void
+  @Binding var refused: Bool
+  let environment: AppEnvironment
+
+  func body(content: Content) -> some View {
+    content
+      .onAppear(perform: reload)
+      .onReceive(NotificationCenter.default.publisher(for: .templatesChanged)) { _ in reload() }
+      .refusedWriteAlert($refused, environment)
+  }
+}
+
+#if os(macOS)
+  /// The Mac's «Шаблоны» in the design's measures (Figma 61:30417): a card of rows 16 × 11 — the
+  /// words and the amount 13 medium over «закреплён · использован 14 раз» 11 — with the action
+  /// at the right in the accent («Открепить», «Закрепить», «Вернуть»), a card with the switch
+  /// «Показывать архив», and the line of what templates are, 12.
+  extension TemplatesSettingsView {
+    fileprivate var macLayout: some View {
+      ScrollView {
+        VStack(alignment: .leading, spacing: SettingsControlMetrics.blockGap) {
+          SettingsCard {
+            ForEach($templates, id: \.id) { $template in
+              if !template.archived { macLiveRow($template) }
+            }
+            if showsArchive {
+              ForEach(templates.filter(\.archived), id: \.id) { template in
+                macArchivedRow(template)
+              }
+            }
+            macAddRow
+          }
+          SettingsCard {
+            SettingsCardRow(
+              title: t("templates.showArchive"), showsDivider: false, compact: true
+            ) {
+              Toggle(isOn: $showsArchive) { Text(verbatim: t("templates.showArchive")) }
+                .labelsHidden().toggleStyle(.switch)
+                .accessibilityIdentifier("templates.showArchive")
+            }
+          }
+          Text(verbatim: environment.language("templates.hintAdded", table: EntryLinks.table))
+            .appFont(AppFont.system(size: 12))
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+      .modifier(TemplatesLifecycle(reload: reload, refused: $refused, environment: environment))
+    }
+
+    /// «закреплён · использован 14 раз», or «в архиве» for a template put away.
+    func subtitle(of template: Template) -> String {
+      if template.archived { return t("templates.inArchive") }
+      let used = environment.format(
+        "templates.used", table: "Settings", counts: template.useCount)
+      return template.pinned ? "\(t("templates.pinnedState")) · \(used)" : used
+    }
+
+    private func macRow<Action: View>(
+      _ template: Template, words: some View, @ViewBuilder action: () -> Action
+    ) -> some View {
+      VStack(spacing: 0) {
+        HStack(spacing: SettingsCardMetrics.rowGap) {
+          VStack(alignment: .leading, spacing: SettingsCardMetrics.textGap) {
+            words
+            Text(verbatim: subtitle(of: template))
+              .appFont(AppFont.system(size: 11))
+              .foregroundStyle(.secondary)
+          }
+          Spacer(minLength: 8)
+          action()
+        }
+        .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
+        .padding(.vertical, SettingsCardMetrics.compactVertical)
+        Divider().opacity(0.6)
+      }
+    }
+
+    private func amountText(_ template: Template) -> String? {
+      guard let amount = template.amountE4 else { return nil }
+      let currency = Self.amountCurrency(of: template, defaultCurrency: environment.defaultCurrency)
+      return environment.money.exact(amount, currency: currency)
+    }
+
+    private func macLiveRow(_ template: Binding<Template>) -> some View {
+      let value = template.wrappedValue
+      let pinned = value.pinned
+      return macRow(
+        value,
+        words: HStack(spacing: 4) {
+          TextField(text: template.text) { EmptyView() }
+            .labelsHidden()
+            .textFieldStyle(.plain)
+            .appFont(AppFont.system(size: 13, weight: .medium))
+            .onSubmit { rename(template.wrappedValue) }
+          if let amount = amountText(value) {
+            Text(verbatim: amount)
+              .appFont(AppFont.system(size: 13, weight: .medium).monospacedDigit())
+          }
+        }
+      ) {
+        HStack(spacing: 8) {
+          macAction(t(Self.pinCaptionKey(pinned: pinned))) {
+            write("templates.save") { try $0.setTemplate(value.id, pinned: !pinned) }
+          }
+          Menu {
+            Button(t("templates.archive")) { setArchived(value, true) }
+            Divider()
+            Button(environment.language("action.delete"), role: .destructive) { delete(value) }
+          } label: {
+            Image(systemName: "ellipsis.circle")
+              .accessibilityLabel(Text(verbatim: SettingsRowMenu.label(value.text, environment)))
+          }
+          .menuStyle(.borderlessButton)
+          .menuIndicator(.hidden)
+          .fixedSize()
+        }
+      }
+    }
+
+    private func macArchivedRow(_ template: Template) -> some View {
+      macRow(
+        template,
+        words: HStack(spacing: 4) {
+          Text(verbatim: template.text)
+            .appFont(AppFont.system(size: 13, weight: .medium))
+            .foregroundStyle(.secondary)
+            .lineLimit(1)
+          if let amount = amountText(template) {
+            Text(verbatim: amount)
+              .appFont(AppFont.system(size: 13, weight: .medium).monospacedDigit())
+              .foregroundStyle(.secondary)
+          }
+        }
+      ) {
+        HStack(spacing: 8) {
+          macAction(t("templates.restore")) { setArchived(template, false) }
+          Menu {
+            Button(environment.language("action.delete"), role: .destructive) { delete(template) }
+          } label: {
+            Image(systemName: "ellipsis.circle")
+              .accessibilityLabel(Text(verbatim: SettingsRowMenu.label(template.text, environment)))
+          }
+          .menuStyle(.borderlessButton)
+          .menuIndicator(.hidden)
+          .fixedSize()
+        }
+      }
+    }
+
+    private func macAction(_ title: String, _ perform: @escaping () -> Void) -> some View {
+      Button(action: perform) {
+        Text(verbatim: title)
+          .appFont(AppFont.system(size: 13, weight: .medium))
+          .foregroundStyle(Color.accentColor)
+      }
+      .buttonStyle(.plain)
+    }
+
+    private var macAddRow: some View {
+      addRow
+        .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
+        .padding(.vertical, SettingsCardMetrics.compactVertical)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+  }
+#endif

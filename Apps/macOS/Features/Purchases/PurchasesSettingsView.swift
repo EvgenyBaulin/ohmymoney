@@ -13,6 +13,17 @@ struct PurchasesSettingsView: View {
   private func t(_ key: String) -> String { PurchasesText.t(key, environment) }
 
   var body: some View {
+    #if os(macOS)
+      macLayout
+        .task(id: compute.generation) {
+          if let stored = try? environment.purchaseSettings?.settings() { values = stored }
+        }
+    #else
+      formLayout
+    #endif
+  }
+
+  private var formLayout: some View {
     Form {
       Section {
         Toggle(isOn: flag(\.pauseEnabled)) {
@@ -106,3 +117,66 @@ struct PurchasesSettingsView: View {
     }
   }
 }
+
+#if os(macOS)
+  /// The Mac's «Покупки» in the design's measures (Figma 61:56468): one card of rows — a switch
+  /// with its hint, or a title and the value at the right — and the line of what the threshold
+  /// is, 12 under it.
+  extension PurchasesSettingsView {
+    fileprivate var macLayout: some View {
+      ScrollView {
+        VStack(alignment: .leading, spacing: SettingsControlMetrics.blockGap) {
+          SettingsCard {
+            switchRow(
+              "purchases.settings.pause", hint: "purchases.settings.pauseHint",
+              flag(\.pauseEnabled), id: "pause")
+            if values.pauseEnabled {
+              SettingsCardRow(
+                title: PurchasesText.f(
+                  "purchases.settings.pausePercent", environment,
+                  PurchasesText.percent(values.pausePercent, environment)),
+                compact: true
+              ) {
+                Stepper("", value: pausePercent, in: 5...100, step: 5).labelsHidden()
+                  .accessibilityIdentifier("settings.purchases.pausePercent")
+              }
+            }
+            switchRow(
+              "purchases.settings.regret", hint: "purchases.settings.regretHint",
+              regretEnabled, id: "regret")
+            if values.regretEnabled {
+              SettingsCardRow(
+                title: PurchasesText.count(
+                  "purchases.settings.askAfter", environment, values.regretAskAfterDays),
+                compact: true
+              ) {
+                Stepper("", value: askAfterDays, in: 0...30).labelsHidden()
+                  .accessibilityIdentifier("settings.purchases.askAfter")
+              }
+            }
+            switchRow(
+              "purchases.settings.mileage", hint: "purchases.settings.mileageHint",
+              flag(\.fuelAskMileage), id: "mileage", last: true)
+          }
+          Text(verbatim: t("purchases.settings.pauseFooter"))
+            .appFont(AppFont.system(size: 12))
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+    }
+
+    private func switchRow(
+      _ title: String, hint: String, _ isOn: Binding<Bool>, id: String, last: Bool = false
+    ) -> some View {
+      SettingsCardRow(title: t(title), hint: t(hint), showsDivider: !last, compact: true) {
+        Toggle(isOn: isOn) { Text(verbatim: t(title)) }
+          .labelsHidden().toggleStyle(.switch)
+          .accessibilityIdentifier("settings.purchases.\(id)")
+      }
+    }
+  }
+#endif

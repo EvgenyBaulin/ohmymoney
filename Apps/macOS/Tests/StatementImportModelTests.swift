@@ -641,22 +641,17 @@ final class StatementImportModelTests: XCTestCase {
     XCTAssertTrue(loading.canApply)
     XCTAssertTrue(loading.apply())
     XCTAssertEqual(try liveOperations().count, 1)
-    let settings = try XCTUnwrap(environment.settings)
-    let pending = StatementReview.decode(try settings.string(StatementReview.settingsKey))
-    XCTAssertEqual(pending.count, 1)
-    XCTAssertEqual(pending.first?.fileName, "synthetic.pdf")
-    XCTAssertEqual(pending.first?.checks.first?.missingExpense, AmountE4(whole: 8_999))
+    // Nothing waits for a decision afterwards: the statement is trusted and written at once.
+    XCTAssertNil(try environment.settings?.string("import.pendingReviews"))
     store.undo()
     XCTAssertTrue(try liveOperations().isEmpty)
-    XCTAssertTrue(StatementReview.decode(try settings.string(StatementReview.settingsKey)).isEmpty)
     store.redo()
-    XCTAssertEqual(
-      StatementReview.decode(try settings.string(StatementReview.settingsKey)), pending)
+    XCTAssertEqual(try liveOperations().count, 1)
   }
 
   // MARK: The layout of a PDF page
 
-  func testClosingBalanceNeedsReviewEvenWhenFooterTotalsMatch() async throws {
+  func testAClosingBalanceThatDiffersLeavesNoPendingDecisionBehind() async throws {
     let lines = StatementPDFText.layout(Self.tbankFragments(footerExpense: "1 000,00"))
     guard case .parsed(var result) = StatementImporter.parsePDFText(lines) else {
       return XCTFail("synthetic statement should parse")
@@ -667,20 +662,8 @@ final class StatementImportModelTests: XCTestCase {
     let loading = try await model()
     loading.add(parsed: result, name: "closing.pdf", accountID: account.id)
     XCTAssertTrue(loading.apply())
-    let pending = StatementReview.decode(
-      try environment.settings?.string(StatementReview.settingsKey))
-    XCTAssertEqual(pending.count, 1)
-    XCTAssertEqual(pending.first?.closingBalance, AmountE4(whole: 4_000))
-    XCTAssertNil(pending.first?.ledgerBalance, "an uncounted balance must not be invented")
-    XCTAssertEqual(pending.first?.operationIDs?.count, 1)
-    // Resolving the review is a setting write; one undo restores the unresolved decision.
-    XCTAssertTrue(store.apply(PlanningChange(settings: [StatementReview.settingsKey: "[]"])))
-    XCTAssertTrue(
-      StatementReview.decode(try environment.settings?.string(StatementReview.settingsKey)).isEmpty)
-    store.undo()
-    XCTAssertEqual(
-      StatementReview.decode(try environment.settings?.string(StatementReview.settingsKey)), pending
-    )
+    XCTAssertEqual(try liveOperations().count, 1)
+    XCTAssertNil(try environment.settings?.string("import.pendingReviews"))
   }
 
   func testTheLayoutPutsTheCellsOfOneRowOnOneLineLeftToRight() {

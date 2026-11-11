@@ -501,6 +501,7 @@ struct ExportRoundTripPropertyTests {
           "0021_history_and_cashback_choice",
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
+          "0024_category_icon_color",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -693,10 +694,15 @@ struct ExportRoundTripPropertyTests {
     "transactions.csv:receipt_n", "categories.csv:name_en", "categories.csv:name_en_source",
   ]
 
+  /// The columns the mark of a category added (`0024_category_icon_color`).
+  private static let addedByTheCategoryMark: Set<String> = [
+    "categories.csv:icon", "categories.csv:color",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
     .union(addedByTheCeilings).union(addedByTheBorrowedCard).union(addedByTheReceiptsAndEnglish)
-    .union(addedByThePurchases).union(addedByTheHabits)
+    .union(addedByThePurchases).union(addedByTheHabits).union(addedByTheCategoryMark)
 
   /// The column the habits added (`0020_habits`).
   private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]

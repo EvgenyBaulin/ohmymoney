@@ -108,4 +108,4 @@ for path in "$root"/DerivedData "$root"/DerivedData-* "$root"/spm-* "$root"/logs
 done
 
 [ "$found" = 1 ] || echo "clean-lane-builds: nothing to delete"
-df -h "$root" | tail -1
+echo "clean-lane-builds: $("$(dirname "$0")/disk-free.sh" "$root") GB free for builds (as Finder counts; df: $(df -g "$root" | awk 'NR == 2 { print $4 }') GB)"

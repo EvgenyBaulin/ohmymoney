@@ -71,7 +71,8 @@ public struct AnonymizerLabels: Hashable, Sendable {
 ///   dropped altogether — their text names things.
 ///
 /// **What does not change** — sums, dates, currencies, rates, kinds, categories (the tree is
-/// the app's, not a name of a person) and the English names made of them, grades, links between records (every id stays, so a
+/// the app's, not a name of a person) with the English names made of them and their symbol and
+/// colour, grades, links between records (every id stays, so a
 /// part still points at the same operation, person and event), the amount's expression,
 /// settings that are numbers.
 ///

@@ -8,6 +8,8 @@ import SwiftUI
 /// visible with «Увеличить контраст» and without colour, with «от P10 до P90» at its end. The
 /// band is a fill, not a material: «Уменьшить прозрачность» leaves it as it is.
 struct ForecastChart: View {
+  /// The plot's height: 260 in the frame of the Mac.
+  var height: CGFloat = 240
   /// A day of the band: the interval from P10 to P90 in whole rubles.
   struct BandPoint: Hashable {
     var day: Int
@@ -137,7 +139,7 @@ struct ForecastChart: View {
           }
         }
       }
-      .frame(height: 240)
+      .frame(height: height)
       ChartLegend(items: legend)
     }
   }

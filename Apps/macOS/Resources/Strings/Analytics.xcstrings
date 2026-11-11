@@ -989,6 +989,23 @@
         }
       }
     },
+    "analytics.block.cashbackMonth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback for the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэк за месяц"
+          }
+        }
+      }
+    },
     "analytics.block.cashbackMonths": {
       "extractionState": "manual",
       "localizations": {
@@ -1074,6 +1091,23 @@
         }
       }
     },
+    "analytics.block.eventsLastTime": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last time"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В прошлый раз"
+          }
+        }
+      }
+    },
     "analytics.block.forWhomDynamics": {
       "extractionState": "manual",
       "localizations": {
@@ -1108,6 +1142,23 @@
         }
       }
     },
+    "analytics.block.forWhomTrack": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending by recipient"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для кого траты"
+          }
+        }
+      }
+    },
     "analytics.block.forWhomValues": {
       "extractionState": "manual",
       "localizations": {
@@ -1138,6 +1189,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Расходы до конца месяца"
+          }
+        }
+      }
+    },
+    "analytics.block.forecastEnd": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Until the end of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До конца месяца"
           }
         }
       }
@@ -1206,6 +1274,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мои траты по счетам"
+          }
+        }
+      }
+    },
+    "analytics.block.methodSpendingTrack": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Where the spending went"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куда ушли расходы"
           }
         }
       }
@@ -1312,6 +1397,23 @@
         }
       }
     },
+    "analytics.block.othersDynamics": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dynamics"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Динамика"
+          }
+        }
+      }
+    },
     "analytics.block.othersSubscriptions": {
       "extractionState": "manual",
       "localizations": {
@@ -1393,6 +1495,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Места периода"
+          }
+        }
+      }
+    },
+    "analytics.block.placesTop": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top places"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Топ мест"
           }
         }
       }
@@ -1482,6 +1601,23 @@
         }
       }
     },
+    "analytics.cashback.expectedTotal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидаем"
+          }
+        }
+      }
+    },
     "analytics.cashback.holder": {
       "extractionState": "manual",
       "localizations": {
@@ -1512,6 +1648,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без карты"
+          }
+        }
+      }
+    },
+    "analytics.cashback.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected cashback is not income, received cashback is."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидаемый кэшбэк — не доход, полученный — доход."
+          }
+        }
+      }
+    },
+    "analytics.cashback.received": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Received"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Получен"
           }
         }
       }
@@ -1958,6 +2128,57 @@
         }
       }
     },
+    "analytics.event.notStarted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "not started yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ещё не началось"
+          }
+        }
+      }
+    },
+    "analytics.event.over": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "over the budget"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сверх бюджета"
+          }
+        }
+      }
+    },
+    "analytics.event.within": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "within the budget"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "в пределах"
+          }
+        }
+      }
+    },
     "analytics.events.budget": {
       "extractionState": "manual",
       "localizations": {
@@ -1988,6 +2209,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Потрачено"
+          }
+        }
+      }
+    },
+    "analytics.forWhom.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“For whom” is only a cut of the analytics: it does not reduce my spending. The labels are renamed in Settings."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Для кого» — только разрез аналитики: мой расход он не уменьшает. Подписи переименовываются в настройках."
           }
         }
       }
@@ -2175,6 +2413,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Квантильный промах P10 / P50 / P90"
+          }
+        }
+      }
+    },
+    "analytics.forecast.plannedPayments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "planned payments %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "плановые платежи %@"
           }
         }
       }
@@ -2725,6 +2980,108 @@
         }
       }
     },
+    "analytics.others.col.returned": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Returned"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вернули"
+          }
+        }
+      }
+    },
+    "analytics.others.col.total": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Всего"
+          }
+        }
+      }
+    },
+    "analytics.others.col.waiting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for return"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ждёт возврата"
+          }
+        }
+      }
+    },
+    "analytics.others.col.who": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Who"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кто"
+          }
+        }
+      }
+    },
+    "analytics.others.col.writtenOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Written off"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Списано"
+          }
+        }
+      }
+    },
+    "analytics.others.legend": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— always with a label, not only by colour"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— всегда с подписью, не только цветом"
+          }
+        }
+      }
+    },
     "analytics.others.paid": {
       "extractionState": "manual",
       "localizations": {
@@ -2755,6 +3112,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вернули"
+          }
+        }
+      }
+    },
+    "analytics.others.series.paid": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "paid"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "выдано"
+          }
+        }
+      }
+    },
+    "analytics.others.series.returned": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "returned — outline"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "возвращено — контур"
           }
         }
       }
@@ -4259,6 +4650,59 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ тыс."
+          }
+        }
+      }
+    },
+    "analytics.times": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld time"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld times"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раз"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раза"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раз"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раза"
+                }
+              }
+            }
           }
         }
       }

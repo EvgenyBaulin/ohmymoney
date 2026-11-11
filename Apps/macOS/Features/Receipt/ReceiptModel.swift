@@ -53,6 +53,8 @@ final class ReceiptModel {
   /// What the paper was when the receipt came from printed text, `nil` for a QR code. Printed
   /// text can be misread, so the screen asks to check it before anything is written.
   private(set) var printedKind: PaperKind?
+  /// The shop read from the header of a foreign receipt, only when the recognition was sure.
+  private(set) var printedMerchant: String?
   /// The paper printed fiscal numbers that did not pass the checks: the receipt has no key.
   private(set) var numbersRejected = false
   /// The operation the time goes to: the nearest by default, another of the offered ones by choice.
@@ -90,7 +92,7 @@ final class ReceiptModel {
       let lines = await Task.detached(priority: .userInitiated) {
         ReceiptTextReader.lines(in: image)
       }.value
-      read(printedLines: lines, photo: photo, otherwise: fallback)
+      read(printed: PrintedReceiptReader.read(recognized: lines), photo: photo, otherwise: fallback)
     }
   }
 
@@ -121,8 +123,8 @@ final class ReceiptModel {
         ReceiptTextReader.lines(inFile: data)
       }.value
       read(
-        printedLines: lines, photo: ReceiptPhoto(data: data, filename: filename),
-        otherwise: fallback)
+        printed: PrintedReceiptReader.read(recognized: lines),
+        photo: ReceiptPhoto(data: data, filename: filename), otherwise: fallback)
     }
   }
 
@@ -130,7 +132,19 @@ final class ReceiptModel {
   /// paper with a total and a moment becomes a proposal to check; a guest bill is told to wait
   /// for the payment; anything else leaves `otherwise`.
   func read(printedLines lines: [String], photo: ReceiptPhoto? = nil, otherwise: Stage = .noCode) {
-    switch PrintedReceiptReader.read(lines: lines) {
+    read(printed: PrintedReceiptReader.read(lines: lines), photo: photo, otherwise: otherwise)
+  }
+
+  /// Lines with the recognition's confidence: a confidently read foreign receipt also offers
+  /// the shop's name.
+  func read(
+    recognized lines: [RecognizedLine], photo: ReceiptPhoto? = nil, otherwise: Stage = .noCode
+  ) {
+    read(printed: PrintedReceiptReader.read(recognized: lines), photo: photo, otherwise: otherwise)
+  }
+
+  private func read(printed reading: PrintedReading, photo: ReceiptPhoto?, otherwise: Stage) {
+    switch reading {
     case .receipt(let printed):
       accept(printed.receipt, photo: photo, printed: printed)
     case .bill:
@@ -158,6 +172,7 @@ final class ReceiptModel {
     proposal = nil
     photo = nil
     printedKind = nil
+    printedMerchant = nil
     numbersRejected = false
     chosenId = nil
     wantsNew = false
@@ -167,6 +182,7 @@ final class ReceiptModel {
     self.receipt = receipt
     self.photo = photo
     printedKind = printed?.kind
+    printedMerchant = printed?.merchant
     numbersRejected = printed?.numbersRejected ?? false
     wantsNew = false
     let proposed = ReceiptMatch.propose(
@@ -301,6 +317,11 @@ final class ReceiptModel {
       numbers.fiscalSign ?? "—")
   }
 
+  /// «Магазин: Cafe Aroma» when the shop was read, else empty.
+  var merchantText: String {
+    printedMerchant.map { ReceiptText.format("receipt.new.merchant", environment, $0) } ?? ""
+  }
+
   var receiptDayText: String { receipt.map { environment.dates.longDay($0.day) } ?? "" }
 
   var receiptTimeText: String {
@@ -394,7 +415,7 @@ final class ReceiptModel {
     let now = environment.now()
     let transaction = Transaction(
       id: id, kind: draft.kind, occurredAt: draft.moment, currency: draft.currency,
-      amountE4: draft.amountE4, createdAt: now, updatedAt: now,
+      amountE4: draft.amountE4, note: printedMerchant, createdAt: now, updatedAt: now,
       timeZoneId: TravelDay.recordedId(in: environment.calendar.timeZone),
       receipt: receipt.numbers)
     let entry = TransactionEntry(
