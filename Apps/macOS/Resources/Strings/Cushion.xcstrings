@@ -15,6 +15,12 @@
             "state": "translated",
             "value": "%1$@ из %2$@ мес."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ з %2$@ міс."
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не меньше нынешних обязательных платежей: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не менше за сьогоднішні обов'язкові платежі: %@"
           }
         }
       }
@@ -49,6 +61,12 @@
             "state": "translated",
             "value": "Полных месяцев пока: %lld."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повних місяців поки що: %lld."
+          }
         }
       }
     },
@@ -66,6 +84,12 @@
             "state": "translated",
             "value": "Цель — %1$@ (%2$@): откладывайте %3$@ в месяц до %4$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль — %1$@ (%2$@): відкладати по %3$@ на місяць до %4$@"
+          }
         }
       }
     },
@@ -82,6 +106,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Собрать к"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Досягти до"
           }
         }
       }
@@ -160,6 +190,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подушка на %lld місяці"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подушка на %lld місяців"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подушка на %lld місяць"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подушка на %lld місяця"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -176,6 +236,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цель не задана: скажите, на сколько месяцев нужна подушка."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цілі ще немає: скажіть, на скільки місяців має вистачати подушки."
           }
         }
       }
@@ -218,6 +284,12 @@
             "state": "translated",
             "value": "при нынешнем темпе — к %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "за поточним темпом — до %@"
+          }
         }
       }
     },
@@ -234,6 +306,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "при нынешнем темпе не соберётся"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "за поточним темпом її не досягти"
           }
         }
       }
@@ -252,6 +330,12 @@
             "state": "translated",
             "value": "Цель — %1$@ (%2$@): по %3$@ в месяц — за год"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль — %1$@ (%2$@): %3$@ на місяць дадуть її за рік"
+          }
         }
       }
     },
@@ -268,6 +352,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цель — %1$@ (%2$@): собрана"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль — %1$@ (%2$@): досягнуто"
           }
         }
       }
@@ -286,6 +376,12 @@
             "state": "translated",
             "value": "Убрать цель"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити ціль"
+          }
         }
       }
     },
@@ -302,6 +398,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цель подушки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль подушки"
           }
         }
       }
@@ -356,6 +458,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Без доходів вистачило б на %lld місяці"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Без доходів вистачило б на %lld місяців"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Без доходів вистачило б на %lld місяць"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Без доходів вистачило б на %lld місяця"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -372,6 +504,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без дохода вы проживёте %@ месяца"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без доходів вистачило б на %@ міс."
           }
         }
       }
@@ -1002,6 +1140,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld місяці"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld місяців"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld місяць"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld місяця"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1019,6 +1187,12 @@
             "state": "translated",
             "value": "Отметьте счета подушки — и здесь будет видно, на сколько месяцев её хватит без дохода."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначте рахунки подушки, і тут буде видно, на скільки місяців її вистачить без доходів."
+          }
         }
       }
     },
@@ -1035,6 +1209,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мало данных: для обязательных трат нужно 3 полных месяца."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даних поки мало: для обов'язкових витрат потрібні 3 повні місяці."
           }
         }
       }
@@ -1076,6 +1256,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Необходимые категории"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Необхідні категорії"
           }
         }
       }
@@ -1142,6 +1328,12 @@
             "state": "translated",
             "value": "Подушка безопасности: пока мало данных"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка безпеки: даних поки мало"
+          }
         }
       }
     },
@@ -1158,6 +1350,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безопасности: счета не отмечены"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка безпеки: рахунок ще не позначено"
           }
         }
       }
@@ -1176,6 +1374,12 @@
             "state": "translated",
             "value": "Открыть «Капитал»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити «Капітал»"
+          }
         }
       }
     },
@@ -1192,6 +1396,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безопасности: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка безпеки: %@"
           }
         }
       }
@@ -1210,6 +1420,12 @@
             "state": "translated",
             "value": "Счета подушки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки подушки"
+          }
         }
       }
     },
@@ -1226,6 +1442,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Деньги этих счетов во всех их валютах — подушка."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гроші цих рахунків, кожна їхня валюта, і є подушкою."
           }
         }
       }
@@ -1268,6 +1490,12 @@
             "state": "translated",
             "value": "Траты, без которых не обойтись. Вместе с платежами, подписками и долгами это обязательные траты месяца."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрати, які не можна зупинити. Разом із платежами, підписками й боргами вони становлять обов'язкові витрати за місяць."
+          }
         }
       }
     },
@@ -1284,6 +1512,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Счетов пока нет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунків ще немає."
           }
         }
       }
@@ -1302,6 +1536,12 @@
             "state": "translated",
             "value": "Своих категорий расходов нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Власних категорій витрат немає."
+          }
         }
       }
     },
@@ -1319,6 +1559,12 @@
             "state": "translated",
             "value": "Счета и категории…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки й категорії…"
+          }
         }
       }
     },
@@ -1335,6 +1581,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отмечены обычные необходимые категории — проверьте и сохраните."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначено звичайні необхідні категорії: перевірте їх і збережіть."
           }
         }
       }
@@ -1377,6 +1629,12 @@
             "state": "translated",
             "value": "Подушка %1$@ · обязательные траты ≈ %2$@ в месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка %1$@ · обов'язкові витрати ≈ %2$@ на місяць"
+          }
         }
       }
     },
@@ -1393,6 +1651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ мес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ міс."
           }
         }
       }
@@ -1434,6 +1698,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не сверен: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ще не враховано: %@"
           }
         }
       }

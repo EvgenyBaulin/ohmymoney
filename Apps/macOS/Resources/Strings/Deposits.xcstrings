@@ -15,6 +15,12 @@
             "state": "translated",
             "value": "Так монету называет CoinGecko: bitcoin, ethereum, tether. Знаков после запятой — не больше 4: деньги хранятся с точностью до 1/10 000."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва, під якою CoinGecko знає монету: bitcoin, ethereum, tether. Не більше 4 знаків після коми: гроші зберігаються з точністю до 1/10 000."
+          }
         }
       }
     },
@@ -32,6 +38,12 @@
             "state": "translated",
             "value": "Идентификатор монеты"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ідентифікатор монети"
+          }
         }
       }
     },
@@ -48,6 +60,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Идентификатор монеты — строчные латинские буквы, цифры и дефис."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ідентифікатор монети — малі латинські літери, цифри й дефіси."
           }
         }
       }
@@ -90,6 +108,12 @@
             "state": "translated",
             "value": "Курс криптовалют"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Курси криптовалют"
+          }
         }
       }
     },
@@ -106,6 +130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Из сети (CoinGecko)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З мережі (CoinGecko)"
           }
         }
       }
@@ -124,6 +154,12 @@
             "state": "translated",
             "value": "На api.coingecko.com уходит только идентификатор монеты и валюта (рубли). Без сети остаётся последний курс с его датой."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На api.coingecko.com надсилаються лише ідентифікатор монети та валюта (рублі). Без мережі лишається останній курс із його датою."
+          }
         }
       }
     },
@@ -141,6 +177,12 @@
             "state": "translated",
             "value": "Вручную"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вручну"
+          }
         }
       }
     },
@@ -157,6 +199,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавить предложение…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати пропозицію…"
           }
         }
       }
@@ -199,6 +247,12 @@
             "state": "translated",
             "value": "%@ – %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – %@"
+          }
         }
       }
     },
@@ -212,6 +266,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "до %@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "до %@"
@@ -233,6 +293,12 @@
             "state": "translated",
             "value": "Средняя максимальная ставка по вкладам в рублях десяти банков с наибольшим объёмом вкладов: %1$@ %% годовых, с %2$@. Это ориентир рынка, а не ставка какого-либо банка."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Середня найвища ставка за рублевими депозитами десяти банків з найбільшою кількістю вкладів: %1$@ %% на рік, станом на %2$@. Орієнтир для ринку, а не ставка жодного банку."
+          }
         }
       }
     },
@@ -250,6 +316,12 @@
             "state": "translated",
             "value": "По данным Банка России"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За даними Банку Росії"
+          }
         }
       }
     },
@@ -266,6 +338,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставки расходятся: %1$@ — %2$@ %%, %3$@ — %4$@ %%. Стоит проверить на сайте банка."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставки відрізняються: %1$@ — %2$@ %%, %3$@ — %4$@ %%. Варто перевірити на сайті банку."
           }
         }
       }
@@ -332,6 +410,12 @@
             "state": "translated",
             "value": "Срок, мес."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Строк, місяців"
+          }
         }
       }
     },
@@ -348,6 +432,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "С пополнением"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З поповненням"
           }
         }
       }
@@ -390,6 +480,12 @@
             "state": "translated",
             "value": "Изменить предложение"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змінити пропозицію"
+          }
         }
       }
     },
@@ -406,6 +502,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Наибольшая сумма"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найбільша сума"
           }
         }
       }
@@ -424,6 +526,12 @@
             "state": "translated",
             "value": "Наименьшая сумма"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найменша сума"
+          }
         }
       }
     },
@@ -441,6 +549,12 @@
             "state": "translated",
             "value": "Новое предложение"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нова пропозиція"
+          }
         }
       }
     },
@@ -457,6 +571,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Только новым клиентам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише для нових клієнтів"
           }
         }
       }
@@ -523,6 +643,12 @@
             "state": "translated",
             "value": "Ставка — положительное число, например 15.5."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставка — додатне число, наприклад 15.5."
+          }
         }
       }
     },
@@ -539,6 +665,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставка на день"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставка станом на"
           }
         }
       }
@@ -557,6 +689,12 @@
             "state": "translated",
             "value": "Нужна подписка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрібна підписка"
+          }
         }
       }
     },
@@ -573,6 +711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Срок, мес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Строк, місяців"
           }
         }
       }
@@ -591,6 +735,12 @@
             "state": "translated",
             "value": "Можно пополнять"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можна поповнювати"
+          }
         }
       }
     },
@@ -607,6 +757,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "новым клиентам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "нові клієнти"
           }
         }
       }
@@ -625,6 +781,12 @@
             "state": "translated",
             "value": "Ничего не подходит под фильтр."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нічого не підходить під фільтр."
+          }
         }
       }
     },
@@ -641,6 +803,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витрина вкладов…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вітрина депозитів…"
           }
         }
       }
@@ -659,6 +827,12 @@
             "state": "translated",
             "value": "моё предложение"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "моя пропозиція"
+          }
         }
       }
     },
@@ -675,6 +849,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Брать ставки из открытых источников (в сеть уходит только запрос страницы)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Брати ставки з відкритих джерел (з Mac іде лише запит сторінки)"
           }
         }
       }
@@ -693,6 +873,12 @@
             "state": "translated",
             "value": "Не удалось обновить ставки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося оновити ставки"
+          }
         }
       }
     },
@@ -709,6 +895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "на сумму %@: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "для %@: %@"
           }
         }
       }
@@ -727,6 +919,12 @@
             "state": "translated",
             "value": "на срок %lld мес.: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "на %lld міс.: %@"
+          }
         }
       }
     },
@@ -743,6 +941,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "с пополнением: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з поповненням: %@"
           }
         }
       }
@@ -785,6 +989,12 @@
             "state": "translated",
             "value": "Уточните на сайте банка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уточніть на сайті банку"
+          }
         }
       }
     },
@@ -798,6 +1008,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "до %@ %%"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "до %@ %%"
@@ -819,6 +1035,12 @@
             "state": "translated",
             "value": "ставка на %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ставка станом на %@"
+          }
         }
       }
     },
@@ -835,6 +1057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "список приложения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "список застосунку"
           }
         }
       }
@@ -853,6 +1081,12 @@
             "state": "translated",
             "value": "Банк России"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк Росії"
+          }
         }
       }
     },
@@ -869,6 +1103,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "моё предложение"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "моя пропозиція"
           }
         }
       }
@@ -887,6 +1127,12 @@
             "state": "translated",
             "value": "могла измениться"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "могла змінитися"
+          }
         }
       }
     },
@@ -903,6 +1149,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "нужна подписка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "потрібна підписка"
           }
         }
       }
@@ -921,6 +1173,12 @@
             "state": "translated",
             "value": "Что банки публикуют сейчас, по ставке. Не финансовая консультация: условия проверяйте на сайте банка."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що банки публікують зараз, за ставкою. Це не фінансова порада: умови перевіряйте на сайті банку."
+          }
         }
       }
     },
@@ -937,6 +1195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "от %lld мес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "від %lld міс."
           }
         }
       }
@@ -955,6 +1219,12 @@
             "state": "translated",
             "value": "%lld мес."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld міс."
+          }
         }
       }
     },
@@ -971,6 +1241,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld–%lld мес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld–%lld міс."
           }
         }
       }
@@ -989,6 +1265,12 @@
             "state": "translated",
             "value": "до %lld мес."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "до %lld міс."
+          }
         }
       }
     },
@@ -1005,6 +1287,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витрина вкладов"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вітрина депозитів"
           }
         }
       }
@@ -1023,6 +1311,12 @@
             "state": "translated",
             "value": "без пополнения"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "без поповнення"
+          }
         }
       }
     },
@@ -1039,6 +1333,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "можно пополнять"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "поповнення можливе"
           }
         }
       }
@@ -1057,6 +1357,12 @@
             "state": "translated",
             "value": "Список банков прочитан %@; обновляется с выпуском приложения."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Список банків прочитано %@; оновлюється з кожним випуском."
+          }
         }
       }
     },
@@ -1073,6 +1379,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вклад «%1$@» кончится %2$@. Сейчас в витрине (не финансовая консультация):"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Депозит «%1$@» закінчується %2$@. Зараз на вітрині (це не фінансова порада):"
           }
         }
       }
@@ -1091,6 +1403,12 @@
             "state": "translated",
             "value": "Вложение"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Актив"
+          }
         }
       }
     },
@@ -1104,6 +1422,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Купон"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Купон"
@@ -1125,6 +1449,12 @@
             "state": "translated",
             "value": "Дивиденды"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дивіденди"
+          }
         }
       }
     },
@@ -1141,6 +1471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ожидаемая выплата…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очікувана виплата…"
           }
         }
       }
@@ -1183,6 +1519,12 @@
             "state": "translated",
             "value": "Новая выплата"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нова виплата"
+          }
         }
       }
     },
@@ -1199,6 +1541,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В «Капитале» ещё нет вложений: добавьте там."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В «Капіталі» інвестицій поки немає: додайте їх там."
           }
         }
       }
@@ -1217,6 +1565,12 @@
             "state": "translated",
             "value": "Обычное поступление"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Звичайний дохід"
+          }
         }
       }
     },
@@ -1234,6 +1588,12 @@
             "state": "translated",
             "value": "Купон раз в полгода — регулярное поступление: выберите «Регулярный» выше."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Купон, що приходить раз на півроку, — регулярний дохід: оберіть вище «Регулярний»."
+          }
         }
       }
     },
@@ -1247,6 +1607,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "купон"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "купон"
@@ -1267,6 +1633,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "дивиденды"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "дивіденди"
           }
         }
       }

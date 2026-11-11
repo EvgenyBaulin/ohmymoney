@@ -15,6 +15,12 @@
             "state": "translated",
             "value": "Обезличить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знеособити"
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В копии стираются описания, комментарии, места и имена. Суммы, даты и категории остаются. Оригинал не меняется."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Описи, коментарі, місця й імена в копії стираються. Суми, дати й категорії лишаються. Оригінал не змінюється."
           }
         }
       }
@@ -49,6 +61,12 @@
             "state": "translated",
             "value": "С вложениями (%@)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включити вкладення (%@)"
+          }
         }
       }
     },
@@ -65,6 +83,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копия готова"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію готово"
           }
         }
       }
@@ -83,6 +107,12 @@
             "state": "translated",
             "value": "Вложений: %lld"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вкладень: %lld"
+          }
         }
       }
     },
@@ -99,6 +129,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Закрыта вашим паролем."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблоковано вашим паролем."
           }
         }
       }
@@ -149,6 +185,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "В копии %lld операции"
+                }
+              }
+            }
+          }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції в копії"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцій у копії"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операція в копії"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції в копії"
                 }
               }
             }
@@ -206,6 +272,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перекази в копії"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказів у копії"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказ у копії"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказу в копії"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -222,6 +318,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обезличивание в этой сборке недоступно, поэтому копия не сделана."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знеособлення в цій збірці недоступне, тож копію не створено."
           }
         }
       }
@@ -240,6 +342,12 @@
             "state": "translated",
             "value": "Скрытый счёт нужен тому, что остаётся в копии, и его нельзя убрать. Включите скрытые или верните счёт на экран."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прихований рахунок ще використовується тим, що копія зберігає, тож його не можна пропустити. Включіть приховані рахунки або зробіть рахунок знову видимим."
+          }
         }
       }
     },
@@ -256,6 +364,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копия не сделана. Ничего не изменилось."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію не створено. Нічого не змінено."
           }
         }
       }
@@ -274,6 +388,12 @@
             "state": "translated",
             "value": "Введите пароль: копия без пароля не делается."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть пароль: копію без пароля не створюємо."
+          }
         }
       }
     },
@@ -291,6 +411,12 @@
             "state": "translated",
             "value": "Период пуст: конец раньше начала."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Період порожній: кінець раніше за початок."
+          }
         }
       }
     },
@@ -304,6 +430,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формат"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Формат"
@@ -325,6 +457,12 @@
             "state": "translated",
             "value": "Архив переноса"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архів переказу"
+          }
         }
       }
     },
@@ -341,6 +479,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Только CSV"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише CSV"
           }
         }
       }
@@ -383,6 +527,12 @@
             "state": "translated",
             "value": "Включая скрытые"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включити приховані рахунки"
+          }
         }
       }
     },
@@ -399,6 +549,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без галочки в копии нет скрытых счетов, их операций и переводов."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без них у копії немає прихованих рахунків і жодної їхньої операції чи переказу."
           }
         }
       }
@@ -417,6 +573,12 @@
             "state": "translated",
             "value": "В копию войдут скрытые счета."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія включатиме приховані рахунки."
+          }
         }
       }
     },
@@ -434,6 +596,12 @@
             "state": "translated",
             "value": "Не вошло: %lld"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропущено: %lld"
+          }
         }
       }
     },
@@ -450,6 +618,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копия — оригинал остаётся у вас."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія — оригінал лишається у вас."
           }
         }
       }
@@ -516,6 +690,12 @@
             "state": "translated",
             "value": "Копия закрыта этим паролем. Без него её не откроет никто, и восстановить пароль нельзя. Оригинал остаётся у вас без изменений."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію заблоковано цим паролем. Без нього її не відкриє ніхто, і відновити його неможливо. Оригінал лишається у вас, без змін."
+          }
         }
       }
     },
@@ -532,6 +712,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "вложений: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "вкладень: %lld"
           }
         }
       }
@@ -573,6 +759,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Войдёт:"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Буде включено:"
           }
         }
       }
@@ -711,6 +903,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перекази"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказу"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -727,6 +949,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Введите пароль: копия без пароля не делается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть пароль: копію без пароля не створюємо."
           }
         }
       }
@@ -745,6 +973,12 @@
             "state": "translated",
             "value": "Пароли не совпадают."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паролі не збігаються."
+          }
         }
       }
     },
@@ -761,6 +995,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Период пуст: конец раньше начала."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Період порожній: кінець раніше за початок."
           }
         }
       }
@@ -779,6 +1019,12 @@
             "state": "translated",
             "value": "Сохранить копию…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти копію…"
+          }
         }
       }
     },
@@ -795,6 +1041,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что взять"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частина історії"
           }
         }
       }
@@ -813,6 +1065,12 @@
             "state": "translated",
             "value": "За период"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За період"
+          }
         }
       }
     },
@@ -829,6 +1087,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вся база"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уся база"
           }
         }
       }
@@ -847,6 +1111,12 @@
             "state": "translated",
             "value": "Показать пароль"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати пароль"
+          }
         }
       }
     },
@@ -863,6 +1133,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Експорт копії"
           }
         }
       }
@@ -905,6 +1181,12 @@
             "state": "translated",
             "value": "Делаем копию…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створюємо копію…"
+          }
         }
       }
     },
@@ -921,6 +1203,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вернуться к моим данным"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назад до моїх даних"
           }
         }
       }
@@ -939,6 +1227,12 @@
             "state": "translated",
             "value": "Учебные данные"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Навчальні дані"
+          }
         }
       }
     },
@@ -955,6 +1249,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Эти цифры выдуманные. Ваша база не открыта."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ці цифри вигадані. Ваша власна база не відкрита."
           }
         }
       }
@@ -997,6 +1297,12 @@
             "state": "translated",
             "value": "Приложение перезапустится на выдуманных данных. Ваша база не трогается, вернуться можно одной кнопкой."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосунок перезапуститься на вигаданих даних. Вашу базу не зачіпає, а одна кнопка поверне вас назад."
+          }
         }
       }
     },
@@ -1013,6 +1319,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показать приложение на учебных данных?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати застосунок на навчальних даних?"
           }
         }
       }
@@ -1031,6 +1343,12 @@
             "state": "translated",
             "value": "Зашифровать (открывается в OhMyMoney)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зашифрувати (відкривається в OhMyMoney)"
+          }
         }
       }
     },
@@ -1047,6 +1365,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очистить журнал"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистити журнал"
           }
         }
       }
@@ -1089,6 +1413,12 @@
             "state": "translated",
             "value": "Все записи журнала открытий будут удалены."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усі записи в журналі відкриттів буде видалено."
+          }
         }
       }
     },
@@ -1105,6 +1435,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очистить журнал?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистити журнал?"
           }
         }
       }
@@ -1123,6 +1459,12 @@
             "state": "translated",
             "value": "Записей пока нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рядків ще немає."
+          }
         }
       }
     },
@@ -1139,6 +1481,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сделан экспорт копии"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію експортовано"
           }
         }
       }
@@ -1157,6 +1505,12 @@
             "state": "translated",
             "value": "Показаны скрытые счета"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приховані рахунки показано"
+          }
         }
       }
     },
@@ -1173,6 +1527,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заблокировано"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблоковано"
           }
         }
       }
@@ -1191,6 +1551,12 @@
             "state": "translated",
             "value": "Приложение открыто"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосунок відкрито"
+          }
         }
       }
     },
@@ -1207,6 +1573,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Режим «только просмотр» выключен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Режим перегляду вимкнено"
           }
         }
       }
@@ -1225,6 +1597,12 @@
             "state": "translated",
             "value": "Включён режим «только просмотр»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Режим перегляду увімкнено"
+          }
         }
       }
     },
@@ -1241,6 +1619,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка снята по паролю"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розблоковано паролем"
           }
         }
       }
@@ -1259,6 +1643,12 @@
             "state": "translated",
             "value": "Блокировка снята по Touch ID"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розблоковано за Touch ID"
+          }
         }
       }
     },
@@ -1276,6 +1666,12 @@
             "state": "translated",
             "value": "Журнал лежит только на этом Mac. В нём моменты и виды событий: ни сумм, ни имён, ни названий. В копию и в архив он не попадает."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал зберігається лише на цьому Mac. Він містить моменти й види подій — без сум, імен і назв — і не потрапляє до копії чи архіву."
+          }
         }
       }
     },
@@ -1292,6 +1688,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хранить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберігати"
           }
         }
       }
@@ -1346,6 +1748,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld днів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1362,6 +1794,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Журнал открытий"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал відкриттів"
           }
         }
       }
@@ -1380,6 +1818,12 @@
             "state": "translated",
             "value": "Чтобы открыть файл, нужен этот пароль. Восстановить его нельзя."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для відкриття файлу потрібен цей пароль. Відновити його неможливо."
+          }
         }
       }
     },
@@ -1396,6 +1840,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Закрыть файл паролем"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблокувати файл паролем"
           }
         }
       }
@@ -1414,6 +1864,12 @@
             "state": "translated",
             "value": "Экспорт копии…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Експортувати копію…"
+          }
         }
       }
     },
@@ -1430,6 +1886,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що знає застосунок…"
           }
         }
       }
@@ -1448,6 +1910,12 @@
             "state": "translated",
             "value": "Скрывать суммы при записи экрана"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приховувати суми під час запису екрана"
+          }
         }
       }
     },
@@ -1464,6 +1932,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "И когда экран показывают другому или в звонке."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Також коли екран дзеркалиться або показується в дзвінку."
           }
         }
       }
@@ -1482,6 +1956,12 @@
             "state": "translated",
             "value": "Показать на учебных данных…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати на навчальних даних…"
+          }
         }
       }
     },
@@ -1498,6 +1978,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Експортувати копію…"
           }
         }
       }
@@ -1516,6 +2002,12 @@
             "state": "translated",
             "value": "Передать другому"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Передача іншим"
+          }
         }
       }
     },
@@ -1532,6 +2024,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копия закрыта паролем, оригинал не меняется. Учебные данные — выдуманные цифры, ваша база не открывается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія заблокована паролем; оригінал лишається без змін. Навчальні дані — вигадані цифри, а ваша власна база не відкривається."
           }
         }
       }
@@ -1550,6 +2048,12 @@
             "state": "translated",
             "value": "Журнал открытий…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал відкриттів…"
+          }
         }
       }
     },
@@ -1566,6 +2070,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що знає застосунок"
           }
         }
       }
@@ -1584,6 +2094,12 @@
             "state": "translated",
             "value": "Журнал и числа только показаны здесь и никуда не отправляются."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал і лічильники показано тут лише для перегляду; нікуди не надсилаються."
+          }
         }
       }
     },
@@ -1600,6 +2116,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка и пароль…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Блокування й пароль…"
           }
         }
       }
@@ -1618,6 +2140,12 @@
             "state": "translated",
             "value": "Только просмотр"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише перегляд"
+          }
         }
       }
     },
@@ -1634,6 +2162,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Приложение всё показывает и ничего не меняет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосунок показує все і нічого не змінює."
           }
         }
       }
@@ -1676,6 +2210,12 @@
             "state": "translated",
             "value": "Что хранится…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що зберігається…"
+          }
         }
       }
     },
@@ -1716,6 +2256,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копии"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копії"
           }
         }
       }
@@ -1854,6 +2400,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файли"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файлів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файл"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файлу"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1903,6 +2479,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld строки"
+                }
+              }
+            }
+          }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядків"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядок"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядка"
                 }
               }
             }
@@ -1960,6 +2566,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld записи"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld записів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запис"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запису"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1976,6 +2612,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "База данных"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "База даних"
           }
         }
       }
@@ -1994,6 +2636,12 @@
             "state": "translated",
             "value": "Здесь только числа и размеры. Ничего никуда не отправляется."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тут показано лише лічильники та розміри. Нікуди нічого не надсилається."
+          }
         }
       }
     },
@@ -2011,6 +2659,12 @@
             "state": "translated",
             "value": "Журнал открытий"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал відкриттів"
+          }
         }
       }
     },
@@ -2024,6 +2678,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записи"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Записи"
@@ -2045,6 +2705,12 @@
             "state": "translated",
             "value": "По таблицам"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За таблицями"
+          }
         }
       }
     },
@@ -2061,6 +2727,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що знає застосунок"
           }
         }
       }
@@ -2079,6 +2751,12 @@
             "state": "translated",
             "value": "Всего на диске"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усього на диску"
+          }
         }
       }
     },
@@ -2092,6 +2770,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Б"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Б"
@@ -2113,6 +2797,12 @@
             "state": "translated",
             "value": "ГБ"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ГБ"
+          }
         }
       }
     },
@@ -2126,6 +2816,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "КБ"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "КБ"
@@ -2147,6 +2843,12 @@
             "state": "translated",
             "value": "МБ"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "МБ"
+          }
         }
       }
     },
@@ -2163,6 +2865,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Где лежит"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Де лежить"
           }
         }
       }
@@ -2181,6 +2889,12 @@
             "state": "translated",
             "value": "Копии"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копії"
+          }
         }
       }
     },
@@ -2197,6 +2911,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Папка данных"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тека даних"
           }
         }
       }
@@ -2215,6 +2935,12 @@
             "state": "translated",
             "value": "Пути только показаны: в базе и в архиве их нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шляхи лише показано: база й архів їх не зберігають."
+          }
         }
       }
     },
@@ -2231,6 +2957,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Папка зеркальных копий"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тека дзеркальних копій"
           }
         }
       }

@@ -15,6 +15,12 @@
             "state": "translated",
             "value": "Выше цели"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Понад ціль"
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По правилам (как у родителя)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За правилами (як у батьківської)"
           }
         }
       }
@@ -49,6 +61,12 @@
             "state": "translated",
             "value": "Ниже цели"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нижче за ціль"
+          }
         }
       }
     },
@@ -65,6 +83,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@ при цели %3$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ за ціллю %3$@"
           }
         }
       }
@@ -83,6 +107,12 @@
             "state": "translated",
             "value": "Корзина бюджета"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кошик бюджету"
+          }
         }
       }
     },
@@ -99,6 +129,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нужное"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потреби"
           }
         }
       }
@@ -117,6 +153,12 @@
             "state": "translated",
             "value": "Нет дохода"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає доходу"
+          }
         }
       }
     },
@@ -134,6 +176,12 @@
             "state": "translated",
             "value": "По цели"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У цілі"
+          }
         }
       }
     },
@@ -147,6 +195,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваше правило %1$lld / %2$lld / %3$lld"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Ваше правило %1$lld / %2$lld / %3$lld"
@@ -192,6 +246,12 @@
             "state": "translated",
             "value": "Желания"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бажання"
+          }
         }
       }
     },
@@ -233,6 +293,12 @@
             "state": "translated",
             "value": "В этом месяце не было дохода, долям не от чего считаться."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У цьому місяці доходу не було, тож і частки брати нема з чого."
+          }
         }
       }
     },
@@ -249,6 +315,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Месяц не закончился: доли ещё изменятся."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяць ще не закінчився: частки ще зміняться."
           }
         }
       }
@@ -267,6 +339,12 @@
             "state": "translated",
             "value": "Корзины бюджета"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кошики бюджету"
+          }
         }
       }
     },
@@ -283,6 +361,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Деньги на счетах подушки к обязательным тратам за день"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гроші рахунків подушки поділені на обов'язкові витрати за день"
           }
         }
       }
@@ -337,6 +421,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Вистачає на %lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Вистачає на %lld днів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Вистачає на %lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Вистачає на %lld дня"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -353,6 +467,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "На подушке %1$@, обязательные траты ≈ %2$@ в день"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На подушці %1$@, обов'язкові витрати ≈ %2$@ на день"
           }
         }
       }
@@ -371,6 +491,12 @@
             "state": "translated",
             "value": "Не отмечен ни один счёт подушки: отметьте их на экране «Капитал»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жоден рахунок подушки не позначено: позначте їх на екрані «Капітал»."
+          }
         }
       }
     },
@@ -388,6 +514,12 @@
             "state": "translated",
             "value": "Обязательные траты в месяц пока не известны."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обов'язкові витрати за місяць ще невідомі."
+          }
         }
       }
     },
@@ -401,6 +533,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка в днях"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Подушка в днях"
@@ -422,6 +560,12 @@
             "state": "translated",
             "value": "Последние 12 месяцев · по %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останні 12 місяців · по %@"
+          }
         }
       }
     },
@@ -438,6 +582,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Одно число из пяти частей, всегда с разбором"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одне число з п'яти частин, із розбивкою, з якої воно складається"
           }
         }
       }
@@ -456,6 +606,12 @@
             "state": "translated",
             "value": "%lld из 100"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld зі 100"
+          }
         }
       }
     },
@@ -472,6 +628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не учтено, не хватает данных: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не враховано через брак даних: %@"
           }
         }
       }
@@ -490,6 +652,12 @@
             "state": "translated",
             "value": "Не учтено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не враховано"
+          }
         }
       }
     },
@@ -507,6 +675,12 @@
             "state": "translated",
             "value": "Нужны данные хотя бы по двум из пяти частей: подушка, долговая нагрузка, норма сбережений, просрочки, стабильность дохода."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрібні дані щонайменше для двох із п'яти частин: подушка, навантаження боргами, норма заощаджень, прострочені платежі, стабільність доходу."
+          }
         }
       }
     },
@@ -523,6 +697,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Считается из ваших данных заново каждый раз и ни с кем не сравнивается. Это ориентир, а не оценка."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахується щоразу з ваших даних, ні з ким не порівнюючи. Орієнтир, а не оцінка."
           }
         }
       }
@@ -589,6 +769,12 @@
             "state": "translated",
             "value": "Просрочки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прострочені платежі"
+          }
         }
       }
     },
@@ -630,6 +816,12 @@
             "state": "translated",
             "value": "Стабильность дохода"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стабільність доходу"
+          }
         }
       }
     },
@@ -646,6 +838,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld из %2$lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld з %2$lld"
           }
         }
       }
@@ -688,6 +886,12 @@
             "state": "translated",
             "value": "Доля дохода, которая осталась после трат · все доходы"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частка доходу, що лишається після витрат · весь дохід"
+          }
         }
       }
     },
@@ -704,6 +908,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доля дохода, которая осталась после трат · только «Заработок»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частка доходу, що лишається після витрат · лише заробіток"
           }
         }
       }
@@ -722,6 +932,12 @@
             "state": "translated",
             "value": "Доход %1$@ − траты %2$@ = осталось %3$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід %1$@ − витрати %2$@ = залишилося %3$@"
+          }
         }
       }
     },
@@ -738,6 +954,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: осталось %2$@ дохода"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ доходу лишається"
           }
         }
       }
@@ -756,6 +978,12 @@
             "state": "translated",
             "value": "%@: дохода не было, нормы нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: доходу немає, тож норми немає"
+          }
         }
       }
     },
@@ -772,6 +1000,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нужен хотя бы один месяц с доходом."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрібен хоча б один місяць із доходом."
           }
         }
       }
@@ -790,6 +1024,12 @@
             "state": "translated",
             "value": "* Месяц не закончился: траты ещё впереди, и число выглядит лучше, чем будет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "* Місяць ще не закінчився: витрати ще попереду, тож цифра виглядає краще, ніж буде."
+          }
         }
       }
     },
@@ -807,6 +1047,12 @@
             "state": "translated",
             "value": "%@, месяц не закончился"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, ще не закінчився"
+          }
         }
       }
     },
@@ -823,6 +1069,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ (пока)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (поки що)"
           }
         }
       }
@@ -865,6 +1117,12 @@
             "state": "translated",
             "value": "Понятно"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зрозуміло"
+          }
         }
       }
     },
@@ -881,6 +1139,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "За 6 месяцев доход %1$@, траты %2$@ к 6 предыдущим"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За 6 місяців дохід %1$@, витрати %2$@ проти 6 попередніх"
           }
         }
       }
@@ -899,6 +1163,12 @@
             "state": "translated",
             "value": "Больше не показывать"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Більше не показувати"
+          }
         }
       }
     },
@@ -915,6 +1185,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "За 3 месяца доход %1$@, траты %2$@ к тем же месяцам год назад"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За 3 місяці дохід %1$@, витрати %2$@ проти тих самих місяців рік тому"
           }
         }
       }
@@ -933,6 +1209,12 @@
             "state": "translated",
             "value": "Кредиты, подписки и необходимые траты к обычному доходу"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредити, підписки й необхідні витрати проти звичайного доходу"
+          }
         }
       }
     },
@@ -949,6 +1231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обязательно ≈ %1$@ в месяц, остаётся %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обов'язкові ≈ %1$@ на місяць, лишається %2$@"
           }
         }
       }
@@ -967,6 +1255,12 @@
             "state": "translated",
             "value": "Занято %1$@ дохода · на манёвр %2$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ доходу забирається · %2$@ на маневр"
+          }
         }
       }
     },
@@ -983,6 +1277,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "За эти месяцы не было дохода, долю считать не от чего."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У цих місяцях доходу не було, тож і частки брати нема з чого."
           }
         }
       }
@@ -1001,6 +1301,12 @@
             "state": "translated",
             "value": "Обязательные траты пока не известны: нужны несколько полных месяцев и категории с отметкой «Необходимая трата»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обов'язкові витрати ще невідомі: потрібно кілька повних місяців і категорії, позначені як необхідні."
+          }
         }
       }
     },
@@ -1017,6 +1323,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доля обязательных трат"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частка обов'язкових витрат"
           }
         }
       }
@@ -1035,6 +1347,12 @@
             "state": "translated",
             "value": "Первые три дня после поступления против остального месяца"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перші три дні після надходження доходу проти решти місяця"
+          }
         }
       }
     },
@@ -1051,6 +1369,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ в день после поступления против %2$@ в обычный день"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ на день після надходження проти %2$@ у звичайний день"
           }
         }
       }
@@ -1069,6 +1393,12 @@
             "state": "translated",
             "value": "В первые три дня тратите в %@ раза больше обычного"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перші три дні ви витрачаєте в %@ разів більше"
+          }
         }
       }
     },
@@ -1085,6 +1415,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нужно хотя бы два завершённых ожидаемых поступления и семь обычных дней для сравнения."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для порівняння потрібно щонайменше два завершені очікувані доходи і сім звичайних днів."
           }
         }
       }
@@ -1103,6 +1439,12 @@
             "state": "translated",
             "value": "Эффект зарплаты"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ефект зарплати"
+          }
         }
       }
     },
@@ -1119,6 +1461,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Норма сбережений только от «Заработка»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Норма заощаджень лише з заробітку"
           }
         }
       }
@@ -1137,6 +1485,12 @@
             "state": "translated",
             "value": "Кэшбэк, проценты и излишки тогда не считаются доходом для нормы"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тоді кешбек, відсотки й надлишки не є доходом для норми"
+          }
         }
       }
     },
@@ -1153,6 +1507,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пропорции и переключатели хранятся в базе и переезжают архивом. Корзину категории выбирают в «Категориях»."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частки й перемикачі зберігаються в базі й переходять разом з архівом. Кошик категорії задається в «Категоріях»."
           }
         }
       }
@@ -1171,6 +1531,12 @@
             "state": "translated",
             "value": "Нужное: %lld %%"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потреби: %lld%%"
+          }
         }
       }
     },
@@ -1188,6 +1554,12 @@
             "state": "translated",
             "value": "Нужное"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потреби"
+          }
         }
       }
     },
@@ -1204,6 +1576,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вернуть 50 / 30 / 20"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернути 50 / 30 / 20"
           }
         }
       }
@@ -1246,6 +1624,12 @@
             "state": "translated",
             "value": "Остаётся до ста, считается само"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Те, що лишається до ста"
+          }
         }
       }
     },
@@ -1287,6 +1671,12 @@
             "state": "translated",
             "value": "Говорить, если траты растут быстрее дохода"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Казати, коли витрати переростають доходи"
+          }
         }
       }
     },
@@ -1303,6 +1693,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Строка в «Стоит посмотреть», не чаще раза в квартал"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рядок у «Варто глянути», не частіше ніж раз на квартал"
           }
         }
       }
@@ -1321,6 +1717,12 @@
             "state": "translated",
             "value": "Желания: %lld %%"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бажання: %lld%%"
+          }
         }
       }
     },
@@ -1337,6 +1739,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Желания"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бажання"
           }
         }
       }
@@ -1355,6 +1763,12 @@
             "state": "translated",
             "value": "Плохой месяц для планов: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поганий місяць для планів: %@"
+          }
         }
       }
     },
@@ -1371,6 +1785,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Полные месяцы до текущего, не больше 24"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повні місяці перед цим, не більше 24"
           }
         }
       }
@@ -1425,6 +1845,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Мало даних: поки лише %lld місяці"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Мало даних: поки лише %lld місяців"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Мало даних: поки лише %lld місяць"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Мало даних: поки лише %lld місяця"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1441,6 +1891,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нужно не меньше %1$lld полных месяцев с доходом, пока их %2$lld."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрібно щонайменше %1$lld повних місяців із доходом, поки що є %2$lld."
           }
         }
       }
@@ -1459,6 +1915,12 @@
             "state": "translated",
             "value": "Доход ровный"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід стабільний"
+          }
         }
       }
     },
@@ -1475,6 +1937,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Стабильность дохода"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стабільність доходу"
           }
         }
       }
@@ -1493,6 +1961,12 @@
             "state": "translated",
             "value": "Доход скачет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід коливається"
+          }
         }
       }
     },
@@ -1510,6 +1984,12 @@
             "state": "translated",
             "value": "Обычный месяц: от %1$@ до %2$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Звичайний місяць: від %1$@ до %2$@"
+          }
         }
       }
     },
@@ -1526,6 +2006,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Учтено частей: %1$lld из %2$lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Враховано частин: %1$lld з %2$lld"
           }
         }
       }
@@ -1568,6 +2054,12 @@
             "state": "translated",
             "value": "%@ · пока"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · поки що"
+          }
         }
       }
     },
@@ -1584,6 +2076,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Траты растут не быстрее дохода."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрати не ростуть швидше за доходи."
           }
         }
       }
@@ -1602,6 +2100,12 @@
             "state": "translated",
             "value": "Нужно больше года истории, хотя бы год с небольшим, и доход, с которым сравнивать."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрібна понад рік історії або щонайменше рік місяців і дохід для порівняння."
+          }
         }
       }
     },
@@ -1618,6 +2122,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Траты растут быстрее дохода. Стоит заметить, пока это не стало привычкой."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрати ростуть швидше за доходи. Варто помітити це, доки це не стало звичкою."
           }
         }
       }
@@ -1636,6 +2146,12 @@
             "state": "translated",
             "value": "Показывать в «Стоит посмотреть»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показувати в «Варто глянути»"
+          }
         }
       }
     },
@@ -1652,6 +2168,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сравнение с предыдущими месяцами, а не с прошлым годом: лето с зимой сравнивать нечестно."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Порівнюється з попередніми місяцями, а не з минулим роком: літо проти зими — некоректне порівняння."
           }
         }
       }
@@ -1670,6 +2192,12 @@
             "state": "translated",
             "value": "За 6 месяцев доход %1$@, траты %2$@ к 6 предыдущим"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За 6 місяців дохід %1$@, витрати %2$@ проти 6 попередніх"
+          }
         }
       }
     },
@@ -1686,6 +2214,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Больше не показывать в «Стоит посмотреть»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Більше не показувати в «Варто глянути»"
           }
         }
       }
@@ -1704,6 +2238,12 @@
             "state": "translated",
             "value": "Траты вслед за доходом"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрати слідують за доходом"
+          }
         }
       }
     },
@@ -1720,6 +2260,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "За 3 месяца доход %1$@, траты %2$@ к тем же месяцам год назад"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За 3 місяці дохід %1$@, витрати %2$@ проти тих самих місяців рік тому"
           }
         }
       }
@@ -1786,6 +2332,12 @@
             "state": "translated",
             "value": "Просрочки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прострочені платежі"
+          }
         }
       }
     },
@@ -1827,6 +2379,12 @@
             "state": "translated",
             "value": "Стабильность дохода"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стабільність доходу"
+          }
         }
       }
     },
@@ -1843,6 +2401,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не учтено, нет данных"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не враховано, немає даних"
           }
         }
       }
@@ -1861,6 +2425,12 @@
             "state": "translated",
             "value": "Слишком мало частей можно посчитать, чтобы назвать число."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Занадто мало частин можна врахувати, щоб назвати число."
+          }
         }
       }
     },
@@ -1877,6 +2447,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Части без данных не получают ноль: остальные пересчитываются на сто. Число ни с кем не сравнивается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частини, що не враховані, не оцінюються як нуль: решта масштабується до ста. Число ні з ким не порівнюється."
           }
         }
       }
@@ -1895,6 +2471,12 @@
             "state": "translated",
             "value": "Подушка (из %@)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка (з %@)"
+          }
         }
       }
     },
@@ -1911,6 +2493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Долговая нагрузка (из %@)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Навантаження боргами (з %@)"
           }
         }
       }
@@ -1929,6 +2517,12 @@
             "state": "translated",
             "value": "Просрочки (из %@)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прострочені платежі (з %@)"
+          }
         }
       }
     },
@@ -1946,6 +2540,12 @@
             "state": "translated",
             "value": "Норма сбережений (из %@)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Норма заощаджень (з %@)"
+          }
         }
       }
     },
@@ -1962,6 +2562,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Стабильность дохода (из %@)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стабільність доходу (з %@)"
           }
         }
       }
@@ -2004,6 +2610,12 @@
             "state": "translated",
             "value": "Переведено на подушку (не траты)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкладено в подушку (не витрачено)"
+          }
         }
       }
     },
@@ -2021,6 +2633,12 @@
             "state": "translated",
             "value": "Категории «Заработок» нет, поэтому считается весь доход."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорії «Заробіток» немає, тож враховується весь дохід."
+          }
         }
       }
     },
@@ -2037,6 +2655,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отложено в цели (не траты)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Внесено в цілі (відкладено, не витрачено)"
           }
         }
       }
@@ -2079,6 +2703,12 @@
             "state": "translated",
             "value": "Осталось"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишилося"
+          }
         }
       }
     },
@@ -2096,6 +2726,12 @@
             "state": "translated",
             "value": "В этом месяце дохода ещё нет, нормы нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У цьому місяці доходу ще немає, тож норми немає."
+          }
         }
       }
     },
@@ -2112,6 +2748,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Месяц не закончился: траты ещё впереди, и норма выглядит лучше, чем будет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяць ще не закінчився: витрати ще попереду, тож норма виглядає краще, ніж буде."
           }
         }
       }
@@ -2153,6 +2795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мои траты без взносов в цели"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мої витрати без внесків у цілі"
           }
         }
       }

@@ -15,6 +15,12 @@
             "state": "translated",
             "value": "Применить (%lld)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосувати (%lld)"
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Правила спорили %lld раз; победило верхнее в списке."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила суперечили одне одному %lld разів; перемогло правило вище в списку."
           }
         }
       }
@@ -49,6 +61,12 @@
             "state": "translated",
             "value": "Вы правили её руками после записи"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ви редагували вручну після запису"
+          }
         }
       }
     },
@@ -65,6 +83,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось прочитать историю."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Історію не вдалося прочитати."
           }
         }
       }
@@ -83,6 +107,12 @@
             "state": "translated",
             "value": "Вот что правила изменили бы в уже записанных операциях. Пока вы не нажмёте «Применить», ничего не пишется; один ⌘Z вернёт всё. Операции, которые вы правили руками, не отмечены: ваше решение ценнее правила."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це те, що правила змінили б у вже записаних операціях. Нічого не записується, доки не натиснено «Застосувати»; один ⌘Z скасовує все. Операції, які ви редагували вручну, знято з позначки: ваше рішення важить більше за правило."
+          }
         }
       }
     },
@@ -99,6 +129,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вот что правила изменили бы в уже записанных операциях. Пока вы не нажмёте «Применить», ничего не пишется; один «Отменить» вернёт всё. Операции, которые вы правили руками, не отмечены: ваше решение ценнее правила."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це те, що правила змінили б у вже записаних операціях. Нічого не записується, доки не натиснено «Застосувати»; одне «Скасувати» повертає все. Операції, які ви редагували вручну, знято з позначки: ваше рішення важить більше за правило."
           }
         }
       }
@@ -117,6 +153,12 @@
             "state": "translated",
             "value": "Категория: %@ → %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія: %1$@ → %2$@"
+          }
         }
       }
     },
@@ -130,6 +172,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для кого: %@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Для кого: %@"
@@ -151,6 +199,12 @@
             "state": "translated",
             "value": "Место: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місце: %@"
+          }
         }
       }
     },
@@ -167,6 +221,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Оценка: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оцінка: %@"
           }
         }
       }
@@ -185,6 +245,12 @@
             "state": "translated",
             "value": "Запись ещё идёт. Она появится через мгновение; ⌘Z вернёт её."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запис ще в дорозі. Він з'явиться за мить; ⌘Z його скасовує."
+          }
         }
       }
     },
@@ -201,6 +267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запись ещё идёт. Она появится через мгновение; «Отменить» вернёт её."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запис ще в дорозі. Він з'явиться за мить; «Скасувати» його скасовує."
           }
         }
       }
@@ -219,6 +291,12 @@
             "state": "translated",
             "value": "Правила ничего не изменили бы: всё уже выглядит так, как они хотят."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила нічого не змінили б: усе вже виглядає так, як вони хочуть."
+          }
         }
       }
     },
@@ -235,6 +313,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Просматриваем историю…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переглядаємо історію…"
           }
         }
       }
@@ -276,6 +360,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Снять все"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зняти всі"
           }
         }
       }
@@ -330,6 +420,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції змінено після перегляду, їх залишено як є."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцій змінено після перегляду, їх залишено як є."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцію змінено після перегляду, її залишено як є."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції змінено після перегляду, її залишено як є."
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -346,6 +466,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Просмотрено: %lld · подошло: %lld · изменится: %lld · уже как нужно: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переглянуто: %1$lld · підійшло: %2$lld · змінилося б: %3$lld · уже як треба: %4$lld"
           }
         }
       }
@@ -364,6 +490,12 @@
             "state": "translated",
             "value": "Отмечено: %lld из %lld"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначено: %1$lld з %2$lld"
+          }
         }
       }
     },
@@ -380,6 +512,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Применить правила к прошлым"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосувати правила до минулого"
           }
         }
       }
@@ -422,6 +560,12 @@
             "state": "translated",
             "value": "⌘Z вернёт всё одним шагом, вместе с прежними датами правки."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z скасовує все одним кроком, з датами останньої зміни як були."
+          }
         }
       }
     },
@@ -438,6 +582,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Отменить» вернёт всё одним шагом, вместе с прежними датами правки."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Скасувати» скасовує все одним кроком, з датами останньої зміни як були."
           }
         }
       }
@@ -456,6 +606,12 @@
             "state": "translated",
             "value": "Всё возвращено, как было."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усе повернуто як було."
+          }
         }
       }
     },
@@ -472,6 +628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записано операций: %lld, связей с тегами: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано: операцій — %1$lld, зв'язків позначок — %2$lld"
           }
         }
       }
@@ -490,6 +652,12 @@
             "state": "translated",
             "value": "Записывать было нечего."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нічого записувати не було потрібно."
+          }
         }
       }
     },
@@ -506,6 +674,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По правилу %@: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За правилом %1$@: %2$@"
           }
         }
       }
@@ -524,6 +698,12 @@
             "state": "translated",
             "value": "написан в строке"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "введено в рядку"
+          }
         }
       }
     },
@@ -540,6 +720,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "добавлен здесь"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "додано тут"
           }
         }
       }
@@ -558,6 +744,12 @@
             "state": "translated",
             "value": "добавлен правилом %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "додано правилом %@"
+          }
         }
       }
     },
@@ -575,6 +767,12 @@
             "state": "translated",
             "value": "#тег"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#позначка"
+          }
         }
       }
     },
@@ -591,6 +789,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Снять тег #%@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прибрати позначку #%@"
           }
         }
       }
@@ -633,6 +837,12 @@
             "state": "translated",
             "value": "Файл сделан более новой версией приложения. Обновите приложение, чтобы его открыть."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл створено новішою версією застосунку. Оновіть застосунок, щоб його відкрити."
+          }
         }
       }
     },
@@ -649,6 +859,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Это не файл правил."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це не файл правил."
           }
         }
       }
@@ -667,6 +883,12 @@
             "state": "translated",
             "value": "Файл слишком велик для файла правил."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл завеликий для файлу правил."
+          }
         }
       }
     },
@@ -683,6 +905,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В файле слишком много правил."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У файлі забагато правил."
           }
         }
       }
@@ -701,6 +929,12 @@
             "state": "translated",
             "value": "Файл не удалось прочитать."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не вдалося прочитати."
+          }
         }
       }
     },
@@ -717,6 +951,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выгрузить правила в файл…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти правила у файл…"
           }
         }
       }
@@ -735,6 +975,12 @@
             "state": "translated",
             "value": "Файл не сохранился."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не збережено."
+          }
         }
       }
     },
@@ -751,6 +997,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отметьте правила для файла. Правила, где назван счёт, карта или человек, по умолчанию не отмечены."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначте правила, які потраплять до файлу. Правила, що називають рахунок, картку чи людину, позначені спочатку знятими."
           }
         }
       }
@@ -769,6 +1021,12 @@
             "state": "translated",
             "value": "Название файла (необязательно)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва файлу (необов'язково)"
+          }
         }
       }
     },
@@ -785,6 +1043,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "называет счёт, карту или человека"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "називає рахунок, картку чи людину"
           }
         }
       }
@@ -827,6 +1091,12 @@
             "state": "translated",
             "value": "Выгрузить правила в файл"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти правила у файл"
+          }
         }
       }
     },
@@ -843,6 +1113,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Файл правил (.ohmymoneyrules) несёт правила вместе с нужными им категориями и тегами, по названиям. Перед открытием показывается, что добавится; ничего не удаляется и не переименовывается. Правила про людей и счета в файл не попадают, пока вы их не отметите."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл правил (.ohmymoneyrules) містить правила з категоріями й позначками, які їм потрібні, за назвами. Під час відкриття спершу показується, що буде додано; нічого ніколи не видаляється й не перейменовується. Правила про людей і рахунки не входять до файлу, якщо їх не позначено."
           }
         }
       }
@@ -885,6 +1161,12 @@
             "state": "translated",
             "value": "Правила, которые у вас уже есть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила, які у вас уже є"
+          }
         }
       }
     },
@@ -901,6 +1183,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавлено: категорий: %lld · тегов: %lld · правил: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додано: категорій: %1$lld · позначок: %2$lld · правил: %3$lld"
           }
         }
       }
@@ -919,6 +1207,12 @@
             "state": "translated",
             "value": "Добавить удалось не всё. Что добавлено, то осталось; откройте файл ещё раз, чтобы добавить остальное."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не все вдалося додати. Додане лишається; відкрийте файл знову, щоб додати решту."
+          }
         }
       }
     },
@@ -935,6 +1229,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "правило нельзя сохранить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "правило не можна зберегти"
           }
         }
       }
@@ -953,6 +1253,12 @@
             "state": "translated",
             "value": "Совпали с вашими (правила будут указывать на ваши)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Те саме, що у вас (правила вказуватимуть на ваші)"
+          }
         }
       }
     },
@@ -969,6 +1275,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "у вас нет счёта «%@»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "у вас немає рахунку «%@»"
           }
         }
       }
@@ -987,6 +1299,12 @@
             "state": "translated",
             "value": "у вас нет карты «%@»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "у вас немає картки «%@»"
+          }
         }
       }
     },
@@ -1003,6 +1321,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "нет категории «%@»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "немає категорії «%@»"
           }
         }
       }
@@ -1021,6 +1345,12 @@
             "state": "translated",
             "value": "у вас нет человека «%@»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "у вас немає людини «%@»"
+          }
         }
       }
     },
@@ -1037,6 +1367,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "у вас нет места «%@»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "у вас немає місця «%@»"
           }
         }
       }
@@ -1055,6 +1391,12 @@
             "state": "translated",
             "value": "нет тега «%@»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "немає позначки «%@»"
+          }
         }
       }
     },
@@ -1071,6 +1413,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Новые категории"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нові категорії"
           }
         }
       }
@@ -1089,6 +1437,12 @@
             "state": "translated",
             "value": "Новые теги"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нові позначки"
+          }
         }
       }
     },
@@ -1105,6 +1459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ничего вашего не удаляется и не переименовывается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нічого з вашого не видаляється й не перейменовується."
           }
         }
       }
@@ -1123,6 +1483,12 @@
             "state": "translated",
             "value": "Не будут добавлены"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не включено"
+          }
         }
       }
     },
@@ -1140,6 +1506,12 @@
             "state": "translated",
             "value": "В файле есть и части для других возможностей; они сохраняются для них."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл також містить частини для інших функцій; вони збережуться для них."
+          }
         }
       }
     },
@@ -1156,6 +1528,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавится: категорий: %lld · тегов: %lld · правил: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Буде додано: категорій: %1$lld · позначок: %2$lld · правил: %3$lld"
           }
         }
       }
@@ -1198,6 +1576,12 @@
             "state": "translated",
             "value": "⌘Z вернёт правила, а затем теги. Добавленные категории остаются: уберите их в настройках, если не нужны."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z скасовує правила, потім позначки. Додані категорії лишаються: приберіть їх у налаштуваннях, якщо вони не потрібні."
+          }
         }
       }
     },
@@ -1215,6 +1599,12 @@
             "state": "translated",
             "value": "«Отменить» вернёт правила, а затем теги. Добавленные категории остаются: уберите их в настройках, если не нужны."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Скасувати» скасовує правила, потім позначки. Додані категорії лишаються: приберіть їх у налаштуваннях, якщо вони не потрібні."
+          }
         }
       }
     },
@@ -1231,6 +1621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Открыть файл правил…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити файл правил…"
           }
         }
       }
@@ -1273,6 +1669,12 @@
             "state": "translated",
             "value": "категория %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "категорія %@"
+          }
         }
       }
     },
@@ -1286,6 +1688,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "для кого: %@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "для кого: %@"
@@ -1307,6 +1715,12 @@
             "state": "translated",
             "value": "Поставить категорию"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Задати категорію"
+          }
         }
       }
     },
@@ -1323,6 +1737,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поставить «для кого»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Задати «для кого»"
           }
         }
       }
@@ -1341,6 +1761,12 @@
             "state": "translated",
             "value": "Поставить человека"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Задати людину"
+          }
         }
       }
     },
@@ -1357,6 +1783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поставить место"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Задати місце"
           }
         }
       }
@@ -1375,6 +1807,12 @@
             "state": "translated",
             "value": "Поставить оценку"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Задати оцінку"
+          }
         }
       }
     },
@@ -1391,6 +1829,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавить тег"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати позначку"
           }
         }
       }
@@ -1409,6 +1853,12 @@
             "state": "translated",
             "value": "место %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "місце %@"
+          }
         }
       }
     },
@@ -1425,6 +1875,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "оценка «%@»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оцінка «%@»"
           }
         }
       }
@@ -1443,6 +1899,12 @@
             "state": "translated",
             "value": " и "
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " і "
+          }
         }
       }
     },
@@ -1459,6 +1921,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Применить к прошлым…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосувати до минулого…"
           }
         }
       }
@@ -1477,6 +1945,12 @@
             "state": "translated",
             "value": "сумма больше %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сума більша за %@"
+          }
         }
       }
     },
@@ -1493,6 +1967,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "счёт — %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "рахунок — %@"
           }
         }
       }
@@ -1511,6 +1991,12 @@
             "state": "translated",
             "value": "сумма меньше %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сума менша за %@"
+          }
         }
       }
     },
@@ -1527,6 +2013,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "карта — %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "картка — %@"
           }
         }
       }
@@ -1545,6 +2037,12 @@
             "state": "translated",
             "value": "категория — %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "категорія — %@"
+          }
         }
       }
     },
@@ -1558,6 +2056,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "вид — %@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "вид — %@"
@@ -1603,6 +2107,12 @@
             "state": "translated",
             "value": "Сумма больше"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума більша за"
+          }
         }
       }
     },
@@ -1619,6 +2129,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сумма меньше"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума менша за"
           }
         }
       }
@@ -1685,6 +2201,12 @@
             "state": "translated",
             "value": "Вид операции"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вид операції"
+          }
         }
       }
     },
@@ -1726,6 +2248,12 @@
             "state": "translated",
             "value": "Место или описание содержит"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місце або опис містить"
+          }
         }
       }
     },
@@ -1742,6 +2270,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Время суток"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Час доби"
           }
         }
       }
@@ -1760,6 +2294,12 @@
             "state": "translated",
             "value": "День недели"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День тижня"
+          }
         }
       }
     },
@@ -1776,6 +2316,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "место — %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "місце — %@"
           }
         }
       }
@@ -1794,6 +2340,12 @@
             "state": "translated",
             "value": "место или описание содержит «%@»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "місце або опис містить «%@»"
+          }
         }
       }
     },
@@ -1811,6 +2363,12 @@
             "state": "translated",
             "value": "время с %1$@ до %2$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "час від %1$@ до %2$@"
+          }
         }
       }
     },
@@ -1827,6 +2385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "день недели: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "день тижня — %@"
           }
         }
       }
@@ -1893,6 +2457,12 @@
             "state": "translated",
             "value": "Добавить действие"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати дію"
+          }
         }
       }
     },
@@ -1909,6 +2479,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавить условие"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати умову"
           }
         }
       }
@@ -1975,6 +2551,12 @@
             "state": "translated",
             "value": "Правило включено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правило увімкнено"
+          }
         }
       }
     },
@@ -1991,6 +2573,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Уже есть такие теги"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наявні позначки"
           }
         }
       }
@@ -2009,6 +2597,12 @@
             "state": "translated",
             "value": "Если"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Якщо"
+          }
         }
       }
     },
@@ -2025,6 +2619,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Все условия должны сойтись сразу («и»). Для «или» заведите два правила."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усі умови мають виконуватися разом («і»). Для «або» зробіть два правила."
           }
         }
       }
@@ -2043,6 +2643,12 @@
             "state": "translated",
             "value": "Название (необязательно)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва (необов'язково)"
+          }
         }
       }
     },
@@ -2059,6 +2665,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "новый тег"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "нова позначка"
           }
         }
       }
@@ -2077,6 +2689,12 @@
             "state": "translated",
             "value": "Правило не сохранилось."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правило не збережено."
+          }
         }
       }
     },
@@ -2093,6 +2711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Убрать строку"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прибрати рядок"
           }
         }
       }
@@ -2135,6 +2759,12 @@
             "state": "translated",
             "value": "Слова"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слова"
+          }
         }
       }
     },
@@ -2152,6 +2782,12 @@
             "state": "translated",
             "value": "То"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тоді"
+          }
         }
       }
     },
@@ -2168,6 +2804,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Теги складываются. Из двух правил, которые ставят категорию, побеждает верхнее в списке."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначки додаються. З двох правил, що задають категорію, перемагає верхнє в списку."
           }
         }
       }
@@ -2210,6 +2852,12 @@
             "state": "translated",
             "value": "Правил пока нет. Добавьте первое: например, «место содержит Яндекс Go и сумма больше 1 000 → тег #работа»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правил ще немає. Додайте одне, наприклад: «місце містить Яндекс Go і сума більша за 1 000 → позначка #робота»."
+          }
         }
       }
     },
@@ -2227,6 +2875,12 @@
             "state": "translated",
             "value": "категория"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "категорія"
+          }
         }
       }
     },
@@ -2240,6 +2894,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "для кого"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "для кого"
@@ -2261,6 +2921,12 @@
             "state": "translated",
             "value": "место"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "місце"
+          }
         }
       }
     },
@@ -2277,6 +2943,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "оценка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оцінка"
           }
         }
       }
@@ -2319,6 +2991,12 @@
             "state": "translated",
             "value": "Правило подставляет значения при вводе, до Enter: «Пятёрочка → Продукты». Правила читаются сверху вниз; если два правила задают одно и то же поле, побеждает верхнее, а теги складываются. То, что вы выбрали руками, главнее правила. Правило не трогает деньги, счёт и дату."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правило заповнює рядок за вас до Enter: «Пʼятірочка → Продукти». Правила читаються зверху вниз; коли два правила задають одне поле, перемагає верхнє, а позначки додаються. Те, що ви обираєте вручну, завжди важить більше за правило. Правило ніколи не змінює суму, рахунок чи дату."
+          }
         }
       }
     },
@@ -2360,6 +3038,12 @@
             "state": "translated",
             "value": "включено: %lld"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "увімкнено: %lld"
+          }
         }
       }
     },
@@ -2377,6 +3061,12 @@
             "state": "translated",
             "value": "выгрузить или загрузить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "експорт або імпорт"
+          }
         }
       }
     },
@@ -2393,6 +3083,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Правила ставят категорию, теги и оценку при вводе. Применение к прошлым сначала показывает, что изменится."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила задають категорію, позначки й оцінку під час введення операції. Застосування до минулого спершу показує, що змінилося б."
           }
         }
       }
@@ -2419,6 +3115,36 @@
           }
         },
         "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld правила"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld правил"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld правило"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld правила"
+                }
+              }
+            }
+          }
+        },
+        "uk": {
           "variations": {
             "plural": {
               "few": {
@@ -2500,6 +3226,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld позначки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld позначок"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld позначка"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld позначки"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -2565,6 +3321,12 @@
             "state": "translated",
             "value": "возврат покупки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "повернення покупки"
+          }
         }
       }
     },
@@ -2582,6 +3344,12 @@
             "state": "translated",
             "value": "возврат денег от человека"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "гроші від людини"
+          }
         }
       }
     },
@@ -2598,6 +3366,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ещё о правиле"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Докладніше про правило"
           }
         }
       }
@@ -2664,6 +3438,12 @@
             "state": "translated",
             "value": "Новое правило…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нове правило…"
+          }
         }
       }
     },
@@ -2681,6 +3461,12 @@
             "state": "translated",
             "value": "из файла"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з файлу"
+          }
         }
       }
     },
@@ -2697,6 +3483,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "из импорта"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з імпорту"
           }
         }
       }
@@ -2735,6 +3527,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Правила"
@@ -2780,6 +3578,12 @@
             "state": "translated",
             "value": "Время «с» и «до» должны различаться."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Час «від» і «до» має відрізнятися."
+          }
         }
       }
     },
@@ -2796,6 +3600,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выберите хотя бы один день недели."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оберіть хоча б один день тижня."
           }
         }
       }
@@ -2814,6 +3624,12 @@
             "state": "translated",
             "value": "Слова в условии пусты."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слова умови порожні."
+          }
         }
       }
     },
@@ -2830,6 +3646,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Категория дохода и категория расхода не встречаются в одной операции."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія доходу й категорія витрат ніколи не зустрічаються в одній операції."
           }
         }
       }
@@ -2848,6 +3670,12 @@
             "state": "translated",
             "value": "Сумма не может быть отрицательной."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума не може бути від'ємною."
+          }
         }
       }
     },
@@ -2864,6 +3692,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Такой вид операции никогда не бывает в этой категории."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цей вид операції ніколи не має такої категорії."
           }
         }
       }
@@ -2882,6 +3716,12 @@
             "state": "translated",
             "value": "Добавьте, что делает правило."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додайте, що робить правило."
+          }
         }
       }
     },
@@ -2898,6 +3738,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавьте условие: правило без условий подошло бы ко всему."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додайте умову: правило без неї підходитиме до всього."
           }
         }
       }
@@ -2916,6 +3762,12 @@
             "state": "translated",
             "value": "Категория «%@» в архиве: в неё нельзя ничего относить."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія «%@» в архіві: до неї нічого не можна віднести."
+          }
         }
       }
     },
@@ -2932,6 +3784,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«%@» принадлежит приложению: правило не может относить в неё."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» належить застосунку: правило не може відносити до неї."
           }
         }
       }
@@ -2950,6 +3808,12 @@
             "state": "translated",
             "value": "Два действия задают «%@»: считалось бы только первое."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дві дії задають «%@»: враховуватиметься лише перша."
+          }
         }
       }
     },
@@ -2966,6 +3830,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Есть недописанные строки: заполните их или уберите."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деякі рядки не заповнено: заповніть їх або прибрати."
           }
         }
       }
@@ -2984,6 +3854,12 @@
             "state": "translated",
             "value": "Категории правила больше нет в справочнике."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорії правила більше немає в словнику."
+          }
         }
       }
     },
@@ -3000,6 +3876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тега правила не существует."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначки правила не існує."
           }
         }
       }
@@ -3042,6 +3924,12 @@
             "state": "translated",
             "value": "Если %1$@, то %2$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Якщо %1$@, тоді %2$@"
+          }
         }
       }
     },
@@ -3058,6 +3946,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мои правила"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мої правила"
           }
         }
       }
@@ -3100,6 +3994,12 @@
             "state": "translated",
             "value": "Ни одна операция истории не подходит под это правило."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жодна операція з історії не підходить під це правило."
+          }
         }
       }
     },
@@ -3116,6 +4016,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подходит операций: %lld из %lld · изменится: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підходить: %1$lld з %2$lld операцій · змінилося б: %3$lld"
           }
         }
       }
@@ -3134,6 +4040,12 @@
             "state": "translated",
             "value": "Проверка на истории"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірка на історії"
+          }
         }
       }
     },
@@ -3150,6 +4062,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавьте условие и действие, чтобы увидеть, сколько операций затронет правило."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додайте умову і дію, щоб побачити, скільки операцій правило зачепить."
           }
         }
       }
@@ -3192,6 +4110,12 @@
             "state": "translated",
             "value": "За этот период расходов с тегами нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У цьому періоді витрат із позначками немає."
+          }
         }
       }
     },
@@ -3208,6 +4132,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Найдено: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знайдено: %lld"
           }
         }
       }
@@ -3226,6 +4156,12 @@
             "state": "translated",
             "value": "Все сразу"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усі з них"
+          }
         }
       }
     },
@@ -3242,6 +4178,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Любой из них"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Будь-яка з них"
           }
         }
       }
@@ -3260,6 +4202,12 @@
             "state": "translated",
             "value": "Отчёт и операции по тегам…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Звіт і операції за позначками…"
+          }
         }
       }
     },
@@ -3276,6 +4224,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Операция с несколькими тегами входит в каждый из них, поэтому по тегам выходит %@ — больше, чем %@ самих расходов."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операція з кількома позначками рахується під кожною з них, тож позначки разом дають %1$@, більше за %2$@, які вони покривають."
           }
         }
       }
@@ -3366,6 +4320,12 @@
             "state": "translated",
             "value": "Отметьте теги, чтобы увидеть их операции."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначте позначки, щоб побачити їхні операції."
+          }
         }
       }
     },
@@ -3382,6 +4342,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По тегам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За позначками"
           }
         }
       }
@@ -3448,6 +4414,12 @@
             "state": "translated",
             "value": "Объединить #%@ с #%@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Злити #%1$@ з #%2$@"
+          }
         }
       }
     },
@@ -3465,6 +4437,12 @@
             "state": "translated",
             "value": "Два тега не могут называться одинаково. Их можно объединить в один."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дві позначки не можуть мати одну назву. Їх можна злити в одну."
+          }
         }
       }
     },
@@ -3481,6 +4459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Такое название уже есть у другого тега"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ця назва вже належить іншій позначці"
           }
         }
       }
@@ -3523,6 +4507,12 @@
             "state": "translated",
             "value": "Удалить тег"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити позначку"
+          }
         }
       }
     },
@@ -3539,6 +4529,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Он будет снят с частей операций: %lld. Сами операции останутся."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Її знімають з %lld частин операцій. Операції лишаються."
           }
         }
       }
@@ -3557,6 +4553,12 @@
             "state": "translated",
             "value": "Правила, где он назван, потеряют это действие (%lld); правила, которым нечего делать, удалятся (%lld)."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила, що її називали, втрачають цю дію (%1$lld); правила, яким не лишилося що робити, видаляються (%2$lld)."
+          }
         }
       }
     },
@@ -3573,6 +4575,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Удалить тег?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити позначку?"
           }
         }
       }
@@ -3591,6 +4599,12 @@
             "state": "translated",
             "value": "Тегов пока нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначок ще немає."
+          }
         }
       }
     },
@@ -3607,6 +4621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тег — свободное слово: напишите «#отпуск» в строке ввода. Это не событие: без дат и бюджета. У операции может быть несколько тегов; в отчёте она входит в каждый."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначка — це вільне слово: введіть «#відпустка» в рядку вводу. Вона не є подією: без дат і бюджету. Операція може мати кілька; у звіті вона рахується під кожною."
           }
         }
       }
@@ -3625,6 +4645,12 @@
             "state": "translated",
             "value": "В названии тега — буквы, цифры, «-» и «_», хотя бы одна буква."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначка складається з літер, цифр, «-» і «_», і в ній має бути хоча б одна літера."
+          }
         }
       }
     },
@@ -3642,6 +4668,12 @@
             "state": "translated",
             "value": "Действия с тегом #%@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дії з позначкою #%@"
+          }
         }
       }
     },
@@ -3658,6 +4690,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Объединить с другим…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Злити з іншою…"
           }
         }
       }
@@ -3700,6 +4738,12 @@
             "state": "translated",
             "value": "Операции этого тега перейдут к другому, этот тег исчезнет, а правила, где он назван, будут называть другой."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операції цієї позначки переходять до іншої, сама позначка зникає, а правила, що її називали, називатимуть іншу."
+          }
         }
       }
     },
@@ -3717,6 +4761,12 @@
             "state": "translated",
             "value": "Объединить с"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Злити з"
+          }
         }
       }
     },
@@ -3733,6 +4783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Объединить #%@ с"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Злити #%@ з"
           }
         }
       }
@@ -3775,6 +4831,12 @@
             "state": "translated",
             "value": "Переименовать…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перейменувати…"
+          }
         }
       }
     },
@@ -3792,6 +4854,12 @@
             "state": "translated",
             "value": "Новое название"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нова назва"
+          }
         }
       }
     },
@@ -3808,6 +4876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Переименовать тег"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перейменувати позначку"
           }
         }
       }
@@ -3850,6 +4924,12 @@
             "state": "translated",
             "value": "Показывать архив"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати архів"
+          }
         }
       }
     },
@@ -3890,6 +4970,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "пока ни на чём"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ще ні на чому"
           }
         }
       }
