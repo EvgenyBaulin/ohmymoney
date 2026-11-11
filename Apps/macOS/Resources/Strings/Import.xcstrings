@@ -143,13 +143,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Difference between statement totals and its lines: income %@, expenses %@. The discrepancy awaits a decision on Overview."
+            "value": "Difference between statement totals and its lines: income %@, expenses %@. The statement is still written as it is."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Разница между итогами выписки и её строками: пополнения %@, расходы %@. Расхождение ждёт решения на «Обзоре»."
+            "value": "Разница между итогами выписки и её строками: пополнения %@, расходы %@. Выписка всё равно записывается как есть."
           }
         }
       }
@@ -160,13 +160,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The statement totals could not be read. You can write the operations; review awaits a decision on Overview."
+            "value": "The statement totals could not be read. The operations can still be written."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Итоги выписки не удалось прочитать. Запись доступна; проверка ждёт решения на «Обзоре»."
+            "value": "Итоги выписки не удалось прочитать. Операции всё равно можно записать."
           }
         }
       }
@@ -2235,23 +2235,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Будет записано: %lld · изменений: %lld · переводов: %lld"
-          }
-        }
-      }
-    },
-    "import.summary.reviewOnly": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The statement will be recorded; the discrepancy awaits a decision on Overview."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Выписка будет записана; расхождение ждёт решения на «Обзоре»."
           }
         }
       }
