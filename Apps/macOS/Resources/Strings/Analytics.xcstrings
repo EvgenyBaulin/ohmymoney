@@ -1023,6 +1023,23 @@
         }
       }
     },
+    "analytics.block.categoryShares": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spending by category"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расходы по категориям"
+          }
+        }
+      }
+    },
     "analytics.block.comparison": {
       "extractionState": "manual",
       "localizations": {
@@ -1240,6 +1257,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Прогноз месяца"
+          }
+        }
+      }
+    },
+    "analytics.block.months": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По месяцам"
           }
         }
       }
@@ -1890,6 +1924,40 @@
         }
       }
     },
+    "analytics.donut.caption": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "my spending"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "мои расходы"
+          }
+        }
+      }
+    },
+    "analytics.donut.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочее"
+          }
+        }
+      }
+    },
     "analytics.events.budget": {
       "extractionState": "manual",
       "localizations": {
@@ -2464,6 +2532,76 @@
           "stringUnit": {
             "state": "translated",
             "value": "Верный ответ в первых трёх"
+          }
+        }
+      }
+    },
+    "analytics.months.caption": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld month"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld months"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld месяца"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld месяцев"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld месяц"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld месяца"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "analytics.months.highlighted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ highlighted"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ выделен"
           }
         }
       }
@@ -4104,6 +4242,23 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "analytics.thousands": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@K"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ тыс."
           }
         }
       }

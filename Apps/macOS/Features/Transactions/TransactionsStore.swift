@@ -142,6 +142,8 @@ public final class TransactionsStore {
   private var redoStack: [RedoStep] = []
   /// A redo is replaying its write: the steps that write pushes do not empty `redoStack`.
   private var isRedoing = false
+  /// Component writes of a statement being committed or replayed, collected as one action.
+  private var statementSteps: [UndoStep]?
   /// How far back ⌘Z reaches; a test sets smaller numbers.
   @ObservationIgnored var undoDepth = UndoDepth()
   /// Moves on every time the history is forgotten. A bulk write that set off before that
@@ -171,7 +173,8 @@ public final class TransactionsStore {
     case editedMany([TransactionEntry], CountsSettled)
     /// One bulk change that moved money on an archived account, and the transfers written
     /// with it to keep that account at zero: undone together, in one write.
-    case editedManySettling(before: [TransactionEntry], transfers: [UUID], counts: CountsSettled)
+    case editedManySettling(
+      before: [TransactionEntry], transfers: [Transfer], counts: CountsSettled)
     /// One deletion, of one operation or many, with everything it took along.
     case deletedMany([UUID], DeletionEffects)
     /// One action of planning — «Mark as paid», a contribution, a reconciliation, a limit, a
@@ -189,6 +192,8 @@ public final class TransactionsStore {
     /// A move from another application: its operations and new categories (a change of
     /// planning) and the import rows they point at, taken back together.
     case migrated(PlanningUndo, imports: [String])
+    /// Import rows, status upgrades, learned rules and operations, in their write order.
+    case statement([UndoStep])
 
     /// How many operations undoing it writes.
     var size: Int {
@@ -206,6 +211,7 @@ public final class TransactionsStore {
         max(1, write.created.count + write.repricedBefore.count + write.refundsBefore.count)
       case .spending(let step): step.size
       case .later(let step): step.size
+      case .statement(let steps): steps.reduce(0) { $0 + $1.size }
       }
     }
   }
@@ -220,6 +226,8 @@ public final class TransactionsStore {
     case apply(PlanningChange)
     /// A bulk change: the operations as the change left them, written over the rows again.
     case bulk([TransactionEntry])
+    /// A bulk change and the transfers keeping its archived accounts at zero.
+    case bulkSettling([TransactionEntry], transfers: [Transfer])
     /// A write of the spending screens: `inverse` makes the change again, `original` is the step
     /// of ⌘Z that takes it back once it is made.
     case spending(inverse: SpendingUndo, original: UndoStep)
@@ -234,6 +242,7 @@ public final class TransactionsStore {
     case migration(PlanningChange, imports: [StatementImportRecord])
     /// Money back recorded by a sheet, written again by the same call.
     case moneyBack(MoneyBackReplay)
+    case statement([RedoStep])
   }
 
   /// What a sheet gave `TransactionRepository.apply` to record money back, so ⇧⌘Z can record the
@@ -425,6 +434,27 @@ public final class TransactionsStore {
   }
 
   // MARK: Planning
+
+  /// A statement is several repository writes but one action in the history (0010).
+  /// A refused component takes the preceding components back without adding history.
+  func writeStatement(file: String = #fileID, _ body: () -> Bool) -> Bool {
+    guard statementSteps == nil, !isWritingInBackground, let repository else { return false }
+    statementSteps = []
+    let succeeded = body()
+    let steps = statementSteps ?? []
+    statementSteps = nil
+    if succeeded {
+      if !steps.isEmpty { push(.statement(steps)) }
+    } else {
+      do {
+        let (write, _) = try undoWrite(.statement(steps), repository: repository)
+        finishWrite(write)
+      } catch {
+        failed(.undo, error, file: file)
+      }
+    }
+    return succeeded
+  }
 
   /// Writes one action of planning in one write and keeps one step of ⌘Z for it: the
   /// operations it creates, rewrites and deletes, the rows of planning it inserts, changes or
@@ -833,7 +863,7 @@ public final class TransactionsStore {
     let step: @Sendable ([TransactionEntry], CountsSettled) -> UndoStep = { before, counts in
       settlingIds.isEmpty
         ? .editedMany(before, counts)
-        : .editedManySettling(before: before, transfers: settlingIds, counts: counts)
+        : .editedManySettling(before: before, transfers: settling, counts: counts)
     }
     if Self.writesInBackground(ids.count) {
       runInBackground(.change, file: file) {
@@ -1329,113 +1359,7 @@ public final class TransactionsStore {
       return
     }
     do {
-      let write: StoreWrite
-      var redo: RedoStep?
-      switch step {
-      case .created(let id, let counts):
-        // The row is gone for good once purged: what redo writes again is read first.
-        redo = try repository.entry(id: id).map { .save($0) }
-        let back = try repository.purge(id: id, templates: counts.operationsBefore)
-        write = Self.laid(back, over: StoreWrite(removed: [id]))
-      case .edited(let change):
-        // An edit that reached journal lines, money back or transfers cannot be made again by
-        // saving the operation.
-        redo = change.reachesBeyondTheOperation ? nil : .save(change.after)
-        let back = try repository.revert(change)
-        write = Self.laid(back, over: Self.revertedEdit(change))
-      case .editedMany(let before, let counts):
-        // What the change left, kept for ⇧⌘Z before the rows go back.
-        redo = .bulk(try repository.entries(ids: before.map(\.id)))
-        // My change is taken back from the rows as they are now: a part written off or a
-        // rate refined since the change stays as it is.
-        let snapshots = Self.byId(before)
-        var reverted: [UUID: TransactionEntry] = [:]
-        // What the account was charged comes back with the account: the undo puts back what
-        // the operations were, a row of the time before accounts included, and asks nothing.
-        let (changed, back) = try repository.modifyReporting(
-          ids: before.map(\.id), checkingCharges: false, templates: counts.operationsBefore
-        ) { fresh in
-          let back = snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
-          reverted[fresh.id] = back
-          return back
-        }
-        write = Self.laid(back, over: StoreWrite(upserted: changed.compactMap { reverted[$0.id] }))
-      case .editedManySettling(let before, let transfers, let counts):
-        let snapshots = Self.byId(before)
-        var reverted: [UUID: TransactionEntry] = [:]
-        let (changed, back) = try repository.modifyReporting(
-          ids: before.map(\.id), checkingCharges: false, removingTransfers: transfers,
-          templates: counts.operationsBefore
-        ) { fresh in
-          let back = snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
-          reverted[fresh.id] = back
-          return back
-        }
-        write = Self.laid(
-          back,
-          over: StoreWrite(upserted: changed.compactMap { reverted[$0.id] }, planningChanged: true))
-      case .deletedMany(let ids, let effects):
-        redo = .delete(ids)
-        let back = try repository.restore(ids: ids, effects: effects)
-        // What comes back is whatever the rows are now; the few of them are read again.
-        let restored = try repository.entries(ids: ids + effects.companionIds)
-          .filter { !$0.transaction.isDeleted }
-        write = Self.laid(
-          back,
-          over: StoreWrite(
-            upserted: restored, partStatuses: Self.statuses(effects.reopenedPartIds, .returned)))
-      case .planned(let undo):
-        guard let planning else { return }
-        let counts = try planning.revert(undo)
-        redo = undo.change.map { .apply($0) }
-        let back = Self.broughtBack(by: undo)
-        var readBack: [TransactionEntry] = []
-        if !back.isEmpty { readBack = try repository.entries(ids: back) }
-        write = Self.reverted(undo, readBack: readBack, counts: counts)
-      case .moneyBack(let recorded, let replay):
-        redo = replay.map { .moneyBack($0) }
-        let counts = try repository.revertMoneyBack(recorded)
-        let readBack = try repository.entries(ids: Self.broughtBack(by: recorded))
-        write = Self.laid(counts, over: Self.revertedMoneyBack(recorded, readBack: readBack))
-      case .spending(let undo):
-        guard let spending else { return }
-        if let inverse = try undo.reapplying(spending: spending) {
-          redo = .spending(inverse: inverse, original: step)
-        } else {
-          switch undo {
-          case .backfill(let applied):
-            // What the rules wrote, read before it goes back: the commit that writes it again.
-            let written = try repository.entries(ids: applied.entries.map(\.id))
-            redo = .backfill(
-              RuleBackfillCommit(
-                writes: written, tagLinksToAdd: applied.tagLinksToRemove, undo: applied))
-          case .tagEdit(let applied):
-            redo = .tagEdit(applied.edit, merged: applied.merged)
-          default: break
-          }
-        }
-        write = try undo.revert(spending: spending, transactions: repository)
-      case .later(let undo):
-        let reverted = try undo.revertReporting(
-          year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports,
-          attachments: attachments)
-        write = reverted.write
-        redo = reverted.again.map { .later(inverse: $0, original: step) }
-      case .migrated(let undo, let ids):
-        guard let planning else { return }
-        // The import rows go with the step: they are read before they are deleted.
-        if let change = undo.change, let imports {
-          let kept = Set(ids)
-          let records = try imports.imports().map(\.record).filter { kept.contains($0.id) }
-          redo = .migration(change, imports: records)
-        }
-        let counts = try planning.revert(undo)
-        for id in ids { try imports?.deleteImport(id: id) }
-        let back = Self.broughtBack(by: undo)
-        var readBack: [TransactionEntry] = []
-        if !back.isEmpty { readBack = try repository.entries(ids: back) }
-        write = Self.reverted(undo, readBack: readBack, counts: counts)
-      }
+      let (write, redo) = try undoWrite(step, repository: repository)
       // Nothing else runs on the main actor meanwhile: the step is still the last one.
       undoStack.removeLast()
       // A step that cannot be made again breaks the chain: the ones undone before it would
@@ -1445,6 +1369,133 @@ public final class TransactionsStore {
     } catch {
       failed(.undo, error, file: file)
     }
+  }
+
+  /// Reverts one step without changing the history; a statement uses the same calls for
+  /// its component writes, in reverse order.
+  private func undoWrite(
+    _ step: UndoStep, repository: TransactionRepository
+  ) throws -> (StoreWrite, RedoStep?) {
+    let write: StoreWrite
+    var redo: RedoStep?
+    switch step {
+    case .created(let id, let counts):
+      // The row is gone for good once purged: what redo writes again is read first.
+      redo = try repository.entry(id: id).map { .save($0) }
+      let back = try repository.purge(id: id, templates: counts.operationsBefore)
+      write = Self.laid(back, over: StoreWrite(removed: [id]))
+    case .edited(let change):
+      // An edit that reached journal lines, money back or transfers cannot be made again by
+      // saving the operation.
+      redo = change.reachesBeyondTheOperation ? nil : .save(change.after)
+      let back = try repository.revert(change)
+      write = Self.laid(back, over: Self.revertedEdit(change))
+    case .editedMany(let before, let counts):
+      // What the change left, kept for ⇧⌘Z before the rows go back.
+      redo = .bulk(try repository.entries(ids: before.map(\.id)))
+      // My change is taken back from the rows as they are now: a part written off or a
+      // rate refined since the change stays as it is.
+      let snapshots = Self.byId(before)
+      var reverted: [UUID: TransactionEntry] = [:]
+      // What the account was charged comes back with the account: the undo puts back what
+      // the operations were, a row of the time before accounts included, and asks nothing.
+      let (changed, back) = try repository.modifyReporting(
+        ids: before.map(\.id), checkingCharges: false, templates: counts.operationsBefore
+      ) { fresh in
+        let back = snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
+        reverted[fresh.id] = back
+        return back
+      }
+      write = Self.laid(back, over: StoreWrite(upserted: changed.compactMap { reverted[$0.id] }))
+    case .editedManySettling(let before, let transfers, let counts):
+      redo = .bulkSettling(try repository.entries(ids: before.map(\.id)), transfers: transfers)
+      let snapshots = Self.byId(before)
+      var reverted: [UUID: TransactionEntry] = [:]
+      let (changed, back) = try repository.modifyReporting(
+        ids: before.map(\.id), checkingCharges: false, removingTransfers: transfers.map(\.id),
+        templates: counts.operationsBefore
+      ) { fresh in
+        let back = snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
+        reverted[fresh.id] = back
+        return back
+      }
+      write = Self.laid(
+        back,
+        over: StoreWrite(upserted: changed.compactMap { reverted[$0.id] }, planningChanged: true))
+    case .deletedMany(let ids, let effects):
+      redo = .delete(ids)
+      let back = try repository.restore(ids: ids, effects: effects)
+      // What comes back is whatever the rows are now; the few of them are read again.
+      let restored = try repository.entries(ids: ids + effects.companionIds)
+        .filter { !$0.transaction.isDeleted }
+      write = Self.laid(
+        back,
+        over: StoreWrite(
+          upserted: restored, partStatuses: Self.statuses(effects.reopenedPartIds, .returned)))
+    case .planned(let undo):
+      guard let planning else { throw PlanningUndoUnavailable() }
+      let counts = try planning.revert(undo)
+      redo = undo.change.map { .apply($0) }
+      let back = Self.broughtBack(by: undo)
+      var readBack: [TransactionEntry] = []
+      if !back.isEmpty { readBack = try repository.entries(ids: back) }
+      write = Self.reverted(undo, readBack: readBack, counts: counts)
+    case .moneyBack(let recorded, let replay):
+      redo = replay.map { .moneyBack($0) }
+      let counts = try repository.revertMoneyBack(recorded)
+      let readBack = try repository.entries(ids: Self.broughtBack(by: recorded))
+      write = Self.laid(counts, over: Self.revertedMoneyBack(recorded, readBack: readBack))
+    case .spending(let undo):
+      guard let spending else { throw PlanningUndoUnavailable() }
+      if let inverse = try undo.reapplying(spending: spending) {
+        redo = .spending(inverse: inverse, original: step)
+      } else {
+        switch undo {
+        case .backfill(let applied):
+          // What the rules wrote, read before it goes back: the commit that writes it again.
+          let written = try repository.entries(ids: applied.entries.map(\.id))
+          redo = .backfill(
+            RuleBackfillCommit(
+              writes: written, tagLinksToAdd: applied.tagLinksToRemove, undo: applied))
+        case .tagEdit(let applied):
+          redo = .tagEdit(applied.edit, merged: applied.merged)
+        default: break
+        }
+      }
+      write = try undo.revert(spending: spending, transactions: repository)
+    case .later(let undo):
+      let reverted = try undo.revertReporting(
+        year: year, subscriptions: subscriptions, savedViews: savedViews, imports: imports,
+        attachments: attachments)
+      write = reverted.write
+      redo = reverted.again.map { .later(inverse: $0, original: step) }
+    case .migrated(let undo, let ids):
+      guard let planning else { throw PlanningUndoUnavailable() }
+      // The import rows go with the step: they are read before they are deleted.
+      if let change = undo.change, let imports {
+        let kept = Set(ids)
+        let records = try imports.imports().map(\.record).filter { kept.contains($0.id) }
+        redo = .migration(change, imports: records)
+      }
+      let counts = try planning.revert(undo)
+      for id in ids { try imports?.deleteImport(id: id) }
+      let back = Self.broughtBack(by: undo)
+      var readBack: [TransactionEntry] = []
+      if !back.isEmpty { readBack = try repository.entries(ids: back) }
+      write = Self.reverted(undo, readBack: readBack, counts: counts)
+    case .statement(let steps):
+      var combined = StoreWrite()
+      var again: [RedoStep] = []
+      for component in steps.reversed() {
+        let (changed, replay) = try undoWrite(component, repository: repository)
+        combined = Self.combining(combined, changed)
+        guard let replay else { throw PlanningUndoUnavailable() }
+        again.append(replay)
+      }
+      write = combined
+      redo = .statement(Array(again.reversed()))
+    }
+    return (write, redo)
   }
 
   /// ⇧⌘Z. The newest write ⌘Z took back is made again through the store's own write, so the
@@ -1457,14 +1508,30 @@ public final class TransactionsStore {
     redoStack.removeLast()
     isRedoing = true
     defer { isRedoing = false }
+    if !replay(step, file: file) { redoStack.removeAll() }
+  }
+
+  private func replay(_ step: RedoStep, file: String) -> Bool {
     let landed: Bool
     switch step {
+    case .statement(let steps):
+      landed = writeStatement(file: file) {
+        for component in steps where !replay(component, file: file) { return false }
+        return true
+      }
     case .save(let entry): landed = save(entry, file: file)
     case .delete(let ids): landed = delete(ids: ids, file: file)
     case .apply(let change): landed = apply(change, file: file)
     case .bulk(let after):
       let snapshots = Self.byId(after)
       landed = modifyMany(after.map(\.id), file: file) { fresh in
+        snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
+      }
+    case .bulkSettling(let after, let transfers):
+      let snapshots = Self.byId(after)
+      landed = modifyMany(
+        after.map(\.id), settling: transfers, planned: Set(after.map(\.id)), file: file
+      ) { fresh in
         snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
       }
     case .spending(let inverse, let original):
@@ -1497,7 +1564,7 @@ public final class TransactionsStore {
     case .moneyBack(let replay):
       landed = replayMoneyBack(replay, file: file)
     }
-    if !landed { redoStack.removeAll() }
+    return landed
   }
 
   /// The undo of a bulk step too large for the main thread: the same rules, awaited. Only
@@ -1506,11 +1573,32 @@ public final class TransactionsStore {
     _ step: UndoStep, repository: TransactionRepository, planning: PlanningRepository?,
     spending: SpendingRulesRepository?, imports: StatementImportRepository? = nil
   ) async throws -> (StoreWrite, RedoStep?) {
+    if case .statement(let steps) = step {
+      var combined = StoreWrite()
+      var again: [RedoStep] = []
+      for component in steps.reversed() {
+        let (write, replay) = try await undoInBackground(
+          component, repository: repository, planning: planning, spending: spending,
+          imports: imports)
+        combined = combining(combined, write)
+        guard let replay else { throw PlanningUndoUnavailable() }
+        again.append(replay)
+      }
+      return (combined, .statement(Array(again.reversed())))
+    }
+    if case .later(let undo) = step {
+      let reverted = try undo.revertReporting(
+        year: nil, subscriptions: nil, savedViews: nil, imports: imports)
+      return (reverted.write, reverted.again.map { .later(inverse: $0, original: step) })
+    }
     // What makes the change again is read before the step goes back.
     var redo: RedoStep?
     switch step {
     case .editedMany(let before, _):
       redo = .bulk(try await repository.entriesInBackground(ids: before.map(\.id)))
+    case .editedManySettling(let before, let transfers, _):
+      redo = .bulkSettling(
+        try await repository.entriesInBackground(ids: before.map(\.id)), transfers: transfers)
     case .deletedMany(let ids, _): redo = .delete(ids)
     case .planned(let undo): redo = undo.change.map { .apply($0) }
     case .moneyBack(_, let replay): redo = replay.map { .moneyBack($0) }
@@ -1519,6 +1607,10 @@ public final class TransactionsStore {
       redo = .backfill(
         RuleBackfillCommit(
           writes: written, tagLinksToAdd: applied.tagLinksToRemove, undo: applied))
+    case .spending(let undo):
+      if let spending, let inverse = try undo.reapplying(spending: spending) {
+        redo = .spending(inverse: inverse, original: step)
+      }
     case .migrated(let undo, let ids):
       if let change = undo.change, let imports {
         let kept = Set(ids)
@@ -1554,7 +1646,7 @@ public final class TransactionsStore {
     case .editedManySettling(let before, let transfers, let counts):
       let snapshots = byId(before)
       let batch = try await repository.modifyReportingInBackground(
-        ids: before.map(\.id), checkingCharges: false, removingTransfers: transfers,
+        ids: before.map(\.id), checkingCharges: false, removingTransfers: transfers.map(\.id),
         templates: counts.operationsBefore
       ) { fresh in
         snapshots[fresh.id].map { BulkEditRule.revert(fresh, to: $0) }
@@ -1586,8 +1678,8 @@ public final class TransactionsStore {
     case .spending(let undo):
       guard let spending else { throw PlanningUndoUnavailable() }
       return try undo.revert(spending: spending, transactions: repository)
-    case .later:
-      // Its steps are single small writes (`LaterUndo.size`), so they never take this path.
+    case .later, .statement:
+      // Statement groups and their import rows are handled by `undoInBackground` above.
       throw PlanningUndoUnavailable()
     case .migrated(let undo, let ids):
       // Years of history moved in at once: taken back off the main thread, rows last.
@@ -1713,6 +1805,10 @@ public final class TransactionsStore {
   /// Puts a step at `slot`, unless the history was forgotten since.
   private func keep(_ step: UndoStep, at slot: Int, epoch: Int, redoing: Bool? = nil) {
     guard epoch == undoEpoch else { return }
+    if statementSteps != nil {
+      statementSteps?.append(step)
+      return
+    }
     if !(redoing ?? isRedoing) { redoStack.removeAll() }
     // Nothing is popped or trimmed while a bulk write is on its way, and forgetting moves
     // the epoch, so the slot is still inside the stack; `min` only keeps it so.
@@ -1722,6 +1818,10 @@ public final class TransactionsStore {
 
   /// Keeps the step of a write that has just landed on the main thread.
   private func push(_ step: UndoStep) {
+    if statementSteps != nil {
+      statementSteps?.append(step)
+      return
+    }
     if !isRedoing { redoStack.removeAll() }
     undoStack.append(step)
     trimUndoHistory()
@@ -1774,6 +1874,18 @@ public final class TransactionsStore {
     _ parts: [UUID], _ status: ReimbursementStatus
   ) -> [UUID: ReimbursementStatus] {
     Dictionary(parts.map { ($0, status) }, uniquingKeysWith: { first, _ in first })
+  }
+
+  /// Later writes replace earlier rows in the report of a composite undo.
+  private nonisolated static func combining(
+    _ earlier: StoreWrite, _ later: StoreWrite
+  ) -> StoreWrite {
+    let replaced = Set(later.touchedIds)
+    return StoreWrite(
+      upserted: earlier.upserted.filter { !replaced.contains($0.id) } + later.upserted,
+      removed: earlier.removed.filter { !replaced.contains($0) } + later.removed,
+      partStatuses: earlier.partStatuses.merging(later.partStatuses) { _, new in new },
+      planningChanged: earlier.planningChanged || later.planningChanged)
   }
 
   private nonisolated static func byId(_ entries: [TransactionEntry]) -> [UUID: TransactionEntry] {

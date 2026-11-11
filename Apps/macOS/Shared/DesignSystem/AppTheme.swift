@@ -52,7 +52,7 @@ public final class AppTheme {
   /// System colours only: they follow the dark theme and «Увеличить контраст» by themselves,
   /// and the app owns no hexadecimal value of its own.
   public enum Accent: String, CaseIterable, Sendable {
-    /// «Как в теме»: no override, the accent is the one the chosen theme brings. The default.
+    /// «Как в теме»: no override, the accent of the chosen theme. The default for new installs.
     case theme
     case system
     /// The amber of the icon, as the system knows it.
@@ -128,7 +128,7 @@ public final class AppTheme {
   public var scheme: Scheme {
     didSet {
       guard scheme != oldValue else { return }
-      UserDefaults.standard.set(scheme.rawValue, forKey: Self.schemeKey)
+      defaults.set(scheme.rawValue, forKey: Self.schemeKey)
       applyAppearance()
     }
   }
@@ -139,14 +139,14 @@ public final class AppTheme {
   public var themeID: ThemeID {
     didSet {
       guard themeID != oldValue else { return }
-      UserDefaults.standard.set(themeID.rawValue, forKey: Self.themeKey)
+      defaults.set(themeID.rawValue, forKey: Self.themeKey)
     }
   }
 
   public var accent: Accent {
     didSet {
       guard accent != oldValue else { return }
-      UserDefaults.standard.set(accent.rawValue, forKey: Self.accentKey)
+      defaults.set(accent.rawValue, forKey: Self.accentKey)
     }
   }
 
@@ -191,11 +191,28 @@ public final class AppTheme {
 
   /// Where the size of the text and the style of the currency are kept: nil in the test host.
   @ObservationIgnored private let habits: UserDefaults?
+  @ObservationIgnored private let defaults: UserDefaults
 
-  public init() {
-    let defaults = UserDefaults.standard
+  public convenience init() {
+    // The synthetic first run owns its memory. Tests and other data sets must never mark
+    // the owner's installation; normal launches inspect the file before opening it.
+    let isolated = AppEnvironment.isTestHost || AppPaths.dataSet != nil
+    let defaults = FirstRunMemory.isOn ? FirstRunMemory.defaults : UserDefaults.standard
+    let isNew =
+      FirstRunMemory.isOn || isolated
+      || FirstRunMemory.installationIsNew(
+        in: defaults,
+        databaseExists: FileManager.default.fileExists(atPath: AppPaths.databaseURL.path))
+    self.init(defaults: defaults, isNewInstall: isNew)
+  }
+
+  init(defaults: UserDefaults, isNewInstall: Bool) {
+    self.defaults = defaults
     scheme = defaults.string(forKey: Self.schemeKey).flatMap(Scheme.init(rawValue:)) ?? .system
-    accent = defaults.string(forKey: Self.accentKey).flatMap(Accent.init(rawValue:)) ?? .theme
+    let hasTheme = defaults.string(forKey: Self.themeKey).flatMap(ThemeID.init(rawValue:)) != nil
+    accent =
+      defaults.string(forKey: Self.accentKey).flatMap(Accent.init(rawValue:))
+      ?? (isNewInstall || hasTheme ? .theme : .system)
     themeID = defaults.string(forKey: Self.themeKey).flatMap(ThemeID.init(rawValue:)) ?? .theme01
     habits = AppEnvironment.isTestHost ? nil : defaults
     fontSize = AppFontSize.stored(in: habits)

@@ -142,6 +142,63 @@ final class LocalizationTests: XCTestCase {
     XCTAssertEqual(language("no.such.key"), "no.such.key")
   }
 
+  func testUndoInstructionsNameTheControlOfEachPlatform() throws {
+    let keys = [
+      ("accounts.delete.message", "Accounts"), ("account.merge.message", "Accounts"),
+      ("wizard.how.undo", "Debts"), ("intent.add.description", "MacFeatures"),
+      ("intent.delete.description", "MacFeatures"), ("mac.command.deleted", "MacFeatures"),
+    ]
+    for choice in [AppLanguage.Choice.english, .russian] {
+      language.choice = choice
+      for (key, table) in keys {
+        let mac = language.text(key, table: table, forTouch: false)
+        let touch = language.text(key, table: table, forTouch: true)
+        XCTAssertTrue(mac.contains("⌘Z"), "\(key): \(mac)")
+        XCTAssertFalse(touch.contains("⌘"), "\(key): \(touch)")
+        XCTAssertTrue(touch.contains(choice == .russian ? "Отменить" : "Undo"))
+        #if os(macOS)
+          XCTAssertEqual(language(key, table: table), mac)
+        #else
+          XCTAssertEqual(language(key, table: table), touch)
+        #endif
+      }
+      for count in [1, 2, 5, 21] {
+        let journal = language.format("debts.delete.journal", table: "Debts", counts: count)
+        XCTAssertFalse(journal.contains("⌘"))
+        XCTAssertFalse(journal.contains("Undo") || journal.contains("Отменить"))
+        XCTAssertTrue(journal.contains(String(count)))
+      }
+      let warning = language.text("debts.delete.warning", table: "Debts", forTouch: false)
+      XCTAssertTrue(
+        warning.contains(choice == .russian ? "нельзя отменить" : "cannot be undone"))
+      XCTAssertEqual(
+        warning, language.text("debts.delete.warning", table: "Debts", forTouch: true))
+    }
+  }
+
+  func testEveryKeyboardUndoInstructionHasATouchAlternative() throws {
+    for code in ["en", "ru"] {
+      let folder = try XCTUnwrap(Bundle.main.url(forResource: code, withExtension: "lproj"))
+      for table in try FileManager.default.contentsOfDirectory(atPath: folder.path)
+      where table.hasSuffix(".strings") {
+        let strings =
+          NSDictionary(contentsOf: folder.appendingPathComponent(table)) as? [String: String] ?? [:]
+        for (key, text) in strings where text.contains("⌘Z") {
+          XCTAssertFalse(key.hasSuffix(".touch"), "\(table): \(key)")
+          let touch = try XCTUnwrap(strings[key + ".touch"], "\(table): \(key) (\(code))")
+          XCTAssertFalse(touch.contains("⌘"), "\(table): \(key) (\(code))")
+        }
+        for (key, text) in strings where key != "debts.delete.warning" {
+          for forbidden in [
+            "cannot be undone", "нельзя отменить", "не отменить", "отменить нельзя",
+          ] {
+            XCTAssertFalse(text.lowercased().contains(forbidden), "\(table): \(key)")
+          }
+        }
+      }
+    }
+  }
+
   /// Nothing chosen yet means the language of the Mac: Russian on a Russian system, English
   /// on any other (README). The choice already stored by the other tests is
   /// put back afterwards.

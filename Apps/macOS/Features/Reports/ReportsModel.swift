@@ -347,6 +347,9 @@ struct ReportsSheet: Sendable {
   /// «По месяцам»: one model per month of `request.months`, in their order.
   var monthExpenses: [ReportsModel] = []
   var monthIncome: [ReportsModel] = []
+  /// «По событиям»: the cards over the table and the categories of the largest event beside
+  /// it. Not a table of the CSV.
+  var eventBoard: ReportsEventBoard?
 
   var hasData: Bool {
     request.tab == .byMonth
@@ -360,6 +363,16 @@ enum ReportsSheetBuilder {
   static func sheet(_ request: ReportsSheetRequest, ledger: Ledger) -> ReportsSheet {
     let models = request.tables.map { ReportsBuilder.model($0, ledger: ledger) }
     var sheet = ReportsSheet(request: request, models: models)
+    if request.tab == .byEvent {
+      let builder = ReportBuilder(ledger: ledger, today: request.today)
+      let span = ReportsEventBoard.previousSpan(of: request.period, today: request.today)
+      let before = span.map(Period.days) ?? request.period.stepped(by: -1).period
+      sheet.eventBoard = ReportsEventBoard.make(
+        byEvent: builder.table(
+          .expensesByCategoryAndSubcategory, period: request.period.period, grouping: .event),
+        previous: builder.table(.expensesByCategory, period: before, grouping: .event),
+        period: request.period, previousSpan: span)
+    }
     for month in request.months {
       func model(_ kind: ReportTable.Kind) -> ReportsModel {
         ReportsBuilder.model(

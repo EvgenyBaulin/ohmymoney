@@ -61,6 +61,7 @@ enum AnalyticsReason: String, Hashable, Sendable, CaseIterable {
 
 /// The charts of the sections. Their ids are what the measurement waits for (`--measure`).
 enum AnalyticsBlock: String, CaseIterable, Hashable, Sendable {
+  case months, qualitySummary, overviewAnomalies
   case categories, series, incomeVsExpenses, incomeSources, comparison, weekdays
   case qualityShares, badByCategory, streaks, goals
   case othersTotals, othersSubscriptions, othersByPerson
@@ -201,7 +202,11 @@ struct AnalyticsModel: Sendable {
     let blocks: [AnalyticsBlock]
     switch content {
     case .overview:
-      blocks = [.categories, .series, .incomeVsExpenses, .incomeSources, .comparison, .weekdays]
+      // The anomalies of the first page wait for step 6, not for the section: not timed.
+      blocks = [
+        .months, .categories, .qualitySummary, .series, .incomeVsExpenses, .incomeSources,
+        .comparison, .weekdays,
+      ]
     case .quality:
       blocks = [.qualityShares, .badByCategory, .streaks, .goals]
     case .others:
@@ -229,6 +234,17 @@ struct AnalyticsModel: Sendable {
 }
 
 // MARK: - What the charts plot
+
+/// The spending of a run of months in whole rubles, one of them picked out: «Октябрь выделен».
+struct MonthBars: Hashable, Sendable {
+  struct Month: Hashable, Sendable {
+    var month: MonthKey
+    var value: Int64
+  }
+
+  var months: [Month]
+  var highlighted: MonthKey
+}
 
 /// A line of a ranked chart: what it stands for, whole rubles (or a count), its share of
 /// its level and, for a category, its subcategories.
@@ -321,6 +337,13 @@ struct WeekdayModel: Hashable, Sendable {
 }
 
 struct OverviewSectionModel: Sendable {
+  /// «По месяцам»: the spending of the twelve months to the month of the period, that month
+  /// picked out.
+  var months: ChartBlock<MonthBars>
+  /// «Хорошие и плохие» of the period: the money and the share of each rating.
+  var quality: ChartBlock<QualityTotals>
+  /// «Аномалии» of the period; `nil` until step 6 has run once.
+  var anomalies: ChartBlock<[Anomaly]>?
   var categories: ChartBlock<[RankedValue]>
   var series: ChartBlock<SeriesSteps>
   var incomeVsExpenses: ChartBlock<[IncomeExpenseMonth]>

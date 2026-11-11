@@ -14,6 +14,69 @@ import XCTest
 final class AppearanceThemeTests: XCTestCase {
   // MARK: Choosing
 
+  func testANewInstallationStartsWithWarmAndRemembersItsOrigin() throws {
+    try withInstallation { defaults in
+      let isNew = FirstRunMemory.installationIsNew(in: defaults, databaseExists: false)
+      let theme = AppTheme(defaults: defaults, isNewInstall: isNew)
+      XCTAssertEqual(theme.themeID, .theme01)
+      XCTAssertEqual(theme.accent, .theme)
+      XCTAssertEqual(theme.scheme, .system)
+      XCTAssertTrue(FirstRunMemory.installationIsNew(in: defaults, databaseExists: true))
+    }
+  }
+
+  func testAnExistingInstallationWithoutAChoiceKeepsTheSystemDefault() throws {
+    try withInstallation { defaults in
+      XCTAssertNil(defaults.object(forKey: AppTheme.schemeKey))
+      let isNew = FirstRunMemory.installationIsNew(in: defaults, databaseExists: true)
+      XCTAssertFalse(isNew)
+      let theme = AppTheme(defaults: defaults, isNewInstall: isNew)
+      XCTAssertEqual(theme.scheme, .system)
+      XCTAssertEqual(theme.accent, .system)
+      XCTAssertNil(theme.accent.resolvedTint(in: .fallback))
+      XCTAssertFalse(FirstRunMemory.installationIsNew(in: defaults, databaseExists: false))
+      XCTAssertNil(defaults.object(forKey: AppTheme.schemeKey))
+    }
+  }
+
+  func testAnExistingInstallationKeepsEveryAppearanceChoice() throws {
+    try withInstallation { defaults in
+      defaults.set("dark", forKey: AppTheme.schemeKey)
+      defaults.set("teal", forKey: AppTheme.accentKey)
+      defaults.set("17", forKey: AppTheme.themeKey)
+      let isNew = FirstRunMemory.installationIsNew(in: defaults, databaseExists: true)
+      let theme = AppTheme(defaults: defaults, isNewInstall: isNew)
+      XCTAssertEqual(theme.scheme, .dark)
+      XCTAssertEqual(theme.accent, .teal)
+      XCTAssertEqual(theme.themeID, .theme17)
+      theme.accent = .blue
+      XCTAssertEqual(AppTheme(defaults: defaults, isNewInstall: isNew).accent, .blue)
+    }
+  }
+
+  func testExistingOnboardingMemoryIsNotANewInstallEvenWithoutADatabase() throws {
+    try withInstallation { defaults in
+      defaults.set(true, forKey: StarterSetActions.askedKey)
+      XCTAssertFalse(FirstRunMemory.installationIsNew(in: defaults, databaseExists: false))
+    }
+  }
+
+  func testAnExistingThemeChoiceKeepsItsThemeAccent() throws {
+    try withInstallation { defaults in
+      defaults.set("17", forKey: AppTheme.themeKey)
+      let theme = AppTheme(defaults: defaults, isNewInstall: false)
+      XCTAssertEqual(theme.themeID, .theme17)
+      XCTAssertEqual(theme.accent, .theme)
+    }
+  }
+
+  private func withInstallation(_ body: (UserDefaults) throws -> Void) throws {
+    let name = "ohmymoney.tests.installation.\(UUID().uuidString)"
+    let defaults = try XCTUnwrap(UserDefaults(suiteName: name))
+    defer { defaults.removePersistentDomain(forName: name) }
+    try body(defaults)
+  }
+
   func testTheFirstThemeIsTheDefaultAndAChoiceSurvivesANewInstance() {
     XCTAssertEqual(AppTheme().themeID, .theme01)
     XCTAssertEqual(AppTheme().accent, .theme)

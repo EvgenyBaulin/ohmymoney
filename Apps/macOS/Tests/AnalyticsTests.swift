@@ -510,8 +510,11 @@ final class AnalyticsModelTests: XCTestCase {
     let ledger = ledger([entry(.expense, "100", on: day(3))])
     let overview = AnalyticsBuilder.model(
       request(.overview, .month(september), today: day(18)), ledger: ledger)
-    XCTAssertEqual(overview.blockIDs.count, 6)
-    XCTAssertEqual(Set(overview.blockIDs).count, 6)
+    // The first page of «Траты» (5:36907) adds «По месяцам» and «Хорошие и плохие» to its six
+    // charts; its anomalies wait for step 6, not for the section, and are not timed.
+    XCTAssertEqual(overview.blockIDs.count, 8)
+    XCTAssertEqual(Set(overview.blockIDs).count, 8)
+    XCTAssertFalse(overview.blockIDs.contains(AnalyticsBlock.overviewAnomalies.rawValue))
     // The sections of 2.1 count what they show themselves and have no chart to wait for; so does
     // «Доход и сбережения» (`IncomeSavingsPage`, from the whole snapshot): their models keep the
     // request only and the measurement has no block of the builder to wait for.

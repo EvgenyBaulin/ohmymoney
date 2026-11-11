@@ -30,6 +30,8 @@ enum LaterUndo: Sendable {
   case profile(id: String, before: StatementProfile?)
   /// The row of an import written: ⌘Z takes it away.
   case importRecorded(id: String)
+  /// The complete row taken away, including its duplicate-detection hash and undo mark.
+  case importRemoved(StoredImport)
   /// An import marked undone: ⌘Z takes the mark off.
   case importUndone(id: String)
   /// Files attached in one go: ⌘Z takes the rows away, and the files nothing else names.
@@ -124,8 +126,13 @@ enum LaterUndo: Sendable {
       }
       again = .profile(id: id, before: current)
     case .importRecorded(let id):
-      // The row's own fields are not kept; a loaded statement cannot be made again from here.
+      let stored = try need(imports).imports().first { $0.id == id }
       try need(imports).deleteImport(id: id)
+      again = stored.map { .importRemoved($0) }
+    case .importRemoved(let stored):
+      try need(imports).record(stored.record, fileHash: stored.fileHash)
+      if let at = stored.undoneAt { try need(imports).markUndone(id: stored.id, at: at) }
+      again = .importRecorded(id: stored.id)
     case .importUndone(let id):
       try need(imports).clearUndone(id: id)
       again = .importMarkedUndone(id: id)

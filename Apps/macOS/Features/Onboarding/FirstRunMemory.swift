@@ -1,10 +1,26 @@
 import Foundation
 
-/// What a launch with `--generate empty` (a new install on a set of synthetic data) remembers:
-/// the guide's progress and whether the starter set was asked live in a suite of their own,
-/// new at every launch, so the run asks the first-launch questions every time and never
-/// changes what the Debug build remembers for the owner.
+/// The installation's origin and the memory of a synthetic first run. A launch with
+/// `--generate empty` keeps the guide and starter-set answers in a suite of its own, new at
+/// every launch, so it never changes what the Debug build remembers for the owner.
 enum FirstRunMemory {
+  /// Local installation origin, captured before opening or generating a database. `true`
+  /// means this installation started with the Warm default (0571); `false` preserves the
+  /// system default of an older installation. Never exported or exchanged between devices.
+  static let installationKey = "app.installation.startedWithWarmTheme"
+
+  @MainActor
+  static func installationIsNew(in defaults: UserDefaults, databaseExists: Bool) -> Bool {
+    if let marked = defaults.object(forKey: installationKey) as? Bool { return marked }
+    let existingKeys = [
+      GuideStore.progressKey, StarterSetActions.askedKey,
+      AppTheme.schemeKey, AppTheme.accentKey, AppTheme.themeKey,
+    ]
+    let isNew = !databaseExists && !existingKeys.contains { defaults.object(forKey: $0) != nil }
+    defaults.set(isNew, forKey: installationKey)
+    return isNew
+  }
+
   /// A name of its own per process: a suite emptied and written again within a launch is not
   /// reliably empty at the next one.
   static let suiteName = "ohmymoney.firstrun.\(ProcessInfo.processInfo.processIdentifier)"

@@ -25,10 +25,13 @@ struct AnalyticsSectionView: View {
   var body: some View {
     ScrollView {
       VStack(alignment: .leading, spacing: 16) {
-        Text(verbatim: headerLine)
-          .appFont(.callout)
-          .foregroundStyle(.secondary)
-          .fixedSize(horizontal: false, vertical: true)
+        if let headerLine {
+          Text(verbatim: headerLine)
+            .appFont(AnalyticsCardType.subtitle)
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier("analytics.section.line")
+        }
         sectionBody
       }
       .padding(.horizontal, side)
@@ -45,10 +48,14 @@ struct AnalyticsSectionView: View {
 
   private var isWide: Bool { width >= Self.wideWidth }
 
-  private var headerLine: String {
+  /// The line over the cards: only where the section does not show the period of the header
+  /// (`AnalyticsSectionLine`), and «часть скрыта» whenever a hidden account is covered.
+  private var headerLine: String? {
+    let hidden = state.value?.partHidden == true
+    guard AnalyticsSectionLine.isShown(section, partHidden: hidden) else { return nil }
+    guard !section.followsThePeriod else { return PartHiddenNote.text(environment.language) }
     let line = AnalyticsText.sectionHeader(section, title: title, model: state.value, environment)
-    guard state.value?.partHidden == true else { return line }
-    return "\(line) · \(PartHiddenNote.text(environment.language))"
+    return hidden ? "\(line) · \(PartHiddenNote.text(environment.language))" : line
   }
 
   @ViewBuilder
@@ -71,6 +78,16 @@ struct AnalyticsSectionView: View {
   }
 }
 
+/// The line between the chips and the cards. The header already shows the period, so the
+/// frames draw the line only where a section looks at another span — «Доход и сбережения»
+/// (61:60578: «Последние 12 месяцев · по октябрь»), the forecast's month — and the line is
+/// kept for «часть скрыта», which must always be said.
+enum AnalyticsSectionLine {
+  static func isShown(_ section: AnalyticsSection, partHidden: Bool) -> Bool {
+    partHidden || !section.followsThePeriod
+  }
+}
+
 // MARK: - Overview
 
 private struct OverviewSection: View {
@@ -78,21 +95,12 @@ private struct OverviewSection: View {
   let state: BlockState<AnalyticsModel>
   let retry: () -> Void
   let isWide: Bool
-  @State private var expanded: Set<ReportKey> = []
   @State private var stepChoice = SeriesStepChoice()
 
   var body: some View {
     let names = state.value?.names ?? AnalyticsNames()
     VStack(alignment: .leading, spacing: 16) {
-      AnalyticsCard(
-        block: AnalyticsBlock.categories.rawValue,
-        title: t("analytics.block.categories"), subtitle: t("analytics.basis.byDate"),
-        state: state.block { $0.overview?.categories }, retry: retry
-      ) { values in
-        RankedBarChart(
-          bars: AnalyticsText.bars(values, names: names, expanded: expanded, environment),
-          onToggle: toggle)
-      }
+      OverviewSummaryCards(state: state, retry: retry, isWide: isWide)
 
       AnalyticsPair(isWide: isWide) {
         seriesCard
@@ -201,15 +209,6 @@ private struct OverviewSection: View {
     return AnalyticsText.format(
       "analytics.basis.comparison", environment, environment.dates.span(model.current),
       environment.dates.span(model.previous))
-  }
-
-  private func toggle(_ id: String) {
-    guard
-      let key = state.value?.overview?.categories.content?.first(where: {
-        $0.key.description == id
-      })?.key
-    else { return }
-    if expanded.contains(key) { expanded.remove(key) } else { expanded.insert(key) }
   }
 
   private func t(_ key: String) -> String { AnalyticsText.t(key, environment) }

@@ -69,22 +69,8 @@ struct SpendingBlock<Request: Hashable & Sendable, Value: Sendable, Content: Vie
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      HStack(alignment: .firstTextBaseline, spacing: 8) {
-        VStack(alignment: .leading, spacing: 2) {
-          Text(verbatim: title)
-            .appFont(.headline)
-            .accessibilityAddTraits(.isHeader)
-          if let subtitle {
-            Text(verbatim: subtitle)
-              .appFont(.caption)
-              .foregroundStyle(.secondary)
-              .fixedSize(horizontal: false, vertical: true)
-          }
-        }
-        Spacer(minLength: 8)
-        accessory
-      }
+    VStack(alignment: .leading, spacing: AnalyticsCardMetrics.bodyGap(.detail)) {
+      AnalyticsCardHeader(title: title, subtitle: subtitle) { accessory }
       ComputedBlock(
         title: nil, state: unwrapped, style: .plain, emptyReason: reason,
         retry: { attempt += 1 }
@@ -93,7 +79,7 @@ struct SpendingBlock<Request: Hashable & Sendable, Value: Sendable, Content: Vie
       }
       .frame(minHeight: 64, alignment: .topLeading)
     }
-    .contentCard()
+    .analyticsCard()
     .accessibilityElement(children: .contain)
     .accessibilityLabel(Text(verbatim: title))
     .accessibilityIdentifier(identifier)
