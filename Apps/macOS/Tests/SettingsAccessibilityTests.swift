@@ -179,7 +179,7 @@ final class SettingsAccessibilityTests: XCTestCase {
     XCTAssertNotEqual(unpin, "templates.unpin", "«Открепить» is not in the table of Settings")
     var buttons: [String] = []
     waitFor {
-      buttons = Self.elements(inRowsOf: window, role: "AXButton").map(Self.spoken)
+      buttons = Self.elements(in: window, role: "AXButton").map(Self.spoken)
       return buttons.contains { $0.contains(pin) || $0.contains(unpin) }
     }
     XCTAssertEqual(
@@ -376,12 +376,12 @@ final class SettingsAccessibilityTests: XCTestCase {
     let restore = environment.language("templates.restore", table: "Settings")
     var heard: [String] = []
     waitFor {
-      heard = Self.elements(inRowsOf: window) { _ in true }.flatMap(Self.words)
+      heard = Self.everything(in: window).flatMap(Self.words)
       return heard.contains(inArchive)
     }
     XCTAssertTrue(heard.contains(inArchive), "«\(inArchive)» is not said: \(heard)")
     let back = try XCTUnwrap(
-      Self.elements(inRowsOf: window, role: "AXButton").first { Self.spoken($0) == restore },
+      Self.elements(in: window, role: "AXButton").first { Self.spoken($0) == restore },
       "no «\(restore)»: \(heard)")
     _ = (back as AnyObject).accessibilityPerformPress?()
     waitFor { (try? references.templates().first { $0.id == taxi.id }?.archived) == false }
@@ -419,7 +419,7 @@ final class SettingsAccessibilityTests: XCTestCase {
       XCTAssertTrue(live.contains("кофе"), live)
       var heard: [String] = []
       waitFor {
-        heard = Self.elements(inRowsOf: window) { _ in true }.map(Self.spoken)
+        heard = Self.everything(in: window).map(Self.spoken)
         return heard.contains { $0.contains(live) } && heard.contains { $0.contains(archived) }
       }
       XCTAssertTrue(

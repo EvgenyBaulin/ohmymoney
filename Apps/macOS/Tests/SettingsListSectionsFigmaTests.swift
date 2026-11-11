@@ -1,3 +1,4 @@
+import AppCore
 import SwiftUI
 import XCTest
 
@@ -53,6 +54,20 @@ final class SettingsListSectionsFigmaTests: XCTestCase {
       XCTAssertEqual(RulesSettingsView.doorSymbols[.exchange], "doc.text")
     }
   #endif
+
+  /// The action at the right of a template row says what pressing it does: «Открепить» on a
+  /// pinned one, «Закрепить» on any other.
+  func testTheTemplateActionNamesWhatItDoes() {
+    XCTAssertEqual(TemplatesSettingsView.pinCaptionKey(pinned: true), "templates.unpin")
+    XCTAssertEqual(TemplatesSettingsView.pinCaptionKey(pinned: false), "templates.pin")
+  }
+
+  /// The proportions rows of the income card can never add up to more than a hundred.
+  func testTheIncomeRowsKeepTheProportionsAtAHundred() {
+    let rule = BudgetProportions.rule503020
+    XCTAssertEqual(IncomeProportionsDraft.needsRange(wants: rule), 0...70)
+    XCTAssertEqual(IncomeProportionsDraft.wantsRange(needs: rule), 0...50)
+  }
 
   func testTheBooksAreInTheDesignsOrder() {
     XCTAssertEqual(ReferenceBooksView.Book.allCases, [.people, .places, .events])
