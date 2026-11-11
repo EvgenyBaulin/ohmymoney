@@ -71,13 +71,46 @@ struct CalendarPlansTests {
     #expect(plans.first?.amount == AmountE4(whole: 100_000))
   }
 
-  @Test func nothingWhenTheLastDayIsBeforeToday() {
+  @Test func aSubscriptionIsMarkedAsOne() {
     let rent = ScheduledPayment(
-      name: "Rent", amountE4: AmountE4(whole: 30_000), day: 20, nextDate: day(9, 20))
-    let book = PlanningBook(scheduled: [rent])
-    #expect(
-      CalendarPlans.collect(
-        ledger: ledger(book: book), book: book, today: today, through: day(10, 13)
-      ).isEmpty)
+      name: "Rent", amountE4: AmountE4(whole: 30_000), day: 20, nextDate: day(10, 20))
+    let net = ScheduledPayment(
+      name: "Net", kind: .subscription, amountE4: AmountE4(whole: 890), day: 27,
+      nextDate: day(10, 27))
+    let book = PlanningBook(scheduled: [rent, net])
+    let plans = CalendarPlans.collect(
+      ledger: ledger(book: book), book: book, today: today, through: day(10, 31))
+    #expect(plans.map(\.source) == [.payment, .subscription])
+    #expect(plans.allSatisfy { $0.kind == .payment })
+  }
+
+  @Test func aDebtPaymentIsMarkedAsADebt() {
+    let loan = Debt(
+      direction: .iOwe, type: .loan, name: "Loan", monthlyPaymentE4: AmountE4(whole: 18_556),
+      paymentDay: 28)
+    let book = PlanningBook()
+    let ledger = Ledger(dataset: Dataset(debts: [loan], planning: book), calendar: .utc)
+    let plans = CalendarPlans.collect(
+      ledger: ledger, book: book, today: today, through: day(10, 31))
+    #expect(plans.map(\.source) == [.debt])
+    #expect(plans.first?.day == day(10, 28))
+  }
+
+  /// A goal's plan has no day: it stands on the first of each later month while the goal runs.
+  @Test func aGoalContributionStandsOnTheFirstOfLaterMonths() {
+    let trip = Goal(
+      name: "Trip", targetE4: AmountE4(whole: 100_000), targetDate: day(12, 20),
+      monthlyPlanE4: AmountE4(whole: 12_700))
+    let none = Goal(name: "No plan", targetE4: AmountE4(whole: 5))
+    let old = Goal(
+      name: "Old", targetE4: AmountE4(whole: 5), monthlyPlanE4: AmountE4(whole: 1),
+      archived: true)
+    let book = PlanningBook()
+    let ledger = Ledger(dataset: Dataset(goals: [trip, none, old], planning: book), calendar: .utc)
+    let plans = CalendarPlans.collect(
+      ledger: ledger, book: book, today: today, through: day(12, 31))
+    #expect(plans.map(\.day) == [day(11, 1), day(12, 1)])
+    #expect(plans.allSatisfy { $0.source == .goal && $0.kind == .payment && $0.name == "Trip" })
+    #expect(plans.first?.amount == AmountE4(whole: 12_700))
   }
 }

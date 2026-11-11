@@ -34,8 +34,24 @@ public struct CalendarPlan: Hashable, Sendable, Identifiable {
     case income
   }
 
+  /// What the plan is, as the legend names it: the mark of the plan follows it. `kind` stays
+  /// the direction of the money.
+  public enum Source: String, CaseIterable, Hashable, Sendable {
+    /// A scheduled payment that is not a subscription.
+    case payment
+    /// A scheduled payment of kind subscription.
+    case subscription
+    /// The payment of a debt.
+    case debt
+    /// A monthly contribution to a goal.
+    case goal
+    /// An expected income.
+    case income
+  }
+
   public var kind: Kind
-  /// The scheduled payment, the debt or the expected income.
+  public var source: Source
+  /// The scheduled payment, the debt, the goal or the expected income.
   public var sourceId: UUID
   public var day: DateOnly
   public var name: String
@@ -49,10 +65,11 @@ public struct CalendarPlan: Hashable, Sendable, Identifiable {
 
   public init(
     kind: Kind, sourceId: UUID, day: DateOnly, name: String, amount: AmountE4,
-    currency: CurrencyCode, payoutKind: PayoutKind? = nil
+    currency: CurrencyCode, payoutKind: PayoutKind? = nil, source: Source? = nil
   ) {
     self.payoutKind = payoutKind
     self.kind = kind
+    self.source = source ?? (kind == .income ? .income : .payment)
     self.sourceId = sourceId
     self.day = day
     self.name = name
@@ -76,6 +93,9 @@ public struct SpendingCalendarDay: Hashable, Sendable, Identifiable {
   /// How the day compares with the usual day before it; `nil` for a day ahead, a day without
   /// spending and a day without enough history to say what is usual.
   public var level: SpendingLevel?
+  /// How many times the usual day the day cost, to one decimal place («×3,4»); set with `level`
+  /// and `nil` exactly when it is.
+  public var multiple: Decimal?
   /// The live operations of the day, every kind — what a click on the day lists.
   public var transactionIds: [UUID]
   /// What is planned for the day, payments first; only today and the days ahead have any.
@@ -93,8 +113,10 @@ public struct SpendingCalendarDay: Hashable, Sendable, Identifiable {
   public init(
     day: DateOnly, inScope: Bool, isToday: Bool, isFuture: Bool, spent: AmountE4?,
     level: SpendingLevel?, transactionIds: [UUID], plans: [CalendarPlan],
-    plannedOut: AmountE4?, plannedIn: AmountE4?, plansWithoutRate: Bool
+    plannedOut: AmountE4?, plannedIn: AmountE4?, plansWithoutRate: Bool,
+    multiple: Decimal? = nil
   ) {
+    self.multiple = multiple
     self.day = day
     self.inScope = inScope
     self.isToday = isToday
@@ -272,6 +294,7 @@ public struct SpendingCalendar: Hashable, Sendable {
       let isFuture = day > today
       var spent: AmountE4?
       var level: SpendingLevel?
+      var multiple: Decimal?
       if !isFuture {
         let rub = spentRub[day.dayNumber] ?? .zero
         spent = convert(rub, to: currency, rubPerUnit: rubPerUnit) ?? rub
@@ -279,6 +302,7 @@ public struct SpendingCalendar: Hashable, Sendable {
         if rub.raw > 0 {
           if let usual = usualRub(before: day, in: spentRub) {
             level = Self.level(spent: rub, usual: usual)
+            multiple = Self.multiple(spent: rub, usual: usual)
           } else if inScope {
             lowData = true
           }
@@ -293,7 +317,8 @@ public struct SpendingCalendar: Hashable, Sendable {
         SpendingCalendarDay(
           day: day, inScope: inScope, isToday: day == today, isFuture: isFuture, spent: spent,
           level: level, transactionIds: operations[day.dayNumber] ?? [], plans: dayPlans,
-          plannedOut: out, plannedIn: into, plansWithoutRate: outMissing || inMissing))
+          plannedOut: out, plannedIn: into, plansWithoutRate: outMissing || inMissing,
+          multiple: multiple))
       if week.count == 7 {
         weeks.append(week)
         week = []
@@ -340,6 +365,13 @@ public struct SpendingCalendar: Hashable, Sendable {
     if ratio >= 3 { return .muchHigher }
     if ratio >= Decimal(string: "1.5")! { return .higher }
     return .usual
+  }
+
+  /// The day against the usual one as a factor to one decimal place, half away from zero;
+  /// `nil` when the usual day is zero.
+  public static func multiple(spent: AmountE4, usual: AmountE4) -> Decimal? {
+    guard usual.raw > 0 else { return nil }
+    return DecimalMath.round(spent.decimal / usual.decimal, scale: 1)
   }
 
   /// Rubles for one unit of `currency`; the ruble is 1; a rate of zero or below is no rate.

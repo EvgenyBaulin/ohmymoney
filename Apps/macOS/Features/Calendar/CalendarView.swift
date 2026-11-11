@@ -293,7 +293,7 @@ struct CalendarView: View {
               Image(systemName: CalendarText.symbol(of: plan.kind))
                 .foregroundStyle(.secondary)
                 .accessibilityLabel(
-                  Text(verbatim: t(plan.kind == .payment ? "calendar.payment" : "calendar.income")))
+                  Text(verbatim: t(CalendarMark.wordKey(plan.source))))
               Text(verbatim: CalendarText.title(of: plan, environment))
                 .lineLimit(1)
               Spacer(minLength: 6)
