@@ -424,7 +424,7 @@ final class ReportsAnalyticsFigmaTests: XCTestCase {
         phone.cellHorizontal, phone.cellVertical, phone.cellGap, phone.amountWidth,
         phone.shareWidth, phone.tableRadius, phone.side, phone.stackGap,
       ],
-      [10, 7, 6, 70, 62, 10, 16, 10])
+      [10, 7, 6, 70, 62, 10, PhoneMetrics.screenMargin, 10])
     XCTAssertEqual([phone.tabHorizontal, phone.tabVertical, phone.tabTrack], [10, 7, 3])
     XCTAssertTrue(phone.tabsFillWidth)
     XCTAssertFalse(phone.showsTitle)
@@ -474,7 +474,7 @@ final class ReportsAnalyticsFigmaTests: XCTestCase {
     let phone = AnalyticsMetrics.phone
     XCTAssertEqual(
       [phone.side, phone.stackGap, phone.chipHorizontal, phone.chipVertical, phone.chipGap],
-      [16, 14, 10, 5, 6])
+      [PhoneMetrics.screenMargin, 14, 10, 5, 6])
     XCTAssertTrue(phone.groupsFillWidth)
     XCTAssertTrue(phone.chipsOnOwnLine)
     XCTAssertTrue(phone.chosenChipFilled)
