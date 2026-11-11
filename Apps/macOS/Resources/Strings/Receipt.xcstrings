@@ -103,6 +103,23 @@
         }
       }
     },
+    "receipt.bill": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is a bill, not a receipt: the payment is still to come. Photograph the receipt or the card slip after paying."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это счёт, а не чек: оплата ещё впереди. Сфотографируйте чек или слип терминала после оплаты."
+          }
+        }
+      }
+    },
     "receipt.camera.unavailable": {
       "extractionState": "manual",
       "localizations": {
@@ -133,6 +150,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отмена"
+          }
+        }
+      }
+    },
+    "receipt.check.numbers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read from the print. The fiscal numbers did not pass the checks, so the receipt is recorded without them. Compare the sum and the date with the paper."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитано с печати. Номера ФН, ФД и ФП не прошли проверку, поэтому чек записывается без них. Сверьте сумму и дату с бумагой."
+          }
+        }
+      }
+    },
+    "receipt.check.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only the total and the date were read from the print, with no lines and no receipt number. Compare with the paper."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитаны только итог и дата с печати, без позиций и номера чека. Сверьте с бумагой."
+          }
+        }
+      }
+    },
+    "receipt.check.printed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read from the print, not from a QR code. Compare the sum, the date and the numbers with the paper before recording."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитано с печати, а не с QR-кода. Сверьте сумму, дату и номера с бумагой, прежде чем записывать."
+          }
+        }
+      }
+    },
+    "receipt.check.slip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is a card terminal slip: the sum and the time come from it, a slip has no receipt number. Compare with the paper."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это слип терминала: сумма и время взяты с него, номера чека на слипе нет. Сверьте с бумагой."
           }
         }
       }
@@ -524,6 +609,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Это QR-код, но не кассового чека."
+          }
+        }
+      }
+    },
+    "receipt.numbers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drive %1$@ · Doc %2$@ · Sign %3$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ФН %1$@ · ФД %2$@ · ФП %3$@"
           }
         }
       }
