@@ -532,9 +532,8 @@ public struct ReferenceRepository: Sendable {
   }
 
   /// «Вернуть»: the row is live again. Its other names a live row has taken meanwhile are
-  /// dropped, so one name is never on two live rows. Throws `nameTaken` when a live row has its
-  /// name — an event is the exception, as events may share a name — and `notFound` when there
-  /// is no such row.
+  /// dropped. A live row with the same name never stops it: the screen advises renaming, and
+  /// the owner decides. Throws `notFound` when there is no such row.
   public func restore(_ id: UUID, in book: ReferenceBook) throws {
     try writer.write { db in
       let rows = try Self.spelled(book, db: db)
@@ -543,9 +542,6 @@ public struct ReferenceRepository: Sendable {
       }
       guard row.archived else { return }
       let taken = Self.liveKeys(rows, except: id)
-      if book != .events, taken.contains(Self.nameKey(row.name)) {
-        throw ReferenceWriteError.nameTaken
-      }
       try Self.bringBack(row, book: book, taken: taken, db: db)
     }
   }

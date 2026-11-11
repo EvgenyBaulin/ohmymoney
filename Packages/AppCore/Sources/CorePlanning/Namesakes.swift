@@ -2,20 +2,20 @@ import CoreKit
 import Foundation
 
 /// Identity belongs to a kind of record: an income and a payment may have the same UUID.
-public enum NamedRecordKind: String, Hashable, Sendable {
+public enum NamesakeKind: String, Hashable, Sendable {
   case expectedIncome, scheduledPayment, goal, event, person, place, account, card, bank, category
 }
 
 /// A record's name and history, supplied by its owner. No proposed action changes this value.
-public struct NamedRecord: Hashable, Sendable, Identifiable {
-  public var kind: NamedRecordKind
+public struct NamesakeRecord: Hashable, Sendable, Identifiable {
+  public var kind: NamesakeKind
   public var id: UUID
   public var name: String
   public var archived: Bool
   public var period: NameHistoryPeriod?
 
   public init(
-    kind: NamedRecordKind, id: UUID, name: String, archived: Bool = false,
+    kind: NamesakeKind, id: UUID, name: String, archived: Bool = false,
     history: [MonthKey] = []
   ) {
     self.kind = kind
@@ -55,7 +55,7 @@ public struct NamesakeProposal: Hashable, Sendable, Identifiable {
     case renameNew, renameExisting, renameArchived, restoreArchived
   }
 
-  public let existing: NamedRecord
+  public let existing: NamesakeRecord
   /// The same key from either side of the pair; independent of their names and archive state.
   public let id: String
 
@@ -76,7 +76,7 @@ public enum Namesakes {
   public static let hiddenPairsKey = "namesakes.hiddenPairs"
 
   public static func proposals(
-    for record: NamedRecord, among records: [NamedRecord], hidden: String = ""
+    for record: NamesakeRecord, among records: [NamesakeRecord], hidden: String = ""
   ) -> [NamesakeProposal] {
     let name = NameKey.fold(record.name)
     guard !name.isEmpty else { return [] }
@@ -91,7 +91,7 @@ public enum Namesakes {
     }
   }
 
-  public static func pairKey(_ lhs: NamedRecord, _ rhs: NamedRecord) -> String {
+  public static func pairKey(_ lhs: NamesakeRecord, _ rhs: NamesakeRecord) -> String {
     [
       "\(lhs.kind.rawValue):\(lhs.id.uuidString.lowercased())",
       "\(rhs.kind.rawValue):\(rhs.id.uuidString.lowercased())",

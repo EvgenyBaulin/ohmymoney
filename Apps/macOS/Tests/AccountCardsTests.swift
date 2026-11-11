@@ -158,11 +158,10 @@ final class AccountCardsTests: XCTestCase {
     XCTAssertEqual(cards.cards.first?.accountId, kaspi.id)
   }
 
-  /// «Add…» of the ↓ panel refuses the name of another account's live card, as the editor
-  /// does: «black» would make an account the line reads instead of «Т-Банк · Black», and its
-  /// own card «black» a second live card of one name. The card of an archived account holds its
-  /// name too; an archived card frees it.
-  func testAddFromPickerRefusesALiveCardsName() throws {
+  /// «Add…» of the ↓ panel advises about the name of another account's live card and saves
+  /// the account all the same: the entry line may read «black» as the card of «Т-Банк · Black»
+  /// (a risk the sheet says in words), but the owner is never blocked by a name.
+  func testAddFromPickerAdvisesAboutALiveCardsNameAndSaves() throws {
     let references = try XCTUnwrap(environment.references)
     let transactions = try XCTUnwrap(environment.transactions)
     let tBank = PaymentMethod(name: "Т-Банк", kind: .card, currency: .rub)
@@ -186,26 +185,19 @@ final class AccountCardsTests: XCTestCase {
 
     var form = NewRecordForm(kind: .paymentMethod, model: model, today: today)
     form.name = " black "
-    XCTAssertEqual(form.refusalKey(in: model), "entry.add.nameTaken")
-    XCTAssertFalse(form.save(into: model, today: today, context: context))
-    XCTAssertEqual(
-      form.commit(into: model, today: today, context: context), .key("entry.add.nameTaken"))
+    XCTAssertNil(form.refusalKey(in: model))
+    XCTAssertEqual(form.accountAdviceKey(in: model), "entry.add.accountNameTaken")
+    XCTAssertTrue(form.save(into: model, today: today, context: context))
 
+    XCTAssertNotNil(account("black"), "a card's name stopped the account")
     var gold = NewRecordForm(kind: .paymentMethod, model: model, today: today)
     gold.name = "gold"
+    XCTAssertNil(gold.refusalKey(in: model))
+    XCTAssertTrue(gold.save(into: model, today: today, context: context))
+    XCTAssertNotNil(account("gold"), "a card of an archived account stopped the account")
     XCTAssertEqual(
-      gold.commit(into: model, today: today, context: context), .key("entry.add.nameTaken"),
-      "a live card of an archived account lost its name")
-
-    XCTAssertNil(account("black"))
-    XCTAssertNil(account("gold"))
-    XCTAssertEqual(cards.cards.filter { !$0.archived }.map(\.name).sorted(), ["Black", "Gold"])
-
-    XCTAssertEqual(cards.archive(black.id), .done)
-    model.reload()
-    XCTAssertNil(form.refusalKey(in: model), "an archived card still holds its name")
-    XCTAssertTrue(form.save(into: model, today: today, context: context))
-    XCTAssertNotNil(account("black"))
+      cards.cards.filter { !$0.archived }.map(\.name).sorted(), ["Black", "Gold", "black", "gold"],
+      "the old cards were renamed or archived; each new account came with a card of its name")
   }
 
   /// The setup sheet: every new account of the kind card or account gets its card with

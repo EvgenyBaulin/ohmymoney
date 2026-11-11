@@ -120,40 +120,6 @@
         }
       }
     },
-    "entry.add.accountNotBack": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The account «%1$@» is in the archive and cannot come back now: %2$@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Счёт «%1$@» в архиве, и сейчас его не вернуть: %2$@"
-          }
-        }
-      }
-    },
-    "entry.add.categoryTaken": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "There is already a category with this name here."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Такая категория здесь уже есть."
-          }
-        }
-      }
-    },
     "entry.add.expenseCategory": {
       "extractionState": "manual",
       "localizations": {
@@ -201,23 +167,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Введите название"
-          }
-        }
-      }
-    },
-    "entry.add.nameTaken": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This name is already taken: the entry line would not tell the two apart."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Такое название уже есть: строка ввода не отличила бы одно от другого."
           }
         }
       }
@@ -4710,6 +4659,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Диктовка на устройстве недоступна. Проверьте микрофон и офлайн-модель речи для языка интерфейса в настройках системы. Можно вводить текст вручную; облачное распознавание не используется."
+          }
+        }
+      }
+    },
+    "entry.add.accountNameTaken": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Another account or card already answers to this name; the entry line may read it as that one. It is still saved, and you can rename either one in Settings."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Другой счёт или карта уже откликается на это название: строка ввода может прочитать его как тот. Всё равно сохранится; любой из них можно переименовать в настройках."
+          }
+        }
+      }
+    },
+    "entry.add.accountInArchive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An account with this name is in the archive. It is still saved; you can bring the old one back in Settings → Accounts or rename it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт с таким названием есть в архиве. Всё равно сохранится; старый можно вернуть в «Настройки → Счета» или переименовать."
           }
         }
       }

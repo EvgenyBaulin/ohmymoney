@@ -2407,11 +2407,10 @@ public final class EntryDraftModel {
     return method.id
   }
 
-  /// `save` writes the place: the repository's, or a refusal in a test. A name an archived
-  /// place answers to brings that place back instead of a second one of the same name.
+  /// `save` writes the place: the repository's, or a refusal in a test. Always a new place: a
+  /// namesake in the archive stays there until the owner brings it back from the notice.
   func createPlace(named name: String, saving save: (Place) throws -> Void) -> UUID? {
-    var place = archivedPlace(answeringTo: name) ?? Place(name: name)
-    place.archived = false
+    let place = Place(name: name)
     guard written({ try save(place) }, what: "place") else {
       creationFailureKey = "entry.error.placeNotCreated"
       return nil
@@ -2425,8 +2424,7 @@ public final class EntryDraftModel {
   }
 
   func createPerson(named name: String, saving save: (Person) throws -> Void) -> UUID? {
-    var person = archivedPerson(answeringTo: name) ?? Person(name: name)
-    person.archived = false
+    let person = Person(name: name)
     guard written({ try save(person) }, what: "person") else {
       creationFailureKey = "entry.error.personNotCreated"
       return nil
@@ -2437,36 +2435,6 @@ public final class EntryDraftModel {
     dropFromTheNote(unmatchedPersonPhrase)
     unmatchedPersonPhrase = nil
     return person.id
-  }
-
-  /// The archived place the line would read `name` as, were it not archived: its name or an
-  /// alias, a declined form included («Пятёрочке» is «Пятёрочка»). The line leaves archived
-  /// names out — archiving is how a name stops matching — so the only way such a place is
-  /// named again is «Add…» of the panel, and nothing else in the app takes a row out of the
-  /// archive.
-  private func archivedPlace(answeringTo name: String) -> Place? {
-    let archived = ((try? references?.places(includeArchived: true)) ?? []).filter(\.archived)
-    guard !archived.isEmpty else { return nil }
-    let vocabulary = ParserVocabulary(
-      places: archived.map { .init(id: $0.id, name: $0.name, aliases: $0.aliases) })
-    let id = readsAs(vocabulary, "в \(name)").placeId
-    return archived.first { $0.id == id }
-  }
-
-  /// The archived person the line would read `name` as; see `archivedPlace(answeringTo:)`.
-  private func archivedPerson(answeringTo name: String) -> Person? {
-    let archived = ((try? references?.people(includeArchived: true)) ?? []).filter(\.archived)
-    guard !archived.isEmpty else { return nil }
-    let vocabulary = ParserVocabulary(
-      people: archived.map { .init(id: $0.id, name: $0.name, aliases: $0.aliases) })
-    let id = readsAs(vocabulary, "для \(name)").personId
-    return archived.first { $0.id == id }
-  }
-
-  /// A name behind its marker, read by the line's own rules against `vocabulary` alone.
-  private func readsAs(_ vocabulary: ParserVocabulary, _ phrase: String) -> ParsedInput {
-    InputLineParser(vocabulary: vocabulary, calendar: calendar)
-      .parse(phrase, today: calendar.day(of: Date()))
   }
 
   /// Runs a write of a new name; a refusal goes to the journal with its type, never the name.

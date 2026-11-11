@@ -23,6 +23,8 @@ struct AddRecordSheet: View {
   @State private var failure: String?
   /// Written once: Return in the field and the default button can both ask.
   @State private var saved = false
+  /// The identity of the record being typed, so a hidden notice stays about this entry.
+  @State private var draftId = UUID()
 
   init(
     kind: AddFromPicker.Kind, model: EntryDraftModel, today: DateOnly,
@@ -48,6 +50,7 @@ struct AddRecordSheet: View {
           Text(verbatim: environment.language("references.name", table: "Settings"))
         }
         .onSubmit(save)
+        namesakeAdvice
         if case .event = form.kind {
           EventDaysFields(
             owner: nil, start: startBinding, end: endBinding,
@@ -118,6 +121,43 @@ struct AddRecordSheet: View {
       return t(key)
     }
     return failure
+  }
+
+  /// A name another record has never stops «Save»: the notice offers to rename either one or
+  /// to bring the archived one back; an account only gets a sentence (its renames and returns
+  /// have rules of their own in Settings → Счета).
+  @ViewBuilder
+  private var namesakeAdvice: some View {
+    switch form.kind {
+    case .person, .debtor, .payingFor: notice(.person)
+    case .place: notice(.place)
+    case .event: notice(.event)
+    case .category: notice(.category, parent: nil)
+    case .subcategory(let part): notice(.category, parent: model.categoryOfPart(model.part(at: part)))
+    case .paymentMethod:
+      if let key = form.accountAdviceKey(
+        in: model, all: try? environment.references?.paymentMethods(includeArchived: true))
+      {
+        Text(verbatim: t(key))
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+    }
+  }
+
+  private func notice(_ kind: NamesakeKind, parent: UUID? = nil) -> some View {
+    var scope: ((NamesakeRecord) -> Bool)?
+    if kind == .category {
+      let side = model.draft.kind.categoryKind
+      let ids = Set(
+        ((try? environment.references?.categories(includeArchived: true)) ?? [])
+          .filter { $0.kind == side && $0.parentId == parent }.map(\.id))
+      scope = { ids.contains($0.id) }
+    }
+    return PlanningNamesakeNotice(
+      kind: kind, id: draftId, name: $form.name, onChange: { model.reload() },
+      scope: scope, dismissesOnRestore: false)
   }
 
   private var title: String {

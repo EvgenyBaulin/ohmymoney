@@ -300,20 +300,17 @@ final class PlanningScenarioTestsActions: XCTestCase {
     XCTAssertEqual(try references.goals(includeArchived: true).first?.archived, false)
   }
 
-  func testAnEventWithoutANameOrClashingWithALiveOneIsRefused() {
+  func testAnEventWithoutANameIsRefusedButANamesakeNever() {
     let trip = Event(name: "Поездка", startDate: today, endDate: S.day("2026-10-20"))
     XCTAssertEqual(
       PlanningActions.issue(
         of: Event(name: "", startDate: today, endDate: today), among: []), .emptyName)
-    XCTAssertEqual(
-      PlanningActions.issue(
-        of: Event(name: "поездка", startDate: S.day("2026-10-20"), endDate: S.day("2026-10-22")),
-        among: [trip]),
-      .sameNameAndDays)
-    XCTAssertNil(
-      PlanningActions.issue(
-        of: Event(name: "Поездка", startDate: S.day("2026-10-21"), endDate: S.day("2026-10-22")),
-        among: [trip]))
+    for twin in [
+      Event(name: "поездка", startDate: S.day("2026-10-20"), endDate: S.day("2026-10-22")),
+      Event(name: "Поездка", startDate: S.day("2026-10-21"), endDate: S.day("2026-10-22")),
+    ] {
+      XCTAssertNil(PlanningActions.issue(of: twin, among: [trip]), "a namesake was refused")
+    }
     var archived = trip
     archived.archived = true
     XCTAssertNil(

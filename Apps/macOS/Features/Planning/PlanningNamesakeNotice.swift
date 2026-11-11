@@ -1,4 +1,5 @@
 import AppCore
+import AppDatabase
 import SwiftUI
 
 /// Advice beside the name field. Saving stays available; each action needs its own click.
@@ -9,16 +10,23 @@ struct PlanningNamesakeNotice: View {
   @Dependency(\.store) private var store
   @Environment(\.dependencies) private var dependencies
   @Environment(\.dismiss) private var dismiss
-  let kind: NamedRecordKind
+  let kind: NamesakeKind
   let id: UUID
   @Binding var name: String
-  var drafts: [NamedRecord] = []
+  var drafts: [NamesakeRecord] = []
   var renameDraft: ((UUID, String) -> Bool)? = nil
-  @State private var records: [NamedRecord] = []
+  /// Called after a rename or a restore landed, so the screen reads its own lists again.
+  var onChange: (() -> Void)? = nil
+  /// Narrows the stored records that count as namesakes (a category only clashes with one of
+  /// its kind beside the same parent).
+  var scope: ((NamesakeRecord) -> Bool)? = nil
+  /// A form closes over a restored record; the add row of a dictionary stays where it is.
+  var dismissesOnRestore = true
+  @State private var records: [NamesakeRecord] = []
   @State private var hidden = ""
 
   var body: some View {
-    let own = NamedRecord(kind: kind, id: id, name: name)
+    let own = NamesakeRecord(kind: kind, id: id, name: name)
     VStack(alignment: .leading, spacing: 8) {
       ForEach(Namesakes.proposals(for: own, among: allRecords, hidden: hidden)) { proposal in
         PlanningNamesakeRow(
@@ -32,15 +40,19 @@ struct PlanningNamesakeNotice: View {
     .onChange(of: store.writeRevision) { reload() }
   }
 
-  private var allRecords: [NamedRecord] {
+  private var allRecords: [NamesakeRecord] {
+    let draftIds = Set(drafts.map(\.id))
+    // Dictionary names are never hidden by a covered account.
+    if kind != .expectedIncome, kind != .scheduledPayment {
+      return records.filter { !draftIds.contains($0.id) && (scope?($0) ?? true) } + drafts
+    }
     // Stored names wait until the presentation knows which accounts are covered.
     guard let snapshot = compute.snapshot else { return drafts }
-    let draftIds = Set(drafts.map(\.id))
     let hiding = HiddenPlans(snapshot: snapshot)
     return Self.listed(records.filter { !draftIds.contains($0.id) } + drafts, hiding: hiding)
   }
 
-  static func listed(_ records: [NamedRecord], hiding: HiddenPlans) -> [NamedRecord] {
+  static func listed(_ records: [NamesakeRecord], hiding: HiddenPlans) -> [NamesakeRecord] {
     records.filter {
       switch $0.kind {
       case .expectedIncome: !hiding.hides(expected: $0.id)
@@ -69,27 +81,60 @@ struct PlanningNamesakeNotice: View {
       records = Namesakes.scheduled(
         book.scheduled, entries: entries,
         calendar: environment.calendar, matchedOperations: matched)
-    default: records = []
+    default:
+      records = Self.dictionaryRecords(
+        kind, references: environment.references, entries: entries,
+        calendar: environment.calendar)
     }
     hidden = (try? environment.settings?.string(Namesakes.hiddenPairsKey)) ?? ""
   }
 
-  private func rename(_ record: NamedRecord, to name: String) -> Bool {
+  /// The dictionaries' names, archived rows too, each with the history its operations tell.
+  static func dictionaryRecords(
+    _ kind: NamesakeKind, references: ReferenceRepository?, entries: [TransactionEntry],
+    calendar: CalendarContext
+  ) -> [NamesakeRecord] {
+    guard let references else { return [] }
+    switch kind {
+    case .goal:
+      return Namesakes.goals(
+        (try? references.goals(includeArchived: true)) ?? [], entries: entries,
+        calendar: calendar)
+    case .event: return Namesakes.events((try? references.events(includeArchived: true)) ?? [])
+    case .person:
+      return Namesakes.people(
+        (try? references.people(includeArchived: true)) ?? [], entries: entries,
+        calendar: calendar)
+    case .place:
+      return Namesakes.places(
+        (try? references.places(includeArchived: true)) ?? [], entries: entries,
+        calendar: calendar)
+    case .category:
+      return Namesakes.categories(
+        (try? references.categories(includeArchived: true)) ?? [], entries: entries,
+        calendar: calendar)
+    default: return []
+    }
+  }
+
+  private func rename(_ record: NamesakeRecord, to name: String) -> Bool {
     if drafts.contains(where: { $0.id == record.id }), let renameDraft {
       return renameDraft(record.id, PlanningActions.trimmed(name))
     }
     guard let dependencies, let book = try? environment.planning?.book(),
       PlanningActions(dependencies).renameNamesake(record, to: name, in: book)
     else { return false }
+    onChange?()
     reload()
     return true
   }
 
-  private func restore(_ record: NamedRecord) -> Bool {
+  private func restore(_ record: NamesakeRecord) -> Bool {
     guard let dependencies, let book = try? environment.planning?.book(),
       PlanningActions(dependencies).restoreNamesake(record, in: book)
     else { return false }
-    dismiss()
+    onChange?()
+    if dismissesOnRestore { dismiss() }
     return true
   }
 

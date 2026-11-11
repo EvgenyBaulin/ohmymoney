@@ -218,36 +218,37 @@ final class AddFromPickerTests: XCTestCase {
 
   // MARK: Refusals
 
-  /// An empty name and a name the entry line could not tell from another are refused with a
-  /// sentence, and nothing is written or chosen.
-  func testAnEmptyOrATakenNameIsRefusedAndNothingIsWritten() throws {
+  /// An empty name is refused with a sentence and nothing is written. A name another record
+  /// has — live, an other name, or a card's — is saved all the same: the sheet advises.
+  func testOnlyAnEmptyNameIsRefusedAndANamesakeIsSaved() throws {
     try references.save(Place(name: "Green Market", aliases: ["GM"]))
     try references.save(Person(name: "Аня"))
     try references.save(PaymentMethod(name: "Card", isDefault: true))
     let model = makeModel()
-    let placesBefore = try references.places().count
+
+    let empty = form(.place, model, name: "  ")
+    XCTAssertEqual(empty.refusalKey(in: model), "entry.add.nameMissing")
+    XCTAssertFalse(empty.save(into: model, today: today))
+    XCTAssertNil(model.draft.placeId)
 
     for (kind, name) in [
-      (AddFromPicker.Kind.place, "  "), (.place, "green market"), (.place, "gm"),
+      (AddFromPicker.Kind.place, "green market"), (.place, "gm"),
       (.person(part: 0), "аня"), (.debtor(part: 0), "Аня "), (.paymentMethod, "card"),
     ] {
       let sheet = form(kind, model, name: name)
-      let expected =
-        name.trimmingCharacters(in: .whitespaces).isEmpty
-        ? "entry.add.nameMissing" : "entry.add.nameTaken"
-      XCTAssertEqual(sheet.refusalKey(in: model), expected, "\(kind) «\(name)»")
-      XCTAssertFalse(sheet.save(into: model, today: today), "\(kind) «\(name)» was saved")
+      XCTAssertNil(sheet.refusalKey(in: model), "\(kind) «\(name)»")
+      XCTAssertTrue(sheet.save(into: model, today: today), "\(kind) «\(name)» was refused")
     }
-    XCTAssertEqual(try references.places().count, placesBefore)
-    XCTAssertEqual(try references.people().count, 1)
-    XCTAssertEqual(try references.paymentMethods().count, 1)
-    XCTAssertNil(model.draft.placeId)
-    XCTAssertNil(model.draft.parts[0].forPersonId)
+    XCTAssertEqual(try references.places().count, 3)
+    XCTAssertEqual(try references.people().count, 3)
+    XCTAssertEqual(try references.paymentMethods().count, 2)
+    XCTAssertEqual(
+      form(.paymentMethod, model, name: "card").accountAdviceKey(in: model),
+      "entry.add.accountNameTaken")
   }
 
-  /// A category is taken only by one beside it: of the same kind under the same parent. The
-  /// same name in the other kind or under another parent is another category.
-  func testACategoryIsTakenOnlyByOneBesideIt() throws {
+  /// A category is saved beside one of the same name, in the same kind and parent or not.
+  func testACategoryNamesakeIsSavedBesideTheOldOne() throws {
     let food = CoreKit.Category(kind: .expense, name: "Food")
     let bakery = CoreKit.Category(parentId: food.id, kind: .expense, name: "Bakery")
     try references.save(food)
@@ -255,16 +256,17 @@ final class AddFromPickerTests: XCTestCase {
     let expense = makeModel()
     expense.setCategory(food.id, forPartAt: 0)
 
-    XCTAssertEqual(
-      form(.category(part: 0), expense, name: "FOOD").refusalKey(in: expense),
-      "entry.add.categoryTaken")
-    XCTAssertEqual(
-      form(.subcategory(part: 0), expense, name: "bakery").refusalKey(in: expense),
-      "entry.add.categoryTaken")
-    XCTAssertNil(form(.category(part: 0), expense, name: "Bakery").refusalKey(in: expense))
-    XCTAssertNil(form(.subcategory(part: 0), expense, name: "Food").refusalKey(in: expense))
-    let income = makeModel(kind: .income)
-    XCTAssertNil(form(.category(part: 0), income, name: "Food").refusalKey(in: income))
+    for sheet in [
+      form(.category(part: 0), expense, name: "FOOD"),
+      form(.subcategory(part: 0), expense, name: "bakery"),
+      form(.category(part: 0), expense, name: "Bakery"),
+    ] {
+      XCTAssertNil(sheet.refusalKey(in: expense))
+      XCTAssertTrue(sheet.save(into: expense, today: today))
+    }
+    let all = try references.categories()
+    XCTAssertEqual(all.filter { $0.name.lowercased() == "food" }.count, 2)
+    XCTAssertEqual(all.filter { $0.name.lowercased() == "bakery" }.count, 3)
   }
 
   /// A yearly event is made again under the same name every year, so a name an event already
@@ -341,7 +343,7 @@ final class AddFromPickerTests: XCTestCase {
       "entry.add", "entry.newPlace", "entry.newPerson", "entry.add.title.category",
       "entry.add.title.subcategory", "entry.add.title.event", "entry.add.title.paymentMethod",
       "entry.add.expenseCategory", "entry.add.incomeCategory", "entry.add.under",
-      "entry.add.nameMissing", "entry.add.nameTaken", "entry.add.categoryTaken",
+      "entry.add.nameMissing", "entry.add.accountNameTaken", "entry.add.accountInArchive",
       "entry.error.categoryNotCreated", "entry.error.eventNotCreated",
       "entry.error.paymentMethodNotCreated",
     ]

@@ -218,10 +218,10 @@ struct ExpectedIncomeForm: View {
     }
   }
 
-  private var namedDrafts: [NamedRecord] {
+  private var namedDrafts: [NamesakeRecord] {
     let terms = offersTerms ? income.terms(extraTerms, today: environment.today) : []
     return ([income] + terms).map {
-      NamedRecord(kind: .expectedIncome, id: $0.id, name: $0.name)
+      NamesakeRecord(kind: .expectedIncome, id: $0.id, name: $0.name)
     }
   }
 

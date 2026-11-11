@@ -7,9 +7,9 @@ import XCTest
 @MainActor
 final class PlanningNamesakeActionsTests: XCTestCase {
   func testWarningsKeepTheNamesOfCoveredPlansPrivate() {
-    let income = NamedRecord(kind: .expectedIncome, id: UUID(), name: "Private income")
-    let payment = NamedRecord(kind: .scheduledPayment, id: UUID(), name: "Private payment")
-    let visible = NamedRecord(kind: .expectedIncome, id: UUID(), name: "Public income")
+    let income = NamesakeRecord(kind: .expectedIncome, id: UUID(), name: "Private income")
+    let payment = NamesakeRecord(kind: .scheduledPayment, id: UUID(), name: "Private payment")
+    let visible = NamesakeRecord(kind: .expectedIncome, id: UUID(), name: "Public income")
     let hiding = HiddenPlans(scheduled: [payment.id], expected: [income.id])
     XCTAssertEqual(
       PlanningNamesakeNotice.listed([income, payment, visible], hiding: hiding),
@@ -34,7 +34,7 @@ final class PlanningNamesakeActionsTests: XCTestCase {
     let old = ExpectedIncome(name: "Project", totalE4: AmountE4(whole: 100), closed: true)
     let new = ExpectedIncome(name: "Project", totalE4: AmountE4(whole: 50))
     XCTAssertTrue(actions.save([old, new]))
-    let named = NamedRecord(kind: .expectedIncome, id: old.id, name: old.name, archived: true)
+    let named = NamesakeRecord(kind: .expectedIncome, id: old.id, name: old.name, archived: true)
     XCTAssertTrue(actions.renameNamesake(named, to: "Project (May 2026)", in: try planning.book()))
     let renamed = try XCTUnwrap(try planning.expected().first { $0.id == old.id })
     XCTAssertEqual(renamed.name, "Project (May 2026)")
@@ -50,7 +50,7 @@ final class PlanningNamesakeActionsTests: XCTestCase {
 
     let pair = Namesakes.pairKey(
       named,
-      NamedRecord(kind: .expectedIncome, id: new.id, name: new.name))
+      NamesakeRecord(kind: .expectedIncome, id: new.id, name: new.name))
     XCTAssertTrue(actions.hideNamesake(pair, stored: ""))
     XCTAssertEqual(try settings.string(Namesakes.hiddenPairsKey), pair)
   }
@@ -78,7 +78,7 @@ final class PlanningNamesakeActionsTests: XCTestCase {
     ]
     XCTAssertTrue(store.apply(PlanningChange(upsert: rows)))
     let before = try planning.book()
-    let named = NamedRecord(kind: .scheduledPayment, id: old.id, name: old.name, archived: true)
+    let named = NamesakeRecord(kind: .scheduledPayment, id: old.id, name: old.name, archived: true)
     XCTAssertTrue(actions.renameNamesake(named, to: "Old cloud", in: before))
     XCTAssertEqual(try planning.book().prices, before.prices)
     XCTAssertEqual(try planning.scheduled().first { $0.id == old.id }?.active, false)
