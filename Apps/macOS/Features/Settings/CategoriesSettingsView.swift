@@ -59,6 +59,9 @@ struct CategoriesSettingsView: View {
   @State private var selfEmployment = SelfEmploymentSettings.standard
   /// The income category whose «Другая…» rate of tax is being typed.
   @State private var otherTax: CoreKit.Category?
+  /// The category whose symbol and colour picker is open.
+  @State private var pickingMark: UUID?
+  @Environment(\.appTheme) private var theme
 
   /// `asking` opens the tab with the question of a deletion already on screen: how a test
   /// lays out the sheet without a click on a row's menu.
@@ -300,13 +303,13 @@ struct CategoriesSettingsView: View {
     let tree = wholeTree()
     let isSystem = tree.systemRole(of: category.id) != nil
     return HStack {
+      markButton(category, tree: tree, isChild: isChild)
       TextField(text: nameBinding(for: category)) { EmptyView() }
         .labelsHidden()
         .textFieldStyle(.plain)
         .fontWeight(isChild ? .regular : .semibold)
         .focused($editingName, equals: category.id)
         .onSubmit { commitName(of: category.id) }
-        .padding(.leading, isChild ? 18 : 0)
         .frame(maxWidth: 240, alignment: .leading)
       // A system category can be renamed, but not archived or deleted — and neither can a
       // subcategory of one: the role is handed down by the tree, and a goal's subcategory taken
@@ -444,6 +447,58 @@ struct CategoriesSettingsView: View {
         .disabled(Self.qualityIsFixed(category, in: tree))
       }
     }
+  }
+
+  /// The mark of the row, which opens the picker of its symbol and colour. It shows what the
+  /// category is drawn with in «Операции» — its own, or its parent's — and a dashed circle for
+  /// none; the name of the category is the field beside it.
+  private func markButton(
+    _ category: CoreKit.Category, tree: CategoryTree, isChild: Bool
+  ) -> some View {
+    let drawn = tree.appearance(of: category.id)
+    return Button {
+      pickingMark = category.id
+    } label: {
+      CategoryMarkView(icon: drawn.icon, tone: drawn.tone, side: 24)
+    }
+    .buttonStyle(.plain)
+    .padding(.leading, isChild ? 18 : 0)
+    .accessibilityLabel(
+      Text(
+        verbatim: environment.format(
+          "categories.appearance.button", table: "Settings", category.name))
+    )
+    .accessibilityIdentifier("categories.row.mark")
+    .popover(
+      isPresented: Binding(
+        get: { pickingMark == category.id },
+        set: { if !$0, pickingMark == category.id { pickingMark = nil } })
+    ) {
+      CategoryAppearancePicker(
+        appearance: category.appearance,
+        choose: { setAppearance($0, of: category.id) }
+      )
+      .handingOver(dependencies)
+      .appTheme(theme)
+    }
+  }
+
+  /// The mark of a category, written at once. The category is read from the database, not from
+  /// the row, so a name typed but not yet committed is not saved with it.
+  private func setAppearance(_ appearance: CategoryAppearance, of id: UUID) {
+    guard let index = categories.firstIndex(where: { $0.id == id }),
+      let all = try? environment.references?.categories(includeArchived: true),
+      var stored = all.first(where: { $0.id == id }), stored.appearance != appearance
+    else { return }
+    stored.appearance = appearance
+    guard
+      environment.attempt("categories.save", on: environment.references, { try $0.save(stored) })
+    else {
+      refused = true
+      return
+    }
+    categories[index].appearance = appearance
+    environment.scheduleBackup()
   }
 
   /// Whether the quality of a category is not the owner's to choose: Goals and everything

@@ -161,3 +161,17 @@ struct AnonymizerReceiptTests {
     #expect(Anonymizer.coveredFields.contains("transaction.receipt"))
   }
 }
+
+/// The symbol and colour of a category are the app's own short lists, not a secret: the copy
+/// keeps them with the names of the categories.
+@Suite("Anonymizer: the mark of a category")
+struct AnonymizerCategoryMarkTests {
+  @Test func theSymbolAndTheColourOfACategoryStay() {
+    var dataset = PrivacyFixture().dataset
+    let mark = CategoryAppearance(icon: "cart", color: "tone1")
+    dataset.categories[0].appearance = mark
+    let copy = Anonymizer.apply(to: dataset)
+    #expect(copy.categories[0].appearance == mark)
+    #expect(copy.categories.map(\.icon) == dataset.categories.map(\.icon))
+  }
+}

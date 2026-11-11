@@ -116,3 +116,46 @@ struct SampleCatalogTests {
     #expect(calls == SampleCatalog.categorySeeds.count)
   }
 }
+
+@Suite("The starter marks of the categories")
+struct StarterAppearanceTests {
+  private static func tree(_ language: String) -> [CoreKit.Category] {
+    SampleCatalog.makeCategories(language: language, seeds: StarterSets.starterSeeds)
+  }
+
+  @Test func everyTopLevelStarterCategoryHasAKnownSymbolAndTone() {
+    let roots = Self.tree("en").filter { $0.parentId == nil }
+    #expect(!roots.isEmpty)
+    for root in roots {
+      #expect(CategoryIcon.known(root.icon) != nil, "\(root.name)")
+      #expect(CategoryTone(key: root.color) != nil, "\(root.name)")
+    }
+  }
+
+  @Test func subcategoriesLeaveTheirMarkEmptyToFollowTheirParent() {
+    for category in Self.tree("en") where category.parentId != nil {
+      #expect(category.appearance.isEmpty, "\(category.name)")
+    }
+  }
+
+  @Test func theMarksDoNotDependOnTheLanguage() {
+    func marks(_ language: String) -> [String] {
+      Self.tree(language).map { "\($0.icon ?? "-")/\($0.color ?? "-")" }
+    }
+    for language in StarterLanguage.allCases {
+      #expect(marks(language.rawValue) == marks("en"), "\(language.rawValue)")
+    }
+  }
+
+  @Test func aStarterSetAddsItsTopLevelCategoriesWithTheirMark() {
+    let kids = StarterSets.categories(of: .kids)
+    #expect(kids.first { $0.english == "Kids" }?.appearance.icon != nil)
+    #expect(kids.first { $0.english == "Toys" }?.appearance.isEmpty == true)
+  }
+
+  @Test func theSystemCategoriesKeepTheirRolesAndGetAMark() {
+    let roots = Self.tree("en").filter { $0.systemRole != nil && $0.parentId == nil }
+    #expect(roots.count >= 4)
+    #expect(roots.allSatisfy { !$0.appearance.isEmpty })
+  }
+}
