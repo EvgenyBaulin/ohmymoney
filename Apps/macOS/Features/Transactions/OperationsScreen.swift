@@ -645,7 +645,20 @@ struct OperationsScreen: View {
   /// row selected and the operation opened in the editor. One of a hidden account, while they
   /// are covered, is not opened.
   private func takeReveal() {
-    guard isShown, let id = OperationReveal.take(), let snapshot = compute.snapshot,
+    guard isShown, let id = OperationReveal.take(), let snapshot = compute.snapshot else { return }
+    if let transfer = snapshot.dataset.transfers.first(where: { $0.id == id }) {
+      guard !snapshot.hiding.isHidden(transfer.fromAccountId),
+        !snapshot.hiding.isHidden(transfer.toAccountId)
+      else { return }
+      let day = environment.calendar.day(of: transfer.occurredAt)
+      state.filters.customStart = day
+      state.filters.customEnd = day
+      state.filters.period = .custom
+      actions.selection = [id]
+      if let editing = TransferEditing.find(id, in: store) { requestTransfer(editing) }
+      return
+    }
+    guard
       let entry = snapshot.ledger.entry(id), entry.transaction.deletedAt == nil,
       !HiddenOperations(snapshot: snapshot).hides(entry)
     else { return }

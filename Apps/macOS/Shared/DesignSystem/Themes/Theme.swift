@@ -9,6 +9,13 @@ extension Color {
   }
 }
 
+extension ThemePalette {
+  /// The plate can be translucent, so text is checked against what the sidebar actually paints.
+  var sidebarSelectionText: ThemeColor {
+    accentContent.ensuringTextContrast(on: accentTint.composited(over: surfaceSidebar))
+  }
+}
+
 /// The colours of one theme in one scheme, ready to paint with: `theme.surfaceBackground`,
 /// `theme.accentTint`, `theme.account1Start` and the rest are written into
 /// `ThemeColors.generated.swift` from the same JSON as the palettes.

@@ -106,7 +106,7 @@ public enum KnowYouFacts {
       let range = DayRange(windowStart, end)
       var byTransaction: [UUID: Int] = [:]
       for row in ledger.rows(in: range) {
-        if row.kind == .income { income.insert(row.day) }
+        if row.isIncome { income.insert(row.day) }
         guard row.contribution.raw > 0, row.link?.isBookkeeping != true,
           row.systemRole != .goals, row.systemRole != .loans
         else { continue }
@@ -378,7 +378,7 @@ public enum KnowYouFacts {
     private func savings(_ id: FactID) -> KnowFact? {
       func rate(_ range: DayRange) -> Decimal? {
         let came = AmountE4.sum(
-          ledger.rows(in: range).lazy.filter { $0.kind == .income }.map(\.amountRubE4))
+          ledger.rows(in: range).lazy.filter { $0.isIncome }.map(\.amountRubE4))
         guard came.raw > 0 else { return nil }
         return (came - ledger.expenses(in: range)).decimal / came.decimal
       }

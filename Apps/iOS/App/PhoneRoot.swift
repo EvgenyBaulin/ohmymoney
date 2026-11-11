@@ -4,10 +4,9 @@ import UIKit
 
 /// The tabs of the phone: Overview, Operations, Planning, Accounts and More. The same shared
 /// screens the Mac window shows, in a `NavigationStack` each; an iPad has no tabs, its sidebar
-/// (`PadRoot`) opens the same screens. The entry bar floats over the bottom of the first four, as it
-/// floats over the Mac window. What the Mac opens as a window of its own — Analytics, Reports,
-/// «Что если…» — covers the tabs here, and the shared screens ask for it the way they ask the
-/// Mac window: by notification (`PhoneRouter`).
+/// (`PadRoot`) opens the same screens. The entry line opens from the round plus on the sections
+/// that accept operations. Secondary screens are destinations in More's stack; shared screens
+/// ask for them by notification (`PhoneRouter`).
 struct PhoneRoot: View {
   let deps: AppDependencies
   let session: AppSession
@@ -36,14 +35,25 @@ struct PhoneRoot: View {
     NavLayout.make(width: Double(width), isPad: isPad, phoneTabs: phoneTabs)
   }
 
-  /// The tab whose entry line is up: an iPad has the line on every section but the settings.
-  private var entryTab: PhoneTab { isPad ? router.padEntryHost : router.tab }
+  /// The host of the entry line for the route on screen.
+  private var entryTab: PhoneTab { isPad ? router.padEntryHost : router.phoneEntryHost }
+
+  private var entryRoute: PhoneRoute {
+    PhoneRoute(tab: router.tab, more: router.morePath.last, account: router.accountsSelection)
+  }
 
   private func title(_ item: NavItem) -> String {
     environment.language(item.titleKey, table: item.titleTable ?? "Common")
   }
 
   var body: some View {
+    VStack(spacing: 0) {
+      appContent
+      TouchHistoryBar(store: deps.store).appDependencies(deps)
+    }
+  }
+
+  private var appContent: some View {
     HStack(spacing: 0) {
       root
       // The tablet, the form at the right chosen and room for it: a column of its own.
@@ -78,7 +88,9 @@ struct PhoneRoot: View {
     }
     .animation(.snappy, value: padForm)
     // A section switched to puts the line away with its keyboard; none opens the keyboard.
-    .onChange(of: entryTab, initial: true) { _, tab in entryGate.send(.tabChanged(tab)) }
+    .onChange(of: entryRoute, initial: true) { _, _ in
+      entryGate.send(.tabChanged(entryTab))
+    }
     .onChange(of: padFormPlacement, initial: true) { _, placement in
       formPresence.apply(.placementChanged(placement))
     }
@@ -93,6 +105,7 @@ struct PhoneRoot: View {
     }
     // ⌘N on a hardware keyboard: the line comes up with the keyboard, or the form opens.
     .background {
+      TouchHistoryShortcuts(store: deps.store)
       Button("") {
         NotificationCenter.default.post(name: .focusEntryLine, object: nil)
       }
@@ -224,7 +237,8 @@ struct PhoneRoot: View {
         .tag(PhoneTab.accounts)
       MoreTab(
         deps: deps, session: session, lock: lock, router: router, actions: actions,
-        layout: layout, phoneTabs: $phoneTabs
+        layout: layout, phoneTabs: $phoneTabs,
+        entry: { AnyView(entryBar(entryTab, inMore: true)) }
       )
       .toolbarVisibility(.hidden, for: .tabBar)
       .tabItem {
@@ -295,8 +309,12 @@ struct PhoneRoot: View {
   }
 
   @ViewBuilder
-  private func entryBar(_ tab: PhoneTab) -> some View {
-    if environment.shield.isReadOnly {
+  private func entryBar(_ tab: PhoneTab, inMore: Bool = false) -> some View {
+    if !isPad
+      && (!PhoneEntryState.hostsEntry(tab) || inMore != (router.tab == .more) || tab != entryTab)
+    {
+      EmptyView()
+    } else if environment.shield.isReadOnly {
       ReadOnlyStrip()
     } else if padFormPlacement != .line {
       // The tablet with the form at the right chosen: no line at the bottom.

@@ -628,16 +628,60 @@ final class StatementImportModelTests: XCTestCase {
 
   // MARK: Refusing
 
-  func testAStatementWhoseFooterDoesNotAddUpIsNotWritten() async throws {
+  func testAStatementWhoseFooterDoesNotAddUpCanBeWritten() async throws {
     let lines = StatementPDFText.layout(Self.tbankFragments(footerExpense: "9 999,00"))
     guard case .parsed(let result) = StatementImporter.parsePDFText(lines) else {
       return XCTFail("the made-up certificate should be recognised")
     }
-    XCTAssertFalse(result.isImportable)
+    XCTAssertTrue(result.isImportable)
     XCTAssertEqual(result.checks.filter { $0.blocking && !$0.passed }.count, 1)
+    let account = try makeAccount("Synthetic account")
+    let loading = try await model()
+    loading.add(parsed: result, name: "synthetic.pdf", accountID: account.id)
+    XCTAssertTrue(loading.canApply)
+    XCTAssertTrue(loading.apply())
+    XCTAssertEqual(try liveOperations().count, 1)
+    let settings = try XCTUnwrap(environment.settings)
+    let pending = StatementReview.decode(try settings.string(StatementReview.settingsKey))
+    XCTAssertEqual(pending.count, 1)
+    XCTAssertEqual(pending.first?.fileName, "synthetic.pdf")
+    XCTAssertEqual(pending.first?.checks.first?.missingExpense, AmountE4(whole: 8_999))
+    store.undo()
+    XCTAssertTrue(try liveOperations().isEmpty)
+    XCTAssertTrue(StatementReview.decode(try settings.string(StatementReview.settingsKey)).isEmpty)
+    store.redo()
+    XCTAssertEqual(
+      StatementReview.decode(try settings.string(StatementReview.settingsKey)), pending)
   }
 
   // MARK: The layout of a PDF page
+
+  func testClosingBalanceNeedsReviewEvenWhenFooterTotalsMatch() async throws {
+    let lines = StatementPDFText.layout(Self.tbankFragments(footerExpense: "1 000,00"))
+    guard case .parsed(var result) = StatementImporter.parsePDFText(lines) else {
+      return XCTFail("synthetic statement should parse")
+    }
+    result.header.closingBalance = AmountE4(whole: 4_000)
+    result.header.balanceCurrency = .rub
+    let account = try makeAccount("Synthetic closing balance")
+    let loading = try await model()
+    loading.add(parsed: result, name: "closing.pdf", accountID: account.id)
+    XCTAssertTrue(loading.apply())
+    let pending = StatementReview.decode(
+      try environment.settings?.string(StatementReview.settingsKey))
+    XCTAssertEqual(pending.count, 1)
+    XCTAssertEqual(pending.first?.closingBalance, AmountE4(whole: 4_000))
+    XCTAssertNil(pending.first?.ledgerBalance, "an uncounted balance must not be invented")
+    XCTAssertEqual(pending.first?.operationIDs?.count, 1)
+    // Resolving the review is a setting write; one undo restores the unresolved decision.
+    XCTAssertTrue(store.apply(PlanningChange(settings: [StatementReview.settingsKey: "[]"])))
+    XCTAssertTrue(
+      StatementReview.decode(try environment.settings?.string(StatementReview.settingsKey)).isEmpty)
+    store.undo()
+    XCTAssertEqual(
+      StatementReview.decode(try environment.settings?.string(StatementReview.settingsKey)), pending
+    )
+  }
 
   func testTheLayoutPutsTheCellsOfOneRowOnOneLineLeftToRight() {
     let lines = StatementPDFText.layout([

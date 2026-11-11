@@ -198,6 +198,7 @@ private struct OverviewHeader: View {
         }
       }
       if OverviewAccountsStrip.shows { OverviewAccountsStrip() }
+      OverviewDiscrepancies()
       if AccountsSetupCard.shows(setup: environment.accountSetup) {
         AccountsSetupCard()
       }

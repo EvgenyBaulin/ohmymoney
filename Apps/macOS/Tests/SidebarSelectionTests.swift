@@ -48,10 +48,9 @@ final class SidebarSelectionTests: XCTestCase {
     for theme in ThemeCatalog.all {
       for (name, palette) in [("light", theme.light), ("dark", theme.dark)] {
         let plate = palette.accentTint.composited(over: palette.surfaceSidebar)
-        let ratio = palette.accentContent.contrast(on: plate)
-        // 3:1 — the label is semibold and sits beside its symbol, as the palettes are made.
+        let ratio = palette.sidebarSelectionText.contrast(on: plate)
         XCTAssertGreaterThanOrEqual(
-          ratio, 3.0, "theme \(theme.id.rawValue) \(name): chosen sidebar text contrast \(ratio)")
+          ratio, 4.5, "theme \(theme.id.rawValue) \(name): chosen sidebar text contrast \(ratio)")
         XCTAssertGreaterThan(plate.contrast(on: palette.surfaceSidebar), 1.0)
       }
     }
@@ -60,11 +59,13 @@ final class SidebarSelectionTests: XCTestCase {
   /// All sidebars (main window, settings, iPad) take plate and text from one rule.
   func testEverySidebarTakesItsColoursFromTheThemePalette() {
     for theme in ThemeCatalog.all {
-      let colors = AppThemeColors(id: theme.id, palette: theme.light)
-      let lit = SidebarHighlight(isSelected: true)
-      XCTAssertEqual(lit.plate(colors), Color(theme.light.accentTint))
-      XCTAssertEqual(lit.text(colors), Color(theme.light.accentContent))
-      XCTAssertEqual(lit.symbol(colors), Color(theme.light.accentContent))
+      for palette in [theme.light, theme.dark] {
+        let colors = AppThemeColors(id: theme.id, palette: palette)
+        let lit = SidebarHighlight(isSelected: true)
+        XCTAssertEqual(lit.plate(colors), Color(palette.accentTint))
+        XCTAssertEqual(lit.text(colors), Color(palette.sidebarSelectionText))
+        XCTAssertEqual(lit.symbol(colors), Color(palette.sidebarSelectionText))
+      }
     }
   }
 }

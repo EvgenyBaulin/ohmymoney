@@ -86,7 +86,7 @@ public struct PeriodBoard: Hashable, Sendable {
       guard let week = id.weekKey else { return nil }
       spent = ledger.expenses(in: range)
       income = AmountE4.sum(
-        ledger.rows(in: range).lazy.filter { $0.kind == .income }.map(\.amountRubE4))
+        ledger.rows(in: range).lazy.filter { $0.isIncome }.map(\.amountRubE4))
       previousSpent = ledger.expenses(in: week.previous.range)
     case .month, .year:
       guard let summary = SummaryBuilder.summary(id: id, ledger: ledger, today: today) else {

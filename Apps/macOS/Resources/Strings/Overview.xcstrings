@@ -35,6 +35,74 @@
         }
       }
     },
+    "calendar.day.noPlans": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No plans for this day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На этот день планов нет"
+          }
+        }
+      }
+    },
+    "calendar.day.operations": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operations"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операции"
+          }
+        }
+      }
+    },
+    "calendar.day.plans": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plans"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Планы"
+          }
+        }
+      }
+    },
+    "calendar.day.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day plans"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Планы дня"
+          }
+        }
+      }
+    },
     "calendar.dear.count": {
       "extractionState": "manual",
       "localizations": {
@@ -4315,6 +4383,23 @@
         }
       }
     },
+    "overview.reconciliation.difference": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconciliation difference"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расхождение при сверке"
+          }
+        }
+      }
+    },
     "overview.reconciliationNone": {
       "extractionState": "manual",
       "localizations": {
@@ -4604,6 +4689,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доходов в этом месяце пока нет"
+          }
+        }
+      }
+    },
+    "overview.statement.awaitingDecision": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "awaiting a decision"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ждёт решения"
+          }
+        }
+      }
+    },
+    "overview.statement.closingBalance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Statement closing balance: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток по выписке: %@"
+          }
+        }
+      }
+    },
+    "overview.statement.keepWritten": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep the written operations"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оставить записанные операции"
+          }
+        }
+      }
+    },
+    "overview.statement.ledgerBalance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balance in the app: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток в приложении: %@"
+          }
+        }
+      }
+    },
+    "overview.statement.noBalance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The balances could not be compared: no reconciliation for this date or no statement currency."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остаток не удалось сравнить: нет сверки на эту дату или валюты выписки."
           }
         }
       }

@@ -205,7 +205,9 @@ struct StatementImportFlow: View {
 
   private func summary(_ model: StatementImportModel) -> String {
     let plan = model.plan
-    if plan.write + plan.change + plan.transfers == 0 { return t("import.summary.nothing") }
+    if plan.write + plan.change + plan.transfers == 0 {
+      return t(model.canApply ? "import.summary.reviewOnly" : "import.summary.nothing")
+    }
     return ImportText.counted(
       "import.summary.plan", environment, plan.write, plan.change, plan.transfers)
   }

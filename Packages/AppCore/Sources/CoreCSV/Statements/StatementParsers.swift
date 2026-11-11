@@ -321,6 +321,10 @@ enum StatementPDFTextParser {
     let periodRegex = regex(layout.periodPattern)
     let incomeRegex = regex(layout.footerIncomePattern)
     let expenseRegex = regex(layout.footerExpensePattern)
+    let closingRegex = regex(
+      #"(?i)(?:исходящий остаток|остаток на конец(?: периода)?|closing balance)\s*:?\s*([−\-+\d][\d\s.,]*)(?:\s*(₽|RUB|USD|EUR|\$|€))?\s*$"#
+    )
+    let currencyRegex = regex(#"(?i)(₽|RUB|USD|EUR|\$|€)\s*$"#)
     let rowStart = regex(#"^\d{2}\.\d{2}\.\d{4}\s+\d{2}\.\d{2}\.\d{4}(?:\s|$)"#)
     let rules = StatementRuleSet(profile.descriptionRules)
 
@@ -349,6 +353,16 @@ enum StatementPDFTextParser {
       if line.isEmpty { continue }
 
       // Head and foot facts can sit on any line.
+      if let closing = group(closingRegex, line) {
+        header.closingBalance = StatementAmount.parse(closing)
+        let mark = group(currencyRegex, line)?.uppercased()
+        if let mark {
+          header.balanceCurrency = CurrencyCode(
+            mark == "₽" ? "RUB" : mark == "$" ? "USD" : mark == "€" ? "EUR" : mark)
+        }
+        finish()
+        continue
+      }
       if header.contractNumber == nil { header.contractNumber = group(contractRegex, line) }
       if header.accountNumber == nil { header.accountNumber = group(accountRegex, line) }
       if header.openedOn == nil {

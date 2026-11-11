@@ -153,7 +153,7 @@ public struct SalaryEffect: Hashable, Sendable {
     for id in occurrence.transactionIds {
       guard let entry = ledger.entry(id) else { continue }
       for part in entry.parts {
-        guard let row = ledger.row(ofPart: part.id), row.kind == .income else { continue }
+        guard let row = ledger.row(ofPart: part.id), row.isIncome else { continue }
         if earliest.map({ row.day < $0 }) ?? true { earliest = row.day }
       }
     }

@@ -253,7 +253,7 @@ public struct WorkRate: Hashable, Sendable {
     let earnings = AmountE4.sum(
       ledger.rows(attributedTo: wanted).lazy
         .filter { row in
-          guard row.kind == .income else { return false }
+          guard row.isIncome else { return false }
           guard let earningsCategoryId else { return true }
           return row.categoryId == earningsCategoryId
             || tree.root(of: row.categoryId)?.id == earningsCategoryId

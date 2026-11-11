@@ -87,14 +87,14 @@ struct StatementPreviewTests {
     #expect(!asked.rows[0].startsTicked)
   }
 
-  @Test func aFailedFooterCheckBlocksTheFile() {
+  @Test func aFailedFooterCheckAllowsWritingAndKeepsTheDiscrepancy() {
     let failed = StatementCheck(
       kind: .footerTotals, passed: false, blocking: true,
       missingExpense: AmountE4(whole: 10), violations: 1)
     let preview = StatementPreviewBuilder.build(
       parse: parse([op(-100)], checks: [failed]), accountKey: "a", existing: [], manual: [],
       identity: StatementIdentity(), today: today)
-    #expect(!preview.isImportable)
+    #expect(preview.isImportable)
     #expect(preview.blockingFailures.count == 1)
   }
 

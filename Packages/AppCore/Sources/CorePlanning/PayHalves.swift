@@ -46,7 +46,7 @@ public enum PayHalves {
 
     var linkedDays: [UUID: [(day: DateOnly, month: MonthKey)]] = [:]
     for link in links {
-      guard let entry = ledger.entry(link.transactionId), entry.transaction.kind == .income,
+      guard let entry = ledger.entry(link.transactionId), IncomeRule.isIncome(entry.transaction),
         !entry.transaction.isDeleted, let part = entry.parts.first,
         let row = ledger.row(ofPart: part.id)
       else { continue }

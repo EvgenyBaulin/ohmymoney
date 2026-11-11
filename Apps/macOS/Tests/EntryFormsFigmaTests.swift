@@ -45,7 +45,7 @@ final class EntryFormsFigmaTests: SectionFigmaHarness {
   }
 
   /// The phone's line is the column less 16 at each side (408 of 440); the tablet's 600 wherever
-  /// the column holds it; the Mac's keeps to the window (560–720, at most 70 %).
+  /// the column holds it; the Mac's is 520 pt.
   func testTheLineIsAsWideAsItsFrameOnEachDevice() {
     XCTAssertEqual(
       EntryBarMetrics.columnWidth(windowWidth: 440, detailWidth: 440, idiom: .phone), 408)
@@ -56,7 +56,7 @@ final class EntryFormsFigmaTests: SectionFigmaHarness {
       "a narrow tablet column keeps 16 at each side")
     XCTAssertEqual(
       EntryBarMetrics.columnWidth(windowWidth: 1440, detailWidth: 1208, idiom: .mac),
-      EntryBarMetrics.columnWidth(windowWidth: 1440, detailWidth: 1208))
+      520)
   }
 
   /// The panel 20 inside, 12 between rows, the kinds' track 3 inside with segments 10 × 6 in
@@ -146,12 +146,52 @@ final class EntryFormsFigmaTests: SectionFigmaHarness {
     try waitUntilStill(["entry.line.capsule", "entry.line.send"], in: window)
     let capsule = try frame(of: "entry.line.capsule", in: window)
     let send = try frame(of: "entry.line.send", in: window)
+    XCTAssertEqual(capsule.width, 520, accuracy: 1, "the capsule's width")
     XCTAssertEqual(capsule.height, 50, accuracy: 1, "the capsule's height")
     XCTAssertEqual(send.width, 24, accuracy: 1, "the send arrow")
     XCTAssertEqual(capsule.maxX - send.maxX, 16, accuracy: 1.5, "16 after the arrow")
     XCTAssertEqual(send.midY, capsule.midY, accuracy: 1, "the arrow stands in the middle")
     XCTAssertEqual(capsule.minY, 18, accuracy: 2, "18 over the window's bottom edge")
     try attachPicture(of: window, named: "entry-line-mac-1440")
+  }
+
+  func testTheMacPanelAndChipsHaveIndependentCenteredWidths() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    try TestEnvironment.requireScreen(width: 1_440, height: 900)
+    let chipsBefore = environment.entryChipsShown
+    defer { environment.entryChipsShown = chipsBefore }
+    try XCTUnwrap(environment.references).save(
+      Template(text: "Coffee", amountE4: AmountE4(whole: 250), currency: .rub))
+    for choice in [AppLanguage.Choice.russian, .english] {
+      environment.language.choice = choice
+      environment.entryChipsShown = true
+      let bar = EntryBar(
+        windowWidth: 1440, detailWidth: 1208, style: .line, opensDetails: true
+      ) { EmptyView() }
+      let window = screenWindow(bar, idiom: .mac, width: 1208, height: 900)
+      settle(window)
+      // The panel opens with an animation: measure once the three have stopped moving.
+      try waitUntilStill(
+        ["entry.line.capsule", "entry.details.panel", "entry.templates"], in: window)
+      let capsule = try frame(of: "entry.line.capsule", in: window)
+      let panel = try frame(of: "entry.details.panel", in: window)
+      let chips = try frame(of: "entry.templates", in: window)
+      // With the panel open the accessibility frames of the capsule and the panel are their
+      // content's: the glass edge lies outside them by the capsule's and the panel's own insets
+      // (the capsule's own full frame is checked, panel closed, by the 1440 line test above).
+      let line = EntryLineMetrics.of(.mac)
+      XCTAssertEqual(capsule.width + line.leading + line.trailing, 520, accuracy: 2)
+      XCTAssertEqual(panel.width + 2 * EntryPanelMetrics.padding, 720, accuracy: 1)
+      XCTAssertEqual(chips.width, 480, accuracy: 1)
+      XCTAssertEqual(panel.midX, capsule.midX, accuracy: 1)
+      XCTAssertEqual(chips.midX, capsule.midX, accuracy: 1)
+      // The two quiet controls remain in place of a microphone; both are real actions.
+      XCTAssertNotNil(find("entry.question.toggle", in: window))
+      XCTAssertNotNil(find("entry.details.toggle", in: window))
+      for identifier in EntryKindTabs.designOrder.map(EntryKindTabs.identifier(of:)) {
+        XCTAssertNotNil(find(identifier, in: window), identifier)
+      }
+    }
   }
 
   /// The line drawn by the phone's frame (408 × 48 in a column of 440) and by the tablet's

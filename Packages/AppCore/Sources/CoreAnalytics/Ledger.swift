@@ -74,6 +74,7 @@ public struct LedgerRow: Hashable, Sendable {
   /// The person the part is about: whom it was for, or who owes it.
   public var personId: UUID? { forPersonId ?? debtorPersonId }
   public var isFirstPart: Bool { partIndex == 0 }
+  public var isIncome: Bool { IncomeRule.isIncome(kind: kind, link: link) }
 }
 
 /// The flat, sorted list of every part of every live operation, built once per
@@ -326,7 +327,7 @@ public struct Ledger: Sendable {
   public func income(attributedTo months: [MonthKey], notAfter: DateOnly? = nil) -> AmountE4 {
     AmountE4.sum(
       rows(attributedTo: months).lazy
-        .filter { row in row.kind == .income && (notAfter.map { row.day <= $0 } ?? true) }
+        .filter { row in row.isIncome && (notAfter.map { row.day <= $0 } ?? true) }
         .map(\.amountRubE4))
   }
 
@@ -339,15 +340,15 @@ public struct Ledger: Sendable {
 
   /// Income that arrived on the days of the span, whatever month it is for.
   func income(byDateIn range: DayRange) -> AmountE4 {
-    AmountE4.sum(rows(in: range).lazy.filter { $0.kind == .income }.map(\.amountRubE4))
+    AmountE4.sum(rows(in: range).lazy.filter(\.isIncome).map(\.amountRubE4))
   }
 
   /// Income rows of a period, with the same rule as `income(in:)`.
   public func incomeRows(in period: Period) -> [LedgerRow] {
     if period.isWholeMonths {
-      return rows(attributedTo: period.months).filter { $0.kind == .income }
+      return rows(attributedTo: period.months).filter(\.isIncome)
     }
-    return rows(in: period.range).filter { $0.kind == .income }
+    return rows(in: period.range).filter(\.isIncome)
   }
 }
 

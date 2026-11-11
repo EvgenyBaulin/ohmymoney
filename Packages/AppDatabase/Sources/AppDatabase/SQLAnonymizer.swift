@@ -184,8 +184,11 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
     // of «Запишу потом», made by hand or from a bank's text), and what the texts of his banks
     // were taught to mean (his places, words and people) are his own words too.
     try db.execute(
-      sql: "DELETE FROM settings WHERE key IN (?, ?, ?)",
-      arguments: [AutoEntryNames.settingsKey, Self.pendingDraftsKey, BankTextMemory.settingsKey])
+      sql: "DELETE FROM settings WHERE key IN (?, ?, ?, ?)",
+      arguments: [
+        AutoEntryNames.settingsKey, Self.pendingDraftsKey, BankTextMemory.settingsKey,
+        StatementReview.settingsKey,
+      ])
   }
 
   /// The setting the drafts of «Запишу потом» are kept in.

@@ -6,15 +6,12 @@ import TipKit
   import AppKit
 #endif
 
-/// The column the entry bar floats in. It is 560 to 720 pt wide but never wider
-/// than 70% of the whole window, and never comes closer than 16 pt to the sides of the
-/// column it floats over. Below an 800 pt window the share wins over the minimum, and with
-/// the sidebar open the column can win over both, so the bar shrinks instead of spilling
-/// over the edges.
+/// The Mac's capsule, panel and chips have independent widths. Each is capped by the
+/// available detail column and keeps 16 pt from its sides.
 enum EntryBarMetrics {
-  static let minimumWidth: CGFloat = 560
-  static let maximumWidth: CGFloat = 720
-  static let widthShare: CGFloat = 0.7
+  static let lineWidth: CGFloat = 520
+  static let detailsWidth: CGFloat = 720
+  static let templatesWidth: CGFloat = 480
   /// The tallest the ↓ panel stands before its fields scroll: the design's panel, label over
   /// control in three columns, is about 590 pt with its foot.
   static let panelMaxHeight: CGFloat = 620
@@ -29,17 +26,31 @@ enum EntryBarMetrics {
   static let contentGap: CGFloat = 12
 
   static func columnWidth(windowWidth: CGFloat, detailWidth: CGFloat) -> CGFloat {
-    // The very first layout pass can hand out a width of zero. The column stands in for the
-    // window until the window is measured, and the bar starts at its minimum when neither is
-    // known, instead of collapsing to nothing.
-    let window = isUsable(windowWidth) ? windowWidth : detailWidth
-    guard isUsable(window) else { return minimumWidth }
-    // Clamp the share to 560…720, then cap it by the share again: the owner's rule is
-    // «never wider than 70% of the window», and on a narrow window it beats the minimum.
-    let share = window * widthShare
-    let preferred = min(min(max(minimumWidth, share), maximumWidth), share)
-    guard isUsable(detailWidth) else { return preferred }
-    return max(0, min(preferred, detailWidth - 2 * sideMargin))
+    fitted(lineWidth, windowWidth: windowWidth, detailWidth: detailWidth)
+  }
+
+  private static func fitted(
+    _ preferred: CGFloat, windowWidth: CGFloat, detailWidth: CGFloat
+  ) -> CGFloat {
+    let available = isUsable(detailWidth) ? detailWidth : windowWidth
+    guard isUsable(available) else { return preferred }
+    return min(preferred, max(0, available - 2 * sideMargin))
+  }
+
+  static func panelWidth(
+    windowWidth: CGFloat, detailWidth: CGFloat, idiom: LayoutIdiom
+  ) -> CGFloat {
+    idiom == .mac
+      ? fitted(detailsWidth, windowWidth: windowWidth, detailWidth: detailWidth)
+      : columnWidth(windowWidth: windowWidth, detailWidth: detailWidth, idiom: idiom)
+  }
+
+  static func chipsWidth(
+    windowWidth: CGFloat, detailWidth: CGFloat, idiom: LayoutIdiom
+  ) -> CGFloat {
+    idiom == .mac
+      ? fitted(templatesWidth, windowWidth: windowWidth, detailWidth: detailWidth)
+      : columnWidth(windowWidth: windowWidth, detailWidth: detailWidth, idiom: idiom)
   }
 
   /// The width of the bar on a device: the Mac's by the window (above); a phone's as wide as the
@@ -54,7 +65,7 @@ enum EntryBarMetrics {
       return columnWidth(windowWidth: windowWidth, detailWidth: detailWidth)
     case .phone, .pad:
       let column = isUsable(detailWidth) ? detailWidth : windowWidth
-      guard isUsable(column) else { return line.width ?? minimumWidth }
+      guard isUsable(column) else { return line.width ?? lineWidth }
       let room = max(0, column - 2 * line.side)
       return line.width.map { min($0, room) } ?? room
     }
@@ -703,7 +714,7 @@ struct EntryBar<Accessory: View>: View {
   /// The floating glass capsule with the chips above it and the ↓ panel over them.
   private var lineBody: some View {
     GlassEffectContainer(spacing: 12) {
-      VStack(alignment: .leading, spacing: EntryBarMetrics.spacing) {
+      VStack(alignment: idiom == .mac ? .center : .leading, spacing: EntryBarMetrics.spacing) {
         if environment.entryChipsShown {
           TemplatesStrip(
             model: templates,
@@ -713,6 +724,11 @@ struct EntryBar<Accessory: View>: View {
             text = QuickSuggest.lineForBlank(template) ?? templateLine(for: template)
             focused = true
           }
+          .frame(
+            width: EntryBarMetrics.chipsWidth(
+              windowWidth: windowWidth, detailWidth: detailWidth, idiom: idiom)
+          )
+          .accessibilityIdentifier("entry.templates")
         }
 
         accessory()
@@ -876,11 +892,15 @@ struct EntryBar<Accessory: View>: View {
       // moment somebody pressed ↓. It stays inside the same `GlassEffectContainer`, so it
       // still morphs out of the capsule.
       .overlay(alignment: .top) {
-        standing(above: Group { if showsDetails, let model { detailsPanel(model) } })
+        standing(
+          above: Group { if showsDetails, let model { detailsPanel(model) } },
+          width: EntryBarMetrics.panelWidth(
+            windowWidth: windowWidth, detailWidth: detailWidth, idiom: idiom)
+        )
       }
     }
-    // One width for the panel, the chips and the capsule together: bounding them
-    // separately would make the morph jump as the panel opens.
+    // The capsule sets the dock's width; the wider panel stays centered over it and the
+    // narrower templates strip is centered within it, in the same glass container.
     .frame(
       width: EntryBarMetrics.columnWidth(
         windowWidth: windowWidth, detailWidth: detailWidth, idiom: idiom)
@@ -1099,9 +1119,10 @@ struct EntryBar<Accessory: View>: View {
   /// takes none of its height. The alignment guide is what does it: an overlay aligned `.top`
   /// puts its own top guide on the content's top edge, so a top guide redefined to be the
   /// overlay's own bottom edge leaves the overlay standing above.
-  private func standing(above view: some View) -> some View {
+  private func standing(above view: some View, width: CGFloat? = nil) -> some View {
     view
-      .frame(maxWidth: .infinity, alignment: .leading)
+      .frame(width: width, alignment: .leading)
+      .frame(maxWidth: width == nil ? .infinity : nil, alignment: .leading)
       // The overlay is proposed the height of what it hangs over; the panel is far taller and
       // must take the height it asks for instead of being squeezed into that proposal.
       .fixedSize(horizontal: false, vertical: true)
@@ -1128,6 +1149,8 @@ struct EntryBar<Accessory: View>: View {
       // handled by the line, so neither reaches the list behind.
       .onExitCommand(perform: closeDetails)
     }
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("entry.details.panel")
     .glassEffectID("details", in: glass)
   }
 

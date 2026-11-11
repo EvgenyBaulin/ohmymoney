@@ -1,3 +1,4 @@
+import CoreAccounting
 import CoreAnalytics
 import CoreKit
 import Foundation
@@ -120,7 +121,7 @@ public enum ExpectedIncomeRules {
     return book.expected.filter { !$0.closed }.map { income in
       let operations = (linked[income.id] ?? [])
         .compactMap { ledger.entry($0) }
-        .filter { $0.transaction.kind == .income && !$0.transaction.isDeleted }
+        .filter { IncomeRule.isIncome($0.transaction) && !$0.transaction.isDeleted }
         .sorted(by: oldestFirst)
       return status(
         of: income, operations: operations, ledger: ledger, today: today, through: horizon,
@@ -137,7 +138,7 @@ public enum ExpectedIncomeRules {
   public static func suggestLink(
     for entry: TransactionEntry, statuses: [ExpectedIncomeStatus]
   ) -> UUID? {
-    guard entry.transaction.kind == .income, !entry.transaction.isDeleted else { return nil }
+    guard IncomeRule.isIncome(entry.transaction), !entry.transaction.isDeleted else { return nil }
     guard !statuses.contains(where: { $0.linkedTransactionIds.contains(entry.id) }) else {
       return nil
     }
@@ -199,7 +200,7 @@ public enum ExpectedIncomeRules {
       links
       .filter { $0.expectedIncomeId == income.id }
       .compactMap { ledger.entry($0.transactionId) }
-      .filter { $0.transaction.kind == .income && !$0.transaction.isDeleted }
+      .filter { IncomeRule.isIncome($0.transaction) && !$0.transaction.isDeleted }
       .max { oldestFirst($0, $1) }
     guard let latest else { return mainId }
     return latest.transaction.paymentMethodId ?? mainId

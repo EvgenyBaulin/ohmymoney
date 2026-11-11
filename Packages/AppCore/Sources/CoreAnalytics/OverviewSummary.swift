@@ -15,6 +15,8 @@ public struct OverviewSummary: Hashable, Sendable {
 
   public var expenses: Change
   public var income: Change
+  /// Signed balance adjustments in the displayed days, in rubles; never earnings or spending.
+  public var reconciliationDifference: AmountE4
   public var net: AmountE4 { income.current - expenses.current }
 
   /// Top five top-level categories of my expenses this month; shares are of all top-level
@@ -43,6 +45,10 @@ public struct OverviewSummary: Hashable, Sendable {
     let previousSpan = Period.sameSpanOfPreviousMonth(today: today).range
     self.span = span
     self.previousSpan = previousSpan
+    reconciliationDifference = AmountE4.sum(
+      ledger.rows(in: span).filter(Self.isCountDifference).map {
+        $0.kind == .income ? $0.amountRubE4 : -$0.amountRubE4
+      })
 
     expenses = Change(
       current: ledger.expenses(in: span), previous: ledger.expenses(in: previousSpan))

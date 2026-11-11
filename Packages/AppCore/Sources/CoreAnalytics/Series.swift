@@ -36,7 +36,8 @@ extension Ledger {
   /// The days of a period that have already happened and that the history covers:
   /// [max(start, first day with operations), min(end, today)].
   func elapsed(_ period: Period, today: DateOnly) -> DayRange {
-    DayRange(max(period.start, firstDay ?? period.end.adding(days: 1)), min(period.end, today))
+    let first = rows.first { !OverviewSummary.isCountDifference($0) }?.day
+    return DayRange(max(period.start, first ?? period.end.adding(days: 1)), min(period.end, today))
   }
 }
 
@@ -99,7 +100,7 @@ public struct TimeSeries: Hashable, Sendable {
     // August's salary paid on 3 September in a book begun on the 1st is August's income: in
     // the total, so in the average too, as in the Reports' monthly average.
     if step == .month, measure == .income, period.isWholeMonths,
-      let first = ledger.rows.lazy.filter({ $0.kind == .income }).map(\.month).min(),
+      let first = ledger.rows.lazy.filter({ $0.isIncome }).map(\.month).min(),
       first.firstDay < elapsed.start
     {
       elapsed = DayRange(max(period.start, first.firstDay), elapsed.end)
@@ -123,7 +124,7 @@ public struct TimeSeries: Hashable, Sendable {
   static func value(of row: LedgerRow, _ measure: SeriesMeasure) -> AmountE4 {
     switch measure {
     case .expenses: row.contribution
-    case .income: row.kind == .income ? row.amountRubE4 : .zero
+    case .income: row.isIncome ? row.amountRubE4 : .zero
     }
   }
 }

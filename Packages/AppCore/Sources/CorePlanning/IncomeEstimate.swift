@@ -190,7 +190,7 @@ public enum IncomeEstimate {
     for transactionId in occurrence.transactionIds {
       guard let entry = ledger.entry(transactionId) else { continue }
       for part in entry.parts {
-        guard let row = ledger.row(ofPart: part.id), row.kind == .income, row.month == month,
+        guard let row = ledger.row(ofPart: part.id), row.isIncome, row.month == month,
           row.day > today, through.map({ row.day <= $0 }) ?? true
         else { continue }
         total += row.amountRubE4
@@ -220,7 +220,7 @@ public enum IncomeEstimate {
         for transactionId in occurrence.transactionIds {
           guard let entry = ledger.entry(transactionId) else { continue }
           for part in entry.parts {
-            guard let row = ledger.row(ofPart: part.id), row.kind == .income, row.day > today,
+            guard let row = ledger.row(ofPart: part.id), row.isIncome, row.day > today,
               row.day <= through
             else { continue }
             total += row.amountRubE4

@@ -206,7 +206,7 @@ public enum Allocation {
   public static func offers(
     entry: TransactionEntry, tree: CategoryTree, settings: AllocationSettings
   ) -> Bool {
-    guard entry.transaction.kind == .income, !entry.transaction.isDeleted,
+    guard IncomeRule.isIncome(entry.transaction), !entry.transaction.isDeleted,
       !settings.declined.contains(entry.id)
     else { return false }
     return entry.parts.contains {
@@ -225,7 +225,7 @@ public enum Allocation {
     var found: [(day: DateOnly, id: UUID)] = []
     var seen: Set<UUID> = []
     for row in ledger.rows(in: DayRange(start, today))
-    where row.kind == .income && seen.insert(row.transactionId).inserted {
+    where row.isIncome && seen.insert(row.transactionId).inserted {
       guard let entry = ledger.entry(row.transactionId),
         offers(entry: entry, tree: ledger.tree, settings: settings)
       else { continue }

@@ -176,7 +176,7 @@ public struct ReportBuilder: Sendable {
     }
 
     let yearRows = ledger.rows(attributedTo: months).filter {
-      $0.kind == .income || !OverviewSummary.isCountDifference($0)
+      !OverviewSummary.isCountDifference($0)
     }
     let firstMonth = yearRows.map(\.month).min()
     let lastCompleted = min(MonthKey(year: year, month: 12), current.previous)

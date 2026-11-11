@@ -7,6 +7,7 @@ import SwiftUI
 struct WaitingPage: View {
   @Dependency(\.environment) private var environment
   @Environment(\.dependencies) private var dependencies
+  @Environment(\.appTheme) private var theme
   let page: PurchasesPage
   let today: DateOnly
   let open: (PurchasesSheet) -> Void
@@ -15,52 +16,57 @@ struct WaitingPage: View {
   private func t(_ key: String) -> String { PurchasesText.t(key, environment) }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 12) {
+    VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
       if page.waiting.items.isEmpty {
         Text(verbatim: t("purchases.waiting.empty"))
-          .appFont(.callout)
+          .appFont(SectionType.rowDetail)
           .foregroundStyle(.secondary)
           .fixedSize(horizontal: false, vertical: true)
-          .contentCard()
+          .sectionCard()
           .accessibilityIdentifier("purchases.waiting.empty")
       } else {
-        VStack(alignment: .leading, spacing: 4) {
-          Text(verbatim: environment.money.rounded(page.waiting.totalRubE4))
-            .appFont(.title2.monospacedDigit())
-          Text(
-            verbatim: PurchasesText.count(
-              "purchases.waiting.total", environment, page.waiting.items.count)
-          )
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
-          Text(verbatim: t("purchases.waiting.hint"))
-            .appFont(.caption)
-            .foregroundStyle(.secondary)
-            .fixedSize(horizontal: false, vertical: true)
-        }
-        .contentCard()
-        .accessibilityIdentifier("purchases.waiting.total")
-        ForEach(page.waiting.items) { refund in card(refund) }
+        PurchasesColumns(
+          items: page.waiting.items,
+          head: { total },
+          tail: { EmptyView() },
+          card: { card($0) })
       }
     }
   }
 
+  /// The sum waited for, the number of refunds and why they change nothing yet.
+  private var total: some View {
+    PurchasesFactCard(gap: PurchasesMetrics.totalGap) {
+      Text(verbatim: t(PurchasesText.Page.waiting.titleKey))
+        .appFont(PurchasesType.fieldLabel)
+        .foregroundStyle(.secondary)
+      Text(verbatim: environment.money.rounded(page.waiting.totalRubE4))
+        .appFont(PurchasesType.totalFigure)
+      Text(
+        verbatim: PurchasesText.count(
+          "purchases.waiting.total", environment, page.waiting.items.count) + " · "
+          + t("purchases.waiting.hint")
+      )
+      .appFont(PurchasesType.fieldLabel)
+      .foregroundStyle(.secondary)
+      .fixedSize(horizontal: false, vertical: true)
+    }
+    .accessibilityIdentifier("purchases.waiting.total")
+  }
+
   private func card(_ refund: WaitingRefund) -> some View {
-    VStack(alignment: .leading, spacing: 6) {
-      HStack(alignment: .firstTextBaseline) {
-        Text(verbatim: refund.note ?? t("purchases.waiting.noNote")).appFont(.headline)
-        Spacer(minLength: 8)
-        Text(verbatim: environment.money.exact(refund.amountE4, currency: refund.currency))
-          .appFont(.title3.monospacedDigit())
-      }
-      Label {
-        Text(verbatim: PurchasesText.expected(refund, today: today, environment))
-      } icon: {
-        Image(systemName: refund.isLate(today: today) ? "exclamationmark.triangle" : "hourglass")
-      }
-      .appFont(.callout)
+    let late = refund.isLate(today: today)
+    return PurchasesFactCard {
+      PurchasesCardTitle(
+        title: refund.note ?? t("purchases.waiting.noNote"),
+        figure: environment.money.exact(refund.amountE4, currency: refund.currency))
+      PurchasesDetailLine(
+        symbol: late ? "exclamationmark.triangle" : "hourglass",
+        text: PurchasesText.expected(refund, today: today, environment),
+        ink: late ? theme.contentWarning : nil
+      )
       .accessibilityIdentifier("purchases.waiting.expected")
-      HStack {
+      PurchasesActionRow {
         Button(t("purchases.waiting.credited")) {
           if let dependencies { report(PurchaseActions(dependencies).credit(refund.transactionId)) }
         }
@@ -68,9 +74,7 @@ struct WaitingPage: View {
         Button(t("purchases.waiting.postpone")) { open(.postpone(refund)) }
           .accessibilityIdentifier("purchases.waiting.postpone")
       }
-      .buttonStyle(.bordered)
     }
-    .contentCard()
     .accessibilityElement(children: .contain)
   }
 }

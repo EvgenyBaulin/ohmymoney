@@ -58,6 +58,32 @@ enum SidebarItem: Hashable, Sendable {
 }
 
 #if os(macOS)
+  /// Adapts the native split view to a narrow window while keeping the owner's wide-window
+  /// choice. The toolbar may still reveal the sidebar in a narrow window.
+  struct MainSidebarVisibility {
+    private(set) var visibility: NavigationSplitViewVisibility = .automatic
+    private var wideVisibility: NavigationSplitViewVisibility = .automatic
+    private var isNarrow = false
+
+    mutating func choose(_ value: NavigationSplitViewVisibility) {
+      visibility = value
+      if !isNarrow { wideVisibility = value }
+    }
+
+    mutating func resize(to width: CGFloat) {
+      guard width.isFinite, width > 0 else { return }
+      let narrow = width <= 800
+      guard narrow != isNarrow else { return }
+      if narrow {
+        wideVisibility = visibility
+        visibility = .detailOnly
+      } else {
+        visibility = wideVisibility
+      }
+      isNarrow = narrow
+    }
+  }
+
   /// The sidebar of the main window: its sections, chosen by a click or by ⌘1 … ⌘9,
   /// whose menu items, and the limits card of Overview, post `.selectSection` with the number of
   /// the section; and under them the accounts and their groups (`AccountsSidebarSection`).
@@ -76,7 +102,6 @@ enum SidebarItem: Hashable, Sendable {
         Section {
           ForEach(MainWindow.Section.allCases) { item in
             sectionRow(item)
-            if item == .purchases { purchasesRows }
           }
         }
         if environment.state == .ready {
@@ -119,40 +144,6 @@ enum SidebarItem: Hashable, Sendable {
       .onReceive(NotificationCenter.default.publisher(for: .openSidebarItem)) { note in
         guard let item = note.object as? SidebarItem else { return }
         selection = item
-      }
-    }
-
-    /// The pages of «Покупки» under its row: «Хочу купить», «Вещи», «Ждут зачисления». A click
-    /// opens the section on that page; the two lists left out (the shopping list and the savings)
-    /// are behind the switch of the screen.
-    private var purchasesRows: some View {
-      ForEach([PurchasesText.Page.wishes, .things, .waiting]) { page in
-        let lit =
-          selection == .section(.purchases) && PurchasesNavigation.shared.page == page
-        Button {
-          PurchasesNavigation.shared.page = page
-          selection = .section(.purchases)
-        } label: {
-          Text(verbatim: PurchasesText.t(page.titleKey, environment))
-            .appFont(.callout)
-            .foregroundStyle(
-              Color(lit ? theme.palette.accentContent : theme.palette.contentPrimary)
-            )
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 2)
-            // Under the name of «Покупки».
-            .padding(
-              .leading,
-              SidebarMetrics.rowHorizontal + SidebarMetrics.icon + SidebarMetrics.iconGap
-                - SidebarMetrics.listOutset
-            )
-            .contentShape(.rect)
-        }
-        .buttonStyle(.plain)
-        .listRowInsets(SidebarRowLabel.insets)
-        .listRowBackground(Color.clear)
-        .accessibilityAddTraits(lit ? [.isSelected] : [])
-        .accessibilityIdentifier("sidebar.purchases.\(page.rawValue)")
       }
     }
 

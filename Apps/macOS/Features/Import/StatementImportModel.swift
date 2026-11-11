@@ -137,6 +137,16 @@ final class StatementImportModel {
 
   // MARK: Reading files
 
+  /// A decoded statement, including one supplied by an on-device document reader.
+  func add(parsed: StatementParseResult, name: String, accountID: UUID) {
+    let file = LoadedFile(
+      id: nextFileID, name: name, reading: .parsed(parsed), accountID: accountID)
+    nextFileID += 1
+    files.append(file)
+    rebuild(file: file.id)
+    refresh()
+  }
+
   /// The accounts a statement can be loaded into.
   var accounts: [PaymentMethod] {
     (dataset()?.paymentMethods ?? []).filter { !$0.archived }
@@ -612,7 +622,12 @@ final class StatementImportModel {
     let staleDeletes = files.contains {
       $0.deleteStaleHeld && !($0.preview?.staleHeld.isEmpty ?? true)
     }
-    return counts.write + counts.change + counts.transfers > 0 || staleDeletes
+    let unresolved = files.contains {
+      $0.accountID != nil && $0.preview?.isImportable == true
+        && ($0.preview?.header.closingBalance != nil
+          || $0.preview?.checks.contains { $0.kind == .footerTotals && !$0.passed } == true)
+    }
+    return counts.write + counts.change + counts.transfers > 0 || staleDeletes || unresolved
   }
 
   // MARK: Writing
@@ -671,9 +686,14 @@ final class StatementImportModel {
     var created: [TransactionEntry] = []
     var rewritten: [TransactionEntry] = []
     var newTransfers: [Transfer] = []
+    var newTransferIDs: [StatementRowRef: UUID] = [:]
     var upgrades: [StatementStatusWrite] = []
     var softDeleted: [UUID] = []
     var records: [(StatementImportRecord, String?)] = []
+    var reviewFiles: [(id: String, file: LoadedFile)] = []
+    let initialReviews = StatementReview.decode(
+      (try? environment.settings?.string(StatementReview.settingsKey)) ?? nil)
+    var reviews = initialReviews
     var usesUnsorted = false
     var keysSeen: [UUID: [StatementDedupKey: Int]] = [:]
     let storedMemory = BankTextLearning.memory(environment)
@@ -797,7 +817,10 @@ final class StatementImportModel {
       made.duplicates += preview.duplicateCount
       let touched = written + fileChanged
       let hasPair = paired.contains { $0.outgoing.file == file.id || $0.incoming.file == file.id }
-      if touched > 0 || hasPair {
+      let needsReview =
+        preview.header.closingBalance != nil
+        || preview.checks.contains { $0.kind == .footerTotals && !$0.passed }
+      if touched > 0 || hasPair || needsReview {
         let period = preview.period
         records.append(
           (
@@ -811,6 +834,7 @@ final class StatementImportModel {
             file.fileHash
           ))
         made.imports.append(importID.uuidString)
+        reviewFiles.append((importID.uuidString, file))
       }
     }
 
@@ -825,10 +849,64 @@ final class StatementImportModel {
         zoneID: outFile.zoneID, now: stamp)
       transfer.externalId = transferIDs[pair.outgoing] ?? transfer.externalId
       newTransfers.append(transfer)
+      newTransferIDs[pair.outgoing] = transfer.id
+      newTransferIDs[pair.incoming] = transfer.id
     }
     made.duplicates += knownTransferLegs.count / 2
     made.transfers = newTransfers.count
     made.created = created.count
+
+    // Compare the closing day with the books as they will stand after the entire loading,
+    // including merged lines and paired transfers. A statement never creates a count silently.
+    let replaced = Set(rewritten.map(\.id)).union(softDeleted)
+    let needsBalance = reviewFiles.contains { $0.file.preview?.header.closingBalance != nil }
+    let balances =
+      needsBalance
+      ? AccountBalances.build(
+        entries: dataset.entries.filter { !replaced.contains($0.id) } + rewritten + created,
+        transfers: dataset.transfers + newTransfers, debtEntries: dataset.planning.debtEntries,
+        debts: dataset.debtsById, reconciliations: dataset.planning.reconciliations,
+        balances: dataset.planning.reconciledBalances, accounts: dataset.paymentMethods,
+        tree: tree, now: stamp, calendar: environment.calendar) : nil
+    for candidate in reviewFiles {
+      guard let preview = candidate.file.preview, let account = candidate.file.accountID else {
+        continue
+      }
+      let header = preview.header
+      var operationIDs = created.filter { $0.transaction.importBatchId?.uuidString == candidate.id }
+        .map(\.id)
+      for row in preview.rows where candidate.file.ticks.contains(row.index) {
+        let existing: String?
+        switch row.disposition {
+        case .manualMerge(let id), .heldReplacement(let id), .statusUpgrade(let id): existing = id
+        case .manualAsk: existing = candidate.file.manualPicks[row.index]
+        default: existing = nil
+        }
+        if let id = existing.flatMap(UUID.init(uuidString:)) { operationIDs.append(id) }
+      }
+      let transferIDs = Set(newTransferIDs.filter { $0.key.file == candidate.file.id }.map(\.value))
+      let currency = header.balanceCurrency
+      let bankCalendar = CalendarContext(
+        timeZone: TimeZone(identifier: candidate.file.zoneID) ?? environment.calendar.timeZone)
+      let end = header.periodTo.map {
+        bankCalendar.startOfDay($0.adding(days: 1)).addingTimeInterval(-1)
+      }
+      let balance: AmountE4?
+      if let currency, let end {
+        balance = balances?.balance(BalanceKey(accountId: account, currency: currency), at: end)
+      } else {
+        balance = nil
+      }
+      if let review = StatementReview.make(
+        importID: candidate.id, accountID: account,
+        fileName: candidate.file.name, checks: preview.checks,
+        closingBalance: header.closingBalance, ledgerBalance: balance, currency: currency,
+        operationIDs: Array(Set(operationIDs)).sorted { $0.uuidString < $1.uuidString },
+        transferIDs: transferIDs.sorted { $0.uuidString < $1.uuidString })
+      {
+        reviews.append(review)
+      }
+    }
 
     // Rules to remember, one per answered group the person wants remembered.
     let rules = rulesToRemember(dataset: dataset)
@@ -838,6 +916,10 @@ final class StatementImportModel {
       created: created, upsert: PlanningRows(transfers: newTransfers), rewritten: rewritten,
       softDeleted: softDeleted, at: stamp)
     var settings: [String: String?] = [:]
+    if reviews != initialReviews {
+      guard let reviewText = try? StatementReview.encode(reviews) else { return false }
+      settings[StatementReview.settingsKey] = reviewText
+    }
     if usesUnsorted {
       change.upsert.categories = unsorted.made
       settings.merge(unsorted.settings) { _, new in new }
@@ -861,7 +943,7 @@ final class StatementImportModel {
         for rule in rules {
           guard store.addRule(rule) else { return false }
         }
-        return isEmpty || store.apply(change)
+        return (isEmpty && settings.isEmpty) || store.apply(change)
       })
     else { return false }
     outcome = made

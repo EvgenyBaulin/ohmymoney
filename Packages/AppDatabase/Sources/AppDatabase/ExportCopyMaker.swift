@@ -106,6 +106,9 @@ public struct ExportCopyMaker: Sendable {
   /// Applies the span of days and the hidden accounts to the open copy.
   static func cut(_ request: ExportCopyRequest, db: Database) throws {
     if case .period(let range) = request.scope {
+      // Totals of a complete statement cannot describe a copy cut to only some of its days.
+      try db.execute(
+        sql: "DELETE FROM settings WHERE key = ?", arguments: [StatementReview.settingsKey])
       // The day an operation is shown on, in the zone it was recorded in; a transfer has no zone
       // and is read in Moscow, as everywhere else.
       let outside = try CoreKit.Transaction.fetchAll(db)
@@ -117,7 +120,20 @@ public struct ExportCopyMaker: Sendable {
         .map(\.id.uuidString)
       try delete(ids: outsideTransfers, from: "transfers", db: db)
     }
-    if !request.includeHidden { try dropHiddenAccounts(db: db) }
+    if !request.includeHidden {
+      let hidden = Set(
+        try String.fetchAll(db, sql: "SELECT id FROM payment_methods WHERE hidden = 1")
+          .compactMap(UUID.init(uuidString:)))
+      if let text = try String.fetchOne(
+        db, sql: "SELECT value FROM settings WHERE key = ?",
+        arguments: [StatementReview.settingsKey])
+      {
+        let reviews = StatementReview.decode(text).filter { !hidden.contains($0.accountID) }
+        try SettingsRepository.set(
+          StatementReview.settingsKey, to: StatementReview.encode(reviews), in: db)
+      }
+      try dropHiddenAccounts(db: db)
+    }
     if !request.includeAttachments { try db.execute(sql: "DELETE FROM attachments") }
   }
 

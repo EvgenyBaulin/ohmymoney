@@ -90,6 +90,56 @@ enum CalendarLayout {
   }
 }
 
+/// The phone's selection follows the period being browsed. It never falls back to today's
+/// empty card while a different month or week is on screen.
+struct PhoneCalendarState: Equatable {
+  var scope: CalendarScope = .month
+  private(set) var anchor: DateOnly?
+  private(set) var chosen: DateOnly?
+
+  var showsWeekList: Bool { scope == .week }
+
+  mutating func choose(_ day: DateOnly) {
+    chosen = day
+    anchor = day
+  }
+
+  mutating func changeScope(to scope: CalendarScope, today: DateOnly) {
+    self.scope = scope
+    anchor = chosen ?? anchor ?? today
+  }
+
+  mutating func step(in calendar: SpendingCalendar, by offset: Int) {
+    choose(SpendingCalendar.step(calendar.anchor, scope: scope, by: offset))
+  }
+
+  mutating func showToday() {
+    anchor = nil
+    chosen = nil
+  }
+
+  func selected(in calendar: SpendingCalendar) -> SpendingCalendarDay? {
+    calendar.day(chosen ?? calendar.today) ?? calendar.day(calendar.anchor) ?? calendar.days.first
+  }
+
+  /// The seven chips around the selected day, including the neighbouring month at a boundary.
+  func chips(in calendar: SpendingCalendar) -> [SpendingCalendarDay] {
+    guard let selected = selected(in: calendar) else { return [] }
+    return calendar.weeks.first { $0.contains { $0.day == selected.day } } ?? []
+  }
+}
+
+enum PhoneCalendarDayTab: String, CaseIterable, Hashable {
+  case operations, plans
+
+  var titleKey: String {
+    switch self {
+    case .operations: "calendar.day.operations"
+    case .plans: "calendar.day.plans"
+    }
+  }
+}
+
 // MARK: - Words
 
 /// The words of the calendar, from the Overview catalog, apart from the views so a test reads

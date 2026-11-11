@@ -33,6 +33,19 @@ struct CalendarView: View {
   private func t(_ key: String) -> String { CalendarText.t(key, environment) }
 
   var body: some View {
+    #if os(iOS)
+      if LayoutIdiom.resolved(idiom) == .phone {
+        PhoneCalendarView(actions: actions)
+      } else {
+        sharedCalendar
+      }
+    #else
+      sharedCalendar
+    #endif
+  }
+
+  @ViewBuilder
+  private var sharedCalendar: some View {
     if let snapshot = compute.snapshot {
       content(snapshot)
     } else if let waiting = compute.states.data.waiting {
@@ -132,7 +145,7 @@ struct CalendarView: View {
     }
   }
 
-  /// «Месяц | Неделя»: the track of the frame on the Mac and a tablet, the same on a phone.
+  /// «Месяц | Неделя»: the track of the frame on the Mac and a tablet.
   private var scopeSwitch: some View {
     SectionSegments(
       options: [

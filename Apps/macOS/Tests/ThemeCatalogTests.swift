@@ -51,6 +51,34 @@ final class ThemeCatalogTests: XCTestCase {
     XCTAssertLessThan(ThemeColor(0x0000_0080).contrast(on: white), 7)
   }
 
+  func testRelativeLuminanceUsesLinearSRGBAndWCAGWeights() {
+    XCTAssertEqual(ThemeColor(0xFF00_00FF).relativeLuminance, 0.2126, accuracy: 0.000001)
+    XCTAssertEqual(ThemeColor(0x00FF_00FF).relativeLuminance, 0.7152, accuracy: 0.000001)
+    XCTAssertEqual(ThemeColor(0x0000_FFFF).relativeLuminance, 0.0722, accuracy: 0.000001)
+    XCTAssertEqual(ThemeColor(0x0A0A_0AFF).relativeLuminance, 10 / 255 / 12.92, accuracy: 0.000001)
+    XCTAssertEqual(ThemeColor(0x0B0B_0BFF).relativeLuminance, 0.003346536, accuracy: 0.000001)
+  }
+
+  func testTextAdjustmentKeepsReadableColoursAndDarkensOrLightensTheRest() {
+    let white = ThemeColor(0xFFFF_FFFF)
+    let black = ThemeColor(0x0000_00FF)
+    let red = ThemeColor(0xD030_20FF)
+    XCTAssertEqual(red.ensuringTextContrast(on: white), red)
+    for background in [white, black, ThemeColor(0x7777_77FF)] {
+      for text in [ThemeColor(0x9999_99FF), ThemeColor(0x2255_88FF), ThemeColor(0xAA44_2280)] {
+        let adjusted = text.ensuringTextContrast(on: background)
+        XCTAssertGreaterThanOrEqual(adjusted.contrast(on: background), 4.5)
+        XCTAssertEqual(adjusted.ensuringTextContrast(on: background), adjusted)
+      }
+    }
+    let gray = ThemeColor(0x9999_99FF)
+    XCTAssertLessThan(
+      gray.ensuringTextContrast(on: white).relativeLuminance, gray.relativeLuminance)
+    let dark = ThemeColor(0x3333_33FF)
+    XCTAssertGreaterThan(
+      dark.ensuringTextContrast(on: black).relativeLuminance, dark.relativeLuminance)
+  }
+
   /// WCAG AA for body text (4.5:1) on the page and on a card: primary and secondary text, the
   /// warning, the green and red of amounts and statuses, and the accent used as text.
   func testTextIsReadableOnEverySurfaceOfEveryTheme() {

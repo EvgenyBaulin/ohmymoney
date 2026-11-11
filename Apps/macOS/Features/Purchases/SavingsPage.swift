@@ -10,43 +10,42 @@ struct SavingsPage: View {
   private func t(_ key: String) -> String { PurchasesText.t(key, environment) }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 12) {
+    VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
       if page.savingsYear.count == 0 {
         Text(verbatim: t("purchases.savings.empty"))
-          .appFont(.callout)
+          .appFont(SectionType.rowDetail)
           .foregroundStyle(.secondary)
           .fixedSize(horizontal: false, vertical: true)
-          .contentCard()
+          .sectionCard()
           .accessibilityIdentifier("purchases.savings.empty")
       } else {
-        figure(t("purchases.savings.month"), page.savingsMonth)
-          .accessibilityIdentifier("purchases.savings.month")
-        figure(t("purchases.savings.year"), page.savingsYear)
-          .accessibilityIdentifier("purchases.savings.year")
-        VStack(alignment: .leading, spacing: 6) {
-          Text(verbatim: t("purchases.savings.byMonth")).appFont(.headline)
-          ForEach(page.savingsYear.months.reversed(), id: \.self) { month in
-            HStack {
-              Text(verbatim: environment.dates.monthTitle(month))
-              Spacer()
-              Text(
-                verbatim: environment.money.rounded(page.savingsYear.byMonth[month] ?? .zero)
-              )
-              .monospacedDigit()
-            }
-            .appFont(.callout)
+        PurchasesTwoColumns {
+          figure(t("purchases.savings.month"), page.savingsMonth)
+            .accessibilityIdentifier("purchases.savings.month")
+          figure(t("purchases.savings.year"), page.savingsYear)
+            .accessibilityIdentifier("purchases.savings.year")
+        } right: {
+          Text(verbatim: t("purchases.savings.byMonth"))
+            .appFont(PurchasesType.groupTitle)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityAddTraits(.isHeader)
+          let months = Array(page.savingsYear.months.reversed())
+          PurchasesListCard(count: months.count) { index in
+            PurchasesRow(
+              symbol: nil, title: environment.dates.monthTitle(months[index]),
+              figure: environment.money.rounded(
+                page.savingsYear.byMonth[months[index]] ?? .zero))
           }
         }
-        .contentCard()
       }
     }
   }
 
   private func figure(_ title: String, _ savings: DiscountSavings) -> some View {
-    VStack(alignment: .leading, spacing: 4) {
-      Text(verbatim: title).appFont(.caption).foregroundStyle(.secondary)
+    PurchasesFactCard(gap: PurchasesMetrics.totalGap) {
+      Text(verbatim: title).appFont(PurchasesType.fieldLabel).foregroundStyle(.secondary)
       Text(verbatim: PurchasesText.savings(savings, environment))
-        .appFont(.title2.monospacedDigit())
+        .appFont(PurchasesType.totalFigure)
       Text(
         verbatim: PurchasesText.count("purchases.savings.count", environment, savings.count)
           + (savings.count > 0
@@ -56,10 +55,8 @@ struct SavingsPage: View {
                 PurchasesText.percent(savings.shareBp / 100, environment))
             : "")
       )
-      .appFont(.caption.monospacedDigit())
+      .appFont(PurchasesType.fieldLabel)
       .foregroundStyle(.secondary)
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .contentCard()
   }
 }
