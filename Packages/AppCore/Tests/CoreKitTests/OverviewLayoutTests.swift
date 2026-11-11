@@ -10,6 +10,23 @@ import Testing
 struct OverviewLayoutTests {
   private let all = Set(OverviewTile.allCases)
 
+  @Test func macDefaultHasExactlyTheTilesAndDebtPairOfTheFrame() {
+    let layout = OverviewLayout.macDefault
+    #expect(isWhole(layout))
+    #expect(layout.groups == [.money, .plan, .analysis])
+    #expect(
+      layout.cells(in: .money, facts: .none) == [
+        .single(.monthToDate), .single(.freeMoney), .single(.canSave), .pair(.owedToMe, .iOwe),
+      ])
+    #expect(layout.shownTiles(in: .plan) == [.upcoming, .limits, .monthRest])
+    #expect(layout.shownTiles(in: .analysis) == [.topCategories, .qualities])
+    #expect(layout.shown.count == 10)
+    #expect(layout.auto.isEmpty)
+    #expect(layout.partner(of: .iOwe) == .owedToMe)
+    #expect(OverviewLayout.decode(layout.encode()) == layout)
+    #expect(layout.hidden == all.subtracting(layout.shown))
+  }
+
   /// Every tile is placed exactly once, and at least one is shown.
   private func isWhole(_ layout: OverviewLayout) -> Bool {
     let placed = layout.sections.flatMap(\.tiles)

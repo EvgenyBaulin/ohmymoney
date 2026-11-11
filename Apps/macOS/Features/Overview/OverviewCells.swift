@@ -77,13 +77,22 @@ extension OverviewScreen {
 
 // MARK: - A cell
 
-/// A place of the grid: one tile, or two compact tiles side by side — each its own card, half the
-/// cell wide. While editing a pair has «Разъединить» under it.
+/// A place of the grid: one tile, or two compact tiles side by side. The Mac's debt pair shares
+/// one card and a divider; editing keeps each tile's own controls and «Разъединить».
 struct OverviewCellView: View {
   @Dependency(\.environment) private var environment
   let cell: OverviewLayout.Cell
   let actions: OperationActions
   let screen: OverviewScreen
+  @Environment(\.layoutIdiom) private var idiom
+  @Environment(\.appTheme) private var theme
+
+  static func sharesCard(
+    _ cell: OverviewLayout.Cell, idiom: LayoutIdiom, editing: Bool
+  ) -> Bool {
+    guard idiom == .mac, !editing, case .pair(let first, let second) = cell else { return false }
+    return Set([first, second]) == Set([OverviewTile.owedToMe, .iOwe])
+  }
 
   var body: some View {
     switch cell {
@@ -91,11 +100,28 @@ struct OverviewCellView: View {
       OverviewTileFrame(tile: tile, actions: actions, screen: screen)
     case .pair(let first, let second):
       VStack(alignment: .leading, spacing: 6) {
-        HStack(alignment: .top, spacing: OverviewCard.pairSpacing) {
-          OverviewTileFrame(tile: first, actions: actions, screen: screen)
-          OverviewTileFrame(tile: second, actions: actions, screen: screen)
+        if Self.sharesCard(cell, idiom: LayoutIdiom.resolved(idiom), editing: screen.isEditing) {
+          HStack(alignment: .top, spacing: StyleMetrics.compactTilePadding) {
+            OverviewTileFrame(tile: first, actions: actions, screen: screen, embedded: true)
+              .frame(maxWidth: .infinity, alignment: .topLeading)
+            Divider()
+              .overlay(theme.borderHairline)
+              .accessibilityHidden(true)
+              .accessibilityIdentifier("overview.debts.divider")
+            OverviewTileFrame(tile: second, actions: actions, screen: screen, embedded: true)
+              .frame(maxWidth: .infinity, alignment: .topLeading)
+          }
+          .fixedSize(horizontal: false, vertical: true)
+          .contentCard(fillsHeight: true)
+          .accessibilityElement(children: .contain)
+          .accessibilityIdentifier("overview.debts")
+        } else {
+          HStack(alignment: .top, spacing: OverviewCard.pairSpacing) {
+            OverviewTileFrame(tile: first, actions: actions, screen: screen)
+            OverviewTileFrame(tile: second, actions: actions, screen: screen)
+          }
+          .fixedSize(horizontal: false, vertical: true)
         }
-        .fixedSize(horizontal: false, vertical: true)
         if screen.isEditing {
           HStack(spacing: 6) {
             Image(systemName: "link")

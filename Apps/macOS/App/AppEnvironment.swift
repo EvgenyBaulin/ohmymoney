@@ -287,13 +287,29 @@ public final class AppEnvironment {
   /// The key of `overviewCollapsed` in `UserDefaults`.
   nonisolated static let overviewCollapsedKey = "overview.collapsed"
 
+  /// The default for this platform, also used by «Сбросить» and the first-run seed.
+  nonisolated static var defaultOverviewLayout: OverviewLayout {
+    #if os(macOS)
+      .macDefault
+    #else
+      .standard
+    #endif
+  }
+
   /// The layout `UserDefaults` keeps; without one, the flat list of the builds before groups with
   /// every tile it lacks added at the end; without that either, the standard layout.
   nonisolated static func storedOverviewLayout(
     in defaults: UserDefaults = .standard
   ) -> OverviewLayout {
-    OverviewLayout.decode(defaults.string(forKey: overviewLayoutKey))
-      ?? OverviewLayout(tiles: OverviewTiles.decode(defaults.string(forKey: overviewTilesKey)))
+    if let layout = OverviewLayout.decode(defaults.string(forKey: overviewLayoutKey)) {
+      return layout
+    }
+    if let stored = defaults.string(forKey: overviewTilesKey),
+      !stored.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    {
+      return OverviewLayout(tiles: OverviewTiles.decode(stored))
+    }
+    return defaultOverviewLayout
   }
 
   /// The collapsed groups `UserDefaults` keeps.

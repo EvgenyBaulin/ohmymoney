@@ -43,6 +43,15 @@ struct FreeSumParts: Equatable {
       parts: parts)
   }
 
+  /// The Mac keeps three plates at most; goals remain an explicit deduction in a line below.
+  func plates(for idiom: LayoutIdiom) -> [Part] {
+    idiom == .mac ? parts.filter { $0.kind != .goals } : parts
+  }
+
+  func goalDeduction(for idiom: LayoutIdiom) -> AmountE4? {
+    idiom == .mac ? parts.first { $0.kind == .goals }?.amount : nil
+  }
+
   static let table = "Overview"
 
   static func labelKey(_ kind: Kind) -> String { "overview.parts.\(kind.rawValue)" }
@@ -51,7 +60,7 @@ struct FreeSumParts: Equatable {
   static let keys =
     [
       "overview.parts.title", "overview.parts.total", "overview.parts.perDay",
-      "overview.parts.perDayReserve",
+      "overview.parts.perDayReserve", "overview.parts.goalDeduction",
     ] + [Kind.accounts, .payments, .reserve, .goals].map(labelKey)
 }
 
@@ -62,6 +71,7 @@ struct OverviewFreeSumPartsCard: View {
   @Dependency(\.compute) private var compute
   @Environment(\.themeSurfaces) private var surfaces
   var fillsHeight = false
+  @Environment(\.layoutIdiom) private var idiom
 
   var body: some View {
     if let snapshot = compute.snapshot,
@@ -84,6 +94,16 @@ struct OverviewFreeSumPartsCard: View {
           plates(parts, width: nil)
         }
         .padding(.vertical, StyleMetrics.partsVertical)
+        if let deduction = parts.goalDeduction(for: LayoutIdiom.resolved(idiom)) {
+          Text(
+            verbatim: environment.format(
+              "overview.parts.goalDeduction", table: FreeSumParts.table,
+              environment.money.rounded(-deduction))
+          )
+          .appFont(StyleType.tileHint.monospacedDigit())
+          .foregroundStyle(surfaces.secondary)
+          .accessibilityIdentifier("overview.parts.goalDeduction")
+        }
       }
       .contentCard(fillsHeight: fillsHeight)
       .accessibilityElement(children: .contain)
@@ -94,10 +114,12 @@ struct OverviewFreeSumPartsCard: View {
   /// The plates side by side: 160 pt each where the card holds them, else sharing its width.
   private func plates(_ parts: FreeSumParts, width: CGFloat?) -> some View {
     HStack(alignment: .top, spacing: StyleMetrics.partGap) {
-      ForEach(parts.parts, id: \.kind) { part in
+      ForEach(parts.plates(for: LayoutIdiom.resolved(idiom)), id: \.kind) { part in
         Plate(
           figure: environment.money.rounded(part.amount),
-          label: t(FreeSumParts.labelKey(part.kind)), width: width)
+          label: t(FreeSumParts.labelKey(part.kind)), width: width
+        )
+        .accessibilityIdentifier("overview.parts.plate.\(part.kind.rawValue)")
       }
     }
   }

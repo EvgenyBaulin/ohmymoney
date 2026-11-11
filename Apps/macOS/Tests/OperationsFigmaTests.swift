@@ -211,6 +211,32 @@ final class OperationsFigmaTests: XCTestCase {
     XCTAssertEqual(filters.period, .allTime, "past the current month is the whole history")
   }
 
+  func testMonthNavigationKeepsSearchAndOtherFilters() {
+    let state = OperationsScreenState()
+    XCTAssertEqual(state.filters.period, .allTime)
+    XCTAssertEqual(OperationsMonth.otherFilters(state.filters), 0)
+    var filters = TransactionFilters(today: today)
+    filters.search = "кофе"
+    filters.setKind(.expense, tree: [])
+    filters.quality = .bad
+    filters.placeId = UUID()
+    let original = filters
+    for _ in 0..<3 { OperationsMonth.back(&filters, today: today) }
+    XCTAssertEqual(filters.period, .custom)
+    XCTAssertEqual(filters.search, original.search)
+    XCTAssertEqual(filters.kind, original.kind)
+    XCTAssertEqual(filters.quality, original.quality)
+    XCTAssertEqual(filters.placeId, original.placeId)
+    XCTAssertEqual(OperationsMonth.otherFilters(filters), 2)
+    for _ in 0..<3 { OperationsMonth.forward(&filters, today: today) }
+    XCTAssertEqual(filters.period, .allTime)
+    XCTAssertEqual(filters.search, original.search)
+    XCTAssertEqual(filters.kind, original.kind)
+    XCTAssertEqual(filters.quality, original.quality)
+    XCTAssertEqual(filters.placeId, original.placeId)
+    XCTAssertEqual(OperationsMonth.otherFilters(filters), 2)
+  }
+
   /// February of a leap year ends on the 29th; a custom range that is not a whole month is no
   /// month, and ‹ from it shows the current one.
   func testOnlyAWholeMonthIsAMonth() {
@@ -277,6 +303,11 @@ final class OperationsFigmaTests: XCTestCase {
         RowTotals(myExpenses: AmountE4(whole: 1_419), income: AmountE4(whole: 120_000)),
         money: money),
       "+118,581\u{00A0}₽")
+    let mixed = RowTotals(
+      myExpenses: AmountE4(whole: 5_000), income: AmountE4(whole: 8_000),
+      forOthers: AmountE4(whole: 2_000), moneyReturned: AmountE4(whole: 500))
+    XCTAssertEqual(mixed.net, AmountE4(whole: 1_500))
+    XCTAssertEqual(OperationDayHead.figure(mixed, money: money), "+1,500\u{00A0}₽")
     XCTAssertNil(OperationDayHead.figure(.zero, money: money))
   }
 
@@ -307,10 +338,18 @@ final class OperationsFigmaTests: XCTestCase {
   }
 
   private func makeWindow(width: CGFloat, height: CGFloat) throws -> NSWindow {
-    let cafe = CoreKit.Category(kind: .expense, name: "Кафе", quality: .neutral)
-    let food = CoreKit.Category(kind: .expense, name: "Продукты", quality: .neutral)
-    let ride = CoreKit.Category(kind: .expense, name: "Транспорт", quality: .neutral)
-    let work = CoreKit.Category(kind: .income, name: "Заработок", quality: .neutral)
+    let cafe = CoreKit.Category(
+      kind: .expense, name: "Кафе", quality: .neutral,
+      appearance: CategoryAppearance(icon: "cup.and.saucer", color: "tone1"))
+    let food = CoreKit.Category(
+      kind: .expense, name: "Продукты", quality: .neutral,
+      appearance: CategoryAppearance(icon: "cart", color: "tone2"))
+    let ride = CoreKit.Category(
+      kind: .expense, name: "Транспорт", quality: .neutral,
+      appearance: CategoryAppearance(icon: "car", color: "tone3"))
+    let work = CoreKit.Category(
+      kind: .income, name: "Заработок", quality: .neutral,
+      appearance: CategoryAppearance(icon: "briefcase", color: "tone4"))
     let entries = [
       try operation("Кофе", daysAgo: 0, hour: 14, amount: 250, category: cafe),
       try operation("Магнит", daysAgo: 0, hour: 13, amount: 1_840, category: food),
@@ -464,9 +503,73 @@ final class OperationsFigmaTests: XCTestCase {
       accuracy: 4, "the table starts 16 under the chips, inside the card's 4")
   }
 
+  func testTheMarkedCategoriesOfTheFrameKeepTheirSymbolsAndTonesInTheListing() throws {
+    let window = try makeWindow(width: 1_024, height: 768)
+    settle(window)
+    let snapshot = try XCTUnwrap(compute.snapshot)
+    let rows = TransactionListing.build(matching: .none, in: snapshot.ledger)
+      .sections.flatMap(\.rows)
+    XCTAssertEqual(rows.count, 6)
+    XCTAssertEqual(
+      rows.compactMap { $0.categoryMark?.icon }.sorted(),
+      ["briefcase", "car", "cart", "cart", "cup.and.saucer", "cup.and.saucer"])
+    XCTAssertEqual(
+      rows.compactMap { $0.categoryMark?.tone.key }.sorted(),
+      ["tone1", "tone1", "tone2", "tone2", "tone3", "tone4"])
+    let table = try operationsTable(in: window)
+    XCTAssertEqual(
+      table.rect(ofRow: 1).height, OperationsMetrics.rowVertical * 2 + OperationsMetrics.badge,
+      accuracy: 1, "category marks keep the frame's 50-point rows")
+  }
+
+  func testTheVisibleMonthCapsuleStartsAtAllTimeAndReturnsToIt() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    let window = try makeWindow(width: 1_024, height: 768)
+    settle(window)
+    let root = try XCTUnwrap(window.contentView)
+    func element(_ id: String) -> AnyObject? {
+      Self.element(in: root) { $0.accessibilityIdentifier?() == id }
+    }
+    func expectTitle(_ expected: String) throws {
+      let deadline = Date().addingTimeInterval(5)
+      var actual: String?
+      repeat {
+        // Called by selector: on an untyped node `accessibilityValue` is ambiguous in Swift.
+        let month = element("operations.month") as? NSObject
+        actual =
+          Self.text(month, "accessibilityValue") ?? Self.text(month, "accessibilityLabel")
+          ?? Self.text(month, "accessibilityTitle")
+        if actual == expected { break }
+        settle(window, passes: 2)
+      } while Date() < deadline
+      XCTAssertEqual(actual, expected)
+      XCTAssertNil(element("operations.filters"), "period and kind need no extra filters chip")
+    }
+    try expectTitle("Всё время")
+    let back = try XCTUnwrap(element("operations.month.back"))
+    let forward = try XCTUnwrap(element("operations.month.forward"))
+    let forwardObject = try XCTUnwrap(forward as? NSObject)
+    XCTAssertEqual(
+      WindowAccessibility.attribute(forwardObject, "isAccessibilityEnabled") as? Bool, false)
+    _ = back.accessibilityPerformPress?()
+    try expectTitle(environment.dates.monthTitle(environment.today.monthKey))
+    _ = back.accessibilityPerformPress?()
+    try expectTitle(environment.dates.monthTitle(environment.today.monthKey.previous))
+    _ = forward.accessibilityPerformPress?()
+    try expectTitle(environment.dates.monthTitle(environment.today.monthKey))
+    _ = forward.accessibilityPerformPress?()
+    try expectTitle("Всё время")
+  }
+
   private static func allSubviews<V: NSView>(of view: NSView, into found: inout [V]) {
     if let match = view as? V { found.append(match) }
     for subview in view.subviews { allSubviews(of: subview, into: &found) }
+  }
+
+  private static func text(_ node: NSObject?, _ getter: String) -> String? {
+    let selector = NSSelectorFromString(getter)
+    guard let node, node.responds(to: selector) else { return nil }
+    return node.perform(selector)?.takeUnretainedValue() as? String
   }
 
   private static func element(

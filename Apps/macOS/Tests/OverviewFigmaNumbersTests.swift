@@ -31,6 +31,45 @@ final class OverviewFigmaNumbersTests: XCTestCase {
     #endif
   }
 
+  func testTheNarrowMacFrameUses22PointMarginsAnd12PointGaps() {
+    let narrow = OverviewPageMetrics.of(.mac, columns: nil, windowWidth: 1_024)
+    XCTAssertEqual(narrow.side, 22)
+    XCTAssertEqual(narrow.columnGap, 12)
+    let content: CGFloat = 1_024 - 232 - 2 - 2 * 22
+    XCTAssertEqual(content, 746)
+    XCTAssertEqual(OverviewCard.columns(forWidth: content, gap: narrow.columnGap), 2)
+    XCTAssertEqual(OverviewCard.tileWidth(in: content, columns: 2, gap: narrow.columnGap), 367)
+    XCTAssertEqual(OverviewCard.width(of: 1, in: content, columns: 2, gap: 12), 367)
+    XCTAssertEqual(OverviewPageMetrics.of(.mac, columns: nil, windowWidth: 1_440), .mac)
+    XCTAssertEqual(OverviewPageMetrics.of(.phone, columns: nil, windowWidth: 1_024), .phone)
+    XCTAssertEqual(OverviewPageMetrics.of(.pad, columns: 2, windowWidth: 1_024).side, 24)
+  }
+
+  func testTheMoneyHeadingIsOnlyShownWhileEditingOnMac() {
+    for editing in [false, true] {
+      XCTAssertEqual(OverviewScreen.showsGroupName(.money, editing: editing, idiom: .mac), editing)
+      for group in [OverviewTileGroup.plan, .analysis] {
+        XCTAssertTrue(OverviewScreen.showsGroupName(group, editing: editing, idiom: .mac))
+      }
+      XCTAssertTrue(OverviewScreen.showsGroupName(.money, editing: editing, idiom: .pad))
+      XCTAssertTrue(OverviewScreen.showsGroupName(.money, editing: editing, idiom: .phone))
+    }
+  }
+
+  func testTheMacDebtPairSharesOneCardOnlyOutsideEditing() {
+    let pair = OverviewLayout.Cell.pair(.owedToMe, .iOwe)
+    XCTAssertTrue(OverviewCellView.sharesCard(pair, idiom: .mac, editing: false))
+    XCTAssertTrue(OverviewCellView.sharesCard(.pair(.iOwe, .owedToMe), idiom: .mac, editing: false))
+    XCTAssertFalse(OverviewCellView.sharesCard(pair, idiom: .mac, editing: true))
+    XCTAssertFalse(OverviewCellView.sharesCard(pair, idiom: .phone, editing: false))
+    XCTAssertFalse(OverviewCellView.sharesCard(pair, idiom: .pad, editing: false))
+    XCTAssertFalse(
+      OverviewCellView.sharesCard(.pair(.backups, .integrity), idiom: .mac, editing: false))
+    XCTAssertFalse(OverviewCellView.sharesCard(.single(.owedToMe), idiom: .mac, editing: false))
+    XCTAssertTrue(OverviewScreen.laysOut(.money, collapsed: [.money], editing: false, idiom: .mac))
+    XCTAssertFalse(OverviewScreen.laysOut(.plan, collapsed: [.plan], editing: false, idiom: .mac))
+  }
+
   /// Four tiles of 277 with three gaps of 14 fill the 1,150 of content; the limits, the card of
   /// the sum and «Что сделать сейчас» take two of them — 568.
   func testFourTilesOf277FillTheContentOfTheFrame() {
@@ -197,14 +236,18 @@ final class OverviewFigmaNumbersTests: XCTestCase {
     XCTAssertNil(OverviewGridItem.doNowGroup(in: [.money]) { _ in false })
   }
 
-  private func freeSum(now: Int64, scheduled: Int64, debts: Int64, cushion: Int64) -> FreeMoney {
+  private func freeSum(
+    now: Int64, scheduled: Int64, debts: Int64, cushion: Int64, goals: Int64 = 0
+  ) -> FreeMoney {
     let today = DateOnly(year: 2026, month: 11, day: 10)
     let accounts = AccountsSnapshot(
       sections: [], inSummaryTotalRub: AmountE4(whole: now), unanchored: [], withoutRate: [],
       balances: .empty)
     return FreeMoney(
       accounts: accounts,
-      plan: CashPlan(scheduled: AmountE4(whole: scheduled), debts: AmountE4(whole: debts)),
+      plan: CashPlan(
+        scheduled: AmountE4(whole: scheduled), debts: AmountE4(whole: debts),
+        goalSavings: AmountE4(whole: goals)),
       stillExpected: .zero, today: today, until: today.adding(days: 29),
       cushion: AmountE4(whole: cushion))
   }
@@ -232,6 +275,27 @@ final class OverviewFigmaNumbersTests: XCTestCase {
       FreeSumParts.make(freeSum(now: 50_000, scheduled: 10_000, debts: 0, cushion: 0)))
     XCTAssertEqual(parts.parts.map(\.kind), [.accounts, .payments])
     XCTAssertEqual(parts.total, AmountE4(whole: 40_000))
+  }
+
+  func testGoalsAreDeductedWithoutAnExtraPlateOnMac() throws {
+    let parts = try XCTUnwrap(
+      FreeSumParts.make(
+        freeSum(now: 126_400, scheduled: 50_400, debts: 18_400, cushion: 16_000, goals: 6_000)))
+    XCTAssertEqual(parts.total, AmountE4(whole: 35_600))
+    XCTAssertEqual(parts.parts.reduce(AmountE4.zero) { $0 + $1.amount }, parts.total)
+    XCTAssertEqual(parts.plates(for: .mac).map(\.kind), [.accounts, .payments, .reserve])
+    XCTAssertEqual(parts.goalDeduction(for: .mac), AmountE4(whole: -6_000))
+    XCTAssertEqual(
+      parts.plates(for: .mac).reduce(AmountE4.zero) { $0 + $1.amount }
+        + (parts.goalDeduction(for: .mac) ?? .zero), parts.total)
+    XCTAssertEqual(parts.plates(for: .phone), parts.parts)
+    XCTAssertNil(parts.goalDeduction(for: .phone))
+    XCTAssertEqual(parts.plates(for: .pad), parts.parts)
+    XCTAssertNil(parts.goalDeduction(for: .pad))
+    let withoutGoals = try XCTUnwrap(
+      FreeSumParts.make(
+        freeSum(now: 50_000, scheduled: 10_000, debts: 0, cushion: 0)))
+    XCTAssertNil(withoutGoals.goalDeduction(for: .mac))
   }
 
   func testThePartsWaitForACountedFreeSum() {

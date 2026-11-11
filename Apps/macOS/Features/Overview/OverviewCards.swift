@@ -11,11 +11,13 @@ enum OverviewCard {
   /// 1,150 pt of content of a 1,440 pt window, two in the 748 pt of a 1,024 pt one, one below
   /// 568. A larger text needs wider tiles, so the narrowest tile grows with the body size (17 pt
   /// of «Очень крупный» against 13).
-  static func columns(forWidth width: CGFloat, fontSize: AppFontSize = .regular) -> Int {
+  static func columns(
+    forWidth width: CGFloat, fontSize: AppFontSize = .regular, gap: CGFloat = columnGap
+  ) -> Int {
     let scale = max(
       1, (fontSize.bodyPoints ?? AppFontSize.regularBodyPoints) / AppFontSize.regularBodyPoints)
     let tile = StyleMetrics.tileMinWidth * scale
-    let fitting = Int(((width + columnGap) / (tile + columnGap)).rounded(.down))
+    let fitting = Int(((width + gap) / (tile + gap)).rounded(.down))
     return min(maxColumns, max(1, fitting))
   }
 
@@ -31,15 +33,19 @@ enum OverviewCard {
   static var rowGap: CGFloat { OverviewView.platformMetrics.rowGap }
 
   /// The width of a place `span` columns wide: its tiles and the gaps between them.
-  static func width(of span: Int, in width: CGFloat, columns: Int) -> CGFloat {
+  static func width(
+    of span: Int, in width: CGFloat, columns: Int, gap: CGFloat = columnGap
+  ) -> CGFloat {
     let span = CGFloat(min(max(1, span), max(1, columns)))
-    return tileWidth(in: width, columns: columns) * span + columnGap * (span - 1)
+    return tileWidth(in: width, columns: columns, gap: gap) * span + gap * (span - 1)
   }
 
   /// The width of each of `columns` tiles in `width` of content.
-  static func tileWidth(in width: CGFloat, columns: Int) -> CGFloat {
+  static func tileWidth(
+    in width: CGFloat, columns: Int, gap: CGFloat = columnGap
+  ) -> CGFloat {
     let count = CGFloat(max(1, columns))
-    return (width - columnGap * (count - 1)) / count
+    return (width - gap * (count - 1)) / count
   }
 
   /// The tiles in rows of `columns`, in order.
@@ -56,12 +62,18 @@ struct OverviewCardView: View {
   let actions: OperationActions
   /// The tile is compact: one figure and a caption (`OverviewLayout.isCompact`).
   var compact = false
+  var embedded = false
 
   var body: some View {
     if compact, OverviewCatalog.canBeCompact(tile) {
       // A compact tile is titled grey 11 over its figure, as one half of a pair is drawn.
-      OverviewNewCardView(tile: tile, compact: true)
-        .environment(\.tileIsCompact, true)
+      if embedded {
+        FigureTileCard(tile: tile, compact: true, embedded: true)
+          .environment(\.tileIsCompact, true)
+      } else {
+        OverviewNewCardView(tile: tile, compact: true)
+          .environment(\.tileIsCompact, true)
+      }
     } else {
       regular
     }

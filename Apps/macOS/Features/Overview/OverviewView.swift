@@ -55,6 +55,7 @@ struct OverviewView: View {
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.layoutIdiom) private var idiom
   @Environment(\.overviewColumnsOverride) private var columnsOverride
+  @Environment(\.windowWidth) private var windowWidth
   let actions: OperationActions
   /// Editing or not, and the tile whose «Почему так» is open.
   @State private var screen: OverviewScreen
@@ -69,7 +70,7 @@ struct OverviewView: View {
     #endif
   }
 
-  /// The margin of the page: 16 on a phone, 28 on the Mac and a tablet.
+  /// The master margin: 16 on a phone, 28 on the Mac and a tablet; the narrow Mac uses 22.
   static var sideMargin: CGFloat { platformMetrics.side }
   /// The margins above and below the page.
   static var topMargin: CGFloat { platformMetrics.top }
@@ -85,7 +86,8 @@ struct OverviewView: View {
   }
 
   var body: some View {
-    let metrics = OverviewPageMetrics.of(LayoutIdiom.resolved(idiom), columns: columnsOverride)
+    let metrics = OverviewPageMetrics.of(
+      LayoutIdiom.resolved(idiom), columns: columnsOverride, windowWidth: windowWidth)
     ScrollView {
       OverviewHeader(actions: actions, screen: screen)
         .padding(.horizontal, metrics.side)
@@ -93,7 +95,8 @@ struct OverviewView: View {
         .padding(.bottom, metrics.bottom)
         // A phone's and a tablet's frames write the type of the tiles in the Mac's points,
         // the words without a font of their own too.
-        .modifier(OverviewDesignType(on: metrics != .mac))
+        .modifier(OverviewDesignType(on: LayoutIdiom.resolved(idiom) != .mac))
+        .environment(\.overviewPageMetrics, metrics)
     }
     .background(surfaces.background)
     .onAppear(perform: followData)
@@ -135,14 +138,13 @@ struct OverviewView: View {
 /// and only while the setup is put off: it is no cell of a grid, so once the setup is done no
 /// empty row is left behind.
 ///
-/// Above everything, «Последняя запись» and «Изменить»: when the owner last wrote something down
-/// says whether the figures under it are up to date, so it comes before them — the bottom of the
-/// grid is often out of view.
+/// The edit controls stand above the main card; the Mac keeps no last-record line here.
 private struct OverviewHeader: View {
   @Dependency(\.environment) private var environment
   @Environment(\.overviewTitleRow) private var titleRow
   @Environment(\.overviewColumnsOverride) private var columnsOverride
   @Environment(\.overviewRoom) private var room
+  @Environment(\.overviewPageMetrics) private var pageMetrics
   @Environment(\.appFontSize) private var fontSize
   @Environment(\.layoutIdiom) private var idiom
   @Dependency(\.compute) private var compute
@@ -151,7 +153,7 @@ private struct OverviewHeader: View {
   @State private var measured: CGFloat = 0
 
   private var metrics: OverviewPageMetrics {
-    .of(LayoutIdiom.resolved(idiom), columns: columnsOverride)
+    pageMetrics ?? .of(LayoutIdiom.resolved(idiom), columns: columnsOverride)
   }
 
   /// The room the page has: the host's, less the margins, else the measured width.
@@ -160,7 +162,9 @@ private struct OverviewHeader: View {
   }
 
   var body: some View {
-    let columns = columnsOverride ?? OverviewCard.columns(forWidth: width, fontSize: fontSize)
+    let columns =
+      columnsOverride
+      ?? OverviewCard.columns(forWidth: width, fontSize: fontSize, gap: metrics.columnGap)
     // A tablet lays «Что сделать сейчас» with the main card: beside it, or under it.
     let doNowWithMain =
       metrics.doNowWithMain
