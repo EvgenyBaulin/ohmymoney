@@ -10,6 +10,8 @@ public enum SyncFailure: Error, Sendable, Equatable {
   case folderMissing
   case folderNotReadable
   case folderNotWritable
+  /// A journal cannot be decoded or authenticated. It remains in the folder for retry.
+  case filesNotReadable
   /// The local database refused. The books are as they were.
   case database
 
@@ -18,6 +20,7 @@ public enum SyncFailure: Error, Sendable, Equatable {
     case .folderMissing: "folder-missing"
     case .folderNotReadable: "folder-unreadable"
     case .folderNotWritable: "folder-readonly"
+    case .filesNotReadable: "files-unreadable"
     case .database: "database"
     }
   }
@@ -110,12 +113,20 @@ public final class SyncExchange: Sendable {
   private let store: DatabaseSyncStateStore
   private let applier: DatabaseRecordApplier
   private let maxEntriesPerFile = 5_000
+  let snapshotCodec: any PayloadCodec
+  private let journalCodec: any PayloadCodec
 
-  public init(writer: any DatabaseWriter, deviceId: String, deviceName: String) throws {
+  public init(
+    writer: any DatabaseWriter, deviceId: String, deviceName: String,
+    journalCodec: any PayloadCodec = IdentityCodec(),
+    snapshotCodec: any PayloadCodec = IdentityCodec()
+  ) throws {
     guard SyncDevice.isValid(id: deviceId) else { throw SyncError.malformed }
     self.writer = writer
     self.deviceId = deviceId
     self.deviceName = deviceName
+    self.journalCodec = journalCodec
+    self.snapshotCodec = snapshotCodec
     self.store = DatabaseSyncStateStore(writer: writer)
     self.applier = DatabaseRecordApplier(writer: writer, ownDeviceId: deviceId)
   }
@@ -178,7 +189,7 @@ public final class SyncExchange: Sendable {
       if planned.consumedUpTo > 0 { try retire(planned) }
       return 0
     }
-    let journal = JournalWriter(deviceId: deviceId, deviceName: deviceName)
+    let journal = JournalWriter(deviceId: deviceId, deviceName: deviceName, codec: journalCodec)
     var index = 0
     while index < planned.entries.count {
       let end = min(index + maxEntriesPerFile, planned.entries.count)
@@ -309,7 +320,8 @@ public final class SyncExchange: Sendable {
   }
 
   private func run(_ folder: any JournalFolder) throws -> SyncReport {
-    try SyncRun(ownDeviceId: deviceId).run(folder: folder, applier: applier, store: store)
+    try SyncRun(ownDeviceId: deviceId, codec: journalCodec)
+      .run(folder: folder, applier: applier, store: store)
   }
 
   private func offerDeferredAgain() throws {
@@ -320,6 +332,7 @@ public final class SyncExchange: Sendable {
 
   private static func failure(of error: any Error, watched: WatchedFolder) -> SyncFailure {
     if let failure = error as? SyncFailure { return failure }
+    if let error = error as? SyncError, error == .codec { return .filesNotReadable }
     if let folderError = watched.firstError ?? (error as? SyncFolderError) {
       switch folderError as? SyncFolderError {
       case .missing: return .folderMissing

@@ -31,6 +31,7 @@ final class SyncCoordinator {
   private let protectedFolders: @Sendable () -> [URL]
   private let notifier: any SyncNotifying
   private let defaults: UserDefaults
+  private let snapshotCodec: any PayloadCodec
   private var isRunning = false
   private var isStopped = false
   private var debounce: Task<Void, Never>?
@@ -44,13 +45,15 @@ final class SyncCoordinator {
     exchange: SyncExchange?,
     bookmarks: BookmarkStore = BookmarkStore(key: SyncCoordinator.folderKey),
     protectedFolders: @escaping @Sendable () -> [URL] = { [] },
-    notifier: any SyncNotifying = SystemSyncNotifier(), defaults: UserDefaults = .standard
+    notifier: any SyncNotifying = SystemSyncNotifier(), defaults: UserDefaults = .standard,
+    snapshotCodec: any PayloadCodec = IdentityCodec()
   ) {
     self.exchange = exchange
     self.bookmarks = bookmarks
     self.protectedFolders = protectedFolders
     self.notifier = notifier
     self.defaults = defaults
+    self.snapshotCodec = snapshotCodec
     self.status = .notConfigured
     refreshFolderName()
   }
@@ -58,6 +61,11 @@ final class SyncCoordinator {
   /// Whether this database exchanges at all.
   var isAvailable: Bool { exchange != nil }
   var hasFolder: Bool { bookmarks.isStored }
+  /// A recovery-key change must wait until all files of the current exchange are finished.
+  var isUsingPayloadKey: Bool {
+    if case .loading = bootstrap { return true }
+    return isRunning
+  }
 
   // MARK: Folder
 
@@ -253,7 +261,11 @@ final class SyncCoordinator {
       }
       lastOutcome = outcome
       conflicts = (try? exchange.conflicts()) ?? conflicts
-      status = .synced(at: Date())
+      if outcome.filesDamaged > 0 || outcome.filesFromNewerVersion > 0 {
+        fail(.filesNotReadable)
+      } else {
+        status = .synced(at: Date())
+      }
       if conflicts.count > before { announceConflicts() }
     case .failure(let error):
       fail((error as? SyncFailure) ?? .database, error: error)
@@ -313,8 +325,10 @@ final class SyncCoordinator {
       }
       .value
       guard let found else { return .noSnapshot }
+      let codec = snapshotCodec
       try await Task.detached {
-        try SyncSnapshots.fetchVerified(found, from: folder, to: fetched, schema: schema)
+        try SyncSnapshots.fetchVerified(
+          found, from: folder, to: fetched, schema: schema, codec: codec)
       }.value
       try await BackupRestoreFlow.stage(copy: fetched, backups: backups, target: target)
     } catch let error as SyncSnapshotError {

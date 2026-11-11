@@ -1417,6 +1417,23 @@
           }
         }
       }
+    },
+    "sync.error.filesNotReadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange files could not be encrypted or read. Create a key on your first device or enter its 24 recovery words on other devices. Update OhMyMoney on all devices, then try again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось зашифровать или прочитать файлы обмена. На первом устройстве создайте ключ, на других введите его 24 слова восстановления. Обновите OhMyMoney на всех устройствах и повторите обмен."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

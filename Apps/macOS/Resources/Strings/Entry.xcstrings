@@ -4628,6 +4628,91 @@
           }
         }
       }
+    },
+    "entry.dictation.start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dictate on this device"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Диктовать на устройстве"
+          }
+        }
+      }
+    },
+    "entry.dictation.stop": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop dictation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Остановить диктовку"
+          }
+        }
+      }
+    },
+    "entry.dictation.listening": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listening… Tap stop or pause to finish."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слушаю… Нажмите стоп или сделайте паузу."
+          }
+        }
+      }
+    },
+    "entry.dictation.denied": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow microphone and speech recognition access for OhMyMoney in system privacy settings. You can keep typing."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешите OhMyMoney доступ к микрофону и распознаванию речи в настройках конфиденциальности системы. Можно продолжать вводить текст вручную."
+          }
+        }
+      }
+    },
+    "entry.dictation.unavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On-device dictation is unavailable. Check the microphone and the offline speech model for the interface language in system settings. You can keep typing; cloud recognition is never used."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Диктовка на устройстве недоступна. Проверьте микрофон и офлайн-модель речи для языка интерфейса в настройках системы. Можно вводить текст вручную; облачное распознавание не используется."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

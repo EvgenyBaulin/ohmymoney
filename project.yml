@@ -94,6 +94,7 @@ targets:
         product: Sparkle
       # The preview of an archive in Finder, embedded in Contents/PlugIns.
       - target: OhMyMoney-QuickLook
+      - target: OhMyMoney-Share
     settings:
       base:
         PRODUCT_NAME: OhMyMoney
@@ -188,6 +189,64 @@ targets:
           # Inside the Debug app, whose id it has to start with.
           PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney.debug.quicklook
 
+  OhMyMoney-Share:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: Apps/ShareExtension
+        excludes: ["*.plist", "*.entitlements"]
+      - path: Apps/macOS/Platform/Sharing/ShareInbox.swift
+      - path: Apps/macOS/Resources/Strings/ShareImport.xcstrings
+    dependencies:
+      - package: AppCore
+        product: AppCore
+    settings:
+      base:
+        PRODUCT_NAME: OhMyMoneyShare
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney.share
+        INFOPLIST_FILE: Apps/ShareExtension/macOS-Info.plist
+        CODE_SIGN_ENTITLEMENTS: Apps/ShareExtension/Share.entitlements
+        APPLICATION_EXTENSION_API_ONLY: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        # App Group capabilities require the paid developer account. The extension is
+        # embedded and compiled now, but is not offered by the system until then.
+        OHMYMONEY_SHARE_ACTIVATION_RULE: FALSEPREDICATE
+        SKIP_INSTALL: YES
+      configs:
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney.debug.share
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG"
+
+  OhMyMoney-Share-iOS:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Apps/ShareExtension
+        excludes: ["*.plist", "*.entitlements"]
+      - path: Apps/macOS/Platform/Sharing/ShareInbox.swift
+      - path: Apps/macOS/Resources/Strings/ShareImport.xcstrings
+    dependencies:
+      - package: AppCore
+        product: AppCore
+    settings:
+      base:
+        PRODUCT_NAME: OhMyMoneyShare
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney.share
+        INFOPLIST_FILE: Apps/ShareExtension/iOS-Info.plist
+        APPLICATION_EXTENSION_API_ONLY: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        OHMYMONEY_SHARE_ACTIVATION_RULE: FALSEPREDICATE
+        TARGETED_DEVICE_FAMILY: "1,2"
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+        SDKROOT: iphoneos
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SUPPORTS_MACCATALYST: NO
+        SKIP_INSTALL: YES
+      configs:
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: io.github.EvgenyBaulin.ohmymoney.debug.share
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG"
+
   OhMyMoney-iOS:
     type: application
     platform: iOS
@@ -231,6 +290,7 @@ targets:
         type: folder
         buildPhase: resources
     dependencies:
+      - target: OhMyMoney-Share-iOS
       - package: AppCore
         product: AppCore
       - package: AppCore
@@ -249,6 +309,8 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_NSFaceIDUsageDescription: Unlock OhMyMoney with Face ID.
         INFOPLIST_KEY_NSCameraUsageDescription: OhMyMoney reads the QR code of a cash receipt and photographs receipts and warranty cards with the camera.
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: OhMyMoney uses the microphone to dictate entries on this device.
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: OhMyMoney converts your speech into entry text on this device, without sending audio for cloud recognition.
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
         LOCALIZATION_PREFERS_STRING_CATALOGS: YES
@@ -272,7 +334,12 @@ targets:
       # Navigation and launch order are plain logic shared with the Mac; the Mac runs them too.
       - path: Apps/macOS/Tests/PhoneNavigationTests.swift
       - path: Apps/macOS/Tests/PhoneEntryGateTests.swift
+      - path: Apps/macOS/Tests/EntryDictationTests.swift
       - path: Apps/macOS/Tests/PadLayoutTests.swift
+      - path: Apps/macOS/Tests/ShareInboxTests.swift
+      - path: Apps/macOS/Tests/SyncEncryptionTests.swift
+      - path: Apps/macOS/Tests/SharedItemProviderReaderTests.swift
+      - path: Apps/ShareExtension/SharedItemProviderReader.swift
     dependencies:
       - target: OhMyMoney-iOS
       - package: AppCore
@@ -295,6 +362,7 @@ targets:
     platform: macOS
     sources:
       - path: Apps/macOS/Tests
+      - path: Apps/ShareExtension/SharedItemProviderReader.swift
       # The golden set of the core, compiled and bundled here too: the Analytics window is
       # checked against the same hand-computed history. The test reads the copy in its own
       # bundle, never the repository.

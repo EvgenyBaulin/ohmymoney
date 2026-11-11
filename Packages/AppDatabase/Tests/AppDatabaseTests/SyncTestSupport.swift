@@ -12,10 +12,16 @@ struct TestDevice {
   let exchange: SyncExchange
   let id: String
 
-  init(_ id: String, recording: Bool = true) throws {
+  init(
+    _ id: String, recording: Bool = true,
+    journalCodec: any PayloadCodec = IdentityCodec(),
+    snapshotCodec: any PayloadCodec = IdentityCodec()
+  ) throws {
     self.id = id
     stack = try TestSupport.makeStack()
-    exchange = try SyncExchange(writer: stack.writer, deviceId: id, deviceName: "Device \(id)")
+    exchange = try SyncExchange(
+      writer: stack.writer, deviceId: id, deviceName: "Device \(id)",
+      journalCodec: journalCodec, snapshotCodec: snapshotCodec)
     if recording { try exchange.setRecording(true) }
   }
 
