@@ -30,6 +30,9 @@ struct ExpectedIncomeForm: View {
         .headline)
       Form {
         TextField(t("form.name"), text: $income.name)
+        PlanningNamesakeNotice(
+          kind: .expectedIncome, id: income.id, name: $income.name,
+          drafts: namedDrafts, renameDraft: renameDraft)
         Picker(t("form.kind"), selection: $income.kind) {
           Text(verbatim: t("form.expected.oneOff")).tag(ExpectedIncomeKind.oneOff)
           Text(verbatim: t("form.expected.recurring")).tag(ExpectedIncomeKind.recurring)
@@ -74,6 +77,14 @@ struct ExpectedIncomeForm: View {
         }
         if offersTerms {
           ForEach($extraTerms) { $term in
+            TextField(
+              t("form.name"),
+              text: Binding(
+                get: { term.name ?? income.name }, set: { term.name = $0 }))
+            PlanningNamesakeNotice(
+              kind: .expectedIncome, id: term.id,
+              name: Binding(get: { term.name ?? income.name }, set: { term.name = $0 }),
+              drafts: namedDrafts, renameDraft: renameDraft)
             HStack {
               Stepper(value: $term.day, in: 1...31) {
                 Text(
@@ -175,8 +186,8 @@ struct ExpectedIncomeForm: View {
       .formStyle(.grouped)
       HStack {
         if let original, !original.closed {
-          Button(t("expected.close")) {
-            if let dependencies, PlanningActions(dependencies).close(original) { dismiss() }
+          Button(t("expected.archiveAction")) {
+            if let dependencies, PlanningActions(dependencies).archive(original) { dismiss() }
           }
         }
         FormButtons(
@@ -205,6 +216,23 @@ struct ExpectedIncomeForm: View {
         ?? Self.newIncome(defaultCurrency: environment.defaultCurrency, today: environment.today)
       lastDay = income.isOnLastDay
     }
+  }
+
+  private var namedDrafts: [NamedRecord] {
+    let terms = offersTerms ? income.terms(extraTerms, today: environment.today) : []
+    return ([income] + terms).map {
+      NamedRecord(kind: .expectedIncome, id: $0.id, name: $0.name)
+    }
+  }
+
+  private func renameDraft(_ id: UUID, _ name: String) -> Bool {
+    if id == income.id {
+      income.name = name
+      return true
+    }
+    guard let index = extraTerms.firstIndex(where: { $0.id == id }) else { return false }
+    extraTerms[index].name = name
+    return true
   }
 
   /// A new expected income: in the default currency, due today until another day is picked.
@@ -304,6 +332,8 @@ extension ExpectedIncome {
 /// One more day of the month an income comes on, and how much comes then — «Ещё срок в месяце».
 struct IncomeTerm: Hashable, Identifiable {
   var id = UUID()
+  /// Nil follows the main term's name until the owner chooses a separate one.
+  var name: String?
   /// 1…31; 31 is the last day of the month.
   var day: Int
   var amountE4: AmountE4
@@ -334,7 +364,8 @@ extension ExpectedIncome {
     return terms.prefix(Self.maxExtraTerms).compactMap { term in
       guard term.amountE4.raw > 0 else { return nil }
       var copy = self
-      copy.id = UUID()
+      copy.id = term.id
+      copy.name = term.name ?? name
       copy.freq = .monthly
       copy.totalE4 = term.amountE4
       copy.closed = false

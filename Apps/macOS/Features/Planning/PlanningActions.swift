@@ -436,7 +436,15 @@ struct PlanningActions {
 
   @discardableResult
   func close(_ income: ExpectedIncome) -> Bool {
-    var income = income
+    archive(income)
+  }
+
+  /// The existing `closed` flag is the archive state: all expectations may be archived,
+  /// regardless of whether they have been fulfilled. Links and operations are kept.
+  @discardableResult
+  func archive(_ income: ExpectedIncome) -> Bool {
+    let stored = (try? environment.planning?.expected())?.first { $0.id == income.id }
+    var income = stored ?? income
     income.closed = true
     return save(income)
   }

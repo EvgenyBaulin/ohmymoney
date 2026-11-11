@@ -1,0 +1,195 @@
+import AppCore
+import SwiftUI
+
+/// Advice beside the name field. Saving stays available; each action needs its own click.
+/// Record identities, rather than the folded name, scope a remembered dismissal.
+struct PlanningNamesakeNotice: View {
+  @Dependency(\.environment) private var environment
+  @Dependency(\.compute) private var compute
+  @Dependency(\.store) private var store
+  @Environment(\.dependencies) private var dependencies
+  @Environment(\.dismiss) private var dismiss
+  let kind: NamedRecordKind
+  let id: UUID
+  @Binding var name: String
+  var drafts: [NamedRecord] = []
+  var renameDraft: ((UUID, String) -> Bool)? = nil
+  @State private var records: [NamedRecord] = []
+  @State private var hidden = ""
+
+  var body: some View {
+    let own = NamedRecord(kind: kind, id: id, name: name)
+    VStack(alignment: .leading, spacing: 8) {
+      ForEach(Namesakes.proposals(for: own, among: allRecords, hidden: hidden)) { proposal in
+        PlanningNamesakeRow(
+          proposal: proposal, name: $name,
+          rename: { rename(proposal.existing, to: $0) },
+          restore: { restore(proposal.existing) },
+          hide: { hide(proposal.id) })
+      }
+    }
+    .onAppear { reload() }
+    .onChange(of: store.writeRevision) { reload() }
+  }
+
+  private var allRecords: [NamedRecord] {
+    // Stored names wait until the presentation knows which accounts are covered.
+    guard let snapshot = compute.snapshot else { return drafts }
+    let draftIds = Set(drafts.map(\.id))
+    let hiding = HiddenPlans(snapshot: snapshot)
+    return Self.listed(records.filter { !draftIds.contains($0.id) } + drafts, hiding: hiding)
+  }
+
+  static func listed(_ records: [NamedRecord], hiding: HiddenPlans) -> [NamedRecord] {
+    records.filter {
+      switch $0.kind {
+      case .expectedIncome: !hiding.hides(expected: $0.id)
+      case .scheduledPayment: !hiding.hides(scheduled: $0.id)
+      default: true
+      }
+    }
+  }
+
+  private func reload() {
+    guard let book = try? environment.planning?.book() else { return }
+    let entries =
+      (try? environment.transactions?.entries(from: .distantPast, to: .distantFuture))
+      ?? []
+    switch kind {
+    case .expectedIncome:
+      records = Namesakes.expected(
+        book.expected, links: book.expectedLinks, entries: entries,
+        calendar: environment.calendar)
+    case .scheduledPayment:
+      let matches = compute.wholeSnapshot?.planning.matches
+      let matched = Dictionary(
+        uniqueKeysWithValues: book.scheduled.map {
+          ($0.id, Set(matches?.matchedDues(of: $0.id).values.map { $0 } ?? []))
+        })
+      records = Namesakes.scheduled(
+        book.scheduled, entries: entries,
+        calendar: environment.calendar, matchedOperations: matched)
+    default: records = []
+    }
+    hidden = (try? environment.settings?.string(Namesakes.hiddenPairsKey)) ?? ""
+  }
+
+  private func rename(_ record: NamedRecord, to name: String) -> Bool {
+    if drafts.contains(where: { $0.id == record.id }), let renameDraft {
+      return renameDraft(record.id, PlanningActions.trimmed(name))
+    }
+    guard let dependencies, let book = try? environment.planning?.book(),
+      PlanningActions(dependencies).renameNamesake(record, to: name, in: book)
+    else { return false }
+    reload()
+    return true
+  }
+
+  private func restore(_ record: NamedRecord) -> Bool {
+    guard let dependencies, let book = try? environment.planning?.book(),
+      PlanningActions(dependencies).restoreNamesake(record, in: book)
+    else { return false }
+    dismiss()
+    return true
+  }
+
+  private func hide(_ pair: String) -> Bool {
+    guard let dependencies,
+      PlanningActions(dependencies).hideNamesake(pair, stored: hidden)
+    else { return false }
+    hidden = Namesakes.hiding(pair, in: hidden)
+    return true
+  }
+}
+
+private struct PlanningNamesakeRow: View {
+  @Dependency(\.environment) private var environment
+  let proposal: NamesakeProposal
+  @Binding var name: String
+  let rename: (String) -> Bool
+  let restore: () -> Bool
+  let hide: () -> Bool
+  @State private var renaming = false
+  @State private var renamesExisting = false
+  @State private var proposedName = ""
+  @State private var failed = false
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 6) {
+      Label {
+        Text(
+          verbatim: environment.format(
+            proposal.existing.archived ? "namesake.archived" : "namesake.live",
+            table: "Planning", proposal.existing.name))
+      } icon: {
+        Image(systemName: proposal.existing.archived ? "archivebox" : "exclamationmark.circle")
+      }
+      Text(verbatim: t("namesake.canSave"))
+      if proposal.existing.archived, proposal.existing.period == nil {
+        Text(verbatim: t("namesake.noHistory"))
+      }
+      if !proposal.existing.archived {
+        Button(t("namesake.renameNew")) { beginRename(existing: false) }
+      }
+      Button(t(proposal.existing.archived ? "namesake.renameArchived" : "namesake.renameExisting"))
+      {
+        beginRename(existing: true)
+      }
+      if let suggested = proposal.archivedName(locale: environment.language.locale) {
+        Text(verbatim: environment.format("namesake.suggested", table: "Planning", suggested))
+      }
+      if proposal.existing.archived {
+        Button(t("namesake.restore")) { failed = !restore() }
+      }
+      Button(t("namesake.hidePair")) { failed = !hide() }
+      if failed { Text(verbatim: t("form.notSaved")).foregroundStyle(.red) }
+    }
+    .appFont(.caption)
+    .foregroundStyle(.secondary)
+    .fixedSize(horizontal: false, vertical: true)
+    .accessibilityIdentifier("namesake.notice")
+    .modifier(
+      NamesakeRenameAlert(
+        presented: $renaming, proposedName: $proposedName,
+        title: t(renamesExisting ? "namesake.renameExisting" : "namesake.renameNew"),
+        field: t("form.name"), save: t("namesake.rename"),
+        cancel: environment.language("action.cancel"),
+        apply: {
+          if renamesExisting {
+            failed = !rename(proposedName)
+          } else {
+            name = PlanningActions.trimmed(proposedName)
+            failed = false
+          }
+        }))
+  }
+
+  private func beginRename(existing: Bool) {
+    renamesExisting = existing
+    proposedName =
+      existing
+      ? proposal.archivedName(locale: environment.language.locale) ?? proposal.existing.name : name
+    renaming = true
+  }
+
+  private func t(_ key: String) -> String { environment.language(key, table: "Planning") }
+}
+
+private struct NamesakeRenameAlert: ViewModifier {
+  @Binding var presented: Bool
+  @Binding var proposedName: String
+  let title: String
+  let field: String
+  let save: String
+  let cancel: String
+  let apply: () -> Void
+
+  func body(content: Content) -> some View {
+    content.alert(title, isPresented: $presented) {
+      TextField(field, text: $proposedName)
+      Button(save, action: apply)
+        .disabled(PlanningActions.trimmed(proposedName).isEmpty)
+      Button(cancel, role: .cancel) {}
+    }
+  }
+}
