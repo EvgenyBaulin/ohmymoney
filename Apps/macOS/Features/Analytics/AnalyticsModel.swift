@@ -64,11 +64,11 @@ enum AnalyticsBlock: String, CaseIterable, Hashable, Sendable {
   case months, qualitySummary, overviewAnomalies
   case categories, series, incomeVsExpenses, incomeSources, comparison, weekdays
   case qualityShares, badByCategory, streaks, goals
-  case othersTotals, othersSubscriptions, othersByPerson
+  case othersTotals, othersSubscriptions, othersByPerson, othersDynamics
   case forWhomValues, forWhomPeople, forWhomDynamics
   case placesByAmount, placesByPurchases, placesTable, newPlaces
   case events
-  case methodSpending, methodTable, cashbackMonths
+  case methodSpending, methodTable, cashbackMonths, cashbackMonth
   case forecast, accountBalances
   case anomalies
   case modelCategories, modelForecast
@@ -210,7 +210,7 @@ struct AnalyticsModel: Sendable {
     case .quality:
       blocks = [.qualityShares, .badByCategory, .streaks, .goals]
     case .others:
-      blocks = [.othersTotals, .othersSubscriptions, .othersByPerson]
+      blocks = [.othersTotals, .othersSubscriptions, .othersByPerson, .othersDynamics]
     case .forWhom:
       blocks = [.forWhomValues, .forWhomPeople, .forWhomDynamics]
     case .places:
@@ -219,7 +219,7 @@ struct AnalyticsModel: Sendable {
       return [AnalyticsBlock.events.rawValue]
         + (model.events.content ?? []).map { AnalyticsBlock.event($0.eventId) }
     case .paymentMethods:
-      blocks = [.methodSpending, .methodTable, .cashbackMonths]
+      blocks = [.methodSpending, .methodTable, .cashbackMonths, .cashbackMonth]
     case .forecast:
       blocks = [.forecast, .accountBalances]
     case .anomalies:
@@ -253,12 +253,21 @@ struct RankedValue: Hashable, Sendable {
   var value: Int64
   var share: Int?
   var children: [RankedValue] = []
+  /// The same figure of the period before, whole rubles: the tick of a track row.
+  var previous: Int64?
+  /// How many times — visits of a place — beside the figure, when a row tells it.
+  var times: Int?
 
-  init(key: ReportKey, value: Int64, share: Int? = nil, children: [RankedValue] = []) {
+  init(
+    key: ReportKey, value: Int64, share: Int? = nil, children: [RankedValue] = [],
+    previous: Int64? = nil, times: Int? = nil
+  ) {
     self.key = key
     self.value = value
     self.share = share
     self.children = children
+    self.previous = previous
+    self.times = times
   }
 
   /// A line of the core, rounded to whole rubles once.
@@ -428,10 +437,20 @@ struct SubscriptionStack: Hashable, Sendable {
   var segments: [StatusSegment]
 }
 
+/// One month of «Динамика»: what was paid for others and what came back, whole rubles, both
+/// dated by the purchase.
+struct OthersMonth: Hashable, Sendable {
+  var month: MonthKey
+  var paid: Int64
+  var returned: Int64
+}
+
 struct OthersSectionModel: Sendable {
   var totals: ChartBlock<OthersFigures>
   var bySubscription: ChartBlock<[SubscriptionStack]>
   var byPerson: ChartBlock<[PersonStack]>
+  /// The six months to the last month of the period that has come.
+  var dynamics: ChartBlock<[OthersMonth]>
 }
 
 /// A line of «for whom» month by month: a value, or the rest of them taken together.

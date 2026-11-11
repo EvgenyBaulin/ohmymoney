@@ -35,6 +35,11 @@ struct SeriesLineChart: View {
   let series: [ChartLineSeries]
   /// The ticks of the horizontal axis and their words.
   let xLabels: [Int: String]
+  /// 220 by default; the shares of «Хорошие и плохие» draw 240.
+  var height: CGFloat = 220
+  /// A chart of shares reads from its lines and legend: grid lines stay, the figures at the
+  /// left do not.
+  var showsValueLabels = true
   @State private var hovered: Int?
 
   static let pointLimit = 40
@@ -105,13 +110,15 @@ struct SeriesLineChart: View {
       .chartYAxis {
         AxisMarks(values: .automatic(desiredCount: 4)) { value in
           AxisGridLine()
-          AxisValueLabel {
-            Text(verbatim: ChartAxis.money(value, money))
-              .appFont(.caption.monospacedDigit())
+          if showsValueLabels {
+            AxisValueLabel {
+              Text(verbatim: ChartAxis.money(value, money))
+                .appFont(.caption.monospacedDigit())
+            }
           }
         }
       }
-      .frame(height: 220)
+      .frame(height: height)
       ChartLegend(items: series.map { ChartLegend.series($0.id, $0.label, $0.style) })
     }
   }
