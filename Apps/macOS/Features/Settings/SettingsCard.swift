@@ -14,6 +14,9 @@
     static let icon: CGFloat = 18
     static let textGap: CGFloat = 2
     static let hairline: CGFloat = 1
+    /// The slimmer rows of a list of switches: 11 above and below, 13 over 11.
+    static let compactVertical: CGFloat = 11
+    static let compactSwitchWidth: CGFloat = 40
   }
 
   /// A card of rows; the rows are separated by hairlines.
@@ -35,27 +38,31 @@
   /// One row of a card: symbol, title and hint, and the control (a switch, a value, a chevron).
   struct SettingsCardRow<Trailing: View>: View {
     @Environment(\.themeSurfaces) private var surfaces
-    let symbol: String
+    var symbol: String?
     let title: String
     var hint: String?
     var showsDivider = true
+    /// The row of a list of switches: no symbol, 13 over 11, 11 above and below.
+    var compact = false
     @ViewBuilder let trailing: Trailing
 
     var body: some View {
       VStack(spacing: 0) {
         HStack(spacing: SettingsCardMetrics.rowGap) {
-          Image(systemName: symbol)
-            .font(.system(size: 15))  // font-fixed: symbol in a 24 pt slot
-            .foregroundStyle(surfaces.secondary)
-            .frame(width: SettingsCardMetrics.iconSlot, height: SettingsCardMetrics.iconSlot)
-            .accessibilityHidden(true)
+          if let symbol {
+            Image(systemName: symbol)
+              .font(.system(size: 15))  // font-fixed: symbol in a 24 pt slot
+              .foregroundStyle(surfaces.secondary)
+              .frame(width: SettingsCardMetrics.iconSlot, height: SettingsCardMetrics.iconSlot)
+              .accessibilityHidden(true)
+          }
           VStack(alignment: .leading, spacing: SettingsCardMetrics.textGap) {
             Text(verbatim: title)
-              .appFont(AppFont.system(size: 14, weight: .medium))
+              .appFont(AppFont.system(size: compact ? 13 : 14, weight: .medium))
               .foregroundStyle(surfaces.primary)
             if let hint {
               Text(verbatim: hint)
-                .appFont(.callout)
+                .appFont(compact ? AppFont.system(size: 11) : AppFont.callout)
                 .foregroundStyle(surfaces.secondary)
                 .fixedSize(horizontal: false, vertical: true)
             }
@@ -64,7 +71,9 @@
           trailing
         }
         .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
-        .padding(.vertical, SettingsCardMetrics.rowVertical)
+        .padding(
+          .vertical,
+          compact ? SettingsCardMetrics.compactVertical : SettingsCardMetrics.rowVertical)
         if showsDivider {
           Rectangle().fill(surfaces.cardBorder.opacity(0.6))
             .frame(height: SettingsCardMetrics.hairline)
