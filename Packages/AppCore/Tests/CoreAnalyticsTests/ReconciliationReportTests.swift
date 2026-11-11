@@ -93,6 +93,84 @@ private struct ReconciliationReportBook {
 
 @Suite("Reconciliation adjustments are not report spending")
 struct ReconciliationReportTests {
+  @Test(arguments: [TransactionKind.expense, .income])
+  func bothSignsOfReconciliationOnlyChangeBalances(_ kind: TransactionKind) {
+    let book = ReconciliationReportBook()
+    var data = book.ledger(.category, includeAdjustment: false).dataset
+    let baseline = Ledger(dataset: data, calendar: .utc)
+    data.entries.append(
+      book.entry(
+        700, kind: kind, categoryId: book.salary.id,
+        link: .reconciliation(UUID())))
+    data.entries.append(
+      book.entry(
+        50, kind: kind, categoryId: nil,
+        link: .reconciledBalance(reconciliation: UUID(), balance: UUID())))
+    let ledger = Ledger(dataset: data, calendar: .utc)
+    let period = Period.month(book.month)
+    #expect(ledger.income(in: period) == baseline.income(in: period))
+    #expect(ledger.income(in: .days(period.range)) == baseline.income(in: period))
+    #expect(ledger.incomeRows(in: period) == baseline.incomeRows(in: period))
+    #expect(
+      ledger.rowTotals(of: ledger.entries.map(\.id))
+        == baseline.rowTotals(of: baseline.entries.map(\.id)))
+    #expect(
+      OverviewSummary(ledger: ledger, today: period.end).income
+        == OverviewSummary(ledger: baseline, today: period.end).income)
+    #expect(
+      OverviewSummary(ledger: ledger, today: period.end).reconciliationDifference
+        == AmountE4(whole: kind == .income ? 750 : -750))
+    for step in TimeSeries.Step.allCases {
+      #expect(
+        TimeSeries(ledger: ledger, period: period, step: step, measure: .income, today: book.today)
+          .total == AmountE4(whole: 5_000))
+    }
+    #expect(
+      IncomeSources(ledger: ledger, period: period)
+        == IncomeSources(ledger: baseline, period: period))
+    let actual = ReportBuilder(ledger: ledger, today: book.today)
+    let expected = ReportBuilder(ledger: baseline, today: book.today)
+    for kind in [ReportTable.Kind.incomeByCategory, .monthly, .periodTotal] {
+      #expect(actual.table(kind, period: period) == expected.table(kind, period: period))
+      #expect(
+        ReportCSV.data(actual.table(kind, period: period), label: { $0.description })
+          == ReportCSV.data(expected.table(kind, period: period), label: { $0.description }))
+    }
+  }
+
+  @Test func surplusAloneDoesNotStartAnAverageOrCreateReportData() {
+    let book = ReconciliationReportBook()
+    let ledger = Ledger(
+      dataset: Dataset(entries: [
+        book.entry(700, kind: .income, categoryId: nil, link: .reconciliation(UUID()))
+      ]), calendar: .utc)
+    let monthly = ReportBuilder(ledger: ledger, today: book.today).table(
+      .monthly, period: .year(2026))
+    #expect(!monthly.hasData)
+    #expect(monthly.averageMonths.isEmpty)
+    #expect(
+      TimeSeries(
+        ledger: ledger, period: .month(book.month), step: .day,
+        measure: .income, today: book.today
+      ).average == nil)
+  }
+
+  @Test func separateDifferenceNetsBothSignsAndOnlyIncludesTheDisplayedDays() {
+    let book = ReconciliationReportBook()
+    let ledger = Ledger(
+      dataset: Dataset(entries: [
+        book.entry(700, kind: .income, categoryId: nil, link: .reconciliation(UUID())),
+        book.entry(
+          50, categoryId: nil, link: .reconciledBalance(reconciliation: UUID(), balance: UUID())),
+        book.entry(900, kind: .income, categoryId: nil, link: .reconciliation(UUID()), month: 8),
+      ]), calendar: .utc)
+    #expect(
+      OverviewSummary(ledger: ledger, today: book.month.lastDay).reconciliationDifference
+        == AmountE4(whole: 650))
+    #expect(
+      OverviewSummary(ledger: ledger, today: book.month.firstDay).reconciliationDifference == .zero)
+  }
+
   @Test(arguments: [false, true])
   func aManualPurchaseInTheReconciliationCategoryIsSpending(_ subcategory: Bool) {
     let book = ReconciliationReportBook()

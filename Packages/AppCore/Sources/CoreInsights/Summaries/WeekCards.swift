@@ -46,7 +46,7 @@ public struct WeekCards: Hashable, Sendable {
     // The sums are the ledger's own, the ones the Reports window adds up.
     let expenses = ledger.expenses(in: range)
     let rows = ledger.rows(in: range)
-    let income = AmountE4.sum(rows.lazy.filter { $0.kind == .income }.map(\.amountRubE4))
+    let income = AmountE4.sum(rows.lazy.filter { $0.isIncome }.map(\.amountRubE4))
     let spending = rows.filter { !$0.contribution.isZero }
     let purchases = Set(spending.map(\.transactionId)).count
 

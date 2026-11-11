@@ -143,13 +143,30 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The foot of the file says more than its lines add up to: income by %@, expenses by %@. Some lines were lost, so the file is not loaded."
+            "value": "Difference between statement totals and its lines: income %@, expenses %@. The discrepancy awaits a decision on Overview."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "В конце файла написано больше, чем дают строки: пополнения на %@, расходы на %@. Часть строк потеряна, поэтому файл не загружается."
+            "value": "Разница между итогами выписки и её строками: пополнения %@, расходы %@. Расхождение ждёт решения на «Обзоре»."
+          }
+        }
+      }
+    },
+    "import.check.footer.missing": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The statement totals could not be read. You can write the operations; review awaits a decision on Overview."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итоги выписки не удалось прочитать. Запись доступна; проверка ждёт решения на «Обзоре»."
           }
         }
       }
@@ -2218,6 +2235,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Будет записано: %lld · изменений: %lld · переводов: %lld"
+          }
+        }
+      }
+    },
+    "import.summary.reviewOnly": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The statement will be recorded; the discrepancy awaits a decision on Overview."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выписка будет записана; расхождение ждёт решения на «Обзоре»."
           }
         }
       }

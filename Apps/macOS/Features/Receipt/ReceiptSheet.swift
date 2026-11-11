@@ -42,11 +42,13 @@ struct ReceiptSheet: View {
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.dependencies) private var dependencies
 
   @State private var model: ReceiptModel?
   @State private var picking = false
   @State private var isDropTarget = false
   @State private var scanning = false
+  @State private var searchesScreenshot = false
   @State private var continuity = ContinuityCameraHandle()
   #if os(iOS)
     @State private var pickedPhoto: PhotosPickerItem?
@@ -122,6 +124,13 @@ struct ReceiptSheet: View {
       }
     #endif
     .accessibilityIdentifier("receipt.sheet")
+    .sheet(isPresented: $searchesScreenshot) {
+      ScreenshotOperationSheet(data: model?.photo?.data) { id in
+        searchesScreenshot = false
+        dismiss()
+        OperationReveal.ask(id)
+      }.handingOver(dependencies)
+    }
   }
 
   // MARK: Header
@@ -150,6 +159,8 @@ struct ReceiptSheet: View {
         }
       case .noCode:
         notice("receipt.noCode", symbol: "qrcode.viewfinder")
+        Button(t("screenshot.title")) { searchesScreenshot = true }
+          .accessibilityIdentifier("screenshot.open")
         inputs(model)
       case .notReceipt:
         notice("receipt.notReceipt", symbol: "questionmark.circle")

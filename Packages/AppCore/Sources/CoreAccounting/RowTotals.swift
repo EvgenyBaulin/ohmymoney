@@ -13,7 +13,7 @@ import Foundation
 ///   something bought in instalments stays out altogether. A refund taken back from a purchase
 ///   counts in the purchase instead (`RefundIndex`): the purchase comes in cheaper, and the
 ///   refund itself adds nothing — so a day, a selection and the Overview agree;
-/// * `income` — operations of kind `income`, a surplus in Surcharges among them;
+/// * `income` — operations accepted by `IncomeRule`, including reimbursement surpluses;
 /// * `forOthers` — parts of purchases paid for somebody else that were not written off:
 ///   money I laid out that is not my spending;
 /// * `moneyReturned` — reimbursements, the money people gave back. It is neither income nor
@@ -59,7 +59,7 @@ public struct RowTotals: Hashable, Sendable {
       guard !transaction.isDeleted else { continue }
       switch transaction.kind {
       case .income:
-        income += transaction.amountRubE4
+        if IncomeRule.isIncome(transaction) { income += transaction.amountRubE4 }
       case .reimbursement:
         moneyReturned += transaction.amountRubE4
       case .expense, .refund:

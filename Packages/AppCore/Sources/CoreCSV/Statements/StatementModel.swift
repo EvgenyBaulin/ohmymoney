@@ -228,6 +228,9 @@ public struct StatementHeader: Sendable, Hashable, Codable {
   /// «Income» and «expenses» totals printed in the foot of the statement, both positive.
   public var footerIncome: AmountE4?
   public var footerExpense: AmountE4?
+  /// Closing balance printed by the bank, when present; never inferred from its totals.
+  public var closingBalance: AmountE4?
+  public var balanceCurrency: CurrencyCode?
 
   public init() {}
 
@@ -255,7 +258,7 @@ public struct StatementCheck: Sendable, Hashable, Codable {
 
   public var kind: Kind
   public var passed: Bool
-  /// A blocking check that failed stops the import; a non-blocking one is only shown.
+  /// A blocking check that failed stops the import, except footer totals kept for later review.
   public var blocking: Bool
   /// For `footerTotals`: how much the footer says more than the lines add up to.
   public var missingIncome: AmountE4
@@ -288,10 +291,10 @@ public struct StatementParseResult: Sendable, Hashable, Codable {
   /// The bytes were not UTF-8 and were read as windows-1251; the preview says so.
   public var usedLegacyEncoding: Bool
 
-  /// Nothing blocks the import: every blocking check passed. Unparsed lines do not block
-  /// by themselves — they are shown with their sum — except in a text statement, where a
-  /// lost line breaks the footer check anyway.
-  public var isImportable: Bool { !checks.contains { $0.blocking && !$0.passed } }
+  /// A totals discrepancy is kept for review after writing the readable operations.
+  public var isImportable: Bool {
+    !checks.contains { $0.blocking && !$0.passed && $0.kind != .footerTotals }
+  }
 
   /// Sum of the amounts that could be read in the lines that did not go through.
   public var unparsedSum: AmountE4 { AmountE4.sum(unparsed.compactMap(\.amount)) }

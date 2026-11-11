@@ -29,7 +29,7 @@ public struct AllocationRaise: Hashable, Sendable {
     income: TransactionEntry, ledger: Ledger, links: [ExpectedIncomeLink]
   ) -> AllocationRaise? {
     let transaction = income.transaction
-    guard transaction.kind == .income, !transaction.isDeleted, transaction.amountE4.raw > 0
+    guard IncomeRule.isIncome(transaction), !transaction.isDeleted, transaction.amountE4.raw > 0
     else { return nil }
     let expected = links.first { $0.transactionId == income.id }?.expectedIncomeId
     var earlier: [TransactionEntry]
@@ -41,7 +41,7 @@ public struct AllocationRaise: Hashable, Sendable {
     } else {
       guard let category = income.parts.first?.categoryId else { return nil }
       earlier = ledger.entries.filter { entry in
-        entry.id != income.id && entry.transaction.kind == .income
+        entry.id != income.id && IncomeRule.isIncome(entry.transaction)
           && entry.parts.first?.categoryId == category
       }
     }

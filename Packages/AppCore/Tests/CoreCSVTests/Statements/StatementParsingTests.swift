@@ -310,6 +310,12 @@ struct VTBStatementTests {
 
 @Suite("The text layer of a PDF turnover certificate")
 struct TBankStatementTests {
+  @Test func readsTheClosingBalanceWithoutInferringItFromTurnover() {
+    let result = parse(StatementFixtures.tbankLines() + ["Исходящий остаток: 1 234,56 ₽"])
+    #expect(result.header.closingBalance == AmountE4(raw: 12_345_600))
+    #expect(result.header.balanceCurrency == .rub)
+    #expect(parse(StatementFixtures.tbankLines()).header.closingBalance == nil)
+  }
   private func parse(_ lines: [String]) -> StatementParseResult {
     guard case .parsed(let result) = StatementImporter.parsePDFText(lines) else {
       Issue.record("not parsed")
@@ -398,7 +404,7 @@ struct TBankStatementTests {
     #expect(ops.last?.description == "Внутренний перевод на договор 1000000002")
   }
 
-  @Test func aMissingLineStopsTheImportAndSaysHowMuch() {
+  @Test func aMissingLineAllowsImportAndSaysHowMuchNeedsReview() {
     var rows = StatementFixtures.tbankRows
     let lost = rows.remove(at: 1)
     // The footer still shows what the bank printed for the full list.
@@ -411,7 +417,7 @@ struct TBankStatementTests {
     #expect(footer?.passed == false && footer?.blocking == true)
     #expect(footer?.missingExpense.raw == Int64(-lost.amountCents) * 100)
     #expect(footer?.missingIncome == .zero)
-    #expect(!result.isImportable)
+    #expect(result.isImportable)
   }
 
   @Test func aLineThatLooksLikeARowButIsNotIsCountedWithItsAmount() {

@@ -224,8 +224,8 @@ final class AccountsJourneyTests: XCTestCase {
       book.reconciledBalances.allSatisfy(\.isStartingPoint), "⌘Z left part of the sheet")
   }
 
-  /// Money found on the cash — 700 ₽ more than the books — is income of 700 ₽ on the cash in
-  /// the income twin of «Сверка»; a dollar difference on Freedom is written in dollars on
+  /// Money found on the cash — 700 ₽ more than the books — is a credit adjustment on the cash in
+  /// the income twin of «Сверка», excluded from income totals; a dollar difference on Freedom is written in dollars on
   /// Freedom, though Freedom is out of the summary.
   func testMoreMoneyAndAForeignDifferenceAreWrittenInTheirOwnCurrencyAndAccount() async throws {
     let books = try await openTheBooks()
@@ -1652,7 +1652,7 @@ final class AccountsJourneyTests: XCTestCase {
   /// A count's shortage moves the balance but is not spending of the month, as in Reports and the
   /// spending analysis, so every section spends the same: 50 ₽ missing on Сбер and 12 $ missing
   /// on Freedom leave the month at 3 000 + 100 fee + 1 850 = 4 950 ₽ spent. The 700 ₽ found on
-  /// the cash is still income, 50 700 ₽. Each difference is on its account's screen.
+  /// the cash changes only its balance; income stays 50 000 ₽. Each difference is on its account's screen.
   func testTheShortagesOfACountAreNotSpendingOfTheMonth() async throws {
     let books = try await openTheBooks()
     try await liveTheMonth(books)
@@ -1669,7 +1669,7 @@ final class AccountsJourneyTests: XCTestCase {
     XCTAssertNil(saved)
     let after = try await show()
     XCTAssertEqual(after.summary.expenses.current, AmountE4(whole: 4_950))
-    XCTAssertEqual(after.summary.income.current, AmountE4(whole: 50_000 + 700))
+    XCTAssertEqual(after.summary.income.current, AmountE4(whole: 50_000))
 
     let differences = try entries().filter { $0.transaction.occurredAt == noon }
     XCTAssertEqual(differences.count, 3)

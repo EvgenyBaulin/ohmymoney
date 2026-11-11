@@ -99,10 +99,9 @@ public struct StatementPreview: Sendable, Hashable {
     self.staleHeld = staleHeld
   }
 
-  /// A blocking check failed: the file is not loaded (the totals in the foot of the file do not
-  /// match the lines).
+  /// Failed checks shown in the preview, including totals kept for review after writing.
   public var blockingFailures: [StatementCheck] { checks.filter { $0.blocking && !$0.passed } }
-  public var isImportable: Bool { blockingFailures.isEmpty }
+  public var isImportable: Bool { !blockingFailures.contains { $0.kind != .footerTotals } }
 
   public var newCount: Int { rows.filter { $0.disposition == .new }.count }
   public var duplicateCount: Int {
