@@ -579,6 +579,8 @@ final class SettingsAccessibilityTests: XCTestCase {
         if let view = table.rowView(atRow: row, makeIfNecessary: true) { walk(view, depth: 0) }
       }
     }
+    // Rows that are cards of plain views (the Mac's categories) have no table to go through.
+    if found.isEmpty, let content = window.contentView { walk(content, depth: 0) }
     return found
   }
 
