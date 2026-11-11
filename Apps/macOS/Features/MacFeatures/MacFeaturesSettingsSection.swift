@@ -17,6 +17,72 @@ struct MacFeaturesSettingsSection: View {
   private func t(_ key: String) -> String { environment.language(key, table: MacCommands.table) }
 
   var body: some View {
+    #if os(macOS)
+      macBody
+    #else
+      formBody
+    #endif
+  }
+
+  #if os(macOS)
+    /// The design's card (Figma 61:67007): a title of 13 semibold, then rows of 16 × 11 — name
+    /// 13 medium over a hint 11, the switch at the right — and the last row the choice of what a
+    /// notification says, in the accent.
+    private var macBody: some View {
+      Section {
+        VStack(alignment: .leading, spacing: 8) {
+          Text(verbatim: t("mac.settings.title"))
+            .appFont(AppFont.body.weight(.semibold))
+          SettingsCard {
+            switchRow("mac.settings.spotlight", hint: "mac.settings.spotlight.hint", $spotlight)
+              .onChange(of: spotlight) { _, on in
+                Task {
+                  if !on {
+                    await SpotlightIndexer.shared.turnOff()
+                  } else if let deps = AppLaunch.startedDependencies {
+                    await SpotlightIndexer.shared.refresh(deps)
+                  }
+                }
+              }
+            switchRow("mac.settings.payments", hint: "mac.settings.payments.hint", $payments)
+            switchRow("mac.settings.limits", hint: nil, $limits)
+            switchRow("mac.settings.summaries", hint: nil, $summaries)
+            switchRow("mac.settings.evening", hint: nil, $evening)
+              .onChange(of: evening) { _, _ in HabitNudgeRoute.route(HabitNudgeRoute.lastAsked) }
+            SettingsCardRow(title: t("mac.settings.privacy"), showsDivider: false, compact: true) {
+              Picker(selection: $privacy) {
+                ForEach(NotificationPlan.Privacy.allCases, id: \.self) { choice in
+                  Text(verbatim: t("mac.settings.privacy.\(choice.rawValue)")).tag(choice.rawValue)
+                }
+              } label: {
+                Text(verbatim: t("mac.settings.privacy"))
+              }
+              .labelsHidden()
+              .fixedSize()
+              .accessibilityIdentifier("settings.mac.privacy")
+            }
+          }
+          Text(verbatim: t("mac.settings.footer.\(privacy)"))
+            .appFont(.callout).foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.vertical, 4)
+      }
+      .listRowBackground(Color.clear)
+      .listRowInsets(EdgeInsets())
+    }
+
+    private func switchRow(_ key: String, hint: String?, _ value: Binding<Bool>) -> some View {
+      SettingsCardRow(title: t(key), hint: hint.map(t), compact: true) {
+        Toggle("", isOn: value).labelsHidden().toggleStyle(.switch)
+          .accessibilityLabel(Text(verbatim: t(key)))
+          .accessibilityIdentifier("settings.mac.\(key.split(separator: ".").last ?? "")")
+      }
+    }
+  #endif
+
+  private var formBody: some View {
     Section {
       Toggle(isOn: $spotlight) {
         Text(verbatim: t("mac.settings.spotlight"))

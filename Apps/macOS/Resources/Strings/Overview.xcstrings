@@ -156,6 +156,40 @@
         }
       }
     },
+    "calendar.debt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debt"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Долг"
+          }
+        }
+      }
+    },
+    "calendar.goal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goal contribution"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Взнос в цель"
+          }
+        }
+      }
+    },
     "calendar.grid.spent": {
       "extractionState": "manual",
       "localizations": {
@@ -475,6 +509,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "потрачено %@"
+          }
+        }
+      }
+    },
+    "calendar.subscription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subscription"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подписка"
           }
         }
       }
