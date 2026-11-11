@@ -22,6 +22,8 @@ struct ReportsWindow: View {
   init(deps: AppDependencies, embedded: Bool = false) {
     self.deps = deps
     self.embedded = embedded
+    _summaries = State(
+      initialValue: PeriodsBoardStore(model: SummariesModel(environment: deps.environment)))
   }
 
   private var environment: AppEnvironment { deps.environment }
@@ -32,14 +34,16 @@ struct ReportsWindow: View {
   @AppStorage(ReportsSelection.periodKey) private var periodText = ""
   @AppStorage(ReportsSelection.groupingKey) private var groupingName = ReportGrouping.category
     .rawValue
+  /// «По периодам» is on screen over the stored table.
+  @AppStorage(ReportsSelection.byPeriodsKey) private var byPeriods = false
   @State private var reports = ReportsStore()
   @State private var choosingPeriod = false
   /// The CSV handed to the file exporter on a phone, locked into one file when the owner keeps
   /// «Зашифровать»; the Mac asks in its save panel.
   @State private var exportRequest: PersonalDataExport?
   @State private var exportFailed = false
-  /// «По периодам»: the summaries of a week, a month and a year, a sheet over the screen.
-  @State private var summariesOpen = false
+  /// «По периодам»: the summaries of a week, a month and a year, in cards under the tabs.
+  @State private var summaries: PeriodsBoardStore
   /// «Сохранить отчёт…» from the menu of the table.
   @State private var saving = false
 
@@ -66,7 +70,6 @@ struct ReportsWindow: View {
       .focusedSceneValue(\.printableTable, printable)
     #endif
     .themedWindowBackground()
-    .sheet(isPresented: $summariesOpen) { SummariesScreen().handingOver(deps) }
     .sheet(isPresented: $saving) {
       SaveViewSheet(
         subject: .report(kind: selection.kind, grouping: selection.grouping, period: period)
@@ -90,9 +93,11 @@ struct ReportsWindow: View {
   }
 
   #if os(macOS)
-    /// The paper of ⌘P: the spending of «По категориям», the one table of the other tabs.
+    /// The paper of ⌘P: the spending of «По категориям», the one table of the other tabs. «По
+    /// периодам» has no table: its paper is «Печать…» of «Поделиться…».
     private var printable: PrintableTable? {
-      state.value?.models.last.map { ReportsPrint.printable($0, environment: environment) }
+      guard tab.showsTable else { return nil }
+      return state.value?.models.last.map { ReportsPrint.printable($0, environment: environment) }
     }
   #endif
 
@@ -117,11 +122,19 @@ struct ReportsWindow: View {
     ReportsSelection(table: tableName, period: periodText, grouping: groupingName, today: today)
   }
 
-  private var tab: ReportsTab { selection.tab(idiom) }
+  private var tab: ReportsTab { selection.tab(idiom, byPeriods: byPeriods) }
 
   private var period: AnalyticsPeriod { selection.period }
 
-  private var request: ReportsSheetRequest { selection.sheetRequest(idiom, today: today) }
+  /// The tables of the tab; on «По периодам» the period total of the summary on screen.
+  private var request: ReportsSheetRequest {
+    if tab == .byPeriods, let id = summaries.selected,
+      let summary = ReportsSheetRequest.summary(id, today: today)
+    {
+      return summary
+    }
+    return selection.sheetRequest(idiom, today: today)
+  }
 
   private var state: BlockState<ReportsSheet> {
     ReportsStore.state(
@@ -132,16 +145,17 @@ struct ReportsWindow: View {
     periodText = period.clamped(to: today).storage
   }
 
-  /// A tab of a table stores its table and grouping; «По периодам» and «Сохранённые» open their
-  /// sheets over the table on screen.
+  /// A tab of a table stores its table and grouping; «По периодам» puts «Итоги» over it;
+  /// «Сохранённые» opens its sheet over the tab on screen.
   private func choose(_ tab: ReportsTab) {
     switch tab {
     case .byPeriods:
-      summariesOpen = true
+      byPeriods = true
     case .saved:
       NotificationCenter.default.post(name: .manageSavedViews, object: nil)
     default:
       guard let stored = tab.stored else { return }
+      byPeriods = false
       tableName = stored.kind.rawValue
       groupingName = stored.grouping.rawValue
     }
@@ -174,10 +188,16 @@ struct ReportsWindow: View {
 
   // MARK: The header
 
-  /// «Отчёты», and at the right edge the period and «Выгрузить CSV…», the one orange button.
+  /// «Отчёты», and at the right edge the period and «Выгрузить CSV…», the one orange button; on
+  /// «По периодам» the period of the summary and «Поделиться…» before it.
   private var titleRow: some View {
     ScreenTitleRow(title: t("reports.window.title")) {
-      periodButton
+      if tab == .byPeriods {
+        SummaryPeriodMenu(store: summaries)
+        SummaryShareMenu(store: summaries)
+      } else {
+        periodButton
+      }
       exportButton
     }
   }
@@ -261,7 +281,9 @@ struct ReportsWindow: View {
 
   @ViewBuilder
   private var detail: some View {
-    if let sheet = state.value {
+    if tab == .byPeriods {
+      PeriodsBoardView(store: summaries)
+    } else if let sheet = state.value {
       let grid = ReportGridBuilder.grid(sheet, idiom, environment)
       ReportGridView(grid: grid, metrics: metrics, idiom: idiom)
         .contextMenu {

@@ -329,8 +329,9 @@ final class ReportsAnalyticsFigmaWindowTests: XCTestCase {
 final class ReportsAnalyticsFigmaTests: XCTestCase {
   private let today = DateOnly(year: 2026, month: 11, day: 10)
 
-  /// The tabs as each frame names them: nine on the Mac (88:71026), six on the tablet
-  /// (6:155364), three on a phone (6:111711).
+  /// The tabs as each frame names them: nine on the Mac (88:71026), the six tables of the tablet
+  /// (6:155364) and «По периодам» (572:224407), three on a phone (6:111711) — a phone has «Итоги»
+  /// as a page of «Ещё».
   func testEachDesignHasTheTabsOfItsFrame() {
     XCTAssertEqual(
       ReportsTab.tabs(.mac),
@@ -339,7 +340,8 @@ final class ReportsAnalyticsFigmaTests: XCTestCase {
         .saved,
       ])
     XCTAssertEqual(
-      ReportsTab.tabs(.pad), [.byCategory, .byMonth, .byPerson, .byPlace, .byEvent, .byAccount])
+      ReportsTab.tabs(.pad),
+      [.byCategory, .byMonth, .byPerson, .byPlace, .byEvent, .byAccount, .byPeriods])
     XCTAssertEqual(ReportsTab.tabs(.phone), [.byCategory, .byMonth, .total])
     let environment = AppEnvironment()
     environment.language.choice = .russian
@@ -356,7 +358,8 @@ final class ReportsAnalyticsFigmaTests: XCTestCase {
   func testATabIsReadBackFromWhatItStores() {
     for tab in ReportsTab.allCases {
       guard let stored = tab.stored else {
-        XCTAssertTrue(tab.opensSheet, "\(tab)")
+        XCTAssertFalse(tab.showsTable, "\(tab)")
+        XCTAssertEqual(tab.opensSheet, tab == .saved, "only «Сохранённые» is a sheet now")
         continue
       }
       XCTAssertEqual(ReportsTab(kind: stored.kind, grouping: stored.grouping), tab)

@@ -7,10 +7,8 @@ import SwiftUI
 struct SummaryAnnouncementCard: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
-  @Environment(\.dependencies) private var dependencies
 
   @State private var model = SummariesModel(store: nil)
-  @State private var opened: SummaryID?
 
   private func t(_ key: String) -> String { environment.language(key, table: "Summaries") }
 
@@ -26,15 +24,6 @@ struct SummaryAnnouncementCard: View {
       model = SummariesModel(environment: environment)
       await model.load()
     }
-    .sheet(item: $opened) { id in
-      SummariesScreen(initial: id)
-        .handingOver(dependencies)
-    }
-    .onChange(of: opened) { old, new in
-      // The card is put away when the screen it opened is closed, not when it opens: the sheet
-      // hangs on the card.
-      if new == nil, let old { model.markShown(old) }
-    }
   }
 
   @ViewBuilder private func card(_ said: SummaryAnnouncement) -> some View {
@@ -48,7 +37,7 @@ struct SummaryAnnouncementCard: View {
         Text(verbatim: headline(of: id))
           .appFont(.headline)
           .frame(maxWidth: .infinity, alignment: .leading)
-        Button(t("summaries.ready.open")) { opened = id }
+        Button(t("summaries.ready.open")) { open(id) }
           .buttonStyle(.borderedProminent)
           .controlSize(.small)
           .accessibilityIdentifier("summaries.open")
@@ -89,6 +78,13 @@ struct SummaryAnnouncementCard: View {
   }
 
   /// «Итоги сентября готовы», «Итоги 2025 года готовы», «Итоги недели готовы».
+  /// «Открыть»: the card is put away and «Итоги» show the summary — the tab «По периодам» of
+  /// Reports, the page «Итоги» on a phone.
+  private func open(_ id: SummaryID) {
+    model.markShown(id)
+    SummariesRoute.open(id)
+  }
+
   private func headline(of id: SummaryID) -> String {
     SummaryAnnouncementText.headline(of: id, language: environment.language)
   }

@@ -59,7 +59,8 @@ enum PadLayout {
     let menu = MoreMenu.make(more: [], tripIsOn: tripIsOn, hasConflicts: hasConflicts)
     return (menu.sections + menu.app).filter { row in
       switch row {
-      case .section, .purchases, .settings: false
+      // «Итоги» are a tab of Reports on a tablet.
+      case .section, .purchases, .settings, .summaries: false
       default: true
       }
     }
@@ -111,7 +112,7 @@ extension PhoneRouter {
       case .debts: return .debts
       case .purchases: return .purchases
       case .analytics: return .analytics
-      case .reports: return .reports
+      case .reports, .summaries: return .reports
       case .settings, .whatIf, .conflicts, nil: return nil
       }
     }

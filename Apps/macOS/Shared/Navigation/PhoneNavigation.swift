@@ -11,6 +11,8 @@ enum PhoneTab: String, Hashable, CaseIterable, Sendable {
 /// What «Ещё» pushes: the sections that did not fit into a tab, and the list of the settings.
 enum MoreDestination: Hashable, Sendable {
   case debts, calendar, capital, settings, conflicts, analytics, reports, whatIf, purchases
+  /// «Итоги» of a phone: what the tab «По периодам» of Reports is on the Mac and a tablet.
+  case summaries
 }
 
 /// Where a request to show something lands on the phone.
@@ -101,6 +103,13 @@ final class PhoneRouter {
     case .analytics: open(PhoneRoute(tab: .more, more: .analytics))
     case .reports: open(PhoneRoute(tab: .more, more: .reports))
     }
+  }
+
+  /// «Итоги»: on a tablet Reports, which shows them on its tab «По периодам»; on a phone their
+  /// page of «Ещё».
+  func openSummaries(isPad: Bool) {
+    cover = nil
+    open(PhoneRoute(tab: .more, more: isPad ? .reports : .summaries))
   }
 
   func closeCover() { cover = nil }

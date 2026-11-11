@@ -61,7 +61,7 @@ final class PhoneReportsDebtsStyleTests: XCTestCase {
     for choice in [AppLanguage.Choice.russian, .english] {
       environment.language.choice = choice
       for (idiom, width) in [(LayoutIdiom.phone, 408.0), (.pad, 900), (.mac, 1_152)] {
-        for tab in ReportsTab.tabs(idiom) where !tab.opensSheet {
+        for tab in ReportsTab.tabs(idiom) where tab.showsTable {
           let sheet = ReportsSheetBuilder.sheet(
             ReportsSheetRequest(tab: tab, period: period, today: golden.todayDay), ledger: ledger)
           let grid = ReportGridBuilder.grid(sheet, idiom, environment)

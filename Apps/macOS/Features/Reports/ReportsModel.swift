@@ -14,6 +14,8 @@ struct ReportsSelection: Hashable, Sendable {
   static let tableKey = storageKey("reports.table")
   static let periodKey = storageKey("reports.period")
   static let groupingKey = storageKey("reports.grouping")
+  /// The tab «По периодам» is the one on screen: «Итоги» sit there, not in a table.
+  static let byPeriodsKey = storageKey("reports.byPeriods")
 
   /// A name as it is, or with the data set's after it (`reports.period.sample`) when the app
   /// runs on a set: every build shares one domain of defaults, and a session of `make sample`
@@ -173,10 +175,11 @@ enum ReportsBuilder {
 // MARK: - The tabs of the screen
 
 /// The tabs of the Reports screen, as the design names them: the tables by category, by event,
-/// by person, by account and by place, by month, the period total, and two that open a sheet of
-/// their own — the summaries of a week, a month and a year, and the saved reports. A tab is not
-/// stored by itself: it is read from the stored table and grouping (`ReportsSelection`), so a
-/// saved report and an older version of the window open the same tab.
+/// by person, by account and by place, by month, the period total, «По периодам» — the summaries
+/// of a week, a month and a year in cards — and the saved reports, which open a sheet of their
+/// own. A table tab is not stored by itself: it is read from the stored table and grouping
+/// (`ReportsSelection`), so a saved report and an older version of the window open the same tab;
+/// «По периодам» is a flag of its own (`ReportsSelection.byPeriodsKey`) over them.
 enum ReportsTab: String, CaseIterable, Identifiable, Hashable, Sendable {
   case byCategory
   case byEvent
@@ -192,17 +195,22 @@ enum ReportsTab: String, CaseIterable, Identifiable, Hashable, Sendable {
   var titleKey: String { "reports.tab.\(rawValue)" }
 
   /// The tabs of each design, in its order: all of them on the Mac; the tables of the tablet's
-  /// frame; the three a phone's width holds.
+  /// frame and «По периодам» (572:224407); the three a phone's width holds — a phone has «Итоги»
+  /// as a page of «Ещё» (68:18578).
   static func tabs(_ idiom: LayoutIdiom) -> [ReportsTab] {
     switch idiom {
     case .mac: allCases
-    case .pad: [.byCategory, .byMonth, .byPerson, .byPlace, .byEvent, .byAccount]
+    case .pad: [.byCategory, .byMonth, .byPerson, .byPlace, .byEvent, .byAccount, .byPeriods]
     case .phone: [.byCategory, .byMonth, .total]
     }
   }
 
-  /// «По периодам» and «Сохранённые» open a sheet over the screen; the table stays as it was.
-  var opensSheet: Bool { self == .byPeriods || self == .saved }
+  /// «Сохранённые» opens a sheet over the screen; the table stays as it was.
+  var opensSheet: Bool { self == .saved }
+
+  /// The tab shows a table of the core's (and the CSV writes it); «По периодам» shows the cards
+  /// of «Итоги».
+  var showsTable: Bool { self != .byPeriods && self != .saved }
 
   /// The grouping of a tab of spending by one dimension.
   var grouping: ReportGrouping? {
@@ -232,7 +240,7 @@ enum ReportsTab: String, CaseIterable, Identifiable, Hashable, Sendable {
     }
   }
 
-  /// What choosing the tab stores; `nil` for a tab that opens a sheet.
+  /// What choosing the tab stores; `nil` for «По периодам» and for the tab that opens a sheet.
   var stored: (kind: ReportTable.Kind, grouping: ReportGrouping)? {
     switch self {
     case .byCategory: (.expensesByCategoryAndSubcategory, .category)
@@ -245,13 +253,16 @@ enum ReportsTab: String, CaseIterable, Identifiable, Hashable, Sendable {
 }
 
 extension ReportsSelection {
-  /// The tab on screen. A tab the design of this device does not show opens «По категориям».
-  func tab(_ idiom: LayoutIdiom) -> ReportsTab {
+  /// The tab on screen. A tab the design of this device does not show opens «По категориям»;
+  /// `byPeriods` puts «По периодам» over the stored table where the design has it.
+  func tab(_ idiom: LayoutIdiom, byPeriods: Bool = false) -> ReportsTab {
+    if byPeriods, ReportsTab.tabs(idiom).contains(.byPeriods) { return .byPeriods }
     let tab = ReportsTab(kind: kind, grouping: grouping)
     return ReportsTab.tabs(idiom).contains(tab) ? tab : .byCategory
   }
 
-  /// What the screen builds for the tab: the tables it shows and the CSV writes.
+  /// What the screen builds for the tab of the stored table: the tables it shows and the CSV
+  /// writes. «По периодам» builds none of them.
   func sheetRequest(_ idiom: LayoutIdiom, today: DateOnly) -> ReportsSheetRequest {
     ReportsSheetRequest(tab: tab(idiom), period: period, today: today)
   }
@@ -262,6 +273,24 @@ struct ReportsSheetRequest: Hashable, Sendable {
   var tab: ReportsTab
   var period: AnalyticsPeriod
   var today: DateOnly
+
+  /// «По периодам»: «Выгрузить CSV…» writes the period total of the summary on screen — its
+  /// week, month or year — the table «Итого» writes for a month or a year.
+  static func summary(_ id: SummaryID, today: DateOnly) -> ReportsSheetRequest? {
+    let period: AnalyticsPeriod
+    switch id.kind {
+    case .week:
+      guard let week = id.weekKey else { return nil }
+      period = AnalyticsPeriod(week: week.start)
+    case .month:
+      guard let month = id.monthKey else { return nil }
+      period = AnalyticsPeriod(kind: .month, month: month)
+    case .year:
+      guard let year = id.yearNumber else { return nil }
+      period = AnalyticsPeriod(kind: .year, month: MonthKey(year: year, month: 12))
+    }
+    return ReportsSheetRequest(tab: .byPeriods, period: period, today: today)
+  }
 
   /// The tables of the tab, in the order the CSV writes them. «По категориям» is the income by
   /// category and the spending by category and subcategory; a tab of one dimension is the

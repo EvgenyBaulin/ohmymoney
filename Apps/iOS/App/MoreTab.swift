@@ -105,6 +105,7 @@ struct MoreTab: View {
     switch row {
     case .section(let item):
       environment.language(item.titleKey, table: item.titleTable ?? "Common")
+    case .summaries: environment.language("summaries.title", table: "Summaries")
     case .purchases: environment.language("section.purchases")
     case .whatIf: environment.language("window.whatIf")
     case .trip: n("nav.more.trip")
@@ -141,6 +142,8 @@ struct MoreTab: View {
       NavigationLink(value: MoreDestination.settings) { label }
     case .conflicts:
       NavigationLink(value: MoreDestination.conflicts) { label }
+    case .summaries:
+      NavigationLink(value: MoreDestination.summaries) { label }
     case .purchases:
       NavigationLink(value: MoreDestination.purchases) { label }
     case .whatIf:
@@ -217,6 +220,11 @@ struct MoreDestinationScreen<Entry: View>: View {
       sectionScreen(titleKey: "window.reports") { ReportsWindow(deps: deps) }
     case .purchases:
       sectionScreen(titleKey: "section.purchases") { PurchasesScreen() }
+    case .summaries:
+      PhoneContent(deps: deps, actions: actions) { SummariesPage(deps: deps) } entry: { entry }
+        .navigationTitle(environment.language("summaries.title", table: "Summaries"))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(removing: .title)
     case .whatIf:
       sectionScreen(titleKey: "window.whatIf") { WhatIfWindow(deps: deps) }
     case .settings:
