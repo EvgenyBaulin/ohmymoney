@@ -37,7 +37,7 @@ public struct ThemeColor: Equatable, Hashable, Sendable {
   var relativeLuminance: Double {  // stats-only
     func linear(_ byte: UInt8) -> Double {
       let value = Double(byte) / 255
-      return value <= 0.03928 ? value / 12.92 : pow((value + 0.055) / 1.055, 2.4)
+      return value <= 0.04045 ? value / 12.92 : pow((value + 0.055) / 1.055, 2.4)
     }
     return 0.2126 * linear(red) + 0.7152 * linear(green) + 0.0722 * linear(blue)
   }
@@ -60,5 +60,41 @@ public struct ThemeColor: Equatable, Hashable, Sendable {
     let top = composited(over: background).relativeLuminance
     let bottom = background.relativeLuminance
     return (max(top, bottom) + 0.05) / (min(top, bottom) + 0.05)
+  }
+
+  /// Keeps readable text unchanged; otherwise mixes its visible colour toward black or
+  /// white, whichever reaches WCAG AA with the smaller change. The passing side of the
+  /// search is retained after byte rounding, so quantization cannot drop the result below AA.
+  func ensuringTextContrast(on background: ThemeColor) -> ThemeColor {
+    guard contrast(on: background) < 4.5 else { return self }
+    let visible = composited(over: background)
+    var best = ThemeColor(0x0000_00FF)
+    var smallestChange = Double.infinity  // stats-only
+    for endpoint in [ThemeColor(0x0000_00FF), ThemeColor(0xFFFF_FFFF)] {
+      guard endpoint.contrast(on: background) >= 4.5 else { continue }
+      var low = 0.0  // stats-only
+      var high = 1.0  // stats-only
+      var passing = endpoint
+      for _ in 0..<20 {
+        let fraction = (low + high) / 2
+        func mix(_ start: UInt8, _ end: UInt8) -> UInt8 {
+          UInt8((Double(start) + (Double(end) - Double(start)) * fraction).rounded())
+        }
+        let candidate = ThemeColor(
+          red: mix(visible.red, endpoint.red), green: mix(visible.green, endpoint.green),
+          blue: mix(visible.blue, endpoint.blue))
+        if candidate.contrast(on: background) >= 4.5 {
+          high = fraction
+          passing = candidate
+        } else {
+          low = fraction
+        }
+      }
+      if high < smallestChange {
+        smallestChange = high
+        best = passing
+      }
+    }
+    return best
   }
 }

@@ -40,7 +40,8 @@ private struct HeroCard: ViewModifier {
 }
 
 /// Which sidebar row is lit and with what: the plate is the theme's accent tint, the text and
-/// the icon its accent content colour. Pure, so the rule is tested without a window.
+/// the icon its accent content colour adjusted for legibility. Pure, so the rule is tested
+/// without a window.
 struct SidebarHighlight: Equatable {
   let isSelected: Bool
 
@@ -53,7 +54,7 @@ struct SidebarHighlight: Equatable {
   }
 
   func text(_ theme: AppThemeColors) -> Color {
-    isSelected ? Color(theme.palette.accentContent) : Color(theme.palette.contentPrimary)
+    isSelected ? Color(theme.palette.sidebarSelectionText) : Color(theme.palette.contentPrimary)
   }
 
   /// The row's symbol follows its text, so the whole row changes with the theme.

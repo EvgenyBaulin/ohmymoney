@@ -20,7 +20,7 @@ struct EntryLineMetrics: Equatable, Sendable {
   /// The type of the words, in points at «Обычный».
   let text: CGFloat
   /// The room the capsule keeps from each side of the column on a phone; the tablet's capsule
-  /// is as wide as `width`, the Mac's follows the window (`EntryBarMetrics.columnWidth`).
+  /// is as wide as `width`, the Mac's is capped at 520 (`EntryBarMetrics.columnWidth`).
   let side: CGFloat
   /// The width of the tablet's capsule; the phone's is the column less `side` on each side.
   let width: CGFloat?

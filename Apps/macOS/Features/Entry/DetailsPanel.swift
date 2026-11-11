@@ -34,11 +34,11 @@ struct DetailsPanel: View {
   /// Told whether a field of the panel has the keyboard: the form at the side of the window
   /// answers Return with «Save» only while one does.
   var focusedInside: Binding<Bool>? = nil
-  /// How the fields stand: beside their labels in a grid — the ↓ panel, 560–720 pt wide, and the
+  /// How the fields stand: beside their labels in a grid — the ↓ panel, up to 720 pt wide, and the
   /// editor — or under them in one column, for the form at the side of the window.
   var arrangement: Arrangement = .wide
   /// Whether the grid is wide enough for the kinds and «За кого» as segments side by side: the
-  /// ↓ panel, 560–720 pt, is. The inspector of the Transactions window, a column of 300–440 pt,
+  /// ↓ panel, up to 720 pt, is. The inspector of the Transactions window, a column of 300–440 pt,
   /// is not — there both are menus. Four kinds side by side want 390 pt in English and 524 in
   /// Russian, wider than the column can ever be, and SwiftUI does not always measure such a
   /// control squeezed: on some passes the content reported that natural width as its minimum,
