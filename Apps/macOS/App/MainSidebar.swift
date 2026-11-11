@@ -76,7 +76,6 @@ enum SidebarItem: Hashable, Sendable {
         Section {
           ForEach(MainWindow.Section.allCases) { item in
             sectionRow(item)
-            if item == .purchases { purchasesRows }
           }
         }
         if environment.state == .ready {
@@ -119,40 +118,6 @@ enum SidebarItem: Hashable, Sendable {
       .onReceive(NotificationCenter.default.publisher(for: .openSidebarItem)) { note in
         guard let item = note.object as? SidebarItem else { return }
         selection = item
-      }
-    }
-
-    /// The pages of «Покупки» under its row: «Хочу купить», «Вещи», «Ждут зачисления». A click
-    /// opens the section on that page; the two lists left out (the shopping list and the savings)
-    /// are behind the switch of the screen.
-    private var purchasesRows: some View {
-      ForEach([PurchasesText.Page.wishes, .things, .waiting]) { page in
-        let lit =
-          selection == .section(.purchases) && PurchasesNavigation.shared.page == page
-        Button {
-          PurchasesNavigation.shared.page = page
-          selection = .section(.purchases)
-        } label: {
-          Text(verbatim: PurchasesText.t(page.titleKey, environment))
-            .appFont(.callout)
-            .foregroundStyle(
-              Color(lit ? theme.palette.accentContent : theme.palette.contentPrimary)
-            )
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 2)
-            // Under the name of «Покупки».
-            .padding(
-              .leading,
-              SidebarMetrics.rowHorizontal + SidebarMetrics.icon + SidebarMetrics.iconGap
-                - SidebarMetrics.listOutset
-            )
-            .contentShape(.rect)
-        }
-        .buttonStyle(.plain)
-        .listRowInsets(SidebarRowLabel.insets)
-        .listRowBackground(Color.clear)
-        .accessibilityAddTraits(lit ? [.isSelected] : [])
-        .accessibilityIdentifier("sidebar.purchases.\(page.rawValue)")
       }
     }
 

@@ -67,8 +67,7 @@ struct PurchasesScreen: View {
         SectionHeader(
           title: t("purchases.title"),
           identifier: "purchases.title",
-          primary: selected == .wishes
-            ? (t("purchases.wishes.add"), "purchases.wishes.add", { sheet = .newWish }) : nil,
+          primary: headerButton,
           trailing: densityToggle)
         tabs(design)
         // A phone has no header button: «Добавить желание» stands under the tabs, as its frame.
@@ -118,6 +117,16 @@ struct PurchasesScreen: View {
         .scrollBounceBehavior(.basedOnSize, axes: .horizontal)
     } else {
       segments
+    }
+  }
+
+  /// The orange button of the header: «Добавить желание» on the wishes, «Добавить вещь» on the
+  /// things; the other three pages have none, as their frames.
+  private var headerButton: (title: String, identifier: String, action: () -> Void)? {
+    switch selected {
+    case .wishes: (t("purchases.wishes.add"), "purchases.wishes.add", { sheet = .newWish })
+    case .things: (t("purchases.things.add"), "purchases.things.add", { sheet = .newThing })
+    case .shopping, .waiting, .savings: nil
     }
   }
 

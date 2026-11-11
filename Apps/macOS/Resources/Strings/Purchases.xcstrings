@@ -2670,6 +2670,40 @@
           }
         }
       }
+    },
+    "purchases.afford.until": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expect the money: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда ждать деньги: %@"
+          }
+        }
+      }
+    },
+    "purchases.waiting.overdue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected by %@ — overdue"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидалось до %@ — просрочено"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

@@ -89,6 +89,13 @@ enum PurchasesText {
     case .noSavingPace:
       return t("purchases.afford.noPace", environment)
     case .months(let months):
+      // The frame says when to expect the money, and the core knows the month, not the day.
+      if let ready = line.afford.readyIn {
+        let month = environment.dates.monthName(ready.month)
+        let name = environment.language.resolvedCode == "ru" ? month.lowercased() : month
+        let when = ready.year == environment.today.year ? name : "\(name) \(ready.year)"
+        return f("purchases.afford.until", environment, when)
+      }
       let pace = line.afford.monthlySavingE4.map { environment.money.rounded($0) } ?? ""
       return count("purchases.afford.months", environment, months) + ", "
         + f("purchases.afford.pace", environment, pace)
@@ -180,7 +187,8 @@ enum PurchasesText {
     -> String
   {
     if refund.isLate(today: today) {
-      return count("purchases.waiting.late", environment, -refund.daysLeft(today: today))
+      return f(
+        "purchases.waiting.overdue", environment, environment.dates.longDay(refund.expectedBy))
     }
     return f("purchases.waiting.until", environment, environment.dates.longDay(refund.expectedBy))
   }
