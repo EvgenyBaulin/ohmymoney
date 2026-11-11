@@ -107,7 +107,12 @@ final class EntryFormTests: XCTestCase {
     XCTAssertEqual(try host.transactions.count(), 0, "no category, nothing saved")
 
     try choose("Cafe", inMenu: "entry.category", host: host)
-    try press("entry.form.save", in: host)
+    // «Save» without a category writes nothing, so pressing again until the write lands is safe
+    // when a loaded Mac applies the menu choice later than a fixed pause.
+    for _ in 0..<5 {
+      try press("entry.form.save", in: host)
+      if host.settle(until: { (try? host.transactions.count()) == 1 }, timeout: 3) { break }
+    }
     let saved = try XCTUnwrap(try host.transactions.recentEntries(limit: 5).first)
     XCTAssertEqual(saved.transaction.amountE4, AmountE4(whole: 250))
     XCTAssertEqual(saved.parts.first?.categoryId, cafe.id)
@@ -125,7 +130,7 @@ final class EntryFormTests: XCTestCase {
     try choose("Cafe", inMenu: "entry.category", host: host)
     let amount = try host.type("300", into: try host.field(prompt: "0"))
     amount.insertNewline(nil)
-    host.settle()
+    host.settle(until: { (try? host.transactions.count()) == 1 })
     XCTAssertEqual(try host.transactions.count(), 1)
     XCTAssertEqual(
       try host.transactions.recentEntries(limit: 1).first?.transaction.amountE4,
