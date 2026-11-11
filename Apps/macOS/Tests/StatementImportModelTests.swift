@@ -109,6 +109,24 @@ final class StatementImportModelTests: XCTestCase {
 
   // MARK: Reading
 
+  func testOriginalBytesFromPasteHaveTheSamePreviewAndHashAsAChosenFile() async throws {
+    let account = try makeAccount("Synthetic")
+    let bytes = csv([purchase("14.09.2026", "1786,0", "SAMPLE SHOP")])
+    let byURL = try await model()
+    let byBytes = try await model()
+    await byURL.add(urls: [try file("statement.csv", bytes)])
+    await byBytes.add(data: bytes, name: "statement.csv")
+    let first = try XCTUnwrap(byURL.files.first)
+    let second = try XCTUnwrap(byBytes.files.first)
+    XCTAssertEqual(first.fileHash, second.fileHash)
+    XCTAssertEqual(first.parsed, second.parsed)
+    byURL.setAccount(account.id, for: first.id)
+    byBytes.setAccount(account.id, for: second.id)
+    XCTAssertEqual(byURL.plan.write, byBytes.plan.write)
+    XCTAssertEqual(byBytes.plan.write, 1)
+    XCTAssertTrue(try liveOperations().isEmpty, "reading and previewing write nothing")
+  }
+
   func testASemicolonFileIsRecognisedAndPreviewedAgainstTheChosenAccount() async throws {
     let account = try makeAccount("Основной")
     let model = try await model()
@@ -555,13 +573,11 @@ final class StatementImportModelTests: XCTestCase {
 
   // MARK: Entry points and helpers
 
-  func testOnlyTablesTextsAndPDFsAreTakenFromADrop() {
-    let dropped = ["a.CSV", "b.pdf", "c.txt", "d.heic", "e.numbers", "folder"].map {
-      URL(fileURLWithPath: "/tmp/\($0)")
-    }
+  func testDropDistinguishesStatementsDocumentsAndUnsupportedFiles() {
+    let dropped = ["a.CSV", "b.pdf", "c.txt", "d.heic", "e.numbers", "folder"]
     XCTAssertEqual(
-      StatementImportPresenter.statementFiles(in: dropped).map(\.lastPathComponent),
-      ["a.CSV", "b.pdf", "c.txt"])
+      dropped.map { EntryImportFileKind.of($0) },
+      [.statement, .document, .statement, .document, nil, nil])
   }
 
   func testTheSpanForTheHandTypedEntriesCrossesMonthAndYearEdges() {

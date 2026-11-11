@@ -394,6 +394,7 @@ struct PhoneSheets: ViewModifier {
         ProblemReportSheet(height: 380).appDependencies(deps)
       }
       .receiptSheet(deps)
+      .entryImportSheet(deps)
       .fullScreenCover(
         item: environment.lock.presenting(
           Binding(get: { router.cover }, set: { router.cover = $0 }))
