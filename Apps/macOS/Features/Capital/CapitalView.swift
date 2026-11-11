@@ -44,7 +44,11 @@ struct CapitalView: View {
             retry: { compute.retry(ComputeStep.data) })
         }
       }
-      .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+      .onGeometryChange(for: CGFloat.self) {
+        $0.size.width
+      } action: {
+        width = $0
+      }
     }
     .accessibilityIdentifier("capital.screen")
     .sheet(item: $sheet) { sheet in

@@ -9,6 +9,16 @@ struct ComparisonDisplay: Sendable {
   var names: AnalyticsNames
 }
 
+/// The numbers of the comparison card in its frame (61:60976): the controls 12 apart, the
+/// table's rows 12 apart, the figure columns 110 and the change 150 with 10 between.
+enum ComparisonMetrics {
+  static let controlGap: CGFloat = 12
+  static let rowGap: CGFloat = 12
+  static let columnGap: CGFloat = 10
+  static let figureWidth: CGFloat = 110
+  static let changeWidth: CGFloat = 150
+}
+
 /// «Сравнение»: two periods side by side by category, place or person; the ready-made pairs of
 /// one tap and any two ranges; «Я год назад» under it.
 struct ComparisonSection: View {
@@ -44,12 +54,11 @@ struct ComparisonSection: View {
           return .ready(
             ComparisonDisplay(
               comparison: comparison, names: AnalyticsNames(dataset: snapshot.dataset)))
-        },
-        accessory: { chooser }
+        }
       ) { display in
         ComparisonTable(display: display)
       }
-      controls
+      .prelude { controls }
       YearAgoCard(month: period.month)
     }
     .onAppear { setup.chooseDefaultEvent(from: compute.snapshot?.dataset.events ?? []) }
@@ -57,23 +66,25 @@ struct ComparisonSection: View {
 
   // MARK: Controls
 
-  private var chooser: some View {
-    Picker(selection: $setup.kind) {
-      ForEach(ComparisonPairKind.allCases) { kind in
-        Text(verbatim: SpendingText.name(of: kind, environment)).tag(kind)
-      }
-    } label: {
-      Text(verbatim: t("spending.cmp.pair"))
-    }
-    .pickerStyle(.menu)
-    .fixedSize()
-    .accessibilityIdentifier("spending.cmp.pair")
-  }
-
+  /// The three controls of the frame, each a word at the left and its control at the right:
+  /// the pair as a menu, the cut and the figures as segments, 12 apart.
   @ViewBuilder
   private var controls: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      FlowRow(spacing: 12, lineSpacing: 8) {
+    VStack(alignment: .leading, spacing: ComparisonMetrics.controlGap) {
+      controlRow(t("spending.cmp.pair")) {
+        Picker(selection: $setup.kind) {
+          ForEach(ComparisonPairKind.allCases) { kind in
+            Text(verbatim: SpendingText.name(of: kind, environment)).tag(kind)
+          }
+        } label: {
+          Text(verbatim: t("spending.cmp.pair"))
+        }
+        .labelsHidden()
+        .pickerStyle(.menu)
+        .fixedSize()
+        .accessibilityIdentifier("spending.cmp.pair")
+      }
+      controlRow(t("spending.cmp.dimension")) {
         Picker(selection: $setup.dimension) {
           ForEach(ComparisonDimension.allCases, id: \.self) { dimension in
             Text(verbatim: SpendingText.name(of: dimension, environment)).tag(dimension)
@@ -81,9 +92,12 @@ struct ComparisonSection: View {
         } label: {
           Text(verbatim: t("spending.cmp.dimension"))
         }
+        .labelsHidden()
         .pickerStyle(.segmented)
         .fixedSize()
         .accessibilityIdentifier("spending.cmp.dimension")
+      }
+      controlRow(t("spending.cmp.choice")) {
         Picker(selection: $setup.choice) {
           ForEach(ComparisonChoice.allCases, id: \.self) { choice in
             Text(verbatim: SpendingText.name(of: choice, environment)).tag(choice)
@@ -91,14 +105,24 @@ struct ComparisonSection: View {
         } label: {
           Text(verbatim: t("spending.cmp.choice"))
         }
-        .pickerStyle(.menu)
+        .labelsHidden()
+        .pickerStyle(.segmented)
         .fixedSize()
         .accessibilityIdentifier("spending.cmp.choice")
       }
       if setup.kind == .eventToUsualMonth { eventPicker }
       if setup.kind == .custom { customRanges }
     }
-    .padding(.horizontal, 4)
+  }
+
+  private func controlRow<Control: View>(
+    _ title: String, @ViewBuilder control: () -> Control
+  ) -> some View {
+    HStack {
+      Text(verbatim: title).appFont(.system(size: 13))
+      Spacer(minLength: 12)
+      control()
+    }
   }
 
   private var eventPicker: some View {
@@ -165,12 +189,22 @@ private struct ComparisonTable: View {
 
   var body: some View {
     let comparison = display.comparison
-    VStack(alignment: .leading, spacing: 8) {
-      HStack {
-        header(SpendingText.title(of: comparison.periods.current, environment), "current")
-        header(SpendingText.title(of: comparison.periods.baseline, environment), "baseline")
+    VStack(alignment: .leading, spacing: ComparisonMetrics.rowGap) {
+      HStack(spacing: ComparisonMetrics.columnGap) {
+        Spacer(minLength: 0)
+        header(
+          SpendingText.t("spending.cmp.col.current", environment),
+          SpendingText.title(of: comparison.periods.current, environment), "current",
+          width: ComparisonMetrics.figureWidth)
+        header(
+          SpendingText.t("spending.cmp.col.baseline", environment),
+          SpendingText.title(of: comparison.periods.baseline, environment), "baseline",
+          width: ComparisonMetrics.figureWidth)
+        header(
+          SpendingText.t("spending.cmp.col.change", environment), nil, "change",
+          width: ComparisonMetrics.changeWidth)
       }
-      .appFont(.caption.weight(.semibold))
+      .appFont(.system(size: 11))
       .foregroundStyle(.secondary)
       if let note = SpendingText.measureNote(comparison, environment) {
         Label {
@@ -194,20 +228,31 @@ private struct ComparisonTable: View {
     }
   }
 
-  private func header(_ title: String, _ id: String) -> some View {
+  /// A column head of the frame; the period it stands for is its help and its spoken label.
+  private func header(
+    _ title: String, _ period: String?, _ id: String, width: CGFloat
+  )
+    -> some View
+  {
     Text(verbatim: title)
-      .frame(maxWidth: .infinity, alignment: .leading)
+      .frame(width: width, alignment: .trailing)
+      .help(period ?? "")
+      .accessibilityLabel(
+        Text(verbatim: [title, period].compactMap { $0 }.joined(separator: ", "))
+      )
       .accessibilityIdentifier("spending.cmp.header.\(id)")
   }
 
   private func line(_ name: String, _ row: ComparisonRow, bold: Bool = false) -> some View {
     let money = environment.money
     return ViewThatFits(in: .horizontal) {
-      HStack(alignment: .firstTextBaseline, spacing: 8) {
+      HStack(alignment: .firstTextBaseline, spacing: ComparisonMetrics.columnGap) {
         Text(verbatim: name).lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
-        Text(verbatim: money.rounded(row.current)).frame(width: 96, alignment: .trailing)
-        Text(verbatim: money.rounded(row.baseline)).frame(width: 96, alignment: .trailing)
-        changeLabel(row).frame(width: 150, alignment: .trailing)
+        Text(verbatim: money.rounded(row.current))
+          .frame(width: ComparisonMetrics.figureWidth, alignment: .trailing)
+        Text(verbatim: money.rounded(row.baseline))
+          .frame(width: ComparisonMetrics.figureWidth, alignment: .trailing)
+        changeLabel(row).frame(width: ComparisonMetrics.changeWidth, alignment: .trailing)
       }
       VStack(alignment: .leading, spacing: 2) {
         Text(verbatim: name)
@@ -216,7 +261,11 @@ private struct ComparisonTable: View {
         changeLabel(row)
       }
     }
-    .appFont(bold ? .callout.weight(.semibold).monospacedDigit() : .callout.monospacedDigit())
+    .appFont(
+      bold
+        ? .system(size: 13, weight: .semibold).monospacedDigit()
+        : .system(size: 13).monospacedDigit()
+    )
     .accessibilityElement(children: .combine)
   }
 

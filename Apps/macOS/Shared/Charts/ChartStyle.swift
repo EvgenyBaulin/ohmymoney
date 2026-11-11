@@ -13,7 +13,7 @@ import SwiftUI
 /// The colours a chart may use: the system's, which follow the dark theme and «Увеличить
 /// контраст» by themselves.
 enum ChartTint: String, Hashable, Sendable, CaseIterable {
-  case accent, blue, teal, purple, gray, green, orange, secondary
+  case accent, accentLight, blue, teal, purple, gray, green, orange, secondary
 
   /// `accent` is the app's own — whatever the owner chose in Settings → Appearance, read from
   /// `\.appAccent`. The rest are the system's and never move. `Color.accentColor` is not used
@@ -21,6 +21,7 @@ enum ChartTint: String, Hashable, Sendable, CaseIterable {
   func color(_ accent: Color) -> Color {
     switch self {
     case .accent: accent
+    case .accentLight: accent.mix(with: .white, by: 0.35)
     case .blue: .blue
     case .teal: .teal
     case .purple: .purple

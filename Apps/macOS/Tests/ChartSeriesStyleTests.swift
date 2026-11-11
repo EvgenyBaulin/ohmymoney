@@ -52,7 +52,9 @@ final class ChartSeriesStyleTests: XCTestCase {
   func testOnlyTheAccentTintFollowsTheChoice() {
     XCTAssertEqual(ChartTint.accent.color(.pink), .pink)
     XCTAssertEqual(ChartTint.accent.color(.teal), .teal)
-    for tint in ChartTint.allCases where tint != .accent {
+    // The light accent of track bars is a shade of the accent, so it follows the choice too.
+    XCTAssertNotEqual(ChartTint.accentLight.color(.pink), ChartTint.accentLight.color(.teal))
+    for tint in ChartTint.allCases where tint != .accent && tint != .accentLight {
       XCTAssertEqual(tint.color(.pink), tint.color(.teal), tint.rawValue)
     }
   }

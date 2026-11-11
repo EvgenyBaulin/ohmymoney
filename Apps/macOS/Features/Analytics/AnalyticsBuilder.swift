@@ -25,7 +25,7 @@ enum AnalyticsBuilder {
     case .quality:
       content = .quality(quality(ledger: ledger, period: period, today: today))
     case .others:
-      content = .others(others(ledger: ledger, period: period))
+      content = .others(others(ledger: ledger, period: period, today: today))
     case .forWhom:
       content = .forWhom(forWhom(ledger: ledger, period: period, today: today))
     case .places:
@@ -112,7 +112,8 @@ enum AnalyticsBuilder {
     let quality = QualityTotals.make(columns: qualityColumns)
     return OverviewSectionModel(
       months: monthBars(ledger: ledger, period: period, today: today),
-      quality: quality.tiles.contains { $0.value != 0 } ? .ready(quality) : .notEnoughData(.noSpending),
+      quality: quality.tiles.contains { $0.value != 0 }
+        ? .ready(quality) : .notEnoughData(.noSpending),
       anomalies: report.map { anomalies($0, period: period).found },
       categories: ranked(categories.nodes, else: .noSpending),
       series: steps.month.buckets.contains { $0.value != 0 }
@@ -228,7 +229,7 @@ enum AnalyticsBuilder {
 
   // MARK: - Paid for others
 
-  static func others(ledger: Ledger, period: Period) -> OthersSectionModel {
+  static func others(ledger: Ledger, period: Period, today: DateOnly) -> OthersSectionModel {
     let report = OthersReport(ledger: ledger, period: period)
     let totals = report.totals
     let figures = OthersFigures(
@@ -244,12 +245,21 @@ enum AnalyticsBuilder {
           segments: segments(of: $0.totals))
       }
       .filter { !$0.segments.isEmpty }
+    var months = [min(period.end.monthKey, today.monthKey)]
+    while months.count < 6, let first = months.first { months.insert(first.previous, at: 0) }
+    let dynamics = months.map { month -> OthersMonth in
+      let totals = OthersReport(ledger: ledger, period: .month(month)).totals
+      return OthersMonth(
+        month: month, paid: totals.paid.wholeRubles, returned: totals.returned.wholeRubles)
+    }
     return OthersSectionModel(
       totals: totals.paid.isZero && report.surplus.isZero
         ? .notEnoughData(.nothingPaidForOthers) : .ready(figures),
       bySubscription: subscriptions.isEmpty
         ? .notEnoughData(.noSubscriptionsForOthers) : .ready(subscriptions),
-      byPerson: people.isEmpty ? .notEnoughData(.nothingPaidForOthers) : .ready(people))
+      byPerson: people.isEmpty ? .notEnoughData(.nothingPaidForOthers) : .ready(people),
+      dynamics: dynamics.contains { $0.paid > 0 }
+        ? .ready(dynamics) : .notEnoughData(.nothingPaidForOthers))
   }
 
   /// A person's bar, from the same segments a subscription's bar is made of.
@@ -303,7 +313,9 @@ enum AnalyticsBuilder {
       dynamics = .ready(DynamicsModel(months: months, series: series))
     }
     return ForWhomSectionModel(
-      values: ranked(report.values, else: .noSpending),
+      values: ranked(
+        report.values, else: .noSpending,
+        previous: ForWhomReport(ledger: ledger, period: period.previous).values),
       // Spending that names nobody is the owner's own and has no line here; a period with
       // spending and nobody named says that, not «no spending».
       people: ranked(
@@ -353,8 +365,14 @@ enum AnalyticsBuilder {
   static func places(ledger: Ledger, period: Period) -> PlacesSectionModel {
     let report = PlacesReport(ledger: ledger, period: period)
     let rows = report.places.map(placeRow)
+    let before = Dictionary(
+      PlacesReport(ledger: ledger, period: period.previous).places.compactMap { place in
+        place.mySpending.wholeRubles > 0 ? (place.placeId, place.mySpending.wholeRubles) : nil
+      }, uniquingKeysWith: { first, _ in first })
     let byAmount = rows.filter { $0.spent > 0 }.prefix(topCount).map {
-      RankedValue(key: .place($0.placeId), value: $0.spent)
+      RankedValue(
+        key: .place($0.placeId), value: $0.spent, previous: before[$0.placeId] ?? 0,
+        times: $0.purchases)
     }
     let byPurchases = report.byPurchases.filter { $0.purchases > 0 }.prefix(topCount).map {
       RankedValue(key: .place($0.placeId), value: Int64($0.purchases))
@@ -419,8 +437,17 @@ enum AnalyticsBuilder {
               received: $0.receivedRub.wholeRubles)
           } : [])
     }
-    let bars = rows.filter { $0.mySpending > 0 }.map {
-      RankedValue(key: $0.key, value: $0.mySpending)
+    let before = Dictionary(
+      PaymentMethodsReport(ledger: ledger, period: period.previous).methods.map {
+        ($0.key, $0.mySpending.wholeRubles)
+      }, uniquingKeysWith: { first, _ in first })
+    let spent = rows.filter { $0.mySpending > 0 }
+    let whole = spent.reduce(Int64(0)) { $0 + $1.mySpending }
+    let bars = spent.map { row -> RankedValue in
+      // Half up, in integers, as the shares of the tiles.
+      let share = whole > 0 ? Int((row.mySpending * 10_000 * 2 + whole) / (whole * 2)) : nil
+      return RankedValue(
+        key: row.key, value: row.mySpending, share: share, previous: before[row.key] ?? 0)
     }
     return PaymentMethodsSectionModel(
       spending: bars.isEmpty ? .notEnoughData(.noSpending) : .ready(bars),
@@ -556,9 +583,16 @@ enum AnalyticsBuilder {
   /// Lines of a ranked chart, or «Мало данных» when none has a positive whole ruble to
   /// draw — nothing at all, or refunds that outweighed every bucket.
   static func ranked(
-    _ nodes: [BreakdownNode], else reason: AnalyticsReason
+    _ nodes: [BreakdownNode], else reason: AnalyticsReason, previous: [BreakdownNode]? = nil
   ) -> ChartBlock<[RankedValue]> {
-    let values = nodes.map(RankedValue.init)
+    let before = Dictionary(
+      (previous ?? []).map { ($0.key, $0.amount.wholeRubles) },
+      uniquingKeysWith: { first, _ in first })
+    let values = nodes.map { node -> RankedValue in
+      var value = RankedValue(node)
+      if previous != nil { value.previous = before[node.key] ?? 0 }
+      return value
+    }
     return values.contains { $0.value > 0 } ? .ready(values) : .notEnoughData(reason)
   }
 

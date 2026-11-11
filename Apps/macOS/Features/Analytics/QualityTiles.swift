@@ -39,21 +39,21 @@ struct QualityTiles: View {
   let totals: QualityTotals
 
   var body: some View {
-    HStack(alignment: .top, spacing: 12) {
+    HStack(alignment: .top, spacing: 14) {
       ForEach(totals.tiles, id: \.quality) { tile in
         let style = AnalyticsText.qualityStyle(tile.quality, environment)
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 2) {
           Label(style.label, systemImage: style.systemImage)
-            .appFont(.callout.weight(.semibold))
+            .appFont(.system(size: 14, weight: .semibold))
           Text(verbatim: environment.money.rubles(tile.value))
-            .appFont(.title3.bold().monospacedDigit())
+            .appFont(.system(size: 20, weight: .bold).monospacedDigit())
             .minimumScaleFactor(0.7).lineLimit(1)
           Text(
             verbatim: tile.basisPoints.map {
               environment.money.percent(basisPoints: $0, fractionDigits: 0)
             } ?? "—"
           )
-          .appFont(.caption.monospacedDigit())
+          .appFont(.system(size: 12).monospacedDigit())
           .foregroundStyle(.secondary)
         }
         .analyticsCard()

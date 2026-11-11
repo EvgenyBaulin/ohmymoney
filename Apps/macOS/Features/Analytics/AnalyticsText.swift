@@ -345,6 +345,54 @@ enum AnalyticsText {
     return bars
   }
 
+  /// The rows of a track chart from the lines of a model: the figure, its share or its visits
+  /// in grey, and the tick of the period before. «Для кого» rows carry their shape and colour.
+  static func trackRows(
+    _ values: [RankedValue], names: AnalyticsNames, shaped: Bool = false,
+    _ environment: AppEnvironment
+  ) -> [TrackRow] {
+    values.enumerated().map { index, value in
+      let amount = environment.money.rubles(value.value)
+      let note: String? =
+        value.times.map { format("analytics.times", environment, count: $0) }
+        ?? value.share.map { environment.money.percent(basisPoints: $0, fractionDigits: 0) }
+      var row = TrackRow(
+        id: value.key.description, label: name(of: value.key, names, environment),
+        marker: nil, tint: .accent, value: value.value, previous: value.previous,
+        amount: amount, note: note,
+        spokenValue: [amount, note].compactMap { $0 }.joined(separator: ", "))
+      if case .forWhom(let whom) = value.key {
+        (row.marker, row.tint) = forWhomLook(whom)
+      } else if shaped {
+        (row.marker, row.tint) = rowLook(index)
+      }
+      return row
+    }
+  }
+
+  /// The shapes and colours of the rows of a ranked list that has no fixed values — accounts and
+  /// cards — in the order of the frame: the same five as «for whom», the last repeating.
+  static func rowLook(_ index: Int) -> (TrackMarker, ChartTint) {
+    let looks: [(TrackMarker, ChartTint)] = [
+      (.square, .accent), (.triangle, .green), (.ring, .blue), (.diamond, .accentLight),
+      (.square, .gray),
+    ]
+    return looks[min(index, looks.count - 1)]
+  }
+
+  /// The shape and colour of a «for whom» value in the frame: «me» a square in the accent,
+  /// partner a triangle in green, family a ring in blue, friends a diamond in the lighter
+  /// accent, other a square in grey.
+  static func forWhomLook(_ whom: ForWhom) -> (TrackMarker, ChartTint) {
+    switch whom {
+    case .me: (.square, .accent)
+    case .partner: (.triangle, .green)
+    case .family: (.ring, .blue)
+    case .friends: (.diamond, .accentLight)
+    case .other: (.square, .gray)
+    }
+  }
+
   private static func bar(
     _ value: RankedValue, id: String, names: AnalyticsNames, counts: Bool, expandable: Bool,
     expanded: Bool, _ environment: AppEnvironment
