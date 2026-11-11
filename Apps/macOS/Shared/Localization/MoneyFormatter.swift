@@ -243,6 +243,15 @@ public struct DateFormatting: Sendable {
     return formatter.string(from: calendar.startOfDay(day))
   }
 
+  /// A day with its month, no year: «3 ноября», «November 3».
+  public func dayMonth(_ day: DateOnly) -> String {
+    let formatter = DateFormatter()
+    formatter.locale = locale
+    formatter.timeZone = calendar.timeZone
+    formatter.setLocalizedDateFormatFromTemplate("d MMMM")
+    return formatter.string(from: calendar.startOfDay(day))
+  }
+
   /// A span of days, as short as the language allows: «1–18 авг.», «Aug 1 – 18».
   public func span(_ range: DayRange) -> String {
     let formatter = DateIntervalFormatter()
