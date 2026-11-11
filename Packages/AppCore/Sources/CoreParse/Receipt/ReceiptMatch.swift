@@ -71,7 +71,7 @@ public enum ReceiptMatch {
     let kind = receipt.operation.transactionKind
     let fitting =
       candidates
-      .filter { $0.kind == kind && $0.currency == .rub && $0.amountE4 == receipt.amountE4 }
+      .filter { $0.kind == kind && $0.currency == receipt.currency && $0.amountE4 == receipt.amountE4 }
       .compactMap {
         candidate -> (candidate: ReceiptCandidate, apart: Int, distance: TimeInterval)? in
         let day = calendar.day(of: candidate.occurredAt, recordedIn: candidate.timeZoneId)
@@ -131,7 +131,7 @@ public enum ReceiptMatch {
     let allowed = tolerance(of: receipt.amountE4)
     return
       candidates
-      .filter { $0.kind == kind && $0.currency == .rub && $0.receipt == nil }
+      .filter { $0.kind == kind && $0.currency == receipt.currency && $0.receipt == nil }
       .compactMap { candidate -> (ReceiptCandidate, Int64, TimeInterval)? in
         let apart = abs(candidate.amountE4.raw - receipt.amountE4.raw)
         let distance = abs(candidate.occurredAt.timeIntervalSince(moment))
@@ -149,7 +149,7 @@ public enum ReceiptMatch {
   /// A new operation with the sum, the day and the time of the receipt, on the clock of `calendar`.
   public static func draft(for receipt: ReceiptQR, calendar: CalendarContext) -> ReceiptDraft {
     ReceiptDraft(
-      kind: receipt.operation.transactionKind, currency: .rub, amountE4: receipt.amountE4,
+      kind: receipt.operation.transactionKind, currency: receipt.currency, amountE4: receipt.amountE4,
       moment: receipt.moment(in: calendar), day: receipt.day, time: receipt.time)
   }
 
