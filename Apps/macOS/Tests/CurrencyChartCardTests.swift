@@ -45,18 +45,18 @@ final class CurrencyChartCardTests: XCTestCase {
     return window
   }
 
-  func testTheTileIsShownByDefaultAndCanBeHiddenAndShownAgain() {
+  /// The default set is the design frame's (owner, 11.11, answer 12 A), and the currency chart
+  /// is not in it; the tile is shown, kept and hidden again from Settings.
+  func testTheTileCanBeShownKeptAndHiddenAgain() {
     let environment = AppEnvironment()
-    XCTAssertEqual(
-      environment.overviewTiles.count, OverviewTile.allCases.filter(\.isShownUnnamed).count)
+    XCTAssertFalse(environment.overviewTiles.contains(.currencyChart))
+    XCTAssertTrue(OverviewTilesActions.toggle(environment, .currencyChart))
     XCTAssertTrue(environment.overviewTiles.contains(.currencyChart))
     XCTAssertEqual(environment.overviewLayout.group(of: .currencyChart), .analysis)
-    XCTAssertTrue(OverviewTilesActions.toggle(environment, .currencyChart))
-    XCTAssertFalse(environment.overviewTiles.contains(.currencyChart))
-    XCTAssertFalse(
+    XCTAssertTrue(
       AppEnvironment().overviewTiles.contains(.currencyChart), "kept for the next launch")
     XCTAssertTrue(OverviewTilesActions.toggle(environment, .currencyChart))
-    XCTAssertEqual(environment.overviewLayout.shownTiles(in: .analysis).last, .currencyChart)
+    XCTAssertFalse(environment.overviewTiles.contains(.currencyChart))
   }
 
   /// The pair and the period chosen before are read back when the card appears — the card does

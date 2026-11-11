@@ -534,10 +534,11 @@ final class OperationsFigmaTests: XCTestCase {
       let deadline = Date().addingTimeInterval(5)
       var actual: String?
       repeat {
-        let month = element("operations.month")
+        // Called by selector: on an untyped node `accessibilityValue` is ambiguous in Swift.
+        let month = element("operations.month") as? NSObject
         actual =
-          month?.accessibilityValue?() as? String
-          ?? month?.accessibilityLabel?() ?? month?.accessibilityTitle?()
+          Self.text(month, "accessibilityValue") ?? Self.text(month, "accessibilityLabel")
+          ?? Self.text(month, "accessibilityTitle")
         if actual == expected { break }
         settle(window, passes: 2)
       } while Date() < deadline
@@ -563,6 +564,12 @@ final class OperationsFigmaTests: XCTestCase {
   private static func allSubviews<V: NSView>(of view: NSView, into found: inout [V]) {
     if let match = view as? V { found.append(match) }
     for subview in view.subviews { allSubviews(of: subview, into: &found) }
+  }
+
+  private static func text(_ node: NSObject?, _ getter: String) -> String? {
+    let selector = NSSelectorFromString(getter)
+    guard let node, node.responds(to: selector) else { return nil }
+    return node.perform(selector)?.takeUnretainedValue() as? String
   }
 
   private static func element(
