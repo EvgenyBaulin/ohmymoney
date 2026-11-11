@@ -113,6 +113,7 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
         .settings("categories.essential"), .settings("categories.cashback"),
         .settings("categories.limit.rollover"), .settings("categories.showArchived"),
         .settings("categories.tax"), .incomeSavings("income.basket.menu"),
+        .settings("categories.appearance.suggest"),
       ]
     case .references:
       [.settings("settings.people"), .settings("settings.places"), .settings("settings.events")]
@@ -185,6 +186,9 @@ enum SettingsSection: String, CaseIterable, Hashable, Sendable {
       [
         .settings("settings.categoryHints.title"), .analytics("analytics.block.modelCategories"),
         .analytics("analytics.block.modelForecast"),
+        .settings("settings.categoryHints.accuracy"),
+        .settings("settings.categoryHints.macroF1"), .settings("settings.categoryHints.coverage"),
+        .settings("settings.categoryHints.examples"),
       ]
     case .backups:
       [

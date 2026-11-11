@@ -1987,6 +1987,23 @@
         }
       }
     },
+    "categories.appearance.suggest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pick icons"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подобрать значки"
+          }
+        }
+      }
+    },
     "categories.archived": {
       "extractionState": "manual",
       "localizations": {
@@ -8572,6 +8589,193 @@
           "stringUnit": {
             "state": "translated",
             "value": "Папка для копий"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.accuracy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accuracy"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Точность"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.chart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly accuracy compared with history"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Точность по месяцам и сравнение с историей"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.coverage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coverage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покрытие"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.details": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detailed measurements and forecast"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подробные метрики и прогноз"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.examples": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Labelled parts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размечено частей"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.explanation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney learns from your entries: it uses the place, amount and words to suggest a category. These measurements show how often it gets it right. Correcting a category teaches the model for the next entry."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney учится на ваших записях: по месту, сумме и словам угадывает категорию. Здесь видно, как часто он угадывает. Исправляете категорию — модель учится и в следующий раз ошибается реже."
+          }
+        }
+      }
+    },
+    "settings.categoryHints.history": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "history (last category)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "по истории (последняя категория)"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.macroF1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Macro-F1"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Macro-F1"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.metricsHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accuracy is how often the first suggestion was right. Macro-F1 gives rare and frequent categories equal weight. Coverage is the share of parts for which the model was confident enough to fill in a category. Labelled parts are the parts with an owner-chosen category that the model can learn from."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Точность — как часто первая подсказка была верной. В Macro-F1 редкие категории весят наравне с частыми. Покрытие — доля частей, для которых модель была достаточно уверена, чтобы подставить категорию. Размечено — сколько частей с выбранной вами категорией, на которых модель может учиться."
+          }
+        }
+      }
+    },
+    "settings.categoryHints.model": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "model"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "модель"
+          }
+        }
+      }
+    },
+    "settings.categoryHints.noMonths": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There are not enough answered examples yet to compare months."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока мало проверенных подсказок для сравнения по месяцам."
           }
         }
       }

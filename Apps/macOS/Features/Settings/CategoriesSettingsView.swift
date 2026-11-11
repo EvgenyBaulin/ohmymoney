@@ -61,6 +61,8 @@ struct CategoriesSettingsView: View {
   @State private var otherTax: CoreKit.Category?
   /// The category whose symbol and colour picker is open.
   @State private var pickingMark: UUID?
+  /// All roots, including archived ones, that the bulk appearance action can update.
+  @State private var appearanceCandidates: [CoreKit.Category] = []
   @Environment(\.appTheme) private var theme
 
   /// `asking` opens the tab with the question of a deletion already on screen: how a test
@@ -88,6 +90,15 @@ struct CategoriesSettingsView: View {
         .fixedSize()
         .onChange(of: showsArchived) { _, _ in reload() }
       }
+
+      Button(environment.language("categories.appearance.suggest", table: "Settings")) {
+        suggestAppearances()
+      }
+      .disabled(
+        StarterAppearance.suggestions(for: appearanceCandidates).isEmpty
+          || store.isWritingInBackground
+      )
+      .accessibilityIdentifier("categories.appearance.suggest")
 
       // Rows, not sections: the header of a section stuck to the top of the list while its
       // subcategories scrolled under it, with a background of its own.
@@ -173,6 +184,7 @@ struct CategoriesSettingsView: View {
     .onChange(of: compute.generation) {
       selfEmployment = SelfEmploymentSettingsForm.read(environment)
       reloadLimits()
+      reloadAppearances()
     }
     // «Налог → Другая…»: a rate typed by hand, on a sheet over the settings.
     .sheet(item: $otherTax) { category in
@@ -498,7 +510,47 @@ struct CategoriesSettingsView: View {
       return
     }
     categories[index].appearance = appearance
+    reloadAppearances()
     environment.scheduleBackup()
+  }
+
+  /// The same complete action is used by the button and by undo/redo integration tests.
+  static func starterAppearanceChange(in categories: [CoreKit.Category]) -> PlanningChange? {
+    let updated = StarterAppearance.suggestions(for: categories)
+    guard !updated.isEmpty else { return nil }
+    return PlanningChange(upsert: PlanningRows(categories: updated))
+  }
+
+  private func suggestAppearances() {
+    // Re-read before writing: another window may have picked an icon since the last reload.
+    guard let references = environment.references else { return }
+    do {
+      let all = try references.categories(includeArchived: true)
+      guard let change = Self.starterAppearanceChange(in: all) else {
+        reloadAppearances()
+        return
+      }
+      guard store.apply(change) else {
+        refused = true
+        return
+      }
+      reloadAppearances()
+      environment.scheduleBackup()
+    } catch {
+      refused = true
+    }
+  }
+
+  private func reloadAppearances() {
+    appearanceCandidates =
+      (try? environment.references?.categories(includeArchived: true)) ?? []
+    let stored = Dictionary(
+      uniqueKeysWithValues: appearanceCandidates.map { ($0.id, $0.appearance) })
+    for index in categories.indices {
+      if let appearance = stored[categories[index].id] {
+        categories[index].appearance = appearance
+      }
+    }
   }
 
   /// Whether the quality of a category is not the owner's to choose: Goals and everything
@@ -932,6 +984,7 @@ struct CategoriesSettingsView: View {
     // A name still being typed is saved first: the read below would put the stored one back.
     if let editingName { commitName(of: editingName) }
     categories = (try? environment.references?.categories(includeArchived: showsArchived)) ?? []
+    reloadAppearances()
     selfEmployment = SelfEmploymentSettingsForm.read(environment)
     cashbackId = (try? environment.settings?.string(AnalyticsSettings.cashbackCategoryKey))
       .flatMap { $0 }.flatMap(UUID.init(uuidString:))
