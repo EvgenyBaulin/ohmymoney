@@ -316,7 +316,7 @@ final class StoreRedoStepsTests: XCTestCase {
 
   func testAStatementReplaysStatusUpgradesAndLearnedRulesWithItsOperations() throws {
     var pending = try entry("pending")
-    pending.transaction.bankStatus = .pending
+    pending.transaction.bankStatus = StatementStatus.pending.rawValue
     XCTAssertTrue(store.save(pending))
     store.forgetUndoHistory()
     let posted = StatementStatusWrite(
@@ -332,13 +332,13 @@ final class StoreRedoStepsTests: XCTestCase {
       })
     let rules = try spending.rules()
     store.undo()
-    XCTAssertEqual(try repository.entry(id: pending.id)?.transaction.bankStatus, .pending)
+    XCTAssertEqual(try repository.entry(id: pending.id)?.transaction.bankStatus, StatementStatus.pending.rawValue)
     XCTAssertNil(try repository.entry(id: pending.id)?.transaction.postedOn)
     XCTAssertTrue(try spending.rules().isEmpty)
     XCTAssertNil(try repository.entry(id: imported.id))
     XCTAssertFalse(store.canUndo)
     store.redo()
-    XCTAssertEqual(try repository.entry(id: pending.id)?.transaction.bankStatus, .posted)
+    XCTAssertEqual(try repository.entry(id: pending.id)?.transaction.bankStatus, StatementStatus.posted.rawValue)
     XCTAssertEqual(try repository.entry(id: pending.id)?.transaction.postedOn, posted.postedOn)
     XCTAssertEqual(try spending.rules(), rules)
     XCTAssertNotNil(try repository.entry(id: imported.id))
