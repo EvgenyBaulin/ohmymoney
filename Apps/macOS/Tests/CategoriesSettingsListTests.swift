@@ -99,7 +99,8 @@ final class CategoriesSettingsListTests: XCTestCase {
 
     func limitFields() throws -> Int {
       let window = show(
-        CategoriesSettingsView().frame(width: 700, height: 520).appDependencies(deps))
+        CategoriesSettingsView(expandingAll: true).frame(width: 700, height: 520)
+          .appDependencies(deps))
       defer { window.close() }
       return Self.textFields(in: try XCTUnwrap(window.contentView))
         .filter { $0.placeholderString == placeholder }.count
@@ -129,9 +130,32 @@ final class CategoriesSettingsListTests: XCTestCase {
     defer { window.close() }
     XCTAssertEqual(AppDependencies.missingReaders, [])
 
+    // The Mac's list is cards of plain rows, not a table: nothing in it floats.
     let tables = Self.tables(in: try XCTUnwrap(window.contentView))
-    let rows = tables.map(\.numberOfRows).reduce(0, +)
-    XCTAssertGreaterThan(rows, 1, "the list of categories is empty")
     XCTAssertEqual(tables.flatMap(Self.groupRows), [], "a row of the list is a floating header")
+    let names = Self.textFields(in: try XCTUnwrap(window.contentView))
+      .filter { $0.stringValue == "Food" || $0.stringValue == "Groceries" }
+    XCTAssertFalse(names.isEmpty, "the list of categories is empty")
+  }
+
+  /// A subcategory is under its parent and out of sight until the parent is opened.
+  func testSubcategoriesShowUnderTheirParentOnceOpened() throws {
+    let references = try XCTUnwrap(environment.references)
+    let food = CoreKit.Category(kind: .expense, name: "Zfood", sort: 1_000, quality: .neutral)
+    try references.save(food)
+    try references.save(
+      CoreKit.Category(parentId: food.id, kind: .expense, name: "Zgroceries", sort: 1_001))
+    let deps = AppDependencies.forTests(environment)
+    func names(open: Bool) throws -> [String] {
+      let window = show(
+        CategoriesSettingsView(expandingAll: open).frame(width: 700, height: 520)
+          .appDependencies(deps))
+      defer { window.close() }
+      return Self.textFields(in: try XCTUnwrap(window.contentView)).map(\.stringValue)
+    }
+    let closed = try names(open: false)
+    XCTAssertTrue(closed.contains("Zfood"))
+    XCTAssertFalse(closed.contains("Zgroceries"))
+    XCTAssertTrue(try names(open: true).contains("Zgroceries"))
   }
 }
