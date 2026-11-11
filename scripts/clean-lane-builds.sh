@@ -56,7 +56,10 @@ running() {
     *) return 1 ;;
   esac
   case "$pid" in '' | *[!0-9]*) return 1 ;; esac
-  kill -0 "$pid" 2> /dev/null
+  { kill -0 "$pid" 2> /dev/null || ps -p "$pid" > /dev/null 2>&1; } && return 0
+  # Inside a sandbox `kill -0` cannot reach a process outside it and `ps` is missing, so a live
+  # build of another session looks gone: only a folder untouched for six hours is stale.
+  [ -n "$(find "$root/$1" -maxdepth 0 -mmin -360 2> /dev/null)" ]
 }
 
 if [ "$builds" = 1 ] && [ -f "$root/logs/verify-running" ]; then
