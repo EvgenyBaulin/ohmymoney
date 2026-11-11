@@ -6,7 +6,32 @@ import Foundation
 /// have one, a subcategory is drawn like its parent until the owner picks another
 /// (`CategoryTree.appearance(of:)`). A category the table does not name — a system one made
 /// later, the owner's own — has none, and its row keeps the mark of its kind.
-enum StarterAppearance {
+public enum StarterAppearance {
+  /// Only roots without their own icon are eligible. Names are matched against every starter
+  /// set in both languages; a stale translation of a renamed category is never used.
+  public static func suggestions(for categories: [CoreKit.Category]) -> [CoreKit.Category] {
+    let seeds =
+      StarterSets.starterSeeds
+      + Lifestyle.allCases.flatMap { StarterSets.categories(of: $0) }
+    let roots = seeds.filter { $0.parentEnglish == nil && !of($0).isEmpty }
+    return categories.compactMap { category in
+      guard category.parentId == nil, category.icon == nil else { return nil }
+      let names = [category.name, category.englishName].compactMap { $0 }
+      guard
+        let seed = roots.first(where: { seed in
+          seed.kind == category.kind
+            && names.contains { name in
+              name.caseInsensitiveCompare(seed.english) == .orderedSame
+                || name.caseInsensitiveCompare(seed.russian) == .orderedSame
+            }
+        })
+      else { return nil }
+      var updated = category
+      updated.appearance = of(seed)
+      return updated
+    }
+  }
+
   static func of(_ seed: CategorySeed) -> CategoryAppearance {
     guard seed.parentEnglish == nil,
       let found = table["\(seed.kind.rawValue)/\(seed.english)"]

@@ -19,15 +19,18 @@ public struct ModelQuality: Hashable, Sendable {
     public var metrics: PrequentialEvaluation.Metrics?
     /// What the owner chose when the model had offered something.
     public var choices: Choices
+    public var months: [PrequentialEvaluation.Month]
 
     public init(
       readiness: CategoryModelReadiness, examples: Int,
-      metrics: PrequentialEvaluation.Metrics? = nil, choices: Choices = Choices()
+      metrics: PrequentialEvaluation.Metrics? = nil, choices: Choices = Choices(),
+      months: [PrequentialEvaluation.Month] = []
     ) {
       self.readiness = readiness
       self.examples = examples
       self.metrics = metrics
       self.choices = choices
+      self.months = months
     }
   }
 
@@ -87,12 +90,12 @@ public struct ModelQuality: Hashable, Sendable {
     // end of the history, the anchor nearest to the days the questions were asked
     // (`PrequentialEvaluation.run`).
     let readiness = CategoryModel.train(on: examples, anchor: today, options: options).readiness
-    let metrics =
-      readiness.isOn ? PrequentialEvaluation.run(on: examples, options: options) : nil
+    let report =
+      readiness.isOn ? PrequentialEvaluation.report(on: examples, options: options) : nil
     return ModelQuality(
       categories: Categories(
-        readiness: readiness, examples: examples.count, metrics: metrics,
-        choices: Choices.of(ledger.dataset)),
+        readiness: readiness, examples: examples.count, metrics: report?.metrics,
+        choices: Choices.of(ledger.dataset), months: report?.months ?? []),
       forecast: ForecastBacktest.run(ledger: ledger, today: today))
   }
 }

@@ -104,7 +104,8 @@ enum SyncWiring {
     let coordinator = SyncCoordinator(
       exchange: exchange, bookmarks: bookmarks, protectedFolders: { protected.all },
       notifier: notifier ?? SystemSyncNotifier(), defaults: defaults,
-      snapshotCodec: RecoveryPayloadCodec(store: keyStore, purpose: .snapshot))
+      snapshotCodec: RecoveryPayloadCodec(store: keyStore, purpose: .snapshot),
+      remoteFolder: CloudKitSync.makeFolder(defaults: defaults))
     coordinator.language = language
     return coordinator
   }

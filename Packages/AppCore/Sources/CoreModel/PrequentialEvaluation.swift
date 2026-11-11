@@ -32,6 +32,27 @@ public enum PrequentialEvaluation {
     public init() {}
   }
 
+  /// Accuracy of the questions actually answered in a month, with the very same questions
+  /// put to the last-same-text baseline. Months without answers have no measured accuracy.
+  public struct Month: Hashable, Sendable {
+    public var month: MonthKey
+    public var asked: Int
+    public var accuracyBp: Int
+    public var historyBp: Int
+
+    public init(month: MonthKey, asked: Int, accuracyBp: Int, historyBp: Int) {
+      self.month = month
+      self.asked = asked
+      self.accuracyBp = accuracyBp
+      self.historyBp = historyBp
+    }
+  }
+
+  public struct Report: Hashable, Sendable {
+    public var metrics: Metrics
+    public var months: [Month]
+  }
+
   /// `anchor` is the day the recency weights are counted from; by default the day of the last
   /// example. Each question would ideally go to the model as it was on its own day, anchored
   /// at that day — the pipeline trains with today as the anchor. One anchor serves every
@@ -44,12 +65,21 @@ public enum PrequentialEvaluation {
     on examples: [CategoryExample], options: CategoryModelOptions = .standard,
     anchor: DateOnly? = nil
   ) -> Metrics {
+    report(on: examples, options: options, anchor: anchor).metrics
+  }
+
+  /// One chronological replay feeds the summary and the monthly graph. Training continues
+  /// across month boundaries; no point can see a future label.
+  public static func report(
+    on examples: [CategoryExample], options: CategoryModelOptions = .standard,
+    anchor: DateOnly? = nil
+  ) -> Report {
     let ordered = examples.sorted { left, right in
       left.query.day != right.query.day
         ? left.query.day < right.query.day
         : left.partId.uuidString < right.partId.uuidString
     }
-    guard let last = ordered.last else { return Metrics() }
+    guard let last = ordered.last else { return Report(metrics: Metrics(), months: []) }
     var model = CategoryModel(options: options, anchorDay: anchor ?? last.query.day)
     var metrics = Metrics()
     metrics.examples = ordered.count
@@ -65,6 +95,7 @@ public enum PrequentialEvaluation {
     var hits: [UUID: Int] = [:]
     var support: [UUID: Int] = [:]
     var predicted: [UUID: Int] = [:]
+    var monthly: [MonthKey: (asked: Int, right: Int, historyRight: Int)] = [:]
 
     for example in ordered {
       let kind = example.query.kind
@@ -74,10 +105,14 @@ public enum PrequentialEvaluation {
       let candidates = Set(sameKind.keys).union([example.categoryId])
       let prediction = model.predict(example.query, among: Array(candidates))
       if prediction.readiness.isOn, let best = prediction.suggestions.first {
+        let month = MonthKey(year: example.query.day.year, month: example.query.day.month)
+        var point = monthly[month] ?? (asked: 0, right: 0, historyRight: 0)
+        point.asked += 1
         asked += 1
         support[example.categoryId, default: 0] += 1
         predicted[best.categoryId, default: 0] += 1
         if best.categoryId == example.categoryId {
+          point.right += 1
           top1 += 1
           hits[example.categoryId, default: 0] += 1
         }
@@ -98,7 +133,9 @@ public enum PrequentialEvaluation {
         if commonest?.key == example.categoryId { frequentRight += 1 }
         if let key = example.query.exactKey, lastForText["\(kind):\(key)"] == example.categoryId {
           sameTextRight += 1
+          point.historyRight += 1
         }
+        monthly[month] = point
       }
 
       model.learn(example)
@@ -121,12 +158,20 @@ public enum PrequentialEvaluation {
       result[entry.key] = share(hits[entry.key] ?? 0, of: entry.value)
     }
     metrics.macroF1Bp = macroF1(hits: hits, support: support, predicted: predicted)
-    return metrics
+    let months = monthly.keys.sorted().map { month in
+      let point = monthly[month]!
+      return Month(
+        month: month, asked: point.asked,
+        accuracyBp: share(point.right, of: point.asked),
+        historyBp: share(point.historyRight, of: point.asked))
+    }
+    return Report(metrics: metrics, months: months)
   }
 
   static func share(_ part: Int, of whole: Int) -> Int {
     guard whole > 0 else { return 0 }
-    return Int((Double(part) / Double(whole) * 10_000).rounded())  // stats-only
+    let ratio = Double(part) / Double(whole)  // stats-only
+    return Int((ratio * 10_000).rounded())
   }
 
   /// The unweighted mean of the per-class F1: a category the owner uses twice a year counts
@@ -141,7 +186,8 @@ public enum PrequentialEvaluation {
       let recall = count > 0 ? right / Double(count) : 0  // stats-only
       let offered = Double(predicted[id] ?? 0)  // stats-only
       let precision = offered > 0 ? right / offered : 0  // stats-only
-      total += precision + recall > 0 ? 2 * precision * recall / (precision + recall) : 0  // stats-only
+      let sum = precision + recall  // stats-only
+      total += sum > 0 ? 2 * precision * recall / sum : 0  // stats-only
     }
     return Int((total / Double(support.count) * 10_000).rounded())  // stats-only
   }
