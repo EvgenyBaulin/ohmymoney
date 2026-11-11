@@ -14,6 +14,14 @@ struct IncomeSavingsSettingsSection: View {
   private func t(_ key: String) -> String { IncomeSavingsText.t(key, environment) }
 
   var body: some View {
+    #if os(macOS)
+      macBody
+    #else
+      formBody
+    #endif
+  }
+
+  private var formBody: some View {
     Section {
       Stepper(value: needs, in: IncomeProportionsDraft.needsRange(wants: values.proportions)) {
         Text(
@@ -70,6 +78,101 @@ struct IncomeSavingsSettingsSection: View {
       if let stored = compute.snapshot?.dataset.incomeSavings { values = stored }
     }
   }
+
+  #if os(macOS)
+    /// The design's card (Figma 61:56916): the title 13 semibold, rows of 16 × 11 with the value
+    /// at the right — «Нужное 50 %», «Желания 30 %», «Сбережения 20 %» — «Вернуть 50 / 30 / 20»
+    /// in the accent, two switches with their hints, and the footer 12.
+    private var macBody: some View {
+      Section {
+        VStack(alignment: .leading, spacing: SettingsControlMetrics.blockGap) {
+          Text(verbatim: t("income.settings.title"))
+            .appFont(AppFont.system(size: 13, weight: .semibold))
+          SettingsCard {
+            percentRow(
+              t("income.settings.needsLabel"), values.proportions.needsPercent, binding: needs,
+              range: IncomeProportionsDraft.needsRange(wants: values.proportions), id: "needs")
+            percentRow(
+              t("income.settings.wantsLabel"), values.proportions.wantsPercent, binding: wants,
+              range: IncomeProportionsDraft.wantsRange(needs: values.proportions), id: "wants")
+            SettingsCardRow(
+              title: t("income.settings.savings"), hint: t("income.settings.savingsHint"),
+              compact: true
+            ) {
+              Text(verbatim: "\(values.proportions.savingsPercent) %")
+                .appFont(AppFont.system(size: 13, weight: .semibold).monospacedDigit())
+                .foregroundStyle(.secondary)
+            }
+            .accessibilityIdentifier("settings.income.savings")
+            if values.proportions != .rule503020 {
+              Button {
+                save { $0.proportions = .rule503020 }
+              } label: {
+                Text(verbatim: t("income.settings.reset"))
+                  .appFont(AppFont.system(size: 13, weight: .medium))
+                  .foregroundStyle(Color.accentColor)
+              }
+              .buttonStyle(.plain)
+              .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
+              .padding(.vertical, SettingsCardMetrics.compactVertical)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .accessibilityIdentifier("settings.income.reset")
+              Divider().opacity(0.6)
+            }
+            SettingsCardRow(
+              title: t("income.settings.earningsOnly"), hint: t("income.settings.earningsOnlyHint"),
+              compact: true
+            ) {
+              Toggle(
+                isOn: Binding(
+                  get: { values.earningsOnly }, set: { value in save { $0.earningsOnly = value } })
+              ) { Text(verbatim: t("income.settings.earningsOnly")) }
+              .labelsHidden().toggleStyle(.switch)
+              .accessibilityIdentifier("settings.income.earningsOnly")
+            }
+            SettingsCardRow(
+              title: t("income.settings.trendNudge"), hint: t("income.settings.trendNudgeHint"),
+              showsDivider: false, compact: true
+            ) {
+              Toggle(
+                isOn: Binding(
+                  get: { values.trendNudgeEnabled },
+                  set: { value in save { $0.trendNudgeEnabled = value } })
+              ) { Text(verbatim: t("income.settings.trendNudge")) }
+              .labelsHidden().toggleStyle(.switch)
+              .accessibilityIdentifier("settings.income.trendNudge")
+            }
+          }
+          Text(verbatim: t("income.settings.footer"))
+            .appFont(AppFont.system(size: 12))
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+      .listRowBackground(Color.clear)
+      .listRowInsets(EdgeInsets())
+      .task(id: compute.generation) {
+        if let stored = compute.snapshot?.dataset.incomeSavings { values = stored }
+      }
+    }
+
+    private func percentRow(
+      _ title: String, _ percent: Int, binding: Binding<Int>, range: ClosedRange<Int>, id: String
+    ) -> some View {
+      SettingsCardRow(title: title, compact: true) {
+        HStack(spacing: 8) {
+          Text(verbatim: "\(percent) %")
+            .appFont(AppFont.system(size: 13, weight: .semibold).monospacedDigit())
+            .foregroundStyle(.secondary)
+          Stepper("", value: binding, in: range).labelsHidden()
+        }
+      }
+      .accessibilityIdentifier("settings.income.\(id)")
+    }
+  #endif
 
   private var needs: Binding<Int> {
     Binding(

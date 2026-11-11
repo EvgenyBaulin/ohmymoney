@@ -13,9 +13,22 @@ struct RulesSettingsView: View {
   }
 
   @Dependency(\.environment) private var environment
+  @Dependency(\.compute) private var compute
+  @Environment(\.dependencies) private var dependencies
   @State private var pane: Pane = .rules
+  /// The Mac opens on the three doors; a door picked shows its pane under a way back.
+  @State private var opened: Pane?
+  @State private var showsBackfill = false
 
   var body: some View {
+    #if os(macOS)
+      macBody
+    #else
+      formBody
+    #endif
+  }
+
+  private var formBody: some View {
     VStack(spacing: 0) {
       Picker(selection: $pane) {
         ForEach(Pane.allCases) { pane in
@@ -37,6 +50,96 @@ struct RulesSettingsView: View {
     }
   }
 }
+
+#if os(macOS)
+  /// The Mac's «Правила и теги» in the design (Figma 61:30870): a card of three doors — the
+  /// rules, the tags, the file — each with its summary and a chevron, the button to apply the
+  /// rules to the past under it, and a line of what rules do.
+  extension RulesSettingsView {
+    static let doorSymbols: [Pane: String] = [
+      .rules: "tag", .tags: "tag", .exchange: "doc.text",
+    ]
+
+    fileprivate var macBody: some View {
+      VStack(spacing: 0) {
+        if let opened {
+          Button {
+            self.opened = nil
+          } label: {
+            Label(RulesText.t("rules.hub.back", environment), systemImage: "chevron.left")
+          }
+          .buttonStyle(.link)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.horizontal, SettingsChromeMetrics.contentInset)
+          .padding(.vertical, 8)
+          .accessibilityIdentifier("rules.back")
+          switch opened {
+          case .rules: RulesPane()
+          case .tags: TagsPane()
+          case .exchange: RuleExchangePane()
+          }
+        } else {
+          hub
+        }
+      }
+      .sheet(isPresented: $showsBackfill) { BackfillSheet().handingOver(dependencies) }
+    }
+
+    private var hub: some View {
+      let dataset = compute.snapshot?.dataset
+      let rules = dataset?.rules ?? []
+      let tags = (dataset?.tagBook.tags ?? []).filter { !$0.archived }
+      return ScrollView {
+        VStack(alignment: .leading, spacing: SettingsControlMetrics.blockGap) {
+          SettingsCard {
+            ForEach(Pane.allCases) { pane in
+              SettingsCardRow(
+                symbol: Self.doorSymbols[pane], title: RulesText.t(pane.titleKey, environment),
+                hint: summary(of: pane, rules: rules, tags: tags),
+                showsDivider: pane != Pane.allCases.last, compact: true
+              ) {
+                Image(systemName: "chevron.right")
+                  .font(.system(size: 11, weight: .semibold))  // font-fixed: chevron in a 14 pt slot
+                  .foregroundStyle(.secondary)
+                  .accessibilityHidden(true)
+              }
+              .contentShape(Rectangle())
+              .onTapGesture { opened = pane }
+              .accessibilityAddTraits(.isButton)
+              .accessibilityIdentifier("rules.door.\(pane.rawValue)")
+            }
+          }
+          Button(RulesText.t("rules.backfill", environment)) { showsBackfill = true }
+            .buttonStyle(SettingsActionButtonStyle())
+            .disabled(!rules.contains { $0.enabled })
+            .accessibilityIdentifier("rules.backfill")
+          Text(verbatim: RulesText.t("rules.hub.hint", environment))
+            .appFont(AppFont.system(size: 12))
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+    }
+
+    /// «3 правила · включено: 2», «5 тегов», «выгрузить или загрузить».
+    func summary(of pane: Pane, rules: [Rule], tags: [Tag]) -> String {
+      switch pane {
+      case .rules:
+        [
+          environment.format("rules.hub.rules", table: RulesText.table, counts: rules.count),
+          environment.format(
+            "rules.hub.enabled", table: RulesText.table, counts: rules.filter(\.enabled).count),
+        ].joined(separator: " · ")
+      case .tags:
+        environment.format("rules.hub.tags", table: RulesText.table, counts: tags.count)
+      case .exchange: RulesText.t("rules.hub.exchange", environment)
+      }
+    }
+  }
+#endif
 
 /// What the rules list is asked to open.
 private enum RulesSheet: Identifiable {

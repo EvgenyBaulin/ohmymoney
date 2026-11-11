@@ -82,4 +82,25 @@
       .accessibilityElement(children: .contain)
     }
   }
+
+  /// A button under a card, as the design draws it (Figma 61:31123): the neutral fill rounded 8,
+  /// 16 × 9 around a 13-point medium label.
+  struct SettingsActionButtonStyle: ButtonStyle {
+    static let radius: CGFloat = 8
+    static let horizontal: CGFloat = 16
+    static let vertical: CGFloat = 9
+    @Environment(\.appTheme) private var theme
+    @Environment(\.isEnabled) private var isEnabled
+
+    func makeBody(configuration: Configuration) -> some View {
+      configuration.label
+        .appFont(AppFont.system(size: 13, weight: .medium))
+        .foregroundStyle(theme.contentPrimary)
+        .padding(.horizontal, Self.horizontal)
+        .padding(.vertical, Self.vertical)
+        .background(theme.fillNeutral, in: .rect(cornerRadius: Self.radius))
+        .contentShape(.rect(cornerRadius: Self.radius))
+        .opacity(isEnabled ? (configuration.isPressed ? 0.8 : 1) : 0.4)
+    }
+  }
 #endif

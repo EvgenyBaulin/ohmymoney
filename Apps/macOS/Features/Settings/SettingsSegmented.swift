@@ -65,3 +65,58 @@ struct SettingsSegmented<Value: Hashable>: View {
     .accessibilityIdentifier(identifier)
   }
 }
+
+#if os(macOS)
+/// «Люди · События · Места»: the quieter tabs of a list section (Figma «Настройки · Справочники»,
+/// 61:28778) — a track rounded 10 with 3 around it, the choices 12 × 5 rounded 8 with 12-point
+/// text, the chosen one a white card, semibold.
+enum SettingsTabsMetrics {
+  static let trackPadding: CGFloat = 3
+  static let trackRadius: CGFloat = 10
+  static let choiceRadius: CGFloat = 8
+  static let choiceHorizontal: CGFloat = 12
+  static let choiceVertical: CGFloat = 5
+  static let spacing: CGFloat = 2
+  static let fontSize: CGFloat = 12
+}
+
+struct SettingsTabs<Value: Hashable>: View {
+  @Binding var selection: Value
+  let choices: [Value]
+  let title: (Value) -> String
+  let identifier: String
+  @Environment(\.appTheme) private var theme
+  @Environment(\.themeSurfaces) private var surfaces
+
+  var body: some View {
+    HStack(spacing: SettingsTabsMetrics.spacing) {
+      ForEach(choices, id: \.self) { choice in
+        let chosen = choice == selection
+        Button {
+          selection = choice
+        } label: {
+          Text(verbatim: title(choice))
+            .appFont(
+              AppFont.system(size: SettingsTabsMetrics.fontSize, weight: chosen ? .semibold : .regular)
+            )
+            .foregroundStyle(chosen ? surfaces.primary : surfaces.secondary)
+            .padding(.horizontal, SettingsTabsMetrics.choiceHorizontal)
+            .padding(.vertical, SettingsTabsMetrics.choiceVertical)
+            .background(
+              chosen ? surfaces.card : .clear,
+              in: .rect(cornerRadius: SettingsTabsMetrics.choiceRadius)
+            )
+            .contentShape(.rect(cornerRadius: SettingsTabsMetrics.choiceRadius))
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(chosen ? [.isSelected] : [])
+        .accessibilityIdentifier("\(identifier).\(String(describing: choice))")
+      }
+    }
+    .padding(SettingsTabsMetrics.trackPadding)
+    .background(theme.surfaceSegmented, in: .rect(cornerRadius: SettingsTabsMetrics.trackRadius))
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier(identifier)
+  }
+}
+#endif
