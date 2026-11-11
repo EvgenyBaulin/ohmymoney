@@ -446,6 +446,12 @@ struct CategoriesSettingsView: View {
           EmptyView()
         }
         .labelsHidden()
+        .accessibilityLabel(
+          Text(
+            verbatim:
+              "\(category.name) · \(environment.language("categories.quality", table: "Settings"))"
+          )
+        )
         .frame(width: 150)
         .disabled(Self.qualityIsFixed(category, in: tree))
       }

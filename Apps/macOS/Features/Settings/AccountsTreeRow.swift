@@ -130,6 +130,7 @@ struct AccountsTreeRow: View {
     .buttonStyle(.plain)
     .disabled(mark == nil)
     .accessibilityHidden(mark == nil)
+    .accessibilityLabel(Text(verbatim: title))
     .accessibilityAddTraits(mark == true ? [.isSelected] : [])
   }
 

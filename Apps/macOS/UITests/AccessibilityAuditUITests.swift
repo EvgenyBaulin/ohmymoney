@@ -100,7 +100,8 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
     }
     let split = main.buttons["entry.split.addPart"]
     XCTAssertTrue(split.waitForExistence(timeout: 20), "No Split button in entry details")
-    let scroll = main.scrollViews["entry.details.scroll"]
+    // SwiftUI may export the scroll container as a group, so match any element type.
+    let scroll = descendant(main, "entry.details.scroll")
     XCTAssertTrue(scroll.waitForExistence(timeout: 10), "No scroll view in entry details")
     // The split action is in the footer of a height-capped panel. Finding it in AX does
     // not make it visible: scroll the panel itself rather than the main window behind it.
@@ -215,6 +216,7 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       snapshot(name, of: window)
       dump(name, of: app)
       let screenTree = try window.snapshot()
+      let windowFrame = window.frame
       var descriptions: [String] = []
       var systemDescriptions: [String] = []
       var completed = false
@@ -296,6 +298,57 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
             {
               systemException = "SwiftUI Table cell host around a described column"
             }
+            // The contrast audit samples screen pixels. An element whose frame leaves the audited
+            // window is either scrolled out of view or belongs to another window (the main
+            // window behind Settings): the pixels under it are not its own background, so the
+            // ratio cannot be measured. Elements fully inside the window are still checked.
+            if issue.auditType == .contrast,
+              !windowFrame.insetBy(dx: -1, dy: -1).contains(node.frame)
+            {
+              systemException = "Contrast of an element outside the audited window"
+            }
+            // The screen-wide contrast audit also reaches the main window's pixels behind the
+            // Settings window. Text that the audited window's own tree does not contain belongs
+            // to the other window and is checked by that window's own test.
+            let shownText = node.label.isEmpty ? ((node.value as? String) ?? "") : node.label
+            if issue.auditType == .contrast, node.elementType == .staticText,
+              node.identifier.isEmpty, !shownText.isEmpty,
+              !self.tree(screenTree, contains: shownText)
+            {
+              systemException = "Contrast of text that belongs to another window"
+            }
+            // The window title and subtitle are drawn by the system toolbar over its own
+            // material; their colour is not ours to set.
+            if issue.auditType == .contrast, node.elementType == .staticText,
+              node.identifier.isEmpty, abs(node.frame.minY - windowFrame.minY) < 1,
+              node.frame.height < 60
+            {
+              systemException = "Window title drawn by the system toolbar"
+            }
+            // The native host of a whole window (split view, Settings content) is an unnamed
+            // group exactly as large as, or a full-height column at the origin of, the window.
+            // Its SwiftUI content carries the descriptions.
+            if issue.auditType == .sufficientElementDescription,
+              issue.compactDescription == "Element has no description", node.identifier.isEmpty,
+              node.label.isEmpty, node.elementType == .group, !node.isEnabled,
+              (abs(node.frame.minX - windowFrame.minX) < 1
+                && abs(node.frame.minY - windowFrame.minY) < 1
+                && node.frame.height >= windowFrame.height - 1)
+                // The main window's own host groups, seen from the Settings audit.
+                || !windowFrame.insetBy(dx: -1, dy: -1).contains(node.frame)
+            {
+              systemException = "Native host group spanning the window"
+            }
+            // A pop-up button exports AXShowMenu rather than AXPress, which the action audit
+            // does not accept as its click equivalent. Only pop-ups that have a title or value
+            // are exempt; an untitled one still fails the description audit.
+            if issue.auditType == .action, issue.compactDescription == "Action is missing",
+              node.elementType == .popUpButton,
+              !node.label.isEmpty || !node.identifier.isEmpty
+                || !(((node.value as? String) ?? "").isEmpty)
+            {
+              systemException = "Pop-up button exposes a show-menu action"
+            }
             if issue.auditType == .sufficientElementDescription,
               issue.compactDescription == "Element has no description", node.identifier.isEmpty,
               node.label.isEmpty, node.elementType == .group,
@@ -327,6 +380,11 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       }
       completed = true
     }
+  }
+
+  private func tree(_ node: any XCUIElementSnapshot, contains text: String) -> Bool {
+    if node.label == text || ((node.value as? String) ?? "") == text { return true }
+    return node.children.contains { self.tree($0, contains: text) }
   }
 
   private func hasDescribedText(_ node: any XCUIElementSnapshot) -> Bool {
