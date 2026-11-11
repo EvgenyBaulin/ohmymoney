@@ -249,6 +249,8 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_NSFaceIDUsageDescription: Unlock OhMyMoney with Face ID.
         INFOPLIST_KEY_NSCameraUsageDescription: OhMyMoney reads the QR code of a cash receipt and photographs receipts and warranty cards with the camera.
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: OhMyMoney uses the microphone to dictate entries on this device.
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: OhMyMoney converts your speech into entry text on this device, without sending audio for cloud recognition.
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
         LOCALIZATION_PREFERS_STRING_CATALOGS: YES
@@ -272,6 +274,7 @@ targets:
       # Navigation and launch order are plain logic shared with the Mac; the Mac runs them too.
       - path: Apps/macOS/Tests/PhoneNavigationTests.swift
       - path: Apps/macOS/Tests/PhoneEntryGateTests.swift
+      - path: Apps/macOS/Tests/EntryDictationTests.swift
       - path: Apps/macOS/Tests/PadLayoutTests.swift
     dependencies:
       - target: OhMyMoney-iOS
