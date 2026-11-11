@@ -801,7 +801,7 @@ check-strings:
 # (.github/workflows/build.yml, scripts/check-ci.sh).
 ci-checks: lint check-warnings check-stale check-core-purity check-core-linux check-environment \
 	    check-geometry check-scripts check-privacy check-attribution check-native check-glass \
-	    check-fonts check-names check-ci check-log-names check-strings
+	    check-fonts check-names check-ci check-log-names check-strings check-test-zones
 
 # What Linux would refuse in AppCore, read from the sources (core-linux.yml builds it there).
 check-core-linux:
