@@ -64,14 +64,84 @@ struct CategoriesSettingsView: View {
   /// All roots, including archived ones, that the bulk appearance action can update.
   @State private var appearanceCandidates: [CoreKit.Category] = []
   @Environment(\.appTheme) private var theme
+  @Environment(\.themeSurfaces) private var surfaces
+  /// The rows opened under their line (Mac): a category's limit and its subcategories.
+  @State private var expanded: Set<UUID> = []
+  /// Opens every row once the list is read; how a test reaches the limit fields.
+  private let startsExpanded: Bool
 
   /// `asking` opens the tab with the question of a deletion already on screen: how a test
   /// lays out the sheet without a click on a row's menu.
-  init(asking deletion: CategoryDeletion? = nil) {
+  init(asking deletion: CategoryDeletion? = nil, expandingAll: Bool = false) {
     _deleting = State(initialValue: deletion)
+    startsExpanded = expandingAll
   }
 
   var body: some View {
+    layout
+    .onAppear {
+      reload()
+      if startsExpanded { expanded = Set(categories.map(\.id)) }
+    }
+    .onChange(of: editingName) { left, _ in
+      if let left { commitName(of: left) }
+    }
+    .onDisappear {
+      if let editingName { commitName(of: editingName) }
+    }
+    .refusedWriteAlert($refused, environment)
+    .onChange(of: kind) { _, _ in
+      // A root of one kind is never the parent of a category of the other.
+      newParent = nil
+      limitRefusal = nil
+      reload()
+    }
+    // A limit set or taken back elsewhere — in Planning, by ⌘Z — shows in its row at once;
+    // so does self-employment switched on or off.
+    .onChange(of: compute.generation) {
+      selfEmployment = SelfEmploymentSettingsForm.read(environment)
+      reloadLimits()
+      reloadAppearances()
+    }
+    // «Налог → Другая…»: a rate typed by hand, on a sheet over the settings.
+    .sheet(item: $otherTax) { category in
+      OtherTaxSheet(category: category) { rate in
+        setTax(of: category, to: .other(rate))
+      }
+      .handingOver(dependencies)
+    }
+    // A sheet, not a `confirmationDialog`: when the operations of a category have to move,
+    // the owner has to choose where — and a dialog holds buttons, not a picker. On the root
+    // of the tab, never on a row: the rows are rebuilt by every reload.
+    .sheet(item: $deleting) { question in
+      CategoryDeletionSheet(
+        question: question, moveTo: $moveTo,
+        options: moveOptions(excluding: question),
+        title: deleteTitle, message: deleteMessage(question),
+        archive: {
+          setArchived(question.category, true)
+          deleting = nil
+        },
+        delete: { delete(question) },
+        cancel: { deleting = nil }
+      )
+      .handingOver(dependencies)
+    }
+    .confirmationDialog(
+      CategoryQualityText.title(environment.language), isPresented: isAsking,
+      titleVisibility: .visible, presenting: pastQuality
+    ) { question in
+      Button(CategoryQualityText.apply(environment.language)) {
+        store.apply(question.change, to: question.ids)
+      }
+      .disabled(store.isWritingInBackground)
+      Button(CategoryQualityText.keep(environment.language), role: .cancel) {}
+    } message: { question in
+      Text(verbatim: CategoryQualityText.message(question.ids.count, environment.language))
+    }
+  }
+
+  private var formLayout: some View {
     VStack(alignment: .leading, spacing: 12) {
       HStack {
         Picker(selection: $kind) {
@@ -165,63 +235,14 @@ struct CategoriesSettingsView: View {
       }
     }
     .padding()
-    .onAppear(perform: reload)
-    .onChange(of: editingName) { left, _ in
-      if let left { commitName(of: left) }
-    }
-    .onDisappear {
-      if let editingName { commitName(of: editingName) }
-    }
-    .refusedWriteAlert($refused, environment)
-    .onChange(of: kind) { _, _ in
-      // A root of one kind is never the parent of a category of the other.
-      newParent = nil
-      limitRefusal = nil
-      reload()
-    }
-    // A limit set or taken back elsewhere — in Planning, by ⌘Z — shows in its row at once;
-    // so does self-employment switched on or off.
-    .onChange(of: compute.generation) {
-      selfEmployment = SelfEmploymentSettingsForm.read(environment)
-      reloadLimits()
-      reloadAppearances()
-    }
-    // «Налог → Другая…»: a rate typed by hand, on a sheet over the settings.
-    .sheet(item: $otherTax) { category in
-      OtherTaxSheet(category: category) { rate in
-        setTax(of: category, to: .other(rate))
-      }
-      .handingOver(dependencies)
-    }
-    // A sheet, not a `confirmationDialog`: when the operations of a category have to move,
-    // the owner has to choose where — and a dialog holds buttons, not a picker. On the root
-    // of the tab, never on a row: the rows are rebuilt by every reload.
-    .sheet(item: $deleting) { question in
-      CategoryDeletionSheet(
-        question: question, moveTo: $moveTo,
-        options: moveOptions(excluding: question),
-        title: deleteTitle, message: deleteMessage(question),
-        archive: {
-          setArchived(question.category, true)
-          deleting = nil
-        },
-        delete: { delete(question) },
-        cancel: { deleting = nil }
-      )
-      .handingOver(dependencies)
-    }
-    .confirmationDialog(
-      CategoryQualityText.title(environment.language), isPresented: isAsking,
-      titleVisibility: .visible, presenting: pastQuality
-    ) { question in
-      Button(CategoryQualityText.apply(environment.language)) {
-        store.apply(question.change, to: question.ids)
-      }
-      .disabled(store.isWritingInBackground)
-      Button(CategoryQualityText.keep(environment.language), role: .cancel) {}
-    } message: { question in
-      Text(verbatim: CategoryQualityText.message(question.ids.count, environment.language))
-    }
+  }
+
+  @ViewBuilder private var layout: some View {
+    #if os(macOS)
+      macLayout
+    #else
+      formLayout
+    #endif
   }
 
   /// What the owner asked to delete and what points at it.
@@ -362,63 +383,7 @@ struct CategoriesSettingsView: View {
           .foregroundStyle(.secondary)
           .accessibilityIdentifier("categories.row.tax")
         }
-        AccessibleMenu(
-          SettingsRowMenu.label(category.name, environment), systemImage: "ellipsis.circle",
-          identifier: "categories.row.menu"
-        ) {
-          if kind == .income, selfEmployment.enabled {
-            Picker(selection: taxBinding(for: category, tree: tree)) {
-              ForEach(
-                taxChoices(for: category), id: \.self
-              ) { choice in
-                Text(verbatim: CategoryTax.title(choice, environment)).tag(choice)
-              }
-            } label: {
-              Text(verbatim: environment.language("categories.tax", table: "Settings"))
-            }
-            .disabled(CategoryTax.isFixed(category, in: tree))
-            Button(environment.language("categories.tax.other", table: "Settings")) {
-              otherTax = category
-            }
-            .disabled(CategoryTax.isFixed(category, in: tree))
-            Divider()
-          }
-          if kind == .expense {
-            Picker(selection: essentialBinding(for: category, tree: tree)) {
-              ForEach(Self.essentialChoices(for: category), id: \.self) { choice in
-                Text(
-                  verbatim: environment.language(
-                    "categories.essential.\(choice.rawValue)", table: "Settings")
-                )
-                .tag(choice)
-              }
-            } label: {
-              Text(verbatim: environment.language("categories.essential", table: "Settings"))
-            }
-            .disabled(Self.essentialIsFixed(category, in: tree))
-            Picker(selection: basketBinding(for: category, tree: tree)) {
-              ForEach(BasketChoice.allCases, id: \.self) { choice in
-                Text(verbatim: BasketChoice.name(choice, environment)).tag(choice)
-              }
-            } label: {
-              Text(verbatim: IncomeSavingsText.t("income.basket.menu", environment))
-            }
-            .disabled(BasketChoice.isFixed(category, in: tree))
-            Divider()
-          }
-          Button(environment.language("references.delete", table: "Settings")) {
-            askToDelete(category)
-          }
-          if category.archived {
-            Button(environment.language("categories.unarchive", table: "Settings")) {
-              setArchived(category, false)
-            }
-          } else {
-            Button(environment.language("references.archive", table: "Settings")) {
-              setArchived(category, true)
-            }
-          }
-        }
+        rowMenu(category, tree: tree)
       }
       Spacer(minLength: 8)
       if kind == .expense {
@@ -458,20 +423,91 @@ struct CategoriesSettingsView: View {
     }
   }
 
+  /// The «…» of a row: tax and essential choices, basket, delete and archive.
+  private func rowMenu(_ category: CoreKit.Category, tree: CategoryTree) -> some View {
+    Menu {
+      if kind == .income, selfEmployment.enabled {
+        Picker(selection: taxBinding(for: category, tree: tree)) {
+          ForEach(
+            taxChoices(for: category), id: \.self
+          ) { choice in
+            Text(verbatim: CategoryTax.title(choice, environment)).tag(choice)
+          }
+        } label: {
+          Text(verbatim: environment.language("categories.tax", table: "Settings"))
+        }
+        .disabled(CategoryTax.isFixed(category, in: tree))
+        Button(environment.language("categories.tax.other", table: "Settings")) {
+          otherTax = category
+        }
+        .disabled(CategoryTax.isFixed(category, in: tree))
+        Divider()
+      }
+      if kind == .expense {
+        Picker(selection: essentialBinding(for: category, tree: tree)) {
+          ForEach(Self.essentialChoices(for: category), id: \.self) { choice in
+            Text(
+              verbatim: environment.language(
+                "categories.essential.\(choice.rawValue)", table: "Settings")
+            )
+            .tag(choice)
+          }
+        } label: {
+          Text(verbatim: environment.language("categories.essential", table: "Settings"))
+        }
+        .disabled(Self.essentialIsFixed(category, in: tree))
+        Picker(selection: basketBinding(for: category, tree: tree)) {
+          ForEach(BasketChoice.allCases, id: \.self) { choice in
+            Text(verbatim: BasketChoice.name(choice, environment)).tag(choice)
+          }
+        } label: {
+          Text(verbatim: IncomeSavingsText.t("income.basket.menu", environment))
+        }
+        .disabled(BasketChoice.isFixed(category, in: tree))
+        Divider()
+      }
+      Button(environment.language("references.delete", table: "Settings")) {
+        askToDelete(category)
+      }
+      if category.archived {
+        Button(environment.language("categories.unarchive", table: "Settings")) {
+          setArchived(category, false)
+        }
+      } else {
+        Button(environment.language("references.archive", table: "Settings")) {
+          setArchived(category, true)
+        }
+      }
+    } label: {
+      // Named by its category, like the «…» of every row of Справочники: the bare symbol
+      // was read as «More» on every row alike.
+      Image(systemName: "ellipsis.circle")
+        .accessibilityLabel(
+          Text(
+            verbatim: environment.format(
+              "references.rowMenu", table: "Settings", category.name)))
+    }
+    .menuStyle(.borderlessButton)
+    .menuIndicator(.hidden)
+    .fixedSize()
+    .accessibilityIdentifier("categories.row.menu")
+  }
+
   /// The mark of the row, which opens the picker of its symbol and colour. It shows what the
   /// category is drawn with in «Операции» — its own, or its parent's — and a dashed circle for
   /// none; the name of the category is the field beside it.
   private func markButton(
-    _ category: CoreKit.Category, tree: CategoryTree, isChild: Bool
+    _ category: CoreKit.Category, tree: CategoryTree, isChild: Bool, side: CGFloat = 24,
+    indent: CGFloat = 18
   ) -> some View {
     let drawn = tree.appearance(of: category.id)
     return Button {
       pickingMark = category.id
     } label: {
-      CategoryMarkView(icon: drawn.icon, tone: drawn.tone, side: 24)
+      CategoryMarkView(icon: drawn.icon, tone: drawn.tone, side: side)
     }
     .buttonStyle(.plain)
-    .padding(.leading, isChild ? 18 : 0)
+    .padding(.leading, isChild ? indent : 0)
     .accessibilityLabel(
       Text(
         verbatim: environment.format(
@@ -1401,3 +1437,330 @@ enum EssentialChoice: String, CaseIterable, Hashable {
     }
   }
 }
+
+#if os(macOS)
+  /// The Mac's «Категории» in the design's measures (Figma 60:28461): the kind tabs, the
+  /// categories in one card — mark 20, name 13 medium over a line of 11, the rating chip, a
+  /// chevron — and the card of switches. The chevron opens the row: its monthly limit and its
+  /// subcategories. Everything the list could do stays: rename in place, mark and colour, the
+  /// «…» menu, the rating, the limit, the bulk «Подобрать значки», ⌘Z.
+  enum CategoriesMacMetrics {
+    static let blockGap: CGFloat = 18
+    static let markSide: CGFloat = 20
+    static let rowHorizontal: CGFloat = 16
+    static let rowVertical: CGFloat = 11
+    static let rowGap: CGFloat = 12
+    static let chipHorizontal: CGFloat = 8
+    static let chipVertical: CGFloat = 2
+    static let chevron: CGFloat = 14
+    /// A subcategory sits one step in, under the text of its parent.
+    static let childIndent: CGFloat = 20
+  }
+
+  extension CategoriesSettingsView {
+    fileprivate func t(_ key: String) -> String { environment.language(key, table: "Settings") }
+
+    fileprivate var macLayout: some View {
+      ScrollView {
+        VStack(alignment: .leading, spacing: CategoriesMacMetrics.blockGap) {
+          HStack(spacing: 12) {
+            SettingsTabs(
+              selection: $kind, choices: [CategoryKind.expense, .income],
+              title: {
+                environment.language($0 == .expense ? "kind.expense" : "kind.income")
+              },
+              identifier: "categories.kind")
+            Spacer(minLength: 0)
+            Button(t("categories.appearance.suggest")) { suggestAppearances() }
+              .buttonStyle(SettingsActionButtonStyle())
+              .disabled(
+                StarterAppearance.suggestions(for: appearanceCandidates).isEmpty
+                  || store.isWritingInBackground
+              )
+              .accessibilityIdentifier("categories.appearance.suggest")
+          }
+          macList
+          macAddRow
+          if let refusalKey {
+            macNote(t(refusalKey), color: .red).onTapGesture { self.refusalKey = nil }
+          }
+          if kind == .expense, let limitRefusal {
+            macNote(limitRefusal.text, color: .red)
+              .onTapGesture { self.limitRefusal = nil }
+              .accessibilityIdentifier("categories.limit.refusal")
+          }
+          macSwitches
+          if kind == .expense {
+            macNote(t("categories.limit.hint"))
+          } else {
+            macNote(t("categories.cashbackHint"))
+            macNote(t(Self.cashbackRulesHintKey))
+          }
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.bottom, 24)
+      }
+    }
+
+    fileprivate func macNote(_ text: String, color: Color? = nil) -> some View {
+      Text(verbatim: text)
+        .appFont(AppFont.system(size: 12))
+        .foregroundStyle(color ?? surfaces.secondary)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+
+    /// What is on screen, in reading order: a subcategory only under a parent that is open.
+    fileprivate var macVisibleLines: [Line] {
+      let rootIds = Set(roots.map(\.id))
+      return Self.rows(roots: roots, children: children(of:), orphans: orphans).filter { line in
+        guard case .category(let category, let isChild) = line else { return true }
+        guard isChild, let parent = category.parentId, rootIds.contains(parent) else { return true }
+        return expanded.contains(parent)
+      }
+    }
+
+    fileprivate var macList: some View {
+      let lines = macVisibleLines
+      return SettingsCard {
+        ForEach(Array(lines.enumerated()), id: \.element.id) { index, line in
+          let last = index == lines.count - 1
+          switch line {
+          case .category(let category, let isChild):
+            macRow(category, isChild: isChild, showsDivider: !last)
+          case .orphansCaption:
+            VStack(spacing: 0) {
+              Text(verbatim: t("categories.orphans"))
+                .appFont(AppFont.system(size: 11))
+                .foregroundStyle(surfaces.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, CategoriesMacMetrics.rowHorizontal)
+                .padding(.vertical, CategoriesMacMetrics.rowVertical)
+              if !last { macDivider }
+            }
+          }
+        }
+      }
+    }
+
+    fileprivate var macDivider: some View {
+      Rectangle().fill(surfaces.cardBorder.opacity(0.6))
+        .frame(height: SettingsCardMetrics.hairline)
+    }
+
+    /// «necessary · limit 30 000 ↻», «inside «Food»», «system»: what the row says about itself.
+    fileprivate func macCaption(
+      _ category: CoreKit.Category, tree: CategoryTree, isSystem: Bool
+    ) -> String {
+      var parts: [String] = []
+      if let parent = category.parentId.flatMap({ tree.category($0) }) {
+        parts.append(environment.format("categories.row.inside", table: "Settings", parent.name))
+      }
+      if isSystem {
+        parts.append(t("categories.system"))
+      } else {
+        if category.archived { parts.append(t("categories.archived")) }
+        if kind == .expense, tree.isEssential(category.id) {
+          parts.append(t("categories.essential.mark"))
+        }
+        if kind == .income, selfEmployment.enabled,
+          let mark = CategoryTax.mark(category.id, tree: tree, environment)
+        {
+          parts.append(mark)
+        }
+      }
+      if kind == .expense,
+        let limit = LimitRules.categoryLimit(of: category.id, in: budgets)
+      {
+        let amount = AmountField.text(for: limit.amountE4)
+        parts.append(
+          environment.format("categories.row.limit", table: "Settings", amount)
+            + (limit.rollover ? " ↻" : ""))
+      }
+      return parts.joined(separator: " · ")
+    }
+
+    fileprivate func macRow(
+      _ category: CoreKit.Category, isChild: Bool, showsDivider: Bool
+    ) -> some View {
+      let tree = wholeTree()
+      let isSystem = tree.systemRole(of: category.id) != nil
+      let offersLimit =
+        kind == .expense
+        && LimitRules.offersLimit(
+          on: category.id, tree: tree, limitless: limitless,
+          taxCategoryId: selfEmployment.taxCategoryId)
+      let hasChildren = !isChild && !children(of: category).isEmpty
+      let canOpen = offersLimit || hasChildren
+      let isOpen = expanded.contains(category.id)
+      let caption = macCaption(category, tree: tree, isSystem: isSystem)
+      return VStack(spacing: 0) {
+        HStack(spacing: CategoriesMacMetrics.rowGap) {
+          markButton(
+            category, tree: tree, isChild: isChild, side: CategoriesMacMetrics.markSide,
+            indent: CategoriesMacMetrics.childIndent)
+          VStack(alignment: .leading, spacing: SettingsCardMetrics.textGap) {
+            TextField(text: nameBinding(for: category)) { EmptyView() }
+              .labelsHidden()
+              .textFieldStyle(.plain)
+              .appFont(AppFont.system(size: 13, weight: .medium))
+              .foregroundStyle(surfaces.primary)
+              .focused($editingName, equals: category.id)
+              .onSubmit { commitName(of: category.id) }
+            if !caption.isEmpty {
+              Text(verbatim: caption)
+                .appFont(AppFont.system(size: 11))
+                .foregroundStyle(surfaces.secondary)
+                .lineLimit(1)
+                .help(isSystem ? t("categories.system.help") : "")
+                .accessibilityIdentifier("categories.row.caption")
+            }
+          }
+          Spacer(minLength: 8)
+          if kind == .expense { macQualityChip(category) }
+          if !isSystem { rowMenu(category, tree: tree) }
+          Group {
+            if canOpen {
+              Button {
+                if isOpen { expanded.remove(category.id) } else { expanded.insert(category.id) }
+              } label: {
+                Image(systemName: "chevron.right")
+                  .font(.system(size: 10, weight: .semibold))  // font-fixed: symbol in a 14 pt slot
+                  .foregroundStyle(surfaces.secondary)
+                  .rotationEffect(.degrees(isOpen ? 90 : 0))
+                  .frame(
+                    width: CategoriesMacMetrics.chevron, height: CategoriesMacMetrics.chevron)
+                  .contentShape(.rect)
+              }
+              .buttonStyle(.plain)
+              .accessibilityLabel(Text(verbatim: category.name))
+              .accessibilityIdentifier("categories.row.chevron")
+            } else {
+              Color.clear.frame(
+                width: CategoriesMacMetrics.chevron, height: CategoriesMacMetrics.chevron)
+            }
+          }
+        }
+        .padding(.horizontal, CategoriesMacMetrics.rowHorizontal)
+        .padding(.vertical, CategoriesMacMetrics.rowVertical)
+        .padding(.leading, isChild ? CategoriesMacMetrics.childIndent : 0)
+        if isOpen && offersLimit {
+          HStack(spacing: 8) {
+            Text(verbatim: t("categories.limit.placeholder"))
+              .appFont(AppFont.system(size: 11))
+              .foregroundStyle(surfaces.secondary)
+            CategoryLimitField(
+              stored: LimitRules.categoryLimit(of: category.id, in: budgets),
+              commit: { commitLimit($0, for: category.id) },
+              cancel: {
+                if limitRefusal?.categoryId == category.id { limitRefusal = nil }
+              })
+            Spacer(minLength: 0)
+          }
+          .padding(.leading, CategoriesMacMetrics.rowHorizontal + CategoriesMacMetrics.markSide
+            + CategoriesMacMetrics.rowGap + (isChild ? CategoriesMacMetrics.childIndent : 0))
+          .padding(.trailing, CategoriesMacMetrics.rowHorizontal)
+          .padding(.bottom, CategoriesMacMetrics.rowVertical)
+        }
+        if showsDivider { macDivider }
+      }
+    }
+
+    /// The rating as a chip — «обычная», «плохая», «хорошая» — that is also the picker.
+    fileprivate func macQualityChip(_ category: CoreKit.Category) -> some View {
+      let quality = category.quality
+      let ink: Color
+      let fill: Color
+      switch quality {
+      case .good:
+        ink = surfaces.positive
+        fill = theme.statusPositiveTint
+      case .bad:
+        ink = surfaces.warning
+        fill = surfaces.warning.opacity(0.16)
+      case .neutral, .none:
+        ink = surfaces.secondary
+        fill = theme.fillNeutral
+      }
+      return Menu {
+        Picker(selection: qualityBinding(for: category)) {
+          Text(verbatim: "—").tag(Quality?.none)
+          ForEach(Quality.allCases, id: \.self) { quality in
+            Text(verbatim: environment.language(Palette.qualityKey(quality)))
+              .tag(Quality?.some(quality))
+          }
+        } label: {
+          EmptyView()
+        }
+        .pickerStyle(.inline)
+        .labelsHidden()
+      } label: {
+        Text(verbatim: quality.map { environment.language(Palette.qualityKey($0)) } ?? "—")
+          .appFont(AppFont.system(size: 11, weight: .semibold))
+          .foregroundStyle(ink)
+          .padding(.horizontal, CategoriesMacMetrics.chipHorizontal)
+          .padding(.vertical, CategoriesMacMetrics.chipVertical)
+          .background(fill, in: Capsule())
+      }
+      .menuStyle(.borderlessButton)
+      .menuIndicator(.hidden)
+      .fixedSize()
+      .disabled(Self.qualityIsFixed(category, in: wholeTree()))
+      .accessibilityIdentifier("categories.row.quality")
+    }
+
+    fileprivate var macAddRow: some View {
+      SettingsCard {
+        HStack(spacing: 8) {
+          TextField(text: $newName) { Text(verbatim: t("references.name")) }
+            .onSubmit(add)
+          Picker(selection: $newParent) {
+            Text(verbatim: "—").tag(UUID?.none)
+            ForEach(liveRoots, id: \.id) { parent in
+              Text(verbatim: parent.name).tag(UUID?.some(parent.id))
+            }
+          } label: {
+            EmptyView()
+          }
+          .labelsHidden()
+          .frame(maxWidth: 180)
+          Button(t("references.add"), action: add)
+            .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
+        }
+        .padding(.horizontal, CategoriesMacMetrics.rowHorizontal)
+        .padding(.vertical, CategoriesMacMetrics.rowVertical)
+      }
+    }
+
+    /// «Показывать архивные» and, among the income categories, the cashback one.
+    fileprivate var macSwitches: some View {
+      SettingsCard {
+        SettingsCardRow(
+          title: t("categories.showArchived"), showsDivider: kind == .income, compact: true
+        ) {
+          Toggle("", isOn: $showsArchived)
+            .labelsHidden().toggleStyle(.switch)
+            .accessibilityLabel(Text(verbatim: t("categories.showArchived")))
+            .accessibilityIdentifier("categories.showArchived")
+            .onChange(of: showsArchived) { _, _ in reload() }
+        }
+        if kind == .income {
+          SettingsCardRow(title: t("categories.cashback"), showsDivider: false, compact: true) {
+            Picker(selection: cashbackBinding) {
+              Text(verbatim: "—").tag(UUID?.none)
+              ForEach(liveRoots, id: \.id) { parent in
+                Text(verbatim: parent.name).tag(UUID?.some(parent.id))
+                ForEach(children(of: parent).filter { !$0.archived }, id: \.id) { child in
+                  Text(verbatim: "\(parent.name) › \(child.name)").tag(UUID?.some(child.id))
+                }
+              }
+            } label: {
+              Text(verbatim: t("categories.cashback"))
+            }
+            .labelsHidden()
+            .fixedSize()
+          }
+        }
+      }
+    }
+  }
+#endif
