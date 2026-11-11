@@ -222,6 +222,7 @@ public enum NPDTax {
     for row in ledger.rows {
       switch row.kind {
       case .income:
+        guard row.isIncome else { continue }
         guard let tax = tree.tax(of: row.categoryId) else { continue }
         let rub = rubles(row, dayRates: dayRates)
         let bucket = Bucket(
@@ -443,7 +444,7 @@ public enum NPDTax {
     of entry: TransactionEntry, tree: CategoryTree, settings: SelfEmploymentSettings,
     dayRates: DayRates, deductionLeft: AmountE4?
   ) -> (taxE4: AmountE4, rate: Decimal)? {
-    guard settings.enabled, entry.transaction.kind == .income, !entry.transaction.isDeleted
+    guard settings.enabled, IncomeRule.isIncome(entry.transaction), !entry.transaction.isDeleted
     else { return nil }
     let reference = settings.reference
     var total = Decimal(0)

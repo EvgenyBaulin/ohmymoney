@@ -149,7 +149,7 @@ public struct OverviewFigures: Hashable, Sendable {
     init(ledger: Ledger, today: DateOnly, expected: AmountE4) {
       self.expected = expected
       let rows = ledger.rows(attributedTo: [today.monthKey])
-        .filter { $0.kind == .income && $0.day <= today && !$0.amountRubE4.isZero }
+        .filter { $0.isIncome && $0.day <= today && !$0.amountRubE4.isZero }
       received = AmountE4.sum(rows.map(\.amountRubE4))
       bySource = Tabulation.oneLevel(
         rows.map { (ReportGrouping.category.outerKey(of: $0), $0.amountRubE4) })

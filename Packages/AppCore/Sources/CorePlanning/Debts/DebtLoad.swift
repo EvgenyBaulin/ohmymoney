@@ -288,7 +288,7 @@ extension DebtLoad {
 
     // Earnings by the month they are for.
     var earned: [MonthKey: Decimal] = [:]
-    for row in ledger.rows where row.kind == .income && earnings(row.categoryId) {
+    for row in ledger.rows where row.isIncome && earnings(row.categoryId) {
       earned[row.month, default: 0] += row.amountRubE4.decimal
     }
     func median(before month: MonthKey) -> AmountE4? {

@@ -163,16 +163,21 @@ struct StatementFileCard: View {
   private func checks(_ preview: StatementPreview) -> some View {
     ForEach(Array(preview.blockingFailures.enumerated()), id: \.offset) { _, check in
       VStack(alignment: .leading, spacing: 2) {
-        Label(t("import.check.footer.title"), systemImage: "exclamationmark.octagon")
-          .appFont(.callout.weight(.semibold)).foregroundStyle(.red)
-        Text(
-          verbatim: ImportText.format(
-            "import.check.footer.body", environment,
-            environment.money.exact(check.missingIncome),
-            environment.money.exact(check.missingExpense))
-        )
-        .appFont(.callout).foregroundStyle(.secondary).monospacedDigit()
-        .fixedSize(horizontal: false, vertical: true)
+        Label(t("import.check.footer.title"), systemImage: "exclamationmark.triangle")
+          .appFont(.callout.weight(.semibold)).foregroundStyle(.orange)
+        if check.violations > 0 && check.missingIncome.isZero && check.missingExpense.isZero {
+          Text(verbatim: t("import.check.footer.missing"))
+            .appFont(.callout).foregroundStyle(.secondary)
+        } else {
+          Text(
+            verbatim: ImportText.format(
+              "import.check.footer.body", environment,
+              environment.money.exact(check.missingIncome),
+              environment.money.exact(check.missingExpense))
+          )
+          .appFont(.callout).foregroundStyle(.secondary).monospacedDigit()
+          .fixedSize(horizontal: false, vertical: true)
+        }
       }
       .accessibilityIdentifier("import.check.failed")
     }

@@ -1,0 +1,145 @@
+import AppCore
+import AppDatabase
+import AppKit
+import SwiftUI
+import XCTest
+
+@testable import OhMyMoney
+
+@MainActor
+final class OverviewDiscrepanciesTests: XCTestCase {
+  private var environment: AppEnvironment?
+  private var directory: URL?
+  private var dataDirectoryBefore: String?
+  private var languageBefore: AppLanguage.Choice?
+  private var windows: [NSWindow] = []
+
+  override func setUp() async throws {
+    dataDirectoryBefore = ProcessInfo.processInfo.environment["OHMYMONEY_DATA_DIR"]
+    let directory = FileManager.default.temporaryDirectory
+      .appendingPathComponent("ohmymoney-discrepancies-\(UUID().uuidString)")
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    self.directory = directory
+    setenv("OHMYMONEY_DATA_DIR", directory.path, 1)
+    let environment = AppEnvironment()
+    await environment.start(preparing: {
+      try DatabaseStack(inMemory: BundleSchemaSource(bundle: .main))
+    })
+    self.environment = environment
+    languageBefore = environment.language.choice
+  }
+
+  override func tearDown() async throws {
+    for window in windows {
+      window.contentViewController = nil
+      window.close()
+    }
+    if let languageBefore { environment?.language.choice = languageBefore }
+    await environment?.close()
+    if let dataDirectoryBefore {
+      setenv("OHMYMONEY_DATA_DIR", dataDirectoryBefore, 1)
+    } else {
+      unsetenv("OHMYMONEY_DATA_DIR")
+    }
+    if let directory { try? FileManager.default.removeItem(at: directory) }
+  }
+
+  private func host(difference: Int64, pending: Bool) throws -> (NSWindow, String) {
+    let environment = try XCTUnwrap(environment)
+    let account = PaymentMethod(name: "Synthetic account", kind: .card)
+    let store = TransactionsStore()
+    store.attach(
+      try XCTUnwrap(environment.transactions), references: environment.references,
+      planning: environment.planning, imports: environment.statementImports)
+    XCTAssertTrue(store.apply(PlanningChange(upsert: PlanningRows(paymentMethods: [account]))))
+    let importID = UUID().uuidString
+    if pending {
+      let record = StatementImportRecord(
+        id: importID, accountID: account.id.uuidString,
+        profileID: "synthetic", fileName: "synthetic.pdf", importedAt: Date(),
+        periodFrom: nil, periodTo: nil, rowCount: 1, newCount: 1, duplicateCount: 0,
+        declinedCount: 0, unparsedCount: 0)
+      try environment.statementImports?.record(record)
+      let review = try XCTUnwrap(
+        StatementReview.make(
+          importID: importID, accountID: account.id,
+          fileName: record.fileName,
+          checks: [
+            StatementCheck(
+              kind: .footerTotals, passed: false,
+              blocking: true, missingExpense: AmountE4(whole: 10))
+          ]))
+      try environment.settings?.set(
+        StatementReview.settingsKey, to: StatementReview.encode([review]))
+    }
+    var draft = TransactionDraft(
+      kind: .income,
+      occurredAt: environment.calendar.startOfDay(environment.today),
+      amount: AmountE4(whole: difference))
+    draft.paymentMethodId = account.id
+    draft.normalizeSinglePart()
+    var entry = try draft.materialize(timeZone: environment.calendar.timeZone)
+    entry.transaction.externalId = OperationLink.reconciliation(UUID()).externalId
+    let dataset = Dataset(entries: difference == 0 ? [] : [entry], paymentMethods: [account])
+    let compute = ComputeStore(calendar: environment.calendar, rebuildsInline: true)
+    compute.applyLight(
+      DataSnapshot.build(
+        dataset: dataset, calendar: environment.calendar,
+        today: environment.today, context: SnapshotContext(), version: DataVersion(load: 0)))
+    let deps = AppDependencies(environment: environment, store: store, compute: compute)
+    let window = NSWindow(
+      contentRect: CGRect(x: 0, y: 0, width: 700, height: 320),
+      styleMask: [.titled, .closable], backing: .buffered, defer: false)
+    window.isReleasedWhenClosed = false
+    window.contentViewController = NSHostingController(
+      rootView: OverviewDiscrepancies().appDependencies(deps))
+    window.orderFront(nil)
+    windows.append(window)
+    return (window, importID)
+  }
+
+  private func waitFor(_ identifier: String, in window: NSWindow) -> NSObject? {
+    let deadline = Date().addingTimeInterval(5)
+    repeat {
+      window.layoutIfNeeded()
+      if let element = WindowAccessibility.element(identified: identifier, in: window) {
+        return element
+      }
+      RunLoop.main.run(until: Date().addingTimeInterval(0.02))
+    } while Date() < deadline
+    return nil
+  }
+
+  func testBothRowsShareOneBlockAndThePendingRowOpensItsStatement() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    let environment = try XCTUnwrap(environment)
+    environment.language.choice = .russian
+    let (window, id) = try host(difference: 650, pending: true)
+    XCTAssertNotNil(waitFor("overview.discrepancies", in: window))
+    XCTAssertNotNil(waitFor("overview.reconciliation.difference", in: window))
+    let row = try XCTUnwrap(waitFor("overview.statement.pending.\(id)", in: window))
+    WindowAccessibility.press(row)
+    let deadline = Date().addingTimeInterval(5)
+    while window.attachedSheet == nil && Date() < deadline {
+      RunLoop.main.run(until: Date().addingTimeInterval(0.02))
+    }
+    let sheet = try XCTUnwrap(window.attachedSheet)
+    XCTAssertNotNil(waitFor("statement.review", in: sheet))
+    XCTAssertNotNil(waitFor("statement.review.keepWritten", in: sheet))
+  }
+
+  func testBothCaptionsAreTranslatedInRussianAndEnglish() throws {
+    let language = try XCTUnwrap(environment).language
+    language.choice = .russian
+    XCTAssertEqual(
+      language("overview.reconciliation.difference", table: "Overview"), "Расхождение при сверке")
+    XCTAssertEqual(
+      language("overview.statement.awaitingDecision", table: "Overview"), "ждёт решения")
+    language.choice = .english
+    XCTAssertEqual(
+      language("overview.reconciliation.difference", table: "Overview"), "Reconciliation difference"
+    )
+    XCTAssertEqual(
+      language("overview.statement.awaitingDecision", table: "Overview"), "awaiting a decision")
+  }
+}

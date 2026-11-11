@@ -225,6 +225,20 @@ final class ReceiptModelTests: XCTestCase {
     XCTAssertEqual(try live().count, 0)
   }
 
+  func testAnImageWithoutQRKeepsItsBytesForScreenshotSearch() async throws {
+    let image = CIImage(color: .white).cropped(to: CGRect(x: 0, y: 0, width: 300, height: 300))
+    let data = try XCTUnwrap(
+      CIContext().pngRepresentation(
+        of: image, format: .RGBA8,
+        colorSpace: CGColorSpaceCreateDeviceRGB()))
+    let model = try await model()
+    await model.read(data: data, filename: "screenshot.png")
+    XCTAssertEqual(model.stage, .noCode)
+    XCTAssertEqual(model.photo?.data, data)
+    XCTAssertEqual(model.photo?.filename, "screenshot.png")
+    XCTAssertTrue(try live().isEmpty)
+  }
+
   func testAnOperationDeletedMeanwhileIsNotBroughtBack() async throws {
     let coffee = try purchase("Кофе", rubles: 250, day: 29)
     let model = try await model()

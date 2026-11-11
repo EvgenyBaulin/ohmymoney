@@ -109,7 +109,7 @@ public enum SavingsNorm {
       {
         income = AmountE4.sum(
           ledger.rows(attributedTo: [month]).lazy
-            .filter { $0.kind == .income && $0.rootCategoryId == root }
+            .filter { $0.isIncome && $0.rootCategoryId == root }
             .map(\.amountRubE4))
       } else {
         fallback = true

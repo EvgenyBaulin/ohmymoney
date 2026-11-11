@@ -70,6 +70,7 @@ final class ReceiptModel {
 
   /// A picture: found off the main thread (Vision is slow on a large photo).
   func read(image: CGImage, photo: ReceiptPhoto?) async {
+    self.photo = photo
     stage = .reading
     let reading = await Task.detached(priority: .userInitiated) {
       ReceiptQRDetector.reading(of: image)
@@ -94,6 +95,7 @@ final class ReceiptModel {
   /// A file as it came — a photo in its full size, a screenshot, the PDF of an electronic
   /// receipt (every page) — read off the main thread.
   func read(data: Data, filename: String) async {
+    photo = ReceiptPhoto(data: data, filename: filename)
     stage = .reading
     let reading = await Task.detached(priority: .userInitiated) {
       ReceiptQRDetector.reading(ofFile: data)
