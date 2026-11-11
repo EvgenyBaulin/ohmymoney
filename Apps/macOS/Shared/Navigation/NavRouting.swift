@@ -40,6 +40,20 @@ extension NavItem {
 }
 
 extension PhoneRouter {
+  /// Secondary sections use a shared entry host; the tools and the screens devoted to
+  /// planning or reports have no line. The root resets the gate on every route change.
+  var phoneEntryHost: PhoneTab {
+    switch tab {
+    case .overview, .operations, .accounts: tab
+    case .planning: .more
+    case .more:
+      switch morePath.last {
+      case .calendar, .capital, .debts, .purchases, .analytics: .overview
+      case .reports, .summaries, .settings, .whatIf, .conflicts, nil: .more
+      }
+    }
+  }
+
   /// Goes to a section of the bar or of «Ещё».
   func open(nav item: NavItem) {
     if let route = item.route {

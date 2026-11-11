@@ -36,6 +36,7 @@ struct MoreTab: View {
   var layout: NavLayout = NavLayout.make(width: 0, isPad: false)
   /// The four sections of the phone bar, edited here.
   @Binding var phoneTabs: [NavItem]
+  var entry: () -> AnyView = { AnyView(EmptyView()) }
 
   @State private var query = ""
   @State private var editsTabs = false
@@ -83,7 +84,7 @@ struct MoreTab: View {
       .navigationDestination(for: MoreDestination.self) { destination in
         MoreDestinationScreen(
           deps: deps, router: router, actions: actions, destination: destination
-        ) { EmptyView() }
+        ) { entry() }
         .appDependencies(deps)
       }
     }
@@ -221,10 +222,14 @@ struct MoreDestinationScreen<Entry: View>: View {
     case .purchases:
       sectionScreen(titleKey: "section.purchases") { PurchasesScreen() }
     case .summaries:
-      PhoneContent(deps: deps, actions: actions) { SummariesPage(deps: deps) } entry: { entry }
-        .navigationTitle(environment.language("summaries.title", table: "Summaries"))
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar(removing: .title)
+      PhoneContent(deps: deps, actions: actions) {
+        SummariesPage(deps: deps)
+      } entry: {
+        entry
+      }
+      .navigationTitle(environment.language("summaries.title", table: "Summaries"))
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar(removing: .title)
     case .whatIf:
       sectionScreen(titleKey: "window.whatIf") { WhatIfWindow(deps: deps) }
     case .settings:

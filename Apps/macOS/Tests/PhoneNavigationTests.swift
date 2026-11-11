@@ -99,6 +99,33 @@ final class PhoneNavigationTests: XCTestCase {
 
   // MARK: The bar
 
+  func testThePhoneCalendarHostsTheHiddenEntryLineButTheToolsDoNot() {
+    let router = PhoneRouter()
+    router.open(section: .calendar)
+    XCTAssertTrue(PhoneEntryState.hostsEntry(router.phoneEntryHost))
+    router.open(section: .planning)
+    XCTAssertFalse(PhoneEntryState.hostsEntry(router.phoneEntryHost))
+    for screen in [AppScreen.settings, .reports, .whatIf] {
+      router.open(screen: screen)
+      XCTAssertFalse(PhoneEntryState.hostsEntry(router.phoneEntryHost))
+    }
+    router.open(PhoneRoute(tab: .more))
+    XCTAssertFalse(PhoneEntryState.hostsEntry(router.phoneEntryHost))
+  }
+
+  func testChangingSecondarySectionsHidesTheLineEvenWhenTheyShareAHost() {
+    let router = PhoneRouter()
+    let gate = PhoneEntryGate()
+    router.open(section: .calendar)
+    gate.send(.tabChanged(router.phoneEntryHost))
+    XCTAssertFalse(gate.isShown)
+    XCTAssertTrue(gate.send(.plusTapped))
+    router.open(section: .capital)
+    XCTAssertFalse(gate.send(.tabChanged(router.phoneEntryHost)))
+    XCTAssertFalse(gate.isShown)
+    XCTAssertTrue(gate.showsPlus)
+  }
+
   func testAnIPadHasNoBarWhateverTheWidth() {
     for width in [320.0, 507, 744, 834, 1024, 1133, 1366] {
       let layout = NavLayout.make(width: width, isPad: true)
