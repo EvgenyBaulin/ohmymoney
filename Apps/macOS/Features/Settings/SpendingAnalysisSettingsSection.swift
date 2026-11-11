@@ -49,8 +49,81 @@ struct SpendingAnalysisSettingsSection: View {
   @State private var window = WeekendWindow.standard
   @State private var hours = WorkHoursSettings()
   @State private var loaded = false
+  @State private var editsWeekend = false
 
   var body: some View {
+    #if os(macOS)
+      macBody
+    #else
+      formBody
+    #endif
+  }
+
+  #if os(macOS)
+    /// The design's card (Figma 61:64965): the price in hours of work as a switch row, then the
+    /// weekend with the line of its window and «Изменить», which opens the pickers.
+    private var macBody: some View {
+      SettingsCardGroup(title: t("spending.settings.title"), titleGap: 18, verticalMargin: 12) {
+        SettingsCardRow(
+          title: t("spending.settings.hours.enabled"), hint: t("spending.settings.hours.hint"),
+          compact: true
+        ) {
+          Toggle(
+            isOn: Binding(
+              get: { hours.isEnabled },
+              set: {
+                hours.isEnabled = $0
+                environment.saveWorkHours(hours)
+              })
+          ) { Text(verbatim: t("spending.settings.hours.enabled")) }
+          .labelsHidden().toggleStyle(.switch)
+          .accessibilityIdentifier("settings.workHours.enabled")
+        }
+        if hours.isEnabled {
+          SettingsCardRow(
+            title: SpendingText.counted(
+              "spending.settings.hours.perMonth", environment, count: hours.hoursPerMonth),
+            compact: true
+          ) {
+            Stepper(
+              "",
+              value: Binding(
+                get: { hours.hoursPerMonth },
+                set: {
+                  hours.hoursPerMonth = $0
+                  environment.saveWorkHours(hours)
+                }),
+              in: SpendingAnalysisSettingsForm.hoursRange
+            )
+            .labelsHidden()
+            .accessibilityIdentifier("settings.workHours.perMonth")
+          }
+        }
+        SettingsCardRow(
+          title: t("spending.settings.weekend"),
+          hint: SpendingText.windowLine(window, environment), showsDivider: false, compact: true
+        ) {
+          Button {
+            editsWeekend = true
+          } label: {
+            Text(verbatim: t("spending.settings.weekend.edit"))
+              .appFont(AppFont.system(size: 13, weight: .medium))
+              .foregroundStyle(Color.accentColor)
+          }
+          .buttonStyle(.plain)
+          .accessibilityIdentifier("settings.weekend.edit")
+          .popover(isPresented: $editsWeekend, arrowEdge: .bottom) {
+            weekendRows
+              .padding(16)
+              .frame(minWidth: 320)
+          }
+        }
+      }
+      .onAppear { load() }
+    }
+  #endif
+
+  private var formBody: some View {
     Section {
       weekendRows
       workHoursRows
