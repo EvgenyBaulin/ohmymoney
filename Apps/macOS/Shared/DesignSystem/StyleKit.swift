@@ -9,6 +9,16 @@ import SwiftUI
 /// The numbers of the one style, as the design file draws them on the Mac (Overview master,
 /// 1440 × 900): every screen lays its cards, buttons and gaps out by these, so a screen and its
 /// frame agree to the point. The phone and the tablet keep their own where their frames differ.
+/// The gaps of the phone's screens to the rounded edges of the display: one number for the page
+/// of every screen, the floating bar of the sections and the «+» above it, so nothing sits at the
+/// very edge of the glass. The iPad and the Mac keep their own margins.
+enum PhoneMetrics {
+  /// The margin at each side of a page, of the bar and of the «+».
+  static let screenMargin: CGFloat = 20
+  /// The room under the floating bar, over the bottom of the safe area.
+  static let barBottomMargin: CGFloat = 12
+}
+
 enum StyleMetrics {
   /// The margins of the content of a window: 28 at the sides, 22 above, 24 below.
   static let pageSide: CGFloat = 28
