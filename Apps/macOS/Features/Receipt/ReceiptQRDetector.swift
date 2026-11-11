@@ -60,6 +60,13 @@ enum ReceiptQRDetector {
     return sawCode ? .notReceipt : .noCode
   }
 
+  /// The pictures whose printed text is read when no QR code is a receipt: a photo once (made
+  /// no larger than `reducedSide`, where text is read well), a PDF page by page.
+  static func textPictures(ofFile data: Data) -> [() -> CGImage?] {
+    if isPDF(data) { return pages(ofPDF: data) }
+    return [{ image(from: data) }]
+  }
+
   /// The picture as a whole, then — when it is larger than `reducedSide` — piece by piece.
   private static func reading(ofAll image: CGImage) -> Reading {
     var sawCode = false

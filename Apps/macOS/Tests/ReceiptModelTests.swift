@@ -351,4 +351,78 @@ final class ReceiptModelTests: XCTestCase {
     XCTAssertEqual(model.stage, .found)
     XCTAssertEqual(model.receipt?.numbers?.documentNumber, "42")
   }
+
+  // MARK: Printed text
+
+  private let printedFiscal = [
+    "КАССОВЫЙ ЧЕК", "Приход", "ИТОГ 250.00", "29.10.2026 18:32:45", "ФН 9960440300000000",
+    "ФД 12345", "ФП 2345678901",
+  ]
+
+  func testPrintedFiscalReceiptIsProposedForCheckingAndSupplementsTheOperation() async throws {
+    let coffee = try purchase("Кофе", rubles: 250, day: 29)
+    let model = try await model()
+    model.read(printedLines: printedFiscal)
+    XCTAssertEqual(model.stage, .found)
+    XCTAssertEqual(model.printedKind, .fiscal)
+    XCTAssertEqual(model.checkNoteKey, "receipt.check.printed")
+    XCTAssertFalse(model.numbersText.isEmpty)
+    XCTAssertEqual(model.chosenId, coffee.id)
+    XCTAssertTrue(model.confirm())
+    let written = try XCTUnwrap(live().first { $0.id == coffee.id })
+    XCTAssertEqual(written.transaction.receipt?.documentNumber, "12345")
+    // The same receipt read from its QR code afterwards is already recorded.
+    model.reset()
+    model.read(payload: "t=20261029T183245&s=250.00&fn=9960440300000000&i=12345&fp=2345678901&n=1")
+    XCTAssertEqual(model.stage, .alreadyRecorded(coffee.id))
+  }
+
+  func testQRCodeNeedsNoCheckNote() async throws {
+    let model = try await model()
+    model.read(payload: "t=20261029T1832&s=250.00&n=1")
+    XCTAssertNil(model.checkNoteKey)
+    XCTAssertNil(model.printedKind)
+  }
+
+  func testSlipGivesSumAndTimeWithoutANumberAndForeignCurrencyIsKept() async throws {
+    let model = try await model()
+    model.read(printedLines: [
+      "TERMINAL 1", "VISA", "SALE", "AMOUNT AZN 23.50", "RRN 1", "29/10/2026 14:05",
+    ])
+    XCTAssertEqual(model.stage, .found)
+    XCTAssertEqual(model.printedKind, .slip)
+    XCTAssertEqual(model.checkNoteKey, "receipt.check.slip")
+    XCTAssertEqual(model.receipt?.currency, CurrencyCode("AZN"))
+    XCTAssertNil(model.receipt?.numbers)
+    XCTAssertTrue(model.confirm())
+    let created = try XCTUnwrap(live().first)
+    XCTAssertEqual(created.transaction.currency, CurrencyCode("AZN"))
+    XCTAssertEqual(created.transaction.amountE4.raw, 235_000)
+    XCTAssertNil(created.transaction.receipt)
+  }
+
+  func testBillIsToldToWaitAndWritesNothing() async throws {
+    let model = try await model()
+    model.read(printedLines: ["Guest bill", "Total 120.00 AZN", "29.10.2026 20:10"])
+    XCTAssertEqual(model.stage, .bill)
+    XCTAssertNil(model.receipt)
+    XCTAssertFalse(model.confirm())
+    XCTAssertEqual(try live().count, 0)
+  }
+
+  func testUnreadableTextKeepsTheQRMessage() async throws {
+    let model = try await model()
+    model.read(printedLines: ["hello"], otherwise: .notReceipt)
+    XCTAssertEqual(model.stage, .notReceipt)
+    model.read(printedLines: [])
+    XCTAssertEqual(model.stage, .noCode)
+  }
+
+  func testPrintedFiscalWithBadNumbersHasNoKey() async throws {
+    let model = try await model()
+    model.read(printedLines: ["КАССОВЫЙ ЧЕК", "ИТОГ 250.00", "29.10.2026 18:32", "ФН 123", "ФД 1", "ФП 2"])
+    XCTAssertEqual(model.stage, .found)
+    XCTAssertEqual(model.checkNoteKey, "receipt.check.numbers")
+    XCTAssertNil(model.receipt?.numbers)
+  }
 }

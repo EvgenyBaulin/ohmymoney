@@ -24,6 +24,8 @@ final class ReceiptModel {
     case noCode
     /// A QR code, but not a cash receipt.
     case notReceipt
+    /// A guest bill: not a receipt, the payment (a receipt or a slip) comes after it.
+    case bill
     case found
     /// The same receipt is already on this operation: nothing is written, it is shown.
     case alreadyRecorded(UUID)
@@ -48,6 +50,11 @@ final class ReceiptModel {
   private(set) var receipt: ReceiptQR?
   private(set) var proposal: ReceiptProposal?
   private(set) var photo: ReceiptPhoto?
+  /// What the paper was when the receipt came from printed text, `nil` for a QR code. Printed
+  /// text can be misread, so the screen asks to check it before anything is written.
+  private(set) var printedKind: PaperKind?
+  /// The paper printed fiscal numbers that did not pass the checks: the receipt has no key.
+  private(set) var numbersRejected = false
   /// The operation the time goes to: the nearest by default, another of the offered ones by choice.
   var chosenId: UUID?
   /// «Это другая покупка»: a new operation although something fits.
@@ -76,8 +83,13 @@ final class ReceiptModel {
     }.value
     switch reading {
     case .receipt(let receipt): accept(receipt, photo: photo)
-    case .notReceipt: stage = .notReceipt
-    case .noCode: stage = .noCode
+    case .notReceipt, .noCode:
+      let fallback: Stage = reading == .notReceipt ? .notReceipt : .noCode
+      stage = .reading
+      let lines = await Task.detached(priority: .userInitiated) {
+        ReceiptTextReader.lines(in: image)
+      }.value
+      read(printedLines: lines, photo: photo, otherwise: fallback)
     }
   }
 
@@ -101,8 +113,28 @@ final class ReceiptModel {
     switch reading {
     case .receipt(let receipt):
       accept(receipt, photo: ReceiptPhoto(data: data, filename: filename))
-    case .notReceipt: stage = .notReceipt
-    case .noCode: stage = .noCode
+    case .notReceipt, .noCode:
+      let fallback: Stage = reading == .notReceipt ? .notReceipt : .noCode
+      let lines = await Task.detached(priority: .userInitiated) {
+        ReceiptTextReader.lines(inFile: data)
+      }.value
+      read(
+        printedLines: lines, photo: ReceiptPhoto(data: data, filename: filename),
+        otherwise: fallback)
+    }
+  }
+
+  /// The recognised lines of a picture whose QR code gave no receipt: a receipt, a slip or any
+  /// paper with a total and a moment becomes a proposal to check; a guest bill is told to wait
+  /// for the payment; anything else leaves `otherwise`.
+  func read(printedLines lines: [String], photo: ReceiptPhoto? = nil, otherwise: Stage = .noCode) {
+    switch PrintedReceiptReader.read(lines: lines) {
+    case .receipt(let printed):
+      accept(printed.receipt, photo: photo, printed: printed)
+    case .bill:
+      stage = .bill
+    case .nothing:
+      stage = otherwise
     }
   }
 
@@ -123,13 +155,17 @@ final class ReceiptModel {
     receipt = nil
     proposal = nil
     photo = nil
+    printedKind = nil
+    numbersRejected = false
     chosenId = nil
     wantsNew = false
   }
 
-  private func accept(_ receipt: ReceiptQR, photo: ReceiptPhoto?) {
+  private func accept(_ receipt: ReceiptQR, photo: ReceiptPhoto?, printed: PrintedReceipt? = nil) {
     self.receipt = receipt
     self.photo = photo
+    printedKind = printed?.kind
+    numbersRejected = printed?.numbersRejected ?? false
     wantsNew = false
     let proposed = ReceiptMatch.propose(
       receipt, among: candidates(for: receipt), calendar: environment.calendar)
@@ -157,8 +193,10 @@ final class ReceiptModel {
     if let numbers = receipt.numbers,
       let holders = try? environment.transactions?.operations(holdingReceipt: numbers)
     {
-      let known = Set(list.map(\.id))
-      list += holders.filter { !known.contains($0.id) }.map(Self.candidate)
+      // The database is the fresher: an operation the lists still show without the numbers is
+      // replaced by its stored self.
+      let held = Set(holders.map(\.id))
+      list = list.filter { !held.contains($0.id) } + holders.map(Self.candidate)
     }
     return list
   }
@@ -238,7 +276,27 @@ final class ReceiptModel {
   }
 
   var receiptSumText: String {
-    receipt.map { environment.money.exact($0.amountE4) } ?? ""
+    receipt.map { environment.money.exact($0.amountE4, currency: $0.currency) } ?? ""
+  }
+
+  /// The key of the catalog for the line that asks to check what was read from printed text;
+  /// `nil` for a QR code, which is exact.
+  var checkNoteKey: String? {
+    switch printedKind {
+    case nil: nil
+    case .fiscal: numbersRejected ? "receipt.check.numbers" : "receipt.check.printed"
+    case .slip: "receipt.check.slip"
+    case .bill, .other: "receipt.check.other"
+    }
+  }
+
+  /// «ФН 9960440300000000 · ФД 12345 · ФП 2345678901» of a receipt read from print, to be
+  /// compared with the paper; empty when there are no numbers.
+  var numbersText: String {
+    guard let numbers = receipt?.numbers else { return "" }
+    return ReceiptText.format(
+      "receipt.numbers", environment, numbers.fiscalDrive, numbers.documentNumber,
+      numbers.fiscalSign ?? "—")
   }
 
   var receiptDayText: String { receipt.map { environment.dates.longDay($0.day) } ?? "" }

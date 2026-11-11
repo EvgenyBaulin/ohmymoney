@@ -154,6 +154,9 @@ struct ReceiptSheet: View {
       case .notReceipt:
         notice("receipt.notReceipt", symbol: "questionmark.circle")
         inputs(model)
+      case .bill:
+        notice("receipt.bill", symbol: "list.bullet.rectangle")
+        inputs(model)
       case .found:
         found(model)
       case .alreadyRecorded(let id):
@@ -243,6 +246,17 @@ struct ReceiptSheet: View {
       Image(systemName: "qrcode").accessibilityHidden(true)
     }
     .appFont(.body)
+    if let key = model.checkNoteKey {
+      Label {
+        Text(verbatim: t(key)).fixedSize(horizontal: false, vertical: true)
+      } icon: {
+        Image(systemName: "eye").accessibilityHidden(true)
+      }
+      .foregroundStyle(.secondary).accessibilityIdentifier("receipt.checkNote")
+      if !model.numbersText.isEmpty {
+        Text(verbatim: model.numbersText).monospacedDigit().appFont(.callout)
+      }
+    }
     if model.receipt?.isRefund == true {
       Text(verbatim: t("receipt.refund")).foregroundStyle(.secondary)
     }

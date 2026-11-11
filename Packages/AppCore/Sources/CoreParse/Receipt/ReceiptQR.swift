@@ -35,6 +35,9 @@ public struct ReceiptQR: Hashable, Sendable {
   public var fiscalDrive: String?
   public var documentNumber: String?
   public var fiscalSign: String?
+  /// The currency of the sum: roubles for a Russian receipt, whatever the paper names for a
+  /// foreign one read from its printed text.
+  public var currency: CurrencyCode = .rub
 
   public var isRefund: Bool { operation.transactionKind == .refund }
 
