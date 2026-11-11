@@ -105,6 +105,10 @@ public struct ExportCopyMaker: Sendable {
 
   /// Applies the span of days and the hidden accounts to the open copy.
   static func cut(_ request: ExportCopyRequest, db: Database) throws {
+    // A statement review list kept by an older build names accounts and totals; nothing reads it
+    // now, so a copy never carries it, hidden accounts or not.
+    try db.execute(
+      sql: "DELETE FROM settings WHERE key = ?", arguments: [SQLAnonymizer.legacyStatementReviewKey])
     if case .period(let range) = request.scope {
       // The day an operation is shown on, in the zone it was recorded in; a transfer has no zone
       // and is read in Moscow, as everywhere else.
