@@ -205,17 +205,18 @@ struct PhoneRoot: View {
   }
 
   /// The iPad's sidebar, or the tabs of a phone with the bar of the sections at the bottom.
-  @ViewBuilder
-  private var root: some View {
+  /// Erased on purpose: the concrete type of the whole app nested so deep that resolving its
+  /// metadata overflowed the stack on a device at launch (11.11, `decodeMangledType` recursion).
+  private var root: AnyView {
     if isPad {
-      PadRoot(
-        deps: deps, session: session, lock: lock, router: router, actions: actions,
-        operations: operations, overviewScreen: overviewScreen, width: width,
-        besideTheForm: padFormPlacement == .docked && showsPadForm
-      ) { entryBar($0) }
-    } else {
-      phoneTabsView
+      return AnyView(
+        PadRoot(
+          deps: deps, session: session, lock: lock, router: router, actions: actions,
+          operations: operations, overviewScreen: overviewScreen, width: width,
+          besideTheForm: padFormPlacement == .docked && showsPadForm
+        ) { entryBar($0) })
     }
+    return AnyView(phoneTabsView)
   }
 
   private var phoneTabsView: some View {

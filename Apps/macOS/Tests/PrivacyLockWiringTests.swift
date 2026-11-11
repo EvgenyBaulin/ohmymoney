@@ -178,9 +178,9 @@ final class PrivacyLockWiringTests: XCTestCase {
     let refused = AppEnvironment().language("settings.privacy.lockRefused", table: "Settings")
     XCTAssertFalse(texts(in: window).contains { $0.contains(refused) }, "no caption before")
 
-    let toggle = try XCTUnwrap(
-      WindowAccessibility.element(identified: "settings.privacy.lock", in: window))
-    WindowAccessibility.press(toggle)
+    WindowAccessibility.click(
+      try XCTUnwrap(WindowAccessibility.element(identified: "settings.privacy.lock", in: window)),
+      in: window)
     for _ in 0..<20 where lock.lastRefusal == nil {
       try await Task.sleep(for: .milliseconds(50))
       spin(0.02)
@@ -191,7 +191,9 @@ final class PrivacyLockWiringTests: XCTestCase {
       texts(in: window).contains { $0.contains(refused) }, "no caption: \(texts(in: window))")
 
     authenticator.answer = .cancelled
-    WindowAccessibility.press(toggle)
+    WindowAccessibility.click(
+      try XCTUnwrap(WindowAccessibility.element(identified: "settings.privacy.lock", in: window)),
+      in: window)
     for _ in 0..<20 where lock.lastRefusal != .cancelled {
       try await Task.sleep(for: .milliseconds(50))
       spin(0.02)

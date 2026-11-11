@@ -739,9 +739,9 @@ final class PrivacySettingsPasswordWindowTests: XCTestCase {
       applies: true, defaults: nil, authenticator: ProofAnswers(.passed),
       passwords: InMemoryLockPasswordStore(), iterations: 200)
     let window = showSettings(with: lock)
-    let toggle = try XCTUnwrap(
-      WindowAccessibility.element(identified: "settings.privacy.lock", in: window))
-    WindowAccessibility.press(toggle)
+    WindowAccessibility.click(
+      try XCTUnwrap(WindowAccessibility.element(identified: "settings.privacy.lock", in: window)),
+      in: window)
     for _ in 0..<40 where window.attachedSheet == nil {
       try await Task.sleep(for: .milliseconds(50))
       spin(0.02)

@@ -47,6 +47,7 @@ final class SettingsSectionsFigmaTests: XCTestCase {
     func testACardRowHasItsPadding() {
       let row = SettingsCardRow(symbol: "lock", title: "Title", hint: "Hint") { Color.clear }
         .frame(width: 600)
+      // dependencies: none — a bare control sized alone reads nothing from the app.
       let host = NSHostingView(rootView: row)
       let size = host.fittingSize
       XCTAssertGreaterThanOrEqual(size.height, 24 + 2 * 14)
@@ -58,6 +59,7 @@ final class SettingsSectionsFigmaTests: XCTestCase {
       let control = SettingsSegmented(
         selection: Binding(get: { value }, set: { value = $0 }), choices: [0, 1, 2],
         title: { "Choice \($0)" }, identifier: "t")
+      // dependencies: none — a bare control sized alone reads nothing from the app.
       let size = NSHostingView(rootView: control).fittingSize
       XCTAssertGreaterThanOrEqual(size.height, 2 * 2 + 2 * 6 + 12)
       XCTAssertLessThan(size.height, 2 * 2 + 2 * 6 + 24)
