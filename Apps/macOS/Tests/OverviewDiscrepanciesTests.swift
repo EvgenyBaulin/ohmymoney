@@ -44,9 +44,7 @@ final class OverviewDiscrepanciesTests: XCTestCase {
     if let directory { try? FileManager.default.removeItem(at: directory) }
   }
 
-  private func host(
-    difference: Int64, pending: Bool, inOverview: Bool = false
-  ) throws -> (NSWindow, String) {
+  private func host(difference: Int64, inOverview: Bool = false) throws -> NSWindow {
     let environment = try XCTUnwrap(environment)
     let account = PaymentMethod(name: "Synthetic account", kind: .card)
     let store = TransactionsStore()
@@ -54,26 +52,6 @@ final class OverviewDiscrepanciesTests: XCTestCase {
       try XCTUnwrap(environment.transactions), references: environment.references,
       planning: environment.planning, imports: environment.statementImports)
     XCTAssertTrue(store.apply(PlanningChange(upsert: PlanningRows(paymentMethods: [account]))))
-    let importID = UUID().uuidString
-    if pending {
-      let record = StatementImportRecord(
-        id: importID, accountID: account.id.uuidString,
-        profileID: "synthetic", fileName: "synthetic.pdf", importedAt: Date(),
-        periodFrom: nil, periodTo: nil, rowCount: 1, newCount: 1, duplicateCount: 0,
-        declinedCount: 0, unparsedCount: 0)
-      try environment.statementImports?.record(record)
-      let review = try XCTUnwrap(
-        StatementReview.make(
-          importID: importID, accountID: account.id,
-          fileName: record.fileName,
-          checks: [
-            StatementCheck(
-              kind: .footerTotals, passed: false,
-              blocking: true, missingExpense: AmountE4(whole: 10))
-          ]))
-      try environment.settings?.set(
-        StatementReview.settingsKey, to: StatementReview.encode([review]))
-    }
     var draft = TransactionDraft(
       kind: .income,
       occurredAt: environment.calendar.startOfDay(environment.today),
@@ -99,7 +77,7 @@ final class OverviewDiscrepanciesTests: XCTestCase {
     window.contentViewController = NSHostingController(rootView: root.appDependencies(deps))
     window.orderFront(nil)
     windows.append(window)
-    return (window, importID)
+    return window
   }
 
   private func waitFor(_ identifier: String, in window: NSWindow) -> NSObject? {
@@ -114,51 +92,51 @@ final class OverviewDiscrepanciesTests: XCTestCase {
     return nil
   }
 
-  func testBothRowsShareOneBlockAndThePendingRowOpensItsStatement() throws {
+  func testTheDifferenceRowShowsInItsBlock() throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     let environment = try XCTUnwrap(environment)
     environment.language.choice = .russian
-    let (window, id) = try host(difference: 650, pending: true)
+    let window = try host(difference: 650)
     XCTAssertNotNil(waitFor("overview.discrepancies", in: window))
     XCTAssertNotNil(waitFor("overview.reconciliation.difference", in: window))
-    let row = try XCTUnwrap(waitFor("overview.statement.pending.\(id)", in: window))
-    WindowAccessibility.press(row)
-    let deadline = Date().addingTimeInterval(5)
-    while window.attachedSheet == nil && Date() < deadline {
-      RunLoop.main.run(until: Date().addingTimeInterval(0.02))
-    }
-    let sheet = try XCTUnwrap(window.attachedSheet)
-    XCTAssertNotNil(waitFor("statement.review", in: sheet))
-    XCTAssertNotNil(waitFor("statement.review.keepWritten", in: sheet))
   }
 
-  func testTheDefaultOverviewKeepsBothDiscrepancyRowsAboveItsTiles() throws {
+  func testTheDefaultOverviewKeepsTheReconciliationDifferenceAboveItsTiles() throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     let environment = try XCTUnwrap(environment)
     XCTAssertEqual(environment.overviewLayout, .macDefault)
-    let (window, id) = try host(difference: 650, pending: true, inOverview: true)
+    let window = try host(difference: 650, inOverview: true)
     let block = try XCTUnwrap(waitFor("overview.discrepancies", in: window))
     XCTAssertNotNil(waitFor("overview.reconciliation.difference", in: window))
-    XCTAssertNotNil(waitFor("overview.statement.pending.\(id)", in: window))
     let tile = try XCTUnwrap(waitFor("overview.tile.monthToDate", in: window))
     XCTAssertGreaterThanOrEqual(
       WindowAccessibility.frame(of: block).minY, WindowAccessibility.frame(of: tile).maxY)
     XCTAssertNil(WindowAccessibility.element(identified: "overview.group.money", in: window))
     XCTAssertNil(WindowAccessibility.element(identified: "overview.lastRecord", in: window))
+    XCTAssertFalse(
+      WindowAccessibility.elements(in: window).contains { element in
+        let identifier =
+          WindowAccessibility.attribute(element, "accessibilityIdentifier") as? String
+        return identifier?.hasPrefix("overview.statement.pending.") == true
+      })
   }
 
-  func testBothCaptionsAreTranslatedInRussianAndEnglish() throws {
+  func testNoRowWaitsForAStatementDecisionAnyMore() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    let window = try host(difference: 0)
+    window.layoutIfNeeded()
+    RunLoop.main.run(until: Date().addingTimeInterval(0.2))
+    XCTAssertNil(WindowAccessibility.element(identified: "overview.discrepancies", in: window))
+  }
+
+  func testTheCaptionIsTranslatedInRussianAndEnglish() throws {
     let language = try XCTUnwrap(environment).language
     language.choice = .russian
     XCTAssertEqual(
       language("overview.reconciliation.difference", table: "Overview"), "Расхождение при сверке")
-    XCTAssertEqual(
-      language("overview.statement.awaitingDecision", table: "Overview"), "ждёт решения")
     language.choice = .english
     XCTAssertEqual(
       language("overview.reconciliation.difference", table: "Overview"), "Reconciliation difference"
     )
-    XCTAssertEqual(
-      language("overview.statement.awaitingDecision", table: "Overview"), "awaiting a decision")
   }
 }

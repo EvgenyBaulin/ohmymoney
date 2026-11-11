@@ -123,12 +123,16 @@ public enum ExportTables {
   /// `name_en` and `name_en_source` came with
   /// `Schema/0023_receipt_numbers_and_category_english.sql` and go last: the English name the
   /// device made and the name it was made of (when the two names differ, it is of an old name);
-  /// empty when none was made yet.
+  /// empty when none was made yet. `icon` and `color` came with
+  /// `Schema/0024_category_icon_color.sql` and go after them: the SF Symbol name and the colour
+  /// key (`accent`, `tone1`…`tone5`, `neutral`) of the category's mark in the list of
+  /// operations, empty for none of its own.
   public static let categories = ExportTable(
     fileName: "categories.csv",
     columns: [
       "id", "parent_id", "kind", "name", "sort", "archived", "quality", "system_role",
-      "essential", "tax_rate", "tax_npd", "basket", "name_en", "name_en_source",
+      "essential", "tax_rate", "tax_npd", "basket", "name_en", "name_en_source", "icon",
+      "color",
     ])
 
   /// `archived` came with `Schema/0004_accounts.sql`.
@@ -709,6 +713,8 @@ extension ExportTables {
       CSVValue.string(category.basket?.rawValue),
       CSVValue.string(category.translation?.english),
       CSVValue.string(category.translation?.source),
+      CSVValue.string(category.icon),
+      CSVValue.string(category.color),
     ]
   }
 

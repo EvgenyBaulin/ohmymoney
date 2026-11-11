@@ -226,6 +226,31 @@ struct SpendingCalendarTests {
     #expect(stale.day(day(10, 10))?.level == nil)
   }
 
+  /// «×3,4»: the day against the usual one, to one decimal place.
+  @Test func aDayTellsHowManyTimesUsualItCost() throws {
+    var entries = try history(30, before: day(10, 10))
+    entries.append(try entry(3_450, on: day(10, 10)))
+    entries.append(try entry(1_000, on: day(10, 11)))
+    let month = SpendingCalendar.build(
+      ledger: ledger(entries), scope: .month, anchor: today, today: today, firstWeekday: 1)
+    #expect(month.day(day(10, 10))?.multiple == Decimal(string: "3.5"))
+    #expect(month.day(day(10, 11))?.multiple == 1)
+    #expect(month.day(day(10, 13))?.multiple == nil)
+    #expect(SpendingCalendar.multiple(spent: AmountE4(whole: 1_800), usual: AmountE4(whole: 1_000)) == Decimal(string: "1.8"))
+    #expect(SpendingCalendar.multiple(spent: AmountE4(whole: 5), usual: .zero) == nil)
+  }
+
+  @Test func aPlanKnowsItsSource() {
+    let income = CalendarPlan(
+      kind: .income, sourceId: UUID(), day: today, name: "Salary", amount: .zero, currency: .rub)
+    let payment = CalendarPlan(
+      kind: .payment, sourceId: UUID(), day: today, name: "Rent", amount: .zero, currency: .rub)
+    let sub = CalendarPlan(
+      kind: .payment, sourceId: UUID(), day: today, name: "Net", amount: .zero, currency: .rub,
+      source: .subscription)
+    #expect([income.source, payment.source, sub.source] == [.income, .payment, .subscription])
+  }
+
   // MARK: - Plans
 
   @Test func plansGoOnTodayAndTheDaysAheadOnly() throws {

@@ -97,4 +97,52 @@ struct CategoryTreeTests {
   private func filler(_ count: Int) -> [CoreKit.Category] {
     (0..<count).map { CoreKit.Category(id: id(400 + $0), kind: .expense, name: "Filler \($0)") }
   }
+
+  // MARK: The mark a category is drawn with
+
+  private func marked() -> (tree: CategoryTree, parent: UUID, child: UUID, bare: UUID) {
+    let parent = Category(
+      id: id(701), kind: .expense, name: "Еда",
+      appearance: CategoryAppearance(icon: "cart", color: "tone1"))
+    let child = Category(id: id(702), parentId: parent.id, kind: .expense, name: "Кофе")
+    let own = Category(
+      id: id(703), parentId: parent.id, kind: .expense, name: "Рестораны",
+      appearance: CategoryAppearance(icon: "fork.knife", color: nil))
+    let bare = Category(id: id(704), kind: .expense, name: "Прочее")
+    return (CategoryTree([parent, child, own, bare]), parent.id, child.id, bare.id)
+  }
+
+  @Test func aCategoryIsDrawnWithItsOwnSymbolAndTone() {
+    let made = marked()
+    let drawn = made.tree.appearance(of: made.parent)
+    #expect(drawn.icon == "cart" && drawn.tone == .tone1)
+  }
+
+  @Test func aSubcategoryWithoutAMarkFollowsItsParentAndOneWithItsOwnKeepsIt() {
+    let made = marked()
+    let child = made.tree.appearance(of: made.child)
+    #expect(child.icon == "cart" && child.tone == .tone1)
+    let own = made.tree.appearance(of: id(703))
+    #expect(own.icon == "fork.knife", "its own symbol wins")
+    #expect(own.tone == .tone1, "the colour it left empty follows the parent")
+  }
+
+  @Test func aCategoryWithoutAMarkDrawsNoneSoItsRowKeepsTheMarkOfItsKind() {
+    let made = marked()
+    let drawn = made.tree.appearance(of: made.bare)
+    #expect(drawn.icon == nil && drawn.tone == nil)
+    #expect(made.tree.appearance(of: nil).icon == nil)
+    #expect(made.tree.appearance(of: id(999)).icon == nil)
+  }
+
+  @Test func aValueTheBuildDoesNotKnowIsNoMarkAndDoesNotFallToTheParent() {
+    let parent = Category(
+      id: id(711), kind: .expense, name: "Еда",
+      appearance: CategoryAppearance(icon: "cart", color: "tone1"))
+    let child = Category(
+      id: id(712), parentId: parent.id, kind: .expense, name: "Из будущего",
+      appearance: CategoryAppearance(icon: "future.symbol", color: "tone42"))
+    let drawn = CategoryTree([parent, child]).appearance(of: child.id)
+    #expect(drawn.icon == nil && drawn.tone == nil)
+  }
 }

@@ -109,7 +109,7 @@ private struct NotEnoughData: View {
       }
       if !reason.isEmpty {
         Text(verbatim: reason)
-          .appFont(.caption)
+          .appFont(AnalyticsCardType.subtitle)
           .fixedSize(horizontal: false, vertical: true)
       }
     }
@@ -131,7 +131,7 @@ private struct Headline: View {
           .accessibilityHidden(true)
       }
       Text(verbatim: figure)
-        .appFont(.title2.monospacedDigit())
+        .appFont(AnalyticsCardType.lead)
         .accessibilityIdentifier(identifier)
     }
   }
@@ -139,7 +139,7 @@ private struct Headline: View {
 
 @MainActor private func secondaryLine(_ text: String) -> some View {
   Text(verbatim: text)
-    .appFont(.caption.monospacedDigit())
+    .appFont(AnalyticsCardType.subtitle.monospacedDigit())
     .foregroundStyle(.secondary)
     .fixedSize(horizontal: false, vertical: true)
 }
@@ -225,14 +225,14 @@ private struct BasketRow: View {
         } icon: {
           Image(systemName: IncomeSavingsText.basketSymbol(line.basket))
         }
-        .appFont(.callout)
+        .appFont(AnalyticsCardType.row)
         Spacer(minLength: 8)
         Label {
           Text(verbatim: IncomeSavingsText.directionWords(line.direction, environment))
         } icon: {
           Image(systemName: IncomeSavingsText.directionSymbol(line.direction))
         }
-        .appFont(.caption)
+        .appFont(AnalyticsCardType.subtitle)
         .foregroundStyle(.secondary)
       }
       TargetBar(shareBp: line.shareBp, targetBp: line.targetBp)
@@ -367,7 +367,7 @@ private struct TrendCard: View {
             symbol: trend.spendingOutpacesIncome ? "arrow.up.right" : "equal",
             identifier: "income.trend.headline")
           Text(verbatim: IncomeSavingsText.trendVerdict(trend, environment))
-            .appFont(.callout)
+            .appFont(AnalyticsCardType.row)
             .fixedSize(horizontal: false, vertical: true)
           if trend.comparison == .sixToSix {
             secondaryLine(IncomeSavingsText.t("income.trend.seasonNote", environment))
@@ -419,10 +419,10 @@ private struct SalaryCard: View {
           if salary.perIncome.count > 1 {
             ForEach(salary.perIncome) { line in
               HStack(alignment: .firstTextBaseline) {
-                Text(verbatim: line.name ?? "—").appFont(.callout)
+                Text(verbatim: line.name ?? "—").appFont(AnalyticsCardType.row)
                 Spacer(minLength: 8)
                 Text(verbatim: IncomeSavingsText.salaryHeadline(line, environment))
-                  .appFont(.callout.monospacedDigit())
+                  .appFont(.system(size: 13).monospacedDigit())
                   .foregroundStyle(.secondary)
               }
               .accessibilityElement(children: .combine)
@@ -485,10 +485,10 @@ private struct HealthPartRow: View {
         } icon: {
           Image(systemName: IncomeSavingsText.partSymbol(score.part))
         }
-        .appFont(.callout)
+        .appFont(AnalyticsCardType.row)
         Spacer(minLength: 8)
         Text(verbatim: IncomeSavingsText.partPoints(score, environment))
-          .appFont(.callout.monospacedDigit())
+          .appFont(.system(size: 13).monospacedDigit())
           .foregroundStyle(.secondary)
       }
       if score.isCounted { ShareBar(basisPoints: score.scoreBp) }

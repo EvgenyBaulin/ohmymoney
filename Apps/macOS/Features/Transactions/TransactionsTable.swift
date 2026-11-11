@@ -255,7 +255,9 @@ private struct DescriptionCell: View {
   var body: some View {
     HStack(spacing: OperationsMetrics.badgeGap) {
       // A part sits under its split without a mark of its own.
-      if !item.isPart { OperationBadge(kind: OperationBadgeKind(item)) }
+      if !item.isPart {
+        OperationBadge(kind: OperationBadgeKind(item), category: item.categoryMark)
+      }
       if let transfer = item.transfer {
         transferBody(transfer)
       } else {

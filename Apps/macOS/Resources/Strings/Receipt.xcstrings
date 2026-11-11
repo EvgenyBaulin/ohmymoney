@@ -545,6 +545,23 @@
         }
       }
     },
+    "receipt.new.merchant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shop: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Магазин: %@"
+          }
+        }
+      }
+    },
     "receipt.new.refundHint": {
       "extractionState": "manual",
       "localizations": {

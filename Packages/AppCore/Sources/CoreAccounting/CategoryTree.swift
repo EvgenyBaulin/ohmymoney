@@ -66,6 +66,20 @@ public struct CategoryTree: Hashable, Sendable {
     return current
   }
 
+  /// The mark to draw for a category: its own symbol and colour, or its parent's when it has
+  /// none of its own — a subcategory is drawn like the category it hangs on until the owner
+  /// picks another. A value this build does not know (one a newer build wrote) draws as none,
+  /// and does not fall through to the parent: the owner did choose something there. `icon` is
+  /// `nil` for no symbol — then the row keeps the round mark of its kind — and `color` for no
+  /// colour, which a symbol without one draws in the accent.
+  public func appearance(of id: UUID?) -> (icon: String?, tone: CategoryTone?) {
+    guard let category = category(id) else { return (nil, nil) }
+    let parent = parent(of: category.id)
+    let icon = category.icon ?? parent?.icon
+    let color = category.color ?? parent?.color
+    return (CategoryIcon.known(icon), CategoryTone(key: color))
+  }
+
   /// Quality of the subcategory, or of its parent when the subcategory leaves it empty.
   public func effectiveQuality(of id: UUID?) -> Quality? {
     guard let category = category(id) else { return nil }

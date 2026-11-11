@@ -17,6 +17,8 @@ struct ConflictComparison: Equatable {
     case flag(Bool)
     /// The colour of an account (`payment_methods.accent`), shown by its swatch and its name.
     case color(String)
+    /// The symbol of a category's mark (`categories.icon`), shown by its name.
+    case symbol(String)
   }
 
   struct Row: Equatable, Identifiable {
@@ -130,7 +132,10 @@ struct ConflictComparison: Equatable {
       return .other
     }
     if case .bool(let flag) = value { return .flag(flag) }
-    if column == "accent", case .string(let key) = value { return .color(key) }
+    if column == "accent" || column == "color", case .string(let key) = value {
+      return .color(key)
+    }
+    if column == "icon", case .string(let name) = value { return .symbol(name) }
     if column.hasSuffix("_e4"), case .int(let raw) = value { return .value(money(raw)) }
     if isDay(column), case .string(let day) = value { return .value(String(day.prefix(10))) }
     guard let shown = text(value), !shown.isEmpty else { return .empty }

@@ -42,6 +42,17 @@ enum HeatmapReading {
   }
 }
 
+/// The numbers of the map in its frame (61:61776): cells 20 high 2 apart across, rows 3 apart,
+/// the day's name 22 wide, hours under the map, 12 between the map, its legend and its lines.
+enum HeatmapMetrics {
+  static let cellHeight: CGFloat = 20
+  static let cellGap: CGFloat = 2
+  static let rowGap: CGFloat = 3
+  static let labelWidth: CGFloat = 22
+  static let sectionGap: CGFloat = 12
+  static let swatch = CGSize(width: 14, height: 10)
+}
+
 /// Seven rows of weekdays, 24 columns of hours. The shade says how much was spent in that hour;
 /// the busiest hours are named in words under the map and every cell says its sum to VoiceOver
 /// and on hover, so the picture never rests on shade alone.
@@ -50,41 +61,42 @@ struct HourHeatmapView: View {
   @Environment(\.themeSurfaces) private var surfaces
   let heatmap: HourHeatmap
 
-  private static let hourLabels = [0, 6, 12, 18]
+  private static let hourLabels = [0, 6, 12, 18, 23]
 
   var body: some View {
     let maximum = heatmap.maximum
-    VStack(alignment: .leading, spacing: 8) {
-      Grid(horizontalSpacing: 2, verticalSpacing: 2) {
-        GridRow {
-          Color.clear.frame(width: 28, height: 1)
-          ForEach(0..<24, id: \.self) { hour in
-            Text(verbatim: Self.hourLabels.contains(hour) ? String(hour) : "")
-              .appFont(.caption2.monospacedDigit())
-              .foregroundStyle(.secondary)
-              .lineLimit(1)
-              .fixedSize()
-              .frame(maxWidth: .infinity, alignment: .leading)
-          }
-        }
-        ForEach(1...7, id: \.self) { weekday in
-          GridRow {
-            Text(verbatim: environment.dates.shortWeekday(weekday))
-              .appFont(.caption2)
-              .foregroundStyle(.secondary)
-              .frame(width: 28, alignment: .leading)
-            ForEach(0..<24, id: \.self) { hour in
-              cell(weekday: weekday, hour: hour, maximum: maximum)
+    VStack(alignment: .leading, spacing: HeatmapMetrics.sectionGap) {
+      VStack(alignment: .leading, spacing: HeatmapMetrics.rowGap) {
+        Grid(horizontalSpacing: HeatmapMetrics.cellGap, verticalSpacing: HeatmapMetrics.rowGap) {
+          ForEach(1...7, id: \.self) { weekday in
+            GridRow {
+              Text(verbatim: environment.dates.shortWeekday(weekday))
+                .appFont(.system(size: 11))
+                .foregroundStyle(.secondary)
+                .frame(width: HeatmapMetrics.labelWidth, alignment: .leading)
+              ForEach(0..<24, id: \.self) { hour in
+                cell(weekday: weekday, hour: hour, maximum: maximum)
+              }
             }
           }
         }
+        HStack(spacing: 0) {
+          ForEach(Array(Self.hourLabels.enumerated()), id: \.offset) { index, hour in
+            if index > 0 { Spacer(minLength: 0) }
+            Text(verbatim: String(hour))
+          }
+        }
+        .appFont(.system(size: 11).monospacedDigit())
+        .foregroundStyle(.secondary)
+        .padding(.leading, HeatmapMetrics.labelWidth + HeatmapMetrics.cellGap)
+        .accessibilityHidden(true)
       }
       .accessibilityElement(children: .contain)
       .accessibilityIdentifier("spending.heatmap.grid")
       legend
       ForEach(Array(HeatmapReading.busiest(heatmap).enumerated()), id: \.offset) { _, slot in
         Text(verbatim: busiestLine(slot))
-          .appFont(.caption.monospacedDigit())
+          .appFont(.system(size: 11).monospacedDigit())
           .foregroundStyle(.secondary)
       }
       if heatmap.withoutTime > 0 {
@@ -95,7 +107,7 @@ struct HourHeatmapView: View {
         } icon: {
           Image(systemName: "clock.badge.questionmark")
         }
-        .appFont(.caption)
+        .appFont(.system(size: 11))
         .foregroundStyle(.secondary)
         .accessibilityIdentifier("spending.heatmap.withoutTime")
       }
@@ -108,8 +120,10 @@ struct HourHeatmapView: View {
     let text = cellText(weekday: weekday, hour: hour, amount: amount)
     return RoundedRectangle(cornerRadius: 3)
       .fill(shade(level))
-      .aspectRatio(1, contentMode: .fit)
-      .frame(maxWidth: .infinity)
+      .frame(
+        maxWidth: .infinity, minHeight: HeatmapMetrics.cellHeight,
+        maxHeight: HeatmapMetrics.cellHeight
+      )
       .help(text)
       .accessibilityElement()
       .accessibilityLabel(Text(verbatim: text))
@@ -126,14 +140,15 @@ struct HourHeatmapView: View {
   }
 
   private var legend: some View {
-    HStack(spacing: 4) {
+    HStack(spacing: 6) {
       Text(verbatim: SpendingText.t("spending.heat.less", environment))
       ForEach(0...HeatmapReading.levels, id: \.self) { level in
-        RoundedRectangle(cornerRadius: 3).fill(shade(level)).frame(width: 12, height: 12)
+        RoundedRectangle(cornerRadius: 3).fill(shade(level))
+          .frame(width: HeatmapMetrics.swatch.width, height: HeatmapMetrics.swatch.height)
       }
       Text(verbatim: SpendingText.t("spending.heat.more", environment))
     }
-    .appFont(.caption)
+    .appFont(.system(size: 11))
     .foregroundStyle(.secondary)
     .accessibilityHidden(true)
   }

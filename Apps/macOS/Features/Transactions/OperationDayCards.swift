@@ -201,7 +201,8 @@ struct OperationDayCards<MenuItems: View>: View {
   private func row(_ item: TransactionRowItem) -> some View {
     HStack(spacing: OperationsMetrics.badgeGap) {
       OperationBadge(
-        kind: OperationBadgeKind(item), side: OperationsMetrics.phoneBadge,
+        kind: OperationBadgeKind(item), category: item.categoryMark,
+        side: OperationsMetrics.phoneBadge,
         symbolSide: OperationsMetrics.phoneBadgeSymbol)
       VStack(alignment: .leading, spacing: OperationsMetrics.phoneLineGap) {
         title(of: item, font: OperationsType.phoneTitle)
@@ -230,7 +231,7 @@ struct OperationDayCards<MenuItems: View>: View {
   private func columnRow(_ item: TransactionRowItem) -> some View {
     HStack(spacing: OperationsMetrics.columnGap) {
       HStack(spacing: OperationsMetrics.badgeGap) {
-        OperationBadge(kind: OperationBadgeKind(item))
+        OperationBadge(kind: OperationBadgeKind(item), category: item.categoryMark)
         title(of: item, font: OperationsType.rowTitle)
       }
       .frame(maxWidth: .infinity, alignment: .leading)

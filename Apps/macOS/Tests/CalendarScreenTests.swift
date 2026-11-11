@@ -214,6 +214,36 @@ final class CalendarScreenTests: XCTestCase {
     XCTAssertEqual(environment(.english).language("section.calendar"), "Calendar")
   }
 
+  /// Five kinds of plan, each with its own symbol and its own word in both languages: the kind is
+  /// never told by the colour alone; a dear day says «×N» next to its level.
+  func testEveryKindOfPlanHasItsOwnSymbolAndWord() {
+    XCTAssertEqual(Set(CalendarMark.all.map(CalendarMark.symbol)).count, 5)
+    for choice in [AppLanguage.Choice.english, .russian] {
+      let environment = environment(choice)
+      let words = CalendarMark.all.map {
+        environment.language(CalendarMark.wordKey($0), table: "Overview")
+      }
+      XCTAssertEqual(Set(words).count, 5, "\(choice)")
+      for source in CalendarMark.all {
+        XCTAssertNotEqual(
+          environment.language(CalendarMark.wordKey(source), table: "Overview"),
+          CalendarMark.wordKey(source))
+      }
+    }
+    let environment = environment(.english)
+    var day = SpendingCalendarDay(
+      day: today, inScope: true, isToday: false, isFuture: false, spent: AmountE4(whole: 3_400),
+      level: .muchHigher, transactionIds: [], plans: [], plannedOut: nil, plannedIn: nil,
+      plansWithoutRate: false, multiple: Decimal(string: "3.4"))
+    XCTAssertEqual(
+      CalendarText.levelDetail(of: day, environment),
+      environment.language("calendar.level.muchHigher", table: "Overview") + " · ×3.4")
+    day.multiple = nil
+    XCTAssertEqual(
+      CalendarText.levelDetail(of: day, environment),
+      environment.language("calendar.level.muchHigher", table: "Overview"))
+  }
+
   // MARK: - The section and the tile
 
   /// «Календарь» stands after «Планирование» and is ⌘4; it lists no operations of the selection bar.

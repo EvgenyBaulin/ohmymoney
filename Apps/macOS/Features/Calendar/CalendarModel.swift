@@ -179,6 +179,14 @@ enum CalendarText {
     }
   }
 
+  /// «Намного дороже · ×3,4»: the level of a day and how many times usual it cost.
+  static func levelDetail(of day: SpendingCalendarDay, _ environment: AppEnvironment) -> String? {
+    guard let key = levelKey(day.level) else { return nil }
+    let word = t(key, environment)
+    guard let multiple = day.multiple else { return word }
+    return word + " · ×" + environment.money.number(multiple, fractionDigits: 1...1)
+  }
+
   /// The name of a plan, with «дивиденды» or «купон» after it when it is a payout of a holding.
   static func title(of plan: CalendarPlan, _ environment: AppEnvironment) -> String {
     guard let kind = plan.payoutKind else { return plan.name }
@@ -228,7 +236,7 @@ enum CalendarText {
             "calendar.spent", table: table, money(spent, of: calendar, environment))
           : t("calendar.nothingSpent", environment))
     }
-    if let key = levelKey(day.level) { parts.append(t(key, environment)) }
+    if let level = levelDetail(of: day, environment) { parts.append(level) }
     if let out = day.plannedOut {
       parts.append(
         environment.format(

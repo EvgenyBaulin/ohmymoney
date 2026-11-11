@@ -338,10 +338,18 @@ final class OperationsFigmaTests: XCTestCase {
   }
 
   private func makeWindow(width: CGFloat, height: CGFloat) throws -> NSWindow {
-    let cafe = CoreKit.Category(kind: .expense, name: "Кафе", quality: .neutral)
-    let food = CoreKit.Category(kind: .expense, name: "Продукты", quality: .neutral)
-    let ride = CoreKit.Category(kind: .expense, name: "Транспорт", quality: .neutral)
-    let work = CoreKit.Category(kind: .income, name: "Заработок", quality: .neutral)
+    let cafe = CoreKit.Category(
+      kind: .expense, name: "Кафе", quality: .neutral,
+      appearance: CategoryAppearance(icon: "cup.and.saucer", color: "tone1"))
+    let food = CoreKit.Category(
+      kind: .expense, name: "Продукты", quality: .neutral,
+      appearance: CategoryAppearance(icon: "cart", color: "tone2"))
+    let ride = CoreKit.Category(
+      kind: .expense, name: "Транспорт", quality: .neutral,
+      appearance: CategoryAppearance(icon: "car", color: "tone3"))
+    let work = CoreKit.Category(
+      kind: .income, name: "Заработок", quality: .neutral,
+      appearance: CategoryAppearance(icon: "briefcase", color: "tone4"))
     let entries = [
       try operation("Кофе", daysAgo: 0, hour: 14, amount: 250, category: cafe),
       try operation("Магнит", daysAgo: 0, hour: 13, amount: 1_840, category: food),
@@ -493,6 +501,25 @@ final class OperationsFigmaTests: XCTestCase {
       OperationsMetrics.headerBottom + OperationsMetrics.chipsTop + 28
         + OperationsMetrics.chipsToTable + OperationsMetrics.cardVertical - 1,
       accuracy: 4, "the table starts 16 under the chips, inside the card's 4")
+  }
+
+  func testTheMarkedCategoriesOfTheFrameKeepTheirSymbolsAndTonesInTheListing() throws {
+    let window = try makeWindow(width: 1_024, height: 768)
+    settle(window)
+    let snapshot = try XCTUnwrap(compute.snapshot)
+    let rows = TransactionListing.build(matching: .none, in: snapshot.ledger)
+      .sections.flatMap(\.rows)
+    XCTAssertEqual(rows.count, 6)
+    XCTAssertEqual(
+      rows.compactMap { $0.categoryMark?.icon }.sorted(),
+      ["briefcase", "car", "cart", "cart", "cup.and.saucer", "cup.and.saucer"])
+    XCTAssertEqual(
+      rows.compactMap { $0.categoryMark?.tone.key }.sorted(),
+      ["tone1", "tone1", "tone2", "tone2", "tone3", "tone4"])
+    let table = try operationsTable(in: window)
+    XCTAssertEqual(
+      table.rect(ofRow: 1).height, OperationsMetrics.rowVertical * 2 + OperationsMetrics.badge,
+      accuracy: 1, "category marks keep the frame's 50-point rows")
   }
 
   func testTheVisibleMonthCapsuleStartsAtAllTimeAndReturnsToIt() throws {
