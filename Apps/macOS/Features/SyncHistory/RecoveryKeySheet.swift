@@ -143,6 +143,7 @@ struct SyncKeySection: View {
   @State private var showing: SyncKey?
   @State private var confirmsNew = false
   @State private var failed = false
+  @State private var recoveryWords = ""
 
   private func t(_ key: String) -> String { environment.language(key, table: "SyncHistory") }
 
@@ -167,6 +168,11 @@ struct SyncKeySection: View {
       if failed {
         Text(verbatim: t("recovery.key.failed")).appFont(.caption).foregroundStyle(.red)
       }
+      SecureField(t("recovery.key.words"), text: $recoveryWords)
+        .accessibilityIdentifier("recovery.words")
+      Button(t("recovery.key.restore")) { restore() }
+        .disabled(recoveryWords.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        .accessibilityIdentifier("recovery.restore")
     } header: {
       Text(verbatim: t("recovery.key.header"))
     } footer: {
@@ -196,6 +202,7 @@ struct SyncKeySection: View {
         made = try store.keyCreatingIfNeeded().key
       }
       key = made
+      if replacing { defaults.set(true, forKey: SyncWiring.replacedKey) }
       failed = false
       showing = made
       AppLog.info("sync.keyMade", .db, "a sync key was made", [LogPair("new", .flag(replacing))])
@@ -203,6 +210,18 @@ struct SyncKeySection: View {
       failed = true
       AppLog.warning(
         "sync.keyNotSaved", .db, "the sync key was not kept", [LogPair("error", .error(error))])
+    }
+  }
+
+  private func restore() {
+    do {
+      try store.recover(from: recoveryWords)
+      key = store.load()
+      recoveryWords = ""
+      failed = false
+      Task { await environment.sync?.retry() }
+    } catch {
+      failed = true
     }
   }
 }

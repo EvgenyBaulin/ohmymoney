@@ -7,13 +7,23 @@ import Security
 /// (`RecoveryCode`), typed or read from the printed sheet.
 protocol SyncKeyStoring: Sendable {
   func load() -> SyncKey?
+  /// Distinguishes a missing key from a keychain that is locked or unavailable.
+  func read() throws -> SyncKey?
   func save(_ key: SyncKey) throws
 }
 
 extension SyncKeyStoring {
+  func read() throws -> SyncKey? { load() }
+
+  /// Invalid words never replace the key already on this device.
+  func recover(from words: String) throws {
+    let key = try SyncKey.recover(from: words).get()
+    try save(key)
+  }
+
   /// The key kept, or a new one made, kept and returned with `created == true`.
   func keyCreatingIfNeeded() throws -> (key: SyncKey, created: Bool) {
-    if let key = load() { return (key, false) }
+    if let key = try read() { return (key, false) }
     let key = SyncKey.generate()
     try save(key)
     return (key, true)
@@ -51,21 +61,33 @@ struct KeychainSyncKeyStore: SyncKeyStoring {
   }
 
   func load() -> SyncKey? {
+    try? read()
+  }
+
+  func read() throws -> SyncKey? {
     var request = query
     request[kSecReturnData as String] = true
     request[kSecMatchLimit as String] = kSecMatchLimitOne
     var item: CFTypeRef?
-    guard SecItemCopyMatching(request as CFDictionary, &item) == errSecSuccess,
-      let data = item as? Data
-    else { return nil }
-    return SyncKey(data: data)
+    let status = SecItemCopyMatching(request as CFDictionary, &item)
+    if status == errSecItemNotFound { return nil }
+    guard status == errSecSuccess else { throw Failure.status(status) }
+    guard let data = item as? Data, let key = SyncKey(data: data) else {
+      throw Failure.status(errSecDecode)
+    }
+    return key
   }
 
   func save(_ key: SyncKey) throws {
-    SecItemDelete(query as CFDictionary)
+    let attributes: [String: Any] = [
+      kSecValueData as String: key.data,
+      kSecAttrLabel as String: "OhMyMoney sync key",
+    ]
+    let updated = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
+    if updated == errSecSuccess { return }
+    guard updated == errSecItemNotFound else { throw Failure.status(updated) }
     var item = query
-    item[kSecValueData as String] = key.data
-    item[kSecAttrLabel as String] = "OhMyMoney sync key"
+    item.merge(attributes) { _, new in new }
     let status = SecItemAdd(item as CFDictionary, nil)
     guard status == errSecSuccess else { throw Failure.status(status) }
   }

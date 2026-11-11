@@ -4,13 +4,14 @@ import UniformTypeIdentifiers
 
 #if os(iOS)
   import PhotosUI
+  import UIKit
 #endif
 
 extension View {
   /// The receipt reader over the main window: «Файл» → «Чек по QR…» or a picture dropped on the
   /// window. Like every question the app raises by itself, never over the cover of the locked app.
   func receiptSheet(_ deps: AppDependencies) -> some View {
-    modifier(ReceiptPresenter(deps: deps))
+    modifier(ReceiptPresenter(deps: deps)).shareInbox(deps)
   }
 }
 
@@ -37,6 +38,7 @@ struct ReceiptPresenter: ViewModifier {
 /// on the camera. The lines of the receipt are not in the code and nothing goes to the network.
 struct ReceiptSheet: View {
   let urls: [URL]
+  var sharedPhoto: ReceiptPhoto? = nil
 
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
@@ -52,6 +54,7 @@ struct ReceiptSheet: View {
   @State private var continuity = ContinuityCameraHandle()
   #if os(iOS)
     @State private var pickedPhoto: PhotosPickerItem?
+    @State private var takingPhoto = false
   #endif
 
   private func t(_ key: String) -> String { ReceiptText.t(key, environment) }
@@ -83,7 +86,11 @@ struct ReceiptSheet: View {
       let made = ReceiptModel(
         environment: environment, store: store, dataset: { compute.snapshot?.dataset })
       model = made
-      if let url = urls.first { await made.read(fileAt: url) }
+      if let sharedPhoto {
+        await made.read(data: sharedPhoto.data, filename: sharedPhoto.filename)
+      } else if let url = urls.first {
+        await made.read(fileAt: url)
+      }
     }
     .fileImporter(isPresented: $picking, allowedContentTypes: [.image, .pdf]) { result in
       guard case .success(let chosen) = result, let model else { return }
@@ -103,6 +110,14 @@ struct ReceiptSheet: View {
       }
     }
     #if os(iOS)
+      .fullScreenCover(isPresented: $takingPhoto) {
+        AttachmentCamera { data in
+          takingPhoto = false
+          guard let data, let model else { return }
+          Task { await model.read(data: data, filename: "receipt.jpg") }
+        }
+        .ignoresSafeArea()
+      }
       .fullScreenCover(isPresented: $scanning) {
         ReceiptScannerScreen(
           onCode: { payload in
@@ -204,7 +219,7 @@ struct ReceiptSheet: View {
   @ViewBuilder
   private func inputs(_ model: ReceiptModel) -> some View {
     VStack(alignment: .leading, spacing: 10) {
-      HStack(spacing: 10) {
+      FlowRow(spacing: 10, lineSpacing: 10) {
         #if os(macOS)
           Button {
             continuity.showMenu(hint: t("receipt.iphone.menuHint"))
@@ -218,6 +233,14 @@ struct ReceiptSheet: View {
           )
           .accessibilityIdentifier("receipt.iphone")
         #else
+          if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            Button {
+              takingPhoto = true
+            } label: {
+              Label(t("receipt.takePhoto"), systemImage: "camera")
+            }
+            .accessibilityIdentifier("receipt.takePhoto")
+          }
           Button {
             scanning = true
           } label: {

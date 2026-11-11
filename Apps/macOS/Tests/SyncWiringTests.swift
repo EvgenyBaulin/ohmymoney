@@ -48,7 +48,7 @@ final class SyncWiringTests: XCTestCase {
     let environment = AppEnvironment()
     environment.wireSync(
       writer: stack.writer, isRealDatabase: real, defaults: defaults,
-      bookmarks: BookmarkStore(key: key), notifier: Silent())
+      bookmarks: BookmarkStore(key: key), notifier: Silent(), keyStore: InMemorySyncKeyStore())
     return environment
   }
 
