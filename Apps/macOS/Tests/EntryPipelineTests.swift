@@ -424,45 +424,60 @@ final class OverviewTotalsTests: XCTestCase {
   }
 }
 
-/// The width of the entry bar: 560–720 pt, never wider than 70% of the window, and always
-/// 16 pt clear of the sides of the column it floats over.
+/// The Mac's capsule is 520 pt, its panel 720 and its template strip 480; each keeps
+/// 16 pt clear of the sides of the detail column, regardless of the window's width.
 final class EntryBarMetricsTests: XCTestCase {
   private func width(window: CGFloat, detail: CGFloat) -> CGFloat {
     EntryBarMetrics.columnWidth(windowWidth: window, detailWidth: detail)
   }
 
-  /// The default window: 70% of 1120 is 784, so the cap of 720 applies, and the detail
-  /// column next to a 210 pt sidebar is 910 − 32 = 878 wide, which leaves the cap alone.
-  func testTheDefaultWindowGetsTheFullWidth() {
-    XCTAssertEqual(width(window: 1120, detail: 910), 720)
-    XCTAssertEqual(width(window: 1120, detail: 1120), 720)
+  func testTheLineStays520InWideAndNarrowWindows() {
+    for window: CGFloat in [800, 900, 1000, 1120, 1440, 2000] {
+      XCTAssertEqual(width(window: window, detail: window - 232), 520)
+      XCTAssertEqual(width(window: window, detail: window), 520)
+    }
   }
 
-  func testTheShareOfTheWindowDecidesBetweenTheBounds() {
-    XCTAssertEqual(width(window: 900, detail: 690), 630)
-    XCTAssertEqual(width(window: 1000, detail: 1000), 700)
+  func testThePanelAndChipsHaveTheirOwnWidths() {
+    XCTAssertEqual(
+      EntryBarMetrics.panelWidth(windowWidth: 1440, detailWidth: 1208, idiom: .mac), 720)
+    XCTAssertEqual(
+      EntryBarMetrics.chipsWidth(windowWidth: 1440, detailWidth: 1208, idiom: .mac), 480)
+    XCTAssertEqual(EntryBarMetrics.panelWidth(windowWidth: 800, detailWidth: 800, idiom: .mac), 720)
+    XCTAssertEqual(EntryBarMetrics.panelWidth(windowWidth: 800, detailWidth: 568, idiom: .mac), 536)
   }
 
-  /// The owner's rule is «never wider than 70% of the window». Below 800 pt that share is
-  /// under the 560 pt minimum, and the share wins even where the column has room.
-  func testOnANarrowWindowTheShareWinsOverTheMinimum() {
-    XCTAssertEqual(width(window: 700, detail: 700), 490, accuracy: 0.001)
-    XCTAssertEqual(width(window: 780, detail: 590), 546)
-  }
-
-  func testANarrowColumnWinsOverTheMinimum() {
-    // 70% of 800 is 560, but the column beside the sidebar is 590 − 32 = 558 wide.
-    XCTAssertEqual(width(window: 800, detail: 590), 558)
+  func testEachPartFitsANarrowColumnWith16PointMargins() {
+    XCTAssertEqual(width(window: 800, detail: 400), 368)
     XCTAssertEqual(width(window: 800, detail: 20), 0)
+    XCTAssertEqual(EntryBarMetrics.panelWidth(windowWidth: 800, detailWidth: 400, idiom: .mac), 368)
+    XCTAssertEqual(EntryBarMetrics.chipsWidth(windowWidth: 800, detailWidth: 400, idiom: .mac), 368)
   }
 
-  func testAnUnmeasuredWindowFallsBackToTheColumnAndThenToTheMinimum() {
-    XCTAssertEqual(width(window: 0, detail: 1000), 700)
-    XCTAssertEqual(width(window: .nan, detail: 1000), 700)
-    XCTAssertEqual(width(window: 0, detail: 0), 560)
-    XCTAssertEqual(width(window: 1120, detail: 0), 720)
+  func testAnUnmeasuredWindowFallsBackToTheColumnThenTheDesignWidth() {
+    XCTAssertEqual(width(window: 0, detail: 1000), 520)
+    XCTAssertEqual(width(window: .nan, detail: 1000), 520)
+    XCTAssertEqual(width(window: 0, detail: 0), 520)
+    XCTAssertEqual(width(window: 1120, detail: 0), 520)
+    XCTAssertEqual(width(window: 400, detail: 0), 368)
+    XCTAssertEqual(width(window: .infinity, detail: .nan), 520)
   }
 
+  func testPhoneAndTabletPartsKeepTheirExistingWidths() {
+    for (idiom, window, detail, expected) in [
+      (LayoutIdiom.phone, 440.0, 440.0, 408.0), (.pad, 1366.0, 1116.0, 600.0),
+    ] {
+      XCTAssertEqual(
+        EntryBarMetrics.columnWidth(windowWidth: window, detailWidth: detail, idiom: idiom),
+        expected)
+      XCTAssertEqual(
+        EntryBarMetrics.panelWidth(windowWidth: window, detailWidth: detail, idiom: idiom), expected
+      )
+      XCTAssertEqual(
+        EntryBarMetrics.chipsWidth(windowWidth: window, detailWidth: detail, idiom: idiom), expected
+      )
+    }
+  }
 }
 
 /// The category filter of the Transactions window follows its type filter.

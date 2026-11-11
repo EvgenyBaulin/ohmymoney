@@ -106,7 +106,7 @@ enum EntryFieldFlowMetrics {
   /// Between two cells and two rows of the form at the side (`EntryFormMetrics`).
   static let sideCellSpacing: CGFloat = EntryFormMetrics.fieldGap
   static let sideRowSpacing: CGFloat = EntryFormMetrics.gap
-  /// Columns of the ↓ panel and the editor, 560–720 pt wide.
+  /// Columns of the ↓ panel and the editor, up to 720 pt wide.
   static let panelColumns = 3
   /// Columns of the form at the side, about 380 pt wide, and of a phone sheet.
   static let sideColumns = 2

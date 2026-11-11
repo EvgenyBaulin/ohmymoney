@@ -58,6 +58,32 @@ enum SidebarItem: Hashable, Sendable {
 }
 
 #if os(macOS)
+  /// Adapts the native split view to a narrow window while keeping the owner's wide-window
+  /// choice. The toolbar may still reveal the sidebar in a narrow window.
+  struct MainSidebarVisibility {
+    private(set) var visibility: NavigationSplitViewVisibility = .automatic
+    private var wideVisibility: NavigationSplitViewVisibility = .automatic
+    private var isNarrow = false
+
+    mutating func choose(_ value: NavigationSplitViewVisibility) {
+      visibility = value
+      if !isNarrow { wideVisibility = value }
+    }
+
+    mutating func resize(to width: CGFloat) {
+      guard width.isFinite, width > 0 else { return }
+      let narrow = width <= 800
+      guard narrow != isNarrow else { return }
+      if narrow {
+        wideVisibility = visibility
+        visibility = .detailOnly
+      } else {
+        visibility = wideVisibility
+      }
+      isNarrow = narrow
+    }
+  }
+
   /// The sidebar of the main window: its sections, chosen by a click or by ⌘1 … ⌘9,
   /// whose menu items, and the limits card of Overview, post `.selectSection` with the number of
   /// the section; and under them the accounts and their groups (`AccountsSidebarSection`).

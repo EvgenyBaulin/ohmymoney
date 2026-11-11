@@ -30,7 +30,7 @@ final class ThemeShellTests: XCTestCase {
     let unlit = SidebarHighlight(isSelected: false)
     XCTAssertEqual(lit.plate(theme), Color(theme.palette.accentTint))
     XCTAssertEqual(unlit.plate(theme), .clear)
-    XCTAssertEqual(lit.text(theme), Color(theme.palette.accentContent))
+    XCTAssertEqual(lit.text(theme), Color(theme.palette.sidebarSelectionText))
     XCTAssertEqual(unlit.text(theme), Color(theme.palette.contentPrimary))
   }
 

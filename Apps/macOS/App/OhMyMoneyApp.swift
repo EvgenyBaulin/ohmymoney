@@ -421,6 +421,7 @@ struct MainWindow: View {
   @Environment(\.windowWidth) private var windowWidth
   /// What the sidebar has chosen: a section, an account or a group.
   @State private var selection: SidebarItem = .section(.overview)
+  @State private var sidebar = MainSidebarVisibility()
   /// The account this window last gave the entry line; `nil` for none.
   @State private var focusGiven: UUID?
   /// Whether this is the window the owner works in.
@@ -511,7 +512,9 @@ struct MainWindow: View {
   }
 
   var body: some View {
-    NavigationSplitView {
+    NavigationSplitView(
+      columnVisibility: Binding(get: { sidebar.visibility }, set: { sidebar.choose($0) })
+    ) {
       MainSidebar(selection: $selection)
         .navigationSplitViewColumnWidth(min: 190, ideal: SidebarMetrics.width, max: 280)
         // Every column of a split view is laid out in a host of its own, and on macOS 26 a
@@ -575,6 +578,15 @@ struct MainWindow: View {
       .appDependencies(deps)
     }
     .navigationTitle(windowTitle)
+    .onChange(of: windowWidth, initial: true) { _, width in sidebar.resize(to: width) }
+    // The menu remains usable while the native sidebar has no visible host. The sidebar
+    // also accepts this notification when hosted independently of the main window.
+    .onReceive(NotificationCenter.default.publisher(for: .selectSection)) { note in
+      guard let index = note.object as? Int,
+        let chosen = MainWindow.Section.allCases.first(where: { $0.shortcutIndex == index })
+      else { return }
+      selection = .section(chosen)
+    }
     .modifier(EntryFormFolding(presence: $formPresence, placement: formPlacement))
     // Closing it quits the app; the secondary windows stand over it in full screen
     // (`AppWindows`).
