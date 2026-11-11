@@ -32,7 +32,7 @@ final class OverviewTilesSettingTests: XCTestCase {
     UserDefaults.standard.string(forKey: AppEnvironment.overviewLayoutKey)
   }
 
-  /// Nothing chosen: every tile shown, the twelve cards of 1.2 first in their groups, and nothing
+  /// Nothing chosen: the ten tiles of the Mac frame, the debts paired, and nothing
   /// written. A change is written at once — the layout and, beside it, the flat list of the tiles
   /// shown — and a new launch reads it back.
   func testTheLayoutIsKeptAndReadBackByTheNextLaunch() {
@@ -40,9 +40,9 @@ final class OverviewTilesSettingTests: XCTestCase {
     XCTAssertEqual(AppEnvironment.overviewLayoutKey, "overview.layout")
     XCTAssertEqual(AppEnvironment.overviewCollapsedKey, "overview.collapsed")
     let environment = AppEnvironment()
-    XCTAssertEqual(environment.overviewLayout, .standard)
+    XCTAssertEqual(environment.overviewLayout, .macDefault)
     XCTAssertEqual(
-      environment.overviewTiles.count, OverviewTile.allCases.filter(\.isShownUnnamed).count)
+      environment.overviewTiles, OverviewLayout.macDefault.shown)
     XCTAssertNil(stored)
     XCTAssertNil(storedLayout)
 
@@ -73,7 +73,7 @@ final class OverviewTilesSettingTests: XCTestCase {
     UserDefaults.standard.set("tilesOfTomorrow,iOwe,iOwe", forKey: AppEnvironment.overviewTilesKey)
     XCTAssertEqual(AppEnvironment().overviewLayout, OverviewLayout(tiles: [.iOwe]))
     UserDefaults.standard.set("", forKey: AppEnvironment.overviewTilesKey)
-    XCTAssertEqual(AppEnvironment().overviewLayout, .standard)
+    XCTAssertEqual(AppEnvironment().overviewLayout, .macDefault)
 
     // A layout, once kept, wins over the list.
     UserDefaults.standard.set("plan:event", forKey: AppEnvironment.overviewLayoutKey)
@@ -81,7 +81,7 @@ final class OverviewTilesSettingTests: XCTestCase {
     XCTAssertEqual(AppEnvironment().overviewLayout.tiles(in: .plan).first, .event)
     // A layout no build could read is no layout: the list is read.
     UserDefaults.standard.set("tomorrow:event", forKey: AppEnvironment.overviewLayoutKey)
-    XCTAssertEqual(AppEnvironment().overviewLayout, .standard)
+    XCTAssertEqual(AppEnvironment().overviewLayout, .macDefault)
   }
 
   /// The box hides and shows a tile at its place; the last tile shown cannot be hidden; «Сбросить»
@@ -94,7 +94,7 @@ final class OverviewTilesSettingTests: XCTestCase {
     XCTAssertFalse(environment.overviewTiles.contains(.qualities))
     XCTAssertTrue(OverviewTilesActions.canSwitch(environment, .qualities))
     XCTAssertTrue(OverviewTilesActions.toggle(environment, .qualities))
-    XCTAssertEqual(environment.overviewLayout, .standard, "shown again at its place")
+    XCTAssertEqual(environment.overviewLayout, .macDefault, "shown again at its place")
 
     environment.overviewTiles = [.limits]
     XCTAssertEqual(environment.overviewTiles, [.limits])
@@ -106,7 +106,7 @@ final class OverviewTilesSettingTests: XCTestCase {
     XCTAssertFalse(OverviewTilesActions.show(environment, .currencyChart))
 
     OverviewTilesActions.reset(environment)
-    XCTAssertEqual(environment.overviewLayout, .standard)
+    XCTAssertEqual(environment.overviewLayout, .macDefault)
   }
 
   /// «Выше» and «Ниже» move a tile by one place in its group — in Settings past hidden rows too,
@@ -114,6 +114,7 @@ final class OverviewTilesSettingTests: XCTestCase {
   /// by «Группу выше» and «Группу ниже».
   func testTilesAndGroupsMoveByOneStep() {
     let environment = AppEnvironment()
+    environment.overviewLayout = .standard
     XCTAssertEqual(OverviewTilesActions.moves(environment, .monthToDate, amongShown: false), [1])
     XCTAssertEqual(OverviewTilesActions.moves(environment, .canSave, amongShown: false), [-1, 1])
     // The tiles of 2.0 come after the cushion in the group, so the last one has no place below.
@@ -153,6 +154,7 @@ final class OverviewTilesSettingTests: XCTestCase {
   /// drag, and says nothing of a limit.
   func testTilesAndGroupsAreDragged() {
     let environment = AppEnvironment()
+    environment.overviewLayout = .standard
     for tile in OverviewTile.allCases {
       XCTAssertEqual(OverviewTilesActions.tile(OverviewTilesActions.payload(of: tile)), tile)
       XCTAssertNil(OverviewTilesActions.group(OverviewTilesActions.payload(of: tile)))
@@ -231,7 +233,7 @@ final class OverviewTilesSettingTests: XCTestCase {
     let environment = AppEnvironment()
     XCTAssertEqual(
       environment.portableSettings()[AppEnvironment.overviewLayoutKey],
-      OverviewLayout.standard.encode())
+      OverviewLayout.macDefault.encode())
     environment.overviewTiles = [.iOwe, .lastRecord]
     XCTAssertEqual(
       environment.portableSettings()[AppEnvironment.overviewTilesKey], "iOwe,lastRecord")

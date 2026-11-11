@@ -40,7 +40,7 @@ struct OverviewTilesSection: View {
         Text(verbatim: t("settings.tiles.hint"))
           .fixedSize(horizontal: false, vertical: true)
         Button(t("settings.tiles.reset")) { OverviewTilesActions.reset(environment) }
-          .disabled(layout.isStandard)
+          .disabled(layout == AppEnvironment.defaultOverviewLayout)
       }
       .appFont(.callout)
       .foregroundStyle(.secondary)
@@ -312,7 +312,7 @@ enum OverviewTilesActions {
   /// «Сбросить»: every tile shown, the twelve cards of the first Overview first, every tile in
   /// its default group, the groups in their first order.
   static func reset(_ environment: AppEnvironment) {
-    environment.overviewLayout = .standard
+    environment.overviewLayout = AppEnvironment.defaultOverviewLayout
   }
 
   /// Collapses an open group of Overview or opens a collapsed one — a habit of this Mac.

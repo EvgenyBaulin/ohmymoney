@@ -82,6 +82,19 @@ struct OverviewPageMetrics: Equatable, Sendable {
     return metrics
   }
 
+  /// The narrower Mac frame keeps 22 at the sides and 12 between columns. A missing window
+  /// width uses the master frame's metrics, as standalone previews did before.
+  static func of(
+    _ idiom: LayoutIdiom, columns: Int?, windowWidth: CGFloat
+  ) -> OverviewPageMetrics {
+    var metrics = of(idiom, columns: columns)
+    if idiom == .mac, windowWidth > 0, windowWidth <= 1_024 {
+      metrics.side = 22
+      metrics.columnGap = 12
+    }
+    return metrics
+  }
+
   /// «Что сделать сейчас» stands with the main card rather than in the stack or among the tiles.
   var doNowWithMain: Bool { doNowBesideMain != nil }
 
@@ -101,4 +114,9 @@ struct OverviewPageMetrics: Equatable, Sendable {
 enum OverviewTitleType {
   static let phoneAction = AppFont.system(size: 15, weight: .medium)
   static let phoneDone = AppFont.system(size: 15, weight: .semibold)
+}
+
+extension EnvironmentValues {
+  /// One set of page metrics for the margins and every grid inside them.
+  @Entry var overviewPageMetrics: OverviewPageMetrics? = nil
 }

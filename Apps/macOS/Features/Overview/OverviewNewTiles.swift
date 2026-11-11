@@ -14,6 +14,7 @@ struct FigureTileCard: View {
   @Environment(\.themeSurfaces) private var surfaces
   let tile: OverviewTile
   var compact = false
+  var embedded = false
 
   var body: some View {
     let store = OverviewFiguresStore.shared
@@ -22,7 +23,7 @@ struct FigureTileCard: View {
       state: compute.states.data.flatMap { snapshot, at in
         result(snapshot, store).figure == nil ? .notEnoughData : .ready(snapshot, at: at)
       },
-      fillsHeight: true,
+      style: embedded ? .plain : .card, fillsHeight: true,
       emptyReason: compute.snapshot.flatMap { result($0, store).emptyKey }.map {
         environment.language($0, table: OverviewFigureText.table)
       },

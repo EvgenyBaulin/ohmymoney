@@ -610,18 +610,19 @@ final class MainWindowLayoutTests: XCTestCase {
   /// bottom content inset of the list's scroll view, whichever way SwiftUI puts it there —
   /// measured at 74 pt with the capsule alone and 120 pt with the selection bar as well.
   ///
-  /// The list of Overview is the scroll view around the table that has the rows; the sidebar
-  /// has a table of three, so the count tells them apart.
-  private func overviewRoom(_ window: NSWindow) throws -> CGFloat {
+  /// The operations table has more than one column; the sidebar has only one.
+  private func operationsRoom(_ window: NSWindow) throws -> CGFloat {
     let frame = try XCTUnwrap(window.contentView?.superview ?? window.contentView)
     var scrolls: [NSScrollView] = []
     Self.allSubviews(of: frame, into: &scrolls)
     for scroll in scrolls {
       var tables: [NSTableView] = []
       Self.allSubviews(of: scroll, into: &tables)
-      if tables.contains(where: { $0.numberOfRows > 10 }) { return scroll.contentInsets.bottom }
+      if tables.contains(where: { $0.tableColumns.count > 1 && $0.numberOfRows > 0 }) {
+        return scroll.contentInsets.bottom
+      }
     }
-    XCTFail("the list of «Траты» was not found")
+    XCTFail("the table of «Операции» was not found")
     return 0
   }
 
@@ -631,13 +632,13 @@ final class MainWindowLayoutTests: XCTestCase {
     let window = makeWindow()
     try waitForList(window)
     settle(window, passes: 10, "before the selection")
-    let alone = try overviewRoom(window)
+    let alone = try operationsRoom(window)
     XCTAssertGreaterThan(alone, 0, "the list keeps no room for the capsule")
 
     actions.selection = [first.transaction.id]
     for _ in 0..<10 { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
     settle(window, passes: 20, "with the bar")
-    let withBar = try overviewRoom(window)
+    let withBar = try operationsRoom(window)
     XCTAssertGreaterThan(
       withBar, alone, "the selection bar took no room: rows would sit under it")
 
@@ -645,7 +646,7 @@ final class MainWindowLayoutTests: XCTestCase {
     for _ in 0..<10 { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
     settle(window, passes: 20, "after the bar went")
     XCTAssertEqual(
-      try overviewRoom(window), alone, accuracy: 0.5,
+      try operationsRoom(window), alone, accuracy: 0.5,
       "the room did not come back when the selection went")
   }
 
@@ -660,7 +661,7 @@ final class MainWindowLayoutTests: XCTestCase {
     let closedWindow = makeWindow()
     try waitForList(closedWindow)
     settle(closedWindow, passes: 10, "before the panel")
-    let closed = try overviewRoom(closedWindow)
+    let closed = try operationsRoom(closedWindow)
     closedWindow.contentViewController = nil
     closedWindow.close()
 
@@ -670,7 +671,7 @@ final class MainWindowLayoutTests: XCTestCase {
     let panel = try XCTUnwrap(Self.detailsPanel(in: window), "the ↓ panel did not open")
 
     XCTAssertEqual(
-      try overviewRoom(window), closed, accuracy: 0.5,
+      try operationsRoom(window), closed, accuracy: 0.5,
       "opening ↓ moved the list: the panel must stay out of the room the bar takes")
     // Out of the room, but not out of the window: the panel stands above the capsule, and
     // standing there must not put it past the top of the window or under its bottom.
@@ -768,6 +769,38 @@ final class MainWindowLayoutTests: XCTestCase {
   }
 
   // MARK: - The toolbar
+
+  func testSwitchingBetweenOverviewAndOperationsAt1024KeepsTheirOwnChrome() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    environment.entryStyle = .line
+    let window = makeWindow(width: 1_024, height: 768, selection: .section(.overview))
+    let root = try XCTUnwrap(window.contentView)
+    func element(_ id: String) -> AnyObject? {
+      Self.accessibilityElement(in: root) { $0.accessibilityIdentifier?() == id }
+    }
+    Self.wait { element("overview.debts") != nil }
+    XCTAssertNotNil(element("overview.debts"))
+    XCTAssertNil(element("overview.group.money"))
+    XCTAssertNil(element("overview.lastRecord"))
+    XCTAssertNotNil(element("overview.edit"))
+    NotificationCenter.default.post(
+      name: .selectSection, object: MainWindow.Section.operations.shortcutIndex)
+    try waitForList(window)
+    Self.wait { element("operations.month") != nil }
+    XCTAssertNotNil(element("operations.month"))
+    XCTAssertNotNil(element("operations.searchBox"))
+    XCTAssertNotNil(element("operations.add"))
+    XCTAssertNil(element("operations.filters"))
+    XCTAssertNil(element("overview.debts"))
+    NotificationCenter.default.post(
+      name: .selectSection, object: MainWindow.Section.overview.shortcutIndex)
+    Self.wait { element("overview.debts") != nil }
+    XCTAssertNotNil(element("overview.debts"))
+    XCTAssertNil(element("operations.month"))
+    XCTAssertNil(element("overview.group.money"))
+    XCTAssertNil(element("overview.lastRecord"))
+    XCTAssertEqual(AppDependencies.missingReaders, [])
+  }
 
   /// The toolbar holds no button of its own: the buttons of a screen stand in its header
   /// («Изменить», «Поездка», «Новая операция» on Overview), sections in the sidebar, and every
