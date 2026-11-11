@@ -52,6 +52,8 @@ struct OverviewDiscrepancies: View {
         }
         .appFont(.callout)
         .contentCard()
+        // The block is a container: its rows stay separate elements (and reachable) inside it.
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("overview.discrepancies")
       }
     }
@@ -163,6 +165,7 @@ struct StatementReviewSheet: View {
     }
     .padding(20)
     .sheetFrame(minWidth: 520, idealWidth: 640, minHeight: 360, idealHeight: 480)
+    .accessibilityElement(children: .contain)
     .accessibilityIdentifier("statement.review")
   }
 

@@ -170,11 +170,18 @@ final class EntryFormsFigmaTests: SectionFigmaHarness {
       ) { EmptyView() }
       let window = screenWindow(bar, idiom: .mac, width: 1208, height: 900)
       settle(window)
+      // The panel opens with an animation: measure once the three have stopped moving.
+      try waitUntilStill(
+        ["entry.line.capsule", "entry.details.panel", "entry.templates"], in: window)
       let capsule = try frame(of: "entry.line.capsule", in: window)
       let panel = try frame(of: "entry.details.panel", in: window)
       let chips = try frame(of: "entry.templates", in: window)
-      XCTAssertEqual(capsule.width, 520, accuracy: 1)
-      XCTAssertEqual(panel.width, 720, accuracy: 1)
+      // With the panel open the accessibility frames of the capsule and the panel are their
+      // content's: the glass edge lies outside them by the capsule's and the panel's own insets
+      // (the capsule's own full frame is checked, panel closed, by the 1440 line test above).
+      let line = EntryLineMetrics.of(.mac)
+      XCTAssertEqual(capsule.width + line.leading + line.trailing, 520, accuracy: 2)
+      XCTAssertEqual(panel.width + 2 * EntryPanelMetrics.padding, 720, accuracy: 1)
       XCTAssertEqual(chips.width, 480, accuracy: 1)
       XCTAssertEqual(panel.midX, capsule.midX, accuracy: 1)
       XCTAssertEqual(chips.midX, capsule.midX, accuracy: 1)

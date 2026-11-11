@@ -654,11 +654,11 @@ struct SQLAnonymizerTests {
         arguments: [StatementReview.settingsKey, "synthetic statement"])
     }
     try SQLAnonymizer().anonymize(copy: ExportCopyDatabase(writer: stack.writer))
-    try stack.writer.read { db in
-      #expect(
-        try Self.value(
-          db, "SELECT value FROM settings WHERE key = '\(StatementReview.settingsKey)'") == nil)
+    let review = try stack.writer.read { db in
+      try Self.value(
+        db, "SELECT value FROM settings WHERE key = '\(StatementReview.settingsKey)'")
     }
+    #expect(review == nil)
   }
 
   /// The list of own-key prefixes is `Anonymizer`'s: each one it keeps, a bank's reference it drops.

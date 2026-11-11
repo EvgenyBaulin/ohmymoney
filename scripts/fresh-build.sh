@@ -73,7 +73,8 @@ shift
 
 mkdir -p "${root}"
 sweep "${root}"
-free_gb="$(df -g "${root}" | awk 'NR == 2 { print $4 }')"
+# Free space as Finder counts it (with what macOS frees on demand); `df` reads far less.
+free_gb="$("$(dirname "$0")/disk-free.sh" "${root}")"
 if [ -n "${free_gb}" ] && [ "${free_gb}" -lt "${least_free_gb}" ]; then
   echo "fresh-build: ${free_gb} GB free in ${root}; a build from scratch needs about ${least_free_gb}." >&2
   echo "fresh-build: free some (scripts/clean-lane-builds.sh --dry-run), or REUSE_BUILD=1 to build in the old folders" >&2
