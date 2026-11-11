@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "borrowed.analytics.cut": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -15,10 +16,17 @@
             "state": "translated",
             "value": "%1$@ · с чужой карты, %2$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · чужа картка, %2$@"
+          }
         }
       }
     },
     "borrowed.analytics.cutUnsaid": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -32,10 +40,17 @@
             "state": "translated",
             "value": "%@ · с чужой карты"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · чужа картка"
+          }
         }
       }
     },
     "borrowed.badge": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -49,10 +64,17 @@
             "state": "translated",
             "value": "Чужая карта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чужа картка"
+          }
         }
       }
     },
     "borrowed.badge.whose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -66,10 +88,17 @@
             "state": "translated",
             "value": "Карта: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картка: %@"
+          }
         }
       }
     },
     "borrowed.category.familyHelp": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -83,10 +112,17 @@
             "state": "translated",
             "value": "Помощь семьи"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Допомога родини"
+          }
         }
       }
     },
     "borrowed.category.gifts": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -100,10 +136,17 @@
             "state": "translated",
             "value": "Подарки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарунки"
+          }
         }
       }
     },
     "borrowed.editor.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -117,10 +160,17 @@
             "state": "translated",
             "value": "Деньги не ваши: карта родителя, партнёра, корпоративная. Покупки с неё — ваши расходы во всех итогах, категориях и лимитах, но остатка у неё нет: её не сверяют, её нет во «Всего», группах и «Капитале», и она не уменьшает «Можно тратить»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чужі гроші: картка батьків, партнера або компанії. Покупки з неї — ваші витрати в усіх підсумках, категоріях і лімітах, але картка не має залишку: він не звіряється, не входить до «Усього», груп і капіталу та ніколи не зменшує «Можна витрачати»."
+          }
         }
       }
     },
     "borrowed.editor.income": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -134,10 +184,17 @@
             "state": "translated",
             "value": "Перевод себе — доход в"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переказ на мій рахунок — дохід у категорії"
+          }
         }
       }
     },
     "borrowed.editor.income.default": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -151,10 +208,17 @@
             "state": "translated",
             "value": "Помощь семьи (по умолчанию)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Допомога родини (типово)"
+          }
         }
       }
     },
     "borrowed.editor.incomeHint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -168,10 +232,17 @@
             "state": "translated",
             "value": "Перевод с этой карты на ваш счёт записывается доходом в этой категории, а не переводом. Переводить свои деньги на эту карту нельзя."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гроші з цієї картки на ваш рахунок записуються як дохід у цій категорії, а не як переказ. Ваші гроші не можна переказувати на цю картку."
+          }
         }
       }
     },
     "borrowed.editor.mainStays": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -185,10 +256,17 @@
             "state": "translated",
             "value": "Основной счёт — ваши деньги: чужой картой он быть не может."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основний рахунок — ваші власні гроші: він не може бути чужою карткою."
+          }
         }
       }
     },
     "borrowed.editor.person": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -202,10 +280,17 @@
             "state": "translated",
             "value": "Чья карта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чия картка"
+          }
         }
       }
     },
     "borrowed.editor.person.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -219,10 +304,17 @@
             "state": "translated",
             "value": "Не указано"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вказано"
+          }
         }
       }
     },
     "borrowed.editor.toggle": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -236,10 +328,17 @@
             "state": "translated",
             "value": "Чужая карта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чужа картка"
+          }
         }
       }
     },
     "borrowed.refusal.ownMoney": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -253,10 +352,17 @@
             "state": "translated",
             "value": "Кредитка, вклад и подушка безопасности — ваши деньги: чужой картой они быть не могут."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитна картка, вклад або фінансова подушка — ваші гроші: вони не можуть бути чужою карткою."
+          }
         }
       }
     },
     "borrowed.screen.noBalance": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -270,10 +376,17 @@
             "state": "translated",
             "value": "Чужие деньги: остатка и сверки нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чужі гроші: без залишку та звірки."
+          }
         }
       }
     },
     "borrowed.screen.spentMonth": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -287,10 +400,17 @@
             "state": "translated",
             "value": "Потрачено за месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрачено за місяць"
+          }
         }
       }
     },
     "borrowed.screen.transferHome": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -304,10 +424,17 @@
             "state": "translated",
             "value": "Перевести себе"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переказати на мій рахунок"
+          }
         }
       }
     },
     "borrowed.sidebar.spent": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -321,10 +448,17 @@
             "state": "translated",
             "value": "%@ за месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ за цей місяць"
+          }
         }
       }
     },
     "borrowed.transfer.asIncome": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -338,10 +472,17 @@
             "state": "translated",
             "value": "С чужой карты: запишется доходом в «%@»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Із чужої картки: буде записано як дохід у категорії «%@»."
+          }
         }
       }
     },
     "borrowed.transfer.note.advance": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -355,10 +496,17 @@
             "state": "translated",
             "value": "Аванс: не расход. Траты с карты считаются вашими, когда вы их совершаете."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аванс: не витрата. Покупки з картки враховуються як ваші, коли ви їх оплачуєте."
+          }
         }
       }
     },
     "borrowed.transfer.note.debtRepayment": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -372,10 +520,17 @@
             "state": "translated",
             "value": "Возврат долга: запишется платежом по вашему открытому долгу этому человеку, а не переводом."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Погашення: буде записано як платіж за вашим відкритим боргом цій людині, а не як переказ."
+          }
         }
       }
     },
     "borrowed.transfer.note.gift": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -389,10 +544,17 @@
             "state": "translated",
             "value": "Подарок: запишется расходом в «Подарки», а не переводом."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарунок: буде записано як витрату в категорії «Подарунки», а не як переказ."
+          }
         }
       }
     },
     "borrowed.transfer.purpose.advance": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -406,10 +568,17 @@
             "state": "translated",
             "value": "Аванс для моих трат с этой карты"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аванс на мої витрати з цієї картки"
+          }
         }
       }
     },
     "borrowed.transfer.purpose.debtRepayment": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -423,10 +592,17 @@
             "state": "translated",
             "value": "Возврат долга"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Погашення боргу"
+          }
         }
       }
     },
     "borrowed.transfer.purpose.gift": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -440,10 +616,17 @@
             "state": "translated",
             "value": "Подарок"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подарунок"
+          }
         }
       }
     },
     "borrowed.transfer.purposeLabel": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -457,10 +640,17 @@
             "state": "translated",
             "value": "Для чего эти деньги"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для чого ці гроші"
+          }
         }
       }
     },
     "borrowed.transfer.refusal.noDebt": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -474,10 +664,17 @@
             "state": "translated",
             "value": "Нет открытого долга этому человеку в этой валюте, который можно вернуть."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає відкритого боргу цій людині в цій валюті, який можна погасити."
+          }
         }
       }
     },
     "borrowed.transfer.refusal.to": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -490,6 +687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Между чужими картами переводить нечего: ни те, ни другие деньги не ваши."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не можна переказувати гроші з однієї чужої картки на іншу."
           }
         }
       }

@@ -155,6 +155,7 @@
       }
     },
     "income.basket.savings": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -167,6 +168,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сбережения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заощадження"
           }
         }
       }
@@ -189,6 +196,7 @@
       }
     },
     "income.baskets.basis": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -198,6 +206,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@"
@@ -514,6 +528,7 @@
       }
     },
     "income.health.part.cushion": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -527,10 +542,17 @@
             "state": "translated",
             "value": "Подушка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка"
+          }
         }
       }
     },
     "income.health.part.debtLoad": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -543,6 +565,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Долговая нагрузка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Боргове навантаження"
           }
         }
       }
@@ -565,6 +593,7 @@
       }
     },
     "income.health.part.savings": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -577,6 +606,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Норма сбережений"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Норма заощаджень"
           }
         }
       }
@@ -616,6 +651,7 @@
       }
     },
     "income.health.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -628,6 +664,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Финансовое здоровье"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фінансове здоров'я"
           }
         }
       }
@@ -786,6 +828,7 @@
       }
     },
     "income.norm.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -798,6 +841,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Норма сбережений"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Норма заощаджень"
           }
         }
       }
@@ -1125,6 +1174,23 @@
         }
       }
     },
+    "income.settings.needsLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Needs"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нужное"
+          }
+        }
+      }
+    },
     "income.settings.reset": {
       "extractionState": "manual",
       "localizations": {
@@ -1143,6 +1209,7 @@
       }
     },
     "income.settings.savings": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1155,6 +1222,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сбережения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заощадження"
           }
         }
       }
@@ -1177,6 +1250,7 @@
       }
     },
     "income.settings.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1189,6 +1263,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доход и сбережения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід і заощадження"
           }
         }
       }
@@ -1240,6 +1320,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Желания: %lld %%"
+          }
+        }
+      }
+    },
+    "income.settings.wantsLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wants"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Желания"
           }
         }
       }
@@ -1434,6 +1531,7 @@
       }
     },
     "income.tile.norm.last": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1443,6 +1541,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@"
@@ -1621,6 +1725,7 @@
       }
     },
     "why.health.left.cushion": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1634,10 +1739,17 @@
             "state": "translated",
             "value": "Подушка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка"
+          }
         }
       }
     },
     "why.health.left.debtLoad": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1650,6 +1762,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Долговая нагрузка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Боргове навантаження"
           }
         }
       }
@@ -1672,6 +1790,7 @@
       }
     },
     "why.health.left.savings": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1684,6 +1803,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Норма сбережений"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Норма заощаджень"
           }
         }
       }
@@ -1842,6 +1967,7 @@
       }
     },
     "why.health.total": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1854,6 +1980,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Финансовое здоровье"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фінансове здоров'я"
           }
         }
       }
@@ -1910,6 +2042,7 @@
       }
     },
     "why.norm.income": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1922,6 +2055,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доход"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід"
           }
         }
       }
@@ -1978,6 +2117,7 @@
       }
     },
     "why.norm.rate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1990,6 +2130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Норма сбережений"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Норма заощаджень"
           }
         }
       }
@@ -2007,40 +2153,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мои траты без взносов в цели"
-          }
-        }
-      }
-    },
-    "income.settings.needsLabel": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Needs"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нужное"
-          }
-        }
-      }
-    },
-    "income.settings.wantsLabel": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wants"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Желания"
           }
         }
       }

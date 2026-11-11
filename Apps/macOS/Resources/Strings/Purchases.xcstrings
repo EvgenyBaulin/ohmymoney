@@ -122,6 +122,23 @@
         }
       }
     },
+    "purchases.afford.until": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expect the money: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Когда ждать деньги: %@"
+          }
+        }
+      }
+    },
     "purchases.bought.heading": {
       "extractionState": "manual",
       "localizations": {
@@ -448,6 +465,7 @@
       }
     },
     "purchases.price.day": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -457,6 +475,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Дата"
@@ -703,6 +727,7 @@
       }
     },
     "purchases.sale.account": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -715,6 +740,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "На счёт"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На рахунок"
           }
         }
       }
@@ -737,6 +768,7 @@
       }
     },
     "purchases.sale.currency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -746,6 +778,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Валюта"
@@ -788,6 +826,7 @@
       }
     },
     "purchases.sale.mainAccount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -800,6 +839,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Основной счёт"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Основний рахунок"
           }
         }
       }
@@ -839,6 +884,7 @@
       }
     },
     "purchases.savings.byMonth": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -851,6 +897,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По месяцам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За місяцями"
           }
         }
       }
@@ -926,6 +978,7 @@
       }
     },
     "purchases.savings.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -938,6 +991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В этом месяце"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цей місяць"
           }
         }
       }
@@ -960,6 +1019,7 @@
       }
     },
     "purchases.savings.year": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -972,6 +1032,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В этом году"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цей рік"
           }
         }
       }
@@ -1166,6 +1232,7 @@
       }
     },
     "purchases.settings.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1175,6 +1242,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупки"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Покупки"
@@ -1200,6 +1273,7 @@
       }
     },
     "purchases.shopping.addButton": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1212,6 +1286,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати"
           }
         }
       }
@@ -1287,6 +1367,7 @@
       }
     },
     "purchases.shopping.remove": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1299,6 +1380,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Убрать из списка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прибрати зі списку"
           }
         }
       }
@@ -1406,6 +1493,7 @@
       }
     },
     "purchases.thing.delete.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1419,10 +1507,17 @@
             "state": "translated",
             "value": "Удалить «%@»?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити «%@»?"
+          }
         }
       }
     },
     "purchases.thing.edit": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1436,10 +1531,17 @@
             "state": "translated",
             "value": "Изменить…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Редагувати…"
+          }
         }
       }
     },
     "purchases.thing.editor.currency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1449,6 +1551,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Валюта"
@@ -1508,6 +1616,7 @@
       }
     },
     "purchases.thing.editor.name": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1520,6 +1629,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Название"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва"
           }
         }
       }
@@ -1559,6 +1674,7 @@
       }
     },
     "purchases.thing.editor.note": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1571,6 +1687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заметка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Примітка"
           }
         }
       }
@@ -1782,6 +1904,7 @@
       }
     },
     "purchases.thing.warranty": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1794,6 +1917,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гарантия до %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантія до %@"
           }
         }
       }
@@ -1971,6 +2100,7 @@
       }
     },
     "purchases.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1980,6 +2110,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупки"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Покупки"
@@ -2143,6 +2279,7 @@
       }
     },
     "purchases.waiting.noNote": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2155,6 +2292,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Возврат"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення покупки"
+          }
+        }
+      }
+    },
+    "purchases.waiting.overdue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected by %@ — overdue"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ожидалось до %@ — просрочено"
           }
         }
       }
@@ -2247,6 +2407,7 @@
       }
     },
     "purchases.wish.archive": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2259,6 +2420,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Убрать из списка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прибрати зі списку"
           }
         }
       }
@@ -2366,6 +2533,7 @@
       }
     },
     "purchases.wish.delete.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2379,10 +2547,17 @@
             "state": "translated",
             "value": "Удалить «%@»?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити «%@»?"
+          }
         }
       }
     },
     "purchases.wish.edit": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2396,10 +2571,17 @@
             "state": "translated",
             "value": "Изменить…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Редагувати…"
+          }
         }
       }
     },
     "purchases.wish.editor.currency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2409,6 +2591,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Валюта"
@@ -2451,6 +2639,7 @@
       }
     },
     "purchases.wish.editor.name": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2463,6 +2652,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Название"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва"
           }
         }
       }
@@ -2485,6 +2680,7 @@
       }
     },
     "purchases.wish.editor.note": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2498,10 +2694,17 @@
             "state": "translated",
             "value": "Заметка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Примітка"
+          }
         }
       }
     },
     "purchases.wish.editor.price": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2514,6 +2717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цена"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціна"
           }
         }
       }
@@ -2553,6 +2762,7 @@
       }
     },
     "purchases.wish.more": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2565,6 +2775,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ещё"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ще"
           }
         }
       }
@@ -2667,40 +2883,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хочу купить"
-          }
-        }
-      }
-    },
-    "purchases.afford.until": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Expect the money: %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Когда ждать деньги: %@"
-          }
-        }
-      }
-    },
-    "purchases.waiting.overdue": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Expected by %@ — overdue"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ожидалось до %@ — просрочено"
           }
         }
       }

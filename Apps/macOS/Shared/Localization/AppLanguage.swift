@@ -17,13 +17,37 @@ public final class AppLanguage {
     case english = "en"
     case russian = "ru"
 
-    public var settingsKey: String {
-      switch self {
-      case .system: "settings.language.system"
-      case .english: "settings.language.en"
-      case .russian: "settings.language.ru"
-      }
-    }
+    case ukrainian = "uk"
+    case belarusian = "be"
+    case kazakh = "kk"
+    case uzbek = "uz"
+    case kyrgyz = "ky"
+    case tajik = "tg"
+    case armenian = "hy"
+    case georgian = "ka"
+    case azerbaijani = "az"
+    case german = "de"
+    case french = "fr"
+    case spanish = "es"
+    case italian = "it"
+    case portuguesePortugal = "pt-PT"
+    case polish = "pl"
+    case czech = "cs"
+    case dutch = "nl"
+    case turkish = "tr"
+    case chineseSimplified = "zh-Hans"
+    case chineseTraditional = "zh-Hant"
+    case japanese = "ja"
+    case korean = "ko"
+    case vietnamese = "vi"
+    case indonesian = "id"
+    case thai = "th"
+    case hindi = "hi"
+    case portugueseBrazil = "pt-BR"
+    case arabic = "ar"
+    case hebrew = "he"
+
+    public var settingsKey: String { "settings.language.\(rawValue)" }
   }
 
   private nonisolated static let defaultsKey = "app.language"
@@ -65,7 +89,7 @@ public final class AppLanguage {
     defaults.set(choice.rawValue, forKey: defaultsKey)
     switch choice {
     case .system: defaults.removeObject(forKey: appleLanguagesKey)
-    case .english, .russian: defaults.set([choice.rawValue], forKey: appleLanguagesKey)
+    default: defaults.set([choice.rawValue], forKey: appleLanguagesKey)
     }
   }
 
@@ -84,7 +108,7 @@ public final class AppLanguage {
     switch choice {
     case .system:
       if override != nil { defaults.removeObject(forKey: appleLanguagesKey) }
-    case .english, .russian:
+    default:
       if override != [choice.rawValue] {
         defaults.set([choice.rawValue], forKey: appleLanguagesKey)
       }
@@ -100,10 +124,10 @@ public final class AppLanguage {
     self.missingDependency = missingDependency
   }
 
-  /// Two-letter code actually in use, with `system` resolved against system preferences.
+  /// Language tag actually in use, with `system` resolved against system preferences.
   public var resolvedCode: String { Self.code(for: choice) }
 
-  /// The two-letter code of the interface as the choice stored in `defaults` resolves it —
+  /// The language tag of the interface as the choice stored in `defaults` resolves it —
   /// the rule of `resolvedCode` — for work off the main thread that has to write in the
   /// language of the interface.
   nonisolated static func storedCode(in defaults: UserDefaults) -> String {
@@ -115,11 +139,8 @@ public final class AppLanguage {
     defaults.string(forKey: defaultsKey).flatMap(Choice.init(rawValue:)) ?? .system
   }
 
-  /// Looks a key up in the chosen language. A key the chosen language lacks is looked up in
-  /// the app's own tables — English, the language of development — and a key no table has
-  /// comes back as itself, which makes it obvious in the interface instead of silently empty.
-  /// The first can never ship: `testEveryEnglishKeyIsTranslatedIntoRussian` walks every table
-  /// compiled into the bundle, so a Russian gap fails the tests rather than showing English.
+  /// Looks up a key in the chosen language, then explicitly in English. A key absent
+  /// from both languages comes back as itself so missing source strings remain visible.
   ///
   /// On an iPhone and an iPad a key `x.y` may have a sibling `x.y.touch` (`Self.touchSuffix`):
   /// the same sentence for a screen with no keyboard, which names the «Отменить» button where
@@ -134,13 +155,27 @@ public final class AppLanguage {
 
   /// The same lookup for either platform, also used to check both sets of instructions.
   func text(_ key: String, table: String, forTouch: Bool) -> String {
-    if forTouch, !key.hasSuffix(Self.touchSuffix) {
-      let touchKey = key + Self.touchSuffix
-      let touch = bundle.localizedString(forKey: touchKey, value: nil, table: table)
-      if touch != touchKey { return touch }
+    Self.localizedText(
+      key, table: table, forTouch: forTouch, in: bundle, fallback: Self.englishBundle)
+  }
+
+  /// A touch instruction falls back to its English touch version before a Mac instruction.
+  /// This keeps keyboard shortcuts out of instructions on devices without a keyboard.
+  nonisolated static func localizedText(
+    _ key: String, table: String, forTouch: Bool, in selected: Bundle, fallback: Bundle
+  ) -> String {
+    if forTouch, !key.hasSuffix(touchSuffix) {
+      let touchKey = key + touchSuffix
+      for source in [selected, fallback] {
+        let value = source.localizedString(forKey: touchKey, value: nil, table: table)
+        if value != touchKey { return value }
+      }
     }
-    let value = bundle.localizedString(forKey: key, value: nil, table: table)
-    return value == key ? Bundle.main.localizedString(forKey: key, value: key, table: table) : value
+    for source in [selected, fallback] {
+      let value = source.localizedString(forKey: key, value: nil, table: table)
+      if value != key { return value }
+    }
+    return key
   }
 
   /// The ending of a key that words an instruction for a touch screen (see `callAsFunction`).
@@ -168,18 +203,25 @@ public final class AppLanguage {
     bundle = Self.bundle(for: resolvedCode)
   }
 
-  private nonisolated static func code(
+  nonisolated static func code(
     for choice: Choice, in defaults: UserDefaults = .standard
   ) -> String {
-    switch choice {
-    case .system:
-      let preferred = systemLanguages(in: defaults).first ?? "en"
-      return preferred.hasPrefix("ru") ? "ru" : "en"
-    case .english:
-      return "en"
-    case .russian:
-      return "ru"
-    }
+    choice == .system
+      ? systemCode(for: systemLanguages(in: defaults).first ?? "en") : choice.rawValue
+  }
+
+  /// Uses the same regional and script matching as first-launch data. Only the first
+  /// system language counts; an unsupported one uses English rather than a later preference.
+  nonisolated static func systemCode(for identifier: String) -> String {
+    StarterLanguage(identifier: identifier).rawValue
+  }
+
+  public var layoutDirection: LayoutDirection {
+    ["ar", "he"].contains(resolvedCode) ? .rightToLeft : .leftToRight
+  }
+
+  public var translationVerification: TranslationVerification {
+    StarterLanguage(identifier: resolvedCode).translationVerification
   }
 
   /// The languages of the Mac itself: its global domain. Not `Locale.preferredLanguages`,
@@ -194,12 +236,15 @@ public final class AppLanguage {
     return Locale.preferredLanguages
   }
 
+  private static var englishBundle: Bundle {
+    localizedBundle(for: "en") ?? .main
+  }
+
   private static func bundle(for code: String) -> Bundle {
-    guard let path = Bundle.main.path(forResource: code, ofType: "lproj"),
-      let bundle = Bundle(path: path)
-    else {
-      return .main
-    }
-    return bundle
+    localizedBundle(for: code) ?? englishBundle
+  }
+
+  private static func localizedBundle(for code: String) -> Bundle? {
+    Bundle.main.path(forResource: code, ofType: "lproj").flatMap(Bundle.init(path:))
   }
 }

@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "analytics.accounts.account": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -14,6 +15,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Счёт"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок"
           }
         }
       }
@@ -36,6 +43,7 @@
       }
     },
     "analytics.accounts.excluded": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -49,10 +57,17 @@
             "state": "translated",
             "value": "%@ · не в сводке"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · не входить до підсумку"
+          }
         }
       }
     },
     "analytics.accounts.groupTotal": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -65,6 +80,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Всего ≈ %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усього ≈ %@"
           }
         }
       }
@@ -104,6 +125,7 @@
       }
     },
     "analytics.accounts.noRate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -117,10 +139,17 @@
             "state": "translated",
             "value": "нет курса"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "немає курсу"
+          }
         }
       }
     },
     "analytics.accounts.now": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -133,6 +162,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сейчас"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зараз"
           }
         }
       }
@@ -189,6 +224,7 @@
       }
     },
     "analytics.accounts.withoutRate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -201,6 +237,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без курса, не учтено: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає курсу, не враховано: %@"
           }
         }
       }
@@ -308,6 +350,7 @@
       }
     },
     "analytics.anomaly.hidden": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -320,6 +363,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скрытые"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приховано"
           }
         }
       }
@@ -427,6 +476,7 @@
       }
     },
     "analytics.anomaly.slowReimbursement": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -439,6 +489,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Долгий возврат"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очікує повернення грошей"
           }
         }
       }
@@ -582,6 +638,7 @@
       }
     },
     "analytics.average.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -594,6 +651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Среднее"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Середнє"
           }
         }
       }
@@ -956,6 +1019,7 @@
       }
     },
     "analytics.block.anomalies": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -968,6 +1032,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Стоит посмотреть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Варто перевірити"
           }
         }
       }
@@ -1092,6 +1162,7 @@
       }
     },
     "analytics.block.eventsLastTime": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1104,6 +1175,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В прошлый раз"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Минулого разу"
           }
         }
       }
@@ -1126,6 +1203,7 @@
       }
     },
     "analytics.block.forWhomPeople": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1138,6 +1216,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По людям"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За людьми"
           }
         }
       }
@@ -1228,6 +1312,7 @@
       }
     },
     "analytics.block.incomeSources": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1240,6 +1325,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доходы по источникам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід за джерелами"
           }
         }
       }
@@ -1347,6 +1438,7 @@
       }
     },
     "analytics.block.months": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1359,6 +1451,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По месяцам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За місяцями"
           }
         }
       }
@@ -1381,6 +1479,7 @@
       }
     },
     "analytics.block.othersByPerson": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1393,6 +1492,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По людям"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За людьми"
           }
         }
       }
@@ -1432,6 +1537,7 @@
       }
     },
     "analytics.block.othersTotals": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1444,6 +1550,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заплачено за других"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оплачено за інших"
           }
         }
       }
@@ -1500,6 +1612,7 @@
       }
     },
     "analytics.block.placesTop": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1512,6 +1625,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Топ мест"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найбільші місця витрат"
           }
         }
       }
@@ -1670,6 +1789,7 @@
       }
     },
     "analytics.cashback.received": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1682,6 +1802,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Получен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отримано"
           }
         }
       }
@@ -1721,6 +1847,7 @@
       }
     },
     "analytics.change.noBase.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1733,6 +1860,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ · в прошлом месяце данных нет"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · немає даних за минулий місяць"
           }
         }
       }
@@ -1806,6 +1939,7 @@
       }
     },
     "analytics.column.budget": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1815,6 +1949,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Бюджет"
@@ -1840,6 +1980,7 @@
       }
     },
     "analytics.column.cashbackDifference": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1852,6 +1993,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Разница"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Різниця"
           }
         }
       }
@@ -1908,6 +2055,7 @@
       }
     },
     "analytics.column.event": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1920,6 +2068,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Событие"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подія"
           }
         }
       }
@@ -1959,6 +2113,7 @@
       }
     },
     "analytics.column.left": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1972,10 +2127,17 @@
             "state": "translated",
             "value": "Осталось"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишилося"
+          }
         }
       }
     },
     "analytics.column.method": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1989,10 +2151,17 @@
             "state": "translated",
             "value": "Счёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок"
+          }
         }
       }
     },
     "analytics.column.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2005,6 +2174,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Месяц"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяць"
           }
         }
       }
@@ -2027,6 +2202,7 @@
       }
     },
     "analytics.column.place": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2040,10 +2216,17 @@
             "state": "translated",
             "value": "Место"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місце"
+          }
         }
       }
     },
     "analytics.column.purchases": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2057,10 +2240,17 @@
             "state": "translated",
             "value": "Покупок"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупки"
+          }
         }
       }
     },
     "analytics.column.spent": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2073,6 +2263,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Потрачено"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрачено"
           }
         }
       }
@@ -2112,6 +2308,7 @@
       }
     },
     "analytics.donut.other": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2125,10 +2322,17 @@
             "state": "translated",
             "value": "Прочее"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інші"
+          }
         }
       }
     },
     "analytics.event.notStarted": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2141,6 +2345,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ещё не началось"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ще не почалося"
           }
         }
       }
@@ -2180,6 +2390,7 @@
       }
     },
     "analytics.events.budget": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2193,10 +2404,17 @@
             "state": "translated",
             "value": "бюджет %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бюджет %@"
+          }
         }
       }
     },
     "analytics.events.spent": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2209,6 +2427,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Потрачено"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрачено"
           }
         }
       }
@@ -2231,6 +2455,7 @@
       }
     },
     "analytics.forecast.actual": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2243,6 +2468,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Потрачено"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже витрачено"
           }
         }
       }
@@ -2418,6 +2649,7 @@
       }
     },
     "analytics.forecast.plannedPayments": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2430,6 +2662,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "плановые платежи %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "заплановані платежі %@"
           }
         }
       }
@@ -2469,6 +2707,7 @@
       }
     },
     "analytics.group.forecast": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2482,10 +2721,17 @@
             "state": "translated",
             "value": "Прогноз"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прогноз"
+          }
         }
       }
     },
     "analytics.group.habits": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2499,10 +2745,17 @@
             "state": "translated",
             "value": "Привычки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Звички"
+          }
         }
       }
     },
     "analytics.group.income": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2516,10 +2769,17 @@
             "state": "translated",
             "value": "Доход"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід"
+          }
         }
       }
     },
     "analytics.group.spending": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2532,6 +2792,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Траты"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрати"
           }
         }
       }
@@ -2862,6 +3128,7 @@
       }
     },
     "analytics.newOperation": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2875,10 +3142,17 @@
             "state": "translated",
             "value": "Новая операция"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нова операція"
+          }
         }
       }
     },
     "analytics.none.event": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2891,6 +3165,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без события"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без події"
           }
         }
       }
@@ -2913,6 +3193,7 @@
       }
     },
     "analytics.none.paymentMethod": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2926,10 +3207,17 @@
             "state": "translated",
             "value": "Счёт не указан"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вказано"
+          }
         }
       }
     },
     "analytics.none.person": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2943,10 +3231,17 @@
             "state": "translated",
             "value": "Без человека"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без конкретної людини"
+          }
         }
       }
     },
     "analytics.none.place": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2960,10 +3255,17 @@
             "state": "translated",
             "value": "Без места"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без місця"
+          }
         }
       }
     },
     "analytics.none.subcategory": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2977,10 +3279,17 @@
             "state": "translated",
             "value": "(без подкатегории)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "(без підкатегорії)"
+          }
         }
       }
     },
     "analytics.others.col.returned": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2994,10 +3303,17 @@
             "state": "translated",
             "value": "Вернули"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернено"
+          }
         }
       }
     },
     "analytics.others.col.total": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3010,6 +3326,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Всего"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усього"
           }
         }
       }
@@ -3032,6 +3354,7 @@
       }
     },
     "analytics.others.col.who": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3045,10 +3368,17 @@
             "state": "translated",
             "value": "Кто"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хто"
+          }
         }
       }
     },
     "analytics.others.col.writtenOff": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3058,6 +3388,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Списано"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Списано"
@@ -3083,6 +3419,7 @@
       }
     },
     "analytics.others.paid": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3096,10 +3433,17 @@
             "state": "translated",
             "value": "Заплачено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сплачено"
+          }
         }
       }
     },
     "analytics.others.returned": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3113,10 +3457,17 @@
             "state": "translated",
             "value": "Вернули"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернено"
+          }
         }
       }
     },
     "analytics.others.series.paid": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3129,6 +3480,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "выдано"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сплачено"
           }
         }
       }
@@ -3185,6 +3542,7 @@
       }
     },
     "analytics.others.waiting": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3198,10 +3556,17 @@
             "state": "translated",
             "value": "Ждёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очікує"
+          }
         }
       }
     },
     "analytics.others.writtenOff": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3211,6 +3576,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Списано"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Списано"
@@ -3236,6 +3607,7 @@
       }
     },
     "analytics.period.choice.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3249,10 +3621,17 @@
             "state": "translated",
             "value": "Месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяць"
+          }
         }
       }
     },
     "analytics.period.choice.quarter": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3266,10 +3645,17 @@
             "state": "translated",
             "value": "Квартал"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Квартал"
+          }
         }
       }
     },
     "analytics.period.choice.week": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3283,10 +3669,17 @@
             "state": "translated",
             "value": "Неделя"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тиждень"
+          }
         }
       }
     },
     "analytics.period.choice.year": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3300,10 +3693,17 @@
             "state": "translated",
             "value": "Год"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рік"
+          }
         }
       }
     },
     "analytics.period.choose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3316,6 +3716,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выбрать период"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть період"
           }
         }
       }
@@ -3338,6 +3744,7 @@
       }
     },
     "analytics.period.current": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3350,6 +3757,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Текущий"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поточний"
           }
         }
       }
@@ -3389,6 +3802,7 @@
       }
     },
     "analytics.period.kind": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3402,10 +3816,17 @@
             "state": "translated",
             "value": "Период"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Період"
+          }
         }
       }
     },
     "analytics.period.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3419,10 +3840,17 @@
             "state": "translated",
             "value": "Месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяць"
+          }
         }
       }
     },
     "analytics.period.next": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3436,10 +3864,17 @@
             "state": "translated",
             "value": "Следующий период"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наступний період"
+          }
         }
       }
     },
     "analytics.period.previous": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3453,10 +3888,17 @@
             "state": "translated",
             "value": "Предыдущий период"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Попередній період"
+          }
         }
       }
     },
     "analytics.period.quarter": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3470,10 +3912,17 @@
             "state": "translated",
             "value": "Квартал"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Квартал"
+          }
         }
       }
     },
     "analytics.period.sheet": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3487,10 +3936,17 @@
             "state": "translated",
             "value": "Выбрать период"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть період"
+          }
         }
       }
     },
     "analytics.period.twelveMonths": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3504,10 +3960,17 @@
             "state": "translated",
             "value": "12 мес."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 місяців"
+          }
         }
       }
     },
     "analytics.period.week": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3520,6 +3983,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Неделя"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тиждень"
           }
         }
       }
@@ -3542,6 +4011,7 @@
       }
     },
     "analytics.period.year": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3554,6 +4024,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Год"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рік"
           }
         }
       }
@@ -3612,6 +4088,7 @@
       }
     },
     "analytics.places.new": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3624,6 +4101,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "новое"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "новий"
           }
         }
       }
@@ -3818,6 +4301,7 @@
       }
     },
     "analytics.reason.noHistory": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3831,10 +4315,17 @@
             "state": "translated",
             "value": "Операций пока нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операцій поки немає"
+          }
         }
       }
     },
     "analytics.reason.noIncome": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3847,6 +4338,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В этом периоде нет доходов"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За цей період немає доходу"
           }
         }
       }
@@ -3937,6 +4434,7 @@
       }
     },
     "analytics.reason.noSpending": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3950,10 +4448,17 @@
             "state": "translated",
             "value": "В этом периоде нет расходов"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За цей період немає витрат"
+          }
         }
       }
     },
     "analytics.reason.noSpendingThisMonth": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -3966,6 +4471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "В этом месяце ещё нет расходов"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цього місяця ще немає витрат"
           }
         }
       }
@@ -4090,6 +4601,7 @@
       }
     },
     "analytics.section.anomalies": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4102,6 +4614,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Аномалии"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Незвичні операції"
           }
         }
       }
@@ -4141,6 +4659,7 @@
       }
     },
     "analytics.section.events": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4154,10 +4673,17 @@
             "state": "translated",
             "value": "События"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Події"
+          }
         }
       }
     },
     "analytics.section.forWhom": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4171,10 +4697,17 @@
             "state": "translated",
             "value": "На кого"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для кого"
+          }
         }
       }
     },
     "analytics.section.forecast": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4184,6 +4717,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прогноз"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Прогноз"
@@ -4209,6 +4748,7 @@
       }
     },
     "analytics.section.incomeSavings": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4221,6 +4761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доход и сбережения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід і заощадження"
           }
         }
       }
@@ -4260,6 +4806,7 @@
       }
     },
     "analytics.section.others": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4273,10 +4820,17 @@
             "state": "translated",
             "value": "За других"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оплачено за інших"
+          }
         }
       }
     },
     "analytics.section.overview": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4290,10 +4844,17 @@
             "state": "translated",
             "value": "Обзор"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Огляд"
+          }
         }
       }
     },
     "analytics.section.paymentMethods": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4307,10 +4868,17 @@
             "state": "translated",
             "value": "Счета"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки"
+          }
         }
       }
     },
     "analytics.section.places": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4323,6 +4891,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Места"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місця"
           }
         }
       }
@@ -4345,6 +4919,7 @@
       }
     },
     "analytics.segment.goals": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4358,10 +4933,17 @@
             "state": "translated",
             "value": "Цели"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цілі"
+          }
         }
       }
     },
     "analytics.segment.rest": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4375,10 +4957,17 @@
             "state": "translated",
             "value": "Остальное"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Решта"
+          }
         }
       }
     },
     "analytics.series.current": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4392,10 +4981,17 @@
             "state": "translated",
             "value": "Этот период"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цей період"
+          }
         }
       }
     },
     "analytics.series.expenses": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4409,10 +5005,17 @@
             "state": "translated",
             "value": "Расходы"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрати"
+          }
         }
       }
     },
     "analytics.series.income": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4425,6 +5028,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доходы"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід"
           }
         }
       }
@@ -4447,6 +5056,7 @@
       }
     },
     "analytics.series.previous": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4460,10 +5070,17 @@
             "state": "translated",
             "value": "Прошлый период"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Попередній період"
+          }
         }
       }
     },
     "analytics.step.day": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4477,10 +5094,17 @@
             "state": "translated",
             "value": "Дни"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дні"
+          }
         }
       }
     },
     "analytics.step.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -4493,6 +5117,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Месяцы"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяці"
           }
         }
       }
@@ -4678,12 +5308,6 @@
         "ru": {
           "variations": {
             "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld раз"
-                }
-              },
               "few": {
                 "stringUnit": {
                   "state": "translated",
@@ -4691,6 +5315,12 @@
                 }
               },
               "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld раз"
+                }
+              },
+              "one": {
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld раз"

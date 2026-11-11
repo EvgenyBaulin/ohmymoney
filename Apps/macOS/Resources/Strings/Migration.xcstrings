@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "migration.account.skip": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -15,10 +16,17 @@
             "state": "translated",
             "value": "Не переносить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не переносити"
+          }
         }
       }
     },
     "migration.account.unnamed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -32,10 +40,17 @@
             "state": "translated",
             "value": "Счёт в файле не указан"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок не названо у файлі"
+          }
         }
       }
     },
     "migration.accounts": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -49,10 +64,17 @@
             "state": "translated",
             "value": "Счета"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки"
+          }
         }
       }
     },
     "migration.accounts.footer": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -66,10 +88,17 @@
             "state": "translated",
             "value": "Куда идут операции каждого счёта другого приложения. «Не переносить» оставляет их в стороне. Скрытые счета предлагаются, только пока они показаны."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куди перенести операції кожного рахунку іншого застосунку. «Не переносити» виключає їх. Приховані рахунки пропонуються лише поки їх показано."
+          }
         }
       }
     },
     "migration.another": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -83,10 +112,17 @@
             "state": "translated",
             "value": "Другой файл…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інший файл…"
+          }
         }
       }
     },
     "migration.apply": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -100,10 +136,17 @@
             "state": "translated",
             "value": "Перенести"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенести"
+          }
         }
       }
     },
     "migration.categories": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -117,10 +160,17 @@
             "state": "translated",
             "value": "Категории"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорії"
+          }
         }
       }
     },
     "migration.categories.createAll": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -170,10 +220,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Створити %lld відсутні категорії"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Створити %lld відсутніх категорій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Створити %lld відсутню категорію"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Створити %lld відсутньої категорії"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.categories.footer": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -187,10 +268,17 @@
             "state": "translated",
             "value": "Подобраны по названию и смыслу («Еда вне дома» → «Кафе»). Новая категория создаётся, только если выбрать «Создать»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зіставлено за назвою й змістом («Харчування поза домом» → «Кафе»). Нова категорія створюється лише там, де ви виберете «Створити»."
+          }
         }
       }
     },
     "migration.categories.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -204,10 +292,17 @@
             "state": "translated",
             "value": "В файле нет категорий: всё попадёт в «Не разобрано»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У файлі немає категорій: усе потрапить у «Нерозібране»."
+          }
         }
       }
     },
     "migration.category.create": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -221,10 +316,17 @@
             "state": "translated",
             "value": "Создать «%@»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити «%@»"
+          }
         }
       }
     },
     "migration.category.unsorted": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -238,10 +340,17 @@
             "state": "translated",
             "value": "Не разобрано"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нерозібране"
+          }
         }
       }
     },
     "migration.choose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -255,10 +364,17 @@
             "state": "translated",
             "value": "Выбрать файл…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати файл…"
+          }
         }
       }
     },
     "migration.close": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -272,10 +388,17 @@
             "state": "translated",
             "value": "Готово"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
         }
       }
     },
     "migration.columns.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -289,10 +412,17 @@
             "state": "translated",
             "value": "Что в каждом столбце. Выбор запоминается для следующего файла с такими же столбцами."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що містить кожен стовпець. Вибір запам'ятовується для наступного файлу з такими самими стовпцями."
+          }
         }
       }
     },
     "migration.columns.incomplete": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -306,10 +436,17 @@
             "state": "translated",
             "value": "Выберите столбец даты и суммы (или столбцы дохода и расхода)."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть стовпець дати та суми (або стовпці доходу й витрати)."
+          }
         }
       }
     },
     "migration.columns.read": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -323,10 +460,17 @@
             "state": "translated",
             "value": "Прочитано операций: %lld · не прочитано строк: %lld"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитано операцій: %lld · не прочитано рядків: %lld"
+          }
         }
       }
     },
     "migration.dateOrder": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -340,10 +484,17 @@
             "state": "translated",
             "value": "Даты вида 03/04"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дати на зразок 03/04"
+          }
         }
       }
     },
     "migration.dateOrder.dayFirst": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -357,10 +508,17 @@
             "state": "translated",
             "value": "сначала день, потом месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "день, потім місяць"
+          }
         }
       }
     },
     "migration.dateOrder.monthFirst": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -374,10 +532,17 @@
             "state": "translated",
             "value": "сначала месяц, потом день"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "місяць, потім день"
+          }
         }
       }
     },
     "migration.disposition.duplicate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -391,10 +556,17 @@
             "state": "translated",
             "value": "уже есть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "уже є"
+          }
         }
       }
     },
     "migration.disposition.likely": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -408,10 +580,17 @@
             "state": "translated",
             "value": "введена вручную?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "введено вручну?"
+          }
         }
       }
     },
     "migration.disposition.nearest": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -425,10 +604,17 @@
             "state": "translated",
             "value": "ближайший курс"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "найближчий курс"
+          }
         }
       }
     },
     "migration.disposition.new": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -442,10 +628,17 @@
             "state": "translated",
             "value": "новая"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "новий"
+          }
         }
       }
     },
     "migration.disposition.rate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -459,10 +652,17 @@
             "state": "translated",
             "value": "нет курса"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "немає курсу"
+          }
         }
       }
     },
     "migration.done.categories": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -512,10 +712,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Створено %lld нові категорії"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Створено %lld нових категорій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Створено %lld нову категорію"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Створено %lld нової категорії"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.done.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -565,10 +796,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Перенесено %lld операції"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Перенесено %lld операцій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Перенесено %lld операцію"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Перенесено %lld операції"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.done.undo": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -582,10 +844,17 @@
             "state": "translated",
             "value": "«Правка» → «Отменить» (⌘Z) отменяет перенос целиком. Копия базы, сделанная перед ним, лежит среди бэкапов."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Редагування → Скасувати дію (⌘Z) скасовує все перенесення. Копія бази даних перед ним є серед резервних копій."
+          }
         }
       }
     },
     "migration.done.undo.touch": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -599,10 +868,17 @@
             "state": "translated",
             "value": "«Отменить» отменяет перенос целиком. Копия базы, сделанная перед ним, лежит среди бэкапов."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Скасувати дію» скасовує все перенесення. Копія бази даних перед ним є серед резервних копій."
+          }
         }
       }
     },
     "migration.empty.body": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -616,10 +892,17 @@
             "state": "translated",
             "value": "CSV или Excel (.xlsx) из CoinKeeper, Дзен-мани, Money Manager или любая таблица с датой и суммой. Таблицу Numbers сначала экспортируйте в CSV или Excel."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV або Excel (.xlsx) із CoinKeeper, Zenmoney, Money Manager чи будь-яка таблиця з датою та сумою. Таблицю Numbers спочатку експортуйте в CSV або Excel."
+          }
         }
       }
     },
     "migration.empty.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -633,10 +916,17 @@
             "state": "translated",
             "value": "Выберите файл выгрузки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть файл експорту"
+          }
         }
       }
     },
     "migration.failed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -650,10 +940,17 @@
             "state": "translated",
             "value": "Не перенесено, ничего не записано. Причина — в журнале."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не перенесено, нічого не записано. Причина в журналі."
+          }
         }
       }
     },
     "migration.file.numbers": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -667,10 +964,17 @@
             "state": "translated",
             "value": "Это документ Numbers, его формат закрыт. В Numbers выберите «Файл» → «Экспортировать в» → CSV или Excel и выберите здесь получившийся файл."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це документ Numbers із закритим форматом. У Numbers виберіть «Файл → Експортувати до → CSV або Excel», а потім виберіть той файл тут."
+          }
         }
       }
     },
     "migration.file.unreadable": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -684,10 +988,17 @@
             "state": "translated",
             "value": "Файл не читается как таблица с названиями столбцов. Выгрузите его в CSV или .xlsx."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не читається як таблиця з назвами стовпців. Експортуйте в CSV або .xlsx."
+          }
         }
       }
     },
     "migration.file.xls": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -701,10 +1012,17 @@
             "state": "translated",
             "value": "Это файл Excel старше 2007 года (.xls). Сохраните его заново как .xlsx или CSV и выберите здесь."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це файл Excel старіший за 2007 рік (.xls). Збережіть його як .xlsx або CSV та виберіть тут."
+          }
         }
       }
     },
     "migration.kind.expense": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -718,10 +1036,17 @@
             "state": "translated",
             "value": "Расход"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрата"
+          }
         }
       }
     },
     "migration.kind.income": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -735,10 +1060,17 @@
             "state": "translated",
             "value": "Доход"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід"
+          }
         }
       }
     },
     "migration.legacyEncoding": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -752,10 +1084,17 @@
             "state": "translated",
             "value": "Файл в кодировке windows-1251 и прочитан в ней."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл у кодуванні windows-1251, його прочитано відповідно."
+          }
         }
       }
     },
     "migration.menu": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -769,10 +1108,17 @@
             "state": "translated",
             "value": "Перенести из другого приложения…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенести з іншого застосунку…"
+          }
         }
       }
     },
     "migration.next": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -786,10 +1132,17 @@
             "state": "translated",
             "value": "Далее"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Далі"
+          }
         }
       }
     },
     "migration.preview.backup": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -803,10 +1156,17 @@
             "state": "translated",
             "value": "Перед переносом делается копия базы."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перед перенесенням створюється копія бази даних."
+          }
         }
       }
     },
     "migration.preview.duplicates": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -856,10 +1216,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld уже є в обліку — пропущено"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld уже є в обліку — пропущено"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld уже є в обліку — пропущено"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld уже є в обліку — пропущено"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.preview.fetchingRates": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -873,10 +1264,17 @@
             "state": "translated",
             "value": "Запрашиваю у Банка России курсы этих дней…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запит курсів за ці дні в Банку Росії…"
+          }
         }
       }
     },
     "migration.preview.likely": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -926,10 +1324,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld схожі на введені вручну операції — не враховано"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld схожих на введені вручну операції — не враховано"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld схожа на введену вручну операцію — не враховано"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld схожої на введену вручну операцію — не враховано"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.preview.likely.include": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -943,10 +1372,17 @@
             "state": "translated",
             "value": "Перенести и их"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенести й ці"
+          }
         }
       }
     },
     "migration.preview.more": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -996,10 +1432,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "і ще %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "і ще %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "і ще %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "і ще %lld"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.preview.nearest": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1049,10 +1516,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld за найближчим наявним курсом, позначено попереднім — уточняться після отримання курсу дня"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld за найближчим наявним курсом, позначено попереднім — уточняться після отримання курсу дня"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld за найближчим наявним курсом, позначено попереднім — уточниться після отримання курсу дня"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld за найближчим наявним курсом, позначено попереднім — уточниться після отримання курсу дня"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.preview.period": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1066,10 +1564,17 @@
             "state": "translated",
             "value": "С %1$@ по %2$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Від %1$@ до %2$@"
+          }
         }
       }
     },
     "migration.preview.rate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1119,10 +1624,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld у валюті зовсім без курсу — не переносяться"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld у валюті зовсім без курсу — не переносяться"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld у валюті зовсім без курсу — не переноситься"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld у валюті зовсім без курсу — не переноситься"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.preview.total": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1172,10 +1708,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Буде перенесено %lld операції"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Буде перенесено %lld операцій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Буде перенесено %lld операцію"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Буде перенесено %lld операції"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.preview.transfers": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1225,10 +1792,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перекази між власними рахунками застосунку — не переносяться"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказів між власними рахунками застосунку — не переносяться"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказ між власними рахунками застосунку — не переноситься"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказу між власними рахунками застосунку — не переноситься"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.preview.unparsed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1278,10 +1876,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядки не прочитано"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядків не прочитано"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядок не прочитано"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядка не прочитано"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.reading": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1295,10 +1924,17 @@
             "state": "translated",
             "value": "Читаю файл…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Читання файлу…"
+          }
         }
       }
     },
     "migration.role.account": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1312,10 +1948,17 @@
             "state": "translated",
             "value": "Счёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок"
+          }
         }
       }
     },
     "migration.role.amount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1329,10 +1972,17 @@
             "state": "translated",
             "value": "Сумма (со знаком)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума зі знаком"
+          }
         }
       }
     },
     "migration.role.category": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1346,10 +1996,17 @@
             "state": "translated",
             "value": "Категория"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія"
+          }
         }
       }
     },
     "migration.role.comment": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1363,10 +2020,17 @@
             "state": "translated",
             "value": "Комментарий"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Коментар"
+          }
         }
       }
     },
     "migration.role.currency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1380,10 +2044,17 @@
             "state": "translated",
             "value": "Валюта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
         }
       }
     },
     "migration.role.date": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1397,10 +2068,17 @@
             "state": "translated",
             "value": "Дата"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
         }
       }
     },
     "migration.role.description": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1414,10 +2092,17 @@
             "state": "translated",
             "value": "Описание"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Опис"
+          }
         }
       }
     },
     "migration.role.expense": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1431,10 +2116,17 @@
             "state": "translated",
             "value": "Расход"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрата"
+          }
         }
       }
     },
     "migration.role.from": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1448,10 +2140,17 @@
             "state": "translated",
             "value": "Из"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Від кого"
+          }
         }
       }
     },
     "migration.role.income": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1465,10 +2164,17 @@
             "state": "translated",
             "value": "Доход"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід"
+          }
         }
       }
     },
     "migration.role.incomeAccount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1482,10 +2188,17 @@
             "state": "translated",
             "value": "Счёт дохода"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок доходу"
+          }
         }
       }
     },
     "migration.role.incomeCurrency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1499,10 +2212,17 @@
             "state": "translated",
             "value": "Валюта дохода"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта доходу"
+          }
         }
       }
     },
     "migration.role.kind": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1516,10 +2236,17 @@
             "state": "translated",
             "value": "Тип (расход, доход, перевод)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тип (витрата, дохід, переказ)"
+          }
         }
       }
     },
     "migration.role.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1533,10 +2260,17 @@
             "state": "translated",
             "value": "Не читать"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не читати"
+          }
         }
       }
     },
     "migration.role.payee": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1550,10 +2284,17 @@
             "state": "translated",
             "value": "Получатель или магазин"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отримувач або магазин"
+          }
         }
       }
     },
     "migration.role.subcategory": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1567,10 +2308,17 @@
             "state": "translated",
             "value": "Подкатегория"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підкатегорія"
+          }
         }
       }
     },
     "migration.role.to": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1584,10 +2332,17 @@
             "state": "translated",
             "value": "В"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До"
+          }
         }
       }
     },
     "migration.settings.open": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1601,10 +2356,17 @@
             "state": "translated",
             "value": "Перенести из другого приложения…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенести з іншого застосунку…"
+          }
         }
       }
     },
     "migration.source.coinKeeper": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1618,10 +2380,17 @@
             "state": "translated",
             "value": "Похоже на выгрузку CoinKeeper"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схоже на експорт CoinKeeper"
+          }
         }
       }
     },
     "migration.source.moneyManager": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1635,10 +2404,17 @@
             "state": "translated",
             "value": "Похоже на выгрузку Money Manager"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схоже на експорт Money Manager"
+          }
         }
       }
     },
     "migration.source.spreadsheet": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1652,10 +2428,17 @@
             "state": "translated",
             "value": "Таблица"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таблиця"
+          }
         }
       }
     },
     "migration.source.zenmoney": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1669,10 +2452,17 @@
             "state": "translated",
             "value": "Похоже на выгрузку Дзен-мани"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схоже на експорт Zenmoney"
+          }
         }
       }
     },
     "migration.step.columns": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1686,10 +2476,17 @@
             "state": "translated",
             "value": "Столбцы"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стовпці"
+          }
         }
       }
     },
     "migration.step.pairing": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1703,10 +2500,17 @@
             "state": "translated",
             "value": "Счета и категории"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки й категорії"
+          }
         }
       }
     },
     "migration.step.preview": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1720,10 +2524,17 @@
             "state": "translated",
             "value": "Предпросмотр"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Попередній перегляд"
+          }
         }
       }
     },
     "migration.subtitle": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1737,10 +2548,17 @@
             "state": "translated",
             "value": "Таблица, выгруженная из CoinKeeper, Дзен-мани, Money Manager, Excel или Numbers. До «Перенести» ничего не записывается; перед записью делается копия базы, а ⌘Z отменяет перенос целиком."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таблиця, експортована з CoinKeeper, Zenmoney, Money Manager, Excel або Numbers. Нічого не записується до «Перенести»; спочатку створюється копія бази, а ⌘Z скасовує все перенесення."
+          }
         }
       }
     },
     "migration.subtitle.touch": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1754,10 +2572,17 @@
             "state": "translated",
             "value": "Таблица, выгруженная из CoinKeeper, Дзен-мани, Money Manager, Excel или Numbers. До «Перенести» ничего не записывается; перед записью делается копия базы, а «Отменить» отменяет перенос целиком."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таблиця, експортована з CoinKeeper, Zenmoney, Money Manager, Excel або Numbers. Нічого не записується до «Перенести»; спочатку створюється копія бази, а «Скасувати дію» скасовує все перенесення."
+          }
         }
       }
     },
     "migration.summary": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1807,10 +2632,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції для перенесення"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцій для перенесення"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операція для перенесення"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції для перенесення"
+                }
+              }
+            }
+          }
         }
       }
     },
     "migration.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1823,6 +2679,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перенос из другого приложения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенесення з іншого застосунку"
           }
         }
       }

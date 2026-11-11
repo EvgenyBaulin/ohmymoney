@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "cashback.cap.account": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -15,10 +16,17 @@
             "state": "translated",
             "value": "Весь счёт — не больше"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увесь рахунок, не більше ніж"
+          }
         }
       }
     },
     "cashback.cap.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -32,10 +40,17 @@
             "state": "translated",
             "value": "без потолка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "без ліміту"
+          }
         }
       }
     },
     "cashback.cap.perMonth": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -49,10 +64,17 @@
             "state": "translated",
             "value": "₽ в месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "₽ на місяць"
+          }
         }
       }
     },
     "cashback.cap.rule": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -66,10 +88,17 @@
             "state": "translated",
             "value": "Не больше"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не більше ніж"
+          }
         }
       }
     },
     "cashback.cap.unreadable": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -83,10 +112,17 @@
             "state": "translated",
             "value": "Потолок в месяц — сумма в рублях или пусто, если потолка нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місячний ліміт має бути сумою в рублях або порожнім полем без ліміту."
+          }
         }
       }
     },
     "cashback.choice.add": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -100,10 +136,17 @@
             "state": "translated",
             "value": "Добавить категорию"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати категорію"
+          }
         }
       }
     },
     "cashback.choice.best": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -117,10 +160,17 @@
             "state": "translated",
             "value": "Лучший выбор"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найкращий вибір"
+          }
         }
       }
     },
     "cashback.choice.bestHint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -134,10 +184,17 @@
             "state": "translated",
             "value": "Посчитано по вашим покупкам за три последних месяца с учётом потолка счёта. Это только оценка."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обчислено за покупками за останні три місяці з урахуванням місячного ліміту рахунку. Лише оцінка."
+          }
         }
       }
     },
     "cashback.choice.label": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -151,10 +208,17 @@
             "state": "translated",
             "value": "Категория банка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія банку"
+          }
         }
       }
     },
     "cashback.choice.mapping": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -168,10 +232,17 @@
             "state": "translated",
             "value": "Категория банка → ваша"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія банку → ваша"
+          }
         }
       }
     },
     "cashback.choice.mappingHint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -185,10 +256,17 @@
             "state": "translated",
             "value": "Запоминается для этого банка: в следующем месяце те же названия найдут ваши категории сами."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запам'ятовується для цього банку: наступного місяця ті самі назви самі знайдуть ваші категорії."
+          }
         }
       }
     },
     "cashback.choice.noBank": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -202,10 +280,17 @@
             "state": "translated",
             "value": "У счёта не указан банк: укажите его в счёте, чтобы сопоставление запоминалось."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У рахунку немає банку: виберіть його, щоб запам'ятати категорії."
+          }
         }
       }
     },
     "cashback.choice.noBest": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -219,10 +304,17 @@
             "state": "translated",
             "value": "Пока нечего считать: сопоставьте категории банка с вашими ниже."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ще немає що обчислити: зіставте категорії банку зі своїми нижче."
+          }
         }
       }
     },
     "cashback.choice.notMapped": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -236,10 +328,17 @@
             "state": "translated",
             "value": "Не сопоставлена"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не зіставлено"
+          }
         }
       }
     },
     "cashback.choice.offered": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -253,10 +352,17 @@
             "state": "translated",
             "value": "Что банк предлагает в этом месяце"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що банк пропонує цього місяця"
+          }
         }
       }
     },
     "cashback.choice.offeredHint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -270,10 +376,17 @@
             "state": "translated",
             "value": "Введите категории так, как их показывает приложение банка. У каждого банка и в каждом месяце они свои."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть категорії так, як у застосунку банку. У кожного банку та місяця — свої."
+          }
         }
       }
     },
     "cashback.choice.open": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -287,10 +400,17 @@
             "state": "translated",
             "value": "Категории месяца…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорії місяця…"
+          }
         }
       }
     },
     "cashback.choice.perMonth": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -304,10 +424,17 @@
             "state": "translated",
             "value": "≈ %@ в месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "≈ %@ на місяць"
+          }
         }
       }
     },
     "cashback.choice.percent": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -321,10 +448,17 @@
             "state": "translated",
             "value": "Процент"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відсоток"
+          }
         }
       }
     },
     "cashback.choice.percentUnreadable": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -338,10 +472,17 @@
             "state": "translated",
             "value": "Процент — число от 0 до 100."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відсоток має бути числом від 0 до 100."
+          }
         }
       }
     },
     "cashback.choice.pick": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -355,10 +496,17 @@
             "state": "translated",
             "value": "Банк разрешает выбрать: %d"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк дозволяє вибрати: %d"
+          }
         }
       }
     },
     "cashback.choice.remove": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -372,10 +520,17 @@
             "state": "translated",
             "value": "Убрать"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прибрати"
+          }
         }
       }
     },
     "cashback.choice.take": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -389,10 +544,17 @@
             "state": "translated",
             "value": "Взять эту категорию"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати цю категорію"
+          }
         }
       }
     },
     "cashback.choice.takeThese": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -406,10 +568,17 @@
             "state": "translated",
             "value": "Взять"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати"
+          }
         }
       }
     },
     "cashback.choice.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -423,10 +592,17 @@
             "state": "translated",
             "value": "Категории кэшбэка «%@» на %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорії кешбеку «%@» за %@"
+          }
         }
       }
     },
     "cashback.choice.unmapped": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -440,10 +616,17 @@
             "state": "translated",
             "value": "«%@» не сопоставлена с вашей категорией: правило для неё не появится."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» не відповідає жодній вашій категорії: правило не додається."
+          }
         }
       }
     },
     "cashback.choiceDay": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -457,10 +640,17 @@
             "state": "translated",
             "value": "Банк открывает выбор категорий"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк відкриває вибір категорій"
+          }
         }
       }
     },
     "cashback.choiceDay.day": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -474,10 +664,17 @@
             "state": "translated",
             "value": "%d-го числа"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d числа"
+          }
         }
       }
     },
     "cashback.choiceDay.last": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -491,10 +688,17 @@
             "state": "translated",
             "value": "В последний день"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В останній день"
+          }
         }
       }
     },
     "cashback.choiceDay.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -508,10 +712,17 @@
             "state": "translated",
             "value": "Выбора нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без щомісячного вибору"
+          }
         }
       }
     },
     "cashback.missed.byMonth": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -525,10 +736,17 @@
             "state": "translated",
             "value": "По месяцам"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За місяцями"
+          }
         }
       }
     },
     "cashback.missed.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -542,10 +760,17 @@
             "state": "translated",
             "value": "Посчитано по правилам и потолкам, какими они были в день каждой покупки. Сравниваются только карты счетов в валюте покупки."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обчислено за правилами й місячними лімітами на день кожної покупки. Порівнюються лише картки рахунків у валюті покупки."
+          }
         }
       }
     },
     "cashback.missed.largest": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -559,10 +784,17 @@
             "state": "translated",
             "value": "Больше всего упущено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найбільші втрати"
+          }
         }
       }
     },
     "cashback.missed.line": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -576,10 +808,17 @@
             "state": "translated",
             "value": "%@ · картой «%@» было бы %@ вместо %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · із «%@» було б %@ замість %@"
+          }
         }
       }
     },
     "cashback.missed.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -593,10 +832,17 @@
             "state": "translated",
             "value": "За три месяца ничего не упущено: каждая покупка прошла по лучшей из ваших карт."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За останні три місяці нічого не втрачено: кожну покупку оплачено найкращою з ваших карток."
+          }
         }
       }
     },
     "cashback.missed.open": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -610,10 +856,17 @@
             "state": "translated",
             "value": "Упущенный кэшбэк…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Втрачений кешбек…"
+          }
         }
       }
     },
     "cashback.missed.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -627,10 +880,17 @@
             "state": "translated",
             "value": "Упущенный кэшбэк"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Втрачений кешбек"
+          }
         }
       }
     },
     "cashback.missed.total": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -644,10 +904,17 @@
             "state": "translated",
             "value": "За три месяца: на %@ меньше, чем дала бы лучшая из ваших карт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За три місяці: на %@ менше, ніж дала б найкраща з ваших карток"
+          }
         }
       }
     },
     "cashback.note.action.choose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -661,10 +928,17 @@
             "state": "translated",
             "value": "Выбрать…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати…"
+          }
         }
       }
     },
     "cashback.note.choose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -678,10 +952,17 @@
             "state": "translated",
             "value": "Выберите категории кэшбэка «%@» на %@: банк открыл выбор."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть категорії кешбеку «%@» на %@: банк відкрив вибір."
+          }
         }
       }
     },
     "cashback.note.payHere": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -695,10 +976,17 @@
             "state": "translated",
             "value": "В «%@» выгоднее платить картой «%@»: %@ вместо %@, примерно на %@ больше в месяц."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У «%@» платіть «%@»: %@ замість %@, приблизно на %@ більше на місяць."
+          }
         }
       }
     },
     "cashback.note.payHereCategory": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -712,10 +1000,17 @@
             "state": "translated",
             "value": "На «%@» выгоднее платить картой «%@»: %@ вместо %@, примерно на %@ больше в месяц."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За «%@» платіть «%@»: %@ замість %@, приблизно на %@ більше на місяць."
+          }
         }
       }
     },
     "cashback.note.someCard": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -729,10 +1024,17 @@
             "state": "translated",
             "value": "другой картой"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "інша картка"
+          }
         }
       }
     },
     "cashback.note.trap": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -746,10 +1048,17 @@
             "state": "translated",
             "value": "Потратили %@ ради %@ кэшбэка на «%@», где обычно тратите %@."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрачено %@ заради %@ кешбеку на «%@», де ви зазвичай витрачаєте %@."
+          }
         }
       }
     },
     "history.device.other": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -763,10 +1072,17 @@
             "state": "translated",
             "value": "другое устройство"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "інший пристрій"
+          }
         }
       }
     },
     "history.device.this": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -780,10 +1096,17 @@
             "state": "translated",
             "value": "это устройство"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "цей пристрій"
+          }
         }
       }
     },
     "history.empty": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -797,10 +1120,17 @@
             "state": "translated",
             "value": "Изменений этой операции пока нет. История ведётся с версии 2.9."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змін цієї операції ще не записано. Історія ведеться з версії 2.9."
+          }
         }
       }
     },
     "history.empty.dataSet": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -814,10 +1144,17 @@
             "state": "translated",
             "value": "История правок ведётся только для ваших настоящих данных, не для демо и учебного набора."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Історія змін ведеться лише для справжніх даних, не для демонстрації чи навчального набору."
+          }
         }
       }
     },
     "history.field.amount_e4": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -831,10 +1168,17 @@
             "state": "translated",
             "value": "Сумма"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
         }
       }
     },
     "history.field.card_id": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -848,10 +1192,17 @@
             "state": "translated",
             "value": "Карта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картка"
+          }
         }
       }
     },
     "history.field.cashback_e4": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -865,10 +1216,17 @@
             "state": "translated",
             "value": "Кэшбэк"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кешбек"
+          }
         }
       }
     },
     "history.field.category_id": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -882,10 +1240,17 @@
             "state": "translated",
             "value": "Категория"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія"
+          }
         }
       }
     },
     "history.field.currency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -899,10 +1264,17 @@
             "state": "translated",
             "value": "Валюта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
         }
       }
     },
     "history.field.event_id": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -916,10 +1288,17 @@
             "state": "translated",
             "value": "Событие"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подія"
+          }
         }
       }
     },
     "history.field.for_person_id": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -933,10 +1312,17 @@
             "state": "translated",
             "value": "Человек"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Людина"
+          }
         }
       }
     },
     "history.field.for_whom": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -950,10 +1336,17 @@
             "state": "translated",
             "value": "Для кого"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для кого"
+          }
         }
       }
     },
     "history.field.goal_id": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -967,10 +1360,17 @@
             "state": "translated",
             "value": "Цель"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль"
+          }
         }
       }
     },
     "history.field.kind": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -984,10 +1384,17 @@
             "state": "translated",
             "value": "Тип"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тип"
+          }
         }
       }
     },
     "history.field.note": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1001,10 +1408,17 @@
             "state": "translated",
             "value": "Описание"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Опис"
+          }
         }
       }
     },
     "history.field.occurred_at": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1018,10 +1432,17 @@
             "state": "translated",
             "value": "Дата"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
         }
       }
     },
     "history.field.payment_method_id": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1035,10 +1456,17 @@
             "state": "translated",
             "value": "Счёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок"
+          }
         }
       }
     },
     "history.field.period_month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1052,10 +1480,17 @@
             "state": "translated",
             "value": "Месяц дохода"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяць доходу"
+          }
         }
       }
     },
     "history.field.place_id": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1069,10 +1504,17 @@
             "state": "translated",
             "value": "Место"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місце"
+          }
         }
       }
     },
     "history.field.quality": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1086,10 +1528,17 @@
             "state": "translated",
             "value": "Оценка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оцінка"
+          }
         }
       }
     },
     "history.for_whom.family": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1103,10 +1552,17 @@
             "state": "translated",
             "value": "семья"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "родина"
+          }
         }
       }
     },
     "history.for_whom.friends": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1120,10 +1576,17 @@
             "state": "translated",
             "value": "друзья"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "друзі"
+          }
         }
       }
     },
     "history.for_whom.me": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1137,10 +1600,17 @@
             "state": "translated",
             "value": "я"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "я"
+          }
         }
       }
     },
     "history.for_whom.other": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1154,10 +1624,17 @@
             "state": "translated",
             "value": "другое"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "інше"
+          }
         }
       }
     },
     "history.for_whom.partner": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1171,10 +1648,17 @@
             "state": "translated",
             "value": "партнёр"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "партнер"
+          }
         }
       }
     },
     "history.gone": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1188,10 +1672,17 @@
             "state": "translated",
             "value": "(удалено)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "(видалено)"
+          }
         }
       }
     },
     "history.hidden.account": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1205,10 +1696,17 @@
             "state": "translated",
             "value": "скрытый счёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "прихований рахунок"
+          }
         }
       }
     },
     "history.hidden.card": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1222,10 +1720,17 @@
             "state": "translated",
             "value": "скрытая карта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "прихована картка"
+          }
         }
       }
     },
     "history.kind.created": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1239,10 +1744,17 @@
             "state": "translated",
             "value": "Создана"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створено"
+          }
         }
       }
     },
     "history.kind.deleted": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1256,10 +1768,17 @@
             "state": "translated",
             "value": "Удалена"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалено"
+          }
         }
       }
     },
     "history.kind.edited": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1273,10 +1792,17 @@
             "state": "translated",
             "value": "Изменена"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змінено"
+          }
         }
       }
     },
     "history.kind.expense": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1290,10 +1816,17 @@
             "state": "translated",
             "value": "расход"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "витрата"
+          }
         }
       }
     },
     "history.kind.income": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1307,10 +1840,17 @@
             "state": "translated",
             "value": "доход"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "дохід"
+          }
         }
       }
     },
     "history.kind.refund": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1324,10 +1864,17 @@
             "state": "translated",
             "value": "возврат покупки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "повернення покупки"
+          }
         }
       }
     },
     "history.kind.reimbursement": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1341,10 +1888,17 @@
             "state": "translated",
             "value": "возврат денег"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "повернення грошей"
+          }
         }
       }
     },
     "history.kind.restored": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1358,10 +1912,17 @@
             "state": "translated",
             "value": "Восстановлена"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відновлено"
+          }
         }
       }
     },
     "history.more": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1375,10 +1936,17 @@
             "state": "translated",
             "value": "и ещё полей: %d"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "і ще %d полів"
+          }
         }
       }
     },
     "history.no": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1392,10 +1960,17 @@
             "state": "translated",
             "value": "нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ні"
+          }
         }
       }
     },
     "history.part.added": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1409,10 +1984,17 @@
             "state": "translated",
             "value": "Добавлена часть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додано частину"
+          }
         }
       }
     },
     "history.part.prefix": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1426,10 +2008,17 @@
             "state": "translated",
             "value": "Часть ·"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частина ·"
+          }
         }
       }
     },
     "history.part.removed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1443,10 +2032,17 @@
             "state": "translated",
             "value": "Убрана часть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прибрано частину"
+          }
         }
       }
     },
     "history.quality.bad": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1460,10 +2056,17 @@
             "state": "translated",
             "value": "плохая"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "погана"
+          }
         }
       }
     },
     "history.quality.good": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1477,10 +2080,17 @@
             "state": "translated",
             "value": "хорошая"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "хороша"
+          }
         }
       }
     },
     "history.quality.neutral": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1494,10 +2104,17 @@
             "state": "translated",
             "value": "обычная"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "звичайна"
+          }
         }
       }
     },
     "history.tab.details": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1511,10 +2128,17 @@
             "state": "translated",
             "value": "Операция"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операція"
+          }
         }
       }
     },
     "history.tab.history": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1528,10 +2152,17 @@
             "state": "translated",
             "value": "История"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Історія"
+          }
         }
       }
     },
     "history.yes": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1545,10 +2176,17 @@
             "state": "translated",
             "value": "да"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "так"
+          }
         }
       }
     },
     "recovery.key.failed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1562,10 +2200,17 @@
             "state": "translated",
             "value": "Слова восстановления неверны или ключ не удалось сохранить."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слова відновлення неправильні або ключ не вдалося зберегти."
+          }
         }
       }
     },
     "recovery.key.header": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1579,10 +2224,17 @@
             "state": "translated",
             "value": "Ключ синхронизации"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключ синхронізації"
+          }
         }
       }
     },
     "recovery.key.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1596,10 +2248,17 @@
             "state": "translated",
             "value": "Новые файлы обмена зашифрованы. На первом устройстве перед обменом создайте ключ восстановления. На других введите те же 24 слова. Файлы, записанные до шифрования, по-прежнему читаются."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нові файли обміну шифруються. На першому пристрої створіть ключ відновлення перед обміном. На інших введіть ті самі 24 слова. Файли, записані до шифрування, залишаються читабельними."
+          }
         }
       }
     },
     "recovery.key.made": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1613,10 +2272,17 @@
             "state": "translated",
             "value": "Ключ создан. Проверка ключа: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключ створено. Перевірка ключа: %@"
+          }
         }
       }
     },
     "recovery.key.make": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1630,10 +2296,17 @@
             "state": "translated",
             "value": "Создать ключ и лист восстановления"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити ключ і аркуш відновлення"
+          }
         }
       }
     },
     "recovery.key.new": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1647,10 +2320,17 @@
             "state": "translated",
             "value": "Новый ключ…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новий ключ…"
+          }
         }
       }
     },
     "recovery.key.newConfirm": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1664,10 +2344,17 @@
             "state": "translated",
             "value": "Создать новый ключ"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити новий ключ"
+          }
         }
       }
     },
     "recovery.key.newMessage": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1681,10 +2368,17 @@
             "state": "translated",
             "value": "Старый лист перестанет подходить: другим устройствам понадобится новый лист."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Старий аркуш перестане працювати: кожному іншому пристрою знадобиться новий."
+          }
         }
       }
     },
     "recovery.key.newTitle": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1698,10 +2392,17 @@
             "state": "translated",
             "value": "Создать новый ключ синхронизации?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити новий ключ синхронізації?"
+          }
         }
       }
     },
     "recovery.key.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1715,10 +2416,41 @@
             "state": "translated",
             "value": "Ключа синхронизации ещё нет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключа синхронізації ще немає."
+          }
+        }
+      }
+    },
+    "recovery.key.restore": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use recovery key"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовать ключ восстановления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Використати ключ відновлення"
+          }
         }
       }
     },
     "recovery.key.show": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1732,10 +2464,17 @@
             "state": "translated",
             "value": "Показать лист восстановления"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати аркуш відновлення"
+          }
         }
       }
     },
     "recovery.key.shown": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1749,129 +2488,17 @@
             "state": "translated",
             "value": "Лист восстановления уже показан."
           }
-        }
-      }
-    },
-    "recovery.page.fingerprint": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Key check: %@"
-          }
         },
-        "ru": {
+        "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверка ключа: %@"
-          }
-        }
-      }
-    },
-    "recovery.page.hint": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The 24 words are the key of the exchange between your devices. Keep the sheet as you keep a key: whoever has it can read the exchange's files."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "24 слова — это ключ обмена между вашими устройствами. Храните лист как ключ: тот, у кого он есть, может прочитать файлы обмена."
-          }
-        }
-      }
-    },
-    "recovery.page.qr": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "QR code of the 24 words"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "QR-код 24 слов"
-          }
-        }
-      }
-    },
-    "recovery.page.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OhMyMoney recovery sheet"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Лист восстановления OhMyMoney"
-          }
-        }
-      }
-    },
-    "recovery.sheet.done": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I have saved it"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Я сохранил"
-          }
-        }
-      }
-    },
-    "recovery.sheet.once": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The sheet is shown once. Print it or write the words down now."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Лист показывается один раз. Распечатайте его или перепишите слова сейчас."
-          }
-        }
-      }
-    },
-    "recovery.sheet.print": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Print…"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Напечатать…"
+            "value": "Аркуш відновлення показано."
           }
         }
       }
     },
     "recovery.key.words": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1885,22 +2512,179 @@
             "state": "translated",
             "value": "24 слова восстановления с другого устройства"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24 слова відновлення з іншого пристрою"
+          }
         }
       }
     },
-    "recovery.key.restore": {
+    "recovery.page.fingerprint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use recovery key"
+            "value": "Key check: %@"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Использовать ключ восстановления"
+            "value": "Проверка ключа: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірка ключа: %@"
+          }
+        }
+      }
+    },
+    "recovery.page.hint": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The 24 words are the key of the exchange between your devices. Keep the sheet as you keep a key: whoever has it can read the exchange's files."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24 слова — это ключ обмена между вашими устройствами. Храните лист как ключ: тот, у кого он есть, может прочитать файлы обмена."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24 слова — ключ обміну між вашими пристроями. Зберігайте аркуш як ключ: кожен, хто має його, може читати файли обміну."
+          }
+        }
+      }
+    },
+    "recovery.page.qr": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR code of the 24 words"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR-код 24 слов"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR-код 24 слів"
+          }
+        }
+      }
+    },
+    "recovery.page.title": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney recovery sheet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лист восстановления OhMyMoney"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аркуш відновлення OhMyMoney"
+          }
+        }
+      }
+    },
+    "recovery.sheet.done": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I have saved it"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я сохранил"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я зберіг аркуш"
+          }
+        }
+      }
+    },
+    "recovery.sheet.once": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The sheet is shown once. Print it or write the words down now."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лист показывается один раз. Распечатайте его или перепишите слова сейчас."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аркуш показується один раз. Надрукуйте його або запишіть слова зараз."
+          }
+        }
+      }
+    },
+    "recovery.sheet.print": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Print…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Напечатать…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Друк…"
           }
         }
       }

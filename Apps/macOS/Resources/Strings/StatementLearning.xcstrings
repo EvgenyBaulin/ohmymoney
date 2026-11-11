@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "statementLearning.done.learned": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -51,10 +52,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядки заповнено за вашими попередніми записами"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядків заповнено за вашими попередніми записами"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядок заповнено за вашим попереднім записом"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядка заповнено за вашими попередніми записами"
+                }
+              }
+            }
+          }
         }
       }
     },
     "statementLearning.row.learned": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -68,10 +100,17 @@
             "state": "translated",
             "value": "Как вы записали раньше"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За вашим попереднім записом"
+          }
         }
       }
     },
     "statementLearning.row.learnedHelp": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -84,6 +123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заполнено по операции, которую вы вводили руками для такого же текста этого банка. Поправите операцию после загрузки — следующие строки будут как после правки."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заповнено з операції, яку ви ввели вручну для такого самого тексту цього банку. Змініть операцію після завантаження — наступні рядки врахують цю зміну."
           }
         }
       }

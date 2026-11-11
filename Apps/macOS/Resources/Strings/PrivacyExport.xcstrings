@@ -346,6 +346,7 @@
       }
     },
     "privacy.copy.from": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -358,6 +359,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "С"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Від кого"
           }
         }
       }
@@ -448,6 +455,7 @@
       }
     },
     "privacy.copy.password": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -461,10 +469,17 @@
             "state": "translated",
             "value": "Пароль"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль"
+          }
         }
       }
     },
     "privacy.copy.passwordAgain": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -477,6 +492,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повторите пароль"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторіть пароль"
           }
         }
       }
@@ -516,6 +537,7 @@
       }
     },
     "privacy.copy.preview.counting": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -528,6 +550,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Считаем…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обчислюємо…"
           }
         }
       }
@@ -550,6 +578,7 @@
       }
     },
     "privacy.copy.preview.operations": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -595,6 +624,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операции"
+                }
+              }
+            }
+          }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операція"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції"
                 }
               }
             }
@@ -809,6 +868,7 @@
       }
     },
     "privacy.copy.to": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -821,6 +881,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "По"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До"
           }
         }
       }
@@ -894,6 +960,7 @@
       }
     },
     "privacy.demo.confirm.action": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -906,6 +973,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати"
           }
         }
       }
@@ -979,6 +1052,7 @@
       }
     },
     "privacy.journal.clear.action": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -991,6 +1065,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очистить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистити"
           }
         }
       }
@@ -1559,6 +1639,7 @@
       }
     },
     "privacy.settings.screen": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1571,6 +1652,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Экран"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Екран"
           }
         }
       }
@@ -1593,6 +1680,7 @@
       }
     },
     "privacy.storage.attachments": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1605,6 +1693,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вложения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вкладення"
           }
         }
       }
@@ -1627,6 +1721,7 @@
       }
     },
     "privacy.storage.count.copies": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1672,6 +1767,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld копии"
+                }
+              }
+            }
+          }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копії"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копія"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копії"
                 }
               }
             }

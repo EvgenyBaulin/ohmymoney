@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "CFBundleDisplayName": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -11,6 +12,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney"
@@ -19,6 +26,7 @@
       }
     },
     "CFBundleName": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -32,27 +40,17 @@
             "state": "translated",
             "value": "OhMyMoney"
           }
-        }
-      }
-    },
-    "OhMyMoney Archive": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "OhMyMoney Archive"
-          }
         },
-        "ru": {
+        "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Архив OhMyMoney"
+            "value": "OhMyMoney"
           }
         }
       }
     },
     "NSFaceIDUsageDescription": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -66,10 +64,17 @@
             "state": "translated",
             "value": "Разблокировать OhMyMoney с помощью Face ID."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розблокування OhMyMoney за допомогою Face ID."
+          }
         }
       }
     },
     "NSHumanReadableCopyright": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -83,10 +88,17 @@
             "state": "translated",
             "value": "© 2026 Евгений Баулин"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "© 2026 Evgeny Baulin"
+          }
         }
       }
     },
     "NSMicrophoneUsageDescription": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -100,10 +112,17 @@
             "state": "translated",
             "value": "OhMyMoney использует микрофон для диктовки записей на этом устройстве."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney використовує мікрофон для диктування записів на цьому пристрої."
+          }
         }
       }
     },
     "NSSpeechRecognitionUsageDescription": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -116,6 +135,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney превращает речь в текст записи на этом устройстве, без отправки аудио для облачного распознавания."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney перетворює ваше мовлення на текст запису на цьому пристрої, не надсилаючи аудіо для розпізнавання в хмарі."
+          }
+        }
+      }
+    },
+    "OhMyMoney Archive": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney Archive"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архив OhMyMoney"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архів OhMyMoney"
           }
         }
       }

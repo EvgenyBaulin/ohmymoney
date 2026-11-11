@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "warranty.button": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -15,10 +16,17 @@
             "state": "translated",
             "value": "Гарантии"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантії"
+          }
         }
       }
     },
     "warranty.clear": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -32,10 +40,17 @@
             "state": "translated",
             "value": "Убрать"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прибрати"
+          }
         }
       }
     },
     "warranty.empty": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -49,10 +64,17 @@
             "state": "translated",
             "value": "Гарантий пока нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантій поки немає"
+          }
         }
       }
     },
     "warranty.empty.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -66,10 +88,17 @@
             "state": "translated",
             "value": "Добавьте гарантию или срок возврата в панели операции или напишите в строке: «гарантия 2г», «возврат 14д»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додайте гарантію або строк повернення на панелі операції чи введіть у рядку: «warranty 2y», «return 14d»."
+          }
         }
       }
     },
     "warranty.field.place": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -83,10 +112,17 @@
             "state": "translated",
             "value": "Где лежит оригинал"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Де оригінал"
+          }
         }
       }
     },
     "warranty.field.place.prompt": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -100,10 +136,17 @@
             "state": "translated",
             "value": "коробка в шкафу, папка «Техника»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "коробка в шафі, папка «Техніка»"
+          }
         }
       }
     },
     "warranty.field.return": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -117,10 +160,17 @@
             "state": "translated",
             "value": "Вернуть можно до"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можна повернути до"
+          }
         }
       }
     },
     "warranty.field.until": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -134,10 +184,17 @@
             "state": "translated",
             "value": "Гарантия до"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантія до"
+          }
         }
       }
     },
     "warranty.left": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -187,10 +244,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Залишилося %lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Залишилося %lld днів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Залишився %lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Залишилося %lld дня"
+                }
+              }
+            }
+          }
         }
       }
     },
     "warranty.line.return": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -204,10 +292,17 @@
             "state": "translated",
             "value": "Вернуть можно до %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можна повернути до %@"
+          }
         }
       }
     },
     "warranty.line.until": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -221,10 +316,17 @@
             "state": "translated",
             "value": "Гарантия до %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантія до %@"
+          }
         }
       }
     },
     "warranty.nothingFound": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -238,10 +340,17 @@
             "state": "translated",
             "value": "Ничего не найдено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нічого не знайдено"
+          }
         }
       }
     },
     "warranty.open": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -255,10 +364,17 @@
             "state": "translated",
             "value": "Открыть операцию"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити операцію"
+          }
         }
       }
     },
     "warranty.over": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -272,10 +388,17 @@
             "state": "translated",
             "value": "срок вышел"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "строк минув"
+          }
         }
       }
     },
     "warranty.pick": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -289,10 +412,17 @@
             "state": "translated",
             "value": "Выбрать дату"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати дату"
+          }
         }
       }
     },
     "warranty.preset.days": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -342,10 +472,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld днів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld дня"
+                }
+              }
+            }
+          }
         }
       }
     },
     "warranty.preset.years": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -395,10 +556,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld роки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld років"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld рік"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld року"
+                }
+              }
+            }
+          }
         }
       }
     },
     "warranty.row.place": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -412,10 +604,17 @@
             "state": "translated",
             "value": "Оригинал: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оригінал: %@"
+          }
         }
       }
     },
     "warranty.row.return": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -429,10 +628,17 @@
             "state": "translated",
             "value": "Вернуть можно до %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можна повернути до %@"
+          }
         }
       }
     },
     "warranty.row.until": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -446,10 +652,17 @@
             "state": "translated",
             "value": "Гарантия до %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантія до %@"
+          }
         }
       }
     },
     "warranty.search": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -463,10 +676,17 @@
             "state": "translated",
             "value": "Поиск по названию и месту"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пошук за назвою або місцем"
+          }
         }
       }
     },
     "warranty.section.ended": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -480,10 +700,17 @@
             "state": "translated",
             "value": "Закончились"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завершені"
+          }
         }
       }
     },
     "warranty.section.running": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -497,10 +724,17 @@
             "state": "translated",
             "value": "Действуют"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чинні"
+          }
         }
       }
     },
     "warranty.subtitle": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -514,10 +748,17 @@
             "state": "translated",
             "value": "Что на гарантии и что ещё можно вернуть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що на гарантії та що ще можна повернути"
+          }
         }
       }
     },
     "warranty.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -531,10 +772,17 @@
             "state": "translated",
             "value": "Гарантии"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гарантії"
+          }
         }
       }
     },
     "warranty.today": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -548,10 +796,17 @@
             "state": "translated",
             "value": "сегодня последний день"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сьогодні останній день"
+          }
         }
       }
     },
     "warranty.untitled": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -564,6 +819,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Покупка %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупка від %@"
           }
         }
       }

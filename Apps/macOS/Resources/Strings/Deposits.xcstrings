@@ -53,6 +53,7 @@
       }
     },
     "crypto.coin.source": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -62,6 +63,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Курс"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Курс"
@@ -155,6 +162,7 @@
       }
     },
     "dep.amount.from": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -167,6 +175,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "от %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з %@"
           }
         }
       }
@@ -257,6 +271,7 @@
       }
     },
     "dep.filter.amount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -270,10 +285,17 @@
             "state": "translated",
             "value": "Сумма"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
         }
       }
     },
     "dep.filter.any": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -286,6 +308,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Любой"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Будь-який"
           }
         }
       }
@@ -325,6 +353,7 @@
       }
     },
     "dep.form.bank": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -334,6 +363,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Банк"
@@ -427,6 +462,7 @@
       }
     },
     "dep.form.note": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -440,10 +476,17 @@
             "state": "translated",
             "value": "Заметка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Примітка"
+          }
         }
       }
     },
     "dep.form.rate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -456,6 +499,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставка, % годовых"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставка, % на рік"
           }
         }
       }
@@ -699,6 +748,7 @@
       }
     },
     "dep.rate.exact": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -711,6 +761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ %%"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%%"
           }
         }
       }
@@ -1090,6 +1146,7 @@
       }
     },
     "payout.kind": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1102,6 +1159,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выплата"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виплата"
           }
         }
       }

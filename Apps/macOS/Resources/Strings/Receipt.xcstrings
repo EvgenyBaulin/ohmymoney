@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "receipt.addTime": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -15,10 +16,17 @@
             "state": "translated",
             "value": "Добавить время"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати час"
+          }
         }
       }
     },
     "receipt.addTimePhoto": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -32,10 +40,17 @@
             "state": "translated",
             "value": "Добавить время и фото"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати час і фото"
+          }
         }
       }
     },
     "receipt.already": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -49,10 +64,17 @@
             "state": "translated",
             "value": "Этот чек уже записан: «%1$@», %2$@."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цей чек уже записано: «%1$@», %2$@."
+          }
         }
       }
     },
     "receipt.already.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -66,10 +88,17 @@
             "state": "translated",
             "value": "Один чек дважды не добавляется. Чтобы записать его заново, сначала удалите ту операцию."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Той самий чек не додається двічі. Щоб записати його знову, спочатку видаліть ту операцію."
+          }
         }
       }
     },
     "receipt.anotherReceipt": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -83,10 +112,17 @@
             "state": "translated",
             "value": "Другой чек"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інший чек"
+          }
         }
       }
     },
     "receipt.backToFound": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -100,10 +136,17 @@
             "state": "translated",
             "value": "Вернуться к найденной"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назад до знайденого"
+          }
         }
       }
     },
     "receipt.bill": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -117,10 +160,17 @@
             "state": "translated",
             "value": "Это счёт, а не чек: оплата ещё впереди. Сфотографируйте чек или слип терминала после оплаты."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це рахунок, а не чек: оплату ще не здійснено. Сфотографуйте чек або квитанцію термінала після оплати."
+          }
         }
       }
     },
     "receipt.camera.unavailable": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -134,10 +184,17 @@
             "state": "translated",
             "value": "Камера недоступна. Выберите картинку."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Камера недоступна. Натомість виберіть зображення."
+          }
         }
       }
     },
     "receipt.cancel": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -151,10 +208,17 @@
             "state": "translated",
             "value": "Отмена"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скасувати"
+          }
         }
       }
     },
     "receipt.check.numbers": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -168,10 +232,17 @@
             "state": "translated",
             "value": "Прочитано с печати. Номера ФН, ФД и ФП не прошли проверку, поэтому чек записывается без них. Сверьте сумму и дату с бумагой."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитано з друку. Фіскальні номери не пройшли перевірки, тому чек записується без них. Звірте суму й дату з паперовим чеком."
+          }
         }
       }
     },
     "receipt.check.other": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -185,10 +256,17 @@
             "state": "translated",
             "value": "Прочитаны только итог и дата с печати, без позиций и номера чека. Сверьте с бумагой."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З друку прочитано лише підсумок і дату, без позицій та номера чека. Звірте з паперовим чеком."
+          }
         }
       }
     },
     "receipt.check.printed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -202,10 +280,17 @@
             "state": "translated",
             "value": "Прочитано с печати, а не с QR-кода. Сверьте сумму, дату и номера с бумагой, прежде чем записывать."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитано з друку, а не з QR-коду. Перед записом звірте суму, дату й номери з паперовим чеком."
+          }
         }
       }
     },
     "receipt.check.slip": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -219,10 +304,17 @@
             "state": "translated",
             "value": "Это слип терминала: сумма и время взяты с него, номера чека на слипе нет. Сверьте с бумагой."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це квитанція карткового термінала: з неї взято суму й час, номера чека вона не має. Звірте з паперовим документом."
+          }
         }
       }
     },
     "receipt.choices": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -236,10 +328,17 @@
             "state": "translated",
             "value": "Подходящие операции"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відповідні операції"
+          }
         }
       }
     },
     "receipt.choose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -253,10 +352,17 @@
             "state": "translated",
             "value": "Выбрать картинку…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати зображення…"
+          }
         }
       }
     },
     "receipt.create": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -270,10 +376,17 @@
             "state": "translated",
             "value": "Создать операцию"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити операцію"
+          }
         }
       }
     },
     "receipt.createPhoto": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -287,10 +400,17 @@
             "state": "translated",
             "value": "Создать с фото"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити з фото"
+          }
         }
       }
     },
     "receipt.done": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -304,10 +424,17 @@
             "state": "translated",
             "value": "Готово"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
         }
       }
     },
     "receipt.done.created": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -321,10 +448,17 @@
             "state": "translated",
             "value": "Операция записана."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операцію записано."
+          }
         }
       }
     },
     "receipt.done.time": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -338,10 +472,17 @@
             "state": "translated",
             "value": "Время %@ добавлено."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додано час %@."
+          }
         }
       }
     },
     "receipt.done.undo": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -355,10 +496,17 @@
             "state": "translated",
             "value": "⌘Z отменит."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z скасовує дію."
+          }
         }
       }
     },
     "receipt.done.undo.touch": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -372,10 +520,17 @@
             "state": "translated",
             "value": "«Отменить» вернёт всё назад."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Скасувати дію» повертає попередній стан."
+          }
         }
       }
     },
     "receipt.drop": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -389,10 +544,17 @@
             "state": "translated",
             "value": "Или перетащите сюда картинку с QR-кодом: фото, скриншот."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Або перетягніть сюди зображення з QR-кодом: фото чи знімок екрана."
+          }
         }
       }
     },
     "receipt.facts": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -406,10 +568,17 @@
             "state": "translated",
             "value": "Чек: %1$@ · %2$@ · %3$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чек: %1$@ · %2$@ · %3$@"
+          }
         }
       }
     },
     "receipt.failed.gone": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -423,10 +592,17 @@
             "state": "translated",
             "value": "Эту операцию успели удалить."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За цей час операцію видалено."
+          }
         }
       }
     },
     "receipt.failed.noCategory": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -440,10 +616,17 @@
             "state": "translated",
             "value": "Нет категории «Не помню», чтобы записать новую операцию. Запишите её строкой ввода."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає категорії «Не пам'ятаю» для нової операції. Запишіть її через рядок вводу."
+          }
         }
       }
     },
     "receipt.failed.notWritten": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -457,10 +640,17 @@
             "state": "translated",
             "value": "Не удалось записать. Попробуйте ещё раз."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося записати. Спробуйте ще раз."
+          }
         }
       }
     },
     "receipt.iphone": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -474,10 +664,17 @@
             "state": "translated",
             "value": "Снять на iPhone…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зробити фото на iPhone…"
+          }
         }
       }
     },
     "receipt.iphone.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -491,10 +688,17 @@
             "state": "translated",
             "value": "Нужен iPhone или iPad рядом, с тем же Apple ID и включёнными Wi-Fi и Bluetooth."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрібен iPhone або iPad поруч із тим самим Apple ID та ввімкненими Wi-Fi і Bluetooth."
+          }
         }
       }
     },
     "receipt.iphone.menuHint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -508,10 +712,17 @@
             "state": "translated",
             "value": "Снимок с iPhone или iPad (он должен быть рядом):"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фото з iPhone або iPad (має бути поруч):"
+          }
         }
       }
     },
     "receipt.menu": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -525,10 +736,17 @@
             "state": "translated",
             "value": "Чек по QR…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чек за QR…"
+          }
         }
       }
     },
     "receipt.new.category": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -542,10 +760,17 @@
             "state": "translated",
             "value": "Категория останется «Не помню», пока вы её не выберете."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія залишиться «Не пам'ятаю», доки ви її не виберете."
+          }
         }
       }
     },
     "receipt.new.merchant": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -559,10 +784,17 @@
             "state": "translated",
             "value": "Магазин: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Магазин: %@"
+          }
         }
       }
     },
     "receipt.new.refundHint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -576,10 +808,17 @@
             "state": "translated",
             "value": "Возврат записывается на покупку, которую он возвращает: откройте эту покупку и добавьте возврат там."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення записується до початкової покупки: відкрийте її та додайте повернення там."
+          }
         }
       }
     },
     "receipt.new.summary": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -593,10 +832,17 @@
             "state": "translated",
             "value": "Новая операция: %1$@, %2$@ в %3$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нова операція: %1$@, %2$@ о %3$@"
+          }
         }
       }
     },
     "receipt.noCode": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -610,10 +856,17 @@
             "state": "translated",
             "value": "На картинке нет QR-кода. Попробуйте снять ближе и ровнее."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На зображенні немає QR-коду. Спробуйте сфотографувати ближче й рівніше."
+          }
         }
       }
     },
     "receipt.notReceipt": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -627,10 +880,17 @@
             "state": "translated",
             "value": "Это QR-код, но не кассового чека."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цей QR-код не є касовим чеком."
+          }
         }
       }
     },
     "receipt.numbers": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -644,10 +904,17 @@
             "state": "translated",
             "value": "ФН %1$@ · ФД %2$@ · ФП %3$@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Накопичувач %1$@ · Документ %2$@ · Ознака %3$@"
+          }
         }
       }
     },
     "receipt.operation.generic": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -661,10 +928,17 @@
             "state": "translated",
             "value": "операцию"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "операція"
+          }
         }
       }
     },
     "receipt.otherPurchase": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -678,10 +952,17 @@
             "state": "translated",
             "value": "Это другая покупка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це інша покупка"
+          }
         }
       }
     },
     "receipt.photos": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -695,10 +976,17 @@
             "state": "translated",
             "value": "Фотографии"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фото"
+          }
         }
       }
     },
     "receipt.reading": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -712,10 +1000,17 @@
             "state": "translated",
             "value": "Ищем QR-код…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пошук QR-коду…"
+          }
         }
       }
     },
     "receipt.refund": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -729,10 +1024,17 @@
             "state": "translated",
             "value": "Это возврат покупки."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це повернення покупки."
+          }
         }
       }
     },
     "receipt.scan": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -746,10 +1048,17 @@
             "state": "translated",
             "value": "Навести камеру"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сканувати камерою"
+          }
         }
       }
     },
     "receipt.similar.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -763,10 +1072,17 @@
             "state": "translated",
             "value": "Или это одна из этих? Сумма чуть отличается (округление или чаевые)."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можливо, це одна з цих операцій? Сума трохи відрізняється через округлення або чайові."
+          }
         }
       }
     },
     "receipt.subtitle": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -780,10 +1096,17 @@
             "state": "translated",
             "value": "Берёт сумму, дату и время из кода на кассовом чеке. В сеть ничего не уходит."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Читає суму, дату й час із коду на касовому чеку. Нічого не надсилає в мережу."
+          }
         }
       }
     },
     "receipt.supplement.question": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -797,10 +1120,17 @@
             "state": "translated",
             "value": "Нашли «%1$@» — добавить время %2$@?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знайдено «%1$@» — додати час %2$@?"
+          }
         }
       }
     },
     "receipt.supplement.question.photo": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -814,10 +1144,41 @@
             "state": "translated",
             "value": "Нашли «%1$@» — добавить время %2$@ и фото?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знайдено «%1$@» — додати час %2$@ і фото?"
+          }
+        }
+      }
+    },
+    "receipt.takePhoto": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Take photo"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сфотографировать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зробити фото"
+          }
         }
       }
     },
     "receipt.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -831,10 +1192,17 @@
             "state": "translated",
             "value": "Чек по QR"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чек за QR"
+          }
         }
       }
     },
     "screenshot.account": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -848,10 +1216,17 @@
             "state": "translated",
             "value": "Счёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок"
+          }
         }
       }
     },
     "screenshot.amount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -865,10 +1240,17 @@
             "state": "translated",
             "value": "Сумма"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
         }
       }
     },
     "screenshot.chooseAccount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -882,10 +1264,17 @@
             "state": "translated",
             "value": "Выберите счёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть рахунок"
+          }
         }
       }
     },
     "screenshot.confirmFacts": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -899,10 +1288,17 @@
             "state": "translated",
             "value": "Проверьте распознанные данные и выберите счёт. Совпадение откроется только по вашему выбору."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірте розпізнані дані й виберіть рахунок. Виберіть збіг, щоб відкрити його."
+          }
         }
       }
     },
     "screenshot.currency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -916,10 +1312,17 @@
             "state": "translated",
             "value": "Валюта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
         }
       }
     },
     "screenshot.date": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -933,10 +1336,17 @@
             "state": "translated",
             "value": "Дата"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
         }
       }
     },
     "screenshot.exact": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -950,10 +1360,17 @@
             "state": "translated",
             "value": "Точное совпадение"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Точний збіг"
+          }
         }
       }
     },
     "screenshot.hasTime": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -967,10 +1384,17 @@
             "state": "translated",
             "value": "На скриншоте указано время"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На знімку екрана видно час"
+          }
         }
       }
     },
     "screenshot.kind": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -984,10 +1408,17 @@
             "state": "translated",
             "value": "Вид операции"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вид операції"
+          }
         }
       }
     },
     "screenshot.needsTime": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1001,10 +1432,17 @@
             "state": "translated",
             "value": "Точного совпадения нет. Укажите время со скриншота для поиска в пределах суток."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Точного збігу немає. Введіть час зі знімка екрана для пошуку в межах 24 годин."
+          }
         }
       }
     },
     "screenshot.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1018,10 +1456,17 @@
             "state": "translated",
             "value": "Совпадений нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Збігів немає"
+          }
         }
       }
     },
     "screenshot.similar": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1035,10 +1480,17 @@
             "state": "translated",
             "value": "похоже"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "схожі"
+          }
         }
       }
     },
     "screenshot.time": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1052,10 +1504,17 @@
             "state": "translated",
             "value": "Время"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Час"
+          }
         }
       }
     },
     "screenshot.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1069,10 +1528,17 @@
             "state": "translated",
             "value": "Найти операцию по скриншоту"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знайти операцію за знімком екрана"
+          }
         }
       }
     },
     "screenshot.transfer": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1086,22 +1552,11 @@
             "state": "translated",
             "value": "Перевод"
           }
-        }
-      }
-    },
-    "receipt.takePhoto": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Take photo"
-          }
         },
-        "ru": {
+        "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сфотографировать"
+            "value": "Переказ"
           }
         }
       }
