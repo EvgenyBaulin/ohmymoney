@@ -345,6 +345,10 @@ struct ExportRoundTripPropertyTests {
         sql:
           "INSERT INTO cashback_offers (id, payment_method_id, month, label, percent_e4, chosen) VALUES (?, ?, '2026-09', 'Кафе', 50000, 1)",
         arguments: [UUID().uuidString, account])
+      try db.execute(
+        sql:
+          "INSERT INTO credit_statements (id, payment_method_id, statement_on, minimum_e4, pay_by) VALUES (?, ?, '2026-09-05', 31000000, '2026-09-25')",
+        arguments: [UUID().uuidString, account])
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -502,6 +506,7 @@ struct ExportRoundTripPropertyTests {
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
+          "0025_split_dates_and_credit_statements",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -699,10 +704,14 @@ struct ExportRoundTripPropertyTests {
     "categories.csv:icon", "categories.csv:color",
   ]
 
+  /// The column the split dates added (`0025_split_dates_and_credit_statements`).
+  private static let addedByTheSplitDates: Set<String> = ["debt_instalments.csv:due_on"]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
     .union(addedByTheCeilings).union(addedByTheBorrowedCard).union(addedByTheReceiptsAndEnglish)
     .union(addedByThePurchases).union(addedByTheHabits).union(addedByTheCategoryMark)
+    .union(addedByTheSplitDates)
 
   /// The column the habits added (`0020_habits`).
   private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]
@@ -946,8 +955,8 @@ struct ExportRoundTripPropertyTests {
     for (index, debt) in debts.enumerated() {
       try db.execute(
         sql: """
-          INSERT INTO debt_instalments (id, debt_id, from_index, amount_e4) VALUES
-            (?, ?, 0, 26500000), (?, ?, 3, 26500100)
+          INSERT INTO debt_instalments (id, debt_id, from_index, amount_e4, due_on) VALUES
+            (?, ?, 0, 26500000, '2026-09-14'), (?, ?, 3, 26500100, NULL)
           """,
         arguments: [UUID().uuidString, debt, UUID().uuidString, debt])
       try db.execute(

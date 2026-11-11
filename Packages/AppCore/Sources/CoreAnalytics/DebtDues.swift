@@ -279,6 +279,14 @@ public struct DebtDueState: Hashable, Sendable {
 
 /// The dues of the debts, worked out once for all of them.
 public enum DebtDues {
+  /// The days an instalment service named for dues 0, 1, 2…, in order; empty unless every due
+  /// from the first has one.
+  public static func namedDays(of steps: [DebtInstalmentStep]) -> [DateOnly] {
+    let named = steps.filter { $0.dueOn != nil }.sorted { $0.fromIndex < $1.fromIndex }
+    guard named.enumerated().allSatisfy({ $0.offset == $0.element.fromIndex }) else { return [] }
+    return named.compactMap(\.dueOn)
+  }
+
   /// A bank's interest and a few kopecks of rounding make a payment a little short of the due;
   /// that much short is still the due. One percent of the monthly payment.
   public static func tolerance(of monthly: AmountE4) -> AmountE4 {
@@ -477,7 +485,7 @@ public enum DebtDues {
       }
       let owes = !debt.closed && (!opened || left.raw > 0)
       // Dues every few days start on their first day, whatever the month.
-      let dates = ledger.dataset.debtSettings.splitDates.last { $0.debtId == debt.id }?.days ?? []
+      let dates = Self.namedDays(of: typed[debt.id] ?? [])
       let steps = debt.steps
       let paymentDay = steps?.firstDue.day ?? debt.paymentDay ?? 0
       guard steps != nil || paymentDay >= 1 else {

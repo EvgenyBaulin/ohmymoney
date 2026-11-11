@@ -13,25 +13,19 @@ public struct SplitPayment: Hashable, Sendable, Codable, Identifiable {
   }
 }
 
-/// Explicit due dates of a split; amounts live in the debt's instalment rows.
-public struct SplitDueDates: Hashable, Sendable, Codable {
-  public var debtId: UUID
-  public var days: [DateOnly]
-
-  public init(debtId: UUID, days: [DateOnly]) {
-    self.debtId = debtId
-    self.days = days
-  }
-}
-
-/// The bank's minimum and deadline for one statement, in the account's main currency.
-public struct CreditStatementOverride: Hashable, Sendable, Codable {
+/// The bank's minimum and deadline for one statement, in the account's main currency
+/// (`credit_statements`); one per account and statement.
+public struct CreditStatementOverride: Hashable, Sendable, Codable, Identifiable {
+  public var id: UUID
   public var accountId: UUID
   public var closesOn: DateOnly
   public var minimumE4: AmountE4
   public var due: DateOnly
 
-  public init(accountId: UUID, closesOn: DateOnly, minimumE4: AmountE4, due: DateOnly) {
+  public init(
+    id: UUID = UUID(), accountId: UUID, closesOn: DateOnly, minimumE4: AmountE4, due: DateOnly
+  ) {
+    self.id = id
     self.accountId = accountId
     self.closesOn = closesOn
     self.minimumE4 = minimumE4

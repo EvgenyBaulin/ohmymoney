@@ -56,7 +56,7 @@ final class SplitPaymentFlowTests: DebtsScenarioCase {
     XCTAssertEqual(try snapshot.planning.spentWithoutGoals, money(10_000))
     try await undo()
     XCTAssertTrue(try debts().isEmpty)
-    XCTAssertTrue(try snapshot.dataset.debtSettings.splitDates.isEmpty)
+    XCTAssertTrue(try snapshot.dataset.debtInstalments.isEmpty)
   }
 
   func testShortOrUnorderedSplitIsRefusedWithoutWritingAnything() {

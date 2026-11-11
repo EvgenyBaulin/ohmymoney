@@ -45,7 +45,7 @@ struct SplitAndMinimumPlanningTests {
       if account.id == books.account.id { account.groupId = group.id }
       return account
     }
-    dataset.debtSettings.statementOverrides = [manual]
+    dataset.creditStatements = [manual]
     let ledger = Ledger(dataset: dataset, calendar: .utc)
     let planning = PlanningSnapshot.build(
       ledger: ledger, today: books.today, now: CalendarContext.utc.endOfDay(books.today),
@@ -101,13 +101,14 @@ struct SplitAndMinimumPlanningTests {
       DebtEntry(debtId: id, date: day("2026-11-11"), amountE4: money(6500), kind: .borrowed)
     ]
     let typed = [2000, 2000, 2500, 0].enumerated().map {
-      DebtInstalmentStep(debtId: id, fromIndex: $0.offset, amountE4: money(Int64($0.element)))
+      DebtInstalmentStep(
+        debtId: id, fromIndex: $0.offset, amountE4: money(Int64($0.element)),
+        dueOn: $0.offset < dates.count ? dates[$0.offset] : nil)
     }
-    let settings = DebtSettings(splitDates: [SplitDueDates(debtId: id, days: dates)])
     let book = PlanningBook(debtEntries: journal)
     let ledger = Ledger(
       dataset: Dataset(
-        debts: [debt], planning: book, debtInstalments: typed, debtSettings: settings),
+        debts: [debt], planning: book, debtInstalments: typed),
       calendar: .utc)
     let today = day("2026-11-12")
     let plan = PlannedMonth.build(ledger: ledger, book: book, today: today)
@@ -134,17 +135,22 @@ struct SplitAndMinimumPlanningTests {
     #expect(zip(shares, payments).allSatisfy { $0 <= $1 })
   }
 
-  @Test func settingsRoundTripPreservesStatementIdentityAndEditedDates() throws {
-    let settings = DebtSettings(
-      splitDates: [SplitDueDates(debtId: UUID(), days: [day("2026-11-20"), day("2026-12-07")])],
-      statementOverrides: [
-        CreditStatementOverride(
-          accountId: UUID(), closesOn: day("2026-11-05"), minimumE4: money(2500),
-          due: day("2026-11-25"))
-      ])
-    let rows = settings.storedValues.compactMapValues { $0 }
-    #expect(DebtSettings(storedValues: rows) == settings)
-    #expect(DebtSettings(storedValues: [:]).statementOverrides.isEmpty)
-    #expect(try JSONDecoder().decode(DebtSettings.self, from: Data("{}".utf8)) == .standard)
+  @Test func namedDaysNeedEveryDueFromTheFirst() {
+    let id = UUID()
+    func step(_ index: Int, _ text: String?) -> DebtInstalmentStep {
+      DebtInstalmentStep(
+        debtId: id, fromIndex: index, amountE4: money(1), dueOn: text.map(day))
+    }
+    let all = [step(1, "2026-12-01"), step(0, "2026-11-15"), step(2, nil)]
+    #expect(DebtDues.namedDays(of: all) == [day("2026-11-15"), day("2026-12-01")])
+    #expect(DebtDues.namedDays(of: [step(1, "2026-12-01")]).isEmpty, "a gap at the first due")
+    #expect(DebtDues.namedDays(of: [step(0, nil)]).isEmpty, "rows from before schema 25")
+  }
+
+  @Test func debtSettingsNoLongerCarrySplitOrStatementKeys() {
+    let rows = DebtSettings.standard.storedValues
+    #expect(Set(rows.keys) == Set(DebtSettings.storageKeys))
+    #expect(!DebtSettings.storageKeys.contains { $0.hasPrefix("cards.statement") })
+    #expect(!DebtSettings.storageKeys.contains { $0.hasPrefix("debts.split") })
   }
 }

@@ -292,8 +292,10 @@ public enum CreditStatements {
     case .statement(let statementDay, _):
       card.nextStatement = nextStatementDay(after: today, day: statementDay, calendar: calendar)
       card.graceKept = CreditInterest.graceKept(statements)
-      if let last = statements.last, last.remainingE4.raw > 0 {
-        card.toPayNoInterestE4 = last.state == .missed ? debt : last.remainingE4
+      // A missed statement has no «pay by» any more: the grace period is gone and the whole
+      // debt is what stops the interest.
+      if let last = statements.last, last.state == .waiting {
+        card.toPayNoInterestE4 = last.remainingE4
         card.payBy = last.due
         card.minimumE4 = last.minimumRemainingE4
         card.minimumIsEstimate = last.minimumIsEstimate

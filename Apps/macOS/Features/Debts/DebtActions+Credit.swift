@@ -84,22 +84,18 @@ extension DebtActions {
     var rows = PlanningRows.empty
     rows.debts = [debt]
     rows.debtEntries = [line]
-    var settings: [String: String?] = [:]
     if let payments = purchase.splitPayments {
+      // Each payment's own day travels in the same row as its sum; the row after the last asks
+      // for nothing and names no day.
       rows.debtInstalments = payments.enumerated().map {
-        DebtInstalmentStep(debtId: debtId, fromIndex: $0.offset, amountE4: $0.element.amountE4)
+        DebtInstalmentStep(
+          debtId: debtId, fromIndex: $0.offset, amountE4: $0.element.amountE4,
+          dueOn: $0.element.day)
       }
       rows.debtInstalments.append(
         DebtInstalmentStep(debtId: debtId, fromIndex: payments.count, amountE4: .zero))
-      let key = DebtSettings.splitDatesKey
-      let stored = try? environment.settings?.string(key)
-      var debtSettings = DebtSettings(storedValues: stored.map { [key: $0] } ?? [:])
-      debtSettings.splitDates.append(SplitDueDates(debtId: debtId, days: payments.map(\.day)))
-      settings.updateValue(
-        debtSettings.storedValues[DebtSettings.splitDatesKey] ?? nil,
-        forKey: DebtSettings.splitDatesKey)
     }
-    guard apply(PlanningChange(created: [entry], upsert: rows, settings: settings)) else {
+    guard apply(PlanningChange(created: [entry], upsert: rows)) else {
       AppLog.error(
         "debts.instalment.failed", .db, "a purchase on a plan was not written",
         [LogPair("debt", .id(debtId))])

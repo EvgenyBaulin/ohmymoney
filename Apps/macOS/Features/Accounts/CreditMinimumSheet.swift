@@ -78,19 +78,18 @@ struct CreditMinimumSheet: View {
 }
 
 extension AccountActions {
-  /// Writes only this financial setting; the change is one undo step and moves no money.
+  /// Writes only this statement's row; the change is one undo step and moves no money.
   func saveCreditMinimum(
     _ value: CreditStatementOverride?, accountId: UUID, closesOn: DateOnly
   ) -> Bool {
-    guard let repository = environment.settings else { return false }
+    guard let stack = environment.stack else { return false }
     do {
-      let key = DebtSettings.statementOverridesKey
-      let stored = try repository.string(key)
-      let before = DebtSettings(storedValues: stored.map { [key: $0] } ?? [:])
-      let settings = try CreditMinimumRules.saving(
-        value, accountId: accountId, closesOn: closesOn, in: before)
+      let existing = try CreditStatementRepository(stack: stack).all()
+      let plan = try CreditMinimumRules.saving(
+        value, accountId: accountId, closesOn: closesOn, among: existing)
       var change = PlanningChange()
-      change.settings.updateValue(settings.storedValues[key] ?? nil, forKey: key)
+      if let row = plan.upsert { change.upsert.creditStatements = [row] }
+      if let id = plan.deleteId { change.delete.creditStatements = [id] }
       return apply(change) == .done
     } catch { return false }
   }

@@ -22,7 +22,7 @@ public enum CreditCardDues {
       result[account.id] = CreditStatements.statements(
         account: account, terms: terms, movements: movements, balances: accounts.balances,
         through: today, calendar: ledger.calendar,
-        overrides: ledger.dataset.debtSettings.statementOverrides)
+        overrides: ledger.dataset.creditStatements)
     }
     return result
   }

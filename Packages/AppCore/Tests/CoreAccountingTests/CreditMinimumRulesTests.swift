@@ -15,22 +15,30 @@ struct CreditMinimumRulesTests {
       accountId: account, closesOn: close, minimumE4: AmountE4(whole: 2400), due: due)
     let second = CreditStatementOverride(
       accountId: other, closesOn: close, minimumE4: AmountE4(whole: 1200), due: due)
-    var settings = DebtSettings(statementOverrides: [first, second])
+    let existing = [first, second]
     var edited = first
+    edited.id = UUID()
     edited.minimumE4 = AmountE4(whole: 3000)
-    settings = try CreditMinimumRules.saving(
-      edited, accountId: account, closesOn: close, in: settings)
-    #expect(settings.statementOverrides == [second, edited])
-    settings = try CreditMinimumRules.saving(nil, accountId: account, closesOn: close, in: settings)
-    #expect(settings.statementOverrides == [second])
+    let change = try CreditMinimumRules.saving(
+      edited, accountId: account, closesOn: close, among: existing)
+    #expect(change.deleteId == nil)
+    #expect(change.upsert?.id == first.id, "the pair stays one row: the typed row is written over")
+    #expect(change.upsert?.minimumE4 == AmountE4(whole: 3000))
+    let removed = try CreditMinimumRules.saving(
+      nil, accountId: account, closesOn: close, among: existing)
+    #expect(removed == CreditMinimumRules.Change(upsert: nil, deleteId: first.id))
+    let nothing = try CreditMinimumRules.saving(
+      nil, accountId: account, closesOn: DateOnly(iso: "2026-12-05")!, among: existing)
+    #expect(nothing == CreditMinimumRules.Change(upsert: nil, deleteId: nil))
+    let settings = existing
     edited.minimumE4 = AmountE4(whole: -1)
     #expect(throws: CreditMinimumRules.Issue.self) {
-      try CreditMinimumRules.saving(edited, accountId: account, closesOn: close, in: settings)
+      try CreditMinimumRules.saving(edited, accountId: account, closesOn: close, among: settings)
     }
     edited.minimumE4 = .zero
     edited.due = close
     #expect(throws: CreditMinimumRules.Issue.self) {
-      try CreditMinimumRules.saving(edited, accountId: account, closesOn: close, in: settings)
+      try CreditMinimumRules.saving(edited, accountId: account, closesOn: close, among: settings)
     }
   }
 }

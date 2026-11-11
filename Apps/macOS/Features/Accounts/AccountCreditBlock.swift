@@ -31,7 +31,7 @@ struct CreditCardOutlook: Equatable, Sendable {
     let statements = CreditStatements.statements(
       account: account, terms: terms, movements: movements, balances: balances,
       through: snapshot.today, calendar: ledger.calendar,
-      overrides: dataset.debtSettings.statementOverrides)
+      overrides: dataset.creditStatements)
     let now = CreditStatements.now(
       account: account, terms: terms, statements: statements, movements: movements,
       balances: balances, today: snapshot.today, calendar: ledger.calendar)
