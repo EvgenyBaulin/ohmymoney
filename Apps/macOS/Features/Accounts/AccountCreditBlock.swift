@@ -30,7 +30,8 @@ struct CreditCardOutlook: Equatable, Sendable {
       account: account, ledger: ledger, transfers: dataset.transfers)
     let statements = CreditStatements.statements(
       account: account, terms: terms, movements: movements, balances: balances,
-      through: snapshot.today, calendar: ledger.calendar)
+      through: snapshot.today, calendar: ledger.calendar,
+      overrides: dataset.debtSettings.statementOverrides)
     let now = CreditStatements.now(
       account: account, terms: terms, statements: statements, movements: movements,
       balances: balances, today: snapshot.today, calendar: ledger.calendar)
@@ -131,7 +132,7 @@ enum CreditCardText {
           " · "
           + environment.format(
             "account.credit.minimum", table: AccountText.table,
-            money.exact(minimum, currency: currency))
+            (now.minimumIsEstimate ? "≈\u{00A0}" : "") + money.exact(minimum, currency: currency))
       }
       lines.toPay = text
     } else if !now.graceKept, now.debtE4.raw > 0 {
@@ -143,7 +144,7 @@ enum CreditCardText {
           " · "
           + environment.format(
             "account.credit.minimum", table: AccountText.table,
-            money.exact(minimum, currency: currency))
+            (now.minimumIsEstimate ? "≈\u{00A0}" : "") + money.exact(minimum, currency: currency))
       }
       lines.graceLost = text
     }
@@ -200,6 +201,7 @@ struct AccountCreditBlock: View {
   @State private var outlook: CreditCardOutlook?
   @State private var loaded = false
   @State private var recording: CreditInterestPrefill?
+  @State private var minimumStatement: CreditMinimumPrefill?
 
   private func t(_ key: String) -> String { environment.language(key, table: AccountText.table) }
 
@@ -224,6 +226,9 @@ struct AccountCreditBlock: View {
         CreditCardOutlook.build(of: accountId, snapshot: snapshot)
       }.value
       loaded = true
+    }
+    .sheet(item: $minimumStatement) { prefill in
+      CreditMinimumSheet(prefill: prefill).handingOver(dependencies)
     }
     .sheet(item: $recording) { prefill in
       CreditInterestRecordSheet(prefill: prefill) { recording = nil }
@@ -280,6 +285,18 @@ struct AccountCreditBlock: View {
           .monospacedDigit()
           .foregroundStyle(.secondary)
           .accessibilityIdentifier("account.credit.estimate")
+      }
+      ForEach(Array(outlook.statements.suffix(3).reversed()), id: \.closesOn) { statement in
+        Button(
+          environment.format(
+            "account.credit.minimum.edit", table: AccountText.table,
+            environment.dates.dayAndMonth(statement.closesOn))
+        ) {
+          minimumStatement = CreditMinimumPrefill(
+            accountId: outlook.accountId, currency: outlook.currency, statement: statement)
+        }
+        .controlSize(.small)
+        .accessibilityIdentifier("account.credit.minimum.edit")
       }
       ForEach(lines.asks) { ask in
         HStack(alignment: .firstTextBaseline, spacing: 6) {

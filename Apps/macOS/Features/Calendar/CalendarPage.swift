@@ -415,9 +415,12 @@ struct CalendarUpcomingCard: View {
               )
               .appFont(SectionType.rowTitle)
               .lineLimit(1)
-              Text(verbatim: CalendarText.t(CalendarMark.wordKey(plan.source), environment))
-                .appFont(SectionType.rowDetail)
-                .foregroundStyle(.secondary)
+              Text(
+                verbatim: CalendarText.fullAmount(of: plan, environment)
+                  ?? CalendarText.t(CalendarMark.wordKey(plan.source), environment)
+              )
+              .appFont(SectionType.rowDetail)
+              .foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Text(

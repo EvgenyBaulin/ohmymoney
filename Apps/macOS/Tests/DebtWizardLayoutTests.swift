@@ -83,7 +83,7 @@ final class DebtWizardLayoutTests: XCTestCase {
     for language in [AppLanguage.Choice.russian, .english] {
       host.environment.language.choice = language
       for width in [CGFloat(340), 520] {
-        for kind in [DebtWizardKind.loan, .instalments, .pledge] {
+        for kind in [DebtWizardKind.loan, .instalments, .split, .pledge] {
           for step in DebtWizardModel.Step.allCases {
             var model = DebtWizardModel(today: today, currency: .rub)
             model.choose(kind, today: today, language: host.environment.language)

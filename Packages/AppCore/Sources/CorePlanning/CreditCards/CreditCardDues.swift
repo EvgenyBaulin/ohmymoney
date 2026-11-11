@@ -6,7 +6,28 @@ import Foundation
 /// What the credit cards out of the summary ask to be paid by a day: the free sum keeps it
 /// back, while the minus of a card in the summary is in the money already.
 public enum CreditCardDues {
-  /// The sums «without interest» of the statements due by `until` of the credit cards out of
+  /// Known statements only; future bank statements are not invented.
+  public static func statements(ledger: Ledger, today: DateOnly) -> [UUID: [CreditStatement]] {
+    guard ledger.dataset.paymentMethods.contains(where: { !$0.archived && $0.isCreditCard }) else {
+      return [:]
+    }
+    let accounts = AccountsSnapshot.build(
+      dataset: ledger.dataset, now: ledger.calendar.endOfDay(today), calendar: ledger.calendar,
+      rubPerUnit: [:], localeIdentifier: "en_US_POSIX")
+    var result: [UUID: [CreditStatement]] = [:]
+    for account in ledger.dataset.paymentMethods where !account.archived {
+      guard let terms = account.credit else { continue }
+      let movements = CreditStatements.movements(
+        account: account, ledger: ledger, transfers: ledger.dataset.transfers)
+      result[account.id] = CreditStatements.statements(
+        account: account, terms: terms, movements: movements, balances: accounts.balances,
+        through: today, calendar: ledger.calendar,
+        overrides: ledger.dataset.debtSettings.statementOverrides)
+    }
+    return result
+  }
+
+  /// The minimum payments of the statements due by `until` of the credit cards out of
   /// the summary, in rubles: of each card only its latest statement counts — a later statement
   /// holds what an earlier one left unpaid —, by what is left of it to pay. A card in the
   /// summary adds nothing: its minus is already in the money now. A card in another currency
@@ -22,7 +43,7 @@ public enum CreditCardDues {
         !line.account.archived, !accounts.isInSummary(accountId),
         let last = list.max(by: { $0.closesOn < $1.closesOn }), last.due <= until
       else { continue }
-      let left = last.remainingE4
+      let left = last.minimumRemainingE4
       guard left.raw > 0 else { continue }
       let currency = line.account.mainCurrency
       if currency == .rub {

@@ -11,6 +11,7 @@ enum DebtWizardKind: String, CaseIterable, Hashable {
   case education
   /// «Рассрочка»: a purchase paid in parts.
   case instalments
+  case split
   /// A purchase on credit paid monthly.
   case purchase
   /// A credit card is an account, not a debt: the step leads to the account and its terms.
@@ -23,7 +24,7 @@ enum DebtWizardKind: String, CaseIterable, Hashable {
   /// A loan of a bank: rate, payments, costs, early repayments.
   var isLoan: Bool { self == .loan || self == .mortgage || self == .education }
   /// Made with a purchase spent in its category.
-  var isPurchase: Bool { self == .instalments || self == .purchase }
+  var isPurchase: Bool { self == .instalments || self == .split || self == .purchase }
   var direction: DebtDirection { self == .owedToMe || self == .pledge ? .owedToMe : .iOwe }
   var symbol: String {
     switch self {
@@ -31,6 +32,7 @@ enum DebtWizardKind: String, CaseIterable, Hashable {
     case .mortgage: "house"
     case .education: "graduationcap"
     case .instalments: "square.split.2x2"
+    case .split: "square.stack.3d.up"
     case .purchase: "cart"
     case .creditCard: "creditcard"
     case .personIOwe: "person.crop.circle.badge.minus"
@@ -78,11 +80,14 @@ struct DebtWizardModel {
   var parts = InstalmentPlan.defaultCount
   var everyTwoWeeks = true
   var markup: AmountE4 = .zero
+  var splitFirstDue: DateOnly
+  var splitPayments: [SplitPayment] = []
   // A pledge.
   var returnBy: DateOnly
 
   init(today: DateOnly, currency: CurrencyCode) {
     day = today
+    splitFirstDue = today
     self.currency = currency
     paymentDay = min(today.day, 28)
     schedule = DebtSchedule(mainFrom: DebtSchedule.defaultMainFrom(today: today))
@@ -132,7 +137,7 @@ struct DebtWizardModel {
     case .pledge:
       debt.pledge = true
       debt.returnBy = returnBy
-    case .instalments, .purchase, .creditCard:
+    case .instalments, .split, .purchase, .creditCard:
       break
     }
     return debt
@@ -141,7 +146,7 @@ struct DebtWizardModel {
   private var debtType: DebtType {
     switch kind {
     case .loan, .mortgage, .education: .loan
-    case .instalments, .purchase: .installment
+    case .instalments, .split, .purchase: .installment
     case .creditCard: .creditCard
     case .personIOwe, .owedToMe, .pledge: .personal
     }
@@ -163,7 +168,24 @@ struct DebtWizardModel {
       account: account, parts: kind == .instalments ? parts : nil,
       everyDays: kind == .instalments && everyTwoWeeks ? InstalmentPlan.defaultEveryDays : nil,
       paymentDay: paymentDay, markup: kind == .instalments && markup.raw > 0 ? markup : nil,
-      monthly: kind == .purchase && monthly.raw > 0 ? monthly : nil)
+      monthly: kind == .purchase && monthly.raw > 0 ? monthly : nil,
+      splitPayments: kind == .split ? splitRows : nil)
+  }
+
+  var splitRows: [SplitPayment] {
+    get {
+      if !splitPayments.isEmpty { return splitPayments }
+      return
+        (try? SplitPurchase.schedule(
+          payment: monthly, count: parts, first: splitFirstDue,
+          every: everyTwoWeeks ? .twoWeeks : .month)) ?? []
+    }
+    set { splitPayments = newValue }
+  }
+
+  var splitIsValid: Bool {
+    categoryId != nil && splitRows.first.map { $0.day >= day } == true
+      && (try? SplitPurchase.markup(price: amount, payments: splitRows)) != nil
   }
 
   /// Whether the step may be left forward.
@@ -179,6 +201,7 @@ struct DebtWizardModel {
         return schedule.issues(
           rate: rate, monthly: monthly.raw > 0 ? monthly : nil, direction: .iOwe
         ).isEmpty && (monthly.raw > 0 || schedule.byTerm || schedule.hasGrace)
+      case .split: return splitIsValid
       case .instalments: return (2...120).contains(parts) && categoryId != nil
       case .purchase: return categoryId != nil
       default: return true
@@ -253,6 +276,20 @@ struct DebtWizardModel {
           schedule: schedule, paidE4: .zero, firstDay: day)
       }
       return preview
+    case .split:
+      let rows = splitRows
+      guard let markup = try? SplitPurchase.markup(price: amount, payments: rows) else {
+        return Preview()
+      }
+      let total = amount + markup
+      let shares = InstalmentPlan.markupShares(markup: markup, payments: rows.map(\.amountE4))
+      var left = total
+      let preview = rows.enumerated().map { index, row in
+        left = left - row.amountE4
+        return PreviewRow(
+          due: row.day, payment: row.amountE4, interest: shares[index], balanceAfter: left)
+      }
+      return Preview(rows: preview, payments: total, interest: markup)
     case .instalments:
       let total = amount + markup
       // Each part is its share of the price and its share of the markup, as the plan saved asks
@@ -429,7 +466,7 @@ struct DebtWizard: View {
     case .amount:
       return nil
     case .payments:
-      guard model.kind.isLoan || model.kind == .instalments || model.kind == .purchase else {
+      guard model.kind.isLoan || model.kind.isPurchase else {
         return nil
       }
       let preview = model.preview(calendar: environment.calendar)
@@ -594,6 +631,9 @@ struct DebtWizard: View {
         }
         Button(t("costs.add")) { model.costs.append(DebtWizardModel.CostDraft()) }
       }
+    case .split:
+      SplitWizardFields(model: $model)
+      categoryPicker
     case .instalments:
       Stepper(value: $model.parts, in: 2...120) {
         Text(verbatim: environment.format("wizard.parts", table: "Debts", String(model.parts)))
@@ -674,7 +714,8 @@ struct DebtWizard: View {
       if preview.interest.raw > 0 {
         Text(
           verbatim: environment.format(
-            model.kind == .instalments ? "wizard.preview.markup" : "wizard.preview.interest",
+            (model.kind == .instalments || model.kind == .split)
+              ? "wizard.preview.markup" : "wizard.preview.interest",
             table: "Debts", money.exact(preview.interest, currency: currency))
         )
         .foregroundStyle(.secondary)

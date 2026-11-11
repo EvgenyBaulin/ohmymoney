@@ -5814,6 +5814,118 @@
         }
       }
     },
+    "split.accountingHint": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The full purchase price is spent on the purchase date. Payments repay the debt; commission is spent in Fees in parts. Adjust any date or amount to match the service schedule."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупка — расход целиком в день покупки. Платежи погашают долг, комиссия учитывается частями в «Комиссиях». Измените любую дату или сумму по графику сервиса."
+          }
+        }
+      }
+    },
+    "split.firstDue": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First payment"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Первый платёж"
+          }
+        }
+      }
+    },
+    "split.generate": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rebuild schedule"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Построить график заново"
+          }
+        }
+      }
+    },
+    "split.invalid": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a category. Payments must cover the purchase price, be positive and follow date order, starting on or after the purchase date."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укажите категорию. Платежи должны покрывать цену покупки, быть больше нуля и идти по порядку дат, начиная со дня покупки."
+          }
+        }
+      }
+    },
+    "split.number": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payment %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платёж %@"
+          }
+        }
+      }
+    },
+    "split.payment": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payment"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платёж"
+          }
+        }
+      }
+    },
+    "split.schedule": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Payment schedule"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "График платежей"
+          }
+        }
+      }
+    },
     "tranche.action": {
       "extractionState": "manual",
       "localizations": {
@@ -6660,6 +6772,38 @@
           "stringUnit": {
             "state": "translated",
             "value": "расход один раз при покупке, платежи уменьшают долг"
+          }
+        }
+      }
+    },
+    "wizard.kind.split": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Split instalments"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сплит"
+          }
+        }
+      }
+    },
+    "wizard.kind.split.hint": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yandex Split, Dolyami and other instalment services"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Яндекс Сплит, «Долями» и другие сервисы рассрочки"
           }
         }
       }

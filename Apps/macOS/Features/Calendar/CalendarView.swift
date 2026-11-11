@@ -294,8 +294,12 @@ struct CalendarView: View {
                 .foregroundStyle(.secondary)
                 .accessibilityLabel(
                   Text(verbatim: t(CalendarMark.wordKey(plan.source))))
-              Text(verbatim: CalendarText.title(of: plan, environment))
-                .lineLimit(1)
+              VStack(alignment: .leading, spacing: 2) {
+                Text(verbatim: CalendarText.title(of: plan, environment)).lineLimit(1)
+                if let full = CalendarText.fullAmount(of: plan, environment) {
+                  Text(verbatim: full).appFont(.caption).foregroundStyle(.secondary)
+                }
+              }
               Spacer(minLength: 6)
               Text(verbatim: CalendarText.amount(of: plan, environment))
                 .monospacedDigit()

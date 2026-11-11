@@ -311,7 +311,8 @@ struct DataSnapshot: Sendable {
         account: account, ledger: ledger, transfers: dataset.transfers)
       let statements = CreditStatements.statements(
         account: account, terms: terms, movements: movements,
-        balances: planning.accounts.balances, through: today, calendar: ledger.calendar)
+        balances: planning.accounts.balances, through: today, calendar: ledger.calendar,
+        overrides: dataset.debtSettings.statementOverrides)
       cards[account.id] = CreditStatements.now(
         account: account, terms: terms, statements: statements, movements: movements,
         balances: planning.accounts.balances, today: today, calendar: ledger.calendar)

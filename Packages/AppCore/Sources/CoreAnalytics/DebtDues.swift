@@ -45,6 +45,8 @@ public struct DebtDueState: Hashable, Sendable {
   /// Dues every few days from a first day instead of on `paymentDay` of every month
   /// (`Debt.steps`); `nil` — monthly.
   public var steps: DebtSteps? = nil
+  /// Dates copied from the service, in instalment order.
+  public var explicitDates: [DateOnly] = []
 
   public init(
     debtId: UUID, firstDue: DateOnly?, paidCount: Int, owes: Bool, paymentDay: Int,
@@ -79,6 +81,7 @@ public struct DebtDueState: Hashable, Sendable {
   /// and `index` steps of days after it, whatever months they fall in. Without a first due, the
   /// payment day of no month: 1 January 1970.
   public func due(_ index: Int) -> DateOnly {
+    if explicitDates.indices.contains(index) { return explicitDates[index] }
     guard let firstDue else { return DateOnly(year: 1970, month: 1, day: 1) }
     if let steps {
       return firstDue.adding(days: max(0, index) * max(1, steps.everyDays))
@@ -183,6 +186,9 @@ public struct DebtDueState: Hashable, Sendable {
 
   /// The index of the due of `day`, one of the debt's dues.
   private func index(of day: DateOnly) -> Int? {
+    if !explicitDates.isEmpty {
+      return explicitDates.lastIndex(where: { $0 <= day }) ?? 0
+    }
     guard let firstDue else { return nil }
     if let steps {
       return firstDue.days(to: day) / max(1, steps.everyDays)
@@ -192,6 +198,9 @@ public struct DebtDueState: Hashable, Sendable {
 
   /// The index of the first due on `day` or after it; `nil` without a first due.
   public func firstIndex(onOrAfter day: DateOnly) -> Int? {
+    if !explicitDates.isEmpty {
+      return explicitDates.firstIndex(where: { $0 >= day }) ?? explicitDates.count
+    }
     guard let firstDue else { return nil }
     guard day > firstDue else { return 0 }
     var index = max(0, self.index(of: day) ?? 0)
@@ -468,6 +477,7 @@ public enum DebtDues {
       }
       let owes = !debt.closed && (!opened || left.raw > 0)
       // Dues every few days start on their first day, whatever the month.
+      let dates = ledger.dataset.debtSettings.splitDates.last { $0.debtId == debt.id }?.days ?? []
       let steps = debt.steps
       let paymentDay = steps?.firstDue.day ?? debt.paymentDay ?? 0
       guard steps != nil || paymentDay >= 1 else {
@@ -478,7 +488,10 @@ public enum DebtDues {
       let start = allocationStart(of: effective, calendar: calendar)
       let firstDue: DateOnly
       let countsFrom: DateOnly
-      if let steps {
+      if let first = dates.first {
+        firstDue = first
+        countsFrom = min(start ?? first, first)
+      } else if let steps {
         firstDue = steps.firstDue
         countsFrom = min(start ?? steps.firstDue, steps.firstDue)
       } else if let start,
@@ -537,6 +550,7 @@ public enum DebtDues {
         balanceE4: opened ? left : nil,
         monthlyE4: debt.monthlyPaymentE4, instalments: instalments)
       state.steps = steps
+      state.explicitDates = dates
       result[debt.id] = state
     }
     return result

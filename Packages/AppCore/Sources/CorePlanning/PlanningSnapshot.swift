@@ -390,7 +390,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
         account: account, ledger: ledger, transfers: ledger.dataset.transfers)
       let statements = CreditStatements.statements(
         account: account, terms: terms, movements: movements, balances: accounts.balances,
-        through: today, calendar: ledger.calendar)
+        through: today, calendar: ledger.calendar,
+        overrides: ledger.dataset.debtSettings.statementOverrides)
       if !statements.isEmpty { result[account.id] = statements }
     }
     return result
