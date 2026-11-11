@@ -46,6 +46,22 @@ enum WindowAccessibility {
     _ = element.perform(NSSelectorFromString("accessibilityPerformPress"))
   }
 
+  /// A mouse click in the middle of the element: a switch-style toggle does not answer the
+  /// accessibility press, a click it does.
+  static func click(_ element: NSObject, in window: NSWindow) {
+    let frame = Self.frame(of: element)
+    let point = window.convertPoint(fromScreen: CGPoint(x: frame.midX, y: frame.midY))
+    for type in [NSEvent.EventType.leftMouseDown, .leftMouseUp] {
+      guard
+        let event = NSEvent.mouseEvent(
+          with: type, location: point, modifierFlags: [], timestamp: ProcessInfo.processInfo.systemUptime,
+          windowNumber: window.windowNumber, context: nil, eventNumber: 0, clickCount: 1,
+          pressure: 1)
+      else { continue }
+      window.sendEvent(event)
+    }
+  }
+
   private final class Tracked: @unchecked Sendable {
     var menu: NSMenu?
   }

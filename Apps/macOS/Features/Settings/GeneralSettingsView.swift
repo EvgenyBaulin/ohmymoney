@@ -38,8 +38,17 @@ struct GeneralSettingsView: View {
 
   var body: some View {
     @Bindable var language = environment.language
-    @Bindable var theme = environment.theme
+    #if !os(macOS)
+      @Bindable var theme = environment.theme
+    #endif
     Form {
+      #if os(macOS)
+        languageGroup
+        PrivacySettingsSection()
+        #if !APPSTORE
+          updatesGroup
+        #endif
+      #else
       Picker(selection: $language.choice) {
         ForEach(AppLanguage.Choice.allCases, id: \.self) { choice in
           Text(verbatim: environment.language(choice.settingsKey, table: "Settings"))
@@ -66,6 +75,8 @@ struct GeneralSettingsView: View {
           .foregroundStyle(.secondary)
       }
 
+      #endif
+
       // «Стартовый набор»: categories, limits and tiles for the way the owner lives; only adds.
       Section {
         Button(environment.language("settings.starter.open", table: "Settings")) {
@@ -81,6 +92,7 @@ struct GeneralSettingsView: View {
           .foregroundStyle(.secondary)
       }
 
+      #if !os(macOS)
       // The tips on the spot (`GuideTips`): on this Mac only, never in the data.
       Section {
         Toggle(
@@ -91,12 +103,10 @@ struct GeneralSettingsView: View {
         .accessibilityIdentifier("settings.tips.off")
       }
 
-      // Hiding the amounts and the lock: switches of this Mac, never in the archive. The phone
-      // has its own lock (Face ID), set up in «Ещё».
-      #if os(macOS)
-        PrivacySettingsSection()
       #endif
 
+      // Hiding the amounts and the lock: switches of this Mac, never in the archive. The phone
+      // has its own lock (Face ID), set up in «Ещё».
       Section {
         Toggle(
           isOn: Binding(
@@ -174,10 +184,6 @@ struct GeneralSettingsView: View {
           .foregroundStyle(.secondary)
       }
 
-      #if !APPSTORE && os(macOS)
-        updatesSection
-      #endif
-
       // «Собрать отчёт о проблеме…» — it is here as well as in the
       // menu.
       ProblemReportView()
@@ -202,34 +208,97 @@ struct GeneralSettingsView: View {
     .refusedWriteAlert($refused, environment)
   }
 
-  #if !APPSTORE && os(macOS)
-    /// «Обновления: автоматические вкл/выкл (по умолчанию вкл)». A build
-    /// that cannot verify an update keeps the switch in view, greyed, and says why.
-    private var updatesSection: some View {
-      Section {
-        Toggle(
-          isOn: Binding(
-            get: { automaticUpdates },
-            set: { isOn in
-              AutomaticUpdates().isOn = isOn
-              automaticUpdates = isOn
-            })
-        ) {
-          Text(verbatim: environment.language("settings.updates.automatic", table: "Settings"))
+  #if os(macOS)
+    /// «Язык и подсказки» of the design (Figma 52:585): language, number format, theme, tips —
+    /// rows of a card with the value and a chevron at the right, or a switch.
+    @ViewBuilder
+    private var languageGroup: some View {
+      @Bindable var language = environment.language
+      @Bindable var theme = environment.theme
+      SettingsCardGroup(title: g("settings.general.group.language")) {
+        SettingsCardRow(symbol: "globe", title: environment.language("settings.language", table: "Settings")) {
+          SettingsValueMenu(
+            value: environment.language(language.choice.settingsKey, table: "Settings")
+          ) {
+            Picker("", selection: $language.choice) {
+              ForEach(AppLanguage.Choice.allCases, id: \.self) { choice in
+                Text(verbatim: environment.language(choice.settingsKey, table: "Settings"))
+                  .tag(choice)
+              }
+            }
+            .pickerStyle(.inline).labelsHidden()
+          }
+          .accessibilityIdentifier("settings.language")
         }
-        .disabled(!AutomaticUpdates.isChangeable)
-      } header: {
-        Text(verbatim: environment.language("settings.updates", table: "Settings"))
-          .settingsHeaderStyle()
-      } footer: {
-        Text(
-          verbatim: environment.language(
-            AutomaticUpdates.isChangeable
-              ? "settings.updates.automaticHint" : "settings.updates.unavailableHint",
-            table: "Settings")
-        )
-        .appFont(.callout)
-        .foregroundStyle(.secondary)
+        SettingsCardRow(
+          symbol: "textformat.123",
+          title: environment.language("settings.numbers", table: "Settings")
+        ) {
+          SettingsValueMenu(value: Self.numberStyleSample(theme.numberStyle)) {
+            Picker("", selection: $theme.numberStyle) {
+              ForEach(NumberStyle.allCases, id: \.self) { style in
+                Text(verbatim: Self.numberStyleSample(style)).tag(style)
+              }
+            }
+            .pickerStyle(.inline).labelsHidden()
+          }
+          .accessibilityIdentifier("settings.numbers")
+        }
+        SettingsCardRow(
+          symbol: "moon", title: environment.language("settings.appearance.scheme", table: "Settings")
+        ) {
+          SettingsValueMenu(value: AppearanceSettingsView.schemeTitle(theme.scheme, environment)) {
+            Picker("", selection: $theme.scheme) {
+              ForEach(AppearanceSettingsView.schemeOrder, id: \.self) { scheme in
+                Text(verbatim: AppearanceSettingsView.schemeTitle(scheme, environment))
+                  .tag(scheme)
+              }
+            }
+            .pickerStyle(.inline).labelsHidden()
+          }
+          .accessibilityIdentifier("settings.general.scheme")
+        }
+        SettingsCardRow(
+          symbol: "lightbulb", title: g("settings.general.tips"),
+          hint: g("settings.general.tipsHint"), showsDivider: false, verticalPadding: 11
+        ) {
+          Toggle(
+            isOn: Binding(get: { !GuideStore.shared.tipsOff }, set: { GuideTips.setOff(!$0) })
+          ) { Text(verbatim: g("settings.general.tips")) }
+          .labelsHidden().toggleStyle(.switch)
+          .accessibilityIdentifier("settings.tips.off")
+        }
+      }
+    }
+
+    private func g(_ key: String) -> String { environment.language(key, table: "SettingsGeneral") }
+  #endif
+
+  #if !APPSTORE && os(macOS)
+    /// «Обновления» of the design (Figma 52:675): one row with a switch; a build that cannot
+    /// verify an update keeps the switch in view, greyed, and says why under the card.
+    private var updatesGroup: some View {
+      SettingsCardGroup(
+        title: g("settings.general.group.updates"),
+        footer: AutomaticUpdates.isChangeable
+          ? nil : environment.language("settings.updates.unavailableHint", table: "Settings")
+      ) {
+        SettingsCardRow(
+          symbol: "arrow.clockwise", title: g("settings.general.updates"),
+          hint: g("settings.general.updatesHint"), showsDivider: false, verticalPadding: 11
+        ) {
+          Toggle(
+            isOn: Binding(
+              get: { automaticUpdates },
+              set: { isOn in
+                AutomaticUpdates().isOn = isOn
+                automaticUpdates = isOn
+              })
+          ) { Text(verbatim: g("settings.general.updates")) }
+          .labelsHidden().toggleStyle(.switch)
+          .disabled(!AutomaticUpdates.isChangeable)
+          .accessibilityIdentifier("settings.updates.automatic")
+        }
       }
     }
   #endif
