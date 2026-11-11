@@ -9,18 +9,29 @@ import SwiftUI
 /// `NSApp.appearance` for every window, alert and panel, the SwiftUI environment for the colours
 /// and the accent (`AppThemeModifier`).
 struct AppearanceSettingsView: View {
-  @Dependency(\.environment) private var environment
-  @Environment(\.dependencies) private var dependencies
-  @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.colorSchemeContrast) private var contrast
+  @Dependency(\.environment) var environment
+  @Environment(\.dependencies) var dependencies
+  @Environment(\.colorScheme) var colorScheme
+  @Environment(\.colorSchemeContrast) var contrast
   /// The theme whose preview sheet is open.
-  @State private var previewing: ThemeID?
+  @State var previewing: ThemeID?
 
   /// «Светлая», «Тёмная», «Авто» — in this order.
   static let schemeOrder: [AppTheme.Scheme] = [.light, .dark, .system]
 
   var body: some View {
-    @Bindable var theme = environment.theme
+    #if os(macOS)
+      macBody(theme: environment.theme)
+    #else
+      iosBody(theme: environment.theme)
+    #endif
+  }
+}
+
+extension AppearanceSettingsView {
+  @ViewBuilder
+  private func iosBody(theme: AppTheme) -> some View {
+    @Bindable var theme = theme
     Form {
       Section {
         Picker(selection: $theme.scheme) {
@@ -114,9 +125,6 @@ struct AppearanceSettingsView: View {
       OverviewTilesSection()
     }
     .formStyle(.grouped)
-    #if os(macOS)
-      .padding()
-    #endif
     .accessibilityIdentifier("settings.appearance")
     // A sheet is a host of its own: the dependencies are handed over.
     .sheet(item: $previewing) { id in
@@ -178,13 +186,27 @@ struct AccentSwatches: View {
   @Binding var selection: AppTheme.Accent
   let name: (AppTheme.Accent) -> String
 
-  static let diameter: CGFloat = 18
+  static var diameter: CGFloat {
+    #if os(macOS)
+      SettingsControlMetrics.accentCircle - 6
+    #else
+      18
+    #endif
+  }
   /// Room around a circle that is part of its button but not of its picture.
   static var touchMargin: CGFloat {
     #if os(iOS)
       10
     #else
       0
+    #endif
+  }
+
+  static var followsPadding: CGSize {
+    #if os(macOS)
+      SettingsControlMetrics.accentFollowsPadding
+    #else
+      CGSize(width: 10, height: 3)
     #endif
   }
 
@@ -196,8 +218,8 @@ struct AccentSwatches: View {
       } label: {
         Text(verbatim: name(.theme))
           .appFont(.callout)
-          .padding(.horizontal, 10)
-          .padding(.vertical, 3)
+          .padding(.horizontal, Self.followsPadding.width)
+          .padding(.vertical, Self.followsPadding.height)
           .overlay(
             Capsule().strokeBorder(
               followsTheme ? AnyShapeStyle(.primary) : AnyShapeStyle(.separator),
