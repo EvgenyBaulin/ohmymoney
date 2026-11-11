@@ -59,7 +59,7 @@ final class StoreRedoStepsTests: XCTestCase {
         .addingTimeInterval(minutes * 60),
       amount: AmountE4(whole: whole), note: note)
     draft.normalizeSinglePart()
-    return try draft.materialize()
+    return try draft.materialize(timeZone: CalendarContext.utc.timeZone)
   }
 
   // MARK: The plan of the year

@@ -95,7 +95,7 @@ final class CategoryMarkRowTests: XCTestCase {
     } else {
       draft.parts[0].categoryId = categories.first?.id
     }
-    return try draft.materialize(now: moment)
+    return try draft.materialize(now: moment, timeZone: CalendarContext.utc.timeZone)
   }
 
   private func rows(_ entries: [TransactionEntry]) -> [TransactionRowItem] {
