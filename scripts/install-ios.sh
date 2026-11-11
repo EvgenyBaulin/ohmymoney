@@ -21,6 +21,27 @@ fi
 list="$(mktemp -t ohmymoney-devices)"
 trap 'rm -f "${list}"' EXIT
 xcrun devicectl list devices --json-output "${list}" > /dev/null 2>&1 || true
+# A paired device on the cable often shows its tunnel as «disconnected» until something asks it
+# for details; asking once wakes the tunnel and mounts the developer disk image, then list again.
+asleep="$(python3 - "${list}" <<'PY'
+import json, sys
+try:
+    devices = json.load(open(sys.argv[1]))["result"]["devices"]
+except Exception:
+    devices = []
+for d in devices:
+    hw, cp = d.get("hardwareProperties", {}), d.get("connectionProperties", {})
+    if hw.get("reality") == "physical" and cp.get("pairingState") == "paired" \
+            and cp.get("tunnelState") == "disconnected":
+        print(d["identifier"])
+PY
+)"
+if [ -n "${asleep}" ]; then
+  for ident in ${asleep}; do
+    xcrun devicectl device info details --device "${ident}" > /dev/null 2>&1 || true
+  done
+  xcrun devicectl list devices --json-output "${list}" > /dev/null 2>&1 || true
+fi
 
 # identifier<TAB>name<TAB>ready(1/0)<TAB>why, for physical iOS/iPadOS devices that are connected.
 rows="$(python3 - "${list}" "${only}" <<'PY'
