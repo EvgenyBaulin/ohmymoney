@@ -59,7 +59,7 @@ struct SyncCodecIntegrationTests {
     defer { try? FileManager.default.removeItem(at: directory) }
     let folder = DirectoryJournalFolder(url: directory)
     #expect(try mac.exchange.snapshotIfDue(to: folder, force: true))
-    let info = try #require(SyncSnapshots.newest(in: folder))
+    let info = try #require(try SyncSnapshots.newest(in: folder))
     #expect(
       try Data(contentsOf: directory.appendingPathComponent(info.name)).starts(with: codec.marker))
     let fetched = directory.appendingPathComponent("verified.sqlite")

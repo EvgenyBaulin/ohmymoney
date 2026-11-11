@@ -283,15 +283,10 @@ struct EntryBar<Accessory: View>: View {
       dictation.stop()
       if style == .form { operations?.opensEditor = nil }
     }
-    .onChange(of: scenePhase) { _, phase in
-      // A permission dialog temporarily deactivates the scene. Let that request finish;
-      // recording itself ends when the app leaves the foreground.
-      if phase == .background || (phase == .inactive && dictation.state == .listening) {
-        dictation.stop()
-      }
-    }
-    .onChange(of: environment.language.resolvedCode) { _, _ in dictation.stop() }
-    .onChange(of: style) { _, _ in dictation.stop() }
+    .modifier(
+      DictationStops(
+        dictation: dictation, scenePhase: scenePhase,
+        language: environment.language.resolvedCode, style: style))
     .onChange(of: compute.generation) { _, _ in
       followTheEditedOperation()
       if showsDetails { model?.reload() }
@@ -2203,3 +2198,27 @@ enum EntryPreview {
     return Templates.lineCurrency(in: environment)
   }
 }
+
+/// Ends dictation when the app leaves the foreground, the language or the entry style changes.
+/// A modifier of its own: in the long chain of the bar these checks are too much for the type
+/// checker.
+private struct DictationStops: ViewModifier {
+  let dictation: EntryDictation
+  let scenePhase: ScenePhase
+  let language: String
+  let style: EntryStyle
+
+  func body(content: Content) -> some View {
+    content
+      .onChange(of: scenePhase) { _, phase in
+        // A permission dialog briefly deactivates the scene; let that request finish, and end
+        // the recording itself when the app leaves the foreground.
+        if phase == .background || (phase == .inactive && dictation.state == .listening) {
+          dictation.stop()
+        }
+      }
+      .onChange(of: language) { _, _ in dictation.stop() }
+      .onChange(of: style) { _, _ in dictation.stop() }
+  }
+}
+

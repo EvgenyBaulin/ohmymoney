@@ -108,15 +108,12 @@ final class SyncEncryptionTests: XCTestCase {
         protected: SyncProtectedFolders(fixed: []), language: nil,
         keyStore: InMemorySyncKeyStore(key)))
     let exchange = try XCTUnwrap(coordinator.exchange)
-    try stack.writer.write { db in
-      try db.execute(
-        sql: """
-          INSERT INTO transactions
-            (id, kind, occurred_at, amount_e4, amount_rub_e4, note, created_at, updated_at)
-          VALUES ('synthetic', 'expense', '2026-11-01 10:00:00.000', 10000, 10000,
-                  'synthetic note', '2026-11-01 10:00:00.000', '2026-11-01 10:00:00.000')
-          """)
-    }
+    // Written through the repository: the app's test target does not link GRDB itself.
+    var draft = TransactionDraft(
+      occurredAt: CalendarContext.utc.startOfDay(DateOnly(year: 2026, month: 11, day: 1)),
+      amount: AmountE4(whole: 1), note: "synthetic note")
+    draft.normalizeSinglePart()
+    let saved = try TransactionRepository(writer: stack.writer).save(try draft.materialize())
     let folder = DirectoryJournalFolder(url: directory)
     XCTAssertGreaterThan(try exchange.flush(to: folder), 0)
     let journalName = try XCTUnwrap(
@@ -125,7 +122,7 @@ final class SyncEncryptionTests: XCTestCase {
     XCTAssertTrue(SealedPayloadCodec.isSealed(journal))
     XCTAssertTrue(
       try JournalCoder.decode(journal, codec: codec(key)).entries.contains {
-        $0.uuid == "synthetic"
+        $0.uuid == saved.id.uuidString
       })
     XCTAssertTrue(try exchange.snapshotIfDue(to: folder, force: true))
     let snapshot = try XCTUnwrap(SyncSnapshots.newest(in: folder))
