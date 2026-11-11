@@ -32,6 +32,7 @@ final class SettingsListSectionsFigmaTests: XCTestCase {
     func testACompactCardRowIsAsTallAsTheDesignsRow() {
       let row = SettingsCardRow(title: "Anna", hint: "birthday", compact: true) { Color.clear }
         .frame(width: 600)
+      // dependencies: none — a bare control sized alone reads nothing from the app.
       let height = NSHostingView(rootView: row).fittingSize.height
       XCTAssertGreaterThanOrEqual(height, 2 * SettingsCardMetrics.compactVertical + 13 + 2 + 11)
       XCTAssertLessThan(height, 60)
@@ -42,6 +43,7 @@ final class SettingsListSectionsFigmaTests: XCTestCase {
       let tabs = SettingsTabs(
         selection: Binding(get: { value }, set: { value = $0 }), choices: [0, 1, 2],
         title: { "Tab \($0)" }, identifier: "t")
+      // dependencies: none — a bare control sized alone reads nothing from the app.
       let height = NSHostingView(rootView: tabs).fittingSize.height
       XCTAssertGreaterThanOrEqual(height, 2 * (SettingsTabsMetrics.trackPadding + 5) + 12)
       XCTAssertLessThan(height, 40)

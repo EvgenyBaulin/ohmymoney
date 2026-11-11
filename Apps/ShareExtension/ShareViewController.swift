@@ -6,6 +6,7 @@ import SwiftUI
 
   final class ShareViewController: NSViewController {
     override func loadView() {
+      // dependencies: none — the extension runs outside the app and only writes a file to the inbox.
       let host = NSHostingController(rootView: ShareComposeView(context: extensionContext))
       addChild(host)
       view = host.view
