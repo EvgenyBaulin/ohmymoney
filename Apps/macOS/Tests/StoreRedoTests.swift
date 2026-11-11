@@ -30,7 +30,7 @@ final class StoreRedoTests: XCTestCase {
         .addingTimeInterval(minutes * 60),
       amount: AmountE4(whole: Int64(whole)), note: note)
     draft.normalizeSinglePart()
-    return try draft.materialize()
+    return try draft.materialize(timeZone: CalendarContext.utc.timeZone)
   }
 
   private func showDatabase() throws {

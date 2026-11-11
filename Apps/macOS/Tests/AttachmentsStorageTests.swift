@@ -34,7 +34,7 @@ final class AttachmentsStorageTests: XCTestCase {
       schema: BundleSchemaSource(bundle: .main))
     var draft = TransactionDraft(amount: AmountE4(whole: 250), note: "synthetic")
     draft.normalizeSinglePart()
-    let transaction = try draft.materialize()
+    let transaction = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     try TransactionRepository(writer: stack.writer).save(transaction)
     owner = transaction.transaction.id
     service = AttachmentService(

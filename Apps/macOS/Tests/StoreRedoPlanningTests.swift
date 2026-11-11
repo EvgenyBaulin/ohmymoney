@@ -31,7 +31,7 @@ final class StoreRedoPlanningTests: XCTestCase {
       occurredAt: CalendarContext.utc.startOfDay(DateOnly(year: 2026, month: 9, day: 18)),
       amount: AmountE4(whole: 50), note: "rent")
     draft.normalizeSinglePart()
-    let entry = try draft.materialize()
+    let entry = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     let bank = Bank(name: "Bank")
     XCTAssertTrue(
       store.apply(PlanningChange(created: [entry], upsert: PlanningRows(banks: [bank]))))
