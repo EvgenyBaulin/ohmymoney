@@ -104,6 +104,14 @@ final class ThemeCatalogTests: XCTestCase {
     }
   }
 
+  func testSidebarFiguresUseReadableThemeInkInEveryScheme() {
+    for (id, scheme, p) in palettes {
+      let background = p.surfaceSidebar.composited(over: p.surfaceBackground)
+      XCTAssertGreaterThanOrEqual(
+        p.sidebarSecondaryText.contrast(on: background), 4.5, "\(id) \(scheme) sidebar figures")
+    }
+  }
+
   func testTextOnTheHeroIsReadableExceptOnTheLightOrange() {
     for (id, scheme, p) in palettes where !Self.whiteOnHeroExceptions.contains(id) {
       XCTAssertGreaterThanOrEqual(p.heroContent.contrast(on: p.heroEnd), 3, "\(id) \(scheme)")

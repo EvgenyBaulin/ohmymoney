@@ -38,6 +38,7 @@ struct ShareDonutChart: View {
       )
       .foregroundStyle(slice.tint)
       .accessibilityLabel(Text(verbatim: slice.name))
+      .accessibilityIdentifier("chart.native.share.\(slice.id)")
     }
     .chartLegend(.hidden)
     .frame(width: side, height: side)

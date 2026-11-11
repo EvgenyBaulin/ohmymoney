@@ -32,7 +32,8 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
   }
 
   func testCapital() throws {
-    try auditMain("capital", ready: "capital.net")
+    // The hero combines its children, so `capital.net` is not a separate AX element.
+    try auditMain("capital", ready: "capital.assets.header")
   }
 
   func testPurchases() throws {
@@ -117,6 +118,8 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
     let app = launch(section: section)
     defer { app.terminate() }
     let main = mainWindow(app)
+    // Exercise the section command as well as the launch option, after the sidebar exists.
+    click(app, "sidebar.\(section)")
     XCTAssertTrue(
       descendant(main, identifier).waitForExistence(timeout: 90),
       "Main / \(section): content did not appear (\(identifier))")
@@ -133,12 +136,14 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
   private func auditSettings(_ section: String, ready identifier: String) throws {
     let app = launch(section: "overview")
     defer { app.terminate() }
-    let open = mainWindow(app).buttons["sidebar.settings"]
-    XCTAssertTrue(open.waitForExistence(timeout: 30), "No Settings button in the main sidebar")
-    open.click()
-    // The search field belongs only to Settings; its title changes with the selected section.
-    let settings = app.windows.containing(.textField, identifier: "settings.search").firstMatch
-    XCTAssertTrue(settings.waitForExistence(timeout: 30), "No Settings search field/window")
+    app.activate()
+    XCTAssertTrue(app.wait(for: .runningForeground, timeout: 10), "App is not foreground")
+    app.typeKey(",", modifierFlags: .command)
+    // The search can be exposed as a search field or a text field by AppKit. This sidebar
+    // button belongs only to Settings and does not depend on the window's changing title.
+    let settings = app.windows.containing(.button, identifier: "settings.section.general")
+      .firstMatch
+    XCTAssertTrue(settings.waitForExistence(timeout: 30), "No Settings sidebar/window after Cmd-,")
     let row = settings.buttons["settings.section.\(section)"]
     XCTAssertTrue(row.waitForExistence(timeout: 20), "No Settings / \(section) sidebar row")
     row.click()
@@ -158,29 +163,65 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       snapshot(name, of: window)
       dump(name, of: app)
       var descriptions: [String] = []
+      var systemDescriptions: [String] = []
       var completed = false
-      // Record every native audit failure, even when several elements fail on one screen.
-      // Returning false keeps XCTest's failures and element attachments; nothing is filtered.
+      // Record every finding ourselves so its first log line identifies the element. Returning
+      // true only avoids XCTest's duplicate, context-free failure after our own XCTFail.
       continueAfterFailure = true
       defer {
         continueAfterFailure = false
         let status =
           completed ? "No accessibility issues." : "Audit did not finish; see test failure."
-        let report = descriptions.isEmpty ? status : descriptions.joined(separator: "\n\n")
+        var report = descriptions.isEmpty ? status : descriptions.joined(separator: "\n\n")
+        if !systemDescriptions.isEmpty {
+          report +=
+            "\n\nSystem chart role exceptions:\n" + systemDescriptions.joined(separator: "\n\n")
+        }
         let attachment = XCTAttachment(string: report)
         attachment.name = "accessibility-\(name)"
         attachment.lifetime = .keepAlways
         add(attachment)
       }
       try app.performAccessibilityAudit(for: auditTypes) { issue in
-        let element =
-          issue.element.map {
-            "\($0.elementType), id=\($0.identifier), label=\($0.label), frame=\($0.frame)"
-          } ?? "No associated element"
-        descriptions.append(
-          "[\(name)] \(self.auditName(issue.auditType)): \(issue.compactDescription)\n"
-            + "\(issue.detailedDescription)\n\(element)")
-        return false
+        var element = "identifier=<none> label=<none> elementType=<none> frame=<none>"
+        var snapshotError = ""
+        var systemChartRole = false
+        do {
+          if let target = issue.element {
+            // Resolve once: repeated queries can see different layouts or lose a stale node.
+            let node = try target.snapshot()
+            element =
+              "identifier=\(String(reflecting: node.identifier))"
+              + " label=\(String(reflecting: node.label)) elementType=\(node.elementType)"
+              + " frame=\(node.frame)"
+            // Swift Charts exports these mark nodes as AXUnknown. ChartContent allows labels,
+            // values and identifiers, but has no role/trait setter. Exempt only that role
+            // finding on our explicitly identified native marks; labels, actions, contrast,
+            // parent/child issues and unmarked framework containers must still fail.
+            let nativeMark =
+              node.identifier == "chart.native.average"
+              || ["chart.native.column.", "chart.native.pair.", "chart.native.share."].contains {
+                node.identifier.hasPrefix($0)
+              }
+            systemChartRole =
+              issue.auditType == .elementDetection
+              && issue.compactDescription == "Unknown role" && node.elementType == .other
+              && nativeMark
+          }
+        } catch {
+          snapshotError = "\nCould not snapshot audit element: \(error)"
+        }
+        let headline =
+          "[\(name)] type=\(self.auditName(issue.auditType)) \(element)"
+          + " issue=\(String(reflecting: issue.compactDescription))"
+        let report = headline + "\n" + issue.detailedDescription + snapshotError
+        if systemChartRole {
+          systemDescriptions.append(report)
+          return true
+        }
+        descriptions.append(report)
+        XCTFail(report)
+        return true
       }
       completed = true
     }

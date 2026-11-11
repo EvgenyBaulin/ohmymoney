@@ -16,6 +16,7 @@ struct AccountsSidebarSection: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
+  @Environment(\.appTheme) private var theme
   let model: AccountsSidebarModel
   @Binding var selection: SidebarItem
   /// The groups folded by their chevron, kept between launches as a habit of the window.
@@ -26,6 +27,8 @@ struct AccountsSidebarSection: View {
   private func t(_ key: String) -> String { environment.language(key, table: AccountText.table) }
 
   private var actions: AccountActions { AccountActions(environment: environment, store: store) }
+
+  private var secondaryInk: Color { Color(theme.palette.sidebarSecondaryText) }
 
   /// «без курса: USD, KZT».
   private func withoutRate(_ codes: String) -> String {
@@ -81,30 +84,38 @@ struct AccountsSidebarSection: View {
       Text(verbatim: t("accounts.section.accounts"))
         .appFont(SidebarType.header)
         .textCase(.uppercase)
-        .foregroundStyle(.secondary)
+        .foregroundStyle(secondaryInk)
       Spacer()
       Menu {
-        Button(t("accounts.newAccount")) { model.sheet = .account(nil) }
-        Button(t("accounts.newGroup")) { model.sheet = .group(nil) }
-        Divider()
-        Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: nil)) }
-          .disabled(live.isEmpty)
-        Button(t("accounts.reconcile")) { environment.showsReconciliation = true }
-        if environment.accountSetup == .later {
-          Divider()
-          Button(environment.language("onboarding.card.action", table: "Onboarding")) {
-            AccountSetupRequest.shared.isRequested = true
-          }
-        }
+        addActions(live: live)
       } label: {
         Image(systemName: "plus")
-          .accessibilityLabel(Text(verbatim: t("sidebar.add")))
       }
       .menuStyle(.borderlessButton)
       .menuIndicator(.hidden)
       .fixedSize()
       .help(t("sidebar.add"))
+      .accessibilityLabel(Text(verbatim: t("sidebar.add")))
+      // The native section header does not expose the Menu's press action. VoiceOver gets
+      // the same actions directly, including their disabled state, without opening a popup.
+      .accessibilityActions { addActions(live: live) }
       .accessibilityIdentifier("sidebar.accounts.add")
+    }
+  }
+
+  @ViewBuilder
+  private func addActions(live: [PaymentMethod]) -> some View {
+    Button(t("accounts.newAccount")) { model.sheet = .account(nil) }
+    Button(t("accounts.newGroup")) { model.sheet = .group(nil) }
+    Divider()
+    Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: nil)) }
+      .disabled(live.isEmpty)
+    Button(t("accounts.reconcile")) { environment.showsReconciliation = true }
+    if environment.accountSetup == .later {
+      Divider()
+      Button(environment.language("onboarding.card.action", table: "Onboarding")) {
+        AccountSetupRequest.shared.isRequested = true
+      }
     }
   }
 
@@ -131,13 +142,16 @@ struct AccountsSidebarSection: View {
               missing.map(\.code).joined(separator: ", "))
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .foregroundStyle(secondaryInk)
         }
       }
     }
     .help(snapshot.inSummaryTotalRub == nil ? t("sidebar.totalNotCounted") : t("sidebar.totalHint"))
     .tag(SidebarItem.allAccounts)
+    .foregroundStyle(theme.contentPrimary)
     .accessibilityElement(children: .combine)
+    .accessibilityAddTraits(.isButton)
+    .accessibilityAction { selection = .allAccounts }
     .accessibilityIdentifier("sidebar.accounts.total")
   }
 
@@ -146,7 +160,7 @@ struct AccountsSidebarSection: View {
     Text(verbatim: environment.language("tree.noGroup", table: EntryLinks.table))
       .appFont(SidebarType.header)
       .textCase(.uppercase)
-      .foregroundStyle(.secondary)
+      .foregroundStyle(secondaryInk)
       .padding(.top, 12 - AccountsSidebarMetrics.rowVertical)
       .selectionDisabled()
       .moveDisabled(true)
@@ -165,7 +179,7 @@ struct AccountsSidebarSection: View {
       } label: {
         Image(systemName: isFolded ? "chevron.right" : "chevron.down")
           .font(.system(size: 8, weight: .semibold))  // font-fixed: 9 pt chevron of a group
-          .foregroundStyle(.secondary)
+          .foregroundStyle(secondaryInk)
           .frame(width: AccountsSidebarMetrics.dot, height: AccountsSidebarMetrics.dot)
           .contentShape(.rect)
       }
@@ -182,27 +196,37 @@ struct AccountsSidebarSection: View {
           // Left out of the summary: said in words, never by colour.
           Text(verbatim: t("sidebar.excluded"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(secondaryInk)
         }
       }
       Spacer(minLength: 4)
       VStack(alignment: .trailing, spacing: 0) {
         Text(verbatim: section.totalRub.map { environment.money.rounded($0) } ?? "—")
           .appFont(AccountsSidebarMetrics.figure)
-          .foregroundStyle(.secondary)
+          .foregroundStyle(secondaryInk)
         if compute.snapshot?.coveredAccounts?.isPartHidden(section) == true { partHiddenNote }
         if section.totalRub != nil, !section.withoutRate.isEmpty {
           // Money the total leaves out for want of a rate is named, not dropped in silence.
           Text(verbatim: withoutRate(section.withoutRate.map(\.code).joined(separator: ", ")))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(secondaryInk)
             .lineLimit(1)
         }
       }
     }
     .tag(SidebarItem.group(group.id))
     .contextMenu { groupMenu(group, holdsMain: section.accounts.contains { $0.account.isDefault }) }
+    .foregroundStyle(theme.contentPrimary)
     .accessibilityElement(children: .combine)
+    .accessibilityAddTraits(.isButton)
+    .accessibilityAction { selection = .group(group.id) }
+    .accessibilityAction(
+      named: Text(
+        verbatim: environment.language(
+          isFolded ? "tree.expandAll" : "tree.collapseAll", table: EntryLinks.table))
+    ) {
+      foldedGroups = AccountsSidebarFold.toggled(group.id, in: foldedGroups)
+    }
   }
 
   private func accountRow(
@@ -229,12 +253,12 @@ struct AccountsSidebarSection: View {
       VStack(alignment: .trailing, spacing: 0) {
         Text(verbatim: figure.main)
           .appFont(AccountsSidebarMetrics.figure)
-          .foregroundStyle(.secondary)
+          .foregroundStyle(secondaryInk)
         if let caption = figure.caption {
           Text(verbatim: caption)
             .appFont(.caption)
             .monospacedDigit()
-            .foregroundStyle(.secondary)
+            .foregroundStyle(secondaryInk)
             .lineLimit(1)
         }
       }
@@ -246,7 +270,10 @@ struct AccountsSidebarSection: View {
     .contextMenu {
       accountMenu(line.account, live: live, section: section, snapshot: snapshot)
     }
+    .foregroundStyle(theme.contentPrimary)
     .accessibilityElement(children: .combine)
+    .accessibilityAddTraits(.isButton)
+    .accessibilityAction { selection = .account(line.account.id) }
   }
 
   /// The row of someone else's card: what was spent with it this month, and whose card it is —
