@@ -163,4 +163,66 @@ struct PrintedReceiptTests {
     }
     #expect(draft.currency == CurrencyCode("AZN"))
   }
+
+  // MARK: The shop of a foreign receipt
+
+  private func recognized(_ lines: [String], confidence: Float) -> [RecognizedLine] {
+    lines.map { RecognizedLine(text: $0, confidence: confidence) }
+  }
+
+  private func printed(_ lines: [RecognizedLine]) throws -> PrintedReceipt {
+    guard case .receipt(let printed) = PrintedReceiptReader.read(recognized: lines) else {
+      throw ReadFailure()
+    }
+    return printed
+  }
+
+  private let foreign = [
+    "Sample Market LLC", "Tax ID 1234567", "Cəmi: 7.40 ₼", "Tarix 02.11.2026", "Vaxt 10:15",
+  ]
+
+  @Test func aConfidentlyReadForeignReceiptNamesTheShop() throws {
+    let result = try printed(recognized(foreign, confidence: 0.95))
+    #expect(result.kind == .other)
+    #expect(result.merchant == "Sample Market LLC")
+    #expect(result.receipt.amountE4.raw == 74_000)
+  }
+
+  @Test func aDimlyReadForeignReceiptGivesOnlyTotalAndMoment() throws {
+    let result = try printed(recognized(foreign, confidence: 0.55))
+    #expect(result.merchant == nil)
+    #expect(result.receipt.amountE4.raw == 74_000)
+    #expect(result.receipt.time == TimeOfDay(hour: 10, minute: 15))
+  }
+
+  @Test func oneDimShopLineIsNotTrustedEvenWhenTheRestIsClear() throws {
+    var lines = recognized(foreign, confidence: 0.97)
+    lines[0].confidence = 0.4
+    #expect(try printed(lines).merchant == nil)
+  }
+
+  @Test func textWithoutConfidencesNamesNoShop() throws {
+    guard case .receipt(let result) = PrintedReceiptReader.read(lines: foreign) else {
+      throw ReadFailure()
+    }
+    #expect(result.merchant == nil)
+  }
+
+  @Test func theShopIsTheFirstNameLikeLineOfTheHeaderNotAReceiptWordOrANumber() throws {
+    let lines = [
+      "RECEIPT", "No 00123", "Cafe Aroma", "Baku, Main St 5", "Total 12.00 EUR",
+      "02.11.2026 10:15",
+    ]
+    #expect(try printed(recognized(lines, confidence: 0.9)).merchant == "Cafe Aroma")
+  }
+
+  @Test func aHeaderWithNoNameLikeLineNamesNoShop() throws {
+    let lines = ["12345", "02.11.2026 10:15", "Total 12.00 EUR", "Thank you"]
+    #expect(try printed(recognized(lines, confidence: 0.9)).merchant == nil)
+  }
+
+  @Test func aFiscalReceiptDoesNotTakeAShopFromPrint() throws {
+    let lines = recognized(fiscal, confidence: 0.95)
+    #expect(try printed(lines).merchant == nil)
+  }
 }

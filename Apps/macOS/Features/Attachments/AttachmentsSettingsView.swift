@@ -17,6 +17,20 @@ struct AttachmentsSettingsView: View {
   private func t(_ key: String) -> String { AttachmentsText.t(key, environment) }
 
   var body: some View {
+    #if os(macOS)
+      macLayout
+        .task { await load() }
+        .sheet(isPresented: $showsTrash, onDismiss: { Task { await load() } }) {
+          if let dependencies {
+            AttachmentTrashView().handingOver(dependencies)
+          }
+        }
+    #else
+      formLayout
+    #endif
+  }
+
+  private var formLayout: some View {
     Form {
       Section {
         Toggle(isOn: flag(\.keepReceiptsForever)) {
@@ -232,3 +246,67 @@ struct AttachmentTrashView: View {
     settings = (try? service.repository.settings()) ?? AttachmentSettings()
   }
 }
+
+#if os(macOS)
+  /// The Mac's «Вложения» in the design's measures (Figma 61:56010): a card of three counts,
+  /// the button to the bin, a card of switches — the one for receipts with its hint — and the
+  /// line of what is kept as it came. The days in the bin stay a row of that card.
+  extension AttachmentsSettingsView {
+    fileprivate var macLayout: some View {
+      ScrollView {
+        VStack(alignment: .leading, spacing: SettingsControlMetrics.blockGap) {
+          SettingsCard {
+            count(t("att.settings.files"), "\(summary.files)")
+            count(t("att.settings.size"), AttachmentsText.size(summary.bytes))
+            count(t("att.settings.inTrash"), "\(summary.inTrash)", last: true)
+          }
+          Button(t("att.settings.openTrash")) { showsTrash = true }
+            .buttonStyle(SettingsActionButtonStyle())
+            .accessibilityIdentifier("settings.attachments.openTrash")
+          SettingsCard {
+            switchRow(
+              "att.settings.keepReceipts", hint: "att.settings.keepReceiptsHint",
+              flag(\.keepReceiptsForever), id: "keepReceipts")
+            switchRow("att.settings.archive", flag(\.withAttachmentsInArchive), id: "archive")
+            switchRow("att.settings.mirror", flag(\.mirror), id: "mirror")
+            SettingsCardRow(
+              title: environment.format(
+                "att.settings.trashDays", table: AttachmentsText.table, counts: values.trashDays),
+              showsDivider: false, compact: true
+            ) {
+              Stepper("", value: trashDays, in: 1...365).labelsHidden()
+                .accessibilityIdentifier("settings.attachments.trashDays")
+            }
+          }
+          Text(verbatim: t("att.settings.footer"))
+            .appFont(AppFont.system(size: 12))
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+    }
+
+    private func count(_ title: String, _ value: String, last: Bool = false) -> some View {
+      SettingsCardRow(title: title, showsDivider: !last, compact: true) {
+        Text(verbatim: value)
+          .appFont(AppFont.system(size: 13, weight: .semibold).monospacedDigit())
+          .foregroundStyle(.secondary)
+      }
+    }
+
+    private func switchRow(
+      _ title: String, hint: String? = nil, _ isOn: Binding<Bool>, id: String
+    ) -> some View {
+      SettingsCardRow(
+        title: t(title), hint: hint.map(t), showsDivider: true, compact: true
+      ) {
+        Toggle(isOn: isOn) { Text(verbatim: t(title)) }
+          .labelsHidden().toggleStyle(.switch)
+          .accessibilityIdentifier("settings.attachments.\(id)")
+      }
+    }
+  }
+#endif

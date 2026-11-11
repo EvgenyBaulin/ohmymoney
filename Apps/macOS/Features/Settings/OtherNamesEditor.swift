@@ -20,6 +20,14 @@ struct OtherNamesEditor: View {
   @State private var refusal: OtherNames.Refusal?
 
   var body: some View {
+    #if os(macOS)
+      cardBody
+    #else
+      formBody
+    #endif
+  }
+
+  private var formBody: some View {
     Section {
       ForEach(Array(names.enumerated()), id: \.offset) { index, name in
         HStack {
@@ -66,6 +74,74 @@ struct OtherNamesEditor: View {
     }
     .onChange(of: typed) { _, _ in refusal = nil }
   }
+
+  #if os(macOS)
+    /// The design's card (Figma 61:28559): a title of 13 semibold, rows of 16 × 11 with the name
+    /// 13 medium and «→ own name» at the right, the new name typed in the last row in the
+    /// accent, and the hint 12 under the card.
+    private var cardBody: some View {
+      Section {
+        VStack(alignment: .leading, spacing: 18) {
+          Text(verbatim: t("names.other.title"))
+            .appFont(AppFont.system(size: 13, weight: .semibold))
+          SettingsCard {
+            ForEach(Array(names.enumerated()), id: \.offset) { index, name in
+              SettingsCardRow(title: name, compact: true) {
+                HStack(spacing: 10) {
+                  Text(verbatim: "→ \(ownName)")
+                    .appFont(AppFont.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.secondary)
+                  Button {
+                    names.remove(at: index)
+                  } label: {
+                    Image(systemName: "xmark.circle.fill")
+                      .appFont(.callout)
+                      .foregroundStyle(.secondary)
+                      .accessibilityLabel(
+                        Text(
+                          verbatim: environment.format(
+                            "names.other.remove", table: "Settings", name)))
+                  }
+                  .buttonStyle(.borderless)
+                  .help(environment.format("names.other.remove", table: "Settings", name))
+                }
+              }
+            }
+            HStack(spacing: 8) {
+              TextField(text: $typed) {
+                Text(verbatim: t("names.other.new"))
+              }
+              .textFieldStyle(.plain)
+              .appFont(AppFont.system(size: 13, weight: .medium))
+              .foregroundStyle(Color.accentColor)
+              .onSubmit(add)
+              Button(t("names.other.add"), action: add)
+                .disabled(ReferenceNames.folded(typed).isEmpty)
+            }
+            .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
+            .padding(.vertical, SettingsCardMetrics.compactVertical)
+          }
+          if let refusal {
+            Label {
+              Text(verbatim: message(refusal))
+                .fixedSize(horizontal: false, vertical: true)
+            } icon: {
+              Image(systemName: "exclamationmark.circle")
+            }
+            .appFont(.callout)
+            .foregroundStyle(.secondary)
+          }
+          Text(verbatim: t("names.other.hint"))
+            .appFont(AppFont.system(size: 12))
+            .foregroundStyle(.secondary)
+        }
+        .padding(.vertical, 8)
+      }
+      .listRowBackground(Color.clear)
+      .listRowInsets(EdgeInsets())
+      .onChange(of: typed) { _, _ in refusal = nil }
+    }
+  #endif
 
   private func add() {
     if let refused = OtherNames.refusal(

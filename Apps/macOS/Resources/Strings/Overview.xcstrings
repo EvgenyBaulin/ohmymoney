@@ -3255,40 +3255,6 @@
         }
       }
     },
-    "overview.headline.free": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Free %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Свободно %@"
-          }
-        }
-      }
-    },
-    "overview.headline.perDay": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "That is %1$@ a day. %2$@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Это %1$@ в день. %2$@"
-          }
-        }
-      }
-    },
     "overview.headline.short": {
       "extractionState": "manual",
       "localizations": {
@@ -3302,23 +3268,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не хватает %@"
-          }
-        }
-      }
-    },
-    "overview.headline.taken": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Payments and limits are already taken out."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Платежи и лимиты уже вычтены."
           }
         }
       }
@@ -4740,91 +4689,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доходов в этом месяце пока нет"
-          }
-        }
-      }
-    },
-    "overview.statement.awaitingDecision": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "awaiting a decision"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ждёт решения"
-          }
-        }
-      }
-    },
-    "overview.statement.closingBalance": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Statement closing balance: %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Остаток по выписке: %@"
-          }
-        }
-      }
-    },
-    "overview.statement.keepWritten": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keep the written operations"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Оставить записанные операции"
-          }
-        }
-      }
-    },
-    "overview.statement.ledgerBalance": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Balance in the app: %@"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Остаток в приложении: %@"
-          }
-        }
-      }
-    },
-    "overview.statement.noBalance": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The balances could not be compared: no reconciliation for this date or no statement currency."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Остаток не удалось сравнить: нет сверки на эту дату или валюты выписки."
           }
         }
       }

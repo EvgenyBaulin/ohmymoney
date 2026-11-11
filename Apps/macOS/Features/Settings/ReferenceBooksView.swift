@@ -75,6 +75,49 @@ struct ReferenceBooksView: View {
   }
 
   var body: some View {
+    layout
+    .onAppear(perform: reload)
+    .onChange(of: store.writeRevision) { _, _ in reload() }
+    .refusedWriteAlert($refused, environment)
+    .onChange(of: book) { _, _ in
+      selection = []
+      note = nil
+      reload()
+    }
+    .onChange(of: showsArchive) { _, isShown in
+      // A row the list no longer shows is no longer picked.
+      if !isShown { selection.subtract(rows.filter(\.archived).map(\.id)) }
+    }
+    .confirmationDialog(
+      merging?.title(environment) ?? "", isPresented: isAskingToMerge,
+      titleVisibility: .visible, presenting: merging
+    ) { question in
+      Button(question.confirm(environment), role: .destructive) { merge(question) }
+      Button(environment.language("action.cancel"), role: .cancel) {}
+    } message: { question in
+      Text(verbatim: question.message(environment))
+    }
+    .confirmationDialog(
+      deleting?.title(environment) ?? "", isPresented: isAskingToDelete,
+      titleVisibility: .visible, presenting: deleting
+    ) { question in
+      Button(environment.language("action.delete"), role: .destructive) { delete(question) }
+      Button(environment.language("action.cancel"), role: .cancel) {}
+    } message: { question in
+      Text(verbatim: question.message(environment))
+    }
+  }
+
+  @ViewBuilder
+  private var layout: some View {
+    #if os(macOS)
+      macLayout
+    #else
+      formLayout
+    #endif
+  }
+
+  private var formLayout: some View {
     VStack(alignment: .leading, spacing: 12) {
       HStack(spacing: 12) {
         Picker(selection: $book) {
@@ -128,36 +171,6 @@ struct ReferenceBooksView: View {
       }
     }
     .padding()
-    .onAppear(perform: reload)
-    .onChange(of: store.writeRevision) { _, _ in reload() }
-    .refusedWriteAlert($refused, environment)
-    .onChange(of: book) { _, _ in
-      selection = []
-      note = nil
-      reload()
-    }
-    .onChange(of: showsArchive) { _, isShown in
-      // A row the list no longer shows is no longer picked.
-      if !isShown { selection.subtract(rows.filter(\.archived).map(\.id)) }
-    }
-    .confirmationDialog(
-      merging?.title(environment) ?? "", isPresented: isAskingToMerge,
-      titleVisibility: .visible, presenting: merging
-    ) { question in
-      Button(question.confirm(environment), role: .destructive) { merge(question) }
-      Button(environment.language("action.cancel"), role: .cancel) {}
-    } message: { question in
-      Text(verbatim: question.message(environment))
-    }
-    .confirmationDialog(
-      deleting?.title(environment) ?? "", isPresented: isAskingToDelete,
-      titleVisibility: .visible, presenting: deleting
-    ) { question in
-      Button(environment.language("action.delete"), role: .destructive) { delete(question) }
-      Button(environment.language("action.cancel"), role: .cancel) {}
-    } message: { question in
-      Text(verbatim: question.message(environment))
-    }
   }
 
   private var isAskingToMerge: Binding<Bool> {
@@ -990,3 +1003,119 @@ enum ReferenceNames {
     return rows.contains { spellings in spellings.contains { folded($0) == wanted } }
   }
 }
+
+#if os(macOS)
+  /// The Mac's «Справочники» in the design's measures (Figma 61:28559): tabs, then the rows of
+  /// the book in a card — name 13 medium over its days or state 11, a chevron — then the form of
+  /// the row picked, and the field for a new name.
+  extension ReferenceBooksView {
+    fileprivate var macLayout: some View {
+      ScrollView {
+        VStack(alignment: .leading, spacing: SettingsControlMetrics.blockGap) {
+          HStack(spacing: 12) {
+            SettingsTabs(
+              selection: $book, choices: Book.allCases,
+              title: { t($0.titleKey) }, identifier: "references.book")
+            Spacer(minLength: 0)
+            Toggle(isOn: $showsArchive) {
+              Text(verbatim: t("references.showArchive"))
+            }
+            .toggleStyle(.checkbox)
+          }
+          macRows
+          macDetail
+          if let note {
+            Label {
+              Text(verbatim: note).fixedSize(horizontal: false, vertical: true)
+            } icon: {
+              Image(systemName: "info.circle")
+            }
+            .appFont(AppFont.system(size: 12))
+            .foregroundStyle(.secondary)
+          }
+          HStack {
+            TextField(text: $newName) {
+              Text(verbatim: t("references.name"))
+            }
+            .onSubmit(add)
+            Button(t("references.add"), action: add)
+              .disabled(!canAddNewName)
+          }
+          if isNewNameTaken {
+            Text(verbatim: t("references.nameTaken"))
+              .appFont(AppFont.system(size: 12))
+              .foregroundStyle(.secondary)
+          }
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+    }
+
+    private var macRows: some View {
+      let shown = rows.filter { showsArchive || !$0.archived }
+      return SettingsCard {
+        if shown.isEmpty {
+          Text(verbatim: t("references.pick"))
+            .appFont(AppFont.system(size: 12))
+            .foregroundStyle(.secondary)
+            .padding(.vertical, SettingsCardMetrics.compactVertical)
+        }
+        ForEach(shown) { row in
+          macRow(row, last: row.id == shown.last?.id)
+        }
+      }
+    }
+
+    private func macRow(_ row: Row, last: Bool) -> some View {
+      let chosen = selection.contains(row.id)
+      return SettingsCardRow(
+        title: row.name,
+        hint: row.days ?? (row.archived ? t("references.inArchive") : nil),
+        showsDivider: !last, compact: true
+      ) {
+        HStack(spacing: 8) {
+          if chosen {
+            Menu {
+              menuItems(row)
+            } label: {
+              Image(systemName: "ellipsis.circle")
+                .accessibilityLabel(
+                  Text(
+                    verbatim: environment.format(
+                      "references.rowMenu", table: "Settings", row.title)))
+            }
+            .menuStyle(.borderlessButton)
+            .menuIndicator(.hidden)
+            .fixedSize()
+            .help(t("references.rowMenuHint"))
+          }
+          Image(systemName: "chevron.right")
+            .font(.system(size: 11, weight: .semibold))  // font-fixed: chevron in a 14 pt slot
+            .foregroundStyle(.secondary)
+            .accessibilityHidden(true)
+        }
+      }
+      .background(chosen ? Color.accentColor.opacity(0.08) : .clear)
+      .contentShape(Rectangle())
+      .onTapGesture {
+        // ⌘-click picks several rows, to delete the unused ones together.
+        if NSEvent.modifierFlags.contains(.command) {
+          if chosen { selection.remove(row.id) } else { selection.insert(row.id) }
+        } else {
+          selection = [row.id]
+        }
+      }
+      .contextMenu { menuItems(row) }
+      .accessibilityAddTraits(chosen ? [.isButton, .isSelected] : [.isButton])
+    }
+
+    @ViewBuilder
+    private var macDetail: some View {
+      if !selection.isEmpty {
+        detail.frame(maxWidth: .infinity, minHeight: 360, alignment: .topLeading)
+      }
+    }
+  }
+#endif

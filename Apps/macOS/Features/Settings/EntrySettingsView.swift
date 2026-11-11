@@ -16,36 +16,90 @@ struct EntrySettingsView: View {
   /// «Навигация с клавиатуры» on in System Settings.
   @State private var fullKeyboardAccess = PanelTabOrder.fullKeyboardAccess
 
+  /// 18 between the blocks on the Mac, as drawn; 10 on a phone and a tablet.
+  private static var blockSpacing: CGFloat {
+    #if os(macOS)
+      SettingsControlMetrics.blockGap
+    #else
+      10
+    #endif
+  }
+
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    VStack(alignment: .leading, spacing: Self.blockSpacing) {
       let words = EntryStyleWords.of(tablet: EntryStyleWords.isTablet)
-      Picker(
-        selection: Binding(
-          get: { environment.entryStyle }, set: { environment.entryStyle = $0 })
-      ) {
-        choice(words.line, detail: words.lineDetail).tag(EntryStyle.line)
-        choice(words.form, detail: words.formDetail).tag(EntryStyle.form)
-      } label: {
-        Text(verbatim: t(words.label))
-      }
-      .pickerStyle(.menu)
-      .fixedSize()
-      .accessibilityIdentifier("settings.entry.style")
-      hint(words.hint)
-      Toggle(
-        t("settings.entry.chips"),
-        isOn: Binding(
-          get: { environment.entryChipsShown }, set: { environment.entryChipsShown = $0 })
-      )
-      .accessibilityIdentifier("settings.entry.chips")
-      Toggle(
-        t("settings.entry.historyHints"),
-        isOn: Binding(
-          get: { environment.entryHistoryHintsShown },
-          set: { environment.entryHistoryHintsShown = $0 })
-      )
-      .accessibilityIdentifier("settings.entry.historyHints")
-      hint("settings.entry.hintsHint")
+      #if os(macOS)
+        // The design's card (Figma 61:29927): rows of 16 × 11, name 13 medium, switch at the right.
+        SettingsCard {
+          SettingsCardRow(title: t(words.label), compact: true) {
+            Picker(
+              selection: Binding(
+                get: { environment.entryStyle }, set: { environment.entryStyle = $0 })
+            ) {
+              choice(words.line, detail: words.lineDetail).tag(EntryStyle.line)
+              choice(words.form, detail: words.formDetail).tag(EntryStyle.form)
+            } label: {
+              Text(verbatim: t(words.label))
+            }
+            .labelsHidden()
+            .fixedSize()
+            .accessibilityIdentifier("settings.entry.style")
+          }
+          SettingsCardRow(title: t("settings.entry.chips"), compact: true) {
+            Toggle(
+              "",
+              isOn: Binding(
+                get: { environment.entryChipsShown }, set: { environment.entryChipsShown = $0 })
+            )
+            .labelsHidden().toggleStyle(.switch)
+            .accessibilityLabel(Text(verbatim: t("settings.entry.chips")))
+            .accessibilityIdentifier("settings.entry.chips")
+          }
+          SettingsCardRow(
+            title: t("settings.entry.historyHints"), showsDivider: false, compact: true
+          ) {
+            Toggle(
+              "",
+              isOn: Binding(
+                get: { environment.entryHistoryHintsShown },
+                set: { environment.entryHistoryHintsShown = $0 })
+            )
+            .labelsHidden().toggleStyle(.switch)
+            .accessibilityLabel(Text(verbatim: t("settings.entry.historyHints")))
+            .accessibilityIdentifier("settings.entry.historyHints")
+          }
+        }
+        hint(words.hint)
+        hint("settings.entry.hintsHint")
+      #else
+        Picker(
+          selection: Binding(
+            get: { environment.entryStyle }, set: { environment.entryStyle = $0 })
+        ) {
+          choice(words.line, detail: words.lineDetail).tag(EntryStyle.line)
+          choice(words.form, detail: words.formDetail).tag(EntryStyle.form)
+        } label: {
+          Text(verbatim: t(words.label))
+        }
+        .pickerStyle(.menu)
+        .fixedSize()
+        .accessibilityIdentifier("settings.entry.style")
+        hint(words.hint)
+        Toggle(
+          t("settings.entry.chips"),
+          isOn: Binding(
+            get: { environment.entryChipsShown }, set: { environment.entryChipsShown = $0 })
+        )
+        .accessibilityIdentifier("settings.entry.chips")
+        Toggle(
+          t("settings.entry.historyHints"),
+          isOn: Binding(
+            get: { environment.entryHistoryHintsShown },
+            set: { environment.entryHistoryHintsShown = $0 })
+        )
+        .accessibilityIdentifier("settings.entry.historyHints")
+        hint("settings.entry.hintsHint")
+      #endif
       EntryLinkedSettings()
       Divider()
       SmallPurchaseLimitField()
@@ -60,8 +114,11 @@ struct EntrySettingsView: View {
             EntrySettingsActions.move(environment, from: source, to: destination)
           }
         } header: {
-          Text(verbatim: t("settings.entry.order"))
-            .settingsHeaderStyle()
+          #if os(macOS)
+            Text(verbatim: t("settings.entry.order")).appFont(AppFont.body.weight(.semibold))
+          #else
+            Text(verbatim: t("settings.entry.order")).settingsHeaderStyle()
+          #endif
         }
       }
       .frame(minHeight: 200)
@@ -84,7 +141,12 @@ struct EntrySettingsView: View {
         .fixedSize(horizontal: false, vertical: true)
       }
     }
-    .padding()
+    #if os(macOS)
+      .padding(.horizontal, SettingsChromeMetrics.contentInset)
+      .padding(.vertical, 12)
+    #else
+      .padding()
+    #endif
     #if os(macOS)
       .onReceive(
         NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)
