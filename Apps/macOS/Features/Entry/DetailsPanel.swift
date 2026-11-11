@@ -1207,6 +1207,7 @@ struct DetailsPanel: View {
             model.addPart()
           }
           .buttonStyle(.bordered)
+          .accessibilityIdentifier("entry.split.addPart")
         }
 
         if model.canMarkPaidForSomeone && !model.offersPayingFor {

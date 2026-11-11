@@ -91,16 +91,9 @@ struct AccountsSidebarSection: View {
         .foregroundStyle(secondaryInk)
         .accessibilityAddTraits(.isHeader)
       Spacer()
-      Menu(t("sidebar.add"), systemImage: "plus") {
+      AccessibleMenu(t("sidebar.add"), systemImage: "plus", identifier: "sidebar.accounts.add") {
         addActions(live: live)
       }
-      .labelStyle(.iconOnly)
-      .menuStyle(.borderlessButton)
-      .menuIndicator(.hidden)
-      .fixedSize()
-      .help(t("sidebar.add"))
-      .accessibilityLabel(Text(verbatim: t("sidebar.add")))
-      .accessibilityIdentifier("sidebar.accounts.add")
     }
     .accessibilityElement(children: .contain)
     .accessibilityLabel(Text(verbatim: t("accounts.section.accounts")))

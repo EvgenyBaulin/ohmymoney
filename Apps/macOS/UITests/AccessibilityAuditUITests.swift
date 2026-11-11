@@ -72,6 +72,19 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
     try auditSettings("planning", ready: "settings.planning.freeMoneyHorizon")
   }
 
+  func testAccountMenuTriggerOpensItsCommands() {
+    let app = launch(section: "overview")
+    defer { app.terminate() }
+    let trigger = mainWindow(app).buttons["sidebar.accounts.add"]
+    XCTAssertTrue(trigger.waitForExistence(timeout: 30), "No actionable account menu button")
+    XCTAssertFalse(trigger.label.isEmpty, "The account menu trigger needs a description")
+    trigger.click()
+    let command = app.menuItems["New Account…"]
+    XCTAssertTrue(command.waitForExistence(timeout: 10), "The native trigger did not open its menu")
+    app.typeKey(.escape, modifierFlags: [])
+    XCTAssertTrue(command.waitForNonExistence(timeout: 5), "The account menu stayed open")
+  }
+
   func testSplitPartRemovalHasAnAccessibleDescription() throws {
     let app = launch(section: "overview")
     defer { app.terminate() }
@@ -85,9 +98,17 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       XCTAssertTrue(details.waitForExistence(timeout: 20), "No entry details button")
       details.click()
     }
-    let split = main.buttons["Split into parts"]
+    let split = main.buttons["entry.split.addPart"]
     XCTAssertTrue(split.waitForExistence(timeout: 20), "No Split button in entry details")
-    XCTAssertTrue(waitUntil(15) { split.isHittable }, "Split button did not become hittable")
+    let scroll = main.scrollViews["entry.details.scroll"]
+    XCTAssertTrue(scroll.waitForExistence(timeout: 10), "No scroll view in entry details")
+    // The split action is in the footer of a height-capped panel. Finding it in AX does
+    // not make it visible: scroll the panel itself rather than the main window behind it.
+    for _ in 0..<12 {
+      if split.isHittable { break }
+      scroll.scroll(byDeltaX: 0, deltaY: -180)
+    }
+    XCTAssertTrue(waitUntil(5) { split.isHittable }, "Split button did not become hittable")
     // As for table rows in WindowsUITests, avoid XCUITest's implicit scrolling through a
     // SwiftUI host that the panel's animation can replace. Click its current visible frame.
     let splitFrame = split.frame
@@ -168,6 +189,13 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       )
       return
     }
+    // The application-wide audit also sees the main window behind Settings. Minimize that
+    // window so its text and toolbar are not counted again for each Settings section.
+    let main = mainWindow(app)
+    main.buttons[XCUIIdentifierMinimizeWindow].click()
+    XCTAssertTrue(
+      waitUntil(10) { !main.exists || !main.buttons["sidebar.overview"].isHittable },
+      "The main window did not minimize before the Settings audit")
     let row = settings.buttons["settings.section.\(section)"]
     XCTAssertTrue(row.waitForExistence(timeout: 20), "No Settings / \(section) sidebar row")
     row.click()
@@ -208,7 +236,8 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
         add(attachment)
       }
       try app.performAccessibilityAudit(for: auditTypes) { issue in
-        var element = "identifier=<none> label=<none> elementType=<none> frame=<none>"
+        var element =
+          "identifier=<none> label=<none> value=<none> enabled=<none> elementType=<none> frame=<none>"
         var snapshotError = ""
         var nearbyText = ""
         var systemException: String?
@@ -218,7 +247,9 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
             let node = try target.snapshot()
             element =
               "identifier=\(String(reflecting: node.identifier))"
-              + " label=\(String(reflecting: node.label)) elementType=\(node.elementType)"
+              + " label=\(String(reflecting: node.label))"
+              + " value=\(String(reflecting: String(describing: node.value ?? "")))"
+              + " enabled=\(node.isEnabled) elementType=\(node.elementType)"
               + " frame=\(node.frame)"
             // Contrast audits can return OCR rectangles with no AX text or identifier. Match
             // their screen coordinates to our real tree, retaining the original node above.
@@ -252,6 +283,28 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
               self.hasDescribedText(node)
             {
               systemException = "SwiftUI Table section host with a described header"
+            }
+            // Table creates an extra, unnamed NSHosting cell around each of our explicitly
+            // identified column groups. Only that wrapper is exempt; the column's own label
+            // and content remain audited. Do not exempt arbitrary groups inside the table.
+            if name == "main-operations", issue.auditType == .sufficientElementDescription,
+              issue.compactDescription == "Element has no description",
+              node.identifier.isEmpty, node.label.isEmpty, node.elementType == .group,
+              node.children.contains(where: {
+                $0.identifier.hasPrefix("transactions.column.") && !$0.label.isEmpty
+              })
+            {
+              systemException = "SwiftUI Table cell host around a described column"
+            }
+            if issue.auditType == .sufficientElementDescription,
+              issue.compactDescription == "Element has no description", node.identifier.isEmpty,
+              node.label.isEmpty, node.elementType == .group,
+              node.children.contains(where: {
+                ["main.content", "main.sidebar"].contains($0.identifier) && !$0.label.isEmpty
+              })
+            {
+              // NavigationSplitView's native host is outside our named SwiftUI container.
+              systemException = "Native split-view host around a described SwiftUI container"
             }
           }
         } catch {

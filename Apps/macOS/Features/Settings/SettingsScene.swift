@@ -54,6 +54,8 @@ struct SettingsView: View {
           title: environment.language(navigation.section.titleKey, table: "Settings"))
         SettingsSectionContent(section: navigation.section)
           .scrollContentBackground(.hidden)
+          .accessibilityLabel(
+            Text(verbatim: environment.language(navigation.section.titleKey, table: "Settings")))
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
       .background(surfaces.background)

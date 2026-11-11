@@ -362,7 +362,10 @@ struct CategoriesSettingsView: View {
           .foregroundStyle(.secondary)
           .accessibilityIdentifier("categories.row.tax")
         }
-        Menu {
+        AccessibleMenu(
+          SettingsRowMenu.label(category.name, environment), systemImage: "ellipsis.circle",
+          identifier: "categories.row.menu"
+        ) {
           if kind == .income, selfEmployment.enabled {
             Picker(selection: taxBinding(for: category, tree: tree)) {
               ForEach(
@@ -415,19 +418,7 @@ struct CategoriesSettingsView: View {
               setArchived(category, true)
             }
           }
-        } label: {
-          // Named by its category, like the «…» of every row of Справочники: the bare symbol
-          // was read as «More» on every row alike.
-          Image(systemName: "ellipsis.circle")
-            .accessibilityLabel(
-              Text(
-                verbatim: environment.format(
-                  "references.rowMenu", table: "Settings", category.name)))
         }
-        .menuStyle(.borderlessButton)
-        .menuIndicator(.hidden)
-        .fixedSize()
-        .accessibilityIdentifier("categories.row.menu")
       }
       Spacer(minLength: 8)
       if kind == .expense {
@@ -1150,6 +1141,8 @@ struct CategoryLimitField: View {
       .multilineTextAlignment(.trailing)
       .focused($focused)
       .help(environment.language("categories.limit.placeholder", table: "Settings"))
+      .accessibilityLabel(
+        Text(verbatim: environment.language("categories.limit.placeholder", table: "Settings")))
       .accessibilityIdentifier("categories.row.limit")
       .onSubmit {
         if draft.submit(shown: shown, write: commit) == .written { focused = false }

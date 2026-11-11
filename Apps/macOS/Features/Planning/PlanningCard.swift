@@ -115,16 +115,12 @@ struct PlanningLengthMenu: View {
   let layout: PlanningLayoutStore
 
   var body: some View {
-    Menu(PlanningBlockText.t("layout.length", environment), systemImage: "list.number") {
+    AccessibleMenu(
+      PlanningBlockText.t("layout.length", environment), systemImage: "list.number",
+      identifier: "planning.card.\(block.rawValue).length"
+    ) {
       PlanningLengthChoices(block: block, layout: layout)
     }
-    .labelStyle(.iconOnly)
-    .menuStyle(.borderlessButton)
-    .menuIndicator(.hidden)
-    .fixedSize()
-    .help(PlanningBlockText.t("layout.length", environment))
-    .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.length", environment)))
-    .accessibilityIdentifier("planning.card.\(block.rawValue).length")
   }
 
 }
