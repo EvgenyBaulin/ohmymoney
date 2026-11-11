@@ -19,6 +19,8 @@ struct MonthBarsChart: View {
   let bars: [MonthBar]
   /// The height of the plot: 100 in the frames of the Mac, the tablet and the phone.
   var height: CGFloat = MonthBarsMetrics.height
+  /// Every column in the accent and none picked out: the average receipt of a place by month.
+  var allAccent = false
 
   var body: some View {
     let top = bars.map(\.value).max() ?? 0
@@ -27,14 +29,14 @@ struct MonthBarsChart: View {
       HStack(alignment: .bottom, spacing: bar * MonthBarsMetrics.gapRatio) {
         ForEach(bars) { column in
           RoundedRectangle(cornerRadius: MonthBarsMetrics.radius)
-            .fill(column.isHighlighted ? theme.accentDefault : theme.fillStrong)
+            .fill(allAccent || column.isHighlighted ? theme.accentDefault : theme.fillStrong)
             .frame(
               width: bar,
               height: MonthBarsMetrics.barHeight(column.value, top: top, plot: proxy.size.height)
             )
             .accessibilityElement()
             .accessibilityLabel(Text(verbatim: column.spokenLabel))
-            .accessibilityAddTraits(column.isHighlighted ? .isSelected : [])
+            .accessibilityAddTraits(column.isHighlighted && !allAccent ? .isSelected : [])
         }
       }
       .frame(width: proxy.size.width, height: proxy.size.height, alignment: .bottom)

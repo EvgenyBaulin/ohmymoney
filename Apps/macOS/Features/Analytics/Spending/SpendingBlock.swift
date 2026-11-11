@@ -43,6 +43,10 @@ struct SpendingBlock<Request: Hashable & Sendable, Value: Sendable, Content: Vie
   let accessory: Accessory
   let content: (Value) -> Content
 
+  /// What stands in the card between its head and its block in every state — the controls of
+  /// the comparison, which must stay when there is nothing to draw.
+  var prelude: AnyView?
+
   @State private var state: BlockState<SpendingOutcome<Value>> = .calculating
   @State private var attempt = 0
 
@@ -71,6 +75,7 @@ struct SpendingBlock<Request: Hashable & Sendable, Value: Sendable, Content: Vie
   var body: some View {
     VStack(alignment: .leading, spacing: AnalyticsCardMetrics.bodyGap(.detail)) {
       AnalyticsCardHeader(title: title, subtitle: subtitle) { accessory }
+      if let prelude { prelude }
       ComputedBlock(
         title: nil, state: unwrapped, style: .plain, emptyReason: reason,
         retry: { attempt += 1 }
@@ -88,6 +93,12 @@ struct SpendingBlock<Request: Hashable & Sendable, Value: Sendable, Content: Vie
         request: request, generation: compute.generation,
         dataReady: compute.states.data.phase == .ready, attempt: attempt)
     ) { await load() }
+  }
+
+  func prelude<Prelude: View>(@ViewBuilder _ view: () -> Prelude) -> Self {
+    var copy = self
+    copy.prelude = AnyView(view())
+    return copy
   }
 
   private var unwrapped: BlockState<SpendingOutcome<Value>> { state }

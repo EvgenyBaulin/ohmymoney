@@ -359,7 +359,8 @@ enum AnalyticsText {
       var row = TrackRow(
         id: value.key.description, label: name(of: value.key, names, environment),
         marker: nil, tint: .accent, value: value.value, previous: value.previous,
-        amount: amount, note: note, spokenValue: [amount, note].compactMap { $0 }.joined(separator: ", "))
+        amount: amount, note: note,
+        spokenValue: [amount, note].compactMap { $0 }.joined(separator: ", "))
       if case .forWhom(let whom) = value.key {
         (row.marker, row.tint) = forWhomLook(whom)
       } else if shaped {

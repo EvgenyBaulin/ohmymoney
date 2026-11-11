@@ -92,6 +92,36 @@ final class AnalyticsSectionsFigmaTests: XCTestCase {
     XCTAssertEqual(AnomalyRowMetrics.chipHeight, 21)
   }
 
+  /// 61:62017: cells 20 high, 2 across and 3 down, the day's name 22, 12 between the blocks.
+  func testTheHeatmapHasTheNumbersOfTheFrame() {
+    XCTAssertEqual(HeatmapMetrics.cellHeight, 20)
+    XCTAssertEqual(HeatmapMetrics.cellGap, 2)
+    XCTAssertEqual(HeatmapMetrics.rowGap, 3)
+    XCTAssertEqual(HeatmapMetrics.labelWidth, 22)
+    XCTAssertEqual(HeatmapMetrics.sectionGap, 12)
+    XCTAssertEqual(HeatmapMetrics.swatch, CGSize(width: 14, height: 10))
+    XCTAssertEqual(HeatmapReading.levels + 1, 5, "five swatches in the legend")
+  }
+
+  /// 61:61028: controls and rows 12 apart, figure columns 110, change 150, 10 between.
+  func testTheComparisonHasTheNumbersOfTheFrame() {
+    XCTAssertEqual(ComparisonMetrics.controlGap, 12)
+    XCTAssertEqual(ComparisonMetrics.rowGap, 12)
+    XCTAssertEqual(ComparisonMetrics.columnGap, 10)
+    XCTAssertEqual(ComparisonMetrics.figureWidth, 110)
+    XCTAssertEqual(ComparisonMetrics.changeWidth, 150)
+  }
+
+  /// 61:62668: the half-width cut of the rows: the longest bar fills its track, no tick.
+  func testTheHalfWidthTrackRowsFillTheTrack() {
+    XCTAssertEqual(TrackBarsLayout.half.topRatio, 1)
+    XCTAssertEqual(TrackBarsLayout.half.rowGap, 12)
+    XCTAssertEqual(TrackBarsLayout.half.noteSize, 11)
+    XCTAssertEqual(
+      TrackBarsMetrics.ratio(14_200, top: 14_200, topRatio: TrackBarsLayout.half.topRatio), 1)
+    XCTAssertEqual(TrackBarsLayout.wide.nameWidth, 150)
+  }
+
   // MARK: What the sections show
 
   /// 6:108126: six months to the month of the period, what was paid for others and what came

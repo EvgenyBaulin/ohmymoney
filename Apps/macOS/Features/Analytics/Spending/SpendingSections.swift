@@ -25,7 +25,11 @@ private struct DaysSection: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   let period: AnalyticsPeriod
+  @Environment(\.windowWidth) private var windowWidth
   @State private var withoutOneOff = false
+
+  /// Two cards in a row from about 900 pt of window, as in the frame (568 + 16 + 568).
+  private var isWide: Bool { windowWidth == 0 || windowWidth >= 900 }
 
   private struct WeekendRequest: Hashable, Sendable {
     var range: DayRange
@@ -35,34 +39,6 @@ private struct DaysSection: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 16) {
       SpendingBlock(
-        identifier: "spending.weekend", title: t("spending.weekend.title"),
-        subtitle: t("spending.weekend.basis"),
-        request: WeekendRequest(range: period.period.range, withoutOneOff: withoutOneOff),
-        fetch: { snapshot, request async throws -> SpendingOutcome<WeekendPrice> in
-          let price = try await compute.analysis.spending.weekendPrice(
-            snapshot, range: request.range, excludingOneOff: request.withoutOneOff)
-          return price.total.raw > 0
-            ? .ready(price) : .empty(reason: t("spending.weekend.empty"))
-        },
-        accessory: {
-          Toggle(isOn: $withoutOneOff) {
-            Text(verbatim: t("spending.weekend.excludeOneOff"))
-          }
-          .toggleStyle(.switch)
-          .controlSize(.small)
-          .accessibilityIdentifier("spending.weekend.excludeOneOff")
-        }
-      ) { price in
-        WeekendPriceView(price: price)
-      }
-      SpendingBlock(
-        identifier: "spending.usualDay", title: t("spending.usual.title"),
-        subtitle: t("spending.usual.basis"), request: 0,
-        fetch: { snapshot, _ in .ready(try await compute.analysis.spending.usualDay(snapshot)) }
-      ) { usual in
-        UsualDayView(usual: usual)
-      }
-      SpendingBlock(
         identifier: "spending.heatmap", title: t("spending.heat.title"),
         subtitle: t("spending.heat.basis"), request: period.period.range,
         fetch: { snapshot, range async throws -> SpendingOutcome<HourHeatmap> in
@@ -71,6 +47,40 @@ private struct DaysSection: View {
         }
       ) { map in
         HourHeatmapView(heatmap: map)
+      }
+      let pair =
+        isWide
+        ? AnyLayout(HStackLayout(alignment: .top, spacing: 16))
+        : AnyLayout(VStackLayout(alignment: .leading, spacing: 16))
+      pair {
+        SpendingBlock(
+          identifier: "spending.usualDay", title: t("spending.usual.title"),
+          subtitle: t("spending.usual.basis"), request: 0,
+          fetch: { snapshot, _ in .ready(try await compute.analysis.spending.usualDay(snapshot)) }
+        ) { usual in
+          UsualDayView(usual: usual)
+        }
+        SpendingBlock(
+          identifier: "spending.weekend", title: t("spending.weekend.title"),
+          subtitle: t("spending.weekend.basis"),
+          request: WeekendRequest(range: period.period.range, withoutOneOff: withoutOneOff),
+          fetch: { snapshot, request async throws -> SpendingOutcome<WeekendPrice> in
+            let price = try await compute.analysis.spending.weekendPrice(
+              snapshot, range: request.range, excludingOneOff: request.withoutOneOff)
+            return price.total.raw > 0
+              ? .ready(price) : .empty(reason: t("spending.weekend.empty"))
+          },
+          accessory: {
+            Toggle(isOn: $withoutOneOff) {
+              Text(verbatim: t("spending.weekend.excludeOneOff"))
+            }
+            .toggleStyle(.switch)
+            .controlSize(.small)
+            .accessibilityIdentifier("spending.weekend.excludeOneOff")
+          }
+        ) { price in
+          WeekendPriceView(price: price)
+        }
       }
     }
   }
@@ -85,26 +95,25 @@ struct WeekendPriceView: View {
 
   var body: some View {
     let money = environment.money
-    VStack(alignment: .leading, spacing: 10) {
-      HStack(alignment: .top, spacing: 24) {
-        figure(
-          SpendingText.t("spending.weekend.weekend", environment), money.rounded(price.weekend),
-          symbol: "sun.max", id: "spending.weekend.figure")
-        figure(
-          SpendingText.t("spending.weekend.weekdays", environment), money.rounded(price.weekdays),
-          symbol: "briefcase", id: "spending.weekend.weekdays")
-      }
+    let whole = (price.weekend + price.weekdays).raw
+    VStack(alignment: .leading, spacing: 12) {
+      shareRow(
+        SpendingText.t("spending.weekend.weekdays", environment), price.weekdays,
+        of: whole, id: "spending.weekend.weekdays")
+      shareRow(
+        SpendingText.t("spending.weekend.weekend", environment), price.weekend, of: whole,
+        id: "spending.weekend.figure")
       if let share = price.weekendShare {
         Text(
           verbatim: SpendingText.format(
             "spending.weekend.share", environment,
             money.percent(basisPoints: share, fractionDigits: 0))
         )
-        .appFont(.callout)
+        .appFont(AnalyticsCardType.subtitle)
         .foregroundStyle(.secondary)
       }
       Text(verbatim: SpendingText.windowLine(price.window, environment))
-        .appFont(.caption)
+        .appFont(AnalyticsCardType.subtitle)
         .foregroundStyle(.secondary)
         .accessibilityIdentifier("spending.weekend.window")
       if price.months.count > 1 {
@@ -127,12 +136,44 @@ struct WeekendPriceView: View {
     }
   }
 
-  private func figure(_ caption: String, _ value: String, symbol: String, id: String) -> some View {
-    VStack(alignment: .leading, spacing: 2) {
-      Label(caption, systemImage: symbol).appFont(.caption).foregroundStyle(.secondary)
-      Text(verbatim: value).appFont(.title2.monospacedDigit())
+  /// A name of 150, a bar of the rest in which this part fills its share of the whole, and the
+  /// amount at the right in 100: the rows of «Цена выходных» (61:61993).
+  private func shareRow(
+    _ name: String, _ amount: AmountE4, of whole: Int64, id: String
+  )
+    -> some View
+  {
+    HStack(spacing: 10) {
+      Text(verbatim: name).frame(width: 150, alignment: .leading)
+      WeekendShareBar(fraction: whole > 0 ? Double(amount.raw) / Double(whole) : 0)
+      Text(verbatim: environment.money.rounded(amount))
+        .monospacedDigit()
+        .frame(width: 100, alignment: .trailing)
         .accessibilityIdentifier(id)
     }
+    .appFont(AnalyticsCardType.row)
+    .accessibilityElement(children: .combine)
+  }
+}
+
+/// The bar of 12 of a weekend row: the part of the whole this row stands for in the accent,
+/// the rest on the neutral track.
+struct WeekendShareBar: View {
+  @Environment(\.appTheme) private var theme
+  /// 0...1; a chart helper, never money.
+  let fraction: Double  // chart-only
+
+  var body: some View {
+    GeometryReader { proxy in
+      ZStack(alignment: .leading) {
+        Rectangle().fill(theme.fillNeutral)
+        Rectangle().fill(theme.accentDefault)
+          .frame(width: proxy.size.width * min(1, max(0, fraction)))
+      }
+      .clipShape(RoundedRectangle(cornerRadius: 3))
+    }
+    .frame(height: 12)
+    .accessibilityHidden(true)
   }
 }
 
@@ -142,10 +183,21 @@ struct UsualDayView: View {
   let usual: UsualDay
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: 12) {
       row("spending.usual.overall", usual.overall, id: "overall")
       row("spending.usual.weekdays", usual.weekdays, id: "weekdays")
       row("spending.usual.weekends", usual.weekends, id: "weekends")
+      if let weekdays = usual.weekdays.amount, let weekends = usual.weekends.amount {
+        Text(
+          verbatim: SpendingText.format(
+            "spending.usual.split", environment, environment.money.rounded(weekdays),
+            usual.weekdays.daysWithSpending, environment.money.rounded(weekends),
+            usual.weekends.daysWithSpending)
+        )
+        .appFont(AnalyticsCardType.subtitle)
+        .foregroundStyle(.secondary)
+        .accessibilityIdentifier("spending.usual.split")
+      }
     }
   }
 
@@ -167,7 +219,7 @@ struct UsualDayView: View {
         .appFont(.caption)
       }
     }
-    .appFont(.callout)
+    .appFont(AnalyticsCardType.row)
     .accessibilityElement(children: .combine)
     .accessibilityIdentifier("spending.usual.\(id)")
   }
@@ -179,7 +231,8 @@ private struct HabitsSection: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
   let period: AnalyticsPeriod
-  @State private var byAmount = false
+  @Environment(\.windowWidth) private var windowWidth
+  @State private var byAmount = true
   @State private var settingPlaces = false
   @State private var receiptPlace: UUID?
   @Environment(\.dependencies) private var dependencies
@@ -206,69 +259,81 @@ private struct HabitsSection: View {
     var names: AnalyticsNames
   }
 
+  /// Two cards in a row from about 900 pt of window (568 + 16 + 568 in the frame).
+  private var isWide: Bool { windowWidth == 0 || windowWidth >= 900 }
+
   private var year: DayRange {
     DayRange(period.month.adding(months: -11).firstDay, period.month.lastDay)
   }
 
   var body: some View {
+    let layout =
+      isWide
+      ? AnyLayout(HStackLayout(alignment: .top, spacing: 16))
+      : AnyLayout(VStackLayout(alignment: .leading, spacing: 16))
     VStack(alignment: .leading, spacing: 16) {
-      SpendingBlock(
-        identifier: "spending.places", title: t("spending.places.title"),
-        subtitle: t("spending.places.basis"), request: period.period,
-        fetch: { snapshot, period async throws -> SpendingOutcome<PlacesDisplay> in
-          let places = try await compute.analysis.spending.favoritePlaces(snapshot, period: period)
-          guard !places.byVisits.isEmpty else {
-            return .empty(reason: t("spending.places.empty"))
+      layout {
+        SpendingBlock(
+          identifier: "spending.places", title: t("spending.places.title"),
+          subtitle: t("spending.places.basis"), request: period.period,
+          fetch: { snapshot, period async throws -> SpendingOutcome<PlacesDisplay> in
+            let places = try await compute.analysis.spending.favoritePlaces(
+              snapshot, period: period)
+            guard !places.byVisits.isEmpty else {
+              return .empty(reason: t("spending.places.empty"))
+            }
+            return .ready(
+              PlacesDisplay(places: places, names: AnalyticsNames(dataset: snapshot.dataset)))
           }
-          return .ready(
-            PlacesDisplay(places: places, names: AnalyticsNames(dataset: snapshot.dataset)))
-        },
-        accessory: { setPlacesButton }
-      ) { display in
-        placesList(display)
-      }
-      SpendingBlock(
-        identifier: "spending.receipts", title: t("spending.receipt.title"),
-        subtitle: t("spending.receipt.basis"), request: year,
-        fetch: { snapshot, range async throws -> SpendingOutcome<ReceiptDisplay> in
-          let history = try await compute.analysis.spending.receiptHistory(snapshot, range: range)
-          let charted = history.series.filter { !$0.value.isEmpty }.keys.sorted {
-            let left = history.points(for: $0).map(\.visits).reduce(0, +)
-            let right = history.points(for: $1).map(\.visits).reduce(0, +)
-            return left != right ? left > right : $0.uuidString < $1.uuidString
+        ) { display in
+          placesList(display)
+        }
+        SpendingBlock(
+          identifier: "spending.receipts", title: t("spending.receipt.title"),
+          subtitle: t("spending.receipt.basis"), request: year,
+          fetch: { snapshot, range async throws -> SpendingOutcome<ReceiptDisplay> in
+            let history = try await compute.analysis.spending.receiptHistory(snapshot, range: range)
+            let charted = history.series.filter { !$0.value.isEmpty }.keys.sorted {
+              let left = history.points(for: $0).map(\.visits).reduce(0, +)
+              let right = history.points(for: $1).map(\.visits).reduce(0, +)
+              return left != right ? left > right : $0.uuidString < $1.uuidString
+            }
+            guard !charted.isEmpty else { return .empty(reason: t("spending.receipt.noChart")) }
+            return .ready(
+              ReceiptDisplay(
+                history: history, names: AnalyticsNames(dataset: snapshot.dataset),
+                charted: Array(charted.prefix(8))))
           }
-          guard !charted.isEmpty else { return .empty(reason: t("spending.receipt.noChart")) }
-          return .ready(
-            ReceiptDisplay(
-              history: history, names: AnalyticsNames(dataset: snapshot.dataset),
-              charted: Array(charted.prefix(8))))
+        ) { display in
+          receiptChart(display)
         }
-      ) { display in
-        receiptChart(display)
       }
-      SpendingBlock(
-        identifier: "spending.habits", title: t("spending.habits.title"),
-        subtitle: t("spending.habits.basis"), request: 0,
-        fetch: { snapshot, _ async throws -> SpendingOutcome<HabitsDisplay> in
-          let habits = try await compute.analysis.spending.placeHabits(snapshot)
-          guard !habits.habits.isEmpty else { return .empty(reason: t("spending.habits.empty")) }
-          return .ready(
-            HabitsDisplay(habits: habits, names: AnalyticsNames(dataset: snapshot.dataset)))
+      layout {
+        SpendingBlock(
+          identifier: "spending.habits", title: t("spending.habits.title"),
+          subtitle: t("spending.habits.basis"), request: 0,
+          fetch: { snapshot, _ async throws -> SpendingOutcome<HabitsDisplay> in
+            let habits = try await compute.analysis.spending.placeHabits(snapshot)
+            guard !habits.habits.isEmpty else { return .empty(reason: t("spending.habits.empty")) }
+            return .ready(
+              HabitsDisplay(habits: habits, names: AnalyticsNames(dataset: snapshot.dataset)))
+          }
+        ) { display in
+          habitsList(display)
         }
-      ) { display in
-        habitsList(display)
-      }
-      SpendingBlock(
-        identifier: "spending.people", title: t("spending.people.title"),
-        subtitle: t("spending.people.basis"), request: year,
-        fetch: { snapshot, range async throws -> SpendingOutcome<PeopleDisplay> in
-          let people = try await compute.analysis.spending.spendingOnPeople(snapshot, range: range)
-          guard !people.people.isEmpty else { return .empty(reason: t("spending.people.empty")) }
-          return .ready(
-            PeopleDisplay(people: people, names: AnalyticsNames(dataset: snapshot.dataset)))
+        SpendingBlock(
+          identifier: "spending.people", title: t("spending.people.title"),
+          subtitle: t("spending.people.basis"), request: year,
+          fetch: { snapshot, range async throws -> SpendingOutcome<PeopleDisplay> in
+            let people = try await compute.analysis.spending.spendingOnPeople(
+              snapshot, range: range)
+            guard !people.people.isEmpty else { return .empty(reason: t("spending.people.empty")) }
+            return .ready(
+              PeopleDisplay(people: people, names: AnalyticsNames(dataset: snapshot.dataset)))
+          }
+        ) { display in
+          peopleList(display)
         }
-      ) { display in
-        peopleList(display)
       }
     }
     .sheet(isPresented: $settingPlaces) {
@@ -291,44 +356,37 @@ private struct HabitsSection: View {
 
   @ViewBuilder
   private func placesList(_ display: PlacesDisplay) -> some View {
-    let money = environment.money
     let places = byAmount ? display.places.byAmount : display.places.byVisits
-    VStack(alignment: .leading, spacing: 8) {
-      if let hint = SpendingText.withoutPlaceHint(display.places, environment) {
-        Label {
-          Text(verbatim: hint).fixedSize(horizontal: false, vertical: true)
-        } icon: {
-          Image(systemName: "info.circle")
-        }
-        .appFont(.caption)
-        .foregroundStyle(.secondary)
-        .accessibilityIdentifier("spending.places.hint")
-      }
+    VStack(alignment: .leading, spacing: 12) {
       Picker(selection: $byAmount) {
-        Text(verbatim: t("spending.places.byVisits")).tag(false)
         Text(verbatim: t("spending.places.byAmount")).tag(true)
+        Text(verbatim: t("spending.places.byVisits")).tag(false)
       } label: {
         EmptyView()
       }
       .pickerStyle(.segmented)
       .labelsHidden()
       .fixedSize()
-      ForEach(Array(places.prefix(10).enumerated()), id: \.offset) { _, place in
-        HStack(alignment: .firstTextBaseline, spacing: 8) {
-          Text(verbatim: AnalyticsText.name(of: .place(place.placeId), display.names, environment))
-            .lineLimit(1)
-          Spacer(minLength: 8)
-          Text(
-            verbatim: SpendingText.counted(
-              "spending.places.visits", environment, count: place.purchases)
-          )
+      TrackBarsChart(
+        rows: places.prefix(10).map { place in
+          let amount = environment.money.rounded(place.mySpending)
+          let visits = SpendingText.counted(
+            "spending.places.visits", environment, count: place.purchases)
+          return TrackRow(
+            id: place.placeId.uuidString,
+            label: AnalyticsText.name(of: .place(place.placeId), display.names, environment),
+            marker: nil, tint: .accent,
+            value: byAmount ? place.mySpending.wholeRubles : Int64(place.purchases),
+            previous: nil, amount: amount, note: visits, spokenValue: "\(amount), \(visits)")
+        }, layout: .half)
+      if let hint = SpendingText.withoutPlaceHint(display.places, environment) {
+        Text(verbatim: hint)
+          .appFont(AnalyticsCardType.subtitle)
           .foregroundStyle(.secondary)
-          Text(verbatim: money.rounded(place.mySpending)).monospacedDigit()
-            .frame(minWidth: 90, alignment: .trailing)
-        }
-        .appFont(.callout)
-        .accessibilityElement(children: .combine)
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityIdentifier("spending.places.hint")
       }
+      setPlacesButton
     }
   }
 
@@ -347,49 +405,39 @@ private struct HabitsSection: View {
       }
       .pickerStyle(.menu)
       .fixedSize()
-      SeriesLineChart(
-        series: [
-          ChartLineSeries(
-            id: chosen.uuidString,
-            label: AnalyticsText.name(of: .place(chosen), display.names, environment),
-            style: ChartSeriesStyle.series(0, accent: environment.theme.accent),
-            points: points.enumerated().map { index, point in
-              ChartLinePoint(
-                x: index, value: point.average.wholeRubles,
-                spokenLabel: environment.dates.monthTitle(point.month),
-                valueText: environment.money.rounded(point.average))
-            },
-            endText: points.last.map { environment.money.rounded($0.average) })
-        ],
-        xLabels: Dictionary(
-          uniqueKeysWithValues: points.enumerated().map {
-            ($0.offset, environment.dates.shortMonth($0.element.month))
-          })
-      )
-      .frame(height: 180)
+      MonthBarsChart(
+        bars: points.map { point in
+          MonthBar(
+            id: point.month.iso, value: point.average.wholeRubles, isHighlighted: false,
+            spokenLabel:
+              "\(environment.dates.monthTitle(point.month)), \(environment.money.rounded(point.average))"
+          )
+        }, height: 90, allAccent: true)
+      if let last = points.last {
+        Text(
+          verbatim: SpendingText.format(
+            "spending.receipt.average", environment, environment.money.rounded(last.average))
+        )
+        .appFont(AnalyticsCardType.subtitle)
+        .foregroundStyle(.secondary)
+      }
     }
   }
 
   @ViewBuilder
   private func habitsList(_ display: HabitsDisplay) -> some View {
     let money = environment.money
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: 12) {
       ForEach(Array(display.habits.habits.prefix(10).enumerated()), id: \.offset) { _, habit in
         VStack(alignment: .leading, spacing: 2) {
-          HStack {
-            Label(
-              AnalyticsText.name(of: .place(habit.placeId), display.names, environment),
-              systemImage: "repeat")
-            Spacer()
-            Text(verbatim: money.rounded(habit.yearlyCost)).monospacedDigit()
-          }
-          .appFont(.callout)
+          Text(verbatim: AnalyticsText.name(of: .place(habit.placeId), display.names, environment))
+            .appFont(.system(size: 13, weight: .medium))
           Text(
             verbatim: SpendingText.format(
               "spending.habits.line", environment, money.rounded(habit.weeklyAverage),
               habit.weeksWithVisits, PlaceHabits.weeks)
           )
-          .appFont(.caption.monospacedDigit())
+          .appFont(AnalyticsCardType.subtitle.monospacedDigit())
           .foregroundStyle(.secondary)
         }
         .accessibilityElement(children: .combine)
@@ -400,25 +448,26 @@ private struct HabitsSection: View {
   @ViewBuilder
   private func peopleList(_ display: PeopleDisplay) -> some View {
     let money = environment.money
-    VStack(alignment: .leading, spacing: 6) {
+    let whole = display.people.total.raw
+    VStack(alignment: .leading, spacing: 12) {
       ForEach(display.people.people, id: \.personId) { line in
-        HStack {
-          Label(
-            AnalyticsText.name(of: .person(line.personId), display.names, environment),
-            systemImage: "person")
-          Spacer()
+        HStack(spacing: 10) {
+          Text(verbatim: AnalyticsText.name(of: .person(line.personId), display.names, environment))
+            .lineLimit(1)
+            .frame(width: 150, alignment: .leading)
+          WeekendShareBar(fraction: whole > 0 ? Double(line.amount.raw) / Double(whole) : 0)
           Text(verbatim: money.rounded(line.amount)).monospacedDigit()
+            .frame(width: 100, alignment: .trailing)
         }
-        .appFont(.callout)
+        .appFont(AnalyticsCardType.row)
         .accessibilityElement(children: .combine)
       }
-      Divider()
       HStack {
         Text(verbatim: t("spending.people.total"))
         Spacer()
         Text(verbatim: money.rounded(display.people.total)).monospacedDigit()
       }
-      .appFont(.callout.weight(.semibold))
+      .appFont(AnalyticsCardType.row)
     }
   }
 
@@ -460,59 +509,61 @@ private struct LeaksSection: View {
     }.sorted { $0.sort < $1.sort }
   }
 
+  @Environment(\.windowWidth) private var windowWidth
+
+  /// «Утечки» and «Что съело лимит» side by side from about 900 pt (568 + 16 + 568).
+  private var isWide: Bool { windowWidth == 0 || windowWidth >= 900 }
+
   var body: some View {
+    let pair =
+      isWide
+      ? AnyLayout(HStackLayout(alignment: .top, spacing: 16))
+      : AnyLayout(VStackLayout(alignment: .leading, spacing: 16))
     VStack(alignment: .leading, spacing: 16) {
-      SpendingBlock(
-        identifier: "spending.leaks", title: t("spending.leaks.title"),
-        subtitle: t("spending.leaks.basis"), request: grouping,
-        fetch: { snapshot, grouping async throws -> SpendingOutcome<LeaksDisplay> in
-          let leaks = try await compute.analysis.spending.leaks(snapshot, grouping: grouping)
-          guard !leaks.leaks.isEmpty else { return .empty(reason: t("spending.leaks.empty")) }
-          return .ready(
-            LeaksDisplay(leaks: leaks, names: AnalyticsNames(dataset: snapshot.dataset)))
-        },
-        accessory: { groupingPicker }
-      ) { display in
-        VStack(alignment: .leading, spacing: 8) {
-          ForEach(Array(display.leaks.leaks.prefix(10).enumerated()), id: \.offset) { _, leak in
-            Label {
-              Text(
-                verbatim: SpendingText.leakLine(
-                  leak, name: AnalyticsText.name(of: leak.key, display.names, environment),
-                  environment)
-              )
-              .fixedSize(horizontal: false, vertical: true)
-            } icon: {
-              Image(systemName: "drop").accessibilityHidden(true)
+      pair {
+        SpendingBlock(
+          identifier: "spending.leaks", title: t("spending.leaks.title"),
+          subtitle: t("spending.leaks.basis"), request: grouping,
+          fetch: { snapshot, grouping async throws -> SpendingOutcome<LeaksDisplay> in
+            let leaks = try await compute.analysis.spending.leaks(snapshot, grouping: grouping)
+            guard !leaks.leaks.isEmpty else { return .empty(reason: t("spending.leaks.empty")) }
+            return .ready(
+              LeaksDisplay(leaks: leaks, names: AnalyticsNames(dataset: snapshot.dataset)))
+          }
+        ) { display in
+          VStack(alignment: .leading, spacing: 12) {
+            ForEach(Array(display.leaks.leaks.prefix(10).enumerated()), id: \.offset) { _, leak in
+              leakRow(leak, display.names)
             }
-            .appFont(.callout.monospacedDigit())
           }
+          .accessibilityIdentifier("spending.leaks.lines")
         }
-        .accessibilityIdentifier("spending.leaks.lines")
-      }
-      SpendingBlock(
-        identifier: "spending.limit", title: t("spending.limit.title"),
-        subtitle: t("spending.limit.basis"),
-        request: EatenRequest(categoryId: categoryId ?? categories.first?.id, month: period.month),
-        fetch: { snapshot, request async throws -> SpendingOutcome<EatenDisplay> in
-          guard let id = request.categoryId else {
-            return .empty(reason: t("spending.limit.empty"))
+        .prelude { groupingPicker }
+        SpendingBlock(
+          identifier: "spending.limit", title: t("spending.limit.title"),
+          subtitle: t("spending.limit.basis"),
+          request: EatenRequest(
+            categoryId: categoryId ?? categories.first?.id, month: period.month),
+          fetch: { snapshot, request async throws -> SpendingOutcome<EatenDisplay> in
+            guard let id = request.categoryId else {
+              return .empty(reason: t("spending.limit.empty"))
+            }
+            let whole = try await compute.analysis.spending.limitConsumption(
+              snapshot, categoryId: id, month: request.month)
+            guard whole.spent.raw > 0 else { return .empty(reason: t("spending.limit.empty")) }
+            let (eaten, partHidden) = whole.covering(
+              HiddenOperations(snapshot: snapshot), in: snapshot.ledger)
+            let titles = eaten.largest.map { purchase in
+              snapshot.ledger.entry(purchase.transactionId).flatMap {
+                OverviewSummary.title(of: $0, tree: snapshot.ledger.tree)
+              } ?? "—"
+            }
+            return .ready(EatenDisplay(consumption: eaten, titles: titles, partHidden: partHidden))
           }
-          let whole = try await compute.analysis.spending.limitConsumption(
-            snapshot, categoryId: id, month: request.month)
-          guard whole.spent.raw > 0 else { return .empty(reason: t("spending.limit.empty")) }
-          let (eaten, partHidden) = whole.covering(
-            HiddenOperations(snapshot: snapshot), in: snapshot.ledger)
-          let titles = eaten.largest.map { purchase in
-            snapshot.ledger.entry(purchase.transactionId).flatMap {
-              OverviewSummary.title(of: $0, tree: snapshot.ledger.tree)
-            } ?? "—"
-          }
-          return .ready(EatenDisplay(consumption: eaten, titles: titles, partHidden: partHidden))
-        },
-        accessory: { categoryPicker }
-      ) { display in
-        eaten(display)
+        ) { display in
+          eaten(display)
+        }
+        .prelude { categoryRow }
       }
       SpendingBlock(
         identifier: "spending.hours", title: t("spending.hours.title"),
@@ -542,51 +593,75 @@ private struct LeaksSection: View {
     } label: {
       Text(verbatim: t("spending.leaks.grouping"))
     }
-    .pickerStyle(.menu)
+    .labelsHidden()
+    .pickerStyle(.segmented)
     .fixedSize()
     .accessibilityIdentifier("spending.leaks.grouping")
   }
 
-  private var categoryPicker: some View {
-    Picker(
-      selection: Binding(get: { categoryId ?? categories.first?.id }, set: { categoryId = $0 })
-    ) {
-      ForEach(categories, id: \.id) { category in
-        Text(verbatim: category.name).tag(UUID?.some(category.id))
+  /// «Категория» at the left, its menu at the right, as the frame draws the head of the card.
+  private var categoryRow: some View {
+    HStack {
+      Text(verbatim: t("spending.limit.category")).appFont(AnalyticsCardType.row)
+      Spacer(minLength: 12)
+      Picker(
+        selection: Binding(get: { categoryId ?? categories.first?.id }, set: { categoryId = $0 })
+      ) {
+        ForEach(categories, id: \.id) { category in
+          Text(verbatim: category.name).tag(UUID?.some(category.id))
+        }
+      } label: {
+        Text(verbatim: t("spending.limit.category"))
       }
-    } label: {
-      Text(verbatim: t("spending.limit.category"))
+      .labelsHidden()
+      .pickerStyle(.menu)
+      .fixedSize()
+      .accessibilityIdentifier("spending.limit.category")
     }
-    .pickerStyle(.menu)
-    .fixedSize()
-    .accessibilityIdentifier("spending.limit.category")
+  }
+
+  /// A leak as the frame draws it: the name over a grey line of what is known of it.
+  private func leakRow(_ leak: SpendingLeaks.Leak, _ names: AnalyticsNames) -> some View {
+    let name = AnalyticsText.name(of: leak.key, names, environment)
+    let full = SpendingText.leakLine(leak, name: name, environment)
+    let detail =
+      full.hasPrefix(name)
+      ? String(full.dropFirst(name.count)).trimmingCharacters(in: .whitespaces) : full
+    return VStack(alignment: .leading, spacing: 2) {
+      Text(verbatim: name).appFont(.system(size: 13, weight: .medium))
+      Text(verbatim: detail)
+        .appFont(AnalyticsCardType.subtitle.monospacedDigit())
+        .foregroundStyle(.secondary)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .accessibilityElement(children: .combine)
   }
 
   @ViewBuilder
   private func eaten(_ display: EatenDisplay) -> some View {
     let money = environment.money
     let consumption = display.consumption
-    VStack(alignment: .leading, spacing: 6) {
+    VStack(alignment: .leading, spacing: 12) {
       HStack(alignment: .firstTextBaseline, spacing: 8) {
-        Text(
-          verbatim: SpendingText.format(
-            "spending.limit.spent", environment, money.rounded(consumption.spent))
-        )
-        .appFont(.callout.weight(.semibold).monospacedDigit())
+        Text(verbatim: t("spending.limit.spentLabel"))
         if display.partHidden { PartHiddenNote() }
+        Spacer(minLength: 8)
+        Text(verbatim: money.rounded(consumption.spent)).monospacedDigit()
       }
+      .appFont(AnalyticsCardType.row)
+      .accessibilityElement(children: .combine)
       ForEach(Array(consumption.largest.enumerated()), id: \.offset) { index, purchase in
         HStack {
           Text(verbatim: display.titles[index]).lineLimit(1)
           Spacer()
           Text(verbatim: money.rounded(purchase.amount)).monospacedDigit()
         }
-        .appFont(.callout)
+        .appFont(AnalyticsCardType.row)
         .accessibilityElement(children: .combine)
       }
       if let others = SpendingText.othersLine(consumption, environment) {
         Text(verbatim: others)
-          .appFont(.callout.monospacedDigit())
+          .appFont(AnalyticsCardType.subtitle.monospacedDigit())
           .foregroundStyle(.secondary)
           .accessibilityIdentifier("spending.limit.others")
       }

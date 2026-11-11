@@ -69,7 +69,7 @@ enum AnalyticsBlock: String, CaseIterable, Hashable, Sendable {
   case placesByAmount, placesByPurchases, placesTable, newPlaces
   case events
   case methodSpending, methodTable, cashbackMonths, cashbackMonth
-  case forecast, accountBalances
+  case forecast, forecastEnd, accountBalances
   case anomalies
   case modelCategories, modelForecast
 
@@ -221,7 +221,7 @@ struct AnalyticsModel: Sendable {
     case .paymentMethods:
       blocks = [.methodSpending, .methodTable, .cashbackMonths, .cashbackMonth]
     case .forecast:
-      blocks = [.forecast, .accountBalances]
+      blocks = [.forecast, .forecastEnd, .accountBalances]
     case .anomalies:
       blocks = [.anomalies]
     case .modelQuality:

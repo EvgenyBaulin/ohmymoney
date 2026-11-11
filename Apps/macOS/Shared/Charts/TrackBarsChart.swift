@@ -41,7 +41,11 @@ enum TrackBarsMetrics {
 
   /// The place of a figure on the track, 0...1: the longest figure (this period's or the one
   /// before) at `topRatio`.
-  static func ratio(_ value: Int64, top: Int64) -> CGFloat {
+  static func ratio(
+    _ value: Int64, top: Int64, topRatio: CGFloat = TrackBarsMetrics.topRatio
+  )
+    -> CGFloat
+  {
     guard top > 0, value > 0 else { return 0 }
     return topRatio * CGFloat(value) / CGFloat(top)
   }
@@ -51,16 +55,36 @@ enum TrackBarsMetrics {
   }
 }
 
+/// How the columns of a track chart are cut: the wide cut of the full-width cards, or the one
+/// of a card of half the width («Любимые места»: the longest bar fills its track, the note is
+/// 11, no ticks of a period before).
+struct TrackBarsLayout: Hashable, Sendable {
+  var rowGap: CGFloat
+  var nameWidth: CGFloat
+  var amountWidth: CGFloat
+  var noteWidth: CGFloat
+  var topRatio: CGFloat
+  var noteSize: CGFloat
+
+  static let wide = TrackBarsLayout(
+    rowGap: TrackBarsMetrics.rowGap, nameWidth: TrackBarsMetrics.nameWidth,
+    amountWidth: TrackBarsMetrics.amountWidth, noteWidth: TrackBarsMetrics.noteWidth,
+    topRatio: TrackBarsMetrics.topRatio, noteSize: 12)
+  static let half = TrackBarsLayout(
+    rowGap: 12, nameWidth: 150, amountWidth: 100, noteWidth: 76, topRatio: 1, noteSize: 11)
+}
+
 /// Rows of a figure against a grey track, with the figure of the period before as a tick: the
 /// «Для кого траты» and «Топ мест» of Analytics.
 struct TrackBarsChart: View {
   @Environment(\.appTheme) private var theme
   @Environment(\.appAccent) private var accent
   let rows: [TrackRow]
+  var layout: TrackBarsLayout = .wide
 
   var body: some View {
     let top = TrackBarsMetrics.top(of: rows)
-    VStack(alignment: .leading, spacing: TrackBarsMetrics.rowGap) {
+    VStack(alignment: .leading, spacing: layout.rowGap) {
       ForEach(rows) { row in
         HStack(spacing: TrackBarsMetrics.columnGap) {
           HStack(spacing: 4) {
@@ -70,16 +94,16 @@ struct TrackBarsChart: View {
               .lineLimit(1)
               .truncationMode(.tail)
           }
-          .frame(width: TrackBarsMetrics.nameWidth, alignment: .leading)
+          .frame(width: layout.nameWidth, alignment: .leading)
           track(row, top: top)
           Text(verbatim: row.amount)
             .appFont(.system(size: 13, weight: .medium).monospacedDigit())
-            .frame(width: TrackBarsMetrics.amountWidth, alignment: .trailing)
+            .frame(width: layout.amountWidth, alignment: .trailing)
           Text(verbatim: row.note ?? "")
-            .appFont(.system(size: 12).monospacedDigit())
+            .appFont(.system(size: layout.noteSize).monospacedDigit())
             .foregroundStyle(.secondary)
             .lineLimit(1)
-            .frame(width: TrackBarsMetrics.noteWidth, alignment: .leading)
+            .frame(width: layout.noteWidth, alignment: .leading)
         }
         .frame(height: TrackBarsMetrics.rowHeight)
         .accessibilityElement(children: .ignore)
@@ -96,11 +120,13 @@ struct TrackBarsChart: View {
         RoundedRectangle(cornerRadius: TrackBarsMetrics.radius).fill(theme.fillNeutral)
         RoundedRectangle(cornerRadius: TrackBarsMetrics.radius)
           .fill(row.tint.color(accent))
-          .frame(width: width * TrackBarsMetrics.ratio(row.value, top: top))
+          .frame(
+            width: width * TrackBarsMetrics.ratio(row.value, top: top, topRatio: layout.topRatio))
         if let previous = row.previous, previous > 0 {
           Rectangle().fill(.primary)
             .frame(width: TrackBarsMetrics.tickSize.width, height: TrackBarsMetrics.tickSize.height)
-            .offset(x: width * TrackBarsMetrics.ratio(previous, top: top) - 1)
+            .offset(
+              x: width * TrackBarsMetrics.ratio(previous, top: top, topRatio: layout.topRatio) - 1)
         }
       }
       .frame(height: proxy.size.height)

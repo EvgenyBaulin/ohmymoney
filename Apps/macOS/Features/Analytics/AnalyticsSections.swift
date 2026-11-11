@@ -594,7 +594,9 @@ private struct OthersPeopleTable: View {
       ?? t("analytics.none.person")
   }
 
-  private func figure(_ status: ReimbursementStatus, _ person: PersonStack, _ kind: OthersSegment)
+  private func figure(
+    _ status: ReimbursementStatus, _ person: PersonStack, _ kind: OthersSegment
+  )
     -> some View
   {
     let value = person.segments.first { $0.kind == kind }?.value ?? 0
@@ -1187,7 +1189,8 @@ private struct CashbackMonthCard: View {
 
   var body: some View {
     AnalyticsCard(
-      block: AnalyticsBlock.cashbackMonth.rawValue, title: AnalyticsText.t("analytics.block.cashbackMonth", environment),
+      block: AnalyticsBlock.cashbackMonth.rawValue,
+      title: AnalyticsText.t("analytics.block.cashbackMonth", environment),
       state: state, retry: retry
     ) { rows in
       VStack(alignment: .leading, spacing: 8) {
@@ -1354,6 +1357,22 @@ private struct ForecastSection: View {
       ) { plot in
         ForecastView(plot: plot, month: state.value?.forecast?.month)
       }
+      AnalyticsCard(
+        block: AnalyticsBlock.forecastEnd.rawValue, title: t("analytics.block.forecastEnd"),
+        state: state.block { $0.forecast?.chart }, retry: retry
+      ) { plot in
+        let money = environment.money
+        let range = String(
+          format: environment.language("overview.forecastRange", table: "Overview"),
+          locale: environment.language.locale, money.rubles(plot.p10), money.rubles(plot.p90))
+        Text(
+          verbatim:
+            "\(range) · \(AnalyticsText.format("analytics.forecast.plannedPayments", environment, money.rubles(plot.planned)))"
+        )
+        .appFont(AnalyticsCardType.subtitle.monospacedDigit())
+        .foregroundStyle(.secondary)
+      }
+      .bodyGap(AnalyticsCardMetrics.subtitleGap + 2)
       AnalyticsCard(
         block: AnalyticsBlock.accountBalances.rawValue,
         title: t("analytics.block.accountBalances"), subtitle: t("analytics.basis.accountBalances"),
@@ -1601,6 +1620,7 @@ private struct ForecastView: View {
     let money = environment.money
     VStack(alignment: .leading, spacing: 8) {
       ForecastChart(
+        height: 260,
         actual: plot.actual.map { point($0) },
         projection: plot.projection.map { point($0) },
         band: plot.band.map { band in

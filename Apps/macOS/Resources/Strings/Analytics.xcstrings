@@ -1193,6 +1193,23 @@
         }
       }
     },
+    "analytics.block.forecastEnd": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Until the end of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До конца месяца"
+          }
+        }
+      }
+    },
     "analytics.block.goals": {
       "extractionState": "manual",
       "localizations": {
@@ -2396,6 +2413,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Квантильный промах P10 / P50 / P90"
+          }
+        }
+      }
+    },
+    "analytics.forecast.plannedPayments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "planned payments %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "плановые платежи %@"
           }
         }
       }

@@ -112,7 +112,8 @@ enum AnalyticsBuilder {
     let quality = QualityTotals.make(columns: qualityColumns)
     return OverviewSectionModel(
       months: monthBars(ledger: ledger, period: period, today: today),
-      quality: quality.tiles.contains { $0.value != 0 } ? .ready(quality) : .notEnoughData(.noSpending),
+      quality: quality.tiles.contains { $0.value != 0 }
+        ? .ready(quality) : .notEnoughData(.noSpending),
       anomalies: report.map { anomalies($0, period: period).found },
       categories: ranked(categories.nodes, else: .noSpending),
       series: steps.month.buckets.contains { $0.value != 0 }
@@ -585,7 +586,8 @@ enum AnalyticsBuilder {
     _ nodes: [BreakdownNode], else reason: AnalyticsReason, previous: [BreakdownNode]? = nil
   ) -> ChartBlock<[RankedValue]> {
     let before = Dictionary(
-      (previous ?? []).map { ($0.key, $0.amount.wholeRubles) }, uniquingKeysWith: { first, _ in first })
+      (previous ?? []).map { ($0.key, $0.amount.wholeRubles) },
+      uniquingKeysWith: { first, _ in first })
     let values = nodes.map { node -> RankedValue in
       var value = RankedValue(node)
       if previous != nil { value.previous = before[node.key] ?? 0 }

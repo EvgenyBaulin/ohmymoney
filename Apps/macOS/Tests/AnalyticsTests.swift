@@ -443,7 +443,7 @@ final class AnalyticsModelTests: XCTestCase {
       forecast.inSummaryTotalRub,
       AccountForecast.Band(low: money("43000"), middle: money("45000"), high: money("46000")))
     XCTAssertTrue(model.blockIDs.contains(AnalyticsBlock.accountBalances.rawValue))
-    XCTAssertEqual(model.blockIDs.count, 2)
+    XCTAssertEqual(model.blockIDs.count, 3)
 
     let (bare, uncounted) = plan(counts: false)
     let none = AnalyticsBuilder.model(
