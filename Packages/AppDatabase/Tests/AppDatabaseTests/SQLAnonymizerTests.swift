@@ -645,18 +645,18 @@ struct SQLAnonymizerTests {
     }
   }
 
-  @Test func pendingStatementReviewsAreDroppedWithTheirFileNames() throws {
+  @Test func legacyStatementReviewsAreDroppedWithTheirFileNames() throws {
     let stack = try TestSupport.makeStack()
     try Self.seed(stack)
     try stack.writer.write { db in
       try db.execute(
         sql: "INSERT INTO settings (key, value) VALUES (?, ?)",
-        arguments: [StatementReview.settingsKey, "synthetic statement"])
+        arguments: [SQLAnonymizer.legacyStatementReviewKey, "synthetic statement"])
     }
     try SQLAnonymizer().anonymize(copy: ExportCopyDatabase(writer: stack.writer))
     let review = try stack.writer.read { db in
       try Self.value(
-        db, "SELECT value FROM settings WHERE key = '\(StatementReview.settingsKey)'")
+        db, "SELECT value FROM settings WHERE key = '\(SQLAnonymizer.legacyStatementReviewKey)'")
     }
     #expect(review == nil)
   }

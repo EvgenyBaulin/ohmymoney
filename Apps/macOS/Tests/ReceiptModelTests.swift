@@ -415,6 +415,28 @@ final class ReceiptModelTests: XCTestCase {
     XCTAssertNil(created.transaction.receipt)
   }
 
+  func testAConfidentForeignReceiptProposesTheShopAndItIsWrittenAsTheNote() async throws {
+    let model = try await model()
+    let lines = ["Sample Market LLC", "Cəmi: 7.40 ₼", "Tarix 02.11.2026", "Vaxt 10:15"]
+    model.read(recognized: lines.map { RecognizedLine(text: $0, confidence: 0.95) })
+    XCTAssertEqual(model.stage, .found)
+    XCTAssertEqual(model.printedMerchant, "Sample Market LLC")
+    XCTAssertTrue(model.merchantText.contains("Sample Market LLC"))
+    XCTAssertTrue(model.confirm())
+    XCTAssertEqual(try XCTUnwrap(live().first).transaction.note, "Sample Market LLC")
+  }
+
+  func testADimForeignReceiptProposesOnlyTheTotalAndTheDate() async throws {
+    let model = try await model()
+    let lines = ["Sample Market LLC", "Cəmi: 7.40 ₼", "Tarix 02.11.2026", "Vaxt 10:15"]
+    model.read(recognized: lines.map { RecognizedLine(text: $0, confidence: 0.5) })
+    XCTAssertEqual(model.stage, .found)
+    XCTAssertNil(model.printedMerchant)
+    XCTAssertEqual(model.merchantText, "")
+    XCTAssertTrue(model.confirm())
+    XCTAssertNil(try XCTUnwrap(live().first).transaction.note)
+  }
+
   func testBillIsToldToWaitAndWritesNothing() async throws {
     let model = try await model()
     model.read(printedLines: ["Guest bill", "Total 120.00 AZN", "29.10.2026 20:10"])

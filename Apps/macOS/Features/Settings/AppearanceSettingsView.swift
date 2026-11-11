@@ -111,6 +111,10 @@ struct AppearanceSettingsView: View {
           .foregroundStyle(.secondary)
       }
 
+      #if os(iOS)
+        PhoneTabLabelsSection()
+      #endif
+
       OverviewTilesSection()
     }
     .formStyle(.grouped)
