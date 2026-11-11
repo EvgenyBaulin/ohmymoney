@@ -141,9 +141,9 @@ struct TrackBarsChart: View {
     case .square:
       Rectangle().fill(.primary).frame(width: size, height: size)
     case .triangle:
-      Image(systemName: "triangle.fill").font(.system(size: size))
+      Image(systemName: "triangle.fill").font(.system(size: size))  // font-fixed: a chart marker is a shape sized with the other markers, not text
     case .diamond:
-      Image(systemName: "diamond.fill").font(.system(size: size))
+      Image(systemName: "diamond.fill").font(.system(size: size))  // font-fixed: a chart marker is a shape sized with the other markers, not text
     case .ring:
       Circle().strokeBorder(.primary, lineWidth: 2.5).frame(width: size + 4, height: size + 4)
     case nil:

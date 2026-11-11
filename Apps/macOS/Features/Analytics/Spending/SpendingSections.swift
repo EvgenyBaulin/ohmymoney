@@ -145,7 +145,7 @@ struct WeekendPriceView: View {
   {
     HStack(spacing: 10) {
       Text(verbatim: name).frame(width: 150, alignment: .leading)
-      WeekendShareBar(fraction: whole > 0 ? Double(amount.raw) / Double(whole) : 0)
+      WeekendShareBar(part: amount.raw, whole: whole)
       Text(verbatim: environment.money.rounded(amount))
         .monospacedDigit()
         .frame(width: 100, alignment: .trailing)
@@ -160,15 +160,23 @@ struct WeekendPriceView: View {
 /// the rest on the neutral track.
 struct WeekendShareBar: View {
   @Environment(\.appTheme) private var theme
-  /// 0...1; a chart helper, never money.
-  let fraction: Double  // chart-only
+  /// The part and the whole in the same units; only their ratio reaches the screen.
+  let part: Int64
+  let whole: Int64
+
+  /// 0...1 of the track, from whole thousandths so no money passes through floating point.
+  private var share: CGFloat {
+    guard whole > 0 else { return 0 }
+    let thousandths = min(1000, max(0, part.multipliedReportingOverflow(by: 1000).partialValue / whole))
+    return CGFloat(thousandths) / 1000
+  }
 
   var body: some View {
     GeometryReader { proxy in
       ZStack(alignment: .leading) {
         Rectangle().fill(theme.fillNeutral)
         Rectangle().fill(theme.accentDefault)
-          .frame(width: proxy.size.width * min(1, max(0, fraction)))
+          .frame(width: proxy.size.width * share)
       }
       .clipShape(RoundedRectangle(cornerRadius: 3))
     }
@@ -455,7 +463,7 @@ private struct HabitsSection: View {
           Text(verbatim: AnalyticsText.name(of: .person(line.personId), display.names, environment))
             .lineLimit(1)
             .frame(width: 150, alignment: .leading)
-          WeekendShareBar(fraction: whole > 0 ? Double(line.amount.raw) / Double(whole) : 0)
+          WeekendShareBar(part: line.amount.raw, whole: whole)
           Text(verbatim: money.rounded(line.amount)).monospacedDigit()
             .frame(width: 100, alignment: .trailing)
         }
