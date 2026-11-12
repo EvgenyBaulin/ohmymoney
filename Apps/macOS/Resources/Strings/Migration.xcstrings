@@ -76,6 +76,18 @@
             "state": "translated",
             "value": "Не переносити"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko‘chirilmasin"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不要移入"
+          }
         }
       }
     },
@@ -153,6 +165,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рахунок не названо у файлі"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylda hisob nomi yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檔案中未命名的帳戶"
           }
         }
       }
@@ -232,6 +256,18 @@
             "state": "translated",
             "value": "Рахунки"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisoblar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳戶"
+          }
         }
       }
     },
@@ -309,6 +345,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Куди перенести операції кожного рахунку іншого застосунку. «Не переносити» виключає їх. Приховані рахунки пропонуються лише поки їх показано."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshqa ilovadagi har bir hisob amallari qayerga ko‘chirilishi. «Ko‘chirilmasin» tanlansa, ular o‘tkazib yuboriladi. Yashirilgan hisoblar faqat ko‘rsatilganda taklif qilinadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇另一個 App 中各帳戶交易的移入位置。選擇「不要移入」會略過該帳戶。隱藏的帳戶只有在顯示時才能選取。"
           }
         }
       }
@@ -388,6 +436,18 @@
             "state": "translated",
             "value": "Інший файл…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshqa fayl…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇其他檔案⋯"
+          }
         }
       }
     },
@@ -466,6 +526,18 @@
             "state": "translated",
             "value": "Перенести"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko‘chirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移入"
+          }
         }
       }
     },
@@ -543,6 +615,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Категорії"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turkumlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "類別"
           }
         }
       }
@@ -838,6 +922,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta yetishmayotgan turkum yaratish"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta yetishmayotgan turkum yaratish"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "建立 %lld 個缺少的類別"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -915,6 +1029,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зіставлено за назвою й змістом («Харчування поза домом» → «Кафе»). Нова категорія створюється лише там, де ви виберете «Створити»."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nom va ma’no bo‘yicha moslanadi («Tashqarida ovqatlanish» → «Kafelar»). Yangi turkum faqat «Yaratish» tanlangan joyda yaratiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依名稱和意義配對（「外食」→「咖啡廳」）。只有選擇「建立」時才會建立新類別。"
           }
         }
       }
@@ -994,6 +1120,18 @@
             "state": "translated",
             "value": "У файлі немає категорій: усе потрапить у «Нерозібране»."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylda turkumlar yo‘q: hammasi «Saralanmagan» turkumiga o‘tkaziladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檔案中沒有類別：所有交易都會移至「未分類」。"
+          }
         }
       }
     },
@@ -1071,6 +1209,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Створити «%@»"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» yaratish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立「%@」"
           }
         }
       }
@@ -1150,6 +1300,18 @@
             "state": "translated",
             "value": "Нерозібране"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saralanmagan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未分類"
+          }
         }
       }
     },
@@ -1227,6 +1389,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вибрати файл…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylni tanlash…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇檔案⋯"
           }
         }
       }
@@ -1306,6 +1480,18 @@
             "state": "translated",
             "value": "Готово"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tayyor"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
+          }
         }
       }
     },
@@ -1383,6 +1569,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Що містить кожен стовпець. Вибір запам'ятовується для наступного файлу з такими самими стовпцями."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Har bir ustunda qanday ma’lumot borligi. Tanlovingiz bir xil ustunli keyingi fayl uchun eslab qolinadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇各欄的內容。下次使用欄位相同的檔案時會沿用此選擇。"
           }
         }
       }
@@ -1462,6 +1660,18 @@
             "state": "translated",
             "value": "Виберіть стовпець дати та суми (або стовпці доходу й витрати)."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sana va summa ustunini yoki kirim va chiqim ustunlarini tanlang."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請選擇日期欄和金額欄，或收入欄和支出欄。"
+          }
         }
       }
     },
@@ -1539,6 +1749,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Прочитано операцій: %lld · не прочитано рядків: %lld"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘qilgan amallar: %lld · o‘qilmagan qatorlar: %lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已讀取交易：%lld · 未讀取的列：%lld"
           }
         }
       }
@@ -1618,6 +1840,18 @@
             "state": "translated",
             "value": "Дати на зразок 03/04"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "03/04 kabi sanalar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如 03/04 的日期"
+          }
         }
       }
     },
@@ -1695,6 +1929,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "день, потім місяць"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kun, keyin oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日、月"
           }
         }
       }
@@ -1774,6 +2020,18 @@
             "state": "translated",
             "value": "місяць, потім день"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "oy, keyin kun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "月、日"
+          }
         }
       }
     },
@@ -1851,6 +2109,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "уже є"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mavjud"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已存在"
           }
         }
       }
@@ -1930,6 +2200,18 @@
             "state": "translated",
             "value": "введено вручну?"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "qo‘lda kiritilganmi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "手動輸入？"
+          }
         }
       }
     },
@@ -2007,6 +2289,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "найближчий курс"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "eng yaqin kurs"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最接近的匯率"
           }
         }
       }
@@ -2086,6 +2380,18 @@
             "state": "translated",
             "value": "новий"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "yangi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增"
+          }
         }
       }
     },
@@ -2163,6 +2469,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "немає курсу"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kurs yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無匯率"
           }
         }
       }
@@ -2454,6 +2772,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Створено %lld нової категорії"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta yangi turkum yaratildi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta yangi turkum yaratildi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已建立 %lld 個新類別"
                 }
               }
             }
@@ -2752,6 +3100,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal ko‘chirildi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal ko‘chirildi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已移入 %lld 筆交易"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -2829,6 +3207,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Редагування → Скасувати дію (⌘Z) скасовує все перенесення. Копія бази даних перед ним є серед резервних копій."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tahrirlash → Bekor qilish (⌘Z) orqali ko‘chirishni butunlay bekor qilish mumkin. Ko‘chirishdan oldingi ma’lumotlar bazasi nusxasi zaxira nusxalar orasida."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇「編輯」→「復原」（⌘Z）可還原整個移入作業。移入前建立的資料庫副本可在備份中找到。"
           }
         }
       }
@@ -2908,6 +3298,18 @@
             "state": "translated",
             "value": "«Скасувати дію» скасовує все перенесення. Копія бази даних перед ним є серед резервних копій."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Bekor qilish” orqali ko‘chirishni butunlay bekor qilish mumkin. Ko‘chirishdan oldingi ma’lumotlar bazasi nusxasi zaxira nusxalar orasida."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇「復原」可還原整個移入作業。移入前建立的資料庫副本可在備份中找到。"
+          }
         }
       }
     },
@@ -2985,6 +3387,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "CSV або Excel (.xlsx) із CoinKeeper, Zenmoney, Money Manager чи будь-яка таблиця з датою та сумою. Таблицю Numbers спочатку експортуйте в CSV або Excel."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager dasturlaridan CSV yoki Excel (.xlsx) fayli yoxud sana va summa ko‘rsatilgan istalgan jadval. Numbers jadvalini avval CSV yoki Excel formatiga eksport qiling."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇從 CoinKeeper、Zenmoney、Money Manager 匯出的 CSV 或 Excel（.xlsx）檔案，或任何包含日期和金額的表格。Numbers 表格請先匯出為 CSV 或 Excel。"
           }
         }
       }
@@ -3064,6 +3478,18 @@
             "state": "translated",
             "value": "Виберіть файл експорту"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eksport faylini tanlang"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇匯出的檔案"
+          }
         }
       }
     },
@@ -3141,6 +3567,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не перенесено, нічого не записано. Причина в журналі."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko‘chirilmadi, hech narsa yozilmadi. Sababi jurnalda ko‘rsatilgan."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法移入，未寫入任何資料。請查看日誌瞭解原因。"
           }
         }
       }
@@ -3220,6 +3658,18 @@
             "state": "translated",
             "value": "Це документ Numbers із закритим форматом. У Numbers виберіть «Файл → Експортувати до → CSV або Excel», а потім виберіть той файл тут."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu Numbers hujjati, uning formati yopiq. Numbers’da File → Export To → CSV yoki Excel’ni tanlang, so‘ng hosil bo‘lgan faylni shu yerda tanlang."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是 Numbers 文件，其格式不公開。請在 Numbers 中選擇「檔案」→「輸出至」→「CSV」或「Excel」，然後在此選擇匯出的檔案。"
+          }
         }
       }
     },
@@ -3297,6 +3747,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Файл не читається як таблиця з назвами стовпців. Експортуйте в CSV або .xlsx."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylni ustun nomlari bor jadval sifatida o‘qib bo‘lmadi. Uni CSV yoki .xlsx formatida eksport qiling."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法將檔案讀取為含欄位名稱的表格。請匯出為 CSV 或 .xlsx。"
           }
         }
       }
@@ -3376,6 +3838,18 @@
             "state": "translated",
             "value": "Це файл Excel старіший за 2007 рік (.xls). Збережіть його як .xlsx або CSV та виберіть тут."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu 2007-yildan eski Excel fayli (.xls). Uni .xlsx yoki CSV formatida qayta saqlang va shu yerda tanlang."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是 2007 年以前的 Excel 檔案（.xls）。請另存為 .xlsx 或 CSV，然後在此選擇該檔案。"
+          }
         }
       }
     },
@@ -3453,6 +3927,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витрата"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiqim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支出"
           }
         }
       }
@@ -3532,6 +4018,18 @@
             "state": "translated",
             "value": "Дохід"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kirim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入"
+          }
         }
       }
     },
@@ -3609,6 +4107,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Файл у кодуванні windows-1251, його прочитано відповідно."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fayl windows-1251 kodlashida o‘qildi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檔案使用 windows-1251 編碼，已依此讀取。"
           }
         }
       }
@@ -3688,6 +4198,18 @@
             "state": "translated",
             "value": "Перенести з іншого застосунку…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshqa ilovadan ko‘chirish…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從其他 App 移入⋯"
+          }
         }
       }
     },
@@ -3766,6 +4288,18 @@
             "state": "translated",
             "value": "Далі"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keyingi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一步"
+          }
         }
       }
     },
@@ -3843,6 +4377,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перед перенесенням створюється копія бази даних."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko‘chirishdan oldin ma’lumotlar bazasi nusxasi yaratiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移入前會建立資料庫副本。"
           }
         }
       }
@@ -4138,6 +4684,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal allaqachon mavjud — o‘tkazib yuborildi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal allaqachon mavjud — o‘tkazib yuborildi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆已存在於帳簿中，已略過"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -4215,6 +4791,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запит курсів за ці дні в Банку Росії…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rossiya Bankidan o‘sha kunlar kurslari olinmoqda…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在向 Bank of Russia 查詢當日匯率⋯"
           }
         }
       }
@@ -4510,6 +5098,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal qo‘lda kiritilganga o‘xshaydi — o‘tkazib yuborildi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal qo‘lda kiritilganga o‘xshaydi — o‘tkazib yuborildi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆可能是手動輸入的交易，已略過"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -4587,6 +5205,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перенести й ці"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bularni ham ko‘chirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一併移入"
           }
         }
       }
@@ -4878,6 +5508,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "і ще %lld"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "va yana %lld ta"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "va yana %lld ta"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "以及其他 %lld 筆"
                 }
               }
             }
@@ -5176,6 +5836,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal mavjud eng yaqin kursda, taxminiy deb belgilangan — o‘sha kun kursi olingach aniqlashtiriladi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal mavjud eng yaqin kursda, taxminiy deb belgilangan — o‘sha kun kursi olingach aniqlashtiriladi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆使用現有最接近的匯率，已標記為暫定；取得當日匯率後會更新"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -5253,6 +5943,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Від %1$@ до %2$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ dan %2$@ gacha"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從 %1$@ 到 %2$@"
           }
         }
       }
@@ -5544,6 +6246,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld у валюті зовсім без курсу — не переноситься"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal kursi mavjud bo‘lmagan valyutada — ko‘chirilmadi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal kursi mavjud bo‘lmagan valyutada — ko‘chirilmadi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆的貨幣目前沒有匯率，未移入"
                 }
               }
             }
@@ -5842,6 +6574,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal ko‘chiriladi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal ko‘chiriladi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "將移入 %lld 筆交易"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -6132,6 +6894,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld переказу між власними рахунками застосунку — не переноситься"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ilovaning o‘z hisoblari orasidagi %lld ta o‘tkazma — ko‘chirilmadi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ilovaning o‘z hisoblari orasidagi %lld ta o‘tkazma — ko‘chirilmadi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆為 App 內帳戶之間的轉帳，未移入"
                 }
               }
             }
@@ -6430,6 +7222,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta qator o‘qilmadi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta qator o‘qilmadi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 列未讀取"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -6507,6 +7329,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Читання файлу…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fayl o‘qilmoqda…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在讀取檔案⋯"
           }
         }
       }
@@ -6586,6 +7420,18 @@
             "state": "translated",
             "value": "Рахунок"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisob"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳戶"
+          }
         }
       }
     },
@@ -6663,6 +7509,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сума зі знаком"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summa (ishorali)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額（含正負號）"
           }
         }
       }
@@ -6742,6 +7600,18 @@
             "state": "translated",
             "value": "Категорія"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turkum"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "類別"
+          }
         }
       }
     },
@@ -6819,6 +7689,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Коментар"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Izoh"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備註"
           }
         }
       }
@@ -6898,6 +7780,18 @@
             "state": "translated",
             "value": "Валюта"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valyuta"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "貨幣"
+          }
         }
       }
     },
@@ -6975,6 +7869,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дата"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sana"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日期"
           }
         }
       }
@@ -7054,6 +7960,18 @@
             "state": "translated",
             "value": "Опис"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tavsif"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "描述"
+          }
         }
       }
     },
@@ -7131,6 +8049,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витрата"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiqim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支出"
           }
         }
       }
@@ -7210,6 +8140,18 @@
             "state": "translated",
             "value": "Від кого"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qayerdan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉出"
+          }
         }
       }
     },
@@ -7287,6 +8229,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дохід"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kirim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入"
           }
         }
       }
@@ -7366,6 +8320,18 @@
             "state": "translated",
             "value": "Рахунок доходу"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kirim hisobi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入帳戶"
+          }
         }
       }
     },
@@ -7443,6 +8409,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Валюта доходу"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kirim valyutasi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入貨幣"
           }
         }
       }
@@ -7522,6 +8500,18 @@
             "state": "translated",
             "value": "Тип (витрата, дохід, переказ)"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turi (chiqim, kirim, o‘tkazma)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "類型（支出、收入、轉帳）"
+          }
         }
       }
     },
@@ -7599,6 +8589,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не читати"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘qilmasin"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不要讀取"
           }
         }
       }
@@ -7678,6 +8680,18 @@
             "state": "translated",
             "value": "Отримувач або магазин"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oluvchi yoki do‘kon"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收款人或商店"
+          }
         }
       }
     },
@@ -7755,6 +8769,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Підкатегорія"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quyi turkum"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "子類別"
           }
         }
       }
@@ -7834,6 +8860,18 @@
             "state": "translated",
             "value": "До"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qayerga"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉入"
+          }
         }
       }
     },
@@ -7911,6 +8949,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перенести з іншого застосунку…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshqa ilovadan ko‘chirish…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從其他 App 移入⋯"
           }
         }
       }
@@ -7990,6 +9040,18 @@
             "state": "translated",
             "value": "Схоже на експорт CoinKeeper"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper eksportiga o‘xshaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "似乎是 CoinKeeper 匯出的檔案"
+          }
         }
       }
     },
@@ -8067,6 +9129,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Схоже на експорт Money Manager"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money Manager eksportiga o‘xshaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "似乎是 Money Manager 匯出的檔案"
           }
         }
       }
@@ -8146,6 +9220,18 @@
             "state": "translated",
             "value": "Таблиця"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jadval"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "表格"
+          }
         }
       }
     },
@@ -8223,6 +9309,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Схоже на експорт Zenmoney"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zenmoney eksportiga o‘xshaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "似乎是 Zenmoney 匯出的檔案"
           }
         }
       }
@@ -8302,6 +9400,18 @@
             "state": "translated",
             "value": "Стовпці"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ustunlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "欄位"
+          }
         }
       }
     },
@@ -8379,6 +9489,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рахунки й категорії"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisoblar va turkumlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳戶與類別"
           }
         }
       }
@@ -8458,6 +9580,18 @@
             "state": "translated",
             "value": "Попередній перегляд"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko‘rib chiqish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預覽"
+          }
         }
       }
     },
@@ -8536,6 +9670,18 @@
             "state": "translated",
             "value": "Таблиця, експортована з CoinKeeper, Zenmoney, Money Manager, Excel або Numbers. Нічого не записується до «Перенести»; спочатку створюється копія бази, а ⌘Z скасовує все перенесення."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager, Excel yoki Numbers’dan eksport qilingan jadval. «Ko‘chirish» tanlanmaguncha hech narsa yozilmaydi; avval ma’lumotlar bazasi nusxasi yaratiladi, ⌘Z esa ko‘chirishni butunlay bekor qiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從 CoinKeeper、Zenmoney、Money Manager、Excel 或 Numbers 匯出的表格。選擇「移入」前不會寫入任何資料；系統會先建立資料庫副本，按下 ⌘Z 可還原整個移入作業。"
+          }
         }
       }
     },
@@ -8613,6 +9759,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Таблиця, експортована з CoinKeeper, Zenmoney, Money Manager, Excel або Numbers. Нічого не записується до «Перенести»; спочатку створюється копія бази, а «Скасувати дію» скасовує все перенесення."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager, Excel yoki Numbers’dan eksport qilingan jadval. «Ko‘chirish» tanlanmaguncha hech narsa yozilmaydi; avval ma’lumotlar bazasi nusxasi yaratiladi, “Bekor qilish” esa ko‘chirishni butunlay bekor qiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從 CoinKeeper、Zenmoney、Money Manager、Excel 或 Numbers 匯出的表格。選擇「移入」前不會寫入任何資料；系統會先建立資料庫副本，選擇「復原」可還原整個移入作業。"
           }
         }
       }
@@ -8908,6 +10066,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ko‘chirish uchun %lld ta operatsiya"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ko‘chirish uchun %lld ta operatsiya"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "要移入 %lld 筆交易"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -8985,6 +10173,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перенесення з іншого застосунку"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshqa ilovadan ko‘chirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從其他 App 移入"
           }
         }
       }

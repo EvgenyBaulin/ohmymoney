@@ -75,6 +75,18 @@
             "state": "translated",
             "value": "курс %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ kursi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 的匯率"
+          }
         }
       }
     },
@@ -153,6 +165,18 @@
             "state": "translated",
             "value": "Застосувати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qo‘llash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "套用"
+          }
         }
       }
     },
@@ -229,6 +253,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Категорія…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turkum…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "類別⋯"
           }
         }
       }
@@ -519,6 +555,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Видалити %lld операції?"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal o‘chirilsinmi?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal o‘chirilsinmi?"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "刪除 %lld 筆交易？"
                 }
               }
             }
@@ -816,6 +882,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal o‘zgartirilsinmi?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal o‘zgartirilsinmi?"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "更改 %lld 筆交易？"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -892,6 +988,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Видалити й відкрити знову борг «%@»"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘chirish va «%@» qarzini qayta ochish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除並重新開啟債務 «%@»"
           }
         }
       }
@@ -970,6 +1078,18 @@
             "state": "translated",
             "value": "Платіж закрив борг: %@. Щойно його видалять, гроші знову будуть винні за ним, і борг лишиться закритим, доки його не відкриють знову."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu to‘lov qarzni yopgan: %@. To‘lov o‘chirilsa, qarz yana mavjud bo‘ladi, ammo qayta ochilmaguncha yopiq qoladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這筆付款已結清債務：%@。刪除後，該債務將再次出現欠款，但除非重新開啟，否則仍會保持結清。"
+          }
         }
       }
     },
@@ -1047,6 +1167,18 @@
             "state": "translated",
             "value": "Платежі за боргами також знімаються з цих боргів."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qarz to‘lovlari tegishli qarzlardan ham ayiriladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "債務付款也會從對應的債務中移除。"
+          }
         }
       }
     },
@@ -1123,6 +1255,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повернені гроші забирають із собою свій надлишок чи нестачу, а частини, які вони закрили, знову чекають на повернення."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qaytarilgan pul bilan uning ortiqcha yoki kam summasi ham o‘chiriladi, u qoplagan qismlar esa yana qaytarilishini kutadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除還款時，相關的多付或少付金額也會一併移除，已還清的部分將重新等待還款。"
           }
         }
       }
@@ -1202,6 +1346,18 @@
             "state": "translated",
             "value": "Подія"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voqea"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "事件"
+          }
         }
       }
     },
@@ -1279,6 +1435,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Для кого"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kim uchun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "付款對象"
           }
         }
       }
@@ -1358,6 +1526,18 @@
             "state": "translated",
             "value": "Немає"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無"
+          }
         }
       }
     },
@@ -1435,6 +1615,18 @@
             "state": "translated",
             "value": "Нічого змінювати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘zgartirish uchun hech narsa yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有可更改的項目"
+          }
         }
       }
     },
@@ -1511,6 +1703,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нічого видаляти"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘chirish uchun hech narsa yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有可刪除的項目"
           }
         }
       }
@@ -1805,6 +2009,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amalning ayrim qismlari o‘zgarmaydi:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amalning ayrim qismlari o‘zgarmaydi:"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆交易的部分內容維持不變："
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1883,6 +2117,18 @@
             "state": "translated",
             "value": "Рахунок"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisob"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳戶"
+          }
         }
       }
     },
@@ -1960,6 +2206,18 @@
             "state": "translated",
             "value": "Людина…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shaxs…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "對象⋯"
+          }
         }
       }
     },
@@ -2036,6 +2294,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Місце…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Joy…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "地點⋯"
           }
         }
       }
@@ -2115,6 +2385,18 @@
             "state": "translated",
             "value": "Оцінка"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sifat"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "品質"
+          }
         }
       }
     },
@@ -2191,6 +2473,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "за частину з нього повернули гроші — спершу видаліть це повернення"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bir qismi uchun pul qaytarilgan — avval pul qaytarilishini o‘chiring"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "其中一部分已獲還款，請先刪除該筆還款"
           }
         }
       }
@@ -2269,6 +2563,18 @@
             "state": "translated",
             "value": "куплено в кредит — змінюється в «Боргах»"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kreditga olingan — Qarzlar bo‘limida o‘zgartiriladi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以信用購買，請在「債務」中更改"
+          }
         }
       }
     },
@@ -2345,6 +2651,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "За ним уже сплачено частини — спершу видаліть їх."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bo‘lib to‘lash to‘lovlari allaqachon amalga oshirilgan — avval ularni o‘chiring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已支付分期款，請先刪除相關付款。"
           }
         }
       }
@@ -2423,6 +2741,18 @@
             "state": "translated",
             "value": "це платіж за боргом"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bu qarz to‘lovi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是一筆債務付款"
+          }
         }
       }
     },
@@ -2499,6 +2829,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "у доходів і повернених грошей такого поля немає"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "daromad va qaytarilgan pulda bunday maydon yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入和還款沒有此欄位"
           }
         }
       }
@@ -2577,6 +2919,18 @@
             "state": "translated",
             "value": "це внесок у ціль"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bu maqsadga qo‘shilgan mablag‘"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是一筆目標存款"
+          }
         }
       }
     },
@@ -2653,6 +3007,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "повернення забирає з неї гроші — спершу видаліть повернення"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bu amaldan pul qaytarilgan — avval pul qaytarilishini o‘chiring"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有相關退款，請先刪除退款"
           }
         }
       }
@@ -2731,6 +3097,18 @@
             "state": "translated",
             "value": "у доходу немає місця"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "daromadda joy ko‘rsatilmaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入沒有地點"
+          }
         }
       }
     },
@@ -2807,6 +3185,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "це гроші, повернені людиною"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bu shaxs qaytargan pul"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是他人償還的款項"
           }
         }
       }
@@ -2885,6 +3275,18 @@
             "state": "translated",
             "value": "у доходів і повернених грошей немає оцінки"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "daromad va qaytarilgan pulda sifat ko‘rsatilmaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入和還款沒有品質欄位"
+          }
         }
       }
     },
@@ -2961,6 +3363,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "курсу ще немає, щоб порахувати, скільки списує рахунок"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hisobdan yechiladigan summani hisoblash uchun kurs hali yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無匯率可計算帳戶扣款金額"
           }
         }
       }
@@ -3039,6 +3453,18 @@
             "state": "translated",
             "value": "категорія іншого виду"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "turkum boshqa turga tegishli"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此類別屬於另一種類型"
+          }
         }
       }
     },
@@ -3115,6 +3541,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "сплачено за когось іншого"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "boshqa kishi uchun to‘langan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代他人付款"
           }
         }
       }
@@ -3193,6 +3631,18 @@
             "state": "translated",
             "value": "це різниця звірки: її рахунок береться з обліку, і вона ніколи не потрапляє до цілей чи категорії застосунку"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bu hisobni tekshirish farqi: hisobi tekshiruvdan olinadi va u maqsad yoki ilova turkumiga kiritilmaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是對帳差額：帳戶由盤點決定，且不會歸入目標或 App 的類別"
+          }
         }
       }
     },
@@ -3269,6 +3719,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "категорію архівовано або видалено"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "turkum arxivlangan yoki o‘chirilgan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此類別已封存或移除"
           }
         }
       }
@@ -3347,6 +3809,18 @@
             "state": "translated",
             "value": "системна категорія"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tizim turkumi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系統類別"
+          }
         }
       }
     },
@@ -3424,6 +3898,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пошук"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qidirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "搜尋"
           }
         }
       }
@@ -3714,6 +4200,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операції лишається як є:"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal o‘zgarmaydi:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal o‘zgarmaydi:"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆交易維持不變："
                 }
               }
             }
@@ -4011,6 +4527,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tanlanganlardan %lld ta amal qismlarga bo‘lingan — o‘zgarish uning barcha qismlariga ta’sir qiladi."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tanlanganlardan %lld ta amal qismlarga bo‘lingan — o‘zgarish ularning barcha qismlariga ta’sir qiladi."
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "所選項目中有 %lld 筆交易已拆分，更改會套用至所有部分。"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -4087,6 +4633,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "⌘Z повертає все."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z hammasini qaytaradi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按下 ⌘Z 可還原所有更改。"
           }
         }
       }
@@ -4165,6 +4723,18 @@
             "state": "translated",
             "value": "«Скасувати» повертає все."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Bekor qilish” hammasini qaytaradi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點按「復原」可還原所有更改。"
+          }
         }
       }
     },
@@ -4241,6 +4811,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Це різниця звірки: її сума, вид, рахунок, валюта й дата визначаються самі, коли ви додаєте або виправляєте операції до обліку. Якщо її видалити, різниця цього обліку більше не записуватиметься."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu hisobni tekshirish farqi: tekshiruvdan oldingi amallarni qo‘shsangiz yoki tuzatsangiz, uning summasi, turi, hisobi, valyutasi va sanasi avtomatik yangilanadi. Uni o‘chirsangiz, bu tekshiruv farqi qayd etilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是對帳差額。新增或修正盤點前的交易時，其金額、類型、帳戶、貨幣和日期會自動更新。刪除後，將不再記錄此次盤點的差額。"
           }
         }
       }
@@ -4320,6 +4902,18 @@
             "state": "translated",
             "value": "Увесь час"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcha vaqt"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有時間"
+          }
         }
       }
     },
@@ -4398,6 +4992,18 @@
             "state": "translated",
             "value": "Будь-який"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Istalgan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "任何"
+          }
         }
       }
     },
@@ -4474,6 +5080,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Власний діапазон"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshqa oraliq"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自訂範圍"
           }
         }
       }
@@ -4553,6 +5171,18 @@
             "state": "translated",
             "value": "Готово"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tayyor"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成"
+          }
         }
       }
     },
@@ -4629,6 +5259,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жодна операція не відповідає цим фільтрам"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu filtrlarga mos natija yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有符合這些篩選條件的項目"
           }
         }
       }
@@ -4708,6 +5350,18 @@
             "state": "translated",
             "value": "Від кого"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從"
+          }
         }
       }
     },
@@ -4785,6 +5439,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Минулий місяць"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘tgan oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上個月"
           }
         }
       }
@@ -4864,6 +5530,18 @@
             "state": "translated",
             "value": "Нічого не знайдено"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hech narsa topilmadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "找不到任何項目"
+          }
         }
       }
     },
@@ -4941,6 +5619,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Період"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Davr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期間"
           }
         }
       }
@@ -5020,6 +5710,18 @@
             "state": "translated",
             "value": "Людина"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shaxs"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "對象"
+          }
         }
       }
     },
@@ -5097,6 +5799,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скинути"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiklash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重置"
           }
         }
       }
@@ -5176,6 +5890,18 @@
             "state": "translated",
             "value": "Повернення грошей"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pul qaytarilishi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "還款"
+          }
         }
       }
     },
@@ -5253,6 +5979,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цей місяць"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shu oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本月"
           }
         }
       }
@@ -5332,6 +6070,18 @@
             "state": "translated",
             "value": "Цей рік"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shu yil"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今年"
+          }
         }
       }
     },
@@ -5408,6 +6158,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Фільтри"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtrlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "篩選條件"
           }
         }
       }
@@ -5487,6 +6249,18 @@
             "state": "translated",
             "value": "До"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gacha"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "至"
+          }
         }
       }
     },
@@ -5565,6 +6339,18 @@
             "state": "translated",
             "value": "Тип"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tur"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "類型"
+          }
         }
       }
     },
@@ -5641,6 +6427,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Збережіть їх або відмовтеся."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘zgarishlarni saqlang yoki bekor qiling."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存或捨棄更改。"
           }
         }
       }
@@ -5719,6 +6517,18 @@
             "state": "translated",
             "value": "Інспектор закрився із незбереженими змінами"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inspektor saqlanmagan o‘zgarishlar bilan yopildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢視器關閉時有未儲存的更改"
+          }
         }
       }
     },
@@ -5795,6 +6605,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не зберігати"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saqlamaslik"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不儲存"
           }
         }
       }
@@ -5873,6 +6695,18 @@
             "state": "translated",
             "value": "Редагування · "
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tahrirlash · "
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "編輯 · "
+          }
         }
       }
     },
@@ -5950,6 +6784,18 @@
             "state": "translated",
             "value": "Відкривається інша операція. Незбережені зміни буде втрачено."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshqa amal ochilmoqda. Saqlanmagan o‘zgarishlar yo‘qoladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "即將開啟另一筆交易，未儲存的更改將會遺失。"
+          }
         }
       }
     },
@@ -6026,6 +6872,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зберегти зміни цієї операції?"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu amaldagi o‘zgarishlar saqlansinmi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要儲存對此交易的更改嗎？"
           }
         }
       }
@@ -6105,6 +6963,18 @@
             "state": "translated",
             "value": "Усі"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barchasi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部"
+          }
         }
       }
     },
@@ -6182,6 +7052,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витрати"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xarajatlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支出"
           }
         }
       }
@@ -6261,6 +7143,18 @@
             "state": "translated",
             "value": "Дохід"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daromad"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入"
+          }
         }
       }
     },
@@ -6339,6 +7233,18 @@
             "state": "translated",
             "value": "Сьогодні"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天"
+          }
         }
       }
     },
@@ -6415,6 +7321,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Колонки…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ustunlar…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "欄位⋯"
           }
         }
       }
@@ -6494,6 +7412,18 @@
             "state": "translated",
             "value": "Перемістити вниз"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pastga surish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下移"
+          }
         }
       }
     },
@@ -6570,6 +7500,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Які колонки показувати, у якому порядку й якої ширини. Перетягніть рядок або скористайтеся стрілками, щоб перемістити. Опис і суму показано завжди."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko‘rsatiladigan ustunlar, ularning tartibi va kengligi. Qatorni torting yoki surish uchun strelkalardan foydalaning. Tavsif va summa doim ko‘rsatiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇要顯示的欄位、順序和寬度。拖移列或使用箭頭來更改順序。說明和金額一律顯示。"
           }
         }
       }
@@ -6648,6 +7590,18 @@
             "state": "translated",
             "value": "Повернути стандартні"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asliga qaytarish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重置為預設值"
+          }
         }
       }
     },
@@ -6725,6 +7679,18 @@
             "state": "translated",
             "value": "Стандартні колонки, їхній порядок і ширина, без фільтрів і пошуку."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Standart ustunlar, ularning tartibi va kengligi tiklanadi, filtrlar va qidiruv tozalanadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "還原標準欄位、順序和寬度，並清除篩選條件和搜尋。"
+          }
         }
       }
     },
@@ -6801,6 +7767,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Колонки таблиці"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jadval ustunlari"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "表格欄位"
           }
         }
       }
@@ -6880,6 +7858,18 @@
             "state": "translated",
             "value": "Перемістити вгору"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yuqoriga surish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上移"
+          }
         }
       }
     },
@@ -6956,6 +7946,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ширина %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kenglik: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "寬度 %@"
           }
         }
       }
@@ -7034,6 +8036,18 @@
             "state": "translated",
             "value": "Компактний список операцій"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ixcham amallar ro‘yxati"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "精簡交易列表"
+          }
         }
       }
     },
@@ -7111,6 +8125,18 @@
             "state": "translated",
             "value": "Фільтри операцій…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amallar filtrlari…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "交易篩選條件⋯"
+          }
         }
       }
     },
@@ -7187,6 +8213,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Попередній місяць"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oldingi oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上個月"
           }
         }
       }
@@ -7266,6 +8304,18 @@
             "state": "translated",
             "value": "Наступний місяць"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keyingi oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下個月"
+          }
         }
       }
     },
@@ -7343,6 +8393,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нова операція"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yangi operatsiya"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增交易"
           }
         }
       }
@@ -7422,6 +8484,18 @@
             "state": "translated",
             "value": "Переказ"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘tkazma"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉帳"
+          }
         }
       }
     },
@@ -7499,6 +8573,18 @@
             "state": "translated",
             "value": "Пошук операцій"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operatsiyalarni qidirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "搜尋交易"
+          }
         }
       }
     },
@@ -7575,6 +8661,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пошук по всій історії: слова, категорія, місце, рахунок, сума"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Butun tarixdan qidirish: so‘z, kategoriya, joy, hisob, summa"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "搜尋所有紀錄：文字、類別、地點、帳戶、金額"
           }
         }
       }
@@ -7654,6 +8752,18 @@
             "state": "translated",
             "value": "Пошук"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qidirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "搜尋"
+          }
         }
       }
     },
@@ -7730,6 +8840,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "поділено на %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ kishiga teng bo‘lingan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "由 %@ 人平分"
           }
         }
       }
@@ -7808,6 +8930,18 @@
             "state": "translated",
             "value": "за %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ uchun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "為 %@ 支付"
+          }
         }
       }
     },
@@ -7885,6 +9019,18 @@
             "state": "translated",
             "value": "подарунок"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sovg‘a"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "禮物"
+          }
         }
       }
     },
@@ -7961,6 +9107,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "навпіл з %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ bilan teng bo‘lingan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "與 %@ 平分"
           }
         }
       }
@@ -8040,6 +9198,18 @@
             "state": "translated",
             "value": "Змінити"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘zgartirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更改"
+          }
         }
       }
     },
@@ -8116,6 +9286,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зняти вибір"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanlovni tozalash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除選取"
           }
         }
       }
@@ -8411,6 +9593,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta operatsiya"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta operatsiya"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆交易"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -8489,6 +9701,18 @@
             "state": "translated",
             "value": "Видалити…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘chirish…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刪除⋯"
+          }
         }
       }
     },
@@ -8565,6 +9789,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зберігаємо зміни…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘zgarishlar saqlanmoqda…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在儲存更改⋯"
           }
         }
       }
@@ -8643,6 +9879,18 @@
             "state": "translated",
             "value": "Зміну не збережено"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘zgarish saqlanmadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法儲存更改"
+          }
         }
       }
     },
@@ -8719,6 +9967,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не вдалося видалити"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘chirib bo‘lmadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法刪除"
           }
         }
       }
@@ -8797,6 +10057,18 @@
             "state": "translated",
             "value": "База не прийняла запис, і нічого не змінилося. Помилка є в журналі (Довідка → Зібрати звіт про проблему…)."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumotlar bazasiga yozib bo‘lmadi, hech narsa o‘zgarmadi. Xato jurnalda (Yordam → Muammo hisobotini yig‘ish…)."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料庫無法寫入，未更改任何內容。錯誤已記錄在日誌中（輔助說明 → 收集問題報告⋯）。"
+          }
         }
       }
     },
@@ -8873,6 +10145,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Деякі з цих операцій змінилися деінде, поки ви вибирали, куди йдуть гроші, тож переказ їм більше не відповідає. Нічого не змінено: виберіть операції й зробіть зміну знову."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pul qayerga yo‘naltirilishini tanlayotganingizda ayrim operatsiyalar boshqa joyda o‘zgartirilgan, shuning uchun o‘tkazma endi ularga mos kelmaydi. Hech narsa o‘zgarmadi: operatsiyalarni tanlab, qayta o‘zgartiring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇款項去向時，部分交易已在其他位置更改，因此轉帳不再相符。未更改任何內容，請重新選取交易並進行更改。"
           }
         }
       }
@@ -8951,6 +10235,18 @@
             "state": "translated",
             "value": "Не вдалося скасувати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bekor qilib bo‘lmadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法復原"
+          }
         }
       }
     },
@@ -9027,6 +10323,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "База не прийняла запис. Нічого не змінилося, а крок лишається: ⌘Z спробує знову. Помилка є в журналі (Довідка → Зібрати звіт про проблему…)."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumotlar bazasiga yozib bo‘lmadi. Hech narsa o‘zgarmadi, amal bekor qilinmadi: ⌘Z bilan qayta urinib ko‘ring. Xato jurnalda (Yordam → Muammo hisobotini yig‘ish…)."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料庫無法寫入，未更改任何內容，操作仍保留。按下 ⌘Z 可再試一次。錯誤已記錄在日誌中（輔助說明 → 收集問題報告⋯）。"
           }
         }
       }
@@ -9105,6 +10413,18 @@
             "state": "translated",
             "value": "База не прийняла запис. Нічого не змінилося, а крок лишається: «Скасувати» спробує знову. Помилка є в журналі (Налаштування → Довідка → Зібрати звіт про проблему)."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumotlar bazasiga yozib bo‘lmadi. Hech narsa o‘zgarmadi, amal bekor qilinmadi: “Bekor qilish” bilan qayta urinib ko‘ring. Xato jurnalda (Sozlamalar → Yordam → Muammo hisobotini yig‘ish)."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料庫無法寫入，未更改任何內容，操作仍保留。點一下「復原」可再試一次。錯誤已記錄在日誌中（設定 → 輔助說明 → 收集問題報告）。"
+          }
         }
       }
     },
@@ -9182,6 +10502,18 @@
             "state": "translated",
             "value": "Від цього кроку вже щось залежить — наприклад, операцію віднесено до категорії, яку він створив, — або крок повертає щось, що вказує на річ, видалену відтоді. Нічого не змінилося, а крок лишається: розберіться з цим і скасуйте знову."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keyingi amallardan biri shu amalga bog‘liq — masalan, operatsiya shu amal yaratgan kategoriyaga kiritilgan — yoki bu amal keyinroq o‘chirilgan narsaga havola qiluvchi ma’lumotni tiklaydi. Hech narsa o‘zgarmadi, amal bekor qilinmadi: avval buni hal qiling, so‘ng qayta urinib ko‘ring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "之後的操作相依於此步驟，例如將交易歸入此步驟建立的類別；或者此步驟會還原參照了後來已刪除項目的內容。未更改任何內容，操作仍保留。請先解決問題，再試一次復原。"
+          }
         }
       }
     },
@@ -9258,6 +10590,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "За інших"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshqalar uchun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代他人支付"
           }
         }
       }
@@ -9337,6 +10681,18 @@
             "state": "translated",
             "value": "Дохід"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daromad"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入"
+          }
         }
       }
     },
@@ -9414,6 +10770,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повернення грошей"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qaytgan pul"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退回款項"
           }
         }
       }
@@ -9493,6 +10861,18 @@
             "state": "translated",
             "value": "Витрачено"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sarflangan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支出"
+          }
         }
       }
     },
@@ -9570,6 +10950,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сума"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summa"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額"
           }
         }
       }
@@ -9649,6 +11041,18 @@
             "state": "translated",
             "value": "Кешбек"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keshbek"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現金回饋"
+          }
         }
       }
     },
@@ -9726,6 +11130,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Категорія"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategoriya"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "類別"
           }
         }
       }
@@ -9805,6 +11221,18 @@
             "state": "translated",
             "value": "Опис"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tavsif"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "說明"
+          }
         }
       }
     },
@@ -9882,6 +11310,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подія"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tadbir"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "事件"
           }
         }
       }
@@ -9961,6 +11401,18 @@
             "state": "translated",
             "value": "Для кого"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kim uchun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支付對象"
+          }
         }
       }
     },
@@ -10038,6 +11490,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Коментар"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Izoh"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備註"
           }
         }
       }
@@ -10117,6 +11581,18 @@
             "state": "translated",
             "value": "Рахунок"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisob"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳戶"
+          }
         }
       }
     },
@@ -10194,6 +11670,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Місце"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Joy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "地點"
           }
         }
       }
@@ -10273,6 +11761,18 @@
             "state": "translated",
             "value": "Оцінка"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sifat"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "品質"
+          }
         }
       }
     },
@@ -10351,6 +11851,18 @@
             "state": "translated",
             "value": "Час"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaqt"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時間"
+          }
         }
       }
     },
@@ -10427,6 +11939,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дані не оновлювалися — показано станом на %@ · ⌘R, щоб спробувати знову"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumotlar yangilanmadi — %@ holatiga ko‘rsatilmoqda · qayta urinish uchun ⌘R"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料未重新整理，顯示截至 %@ 的資料 · 按 ⌘R 再試一次"
           }
         }
       }
@@ -10505,6 +12029,18 @@
             "state": "translated",
             "value": "Підсумок дня"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kun jami"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當日總計"
+          }
         }
       }
     },
@@ -10581,6 +12117,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Видалити цю операцію?"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu operatsiya o‘chirilsinmi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要刪除此交易嗎？"
           }
         }
       }
@@ -10659,6 +12207,18 @@
             "state": "translated",
             "value": "Операцій ще немає. Введіть першу в плаваючому рядку вводу внизу вікна."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hali operatsiyalar yo‘q. Birinchisini oyna pastidagi kiritish maydoniga yozing."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無交易。請在視窗底部的浮動輸入列輸入第一筆交易。"
+          }
         }
       }
     },
@@ -10735,6 +12295,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повернення не може бути більшим за те, що лишилося від покупки для повернення, і зберігає валюту й вид покупки."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qaytariladigan summa xaridning qaytarilmagan qismidan oshmasligi va xaridning valyutasi hamda turiga mos bo‘lishi kerak."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退款不能超過購買項目剩餘可退的金額，且須使用購買時的貨幣和類型。"
           }
         }
       }
@@ -10813,6 +12385,18 @@
             "state": "translated",
             "value": "За цю частину вже частково повернули гроші: її сума, валюта, вид і «сплачено за іншого» лишаються як є — спершу видаліть повернені гроші."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu qism uchun pulning bir qismi allaqachon qaytarilgan: uning summasi, valyutasi, turi va “boshqa kishi uchun to‘langan” belgisi o‘zgarmaydi — avval qaytgan pulni o‘chiring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此部分已有款項退回，金額、貨幣、類型和「代他人支付」須維持不變。請先刪除該筆退回款項。"
+          }
         }
       }
     },
@@ -10889,6 +12473,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повернення забирає з цієї покупки гроші — спершу видаліть повернення."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu xarid uchun pul qaytarilgan — avval qaytarishni o‘chiring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此購買項目已有退款，請先刪除退款。"
           }
         }
       }
@@ -10967,6 +12563,18 @@
             "state": "translated",
             "value": "Це більше, ніж лишилося від покупки для повернення."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu summa xaridning qaytarilmagan qismidan oshadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額超過此購買項目剩餘可退的金額。"
+          }
         }
       }
     },
@@ -11043,6 +12651,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повернення має бути більше нуля."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qaytariladigan summa noldan katta bo‘lishi kerak."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退款金額須大於零。"
           }
         }
       }
@@ -11121,6 +12741,18 @@
             "state": "translated",
             "value": "Цю покупку не можна повернути: її сплачено за іншого, у кредит, як платіж за боргом або як внесок у ціль."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu xarid uchun pulni qaytarib bo‘lmaydi: u boshqa kishi uchun yoki kreditga to‘langan, qarz to‘lovi yoki maqsadga badal."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此購買項目無法退款：它是代他人支付、賒帳、債務付款或目標存款。"
+          }
         }
       }
     },
@@ -11197,6 +12829,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повернення робиться у валюті покупки."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pul xarid valyutasida qaytariladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退款須使用購買時的貨幣。"
           }
         }
       }
@@ -11275,6 +12919,18 @@
             "state": "translated",
             "value": "Повернення забирає з цієї покупки гроші: її валюта, вид, «сплачено за іншого» і кредит лишаються як є — спершу видаліть повернення."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu xarid uchun pul qaytarilgan: uning valyutasi, turi, “boshqa kishi uchun to‘langan” belgisi va krediti o‘zgarmaydi — avval qaytarishni o‘chiring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此購買項目已有退款，貨幣、類型、「代他人支付」和賒帳須維持不變。請先刪除退款。"
+          }
         }
       }
     },
@@ -11351,6 +13007,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Частина не може бути меншою за те, що її повернення вже забрали."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qism summasi allaqachon qaytarilgan summadan kam bo‘lishi mumkin emas."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此部分的金額不能低於已退還的金額。"
           }
         }
       }
@@ -11429,6 +13097,18 @@
             "state": "translated",
             "value": "Повернення забирає з цієї частини гроші — спершу видаліть повернення."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu qism uchun pul qaytarilgan — avval qaytarishni o‘chiring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此部分已有退款，請先刪除退款。"
+          }
         }
       }
     },
@@ -11505,6 +13185,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Переказ, що тримає архівний рахунок на нулі, не можна записати: інший рахунок тепер в архіві або не має цієї валюти. Нічого не збережено."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arxivlangan hisobni nolda ushlab turuvchi o‘tkazmani saqlab bo‘lmadi: boshqa hisob hozir arxivda yoki unda bu valyuta yo‘q. Hech narsa saqlanmadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法儲存用來將封存帳戶餘額歸零的轉帳：另一個帳戶已封存或不支援此貨幣。未儲存任何內容。"
           }
         }
       }
@@ -11584,6 +13276,18 @@
             "state": "translated",
             "value": "Витрати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xarajatlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "支出"
+          }
         }
       }
     },
@@ -11661,6 +13365,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дохід"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daromad"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入"
           }
         }
       }
@@ -11740,6 +13456,18 @@
             "state": "translated",
             "value": "з %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@dan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "來自 %@"
+          }
         }
       }
     },
@@ -11816,6 +13544,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "гроші повернено — не дохід"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "qaytgan pul — daromad emas"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退回款項，非收入"
           }
         }
       }
@@ -11895,6 +13635,18 @@
             "state": "translated",
             "value": "Операцій поки немає"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hali operatsiyalar yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無交易"
+          }
         }
       }
     },
@@ -11971,6 +13723,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Їх вводять у головному вікні (⌘N)"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ular asosiy oynada kiritiladi (⌘N)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請在主視窗中輸入（⌘N）"
           }
         }
       }
@@ -12265,6 +14029,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Avvalgi %lld ta operatsiya hali ko‘rsatilmagan"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Avvalgi %lld ta operatsiya hali ko‘rsatilmagan"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "尚有 %lld 筆較早的交易未顯示"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -12341,6 +14135,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "сплачено за %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ uchun to‘langan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "為 %@ 支付"
           }
         }
       }
@@ -12419,6 +14225,18 @@
             "state": "translated",
             "value": "частина %lld"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld-qism"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "部分 %lld"
+          }
         }
       }
     },
@@ -12495,6 +14313,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "повернення «%1$@», %2$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” uchun qaytarilgan, %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%1$@」的退款，%2$@"
           }
         }
       }
@@ -12574,6 +14404,18 @@
             "state": "translated",
             "value": "Повернено %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ qaytarildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已退還 %@"
+          }
         }
       }
     },
@@ -12652,6 +14494,18 @@
             "state": "translated",
             "value": "Пошук"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qidirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "搜尋"
+          }
         }
       }
     },
@@ -12729,6 +14583,18 @@
             "state": "translated",
             "value": "кілька"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bir nechta"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "多個"
+          }
         }
       }
     },
@@ -12805,6 +14671,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показати ще 3 місяці"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yana 3 oyni ko‘rsatish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再顯示前 3 個月"
           }
         }
       }
@@ -12884,6 +14762,18 @@
             "state": "translated",
             "value": "Операції"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operatsiyalar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "交易"
+          }
         }
       }
     },
@@ -12960,6 +14850,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обмін у «%1$@»: %2$@ → %3$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” hisobida ayirboshlash: %2$@ → %3$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在「%1$@」兌換：%2$@ → %3$@"
           }
         }
       }
@@ -13038,6 +14940,18 @@
             "state": "translated",
             "value": "Переказ: %1$@ → %2$@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘tkazma: %1$@ → %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉帳：%1$@ → %2$@"
+          }
         }
       }
     },
@@ -13114,6 +15028,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перекази"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘tkazmalar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉帳"
           }
         }
       }
@@ -13404,6 +15330,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "І ще %lld переказу."
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Yana %lld ta o‘tkazma."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Yana %lld ta o‘tkazma."
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "以及 %lld 筆轉帳。"
                 }
               }
             }
@@ -13701,6 +15657,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta o‘tkazma o‘chirilsinmi?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta o‘tkazma o‘chirilsinmi?"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "要刪除 %lld 筆轉帳嗎？"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -13777,6 +15763,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Їхні комісії, %@, видаляються разом із ними."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ularning %@ miqdoridagi komissiyasi ham o‘chiriladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "相關手續費 %@ 也會一併刪除。"
           }
         }
       }
@@ -14067,6 +16065,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld переказу лишається як є."
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta o‘tkazma o‘zgarishsiz qoladi."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta o‘tkazma o‘zgarishsiz qoladi."
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆轉帳維持不變。"
                 }
               }
             }

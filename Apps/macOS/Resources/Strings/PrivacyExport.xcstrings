@@ -75,6 +75,18 @@
             "state": "translated",
             "value": "Знеособити"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonimlashtirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匿名化"
+          }
         }
       }
     },
@@ -151,6 +163,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Описи, коментарі, місця й імена в копії стираються. Суми, дати й категорії лишаються. Оригінал не змінюється."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxadan tavsiflar, izohlar, joylar va nomlar o‘chiriladi. Summalar, sanalar va toifalar qoladi. Asl nusxa o‘zgarmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "副本中的描述、註解、地點和名稱會被清除，金額、日期和類別會保留。原始資料不會變更。"
           }
         }
       }
@@ -229,6 +253,18 @@
             "state": "translated",
             "value": "Включити вкладення (%@)"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biriktirmalarni qo‘shish (%@)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含附件（%@）"
+          }
         }
       }
     },
@@ -305,6 +341,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копію готово"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxa tayyor"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "副本已備妥"
           }
         }
       }
@@ -383,6 +431,18 @@
             "state": "translated",
             "value": "Вкладень: %lld"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biriktirmalar: %lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "附件：%lld"
+          }
         }
       }
     },
@@ -459,6 +519,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заблоковано вашим паролем."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolingiz bilan qulflangan."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已使用你的密碼鎖定。"
           }
         }
       }
@@ -749,6 +821,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операції в копії"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nusxada %lld ta amal"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nusxada %lld ta amal"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "副本中有 %lld 筆交易"
                 }
               }
             }
@@ -1046,6 +1148,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nusxada %lld ta o‘tkazma"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nusxada %lld ta o‘tkazma"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "副本中有 %lld 筆轉帳"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1122,6 +1254,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Знеособлення в цій збірці недоступне, тож копію не створено."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu versiyada anonimlashtirish mavjud emas, shuning uchun nusxa yaratilmadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此版本不支援匿名化，因此未製作副本。"
           }
         }
       }
@@ -1200,6 +1344,18 @@
             "state": "translated",
             "value": "Прихований рахунок ще використовується тим, що копія зберігає, тож його не можна пропустити. Включіть приховані рахунки або зробіть рахунок знову видимим."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yashirin hisobdan nusxada saqlanadigan ma’lumotlar foydalanmoqda, shuning uchun uni chiqarib bo‘lmaydi. Yashirin hisoblarni qo‘shing yoki hisobni qayta ko‘rsating."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "副本中保留的資料仍在使用隱藏帳戶，因此無法排除該帳戶。請包含隱藏帳戶，或重新顯示該帳戶。"
+          }
         }
       }
     },
@@ -1276,6 +1432,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копію не створено. Нічого не змінено."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxa yaratilmadi. Hech narsa o‘zgartirilmadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未製作副本，也未變更任何資料。"
           }
         }
       }
@@ -1354,6 +1522,18 @@
             "state": "translated",
             "value": "Введіть пароль: копію без пароля не створюємо."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parol kiriting: parolsiz nusxa yaratilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請輸入密碼，才能製作副本。"
+          }
         }
       }
     },
@@ -1430,6 +1610,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Період порожній: кінець раніше за початок."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Davr bo‘sh: tugash sanasi boshlanishdan oldin."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期間為空：結束日期早於開始日期。"
           }
         }
       }
@@ -1508,6 +1700,18 @@
             "state": "translated",
             "value": "Формат"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "格式"
+          }
         }
       }
     },
@@ -1585,6 +1789,18 @@
             "state": "translated",
             "value": "Архів переказу"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko‘chirish arxivi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉移封存檔"
+          }
         }
       }
     },
@@ -1661,6 +1877,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Лише CSV"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faqat CSV"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "僅 CSV"
           }
         }
       }
@@ -1740,6 +1968,18 @@
             "state": "translated",
             "value": "Від кого"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從"
+          }
         }
       }
     },
@@ -1816,6 +2056,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Включити приховані рахунки"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yashirin hisoblarni qo‘shish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含隱藏帳戶"
           }
         }
       }
@@ -1894,6 +2146,18 @@
             "state": "translated",
             "value": "Без них у копії немає прихованих рахунків і жодної їхньої операції чи переказу."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu o‘chirilsa, nusxaga yashirin hisoblar, ularning amallari va o‘tkazmalari qo‘shilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "若不選取，副本將不包含隱藏帳戶及其任何交易或轉帳。"
+          }
         }
       }
     },
@@ -1970,6 +2234,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копія включатиме приховані рахунки."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxaga yashirin hisoblar qo‘shiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "副本將包含隱藏帳戶。"
           }
         }
       }
@@ -2048,6 +2324,18 @@
             "state": "translated",
             "value": "Пропущено: %lld"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qo‘shilmadi: %lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已排除：%lld"
+          }
         }
       }
     },
@@ -2124,6 +2412,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копія — оригінал лишається у вас."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu nusxa — asli sizda qoladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是副本，原始資料仍由你保管。"
           }
         }
       }
@@ -2203,6 +2503,18 @@
             "state": "translated",
             "value": "Пароль"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parol"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "密碼"
+          }
         }
       }
     },
@@ -2281,6 +2593,18 @@
             "state": "translated",
             "value": "Повторіть пароль"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolni takrorlang"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次輸入密碼"
+          }
         }
       }
     },
@@ -2358,6 +2682,18 @@
             "state": "translated",
             "value": "Копію заблоковано цим паролем. Без нього її не відкриє ніхто, і відновити його неможливо. Оригінал лишається у вас, без змін."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxa shu parol bilan qulflanadi. Usiz uni hech kim ocha olmaydi va parolni tiklab bo‘lmaydi. Asl nusxa sizda o‘zgarmay qoladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "副本將使用此密碼鎖定。沒有密碼便無法開啟，且密碼無法復原。原始資料仍由你保管，不會變更。"
+          }
         }
       }
     },
@@ -2434,6 +2770,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "вкладень: %lld"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "biriktirmalar: %lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "附件：%lld"
           }
         }
       }
@@ -2513,6 +2861,18 @@
             "state": "translated",
             "value": "Обчислюємо…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisoblanmoqda…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在計算…"
+          }
         }
       }
     },
@@ -2589,6 +2949,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Буде включено:"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qo‘shiladi:"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "將包含："
           }
         }
       }
@@ -2880,6 +3252,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операції"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta amal"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆交易"
                 }
               }
             }
@@ -3177,6 +3579,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta o‘tkazma"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta o‘tkazma"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆轉帳"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -3253,6 +3685,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Введіть пароль: копію без пароля не створюємо."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parol kiriting: parolsiz nusxa yaratilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請輸入密碼，才能製作副本。"
           }
         }
       }
@@ -3331,6 +3775,18 @@
             "state": "translated",
             "value": "Паролі не збігаються."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parollar mos kelmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "密碼不相符。"
+          }
         }
       }
     },
@@ -3407,6 +3863,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Період порожній: кінець раніше за початок."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Davr bo‘sh: tugash sanasi boshlanishdan oldin."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期間為空：結束日期早於開始日期。"
           }
         }
       }
@@ -3485,6 +3953,18 @@
             "state": "translated",
             "value": "Зберегти копію…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxani saqlash…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存副本…"
+          }
         }
       }
     },
@@ -3561,6 +4041,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Частина історії"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarixning bir qismi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "部分記錄"
           }
         }
       }
@@ -3639,6 +4131,18 @@
             "state": "translated",
             "value": "За період"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Davr uchun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "指定期間"
+          }
         }
       }
     },
@@ -3715,6 +4219,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Уся база"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Butun ma’lumotlar bazasi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "整個資料庫"
           }
         }
       }
@@ -3793,6 +4309,18 @@
             "state": "translated",
             "value": "Показати пароль"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolni ko‘rsatish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示密碼"
+          }
         }
       }
     },
@@ -3869,6 +4397,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Експорт копії"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxani eksport qilish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輸出副本"
           }
         }
       }
@@ -3948,6 +4488,18 @@
             "state": "translated",
             "value": "До"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gacha"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "到"
+          }
         }
       }
     },
@@ -4024,6 +4576,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Створюємо копію…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxa yaratilmoqda…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在製作副本…"
           }
         }
       }
@@ -4102,6 +4666,18 @@
             "state": "translated",
             "value": "Назад до моїх даних"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumotlarimga qaytish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回我的資料"
+          }
         }
       }
     },
@@ -4179,6 +4755,18 @@
             "state": "translated",
             "value": "Навчальні дані"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘quv ma’lumotlari"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "練習資料"
+          }
         }
       }
     },
@@ -4255,6 +4843,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ці цифри вигадані. Ваша власна база не відкрита."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu raqamlar to‘qib chiqarilgan. Shaxsiy ma’lumotlar bazangiz ochilmagan."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這些數字是虛構的。你的資料庫未開啟。"
           }
         }
       }
@@ -4334,6 +4934,18 @@
             "state": "translated",
             "value": "Показати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko‘rsatish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示"
+          }
         }
       }
     },
@@ -4410,6 +5022,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Застосунок перезапуститься на вигаданих даних. Вашу базу не зачіпає, а одна кнопка поверне вас назад."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilova to‘qib chiqarilgan ma’lumotlar bilan qayta ishga tushadi. Shaxsiy ma’lumotlar bazangizga tegilmaydi, bir tugma bilan ortga qaytishingiz mumkin."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 會重新啟動並顯示虛構資料。你的資料庫不會受影響，只要按一下按鈕即可返回。"
           }
         }
       }
@@ -4488,6 +5112,18 @@
             "state": "translated",
             "value": "Показати застосунок на навчальних даних?"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilovani o‘quv ma’lumotlari bilan ko‘rsatilsinmi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以練習資料顯示 App？"
+          }
         }
       }
     },
@@ -4565,6 +5201,18 @@
             "state": "translated",
             "value": "Зашифрувати (відкривається в OhMyMoney)"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shifrlash (OhMyMoney’da ochiladi)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加密（可在 OhMyMoney 中開啟）"
+          }
         }
       }
     },
@@ -4641,6 +5289,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очистити журнал"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jurnalni tozalash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除日誌"
           }
         }
       }
@@ -4720,6 +5380,18 @@
             "state": "translated",
             "value": "Очистити"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tozalash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除"
+          }
         }
       }
     },
@@ -4796,6 +5468,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Усі записи в журналі відкриттів буде видалено."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ochish jurnalidagi barcha yozuvlar o‘chiriladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有開啟日誌項目都會被移除。"
           }
         }
       }
@@ -4874,6 +5558,18 @@
             "state": "translated",
             "value": "Очистити журнал?"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jurnal tozalansinmi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "清除日誌？"
+          }
         }
       }
     },
@@ -4950,6 +5646,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рядків ще немає."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hozircha yozuvlar yo‘q."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前沒有記錄。"
           }
         }
       }
@@ -5028,6 +5736,18 @@
             "state": "translated",
             "value": "Копію експортовано"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxa eksport qilindi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已輸出副本"
+          }
         }
       }
     },
@@ -5104,6 +5824,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Приховані рахунки показано"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yashirin hisoblar ko‘rsatildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已顯示隱藏帳戶"
           }
         }
       }
@@ -5182,6 +5914,18 @@
             "state": "translated",
             "value": "Заблоковано"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qulflandi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已鎖定"
+          }
         }
       }
     },
@@ -5258,6 +6002,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Застосунок відкрито"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilova ochildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已開啟 App"
           }
         }
       }
@@ -5336,6 +6092,18 @@
             "state": "translated",
             "value": "Режим перегляду вимкнено"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faqat ko‘rish rejimi o‘chirildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已關閉唯讀模式"
+          }
         }
       }
     },
@@ -5412,6 +6180,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Режим перегляду увімкнено"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faqat ko‘rish rejimi yoqildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已開啟唯讀模式"
           }
         }
       }
@@ -5490,6 +6270,18 @@
             "state": "translated",
             "value": "Розблоковано паролем"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parol bilan qulfdan chiqarildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已使用密碼解鎖"
+          }
         }
       }
     },
@@ -5566,6 +6358,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Розблоковано за Touch ID"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touch ID bilan qulfdan chiqarildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已使用 Touch ID 解鎖"
           }
         }
       }
@@ -5644,6 +6448,18 @@
             "state": "translated",
             "value": "Журнал зберігається лише на цьому Mac. Він містить моменти й види подій — без сум, імен і назв — і не потрапляє до копії чи архіву."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jurnal faqat shu Mac’da saqlanadi. Unda hodisalar vaqti va turlari saqlanadi — summalar, ism va nomlar saqlanmaydi. Jurnal nusxa yoki arxivga qo‘shilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日誌僅保存在這部 Mac 上，記錄事件的時間和類型，不包含金額、名稱或標題，也不會包含在副本或封存檔中。"
+          }
         }
       }
     },
@@ -5720,6 +6536,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зберігати"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saqlash muddati"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保留時間"
           }
         }
       }
@@ -6014,6 +6842,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kun"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kun"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 天"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -6090,6 +6948,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Журнал відкриттів"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ochish jurnali"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟日誌"
           }
         }
       }
@@ -6168,6 +7038,18 @@
             "state": "translated",
             "value": "Для відкриття файлу потрібен цей пароль. Відновити його неможливо."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylni ochish uchun ushbu parol kerak. Uni tiklab bo‘lmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟檔案時需要此密碼。密碼無法復原。"
+          }
         }
       }
     },
@@ -6244,6 +7126,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заблокувати файл паролем"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylni parol bilan qulflash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用密碼鎖定檔案"
           }
         }
       }
@@ -6322,6 +7216,18 @@
             "state": "translated",
             "value": "Експортувати копію…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxani eksport qilish…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輸出副本…"
+          }
         }
       }
     },
@@ -6398,6 +7304,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Що знає застосунок…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilova nimalarni biladi…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 知道的資訊…"
           }
         }
       }
@@ -6476,6 +7394,18 @@
             "state": "translated",
             "value": "Приховувати суми під час запису екрана"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran yozib olinayotganda summalarni yashirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "錄製螢幕時隱藏金額"
+          }
         }
       }
     },
@@ -6552,6 +7482,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Також коли екран дзеркалиться або показується в дзвінку."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran takrorlanayotganda yoki qo‘ng‘iroqda ulashilganda ham."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "鏡像螢幕或在通話中分享螢幕時也會隱藏。"
           }
         }
       }
@@ -6630,6 +7572,18 @@
             "state": "translated",
             "value": "Показати на навчальних даних…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘quv ma’lumotlari bilan ko‘rsatish…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示練習資料…"
+          }
         }
       }
     },
@@ -6706,6 +7660,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Експортувати копію…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxani eksport qilish…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輸出副本…"
           }
         }
       }
@@ -6784,6 +7750,18 @@
             "state": "translated",
             "value": "Передача іншим"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ulashish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "交付"
+          }
         }
       }
     },
@@ -6860,6 +7838,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копія заблокована паролем; оригінал лишається без змін. Навчальні дані — вигадані цифри, а ваша власна база не відкривається."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxa parol bilan qulflanadi; asli o‘zgarmaydi. O‘quv ma’lumotlari to‘qib chiqarilgan, shaxsiy ma’lumotlar bazangiz ochilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "副本會使用密碼鎖定，原始資料不會變更。練習資料是虛構的數字，不會開啟你的資料庫。"
           }
         }
       }
@@ -6938,6 +7928,18 @@
             "state": "translated",
             "value": "Журнал відкриттів…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ochish jurnali…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟日誌…"
+          }
         }
       }
     },
@@ -7014,6 +8016,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Що знає застосунок"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilova nimalarni biladi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 知道的資訊"
           }
         }
       }
@@ -7092,6 +8106,18 @@
             "state": "translated",
             "value": "Журнал і лічильники показано тут лише для перегляду; нікуди не надсилаються."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jurnal va sonlar faqat shu yerda ko‘rsatiladi; ular hech qayerga yuborilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日誌和數量僅在此顯示，不會傳送到其他地方。"
+          }
         }
       }
     },
@@ -7168,6 +8194,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Блокування й пароль…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qulf va parol…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "鎖定與密碼…"
           }
         }
       }
@@ -7246,6 +8284,18 @@
             "state": "translated",
             "value": "Лише перегляд"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faqat ko‘rish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "唯讀"
+          }
         }
       }
     },
@@ -7322,6 +8372,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Застосунок показує все і нічого не змінює."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilova hammasini ko‘rsatadi va hech narsani o‘zgartirmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 只顯示資料，不會變更任何內容。"
           }
         }
       }
@@ -7401,6 +8463,18 @@
             "state": "translated",
             "value": "Екран"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "畫面"
+          }
         }
       }
     },
@@ -7477,6 +8551,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Що зберігається…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nimalar saqlanadi…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存的內容⋯"
           }
         }
       }
@@ -7556,6 +8642,18 @@
             "state": "translated",
             "value": "Вкладення"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biriktirmalar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "附件"
+          }
         }
       }
     },
@@ -7632,6 +8730,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копії"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxalar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "副本"
           }
         }
       }
@@ -7923,6 +9033,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld копії"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta nusxa"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta nusxa"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 份副本"
                 }
               }
             }
@@ -8220,6 +9360,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta fayl"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta fayl"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 個檔案"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -8509,6 +9679,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld рядка"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta satr"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta satr"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 行"
                 }
               }
             }
@@ -8806,6 +10006,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta yozuv"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta yozuv"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆記錄"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -8882,6 +10112,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "База даних"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumotlar bazasi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料庫"
           }
         }
       }
@@ -8960,6 +10202,18 @@
             "state": "translated",
             "value": "Тут показано лише лічильники та розміри. Нікуди нічого не надсилається."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu yerda faqat son va hajmlar ko‘rsatiladi. Hech narsa yuborilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此處僅顯示數量和大小，不會傳送任何資料。"
+          }
         }
       }
     },
@@ -9036,6 +10290,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Журнал відкриттів"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ochilishlar jurnali"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟記錄"
           }
         }
       }
@@ -9114,6 +10380,18 @@
             "state": "translated",
             "value": "Записи"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yozuvlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記錄"
+          }
         }
       }
     },
@@ -9190,6 +10468,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "За таблицями"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jadvallar bo‘yicha"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依資料表"
           }
         }
       }
@@ -9268,6 +10558,18 @@
             "state": "translated",
             "value": "Що знає застосунок"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ilova nimalarni biladi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 知道的事"
+          }
         }
       }
     },
@@ -9344,6 +10646,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Усього на диску"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diskdagi jami"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "磁碟使用總量"
           }
         }
       }
@@ -9422,6 +10736,18 @@
             "state": "translated",
             "value": "Б"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
+          }
         }
       }
     },
@@ -9498,6 +10824,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "ГБ"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
           }
         }
       }
@@ -9576,6 +10914,18 @@
             "state": "translated",
             "value": "КБ"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
+          }
         }
       }
     },
@@ -9652,6 +11002,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "МБ"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
           }
         }
       }
@@ -9730,6 +11092,18 @@
             "state": "translated",
             "value": "Де лежить"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qayerda saqlanadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存位置"
+          }
         }
       }
     },
@@ -9806,6 +11180,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копії"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nusxalar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "副本"
           }
         }
       }
@@ -9884,6 +11270,18 @@
             "state": "translated",
             "value": "Тека даних"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumotlar jildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料檔案夾"
+          }
         }
       }
     },
@@ -9961,6 +11359,18 @@
             "state": "translated",
             "value": "Шляхи лише показано: база й архів їх не зберігають."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yo‘llar faqat ko‘rsatiladi: ular ma’lumotlar bazasi va arxivda saqlanmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "路徑僅供顯示，不會儲存在資料庫或封存檔中。"
+          }
         }
       }
     },
@@ -10037,6 +11447,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тека дзеркальних копій"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aks nusxalar jildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "鏡像副本檔案夾"
           }
         }
       }

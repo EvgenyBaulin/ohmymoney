@@ -292,6 +292,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld qator avval yozganingizdek to‘ldirildi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld qator avval yozganingizdek to‘ldirildi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已依照你先前的輸入填入 %lld 筆"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -370,6 +400,18 @@
             "state": "translated",
             "value": "За вашим попереднім записом"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avval yozganingizdek"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依照你先前的輸入"
+          }
         }
       }
     },
@@ -447,6 +489,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заповнено з операції, яку ви ввели вручну для такого самого тексту цього банку. Змініть операцію після завантаження — наступні рядки врахують цю зміну."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shu bankdagi aynan shu matn uchun qo‘lda kiritgan amalingiz asosida to‘ldirildi. Yuklagandan so‘ng amalni o‘zgartirsangiz, keyingi qatorlarda ham shu o‘zgarish qo‘llanadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "根據你先前為此銀行相同文字手動輸入的交易填入。載入後更改交易，後續項目便會套用你的更改。"
           }
         }
       }

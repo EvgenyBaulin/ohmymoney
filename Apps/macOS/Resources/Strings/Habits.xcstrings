@@ -75,6 +75,18 @@
             "state": "translated",
             "value": "здобуто %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sanada olingan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "獲得於 %@"
+          }
         }
       }
     },
@@ -151,6 +163,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Облік щомісяця протягом року"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir yil davomida har oy hisoblash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連續一年每月盤點"
           }
         }
       }
@@ -229,6 +253,18 @@
             "state": "translated",
             "value": "Облік щомісяця протягом 3 місяців"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 oy davomida har oy hisoblash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連續 3 個月每月盤點"
+          }
         }
       }
     },
@@ -305,6 +341,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Облік цього місяця"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shu oyda hisoblash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本月完成盤點"
           }
         }
       }
@@ -383,6 +431,18 @@
             "state": "translated",
             "value": "100 днів записів поспіль"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ketma-ket 100 kun yozuv kiritish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連續記帳 100 天"
+          }
         }
       }
     },
@@ -459,6 +519,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "30 днів записів поспіль"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ketma-ket 30 kun yozuv kiritish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連續記帳 30 天"
           }
         }
       }
@@ -537,6 +609,18 @@
             "state": "translated",
             "value": "7 днів записів поспіль"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ketma-ket 7 kun yozuv kiritish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連續記帳 7 天"
+          }
         }
       }
     },
@@ -613,6 +697,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "У цьому періоді значків немає"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu davrda nishonlar yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這段期間沒有徽章"
           }
         }
       }
@@ -907,6 +1003,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Joriy ketma-ketlik: %lld kun"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Joriy ketma-ketlik: %lld kun"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "目前連續 %lld 天"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -983,6 +1109,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Значки"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nishonlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "徽章"
           }
         }
       }
@@ -1061,6 +1199,18 @@
             "state": "translated",
             "value": "Тихо в режимі початківця"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshlang‘ich rejimda yashirilgan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新手模式中暫不開放"
+          }
         }
       }
     },
@@ -1137,6 +1287,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Відкрити зараз"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hozir ochish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即開啟"
           }
         }
       }
@@ -1431,6 +1593,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Yozuv kiritilgan %lld kundan so‘ng ochiladi (hozir %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Yozuv kiritilgan %lld kundan so‘ng ochiladi (hozir %lld)"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "記帳滿 %lld 天後開放（目前 %lld 天）"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1507,6 +1699,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Відкриється після першого обліку"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Birinchi hisoblashdan so‘ng ochiladi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "首次盤點後開放"
           }
         }
       }
@@ -1801,6 +2005,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kundan so‘ng, bir oylik yozuvlardan keyin ochiladi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kundan so‘ng, bir oylik yozuvlardan keyin ochiladi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "記帳滿一個月後開放，還有 %lld 天"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1877,6 +2111,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Навіщо ви заощаджуєте"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nima uchun jamg‘arasiz"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲蓄的理由"
           }
         }
       }
@@ -1955,6 +2201,18 @@
             "state": "translated",
             "value": "Застосунок нагадає про це, коли гроші цілі здаються витраченими, план знижено або ціль видалено"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maqsad puli sarflangandek ko‘rinsa, reja kamaytirilsa yoki maqsad o‘chirilsa, ilova buni eslatadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當目標金額看似已花費、計畫金額降低或目標遭刪除時，App 會提醒你"
+          }
         }
       }
     },
@@ -2031,6 +2289,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ви відкладаєте на «%1$@», бо: %2$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siz «%1$@» uchun jamg‘arasiz, chunki: %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你為了「%1$@」儲蓄，因為：%2$@"
           }
         }
       }
@@ -2109,6 +2379,18 @@
             "state": "translated",
             "value": "Море в липні, з усією родиною"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iyulda butun oila bilan dengizga borish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "七月和全家一起去海邊"
+          }
         }
       }
     },
@@ -2185,6 +2467,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@»: %2$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»: %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「%1$@」：%2$@"
           }
         }
       }
@@ -2263,6 +2557,18 @@
             "state": "translated",
             "value": "Навіщо я заощаджую"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nima uchun jamg‘araman"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我儲蓄的理由"
+          }
         }
       }
     },
@@ -2339,6 +2645,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без витрат"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xarajat bo‘lmadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有支出"
           }
         }
       }
@@ -2418,6 +2736,18 @@
             "state": "translated",
             "value": "Відновити…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiklash…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "補記⋯"
+          }
         }
       }
     },
@@ -2494,6 +2824,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 карток"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 ta karta"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 張卡片"
           }
         }
       }
@@ -2573,6 +2915,18 @@
             "state": "translated",
             "value": "Закрити"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yopish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "關閉"
+          }
         }
       }
     },
@@ -2649,6 +3003,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Уроки"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Darslar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "課程"
           }
         }
       }
@@ -2727,6 +3093,18 @@
             "state": "translated",
             "value": "Короткі уроки з грошей, по п'ять карток у кожному"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pul haqida qisqa darslar, har birida beshtadan karta"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "理財短課，每課 5 張卡片"
+          }
         }
       }
     },
@@ -2803,6 +3181,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Уроки"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Darslar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "課程"
           }
         }
       }
@@ -2881,6 +3271,18 @@
             "state": "translated",
             "value": "Сьогодні без витрат?"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugun xarajat bo‘lmadimi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天沒有支出嗎？"
+          }
         }
       }
     },
@@ -2957,6 +3359,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запишіть сьогоднішні витрати — або сьогодні їх не було?"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugungi xarajatlarni yozing — yoki bugun xarajat bo‘lmadimi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記下今天的支出，還是今天沒有支出？"
           }
         }
       }
@@ -3247,6 +3661,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Нічого не записано за %lld дня — відновити із залишків?"
+                }
+              }
+            }
+          }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kundan beri yozuv yo‘q — qoldiqlar bo‘yicha tiklansinmi?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kundan beri yozuv yo‘q — qoldiqlar bo‘yicha tiklansinmi?"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "已有 %lld 天沒有記帳，要根據餘額補記嗎？"
                 }
               }
             }
@@ -3544,6 +3988,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ketma-ket %lld kun"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ketma-ket %lld kun"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "連續 %lld 天"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -3622,6 +4096,18 @@
             "state": "translated",
             "value": "Назад"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orqaga"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回"
+          }
         }
       }
     },
@@ -3698,6 +4184,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зараз на рахунку"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisobda hozir"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳戶目前餘額"
           }
         }
       }
@@ -3776,6 +4274,18 @@
             "state": "translated",
             "value": "За записами: %@ — збігається"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yozuvlar bo‘yicha: %@ — mos"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記錄餘額：%@ — 相符"
+          }
         }
       }
     },
@@ -3852,6 +4362,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Введіть, скільки зараз є на кожному рахунку. Враховуються рахунки «Усього», які звіряли хоча б раз."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Har bir hisobdagi joriy qoldiqni kiriting. «Jami»ga kiritilgan va kamida bir marta hisoblangan hisoblar ko‘rsatiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輸入各帳戶目前的餘額。僅顯示「總計」中至少盤點過一次的帳戶。"
           }
         }
       }
@@ -3930,6 +4452,18 @@
             "state": "translated",
             "value": "За записами %1$@ · не записано %2$@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yozuvlar bo‘yicha %1$@ · yozilmagan %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記錄餘額 %1$@ · 未記錄 %2$@"
+          }
         }
       }
     },
@@ -4006,6 +4540,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Більше, ніж показують записи, — можливо, дохід, якого не записали; він не розкладається як витрата"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yozuvdagidan ko‘p — ehtimol, daromad yozilmagan; bu xarajat sifatida taqsimlanmaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高於記錄餘額，可能有未記錄的收入；不會列為支出"
           }
         }
       }
@@ -4084,6 +4630,18 @@
             "state": "translated",
             "value": "Жоден рахунок «Усього» ще не звірено. Спершу зробіть облік — майстер знатиме, з чим порівнювати."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Jami»dagi hech bir hisob hali hisoblanmagan. Avval hisoblang, shunda yordamchi nima bilan solishtirishni biladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「總計」中的帳戶尚未盤點。請先盤點，才能比較餘額。"
+          }
         }
       }
     },
@@ -4160,6 +4718,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кожен залишок збігається із записами: відновлювати нічого"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcha qoldiqlar yozuvlarga mos: tiklash uchun hech narsa yo‘q"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "所有餘額都與記錄相符，無需補記"
           }
         }
       }
@@ -4239,6 +4809,18 @@
             "state": "translated",
             "value": "Скасувати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bekor qilish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
         }
       }
     },
@@ -4315,6 +4897,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Залишки змінилися, поки майстер був відкритий. Закрийте його і порахуйте знову."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yordamchi ochiq turganda qoldiqlar o‘zgardi. Uni yoping va qayta hisoblang."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作期間餘額已變更。請關閉並重新盤點。"
           }
         }
       }
@@ -4393,6 +4987,18 @@
             "state": "translated",
             "value": "Додати рядок"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qator qo‘shish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入一列"
+          }
         }
       }
     },
@@ -4469,6 +5075,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рядки без категорії — «Невідомо»"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toifasiz qatorlar — «Noma’lum»"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "將未分類的項目設為「未知」"
           }
         }
       }
@@ -4548,6 +5166,18 @@
             "state": "translated",
             "value": "Категорія"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toifa"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "類別"
+          }
         }
       }
     },
@@ -4624,6 +5254,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Розкладено повністю"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To‘liq taqsimlandi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已全部分配"
           }
         }
       }
@@ -4702,6 +5344,18 @@
             "state": "translated",
             "value": "Кожен рядок потребує категорії; «Невідомо» — теж вибір. Рядки одного рахунку разом мають дорівнювати тому, чого на ньому бракує."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Har bir qatorga toifa kerak; «Noma’lum»ni ham tanlash mumkin. Hisob qatorlari yig‘indisi undagi yetishmayotgan summaga teng bo‘lishi kerak."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每列都需要類別，也可選擇「未知」。每個帳戶的項目總額須等於其未記錄金額。"
+          }
         }
       }
     },
@@ -4778,6 +5432,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Лишилося розкласти: %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taqsimlash uchun qoldi: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚待分配：%@"
           }
         }
       }
@@ -4856,6 +5522,18 @@
             "state": "translated",
             "value": "Що це було (необов'язково)"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nima uchun (ixtiyoriy)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用途（選填）"
+          }
         }
       }
     },
@@ -4932,6 +5610,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Видалити рядок"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qatorni olib tashlash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移除這一列"
           }
         }
       }
@@ -5011,6 +5701,18 @@
             "state": "translated",
             "value": "Далі"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keyingi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一步"
+          }
         }
       }
     },
@@ -5087,6 +5789,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не вдалося записати операції"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amallarni yozib bo‘lmadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法記錄交易"
           }
         }
       }
@@ -5165,6 +5879,18 @@
             "state": "translated",
             "value": "Кожен рядок потребує суми більше нуля"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Har bir qatordagi summa noldan katta bo‘lishi kerak"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每列的金額都須大於零"
+          }
         }
       }
     },
@@ -5241,6 +5967,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Оберіть категорію для кожного рядка"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Har bir qator uchun toifa tanlang"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請為每列選擇類別"
           }
         }
       }
@@ -5319,6 +6057,18 @@
             "state": "translated",
             "value": "Рядки одного рахунку не сходяться з тим, чого на ньому бракує"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisob qatorlari yig‘indisi undagi yetishmayotgan summaga teng emas"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳戶的項目總額與未記錄金額不符"
+          }
         }
       }
     },
@@ -5395,6 +6145,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записати"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yozib qo‘yish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記錄"
           }
         }
       }
@@ -5473,6 +6235,18 @@
             "state": "translated",
             "value": "Записано"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yozib qo‘yildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已記錄"
+          }
         }
       }
     },
@@ -5549,6 +6323,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "1. Що зараз на рахунках"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Hisoblardagi joriy qoldiqlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. 帳戶目前餘額"
           }
         }
       }
@@ -5627,6 +6413,18 @@
             "state": "translated",
             "value": "2. Розкласти витрати по днях"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Xarajatlarni kunlarga taqsimlang"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. 將支出分配至各天"
+          }
         }
       }
     },
@@ -5703,6 +6501,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "З %1$@ до %2$@ нічого не записано. Спершу залишки, потім дні."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ dan %2$@ gacha yozuv kiritilmagan. Avval qoldiqlarni, so‘ng kunlarni kiriting."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從 %1$@ 到 %2$@ 沒有記帳。請先確認餘額，再分配日期。"
           }
         }
       }
@@ -5781,6 +6591,18 @@
             "state": "translated",
             "value": "Відновити пропущені дні"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘tkazib yuborilgan kunlarni tiklash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "補記遺漏的日期"
+          }
         }
       }
     },
@@ -5857,6 +6679,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "день %1$lld з %2$lld"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$lld kundan %1$lld-kun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第 %1$lld 天，共 %2$lld 天"
           }
         }
       }
@@ -5936,6 +6770,18 @@
             "state": "translated",
             "value": "Приховати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yashirish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隱藏"
+          }
         }
       }
     },
@@ -6012,6 +6858,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld з %2$lld"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$lld dan %1$lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld／%2$lld"
           }
         }
       }
@@ -6090,6 +6948,18 @@
             "state": "translated",
             "value": "Показати, де"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qayerdaligini ko‘rsatish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示位置"
+          }
         }
       }
     },
@@ -6166,6 +7036,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перший місяць"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Birinchi oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第一個月"
           }
         }
       }
@@ -6244,6 +7126,18 @@
             "state": "translated",
             "value": "Режим початківця"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boshlang‘ich rejim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新手模式"
+          }
         }
       }
     },
@@ -6320,6 +7214,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Складні розділи лишаються видимими, але приглушеними, доки їм нема чого показати"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Murakkab bo‘limlar ko‘rinib turadi, ammo ko‘rsatadigan ma’lumot paydo bo‘lguncha xira bo‘ladi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "進階區域會保持顯示但呈灰色，直到有內容可顯示"
           }
         }
       }
@@ -6398,6 +7304,18 @@
             "state": "translated",
             "value": "Питати ввечері про витрати за день"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kechqurun kunlik xarajatlar haqida so‘rash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "晚上詢問當天的支出"
+          }
         }
       }
     },
@@ -6474,6 +7392,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Сьогодні без витрат?» зараховує день до серії"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Bugun xarajat bo‘lmadimi?» kunni ketma-ketlikka qo‘shadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇「今天沒有支出嗎？」也會計入連續記帳天數"
           }
         }
       }
@@ -6552,6 +7482,18 @@
             "state": "translated",
             "value": "Вечір починається о"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kechqurun boshlanishi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "晚上開始時間"
+          }
         }
       }
     },
@@ -6628,6 +7570,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Показувати контрольний список першого місяця"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Birinchi oy ro‘yxatini ko‘rsatish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示第一個月的檢查清單"
           }
         }
       }
@@ -6706,6 +7660,18 @@
             "state": "translated",
             "value": "Пропонувати відновити після днів без записів"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yozuvsiz kunlardan so‘ng tiklashni taklif qilish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未記帳達指定天數後建議補記"
+          }
         }
       }
     },
@@ -6782,6 +7748,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рядок у «Варто глянути», а не сповіщення"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«E’tiborga arziydi» bo‘limida qator, bildirishnoma emas"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示在「值得一看」中，不會傳送通知"
           }
         }
       }
@@ -6860,6 +7838,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Звички"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odatlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "習慣"
           }
         }
       }
