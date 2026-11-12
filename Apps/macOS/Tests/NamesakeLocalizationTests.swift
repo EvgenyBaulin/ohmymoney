@@ -12,7 +12,9 @@ final class NamesakeLocalizationTests: XCTestCase {
       "expected.archiveAction", "namesake.live", "namesake.archived", "namesake.canSave",
       "namesake.noHistory", "namesake.renameNew", "namesake.renameExisting",
       "namesake.renameArchived", "namesake.rename", "namesake.suggested", "namesake.restore",
-      "namesake.hidePair",
+      "namesake.hidePair", "namesake.financial.unique", "namesake.financial.alias",
+      "namesake.financial.notSaved", "namesake.financial.renameNewAlias",
+      "namesake.financial.renameArchivedAlias", "namesake.financial.restoreCardAccount",
     ]
     for choice in [AppLanguage.Choice.english, .russian] {
       language.choice = choice
@@ -23,7 +25,11 @@ final class NamesakeLocalizationTests: XCTestCase {
     language.choice = .russian
     XCTAssertEqual(language("expected.archiveAction", table: "Planning"), "В архив")
     XCTAssertEqual(
-      language("namesake.hidePair", table: "Planning"),
+      language(
+        "namesake.hidePair", "namesake.financial.unique", "namesake.financial.alias",
+        "namesake.financial.notSaved", "namesake.financial.renameNewAlias",
+        "namesake.financial.renameArchivedAlias", "namesake.financial.restoreCardAccount",
+        table: "Planning"),
       "Скрыть предупреждение для этой пары")
     language.choice = .english
     XCTAssertEqual(language("expected.archiveAction", table: "Planning"), "Archive")

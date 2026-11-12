@@ -6,7 +6,10 @@ extension PlanningActions {
   /// The name alone changes; the archive state, price history, links and identity stay intact.
   /// The caller reads the book immediately before the explicit choice is applied.
   @discardableResult
-  func renameNamesake(_ record: NamesakeRecord, to name: String, in book: PlanningBook) -> Bool {
+  func renameNamesake(
+    _ record: NamesakeRecord, to name: String, spelling: String? = nil,
+    in book: PlanningBook
+  ) -> Bool {
     let name = Self.trimmed(name)
     guard !name.isEmpty else { return false }
     var rows = PlanningRows.empty
@@ -19,6 +22,8 @@ extension PlanningActions {
       guard var payment = book.scheduled.first(where: { $0.id == record.id }) else { return false }
       payment.name = name
       rows.scheduled = [payment]
+    case .account, .card, .bank:
+      return renameFinancialNamesake(record, to: name, spelling: spelling)
     default: return renameDictionary(record, to: name)
     }
     return apply(PlanningChange(upsert: rows))
@@ -42,6 +47,11 @@ extension PlanningActions {
       }
       payment.active = true
       rows.scheduled = [payment]
+    case .account:
+      return AccountActions(environment: environment, store: store).restore(record.id) == .done
+    case .bank:
+      return AccountActions(environment: environment, store: store).restoreBank(record.id) == .done
+    case .card: return restoreFinancialCard(record.id)
     default: return restoreDictionary(record)
     }
     return apply(PlanningChange(upsert: rows))

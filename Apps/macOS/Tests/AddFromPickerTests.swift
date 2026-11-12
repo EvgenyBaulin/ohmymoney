@@ -216,11 +216,25 @@ final class AddFromPickerTests: XCTestCase {
     XCTAssertEqual(try references.banks().count, 2)
   }
 
+  func testAnArchivedAccountNamesakeSavesWithTheIdentityOfItsWarning() throws {
+    let old = PaymentMethod(name: "Reserve", archived: true)
+    try references.save(old)
+    let model = makeModel()
+    let sheet = form(.paymentMethod, model, name: "reserve")
+    let id = UUID()
+    let context = NewRecordForm.Context(references: references)
+    XCTAssertNil(sheet.commit(into: model, today: today, context: context, id: id))
+    XCTAssertEqual(model.draft.paymentMethodId, id)
+    XCTAssertEqual(
+      try references.paymentMethods(includeArchived: true).first { $0.id == old.id }, old)
+    XCTAssertNotNil(try references.paymentMethods().first { $0.id == id })
+  }
+
   // MARK: Refusals
 
   /// An empty name is refused with a sentence and nothing is written. A name another record
   /// has — live, an other name, or a card's — is saved all the same: the sheet advises.
-  func testOnlyAnEmptyNameIsRefusedAndANamesakeIsSaved() throws {
+  func testDictionaryNamesakesSaveButLiveFinancialNamesRemainUnique() throws {
     try references.save(Place(name: "Green Market", aliases: ["GM"]))
     try references.save(Person(name: "Аня"))
     try references.save(PaymentMethod(name: "Card", isDefault: true))
@@ -233,7 +247,7 @@ final class AddFromPickerTests: XCTestCase {
 
     for (kind, name) in [
       (AddFromPicker.Kind.place, "green market"), (.place, "gm"),
-      (.person(part: 0), "аня"), (.debtor(part: 0), "Аня "), (.paymentMethod, "card"),
+      (.person(part: 0), "аня"), (.debtor(part: 0), "Аня "),
     ] {
       let sheet = form(kind, model, name: name)
       XCTAssertNil(sheet.refusalKey(in: model), "\(kind) «\(name)»")
@@ -241,7 +255,10 @@ final class AddFromPickerTests: XCTestCase {
     }
     XCTAssertEqual(try references.places().count, 3)
     XCTAssertEqual(try references.people().count, 3)
-    XCTAssertEqual(try references.paymentMethods().count, 2)
+    let duplicate = form(.paymentMethod, model, name: "card")
+    XCTAssertEqual(duplicate.refusalKey(in: model), "entry.add.nameTaken")
+    XCTAssertFalse(duplicate.save(into: model, today: today))
+    XCTAssertEqual(try references.paymentMethods().count, 1)
     XCTAssertEqual(
       form(.paymentMethod, model, name: "card").accountAdviceKey(in: model),
       "entry.add.accountNameTaken")

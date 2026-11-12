@@ -2380,20 +2380,27 @@ public final class EntryDraftModel {
   /// default, as it does in Settings. A card or a bank account comes with a card named like it,
   /// in the same write (`CardRules.startingCard`), and every account stands under a bank: the live
   /// bank of its name, else a new one written with it (`BankRules.bank(forNewAccountNamed:)`).
-  public func createPaymentMethod(named name: String, kind: PaymentMethodKind) -> UUID? {
+  public func createPaymentMethod(
+    named name: String, kind: PaymentMethodKind, id: UUID? = nil
+  ) -> UUID? {
     guard let references else { return nil }
-    return createPaymentMethod(named: name, kind: kind) { method, bank in
+    return createPaymentMethod(named: name, kind: kind, id: id) { method, bank in
       try references.save(
         method, startingCard: CardRules.startingCard(for: method), bank: bank)
     }
   }
 
   func createPaymentMethod(
-    named name: String, kind: PaymentMethodKind,
+    named name: String, kind: PaymentMethodKind, id: UUID? = nil,
     saving save: (PaymentMethod, Bank?) throws -> Void
   ) -> UUID? {
     let live = (try? references?.paymentMethods()) ?? paymentMethods
     var method = NewReference.paymentMethod(named: name, kind: kind, among: live)
+    if let id { method.id = id }
+    guard AccountRules.nameConflict(method, accounts: live, cards: cards) == nil else {
+      creationFailureKey = "entry.add.nameTaken"
+      return nil
+    }
     let choice = BankRules.bank(
       forNewAccountNamed: name, among: (try? references?.banks(includeArchived: true)) ?? banks)
     method.bankId = choice.bank.id

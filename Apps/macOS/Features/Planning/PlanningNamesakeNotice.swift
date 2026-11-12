@@ -13,6 +13,9 @@ struct PlanningNamesakeNotice: View {
   let kind: NamesakeKind
   let id: UUID
   @Binding var name: String
+  var otherNames: Binding<[String]>? = nil
+  var accountId: UUID? = nil
+  var didRestore: ((NamesakeRecord) -> Void)? = nil
   var drafts: [NamesakeRecord] = []
   var renameDraft: ((UUID, String) -> Bool)? = nil
   /// Called after a rename or a restore landed, so the screen reads its own lists again.
@@ -23,21 +26,51 @@ struct PlanningNamesakeNotice: View {
   /// A form closes over a restored record; the add row of a dictionary stays where it is.
   var dismissesOnRestore = true
   @State private var records: [NamesakeRecord] = []
+  @State private var financialRecords: [FinancialNamesakeRecord] = []
   @State private var hidden = ""
 
   var body: some View {
-    let own = NamesakeRecord(kind: kind, id: id, name: name)
     VStack(alignment: .leading, spacing: 8) {
-      ForEach(Namesakes.proposals(for: own, among: allRecords, hidden: hidden)) { proposal in
+      ForEach(proposals) { proposal in
         PlanningNamesakeRow(
-          proposal: proposal, name: $name,
-          rename: { rename(proposal.existing, to: $0) },
+          proposal: proposal, name: nameBinding(for: proposal),
+          rename: { rename(proposal.existing, to: $0, spelling: proposal.existingSpelling) },
           restore: { restore(proposal.existing) },
           hide: { hide(proposal.id) })
       }
     }
     .onAppear { reload() }
     .onChange(of: store.writeRevision) { reload() }
+  }
+
+  private var isFinancial: Bool { [.account, .card, .bank].contains(kind) }
+
+  private var proposals: [NamesakeProposal] {
+    let own = NamesakeRecord(kind: kind, id: id, name: name)
+    guard isFinancial else {
+      return Namesakes.proposals(for: own, among: allRecords, hidden: hidden)
+    }
+    let visibility = environment.shield.covering
+    let visible = financialRecords.filter {
+      if $0.record.kind == .account { return !visibility.isHidden($0.record.id) }
+      if let account = $0.accountId { return !visibility.isHidden(account) }
+      return true
+    }
+    return Namesakes.financialProposals(
+      for: own, aliases: otherNames?.wrappedValue ?? [],
+      accountId: accountId, among: visible, hidden: hidden)
+  }
+
+  private func nameBinding(for proposal: NamesakeProposal) -> Binding<String> {
+    guard let spelling = proposal.newSpelling, let otherNames else { return $name }
+    return Binding(
+      get: { spelling },
+      set: { renamed in
+        var aliases = otherNames.wrappedValue
+        guard let index = aliases.firstIndex(of: spelling) else { return }
+        aliases[index] = renamed
+        otherNames.wrappedValue = aliases
+      })
   }
 
   private var allRecords: [NamesakeRecord] {
@@ -67,6 +100,18 @@ struct PlanningNamesakeNotice: View {
     let entries =
       (try? environment.transactions?.entries(from: .distantPast, to: .distantFuture))
       ?? []
+    if isFinancial {
+      let accounts = (try? environment.references?.paymentMethods(includeArchived: true)) ?? []
+      let cards =
+        environment.stack.map {
+          (try? CardRepository(writer: $0.writer).cards(includeArchived: true)) ?? []
+        } ?? []
+      let banks = (try? environment.references?.banks(includeArchived: true)) ?? []
+      financialRecords = Namesakes.financialRecords(
+        accounts: accounts, cards: cards, banks: banks,
+        entries: entries, transfers: (try? environment.accounts?.transfers()) ?? [],
+        planning: book, calendar: environment.calendar)
+    }
     switch kind {
     case .expectedIncome:
       records = Namesakes.expected(
@@ -117,12 +162,12 @@ struct PlanningNamesakeNotice: View {
     }
   }
 
-  private func rename(_ record: NamesakeRecord, to name: String) -> Bool {
+  private func rename(_ record: NamesakeRecord, to name: String, spelling: String?) -> Bool {
     if drafts.contains(where: { $0.id == record.id }), let renameDraft {
       return renameDraft(record.id, PlanningActions.trimmed(name))
     }
     guard let dependencies, let book = try? environment.planning?.book(),
-      PlanningActions(dependencies).renameNamesake(record, to: name, in: book)
+      PlanningActions(dependencies).renameNamesake(record, to: name, spelling: spelling, in: book)
     else { return false }
     onChange?()
     reload()
@@ -134,7 +179,8 @@ struct PlanningNamesakeNotice: View {
       PlanningActions(dependencies).restoreNamesake(record, in: book)
     else { return false }
     onChange?()
-    if dismissesOnRestore { dismiss() }
+    if let didRestore { didRestore(record) } else if dismissesOnRestore { dismiss() }
+    reload()
     return true
   }
 
@@ -169,25 +215,34 @@ private struct PlanningNamesakeRow: View {
       } icon: {
         Image(systemName: proposal.existing.archived ? "archivebox" : "exclamationmark.circle")
       }
-      Text(verbatim: t("namesake.canSave"))
+      Text(verbatim: t(isFinancial ? "namesake.financial.unique" : "namesake.canSave"))
+      if let alias = proposal.existingSpelling {
+        Text(verbatim: environment.format("namesake.financial.alias", table: "Planning", alias))
+      }
       if proposal.existing.archived, proposal.existing.period == nil {
         Text(verbatim: t("namesake.noHistory"))
       }
-      if !proposal.existing.archived {
-        Button(t("namesake.renameNew")) { beginRename(existing: false) }
+      if proposal.choices.contains(.renameNew) {
+        Button(t(newRenameKey)) { beginRename(existing: false) }
       }
-      Button(t(proposal.existing.archived ? "namesake.renameArchived" : "namesake.renameExisting"))
-      {
+      Button(t(existingRenameKey)) {
         beginRename(existing: true)
       }
       if let suggested = proposal.archivedName(locale: environment.language.locale) {
         Text(verbatim: environment.format("namesake.suggested", table: "Planning", suggested))
       }
       if proposal.existing.archived {
-        Button(t("namesake.restore")) { failed = !restore() }
+        Button(
+          t(proposal.restoresAccount ? "namesake.financial.restoreCardAccount" : "namesake.restore")
+        ) {
+          failed = !restore()
+        }
       }
       Button(t("namesake.hidePair")) { failed = !hide() }
-      if failed { Text(verbatim: t("form.notSaved")).foregroundStyle(.red) }
+      if failed {
+        Text(verbatim: t(isFinancial ? "namesake.financial.notSaved" : "form.notSaved"))
+          .foregroundStyle(.red)
+      }
     }
     .appFont(.caption)
     .foregroundStyle(.secondary)
@@ -196,7 +251,7 @@ private struct PlanningNamesakeRow: View {
     .modifier(
       NamesakeRenameAlert(
         presented: $renaming, proposedName: $proposedName,
-        title: t(renamesExisting ? "namesake.renameExisting" : "namesake.renameNew"),
+        title: t(renamesExisting ? existingRenameKey : newRenameKey),
         field: t("form.name"), save: t("namesake.rename"),
         cancel: environment.language("action.cancel"),
         apply: {
@@ -209,11 +264,25 @@ private struct PlanningNamesakeRow: View {
         }))
   }
 
+  private var newRenameKey: String {
+    proposal.newSpelling == nil ? "namesake.renameNew" : "namesake.financial.renameNewAlias"
+  }
+
+  private var existingRenameKey: String {
+    if proposal.existingSpelling != nil { return "namesake.financial.renameArchivedAlias" }
+    return proposal.existing.archived ? "namesake.renameArchived" : "namesake.renameExisting"
+  }
+
+  private var isFinancial: Bool {
+    [.account, .card, .bank].contains(proposal.existing.kind)
+  }
+
   private func beginRename(existing: Bool) {
     renamesExisting = existing
     proposedName =
       existing
-      ? proposal.archivedName(locale: environment.language.locale) ?? proposal.existing.name : name
+      ? proposal.archivedName(locale: environment.language.locale) ?? proposal.existingSpelling
+        ?? proposal.existing.name : name
     renaming = true
   }
 

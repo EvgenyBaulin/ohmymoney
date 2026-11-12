@@ -6,6 +6,37 @@ import XCTest
 
 @MainActor
 final class PlanningNamesakeActionsTests: XCTestCase {
+  func testAnExplicitArchivedAliasRenameKeepsTheNameArchiveAndOtherAliases() throws {
+    let stack = try DatabaseStack(inMemory: BundleSchemaSource(bundle: .main))
+    let planning = PlanningRepository(writer: stack.writer)
+    let references = ReferenceRepository(writer: stack.writer)
+    let old = PaymentMethod(name: "Old", aliases: ["Reserve", "Savings"], archived: true)
+    try references.save(old)
+    let store = TransactionsStore()
+    store.attach(
+      TransactionRepository(writer: stack.writer), references: references,
+      planning: planning)
+    let record = NamesakeRecord(kind: .account, id: old.id, name: old.name, archived: true)
+    let change = try XCTUnwrap(
+      PlanningActions.renamingArchivedFinancialRecord(
+        record,
+        to: "Reserve (May 2026)", spelling: "Reserve", accounts: [old], cards: [], banks: []))
+    XCTAssertTrue(store.apply(change))
+    let updated = try XCTUnwrap(try references.paymentMethods(includeArchived: true).first)
+    XCTAssertEqual(updated.id, old.id)
+    XCTAssertEqual(updated.name, "Old")
+    XCTAssertTrue(updated.archived)
+    XCTAssertEqual(updated.aliases, ["Reserve (May 2026)", "Savings"])
+    store.undo()
+    XCTAssertEqual(try references.paymentMethods(includeArchived: true), [old])
+    var live = old
+    live.archived = false
+    XCTAssertNil(
+      PlanningActions.renamingArchivedFinancialRecord(
+        record, to: "Changed",
+        accounts: [live], cards: [], banks: []))
+  }
+
   func testWarningsKeepTheNamesOfCoveredPlansPrivate() {
     let income = NamesakeRecord(kind: .expectedIncome, id: UUID(), name: "Private income")
     let payment = NamesakeRecord(kind: .scheduledPayment, id: UUID(), name: "Private payment")

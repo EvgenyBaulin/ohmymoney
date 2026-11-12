@@ -179,6 +179,19 @@ struct AccountSetupSheet: View {
       TextField(text: accountBinding(account.id, \.name, "")) {
         Text(verbatim: t("onboarding.account.name"))
       }
+      PlanningNamesakeNotice(
+        kind: .account, id: account.id,
+        name: accountBinding(account.id, \.name, ""),
+        didRestore: { _ in
+          if account.isNew { model?.removeAccount(account.id) }
+          _ = model?.rebase(on: environment)
+        }, dismissesOnRestore: false)
+      if account.isNew {
+        PlanningNamesakeNotice(
+          kind: .bank, id: BanksMigration.bankId(forAccount: account.id),
+          name: accountBinding(account.id, \.name, ""),
+          onChange: { _ = model?.rebase(on: environment) }, dismissesOnRestore: false)
+      }
       Picker(selection: accountBinding(account.id, \.kind, .card)) {
         ForEach(PaymentMethodKind.allCases, id: \.self) { kind in
           Text(verbatim: t("onboarding.kind.\(kind.rawValue)")).tag(kind)

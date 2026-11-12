@@ -1,6 +1,108 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "namesake.financial.restoreCardAccount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore the account and card from archive"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вернуть счёт и карту из архива"
+          }
+        }
+      }
+    },
+    "namesake.financial.renameArchivedAlias": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the archived record’s alias…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить псевдоним архивной записи…"
+          }
+        }
+      }
+    },
+    "namesake.financial.renameNewAlias": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change this record’s alias…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить псевдоним этой записи…"
+          }
+        }
+      }
+    },
+    "namesake.financial.notSaved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The action could not be completed. Check that the name and aliases are available among active records."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось выполнить действие. Проверьте, свободны ли имя и псевдонимы среди действующих записей."
+          }
+        }
+      }
+    },
+    "namesake.financial.alias": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matching alias: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Совпавший псевдоним: %@"
+          }
+        }
+      }
+    },
+    "namesake.financial.unique": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Names and aliases of active accounts, cards and banks must stay unique. An archived namesake does not prevent saving."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Имена и псевдонимы действующих счетов, карт и банков должны различаться. Архивный тёзка не мешает сохранить запись."
+          }
+        }
+      }
+    },
     "expected.archiveAction": {
       "extractionState": "manual",
       "localizations": {

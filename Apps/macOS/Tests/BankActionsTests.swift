@@ -124,19 +124,26 @@ final class BankActionsTests: XCTestCase {
     XCTAssertEqual(actions.banks.count, 1)
   }
 
-  /// The account of that name in the archive comes back instead of a second one.
-  func testAnAccountInTheArchiveOffersToComeBack() async throws {
-    let other = Bank(name: "СберБанк")
-    let old = PaymentMethod(name: "Сбер", archived: true, bankId: other.id)
-    let main = PaymentMethod(name: "Main", isDefault: true, bankId: Bank(name: "Main").id)
+  func testAnArchivedAccountOrBankNamesakeDoesNotBlockANewBank() async throws {
+    let oldBank = Bank(name: "Reserve", archived: true)
+    let old = PaymentMethod(name: "Reserve", archived: true, bankId: oldBank.id)
+    let mainBank = Bank(name: "Main")
+    let main = PaymentMethod(name: "Main", isDefault: true, bankId: mainBank.id)
     _ = try XCTUnwrap(environment.planning).apply(
       PlanningChange(
         upsert: PlanningRows(
-          paymentMethods: [old, main], banks: [other, Bank(id: main.bankId!, name: "Main")])))
+          paymentMethods: [old, main], banks: [oldBank, mainBank])))
     let books = try await readBooks()
-    XCTAssertEqual(
-      actions.createBank(named: "Сбер", books: books),
-      BankCreation(outcome: .refused(.inArchive(old.id)), accountId: nil))
+    let id = UUID()
+    let made = actions.createBank(named: "reserve", books: books, id: id)
+    XCTAssertEqual(made.outcome, .done)
+    XCTAssertNotNil(made.accountId)
+    XCTAssertEqual(actions.banks.first { $0.id == id }?.name, "reserve")
+    XCTAssertEqual(actions.banks.first { $0.id == oldBank.id }, oldBank)
+    XCTAssertEqual(actions.all.first { $0.id == old.id }, old)
+    store.undo()
+    XCTAssertNil(actions.banks.first { $0.id == id })
+    XCTAssertEqual(actions.all.first { $0.id == old.id }, old)
   }
 
   // MARK: Renaming

@@ -56,6 +56,39 @@ final class AccountCardsTests: XCTestCase {
 
   // MARK: The editor
 
+  func testRestoringACardWithItsArchivedAccountIsOneUndoStep() throws {
+    let main = PaymentMethod(name: "Main", isDefault: true)
+    let old = PaymentMethod(name: "Old", archived: true)
+    let card = PaymentCard(accountId: old.id, name: "Reserve", archived: true)
+    XCTAssertTrue(
+      store.apply(
+        PlanningChange(
+          upsert: PlanningRows(
+            paymentMethods: [main, old], cards: [card]))))
+    XCTAssertEqual(actions.restore(old.id, includingCard: card.id), .done)
+    XCTAssertEqual(actions.all.first { $0.id == old.id }?.archived, false)
+    XCTAssertEqual(cards.cards.first { $0.id == card.id }?.archived, false)
+    store.undo()
+    XCTAssertEqual(actions.all.first { $0.id == old.id }, old)
+    XCTAssertEqual(cards.cards.first { $0.id == card.id }, card)
+  }
+
+  func testCardsOfAnArchivedAccountFreeTheirNamesButPreventAnAmbiguousRestore() async throws {
+    let main = PaymentMethod(name: "Main", isDefault: true)
+    let old = PaymentMethod(name: "Old", archived: true)
+    let oldCard = PaymentCard(accountId: old.id, name: "Reserve")
+    let references = try XCTUnwrap(environment.references)
+    try references.save(main)
+    try references.save(old)
+    XCTAssertTrue(store.apply(PlanningChange(upsert: PlanningRows(cards: [oldCard]))))
+    let new = PaymentMethod(name: "reserve")
+    let books = try await books()
+    XCTAssertEqual(actions.save(new, previous: nil, books: books), .done)
+    XCTAssertEqual(actions.restore(old.id), .refused(.nameTakenByCard("Reserve")))
+    XCTAssertEqual(actions.all.first { $0.id == old.id }?.archived, true)
+    XCTAssertEqual(cards.cards.first { $0.id == oldCard.id }, oldCard)
+  }
+
   /// «Т-Банк» of the kind card comes with the card «Т-Банк»; one ⌘Z takes both away.
   func testANewCardAccountGetsItsCardInOneUndoStep() async throws {
     let books = try await books()

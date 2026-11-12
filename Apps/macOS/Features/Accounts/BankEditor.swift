@@ -16,6 +16,7 @@ struct BankEditor: View {
   /// the bank an edit saved, `nil` when nothing was written.
   let finish: (UUID?) -> Void
 
+  @State private var draftId = UUID()
   @State private var name: String
   @State private var books: AccountBooks?
   @State private var refusal: AccountRefusal?
@@ -39,6 +40,9 @@ struct BankEditor: View {
         Section {
           NameField(title: t("bank.editor.name"), text: $name, identifier: "bank.editor.name")
             .onSubmit(save)
+          PlanningNamesakeNotice(
+            kind: .bank, id: previous?.id ?? draftId, name: $name,
+            didRestore: { _ in finish(nil) })
         } footer: {
           Text(verbatim: t(previous == nil ? "bank.editor.newHint" : "bank.editor.hint"))
             .foregroundStyle(.secondary)
@@ -91,7 +95,7 @@ struct BankEditor: View {
       return
     }
     guard let books else { return }
-    let creation = actions.createBank(named: name, books: books)
+    let creation = actions.createBank(named: name, books: books, id: draftId)
     switch creation.outcome {
     case .done: finish(creation.accountId)
     case .refused(let reason): refusal = reason

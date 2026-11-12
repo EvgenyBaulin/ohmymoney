@@ -58,15 +58,33 @@ public struct NamesakeProposal: Hashable, Sendable, Identifiable {
   public let existing: NamesakeRecord
   /// The same key from either side of the pair; independent of their names and archive state.
   public let id: String
+  /// The matching alias, when the collision is not with the record's canonical name.
+  public let existingSpelling: String?
+  public let newSpelling: String?
+  public let restoresAccount: Bool
+
+  init(
+    existing: NamesakeRecord, id: String, existingSpelling: String? = nil,
+    newSpelling: String? = nil, restoresAccount: Bool = false
+  ) {
+    self.existing = existing
+    self.id = id
+    self.existingSpelling = existingSpelling
+    self.newSpelling = newSpelling
+    self.restoresAccount = restoresAccount
+  }
 
   public var choices: [Choice] {
-    existing.archived ? [.renameArchived, .restoreArchived] : [.renameNew, .renameExisting]
+    if existing.archived, [.account, .card, .bank].contains(existing.kind) {
+      return [.renameNew, .renameArchived, .restoreArchived]
+    }
+    return existing.archived ? [.renameArchived, .restoreArchived] : [.renameNew, .renameExisting]
   }
 
   /// Nil without history: the interface can still offer a name typed by the owner.
   public func archivedName(locale: Locale) -> String? {
     guard existing.archived, let period = existing.period else { return nil }
-    return "\(existing.name) (\(period.title(locale: locale)))"
+    return "\(existingSpelling ?? existing.name) (\(period.title(locale: locale)))"
   }
 }
 

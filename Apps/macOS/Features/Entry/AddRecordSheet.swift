@@ -100,9 +100,12 @@ struct AddRecordSheet: View {
     guard !saved else { return }
     asked = true
     failure = nil
+    if form.kind == .paymentMethod { model.reload() }
     guard form.refusalKey(in: model) == nil else { return }
     let saveContext = NewRecordForm.Context.app(environment, store: store)
-    if let refused = form.commit(into: model, today: environment.today, context: saveContext) {
+    if let refused = form.commit(
+      into: model, today: environment.today, context: saveContext, id: draftId)
+    {
       failure = refused.text(environment)
       return
     }
@@ -123,9 +126,8 @@ struct AddRecordSheet: View {
     return failure
   }
 
-  /// A name another record has never stops «Save»: the notice offers to rename either one or
-  /// to bring the archived one back; an account only gets a sentence (its renames and returns
-  /// have rules of their own in Settings → Счета).
+  /// Dictionary names may repeat. Financial names stay unique among live records, with
+  /// archived namesakes offering explicit renames or restoration through the same notice.
   @ViewBuilder
   private var namesakeAdvice: some View {
     switch form.kind {
@@ -133,16 +135,9 @@ struct AddRecordSheet: View {
     case .place: notice(.place)
     case .event: notice(.event)
     case .category: notice(.category, parent: nil)
-    case .subcategory(let part): notice(.category, parent: model.categoryOfPart(model.part(at: part)))
-    case .paymentMethod:
-      if let key = form.accountAdviceKey(
-        in: model, all: try? environment.references?.paymentMethods(includeArchived: true))
-      {
-        Text(verbatim: t(key))
-          .appFont(.caption)
-          .foregroundStyle(.secondary)
-          .fixedSize(horizontal: false, vertical: true)
-      }
+    case .subcategory(let part):
+      notice(.category, parent: model.categoryOfPart(model.part(at: part)))
+    case .paymentMethod: notice(.account)
     }
   }
 
@@ -156,7 +151,14 @@ struct AddRecordSheet: View {
       scope = { ids.contains($0.id) }
     }
     return PlanningNamesakeNotice(
-      kind: kind, id: draftId, name: $form.name, onChange: { model.reload() },
+      kind: kind, id: draftId, name: $form.name,
+      didRestore: kind == .account
+        ? { record in
+          model.reload()
+          model.setAccountOrCard(record.id)
+          close()
+        } : nil,
+      onChange: { model.reload() },
       scope: scope, dismissesOnRestore: false)
   }
 

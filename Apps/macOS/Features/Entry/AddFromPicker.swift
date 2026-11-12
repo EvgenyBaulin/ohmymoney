@@ -62,6 +62,7 @@ struct NewRecordForm {
   struct Context {
     var references: ReferenceRepository?
     var defaultCurrency: CurrencyCode = .rub
+    var cards: (() -> [PaymentCard])? = nil
 
     /// The context of the app's window.
     @MainActor
@@ -120,11 +121,14 @@ struct NewRecordForm {
   }
 
   /// Why «Save» would add nothing, as the key of the words that say so (table «Entry»); nil
-  /// when it would. Only a name that says nothing: a name another record has, live or
-  /// archived, never stops «Save» — the sheet advises renaming or bringing the old one back
-  /// (`PlanningNamesakeNotice`, `accountAdviceKey`).
+  /// when it would. Financial names stay unique among live accounts and cards; other
+  /// dictionaries and archived financial names offer advice instead of refusing the write.
   func refusalKey(in model: EntryDraftModel) -> String? {
-    ReferenceNames.folded(trimmedName).isEmpty ? "entry.add.nameMissing" : nil
+    guard !ReferenceNames.folded(trimmedName).isEmpty else { return "entry.add.nameMissing" }
+    guard kind == .paymentMethod else { return nil }
+    let account = PaymentMethod(name: trimmedName)
+    return AccountRules.nameConflict(account, accounts: model.paymentMethods, cards: model.cards)
+      == nil ? nil : "entry.add.nameTaken"
   }
 
   /// For a new account: the name is, or is one of the other names of, another live account or
@@ -143,7 +147,9 @@ struct NewRecordForm {
     {
       return "entry.add.accountNameTaken"
     }
-    return spellings.contains(where: { $0.contains { ReferenceNames.folded($0) == ReferenceNames.folded(name) } })
+    return spellings.contains(where: {
+      $0.contains { ReferenceNames.folded($0) == ReferenceNames.folded(name) }
+    })
       ? "entry.add.accountInArchive" : nil
   }
 
@@ -181,11 +187,11 @@ struct NewRecordForm {
   /// it did, otherwise why nothing was written — a refusal, a part that is no longer there, a
   /// write the database refused, an account that cannot come back.
   ///
-  /// A name another record has, live or archived, changes nothing: a new record is written,
-  /// and the owner chooses to rename or bring the old one back from the notice. A new account
-  /// is in the default currency.
+  /// An archived namesake stays in the archive. Live financial names are checked again
+  /// before saving; other dictionary names may repeat. A new account uses the default currency.
   func commit(
-    into model: EntryDraftModel, today: DateOnly, context: Context = Context()
+    into model: EntryDraftModel, today: DateOnly, context: Context = Context(),
+    id: UUID? = nil
   ) -> Failure? {
     if let key = refusalKey(in: model) { return .key(key) }
     let name = trimmedName
@@ -234,7 +240,7 @@ struct NewRecordForm {
       else { return failed }
       model.draft.parts[part].eventId = id
     case .paymentMethod:
-      switch account(named: name, context: context, model: model) {
+      switch account(named: name, context: context, model: model, id: id) {
       case .success(let id): model.setPaymentMethod(id)
       case .failure(let failure): return failure
       }
@@ -277,10 +283,10 @@ struct NewRecordForm {
 
   /// A new account in the default currency, placed where a new account goes.
   private func account(
-    named name: String, context: Context, model: EntryDraftModel
+    named name: String, context: Context, model: EntryDraftModel, id: UUID?
   ) -> Result<UUID, Failure> {
     guard let references = context.references else {
-      guard let id = model.createPaymentMethod(named: name, kind: paymentKind) else {
+      guard let id = model.createPaymentMethod(named: name, kind: paymentKind, id: id) else {
         return .failure(.key(failureKey))
       }
       return .success(id)
@@ -289,6 +295,12 @@ struct NewRecordForm {
     var account = NewReference.paymentMethod(
       named: name, kind: paymentKind, currency: context.defaultCurrency,
       among: all.filter { !$0.archived })
+    if let id { account.id = id }
+    guard
+      AccountRules.nameConflict(
+        account, accounts: all,
+        cards: context.cards?() ?? model.cards) == nil
+    else { return .failure(.key("entry.add.nameTaken")) }
     // Under a bank, like every account: the live bank of its name, else a new one written with it.
     let choice = BankRules.bank(
       forNewAccountNamed: name,
