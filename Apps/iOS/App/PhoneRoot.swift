@@ -468,6 +468,12 @@ struct PhoneContent<Content: View, Entry: View>: View {
     self.entry = entry()
   }
 
+  /// The room the scrolled content keeps at its bottom so its last tiles can be moved out from
+  /// under the round «+»: the phone's button, or the corner button of a tablet.
+  static func scrollClearance(onPhone: Bool) -> CGFloat {
+    onPhone ? PhoneEntryButton.scrollClearance : EntryPlusMetrics.padScrollClearance
+  }
+
   var body: some View {
     switch deps.environment.state {
     case .starting:
@@ -478,7 +484,7 @@ struct PhoneContent<Content: View, Entry: View>: View {
       content
         .contentMargins(
           .bottom,
-          UIDevice.current.userInterfaceIdiom == .phone ? PhoneEntryButton.scrollClearance : 0,
+          Self.scrollClearance(onPhone: UIDevice.current.userInterfaceIdiom == .phone),
           for: .scrollContent)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         // Over the bar of the phone the page fades out instead of ending in a hard edge.
