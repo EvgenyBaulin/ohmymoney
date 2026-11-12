@@ -38,7 +38,7 @@ final class PhoneOverviewAppearanceTests: XCTestCase {
   func testTheMeasuresOfTheDesign() {
     XCTAssertEqual(PhoneHeroCard.cornerRadius, 28)
     XCTAssertEqual(ContentCard.cornerRadius, 22)
-    XCTAssertEqual(OverviewView.sideMargin, 16)
+    XCTAssertEqual(OverviewView.sideMargin, PhoneMetrics.screenMargin)
     XCTAssertEqual(OverviewCard.pairSpacing, 12)
   }
 

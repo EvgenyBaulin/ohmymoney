@@ -47,7 +47,7 @@ struct FreeMoneyBlock: View {
             of: free, hasCushion: !snapshot.planning.cushion.accounts.isEmpty,
             half: snapshot.planning.halfFreeMoney(ledger: snapshot.ledger),
             payHalf: snapshot.planning.payHalf,
-            cards: Self.cardsDue(snapshot, until: free.until)),
+            cards: Self.cardsDue(compute.snapshot ?? snapshot, until: free.until)),
           id: \.name
         ) { part in
           view(of: part, free, snapshot)
@@ -255,7 +255,12 @@ struct FreeMoneyBlock: View {
           caption(
             environment.format(
               "free.cardDue", table: "Planning", card.name, dayText(card.due, snapshot),
-              environment.money.rounded(card.amount, currency: card.currency)))
+              (card.isEstimate ? "≈\u{00A0}" : "")
+                + environment.money.rounded(card.amount, currency: card.currency)))
+          caption(
+            environment.format(
+              "account.credit.minimum.full", table: "Accounts",
+              environment.money.rounded(card.fullAmount, currency: card.currency)))
         }
       }
       .accessibilityIdentifier("free.cardsDue")
@@ -311,6 +316,8 @@ struct FreeMoneyBlock: View {
     var due: DateOnly
     var amount: AmountE4
     var currency: CurrencyCode
+    var fullAmount: AmountE4 = .zero
+    var isEstimate: Bool = true
     var id: UUID { accountId }
   }
 
@@ -323,11 +330,12 @@ struct FreeMoneyBlock: View {
     return planning.creditCards.compactMap { accountId, card -> CardDue? in
       guard let line = planning.accounts.line(of: accountId), !line.account.archived,
         !planning.accounts.isInSummary(accountId), let due = card.payBy, due <= until,
-        card.toPayNoInterestE4.raw > 0
+        let minimum = card.minimumE4, minimum.raw > 0, !snapshot.hiding.isHidden(accountId)
       else { return nil }
       return CardDue(
         accountId: accountId, name: line.account.name, due: due,
-        amount: card.toPayNoInterestE4, currency: line.account.mainCurrency)
+        amount: minimum, currency: line.account.mainCurrency,
+        fullAmount: card.toPayNoInterestE4, isEstimate: card.minimumIsEstimate)
     }
     .sorted { ($0.due, $0.name) < ($1.due, $1.name) }
   }

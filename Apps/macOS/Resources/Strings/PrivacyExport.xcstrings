@@ -10,10 +10,28 @@
             "value": "Anonymize"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonimizar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonymiser"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Обезличить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знеособити"
           }
         }
       }
@@ -27,10 +45,28 @@
             "value": "Descriptions, comments, places and names are erased in the copy. Amounts, dates and categories stay. The original does not change."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En la copia se borran descripciones, comentarios, lugares y nombres. Los importes, las fechas y las categorías se quedan. El original no cambia."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les descriptions, commentaires, lieux et noms sont effacés dans la copie. Les montants, dates et catégories restent. L'original ne change pas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В копии стираются описания, комментарии, места и имена. Суммы, даты и категории остаются. Оригинал не меняется."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Описи, коментарі, місця й імена в копії стираються. Суми, дати й категорії лишаються. Оригінал не змінюється."
           }
         }
       }
@@ -44,10 +80,28 @@
             "value": "Include attachments (%@)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incluir los adjuntos (%@)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inclure les pièces jointes (%@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "С вложениями (%@)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включити вкладення (%@)"
           }
         }
       }
@@ -61,10 +115,28 @@
             "value": "The copy is ready"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia está lista"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie est prête"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия готова"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію готово"
           }
         }
       }
@@ -78,10 +150,28 @@
             "value": "Attachments: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adjuntos: %lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pièces jointes : %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вложений: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вкладень: %lld"
           }
         }
       }
@@ -95,10 +185,28 @@
             "value": "Locked with your password."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueada con su contraseña."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrouillée par votre mot de passe."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Закрыта вашим паролем."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблоковано вашим паролем."
           }
         }
       }
@@ -119,6 +227,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations in the copy"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones en la copia"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación en la copia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones en la copia"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations dans la copie"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération dans la copie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations dans la copie"
                 }
               }
             }
@@ -153,6 +309,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції в копії"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцій у копії"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операція в копії"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції в копії"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -172,6 +358,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transfers in the copy"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias en la copia"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencia en la copia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias en la copia"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements dans la copie"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virement dans la copie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements dans la copie"
                 }
               }
             }
@@ -206,6 +440,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перекази в копії"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказів у копії"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказ у копії"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказу в копії"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -218,10 +482,28 @@
             "value": "Anonymizing is not available in this build, so the copy was not made."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La anonimización no está disponible en esta compilación, así que la copia no se hizo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'anonymisation n'est pas disponible dans cette version, donc la copie n'a pas été faite."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Обезличивание в этой сборке недоступно, поэтому копия не сделана."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знеособлення в цій збірці недоступне, тож копію не створено."
           }
         }
       }
@@ -235,10 +517,28 @@
             "value": "A hidden account is still used by something the copy keeps, so it cannot be left out. Include hidden accounts, or show the account again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una cuenta oculta todavía la usa algo que la copia conserva, así que no se puede dejar fuera. Incluya las cuentas ocultas, o vuelva a mostrar la cuenta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un compte masqué est encore utilisé par quelque chose que la copie garde, donc il ne peut pas être laissé de côté. Incluez les comptes masqués, ou réaffichez le compte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скрытый счёт нужен тому, что остаётся в копии, и его нельзя убрать. Включите скрытые или верните счёт на экран."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прихований рахунок ще використовується тим, що копія зберігає, тож його не можна пропустити. Включіть приховані рахунки або зробіть рахунок знову видимим."
           }
         }
       }
@@ -252,10 +552,28 @@
             "value": "The copy was not made. Nothing was changed."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia no se hizo. No se cambió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie n'a pas été faite. Rien n'a été modifié."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия не сделана. Ничего не изменилось."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію не створено. Нічого не змінено."
           }
         }
       }
@@ -269,10 +587,28 @@
             "value": "Enter a password: a copy without one is not made."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba una contraseña: no se hace una copia sin ella."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez un mot de passe : une copie sans mot de passe n'est pas faite."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Введите пароль: копия без пароля не делается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть пароль: копію без пароля не створюємо."
           }
         }
       }
@@ -286,10 +622,28 @@
             "value": "The period is empty: the end is before the start."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El periodo está vacío: el final es anterior al inicio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La période est vide : la fin est avant le début."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Период пуст: конец раньше начала."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Період порожній: кінець раніше за початок."
           }
         }
       }
@@ -303,7 +657,25 @@
             "value": "Format"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формат"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Формат"
@@ -320,10 +692,28 @@
             "value": "Transfer archive"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivo de traslado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archive de transfert"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Архив переноса"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Архів переказу"
           }
         }
       }
@@ -337,15 +727,34 @@
             "value": "CSV only"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo CSV"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV seulement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Только CSV"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише CSV"
+          }
         }
       }
     },
     "privacy.copy.from": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -354,10 +763,28 @@
             "value": "From"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desde"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "С"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Від кого"
           }
         }
       }
@@ -371,10 +798,28 @@
             "value": "Include hidden accounts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incluir cuentas ocultas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inclure les comptes masqués"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Включая скрытые"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включити приховані рахунки"
           }
         }
       }
@@ -388,10 +833,28 @@
             "value": "Without it the copy has no hidden accounts, and none of their operations or transfers."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin ello, la copia no tiene cuentas ocultas, ni sus operaciones ni transferencias."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sans cela, la copie n'a aucun compte masqué, ni aucune de leurs opérations ou virements."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Без галочки в копии нет скрытых счетов, их операций и переводов."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без них у копії немає прихованих рахунків і жодної їхньої операції чи переказу."
           }
         }
       }
@@ -405,10 +868,28 @@
             "value": "The copy will include hidden accounts."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia incluirá cuentas ocultas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie comprendra les comptes masqués."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В копию войдут скрытые счета."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія включатиме приховані рахунки."
           }
         }
       }
@@ -422,10 +903,28 @@
             "value": "Left out: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejadas fuera: %lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laissé de côté : %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не вошло: %lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропущено: %lld"
           }
         }
       }
@@ -439,15 +938,34 @@
             "value": "A copy — the original stays with you."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una copia — el original se queda con usted."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une copie — l'original reste chez vous."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия — оригинал остаётся у вас."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія — оригінал лишається у вас."
+          }
         }
       }
     },
     "privacy.copy.password": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -456,7 +974,25 @@
             "value": "Password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraseña"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mot de passe"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Пароль"
@@ -465,6 +1001,7 @@
       }
     },
     "privacy.copy.passwordAgain": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -473,10 +1010,28 @@
             "value": "Repeat the password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repita la contraseña"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Répétez le mot de passe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Повторите пароль"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторіть пароль"
           }
         }
       }
@@ -490,10 +1045,28 @@
             "value": "The copy is locked with this password. Nobody can open it without it, and it cannot be recovered. The original stays with you, unchanged."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia se bloquea con esta contraseña. Nadie puede abrirla sin ella, y no se puede recuperar. El original se queda con usted, sin cambios."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie est verrouillée par ce mot de passe. Personne ne peut l'ouvrir sans lui, et il ne peut pas être récupéré. L'original reste chez vous, inchangé."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия закрыта этим паролем. Без него её не откроет никто, и восстановить пароль нельзя. Оригинал остаётся у вас без изменений."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію заблоковано цим паролем. Без нього її не відкриє ніхто, і відновити його неможливо. Оригінал лишається у вас, без змін."
           }
         }
       }
@@ -507,15 +1080,34 @@
             "value": "attachments: %lld"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "adjuntos: %lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pièces jointes : %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "вложений: %lld"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "вкладень: %lld"
+          }
         }
       }
     },
     "privacy.copy.preview.counting": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -524,10 +1116,28 @@
             "value": "Counting…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contando…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptage…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Считаем…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обчислюємо…"
           }
         }
       }
@@ -541,15 +1151,34 @@
             "value": "Will include:"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incluirá:"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprendra :"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Войдёт:"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Буде включено:"
+          }
         }
       }
     },
     "privacy.copy.preview.operations": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -565,6 +1194,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations"
                 }
               }
             }
@@ -599,6 +1276,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операція"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операції"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -618,6 +1325,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transfers"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferencias"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virement"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements"
                 }
               }
             }
@@ -652,6 +1407,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld перекази"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld переказу"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -664,10 +1449,28 @@
             "value": "Enter a password: a copy without one is not made."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba una contraseña: no se hace una copia sin ella."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez un mot de passe : une copie sans mot de passe n'est pas faite."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Введите пароль: копия без пароля не делается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть пароль: копію без пароля не створюємо."
           }
         }
       }
@@ -681,10 +1484,28 @@
             "value": "The passwords differ."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las contraseñas no coinciden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les mots de passe ne concordent pas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пароли не совпадают."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паролі не збігаються."
           }
         }
       }
@@ -698,10 +1519,28 @@
             "value": "The period is empty: the end is before the start."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El periodo está vacío: el final es anterior al inicio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La période est vide : la fin est avant le début."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Период пуст: конец раньше начала."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Період порожній: кінець раніше за початок."
           }
         }
       }
@@ -715,10 +1554,28 @@
             "value": "Save Copy…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar copia…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer la copie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить копию…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти копію…"
           }
         }
       }
@@ -732,10 +1589,28 @@
             "value": "Part of the history"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte del historial"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une partie de l'historique"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что взять"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частина історії"
           }
         }
       }
@@ -749,10 +1624,28 @@
             "value": "For a period"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por periodo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pour une période"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "За период"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За період"
           }
         }
       }
@@ -766,10 +1659,28 @@
             "value": "Whole database"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toda la base de datos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toute la base"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вся база"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уся база"
           }
         }
       }
@@ -783,10 +1694,28 @@
             "value": "Show the password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar la contraseña"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher le mot de passe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать пароль"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати пароль"
           }
         }
       }
@@ -800,15 +1729,34 @@
             "value": "Export a copy"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar una copia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter une copie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Експорт копії"
+          }
         }
       }
     },
     "privacy.copy.to": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -817,10 +1765,28 @@
             "value": "To"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Au"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "По"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До"
           }
         }
       }
@@ -834,10 +1800,28 @@
             "value": "Making the copy…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haciendo la copia…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Création de la copie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Делаем копию…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створюємо копію…"
           }
         }
       }
@@ -851,10 +1835,28 @@
             "value": "Back to My Data"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a Mis datos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour à mes données"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вернуться к моим данным"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назад до моїх даних"
           }
         }
       }
@@ -868,10 +1870,28 @@
             "value": "Training data"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos de entrenamiento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Données d'entraînement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Учебные данные"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Навчальні дані"
           }
         }
       }
@@ -885,15 +1905,34 @@
             "value": "These numbers are made up. Your own database is not open."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estas cifras son inventadas. Su base de datos propia no está abierta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ces chiffres sont inventés. Votre propre base n'est pas ouverte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Эти цифры выдуманные. Ваша база не открыта."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ці цифри вигадані. Ваша власна база не відкрита."
+          }
         }
       }
     },
     "privacy.demo.confirm.action": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -902,10 +1941,28 @@
             "value": "Show"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати"
           }
         }
       }
@@ -919,10 +1976,28 @@
             "value": "The app restarts on made-up data. Your own database is not touched, and one button brings you back."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app se reinicia con datos inventados. Su base de datos propia no se toca, y un botón le devuelve."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'app redémarre sur des données fictives. Votre propre base n'est pas touchée, et un bouton vous ramène."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приложение перезапустится на выдуманных данных. Ваша база не трогается, вернуться можно одной кнопкой."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосунок перезапуститься на вигаданих даних. Вашу базу не зачіпає, а одна кнопка поверне вас назад."
           }
         }
       }
@@ -936,10 +2011,28 @@
             "value": "Show the app on training data?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mostrar la app con datos de entrenamiento?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher l'app sur des données d'entraînement ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать приложение на учебных данных?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати застосунок на навчальних даних?"
           }
         }
       }
@@ -953,10 +2046,28 @@
             "value": "Encrypt (opens in OhMyMoney)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cifrar (se abre en OhMyMoney)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiffrer (s'ouvre dans OhMyMoney)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Зашифровать (открывается в OhMyMoney)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зашифрувати (відкривається в OhMyMoney)"
           }
         }
       }
@@ -970,15 +2081,34 @@
             "value": "Clear the journal"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar el diario"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vider le journal"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Очистить журнал"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистити журнал"
+          }
         }
       }
     },
     "privacy.journal.clear.action": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -987,10 +2117,28 @@
             "value": "Clear"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vider"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Очистить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистити"
           }
         }
       }
@@ -1004,10 +2152,28 @@
             "value": "All entries in the opening journal will be removed."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se eliminarán todas las líneas del diario de apertura."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les entrées du journal d'ouverture seront supprimées."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Все записи журнала открытий будут удалены."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усі записи в журналі відкриттів буде видалено."
           }
         }
       }
@@ -1021,10 +2187,28 @@
             "value": "Clear the journal?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Borrar el diario?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vider le journal ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Очистить журнал?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очистити журнал?"
           }
         }
       }
@@ -1038,10 +2222,28 @@
             "value": "No lines yet."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay líneas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore de lignes."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записей пока нет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рядків ще немає."
           }
         }
       }
@@ -1055,10 +2257,28 @@
             "value": "A copy was exported"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se exportó una copia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une copie a été exportée"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сделан экспорт копии"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію експортовано"
           }
         }
       }
@@ -1072,10 +2292,28 @@
             "value": "Hidden accounts shown"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuentas ocultas mostradas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptes masqués affichés"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показаны скрытые счета"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приховані рахунки показано"
           }
         }
       }
@@ -1089,10 +2327,28 @@
             "value": "Locked"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueada"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrouillée"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Заблокировано"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблоковано"
           }
         }
       }
@@ -1106,10 +2362,28 @@
             "value": "App opened"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App abierta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App ouverte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приложение открыто"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосунок відкрито"
           }
         }
       }
@@ -1123,10 +2397,28 @@
             "value": "View-only mode turned off"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo solo ver desactivado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode lecture seule désactivé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Режим «только просмотр» выключен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Режим перегляду вимкнено"
           }
         }
       }
@@ -1140,10 +2432,28 @@
             "value": "View-only mode turned on"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo solo ver activado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode lecture seule activé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Включён режим «только просмотр»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Режим перегляду увімкнено"
           }
         }
       }
@@ -1157,10 +2467,28 @@
             "value": "Unlocked with the password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloqueada con la contraseña"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déverrouillée avec le mot de passe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка снята по паролю"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розблоковано паролем"
           }
         }
       }
@@ -1174,10 +2502,28 @@
             "value": "Unlocked with Touch ID"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloqueada con Touch ID"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déverrouillée avec Touch ID"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка снята по Touch ID"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розблоковано за Touch ID"
           }
         }
       }
@@ -1191,10 +2537,28 @@
             "value": "The journal lives only on this Mac. It holds moments and kinds of events — no amounts, names or titles — and it does not go into a copy or an archive."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El diario vive solo en este Mac. Guarda momentos y tipos de eventos — sin importes, nombres ni títulos — y no entra en ninguna copia ni archivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le journal ne vit que sur ce Mac. Il contient des moments et des types d'événements — ni montants, ni noms, ni titres — et il n'entre ni dans une copie ni dans une archive."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал лежит только на этом Mac. В нём моменты и виды событий: ни сумм, ни имён, ни названий. В копию и в архив он не попадает."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал зберігається лише на цьому Mac. Він містить моменти й види подій — без сум, імен і назв — і не потрапляє до копії чи архіву."
           }
         }
       }
@@ -1208,10 +2572,28 @@
             "value": "Keep for"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conserver pendant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Хранить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберігати"
           }
         }
       }
@@ -1232,6 +2614,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours"
                 }
               }
             }
@@ -1266,6 +2696,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld днів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1278,10 +2738,28 @@
             "value": "Journal of openings"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diario de aperturas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal des ouvertures"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал открытий"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал відкриттів"
           }
         }
       }
@@ -1295,10 +2773,28 @@
             "value": "Whoever opens the file needs this password. It cannot be recovered."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quien abra el archivo necesita esta contraseña. No se puede recuperar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quiconque ouvre le fichier a besoin de ce mot de passe. Il ne peut pas être récupéré."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Чтобы открыть файл, нужен этот пароль. Восстановить его нельзя."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для відкриття файлу потрібен цей пароль. Відновити його неможливо."
           }
         }
       }
@@ -1312,10 +2808,28 @@
             "value": "Lock the file with a password"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloquear el archivo con una contraseña"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrouiller le fichier par un mot de passe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Закрыть файл паролем"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заблокувати файл паролем"
           }
         }
       }
@@ -1329,10 +2843,28 @@
             "value": "Export Copy…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar copia…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter une copie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Експортувати копію…"
           }
         }
       }
@@ -1346,10 +2878,28 @@
             "value": "What the App Knows…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué sabe la app…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que sait l'app…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що знає застосунок…"
           }
         }
       }
@@ -1363,10 +2913,28 @@
             "value": "Hide amounts while the screen is recorded"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar importes mientras se graba la pantalla"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquer les montants pendant l'enregistrement de l'écran"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скрывать суммы при записи экрана"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приховувати суми під час запису екрана"
           }
         }
       }
@@ -1380,10 +2948,28 @@
             "value": "Also while the screen is mirrored or shared in a call."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "También mientras la pantalla se duplica o se comparte en una llamada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aussi pendant la recopie de l'écran ou un partage dans un appel."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "И когда экран показывают другому или в звонке."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Також коли екран дзеркалиться або показується в дзвінку."
           }
         }
       }
@@ -1397,10 +2983,28 @@
             "value": "Show on Training Data…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar con datos de entrenamiento…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher les données d'entraînement…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать на учебных данных…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати на навчальних даних…"
           }
         }
       }
@@ -1414,10 +3018,28 @@
             "value": "Export a Copy…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar una copia…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter une copie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Експортувати копію…"
           }
         }
       }
@@ -1431,10 +3053,28 @@
             "value": "Handing over"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrega"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remise à quelqu'un"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Передать другому"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Передача іншим"
           }
         }
       }
@@ -1448,10 +3088,28 @@
             "value": "A copy is locked with a password; the original stays unchanged. Training data are made-up numbers, and your own database is not opened."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una copia se bloquea con contraseña; el original no cambia. Los datos de entrenamiento son cifras inventadas, y su base de datos propia no se abre."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une copie est verrouillée par un mot de passe ; l'original reste inchangé. Les données d'entraînement sont des chiffres inventés, et votre propre base n'est pas ouverte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия закрыта паролем, оригинал не меняется. Учебные данные — выдуманные цифры, ваша база не открывается."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія заблокована паролем; оригінал лишається без змін. Навчальні дані — вигадані цифри, а ваша власна база не відкривається."
           }
         }
       }
@@ -1465,10 +3123,28 @@
             "value": "Journal of openings…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diario de aperturas…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal des ouvertures…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал открытий…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал відкриттів…"
           }
         }
       }
@@ -1482,10 +3158,28 @@
             "value": "What the app knows"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué sabe la app"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que sait l'app"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що знає застосунок"
           }
         }
       }
@@ -1499,10 +3193,28 @@
             "value": "The journal and the counts are shown here only; they are not sent anywhere."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El diario y los recuentos solo se muestran aquí; no se envían a ningún sitio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le journal et les compteurs ne sont affichés qu'ici ; ils ne sont envoyés nulle part."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал и числа только показаны здесь и никуда не отправляются."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал і лічильники показано тут лише для перегляду; нікуди не надсилаються."
           }
         }
       }
@@ -1516,10 +3228,28 @@
             "value": "Lock and password…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloqueo y contraseña…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrou et mot de passe…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка и пароль…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Блокування й пароль…"
           }
         }
       }
@@ -1533,10 +3263,28 @@
             "value": "View only"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo ver"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultation seule"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Только просмотр"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише перегляд"
           }
         }
       }
@@ -1550,15 +3298,34 @@
             "value": "The app shows everything and changes nothing."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La app lo muestra todo y no cambia nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'app affiche tout et ne modifie rien."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приложение всё показывает и ничего не меняет."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосунок показує все і нічого не змінює."
+          }
         }
       }
     },
     "privacy.settings.screen": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1567,10 +3334,28 @@
             "value": "Screen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pantalla"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écran"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Экран"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Екран"
           }
         }
       }
@@ -1584,15 +3369,34 @@
             "value": "What is stored…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué se guarda…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce qui est stocké…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что хранится…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що зберігається…"
+          }
         }
       }
     },
     "privacy.storage.attachments": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1601,10 +3405,28 @@
             "value": "Attachments"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adjuntos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pièces jointes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вложения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вкладення"
           }
         }
       }
@@ -1618,15 +3440,34 @@
             "value": "Copies"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copias"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копии"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копії"
+          }
         }
       }
     },
     "privacy.storage.count.copies": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1636,6 +3477,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld copy"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copies"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copias"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copias"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copies"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copie"
                 }
               },
               "other": {
@@ -1676,6 +3565,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копії"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копія"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld копії"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1695,6 +3614,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld files"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld archivos"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld archivo"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld archivos"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fichiers"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fichier"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fichiers"
                 }
               }
             }
@@ -1729,6 +3696,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файли"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файлів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файл"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld файлу"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1748,6 +3745,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld lines"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld líneas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld línea"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld líneas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ligne"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes"
                 }
               }
             }
@@ -1782,6 +3827,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядків"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядок"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядка"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1801,6 +3876,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld records"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registro"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrements"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrement"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrements"
                 }
               }
             }
@@ -1835,6 +3958,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld записи"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld записів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запис"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запису"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1847,10 +4000,28 @@
             "value": "Database"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Base de datos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Base de données"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "База данных"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "База даних"
           }
         }
       }
@@ -1864,10 +4035,28 @@
             "value": "Only counts and sizes are shown here. Nothing is sent anywhere."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí solo se muestran recuentos y tamaños. Nada se envía a ningún sitio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seuls les compteurs et les tailles sont affichés ici. Rien n'est envoyé nulle part."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Здесь только числа и размеры. Ничего никуда не отправляется."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тут показано лише лічильники та розміри. Нікуди нічого не надсилається."
           }
         }
       }
@@ -1881,10 +4070,28 @@
             "value": "Journal of openings"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diario de aperturas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal des ouvertures"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал открытий"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Журнал відкриттів"
           }
         }
       }
@@ -1898,7 +4105,25 @@
             "value": "Records"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registros"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrements"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записи"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Записи"
@@ -1915,10 +4140,28 @@
             "value": "By table"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por tabla"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Par table"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "По таблицам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За таблицями"
           }
         }
       }
@@ -1932,10 +4175,28 @@
             "value": "What the app knows"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué sabe la app"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que sait l'app"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що знає застосунок"
           }
         }
       }
@@ -1949,10 +4210,28 @@
             "value": "Total on disk"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total en el disco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total sur le disque"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Всего на диске"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усього на диску"
           }
         }
       }
@@ -1966,7 +4245,25 @@
             "value": "B"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "o"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Б"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Б"
@@ -1983,7 +4280,25 @@
             "value": "GB"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Go"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ГБ"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "ГБ"
@@ -2000,7 +4315,25 @@
             "value": "KB"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "КБ"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "КБ"
@@ -2017,7 +4350,25 @@
             "value": "MB"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mo"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "МБ"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "МБ"
@@ -2034,10 +4385,28 @@
             "value": "Where it lies"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dónde está"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où il se trouve"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Где лежит"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Де лежить"
           }
         }
       }
@@ -2051,10 +4420,28 @@
             "value": "Copies"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copias"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копии"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копії"
           }
         }
       }
@@ -2068,10 +4455,28 @@
             "value": "Data folder"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpeta de datos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier des données"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Папка данных"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тека даних"
           }
         }
       }
@@ -2085,10 +4490,28 @@
             "value": "The paths are only shown: the database and the archive do not hold them."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las rutas solo se muestran: la base de datos y el archivo no las guardan."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les chemins ne sont qu'affichés : la base et l'archive ne les contiennent pas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пути только показаны: в базе и в архиве их нет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шляхи лише показано: база й архів їх не зберігають."
           }
         }
       }
@@ -2102,10 +4525,28 @@
             "value": "Folder of mirrored copies"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpeta de copias reflejadas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier des copies miroir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Папка зеркальных копий"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тека дзеркальних копій"
           }
         }
       }

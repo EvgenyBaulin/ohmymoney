@@ -80,6 +80,8 @@ public struct Dataset: Sendable {
   public var tripSettings: TripSettings
   /// The sums of dues typed from a bank's app, by debt and then from the first due.
   public var debtInstalments: [DebtInstalmentStep]
+  /// The minimum and deadline the bank named for single statements of credit cards.
+  public var creditStatements: [CreditStatementOverride]
   /// What else the loans cost, by debt in the owner's order.
   public var debtCosts: [DebtCost]
   /// How the owner usually allocates an income, in the owner's order.
@@ -167,8 +169,10 @@ public struct Dataset: Sendable {
     wishPrices: [WishPrice] = [],
     shoppingItems: [ShoppingItem] = [],
     ownedItems: [OwnedItem] = [],
-    purchaseSettings: PurchaseSettings = PurchaseSettings()
+    purchaseSettings: PurchaseSettings = PurchaseSettings(),
+    creditStatements: [CreditStatementOverride] = []
   ) {
+    self.creditStatements = creditStatements
     self.entries = entries
     self.links = links
     self.categories = categories

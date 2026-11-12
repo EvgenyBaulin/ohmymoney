@@ -286,7 +286,8 @@ struct EntryBar<Accessory: View>: View {
     .modifier(
       DictationStops(
         dictation: dictation, scenePhase: scenePhase,
-        language: environment.language.resolvedCode, style: style))
+        language: environment.language.resolvedCode, style: style)
+    )
     .onChange(of: compute.generation) { _, _ in
       followTheEditedOperation()
       if showsDetails { model?.reload() }
@@ -723,6 +724,41 @@ struct EntryBar<Accessory: View>: View {
     }
   }
 
+  /// The native editor keeps its keyboard handling apart from the capsule's controls.
+  private var entryTextField: some View {
+    TextField(
+      text: $text,
+      prompt: Text(
+        verbatim: questions.isActive
+          ? QuestionsText.t("questions.prompt", environment)
+          : environment.language("entry.placeholder", table: "Entry"))
+    ) {
+      Text(verbatim: environment.language("entry.amount", table: "Entry"))
+    }
+    .textFieldStyle(.plain)
+    .appFont(AppFont.system(size: line.text))
+    .focused($focused)
+    // The line was shown by the owner's «+» (or ⌘N): the keyboard comes with it.
+    .onAppear { if phone != nil { focusTheLineSoon() } }
+    .accessibilityIdentifier("entry.line")
+    .onSubmit(save)
+    // ↓ walks the list of operations from the newest, and only while the line has
+    // focus: a window-wide shortcut would swallow arrow keys meant for the list.
+    // It opens nothing — the panel opens with Tab and the chevron.
+    .onKeyPress(.downArrow) { press(.down) }
+    .onKeyPress(.upArrow) { press(.up) }
+    // Esc closes the panel and keeps the draft. With the panel closed it is not
+    // ours, so it goes on to whatever else wants it.
+    .onKeyPress(.escape) { press(.escape) }
+    // Tab opens the panel and goes to the first field of the owner's order, and with the
+    // panel open it goes there too, Shift-Tab to the last; with the panel closed
+    // Shift-Tab is the window's.
+    .onKeyPress(keys: [.tab, PanelTabOrder.backTab]) { key in tab(key) }
+    // Last, over the field and its keys: where the guide frames the line.
+    .guideTarget("entry.line")
+    .entryImportPaste(environment, focused: focused)
+  }
+
   /// The floating glass capsule with the chips above it and the ↓ panel over them.
   private var lineBody: some View {
     GlassEffectContainer(spacing: 12) {
@@ -757,36 +793,9 @@ struct EntryBar<Accessory: View>: View {
               // The tip hangs on the symbol beside the line, not on the field: the field keeps
               // its keys — Tab into the panel — to itself.
               .popoverTip(EntryLineTip(), arrowEdge: .top)
-            TextField(
-              text: $text,
-              prompt: Text(
-                verbatim: questions.isActive
-                  ? QuestionsText.t("questions.prompt", environment)
-                  : environment.language("entry.placeholder", table: "Entry"))
-            ) {
-              Text(verbatim: environment.language("entry.amount", table: "Entry"))
-            }
-            .textFieldStyle(.plain)
-            .appFont(AppFont.system(size: line.text))
-            .focused($focused)
-            // The line was shown by the owner's «+» (or ⌘N): the keyboard comes with it.
-            .onAppear { if phone != nil { focusTheLineSoon() } }
-            .accessibilityIdentifier("entry.line")
-            .onSubmit(save)
-            // ↓ walks the list of operations from the newest, and only while the line has
-            // focus: a window-wide shortcut would swallow arrow keys meant for the list.
-            // It opens nothing — the panel opens with Tab and the chevron.
-            .onKeyPress(.downArrow) { press(.down) }
-            .onKeyPress(.upArrow) { press(.up) }
-            // Esc closes the panel and keeps the draft. With the panel closed it is not
-            // ours, so it goes on to whatever else wants it.
-            .onKeyPress(.escape) { press(.escape) }
-            // Tab opens the panel and goes to the first field of the owner's order, and with the
-            // panel open it goes there too, Shift-Tab to the last; with the panel closed
-            // Shift-Tab is the window's.
-            .onKeyPress(keys: [.tab, PanelTabOrder.backTab]) { key in tab(key) }
-            // Last, over the field and its keys: where the guide frames the line.
-            .guideTarget("entry.line")
+            entryTextField
+
+            EntryAttachmentButton(environment: environment, iconSize: line.icon)
 
             // «Вопрос»: the line asks about the data instead of writing; the mode is this button's,
             // never the text's. A quiet symbol of the line, as the design draws its symbols.
@@ -874,6 +883,7 @@ struct EntryBar<Accessory: View>: View {
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("entry.line.capsule")
+        .entryImportDrop(environment)
         .glassEffectID("capsule", in: glass)
         // Above the capsule, not under it: the capsule keeps its place at the bottom of the
         // window while the result of a formula or an error comes and goes. It hangs over the
@@ -2221,4 +2231,3 @@ private struct DictationStops: ViewModifier {
       .onChange(of: style) { _, _ in dictation.stop() }
   }
 }
-

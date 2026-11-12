@@ -87,7 +87,7 @@ enum OperationsMetrics {
 
   /// The phone's page: 16 at the sides, 10 between its parts; a day: its head 6 inside and 6
   /// above, 4 over its card; the card radius 22 with a shadow 0 / 6 / 20 at 5 %.
-  static let phonePageSide: CGFloat = 16
+  static let phonePageSide: CGFloat = PhoneMetrics.screenMargin
   static let phoneStackGap: CGFloat = 10
   static let phoneDayInset: CGFloat = 6
   static let phoneDayGap: CGFloat = 4

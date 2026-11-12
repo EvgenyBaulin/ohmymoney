@@ -97,7 +97,7 @@ struct ExportPandasTests {
       ExportTables.subscriptionUsers, ExportTables.subscriptionKeepGroups, ExportTables.attachments,
       ExportTables.wishes, ExportTables.wishPrices, ExportTables.shoppingItems,
       ExportTables.ownedItems, ExportTables.habitBadges, ExportTables.noSpendDays,
-      ExportTables.bankCashbackCategories, ExportTables.cashbackOffers,
+      ExportTables.bankCashbackCategories, ExportTables.cashbackOffers, ExportTables.creditStatements,
     ] where rows[table] == nil {
       rows[table] = []
     }
@@ -159,7 +159,7 @@ struct ExportPandasTests {
       months: 6, endingOn: Synthetic.endingOn, calendar: Synthetic.calendar, language: "ru"
     ).withAccounts(seed: 20_260_918, calendar: Synthetic.calendar, language: "ru")
     let rows = Self.rows(of: set)
-    #expect(ExportTables.all.count == 53)
+    #expect(ExportTables.all.count == 54)
     #expect(Set(rows.keys) == Set(ExportTables.all), "a file of Export has no rows here")
     for table in [
       ExportTables.accountGroups, ExportTables.transfers, ExportTables.reconciliationBalances,

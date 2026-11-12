@@ -14,6 +14,7 @@ struct StatementImportFlow: View {
   }
 
   let urls: [URL]
+  var importedFile: EntryImportFile? = nil
 
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
@@ -48,7 +49,9 @@ struct StatementImportFlow: View {
       let made = StatementImportModel(
         environment: environment, store: store, dataset: { compute.snapshot?.dataset })
       model = made
-      if !urls.isEmpty {
+      if let importedFile {
+        await made.add(data: importedFile.data, name: importedFile.filename)
+      } else if !urls.isEmpty {
         await made.add(urls: urls)
       } else if let file = Self.testFile {
         await made.add(urls: [file])

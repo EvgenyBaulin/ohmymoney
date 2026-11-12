@@ -212,6 +212,9 @@ IOS_BUNDLE := $(shell sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER: \(io.github.EvgenyB
 # container of its own — the owner's copy, its data and its exchange folder stay untouched.
 PREVIEW ?=
 IOS_RUN_BUNDLE = $(IOS_BUNDLE)$(if $(PREVIEW),.preview,)
+# A preview is built optimised (Release): a Debug build of SwiftUI stutters on a device and
+# misleads a look at the design.
+IOS_RUN_CONFIG = $(if $(PREVIEW),Release,Debug)
 IOS_PREVIEW_FLAGS = $(if $(PREVIEW),PRODUCT_BUNDLE_IDENTIFIER=$(IOS_RUN_BUNDLE) INFOPLIST_KEY_CFBundleDisplayName="OhMyMoney β",)
 
 run-ios: generate
@@ -222,11 +225,11 @@ run-ios: generate
 
 run-ios-go:
 	@mkdir -p $(LOGS)
-	set -o pipefail; $(IOS_XCB) -configuration Debug -destination '$(IOS_DEST)' \
+	set -o pipefail; $(IOS_XCB) -configuration $(IOS_RUN_CONFIG) -destination '$(IOS_DEST)' \
 	    -allowProvisioningUpdates DEVELOPMENT_TEAM=$(TEAM) CODE_SIGN_STYLE=Automatic \
 	    CODE_SIGN_IDENTITY="Apple Development" CODE_SIGNING_ALLOWED=YES $(IOS_PREVIEW_FLAGS) build \
 	    2>&1 | tee $(LOGS)/run-ios.log
-	app="$$(find $(DERIVED)/Build/Products/Debug-iphoneos -maxdepth 1 -name '*.app' | sed -n 1p)"; \
+	app="$$(find $(DERIVED)/Build/Products/$(IOS_RUN_CONFIG)-iphoneos -maxdepth 1 -name '*.app' | sed -n 1p)"; \
 	    test -n "$$app" || (echo "run-ios: no app was built" && exit 1); \
 	    scripts/install-ios.sh "$$app" "$(IOS_RUN_BUNDLE)" "$(DEVICE)"
 

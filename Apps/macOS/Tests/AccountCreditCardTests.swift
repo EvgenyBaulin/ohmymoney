@@ -123,7 +123,7 @@ final class AccountCreditCardTests: XCTestCase {
     XCTAssertEqual(
       lines.toPay,
       "Внести до 30 ноября: \(money.exact(AmountE4(whole: 30_000))), чтобы не платить проценты"
-        + " · минимальный платёж \(money.exact(AmountE4(whole: 2_400)))")
+        + " · минимальный платёж ≈\u{00A0}\(money.exact(AmountE4(whole: 2_400)))")
     XCTAssertEqual(lines.nextStatement, "Следующая выписка 5 декабря")
     XCTAssertNil(lines.graceLost)
     XCTAssertNil(lines.estimate)

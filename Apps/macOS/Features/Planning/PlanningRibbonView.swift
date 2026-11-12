@@ -102,7 +102,11 @@ struct PlanningRibbonView: View {
   /// «Аренда — 30,000 ₽»: one plan as a hover and a menu say it.
   static func line(_ plan: CalendarPlan, _ environment: AppEnvironment) -> String {
     let name = plan.name.isEmpty ? "—" : CalendarText.title(of: plan, environment)
-    return "\(name) — \(environment.money.exact(plan.amount, currency: plan.currency))"
+    let amount =
+      (plan.isEstimate ? "≈\u{00A0}" : "")
+      + environment.money.exact(plan.amount, currency: plan.currency)
+    let full = CalendarText.fullAmount(of: plan, environment).map { " · " + $0 } ?? ""
+    return "\(name) — \(amount)\(full)"
   }
 
   /// One day: its number over the marks of what is planned; the whole chip is the button when

@@ -137,6 +137,9 @@ public final class AppEnvironment {
   /// opens over it with these files (none: it asks which) and the request is cleared.
   var statementImportRequest: StatementImportRequest?
 
+  /// Files from the entry line or the window, presented one at a time through existing flows.
+  let entryImports = EntryImportQueue()
+
   /// «Файл» → «Чек по QR…», or a picture dropped on the main window: the receipt reader opens over
   /// it (with the picture, when there is one) and the request is cleared.
   var receiptRequest: ReceiptRequest?

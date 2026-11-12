@@ -22,7 +22,7 @@ public struct ExportTable: Hashable, Sendable {
   }
 }
 
-/// The 53 files of Export, always in the same order.
+/// The 54 files of Export, always in the same order.
 public enum ExportTables {
   /// `account_currency` and `account_amount` came with `Schema/0004_accounts.sql`: what the
   /// account moved when it does not hold the operation's currency. `card_id`,
@@ -311,10 +311,12 @@ public enum ExportTables {
     columns: ["id", "asset_id", "day", "value", "note"])
 
   /// Columns match `Schema/0009_credit_and_allocation.sql`: what a due asks for, typed from a
-  /// bank's app, from due `from_index` (0 the first) on.
+  /// bank's app, from due `from_index` (0 the first) on. `due_on` came with
+  /// `Schema/0025_split_dates_and_credit_statements.sql` and goes last: the day of that due when
+  /// the service named it, empty when the debt's own schedule puts it.
   public static let debtInstalments = ExportTable(
     fileName: "debt_instalments.csv",
-    columns: ["id", "debt_id", "from_index", "amount"])
+    columns: ["id", "debt_id", "from_index", "amount", "due_on"])
 
   /// Columns match `Schema/0009_credit_and_allocation.sql`: what else a loan costs — `fee`,
   /// `insurance` or `other`, paid `once`, `monthly` or `yearly` from `day`.
@@ -488,7 +490,14 @@ public enum ExportTables {
     fileName: "cashback_offers.csv",
     columns: ["id", "payment_method_id", "card_id", "month", "label", "percent", "chosen"])
 
-  /// All 53 tables, in the fixed order of the export: the 18 of the first schema, then the
+  /// Columns match `Schema/0025_split_dates_and_credit_statements.sql`: the minimum payment and
+  /// the deadline the bank named for one statement of a credit card, typed by hand. `statement_on`
+  /// is the statement's closing day, `minimum` is in the account's main currency.
+  public static let creditStatements = ExportTable(
+    fileName: "credit_statements.csv",
+    columns: ["id", "payment_method_id", "statement_on", "minimum", "pay_by"])
+
+  /// All 54 tables, in the fixed order of the export: the 18 of the first schema, then the
   /// three the accounts brought, then the two of the cards, then the banks, then the assets
   /// and their valuations, then the instalments and costs of the debts, the allocation rules,
   /// the custom currencies and the settings, then the tags, their links, the rules and the notes
@@ -496,7 +505,7 @@ public enum ExportTables {
   /// the conditions of bank products and the deposits of the owner, then the attachments, then the
   /// wishes, their prices, the shopping list and the things outside the capital, then the badges
   /// and the days without spending, then the banks' tables of cashback categories and the offers
-  /// of the months.
+  /// of the months, then the statements of credit cards.
   public static let all: [ExportTable] = [
     transactions, transactionParts, reimbursementLinks, people, paymentMethods, places,
     events, categories, templates, scheduledPayments, subscriptionPrices, expectedIncome,
@@ -506,7 +515,7 @@ public enum ExportTables {
     dayNotes, budgetMonthExceptions, eventBudgetItems, eventTemplates, subscriptionTerms,
     subscriptionUsage, subscriptionUsers, subscriptionKeepGroups, bankConditions, depositOffers,
     attachments, wishes, wishPrices, shoppingItems, ownedItems, habitBadges, noSpendDays,
-    bankCashbackCategories, cashbackOffers,
+    bankCashbackCategories, cashbackOffers, creditStatements,
   ]
 }
 
@@ -1067,6 +1076,17 @@ extension ExportTables {
       step.debtId.uuidString,
       String(step.fromIndex),
       CSVValue.string(amount: step.amountE4),
+      CSVValue.string(day: step.dueOn),
+    ]
+  }
+
+  public static func row(_ statement: CreditStatementOverride) -> [String] {
+    [
+      statement.id.uuidString,
+      statement.accountId.uuidString,
+      CSVValue.string(day: statement.closesOn),
+      CSVValue.string(amount: statement.minimumE4),
+      CSVValue.string(day: statement.due),
     ]
   }
 

@@ -10,10 +10,28 @@
             "value": "%@'s birthday"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cumpleaños de %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaire de %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День народження: %@"
           }
         }
       }
@@ -27,10 +45,28 @@
             "value": "Create an event with the budget"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear un evento con el presupuesto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créer un événement avec le budget"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Создать событие с бюджетом"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити подію з бюджетом"
           }
         }
       }
@@ -44,10 +80,28 @@
             "value": "Event created"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evento creado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Événement créé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Событие создано"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подію створено"
           }
         }
       }
@@ -61,10 +115,28 @@
             "value": "birthday"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cumpleaños"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "anniversaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "день рождения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "день народження"
           }
         }
       }
@@ -78,10 +150,28 @@
             "value": "The event was not created: one like it is already there"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El evento no se creó: ya hay uno igual"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'événement n'a pas été créé : un semblable existe déjà"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Событие не создано: такое уже есть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подію не створено: така вже є"
           }
         }
       }
@@ -102,6 +192,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "turns %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "cumple %lld años"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "cumple %lld año"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "cumple %lld años"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ans"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld an"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ans"
                 }
               }
             }
@@ -136,6 +274,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "виповнюється %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "виповнюється %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "виповнюється %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "виповнюється %lld"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -148,10 +316,28 @@
             "value": "%1$@'s birthday, budget %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cumpleaños de %1$@, presupuesto %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaire de %1$@, budget %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %1$@, бюджет %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День народження %1$@, бюджет %2$@"
           }
         }
       }
@@ -165,10 +351,28 @@
             "value": "Create event"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear evento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créer l'événement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Создать событие"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити подію"
           }
         }
       }
@@ -182,10 +386,28 @@
             "value": "Credited"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crédité"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Зачислено"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зараховано"
           }
         }
       }
@@ -199,10 +421,28 @@
             "value": "Refunds"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devoluciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remboursements"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ждут зачисления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення"
           }
         }
       }
@@ -216,10 +456,28 @@
             "value": "Wish list"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lista de deseos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liste d'envies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Хочу купить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Список бажань"
           }
         }
       }
@@ -233,10 +491,28 @@
             "value": "%1$@: birthday on %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: cumpleaños el %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : anniversaire le %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %1$@, %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: день народження %2$@"
           }
         }
       }
@@ -250,10 +526,28 @@
             "value": "%1$@: birthday on %2$@, gift budget %3$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: cumpleaños el %2$@, presupuesto de regalo %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : anniversaire le %2$@, budget cadeau %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %1$@, %2$@, бюджет %3$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: день народження %2$@, бюджет на подарунок %3$@"
           }
         }
       }
@@ -267,10 +561,28 @@
             "value": "%@: birthday today"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: cumpleaños hoy"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ : anniversaire aujourd'hui"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сегодня день рождения: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: день народження сьогодні"
           }
         }
       }
@@ -284,10 +596,28 @@
             "value": "%1$@: birthday today, gift budget %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: cumpleaños hoy, presupuesto de regalo %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : anniversaire aujourd'hui, budget cadeau %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сегодня день рождения: %1$@, бюджет %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: день народження сьогодні, бюджет на подарунок %2$@"
           }
         }
       }
@@ -301,10 +631,28 @@
             "value": "Birthday: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cumpleaños: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaire : %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День народження: %@"
           }
         }
       }
@@ -318,10 +666,28 @@
             "value": "Refund of “%1$@”, %2$@, is waiting to be credited"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La devolución de «%1$@», %2$@, espera a que se abone"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement de « %1$@ », %2$@, attend d'être crédité"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат «%1$@» на %2$@ ждёт зачисления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення «%1$@», %2$@, чекає на зарахування"
           }
         }
       }
@@ -342,6 +708,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld days"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld días"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld día"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours"
                 }
               }
             }
@@ -376,6 +790,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дні"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld днів"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld день"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld дня"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -388,10 +832,28 @@
             "value": "Refund of “%1$@”, %2$@, is late"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La devolución de «%1$@», %2$@, va con retraso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement de « %1$@ », %2$@, est en retard"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат «%1$@» на %2$@ просрочен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення «%1$@», %2$@, запізнюється"
           }
         }
       }
@@ -405,10 +867,28 @@
             "value": "Refund of %@ is late"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La devolución de %@ va con retraso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement de %@ est en retard"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат на %@ просрочен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення на %@ запізнюється"
           }
         }
       }
@@ -422,10 +902,28 @@
             "value": "Refund of %@ is waiting to be credited"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La devolución de %@ espera a que se abone"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement de %@ attend d'être crédité"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат на %@ ждёт зачисления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення на %@ чекає на зарахування"
           }
         }
       }
@@ -439,10 +937,28 @@
             "value": "Any regrets about “%1$@” (%2$@, %3$@)?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Algún arrepentimiento por «%1$@» (%2$@, %3$@)?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets pour « %1$@ » (%2$@, %3$@) ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке «%1$@» (%2$@, %3$@)?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чи шкодуєте ви про «%1$@» (%2$@, %3$@)?"
           }
         }
       }
@@ -456,10 +972,28 @@
             "value": "Any regrets about the purchase in “%1$@” on %2$@ (%3$@)?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Algún arrepentimiento por la compra en «%1$@» del %2$@ (%3$@)?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets pour l'achat dans « %1$@ » du %2$@ (%3$@) ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке в категории «%1$@» %2$@ (%3$@)?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чи шкодуєте ви про покупку в «%1$@» за %2$@ (%3$@)?"
           }
         }
       }
@@ -473,10 +1007,28 @@
             "value": "Any regrets about the purchase on %1$@ (%2$@)?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Algún arrepentimiento por la compra del %1$@ (%2$@)?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets pour l'achat du %1$@ (%2$@) ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке %1$@ (%2$@)?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чи шкодуєте ви про покупку за %1$@ (%2$@)?"
           }
         }
       }
@@ -497,6 +1049,54 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld more purchases wait for an answer"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compras más esperan respuesta"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compra más espera respuesta"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compras más esperan respuesta"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld autres achats attendent une réponse"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld autre achat attend une réponse"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld autres achats attendent une réponse"
                 }
               }
             }
@@ -531,6 +1131,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ще %lld покупки чекають відповіді"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ще %lld покупок чекають відповіді"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ще %lld покупка чекає відповіді"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ще %lld покупки чекають відповіді"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -543,10 +1173,28 @@
             "value": "Any regrets about the purchase at %1$@ on %2$@ (%3$@)?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Algún arrepentimiento por la compra en %1$@ del %2$@ (%3$@)?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets pour l'achat chez %1$@ le %2$@ (%3$@) ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке: %1$@, %2$@ (%3$@)?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чи шкодуєте ви про покупку в «%1$@» за %2$@ (%3$@)?"
           }
         }
       }
@@ -560,7 +1208,25 @@
             "value": "a purchase"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "una compra"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "un achat"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "покупка"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "покупка"
@@ -577,15 +1243,34 @@
             "value": "“%1$@” can be bought: %2$@ saved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@» ya se puede comprar: %2$@ ahorrados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« %1$@ » peut être acheté : %2$@ épargnés"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@» можно купить: %2$@ накоплено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@» можна купити: відкладено %2$@"
+          }
         }
       }
     },
     "person.birthday": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -594,10 +1279,28 @@
             "value": "Birthday"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cumpleaños"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День народження"
           }
         }
       }
@@ -611,15 +1314,34 @@
             "value": "Set birthday"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poner cumpleaños"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Définir l'anniversaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Указать"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вказати день народження"
+          }
         }
       }
     },
     "person.birthday.day": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -628,7 +1350,25 @@
             "value": "Day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jour"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "День"
@@ -637,6 +1377,7 @@
       }
     },
     "person.birthday.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -645,10 +1386,28 @@
             "value": "Month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Месяц"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяць"
           }
         }
       }
@@ -662,10 +1421,28 @@
             "value": "Remove birthday"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar cumpleaños"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer l'anniversaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Убрать день рождения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити день народження"
           }
         }
       }
@@ -679,15 +1456,34 @@
             "value": "Year (optional)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Año (opcional)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Année (facultatif)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Год (по желанию)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рік (необов'язково)"
+          }
         }
       }
     },
     "person.birthday.yearPrompt": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -696,10 +1492,28 @@
             "value": "Year"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Año"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Année"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Год"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рік"
           }
         }
       }
@@ -713,10 +1527,28 @@
             "value": "Gift budget"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Presupuesto para regalos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget cadeau"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Бюджет на подарок"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет на подарунок"
           }
         }
       }
@@ -730,15 +1562,34 @@
             "value": "A week before the birthday the app reminds you and offers an event with this budget."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una semana antes del cumpleaños la app se lo recuerda y ofrece un evento con este presupuesto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une semaine avant l'anniversaire, l'app vous le rappelle et propose un événement avec ce budget."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "За неделю до дня рождения приложение напомнит и предложит событие с этим бюджетом."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За тиждень до дня народження застосунок нагадає і запропонує подію з цим бюджетом."
+          }
         }
       }
     },
     "planning.birthdays.line": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -747,7 +1598,25 @@
             "value": "%1$@: %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@"
@@ -764,7 +1633,25 @@
             "value": "%1$@: %2$@, budget %3$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@, presupuesto %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@, budget %3$@"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@, бюджет %3$@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@, бюджет %3$@"
@@ -781,10 +1668,28 @@
             "value": "Nearest birthdays"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próximos cumpleaños"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaires les plus proches"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ближайшие дни рождения"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найближчі дні народження"
           }
         }
       }
@@ -798,10 +1703,28 @@
             "value": "%@: today"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: hoy"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ : aujourd'hui"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@: сегодня"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: сьогодні"
           }
         }
       }
@@ -815,10 +1738,28 @@
             "value": "Discount %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descuento %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remise %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скидка %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знижка %@"
           }
         }
       }
@@ -832,10 +1773,28 @@
             "value": "Discount"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descuento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remise"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скидка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знижка"
           }
         }
       }
@@ -849,10 +1808,28 @@
             "value": "Type the kilometres; the mileage is counted from the last fill-up."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba los kilómetros; el kilometraje se cuenta desde el último repostaje."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez les kilomètres ; le kilométrage se calcule depuis le dernier plein."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Напишите километры: пробег посчитается от прошлой заправки."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть кілометри; пробіг рахується від останньої заправки."
           }
         }
       }
@@ -866,10 +1843,28 @@
             "value": "This is the first fill-up with a mileage. Type what the dashboard shows."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este es el primer repostaje con kilometraje. Escriba lo que muestra el cuadro de mandos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C'est le premier plein avec un kilométrage. Saisissez ce qu'affiche le tableau de bord."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Это первая заправка с пробегом. Напишите, что показывает приборная панель."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це перша заправка з пробігом. Введіть те, що показує панель приладів."
           }
         }
       }
@@ -883,10 +1878,28 @@
             "value": "Mileage"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometraje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilométrage"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пробег"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробіг"
           }
         }
       }
@@ -900,10 +1913,28 @@
             "value": "Kilometres"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilómetros"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilomètres"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Километров"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кілометри"
           }
         }
       }
@@ -917,15 +1948,34 @@
             "value": "How far did you drive since the last fill-up?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuántos kilómetros recorrió desde el último repostaje?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Combien de kilomètres avez-vous roulé depuis le dernier plein ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сколько проехали с прошлой заправки?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скільки ви проїхали з останньої заправки?"
+          }
         }
       }
     },
     "purchase.mileage.save": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -934,10 +1984,28 @@
             "value": "Save"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти"
           }
         }
       }
@@ -951,10 +2019,28 @@
             "value": "Mileage, km"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometraje, km"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilométrage, km"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пробег, км"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пробіг, км"
           }
         }
       }
@@ -968,10 +2054,28 @@
             "value": "Don't remember"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No lo recuerdo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je ne sais plus"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не помню"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не пам'ятаю"
           }
         }
       }
@@ -985,10 +2089,28 @@
             "value": "%1$@ is %2$@ %% of the money you can spend now. You can record it or wait."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ es el %2$@ % del dinero que puede gastar ahora. Puede registrarla o esperar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ représente %2$@ %% de l'argent que vous pouvez dépenser maintenant. Vous pouvez le noter ou attendre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ — это %2$@ %% свободных денег. Можно записать сейчас или подождать."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — %2$@ %% від грошей, які можна витратити зараз. Можна записати або почекати."
           }
         }
       }
@@ -1002,15 +2124,34 @@
             "value": "%@, and no free money is counted. You can record it or wait."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, y no se cuenta dinero libre. Puede registrarla o esperar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, et aucun argent libre n'est compté. Vous pouvez le noter ou attendre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@, а свободных денег нет. Можно записать сейчас или подождать."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, і вільних грошей не враховано. Можна записати або почекати."
+          }
         }
       }
     },
     "purchase.pause.record": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1019,10 +2160,28 @@
             "value": "Record"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати"
           }
         }
       }
@@ -1036,10 +2195,28 @@
             "value": "Wait with the purchase?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Esperar con la compra?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attendre avant cet achat ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подождать с покупкой?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Почекати з покупкою?"
           }
         }
       }
@@ -1053,15 +2230,34 @@
             "value": "Already credited"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya abonado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déjà crédité"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Уже зачислено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже зараховано"
+          }
         }
       }
     },
     "purchase.refund.pick": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1070,10 +2266,28 @@
             "value": "Waiting for the money"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esperando el dinero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente de l'argent"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ждёт зачисления"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очікує повернення грошей"
           }
         }
       }
@@ -1087,10 +2301,28 @@
             "value": "Waiting to be credited by"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espera que se abone el"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente d'être crédité par"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ждёт зачисления до"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очікується зарахування до"
           }
         }
       }
@@ -1104,10 +2336,28 @@
             "value": "No regrets"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin arrepentimientos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun regret"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не жалею"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без жалю"
           }
         }
       }
@@ -1121,10 +2371,28 @@
             "value": "Not asked again"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No volver a preguntar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus demandé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Больше не спрашивать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Більше не питати"
           }
         }
       }
@@ -1138,15 +2406,34 @@
             "value": "Regretted"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Me arrepiento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regretté"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Жалею"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шкодую"
+          }
         }
       }
     },
     "purchase.regret.change": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1155,10 +2442,28 @@
             "value": "Change"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Изменить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змінити"
           }
         }
       }
@@ -1172,10 +2477,28 @@
             "value": "No regrets"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin arrepentimientos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun regret"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не жалею"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без жалю"
           }
         }
       }
@@ -1189,10 +2512,28 @@
             "value": "Don't ask"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No preguntar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne pas demander"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не спрашивать"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не питати"
           }
         }
       }
@@ -1206,10 +2547,28 @@
             "value": "Any regrets?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Algún arrepentimiento?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чи шкодуєте?"
           }
         }
       }
@@ -1223,10 +2582,28 @@
             "value": "I regret it"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Me arrepiento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je le regrette"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Жалею"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шкодую"
           }
         }
       }
