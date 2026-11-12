@@ -243,8 +243,8 @@ final class LegacyArchiveImportTests: XCTestCase {
     let environment = await start()
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().count, 26)
-    XCTAssertEqual(stack.applied.applied, 23)
+    XCTAssertEqual(try stack.appliedMigrations().count, 27)
+    XCTAssertEqual(stack.applied.applied, 24)
     XCTAssertEqual(
       UpgradeFromFirstVersionTests.accountsStep(stack.applied.dataSteps),
       ["mainKept": 1, "mainChosen": 0, "mainCreated": 0, "defaultsCleared": 2, "assigned": 3])
@@ -275,6 +275,7 @@ final class LegacyArchiveImportTests: XCTestCase {
         "0024_category_icon_color",
         "0025_split_dates_and_credit_statements",
         "0026_mcc_fee_valuations_wish_image",
+        "0027_savings_points_digital_pause",
       ],
       "the copy is not the database as the older version left it")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: copy), counts)
@@ -356,7 +357,7 @@ final class MigrationAtStartTests: XCTestCase {
     let environment = await start()
 
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 26)
+    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 27)
     let copy = try XCTUnwrap(
       copies().first { (BackupService.isBeforeMigration($0) && $0.hasSuffix(".sqlite")) })
     let url = AppPaths.backupsDirectory.appendingPathComponent(copy)
@@ -383,6 +384,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0024_category_icon_color",
         "0025_split_dates_and_credit_statements",
         "0026_mcc_fee_valuations_wish_image",
+        "0027_savings_points_digital_pause",
       ])
     // The copy, then what the update did — counts, never a value.
     var lines: [String] = []
@@ -441,6 +443,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0024_category_icon_color",
         "0025_split_dates_and_credit_statements",
         "0026_mcc_fee_valuations_wish_image",
+        "0027_savings_points_digital_pause",
       ],
       "the database was updated without a copy")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: AppPaths.databaseURL), counts)
@@ -457,7 +460,7 @@ final class MigrationAtStartTests: XCTestCase {
     XCTAssertTrue(environment.forgetFailedStart())
     await environment.start()
     XCTAssertEqual(environment.state, .ready)
-    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 26)
+    XCTAssertEqual(try environment.stack?.appliedMigrations().count, 27)
     XCTAssertEqual(
       copies().filter { (BackupService.isBeforeMigration($0) && $0.hasSuffix(".sqlite")) }.count, 1)
   }
@@ -499,6 +502,7 @@ final class MigrationAtStartTests: XCTestCase {
         "0024_category_icon_color",
         "0025_split_dates_and_credit_statements",
         "0026_mcc_fee_valuations_wish_image",
+        "0027_savings_points_digital_pause",
       ],
       "a damaged database was updated")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: AppPaths.databaseURL), counts)

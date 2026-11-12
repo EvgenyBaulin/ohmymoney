@@ -70,7 +70,8 @@ public struct DebtLoad: Hashable, Sendable {
     debts: [Debt], ledger: Ledger, today: DateOnly, income: AmountE4?,
     rubPerUnit: [CurrencyCode: Decimal], dues: [UUID: DebtDueState] = [:]
   ) -> DebtLoad {
-    let payments = monthlyPayments(of: debts, rubPerUnit: rubPerUnit, dues: dues)
+    let payments = monthlyPayments(
+      of: debts, rubPerUnit: rubPerUnit, dues: dues, today: today)
     let incomeRub: AmountE4?
     let source: IncomeSource
     if let income {
@@ -99,14 +100,17 @@ public struct DebtLoad: Hashable, Sendable {
 
   /// Σ monthly payments of the open debts I owe, in rubles — the figure on top of the Debts
   /// section too — with the debts it could not convert and the ones without a payment. A debt
-  /// whose dues have sums of their own counts its next unpaid due (`payment(of:dues:)`).
+  /// whose dues have sums of their own counts its next unpaid due (`payment(of:dues:)`). A debt
+  /// whose pause covers `today` takes nothing from the month.
   static func monthlyPayments(
-    of debts: [Debt], rubPerUnit: [CurrencyCode: Decimal], dues: [UUID: DebtDueState] = [:]
+    of debts: [Debt], rubPerUnit: [CurrencyCode: Decimal], dues: [UUID: DebtDueState] = [:],
+    today: DateOnly? = nil
   ) -> (total: AmountE4, withoutRate: [UUID], withoutPayment: [UUID]) {
     var total = AmountE4.zero
     var withoutRate: [UUID] = []
     var withoutPayment: [UUID] = []
     for debt in debts where !debt.closed && debt.direction == .iOwe {
+      if let today, debt.pause?.contains(today) == true { continue }
       guard let payment = payment(of: debt, dues: dues[debt.id]), !payment.isZero else {
         withoutPayment.append(debt.id)
         continue

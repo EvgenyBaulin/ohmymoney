@@ -24,7 +24,7 @@ public struct SavingsTotals: Hashable, Sendable {
     self.income = income
     goals = Self.netGoalContributions(ledger: ledger, in: span)
     let savers = Set(
-      ledger.dataset.paymentMethods.filter { $0.cushion || $0.interest != nil }.map(\.id))
+      ledger.dataset.paymentMethods.filter { $0.cushion || $0.interest != nil || $0.piggy }.map(\.id))
     var net = AmountE4.zero
     var foreign = 0
     for transfer in ledger.dataset.transfers

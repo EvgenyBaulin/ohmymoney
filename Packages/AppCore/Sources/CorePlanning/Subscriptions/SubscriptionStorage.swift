@@ -30,14 +30,23 @@ public struct SubscriptionTerms: Identifiable, Hashable, Sendable, Codable {
   /// The owner is one of the people the cost is shared between. A family plan the owner does
   /// not use himself is shared between the others only.
   public var ownerUses: Bool
+  /// What the owner says a bank subscription saves or earns in a month besides cashback — free
+  /// transfers, interest —, in the payment's currency. `nil` — none stated.
+  public var bankBenefitE4: AmountE4?
+  /// The part of the cashback the bank paid in a month that the subscription gives, in percent
+  /// (50 — half of it). `nil` — none.
+  public var bankCashbackShare: Decimal?
 
   public var id: UUID { paymentId }
 
   public init(
     paymentId: UUID, yearlyPlanE4: AmountE4? = nil, monthlyPlanE4: AmountE4? = nil,
     floating: Bool = false, tolerancePercent: Int? = nil, serviceType: ServiceType? = nil,
-    needed: Bool = false, yearlyReminderOff: Bool = false, ownerUses: Bool = true
+    needed: Bool = false, yearlyReminderOff: Bool = false, ownerUses: Bool = true,
+    bankBenefitE4: AmountE4? = nil, bankCashbackShare: Decimal? = nil
   ) {
+    self.bankBenefitE4 = bankBenefitE4
+    self.bankCashbackShare = bankCashbackShare
     self.paymentId = paymentId
     self.yearlyPlanE4 = yearlyPlanE4
     self.monthlyPlanE4 = monthlyPlanE4
@@ -59,6 +68,8 @@ public struct SubscriptionTerms: Identifiable, Hashable, Sendable, Codable {
     case needed
     case yearlyReminderOff = "yearly_reminder_off"
     case ownerUses = "owner_uses"
+    case bankBenefitE4 = "bank_benefit_e4"
+    case bankCashbackShare = "bank_cashback_share"
   }
 }
 

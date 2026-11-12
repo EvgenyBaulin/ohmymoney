@@ -123,6 +123,34 @@ struct OverviewFiguresTests {
     #expect(savings.basisPoints == 1_000)
   }
 
+  @Test func aPiggyBankWithoutInterestIsWhereMoneyIsPutAside() throws {
+    let main = PaymentMethod(name: "Main", isDefault: true)
+    let piggy = PaymentMethod(name: "Piggy", piggy: true)
+    let plain = PaymentMethod(name: "Plain")
+    func transfer(to account: PaymentMethod, _ amount: Int64) -> Transfer {
+      Transfer(
+        occurredAt: at(9, 10), fromAccountId: main.id, fromCurrency: .rub,
+        fromAmountE4: AmountE4(whole: amount), toAccountId: account.id, toCurrency: .rub,
+        toAmountE4: AmountE4(whole: amount))
+    }
+    // Round-ups into the piggy bank are put aside, a transfer to an ordinary account is not, and
+    // moving money from the piggy bank to another saving place is not saved twice.
+    let savings = try figures(
+      transfers: [transfer(to: piggy, 120), transfer(to: piggy, 30), transfer(to: plain, 900)],
+      accounts: [main, piggy, plain]
+    ).savings
+    #expect(savings.accounts == AmountE4(whole: 150))
+    let cushion = PaymentMethod(name: "Cushion", cushion: true)
+    let between = Transfer(
+      occurredAt: at(9, 11), fromAccountId: piggy.id, fromCurrency: .rub,
+      fromAmountE4: AmountE4(whole: 50), toAccountId: cushion.id, toCurrency: .rub,
+      toAmountE4: AmountE4(whole: 50))
+    let both = try figures(
+      transfers: [transfer(to: piggy, 120), between], accounts: [main, piggy, cushion]
+    ).savings
+    #expect(both.accounts == AmountE4(whole: 120))
+  }
+
   @Test func aTransferOutOfTheCushionTakesFromWhatWasSaved() throws {
     let main = PaymentMethod(name: "Main", isDefault: true)
     let cushion = PaymentMethod(name: "Cushion", cushion: true)

@@ -174,7 +174,18 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
       hidden: (try? RowMapping.flag(row, "hidden", fallback: false)) ?? false,
       cashbackMonthlyCapE4: Self.cashbackCap(row),
       cashbackChoiceDay: Self.cashbackChoiceDay(row),
-      borrowed: Self.borrowed(row))
+      borrowed: Self.borrowed(row), pointsBurn: Self.pointsBurn(row),
+      digitalRuble: (try? RowMapping.flag(row, "digital_ruble", fallback: false)) ?? false,
+      piggy: (try? RowMapping.flag(row, "piggy", fallback: false)) ?? false)
+  }
+
+  /// The points that burn: a day, and how many if said. A day that does not read reads as none;
+  /// an amount that does not read, or is not above zero, as «all of them».
+  private static func pointsBurn(_ row: Row) -> PointsBurn? {
+    guard row.hasColumn("points_burn_on"), let day = RowMapping.day(row, "points_burn_on")
+    else { return nil }
+    let amount = (try? RowMapping.optionalAmount(row, "points_burn_e4")) ?? nil
+    return PointsBurn(on: day, amountE4: amount.flatMap { $0.raw > 0 ? $0 : nil })
   }
 
   /// Someone else's card: `borrowed` set to 1, with whose it is and the category of transfers
@@ -260,11 +271,21 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
       let period = (row["interest_period"] as String?).flatMap(InterestPeriod.init(rawValue:))
     else { return nil }
     let day = (try? RowMapping.optionalInteger(row, "interest_day")) ?? nil
+    // The announced rate counts only with its day and above zero; anything else reads as none.
+    var nextRate = row.hasColumn("interest_next_rate")
+      ? RowMapping.decimal(row, "interest_next_rate") : nil
+    let nextRateOn = row.hasColumn("interest_next_rate_on")
+      ? RowMapping.day(row, "interest_next_rate_on") : nil
+    if let value = nextRate, value <= 0 || value > 100 || nextRateOn == nil { nextRate = nil }
     return DepositTerms(
       rate: rate, period: period, day: day.flatMap { (1...31).contains($0) ? $0 : nil },
       payoutAccountId: RowMapping.optionalUUID(row, "interest_account_id"),
       openedOn: RowMapping.day(row, "deposit_opened_on"),
-      endsOn: RowMapping.day(row, "deposit_ends_on"))
+      endsOn: RowMapping.day(row, "deposit_ends_on"),
+      base: row.hasColumn("interest_base")
+        ? (row["interest_base"] as String?).flatMap(InterestBase.init(rawValue:)) ?? .daily
+        : .daily,
+      nextRate: nextRate, nextRateOn: nextRate == nil ? nil : nextRateOn)
   }
 
   /// How the account's bank rounds. A word the app never writes — only a hand edit leaves one —
@@ -341,6 +362,14 @@ extension PaymentMethod: @retroactive FetchableRecord, @retroactive PersistableR
     container["borrowed"] = borrowed != nil
     container["borrowed_person_id"] = borrowed?.personId?.uuidString
     container["borrowed_income_category_id"] = borrowed?.incomeCategoryId?.uuidString
+    // The usual base is stored as none, so a row the app never changed reads the same.
+    container["interest_base"] = interest.flatMap { $0.base == .daily ? nil : $0.base.rawValue }
+    container["interest_next_rate"] = RowMapping.string(interest?.nextRate)
+    container["interest_next_rate_on"] = interest?.nextRateOn?.iso
+    container["points_burn_on"] = pointsBurn?.on.iso
+    container["points_burn_e4"] = pointsBurn?.amountE4?.raw
+    container["digital_ruble"] = digitalRuble
+    container["piggy"] = piggy
   }
 }
 

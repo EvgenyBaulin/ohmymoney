@@ -96,6 +96,7 @@ struct DatabaseFileToolsTests {
           "0024_category_icon_color",
           "0025_split_dates_and_credit_statements",
           "0026_mcc_fee_valuations_wish_image",
+          "0027_savings_points_digital_pause",
         ])
   }
 
@@ -314,6 +315,7 @@ struct ReadingWithoutTheIndexTests {
           "0024_category_icon_color",
           "0025_split_dates_and_credit_statements",
           "0026_mcc_fee_valuations_wish_image",
+          "0027_savings_points_digital_pause",
         ])
 
     #expect(try Data(contentsOf: crashed) == main, "the main file was written into")

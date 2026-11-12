@@ -25939,6 +25939,42 @@
         }
       }
     },
+    "integrity.finding.pauseOutOfOrder": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debts whose pause ends before it starts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Долги, у которых пауза кончается раньше начала"
+          }
+        }
+      }
+    },
+    "integrity.finding.nextRateIncomplete": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accounts with a new rate and no day it starts, or a day and no rate"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счета с новой ставкой без дня начала или с днём без ставки"
+          }
+        }
+      }
+    },
     "integrity.finding.valuationWithoutOwner": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

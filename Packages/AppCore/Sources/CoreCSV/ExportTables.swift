@@ -90,7 +90,11 @@ public enum ExportTables {
   /// minimum payment, the fee for cash and transfers, and the card a purchase is made with.
   /// `borrowed`, `borrowed_person_id` and `borrowed_income_category_id` came with
   /// `Schema/0022_borrowed_card.sql` and go last: `true` for someone else's card, whose it is (a
-  /// person) and the income category of money moved from it, empty for none.
+  /// person) and the income category of money moved from it, empty for none. The columns of
+  /// `Schema/0027_savings_points_digital_pause.sql` follow: what the interest is counted on
+  /// (`min_balance`; empty — the balance of each day), the rate the bank announced and the day
+  /// it holds from, the day the points on the account burn and how many (empty — all), `true` for
+  /// a wallet of the digital ruble and for a piggy bank.
   public static let paymentMethods = ExportTable(
     fileName: "payment_methods.csv",
     columns: [
@@ -103,6 +107,8 @@ public enum ExportTables {
       "credit_min_percent", "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
       "credit_cash_no_grace", "main_card_id", "accent", "hidden", "cashback_monthly_cap",
       "cashback_choice_day", "borrowed", "borrowed_person_id", "borrowed_income_category_id",
+      "interest_base", "interest_next_rate", "interest_next_rate_on", "points_burn_on",
+      "points_burn", "digital_ruble", "piggy",
     ])
 
   public static let places = ExportTable(
@@ -200,7 +206,9 @@ public enum ExportTables {
   /// came with `Schema/0009_credit_and_allocation.sql`: dues every few days, the parts and the
   /// markup of an instalment plan, the full cost of credit from the contract, the rules of
   /// early repayment and the one planned, the payoff ladder, a pledge and its day, and whether
-  /// the owner has seen these terms.
+  /// the owner has seen these terms. `pause_from`, `pause_to` and `pause_kind` came with
+  /// `Schema/0027_savings_points_digital_pause.sql` and go last: the days of a credit holiday or a
+  /// restructuring and which of the two it is (`holiday` or `restructuring`), empty for none.
   public static let debts = ExportTable(
     fileName: "debts.csv",
     columns: [
@@ -209,7 +217,8 @@ public enum ExportTables {
       "origin", "note", "closed", "loans_subcategory_id", "deleted_at", "accrues_interest",
       "main_from", "grace_kind", "grace_payment", "repay_months", "step_days", "first_due_on",
       "parts", "markup", "psk", "prepay_any_day", "prepay_notice_days", "planned_prepay_on",
-      "planned_prepay", "in_ladder", "pledge", "return_by", "terms_reviewed",
+      "planned_prepay", "in_ladder", "pledge", "return_by", "terms_reviewed", "pause_from",
+      "pause_to", "pause_kind",
     ])
 
   /// `payment_method_id`, `occurred_at`, `account_currency` and `account_amount` came with
@@ -391,11 +400,15 @@ public enum ExportTables {
     fileName: "event_templates.csv",
     columns: ["id", "name", "event_kind", "total", "lines", "created_at", "updated_at"])
 
+  /// `bank_benefit` and `bank_cashback_share` came with
+  /// `Schema/0027_savings_points_digital_pause.sql` and go last: what a bank subscription saves or
+  /// earns in a month besides cashback, and the percent of the bank's cashback it gives.
   public static let subscriptionTerms = ExportTable(
     fileName: "subscription_terms.csv",
     columns: [
       "payment_id", "yearly_plan", "monthly_plan", "floating", "tolerance_percent",
-      "service_type", "needed", "yearly_reminder_off", "owner_uses",
+      "service_type", "needed", "yearly_reminder_off", "owner_uses", "bank_benefit",
+      "bank_cashback_share",
     ])
 
   public static let subscriptionUsage = ExportTable(
@@ -682,6 +695,13 @@ extension ExportTables {
       CSVValue.string(bool: method.isBorrowed),
       CSVValue.string(method.borrowed?.personId),
       CSVValue.string(method.borrowed?.incomeCategoryId),
+      CSVValue.string(method.interest.flatMap { $0.base == .daily ? nil : $0.base.rawValue }),
+      CSVValue.string(decimal: method.interest?.nextRate),
+      CSVValue.string(day: method.interest?.nextRateOn),
+      CSVValue.string(day: method.pointsBurn?.on),
+      CSVValue.string(amount: method.pointsBurn?.amountE4),
+      CSVValue.string(bool: method.digitalRuble),
+      CSVValue.string(bool: method.piggy),
     ]
   }
 
@@ -813,6 +833,9 @@ extension ExportTables {
       CSVValue.string(bool: debt.pledge),
       CSVValue.string(day: debt.returnBy),
       CSVValue.string(bool: debt.termsReviewed),
+      CSVValue.string(day: debt.pause?.from),
+      CSVValue.string(day: debt.pause?.to),
+      CSVValue.string(debt.pause?.kind.rawValue),
     ]
   }
 

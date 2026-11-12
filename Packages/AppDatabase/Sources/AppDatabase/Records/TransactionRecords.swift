@@ -234,7 +234,19 @@ extension Debt: @retroactive FetchableRecord, @retroactive PersistableRecord {
       inLadder: Self.integer(row, "in_ladder").map { $0 != 0 },
       pledge: (try? RowMapping.flag(row, "pledge", fallback: false)) ?? false,
       returnBy: RowMapping.day(row, "return_by"),
-      termsReviewed: (try? RowMapping.flag(row, "terms_reviewed", fallback: false)) ?? false)
+      termsReviewed: (try? RowMapping.flag(row, "terms_reviewed", fallback: false)) ?? false,
+      pause: Self.pause(row))
+  }
+
+  /// A pause: both days and an order that holds; the kind defaults to a holiday when it does not
+  /// read. Anything else reads as no pause: one damaged cell must not stop the history from being
+  /// read.
+  private static func pause(_ row: Row) -> DebtPause? {
+    guard row.hasColumn("pause_from"), let from = RowMapping.day(row, "pause_from"),
+      let to = RowMapping.day(row, "pause_to"), to >= from
+    else { return nil }
+    let kind = (row["pause_kind"] as String?).flatMap(DebtPauseKind.init(rawValue:)) ?? .holiday
+    return DebtPause(from: from, to: to, kind: kind)
   }
 
   /// A number that does not read — only a hand edit leaves one — reads as not said.
@@ -305,6 +317,9 @@ extension Debt: @retroactive FetchableRecord, @retroactive PersistableRecord {
     container["pledge"] = pledge
     container["return_by"] = returnBy?.iso
     container["terms_reviewed"] = termsReviewed
+    container["pause_from"] = pause?.from.iso
+    container["pause_to"] = pause?.to.iso
+    container["pause_kind"] = pause?.kind.rawValue
   }
 }
 

@@ -35,15 +35,64 @@ public enum DepositInterest {
   }
 
   /// The interest of `period` earned through `through` (no later than its pay date), not
-  /// rounded: the bank rounds once, at the payout.
+  /// rounded: the bank rounds once, at the payout. The bank counts it on the balance of each day,
+  /// or on the lowest balance of each month (`InterestBase`), and at the rate it announced from the
+  /// day it announced (`DepositTerms.nextRate`): the days before it earn at the current rate.
   public static func accrued(
     terms: DepositTerms, segments: [(from: DateOnly, amount: AmountE4)], period: DepositPeriod,
     through: DateOnly
   ) -> Decimal {
     let end = min(through, period.payDate)
     guard end > period.start else { return 0 }
+    let steps =
+      terms.base == .minBalance
+      ? monthlyMinimum(segments, after: period.start, through: end) : segments
+    guard let next = terms.nextRate, next > 0, let on = terms.nextRateOn, on <= end else {
+      return InterestMath.accrue(
+        segments: steps, percent: terms.rate, after: period.start, through: end)
+    }
+    // A day earns at the rate that holds on it: the days before `on` at the current one.
+    let lastOld = DepositDays.adding(days: -1, to: on)
+    guard lastOld > period.start else {
+      return InterestMath.accrue(segments: steps, percent: next, after: period.start, through: end)
+    }
     return InterestMath.accrue(
-      segments: segments, percent: terms.rate, after: period.start, through: end)
+      segments: steps, percent: terms.rate, after: period.start, through: lastOld)
+      + InterestMath.accrue(segments: steps, percent: next, after: lastOld, through: end)
+  }
+
+  /// `segments` with each calendar month, from the day after `after` through `through`, held at
+  /// the lowest balance any of its days earns on: money taken out for a day lowers the interest of
+  /// the whole month. The first and the last month count only the days inside the stretch.
+  public static func monthlyMinimum(
+    _ segments: [(from: DateOnly, amount: AmountE4)], after: DateOnly, through: DateOnly
+  ) -> [(from: DateOnly, amount: AmountE4)] {
+    var byDay: [Int: AmountE4] = [:]
+    for segment in segments { byDay[DepositDays.serial(segment.from)] = segment.amount }
+    let steps = byDay.sorted { $0.key < $1.key }
+    let last = DepositDays.serial(through)
+    var monthStart = DepositDays.serial(after) + 1
+    var result: [(from: DateOnly, amount: AmountE4)] = []
+    var balance = AmountE4.zero
+    var index = 0
+    while monthStart <= last {
+      let first = DepositDays.civil(monthStart)
+      let monthEnd = min(
+        DepositDays.serial(
+          DateOnly(year: first.year, month: first.month, day: DepositDays.length(of: first.monthKey))), last)
+      var lowest: AmountE4?
+      for day in monthStart...monthEnd {
+        // A day earns on the balance at the end of the day before it.
+        while index < steps.count, steps[index].key <= day - 1 {
+          balance = steps[index].value
+          index += 1
+        }
+        lowest = lowest.map { min($0, balance) } ?? balance
+      }
+      result.append((DepositDays.civil(monthStart - 1), lowest ?? .zero))
+      monthStart = monthEnd + 1
+    }
+    return result
   }
 
   /// The interest `period` is expected to pay on its pay date, to the cent.

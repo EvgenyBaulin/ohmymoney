@@ -47,6 +47,10 @@ public struct DebtDueState: Hashable, Sendable {
   public var steps: DebtSteps? = nil
   /// Dates copied from the service, in instalment order.
   public var explicitDates: [DateOnly] = []
+  /// A credit holiday or a restructuring: no due falls from its first day through its last, and
+  /// the dues after it come later by as many months as were skipped, so the term is carried
+  /// over. Ignored for dues copied from the service (`explicitDates`), which are fixed days.
+  public var pause: DebtPause? = nil
 
   public init(
     debtId: UUID, firstDue: DateOnly?, paidCount: Int, owes: Bool, paymentDay: Int,
@@ -82,12 +86,52 @@ public struct DebtDueState: Hashable, Sendable {
   /// payment day of no month: 1 January 1970.
   public func due(_ index: Int) -> DateOnly {
     if explicitDates.indices.contains(index) { return explicitDates[index] }
+    guard firstDue != nil else { return DateOnly(year: 1970, month: 1, day: 1) }
+    return plainDue(offset(ofIndex: max(0, index)))
+  }
+
+  /// The due `offset` steps after the first one, whether or not a pause covers it: the payday of
+  /// the month `offset` months on, or `offset` steps of days on.
+  private func plainDue(_ offset: Int) -> DateOnly {
     guard let firstDue else { return DateOnly(year: 1970, month: 1, day: 1) }
     if let steps {
-      return firstDue.adding(days: max(0, index) * max(1, steps.everyDays))
+      return firstDue.adding(days: offset * max(1, steps.everyDays))
     }
-    let month = firstDue.monthKey.adding(months: max(0, index))
+    let month = firstDue.monthKey.adding(months: offset)
     return DebtDueState.payday(paymentDay, in: month)
+  }
+
+  /// The offsets of the dues a pause skips, a run of them; `nil` without a pause or a due it
+  /// covers.
+  private var skippedOffsets: ClosedRange<Int>? {
+    guard let pause, pause.isValid, explicitDates.isEmpty, firstDue != nil else { return nil }
+    var low: Int?
+    var high: Int?
+    var offset = 0
+    while offset < Self.limit {
+      let day = plainDue(offset)
+      if day > pause.to { break }
+      if day >= pause.from {
+        if low == nil { low = offset }
+        high = offset
+      }
+      offset += 1
+    }
+    guard let low, let high else { return nil }
+    return low...high
+  }
+
+  /// The offset of the due of index `index`: the index itself, moved on by the dues a pause skips.
+  private func offset(ofIndex index: Int) -> Int {
+    guard let skipped = skippedOffsets, index >= skipped.lowerBound else { return index }
+    return index + skipped.count
+  }
+
+  /// The index of the due `offset` steps after the first, the next due after the pause for one
+  /// the pause skips.
+  private func index(ofOffset offset: Int) -> Int {
+    guard let skipped = skippedOffsets, offset >= skipped.lowerBound else { return offset }
+    return offset > skipped.upperBound ? offset - skipped.count : skipped.lowerBound
   }
 
   /// The payment day in `month`, clipped to its length: the 31st of September is its 30th.
@@ -191,9 +235,9 @@ public struct DebtDueState: Hashable, Sendable {
     }
     guard let firstDue else { return nil }
     if let steps {
-      return firstDue.days(to: day) / max(1, steps.everyDays)
+      return index(ofOffset: firstDue.days(to: day) / max(1, steps.everyDays))
     }
-    return firstDue.monthKey.months(to: day.monthKey)
+    return index(ofOffset: firstDue.monthKey.months(to: day.monthKey))
   }
 
   /// The index of the first due on `day` or after it; `nil` without a first due.
@@ -559,6 +603,7 @@ public enum DebtDues {
         monthlyE4: debt.monthlyPaymentE4, instalments: instalments)
       state.steps = steps
       state.explicitDates = dates
+      state.pause = debt.pause
       result[debt.id] = state
     }
     return result

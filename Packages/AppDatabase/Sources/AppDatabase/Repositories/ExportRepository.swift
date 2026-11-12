@@ -202,7 +202,8 @@ public struct ExportRepository: Sendable {
             + [CSVValue.string(row["tolerance_percent"] as Int?)]
             + [CSVValue.string(row["service_type"] as String?)]
             + [Self.flag(row, "needed", false), Self.flag(row, "yearly_reminder_off", false)]
-            + [Self.flag(row, "owner_uses", true)])
+            + [Self.flag(row, "owner_uses", true)] + Self.amount(row, "bank_benefit_e4")
+            + [CSVValue.string(row["bank_cashback_share"] as String?)])
       }
     case ExportTables.subscriptionUsage.fileName:
       for row in try Row.fetchAll(db, sql: "SELECT * FROM subscription_usage ORDER BY day, id") {

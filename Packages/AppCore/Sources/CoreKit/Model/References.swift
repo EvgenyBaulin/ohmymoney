@@ -193,6 +193,13 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
   /// Someone else's card (`BorrowedCardTerms`): whose it is and the category of money moved from
   /// it; `nil`: the owner's own account.
   public var borrowed: BorrowedCardTerms?
+  /// The nearest points the bank burns on this account, when it holds points
+  /// (`cashbackPointsAccountId` of another account names it); `nil`: nothing is said to burn.
+  public var pointsBurn: PointsBurn?
+  /// A wallet of the digital ruble: rubles only, no interest and no cashback (`AccountRules`).
+  public var digitalRuble: Bool
+  /// An account the owner puts money aside to — a piggy bank, round-ups — with interest or not.
+  public var piggy: Bool
 
   public init(
     id: UUID = UUID(), name: String, kind: PaymentMethodKind = .card,
@@ -203,8 +210,12 @@ public struct PaymentMethod: Identifiable, Hashable, Sendable, Codable {
     cashbackPointsAccountId: UUID? = nil, interest: DepositTerms? = nil, cushion: Bool = false,
     credit: CreditCardTerms? = nil, mainCardId: UUID? = nil, accent: String? = nil,
     hidden: Bool = false, cashbackMonthlyCapE4: AmountE4? = nil, cashbackChoiceDay: Int? = nil,
-    borrowed: BorrowedCardTerms? = nil
+    borrowed: BorrowedCardTerms? = nil, pointsBurn: PointsBurn? = nil, digitalRuble: Bool = false,
+    piggy: Bool = false
   ) {
+    self.pointsBurn = pointsBurn
+    self.digitalRuble = digitalRuble
+    self.piggy = piggy
     self.borrowed = borrowed
     self.cashbackMonthlyCapE4 = cashbackMonthlyCapE4
     self.cashbackChoiceDay = cashbackChoiceDay
@@ -420,6 +431,9 @@ public struct Debt: Identifiable, Hashable, Sendable, Codable {
   /// The owner has seen the terms this version added for the debt, or the debt was made with
   /// them.
   public var termsReviewed: Bool
+  /// A credit holiday or a restructuring: no due falls inside it and the later ones move on;
+  /// `nil` — none.
+  public var pause: DebtPause?
 
   public init(
     id: UUID = UUID(), direction: DebtDirection, type: DebtType, name: String,
@@ -431,8 +445,9 @@ public struct Debt: Identifiable, Hashable, Sendable, Codable {
     steps: DebtSteps? = nil, parts: Int? = nil, markupE4: AmountE4? = nil, psk: Decimal? = nil,
     prepayAnyDay: Bool = true, prepayNoticeDays: Int? = nil, plannedPrepay: PlannedPrepay? = nil,
     inLadder: Bool? = nil, pledge: Bool = false, returnBy: DateOnly? = nil,
-    termsReviewed: Bool = false
+    termsReviewed: Bool = false, pause: DebtPause? = nil
   ) {
+    self.pause = pause
     self.id = id
     self.direction = direction
     self.type = type

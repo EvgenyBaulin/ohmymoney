@@ -26,7 +26,7 @@ struct ExportRoundTripPropertyTests {
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
     "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
     "owner_uses", "new_client_only", "needs_subscription", "topup", "keep_forever", "done",
-    "hidden", "chosen", "borrowed",
+    "hidden", "chosen", "borrowed", "digital_ruble", "piggy",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
@@ -37,6 +37,7 @@ struct ExportRoundTripPropertyTests {
   private static let decimals: Set<String> = [
     "rate", "rub_per_unit", "interest_rate", "share", "psk", "credit_purchase_rate",
     "credit_cash_rate", "credit_min_percent", "credit_cash_fee_percent", "tax_rate", "percent",
+    "interest_next_rate", "bank_cashback_share",
   ]
   /// Columns holding a currency code.
   private static let currencies: Set<String> = [
@@ -51,7 +52,7 @@ struct ExportRoundTripPropertyTests {
     column: String, databaseColumn: String, raw: DatabaseValue
   ) -> String? {
     // A flag an update added reads NULL on the rows it found: the export writes it as «false».
-    if raw.isNull { return ["hidden", "borrowed"].contains(column) ? "false" : "" }
+    if raw.isNull { return ["hidden", "borrowed", "digital_ruble", "piggy"].contains(column) ? "false" : "" }
     if databaseColumn.hasSuffix("_e4"), let stored = Int64.fromDatabaseValue(raw) {
       return "e4:\(stored)"
     }
@@ -522,6 +523,7 @@ struct ExportRoundTripPropertyTests {
           "0024_category_icon_color",
           "0025_split_dates_and_credit_statements",
           "0026_mcc_fee_valuations_wish_image",
+          "0027_savings_points_digital_pause",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -729,11 +731,23 @@ struct ExportRoundTripPropertyTests {
     "bank_conditions.csv:no_card_fee",
   ]
 
+  /// The columns the savings accounts, the points, the digital ruble, the bank subscriptions and
+  /// the credit pauses added (`0027_savings_points_digital_pause`).
+  private static let addedByTheSavingsAndPauses: Set<String> = [
+    "payment_methods.csv:interest_base", "payment_methods.csv:interest_next_rate",
+    "payment_methods.csv:interest_next_rate_on", "payment_methods.csv:points_burn_on",
+    "payment_methods.csv:points_burn", "payment_methods.csv:digital_ruble",
+    "payment_methods.csv:piggy", "debts.csv:pause_from", "debts.csv:pause_to",
+    "debts.csv:pause_kind", "subscription_terms.csv:bank_benefit",
+    "subscription_terms.csv:bank_cashback_share",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
     .union(addedByTheCeilings).union(addedByTheBorrowedCard).union(addedByTheReceiptsAndEnglish)
     .union(addedByThePurchases).union(addedByTheHabits).union(addedByTheCategoryMark)
     .union(addedByTheSplitDates).union(addedByTheCodeAndTheFee)
+    .union(addedByTheSavingsAndPauses)
 
   /// The column the habits added (`0020_habits`).
   private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]

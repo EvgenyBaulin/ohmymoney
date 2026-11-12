@@ -483,6 +483,13 @@ struct RemindersSheet: View {
       }
       .buttonStyle(.bordered)
       .controlSize(.small)
+    case .rateChange:
+      Button(t("reminders.open")) {
+        openSection(.planning)
+        dismiss()
+      }
+      .buttonStyle(.bordered)
+      .controlSize(.small)
     }
   }
 
@@ -511,6 +518,10 @@ struct RemindersSheet: View {
 
   private func status(_ reminder: Reminder) -> ScheduledStatus? {
     compute.snapshot?.planning.scheduled.first { $0.id == reminder.subjectId }
+  }
+
+  private func account(_ reminder: Reminder) -> PaymentMethod? {
+    compute.snapshot?.dataset.paymentMethods.first { $0.id == reminder.subjectId }
   }
 
   private func debt(_ reminder: Reminder) -> Debt? {
@@ -549,6 +560,13 @@ struct RemindersSheet: View {
           environment.money.exact($0, currency: debt.currency)
         } ?? "—"
       return environment.format("reminders.debtPayment", table: "Planning", debt.name, day, amount)
+    case .rateChange:
+      guard let account = account(reminder), let terms = account.interest,
+        let next = terms.nextRate
+      else { return "—" }
+      return environment.format(
+        "reminders.rateChange", table: "Planning", account.name, day,
+        environment.money.number(next), environment.money.number(terms.rate))
     case .reconciliation:
       guard let last = compute.snapshot?.planning.lastReconciliation,
         let today = compute.snapshot?.today

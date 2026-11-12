@@ -259,7 +259,8 @@ public struct DebtsOverview: Hashable, Sendable {
         parts: groupParts[person] ?? [])
     }.sorted(by: largestFirst)
 
-    let payments = DebtLoad.monthlyPayments(of: debts, rubPerUnit: rubPerUnit, dues: states)
+    let payments = DebtLoad.monthlyPayments(
+      of: debts, rubPerUnit: rubPerUnit, dues: states, today: today)
     let unconverted = open.filter { $0.balanceRub == nil }.map(\.debt.id)
     var overview = DebtsOverview(
       iOwe: iOwe, owedToMe: owedToMe, closed: closed,

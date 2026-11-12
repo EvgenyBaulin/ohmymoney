@@ -681,6 +681,7 @@ struct PendingMigrationsTests {
           "0024_category_icon_color",
           "0025_split_dates_and_credit_statements",
           "0026_mcc_fee_valuations_wish_image",
+          "0027_savings_points_digital_pause",
         ])
     // Asking leaves the folder as it was: no log is left for the next file of that name.
     #expect(try FileManager.default.contentsOfDirectory(atPath: folder).sorted() == files)
@@ -839,6 +840,7 @@ struct MigrationDryRunTests {
           "0024_category_icon_color",
           "0025_split_dates_and_credit_statements",
           "0026_mcc_fee_valuations_wish_image",
+          "0027_savings_points_digital_pause",
         ])
   }
 
