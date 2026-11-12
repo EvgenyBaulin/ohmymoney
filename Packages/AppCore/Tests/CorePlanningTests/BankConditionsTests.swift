@@ -638,9 +638,10 @@ struct BankRuExtrasTests {
     books.cards = (0..<10).map { PaymentCard(id: B.id(500 + $0), accountId: B.current, name: "C") }
     let status = CardCount.status(ledger: books.ledger, today: B.today)
     #expect(!status.isNear)
-    #expect(BankReport.build(
-      ledger: books.ledger, accounts: books.accountsSnapshot, today: B.today, rubPerUnit: [:]
-    ).notes().isEmpty)
+    #expect(
+      BankReport.build(
+        ledger: books.ledger, accounts: books.accountsSnapshot, today: B.today, rubPerUnit: [:]
+      ).notes().isEmpty)
   }
 
   @Test func aCardNothingWasPaidWithIsListedAndTheLongestIdleComesFirst() {
@@ -781,7 +782,8 @@ struct InterestTaxTests {
       ("2026-02-01", "100000"), ("2025-12-01", "999999"),
     ])
     let payout = DepositPayout(
-      accountId: BankBooks.current, target: BalanceKey(accountId: BankBooks.current, currency: .rub),
+      accountId: BankBooks.current,
+      target: BalanceKey(accountId: BankBooks.current, currency: .rub),
       periodStart: BankBooks.day("2026-10-01"), payDate: BankBooks.day("2026-11-01"),
       accruedE4: BankBooks.money("30000"), expectedE4: BankBooks.money("90000"),
       capitalized: false, state: .accruing)
@@ -799,7 +801,8 @@ struct InterestTaxTests {
   @Test func aPayoutAlreadyWrittenIsNotCountedTwice() {
     let (books, category) = booksWithInterest(received: [("2026-02-01", "100000")])
     let payout = DepositPayout(
-      accountId: BankBooks.current, target: BalanceKey(accountId: BankBooks.current, currency: .rub),
+      accountId: BankBooks.current,
+      target: BalanceKey(accountId: BankBooks.current, currency: .rub),
       periodStart: BankBooks.day("2026-01-01"), payDate: BankBooks.day("2026-02-01"),
       accruedE4: BankBooks.money("100000"), expectedE4: BankBooks.money("100000"),
       capitalized: false, state: .received(UUID()))
@@ -812,7 +815,8 @@ struct InterestTaxTests {
   @Test func aPayoutInAForeignCurrencyWithoutARateIsListedNotGuessed() {
     let (books, category) = booksWithInterest(received: [])
     let payout = DepositPayout(
-      accountId: BankBooks.current, target: BalanceKey(accountId: BankBooks.current, currency: .usd),
+      accountId: BankBooks.current,
+      target: BalanceKey(accountId: BankBooks.current, currency: .usd),
       periodStart: BankBooks.day("2026-10-01"), payDate: BankBooks.day("2026-11-01"),
       accruedE4: BankBooks.money("30"), expectedE4: BankBooks.money("90"),
       capitalized: false, state: .accruing)
@@ -845,9 +849,11 @@ struct BankPdnTests {
       balanceE4: B.money("500000"), monthlyE4: B.money(monthly))
   }
 
-  private func fixture() -> (debts: [Debt], states: [UUID: DebtDueState], accounts: [PaymentMethod]) {
+  private func fixture() -> (debts: [Debt], states: [UUID: DebtDueState], accounts: [PaymentMethod])
+  {
     let loan = Debt(
-      id: B.id(901), direction: .iOwe, type: .loan, name: "Bank", monthlyPaymentE4: B.money("30000"),
+      id: B.id(901), direction: .iOwe, type: .loan, name: "Bank",
+      monthlyPaymentE4: B.money("30000"),
       paymentDay: 5)
     let split = Debt(
       id: B.id(902), direction: .iOwe, type: .installment, name: "Split",
@@ -856,7 +862,8 @@ struct BankPdnTests {
       id: B.id(903), name: "Credit", currency: .rub,
       credit: CreditCardTerms(limitE4: B.money("200000")))
     return (
-      [loan, split], [loan.id: state(loan.id, monthly: "30000"), split.id: state(split.id, monthly: "5000")],
+      [loan, split],
+      [loan.id: state(loan.id, monthly: "30000"), split.id: state(split.id, monthly: "5000")],
       [card]
     )
   }
@@ -926,6 +933,23 @@ struct BankPdnTests {
 struct NoCardFeeTests {
   private typealias B = BankBooks
 
+  @Test func accountConditionsProduceANoteAndCardConditionsDoNot() {
+    var books = BankBooks()
+    books.conditions = [
+      BankConditions(accountId: B.savings, noCardFeeE4: B.money("150")),
+      BankConditions(accountId: B.other, cardId: B.card, noCardFeeE4: B.money("300")),
+      BankConditions(accountId: B.current),
+    ]
+    let note = BankNote.noCardFee(
+      accountId: B.savings, monthlyFeeE4: B.money("150"), currency: .rub)
+    #expect(books.report.noCardFees.map(\.accountId) == [B.savings])
+    #expect(books.report.notes().contains(note))
+    #expect(books.report.notes(dismissed: [note.id]).contains(note))
+    books.conditions[0].serviceFreeBalanceE4 = B.money("1")
+    #expect(books.report.noCardFees.isEmpty)
+    #expect(!books.report.notes().contains(note))
+  }
+
   @Test func anAccountWithoutACardPaysTheStatedFee() {
     var books = BankBooks()
     // The savings account has no card; the current one has one.
@@ -933,7 +957,8 @@ struct NoCardFeeTests {
     let lines = NoCardFee.lines(
       dataset: books.dataset, fees: [B.savings: B.money("150"), B.current: B.money("150")],
       service: [])
-    #expect(lines == [NoCardFeeLine(accountId: B.savings, monthlyFeeE4: B.money("150"), currency: .rub)])
+    #expect(
+      lines == [NoCardFeeLine(accountId: B.savings, monthlyFeeE4: B.money("150"), currency: .rub)])
   }
 
   @Test func aMetConditionOfFreeServiceTakesTheFeeAway() {

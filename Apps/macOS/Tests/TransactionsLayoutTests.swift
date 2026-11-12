@@ -1162,7 +1162,7 @@ final class TransactionsLayoutTests: XCTestCase {
     try assertSavingSettles(width: 1_120, selecting: true, "1120 pt, a row selected, in Russian")
   }
 
-  /// «Cancel» closes the editor: its column goes, the table takes the room back, and the window
+  /// The × of the editor closes it: its column goes, the table takes the room back, and the window
   /// and the sidebar stay as they were.
   func testClosingTheEditorKeepsTheWindowAndTheSidebar() throws {
     try TestEnvironment.requireScreen(width: 1_120)
@@ -1174,7 +1174,7 @@ final class TransactionsLayoutTests: XCTestCase {
     settle(window, passes: 20, "with the editor open")
     XCTAssertTrue(inspectorIsOpen(window))
 
-    let cancel = try XCTUnwrap(element(identified: "editor.cancel", in: window))
+    let cancel = try XCTUnwrap(element(identified: "editor.close", in: window))
     watched(30, "cancel") {
       _ = cancel.perform(NSSelectorFromString("accessibilityPerformPress"))
       for _ in 0..<10 { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }

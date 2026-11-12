@@ -380,6 +380,16 @@ final class TransactionEditorModel {
     key.hasPrefix("transactions.") || key.hasPrefix("editor.") ? "Transactions" : "Entry"
   }
 
+  /// «<name> · записано <moment>»: the line under the title of the sheet.
+  static func recordedLine(
+    title: RowTitle, occurredAt: Date, environment: AppEnvironment
+  ) -> String {
+    environment.language.format(
+      "editor.recorded", table: "SplitEditor",
+      RowTitleText.words(of: title, environment: environment),
+      environment.dates.moment(occurredAt))
+  }
+
   /// A purchase a live refund takes money back from stays, and the question says why.
   func requestDeletion(store: TransactionsStore) {
     let owed = store.deletionDebts()
@@ -421,6 +431,7 @@ struct TransactionEditor: View {
   }
 
   @Environment(\.appTheme) private var theme
+  @Environment(\.themeSurfaces) private var surfaces
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
@@ -467,14 +478,17 @@ struct TransactionEditor: View {
           case .details:
             DetailsPanel(
               model: editor.draft, submit: saveOnReturn, arrangement: Self.arrangement,
-              hasRoomForSegments: style == .sheet
+              hasRoomForSegments: style == .sheet, maxColumns: EntryFieldFlowMetrics.editorColumns,
+              fieldOrder: EntryFieldOrder.forEditor(environment.entryFieldOrder)
             )
             AttachedFilesCard(owner: .transaction, id: editor.id)
           case .history:
             OperationHistoryView(operationId: editor.id)
           }
         }
-        .padding(.vertical, 2)
+        .padding(.top, 2)
+        // Room under the last field: it scrolls clear of the foot instead of ending against it.
+        .padding(.bottom, Self.scrollEndInset)
       }
       .sheetFrame(
         minWidth: style == .sheet ? 620 : nil, minHeight: style == .sheet ? 360 : nil)
@@ -497,30 +511,7 @@ struct TransactionEditor: View {
       // a control cut at the edge of the page reads as scrolled, not as cut off.
       if style == .inspector { Divider() }
 
-      // Named, not read by their captions: every confirmation of the Transactions window has
-      // a «Cancel» of its own, and switching operations replaces the whole inspector
-      // (`.id(ObjectIdentifier(editor))`), so two can stand there for one frame. A UI test
-      // that asked for «Cancel» found several and refused to act (`make test-ui`, 21.09).
-      HStack {
-        Button(
-          environment.language("selection.delete", table: "Transactions"), role: .destructive
-        ) {
-          editor.requestDeletion(store: store)
-        }
-        .disabled(store.isWritingInBackground)
-        .accessibilityIdentifier("editor.delete")
-        Spacer()
-        Button(environment.language("action.cancel"), role: .cancel, action: close)
-          .accessibilityIdentifier("editor.cancel")
-        Button(environment.language("action.save")) { save() }
-          .buttonStyle(.borderedProminent)
-          // The sheet is the window's own question, and Return answers it wherever the focus is —
-          // a date, a menu. The inspector is a column beside the table, whose Return is the
-          // table's: there only a text field's Return saves.
-          .keyboardShortcut(style == .sheet ? .defaultAction : nil)
-          .disabled(!editor.canSave(in: store))
-          .accessibilityIdentifier("editor.save")
-      }
+      foot
     }
     .padding(style == .sheet ? 20 : InspectorMetrics.padding)
     .bulkConfirmation($editor.confirmation) { landed in
@@ -581,6 +572,61 @@ struct TransactionEditor: View {
     }
   }
 
+  /// Room left under the last field of the scrolling fields.
+  static let scrollEndInset: CGFloat = 16
+
+  /// A phone or a tablet heads the sheet with «Отмена», the title and «Сохранить», as the design
+  /// draws it; the Mac keeps both in the foot of the sheet.
+  private var usesTopBar: Bool {
+    #if os(iOS)
+      style == .sheet
+    #else
+      false
+    #endif
+  }
+
+  /// «Сохранить» in the accent of the theme, as the form at the side draws its main button.
+  private var saveButton: some View {
+    Button(environment.language("action.save")) { save() }
+      .buttonStyle(
+        EntryFormSaveStyle(fill: surfaces.accent, ink: surfaces.onAccent, stretches: false)
+      )
+      // The sheet is the window's own question, and Return answers it wherever the focus is —
+      // a date, a menu. The inspector is a column beside the table, whose Return is the
+      // table's: there only a text field's Return saves.
+      .keyboardShortcut(style == .sheet ? .defaultAction : nil)
+      .disabled(!editor.canSave(in: store))
+      .accessibilityIdentifier("editor.save")
+  }
+
+  private var cancelButton: some View {
+    Button(environment.language("action.cancel"), role: .cancel, action: close)
+      .accessibilityIdentifier("editor.cancel")
+  }
+
+  /// «Удалить…» on the left, «Сохранить» on the right. The sheet has a «Отмена» beside «Сохранить»
+  /// (on a phone it is in the top bar); the inspector has none — its × closes it, as the design
+  /// draws it.
+  ///
+  /// Named, not read by their captions: every confirmation of the Transactions window has a
+  /// «Cancel» of its own, and switching operations replaces the whole inspector
+  /// (`.id(ObjectIdentifier(editor))`), so two can stand there for one frame. A UI test that
+  /// asked for «Cancel» found several and refused to act (`make test-ui`, 21.09).
+  private var foot: some View {
+    HStack {
+      Button(
+        environment.language("selection.delete", table: "Transactions"), role: .destructive
+      ) {
+        editor.requestDeletion(store: store)
+      }
+      .disabled(store.isWritingInBackground)
+      .accessibilityIdentifier("editor.delete")
+      Spacer()
+      if style == .sheet && !usesTopBar { cancelButton }
+      if !usesTopBar { saveButton }
+    }
+  }
+
   /// Return in a text field of the panel: the save, when «Save» is on.
   private func saveOnReturn() {
     guard editor.canSave(in: store) else { return }
@@ -607,24 +653,43 @@ struct TransactionEditor: View {
   private var header: some View {
     switch style {
     case .sheet:
-      VStack(alignment: .leading, spacing: 2) {
-        Text(verbatim: environment.language("action.edit"))
-          .appFont(.headline)
+      VStack(alignment: usesTopBar ? .center : .leading, spacing: 2) {
+        if usesTopBar {
+          HStack {
+            cancelButton
+            Spacer(minLength: 8)
+            Text(verbatim: environment.language("action.edit"))
+              .appFont(.headline)
+            Spacer(minLength: 8)
+            saveButton
+          }
+        } else {
+          Text(verbatim: environment.language("action.edit"))
+            .appFont(.headline)
+        }
+        // «<name> · записано 22 окт, 14:20», as the design heads the sheet.
+        Text(verbatim: recordedLine)
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+          .lineLimit(1)
+          .truncationMode(.tail)
+          .accessibilityIdentifier("editor.recorded")
         if let refundMark { RefundMarkLabel(mark: refundMark) }
       }
+      .frame(maxWidth: .infinity, alignment: usesTopBar ? .center : .leading)
     case .inspector:
       // As the design heads the column (6:89248): «Правка · Обед» 17 bold and the round × at
       // the right; under it when the operation happened.
       VStack(alignment: .leading, spacing: 2) {
-        HStack(alignment: .center, spacing: 8) {
-          HStack(spacing: 0) {
-            Text(verbatim: environment.language("inspector.editPrefix", table: "Transactions"))
-            RowTitleText(title: editor.title)
-          }
-          .appFont(InspectorMetrics.title)
-          .lineLimit(2)
-          .accessibilityElement(children: .combine)
-          .accessibilityAddTraits(.isHeader)
+        HStack(alignment: .top, spacing: 8) {
+          // One text, so a long name wraps in the column instead of being cut in a cell of its
+          // own beside the prefix.
+          inspectorTitle
+            .appFont(InspectorMetrics.title)
+            .lineLimit(2)
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isHeader)
           Spacer(minLength: 8)
           Button(action: close) {
             Image(systemName: "xmark")
@@ -645,6 +710,21 @@ struct TransactionEditor: View {
         if let refundMark { RefundMarkLabel(mark: refundMark) }
       }
     }
+  }
+
+  /// «Правка · <name>» as one text.
+  private var inspectorTitle: Text {
+    let prefix = Text(
+      verbatim: environment.language("inspector.editPrefix", table: "Transactions"))
+    let name = RowTitleText.text(of: editor.title, environment: environment)
+    return Text("\(prefix)\(name)")
+  }
+
+  /// «<name> · записано <moment>»: what names the operation in the table and when it happened.
+  var recordedLine: String {
+    TransactionEditorModel.recordedLine(
+      title: editor.title, occurredAt: editor.entry.transaction.occurredAt,
+      environment: environment)
   }
 }
 
@@ -692,6 +772,11 @@ struct RowTitleText: View {
   let title: RowTitle
 
   var body: some View {
+    Self.text(of: title, environment: environment)
+  }
+
+  /// The title as one `Text`, to stand in a line of text with others.
+  static func text(of title: RowTitle, environment: AppEnvironment) -> Text {
     switch title {
     case .note(let note):
       Text(verbatim: note)
@@ -701,6 +786,15 @@ struct RowTitleText: View {
     case .kind(let kind):
       Text(verbatim: environment.language("kind.\(kind.rawValue)"))
         .foregroundStyle(.secondary)
+    }
+  }
+
+  /// The title as plain words.
+  static func words(of title: RowTitle, environment: AppEnvironment) -> String {
+    switch title {
+    case .note(let note): note
+    case .category(let path): CategoryPathText.text(path, language: environment.language)
+    case .kind(let kind): environment.language("kind.\(kind.rawValue)")
     }
   }
 }

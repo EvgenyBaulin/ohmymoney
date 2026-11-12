@@ -76,9 +76,19 @@ struct ExportPandasTests {
           BankConditions(
             id: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000001")!, accountId: account.id,
             freeCashE4: AmountE4(whole: 100_000), minBalanceE4: AmountE4(raw: 5_000_000),
-            note: "без \"сюрпризов\", с запятой"))
+            note: "без \"сюрпризов\", с запятой", noCardFeeE4: AmountE4(whole: 150)))
       ]
     }
+    // A valuation of a thing in another currency than its owner's, with a note that needs quoting.
+    rows[ExportTables.thingValuations] = [
+      ExportTables.row(
+        ThingValuation(
+          id: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000003")!, owner: .ownedItem,
+          ownerId: UUID(uuidString: "0B0B0B0B-0000-4000-8000-000000000004")!,
+          day: DateOnly(year: 2026, month: 9, day: 1), amountE4: AmountE4(raw: 1_234_500),
+          currency: .eur, note: "рынок, \"б/у\"",
+          recordedAt: Date(timeIntervalSince1970: 1_790_000_000)))
+    ]
     rows[ExportTables.depositOffers] = [
       ExportTables.row(
         DepositOffer(
@@ -159,7 +169,7 @@ struct ExportPandasTests {
       months: 6, endingOn: Synthetic.endingOn, calendar: Synthetic.calendar, language: "ru"
     ).withAccounts(seed: 20_260_918, calendar: Synthetic.calendar, language: "ru")
     let rows = Self.rows(of: set)
-    #expect(ExportTables.all.count == 54)
+    #expect(ExportTables.all.count == 55)
     #expect(Set(rows.keys) == Set(ExportTables.all), "a file of Export has no rows here")
     for table in [
       ExportTables.accountGroups, ExportTables.transfers, ExportTables.reconciliationBalances,

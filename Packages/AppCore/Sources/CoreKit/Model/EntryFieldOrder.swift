@@ -38,6 +38,19 @@ public enum EntryFieldOrder {
   /// nothing moves for an owner who never opens the setting.
   public static let standard: [EntryField] = EntryField.allCases
 
+  /// The order of the editor of a saved operation as the design draws it: the date and the
+  /// currency before the comment, which stands last. The ↓ panel keeps `standard`.
+  public static let editor: [EntryField] = [
+    .amount, .category, .quality, .forWhom, .place, .event, .account, .cashback, .goal, .debt,
+    .date, .incomeMonth, .currency, .note,
+  ]
+
+  /// The order the editor of a saved operation lays its fields in: the design's when the owner
+  /// never chose an order of his own, his own when he did.
+  public static func forEditor(_ chosen: [EntryField]) -> [EntryField] {
+    chosen == standard ? editor : chosen
+  }
+
   /// The order kept as text; nothing or an empty text is the standard order.
   public static func decode(_ stored: String?) -> [EntryField] {
     guard let stored else { return standard }

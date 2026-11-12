@@ -58,6 +58,34 @@ final class BankConditionsScenarioTests: AccountsScenarioDatabaseCase {
       try draft.conditions(accountId: saved.accountId, cardId: nil, currency: .rub).get(), saved)
   }
 
+  func testNoCardFeeIsSavedReadEditedAndCleared() async throws {
+    let account = try await make(PaymentMethod(name: "Fee account", isDefault: true))
+    var draft = BankConditionsDraft()
+    XCTAssertEqual(draft.noCardFee, "")
+    draft.noCardFee = "150,50"
+    let fee = AmountE4(raw: 1_505_000)
+    let row = try draft.conditions(accountId: account.id, cardId: nil, currency: .rub).get()
+    XCTAssertEqual(row.noCardFeeE4, fee)
+    XCTAssertTrue(BankConditionsStore.write(row, environment))
+    var read = BankConditionsDraft(BankConditionsStore.read(account: account.id, environment))
+    XCTAssertEqual(read.noCardFee, CreditDraft.text(fee))
+    XCTAssertEqual(
+      try read.conditions(accountId: account.id, cardId: nil, currency: .rub).get(), row)
+    for invalid in ["-1", "abc"] {
+      read.noCardFee = invalid
+      XCTAssertFalse(read.isValid)
+    }
+    read.noCardFee = "0"
+    XCTAssertEqual(
+      try read.conditions(accountId: account.id, cardId: nil, currency: .rub).get().noCardFeeE4,
+      .zero)
+    read.noCardFee = ""
+    XCTAssertTrue(
+      BankConditionsStore.write(
+        try read.conditions(accountId: account.id, cardId: nil, currency: .rub).get(), environment))
+    XCTAssertNil(BankConditionsStore.read(account: account.id, environment))
+  }
+
   // MARK: The database
 
   func testConditionsAreKeptReadBackAndLoadedWithTheData() async throws {
@@ -263,6 +291,7 @@ final class BankConditionsScenarioTests: AccountsScenarioDatabaseCase {
       XCTAssertTrue(said.contains("2"), said)
       let id = UUID()
       let notes: [BankNote] = [
+        .noCardFee(accountId: id, monthlyFeeE4: rub(150), currency: .rub),
         .limitNear(accountId: id, kind: .cash, leftE4: rub(15_000), currency: .rub),
         .limitExceeded(accountId: id, kind: .sbp, overE4: rub(10_000), currency: .rub),
         .minBalanceBelow(
@@ -283,6 +312,7 @@ final class BankConditionsScenarioTests: AccountsScenarioDatabaseCase {
   func testEveryLineAboutBanksHasASymbolAnActionAndAnAlarmOnlyWhenItCannotWait() {
     let id = UUID()
     let cases: [(BankNote, alarm: Bool, done: Bool)] = [
+      (.noCardFee(accountId: id, monthlyFeeE4: rub(150), currency: .rub), false, false),
       (.limitNear(accountId: id, kind: .cash, leftE4: rub(1), currency: .rub), false, false),
       (.limitExceeded(accountId: id, kind: .cash, overE4: rub(1), currency: .rub), true, false),
       (

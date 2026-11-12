@@ -138,7 +138,8 @@ public enum StatementEntryBuilder {
       cardId: choice.cardID, cashback: cashback,
       timeZoneId: zoneID == TravelDay.moscowId ? nil : zoneID, source: "statement",
       bankStatus: operation.status.rawValue, postedOn: operation.postedOn,
-      dedupKey: StatementDedupKey(account: accountKey, operation: operation).value)
+      dedupKey: StatementDedupKey(account: accountKey, operation: operation).value,
+      mcc: MerchantCode.normalized(operation.mcc))
     let part = TransactionPart(
       transactionId: id, categoryId: choice.categoryID, categorySource: choice.categorySource,
       quality: kind.hasQuality ? choice.quality : nil,

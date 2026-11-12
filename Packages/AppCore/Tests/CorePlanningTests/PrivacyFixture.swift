@@ -83,7 +83,7 @@ struct PrivacyFixture {
     d.wishes = [
       Wish(
         name: "Gift for Marina", url: "https://shop.example/marina", note: "size-M-note",
-        createdOn: Self.day(2026, 1, 1))
+        createdOn: Self.day(2026, 1, 1), imageURL: "https://shop.example/marina-picture.jpg")
     ]
     d.shoppingItems = [
       ShoppingItem(name: "Gift paper", note: "red-ribbon-note", createdOn: Self.day(2026, 1, 1))

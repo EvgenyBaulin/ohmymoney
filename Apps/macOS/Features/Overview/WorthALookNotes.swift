@@ -253,7 +253,8 @@ enum WorthALookNoteText {
 extension WorthALookNoteText {
   /// The keys of the lines about the banks.
   static let bankKeys = [
-    "look.bank.limitNear", "look.bank.limitOver", "look.bank.minBelow", "look.bank.cardEnds",
+    "look.bank.noCardFee", "look.bank.limitNear", "look.bank.limitOver", "look.bank.minBelow",
+    "look.bank.cardEnds",
     "look.bank.cardEnded", "look.bank.cardAttached", "look.bank.forgotten",
     "look.bank.forgottenAmount", "look.bank.insurance",
   ]
@@ -270,9 +271,14 @@ extension WorthALookNoteText {
         arguments: arguments)
     }
     switch note {
+    case .noCardFee(let accountId, let fee, let currency):
+      return f(
+        "look.bank.noCardFee", accounts[accountId] ?? "—",
+        money.rounded(fee, currency: currency))
     case .limitNear(let accountId, let kind, let left, let currency):
       return f(
-        "look.bank.limitNear", accounts[accountId] ?? "—", BankText.kindName(kind, environment),
+        "look.bank.noCardFee", "look.bank.limitNear", accounts[accountId] ?? "—",
+        BankText.kindName(kind, environment),
         money.rounded(left, currency: currency))
     case .limitExceeded(let accountId, let kind, let over, let currency):
       return f(
@@ -305,6 +311,7 @@ extension WorthALookNoteText {
 
   static func bankSymbol(_ note: BankNote) -> String {
     switch note {
+    case .noCardFee: "creditcard"
     case .limitNear: "gauge.with.dots.needle.67percent"
     case .limitExceeded: "exclamationmark.octagon"
     case .minBalanceBelow: "arrow.down.to.line"
@@ -319,7 +326,7 @@ extension WorthALookNoteText {
 
   static func bankActions(_ note: BankNote) -> [Action] {
     switch note {
-    case .limitNear, .limitExceeded, .minBalanceBelow: [.openAccount]
+    case .noCardFee, .limitNear, .limitExceeded, .minBalanceBelow: [.openAccount]
     case .cardExpiry(_, _, _, _, let count):
       count > 0 ? [.rebind, .openAccount, .done] : [.openAccount, .done]
     case .forgotten: [.openForgotten, .done]
@@ -336,7 +343,7 @@ extension WorthALookNoteText {
     }
     switch note {
     case .insuranceOver(let bankId, _, _, _): return bankId
-    case .limitNear(let id, _, _, _), .limitExceeded(let id, _, _, _),
+    case .noCardFee(let id, _, _), .limitNear(let id, _, _, _), .limitExceeded(let id, _, _, _),
       .minBalanceBelow(let id, _, _, _), .cardExpiry(let id, _, _, _, _):
       return bank(ofAccount: id)
     case .forgotten, .cardCount, .interestTax, .cashbackTax: return nil
@@ -553,7 +560,7 @@ struct WorthALookNoteRow: View {
     case .openAccount:
       if case .bank(let bankNote) = note {
         switch bankNote {
-        case .limitNear(let id, _, _, _), .limitExceeded(let id, _, _, _),
+        case .noCardFee(let id, _, _), .limitNear(let id, _, _, _), .limitExceeded(let id, _, _, _),
           .minBalanceBelow(let id, _, _, _), .cardExpiry(let id, _, _, _, _):
           NotificationCenter.default.post(
             name: .openSidebarItem, object: SidebarItem.account(id))

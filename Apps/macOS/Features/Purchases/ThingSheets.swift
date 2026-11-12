@@ -12,12 +12,18 @@ struct ThingEditor: View {
   @State private var price: AmountE4
   @State private var hasDay: Bool
   @State private var day: DateOnly?
-  @State private var refusal: PurchaseRefusal?
   @State private var loaded = false
+  @State private var files: AttachmentsModel
+  @State private var persisted = false
+  @State private var saving = false
 
   init(original: OwnedItem?) {
     self.original = original
-    _item = State(initialValue: original ?? OwnedItem(name: ""))
+    let seed = original ?? OwnedItem(name: "")
+    _item = State(initialValue: seed)
+    _files = State(
+      initialValue: AttachmentsModel(
+        owner: .ownedItem, ownerId: seed.id, deferred: original == nil))
     _price = State(initialValue: original?.priceE4 ?? .zero)
     _hasDay = State(initialValue: original?.boughtOn != nil)
     _day = State(initialValue: original?.boughtOn)
@@ -78,30 +84,41 @@ struct ThingEditor: View {
           Text(verbatim: t("purchases.thing.editor.note"))
         }
         .lineLimit(1...3)
+        if environment.attachments != nil {
+          Section { AttachmentsSection(model: files) }
+        }
       }
       .formStyle(.grouped)
-      FormButtons(
-        title: environment.language("action.save"),
+      .disabled(saving)
+      PurchaseEditorButtons(
         enabled: !item.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-        failure: { refusal.map { PurchasesText.refusal($0, environment) } ?? "" }
-      ) {
-        guard let dependencies else { return false }
-        var next = item
-        next.priceE4 = price.raw > 0 ? price : nil
-        next.boughtOn = hasDay ? (day ?? environment.today) : nil
-        let actions = PurchaseActions(dependencies)
-        let outcome = original == nil ? actions.add(next) : actions.save(next)
-        if case .refused(let why) = outcome { refusal = why }
-        return outcome == .done
-      }
+        saving: $saving
+      ) { await save() }
     }
     .padding(20)
-    .sheetFrame(width: 480, height: 560)
+    .sheetFrame(width: 480, height: 650)
     .onAppear {
       guard !loaded else { return }
       loaded = true
       if original == nil { item.currency = environment.defaultCurrency }
     }
+    .onDisappear { files.discardPending() }
+    .interactiveDismissDisabled(saving)
+  }
+
+  private func save() async -> String? {
+    guard let dependencies else { return t("purchases.refusal.failed") }
+    var next = item
+    next.priceE4 = price.raw > 0 ? price : nil
+    next.boughtOn = hasDay ? (day ?? environment.today) : nil
+    let actions = PurchaseActions(dependencies)
+    let outcome = original == nil && !persisted ? actions.add(next) : actions.save(next)
+    if case .refused(let why) = outcome { return PurchasesText.refusal(why, environment) }
+    guard outcome == .done else { return t("purchases.refusal.failed") }
+    persisted = true
+    let failed = await files.commitPending(
+      service: environment.attachments, store: dependencies.store, retryFailures: true)
+    return failed == 0 ? nil : t("purchases.files.failed")
   }
 
   private var currencies: [CurrencyCode] {
@@ -186,5 +203,31 @@ struct ThingSaleSheet: View {
 
   private func currencies(_ choices: PlanningChoices) -> [CurrencyCode] {
     choices.currencies.contains(currency) ? choices.currencies : choices.currencies + [currency]
+  }
+}
+
+/// Files for either origin of a thing, using the same content-addressed store.
+struct ThingFilesSheet: View {
+  @Dependency(\.environment) private var environment
+  @Environment(\.dismiss) private var dismiss
+  let line: OwnedLine
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: 12) {
+      Text(verbatim: line.name).appFont(.headline)
+      ScrollView {
+        switch line.origin {
+        case .asset(let asset): AttachedFilesCard(owner: .asset, id: asset.id)
+        case .item(let item): AttachedFilesCard(owner: .ownedItem, id: item.id)
+        }
+      }
+      HStack {
+        Spacer()
+        Button(environment.language("action.ok")) { dismiss() }
+          .keyboardShortcut(.defaultAction)
+      }
+    }
+    .padding(20)
+    .sheetFrame(width: 500, height: 460)
   }
 }

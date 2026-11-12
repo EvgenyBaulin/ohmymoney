@@ -90,7 +90,7 @@ public enum Anonymizer {
     "goal.name", "goal.whyNote", "debt.name", "debt.note", "debtEntry.groupName",
     "debtEntry.description",
     "debtEntry.note", "debtCost.name", "asset.name", "asset.note", "assetValuation.note",
-    "ownedItem.name", "ownedItem.note", "wish.name", "wish.url", "wish.note",
+    "thingValuation.note", "ownedItem.name", "ownedItem.note", "wish.name", "wish.url", "wish.imageURL", "wish.note",
     "shoppingItem.name", "shoppingItem.note", "tag.name", "rule.name", "rule.textContains",
     "dayNote.text", "scheduledPayment.name", "scheduledPayment.cancelURL",
     "expectedIncome.name", "eventBudgetItem.title", "eventTemplate.name (own)",
@@ -179,6 +179,11 @@ public enum Anonymizer {
       d.assets[index].note = nil
     }
     for index in d.assetValuations.indices { d.assetValuations[index].note = nil }
+    d.thingValuations = d.thingValuations.map {
+      var value = $0
+      value.note = nil
+      return value
+    }
     for (number, index) in d.ownedItems.indices.enumerated() {
       d.ownedItems[index].name = name(labels.ownedItem, number)
       d.ownedItems[index].note = nil
@@ -186,6 +191,7 @@ public enum Anonymizer {
     for (number, index) in d.wishes.indices.enumerated() {
       d.wishes[index].name = name(labels.wish, number)
       d.wishes[index].url = nil
+      d.wishes[index].imageURL = nil
       d.wishes[index].note = nil
     }
     for (number, index) in d.shoppingItems.indices.enumerated() {
@@ -282,8 +288,9 @@ public enum Anonymizer {
     texts += dataset.goals.flatMap { [$0.name, $0.whyNote] }
     texts += (dataset.debts + dataset.deletedDebts).flatMap { [$0.name, $0.note] }
     texts += dataset.assets.flatMap { [$0.name, $0.note] }
+    texts += dataset.thingValuations.map(\.note)
     texts += dataset.ownedItems.flatMap { [$0.name, $0.note] }
-    texts += dataset.wishes.flatMap { [$0.name, $0.url, $0.note] }
+    texts += dataset.wishes.flatMap { [$0.name, $0.url, $0.imageURL, $0.note] }
     texts += dataset.shoppingItems.flatMap { [$0.name, $0.note] }
     texts += dataset.tagBook.tags.map(\.name) + dataset.rules.map(\.name)
     texts += dataset.dayNotes.map(\.text)

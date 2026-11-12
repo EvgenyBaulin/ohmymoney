@@ -1063,6 +1063,10 @@ public final class EntryDraftModel {
     }
   }
 
+  /// The text of a bank the line was filled from: its merchant code and commission go to the
+  /// operation when it is written. Cleared when the line is emptied and by `reset()`.
+  public var bankFields: BankStoredFields?
+
   /// The draft as it is written: without what its kind has no field for — a place chosen in
   /// the panel before the kind became income stays out of the income —, and an income that names
   /// a debt owed to me as money back (`incomeIsMoneyBack`). Stored rows keep what they have;
@@ -1070,6 +1074,11 @@ public final class EntryDraftModel {
   public var draftForSaving: TransactionDraft {
     var written = draft
     if incomeIsMoneyBack { written.kind = .reimbursement }
+    if let bank = bankFields {
+      // What a pasted text of a bank said beyond the line; a field the owner set stays his.
+      if written.mcc == nil { written.mcc = bank.mcc }
+      if written.feeE4 == nil { written.feeE4 = bank.commission(in: written.currency) }
+    }
     return KindFields.stripped(written, tree: categoryTree).draft
   }
 
@@ -2491,6 +2500,27 @@ public final class EntryDraftModel {
     resolveQuality(ofPartAt: draft.parts.count - 1, in: categoryTree)
   }
 
+  /// The part that takes what is left of the total when the owner gives the remainder away: the
+  /// largest part nobody has paid back (a closed part keeps its amount), the first of equals.
+  /// `nil` when nothing is left over or no part may change.
+  public var remainderTargetIndex: Int? {
+    guard !takesBackFromAPurchase, draft.unallocated.raw > 0 else { return nil }
+    let open = draft.parts.indices.filter { !isClosedPart(id: draft.parts[$0].id) }
+    return open.max { draft.parts[$0].amount < draft.parts[$1].amount }
+      .flatMap { largest in
+        // `max(by:)` keeps the last of equals; the first one wins here.
+        open.first { draft.parts[$0].amount == draft.parts[largest].amount }
+      }
+  }
+
+  /// «Отдать остаток в «<категория>»»: what is left of the total goes to the part
+  /// `remainderTargetIndex` names, so the parts add up and the operation can be written. Only a
+  /// positive remainder is given; a part that is too large is cut by hand, never by this.
+  public func giveRemainderAway() {
+    guard let index = remainderTargetIndex else { return }
+    draft.parts[index].amount += draft.unallocated
+  }
+
   /// «Paid for someone» of the panel. An operation of one part gets a second one — empty, the
   /// total is all mine until an amount is typed into it — and the last part is paid for someone.
   /// An empty part is never saved (`saveRefusalKey`: every part above zero), so the button
@@ -3121,6 +3151,7 @@ public final class EntryDraftModel {
   public func reset() {
     // A transfer written or thrown away: the next entry is an operation again.
     transfer = nil
+    bankFields = nil
     ruleState = EntryRuleState()
     // The figure typed for the operation just saved is not the next one's.
     cashbackField = CashbackFieldState()

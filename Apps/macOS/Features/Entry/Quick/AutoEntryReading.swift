@@ -137,6 +137,7 @@ struct AutoEntryReading {
     AutoEntryLearning.remember(
       draft: draft.id, merchant: message.merchant,
       fingerprint: suggestion(receivedAt: now).fingerprint, defaults: defaults)
+    AutoEntryLearning.rememberFields(message.storedFields, draft: draft.id, defaults: defaults)
     AutoEntryFormats.remember(message: message, draft: draft.id, defaults: defaults)
     NotificationCenter.default.post(name: .draftsChanged, object: nil)
     return draft.id

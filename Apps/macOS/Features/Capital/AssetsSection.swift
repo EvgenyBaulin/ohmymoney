@@ -7,6 +7,7 @@ import SwiftUI
 /// screen (`CapitalSheet`).
 struct AssetsSection: View {
   @Dependency(\.environment) private var environment
+  @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
   let assets: [Asset]
   let valuations: [AssetValuation]
@@ -58,7 +59,11 @@ struct AssetsSection: View {
   }
 
   private func row(_ asset: Asset) -> some View {
-    let latest = AssetActions.latest(of: asset.id, among: valuations)
+    let latest = ThingValuation.history(
+      asset: asset, legacy: valuations,
+      updates: compute.snapshot?.dataset.thingValuations ?? []
+    )
+    .last { $0.day <= environment.today }
     return HStack(alignment: .firstTextBaseline, spacing: 8) {
       Image(systemName: CapitalText.kindSymbol(asset.kind))
         .foregroundStyle(.secondary)
@@ -78,7 +83,7 @@ struct AssetsSection: View {
       }
       Spacer(minLength: 8)
       if let latest {
-        Text(verbatim: environment.money.rounded(latest.valueE4, currency: asset.currency))
+        Text(verbatim: environment.money.rounded(latest.amountE4, currency: latest.currency))
           .monospacedDigit()
           .foregroundStyle(asset.isDisposed(on: environment.today) ? .secondary : .primary)
       }
@@ -124,7 +129,7 @@ struct AssetsSection: View {
 
   /// «1,500,000 ₽ на 1 октября 2026», «Ещё нет оценки», and for one sold «Продано или списано
   /// 3 октября 2026».
-  private func subtitle(_ asset: Asset, _ latest: AssetValuation?) -> String {
+  private func subtitle(_ asset: Asset, _ latest: ThingValuation?) -> String {
     var parts: [String] = []
     if let latest {
       parts.append(

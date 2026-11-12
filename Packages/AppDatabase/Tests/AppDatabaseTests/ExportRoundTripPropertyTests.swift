@@ -31,7 +31,7 @@ struct ExportRoundTripPropertyTests {
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
     "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at",
-    "arrived_at", "added_at", "trashed_at", "earned_at", "marked_at",
+    "arrived_at", "added_at", "trashed_at", "earned_at", "marked_at", "recorded_at",
   ]
   /// Columns holding a decimal kept as text.
   private static let decimals: Set<String> = [
@@ -349,6 +349,20 @@ struct ExportRoundTripPropertyTests {
         sql:
           "INSERT INTO credit_statements (id, payment_method_id, statement_on, minimum_e4, pay_by) VALUES (?, ?, '2026-09-05', 31000000, '2026-09-25')",
         arguments: [UUID().uuidString, account])
+      // Schema 26: the code and the commission of an operation, the picture of a wish, the fee
+      // without a card, and the valuation of a thing in its own currency.
+      try db.execute(sql: "UPDATE transactions SET mcc = '0742', fee_e4 = 12500 WHERE rowid = 1")
+      try db.execute(
+        sql: "UPDATE wishes SET image_url = 'https://shop.example/a,b.jpg' WHERE rowid = 1")
+      try db.execute(sql: "UPDATE bank_conditions SET no_card_fee_e4 = 1500000")
+      if let item = try String.fetchOne(db, sql: "SELECT id FROM owned_items LIMIT 1") {
+        try db.execute(
+          sql: """
+            INSERT INTO thing_valuations
+              (id, owner_kind, owner_id, valued_on, value_e4, currency, note, recorded_at)
+            VALUES (?, 'owned_item', ?, '2026-09-01', 8000000, 'EUR', 'рынок, «б/у»', '2026-09-01 10:00:00.000')
+            """, arguments: [UUID().uuidString, item])
+      }
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -507,6 +521,7 @@ struct ExportRoundTripPropertyTests {
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
           "0025_split_dates_and_credit_statements",
+          "0026_mcc_fee_valuations_wish_image",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -707,11 +722,18 @@ struct ExportRoundTripPropertyTests {
   /// The column the split dates added (`0025_split_dates_and_credit_statements`).
   private static let addedByTheSplitDates: Set<String> = ["debt_instalments.csv:due_on"]
 
+  /// The columns the merchant code, the commission, the picture of a wish and the fee without a
+  /// card added (`0026_mcc_fee_valuations_wish_image`).
+  private static let addedByTheCodeAndTheFee: Set<String> = [
+    "transactions.csv:mcc", "transactions.csv:fee", "wishes.csv:image_url",
+    "bank_conditions.csv:no_card_fee",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
     .union(addedByTheCeilings).union(addedByTheBorrowedCard).union(addedByTheReceiptsAndEnglish)
     .union(addedByThePurchases).union(addedByTheHabits).union(addedByTheCategoryMark)
-    .union(addedByTheSplitDates)
+    .union(addedByTheSplitDates).union(addedByTheCodeAndTheFee)
 
   /// The column the habits added (`0020_habits`).
   private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]

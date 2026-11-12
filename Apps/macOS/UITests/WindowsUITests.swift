@@ -55,11 +55,12 @@ final class WindowsUITests: XCTestCase {
     // header of a `Table` «not hittable» although it is drawn in full (the first run of
     // `make test-ui`, 19.09).
     row.coordinate(withNormalizedOffset: CGVector(dx: 0.3, dy: 0.5)).doubleClick()
-    // «Cancel», not «Save»: at the default size the inspector's last button can fall past the
+    // «×», not «Save»: at the default size the inspector's last button can fall past the
     // right edge of a small screen, and XCUITest then does not list it. By its identifier,
-    // not its caption: the confirmations of this window have a «Cancel» of their own.
+    // not its caption: the confirmations of this window have a «Cancel» of their own; the
+    // inspector has no «Cancel», its × closes it.
     let cancel = transactions.descendants(matching: .button)
-      .matching(identifier: "editor.cancel").firstMatch
+      .matching(identifier: "editor.close").firstMatch
     XCTAssertTrue(cancel.waitForExistence(timeout: 10), "the inspector did not open")
     XCTAssertEqual(app.state, .runningForeground)
     cancel.click()

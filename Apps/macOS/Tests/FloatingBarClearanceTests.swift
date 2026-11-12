@@ -58,7 +58,17 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     let top = try barTop(in: window)
     let viewports = try pageViewports(in: window)
     XCTAssertFalse(viewports.isEmpty, "\(section): the page scrolls")
-    for viewport in viewports {
+    // A list inside a card of the page (the calendar's day list) reports its whole height, which
+    // the page clips away: scrolled out of the page, it is no viewport of its own. It is told by
+    // being narrower than a page that clears the bar and hanging below its viewport. Whether
+    // the page really reaches its last card is the scrolled-to-the-end test's.
+    let pages = viewports.filter { inner in
+      !viewports.contains {
+        $0 != inner && $0.minY >= top - 0.5 && inner.minY < $0.minY
+          && inner.minX >= $0.minX && inner.maxX <= $0.maxX + 0.5 && inner.width < $0.width - 0.5
+      }
+    }
+    for viewport in pages {
       XCTAssertGreaterThanOrEqual(
         viewport.minY, top - 0.5,
         "\(section) \(Int(width))×\(Int(height)) \(language): the page's viewport reaches down to \(viewport.minY), the bar starts at \(top)"
@@ -107,8 +117,8 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
   }
 
   func testEveryScreenScrolledToTheEndClearsTheBar() throws {
-    // «Календарь» is a fixed page, not a scrolling one; «Операции» is a table (below).
-    for section in Self.sections where section != .operations && section != .calendar {
+    // «Операции» is a table (below).
+    for section in Self.sections where section != .operations {
       for (width, height) in [(CGFloat(1_440), CGFloat(900)), (1_024, 700)] {
         for language in [AppLanguage.Choice.russian, .english] {
           try checkScrolledToTheEnd(section, width: width, height: height, language: language)

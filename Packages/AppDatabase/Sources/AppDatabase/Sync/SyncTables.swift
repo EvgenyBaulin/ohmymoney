@@ -31,6 +31,7 @@ public enum SyncTables {
     "wishes": "id", "wish_prices": "id", "shopping_items": "id", "owned_items": "id",
     "habit_badges": "key", "no_spend_days": "day",
     "bank_cashback_categories": "id", "cashback_offers": "id", "credit_statements": "id",
+    "thing_valuations": "id",
   ]
 
   /// The bookkeeping tables of the exchange: not part of the books, left out of every copy of

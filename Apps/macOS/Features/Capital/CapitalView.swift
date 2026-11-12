@@ -132,8 +132,8 @@ struct CapitalView: View {
     switch sheet {
     case .newAsset: AssetEditor(original: nil)
     case .edit(let asset): AssetEditor(original: asset)
-    case .value(let asset): AssetValuationSheet(asset: asset)
-    case .history(let asset): AssetHistorySheet(asset: asset)
+    case .value(let asset): ThingValuationSheet(asset: asset)
+    case .history(let asset): ThingValuationSheet(asset: asset)
     case .dispose(let asset): AssetDisposalSheet(asset: asset)
     case .payout(let asset):
       ExpectedIncomeForm(
@@ -158,6 +158,10 @@ struct CapitalView: View {
       NotificationCenter.default.post(
         name: .selectSection, object: MainWindow.Section.debts.shortcutIndex)
       NotificationCenter.default.post(name: .capitalOpensDebt, object: id)
+    case .ownedItem:
+      PurchasesNavigation.shared.page = .things
+      NotificationCenter.default.post(
+        name: .selectSection, object: MainWindow.Section.purchases.shortcutIndex)
     case .asset(let id):
       if let asset = compute.snapshot?.dataset.assets.first(where: { $0.id == id }) {
         sheet = .edit(asset)
@@ -215,6 +219,7 @@ struct CapitalViewModel: Hashable {
       switch line.source {
       case .account(let id): "account.\(id).\(line.currency.code)"
       case .asset(let id): "asset.\(id)"
+      case .ownedItem(let id): "ownedItem.\(id)"
       case .debt(let id): "debt.\(id)"
       }
     }

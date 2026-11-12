@@ -101,4 +101,15 @@ struct EntryFieldOrderTests {
     #expect(EntryFieldOrder.isStandard(EntryFieldOrder.decode(nil)))
     #expect(!EntryFieldOrder.isStandard([.amount]))
   }
+
+  /// The editor of a saved operation lays the design's order — the comment last — until the owner
+  /// chooses one; a chosen order is kept as it is, and the order holds every field once.
+  @Test func theEditorHasTheDesignsOrderUntilTheOwnerChoosesOne() {
+    #expect(EntryFieldOrder.editor.last == .note)
+    #expect(Set(EntryFieldOrder.editor) == Set(EntryField.allCases))
+    #expect(EntryFieldOrder.editor.count == EntryField.allCases.count)
+    #expect(EntryFieldOrder.forEditor(EntryFieldOrder.standard) == EntryFieldOrder.editor)
+    let chosen = EntryFieldOrder.moving(EntryFieldOrder.standard, from: IndexSet(integer: 3), to: 0)
+    #expect(EntryFieldOrder.forEditor(chosen) == chosen)
+  }
 }

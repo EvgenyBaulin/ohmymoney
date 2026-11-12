@@ -75,7 +75,7 @@ final class AttachmentsModel {
       return type?.conforms(to: .image) == true ? .receipt : .document
     case .asset:
       return .warranty
-    case .debt, .subscription:
+    case .debt, .subscription, .wish, .ownedItem:
       return .document
     }
   }
@@ -106,25 +106,32 @@ final class AttachmentsModel {
     let outcome = await Task.detached(priority: .userInitiated) {
       Self.attach(sources, to: owner, id: ownerId, with: service)
     }.value
-    failedCount = outcome.failed
+    failedCount = outcome.failed.count
     store.recordAttachmentsAdded(outcome.added)
     reload(service: service)
   }
 
   /// The thing was saved: its waiting files go in, as one step. Returns how many did not.
   @discardableResult
-  func commitPending(service: AttachmentService?, store: TransactionsStore) async -> Int {
+  func commitPending(
+    service: AttachmentService?, store: TransactionsStore, retryFailures: Bool = false
+  ) async -> Int {
     let waiting = pending
     pending = []
-    defer { releaseScopes() }
-    guard !waiting.isEmpty, let service else { return waiting.count }
+    defer { if pending.isEmpty { releaseScopes() } }
+    guard !waiting.isEmpty, let service else {
+      if retryFailures { pending = waiting }
+      return waiting.count
+    }
     let owner = owner
     let ownerId = ownerId
     let outcome = await Task.detached(priority: .userInitiated) {
       Self.attach(waiting, to: owner, id: ownerId, with: service)
     }.value
     store.recordAttachmentsAdded(outcome.added)
-    return outcome.failed
+    failedCount = outcome.failed.count
+    if retryFailures { pending = outcome.failed }
+    return outcome.failed.count
   }
 
   /// The thing was not saved: its waiting files are forgotten.
@@ -145,9 +152,9 @@ final class AttachmentsModel {
   nonisolated private static func attach(
     _ sources: [AttachmentSource], to owner: AttachmentOwnerKind, id ownerId: UUID,
     with service: AttachmentService
-  ) -> (added: [AttachedFile], failed: Int) {
+  ) -> (added: [AttachedFile], failed: [AttachmentSource]) {
     var added: [AttachedFile] = []
-    var failed = 0
+    var failed: [AttachmentSource] = []
     for source in sources {
       let kind = defaultKind(for: owner, fileName: source.fileName)
       let type = mediaType(of: source.fileName)
@@ -167,7 +174,7 @@ final class AttachmentsModel {
               mediaType: type))
         }
       } catch {
-        failed += 1
+        failed.append(source)
         AppLog.warning(
           "attachments.addFailed", .db, "a file could not be attached",
           [LogPair("error", .error(error))])

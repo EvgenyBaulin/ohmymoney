@@ -248,7 +248,7 @@ public struct ExportRepository: Sendable {
               + Self.text(row, ["currency"]) + [CSVValue.string(row["priority"] as Int?)]
               + Self.text(row, ["url", "note", "created_on", "bought_transaction_id"])
               + Self.amount(row, "expected_e4") + [Self.flag(row, "archived", false)]
-              + [CSVValue.string(row["sort"] as Int?)])
+              + [CSVValue.string(row["sort"] as Int?)] + Self.text(row, ["image_url"]))
         }
       }
     case ExportTables.wishPrices.fileName:
@@ -348,6 +348,19 @@ public struct ExportRepository: Sendable {
           csv.append(
             Self.text(row, ["id", "payment_method_id", "statement_on"])
               + Self.amount(row, "minimum_e4") + Self.text(row, ["pay_by"]))
+        }
+      }
+    case ExportTables.thingValuations.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM thing_valuations ORDER BY valued_on, recorded_at, id")
+      {
+        // A row this build can not read still goes out, in the text of the database.
+        if let value = try? ThingValuation(row: row) {
+          csv.append(ExportTables.row(value))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "owner_kind", "owner_id", "valued_on"])
+              + Self.amount(row, "value_e4") + Self.text(row, ["currency", "note", "recorded_at"]))
         }
       }
     default:

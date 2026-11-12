@@ -47,7 +47,9 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
       regretAskedOn: RowMapping.day(row, "regret_asked_on"),
       refundWaitingUntil: RowMapping.day(row, "refund_waiting_until"),
       odometerKm: (try? RowMapping.optionalInteger(row, "odometer_km")) ?? nil,
-      receipt: Self.receipt(row))
+      receipt: Self.receipt(row),
+      mcc: Self.text(row, "mcc"),
+      feeE4: (try? RowMapping.optionalAmount(row, "fee_e4")) ?? nil)
   }
 
   /// The numbers of the receipt: a drive and a document number that read as numbers, or none.
@@ -127,6 +129,8 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
     container["receipt_i"] = receipt?.documentNumber
     container["receipt_fp"] = receipt?.fiscalSign
     container["receipt_n"] = receipt?.operation
+    container["mcc"] = mcc
+    container["fee_e4"] = feeE4?.raw
   }
 }
 

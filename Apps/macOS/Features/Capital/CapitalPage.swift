@@ -265,6 +265,7 @@ struct CapitalSharesCard: View {
 /// a click on the title offers a new one and the deposit showcase.
 struct CapitalAssetsCard: View {
   @Dependency(\.environment) private var environment
+  @Dependency(\.compute) private var compute
   @Environment(\.dependencies) private var dependencies
   @Environment(\.appTheme) private var theme
   let assets: [Asset]
@@ -321,7 +322,11 @@ struct CapitalAssetsCard: View {
   }
 
   private func row(_ asset: Asset) -> some View {
-    let latest = AssetActions.latest(of: asset.id, among: valuations)
+    let latest = ThingValuation.history(
+      asset: asset, legacy: valuations,
+      updates: compute.snapshot?.dataset.thingValuations ?? []
+    )
+    .last { $0.day <= environment.today }
     let gone = asset.isDisposed(on: environment.today)
     return Menu {
       menu(asset)
@@ -331,7 +336,7 @@ struct CapitalAssetsCard: View {
           symbol: CapitalText.kindSymbol(asset.kind), tint: tint(asset.kind).ink,
           fill: tint(asset.kind).fill),
         title: asset.name, detail: detail(asset, latest),
-        figure: latest.map { environment.money.rounded($0.valueE4, currency: asset.currency) },
+        figure: latest.map { environment.money.rounded($0.amountE4, currency: $0.currency) },
         figureInk: gone ? .secondary : nil)
     }
     .menuStyle(.button)
@@ -368,7 +373,7 @@ struct CapitalAssetsCard: View {
 
   /// «оценка 12 октября» (with the year when it is not this one), «Ещё нет оценки»; for one sold
   /// «Продано или списано 3 октября 2026» after it.
-  private func detail(_ asset: Asset, _ latest: AssetValuation?) -> String {
+  private func detail(_ asset: Asset, _ latest: ThingValuation?) -> String {
     var parts: [String] = []
     if let latest {
       let day =

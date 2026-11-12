@@ -28,15 +28,16 @@ private let specifiedFileNames = [
   "wish_prices.csv", "shopping_items.csv", "owned_items.csv", "habit_badges.csv",
   "no_spend_days.csv",
   "bank_cashback_categories.csv", "cashback_offers.csv", "credit_statements.csv",
+  "thing_valuations.csv",
 ]
 
-@Suite("ExportTables describes the 54 files of the export")
+@Suite("ExportTables describes the 55 files of the export")
 struct ExportTablesDescriptionTests {
   @Test func theFortyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 54)
+    #expect(ExportTables.all.count == 55)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.dropLast(3).suffix(30) == [
+      ExportTables.all.dropLast(4).suffix(30) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -141,7 +142,7 @@ struct ExportTablesDescriptionTests {
         "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
         "source", "bank_status", "posted_on", "dedup_key", "warranty_until", "warranty_where",
         "return_until", "discount", "regret", "regret_asked_on", "refund_waiting_until",
-        "odometer_km", "receipt_fn", "receipt_i", "receipt_fp", "receipt_n",
+        "odometer_km", "receipt_fn", "receipt_i", "receipt_fp", "receipt_n", "mcc", "fee",
       ])
     #expect(
       ExportTables.scheduledPayments.columns == [
@@ -225,7 +226,7 @@ struct ExportTablesDescriptionTests {
       let older = Array(table.columns.prefix(before[table.fileName] ?? 0))
       #expect(Array(older.suffix(columns.count)) == columns, "\(table.fileName)")
     }
-    #expect(ExportTables.transactions.columns.count == 45)
+    #expect(ExportTables.transactions.columns.count == 47)
     #expect(ExportTables.transactionParts.columns.count == 17)
     #expect(ExportTables.paymentMethods.columns.count == 43)
     #expect(ExportTables.templates.columns.count == 8)

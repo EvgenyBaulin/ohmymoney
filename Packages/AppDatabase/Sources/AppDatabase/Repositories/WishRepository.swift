@@ -11,6 +11,37 @@ public struct WishRepository: Sendable {
     self.writer = writer
   }
 
+  public func imageURL(of id: UUID) throws -> URL? {
+    try writer.read { db in
+      try String.fetchOne(db, sql: "SELECT image_url FROM wishes WHERE id = ?", arguments: [id.uuidString])
+        .flatMap(URL.init(string:))
+    }
+  }
+
+  /// Saved with the wish, so a failed metadata fetch can never discard the entered link. A save
+  /// that names no picture keeps the one the wish already has.
+  public func save(_ wish: Wish, isNew: Bool, imageURL: URL?) throws {
+    try writer.write { db in
+      var stored = wish
+      if let imageURL {
+        stored.imageURL = imageURL.absoluteString
+      } else if !isNew {
+        stored.imageURL =
+          try String.fetchOne(
+            db, sql: "SELECT image_url FROM wishes WHERE id = ?", arguments: [wish.id.uuidString])
+          ?? wish.imageURL
+      }
+      if isNew {
+        try stored.insert(db)
+        if let price = stored.priceE4 {
+          try WishPrice(wishId: stored.id, onDate: stored.createdOn, priceE4: price).insert(db)
+        }
+      } else {
+        try stored.update(db)
+      }
+    }
+  }
+
   // MARK: Wishes
 
   /// The wishes in the owner's order (`sort`, then the most wanted, then the oldest). A row this
@@ -50,8 +81,17 @@ public struct WishRepository: Sendable {
     }
   }
 
+  /// A wish that carries no picture keeps the one it has: a copy of the wish made before the
+  /// picture was taken must not wipe it.
   public func update(_ wish: Wish) throws {
-    try writer.write { db in try wish.update(db) }
+    try writer.write { db in
+      var stored = wish
+      if stored.imageURL == nil {
+        stored.imageURL = try String.fetchOne(
+          db, sql: "SELECT image_url FROM wishes WHERE id = ?", arguments: [wish.id.uuidString])
+      }
+      try stored.update(db)
+    }
   }
 
   /// Notes the new price of a wish on a day and makes it the price now. The same price as the
@@ -91,7 +131,12 @@ public struct WishRepository: Sendable {
   /// Deletes the wishes and, with them, their prices.
   public func delete(ids: [UUID]) throws {
     try writer.write { db in
-      for id in ids { _ = try Wish.deleteOne(db, key: id.uuidString) }
+      for id in ids {
+        try db.execute(
+          sql: "DELETE FROM attachments WHERE owner_kind = 'wish' AND owner_id = ?",
+          arguments: [id.uuidString])
+        _ = try Wish.deleteOne(db, key: id.uuidString)
+      }
     }
   }
 
@@ -223,7 +268,12 @@ public struct OwnedItemRepository: Sendable {
 
   public func delete(ids: [UUID]) throws {
     try writer.write { db in
-      for id in ids { _ = try OwnedItem.deleteOne(db, key: id.uuidString) }
+      for id in ids {
+        try db.execute(
+          sql: "DELETE FROM attachments WHERE owner_kind = 'owned_item' AND owner_id = ?",
+          arguments: [id.uuidString])
+        _ = try OwnedItem.deleteOne(db, key: id.uuidString)
+      }
     }
   }
 }
