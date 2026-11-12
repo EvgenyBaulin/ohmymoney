@@ -54,6 +54,20 @@ public struct BankMessage: Hashable, Sendable {
   public var day: DateOnly?
   /// The text it was read from, trimmed.
   public var source: String
+  /// What the text says the bank took as a commission, and the cashback it gave for the
+  /// operation: fields of the operation, never operations of their own. Only a format file
+  /// (`SmsFormat`) names them.
+  public var fee: Money?
+  public var cashback: Money?
+  /// What is available to spend (a credit card's limit included); never compared with the books.
+  public var availableBalance: Money?
+  /// The merchant category code, when the text gives one.
+  public var mcc: Int?
+  /// The bank's own id of the operation.
+  public var syncid: String?
+  public var comment: String?
+  /// The format that read the text; nil for the general scan.
+  public var formatId: String?
 
   public init(
     bank: BankBrand = .unknown, operation: BankOperation, money: Money, merchant: String? = nil,
