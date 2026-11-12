@@ -66,12 +66,18 @@ public struct ThemeColor: Equatable, Hashable, Sendable {
   /// white, whichever reaches WCAG AA with the smaller change. The passing side of the
   /// search is retained after byte rounding, so quantization cannot drop the result below AA.
   func ensuringTextContrast(on background: ThemeColor) -> ThemeColor {
-    guard contrast(on: background) < 4.5 else { return self }
+    ensuringContrast(4.5, on: background)
+  }
+
+  /// `ensuringTextContrast` for any ratio: a mark that must be told from its surface (3 : 1 for
+  /// graphics) rather than read.
+  func ensuringContrast(_ minimum: Double, on background: ThemeColor) -> ThemeColor {  // stats-only
+    guard contrast(on: background) < minimum else { return self }
     let visible = composited(over: background)
     var best = ThemeColor(0x0000_00FF)
     var smallestChange = Double.infinity  // stats-only
     for endpoint in [ThemeColor(0x0000_00FF), ThemeColor(0xFFFF_FFFF)] {
-      guard endpoint.contrast(on: background) >= 4.5 else { continue }
+      guard endpoint.contrast(on: background) >= minimum else { continue }
       var low = 0.0  // stats-only
       var high = 1.0  // stats-only
       var passing = endpoint
@@ -83,7 +89,7 @@ public struct ThemeColor: Equatable, Hashable, Sendable {
         let candidate = ThemeColor(
           red: mix(visible.red, endpoint.red), green: mix(visible.green, endpoint.green),
           blue: mix(visible.blue, endpoint.blue))
-        if candidate.contrast(on: background) >= 4.5 {
+        if candidate.contrast(on: background) >= minimum {
           high = fraction
           passing = candidate
         } else {

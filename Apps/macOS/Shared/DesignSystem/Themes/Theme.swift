@@ -16,6 +16,29 @@ extension ThemePalette {
   }
 }
 
+extension ThemePalette {
+  /// The stripes of a debt on the phone: light green for extra payments, yellow for standard
+  /// ones, red for a late one. The hue is fixed — the meaning — and only the lightness follows
+  /// the theme, until the stripe is told from the card it lies on by 3 : 1 (a graphic, not text);
+  /// a symbol and words say the same, so colour is never alone.
+  static let debtStripeMinimumContrast = 3.0  // stats-only
+  var debtStripeExtra: ThemeColor {
+    ThemeColor(0x8FD9_8FFF).ensuringContrast(Self.debtStripeMinimumContrast, on: surfaceCard)
+  }
+  var debtStripeRegular: ThemeColor {
+    ThemeColor(0xF2C2_30FF).ensuringContrast(Self.debtStripeMinimumContrast, on: surfaceCard)
+  }
+  var debtStripeOverdue: ThemeColor {
+    ThemeColor(0xE548_4DFF).ensuringContrast(Self.debtStripeMinimumContrast, on: surfaceCard)
+  }
+}
+
+extension AppThemeColors {
+  public var debtStripeExtra: Color { Color(palette.debtStripeExtra) }
+  public var debtStripeRegular: Color { Color(palette.debtStripeRegular) }
+  public var debtStripeOverdue: Color { Color(palette.debtStripeOverdue) }
+}
+
 /// The colours of one theme in one scheme, ready to paint with: `theme.surfaceBackground`,
 /// `theme.accentTint`, `theme.account1Start` and the rest are written into
 /// `ThemeColors.generated.swift` from the same JSON as the palettes.

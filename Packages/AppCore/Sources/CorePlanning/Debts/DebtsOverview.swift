@@ -32,12 +32,18 @@ public struct DebtLine: Identifiable, Hashable, Sendable {
   /// For a loan that accrues interest, the interest each payment of the journal paid first, by
   /// the id of the payment's line («из них проценты ≈»); payments that paid none are not in it.
   public var interestByPayment: [UUID: AmountE4]
+  /// How each payment line stands against the schedule (`DebtPaymentHistory`), by line id.
+  public var paymentMarks: [UUID: DebtPaymentMark]
+  /// The stripe of the whole debt: overdue if any payment was late or a due passed unpaid, else
+  /// extra if any payment was above the dues, else regular; `nil` for money owed to me.
+  public var stripe: DebtPaymentMark?
 
   public init(
     debt: Debt, balance: AmountE4, balanceRub: AmountE4?, groups: [DebtGroupTotal],
     nextPayment: DateOnly?, paidThisMonth: Bool, entries: [DebtEntry],
     dues: DebtDueState? = nil, schedule: DebtScheduleSummary? = nil,
-    accruedInterestE4: AmountE4 = .zero, interestByPayment: [UUID: AmountE4] = [:]
+    accruedInterestE4: AmountE4 = .zero, interestByPayment: [UUID: AmountE4] = [:],
+    paymentMarks: [UUID: DebtPaymentMark] = [:], stripe: DebtPaymentMark? = nil
   ) {
     self.debt = debt
     self.balance = balance
@@ -50,6 +56,8 @@ public struct DebtLine: Identifiable, Hashable, Sendable {
     self.schedule = schedule
     self.accruedInterestE4 = accruedInterestE4
     self.interestByPayment = interestByPayment
+    self.paymentMarks = paymentMarks
+    self.stripe = stripe
   }
 
   public var id: UUID { debt.id }
@@ -219,6 +227,8 @@ public struct DebtsOverview: Hashable, Sendable {
       if let interest { balance += DebtRules.balance(entries: interest.lines) }
       let accrued = interest?.accruedE4 ?? .zero
       let thisMonth = debt.paymentDay.map { DebtDueState.payday($0, in: today.monthKey) }
+      let marks = DebtPaymentHistory.marks(
+        debt: debt, entries: journal, dues: dues, calendar: ledger.calendar)
       return DebtLine(
         debt: debt, balance: balance,
         balanceRub: DebtRubles.convert(balance, from: debt.currency, rubPerUnit: rubPerUnit),
@@ -229,7 +239,9 @@ public struct DebtsOverview: Hashable, Sendable {
         schedule: schedule(
           of: debt, journal: journal, dues: dues, accrued: accrued, today: today,
           calendar: ledger.calendar),
-        accruedInterestE4: accrued, interestByPayment: interest?.interestByPayment ?? [:])
+        accruedInterestE4: accrued, interestByPayment: interest?.interestByPayment ?? [:],
+        paymentMarks: marks,
+        stripe: DebtPaymentHistory.stripe(debt: debt, marks: marks, dues: dues, today: today))
     }
 
     let open = debts.filter { !$0.closed }.map(line)
