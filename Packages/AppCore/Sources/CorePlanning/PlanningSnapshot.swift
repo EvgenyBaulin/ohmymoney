@@ -110,6 +110,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
   public var spentWithoutGoals: AmountE4
   /// Net goal contributions from the 1st through today (`GoalRules.netContributions`).
   public var goalsNetThisMonth: AmountE4
+  /// Net transfers into the cushion and deposits from the 1st through today.
+  public var accountsSavedThisMonth: AmountE4 = .zero
   /// Σ over the running subscriptions of what the next charge comes to per month and per
   /// year, in rubles; a subscription in a currency without a rate is left out.
   public var subscriptionsMonthly: AmountE4
@@ -374,6 +376,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
         through: month.lastDay),
       capital: capital,
       cushion: cushion)
+    snapshot.accountsSavedThisMonth =
+      SavingsTotals(ledger: ledger, in: toDate, income: .zero).accounts
     snapshot.npd = npd
     snapshot.creditStatements = creditStatements
     return snapshot
@@ -467,14 +471,14 @@ public struct PlanningSnapshot: Hashable, Sendable {
 
   /// «Can save this month» with the remainder the forecast step gives: the income of the
   /// month, my expenses without goal contributions, the scheduled and debt payments still
-  /// due (my share), and the net contributions of the month as what is saved already.
+  /// due (my share), and the net savings of the month as what is saved already.
   public func canSave(remainder: MonthForecast.Remainder) -> CanSave {
     CanSave(
       CanSaveInputs(
         income: income, spentWithoutGoals: spentWithoutGoals,
         plannedStillDue: planned.scheduled + planned.debts + planned.debtsDueByToday,
         remainder: remainder,
-        alreadySaved: goalsNetThisMonth))
+        alreadySaved: goalsNetThisMonth + accountsSavedThisMonth))
   }
 
   // MARK: - Pieces

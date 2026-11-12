@@ -85,7 +85,8 @@ public struct AttachmentService: Sendable {
   public func applyRetention(now: Date = Date()) throws -> [AttachmentRetention.Action] {
     let settings = try repository.settings()
     let actions = AttachmentRetention.actions(
-      for: try repository.all(), settings: settings, now: now)
+      for: try repository.all(), settings: settings, now: now,
+      transactions: try repository.receiptTransactions())
     var deletions: [UUID] = []
     for action in actions {
       switch action {

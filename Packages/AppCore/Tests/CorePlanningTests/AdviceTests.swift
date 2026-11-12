@@ -289,7 +289,7 @@ struct AdviceTests: SavingsFixtures {
     let advice = AdviceRules.savingsRate(thisMonth: september, lastMonth: august)
     #expect(
       advice.terms == [
-        term("advice.term.goalsNetThisMonth", money("8000")),
+        term("advice.term.savedThisMonth", money("8000")),
         term("advice.term.incomeThisMonth", money("100000")),
       ])
     #expect(advice.result == term("advice.term.savingsRate", .equals, .basisPoints(800)))
@@ -315,7 +315,7 @@ struct AdviceTests: SavingsFixtures {
         ledger: ledger, month: today.monthKey.previous, targetBp: 1_000))
     #expect(
       advice.terms == [
-        term("advice.term.goalsNetLastMonth", money("12000")),
+        term("advice.term.savedLastMonth", money("12000")),
         term("advice.term.incomeLastMonth", money("80000")),
       ])
     #expect(

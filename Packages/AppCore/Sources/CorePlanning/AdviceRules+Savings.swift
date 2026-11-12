@@ -34,22 +34,22 @@ extension AdviceRules {
       result: AdviceTerm(key: Key.canSave, op: .equals, value: .money(p50)), notes: notes)
   }
 
-  /// The savings rate («взносы на цели / доход месяца, сравнение с целевой долей»): net
-  /// goal contributions ÷ income of this month against the target. Before this month has any
-  /// income the last month stands in, named as such; with neither there is no rate.
+  /// The savings rate: net savings in goals, the cushion and deposits ÷ income of this month
+  /// against the target. Before this month has any income the last month stands in, named as
+  /// such; with neither there is no rate.
   static func savingsRate(thisMonth: SavingsRate, lastMonth: SavingsRate) -> Advice {
     let current: SavingsRate
-    let keys: (goals: String, income: String, rate: String)
+    let keys: (saved: String, income: String, rate: String)
     var notes: [AdviceTerm] = []
     if thisMonth.rateBp != nil {
       current = thisMonth
-      keys = (Key.goalsNetThisMonth, Key.incomeThisMonth, Key.savingsRate)
+      keys = (Key.savedThisMonth, Key.incomeThisMonth, Key.savingsRate)
       if let last = lastMonth.rateBp {
         notes.append(AdviceTerm(key: Key.savingsRateLastMonth, value: .basisPoints(last)))
       }
     } else if lastMonth.rateBp != nil {
       current = lastMonth
-      keys = (Key.goalsNetLastMonth, Key.incomeLastMonth, Key.savingsRateLastMonth)
+      keys = (Key.savedLastMonth, Key.incomeLastMonth, Key.savingsRateLastMonth)
     } else {
       return .notEnoughData(.savingsRate, reason: Reason.noIncomeForRate)
     }
@@ -63,7 +63,7 @@ extension AdviceRules {
     return Advice(
       id: AdviceBook.id(.savingsRate, nil), kind: .savingsRate,
       terms: [
-        AdviceTerm(key: keys.goals, value: .money(current.goalsNet)),
+        AdviceTerm(key: keys.saved, value: .money(current.saved)),
         AdviceTerm(key: keys.income, value: .money(current.income)),
       ],
       result: AdviceTerm(key: keys.rate, op: .equals, value: .basisPoints(rate)), notes: notes)
