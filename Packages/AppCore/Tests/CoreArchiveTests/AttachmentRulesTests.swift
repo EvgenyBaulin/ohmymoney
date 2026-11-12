@@ -101,7 +101,7 @@ struct AttachmentRetentionTests {
         for: [receipt], settings: settings, now: end, transactions: [purchase], calendar: .utc
       )
       .isEmpty)
-    let tomorrow = CalendarContext.utc.startOfDay(today.adding(days: 1))
+    let tomorrow = CalendarContext.utc.startOfDay(CalendarContext.utc.adding(days: 1, to: today))
     #expect(
       AttachmentRetention.actions(
         for: [receipt], settings: settings, now: tomorrow, transactions: [purchase], calendar: .utc)
@@ -118,15 +118,15 @@ struct AttachmentRetentionTests {
     let today = CalendarContext.utc.day(of: t0)
     var purchase = Transaction(
       id: receipt.ownerId, kind: .expense, occurredAt: t0, amountE4: AmountE4(whole: 10),
-      amountRubE4: AmountE4(whole: 10), warrantyUntil: today.adding(days: -1),
-      returnUntil: today.adding(days: 1))
+      amountRubE4: AmountE4(whole: 10), warrantyUntil: CalendarContext.utc.adding(days: -1, to: today),
+      returnUntil: CalendarContext.utc.adding(days: 1, to: today))
     #expect(
       AttachmentRetention.actions(
         for: [receipt, otherReceipt, assetReceipt], settings: settings, now: t0,
         transactions: [purchase], calendar: .utc)
         == [.moveToTrash(id: otherReceipt.id, at: t0), .moveToTrash(id: assetReceipt.id, at: t0)])
-    purchase.warrantyUntil = today.adding(days: 2)
-    purchase.returnUntil = today.adding(days: -1)
+    purchase.warrantyUntil = CalendarContext.utc.adding(days: 2, to: today)
+    purchase.returnUntil = CalendarContext.utc.adding(days: -1, to: today)
     #expect(
       AttachmentRetention.actions(
         for: [receipt], settings: settings, now: t0, transactions: [purchase], calendar: .utc
@@ -139,7 +139,7 @@ struct AttachmentRetentionTests {
     let purchase = Transaction(
       id: receipt.ownerId, kind: .expense, occurredAt: t0, amountE4: AmountE4(whole: 10),
       amountRubE4: AmountE4(whole: 10),
-      warrantyUntil: CalendarContext.utc.day(of: t0).adding(days: 100))
+      warrantyUntil: CalendarContext.utc.adding(days: 100, to: CalendarContext.utc.day(of: t0)))
     #expect(
       AttachmentRetention.actions(
         for: [receipt], settings: AttachmentSettings(keepReceiptsForever: false), now: t0,
@@ -151,7 +151,7 @@ struct AttachmentRetentionTests {
     let purchase = Transaction(
       id: receipt.ownerId, kind: .expense, occurredAt: t0, amountE4: AmountE4(whole: 10),
       amountRubE4: AmountE4(whole: 10),
-      warrantyUntil: CalendarContext.utc.day(of: t0).adding(days: -1))
+      warrantyUntil: CalendarContext.utc.adding(days: -1, to: CalendarContext.utc.day(of: t0)))
     #expect(
       AttachmentRetention.actions(
         for: [receipt], settings: AttachmentSettings(keepReceiptsForever: false), now: t0,
