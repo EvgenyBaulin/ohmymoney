@@ -542,15 +542,6 @@ struct OverviewTitleActions: View {
       Group {
         Menu {
           Button {
-            NotificationCenter.default.post(name: .showCommandPalette, object: nil)
-          } label: {
-            Label {
-              Text(verbatim: QuestionsText.t("questions.menu.palette", environment))
-            } icon: {
-              Image(systemName: "command")
-            }
-          }
-          Button {
             NotificationCenter.default.post(name: .showQuestionSheet, object: nil)
           } label: {
             Label {
@@ -701,17 +692,8 @@ struct PhoneToolbar: ViewModifier {
         .disabled(!deps.store.canUndo)
       }
       ToolbarItemGroup(placement: .topBarTrailing) {
-        // The palette of commands and the question, a sheet on the phone.
-        Button {
-          NotificationCenter.default.post(name: .showCommandPalette, object: nil)
-        } label: {
-          Label {
-            Text(verbatim: QuestionsText.t("questions.menu.palette", environment))
-          } icon: {
-            Image(systemName: "command")
-          }
-        }
-        .accessibilityIdentifier("toolbar.palette")
+        // No palette of commands here: it is the list of keyboard shortcuts, and a phone has
+        // no keyboard to press them on.
         Button {
           environment.amounts.toggle()
         } label: {
