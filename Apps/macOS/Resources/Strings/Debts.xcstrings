@@ -4438,6 +4438,24 @@
         }
       }
     },
+    "debts.summary.accrued": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "plus interest due: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "плюс проценты к выплате: %@"
+          }
+        }
+      }
+    },
     "debts.summary.debts": {
       "extractionState": "manual",
       "localizations": {
@@ -4565,6 +4583,24 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "debts.summary.instalments": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ", of which instalments: %lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ", из них рассрочек: %lld"
           }
         }
       }
