@@ -338,85 +338,111 @@ struct CategoriesSettingsView: View {
     // Read once for the row: both the caption of a system category and the quality picker ask.
     let tree = wholeTree()
     let isSystem = tree.systemRole(of: category.id) != nil
-    return HStack {
-      markButton(category, tree: tree, isChild: isChild)
-      TextField(text: nameBinding(for: category)) { EmptyView() }
-        .labelsHidden()
-        .textFieldStyle(.plain)
-        .fontWeight(isChild ? .regular : .semibold)
-        .focused($editingName, equals: category.id)
-        .onSubmit { commitName(of: category.id) }
-        .frame(maxWidth: 240, alignment: .leading)
-      // A system category can be renamed, but not archived or deleted — and neither can a
-      // subcategory of one: the role is handed down by the tree, and a goal's subcategory taken
-      // away would be made again by the next contribution. Said in a word, with the reason on
-      // hover, rather than by a bare lock.
-      if isSystem {
-        Text(verbatim: environment.language("categories.system", table: "Settings"))
-          .appFont(.callout)
-          .foregroundStyle(.secondary)
-          .help(environment.language("categories.system.help", table: "Settings"))
-          .accessibilityIdentifier("categories.row.system")
+    return Group {
+      if LayoutIdiom.current == .phone {
+        // The Mac's one-line row is wider than a phone: the name and its marks stand above, the
+        // limit and the quality under them.
+        VStack(alignment: .leading, spacing: 6) {
+          HStack {
+            rowLead(category, tree: tree, isChild: isChild, isSystem: isSystem)
+            Spacer(minLength: 8)
+          }
+          HStack { rowTrail(category, tree: tree) }
+        }
       } else {
-        if category.archived {
-          Text(verbatim: environment.language("categories.archived", table: "Settings"))
-            .appFont(.callout)
-            .foregroundStyle(.secondary)
+        HStack {
+          rowLead(category, tree: tree, isChild: isChild, isSystem: isSystem)
+          Spacer(minLength: 8)
+          rowTrail(category, tree: tree)
         }
-        if kind == .expense, tree.isEssential(category.id) {
-          Label {
-            Text(verbatim: environment.language("categories.essential.mark", table: "Settings"))
-          } icon: {
-            Image(systemName: CushionText.symbol)
-          }
+      }
+    }
+  }
+
+  @ViewBuilder
+  private func rowLead(
+    _ category: CoreKit.Category, tree: CategoryTree, isChild: Bool, isSystem: Bool
+  ) -> some View {
+    markButton(category, tree: tree, isChild: isChild)
+    TextField(text: nameBinding(for: category)) { EmptyView() }
+      .labelsHidden()
+      .textFieldStyle(.plain)
+      .fontWeight(isChild ? .regular : .semibold)
+      .focused($editingName, equals: category.id)
+      .onSubmit { commitName(of: category.id) }
+      .frame(maxWidth: 240, alignment: .leading)
+    // A system category can be renamed, but not archived or deleted — and neither can a
+    // subcategory of one: the role is handed down by the tree, and a goal's subcategory taken
+    // away would be made again by the next contribution. Said in a word, with the reason on
+    // hover, rather than by a bare lock.
+    if isSystem {
+      Text(verbatim: environment.language("categories.system", table: "Settings"))
+        .appFont(.callout)
+        .foregroundStyle(.secondary)
+        .help(environment.language("categories.system.help", table: "Settings"))
+        .accessibilityIdentifier("categories.row.system")
+    } else {
+      if category.archived {
+        Text(verbatim: environment.language("categories.archived", table: "Settings"))
           .appFont(.callout)
           .foregroundStyle(.secondary)
-          .accessibilityIdentifier("categories.row.essential")
-        }
-        if kind == .income, selfEmployment.enabled,
-          let mark = CategoryTax.mark(category.id, tree: tree, environment)
-        {
-          // The tax, in words beside its symbol: never told by colour.
-          Label {
-            Text(verbatim: mark)
-          } icon: {
-            Image(systemName: "percent")
-          }
-          .appFont(.callout)
-          .foregroundStyle(.secondary)
-          .accessibilityIdentifier("categories.row.tax")
-        }
-        rowMenu(category, tree: tree)
       }
-      Spacer(minLength: 8)
-      if kind == .expense {
-        if LimitRules.offersLimit(
-          on: category.id, tree: tree, limitless: limitless,
-          taxCategoryId: selfEmployment.taxCategoryId)
-        {
-          CategoryLimitField(
-            stored: LimitRules.categoryLimit(of: category.id, in: budgets),
-            commit: { commitLimit($0, for: category.id) },
-            cancel: {
-              if limitRefusal?.categoryId == category.id { limitRefusal = nil }
-            })
-        } else {
-          // Keeps the pickers of quality in one column.
-          Color.clear.frame(width: CategoryLimitField.width, height: 1)
+      if kind == .expense, tree.isEssential(category.id) {
+        Label {
+          Text(verbatim: environment.language("categories.essential.mark", table: "Settings"))
+        } icon: {
+          Image(systemName: CushionText.symbol)
         }
-        Picker(selection: qualityBinding(for: category)) {
-          Text(verbatim: "—").tag(Quality?.none)
-          ForEach(Quality.allCases, id: \.self) { quality in
-            Text(verbatim: environment.language(Palette.qualityKey(quality)))
-              .tag(Quality?.some(quality))
-          }
-        } label: {
-          EmptyView()
-        }
-        .labelsHidden()
-        .frame(width: 150)
-        .disabled(Self.qualityIsFixed(category, in: tree))
+        .appFont(.callout)
+        .foregroundStyle(.secondary)
+        .accessibilityIdentifier("categories.row.essential")
       }
+      if kind == .income, selfEmployment.enabled,
+        let mark = CategoryTax.mark(category.id, tree: tree, environment)
+      {
+        // The tax, in words beside its symbol: never told by colour.
+        Label {
+          Text(verbatim: mark)
+        } icon: {
+          Image(systemName: "percent")
+        }
+        .appFont(.callout)
+        .foregroundStyle(.secondary)
+        .accessibilityIdentifier("categories.row.tax")
+      }
+      rowMenu(category, tree: tree)
+    }
+  }
+
+  @ViewBuilder
+  private func rowTrail(_ category: CoreKit.Category, tree: CategoryTree) -> some View {
+    if kind == .expense {
+      if LimitRules.offersLimit(
+        on: category.id, tree: tree, limitless: limitless,
+        taxCategoryId: selfEmployment.taxCategoryId)
+      {
+        CategoryLimitField(
+          stored: LimitRules.categoryLimit(of: category.id, in: budgets),
+          commit: { commitLimit($0, for: category.id) },
+          cancel: {
+            if limitRefusal?.categoryId == category.id { limitRefusal = nil }
+          })
+      } else {
+        // Keeps the pickers of quality in one column.
+        Color.clear.frame(width: CategoryLimitField.width, height: 1)
+      }
+      Picker(selection: qualityBinding(for: category)) {
+        Text(verbatim: "—").tag(Quality?.none)
+        ForEach(Quality.allCases, id: \.self) { quality in
+          Text(verbatim: environment.language(Palette.qualityKey(quality)))
+            .tag(Quality?.some(quality))
+        }
+      } label: {
+        EmptyView()
+      }
+      .labelsHidden()
+      .frame(width: 150)
+      .disabled(Self.qualityIsFixed(category, in: tree))
     }
   }
 

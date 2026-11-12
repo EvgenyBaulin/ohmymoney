@@ -119,32 +119,59 @@ struct ReferenceBooksView: View {
     #endif
   }
 
+  private var bookPicker: some View {
+    Picker(selection: $book) {
+      ForEach(Book.allCases) { item in
+        Text(verbatim: t(item.titleKey)).tag(item)
+      }
+    } label: {
+      EmptyView()
+    }
+    .pickerStyle(.segmented)
+    .labelsHidden()
+  }
+
+  private var archiveToggle: some View {
+    Toggle(isOn: $showsArchive) {
+      Text(verbatim: t("references.showArchive"))
+    }
+    .toggleStyle(.checkbox)
+  }
+
   private var formLayout: some View {
     VStack(alignment: .leading, spacing: 12) {
-      HStack(spacing: 12) {
-        Picker(selection: $book) {
-          ForEach(Book.allCases) { item in
-            Text(verbatim: t(item.titleKey)).tag(item)
-          }
-        } label: {
-          EmptyView()
+      // Three segments and the archive switch are wider than a phone side by side.
+      if LayoutIdiom.current == .phone {
+        VStack(alignment: .leading, spacing: 12) {
+          bookPicker
+          archiveToggle
         }
-        .pickerStyle(.segmented)
-        .labelsHidden()
-        .fixedSize()
-        Spacer(minLength: 0)
-        Toggle(isOn: $showsArchive) {
-          Text(verbatim: t("references.showArchive"))
+      } else {
+        HStack(spacing: 12) {
+          bookPicker.fixedSize()
+          Spacer(minLength: 0)
+          archiveToggle
         }
-        .toggleStyle(.checkbox)
       }
 
-      HStack(alignment: .top, spacing: 12) {
-        list
-          .frame(width: 240)
-        Divider()
-        detail
-          .frame(maxWidth: .infinity, alignment: .leading)
+      if LayoutIdiom.current == .phone {
+        // The list and the form of the chosen record side by side leave the form a column of
+        // two letters on a phone: one under the other.
+        VStack(alignment: .leading, spacing: 12) {
+          list
+            .frame(maxWidth: .infinity, minHeight: 220)
+          Divider()
+          detail
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+      } else {
+        HStack(alignment: .top, spacing: 12) {
+          list
+            .frame(width: 240)
+          Divider()
+          detail
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
       }
 
       if let note {
