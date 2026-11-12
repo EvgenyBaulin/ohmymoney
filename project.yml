@@ -342,6 +342,7 @@ targets:
       - path: Apps/macOS/Tests/SyncEncryptionTests.swift
       - path: Apps/macOS/Tests/CloudKitTransportTests.swift
       - path: Apps/macOS/Tests/SharedItemProviderReaderTests.swift
+      - path: Apps/macOS/Tests/NegativeBalanceContentTests.swift
       - path: Apps/ShareExtension/SharedItemProviderReader.swift
     dependencies:
       - target: OhMyMoney-iOS
