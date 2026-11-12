@@ -21,7 +21,13 @@ struct OverviewHero: View {
     free: FreeMoney, horizon: FreeMoneyHorizon, _ environment: AppEnvironment
   ) -> PlanningHero.Content? {
     guard free.state == .ready, let amount = free.grey else { return nil }
-    let figure = environment.money.rounded(amount)
+    let figure = environment.money.rounded(free.spendable ?? .zero)
+    if amount <= .zero {
+      return PlanningHero.Content(
+        caption: environment.language(
+          horizon == .thirtyDays ? "free.now" : "free.untilIncome", table: "Planning"),
+        figure: figure, lines: [FreeMoneyRecoveryText.explanation(free, environment)])
+    }
     let daily = environment.money.rubles(free.dailyRubles)
     let line =
       horizon == .nearestIncome

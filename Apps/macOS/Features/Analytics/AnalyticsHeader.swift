@@ -125,7 +125,7 @@ struct AnalyticsMetrics: Equatable, Sendable {
   /// the chips on their own line, 10 × 5, 6 apart, the chosen one on the accent; 14 between the
   /// parts.
   static let phone = AnalyticsMetrics(
-    side: 16, top: 8, subtitleGap: 4, stackGap: 14,
+    side: PhoneMetrics.screenMargin, top: 8, subtitleGap: 4, stackGap: 14,
     groupTrack: 2, groupHorizontal: 10, groupVertical: 6, groupGap: 2, groupRadius: 8,
     groupsFillWidth: true, dividerHeight: 18, chipsOnOwnLine: true,
     chipHorizontal: 10, chipVertical: 5, chipGap: 6, chosenChipFilled: true,

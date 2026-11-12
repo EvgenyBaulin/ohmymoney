@@ -75,15 +75,18 @@ final class DataScenarioReferenceBookTests: XCTestCase {
     XCTAssertEqual(try books.places().map(\.id), [place.id])
   }
 
-  /// A person whose name a live person took meanwhile stays in the archive.
-  func testANameTakenMeanwhileKeepsTheOldRowInTheArchive() throws {
-    let old = Person(name: "Аня")
+  /// Explicit restoration keeps the same identity even beside a live namesake.
+  func testANameTakenMeanwhileDoesNotPreventRestoringTheSamePerson() throws {
+    let old = Person(name: "Аня", aliases: ["Анна"])
     try books.save(old)
     try books.archive(old.id, in: .people)
-    try books.save(Person(name: "аня"))
-    XCTAssertThrowsError(try books.restore(old.id, in: .people)) {
-      XCTAssertEqual($0 as? ReferenceWriteError, .nameTaken)
-    }
+    let new = Person(name: "аня")
+    try books.save(new)
+    try books.restore(old.id, in: .people)
+    let people = try books.people()
+    XCTAssertEqual(Set(people.map(\.id)), [old.id, new.id])
+    XCTAssertEqual(people.first { $0.id == old.id }?.aliases, old.aliases)
+    XCTAssertEqual(people.first { $0.id == new.id }, new)
   }
 
   /// Events may share a name: a yearly birthday is made again every year.

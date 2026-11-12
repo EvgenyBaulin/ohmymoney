@@ -29,10 +29,14 @@ public struct PlanningRows: Sendable, Hashable {
   public var cashbackRules: [CashbackRule]
   public var assets: [Asset]
   public var assetValuations: [AssetValuation]
+  /// The market valuations of things; the history of a thing is kept with it.
+  public var thingValuations: [ThingValuation]
   /// The sums of dues typed from a bank's app.
   public var debtInstalments: [DebtInstalmentStep]
   /// What else a loan costs.
   public var debtCosts: [DebtCost]
+  /// The minimum payments typed from a bank's statements.
+  public var creditStatements: [CreditStatementOverride]
   public var allocationRules: [AllocationRule]
   /// Saved «what if» scenarios; one deleted softly is written back with `deletedAt` set.
   public var scenarios: [Scenario]
@@ -53,8 +57,11 @@ public struct PlanningRows: Sendable, Hashable {
     assets: [Asset] = [], assetValuations: [AssetValuation] = [],
     debtInstalments: [DebtInstalmentStep] = [], debtCosts: [DebtCost] = [],
     allocationRules: [AllocationRule] = [], customCurrencies: [CustomCurrency] = [],
-    rates: [Rate] = [], scenarios: [Scenario] = []
+    rates: [Rate] = [], scenarios: [Scenario] = [],
+    creditStatements: [CreditStatementOverride] = [], thingValuations: [ThingValuation] = []
   ) {
+    self.thingValuations = thingValuations
+    self.creditStatements = creditStatements
     self.scenarios = scenarios
     self.rates = rates
     self.debtInstalments = debtInstalments
@@ -108,8 +115,10 @@ public struct PlanningRowIDs: Sendable, Hashable {
   public var cashbackRules: [UUID]
   public var assets: [UUID]
   public var assetValuations: [UUID]
+  public var thingValuations: [UUID]
   public var debtInstalments: [UUID]
   public var debtCosts: [UUID]
+  public var creditStatements: [UUID]
   public var allocationRules: [UUID]
   public var scenarios: [UUID]
   /// Custom currencies are keyed by their code.
@@ -125,8 +134,10 @@ public struct PlanningRowIDs: Sendable, Hashable {
     cashbackRules: [UUID] = [], banks: [UUID] = [], assets: [UUID] = [],
     assetValuations: [UUID] = [], debtInstalments: [UUID] = [], debtCosts: [UUID] = [],
     allocationRules: [UUID] = [], customCurrencies: [CurrencyCode] = [], rates: [RateKey] = [],
-    scenarios: [UUID] = []
+    scenarios: [UUID] = [], creditStatements: [UUID] = [], thingValuations: [UUID] = []
   ) {
+    self.thingValuations = thingValuations
+    self.creditStatements = creditStatements
     self.scenarios = scenarios
     self.rates = rates
     self.debtInstalments = debtInstalments
@@ -293,6 +304,8 @@ public struct PlanningUndo: Sendable, Hashable {
   /// What an account merge of the change did, for ⌘Z.
   public var accountMerge: AccountMergeUndo?
   public var referenceBook: ReferenceBookUndo?
+  /// Spending rules that followed a merge of cards.
+  var cardRules: [RewrittenRule] = []
   /// The change as it was asked for, so ⇧⌘Z can make it again after ⌘Z took it back.
   public var change: PlanningChange?
 
@@ -525,6 +538,7 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.debts, db: db)
     try journal.upsert(rows.allocationRules, db: db)
     try journal.upsert(rows.scenarios, db: db)
+    try journal.upsert(rows.creditStatements, db: db)
     try journal.upsertCustomCurrencies(rows.customCurrencies, db: db)
     try journal.upsertRates(rows.rates, db: db)
     try journal.upsert(rows.debtInstalments, db: db)
@@ -539,6 +553,8 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.assets, db: db)
     try journal.delete(AssetValuation.self, ids: change.delete.assetValuations, db: db)
     try journal.upsert(rows.assetValuations, db: db)
+    try journal.delete(ThingValuation.self, ids: change.delete.thingValuations, db: db)
+    try journal.upsert(rows.thingValuations, db: db)
     // New operations are written the way `TransactionRepository.insert` writes them: as new
     // rows, so an id or an `external_id` that is already there fails the change. Each is given
     // an account like any other (`TransactionRepository.assigningAccount`), and a refund is
@@ -561,7 +577,9 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.transfers, db: db)
     try journal.upsert(rows.reconciliations, db: db)
     try journal.upsert(rows.reconciledBalances, db: db)
-    let moved = try Self.moveCards(change.movingCards, journal: &journal, db: db)
+    var cardRules: [RewrittenRule] = []
+    let moved = try Self.moveCards(
+      change.movingCards, journal: &journal, rules: &cardRules, db: db)
     let merged = try change.mergingAccounts.map {
       try AccountRepository.merge($0, calendar: context.calendar, db: db)
     }
@@ -586,6 +604,7 @@ public struct PlanningRepository: Sendable {
     try journal.delete(DebtInstalmentStep.self, ids: gone.debtInstalments, db: db)
     try journal.delete(AllocationRule.self, ids: gone.allocationRules, db: db)
     try journal.delete(Scenario.self, ids: gone.scenarios, db: db)
+    try journal.delete(CreditStatementOverride.self, ids: gone.creditStatements, db: db)
     try journal.deleteRates(gone.rates, db: db)
     try journal.deleteCustomCurrencies(gone.customCurrencies, db: db)
     try journal.delete(CashbackRule.self, ids: gone.cashbackRules, db: db)
@@ -644,7 +663,7 @@ public struct PlanningRepository: Sendable {
       touch.wholeAccounts.formUnion([mainBefore, mainAfter].compactMap { $0 })
     }
     let counts = try LiveCountsWriter.settle(touch, context: context, now: change.at, db: db)
-    return PlanningUndo(
+    var undo = PlanningUndo(
       createdTransactionIds: change.created.map(\.id), inserted: journal.inserted,
       before: journal.before, settingsBefore: settingsBefore, rowIDs: journal.rowIDs,
       cleared: journal.cleared, rewrittenBefore: rewrites.before,
@@ -652,13 +671,16 @@ public struct PlanningRepository: Sendable {
       releasedRefunds: rewrites.releasedRefunds, written: written, countTouch: touch,
       counts: counts, movedCards: moved, accountMerge: merged, change: change,
       referenceBook: referenceBook)
+    undo.cardRules = cardRules
+    return undo
   }
 
   /// Points what named each merged card at its kept card (`PlanningChange.movingCards`): the
   /// operations, kept by id for ⌘Z, and the scheduled payments, kept whole. Both cards are to
   /// be cards of one account.
   private static func moveCards(
-    _ moves: [UUID: UUID], journal: inout UndoJournal, db: Database
+    _ moves: [UUID: UUID], journal: inout UndoJournal, rules: inout [RewrittenRule],
+    db: Database
   ) throws -> [MovedCardReference] {
     var moved: [MovedCardReference] = []
     for (from, into) in moves.sorted(by: { $0.key.uuidString < $1.key.uuidString }) {
@@ -677,6 +699,7 @@ public struct PlanningRepository: Sendable {
       try db.execute(
         sql: "UPDATE transactions SET card_id = ? WHERE card_id = ?",
         arguments: [into.uuidString, from.uuidString])
+      rules += try SpendingRulesRepository.repointRules(.card, from: from, to: into, db: db)
       try journal.keepRows(ScheduledPayment.self, where: "card_id", is: from, db: db)
       try db.execute(
         sql: "UPDATE scheduled_payments SET card_id = ? WHERE card_id = ?",
@@ -881,6 +904,7 @@ public struct PlanningRepository: Sendable {
       try ReferenceRepository.revert(referenceBook, db: db)
     }
     if let merge = undo.accountMerge { try AccountRepository.revertMerge(merge, db: db) }
+    try SpendingRulesRepository.revertRules(undo.cardRules, db: db)
     if !undo.deletion.deletedIds.isEmpty {
       try TransactionRepository.restore(
         ids: undo.deletion.deletedIds, at: instant, effects: undo.deletion, db: db)
@@ -935,11 +959,13 @@ public struct PlanningRepository: Sendable {
     try Self.deleteAll(DebtInstalmentStep.self, ids: added.debtInstalments, db: db)
     try Self.deleteAll(AllocationRule.self, ids: added.allocationRules, db: db)
     try Self.deleteAll(Scenario.self, ids: added.scenarios, db: db)
+    try Self.deleteAll(CreditStatementOverride.self, ids: added.creditStatements, db: db)
     for key in added.rates { _ = try Rate.deleteOne(db, key: key.databaseKey) }
     for code in added.customCurrencies {
       _ = try CustomCurrency.deleteOne(db, key: code.code)
     }
     try Self.deleteAll(CashbackRule.self, ids: added.cashbackRules, db: db)
+    try Self.deleteAll(ThingValuation.self, ids: added.thingValuations, db: db)
     try Self.deleteAll(AssetValuation.self, ids: added.assetValuations, db: db)
     try Self.deleteAll(Asset.self, ids: added.assets, db: db)
     try Self.deleteAll(Budget.self, ids: added.budgets, db: db)
@@ -965,6 +991,7 @@ public struct PlanningRepository: Sendable {
     for row in before.debts { try row.save(db) }
     for row in before.allocationRules { try row.save(db) }
     for row in before.scenarios { try row.save(db) }
+    for row in before.creditStatements { try row.save(db) }
     for row in before.customCurrencies { try row.save(db) }
     for row in before.rates { try row.save(db) }
     for row in before.debtInstalments { try row.save(db) }
@@ -975,6 +1002,7 @@ public struct PlanningRepository: Sendable {
     for row in before.cashbackRules { try row.save(db) }
     for row in before.assets { try row.save(db) }
     for row in before.assetValuations { try row.save(db) }
+    for row in before.thingValuations { try row.save(db) }
     for row in before.debtEntries { try row.save(db) }
     for row in before.debtCosts { try row.save(db) }
     for row in before.expectedLinks { try row.save(db) }
@@ -1019,11 +1047,13 @@ public struct PlanningRepository: Sendable {
     try Self.restoreRowIDs(before.cashbackRules, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.assets, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.assetValuations, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.thingValuations, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtEntries, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtCosts, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.debtInstalments, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.allocationRules, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.scenarios, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.creditStatements, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.expectedLinks, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.prices, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.reconciliations, undo.rowIDs, db: db)
@@ -1623,7 +1653,13 @@ extension Asset: PlanningRow {
   /// history.
   static func keepDependents(of id: UUID, journal: inout UndoJournal, db: Database) throws {
     try journal.keepRows(AssetValuation.self, where: "asset_id", is: id, db: db)
+    try journal.keepRows(ThingValuation.self, where: "owner_id", is: id, db: db)
   }
+}
+
+extension ThingValuation: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.thingValuations }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.thingValuations }
 }
 
 extension AssetValuation: PlanningRow {
@@ -1644,6 +1680,11 @@ extension DebtCost: PlanningRow {
 extension AllocationRule: PlanningRow {
   static var rows: WritableKeyPath<PlanningRows, [Self]> { \.allocationRules }
   static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.allocationRules }
+}
+
+extension CreditStatementOverride: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.creditStatements }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.creditStatements }
 }
 
 extension Scenario: PlanningRow {

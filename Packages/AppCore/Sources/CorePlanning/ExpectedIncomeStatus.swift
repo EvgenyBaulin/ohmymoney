@@ -177,13 +177,12 @@ public enum ExpectedIncomeRules {
   /// The incomes whose name another one of `incomes` has too, whatever the case and the spaces
   /// around it. Names may repeat; a menu tells these apart by amount and date.
   public static func namesakes(among incomes: [ExpectedIncome]) -> Set<UUID> {
-    func key(_ name: String) -> String {
-      name.trimmingCharacters(in: .whitespacesAndNewlines)
-        .folding(options: [.caseInsensitive], locale: nil)
-    }
     var counts: [String: Int] = [:]
-    for income in incomes { counts[key(income.name), default: 0] += 1 }
-    return Set(incomes.filter { (counts[key($0.name)] ?? 0) > 1 }.map(\.id))
+    for income in incomes {
+      let key = NameKey.fold(income.name)
+      if !key.isEmpty { counts[key, default: 0] += 1 }
+    }
+    return Set(incomes.filter { (counts[NameKey.fold($0.name)] ?? 0) > 1 }.map(\.id))
   }
 
   // MARK: - Where the money comes and what an operation pays

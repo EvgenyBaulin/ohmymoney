@@ -162,23 +162,37 @@ final class StatementImportModel {
       let scoped = url.startAccessingSecurityScopedResource()
       let data = try? Data(contentsOf: url)
       if scoped { url.stopAccessingSecurityScopedResource() }
-      var file = LoadedFile(id: nextFileID, name: url.lastPathComponent, reading: .failed)
-      nextFileID += 1
-      if let data {
-        file.fileHash = Self.hash(data)
-        file.reading = await Self.read(data, fileExtension: url.pathExtension, owned: owned)
-        file.loadedBefore = file.fileHash.flatMap {
-          (try? environment.statementImports?.liveImport(withHash: $0))?.record.importedAt
-        }
-      }
-      if let parsed = file.parsed {
-        file.accountID = suggestedAccount(profileID: parsed.profileID, header: parsed.header)
-        file.zoneID = Self.zoneID(of: parsed.profileID, owned: owned)
-      }
-      files.append(file)
-      rebuild(file: file.id)
+      await addFile(data: data, name: url.lastPathComponent, owned: owned)
     }
     refresh()
+  }
+
+  /// Clipboard and drop imports keep the original bytes, just like a file selected by URL.
+  func add(data: Data, name: String) async {
+    isReading = true
+    defer { isReading = false }
+    let owned = (try? environment.statementImports?.profiles()) ?? []
+    await addFile(data: data, name: name, owned: owned)
+    refresh()
+  }
+
+  private func addFile(data: Data?, name: String, owned: [StatementProfile]) async {
+    var file = LoadedFile(id: nextFileID, name: name, reading: .failed)
+    nextFileID += 1
+    if let data {
+      file.fileHash = Self.hash(data)
+      file.reading = await Self.read(
+        data, fileExtension: (name as NSString).pathExtension, owned: owned)
+      file.loadedBefore = file.fileHash.flatMap {
+        (try? environment.statementImports?.liveImport(withHash: $0))?.record.importedAt
+      }
+    }
+    if let parsed = file.parsed {
+      file.accountID = suggestedAccount(profileID: parsed.profileID, header: parsed.header)
+      file.zoneID = Self.zoneID(of: parsed.profileID, owned: owned)
+    }
+    files.append(file)
+    rebuild(file: file.id)
   }
 
   /// SHA-256 of the file's bytes: the same file twice is noticed without keeping its text.

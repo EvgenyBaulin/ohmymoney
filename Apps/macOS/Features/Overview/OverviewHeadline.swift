@@ -29,7 +29,7 @@ enum OverviewHeadline {
   }
 
   /// The words of the card: «До 9 декабря · 30 дней», «Сейчас свободно 41 600 ₽» (or «Свободно
-  /// до дохода …», or «Не хватает …» below zero), and the line of the day as Planning says it.
+  /// до дохода …»), and the daily guide or the separate shortages with a recovery guide.
   /// `nil` while nothing is counted and there is no figure to show.
   @MainActor
   static func make(
@@ -51,8 +51,7 @@ enum OverviewHeadline {
     case .short:
       return OverviewHeadlineContent(
         caption: caption,
-        title: environment.format(
-          "overview.headline.short", table: table, environment.money.rounded(-figure)),
+        title: "\(words.caption) \(words.figure)",
         line: line, verdict: environment.language("overview.verdict.short", table: table),
         tone: .bad)
     }

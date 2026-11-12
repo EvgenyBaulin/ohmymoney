@@ -16,6 +16,8 @@ public enum ReminderKind: String, CaseIterable, Hashable, Sendable {
   case debtPayment
   /// It is time to reconcile the accounts.
   case reconciliation
+  /// The bank announced another rate for a savings account, and it starts soon.
+  case rateChange
 
   public var key: String { "reminders.kind." + rawValue }
 }
@@ -46,7 +48,7 @@ public enum ReminderUrgency: Int, CaseIterable, Comparable, Hashable, Sendable {
 ///
 /// The id names the subject **and** the occasion — `pay:<payment>:<due>`,
 /// `trial:<payment>:<date>`, `price:<payment>:<date>`, `debt:<debt>:<due>`,
-/// `reconcile:<day of the last one | none>`, UUIDs lowercased. Putting a reminder off
+/// `reconcile:<day of the last one | none>`, `rate:<account>:<day>`, UUIDs lowercased. Putting a reminder off
 /// stores its id (`PlanningSettings.dismissedReminders`), so it stays away until the
 /// occasion changes — the next due date, the next reconciliation — and then comes back
 /// by itself, without a timer.
@@ -108,6 +110,7 @@ public enum ReminderRules {
     if let reconciliation = reconciliation(book: book, today: today) {
       reminders.append(reconciliation)
     }
+    reminders += RateChanges.reminders(accounts: ledger.dataset.paymentMethods, today: today)
     return reminders.sorted(by: precedes)
   }
 

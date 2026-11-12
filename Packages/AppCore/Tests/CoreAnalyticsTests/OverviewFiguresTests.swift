@@ -114,13 +114,72 @@ struct OverviewFiguresTests {
     let cushion = PaymentMethod(name: "Cushion", cushion: true)
     let transfer = Transfer(
       occurredAt: at(9, 10), fromAccountId: main.id, fromCurrency: .rub,
-      fromAmountE4: AmountE4(whole: 5_500), toAccountId: cushion.id, toCurrency: .rub,
-      toAmountE4: AmountE4(whole: 5_500))
+      fromAmountE4: AmountE4(whole: 5_600), toAccountId: cushion.id, toCurrency: .rub,
+      toAmountE4: AmountE4(whole: 5_600))
     let savings = try figures(transfers: [transfer], accounts: [main, cushion]).savings
-    #expect(savings.accounts == AmountE4(whole: 5_500))
+    #expect(savings.accounts == AmountE4(whole: 5_600))
     #expect(savings.saved == savings.goals + savings.accounts)
-    // 5,500 of 55,000: ten per cent.
+    // The savings rate uses the whole attributed month: 5,600 of 56,000 is ten per cent.
     #expect(savings.basisPoints == 1_000)
+  }
+
+  @Test func aPiggyBankWithoutInterestIsWhereMoneyIsPutAside() throws {
+    let main = PaymentMethod(name: "Main", isDefault: true)
+    let piggy = PaymentMethod(name: "Piggy", piggy: true)
+    let plain = PaymentMethod(name: "Plain")
+    func transfer(to account: PaymentMethod, _ amount: Int64) -> Transfer {
+      Transfer(
+        occurredAt: at(9, 10), fromAccountId: main.id, fromCurrency: .rub,
+        fromAmountE4: AmountE4(whole: amount), toAccountId: account.id, toCurrency: .rub,
+        toAmountE4: AmountE4(whole: amount))
+    }
+    // Round-ups into the piggy bank are put aside, a transfer to an ordinary account is not, and
+    // moving money from the piggy bank to another saving place is not saved twice.
+    let savings = try figures(
+      transfers: [transfer(to: piggy, 120), transfer(to: piggy, 30), transfer(to: plain, 900)],
+      accounts: [main, piggy, plain]
+    ).savings
+    #expect(savings.accounts == AmountE4(whole: 150))
+    let cushion = PaymentMethod(name: "Cushion", cushion: true)
+    let between = Transfer(
+      occurredAt: at(9, 11), fromAccountId: piggy.id, fromCurrency: .rub,
+      fromAmountE4: AmountE4(whole: 50), toAccountId: cushion.id, toCurrency: .rub,
+      toAmountE4: AmountE4(whole: 50))
+    let both = try figures(
+      transfers: [transfer(to: piggy, 120), between], accounts: [main, piggy, cushion]
+    ).savings
+    #expect(both.accounts == AmountE4(whole: 120))
+  }
+
+  @Test func whatIsPutAsideIntoOneAccountIsWhatCameFromOrdinaryAccountsLessWhatWentBack() throws {
+    let main = PaymentMethod(name: "Main", isDefault: true)
+    let piggy = PaymentMethod(name: "Piggy", piggy: true)
+    let savings = PaymentMethod(
+      name: "Savings", interest: DepositTerms(rate: 16, period: .monthly))
+    func move(
+      _ from: PaymentMethod, _ to: PaymentMethod, _ amount: Int64, currency: CurrencyCode = .rub
+    ) -> Transfer {
+      Transfer(
+        occurredAt: at(9, 10), fromAccountId: from.id, fromCurrency: .rub,
+        fromAmountE4: AmountE4(whole: amount), toAccountId: to.id, toCurrency: currency,
+        toAmountE4: AmountE4(whole: amount))
+    }
+    let transfers = [
+      move(main, piggy, 120), move(main, piggy, 30), move(piggy, main, 50),
+      // Piggy bank to savings account: neither side saved it out of the main account.
+      move(piggy, savings, 70), move(main, savings, 500),
+      move(main, piggy, 9, currency: CurrencyCode("USD")),
+    ]
+    let book = Ledger(
+      dataset: Dataset(
+        paymentMethods: [main, piggy, savings], planning: PlanningBook(), transfers: transfers),
+      calendar: .utc)
+    let month = DayRange(
+      DateOnly(year: 2026, month: 9, day: 1), DateOnly(year: 2026, month: 9, day: 30))
+    let toPiggy = SavingsTotals.putAside(into: piggy.id, ledger: book, in: month)
+    #expect(toPiggy.amount == AmountE4(whole: 100) && toPiggy.leftOutForeign == 1)
+    let toSavings = SavingsTotals.putAside(into: savings.id, ledger: book, in: month)
+    #expect(toSavings.amount == AmountE4(whole: 500) && toSavings.leftOutForeign == 0)
   }
 
   @Test func aTransferOutOfTheCushionTakesFromWhatWasSaved() throws {

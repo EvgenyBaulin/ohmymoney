@@ -23,6 +23,7 @@ public struct MinBalanceRisk: Hashable, Sendable, Identifiable {
 
 /// A line of «Стоит посмотреть» about the conditions of banks.
 public enum BankNote: Hashable, Sendable, Identifiable {
+  case noCardFee(accountId: UUID, monthlyFeeE4: AmountE4, currency: CurrencyCode)
   /// A free limit is close to used up.
   case limitNear(accountId: UUID, kind: BankLimitKind, leftE4: AmountE4, currency: CurrencyCode)
   /// A free limit is used up or passed; `overE4` is what went beyond it.
@@ -38,10 +39,18 @@ public enum BankNote: Hashable, Sendable, Identifiable {
   case forgotten(count: Int, balanceRub: AmountE4, month: MonthKey)
   /// All the money of a bank is above the insurance limit.
   case insuranceOver(bankId: UUID, name: String, totalRub: AmountE4, limitRub: AmountE4)
+  /// The cards in all banks come close to the cap per person, or pass it.
+  case cardCount(count: Int, limit: Int, from: DateOnly, inForce: Bool)
+  /// The interest of the year may bring a tax, due on `dueDay` of the next year; `estimate` while
+  /// the year's free sum or its interest is still open.
+  case interestTax(year: Int, taxE4: AmountE4, estimate: Bool, dueDay: DateOnly)
+  /// The cashback of the year is large: a hint that a large one may count as income.
+  case cashbackTax(year: Int, totalRub: AmountE4)
 
   /// The key «Готово» puts the line away by.
   public var id: String {
     switch self {
+    case .noCardFee(let account, _, _): "bankNoCardFee:\(account.uuidString)"
     case .limitNear(let account, let kind, _, _):
       "bankLimitNear:\(account.uuidString):\(kind.rawValue)"
     case .limitExceeded(let account, let kind, _, _):
@@ -50,6 +59,9 @@ public enum BankNote: Hashable, Sendable, Identifiable {
     case .cardExpiry(_, let card, let month, _, _): "cardExpiry:\(card.uuidString):\(month.iso)"
     case .forgotten(_, _, let month): "bankForgotten:\(month.iso)"
     case .insuranceOver(let bank, _, _, _): "bankInsurance:\(bank.uuidString)"
+    case .cardCount(_, let limit, _, _): "bankCardCount:\(limit)"
+    case .interestTax(let year, _, _, _): "interestTax:\(year)"
+    case .cashbackTax(let year, _): "cashbackTax:\(year)"
     }
   }
 
@@ -65,14 +77,15 @@ public enum BankNote: Hashable, Sendable, Identifiable {
   /// month ends or the balance is back.
   public var canBePutAway: Bool {
     switch self {
-    case .cardExpiry, .forgotten, .insuranceOver: true
-    case .limitNear, .limitExceeded, .minBalanceBelow: false
+    case .cardExpiry, .forgotten, .insuranceOver, .cardCount, .interestTax, .cashbackTax: true
+    case .noCardFee, .limitNear, .limitExceeded, .minBalanceBelow: false
     }
   }
 }
 
 /// Everything the conditions of the banks say today, worked out once for the screens.
 public struct BankReport: Hashable, Sendable {
+  public var noCardFees: [NoCardFeeLine]
   public var today: DateOnly
   public var limits: [BankLimitLine]
   public var service: [BankServiceProgress]
@@ -81,12 +94,23 @@ public struct BankReport: Hashable, Sendable {
   public var insurance: [BankInsurance]
   public var forgotten: [ForgottenProduct]
   public var cardExpiries: [CardExpiry]
+  /// The cards held across all banks against the cap per person.
+  public var cardCount: CardCountStatus?
+  /// The interest of the year and the tax it may bring; `nil` without an account earning it.
+  public var interestTax: InterestTax.Year?
+  public var cashbackTax: CashbackTaxNote?
 
   public init(
     today: DateOnly, limits: [BankLimitLine] = [], service: [BankServiceProgress] = [],
     minBalance: [MinBalanceRisk] = [], insurance: [BankInsurance] = [],
-    forgotten: [ForgottenProduct] = [], cardExpiries: [CardExpiry] = []
+    forgotten: [ForgottenProduct] = [], cardExpiries: [CardExpiry] = [],
+    cardCount: CardCountStatus? = nil, interestTax: InterestTax.Year? = nil,
+    cashbackTax: CashbackTaxNote? = nil, noCardFees: [NoCardFeeLine] = []
   ) {
+    self.noCardFees = noCardFees
+    self.cardCount = cardCount
+    self.interestTax = interestTax
+    self.cashbackTax = cashbackTax
     self.today = today
     self.limits = limits
     self.service = service
@@ -115,7 +139,8 @@ public struct BankReport: Hashable, Sendable {
   }
 
   public var isEmpty: Bool {
-    limits.isEmpty && service.isEmpty && minBalance.isEmpty && forgotten.isEmpty
+    noCardFees.isEmpty && limits.isEmpty && service.isEmpty && minBalance.isEmpty
+      && forgotten.isEmpty
       && cardExpiries.isEmpty && !insurance.contains { $0.isOver }
   }
 
@@ -140,16 +165,44 @@ public struct BankReport: Hashable, Sendable {
           accountId: account.id, currency: conditions.currency, balanceE4: balance,
           minimumE4: minimum))
     }
+    let service = BankServiceFree.progress(
+      ledger: ledger, data: data, accounts: accounts, today: today)
+    var fees: [UUID: AmountE4] = [:]
+    for conditions in data.conditions where conditions.cardId == nil {
+      if let fee = conditions.noCardFeeE4 { fees[conditions.accountId] = fee }
+    }
     return BankReport(
       today: today,
       limits: BankLimits.progress(ledger: ledger, data: data, month: today.monthKey),
-      service: BankServiceFree.progress(
-        ledger: ledger, data: data, accounts: accounts, today: today),
+      service: service,
       minBalance: risks,
       insurance: insurance(
         ledger: ledger, accounts: accounts, today: today, rubPerUnit: rubPerUnit),
       forgotten: BankForgotten.list(ledger: ledger, data: data, accounts: accounts, today: today),
-      cardExpiries: CardExpiries.list(dataset: dataset, today: today))
+      cardExpiries: CardExpiries.list(dataset: dataset, today: today),
+      cardCount: CardCount.status(ledger: ledger, today: today),
+      interestTax: interestYear(
+        ledger: ledger, accounts: accounts, today: today, rubPerUnit: rubPerUnit),
+      cashbackTax: CashbackTax.note(ledger: ledger, today: today),
+      noCardFees: NoCardFee.lines(dataset: dataset, fees: fees, service: service))
+  }
+
+  /// The interest of the year with its tax; `nil` when no account earns interest and none was
+  /// ever written.
+  static func interestYear(
+    ledger: Ledger, accounts: AccountsSnapshot, today: DateOnly, rubPerUnit: [CurrencyCode: Decimal]
+  ) -> InterestTax.Year? {
+    let dataset = ledger.dataset
+    let category = dataset.accountSettings.interestCategoryId
+    guard dataset.paymentMethods.contains(where: { !$0.archived && $0.interest != nil }) else {
+      return nil
+    }
+    let payouts = DepositPayouts.build(
+      ledger: ledger, balances: accounts.balances, interestCategoryId: category, today: today,
+      through: DateOnly(year: today.year, month: 12, day: 31))
+    return InterestTax.year(
+      ledger: ledger, payouts: payouts, interestCategoryId: category, today: today,
+      rubPerUnit: rubPerUnit)
   }
 
   /// The money of each bank as the insurance counts it: the positive balances of its live
@@ -205,6 +258,11 @@ public struct BankReport: Hashable, Sendable {
   /// The lines of «Стоит посмотреть», the alarms first; `dismissed` are the keys put away.
   public func notes(dismissed: Set<String> = []) -> [BankNote] {
     var notes: [BankNote] = []
+    for line in noCardFees {
+      notes.append(
+        .noCardFee(
+          accountId: line.accountId, monthlyFeeE4: line.monthlyFeeE4, currency: line.currency))
+    }
     for line in limits {
       if line.exceeded {
         notes.append(
@@ -240,6 +298,23 @@ public struct BankReport: Hashable, Sendable {
       notes.append(
         .insuranceOver(
           bankId: bank.bankId, name: bank.name, totalRub: bank.totalRub, limitRub: bank.limitRub))
+    }
+    if let count = cardCount, count.isNear {
+      notes.append(
+        .cardCount(
+          count: count.count, limit: count.limit, from: count.limitFrom,
+          inForce: count.inForce(on: today)))
+    }
+    if let tax = interestTax {
+      let figure = tax.forecast
+      if figure.taxE4.raw > 0 {
+        notes.append(
+          .interestTax(
+            year: tax.year, taxE4: figure.taxE4, estimate: true, dueDay: figure.dueDay))
+      }
+    }
+    if let cashback = cashbackTax {
+      notes.append(.cashbackTax(year: cashback.year, totalRub: cashback.totalRub))
     }
     notes = notes.filter { !$0.canBePutAway || !dismissed.contains($0.id) }
     return notes.filter(\.isAlarm) + notes.filter { !$0.isAlarm }

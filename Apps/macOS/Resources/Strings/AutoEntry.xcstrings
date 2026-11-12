@@ -2,12 +2,61 @@
   "sourceLanguage": "en",
   "strings": {
     "autoEntry.action.edit": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змяніць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeiten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Edit"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifica"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өңдеу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edytuj"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar"
           }
         },
         "ru": {
@@ -15,16 +64,77 @@
             "state": "translated",
             "value": "Изменить"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzenle"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Редагувати"
+          }
         }
       }
     },
     "autoEntry.action.record": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісаць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Record"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisz"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar"
           }
         },
         "ru": {
@@ -32,16 +142,77 @@
             "state": "translated",
             "value": "Записать"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydet"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати"
+          }
         }
       }
     },
     "autoEntry.duplicate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ужо запісана: гэтая аперацыя ёсць ва ўліку."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schon erfasst: Dieser Vorgang steht bereits in den Büchern."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Already recorded: this operation is in the books."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya registrado: esta operación ya está en las cuentas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déjà noté : cette opération est dans les comptes."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Già registrata: questa operazione è già nei conti."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұрын жазылған: бұл операция кітапта бар."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Już zapisano: ta operacja jest w księgach."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Já registrada: esta operação está nos registros."
           }
         },
         "ru": {
@@ -49,16 +220,434 @@
             "state": "translated",
             "value": "Уже записано: эта операция есть в учёте."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaten kaydedilmiş: Bu işlem kayıtlarda var."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже записано: ця операція є в обліку."
+          }
         }
       }
     },
-    "autoEntry.locked": {
+    "autoEntry.formats.conflicts.footer": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
+            "value": "The choice is remembered and the question is not asked again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбор запоминается, вопрос больше не повторится."
+          }
+        }
+      }
+    },
+    "autoEntry.formats.conflicts.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Two formats fit one text"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Два формата подходят к одному тексту"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.conflicts.use": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовать %@"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.choose": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formats from a folder…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Форматы из папки…"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ships no format files and downloads nothing: it reads the folder you chose. The folder is remembered on this device only and is not part of the archive."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney не поставляет файлы форматов и ничего не скачивает: читается папка, которую вы выбрали. Она запоминается только на этом Mac и в архив не попадает."
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.forget": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forget the folder"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Забыть папку"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formats folder"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка с форматами"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.reload": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read again"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитать заново"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.summary": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banks: %1$lld, formats: %2$lld, cashback categories: %3$lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банков: %1$lld, форматов: %2$lld, категорий кэшбэка: %3$lld"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offer.dismiss": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not needed"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не нужно"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offer.problem": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Did not fit: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не подошёл: %@"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offer.save": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offers.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A format is proposed from a text you corrected. The example holds made-up figures and a made-up shop; the text itself is not kept."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формат предложен по тексту, который вы поправили. В примере выдуманные суммы и место; сам текст не хранится."
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offers.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proposed formats"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предложенные форматы"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS formats…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Форматы СМС…"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.own.delete": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.own.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No formats of your own yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нет своих форматов"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.own.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My formats"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои форматы"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.skipped.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skipped files"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропущенные файлы"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS formats"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Форматы СМС"
+          }
+        }
+      }
+    },
+    "autoEntry.locked": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney заблакавана: разблакіруйце праграму, каб перадаць паведамленне."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ist gesperrt: Entsperren Sie es, um die Nachricht zu übergeben."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
             "value": "OhMyMoney is locked: unlock it to pass the message."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney está bloqueada: desbloquéela para pasar el mensaje."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney est verrouillée : déverrouillez-la pour transmettre le message."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney è bloccato: sbloccalo per inoltrare il messaggio."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney құлыптаулы: хабарламаны өткізу үшін ашыңыз."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney jest zablokowane. Odblokuj aplikację, aby przekazać wiadomość."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney está bloqueado: desbloqueie-o para encaminhar a mensagem."
           }
         },
         "ru": {
@@ -66,16 +655,77 @@
             "state": "translated",
             "value": "OhMyMoney заблокировано: разблокируйте, чтобы передать сообщение."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney kilitli: Mesajı iletmek için kilidi açın."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney заблоковано: розблокуйте, щоб передати повідомлення."
+          }
         }
       }
     },
     "autoEntry.notBank": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гэта не падобна да паведамлення банка: няма аперацыі, сумы і карты або балансу."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das sieht nicht nach einer Bank-Nachricht aus: Es fehlen Vorgang, Betrag und Karte oder Saldo."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "This doesn't look like a bank message: no operation, amount and card or balance in it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto no parece un mensaje del banco: no hay operación, importe ni tarjeta o saldo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cela ne ressemble pas à un message de banque : ni opération, ni montant, ni carte ou solde."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non sembra un messaggio bancario: mancano operazione, importo e carta o saldo."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл банк хабарламасына ұқсамайды: онда операция, сома, карта немесе теңгерім жоқ."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To nie wygląda na wiadomość z banku: brakuje operacji, kwoty i karty lub salda."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta não parece ser uma mensagem bancária: faltam a operação, o valor e o cartão ou saldo."
           }
         },
         "ru": {
@@ -83,16 +733,77 @@
             "state": "translated",
             "value": "Не похоже на сообщение банка: в нём нет операции, суммы и карты или остатка."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu bir banka mesajına benzemiyor: İşlem, tutar ve kart veya bakiye bilgisi yok."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це не схоже на повідомлення банку: немає операції, суми та картки або залишку."
+          }
         }
       }
     },
     "autoEntry.notReady": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney яшчэ адкрывае ўлік — паспрабуйце праз хвіліну."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney öffnet noch die Bücher — versuchen Sie es gleich noch einmal."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney is still opening the books — try again in a moment."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney todavía está abriendo las cuentas: inténtelo de nuevo en un momento."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ouvre encore les comptes — réessayez dans un instant."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney sta ancora aprendo i conti. Riprova tra poco."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney әлі кітаптарды ашып жатыр — сәлден соң қайталап көріңіз."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney otwiera księgi. Spróbuj ponownie za chwilę."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ainda está abrindo os registros. Tente novamente em instantes."
           }
         },
         "ru": {
@@ -100,16 +811,77 @@
             "state": "translated",
             "value": "OhMyMoney ещё открывает учёт — повторите через минуту."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney hâlâ açılıyor. Birazdan tekrar deneyin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ще відкриває облік — спробуйте за мить."
+          }
         }
       }
     },
     "autoEntry.notify.anonymous": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя схаванага рахунку — запісаць?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Vorgang eines ausgeblendeten Kontos — erfassen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "An operation of a hidden account — record it?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una operación de una cuenta oculta: ¿registrarla?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une opération d'un compte masqué — la noter ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un’operazione di un conto nascosto: vuoi registrarla?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жасырын есеп-шоттың операциясы — жазайын ба?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacja na ukrytym koncie. Zapisać ją?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma operação de uma conta oculta. Registrar?"
           }
         },
         "ru": {
@@ -117,16 +889,77 @@
             "state": "translated",
             "value": "Операция по скрытому счёту — записать?"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli bir hesaba ait işlem. Kaydedilsin mi?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операція прихованого рахунку — записати?"
+          }
         }
       }
     },
     "autoEntry.notify.anonymousWritten": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя схаванага рахунку запісана"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Vorgang eines ausgeblendeten Kontos wurde erfasst"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "An operation of a hidden account was recorded"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se registró una operación de una cuenta oculta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une opération d'un compte masqué a été notée"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazione di un conto nascosto registrata"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жасырын есеп-шоттың операциясы жазылды"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisano operację na ukrytym koncie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma operação de uma conta oculta foi registrada"
           }
         },
         "ru": {
@@ -134,12 +967,73 @@
             "state": "translated",
             "value": "Записана операция по скрытому счёту"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli bir hesaba ait işlem kaydedildi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операцію прихованого рахунку записано"
+          }
         }
       }
     },
     "autoEntry.notify.drafts.body": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыі чакаюць завяршэння — завяршыць?"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацый чакаюць завяршэння — завяршыць?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыя чакае завяршэння — завяршыць?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аперацыі чакаюць завяршэння — завяршыць?"
+                }
+              }
+            }
+          }
+        },
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgang wartet — abschließen?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Vorgänge warten — abschließen?"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -153,6 +1047,150 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations are waiting — finish them?"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hay %lld operaciones en espera: ¿terminarlas?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hay %lld operación en espera: ¿terminarla?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Hay %lld operaciones en espera: ¿terminarlas?"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations attendent — les terminer ?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération attend — la terminer ?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations attendent — les terminer ?"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operazioni in attesa. Vuoi completarle?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operazione in attesa. Vuoi completarla?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operazioni in attesa. Vuoi completarle?"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция күтуде — аяқтайық па?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция күтуде — аяқтайық па?"
+                }
+              }
+            }
+          }
+        },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Czekają %lld operacje. Dokończyć je?"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Czeka %lld operacji. Dokończyć je?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Czeka %lld operacja. Dokończyć ją?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Czeka %lld operacji. Dokończyć je?"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações aguardando. Finalizar?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operação aguardando. Finalizar?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações aguardando. Finalizar?"
                 }
               }
             }
@@ -187,16 +1225,113 @@
               }
             }
           }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld işlem bekliyor. Tamamlansın mı?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld işlem bekliyor. Tamamlansın mı?"
+                }
+              }
+            }
+          }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Очікують %lld операції — завершити?"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Очікують %lld операцій — завершити?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Очікує %lld операція — завершити?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Очікують %lld операції — завершити?"
+                }
+              }
+            }
+          }
         }
       }
     },
     "autoEntry.notify.drafts.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісаць пазней"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Später erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Record later"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar más tarde"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter plus tard"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra più tardi"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кейін жазу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisz później"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar depois"
           }
         },
         "ru": {
@@ -204,16 +1339,77 @@
             "state": "translated",
             "value": "Запишу потом"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonra Kaydet"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати пізніше"
+          }
         }
       }
     },
     "autoEntry.notify.fromBank": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З паведамлення банка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus einer Bank-Nachricht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "From a bank message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De un mensaje del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Depuis un message de banque"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Da un messaggio bancario"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк хабарламасынан"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Z wiadomości bankowej"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De uma mensagem bancária"
           }
         },
         "ru": {
@@ -221,16 +1417,77 @@
             "state": "translated",
             "value": "Из сообщения банка"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka mesajından"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З повідомлення банку"
+          }
         }
       }
     },
     "autoEntry.notify.mismatch": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У банку %1$@, у праграме %2$@ — час пералічыць рахунак."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Bank meldet %1$@, die App %2$@ — Zeit, das Konto zu zählen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The bank says %1$@, the app %2$@ — time to count the account."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El banco dice %1$@, la app %2$@: es hora de contar la cuenta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La banque indique %1$@, l'application %2$@ — il est temps de compter le compte."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La banca indica %1$@, l’app %2$@. È ora di verificare il conto."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк %1$@ дейді, қолданба — %2$@ — есеп-шотты санайтын уақыт."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank podaje %1$@, aplikacja %2$@ — czas przeliczyć konto."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O banco informa %1$@, e o app, %2$@. Hora de conferir a conta."
           }
         },
         "ru": {
@@ -238,16 +1495,77 @@
             "state": "translated",
             "value": "В банке %1$@, в приложении %2$@ — стоит сверить счёт."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankadaki bakiye %1$@, uygulamadaki %2$@. Hesabı sayma zamanı."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За даними банку %1$@, у застосунку %2$@ — час звірити рахунок."
+          }
         }
       }
     },
     "autoEntry.notify.mismatchHidden": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баланс у банку адрозніваецца ад балансу ў праграме — час пералічыць рахунак."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Saldo der Bank weicht vom Saldo der App ab — Zeit, das Konto zu zählen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The bank's balance differs from the app's — time to count the account."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El saldo del banco no coincide con el de la app: es hora de contar la cuenta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le solde de la banque diffère de celui de l'application — il est temps de compter le compte."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il saldo della banca è diverso da quello dell’app. È ora di verificare il conto."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктің теңгерімі қолданбадағыдан өзгеше — есеп-шотты санайтын уақыт."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saldo banku różni się od salda w aplikacji — czas przeliczyć konto."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O saldo do banco difere do saldo no app. Hora de conferir a conta."
           }
         },
         "ru": {
@@ -255,16 +1573,77 @@
             "state": "translated",
             "value": "Остаток в банке не сходится с приложением — стоит сверить счёт."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankadaki bakiye uygulamadakinden farklı. Hesabı sayma zamanı."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишок у банку відрізняється від залишку в застосунку — час звірити рахунок."
+          }
         }
       }
     },
     "autoEntry.notify.mismatchTitle": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баланс не супадае"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Saldo stimmt nicht überein"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The balance doesn't match"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El saldo no coincide"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le solde ne correspond pas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il saldo non corrisponde"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Теңгерім сәйкес келмейді"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saldo się nie zgadza"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O saldo não confere"
           }
         },
         "ru": {
@@ -272,16 +1651,77 @@
             "state": "translated",
             "value": "Остаток не сходится"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bakiye eşleşmiyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишок не збігається"
+          }
         }
       }
     },
     "autoEntry.notify.propose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — запісаць?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — erfassen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ — record it?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — ¿registrarla?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — la noter ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@. Vuoi registrarla?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — жазайын ба?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — zapisać?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — registrar?"
           }
         },
         "ru": {
@@ -289,19 +1729,92 @@
             "state": "translated",
             "value": "%@ — записать?"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — kaydedilsin mi?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — записати?"
+          }
         }
       }
     },
     "autoEntry.notify.written": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісана: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfasst: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Recorded: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrada: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notée : %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrata: %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылды: %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisano: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrada: %@"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydedildi: %@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Записано: %@"
@@ -310,12 +1823,61 @@
       }
     },
     "autoEntry.operation.cashWithdrawal": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зняцце наяўных"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bargeldabhebung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Cash withdrawal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retirada de efectivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retrait d'espèces"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prelievo di contanti"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қолма-қола ақша алу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wypłata gotówki"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saque"
           }
         },
         "ru": {
@@ -323,16 +1885,77 @@
             "state": "translated",
             "value": "Снятие наличных"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nakit çekme"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зняття готівки"
+          }
         }
       }
     },
     "autoEntry.operation.fee": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Камісія"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gebühr"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Fee"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comisión"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frais"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commissione"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Комиссия"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opłata"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarifa"
           }
         },
         "ru": {
@@ -340,16 +1963,77 @@
             "state": "translated",
             "value": "Комиссия"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ücret"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Комісія"
+          }
         }
       }
     },
     "autoEntry.operation.income": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даход"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahme"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Income"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ingreso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenu"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrata"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Табыс"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przychód"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receita"
           }
         },
         "ru": {
@@ -357,19 +2041,92 @@
             "state": "translated",
             "value": "Доход"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gelir"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід"
+          }
         }
       }
     },
     "autoEntry.operation.purchase": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пакупка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kauf"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Purchase"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compra"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Achat"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acquisto"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сатып алу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zakup"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compra"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупка"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alışveriş"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Покупка"
@@ -378,12 +2135,61 @@
       }
     },
     "autoEntry.operation.refund": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вяртанне"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstattung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Refund"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devolución"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remboursement"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimborso"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтару"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reembolso"
           }
         },
         "ru": {
@@ -391,16 +2197,77 @@
             "state": "translated",
             "value": "Возврат"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İade"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення покупки"
+          }
         }
       }
     },
     "autoEntry.operation.transferIn": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уваходны перавод"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eingehende Überweisung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Incoming transfer"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia recibida"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virement reçu"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trasferimento in entrata"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кіріс аударым"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przelew przychodzący"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferência recebida"
           }
         },
         "ru": {
@@ -408,16 +2275,77 @@
             "state": "translated",
             "value": "Поступление"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gelen transfer"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вхідний переказ"
+          }
         }
       }
     },
     "autoEntry.operation.transferOut": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перавод"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Überweisung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Transfer"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virement"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trasferimento"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аударым"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przelew"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferência"
           }
         },
         "ru": {
@@ -425,16 +2353,77 @@
             "state": "translated",
             "value": "Перевод"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfer"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переказ"
+          }
         }
       }
     },
     "autoEntry.phoneOff": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перадача паведамленняў банка на iPhone уключыцца разам з Siri, калі праграма з'явіцца ў App Store."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Weitergabe von Bank-Nachrichten auf dem iPhone wird zusammen mit Siri eingeschaltet, sobald die App in den App Store kommt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Passing bank messages on the iPhone will be switched on together with Siri, when the app comes to the App Store."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasar los mensajes del banco en el iPhone se activará junto con Siri, cuando la app llegue a App Store."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La transmission des messages de banque sur iPhone sera activée avec Siri, lorsque l'application arrivera sur l'App Store."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’inoltro dei messaggi bancari su iPhone sarà attivato insieme a Siri, quando l’app arriverà sull’App Store."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPhone-да банк хабарламаларын өткізу App Store-ға шыққанда, Siri-мен бірге қосылады."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przekazywanie wiadomości bankowych na iPhonie zostanie włączone wraz z Siri, gdy aplikacja pojawi się w App Store."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O encaminhamento de mensagens bancárias no iPhone será ativado junto com a Siri quando o app chegar à App Store."
           }
         },
         "ru": {
@@ -442,16 +2431,77 @@
             "state": "translated",
             "value": "Передача сообщений банка на iPhone включится вместе с Siri — к выходу в App Store."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPhone’da banka mesajlarını iletme, uygulama App Store’a geldiğinde Siri ile birlikte açılacak."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Передавання повідомлень банку на iPhone буде ввімкнено разом із Siri, коли застосунок з'явиться в App Store."
+          }
         }
       }
     },
     "autoEntry.proposed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чакае ў «Запісаць пазней»: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wartet unter „Später erfassen“: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Waiting in “Record later”: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En espera en «Registrar más tarde»: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente dans « Noter plus tard » : %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In attesa in “Registra più tardi”: %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Кейін жазу» ішінде күтуде: %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Czeka w „Zapisz później”: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aguardando em “Registrar depois”: %@"
           }
         },
         "ru": {
@@ -459,16 +2509,77 @@
             "state": "translated",
             "value": "Ждёт в «Запишу потом»: %@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Sonra Kaydet”te bekliyor: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очікує в «Записати пізніше»: %@"
+          }
         }
       }
     },
     "autoEntry.proposed.hidden": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аперацыя чакае ў «Запісаць пазней»."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Vorgang wartet unter „Später erfassen“."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "An operation is waiting in “Record later”."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hay una operación en espera en «Registrar más tarde»."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une opération attend dans « Noter plus tard »."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un’operazione è in attesa in “Registra più tardi”."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Кейін жазу» ішінде бір операция күтуде."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacja czeka w „Zapisz później”."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma operação aguarda em “Registrar depois”."
           }
         },
         "ru": {
@@ -476,16 +2587,77 @@
             "state": "translated",
             "value": "Операция ждёт в «Запишу потом»."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Sonra Kaydet”te bir işlem bekliyor."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операція очікує в «Записати пізніше»."
+          }
         }
       }
     },
     "autoEntry.readOnly": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключаны рэжым «Толькі прагляд»: нічога не запісана."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Nur ansehen“ ist eingeschaltet: Nichts wird erfasst."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "“View only” is on: nothing is recorded."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Solo ver» está activado: no se registra nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« Consultation seule » est activé : rien n'est noté."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Solo visualizzazione” è attivo: non viene registrato nulla."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Тек көру» қосулы: ештеңе жазылмайды."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Włączono „Tylko do odczytu”. Nic nie jest zapisywane."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Somente visualização” está ativado: nada é registrado."
           }
         },
         "ru": {
@@ -493,16 +2665,77 @@
             "state": "translated",
             "value": "Включено «Только просмотр»: ничего не записывается."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Yalnızca Görüntüle” açık: Hiçbir şey kaydedilmedi."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнено «Лише перегляд»: нічого не записується."
+          }
         }
       }
     },
     "autoEntry.settings.footer": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паведамленне, перададзенае праз Shortcuts («Перадаць паведамленне банка»), становіцца аперацыяй. Пры прапанове запісу апавяшчэнне пытаецца «Запісаць?», а аперацыя чакае ў «Запісаць пазней». Пры імгненным запісе аперацыя запісваецца як праз радок уводу; калі радок запытаў бы ўдакладненне, прапануецца запіс. Захоўваюцца толькі сума, крама, карта і баланс — само паведамленне ніколі не захоўваецца."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Nachricht, die über den Kurzbefehl „Bank-Nachricht übergeben“ weitergereicht wird, wird zu einem Vorgang. Vorschlagen: Eine Mitteilung fragt „Erfassen?“, und der Vorgang wartet unter „Später erfassen“. Sofort: Er wird so erfasst, wie die Eingabezeile ihn erfasst; würde die Zeile etwas nachfragen, wird stattdessen vorgeschlagen. Behalten werden nur Betrag, Geschäft, Karte und Saldo — nie die Nachricht selbst."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "A message passed on by Shortcuts (“Pass a bank message”) becomes an operation. Offered: a notification asks “Record?” and the operation waits in “Record later”. At once: it is recorded the way the entry line records it; if the line would ask something, it is offered instead. Only the amount, the shop, the card and the balance are kept — never the message itself."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un mensaje que pasa Atajos («Pasar un mensaje del banco») se convierte en una operación. Ofrecer: una notificación pregunta «¿Registrar?» y la operación espera en «Registrar más tarde». Al momento: se registra como lo registraría la línea de entrada; si la línea preguntaría algo, se ofrece en su lugar. Solo se guardan el importe, la tienda, la tarjeta y el saldo, nunca el mensaje en sí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un message transmis par Raccourcis (« Transmettre un message de banque ») devient une opération. Proposé : une notification demande « Noter ? » et l'opération attend dans « Noter plus tard ». Tout de suite : elle est notée comme la ligne de saisie la note ; si la ligne demanderait une précision, elle est proposée à la place. Seuls le montant, le magasin, la carte et le solde sont conservés — jamais le message lui-même."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un messaggio inoltrato da Comandi Rapidi (“Inoltra un messaggio bancario”) diventa un’operazione. Con conferma: una notifica chiede se registrarla e l’operazione resta in “Registra più tardi”. Subito: viene registrata come dalla riga di inserimento; se sono necessarie altre informazioni, viene richiesta conferma. Vengono conservati solo importo, negozio, carta e saldo, mai il messaggio stesso."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Жылдам команда» арқылы берілген хабарлама («Банк хабарламасын өткізу») операцияға айналады. Ұсынылса: хабарландыру «Жазайын ба?» деп сұрайды, ал операция «Кейін жазу» ішінде күтеді. Бірден: енгізу жолы сияқты жазылады; жол бірдеңе сұраса, оның орнына ұсынылады. Тек сома, дүкен, карта және теңгерім сақталады — хабарламаның өзі ешқашан сақталмайды."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiadomość przekazana przez Skróty („Przekaż wiadomość bankową”) staje się operacją. Propozycja: powiadomienie pyta „Zapisać?”, a operacja czeka w „Zapisz później”. Od razu: operacja jest zapisywana tak jak w wierszu wpisu; jeśli wymaga dodatkowych informacji, pojawia się propozycja zapisu. Zachowywane są tylko kwota, sklep, karta i saldo — nigdy sama wiadomość."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma mensagem encaminhada pelo Atalhos (“Encaminhar mensagem bancária”) se torna uma operação. Ao oferecer, uma notificação pergunta “Registrar?” e a operação aguarda em “Registrar depois”. Ao registrar imediatamente, ela é registrada como na linha de lançamento; se a linha precisar de mais informações, a operação será oferecida. Apenas o valor, a loja, o cartão e o saldo são mantidos — nunca a mensagem."
           }
         },
         "ru": {
@@ -510,16 +2743,77 @@
             "state": "translated",
             "value": "Сообщение, переданное «Быстрыми командами» («Передать сообщение банка»), становится операцией. «Предлагать»: уведомление спрашивает «Записать?», операция ждёт в «Запишу потом». «Сразу»: записывается, как строка ввода; если строка что-то спросила бы — предлагается. Хранятся только сумма, место, карта и остаток — сам текст сообщения нигде не хранится."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kestirmeler ile iletilen bir mesaj (“Banka Mesajını İlet”) işleme dönüşür. Kaydetmeyi öner: Bir bildirim “Kaydedilsin mi?” diye sorar ve işlem “Sonra Kaydet”te bekler. Hemen kaydet: İşlem, giriş satırındaki gibi kaydedilir; giriş satırı bir soru soracaksa bunun yerine kaydetme önerilir. Yalnızca tutar, mağaza, kart ve bakiye saklanır; mesajın kendisi asla saklanmaz."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повідомлення, передане через Команди («Передати повідомлення банку»), стає операцією. З пропозицією: сповіщення запитує «Записати?», а операція чекає в «Записати пізніше». Одразу: записується так само, як із рядка вводу; якщо рядок поставив би запитання, натомість буде пропозиція. Зберігаються лише сума, магазин, картка та залишок — ніколи саме повідомлення."
+          }
         }
       }
     },
     "autoEntry.settings.mode": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паведамленне банка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Bank-Nachricht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "A bank message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensaje del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un message de banque"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un messaggio bancario"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк хабарламасы"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiadomość bankowa"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensagem bancária"
           }
         },
         "ru": {
@@ -527,16 +2821,77 @@
             "state": "translated",
             "value": "Сообщение банка"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka mesajı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повідомлення банку"
+          }
         }
       }
     },
     "autoEntry.settings.mode.immediate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісваць адразу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sofort erfassen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Record at once"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar al momento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter tout de suite"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra subito"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бірден жазу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisz od razu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar imediatamente"
           }
         },
         "ru": {
@@ -544,16 +2899,77 @@
             "state": "translated",
             "value": "Записывать сразу"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hemen kaydet"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записувати одразу"
+          }
         }
       }
     },
     "autoEntry.settings.mode.propose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прапанаваць запіс"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erfassen vorschlagen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Offer to record"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ofrecer registrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proposer de noter"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiedi conferma"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазуды ұсыну"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proponuj zapis"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oferecer registro"
           }
         },
         "ru": {
@@ -561,16 +2977,77 @@
             "state": "translated",
             "value": "Предлагать записать"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydetmeyi öner"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропонувати записати"
+          }
         }
       }
     },
     "autoEntry.settings.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паведамленні банка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank-Nachrichten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Bank messages"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensajes del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Messages de banque"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Messaggi bancari"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк хабарламалары"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiadomości bankowe"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensagens bancárias"
           }
         },
         "ru": {
@@ -578,16 +3055,77 @@
             "state": "translated",
             "value": "Сообщения банков"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka Mesajları"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повідомлення банку"
+          }
         }
       }
     },
     "intent.bankMessage.description": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чытае SMS або push-апавяшчэнне ад банка і запісвае аперацыю або прапануе яе запісаць паводле налад OhMyMoney."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liest eine SMS oder Mitteilung einer Bank und erfasst den Vorgang oder schlägt vor, ihn zu erfassen, wie in OhMyMoney eingestellt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Reads an SMS or a push from a bank and records the operation or offers to record it, as set in OhMyMoney."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lee un SMS o una notificación de un banco y registra la operación o la ofrece para registrar, según lo configurado en OhMyMoney."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lit un SMS ou une notification d'une banque et note l'opération, ou propose de la noter, selon le réglage dans OhMyMoney."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legge un SMS o una notifica push della banca e registra l’operazione o chiede conferma, in base alle impostazioni di OhMyMoney."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктен келген SMS немесе push-хабарламаны оқиды және OhMyMoney-де белгіленгеніндей операцияны жазады не жазуды ұсынады."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odczytuje SMS lub powiadomienie z banku i zapisuje operację albo proponuje jej zapis, zgodnie z ustawieniami OhMyMoney."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lê um SMS ou uma notificação de um banco e registra a operação ou oferece seu registro, conforme definido no OhMyMoney."
           }
         },
         "ru": {
@@ -595,16 +3133,77 @@
             "state": "translated",
             "value": "Читает СМС или пуш банка и записывает операцию или предлагает её записать — как выбрано в настройках OhMyMoney."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankadan gelen bir SMS’i veya anlık bildirimi okur ve OhMyMoney ayarlarına göre işlemi kaydeder ya da kaydetmeyi önerir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Читає SMS або push-повідомлення банку та записує операцію або пропонує записати її відповідно до налаштувань OhMyMoney."
+          }
         }
       }
     },
     "intent.bankMessage.text": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паведамленне"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nachricht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Message"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Messaggio"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Хабарлама"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wiadomość"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensagem"
           }
         },
         "ru": {
@@ -612,16 +3211,77 @@
             "state": "translated",
             "value": "Сообщение"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mesaj"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повідомлення"
+          }
         }
       }
     },
     "intent.bankMessage.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перадаць паведамленне банка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank-Nachricht übergeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Pass a Bank Message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasar un mensaje del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transmettre un message de banque"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inoltra un messaggio bancario"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк хабарламасын өткізу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przekaż wiadomość bankową"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encaminhar Mensagem Bancária"
           }
         },
         "ru": {
@@ -629,16 +3289,77 @@
             "state": "translated",
             "value": "Передать сообщение банка"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka Mesajını İlet"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Передати повідомлення банку"
+          }
         }
       }
     },
     "intent.bankPasteboard.description": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чытае паведамленне банка, скапіяванае ў буфер абмену, як дзеянне «Перадаць паведамленне банка»."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liest eine Bank-Nachricht aus der Zwischenablage, wie „Bank-Nachricht übergeben“ es tut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Reads a bank message copied to the clipboard, as “Pass a Bank Message” does."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lee un mensaje del banco copiado al portapapeles, igual que «Pasar un mensaje del banco»."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lit un message de banque copié dans le presse-papiers, comme le fait « Transmettre un message de banque »."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legge un messaggio bancario copiato negli appunti, come “Inoltra un messaggio bancario”."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көшіру буферіне көшірілген банк хабарламасын «Банк хабарламасын өткізу» сияқты оқиды."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odczytuje wiadomość bankową skopiowaną do schowka, tak jak „Przekaż wiadomość bankową”."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lê uma mensagem bancária copiada para a área de transferência, como em “Encaminhar Mensagem Bancária”."
           }
         },
         "ru": {
@@ -646,22 +3367,367 @@
             "state": "translated",
             "value": "Читает скопированное сообщение банка, как «Передать сообщение банка»."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Panoya kopyalanan bir banka mesajını, “Banka Mesajını İlet” gibi okur."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Читає повідомлення банку, скопійоване в буфер обміну, як команда «Передати повідомлення банку»."
+          }
         }
       }
     },
     "intent.bankPasteboard.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перадаць паведамленне банка з буфера абмену"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank-Nachricht aus der Zwischenablage übergeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Pass a Bank Message from the Clipboard"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasar un mensaje del banco desde el portapapeles"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transmettre un message de banque depuis le presse-papiers"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inoltra un messaggio bancario dagli appunti"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көшіру буферіндегі банк хабарламасын өткізу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przekaż wiadomość bankową ze schowka"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encaminhar Mensagem Bancária da Área de Transferência"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Передать сообщение банка из буфера"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Panodan Banka Mesajını İlet"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Передати повідомлення банку з буфера обміну"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.badCategoryFile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The category file cannot be read"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл категорий не читается"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.badDateFormat": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad date format “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неверный формат даты «%@»"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.badSenders": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The senders file cannot be read"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл отправителей не читается"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.duplicateColumn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Column “%@” is named twice"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Столбец «%@» указан дважды"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.exampleDoesNotMatch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Example %@ does not fit the expression"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пример %@ не подходит выражению"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.exampleMatchesOther": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Example %1$@ fits the format “%2$@” too"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пример %1$@ подходит и формату «%2$@»"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.exampleUnreadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Example %1$@: column “%2$@” cannot be read"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пример %1$@: столбец «%2$@» не читается"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.groupCountMismatch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The expression has %1$@ groups but there are %2$@ columns"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Групп в выражении %1$@, а столбцов %2$@"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.invalidPattern": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The expression is not valid"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выражение записано с ошибкой"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.missingColumns": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no line of columns"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет строки со столбцами"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.missingPattern": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no expression on the first line"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В первой строке нет выражения"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.noExamples": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is not a single example"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет ни одного примера"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.notText": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The file is not UTF-8 text"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не в кодировке UTF-8"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.unknownColumn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown column “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестный столбец «%@»"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.unknownOperation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown operation “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестная операция «%@»"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.unknownSection": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown section %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестный раздел %@"
           }
         }
       }

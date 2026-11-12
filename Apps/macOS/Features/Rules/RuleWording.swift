@@ -68,6 +68,17 @@ struct RuleNames: Sendable {
   }
 }
 
+extension RuleLiveReferences {
+  /// The places, accounts, cards and people of the dataset that are not in the archive.
+  init(dataset: Dataset) {
+    self.init(
+      places: Set(dataset.places.filter { !$0.archived }.map(\.id)),
+      accounts: Set(dataset.paymentMethods.filter { !$0.archived }.map(\.id)),
+      cards: Set(dataset.cards.filter { !$0.archived }.map(\.id)),
+      people: Set(dataset.people.filter { !$0.archived }.map(\.id)))
+  }
+}
+
 /// A condition, an action, a problem and a whole rule in words, in the language of the
 /// interface. Pure: the same rule always reads the same.
 @MainActor
@@ -175,6 +186,13 @@ struct RuleWording {
     case .unknownTag: t("rules.problem.unknownTag")
     case .categoryNeverFits: t("rules.problem.neverFits")
     }
+  }
+
+  /// Why a saved rule will not fire, when it names a place, account, card or person that was
+  /// deleted or archived; `nil` when nothing it names is gone.
+  func deadReason(_ rule: Rule, live: RuleLiveReferences) -> String? {
+    RuleValidator.deadReferences(of: rule, live: live).isEmpty
+      ? nil : t("rules.problem.wontFire")
   }
 
   func fieldName(_ field: RuleField) -> String {

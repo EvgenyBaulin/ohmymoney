@@ -230,6 +230,9 @@ struct PlanningHeader: View {
         Text(verbatim: environment.language("section.planning"))
           .appFont(Self.titleFont)
           .lineLimit(1)
+          #if os(iOS)
+            .minimumScaleFactor(compact ? 0.8 : 1)
+          #endif
           .accessibilityAddTraits(.isHeader)
           .accessibilityIdentifier("planning.title")
         Spacer(minLength: 8)
@@ -342,11 +345,21 @@ struct PlanningHeader: View {
     } label: {
       Image(systemName: "ellipsis.circle")
         .appFont(.title2)
-        .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.add", environment)))
+        #if os(iOS)
+          .frame(width: 44, height: 44)
+          .contentShape(Rectangle())
+        #else
+          .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.add", environment)))
+        #endif
     }
     .menuStyle(.button)
-    .buttonStyle(.borderless)
-    .fixedSize()
+    #if os(iOS)
+      .buttonStyle(.plain)
+      .accessibilityLabel(Text(verbatim: PlanningBlockText.t("layout.add", environment)))
+    #else
+      .buttonStyle(.borderless)
+      .fixedSize()
+    #endif
     .accessibilityIdentifier("planning.actions")
   }
 }
@@ -401,6 +414,7 @@ struct PlanningFreeFigures: Equatable {
   var columns: [Figure]
   var metrics: [Figure]
   var hint: String
+  var recovery: String? = nil
   /// The one line a phone shows instead of the card: «Сейчас свободно 41 600 ₽ · до 1 386 ₽/день».
   var line: String
 
@@ -428,7 +442,8 @@ struct PlanningFreeFigures: Equatable {
     // Below zero the plans ask more than there is: the card says so with the shortfall, as the
     // main card of Overview does, and has no figure for a day.
     let short = FreeVerdict(free: grey) == .short
-    let figure = money.rounded(short ? -grey : grey)
+    let figure = money.rounded(free.spendable ?? .zero)
+    let recovery = FreeMoneyRecoveryText.explanation(free, environment)
     let summary = PlanningSummary(free)
     let dues = summary.map { ($0.dueCount, $0.duesAmount) }
     let expected = free.info.filter { $0.key == FreeMoney.Key.stillExpected }
@@ -437,7 +452,7 @@ struct PlanningFreeFigures: Equatable {
       .reduce(AmountE4.zero) { $0 + $1.amount }
 
     var columns: [Figure] = []
-    if !short {
+    if free.dailyReductionRubles == nil {
       columns.append(
         Figure(
           figure: environment.format("layout.free.perDay", table: "Planning", daily),
@@ -470,13 +485,13 @@ struct PlanningFreeFigures: Equatable {
       Figure(
         figure: figure,
         words: short
-          ? t("layout.free.metric.short")
+          ? t("free.now")
           : thirtyDays
             ? environment.format("layout.free.metric.span", table: "Planning", counts: free.days)
             : environment.format("layout.free.metric.until", table: "Planning", day),
         id: "free")
     ]
-    if !short {
+    if free.dailyReductionRubles == nil {
       metrics.append(Figure(figure: daily, words: t("layout.free.metric.daily"), id: "daily"))
     }
     if !free.cushion.isZero {
@@ -491,15 +506,18 @@ struct PlanningFreeFigures: Equatable {
     }
 
     let caption = horizon == .nearestIncome ? "free.untilIncome" : "free.now"
-    let title = t(short ? "layout.free.short" : caption)
+    let title = t(caption)
     let line =
-      short
-      ? "\(title) \(figure)"
+      free.dailyReductionRubles != nil
+      ? "\(title) \(figure)\n\(recovery)"
       : "\(title) \(figure) · "
         + environment.format("layout.free.phoneDaily", table: "Planning", daily)
     return PlanningFreeFigures(
-      title: title, main: Figure(figure: figure, words: span + reserve, id: "free"),
-      columns: columns, metrics: metrics, hint: t("layout.free.hint"), line: line)
+      title: title,
+      main: Figure(
+        figure: figure, words: free.dailyReductionRubles == nil ? span + reserve : span, id: "free"),
+      columns: columns, metrics: metrics, hint: t("layout.free.hint"),
+      recovery: free.dailyReductionRubles == nil ? nil : recovery, line: line)
   }
 }
 
@@ -527,6 +545,13 @@ struct PlanningFreeCard: View {
         columns
       } else {
         metrics
+      }
+      if let recovery = figures.recovery {
+        Text(verbatim: recovery)
+          .appFont(PlanningType.freeWords)
+          .foregroundStyle(theme.contentSecondary)
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityIdentifier("planning.free.recovery")
       }
       Text(verbatim: figures.hint)
         .appFont(PlanningType.freeHint)

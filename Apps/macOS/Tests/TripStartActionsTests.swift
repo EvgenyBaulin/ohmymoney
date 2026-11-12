@@ -101,8 +101,18 @@ final class TripStartActionsTests: XCTestCase {
     try environment.references!.save(archived)
     XCTAssertEqual(try travel.trips().count, 0)
 
-    XCTAssertTrue(actions.start(draft(), switchingOn: true))
+    let planning = PlanningActions(
+      AppDependencies(
+        environment: environment, store: store,
+        compute: compute))
+    XCTAssertTrue(
+      planning.restoreNamesake(
+        NamesakeRecord(kind: .event, id: archived.id, name: archived.name, archived: true),
+        in: try XCTUnwrap(environment.planning).book()))
     let trip = try XCTUnwrap(try travel.trips().first)
+    XCTAssertTrue(actions.switchOn(trip))
+    XCTAssertEqual(try XCTUnwrap(environment.references).events(includeArchived: true).count, 1)
+    XCTAssertEqual(trip.budgetCurrency, archived.budgetCurrency)
     XCTAssertEqual(trip.id, archived.id, "the archived one came back, no second beside it")
     XCTAssertEqual(trip.kind, .trip)
     XCTAssertEqual(trip.tripCurrency, CurrencyCode("TRY"))

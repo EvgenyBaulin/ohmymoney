@@ -147,9 +147,12 @@ struct MacCommands {
 
   /// A new operation — or a transfer, «перевод 5000 сбер т-банк» — from a line, read and saved
   /// exactly as Return in the entry line saves it.
-  func add(line: String, confirmed: Bool = false) async -> CommandOutcome {
+  func add(
+    line: String, confirmed: Bool = false, bankFields: BankStoredFields? = nil
+  ) async -> CommandOutcome {
     if let refusal = refusal(writes: true) { return .refused(refusal) }
-    return await EntryLineCommand(commands: self).save(line, confirmed: confirmed)
+    return await EntryLineCommand(commands: self).save(
+      line, confirmed: confirmed, bankFields: bankFields)
   }
 
   /// Deletes an operation: the rules and the one step of ⌘Z of «Удалить» in the list.

@@ -26,7 +26,7 @@ struct MigrationTests {
       "account_groups", "allocation_rules", "anomaly_dismissals", "asset_valuations",
       "assets", "attachments", "bank_cashback_categories", "bank_conditions", "banks",
       "budget_month_exceptions", "budgets", "cards", "cashback_offers", "cashback_rules",
-      "categories", "category_feedback",
+      "categories", "category_feedback", "credit_statements",
       "currencies", "custom_currencies", "day_notes", "debt_costs",
       "debt_entries", "debt_instalments", "debts", "deposit_offers", "event_budget_items",
       "event_templates", "events", "expected_income", "expected_income_links",
@@ -38,7 +38,7 @@ struct MigrationTests {
       "subscription_keep_groups",
       "subscription_prices", "subscription_terms", "subscription_usage", "subscription_users",
       "sync_deferred", "sync_heads", "sync_history", "sync_meta", "sync_outbox",
-      "sync_resolutions", "sync_state", "tags", "templates",
+      "sync_resolutions", "sync_state", "tags", "templates", "thing_valuations",
       "transaction_parts", "transactions", "transfers", "week_answers", "wish_prices", "wishes",
     ]
     let tables = try stack.writer.read { db in

@@ -45,6 +45,12 @@ public struct DebtDueState: Hashable, Sendable {
   /// Dues every few days from a first day instead of on `paymentDay` of every month
   /// (`Debt.steps`); `nil` — monthly.
   public var steps: DebtSteps? = nil
+  /// Dates copied from the service, in instalment order.
+  public var explicitDates: [DateOnly] = []
+  /// A credit holiday or a restructuring: no due falls from its first day through its last, and
+  /// the dues after it come later by as many months as were skipped, so the term is carried
+  /// over. Ignored for dues copied from the service (`explicitDates`), which are fixed days.
+  public var pause: DebtPause? = nil
 
   public init(
     debtId: UUID, firstDue: DateOnly?, paidCount: Int, owes: Bool, paymentDay: Int,
@@ -79,12 +85,53 @@ public struct DebtDueState: Hashable, Sendable {
   /// and `index` steps of days after it, whatever months they fall in. Without a first due, the
   /// payment day of no month: 1 January 1970.
   public func due(_ index: Int) -> DateOnly {
+    if explicitDates.indices.contains(index) { return explicitDates[index] }
+    guard firstDue != nil else { return DateOnly(year: 1970, month: 1, day: 1) }
+    return plainDue(offset(ofIndex: max(0, index)))
+  }
+
+  /// The due `offset` steps after the first one, whether or not a pause covers it: the payday of
+  /// the month `offset` months on, or `offset` steps of days on.
+  private func plainDue(_ offset: Int) -> DateOnly {
     guard let firstDue else { return DateOnly(year: 1970, month: 1, day: 1) }
     if let steps {
-      return firstDue.adding(days: max(0, index) * max(1, steps.everyDays))
+      return firstDue.adding(days: offset * max(1, steps.everyDays))
     }
-    let month = firstDue.monthKey.adding(months: max(0, index))
+    let month = firstDue.monthKey.adding(months: offset)
     return DebtDueState.payday(paymentDay, in: month)
+  }
+
+  /// The offsets of the dues a pause skips, a run of them; `nil` without a pause or a due it
+  /// covers.
+  private var skippedOffsets: ClosedRange<Int>? {
+    guard let pause, pause.isValid, explicitDates.isEmpty, firstDue != nil else { return nil }
+    var low: Int?
+    var high: Int?
+    var offset = 0
+    while offset < Self.limit {
+      let day = plainDue(offset)
+      if day > pause.to { break }
+      if day >= pause.from {
+        if low == nil { low = offset }
+        high = offset
+      }
+      offset += 1
+    }
+    guard let low, let high else { return nil }
+    return low...high
+  }
+
+  /// The offset of the due of index `index`: the index itself, moved on by the dues a pause skips.
+  private func offset(ofIndex index: Int) -> Int {
+    guard let skipped = skippedOffsets, index >= skipped.lowerBound else { return index }
+    return index + skipped.count
+  }
+
+  /// The index of the due `offset` steps after the first, the next due after the pause for one
+  /// the pause skips.
+  private func index(ofOffset offset: Int) -> Int {
+    guard let skipped = skippedOffsets, offset >= skipped.lowerBound else { return offset }
+    return offset > skipped.upperBound ? offset - skipped.count : skipped.lowerBound
   }
 
   /// The payment day in `month`, clipped to its length: the 31st of September is its 30th.
@@ -183,15 +230,21 @@ public struct DebtDueState: Hashable, Sendable {
 
   /// The index of the due of `day`, one of the debt's dues.
   private func index(of day: DateOnly) -> Int? {
+    if !explicitDates.isEmpty {
+      return explicitDates.lastIndex(where: { $0 <= day }) ?? 0
+    }
     guard let firstDue else { return nil }
     if let steps {
-      return firstDue.days(to: day) / max(1, steps.everyDays)
+      return index(ofOffset: firstDue.days(to: day) / max(1, steps.everyDays))
     }
-    return firstDue.monthKey.months(to: day.monthKey)
+    return index(ofOffset: firstDue.monthKey.months(to: day.monthKey))
   }
 
   /// The index of the first due on `day` or after it; `nil` without a first due.
   public func firstIndex(onOrAfter day: DateOnly) -> Int? {
+    if !explicitDates.isEmpty {
+      return explicitDates.firstIndex(where: { $0 >= day }) ?? explicitDates.count
+    }
     guard let firstDue else { return nil }
     guard day > firstDue else { return 0 }
     var index = max(0, self.index(of: day) ?? 0)
@@ -253,6 +306,8 @@ public struct DebtDueState: Hashable, Sendable {
   /// not before the first due and not before the first unpaid one, something is owed, and the
   /// unpaid dues before it do not already pay off what is left of the debt.
   public func isUnpaid(_ day: DateOnly) -> Bool {
+    // A day inside a pause is no due: the pause skipped it, whatever is unpaid before it.
+    if let pause, pause.isValid, explicitDates.isEmpty, pause.contains(day) { return false }
     guard let first = firstUnpaid, day >= first else { return false }
     guard let index = index(of: day) else { return true }
     return !asksNothing(index) && !paysOff(beforeIndex: index)
@@ -270,6 +325,14 @@ public struct DebtDueState: Hashable, Sendable {
 
 /// The dues of the debts, worked out once for all of them.
 public enum DebtDues {
+  /// The days an instalment service named for dues 0, 1, 2…, in order; empty unless every due
+  /// from the first has one.
+  public static func namedDays(of steps: [DebtInstalmentStep]) -> [DateOnly] {
+    let named = steps.filter { $0.dueOn != nil }.sorted { $0.fromIndex < $1.fromIndex }
+    guard named.enumerated().allSatisfy({ $0.offset == $0.element.fromIndex }) else { return [] }
+    return named.compactMap(\.dueOn)
+  }
+
   /// A bank's interest and a few kopecks of rounding make a payment a little short of the due;
   /// that much short is still the due. One percent of the monthly payment.
   public static func tolerance(of monthly: AmountE4) -> AmountE4 {
@@ -468,6 +531,7 @@ public enum DebtDues {
       }
       let owes = !debt.closed && (!opened || left.raw > 0)
       // Dues every few days start on their first day, whatever the month.
+      let dates = Self.namedDays(of: typed[debt.id] ?? [])
       let steps = debt.steps
       let paymentDay = steps?.firstDue.day ?? debt.paymentDay ?? 0
       guard steps != nil || paymentDay >= 1 else {
@@ -478,7 +542,10 @@ public enum DebtDues {
       let start = allocationStart(of: effective, calendar: calendar)
       let firstDue: DateOnly
       let countsFrom: DateOnly
-      if let steps {
+      if let first = dates.first {
+        firstDue = first
+        countsFrom = min(start ?? first, first)
+      } else if let steps {
         firstDue = steps.firstDue
         countsFrom = min(start ?? steps.firstDue, steps.firstDue)
       } else if let start,
@@ -537,6 +604,8 @@ public enum DebtDues {
         balanceE4: opened ? left : nil,
         monthlyE4: debt.monthlyPaymentE4, instalments: instalments)
       state.steps = steps
+      state.explicitDates = dates
+      state.pause = debt.pause
       result[debt.id] = state
     }
     return result

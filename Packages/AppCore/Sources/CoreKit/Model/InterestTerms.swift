@@ -78,6 +78,14 @@ public enum InterestPeriod: String, Hashable, Sendable, Codable, CaseIterable {
   case atEnd = "end"
 }
 
+/// What a bank counts the interest of a savings account on.
+public enum InterestBase: String, Hashable, Sendable, Codable, CaseIterable {
+  /// The balance at the end of each day.
+  case daily
+  /// The lowest balance of the month: money taken out for a day lowers the interest of all of it.
+  case minBalance = "min_balance"
+}
+
 /// The interest an account earns: a deposit (with an end) or a savings account (without one).
 /// Interest is worked out on the balance of each day in the account's main currency; it is never
 /// stored — only the income the owner records is.
@@ -94,10 +102,17 @@ public struct DepositTerms: Hashable, Sendable, Codable {
   public var openedOn: DateOnly?
   /// The day the deposit ends; `nil` — a savings account. Interest paid at the end needs one.
   public var endsOn: DateOnly?
+  /// What the interest is counted on; the balance of each day unless the bank says otherwise.
+  public var base: InterestBase
+  /// The rate the bank has announced and the first day it holds; from that day the interest is
+  /// worked out at it. Both or neither.
+  public var nextRate: Decimal?
+  public var nextRateOn: DateOnly?
 
   public init(
     rate: Decimal, period: InterestPeriod, day: Int? = nil, payoutAccountId: UUID? = nil,
-    openedOn: DateOnly? = nil, endsOn: DateOnly? = nil
+    openedOn: DateOnly? = nil, endsOn: DateOnly? = nil, base: InterestBase = .daily,
+    nextRate: Decimal? = nil, nextRateOn: DateOnly? = nil
   ) {
     self.rate = rate
     self.period = period
@@ -105,8 +120,36 @@ public struct DepositTerms: Hashable, Sendable, Codable {
     self.payoutAccountId = payoutAccountId
     self.openedOn = openedOn
     self.endsOn = endsOn
+    self.base = base
+    self.nextRate = nextRate
+    self.nextRateOn = nextRateOn
+  }
+
+  enum CodingKeys: String, CodingKey {
+    case rate, period, day, payoutAccountId, openedOn, endsOn, base, nextRate, nextRateOn
+  }
+
+  /// Terms written before the base and the next rate existed read without them.
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.init(
+      rate: try container.decode(Decimal.self, forKey: .rate),
+      period: try container.decode(InterestPeriod.self, forKey: .period),
+      day: try container.decodeIfPresent(Int.self, forKey: .day),
+      payoutAccountId: try container.decodeIfPresent(UUID.self, forKey: .payoutAccountId),
+      openedOn: try container.decodeIfPresent(DateOnly.self, forKey: .openedOn),
+      endsOn: try container.decodeIfPresent(DateOnly.self, forKey: .endsOn),
+      base: try container.decodeIfPresent(InterestBase.self, forKey: .base) ?? .daily,
+      nextRate: try container.decodeIfPresent(Decimal.self, forKey: .nextRate),
+      nextRateOn: try container.decodeIfPresent(DateOnly.self, forKey: .nextRateOn))
   }
 
   /// Whether the interest joins the balance it was earned on.
   public var capitalizes: Bool { payoutAccountId == nil }
+
+  /// The rate that holds on `day`: the announced one from its day on, the current one before.
+  public func rate(on day: DateOnly) -> Decimal {
+    if let nextRate, let nextRateOn, day >= nextRateOn { return nextRate }
+    return rate
+  }
 }

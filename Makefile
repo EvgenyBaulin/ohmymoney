@@ -208,21 +208,30 @@ TEAM   ?= D68YR62N4B
 DEVICE ?=
 IOS_DEST ?= generic/platform=iOS
 IOS_BUNDLE := $(shell sed -n 's/.*PRODUCT_BUNDLE_IDENTIFIER: \(io.github.EvgenyBaulin.ohmymoney\)$$/\1/p' project.yml | sed -n 1p)
+# PREVIEW=1: the build goes in as a separate app («OhMyMoney β», bundle id …ohmymoney.preview) with a
+# container of its own — the owner's copy, its data and its exchange folder stay untouched.
+PREVIEW ?=
+IOS_RUN_BUNDLE = $(IOS_BUNDLE)$(if $(PREVIEW),.preview,)
+# A preview is built optimised (Release): a Debug build of SwiftUI stutters on a device and
+# misleads a look at the design.
+IOS_RUN_CONFIG = $(if $(PREVIEW),Release,Debug)
+IOS_PREVIEW_FLAGS = $(if $(PREVIEW),PRODUCT_BUNDLE_IDENTIFIER=$(IOS_RUN_BUNDLE) INFOPLIST_KEY_CFBundleDisplayName="OhMyMoney β",)
 
 run-ios: generate
 	@if scripts/install-ios.sh --check "$(DEVICE)"; then \
-	    $(MAKE) --no-print-directory run-ios-go DEVICE="$(DEVICE)" IOS_DEST="$(IOS_DEST)" TEAM="$(TEAM)"; \
+	    $(MAKE) --no-print-directory run-ios-go DEVICE="$(DEVICE)" IOS_DEST="$(IOS_DEST)" TEAM="$(TEAM)" \
+	        PREVIEW="$(PREVIEW)"; \
 	else echo "run-ios: no ready device, nothing built (reconnect and unlock it, then run again)"; fi
 
 run-ios-go:
 	@mkdir -p $(LOGS)
-	set -o pipefail; $(IOS_XCB) -configuration Debug -destination '$(IOS_DEST)' \
+	set -o pipefail; $(IOS_XCB) -configuration $(IOS_RUN_CONFIG) -destination '$(IOS_DEST)' \
 	    -allowProvisioningUpdates DEVELOPMENT_TEAM=$(TEAM) CODE_SIGN_STYLE=Automatic \
-	    CODE_SIGN_IDENTITY="Apple Development" CODE_SIGNING_ALLOWED=YES build \
+	    CODE_SIGN_IDENTITY="Apple Development" CODE_SIGNING_ALLOWED=YES $(IOS_PREVIEW_FLAGS) build \
 	    2>&1 | tee $(LOGS)/run-ios.log
-	app="$$(find $(DERIVED)/Build/Products/Debug-iphoneos -maxdepth 1 -name '*.app' | sed -n 1p)"; \
+	app="$$(find $(DERIVED)/Build/Products/$(IOS_RUN_CONFIG)-iphoneos -maxdepth 1 -name '*.app' | sed -n 1p)"; \
 	    test -n "$$app" || (echo "run-ios: no app was built" && exit 1); \
-	    scripts/install-ios.sh "$$app" "$(IOS_BUNDLE)" "$(DEVICE)"
+	    scripts/install-ios.sh "$$app" "$(IOS_RUN_BUNDLE)" "$(DEVICE)"
 
 # Written to a log like every other build: the code under `#if APPSTORE` compiles in no
 # other configuration, so without this its warnings were read by nobody (`check-warnings`).
@@ -801,7 +810,7 @@ check-strings:
 # (.github/workflows/build.yml, scripts/check-ci.sh).
 ci-checks: lint check-warnings check-stale check-core-purity check-core-linux check-environment \
 	    check-geometry check-scripts check-privacy check-attribution check-native check-glass \
-	    check-fonts check-names check-ci check-log-names check-strings
+	    check-fonts check-names check-ci check-log-names check-strings check-test-zones
 
 # What Linux would refuse in AppCore, read from the sources (core-linux.yml builds it there).
 check-core-linux:

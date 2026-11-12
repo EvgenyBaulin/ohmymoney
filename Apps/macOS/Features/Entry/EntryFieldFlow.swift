@@ -110,4 +110,6 @@ enum EntryFieldFlowMetrics {
   static let panelColumns = 3
   /// Columns of the form at the side, about 380 pt wide, and of a phone sheet.
   static let sideColumns = 2
+  /// Columns of the editor of a saved operation, in its sheet and in its inspector.
+  static let editorColumns = 2
 }

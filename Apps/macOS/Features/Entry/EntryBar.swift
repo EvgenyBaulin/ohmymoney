@@ -273,6 +273,7 @@ struct EntryBar<Accessory: View>: View {
       readTheLineIntoThePanel()
       refreshRuleHint()
     }
+    .modifier(CarriesBankFields(bank: fast.bank?.message, finishing: fast.drafts.finishing, model: model))
     // The form at the side follows the selection of the window's lists: one operation selected
     // is edited in it, anything else brings the new operation back.
     .onChange(of: operations?.selection, initial: true) { _, selection in
@@ -286,7 +287,8 @@ struct EntryBar<Accessory: View>: View {
     .modifier(
       DictationStops(
         dictation: dictation, scenePhase: scenePhase,
-        language: environment.language.resolvedCode, style: style))
+        language: environment.language.resolvedCode, style: style)
+    )
     .onChange(of: compute.generation) { _, _ in
       followTheEditedOperation()
       if showsDetails { model?.reload() }
@@ -723,6 +725,41 @@ struct EntryBar<Accessory: View>: View {
     }
   }
 
+  /// The native editor keeps its keyboard handling apart from the capsule's controls.
+  private var entryTextField: some View {
+    TextField(
+      text: $text,
+      prompt: Text(
+        verbatim: questions.isActive
+          ? QuestionsText.t("questions.prompt", environment)
+          : environment.language("entry.placeholder", table: "Entry"))
+    ) {
+      Text(verbatim: environment.language("entry.amount", table: "Entry"))
+    }
+    .textFieldStyle(.plain)
+    .appFont(AppFont.system(size: line.text))
+    .focused($focused)
+    // The line was shown by the owner's «+» (or ⌘N): the keyboard comes with it.
+    .onAppear { if phone != nil { focusTheLineSoon() } }
+    .accessibilityIdentifier("entry.line")
+    .onSubmit(save)
+    // ↓ walks the list of operations from the newest, and only while the line has
+    // focus: a window-wide shortcut would swallow arrow keys meant for the list.
+    // It opens nothing — the panel opens with Tab and the chevron.
+    .onKeyPress(.downArrow) { press(.down) }
+    .onKeyPress(.upArrow) { press(.up) }
+    // Esc closes the panel and keeps the draft. With the panel closed it is not
+    // ours, so it goes on to whatever else wants it.
+    .onKeyPress(.escape) { press(.escape) }
+    // Tab opens the panel and goes to the first field of the owner's order, and with the
+    // panel open it goes there too, Shift-Tab to the last; with the panel closed
+    // Shift-Tab is the window's.
+    .onKeyPress(keys: [.tab, PanelTabOrder.backTab]) { key in tab(key) }
+    // Last, over the field and its keys: where the guide frames the line.
+    .guideTarget("entry.line")
+    .entryImportPaste(environment, focused: focused)
+  }
+
   /// The floating glass capsule with the chips above it and the ↓ panel over them.
   private var lineBody: some View {
     GlassEffectContainer(spacing: 12) {
@@ -757,36 +794,12 @@ struct EntryBar<Accessory: View>: View {
               // The tip hangs on the symbol beside the line, not on the field: the field keeps
               // its keys — Tab into the panel — to itself.
               .popoverTip(EntryLineTip(), arrowEdge: .top)
-            TextField(
-              text: $text,
-              prompt: Text(
-                verbatim: questions.isActive
-                  ? QuestionsText.t("questions.prompt", environment)
-                  : environment.language("entry.placeholder", table: "Entry"))
-            ) {
-              Text(verbatim: environment.language("entry.amount", table: "Entry"))
-            }
-            .textFieldStyle(.plain)
-            .appFont(AppFont.system(size: line.text))
-            .focused($focused)
-            // The line was shown by the owner's «+» (or ⌘N): the keyboard comes with it.
-            .onAppear { if phone != nil { focusTheLineSoon() } }
-            .accessibilityIdentifier("entry.line")
-            .onSubmit(save)
-            // ↓ walks the list of operations from the newest, and only while the line has
-            // focus: a window-wide shortcut would swallow arrow keys meant for the list.
-            // It opens nothing — the panel opens with Tab and the chevron.
-            .onKeyPress(.downArrow) { press(.down) }
-            .onKeyPress(.upArrow) { press(.up) }
-            // Esc closes the panel and keeps the draft. With the panel closed it is not
-            // ours, so it goes on to whatever else wants it.
-            .onKeyPress(.escape) { press(.escape) }
-            // Tab opens the panel and goes to the first field of the owner's order, and with the
-            // panel open it goes there too, Shift-Tab to the last; with the panel closed
-            // Shift-Tab is the window's.
-            .onKeyPress(keys: [.tab, PanelTabOrder.backTab]) { key in tab(key) }
-            // Last, over the field and its keys: where the guide frames the line.
-            .guideTarget("entry.line")
+            entryTextField
+              // The native editor may shrink when another action is added to the capsule.
+              // Its intrinsic prompt width must not push the quiet symbols outside the bar.
+              .frame(minWidth: 0, maxWidth: .infinity)
+
+            EntryAttachmentButton(environment: environment, iconSize: line.icon)
 
             // «Вопрос»: the line asks about the data instead of writing; the mode is this button's,
             // never the text's. A quiet symbol of the line, as the design draws its symbols.
@@ -874,6 +887,7 @@ struct EntryBar<Accessory: View>: View {
         }
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("entry.line.capsule")
+        .entryImportDrop(environment)
         .glassEffectID("capsule", in: glass)
         // Above the capsule, not under it: the capsule keeps its place at the bottom of the
         // window while the result of a formula or an error comes and goes. It hangs over the
@@ -1907,8 +1921,12 @@ struct EntryBar<Accessory: View>: View {
     let bankMerchant =
       fast.bank?.message.merchant
       ?? fast.drafts.finishing.flatMap { AutoEntryLearning.takeMerchant(ofDraft: $0) }
+    if let finishing = fast.drafts.finishing { AutoEntryLearning.forgetFields(ofDraft: finishing) }
     AutoEntryLearning.written(
       merchant: bankMerchant, placeId: model.draft.placeId, environment: environment)
+    // A text the general scan read, written by the owner's hand, offers a format of its shape.
+    AutoEntryFormats.offerFormat(
+      pasted: fast.bank?.message, draft: fast.drafts.finishing, written: model.draft)
     model.reset()
     // The draft this line was finished from is done; the next part of a «;» line is next.
     fast.drafts.lineWritten()
@@ -2200,6 +2218,25 @@ enum EntryPreview {
   }
 }
 
+/// The merchant code and the commission a text of a bank named go with the line to the
+/// operation: from a pasted text while it stands in the line (an emptied line takes them back),
+/// and from the draft of a text when that draft is finished here. A modifier of its own for the
+/// same reason as `DictationStops`.
+private struct CarriesBankFields: ViewModifier {
+  let bank: BankMessage?
+  let finishing: UUID?
+  let model: EntryDraftModel?
+
+  func body(content: Content) -> some View {
+    content
+      .onChange(of: bank) { _, message in model?.bankFields = message?.storedFields }
+      .onChange(of: finishing) { _, id in
+        guard let id else { return }
+        model?.bankFields = AutoEntryLearning.fields(ofDraft: id)
+      }
+  }
+}
+
 /// Ends dictation when the app leaves the foreground, the language or the entry style changes.
 /// A modifier of its own: in the long chain of the bar these checks are too much for the type
 /// checker.
@@ -2222,4 +2259,3 @@ private struct DictationStops: ViewModifier {
       .onChange(of: style) { _, _ in dictation.stop() }
   }
 }
-

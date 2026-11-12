@@ -56,7 +56,7 @@ struct DebtsBoardView: View {
   /// The phone's one column; a width not measured yet is the wide page.
   private var isPhone: Bool { width > 0 && width < DebtsMetrics.phoneWidth }
 
-  private var side: CGFloat { isPhone ? 16 : StyleMetrics.pageSide }
+  private var side: CGFloat { isPhone ? PhoneMetrics.screenMargin : StyleMetrics.pageSide }
   private var top: CGFloat {
     #if os(iOS)
       16
@@ -139,9 +139,7 @@ struct DebtsBoardView: View {
     HStack(alignment: .top, spacing: DebtsMetrics.columnGap) {
       summaryTile(
         "iOwe", symbol: "arrow.down.right", ink: theme.accentDefault, tint: theme.accentTint,
-        label: t("debts.iOwe"), amount: board.summary.iOwe,
-        line: environment.language.format(
-          "debts.summary.debts", table: "Debts", counts: board.summary.iOweCount))
+        label: t("debts.iOwe"), amount: board.summary.iOwe, line: board.summary.iOweLine(environment))
       summaryTile(
         "monthly", symbol: "calendar", ink: theme.chart2, tint: theme.chart2Tint,
         label: t("debts.monthly"), amount: board.summary.monthly,

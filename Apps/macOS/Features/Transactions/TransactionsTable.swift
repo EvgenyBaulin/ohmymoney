@@ -218,6 +218,10 @@ private struct OperationCell: View {
       }
     case .event:
       NameCell(cell: item.event)
+    case .mcc:
+      if let mcc = item.mcc {
+        Text(verbatim: mcc).monospacedDigit()
+      }
     }
   }
 }

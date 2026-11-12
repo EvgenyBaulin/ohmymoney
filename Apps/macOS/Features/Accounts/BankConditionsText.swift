@@ -33,6 +33,7 @@ enum BankText {
       "bank.screen.total", "bank.screen.noAccounts",
       "bank.cond.title", "bank.cond.freeCash", "bank.cond.freeSbp", "bank.cond.freeInterbank",
       "bank.cond.serviceSpend", "bank.cond.serviceBalance", "bank.cond.minBalance",
+      "bank.cond.noCardFee",
       "bank.cond.note", "bank.cond.hint", "bank.cond.invalid",
       "bank.settings.forgottenDays", "bank.settings.forgottenDays.hint",
     ]

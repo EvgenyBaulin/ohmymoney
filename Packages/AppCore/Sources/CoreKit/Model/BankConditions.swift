@@ -21,13 +21,15 @@ public struct BankConditions: Identifiable, Hashable, Sendable, Codable {
   public var serviceFreeBalanceE4: AmountE4?
   /// The balance the product asks to keep.
   public var minBalanceE4: AmountE4?
+  /// What the bank takes in a month for an account with no card tied to it.
+  public var noCardFeeE4: AmountE4?
   public var note: String?
 
   public init(
     id: UUID = UUID(), accountId: UUID, cardId: UUID? = nil, currency: CurrencyCode = .rub,
     freeCashE4: AmountE4? = nil, freeSbpE4: AmountE4? = nil, freeInterbankE4: AmountE4? = nil,
     serviceFreeSpendE4: AmountE4? = nil, serviceFreeBalanceE4: AmountE4? = nil,
-    minBalanceE4: AmountE4? = nil, note: String? = nil
+    minBalanceE4: AmountE4? = nil, note: String? = nil, noCardFeeE4: AmountE4? = nil
   ) {
     self.id = id
     self.accountId = accountId
@@ -39,6 +41,7 @@ public struct BankConditions: Identifiable, Hashable, Sendable, Codable {
     self.serviceFreeSpendE4 = serviceFreeSpendE4
     self.serviceFreeBalanceE4 = serviceFreeBalanceE4
     self.minBalanceE4 = minBalanceE4
+    self.noCardFeeE4 = noCardFeeE4
     self.note = note
   }
 
@@ -46,6 +49,7 @@ public struct BankConditions: Identifiable, Hashable, Sendable, Codable {
   public var isEmpty: Bool {
     freeCashE4 == nil && freeSbpE4 == nil && freeInterbankE4 == nil
       && serviceFreeSpendE4 == nil && serviceFreeBalanceE4 == nil && minBalanceE4 == nil
+      && noCardFeeE4 == nil
       && (note ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
   }
 }

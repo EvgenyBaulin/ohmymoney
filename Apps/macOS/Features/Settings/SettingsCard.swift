@@ -45,6 +45,8 @@
     var showsDivider = true
     /// The row of a list of switches: no symbol, 13 over 11, 11 above and below.
     var compact = false
+    /// Overrides the margin above and below the row (the design's rows with a hint are 11, not 14).
+    var verticalPadding: CGFloat?
     @ViewBuilder let trailing: Trailing
 
     var body: some View {
@@ -78,7 +80,8 @@
         .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
         .padding(
           .vertical,
-          compact ? SettingsCardMetrics.compactVertical : SettingsCardMetrics.rowVertical)
+          verticalPadding
+            ?? (compact ? SettingsCardMetrics.compactVertical : SettingsCardMetrics.rowVertical))
         if showsDivider {
           Rectangle().fill(surfaces.cardBorder.opacity(0.6))
             .frame(height: SettingsCardMetrics.hairline)
@@ -86,6 +89,68 @@
       }
       .accessibilityElement(children: .contain)
       .accessibilityLabel(Text(verbatim: title))
+    }
+  }
+
+  /// A titled group of a settings section: the title 13 semibold, 8 to the card, a footer 12
+  /// under it; the group is a clear row of the grouped form, 28 from the edges (Figma «Настройки ·
+  /// Основные», 52:585).
+  struct SettingsCardGroup<Content: View>: View {
+    let title: String?
+    var footer: String?
+    /// Between the title and the card: 8 in «Основные», 18 in the planning sections.
+    var titleGap: CGFloat = 8
+    var verticalMargin: CGFloat = 9
+    @ViewBuilder let content: Content
+
+    var body: some View {
+      Section {
+        VStack(alignment: .leading, spacing: titleGap) {
+          if let title {
+            Text(verbatim: title)
+              .appFont(AppFont.system(size: 13, weight: .semibold))
+              .accessibilityAddTraits(.isHeader)
+          }
+          SettingsCard { content }
+          if let footer {
+            Text(verbatim: footer)
+              .appFont(AppFont.system(size: 12))
+              .foregroundStyle(.secondary)
+              .fixedSize(horizontal: false, vertical: true)
+          }
+        }
+        .padding(.horizontal, SettingsChromeMetrics.contentInset)
+        .padding(.vertical, verticalMargin)
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+      .listRowBackground(Color.clear)
+      .listRowInsets(EdgeInsets())
+    }
+  }
+
+  /// The value of a row that opens a menu: the value 13 and a small chevron, no frame.
+  struct SettingsValueMenu<Content: View>: View {
+    let value: String
+    @ViewBuilder let content: Content
+    @Environment(\.themeSurfaces) private var surfaces
+
+    var body: some View {
+      Menu {
+        content
+      } label: {
+        HStack(spacing: 4) {
+          Text(verbatim: value)
+            .appFont(AppFont.system(size: 13))
+            .foregroundStyle(surfaces.secondary)
+          Image(systemName: "chevron.down")
+            .font(.system(size: 10, weight: .semibold))  // font-fixed: chevron of a value
+            .foregroundStyle(surfaces.secondary)
+            .accessibilityHidden(true)
+        }
+      }
+      .menuStyle(.borderlessButton)
+      .menuIndicator(.hidden)
+      .fixedSize()
     }
   }
 

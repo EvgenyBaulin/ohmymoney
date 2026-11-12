@@ -100,6 +100,53 @@ final class PeriodsBoardTests: XCTestCase {
     UserDefaults(suiteName: suiteName)?.removePersistentDomain(forName: suiteName)
   }
 
+  func testSummaryPDFAsksDuringAutomaticCaptureHiding() {
+    environment.amounts.hidesAmounts = false
+    environment.amounts.autoHideOnCapture = true
+    environment.amounts.capture = [.recording]
+    defer { environment.amounts.capture = [] }
+    XCTAssertTrue(SummaryShare.asksAboutAmounts(environment))
+    environment.amounts.capture = []
+    XCTAssertFalse(SummaryShare.asksAboutAmounts(environment))
+    environment.amounts.hidesAmounts = true
+    XCTAssertTrue(SummaryShare.asksAboutAmounts(environment))
+  }
+
+  func testSharePictureChangesWhenAmountsAreHiddenAndRestored() async throws {
+    let store = PeriodsBoardStore()
+    store.show(PeriodsFigmaBook.october)
+    let snapshot = PeriodsFigmaBook.snapshot()
+    environment.amounts.hidesAmounts = false
+    await store.reload(snapshot, environment: environment)
+    // The picture of the load and one drawn again later may differ in bytes (the load draws
+    // before every figure settles), so the baseline is a picture drawn the way a refresh draws.
+    store.refreshShare(snapshot, environment: environment)
+    let visibleURL = try XCTUnwrap(store.shareURL)
+    let visible = try Data(contentsOf: visibleURL)
+    environment.amounts.autoHideOnCapture = true
+    environment.amounts.capture = [.recording]
+    defer { environment.amounts.capture = [] }
+    store.refreshShare(snapshot, environment: environment)
+    let hiddenURL = try XCTUnwrap(store.shareURL)
+    XCTAssertNotEqual(hiddenURL, visibleURL)
+    XCTAssertFalse(FileManager.default.fileExists(atPath: visibleURL.path))
+    let hidden = try Data(contentsOf: hiddenURL)
+    XCTAssertNotEqual(hidden, visible)
+    environment.amounts.capture = []
+    store.refreshShare(snapshot, environment: environment)
+    let restoredURL = try XCTUnwrap(store.shareURL)
+    // Text drawn twice is not always the same bytes of PNG: the restored picture is the
+    // visible one when it is not the hidden one and is as large as the visible one.
+    let restored = try Data(contentsOf: restoredURL)
+    XCTAssertNotEqual(restored, hidden)
+    XCTAssertEqual(Double(restored.count), Double(visible.count), accuracy: Double(visible.count) / 100)
+    environment.amounts.hidesAmounts = true
+    store.refreshShare(snapshot, environment: environment)
+    let manuallyHiddenURL = try XCTUnwrap(store.shareURL)
+    XCTAssertNotEqual(try Data(contentsOf: manuallyHiddenURL), visible)
+    try? FileManager.default.removeItem(at: manuallyHiddenURL)
+  }
+
   private var text: PeriodsBoardText {
     PeriodsBoardText(
       environment: environment, names: SummaryNames(dataset: PeriodsFigmaBook.dataset))

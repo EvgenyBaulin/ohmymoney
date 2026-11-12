@@ -210,6 +210,7 @@ final class AnalyticsSectionsFigmaTests: XCTestCase {
         id: "\($0)", label: "Row \($0)", marker: .square, tint: .accent, value: Int64($0 + 1),
         previous: 2, amount: "1 ₽", note: "1 %", spokenValue: "")
     }
+    // dependencies: none — a bare chart sized alone reads nothing from the app.
     let host = NSHostingView(
       rootView: TrackBarsChart(rows: rows).frame(width: 1118))
     host.frame = NSRect(x: 0, y: 0, width: 1118, height: 400)

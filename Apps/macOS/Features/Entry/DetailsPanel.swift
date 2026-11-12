@@ -45,6 +45,14 @@ struct DetailsPanel: View {
   /// the split could not give a column more than its maximum, and the window looped until AppKit
   /// threw (`testTheInspectorNeverAsksForMoreThanItsColumnCanGive`).
   var hasRoomForSegments = true
+  /// Most columns the fields flow in. `nil`: the arrangement's own — three in the ↓ panel, two in
+  /// the form at the side. The editor of a saved operation, in its sheet and its inspector, asks
+  /// for two: only the ↓ panel draws three.
+  var maxColumns: Int? = nil
+  /// The order the fields stand in, and Tab walks them in. `nil`: the owner's
+  /// (`AppEnvironment.entryFieldOrder`); the editor of a saved operation lays the design's until
+  /// the owner chooses an order (`EntryFieldOrder.forEditor`).
+  var fieldOrder: [EntryField]? = nil
   /// The line of quick entry the form at the side puts over its fields. It shares the panel's
   /// focus, so ⌘N asks for it the way Tab asks for a field (`PanelFocus.quick`) — one focus, never
   /// two that pull against each other.
@@ -112,7 +120,7 @@ struct DetailsPanel: View {
       focus =
         model.transfer == nil
         ? PanelTabOrder.resolve(
-          request, order: environment.entryFieldOrder, shown: shownControls,
+          request, order: fieldOrder ?? environment.entryFieldOrder, shown: shownControls,
           fullKeyboardAccess: PanelTabOrder.fullKeyboardAccess)
         : PanelTabOrder.resolveTransfer(
           request, shown: shownControls, fullKeyboardAccess: PanelTabOrder.fullKeyboardAccess)
@@ -317,7 +325,7 @@ struct DetailsPanel: View {
   /// stands in the order.
   private var mainFields: some View {
     fields {
-      ForEach(environment.entryFieldOrder, id: \.self) { field in
+      ForEach(fieldOrder ?? environment.entryFieldOrder, id: \.self) { field in
         rows(for: field)
       }
       // «За кого» after the fields of the order: Tab from the line reaches the first of them.
@@ -358,30 +366,64 @@ struct DetailsPanel: View {
       }
     }
     if way == .somebody {
-      fieldRow("entry.payingFor.paysBack") {
-        Picker(
-          selection: Binding(
-            get: { model.payingForPaysBack }, set: { model.setPaysBack($0) })
-        ) {
-          Text(verbatim: t("entry.payingFor.paysBack.yes")).tag(true)
-          Text(verbatim: t("entry.payingFor.paysBack.no")).tag(false)
-        } label: {
-          Text(verbatim: t("entry.payingFor.paysBack"))
-        }
-        .labelsHidden()
-        .pickerStyle(.menu)
-        .fixedSize()
-        .disabled(model.payingForPeople.isEmpty)
-        .accessibilityIdentifier("entry.payingFor.paysBack")
-      }
-    }
-    if let sentence = payingForSentence {
+      fieldRow(nil, alone: true) { paysBackBlock }
+    } else if let sentence = payingForSentence {
       fieldRow(nil) {
         Text(verbatim: sentence)
           .appFont(.caption)
           .foregroundStyle(.secondary)
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityIdentifier("entry.payingFor.outcome")
+      }
+    }
+  }
+
+  /// «Вернёт ли человек деньги?» as the design draws it: a grey block with its question, the
+  /// answer — «Да, вернёт» or «Нет, дарю» — and under it where the part goes (`PayingForSentence`).
+  /// Segments where the width allows them; in the inspector, a menu (`hasRoomForSegments`).
+  private var paysBackBlock: some View {
+    VStack(alignment: .leading, spacing: 8) {
+      Text(verbatim: split("entry.payingFor.paysBack.title"))
+        .appFont(.subheadline.weight(.semibold))
+        .fixedSize(horizontal: false, vertical: true)
+        .accessibilityAddTraits(.isHeader)
+      Picker(
+        selection: Binding(
+          get: { model.payingForPaysBack }, set: { model.setPaysBack($0) })
+      ) {
+        Text(verbatim: split("entry.payingFor.paysBack.segment.yes")).tag(true)
+        Text(verbatim: split("entry.payingFor.paysBack.segment.no")).tag(false)
+      } label: {
+        Text(verbatim: t("entry.payingFor.paysBack"))
+      }
+      .labelsHidden()
+      .modifier(PaysBackStyle(arrangement: arrangement, hasRoomForSegments: hasRoomForSegments))
+      .disabled(model.payingForPeople.isEmpty)
+      .accessibilityIdentifier("entry.payingFor.paysBack")
+      if let sentence = payingForSentence {
+        Text(verbatim: sentence)
+          .appFont(.caption)
+          .foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+          .accessibilityIdentifier("entry.payingFor.outcome")
+      }
+    }
+    .padding(12)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(.background.secondary, in: RoundedRectangle(cornerRadius: 12))
+    .accessibilityIdentifier("entry.payingFor.paysBackBlock")
+  }
+
+  /// Two short segments fit the grid; the column of the form and the inspector keep the menu.
+  private struct PaysBackStyle: ViewModifier {
+    let arrangement: Arrangement
+    let hasRoomForSegments: Bool
+
+    func body(content: Content) -> some View {
+      switch arrangement {
+      case .wide where hasRoomForSegments: content.pickerStyle(.segmented).fixedSize()
+      case .wide: content.pickerStyle(.menu).fixedSize()
+      case .column: content.pickerStyle(.menu).buttonSizing(.flexible)
       }
     }
   }
@@ -431,8 +473,8 @@ struct DetailsPanel: View {
   /// side — each a label over its control.
   private func fields<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
     EntryFieldFlow(
-      maxColumns: isSideForm
-        ? EntryFieldFlowMetrics.sideColumns : EntryFieldFlowMetrics.panelColumns,
+      maxColumns: maxColumns
+        ?? (isSideForm ? EntryFieldFlowMetrics.sideColumns : EntryFieldFlowMetrics.panelColumns),
       spacing: isSideForm
         ? EntryFieldFlowMetrics.sideCellSpacing : EntryFieldFlowMetrics.cellSpacing,
       rowSpacing: isSideForm
@@ -491,6 +533,7 @@ struct DetailsPanel: View {
       oneOffRow
       warrantyRow
       purchaseRow
+      merchantCodeRow
     case .date: dateRow
     case .incomeMonth: incomeMonthRows
     case .currency: currencyRows
@@ -544,6 +587,7 @@ struct DetailsPanel: View {
           prominent: true
         )
         .frame(width: 180)
+        .accessibilityIdentifier("entry.totalAmount")
         .focused($focus, equals: .amount)
         // One part is the whole operation: its amount is the total.
         .disabled((!model.isSplit && model.hasClosedPart) || moneyLocked)
@@ -560,16 +604,20 @@ struct DetailsPanel: View {
             .appFont(.caption.monospaced())
             .foregroundStyle(.secondary)
         }
-        // Another currency than the default one: grey «≈ 1,240 ₽», display only.
-        if let approximate = ApproximateText.of(
-          amount: model.draft.amount, currency: model.draft.currency, environment: environment,
-          compute: compute)
-        {
-          Text(verbatim: approximate)
-            .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
-            .accessibilityIdentifier("entry.approximate")
-        }
+      }
+    }
+    // Keep the conversion below the amount, with the full field width even in an inspector.
+    if let approximate = ApproximateText.of(
+      amount: model.draft.amount, currency: model.draft.currency, environment: environment,
+      compute: compute)
+    {
+      fieldRow(nil, alone: true) {
+        Text(verbatim: approximate)
+          .appFont(.caption.monospacedDigit())
+          .foregroundStyle(.secondary)
+          .lineLimit(1)
+          .minimumScaleFactor(0.7)
+          .accessibilityIdentifier("entry.approximate")
       }
     }
     // An income in a category with a tax: grey «налог ≈ 240 ₽ (4 %)», never money.
@@ -694,6 +742,7 @@ struct DetailsPanel: View {
           adding: .place
         )
         .focused($focus, equals: .place)
+        .accessibilityIdentifier("entry.place")
       }
     }
   }
@@ -812,7 +861,7 @@ struct DetailsPanel: View {
   @ViewBuilder
   private var goalRow: some View {
     if showsGoal {
-      fieldRow("entry.goal") {
+      fieldRow("entry.goal", alone: true) {
         referencePicker(
           selection: Binding(
             get: { model.part(at: 0).goalId },
@@ -835,7 +884,8 @@ struct DetailsPanel: View {
   @ViewBuilder
   private var debtRow: some View {
     if showsDebt {
-      fieldRow("entry.debt") {
+      // Alone on its row, so the date and the currency below it stand side by side.
+      fieldRow("entry.debt", alone: true) {
         // A debt closed or deleted since stays in the menu of the payment that names it, and
         // says so; the payment keeps it unless another is picked. The difference of a count pays
         // no debt: its amount follows every recount, and a debt's balance would follow it.
@@ -882,6 +932,7 @@ struct DetailsPanel: View {
       .labelsHidden()
       .focused($focus, equals: .note)
       .help(t("entry.note.lines"))
+      .accessibilityIdentifier("entry.note")
     }
   }
 
@@ -909,6 +960,31 @@ struct DetailsPanel: View {
               .accessibilityIdentifier("entry.oneOff.splitHint")
           }
         }
+      }
+    }
+  }
+
+  /// The merchant category code a bank's text or statement gave the operation: shown only when
+  /// the operation has one, so it can be corrected or cleared; four digits, the rest is dropped.
+  @ViewBuilder
+  private var merchantCodeRow: some View {
+    if model.draft.mcc != nil {
+      fieldRow("entry.mcc") {
+        TextField(
+          text: Binding(
+            get: { model.draft.mcc ?? "" },
+            set: { text in
+              let digits = String(text.filter { $0.isASCII && $0.isNumber }.prefix(4))
+              model.draft.mcc = digits.isEmpty ? nil : digits
+            }),
+          prompt: Text(verbatim: "0000")
+        ) {
+          Text(verbatim: t("entry.mcc"))
+        }
+        .labelsHidden()
+        .monospacedDigit()
+        .frame(width: 80)
+        .accessibilityIdentifier("entry.mcc")
       }
     }
   }
@@ -953,6 +1029,7 @@ struct DetailsPanel: View {
       .environment(\.locale, environment.language.locale)
       .focused($focus, equals: .date)
       .disabled(moneyLocked)
+      .accessibilityIdentifier("entry.date")
     }
   }
 
@@ -1007,6 +1084,7 @@ struct DetailsPanel: View {
     fieldRow("entry.currency") {
       currencyPicker
         .focused($focus, equals: .currency)
+        .accessibilityIdentifier("entry.currency")
     }
     if model.draft.currency != .rub {
       fieldRow("entry.rate") {
@@ -1033,8 +1111,12 @@ struct DetailsPanel: View {
 
   // MARK: Split, paid for someone, on credit
 
+  /// The block of parts, as the design draws it: a grey block of radius 12 headed «Split — части
+  /// покупки» with «+ Часть» at its right; a row per part — category, amount, rating —, the
+  /// rest of what a part carries on a line under it; at the foot what is left of the total.
   private var splitEditor: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: 10) {
+      splitHeader
       // Two parts: the border between them can be dragged along the bar of the amount.
       if model.draft.parts.count == 2, let bar = SplitBar(total: model.draft.amount) {
         SplitBarView(
@@ -1045,60 +1127,27 @@ struct DetailsPanel: View {
           model.draft.parts[1].amount = second
         }
       }
-      // Two lines per part, not one. A part carries everything an operation does («У
-      // каждой части свои категория, подкатегория, оценка, сумма (тоже выражением), «для
-      // кого», событие и признак «за другого»»), and all of it in one row came to about 790 pt
-      // against a panel of 720 — the «−» would have fallen off the right edge, and in the
-      // inspector, which is 360 pt wide, most of the row with it.
       ForEach(Array(model.draft.parts.enumerated()), id: \.element.id) { index, part in
-        VStack(alignment: .leading, spacing: 4) {
-          HStack(spacing: 10) {
-            // Stacked rather than side by side: a split row has to fit the panel as well.
-            if model.has(.category) {
-              VStack(alignment: .leading, spacing: 4) {
-                categoryPicker(forPartAt: index)
-                subcategoryPicker(forPartAt: index)
-              }
-              .frame(maxWidth: .infinity)
-            }
-            // Each part has a quality of its own, so it sits next to the amount.
-            VStack(alignment: .leading, spacing: 4) {
-              AmountField(amount: partBinding(index).amount)
-                .frame(width: 104)
-                .disabled(model.isClosedPart(id: part.id))
-              if model.hasQuality {
-                qualityMenu(for: partBinding(index))
-              }
-            }
-            Spacer(minLength: 0)
-            Button {
-              model.removePart(id: part.id)
-            } label: {
-              Image(systemName: "minus.circle")
-            }
-            .buttonStyle(.borderless)
-            .accessibilityLabel(Text(verbatim: t("entry.split.removePart")))
-            .accessibilityIdentifier("entry.split.removePart")
-            // A part someone gave the money back for stays.
-            .disabled(!model.canRemovePart(id: part.id))
-          }
-          // The second line: «для кого» with its person, the event, and «за другого» with the
-          // debtor. Until 21.09 the first two were offered for part one only, and the only way
-          // to set them on part two was the bulk menu of the table. One line in the panel;
-          // in the inspector, 360 pt, it did not fit — about 400 pt in English — and the column
-          // showed the middle of the whole editor, «mount» and «ategory» cut at the left
-          // (24.09, `testTheEditorFitsTheInspectorBesideTheSidebar`), so there the three groups
-          // go one under another.
+        VStack(alignment: .leading, spacing: 6) {
+          partRow(index, part)
+          // The second line: the subcategory, «для кого» with its person, the event, and «за
+          // другого» with the debtor. In the inspector, 360 pt, they do not fit in one line
+          // (about 400 pt in English: `testTheEditorFitsTheInspectorBesideTheSidebar`), so
+          // there the groups go one under another.
           // Income has none of the three: its parts are an amount and a category.
-          if model.has(.forWhom) || model.has(.event) || model.has(.reimbursable) {
+          if model.has(.category) || model.has(.forWhom) || model.has(.event)
+            || model.has(.reimbursable)
+          {
             ViewThatFits(in: .horizontal) {
               HStack(spacing: 10) {
+                partSubcategory(index)
                 partForWhom(index)
                 partEvent(index)
                 partPaidForSomeone(index, part)
                 Spacer(minLength: 0)
               }
               VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 10) { partSubcategory(index) }
                 HStack(spacing: 10) { partForWhom(index) }
                 HStack(spacing: 10) { partEvent(index) }
                 HStack(spacing: 10) { partPaidForSomeone(index, part) }
@@ -1112,16 +1161,140 @@ struct DetailsPanel: View {
           if index < model.draft.parts.count - 1 { Divider() }
         }
       }
+      remainderLine
+    }
+    .padding(12)
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .background(.background.secondary, in: RoundedRectangle(cornerRadius: 12))
+    .accessibilityIdentifier("entry.split.block")
+  }
+
+  private func split(_ key: String) -> String {
+    environment.language(key, table: "SplitEditor")
+  }
+
+  private var splitHeader: some View {
+    HStack(alignment: .firstTextBaseline) {
+      Text(verbatim: split("entry.split.title"))
+        .appFont(.subheadline.weight(.semibold))
+        .lineLimit(2)
+        .fixedSize(horizontal: false, vertical: true)
+        .accessibilityAddTraits(.isHeader)
+      Spacer(minLength: 8)
+      Button(split("entry.split.addPart")) { model.addPart() }
+        .buttonStyle(.link)
+        .accessibilityIdentifier("entry.split.addPart")
+    }
+  }
+
+  /// One part: its category as wide as the row leaves it, its amount, its rating and the «−»;
+  /// where a row of the four does not fit — the inspector — the amount and the rating go under
+  /// the category.
+  private func partRow(_ index: Int, _ part: PartDraft) -> some View {
+    let remove = Button {
+      model.removePart(id: part.id)
+    } label: {
+      Image(systemName: "minus.circle")
+    }
+    .buttonStyle(.borderless)
+    .accessibilityLabel(Text(verbatim: t("entry.split.removePart")))
+    .accessibilityIdentifier("entry.split.removePart")
+    // A part someone gave the money back for stays.
+    .disabled(!model.canRemovePart(id: part.id))
+    let amount = AmountField(amount: partBinding(index).amount)
+      .frame(width: 104)
+      .disabled(model.isClosedPart(id: part.id))
+    return ViewThatFits(in: .horizontal) {
+      HStack(spacing: 10) {
+        if model.has(.category) {
+          categoryPicker(forPartAt: index)
+            .buttonSizing(.flexible)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        } else {
+          Spacer(minLength: 0)
+        }
+        amount
+        if model.hasQuality { qualityMenu(for: partBinding(index)) }
+        remove
+      }
+      VStack(alignment: .leading, spacing: 6) {
+        HStack(spacing: 10) {
+          if model.has(.category) {
+            categoryPicker(forPartAt: index)
+              .buttonSizing(.flexible)
+              .frame(maxWidth: .infinity, alignment: .leading)
+          } else {
+            Spacer(minLength: 0)
+          }
+          remove
+        }
+        HStack(spacing: 10) {
+          amount
+          if model.hasQuality { qualityMenu(for: partBinding(index)) }
+          Spacer(minLength: 0)
+        }
+      }
+    }
+  }
+
+  @ViewBuilder
+  private func partSubcategory(_ index: Int) -> some View {
+    if model.has(.category) {
+      partLabel("entry.subcategory")
+      subcategoryPicker(forPartAt: index)
+        .frame(maxWidth: 160)
+    }
+  }
+
+  /// What is left of the total. Nothing left: a quiet line. Something left, or too much given:
+  /// a red plaque that says the operation cannot be written until it is zero, and — for what is
+  /// left over — the button that gives it to the largest part.
+  @ViewBuilder
+  private var remainderLine: some View {
+    let left = model.draft.unallocated
+    if left.isZero {
       HStack {
         Text(verbatim: t("entry.unallocated"))
-          .foregroundStyle(model.draft.isBalanced ? Color.secondary : Color.red)
-        Text(
-          verbatim: environment.money.exact(model.draft.unallocated, currency: model.draft.currency)
-        )
-        .appFont(.body.monospacedDigit())
-        .foregroundStyle(model.draft.isBalanced ? Color.secondary : Color.red)
+          .foregroundStyle(.secondary)
+        Text(verbatim: environment.money.exact(left, currency: model.draft.currency))
+          .appFont(.body.monospacedDigit())
+          .foregroundStyle(.secondary)
       }
       .appFont(.caption)
+    } else {
+      VStack(alignment: .leading, spacing: 8) {
+        Label {
+          Text(
+            verbatim: environment.language.format(
+              left.isNegative ? "entry.split.overshoot" : "entry.split.remainder",
+              table: "SplitEditor",
+              environment.money.exact(left.magnitude, currency: model.draft.currency))
+          )
+          .fixedSize(horizontal: false, vertical: true)
+        } icon: {
+          Image(systemName: "exclamationmark.octagon")
+        }
+        .appFont(.caption)
+        .foregroundStyle(.red)
+        .accessibilityIdentifier("entry.split.remainder")
+        if let target = model.remainderTargetIndex,
+          let category = model.categories.first(where: {
+            $0.id == model.categoryOfPart(model.part(at: target))
+          })
+        {
+          Button(
+            environment.language.format(
+              "entry.split.giveRemainder", table: "SplitEditor", optionTitle(category))
+          ) {
+            model.giveRemainderAway()
+          }
+          .buttonStyle(.bordered)
+          .accessibilityIdentifier("entry.split.giveRemainder")
+        }
+      }
+      .padding(10)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .background(Color.red.opacity(0.1), in: RoundedRectangle(cornerRadius: 8))
     }
   }
 
@@ -1184,6 +1357,13 @@ struct DetailsPanel: View {
         .foregroundStyle(.secondary)
         .fixedSize(horizontal: false, vertical: true)
       Spacer(minLength: 8)
+      // «Split…» next to «Записать», as the design draws the foot; once split, the block of the
+      // parts has «+ Часть».
+      if model.canSplit && !model.isSplit {
+        Button(t("entry.split")) { model.addPart() }
+          .buttonStyle(.bordered)
+          .accessibilityIdentifier("entry.split")
+      }
       Button {
         submit?()
       } label: {
@@ -1202,12 +1382,14 @@ struct DetailsPanel: View {
       buttonRow(spacing: 8).callAsFunction {
         // A refund of a purchase takes back one amount of one part: it is neither split nor
         // paid for somebody else.
-        if model.canSplit {
+        // The ↓ panel has it beside «Записать» (`saveRow`), and a split has «+ Часть» in its
+        // block: the foot offers the first split only where there is no such place.
+        if model.canSplit && !showsSave && !model.isSplit {
           Button(t("entry.split")) {
             model.addPart()
           }
           .buttonStyle(.bordered)
-          .accessibilityIdentifier("entry.split.addPart")
+          .accessibilityIdentifier("entry.split")
         }
 
         if model.canMarkPaidForSomeone && !model.offersPayingFor {
@@ -1422,6 +1604,7 @@ struct DetailsPanel: View {
       Text(verbatim: t("entry.category"))
     }
     .labelsHidden()
+    .tint(selection.wrappedValue == nil ? Color.secondary : nil)
     .accessibilityIdentifier("entry.category")
   }
 
@@ -1451,6 +1634,7 @@ struct DetailsPanel: View {
       Text(verbatim: t("entry.subcategory"))
     }
     .labelsHidden()
+    .tint(selection.wrappedValue == nil ? Color.secondary : nil)
     .disabled(children.isEmpty && !canAdd)
   }
 
@@ -1573,6 +1757,8 @@ struct DetailsPanel: View {
       EmptyView()
     }
     .labelsHidden()
+    // An empty menu reads as a grey «—», not as an accent chevron with nothing beside it.
+    .tint(selection.wrappedValue == nil ? Color.secondary : nil)
     .disabled(kind == nil && options.isEmpty)
   }
 

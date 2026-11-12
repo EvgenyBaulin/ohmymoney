@@ -396,7 +396,8 @@ struct CalendarUpcomingCard: View {
     if !plans.isEmpty {
       VStack(alignment: .leading, spacing: SectionMetrics.cardGap) {
         SectionCardHeader(
-          title: CalendarText.t("calendar.upcoming", environment), caption: "\(plans.count)")
+          title: CalendarText.t("calendar.upcoming", environment),
+          caption: "\(CalendarLayout.upcomingCount(in: calendar))")
         ForEach(plans) { plan in
           HStack(spacing: SectionMetrics.rowGap) {
             Image(systemName: CalendarMark.symbol(plan.source))
@@ -415,9 +416,12 @@ struct CalendarUpcomingCard: View {
               )
               .appFont(SectionType.rowTitle)
               .lineLimit(1)
-              Text(verbatim: CalendarText.t(CalendarMark.wordKey(plan.source), environment))
-                .appFont(SectionType.rowDetail)
-                .foregroundStyle(.secondary)
+              Text(
+                verbatim: CalendarText.fullAmount(of: plan, environment)
+                  ?? CalendarText.t(CalendarMark.wordKey(plan.source), environment)
+              )
+              .appFont(SectionType.rowDetail)
+              .foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Text(

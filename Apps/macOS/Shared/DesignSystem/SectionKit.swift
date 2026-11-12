@@ -6,12 +6,12 @@ import SwiftUI
 /// segments with a track of 3. What one of the three screens has of its own is in its own metrics.
 enum SectionMetrics {
   /// The margins at the sides: 28 on the Mac (the content starts 28 from the sidebar), 32 on a
-  /// tablet (282 from the 250 of its sidebar), 16 on a phone.
+  /// tablet (282 from the 250 of its sidebar), the phone's screen margin (20) on a phone.
   static func side(_ idiom: LayoutIdiom) -> CGFloat {
     switch idiom {
     case .mac: StyleMetrics.pageSide
     case .pad: 32
-    case .phone: 16
+    case .phone: PhoneMetrics.screenMargin
     }
   }
 

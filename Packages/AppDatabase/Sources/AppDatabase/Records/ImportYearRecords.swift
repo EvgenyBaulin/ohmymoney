@@ -86,7 +86,13 @@ extension SubscriptionTerms: @retroactive FetchableRecord, @retroactive Persista
       serviceType: (row["service_type"] as String?).flatMap(ServiceType.init(rawValue:)),
       needed: try RowMapping.flag(row, "needed", fallback: false),
       yearlyReminderOff: try RowMapping.flag(row, "yearly_reminder_off", fallback: false),
-      ownerUses: try RowMapping.flag(row, "owner_uses", fallback: true))
+      ownerUses: try RowMapping.flag(row, "owner_uses", fallback: true),
+      bankBenefitE4: try? RowMapping.optionalAmount(row, "bank_benefit_e4").flatMap {
+        $0.raw > 0 ? $0 : nil
+      },
+      bankCashbackShare: RowMapping.decimal(row, "bank_cashback_share").flatMap {
+        (0...100).contains($0) ? $0 : nil
+      })
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -99,6 +105,8 @@ extension SubscriptionTerms: @retroactive FetchableRecord, @retroactive Persista
     container["needed"] = needed
     container["yearly_reminder_off"] = yearlyReminderOff
     container["owner_uses"] = ownerUses
+    container["bank_benefit_e4"] = bankBenefitE4?.raw
+    container["bank_cashback_share"] = RowMapping.string(bankCashbackShare)
   }
 }
 

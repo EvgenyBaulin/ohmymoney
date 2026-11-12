@@ -26,6 +26,7 @@ extension DebtActions {
     var markup: AmountE4?
     /// A purchase on credit: what a month asks.
     var monthly: AmountE4?
+    var splitPayments: [SplitPayment]? = nil
   }
 
   /// A purchase made on an instalment plan or on credit: the purchase, spent once at its price
@@ -37,6 +38,11 @@ extension DebtActions {
     let environment = planning.environment
     let name = purchase.name.trimmingCharacters(in: .whitespacesAndNewlines)
     guard !name.isEmpty, purchase.price.raw > 0 else { return false }
+    if let payments = purchase.splitPayments {
+      guard payments.first.map({ $0.day >= purchase.day }) == true,
+        (try? SplitPurchase.markup(price: purchase.price, payments: payments)) != nil
+      else { return false }
+    }
     let accounts = (snapshot?.dataset.paymentMethods ?? []).filter { !$0.archived }
     let debtId = UUID()
     var draft = TransactionDraft(
@@ -49,9 +55,15 @@ extension DebtActions {
     draft.normalizeSinglePart()
     draft.parts[0].categoryId = purchase.categoryId
     guard let entry = try? planning.operation(draft, link: nil) else { return false }
-    let debt: Debt
+    var debt: Debt
     let line: DebtEntry
-    if let parts = purchase.parts {
+    if let payments = purchase.splitPayments {
+      let markup = (try? SplitPurchase.markup(price: purchase.price, payments: payments)) ?? .zero
+      (debt, line) = InstalmentPlan.make(
+        purchase: entry, price: purchase.price, count: payments.count, everyDays: 14,
+        paymentDay: nil, markup: markup, name: name, id: debtId, calendar: environment.calendar)
+      debt.steps = DebtSteps(everyDays: 14, firstDue: payments[0].day)
+    } else if let parts = purchase.parts {
       (debt, line) = InstalmentPlan.make(
         purchase: entry, price: purchase.price, count: parts, everyDays: purchase.everyDays,
         paymentDay: purchase.paymentDay, markup: purchase.markup, name: name, id: debtId,
@@ -72,6 +84,17 @@ extension DebtActions {
     var rows = PlanningRows.empty
     rows.debts = [debt]
     rows.debtEntries = [line]
+    if let payments = purchase.splitPayments {
+      // Each payment's own day travels in the same row as its sum; the row after the last asks
+      // for nothing and names no day.
+      rows.debtInstalments = payments.enumerated().map {
+        DebtInstalmentStep(
+          debtId: debtId, fromIndex: $0.offset, amountE4: $0.element.amountE4,
+          dueOn: $0.element.day)
+      }
+      rows.debtInstalments.append(
+        DebtInstalmentStep(debtId: debtId, fromIndex: payments.count, amountE4: .zero))
+    }
     guard apply(PlanningChange(created: [entry], upsert: rows)) else {
       AppLog.error(
         "debts.instalment.failed", .db, "a purchase on a plan was not written",
@@ -80,7 +103,10 @@ extension DebtActions {
     }
     AppLog.info(
       "debts.instalment.created", .db, "a purchase on a plan was written",
-      [LogPair("debt", .id(debtId)), LogPair("parts", .count(purchase.parts ?? 0))])
+      [
+        LogPair("debt", .id(debtId)),
+        LogPair("parts", .count(purchase.splitPayments?.count ?? purchase.parts ?? 0)),
+      ])
     return true
   }
 
@@ -220,6 +246,16 @@ extension DebtActions {
     var changed = debt
     changed.plannedPrepay = planned
     changed.prepayNoticeDays = noticeDays.map { min(max($0, 0), 90) }
+    return save(changed)
+  }
+
+  /// «Каникулы или реструктуризация…»: a pause of the payments from a day through a day, or none.
+  /// The dues inside it are not owed and the later ones move on (`DebtDueState.due(_:)`); a pause
+  /// that ends before it starts is not kept. Not money, so nothing else is written.
+  @discardableResult
+  func setPause(_ debt: Debt, _ pause: DebtPause?) -> Bool {
+    let changed = DebtPauseRules.applying(pause, to: debt)
+    guard changed.pause != debt.pause else { return true }
     return save(changed)
   }
 

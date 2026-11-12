@@ -656,7 +656,7 @@ final class OnboardingTests: XCTestCase {
 
     model.accounts[0].name = "Old Card"
     XCTAssertEqual(
-      model.issues, [.nameArchived(visa.id)], "renamed to the name of an archived account")
+      model.issues, [], "an archived namesake does not block the setup")
     model.accounts[0].name = "Visa"
 
     XCTAssertTrue(model.hasGroup(named: "trips"), "an archived group has the name")

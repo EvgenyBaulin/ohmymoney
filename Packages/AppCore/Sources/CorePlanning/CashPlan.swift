@@ -74,17 +74,22 @@ public struct CashPlan: Hashable, Sendable {
   /// (`NPDState.accruedUnpaidE4`): money on the accounts that is not the owner's. Zero while
   /// self-employment is off.
   public var npdTax: AmountE4
-  /// What the credit cards out of the summary ask to be paid by D, without interest
+  /// The minimum payments of credit cards out of the summary due by D
   /// (`CreditCardDues.outOfSummary`): a card in the summary has its minus in the money already.
   public var creditCards: AmountE4
+  /// The tax on the interest of deposits earned this year through today (`InterestTax`): money on
+  /// the accounts the tax service will ask for by 1 December of the next year. Zero until the
+  /// interest passes the sum free of tax.
+  public var interestTax: AmountE4
 
   public init(
     scheduled: AmountE4 = .zero, debts: AmountE4 = .zero, goalSavings: AmountE4 = .zero,
     goalPlans: AmountE4 = .zero, events: AmountE4 = .zero, subtractsGoalSavings: Bool = true,
     reservesGoalPlans: Bool = true, withoutRate: [CurrencyCode] = [], overdue: AmountE4 = .zero,
     reservesEventBudgets: Bool = true, scheduledDueCount: Int = 0, debtDueCount: Int = 0,
-    npdTax: AmountE4 = .zero, creditCards: AmountE4 = .zero
+    npdTax: AmountE4 = .zero, creditCards: AmountE4 = .zero, interestTax: AmountE4 = .zero
   ) {
+    self.interestTax = interestTax
     self.npdTax = npdTax
     self.creditCards = creditCards
     self.scheduledDueCount = scheduledDueCount
@@ -103,7 +108,7 @@ public struct CashPlan: Hashable, Sendable {
 
   /// Everything the grey line takes away from what can be spent now. The goal savings are not
   /// in it: they are taken off the money now itself (`FreeMoney.main`).
-  public var total: AmountE4 { scheduled + debts + goalPlans + events + npdTax + creditCards }
+  public var total: AmountE4 { scheduled + debts + goalPlans + events + npdTax + creditCards + interestTax }
 
   /// The plan from `today` through `until` (D, as `FreeMoney.window` clips it).
   ///
@@ -120,7 +125,8 @@ public struct CashPlan: Hashable, Sendable {
     goals: [GoalStatus], debts: DebtsOverview, events: [EventPlan], reserveGoalPlan: Bool,
     subtractGoalSavings: Bool, dayRates: DayRates = .empty,
     goalSavingsValuation: GoalSavingsValuation = .today, reserveEventBudgets: Bool = true,
-    npd: NPDState? = nil, creditStatements: [UUID: [CreditStatement]] = [:]
+    npd: NPDState? = nil, creditStatements: [UUID: [CreditStatement]] = [:],
+    interestTax: AmountE4 = .zero
   ) -> CashPlan {
     var missing: Set<CurrencyCode> = []
     func rubles(_ amount: AmountE4, in currency: CurrencyCode) -> AmountE4 {
@@ -257,7 +263,8 @@ public struct CashPlan: Hashable, Sendable {
       creditCards: creditStatements.isEmpty
         ? .zero
         : CreditCardDues.outOfSummary(
-          accounts: accounts, statements: creditStatements, today: today, until: d))
+          accounts: accounts, statements: creditStatements, today: today, until: d),
+      interestTax: interestTax)
   }
 
   /// What the operations of each counted event dated after today add to its «потрачено», as my

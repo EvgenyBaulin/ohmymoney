@@ -31,6 +31,8 @@ struct GeneralSettingsView: View {
   /// is added.
   @State private var people: [Person] = []
   @State private var newPerson = ""
+  /// One identity for the person being typed, so a hidden notice stays about this entry.
+  @State private var newPersonId = UUID()
   #if !APPSTORE && os(macOS)
     /// Read once when the tab is made; the switch is the only thing that changes it.
     @State private var automaticUpdates = AutomaticUpdates().isOn
@@ -38,8 +40,17 @@ struct GeneralSettingsView: View {
 
   var body: some View {
     @Bindable var language = environment.language
-    @Bindable var theme = environment.theme
+    #if !os(macOS)
+      @Bindable var theme = environment.theme
+    #endif
     Form {
+      #if os(macOS)
+        languageGroup
+        PrivacySettingsSection()
+        #if !APPSTORE
+          updatesGroup
+        #endif
+      #else
       Picker(selection: $language.choice) {
         ForEach(AppLanguage.Choice.allCases, id: \.self) { choice in
           Text(verbatim: environment.language(choice.settingsKey, table: "Settings"))
@@ -66,6 +77,8 @@ struct GeneralSettingsView: View {
           .foregroundStyle(.secondary)
       }
 
+      #endif
+
       // «Стартовый набор»: categories, limits and tiles for the way the owner lives; only adds.
       Section {
         Button(environment.language("settings.starter.open", table: "Settings")) {
@@ -81,6 +94,7 @@ struct GeneralSettingsView: View {
           .foregroundStyle(.secondary)
       }
 
+      #if !os(macOS)
       // The tips on the spot (`GuideTips`): on this Mac only, never in the data.
       Section {
         Toggle(
@@ -91,12 +105,10 @@ struct GeneralSettingsView: View {
         .accessibilityIdentifier("settings.tips.off")
       }
 
-      // Hiding the amounts and the lock: switches of this Mac, never in the archive. The phone
-      // has its own lock (Face ID), set up in «Ещё».
-      #if os(macOS)
-        PrivacySettingsSection()
       #endif
 
+      // Hiding the amounts and the lock: switches of this Mac, never in the archive. The phone
+      // has its own lock (Face ID), set up in «Ещё».
       Section {
         Toggle(
           isOn: Binding(
@@ -160,11 +172,9 @@ struct GeneralSettingsView: View {
           Button(environment.language("references.add", table: "Settings"), action: addPerson)
             .disabled(!canAddPerson)
         }
-        if !ReferenceNames.folded(newPerson).isEmpty, !canAddPerson {
-          Text(verbatim: environment.language("references.nameTaken", table: "Settings"))
-            .appFont(.callout)
-            .foregroundStyle(.secondary)
-        }
+        PlanningNamesakeNotice(
+          kind: .person, id: newPersonId, name: $newPerson, onChange: reloadPeople,
+          dismissesOnRestore: false)
       } header: {
         Text(verbatim: environment.language("settings.forWhom.people", table: "Settings"))
           .settingsHeaderStyle()
@@ -173,10 +183,6 @@ struct GeneralSettingsView: View {
           .appFont(.callout)
           .foregroundStyle(.secondary)
       }
-
-      #if !APPSTORE && os(macOS)
-        updatesSection
-      #endif
 
       // «Собрать отчёт о проблеме…» — it is here as well as in the
       // menu.
@@ -202,34 +208,97 @@ struct GeneralSettingsView: View {
     .refusedWriteAlert($refused, environment)
   }
 
-  #if !APPSTORE && os(macOS)
-    /// «Обновления: автоматические вкл/выкл (по умолчанию вкл)». A build
-    /// that cannot verify an update keeps the switch in view, greyed, and says why.
-    private var updatesSection: some View {
-      Section {
-        Toggle(
-          isOn: Binding(
-            get: { automaticUpdates },
-            set: { isOn in
-              AutomaticUpdates().isOn = isOn
-              automaticUpdates = isOn
-            })
-        ) {
-          Text(verbatim: environment.language("settings.updates.automatic", table: "Settings"))
+  #if os(macOS)
+    /// «Язык и подсказки» of the design (Figma 52:585): language, number format, theme, tips —
+    /// rows of a card with the value and a chevron at the right, or a switch.
+    @ViewBuilder
+    private var languageGroup: some View {
+      @Bindable var language = environment.language
+      @Bindable var theme = environment.theme
+      SettingsCardGroup(title: g("settings.general.group.language")) {
+        SettingsCardRow(symbol: "globe", title: environment.language("settings.language", table: "Settings")) {
+          SettingsValueMenu(
+            value: environment.language(language.choice.settingsKey, table: "Settings")
+          ) {
+            Picker("", selection: $language.choice) {
+              ForEach(AppLanguage.Choice.allCases, id: \.self) { choice in
+                Text(verbatim: environment.language(choice.settingsKey, table: "Settings"))
+                  .tag(choice)
+              }
+            }
+            .pickerStyle(.inline).labelsHidden()
+          }
+          .accessibilityIdentifier("settings.language")
         }
-        .disabled(!AutomaticUpdates.isChangeable)
-      } header: {
-        Text(verbatim: environment.language("settings.updates", table: "Settings"))
-          .settingsHeaderStyle()
-      } footer: {
-        Text(
-          verbatim: environment.language(
-            AutomaticUpdates.isChangeable
-              ? "settings.updates.automaticHint" : "settings.updates.unavailableHint",
-            table: "Settings")
-        )
-        .appFont(.callout)
-        .foregroundStyle(.secondary)
+        SettingsCardRow(
+          symbol: "textformat.123",
+          title: environment.language("settings.numbers", table: "Settings")
+        ) {
+          SettingsValueMenu(value: Self.numberStyleSample(theme.numberStyle)) {
+            Picker("", selection: $theme.numberStyle) {
+              ForEach(NumberStyle.allCases, id: \.self) { style in
+                Text(verbatim: Self.numberStyleSample(style)).tag(style)
+              }
+            }
+            .pickerStyle(.inline).labelsHidden()
+          }
+          .accessibilityIdentifier("settings.numbers")
+        }
+        SettingsCardRow(
+          symbol: "moon", title: environment.language("settings.appearance.scheme", table: "Settings")
+        ) {
+          SettingsValueMenu(value: AppearanceSettingsView.schemeTitle(theme.scheme, environment)) {
+            Picker("", selection: $theme.scheme) {
+              ForEach(AppearanceSettingsView.schemeOrder, id: \.self) { scheme in
+                Text(verbatim: AppearanceSettingsView.schemeTitle(scheme, environment))
+                  .tag(scheme)
+              }
+            }
+            .pickerStyle(.inline).labelsHidden()
+          }
+          .accessibilityIdentifier("settings.general.scheme")
+        }
+        SettingsCardRow(
+          symbol: "lightbulb", title: g("settings.general.tips"),
+          hint: g("settings.general.tipsHint"), showsDivider: false, verticalPadding: 11
+        ) {
+          Toggle(
+            isOn: Binding(get: { !GuideStore.shared.tipsOff }, set: { GuideTips.setOff(!$0) })
+          ) { Text(verbatim: g("settings.general.tips")) }
+          .labelsHidden().toggleStyle(.switch)
+          .accessibilityIdentifier("settings.tips.off")
+        }
+      }
+    }
+
+    private func g(_ key: String) -> String { environment.language(key, table: "SettingsGeneral") }
+  #endif
+
+  #if !APPSTORE && os(macOS)
+    /// «Обновления» of the design (Figma 52:675): one row with a switch; a build that cannot
+    /// verify an update keeps the switch in view, greyed, and says why under the card.
+    private var updatesGroup: some View {
+      SettingsCardGroup(
+        title: g("settings.general.group.updates"),
+        footer: AutomaticUpdates.isChangeable
+          ? nil : environment.language("settings.updates.unavailableHint", table: "Settings")
+      ) {
+        SettingsCardRow(
+          symbol: "arrow.clockwise", title: g("settings.general.updates"),
+          hint: g("settings.general.updatesHint"), showsDivider: false, verticalPadding: 11
+        ) {
+          Toggle(
+            isOn: Binding(
+              get: { automaticUpdates },
+              set: { isOn in
+                AutomaticUpdates().isOn = isOn
+                automaticUpdates = isOn
+              })
+          ) { Text(verbatim: g("settings.general.updates")) }
+          .labelsHidden().toggleStyle(.switch)
+          .disabled(!AutomaticUpdates.isChangeable)
+          .accessibilityIdentifier("settings.updates.automatic")
+        }
       }
     }
   #endif
@@ -238,38 +307,22 @@ struct GeneralSettingsView: View {
     people = (try? environment.references?.people(includeArchived: true)) ?? []
   }
 
-  /// A name already in the book — a name or an alias, by the rule the reference books use —
-  /// adds nothing, and a button that stays live while nothing happens is worse than one that
-  /// explains itself by being grey.
+  /// A name that says something can always be added; a namesake only gets advice under the
+  /// field (`PlanningNamesakeNotice`).
   private var canAddPerson: Bool {
     Self.person(toAdd: newPerson, among: people) != nil
   }
 
-  /// The row «Добавить» brings for `name`, or nil when it adds nothing: an empty name, or one
-  /// a live person already answers to, as a name or an other name, by the rule the reference
-  /// books use (`ReferenceNames`: case, «ё»/«е» and the spaces around do not count) — two
-  /// people with one name are two rows the entry line cannot tell apart. A name the archive
-  /// has — his name first, else one of his other names — brings that person back with the
-  /// relation and the other names he had, as `ReferenceRepository.revive` does on the write.
+  /// The row «Добавить» writes for `name`: always a new person, nil for a name that says
+  /// nothing. A person of the same name — live or in the archive — is left alone: the notice
+  /// offers to rename either one or to bring the archived one back.
   static func person(toAdd name: String, among people: [Person]) -> Person? {
     let name = name.trimmingCharacters(in: .whitespaces)
-    let live = people.filter { !$0.archived }
-    guard ReferenceBooksView.canAdd(name, to: .people, people: live, places: []) else {
-      return nil
-    }
-    let wanted = ReferenceNames.folded(name)
-    let archived = people.filter(\.archived)
-    guard
-      var back = archived.first(where: { ReferenceNames.folded($0.name) == wanted })
-        ?? archived.first(where: { $0.aliases.contains { ReferenceNames.folded($0) == wanted } })
-    else { return Person(name: name) }
-    back.archived = false
-    return back
+    guard !ReferenceNames.folded(name).isEmpty else { return nil }
+    return Person(name: name)
   }
 
-  /// A new person, or the one the archive holds under this name or an other name of his —
-  /// with the relation and the other names he had — by the rule of the reference books
-  /// (`NewReference.add`), rather than a second row with the same name.
+  /// A new person, never a silent return of the archived one of the same name.
   private func addPerson() {
     guard canAddPerson else { return }
     let today = environment.today

@@ -76,8 +76,11 @@ enum QuickPaste {
     return String(new[start..<end])
   }
 
-  static func decide(chunk: String, today: DateOnly) -> Decision {
-    switch BankTextParser().reading(of: chunk, today: today) {
+  /// `parser` carries the formats the owner keeps; the app's own are the default.
+  static func decide(
+    chunk: String, today: DateOnly, parser: BankTextParser = BankTextParser()
+  ) -> Decision {
+    switch parser.reading(of: chunk, today: today) {
     case .plain: .plain
     case .message(let message): .message(message)
     case .list(let items): .list(items)

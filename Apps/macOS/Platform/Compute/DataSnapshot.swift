@@ -303,6 +303,9 @@ struct DataSnapshot: Sendable {
       ledger: ledger, debts: dataset.debts, journal: book.debtEntries,
       accounts: planning.accounts.balances, tree: ledger.tree,
       allocation: dataset.allocationSettings, rubPerUnit: rubPerUnit, today: today)
+    planning.bankPdn = BankPdn.build(
+      month: today.monthKey, debts: dataset.debts, states: states, accounts: dataset.paymentMethods,
+      incomeRub: planning.debtLoadHistory.last?.load.incomeRub, rubPerUnit: rubPerUnit)
     var cards: [UUID: CreditCardNow] = [:]
     var cardStates: [UUID: CreditCardState] = [:]
     for account in dataset.paymentMethods where !account.archived {
@@ -311,7 +314,8 @@ struct DataSnapshot: Sendable {
         account: account, ledger: ledger, transfers: dataset.transfers)
       let statements = CreditStatements.statements(
         account: account, terms: terms, movements: movements,
-        balances: planning.accounts.balances, through: today, calendar: ledger.calendar)
+        balances: planning.accounts.balances, through: today, calendar: ledger.calendar,
+        overrides: dataset.creditStatements)
       cards[account.id] = CreditStatements.now(
         account: account, terms: terms, statements: statements, movements: movements,
         balances: planning.accounts.balances, today: today, calendar: ledger.calendar)

@@ -45,7 +45,7 @@ public struct OverviewFigures: Hashable, Sendable {
     week = WeekOverWeek(ledger: ledger, today: today)
     average = AverageDaily(ledger: ledger, today: today)
     income = MonthIncome(ledger: ledger, today: today, expected: expectedIncome)
-    savings = SavingsRate(ledger: ledger, today: today, income: income.received)
+    savings = SavingsRate.month(ledger: ledger, month: month)
     weekdays = WeekdaySpending(ledger: ledger, today: today)
     months = MonthlySpending(ledger: ledger, today: today)
     sources = IncomeSources(ledger: ledger, period: .month(month))
@@ -156,50 +156,8 @@ public struct OverviewFigures: Hashable, Sendable {
     }
   }
 
-  /// «Норма сбережений»: what was put aside this month — contributions to goals and the net of
-  /// ruble transfers into and out of the cushion and the deposits — as a share of the income.
-  public struct SavingsRate: Hashable, Sendable {
-    public var goals: AmountE4
-    /// Rubles moved into the accounts that save, less the rubles moved out of them.
-    public var accounts: AmountE4
-    public var income: AmountE4
-    /// Money moved in a currency other than rubles, left out: no rate is applied here.
-    public var leftOutForeign: Int
-
-    public var saved: AmountE4 { goals + accounts }
-
-    /// Basis points of the income; `nil` with no income to be a share of.
-    public var basisPoints: Int? { Shares.ratio(saved, of: income) }
-
-    init(ledger: Ledger, today: DateOnly, income: AmountE4) {
-      self.income = income
-      let span = Period.monthToDate(today: today).range
-      goals = AmountE4.sum(
-        ledger.rows(in: span).filter { $0.isGoalContribution }.map(\.contribution))
-      let dataset = ledger.dataset
-      let savers = Set(
-        dataset.paymentMethods.filter { $0.cushion || $0.interest != nil }.map(\.id))
-      var net = AmountE4.zero
-      var foreign = 0
-      for transfer in dataset.transfers
-      where span.contains(ledger.calendar.day(of: transfer.occurredAt)) {
-        let into = savers.contains(transfer.toAccountId)
-        let out = savers.contains(transfer.fromAccountId)
-        guard into != out else { continue }
-        if into {
-          if transfer.toCurrency == .rub { net += transfer.toAmountE4 } else { foreign += 1 }
-        } else {
-          if transfer.fromCurrency == .rub {
-            net = net - transfer.fromAmountE4
-          } else {
-            foreign += 1
-          }
-        }
-      }
-      accounts = net
-      leftOutForeign = foreign
-    }
-  }
+  /// «Норма сбережений»: the shared monthly savings calculation used by planning as well.
+  public typealias SavingsRate = SavingsTotals
 
   // MARK: - Spending in time
 

@@ -131,6 +131,7 @@ public struct DatasetRepository: Sendable {
     // The saved views, the plan of the year and the subscriptions come in the same read too.
     let savedViews = try SavedViewsRepository.book(db)
     var extras = DatasetExtras()
+    extras.set(try ThingValuationRepository.all(db), for: Dataset.thingValuationsKey)
     extras.set(try SubscriptionRepository.book(db), for: Dataset.subscriptionsKey)
     extras.set(try YearPlanRepository.data(db), for: Dataset.yearPlanKey)
     extras.set(
@@ -214,6 +215,7 @@ public struct DatasetRepository: Sendable {
       wishPrices: wishPrices,
       shoppingItems: shoppingItems,
       ownedItems: ownedItems,
-      purchaseSettings: purchaseSettings)
+      purchaseSettings: purchaseSettings,
+      creditStatements: try CreditStatementRepository.all(db))
   }
 }

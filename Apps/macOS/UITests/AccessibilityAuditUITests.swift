@@ -103,7 +103,7 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       XCTAssertTrue(details.waitForExistence(timeout: 20), "No entry details button")
       details.click()
     }
-    let split = main.buttons["entry.split.addPart"]
+    let split = main.buttons["entry.split"]
     XCTAssertTrue(split.waitForExistence(timeout: 20), "No Split button in entry details")
     // The inner ScrollView is flattened by the glass host, but the panel is a named AX
     // container. macOS scroll(byDeltaX:deltaY:) sends wheel events to its centre regardless

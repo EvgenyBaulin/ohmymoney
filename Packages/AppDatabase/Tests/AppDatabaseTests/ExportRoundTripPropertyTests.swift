@@ -26,17 +26,18 @@ struct ExportRoundTripPropertyTests {
     "in_ladder", "pledge", "terms_reviewed", "credit_cash_no_grace", "transfer_on_contribution",
     "tax_npd", "in_loan", "one_off", "enabled", "floating", "needed", "yearly_reminder_off",
     "owner_uses", "new_client_only", "needs_subscription", "topup", "keep_forever", "done",
-    "hidden", "chosen", "borrowed",
+    "hidden", "chosen", "borrowed", "digital_ruble", "piggy",
   ]
   /// Columns holding an instant, written in UTC to the second.
   private static let instants: Set<String> = [
     "occurred_at", "created_at", "updated_at", "deleted_at", "reconciled_at", "fetched_at",
-    "arrived_at", "added_at", "trashed_at", "earned_at", "marked_at",
+    "arrived_at", "added_at", "trashed_at", "earned_at", "marked_at", "recorded_at",
   ]
   /// Columns holding a decimal kept as text.
   private static let decimals: Set<String> = [
     "rate", "rub_per_unit", "interest_rate", "share", "psk", "credit_purchase_rate",
     "credit_cash_rate", "credit_min_percent", "credit_cash_fee_percent", "tax_rate", "percent",
+    "interest_next_rate", "bank_cashback_share",
   ]
   /// Columns holding a currency code.
   private static let currencies: Set<String> = [
@@ -51,7 +52,7 @@ struct ExportRoundTripPropertyTests {
     column: String, databaseColumn: String, raw: DatabaseValue
   ) -> String? {
     // A flag an update added reads NULL on the rows it found: the export writes it as «false».
-    if raw.isNull { return ["hidden", "borrowed"].contains(column) ? "false" : "" }
+    if raw.isNull { return ["hidden", "borrowed", "digital_ruble", "piggy"].contains(column) ? "false" : "" }
     if databaseColumn.hasSuffix("_e4"), let stored = Int64.fromDatabaseValue(raw) {
       return "e4:\(stored)"
     }
@@ -345,6 +346,24 @@ struct ExportRoundTripPropertyTests {
         sql:
           "INSERT INTO cashback_offers (id, payment_method_id, month, label, percent_e4, chosen) VALUES (?, ?, '2026-09', 'Кафе', 50000, 1)",
         arguments: [UUID().uuidString, account])
+      try db.execute(
+        sql:
+          "INSERT INTO credit_statements (id, payment_method_id, statement_on, minimum_e4, pay_by) VALUES (?, ?, '2026-09-05', 31000000, '2026-09-25')",
+        arguments: [UUID().uuidString, account])
+      // Schema 26: the code and the commission of an operation, the picture of a wish, the fee
+      // without a card, and the valuation of a thing in its own currency.
+      try db.execute(sql: "UPDATE transactions SET mcc = '0742', fee_e4 = 12500 WHERE rowid = 1")
+      try db.execute(
+        sql: "UPDATE wishes SET image_url = 'https://shop.example/a,b.jpg' WHERE rowid = 1")
+      try db.execute(sql: "UPDATE bank_conditions SET no_card_fee_e4 = 1500000")
+      if let item = try String.fetchOne(db, sql: "SELECT id FROM owned_items LIMIT 1") {
+        try db.execute(
+          sql: """
+            INSERT INTO thing_valuations
+              (id, owner_kind, owner_id, valued_on, value_e4, currency, note, recorded_at)
+            VALUES (?, 'owned_item', ?, '2026-09-01', 8000000, 'EUR', 'рынок, «б/у»', '2026-09-01 10:00:00.000')
+            """, arguments: [UUID().uuidString, item])
+      }
     }
     let counts = try ExportRepository(writer: stack.writer).rowCounts()
     for table in ExportTables.all {
@@ -502,6 +521,9 @@ struct ExportRoundTripPropertyTests {
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
+          "0025_split_dates_and_credit_statements",
+          "0026_mcc_fee_valuations_wish_image",
+          "0027_savings_points_digital_pause",
         ])
     let stack = try DatabaseStack(url: staged, schema: TestSupport.schemaSource)
     defer { try? stack.close() }
@@ -699,10 +721,33 @@ struct ExportRoundTripPropertyTests {
     "categories.csv:icon", "categories.csv:color",
   ]
 
+  /// The column the split dates added (`0025_split_dates_and_credit_statements`).
+  private static let addedByTheSplitDates: Set<String> = ["debt_instalments.csv:due_on"]
+
+  /// The columns the merchant code, the commission, the picture of a wish and the fee without a
+  /// card added (`0026_mcc_fee_valuations_wish_image`).
+  private static let addedByTheCodeAndTheFee: Set<String> = [
+    "transactions.csv:mcc", "transactions.csv:fee", "wishes.csv:image_url",
+    "bank_conditions.csv:no_card_fee",
+  ]
+
+  /// The columns the savings accounts, the points, the digital ruble, the bank subscriptions and
+  /// the credit pauses added (`0027_savings_points_digital_pause`).
+  private static let addedByTheSavingsAndPauses: Set<String> = [
+    "payment_methods.csv:interest_base", "payment_methods.csv:interest_next_rate",
+    "payment_methods.csv:interest_next_rate_on", "payment_methods.csv:points_burn_on",
+    "payment_methods.csv:points_burn", "payment_methods.csv:digital_ruble",
+    "payment_methods.csv:piggy", "debts.csv:pause_from", "debts.csv:pause_to",
+    "debts.csv:pause_kind", "subscription_terms.csv:bank_benefit",
+    "subscription_terms.csv:bank_cashback_share",
+  ]
+
   private static let addedByTheRulesOrImport: Set<String> = addedByTheRules.union(addedByTheImport)
     .union(addedByTheConditions).union(addedByTheAttachments).union(addedByThePrivacy)
     .union(addedByTheCeilings).union(addedByTheBorrowedCard).union(addedByTheReceiptsAndEnglish)
     .union(addedByThePurchases).union(addedByTheHabits).union(addedByTheCategoryMark)
+    .union(addedByTheSplitDates).union(addedByTheCodeAndTheFee)
+    .union(addedByTheSavingsAndPauses)
 
   /// The column the habits added (`0020_habits`).
   private static let addedByTheHabits: Set<String> = ["goals.csv:why_note"]
@@ -946,8 +991,8 @@ struct ExportRoundTripPropertyTests {
     for (index, debt) in debts.enumerated() {
       try db.execute(
         sql: """
-          INSERT INTO debt_instalments (id, debt_id, from_index, amount_e4) VALUES
-            (?, ?, 0, 26500000), (?, ?, 3, 26500100)
+          INSERT INTO debt_instalments (id, debt_id, from_index, amount_e4, due_on) VALUES
+            (?, ?, 0, 26500000, '2026-09-14'), (?, ?, 3, 26500100, NULL)
           """,
         arguments: [UUID().uuidString, debt, UUID().uuidString, debt])
       try db.execute(

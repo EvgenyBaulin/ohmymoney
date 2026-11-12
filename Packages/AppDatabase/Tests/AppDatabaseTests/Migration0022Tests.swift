@@ -135,9 +135,9 @@ struct Migration0022Tests {
 
   @Test func theCSVCarriesTheNewColumnsLastAndTheFilesStayFiftyThree() throws {
     #expect(
-      Array(ExportTables.paymentMethods.columns.suffix(3))
+      Array(ExportTables.paymentMethods.columns.dropLast(7).suffix(3))
         == ["borrowed", "borrowed_person_id", "borrowed_income_category_id"])
-    #expect(ExportTables.all.count == 53)
+    #expect(ExportTables.all.count == 55)
     let person = UUID()
     let category = UUID()
     let card = PaymentMethod(
@@ -145,8 +145,11 @@ struct Migration0022Tests {
       borrowed: BorrowedCardTerms(personId: person, incomeCategoryId: category))
     let row = ExportTables.row(card)
     #expect(row.count == ExportTables.paymentMethods.columns.count)
-    #expect(Array(row.suffix(3)) == ["true", person.uuidString, category.uuidString])
-    #expect(Array(ExportTables.row(PaymentMethod(name: "Моя")).suffix(3)) == ["false", "", ""])
+    #expect(
+      Array(row.dropLast(7).suffix(3)) == ["true", person.uuidString, category.uuidString])
+    #expect(
+      Array(ExportTables.row(PaymentMethod(name: "Моя")).dropLast(7).suffix(3))
+        == ["false", "", ""])
     #expect(!ExportTables.paymentMethods.columns.contains { $0.hasSuffix("_e4") })
   }
 

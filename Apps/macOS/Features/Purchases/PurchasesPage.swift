@@ -59,8 +59,12 @@ struct PurchasesPage: Sendable {
 
   static func build(
     dataset: Dataset, canSave: CanSave?, rubPerUnit: [CurrencyCode: Decimal], today: DateOnly,
-    calendar: CalendarContext, waiting: WaitingRefunds
+    calendar: CalendarContext, waiting: WaitingRefunds, freeRubE4: AmountE4?
   ) -> PurchasesPage {
+    // What a wish counts as already collected: the free sum now (payments due before the next
+    // income already taken off), the figure «Подождать?» compares a purchase with. Open question
+    // 88 recommends this reading and the code follows it until the owner answers (0614).
+    let saved = max(.zero, freeRubE4 ?? .zero)
     func rate(_ currency: CurrencyCode) -> Decimal? {
       currency == .rub ? 1 : rubPerUnit[currency]
     }
@@ -89,12 +93,12 @@ struct PurchasesPage: Sendable {
       let afford: TimeToAfford
       if let canSave, let factor {
         afford = TimeToAfford.estimate(
-          wish: wish, rateToRub: factor, canSave: canSave, today: today)
+          wish: wish, rateToRub: factor, savedE4: saved, canSave: canSave, today: today)
       } else {
         // No month to take the pace from: the price is known, the pace is not («нечего
         // откладывать»); without a rate there is no price in rubles at all.
         afford = TimeToAfford.estimate(
-          priceRubE4: priceRub, monthlySavingE4: nil, today: today)
+          priceRubE4: priceRub, savedE4: saved, monthlySavingE4: nil, today: today)
       }
       lines.append(
         WishLine(
@@ -116,7 +120,8 @@ struct PurchasesPage: Sendable {
       // An asset has no tag and no sale of its own: the tag of its name stands for its running
       // costs, and the income noted with its name on the day it was disposed of for its sale.
       let subject = OwnershipSubject(
-        asset: asset, valuations: dataset.assetValuations, rateToRub: rate(asset.currency) ?? 1,
+        asset: asset, valuations: dataset.assetValuations, updates: dataset.thingValuations,
+        today: today, rubPerUnit: rubPerUnit,
         tagId: tagId(named: asset.name),
         saleTransactionId: asset.disposedOn.flatMap {
           saleOf(asset.name, on: $0, entries: entries, calendar: calendar)
@@ -127,7 +132,9 @@ struct PurchasesPage: Sendable {
           calendar: calendar, isVehicle: asset.kind == .vehicle))
     }
     for item in dataset.ownedItems where !item.archived {
-      var subject = OwnershipSubject(item: item, rateToRub: rate(item.currency) ?? 1)
+      var subject = OwnershipSubject(
+        item: item, valuations: dataset.thingValuations,
+        today: today, rubPerUnit: rubPerUnit)
       if subject.tagId == nil { subject.tagId = tagId(named: item.name) }
       place(
         line(

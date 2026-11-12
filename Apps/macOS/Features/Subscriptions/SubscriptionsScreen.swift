@@ -93,6 +93,7 @@ struct SubscriptionsScreen: View {
       let notices = page.shownNotices(dismissed: dismissed)
       if !notices.isEmpty { noticesCard(notices, names: names) }
       if !page.advice.isEmpty { adviceCard(page, names: names) }
+      if !page.bankPaybacks.isEmpty { bankPaybackCard(page, names: names) }
       let columns = ScreenColumns.count(forWidth: width - 40)
       let laid = ScreenColumns.deal(page.rows, into: columns)
       HStack(alignment: .top, spacing: 16) {
@@ -164,6 +165,57 @@ struct SubscriptionsScreen: View {
       }
     }
     .contentCard()
+  }
+
+  // MARK: Bank subscriptions
+
+  /// «Окупаются ли подписки банков»: each subscription a bank states a benefit for, with what it
+  /// costs this month, what it brings — the benefit the owner typed and the share of the bank's
+  /// cashback —, and whether it pays back. Estimates of the month so far, grey where not sure.
+  private func bankPaybackCard(_ page: SubscriptionsPage, names: [UUID: String]) -> some View {
+    let money = environment.money
+    return VStack(alignment: .leading, spacing: 10) {
+      ScreenCardHeader(title: t("subs.bank"), caption: t("subs.bank.caption"))
+      ForEach(page.bankPaybacks) { line in
+        VStack(alignment: .leading, spacing: 2) {
+          Label {
+            Text(verbatim: names[line.paymentId] ?? "—").fontWeight(.medium)
+          } icon: {
+            Image(systemName: Self.bankSymbol(line.verdict))
+          }
+          Text(
+            verbatim: SubscriptionsText.f(
+              "subs.bank.line", environment, money.exact(line.costRub), money.exact(line.gainRub),
+              money.exact(line.netRub))
+          )
+          .monospacedDigit()
+          .foregroundStyle(.secondary)
+          Text(verbatim: t(Self.bankKey(line.verdict)))
+            .appFont(.caption)
+            .foregroundStyle(.secondary)
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("subs.bank.line")
+      }
+    }
+    .contentCard()
+    .accessibilityIdentifier("subs.bank")
+  }
+
+  static func bankSymbol(_ verdict: BankSubscriptionPayback.Verdict) -> String {
+    switch verdict {
+    case .paysBack: "checkmark.circle"
+    case .costsMore: "exclamationmark.triangle"
+    case .notStated: "questionmark.circle"
+    }
+  }
+
+  static func bankKey(_ verdict: BankSubscriptionPayback.Verdict) -> String {
+    switch verdict {
+    case .paysBack: "subs.bank.paysBack"
+    case .costsMore: "subs.bank.costsMore"
+    case .notStated: "subs.bank.notStated"
+    }
   }
 
   // MARK: Advice

@@ -619,6 +619,33 @@ struct SQLAnonymizerTests {
     }
   }
 
+  /// The formats the owner kept for his banks' texts, and the pick between two that fit one
+  /// text, are his own: a copy for someone else has neither.
+  @Test func ownSmsFormatsAreDropped() throws {
+    let stack = try TestSupport.makeStack()
+    try Self.seed(stack)
+    try stack.writer.write { db in
+      try db.execute(
+        sql: "INSERT INTO settings (key, value) VALUES (?, ?), (?, ?)",
+        arguments: [
+          OwnSmsFormats.settingsKey, #"{"items":[{"id":"own.1","text":"^a$"}]}"#,
+          SmsFormatChoices.settingsKey, #"{"picks":{"a|b":"a"}}"#,
+        ])
+    }
+    try SQLAnonymizer().anonymize(copy: ExportCopyDatabase(writer: stack.writer))
+    try stack.writer.read { db in
+      let formats = try Self.value(
+        db, "SELECT value FROM settings WHERE key = '\(OwnSmsFormats.settingsKey)'")
+      let picks = try Self.value(
+        db, "SELECT value FROM settings WHERE key = '\(SmsFormatChoices.settingsKey)'")
+      let kept = try Self.value(
+        db, "SELECT value FROM settings WHERE key = 'planning.listLength'")
+      #expect(formats == nil)
+      #expect(picks == nil)
+      #expect(kept == "5")
+    }
+  }
+
   /// What the texts of the owner's banks were taught to mean — his places, words, people — is
   /// his own: a copy for someone else forgets it whole.
   @Test func learnedBankTextsAreDropped() throws {
@@ -642,6 +669,31 @@ struct SQLAnonymizerTests {
         db, "SELECT value FROM settings WHERE key = 'planning.listLength'")
       #expect(learned == nil)
       #expect(kept == "5")
+    }
+  }
+
+  @Test func migrationMemoriesAreDroppedFromTheCopy() throws {
+    let stack = try TestSupport.makeStack()
+    let memories = [
+      MigrationSettings.accountMapKey: MigrationSettings.text(["sample visa 4276": UUID()]),
+      MigrationSettings.categoryMapKey: MigrationSettings.text(["expense|sample|cafe": UUID()]),
+      MigrationSettings.mappingsKey: MigrationSettings.text([
+        "sample layout": MigrationMapping(roles: [0: .date, 1: .amount])
+      ]),
+    ]
+    try stack.writer.write { db in
+      for (key, value) in memories {
+        try db.execute(
+          sql: "INSERT INTO settings (key, value) VALUES (?, ?)", arguments: [key, value])
+      }
+    }
+    try SQLAnonymizer().anonymize(copy: ExportCopyDatabase(writer: stack.writer))
+    try stack.writer.read { db in
+      for key in memories.keys {
+        let value = try String.fetchOne(
+          db, sql: "SELECT value FROM settings WHERE key = ?", arguments: [key])
+        #expect(value == nil)
+      }
     }
   }
 

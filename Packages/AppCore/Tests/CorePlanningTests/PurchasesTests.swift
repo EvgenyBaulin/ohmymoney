@@ -67,6 +67,26 @@ struct TimeToAffordTests {
     #expect(result.remainingE4 == .zero)
   }
 
+  @Test func aWishCoveredBySavedMoneyIsAffordableNowWithoutAPace() {
+    let wish = Wish(name: "Phone", priceE4: Fx.rub(18_000), createdOn: Fx.today)
+    let forecast = MonthForecast.Remainder(
+      p10: .zero, middle: .zero, p90: .zero, lowData: true, computedFor: Fx.today, daysLeft: 2,
+      windowDays: 40)
+    let income = MonthIncomeEstimate(
+      month: Fx.today.monthKey, received: .zero, expectedRemaining: .zero, median3: nil,
+      monthsInMedian: 0, value: nil, source: .expectations, lowData: true)
+    let canSave = CanSave(
+      CanSaveInputs(
+        income: income, spentWithoutGoals: .zero, plannedStillDue: .zero, remainder: forecast,
+        alreadySaved: .zero))
+    #expect(
+      TimeToAfford.estimate(wish: wish, savedE4: Fx.rub(140_000), canSave: canSave, today: Fx.today)
+        .outcome == .affordableNow)
+    #expect(
+      TimeToAfford.estimate(wish: wish, savedE4: Fx.rub(5), canSave: canSave, today: Fx.today)
+        .outcome == .noSavingPace)
+  }
+
   @Test func noPaceAndNoPriceAreSaidSo() {
     #expect(
       TimeToAfford.estimate(
@@ -311,7 +331,7 @@ struct OwnershipCostTests {
     #expect(found.runningRubE4 == .zero)
   }
 
-  @Test func anAssetStandsForItsFirstValuation() {
+  @Test func anAssetUsesItsLatestValueAndKeepsItsFirstDay() {
     let asset = Asset(name: "Camera", kind: .equipment)
     let valuations = [
       AssetValuation(
@@ -320,7 +340,7 @@ struct OwnershipCostTests {
         assetId: asset.id, day: DateOnly(year: 2026, month: 9, day: 1), valueE4: Fx.rub(40_000)),
     ]
     let subject = OwnershipSubject(asset: asset, valuations: valuations)
-    #expect(subject.priceRubE4 == Fx.rub(50_000))
+    #expect(subject.priceRubE4 == Fx.rub(40_000))
     #expect(subject.boughtOn == DateOnly(year: 2026, month: 3, day: 1))
   }
 

@@ -54,6 +54,20 @@ public struct BankMessage: Hashable, Sendable {
   public var day: DateOnly?
   /// The text it was read from, trimmed.
   public var source: String
+  /// What the text says the bank took as a commission, and the cashback it gave for the
+  /// operation: fields of the operation, never operations of their own. Only a format file
+  /// (`SmsFormat`) names them.
+  public var fee: Money?
+  public var cashback: Money?
+  /// What is available to spend (a credit card's limit included); never compared with the books.
+  public var availableBalance: Money?
+  /// The merchant category code, when the text gives one.
+  public var mcc: Int?
+  /// The bank's own id of the operation.
+  public var syncid: String?
+  public var comment: String?
+  /// The format that read the text; nil for the general scan.
+  public var formatId: String?
 
   public init(
     bank: BankBrand = .unknown, operation: BankOperation, money: Money, merchant: String? = nil,
@@ -74,6 +88,17 @@ public struct BankMessage: Hashable, Sendable {
 
   public var kind: TransactionKind { operation.kind }
 
+  /// The merchant category code as the operation stores it: four digits, or `nil` when the text
+  /// gave none or one outside 0000…9999.
+  public var merchantCode: String? { MerchantCode.normalized(mcc) }
+
+  /// What the text says beyond the line that the operation stores: the merchant code and the
+  /// commission. `nil` when it names neither.
+  public var storedFields: BankStoredFields? {
+    let fields = BankStoredFields(mcc: merchantCode, fee: fee)
+    return fields.mcc == nil && fields.fee == nil ? nil : fields
+  }
+
   /// The balance is offered as «Сверить «Платинум» на 52 340,11?» after the operation is
   /// written. It is a tick the owner sets: a count is the owner's decision, never made on the
   /// way.
@@ -93,6 +118,13 @@ public struct BankMessage: Hashable, Sendable {
     case .income, .transferIn: words = [name, "+" + amount]
     case .refund: words = ["возврат", name, amount]
     }
+    // The cashback the text names goes in as the entry line's own phrase; a figure in another
+    // currency than the amount would be read as the amount's.
+    if kind == .expense, let cashback, cashback.amount > .zero, cashback.currency == money.currency
+    {
+      return (words.filter { !$0.isEmpty } + ["кэшбэк", BankMessage.plain(cashback.amount)])
+        .joined(separator: " ")
+    }
     return words.filter { !$0.isEmpty }.joined(separator: " ")
   }
 
@@ -100,5 +132,25 @@ public struct BankMessage: Hashable, Sendable {
   /// fraction otherwise, no grouping.
   static func plain(_ amount: AmountE4) -> String {
     NumberText.plain(amount.decimal)
+  }
+}
+
+/// The merchant code and the commission a text of a bank named: what an operation written from
+/// that text stores besides what the entry line says. Kept per draft until the draft is written.
+public struct BankStoredFields: Hashable, Sendable, Codable {
+  public var mcc: String?
+  public var fee: Money?
+
+  public init(mcc: String? = nil, fee: Money? = nil) {
+    self.mcc = MerchantCode.normalized(mcc)
+    self.fee = fee
+  }
+
+  /// The commission, when it is above zero and in `currency` — the currency of the operation it
+  /// is written into. A fee in another currency is not kept: the stored field carries no
+  /// currency of its own.
+  public func commission(in currency: CurrencyCode) -> AmountE4? {
+    guard let fee, fee.amount > .zero, fee.currency == currency else { return nil }
+    return fee.amount
   }
 }

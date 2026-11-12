@@ -87,7 +87,8 @@ final class QuickEntryModel {
     }
     notice = nil
     if let chunk = QuickPaste.inserted(old: old, new: new) {
-      switch QuickPaste.decide(chunk: chunk, today: environment.today) {
+      switch QuickPaste.decide(
+        chunk: chunk, today: environment.today, parser: AutoEntryFormats.parser(environment)) {
       case .plain:
         break
       case .message(let message):
@@ -295,6 +296,7 @@ final class QuickEntryModel {
       guard let typed = reading.parsed.amount, let amount = try? AmountE4(decimal: typed)
       else { continue }
       model.apply(reading, amount: amount, today: environment.today, text: offer.line)
+      model.bankFields = message.storedFields
       if let day = message.day {
         let time = message.time ?? environment.calendar.timeOfDay(environment.now())
         model.draft.occurredAt = environment.calendar.moment(

@@ -12,6 +12,53 @@ struct SummariesSettingsSection: View {
   private func t(_ key: String) -> String { environment.language(key, table: "Summaries") }
 
   var body: some View {
+    #if os(macOS)
+      macBody
+    #else
+      formBody
+    #endif
+  }
+
+  #if os(macOS)
+    /// The design's card (Figma 61:64965): three switches of rows 11 × 16 with a 13 over 11 text,
+    /// then «Открыть Итоги…» with a chevron.
+    private var macBody: some View {
+      SettingsCardGroup(title: t("summaries.settings.title"), titleGap: 18, verticalMargin: 12) {
+        switchRow("week", $week)
+        switchRow("month", $month)
+        switchRow("year", $year)
+        Button { SummariesRoute.open() } label: {
+          HStack {
+            Text(verbatim: t("summaries.settings.open"))
+              .appFont(AppFont.system(size: 13, weight: .medium))
+            Spacer()
+            Image(systemName: "chevron.right")
+              .font(.system(size: 11, weight: .semibold))  // font-fixed: chevron of a link row
+              .foregroundStyle(.secondary)
+              .accessibilityHidden(true)
+          }
+          .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
+          .padding(.vertical, SettingsCardMetrics.compactVertical)
+          .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("summaries.settings.open")
+      }
+    }
+
+    private func switchRow(_ name: String, _ isOn: Binding<Bool>) -> some View {
+      SettingsCardRow(
+        title: t("summaries.settings.\(name)"), hint: t("summaries.settings.\(name)Hint"),
+        compact: true
+      ) {
+        Toggle(isOn: isOn) { Text(verbatim: t("summaries.settings.\(name)")) }
+          .labelsHidden().toggleStyle(.switch)
+          .accessibilityIdentifier("summaries.settings.\(name)")
+      }
+    }
+  #endif
+
+  private var formBody: some View {
     Section {
       Toggle(isOn: $week) {
         Text(verbatim: t("summaries.settings.week"))

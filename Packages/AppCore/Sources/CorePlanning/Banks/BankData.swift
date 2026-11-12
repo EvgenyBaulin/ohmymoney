@@ -120,7 +120,7 @@ public enum BankLimitTags {
   public static func name(of kind: BankLimitKind) -> String {
     switch kind {
     case .cash: cash
-    case .sbp: sbp
+    case .sbp, .sbpOwn: sbp
     case .interbank: interbank
     }
   }

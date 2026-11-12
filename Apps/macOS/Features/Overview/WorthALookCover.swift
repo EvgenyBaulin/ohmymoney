@@ -50,14 +50,14 @@ enum WorthALookCover {
       }
     case .bank(let bankNote):
       switch bankNote {
-      case .limitNear(let id, _, _, _), .limitExceeded(let id, _, _, _),
+      case .noCardFee(let id, _, _), .limitNear(let id, _, _, _), .limitExceeded(let id, _, _, _),
         .minBalanceBelow(let id, _, _, _):
         return account(id)
       case .cardExpiry(let id, let card, _, _, _):
         return account(id) || hidden.cards.contains(card)
       case .insuranceOver(let bank, _, _, _):
         return hidesBank(bank, accounts: ledger.dataset.paymentMethods, hiding: hidden.accounts)
-      case .forgotten:
+      case .forgotten, .cardCount, .interestTax, .cashbackTax:
         return false
       }
     case .allocate(let incomeId, _, _):

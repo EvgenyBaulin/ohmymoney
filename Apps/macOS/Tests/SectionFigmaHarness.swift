@@ -103,7 +103,7 @@ class SectionFigmaHarness: XCTestCase {
     return host(root, width: width, height: height, unified: false)
   }
 
-  private func host<Root: View>(
+  func host<Root: View>(
     _ root: Root, width: CGFloat, height: CGFloat, unified: Bool
   ) -> NSWindow {
     let controller = NSHostingController(rootView: root)
@@ -174,15 +174,19 @@ class SectionFigmaHarness: XCTestCase {
   /// list of its own further right).
   func sidebarEdge(in window: NSWindow) throws -> CGFloat {
     let root = try XCTUnwrap(window.contentView)
-    var scrolls: [NSScrollView] = []
-    Self.allSubviews(of: root, into: &scrolls)
-    let sidebar = try XCTUnwrap(
-      scrolls.first { scroll in
-        var tables: [NSTableView] = []
-        Self.allSubviews(of: scroll, into: &tables)
-        return !tables.isEmpty && scroll.convert(scroll.bounds, to: nil).minX < 1
-      }, "the sidebar was not found")
+    let sidebar = try XCTUnwrap(Self.sidebarScroll(in: root), "the sidebar was not found")
     return sidebar.convert(sidebar.bounds, to: nil).maxX
+  }
+
+  /// Use the table's own scroll view. An ancestor scroll view can contain both the sidebar
+  /// and the page, so merely finding any table below it mistakes the whole window for a sidebar.
+  static func sidebarScroll(in root: NSView) -> NSScrollView? {
+    var tables: [NSTableView] = []
+    allSubviews(of: root, into: &tables)
+    return tables.compactMap(\.enclosingScrollView).first { scroll in
+      let rect = scroll.convert(scroll.bounds, to: root)
+      return abs(rect.minX - root.bounds.minX) < 1 && rect.width > 0
+    }
   }
 
   /// A picture of the window, kept with the result of the test.

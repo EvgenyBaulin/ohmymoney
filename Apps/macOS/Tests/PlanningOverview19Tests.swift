@@ -173,13 +173,15 @@ final class PlanningOverview19Tests: XCTestCase {
     let due = today.adding(days: 5)
     let named = replacing(base) {
       $0.creditCards = [
-        card: CreditCardNow(toPayNoInterestE4: rub(12_000), payBy: due),
-        main: CreditCardNow(toPayNoInterestE4: rub(3_000), payBy: due),
+        card: CreditCardNow(toPayNoInterestE4: rub(12_000), minimumE4: rub(960), payBy: due),
+        main: CreditCardNow(toPayNoInterestE4: rub(3_000), minimumE4: rub(600), payBy: due),
       ]
     }
     let cards = FreeMoneyBlock.cardsDue(named, until: today.adding(days: 10))
     XCTAssertEqual(cards.map(\.accountId), [card])
-    XCTAssertEqual(cards.first?.amount, rub(12_000))
+    XCTAssertEqual(cards.first?.amount, rub(960))
+    XCTAssertEqual(cards.first?.fullAmount, rub(12_000))
+    XCTAssertEqual(cards.first?.isEstimate, true)
     XCTAssertEqual(cards.first?.name, "T-Card")
     XCTAssertEqual(cards.first?.due, due)
     XCTAssertTrue(FreeMoneyBlock.cardsDue(named, until: today.adding(days: 2)).isEmpty)

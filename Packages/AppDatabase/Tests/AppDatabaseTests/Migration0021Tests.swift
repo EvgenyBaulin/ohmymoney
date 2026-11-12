@@ -157,7 +157,7 @@ struct Migration0021Tests {
     #expect(accountColumns.firstIndex(of: "hidden").map { $0 < capAt } == true)
     let names = ExportTables.all.map(\.fileName)
     #expect(names.contains("bank_cashback_categories.csv"))
-    #expect(names.last == "cashback_offers.csv")
+    #expect(names.dropLast(2).last == "cashback_offers.csv")
     let account = PaymentMethod(
       name: "Карта", cashbackMonthlyCapE4: AmountE4(whole: 3_000), cashbackChoiceDay: 5)
     #expect(Array(ExportTables.row(account)[capAt...(capAt + 1)]) == ["3000", "5"])

@@ -96,12 +96,29 @@ struct CanSaveTile: Equatable {
   var figure: String
   var savedLabel: String
   var saved: String
+  var shortfall: String? = nil
+  var hints: [String] = []
 
   @MainActor
-  static func make(_ canSave: CanSave, _ environment: AppEnvironment) -> CanSaveTile {
+  static func make(
+    _ canSave: CanSave, _ environment: AppEnvironment,
+    categoryName: (UUID) -> String? = { _ in nil }
+  ) -> CanSaveTile {
     let money = environment.money
     let figure: String
-    if let low = canSave.low, let high = canSave.high, low != high {
+    var shortfall: String?
+    if let gap = canSave.shortfall {
+      if canSave.cannotSave {
+        figure = environment.language("overview.canSave.impossible", table: "Planning")
+        shortfall = environment.format(
+          "overview.canSave.shortfall", table: "Planning",
+          wholeNumber(gap.low, money), money.rounded(gap.high))
+      } else {
+        figure = "≈\u{00A0}\(money.rounded(canSave.p50 ?? .zero))"
+        shortfall = environment.format(
+          "overview.canSave.risk", table: "Planning", money.rounded(gap.high))
+      }
+    } else if let low = canSave.low, let high = canSave.high, low != high {
       // The unit once, after the upper end: «от 18 000 до 26 000 ₽».
       figure = String(
         format: environment.language("overview.canSaveRange", table: "Planning"),
@@ -112,7 +129,27 @@ struct CanSaveTile: Equatable {
     return CanSaveTile(
       figure: figure,
       savedLabel: environment.language("overview.alreadySaved", table: "Planning"),
-      saved: money.rounded(canSave.alreadySaved))
+      saved: money.rounded(canSave.alreadySaved), shortfall: shortfall,
+      hints: shortfall == nil
+        ? []
+        : canSave.fundingHints.compactMap { hint in
+          switch hint {
+          case .goals(let amount):
+            return environment.format(
+              "overview.canSave.fromGoals", table: "Planning", money.rounded(amount))
+          case .cushion(let amount):
+            return environment.format(
+              "overview.canSave.fromCushion", table: "Planning", money.rounded(amount))
+          case .category(let id, let amount):
+            guard let name = categoryName(id) else { return nil }
+            return environment.format(
+              "overview.canSave.cutCategory", table: "Planning",
+              name, money.rounded(amount))
+          case .variable(let amount):
+            return environment.format(
+              "overview.canSave.cutVariable", table: "Planning", money.rounded(amount))
+          }
+        })
   }
 }
 

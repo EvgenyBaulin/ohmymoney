@@ -122,3 +122,31 @@ struct RuleModelTests {
     #expect(problems(rule).isEmpty)
   }
 }
+
+@Suite("Rules: references to records that are gone")
+struct RuleDeadReferenceTests {
+  @Test func aRuleNamingADeletedOrArchivedRecordWillNotFire() {
+    let place = UUID()
+    let account = UUID()
+    let card = UUID()
+    let person = UUID()
+    let rule = Rule(
+      conditions: [.place(place), .account(account), .card(card), .textContains("x")],
+      actions: [.setForPerson(person), .setPlace(place), .setQuality(.good)])
+    let live = RuleLiveReferences(accounts: [account])
+    let dead = RuleValidator.deadReferences(of: rule, live: live)
+    #expect(
+      dead == [
+        RuleDeadReference(kind: .place, id: place), RuleDeadReference(kind: .card, id: card),
+        RuleDeadReference(kind: .person, id: person),
+      ])
+  }
+
+  @Test func aRuleOfLiveRecordsOrOfCategoriesAndTagsOnlyIsFine() {
+    let place = UUID()
+    let rule = Rule(
+      conditions: [.place(place), .category(UUID())], actions: [.addTag(UUID())])
+    #expect(
+      RuleValidator.deadReferences(of: rule, live: RuleLiveReferences(places: [place])).isEmpty)
+  }
+}

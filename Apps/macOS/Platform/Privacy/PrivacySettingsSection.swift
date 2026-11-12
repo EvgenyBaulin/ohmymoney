@@ -1,3 +1,4 @@
+#if os(macOS)
 import SwiftUI
 
 /// Settings → «Основные» → «Конфиденциальность»: hiding the amounts, and the lock with its idle
@@ -5,38 +6,59 @@ import SwiftUI
 /// books. Turning the lock on asks Touch ID or the password of the Mac, then the app's password.
 struct PrivacySettingsSection: View {
   @Dependency(\.environment) private var environment
-  @Environment(\.appTheme) private var theme
   /// The lock the section shows: the app's own, unless a test hands one that answers as it says.
   var lockShown: PrivacyLock?
   @State private var passwordSheet: LockPasswordSheet.Purpose?
 
   var body: some View {
+    cardBody
+  }
+
+  /// The design's card (Figma «Настройки · Основные», 52:625): hide the amounts, the lock with
+  /// its hint, the idle time as a menu; the password of the lock (change, remove) comes after
+  /// them when the lock is on. A row of Touch ID of its own the design draws has no setting
+  /// behind it: Touch ID answers when the lock opens.
+  private var cardBody: some View {
     @Bindable var amounts = environment.amounts
     @Bindable var lock = lockShown ?? environment.lock
-    Section {
-      Toggle(isOn: $amounts.hidesAmounts) {
-        Text(verbatim: environment.language("settings.privacy.hideAmounts", table: "Settings"))
-      }
-      .accessibilityIdentifier("settings.privacy.hideAmounts")
-
-      Toggle(
-        isOn: Binding(
-          get: { lock.isEnabled },
-          set: { on in
-            if on {
-              let reason = environment.language("privacy.enable.reason")
-              Task {
-                if await lock.beginEnabling(reason: reason) { passwordSheet = .first }
-              }
-            } else {
-              lock.disable()
-            }
-          })
+    return SettingsCardGroup(
+      title: g("settings.general.group.privacy"),
+      footer: environment.language(
+        lock.applies ? "settings.privacy.hint" : "settings.privacy.notInDataSet", table: "Settings")
+    ) {
+      SettingsCardRow(
+        symbol: "eye.slash",
+        title: environment.language("settings.privacy.hideAmounts", table: "Settings"),
+        hint: g("settings.general.hideAmountsHint"), verticalPadding: 11
       ) {
-        Text(verbatim: environment.language("settings.privacy.lock", table: "Settings"))
+        Toggle(isOn: $amounts.hidesAmounts) {
+          Text(verbatim: environment.language("settings.privacy.hideAmounts", table: "Settings"))
+        }
+        .labelsHidden().toggleStyle(.switch)
+        .accessibilityIdentifier("settings.privacy.hideAmounts")
       }
-      .disabled(!lock.applies || lock.isAuthenticating)
-      .accessibilityIdentifier("settings.privacy.lock")
+      SettingsCardRow(
+        symbol: "lock", title: g("settings.general.lock"), hint: g("settings.general.lockHint"),
+        verticalPadding: 11
+      ) {
+        Toggle(
+          isOn: Binding(
+            get: { lock.isEnabled },
+            set: { on in
+              if on {
+                let reason = environment.language("privacy.enable.reason")
+                Task {
+                  if await lock.beginEnabling(reason: reason) { passwordSheet = .first }
+                }
+              } else {
+                lock.disable()
+              }
+            })
+        ) { Text(verbatim: g("settings.general.lock")) }
+        .labelsHidden().toggleStyle(.switch)
+        .disabled(!lock.applies || lock.isAuthenticating)
+        .accessibilityIdentifier("settings.privacy.lock")
+      }
       .sheet(item: $passwordSheet) {
         if !lock.isEnabled { lock.cancelEnabling() }
       } content: { purpose in
@@ -45,96 +67,82 @@ struct PrivacySettingsSection: View {
           passwordSheet = nil
         }
       }
-
-      LabeledContent {
-        Picker(selection: $lock.idleMinutes) {
-          ForEach(PrivacyLock.idleChoices, id: \.self) { minutes in
-            Text(
-              verbatim: environment.language("settings.privacy.idle.\(minutes)", table: "Settings")
-            )
-            .tag(minutes)
+      SettingsCardRow(
+        symbol: "timer", title: g("settings.general.idle"),
+        showsDivider: lock.isEnabled || lock.lastRefusal != nil
+      ) {
+        SettingsValueMenu(
+          value: environment.language(
+            "settings.privacy.idle.\(lock.idleMinutes)", table: "Settings")
+        ) {
+          Picker("", selection: $lock.idleMinutes) {
+            ForEach(PrivacyLock.idleChoices, id: \.self) { minutes in
+              Text(
+                verbatim: environment.language(
+                  "settings.privacy.idle.\(minutes)", table: "Settings")
+              )
+              .tag(minutes)
+            }
           }
-        } label: {
-          Text(verbatim: environment.language("settings.privacy.idle", table: "Settings"))
+          .pickerStyle(.inline).labelsHidden()
         }
-        .labelsHidden()
         .disabled(!lock.isEnabled)
-      } label: {
-        Text(verbatim: environment.language("settings.privacy.idle", table: "Settings"))
-          .foregroundStyle(Color(theme.palette.cardText))
+        .accessibilityIdentifier("settings.privacy.idle")
       }
-
       if lock.isEnabled {
-        passwordRow(lock)
+        SettingsCardRow(
+          symbol: "key", title: environment.language("settings.privacy.password", table: "Settings"),
+          hint: environment.language(
+            lock.hasPassword ? "settings.privacy.passwordSet" : "settings.privacy.noPassword",
+            table: "Settings"),
+          showsDivider: false, verticalPadding: 11
+        ) {
+          passwordButtons(lock)
+        }
       }
-
-      if !lock.isEnabled, let refusal = lock.lastRefusal,
-        let key = Self.refusalKey(refusal)
-      {
+      if let message = problemMessage(lock) {
         Label {
-          Text(verbatim: environment.language(key, table: "Settings"))
+          Text(verbatim: message)
         } icon: {
           Image(systemName: "exclamationmark.octagon")
         }
         .foregroundStyle(.red)
+        .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
+        .padding(.vertical, SettingsCardMetrics.compactVertical)
+        .frame(maxWidth: .infinity, alignment: .leading)
       }
-    } header: {
-      Text(verbatim: environment.language("settings.privacy", table: "Settings"))
-    } footer: {
-      Text(
-        verbatim: environment.language(
-          lock.applies ? "settings.privacy.hint" : "settings.privacy.notInDataSet",
-          table: "Settings")
-      )
-      .foregroundStyle(.secondary)
     }
   }
 
-  /// The password of the lock: change or remove it, or set it where the lock was turned on before
-  /// the app had one.
-  @ViewBuilder
-  private func passwordRow(_ lock: PrivacyLock) -> some View {
-    LabeledContent {
-      HStack {
-        if lock.hasPassword {
-          Button {
-            passwordSheet = .change
-          } label: {
-            Text(
-              verbatim: environment.language("settings.privacy.changePassword", table: "Settings"))
-          }
-          .accessibilityIdentifier("settings.privacy.changePassword")
-          Button {
-            lock.removePassword()
-          } label: {
-            Text(
-              verbatim: environment.language("settings.privacy.removePassword", table: "Settings"))
-          }
-          .accessibilityIdentifier("settings.privacy.removePassword")
-        } else {
-          Button {
-            passwordSheet = .change
-          } label: {
-            Text(
-              verbatim: environment.language("settings.privacy.setPassword", table: "Settings"))
-          }
-          .accessibilityIdentifier("settings.privacy.setPassword")
-        }
-      }
-    } label: {
-      Text(verbatim: environment.language("settings.privacy.password", table: "Settings"))
-      Text(
-        verbatim: environment.language(
-          lock.hasPassword ? "settings.privacy.passwordSet" : "settings.privacy.noPassword",
-          table: "Settings"))
+  private func g(_ key: String) -> String { environment.language(key, table: "SettingsGeneral") }
+
+  private func problemMessage(_ lock: PrivacyLock) -> String? {
+    if !lock.isEnabled, let refusal = lock.lastRefusal, let key = Self.refusalKey(refusal) {
+      return environment.language(key, table: "Settings")
     }
-    if lock.passwordProblem == .keychain, passwordSheet == nil {
-      Label {
-        Text(verbatim: environment.language("privacy.password.keychain"))
-      } icon: {
-        Image(systemName: "exclamationmark.octagon")
+    if lock.isEnabled, lock.passwordProblem == .keychain, passwordSheet == nil {
+      return environment.language("privacy.password.keychain")
+    }
+    return nil
+  }
+
+  private func passwordButtons(_ lock: PrivacyLock) -> some View {
+    HStack {
+      if lock.hasPassword {
+        Button(environment.language("settings.privacy.changePassword", table: "Settings")) {
+          passwordSheet = .change
+        }
+        .accessibilityIdentifier("settings.privacy.changePassword")
+        Button(environment.language("settings.privacy.removePassword", table: "Settings")) {
+          lock.removePassword()
+        }
+        .accessibilityIdentifier("settings.privacy.removePassword")
+      } else {
+        Button(environment.language("settings.privacy.setPassword", table: "Settings")) {
+          passwordSheet = .change
+        }
+        .accessibilityIdentifier("settings.privacy.setPassword")
       }
-      .foregroundStyle(.red)
     }
   }
 
@@ -147,3 +155,4 @@ struct PrivacySettingsSection: View {
     }
   }
 }
+#endif

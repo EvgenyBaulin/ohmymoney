@@ -93,6 +93,15 @@ enum PlanningBlockText {
     switch block {
     case .freeMoney:
       guard let summary = free.flatMap(PlanningSummary.init) else { return nil }
+      if let free, free.dailyReductionRubles != nil {
+        return
+          ([
+            environment.format(
+              "layout.total.free", table: table, money.rounded(free.spendable ?? .zero),
+              dayText(free.until, environment))
+          ] + FreeMoneyRecoveryText.shortfalls(free, environment))
+          .joined(separator: "\n")
+      }
       return environment.format(
         "layout.total.free", table: table, money.rounded(summary.left),
         dayText(summary.until, environment))

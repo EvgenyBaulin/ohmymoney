@@ -2,7 +2,7 @@ name: OhMyMoney
 
 options:
   bundleIdPrefix: io.github.EvgenyBaulin
-  knownRegions: [en, ru, Base]
+  knownRegions: [en, ru, uk, be, kk, uz, ky, tg, hy, ka, az, de, fr, es, it, pt-PT, pl, cs, nl, tr, zh-Hans, zh-Hant, ja, ko, vi, id, th, hi, pt-BR, ar, he, Base]
   createIntermediateGroups: true
   developmentLanguage: en
   deploymentTarget:
@@ -290,7 +290,9 @@ targets:
         type: folder
         buildPhase: resources
     dependencies:
-      - target: OhMyMoney-Share-iOS
+      # The Share extension (OhMyMoney-Share-iOS) is not embedded: its App Group needs a paid
+      # developer account, and a free one cannot sign it for a device (0548). Add it back here
+      # when the account is paid.
       - package: AppCore
         product: AppCore
       - package: AppCore
@@ -340,6 +342,7 @@ targets:
       - path: Apps/macOS/Tests/SyncEncryptionTests.swift
       - path: Apps/macOS/Tests/CloudKitTransportTests.swift
       - path: Apps/macOS/Tests/SharedItemProviderReaderTests.swift
+      - path: Apps/macOS/Tests/NegativeBalanceContentTests.swift
       - path: Apps/ShareExtension/SharedItemProviderReader.swift
     dependencies:
       - target: OhMyMoney-iOS

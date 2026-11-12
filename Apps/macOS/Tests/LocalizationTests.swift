@@ -41,14 +41,14 @@ final class LocalizationTests: XCTestCase {
   /// «Перезапустить» is offered only when a restart would change something: the menu bar of
   /// macOS keeps the language of the launch. The language in use chosen again, or chosen back
   /// after another, offers nothing.
-  func testTheRestartIsOfferedOnlyForALanguageOtherThanTheLaunchs() {
+  func testTheRestartIsOfferedOnlyForALanguageOtherThanTheLaunchs() throws {
     let launch = language.resolvedCode
     XCTAssertFalse(language.needsRestart)
     language.choice = language.choice
     XCTAssertFalse(language.needsRestart, "the language in use chosen again offered a restart")
     language.choice = launch == "ru" ? .english : .russian
     XCTAssertTrue(language.needsRestart)
-    language.choice = launch == "ru" ? .russian : .english
+    language.choice = try XCTUnwrap(AppLanguage.Choice(rawValue: launch))
     XCTAssertFalse(language.needsRestart, "the language of the launch chosen back")
   }
 
@@ -129,7 +129,7 @@ final class LocalizationTests: XCTestCase {
   private static var languageOfTheMac: String {
     let global = UserDefaults.standard.persistentDomain(forName: UserDefaults.globalDomain)
     let first = (global?["AppleLanguages"] as? [String])?.first ?? "en"
-    return first.hasPrefix("ru") ? "ru" : "en"
+    return AppLanguage.systemCode(for: first)
   }
 
   private static func override(in domain: String) -> [String]? {
@@ -199,8 +199,8 @@ final class LocalizationTests: XCTestCase {
     }
   }
 
-  /// Nothing chosen yet means the language of the Mac: Russian on a Russian system, English
-  /// on any other (README). The choice already stored by the other tests is
+  /// Nothing chosen yet follows the first supported system language, with English for an
+  /// unsupported system language. The choice already stored by the other tests is
   /// put back afterwards.
   func testWithNothingChosenTheLanguageFollowsTheSystem() {
     let key = "app.language"
@@ -210,8 +210,7 @@ final class LocalizationTests: XCTestCase {
 
     let fresh = AppLanguage()
     XCTAssertEqual(fresh.choice, .system)
-    let system = Locale.preferredLanguages.first ?? "en"
-    XCTAssertEqual(fresh.resolvedCode, system.hasPrefix("ru") ? "ru" : "en")
+    XCTAssertEqual(fresh.resolvedCode, Self.languageOfTheMac)
   }
 
   /// Every caption the interface shows comes from the catalogue. A key that resolves to
@@ -406,7 +405,11 @@ final class LocalizationTests: XCTestCase {
       "entry.rateCoingecko", "currencies.source.network",
       // The name of a file format is the same in both languages.
       "summaries.pdf", "mac.markdown.button",
+      // MCC is the international abbreviation for a merchant category code.
+      "transactions.column.mcc", "entry.mcc",
     ]
+    let nativeLanguageNames = Set(
+      AppLanguage.Choice.allCases.filter { $0 != .system }.map(\.settingsKey))
     let word = try NSRegularExpression(pattern: "[A-Za-z]{3,}")
     let specifier = try NSRegularExpression(pattern: "%([0-9]+\\$)?(@|lld|ld|d|f)")
     let english = try XCTUnwrap(Bundle.main.url(forResource: "en", withExtension: "lproj"))
@@ -423,7 +426,10 @@ final class LocalizationTests: XCTestCase {
         ?? [:]
       // The name of the app is one in both languages (owner, 14.10): «OhMyMoney» is meant to be
       // the same in the Russian table, wherever it stands alone or in a sentence.
-      for (key, text) in source where translated[key] == text && !meantToBeTheSame.contains(key) {
+      for (key, text) in source
+      where translated[key] == text && !meantToBeTheSame.contains(key)
+        && !nativeLanguageNames.contains(key)
+      {
         let text = text.replacingOccurrences(of: "OhMyMoney", with: "")
         let bare = specifier.stringByReplacingMatches(
           in: text, range: NSRange(text.startIndex..., in: text), withTemplate: "")

@@ -9,7 +9,7 @@ enum PhoneTab: String, Hashable, CaseIterable, Sendable {
 }
 
 /// What «Ещё» pushes: the sections that did not fit into a tab, and the list of the settings.
-enum MoreDestination: Hashable, Sendable {
+enum MoreDestination: Hashable, Sendable, CaseIterable {
   case debts, calendar, capital, settings, conflicts, analytics, reports, whatIf, purchases
   /// «Итоги» of a phone: what the tab «По периодам» of Reports is on the Mac and a tablet.
   case summaries

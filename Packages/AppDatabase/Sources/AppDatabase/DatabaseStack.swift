@@ -258,7 +258,7 @@ public final class DatabaseStack: Sendable {
     "subscription_terms", "subscription_usage", "subscription_users", "subscription_keep_groups",
     "bank_conditions", "deposit_offers", "wishes", "wish_prices", "shopping_items",
     "owned_items", "habit_badges", "no_spend_days", "bank_cashback_categories",
-    "cashback_offers",
+    "cashback_offers", "credit_statements", "thing_valuations",
   ]
 
   /// One element after every committed transaction that changed one of `ledgerTables` —
@@ -301,6 +301,7 @@ public final class DatabaseStack: Sendable {
       "templates", "currencies", "scenarios", "import_batches", "identity_items",
       "statement_profiles", "attachments", "week_answers", "wishes", "wish_prices",
       "shopping_items", "owned_items", "bank_cashback_categories", "cashback_offers",
+      "credit_statements",
     ]
 
   /// One element after every committed transaction that changed one of `dataTables`, whoever

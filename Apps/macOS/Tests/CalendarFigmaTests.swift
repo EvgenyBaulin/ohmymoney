@@ -64,6 +64,25 @@ final class CalendarFigmaTests: SectionFigmaHarness {
     XCTAssertNotEqual(CalendarText.t("calendar.grid.spent", environment), "calendar.grid.spent")
   }
 
+  func testSidebarMeasurementIgnoresAScrollViewContainingTheWholeWindow() throws {
+    let root = NSView(frame: CGRect(x: 0, y: 0, width: 1440, height: 900))
+    let outer = NSScrollView(frame: root.bounds)
+    let document = NSView(frame: root.bounds)
+    outer.documentView = document
+    root.addSubview(outer)
+    let sidebar = NSScrollView(frame: CGRect(x: 0, y: 0, width: 232, height: 900))
+    sidebar.documentView = NSTableView(frame: sidebar.bounds)
+    document.addSubview(sidebar)
+    let page = NSScrollView(frame: CGRect(x: 232, y: 0, width: 1208, height: 900))
+    page.documentView = NSTableView(frame: page.bounds)
+    document.addSubview(page)
+    root.layoutSubtreeIfNeeded()
+
+    let measured = try XCTUnwrap(Self.sidebarScroll(in: root))
+    XCTAssertTrue(measured === sidebar, "an ancestor of a table is not its enclosing scroll view")
+    XCTAssertEqual(measured.convert(measured.bounds, to: root).maxX, 232, accuracy: 1)
+  }
+
   func testTheMacMasterHasTheNumbersOfTheFrame() throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     try TestEnvironment.requireScreen(width: 1_440, height: 900)
@@ -120,8 +139,8 @@ final class CalendarFigmaTests: SectionFigmaHarness {
     let scope = try frame(of: "calendar.scope", in: window)
     let grid = try frame(of: "calendar.grid", in: window)
     let dayCard = try frame(of: "calendar.dayCard", in: window)
-    XCTAssertEqual(grid.minX, 16, accuracy: 1.5)
-    XCTAssertEqual(grid.width, 408, accuracy: 1.5)
+    XCTAssertEqual(grid.minX, PhoneMetrics.screenMargin, accuracy: 1.5)
+    XCTAssertEqual(grid.width, 440 - 2 * PhoneMetrics.screenMargin, accuracy: 1.5)
     XCTAssertEqual(scope.minY - grid.maxY, 14, accuracy: 1.5, "switch → month")
     XCTAssertEqual(grid.minY - dayCard.maxY, 14, accuracy: 1.5, "month → day")
     XCTAssertNil(find("calendar.newOperation", in: window), "a phone has its own entry")

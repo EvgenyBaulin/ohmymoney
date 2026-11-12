@@ -55,6 +55,7 @@ struct CardEditor: View {
   /// written.
   let finish: (UUID?) -> Void
 
+  @State private var draftId = UUID()
   @State private var draft: CardDraft
   /// «Условия банка» of the card, as typed.
   @State private var conditions = BankConditionsDraft()
@@ -83,6 +84,9 @@ struct CardEditor: View {
       Form {
         NameField(
           title: t("card.editor.name"), text: $draft.name, identifier: "card.editor.name")
+        PlanningNamesakeNotice(
+          kind: .card, id: previous?.id ?? draftId, name: $draft.name,
+          otherNames: $draft.aliases, accountId: accountId, didRestore: { finish($0.id) })
         LabeledContent {
           Text(verbatim: accountName)
         } label: {
@@ -162,7 +166,8 @@ struct CardEditor: View {
   private func save() {
     refusal = nil
     failed = false
-    let card = draft.card(previous: previous, accountId: accountId)
+    var card = draft.card(previous: previous, accountId: accountId)
+    card.id = previous?.id ?? draftId
     switch actions.save(card, previous: previous) {
     case .done:
       if case .success(let typed) = conditions.conditions(

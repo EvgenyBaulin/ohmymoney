@@ -144,9 +144,12 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
     try rename(db, table: "assets", labels.asset)
     try db.execute(sql: "UPDATE assets SET note = NULL")
     try db.execute(sql: "UPDATE asset_valuations SET note = NULL")
+    try db.execute(sql: "UPDATE thing_valuations SET note = NULL")
     try rename(db, table: "owned_items", labels.ownedItem)
     try db.execute(sql: "UPDATE owned_items SET note = NULL")
     try rename(db, table: "wishes", labels.wish)
+    // The address of a product picture names the shop, like the link of the wish.
+    try db.execute(sql: "UPDATE wishes SET image_url = NULL")
     try db.execute(sql: "UPDATE wishes SET url = NULL, note = NULL")
     try rename(db, table: "shopping_items", labels.shoppingItem)
     try db.execute(sql: "UPDATE shopping_items SET note = NULL")
@@ -181,13 +184,16 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
     try db.execute(
       sql: "DELETE FROM settings WHERE key = ?", arguments: [DebtSettings.nudgeTemplateKey])
     // The names the owner gave the shops of bank texts, the lines kept for later (the drafts
-    // of «Запишу потом», made by hand or from a bank's text), and what the texts of his banks
-    // were taught to mean (his places, words and people) are his own words too.
+    // of «Запишу потом», made by hand or from a bank's text), the formats he kept for the texts
+    // of his banks and what they were taught to mean (his places, words and people) are his own
+    // words too.
     try db.execute(
-      sql: "DELETE FROM settings WHERE key IN (?, ?, ?, ?)",
+      sql: "DELETE FROM settings WHERE key IN (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       arguments: [
         AutoEntryNames.settingsKey, Self.pendingDraftsKey, BankTextMemory.settingsKey,
-        Self.legacyStatementReviewKey,
+        Self.legacyStatementReviewKey, MigrationSettings.accountMapKey,
+        MigrationSettings.categoryMapKey, MigrationSettings.mappingsKey,
+        OwnSmsFormats.settingsKey, SmsFormatChoices.settingsKey,
       ])
   }
 

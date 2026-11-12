@@ -22,10 +22,19 @@ public enum AttachmentRetention {
   ///   to the trash `receiptGraceDays` days after it was added. The clock of the trash starts when
   ///   the move is carried out, not when it was due: a Mac that was off for a month does not delete
   ///   a photo it never showed in the trash.
+  /// - A purchase receipt stays through the last day of its warranty or return term. Once both
+  ///   have expired, its original added date determines whether the week has passed.
   /// - Everything else stays where it is.
   public static func actions(
-    for attachments: [AttachedFile], settings: AttachmentSettings, now: Date
+    for attachments: [AttachedFile], settings: AttachmentSettings, now: Date,
+    transactions: [Transaction] = [], calendar: CalendarContext = .system
   ) -> [Action] {
+    let today = calendar.day(of: now)
+    let protectedPurchases = Set(
+      transactions.filter {
+        ($0.warrantyUntil.map { $0 >= today } ?? false)
+          || ($0.returnUntil.map { $0 >= today } ?? false)
+      }.map(\.id))
     var result: [Action] = []
     for attachment in attachments {
       if let trashedAt = attachment.trashedAt {
@@ -34,6 +43,7 @@ public enum AttachmentRetention {
         }
       } else if !settings.keepReceiptsForever, attachment.kind == .receipt,
         !attachment.keepForever,
+        !(attachment.ownerKind == .transaction && protectedPurchases.contains(attachment.ownerId)),
         now >= attachment.addedAt.addingTimeInterval(TimeInterval(receiptGraceDays * 86_400))
       {
         result.append(.moveToTrash(id: attachment.id, at: now))

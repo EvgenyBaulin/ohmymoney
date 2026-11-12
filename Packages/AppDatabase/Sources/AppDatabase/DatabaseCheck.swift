@@ -28,6 +28,15 @@ public enum DatabaseCheck {
     /// pointer to the file), and it may wait for an owner that is still on its way from another
     /// device.
     case attachmentWithoutOwner
+    /// A valuation of a thing whose asset or item is no longer there. Only reported, like a
+    /// file: the owner may be on its way from another device.
+    case valuationWithoutOwner
+    /// A debt whose pause ends before it starts, or has one day only. Only reported: the app reads
+    /// such a pause as none, and the owner fixes the days.
+    case pauseOutOfOrder
+    /// An account with an announced rate and no day it holds from (or the other way round). Only
+    /// reported: the app reads the announcement as none until both are there.
+    case nextRateIncomplete
   }
 
   public struct Finding: Sendable, Hashable, Codable {
@@ -83,13 +92,40 @@ public enum DatabaseCheck {
   /// kind says, so no foreign key can see it.
   private static let attachmentsWithoutOwnerSQL = """
     SELECT a.id AS id FROM attachments a
-    WHERE a.owner_kind IN ('transaction', 'asset', 'debt', 'subscription') AND NOT EXISTS (
+    WHERE a.owner_kind IN ('transaction', 'asset', 'debt', 'subscription', 'wish', 'owned_item') AND NOT EXISTS (
       SELECT 1 FROM transactions o WHERE a.owner_kind = 'transaction' AND o.id = a.owner_id)
       AND NOT EXISTS (SELECT 1 FROM assets o WHERE a.owner_kind = 'asset' AND o.id = a.owner_id)
       AND NOT EXISTS (SELECT 1 FROM debts o WHERE a.owner_kind = 'debt' AND o.id = a.owner_id)
       AND NOT EXISTS (
         SELECT 1 FROM scheduled_payments o WHERE a.owner_kind = 'subscription' AND o.id = a.owner_id)
+      AND NOT EXISTS (SELECT 1 FROM wishes o WHERE a.owner_kind = 'wish' AND o.id = a.owner_id)
+      AND NOT EXISTS (SELECT 1 FROM owned_items o WHERE a.owner_kind = 'owned_item' AND o.id = a.owner_id)
     ORDER BY a.id
+    """
+
+  /// The valuations whose asset or item is not there (`owner_id` names a row of the table the
+  /// kind says, so no foreign key can see it).
+  private static let valuationsWithoutOwnerSQL = """
+    SELECT v.id AS id FROM thing_valuations v
+    WHERE v.owner_kind IN ('asset', 'owned_item')
+      AND NOT EXISTS (SELECT 1 FROM assets o WHERE v.owner_kind = 'asset' AND o.id = v.owner_id)
+      AND NOT EXISTS (
+        SELECT 1 FROM owned_items o WHERE v.owner_kind = 'owned_item' AND o.id = v.owner_id)
+    ORDER BY v.id
+    """
+
+  /// The debts whose pause has one day and not the other, or ends before it starts.
+  private static let pausesOutOfOrderSQL = """
+    SELECT id FROM debts
+    WHERE (pause_from IS NULL) <> (pause_to IS NULL) OR pause_to < pause_from
+    ORDER BY id
+    """
+
+  /// The accounts that announce a rate without the day it holds from, or a day without a rate.
+  private static let incompleteNextRatesSQL = """
+    SELECT id FROM payment_methods
+    WHERE (interest_next_rate IS NULL) <> (interest_next_rate_on IS NULL)
+    ORDER BY id
     """
 
   /// Checks the database. Reads only.
@@ -173,6 +209,29 @@ public enum DatabaseCheck {
         Finding(
           rule: .attachmentWithoutOwner, table: "attachments", count: lostFiles.count,
           isRepairable: false, ids: lostFiles.prefix(idsShown).map { $0["id"] }))
+    }
+
+    let lostValuations = try Row.fetchAll(db, sql: valuationsWithoutOwnerSQL)
+    if !lostValuations.isEmpty {
+      findings.append(
+        Finding(
+          rule: .valuationWithoutOwner, table: "thing_valuations", count: lostValuations.count,
+          isRepairable: false, ids: lostValuations.prefix(idsShown).map { $0["id"] }))
+    }
+
+    let lostPauses = try Row.fetchAll(db, sql: pausesOutOfOrderSQL)
+    if !lostPauses.isEmpty {
+      findings.append(
+        Finding(
+          rule: .pauseOutOfOrder, table: "debts", count: lostPauses.count,
+          isRepairable: false, ids: lostPauses.prefix(idsShown).map { $0["id"] }))
+    }
+    let lostRates = try Row.fetchAll(db, sql: incompleteNextRatesSQL)
+    if !lostRates.isEmpty {
+      findings.append(
+        Finding(
+          rule: .nextRateIncomplete, table: "payment_methods", count: lostRates.count,
+          isRepairable: false, ids: lostRates.prefix(idsShown).map { $0["id"] }))
     }
 
     let operations =

@@ -170,8 +170,8 @@ final class UpgradeFromOnePointOneTests: XCTestCase {
   private func expectUpdated(_ environment: AppEnvironment, counts: [String: Int]) throws {
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().count, 24)
-    XCTAssertEqual(stack.applied.applied, 20)
+    XCTAssertEqual(try stack.appliedMigrations().count, 27)
+    XCTAssertEqual(stack.applied.applied, 23)
     XCTAssertEqual(stack.applied.dataSteps["cardsCreated"], 1)
     XCTAssertEqual(stack.applied.dataSteps["cardsSkipped"], 0)
     XCTAssertEqual(stack.applied.dataSteps["countsRecorded"], 1)
@@ -201,6 +201,9 @@ final class UpgradeFromOnePointOneTests: XCTestCase {
         "0022_borrowed_card",
         "0023_receipt_numbers_and_category_english",
         "0024_category_icon_color",
+        "0025_split_dates_and_credit_statements",
+        "0026_mcc_fee_valuations_wish_image",
+        "0027_savings_points_digital_pause",
       ],
       "the copy is not the database as the version before left it")
     XCTAssertEqual(try DatabaseStack.rowCounts(fileAt: copy), counts)

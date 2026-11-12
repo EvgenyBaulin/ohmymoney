@@ -47,7 +47,9 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
       regretAskedOn: RowMapping.day(row, "regret_asked_on"),
       refundWaitingUntil: RowMapping.day(row, "refund_waiting_until"),
       odometerKm: (try? RowMapping.optionalInteger(row, "odometer_km")) ?? nil,
-      receipt: Self.receipt(row))
+      receipt: Self.receipt(row),
+      mcc: Self.text(row, "mcc"),
+      feeE4: (try? RowMapping.optionalAmount(row, "fee_e4")) ?? nil)
   }
 
   /// The numbers of the receipt: a drive and a document number that read as numbers, or none.
@@ -127,6 +129,8 @@ extension CoreKit.Transaction: @retroactive FetchableRecord, @retroactive Persis
     container["receipt_i"] = receipt?.documentNumber
     container["receipt_fp"] = receipt?.fiscalSign
     container["receipt_n"] = receipt?.operation
+    container["mcc"] = mcc
+    container["fee_e4"] = feeE4?.raw
   }
 }
 
@@ -230,7 +234,19 @@ extension Debt: @retroactive FetchableRecord, @retroactive PersistableRecord {
       inLadder: Self.integer(row, "in_ladder").map { $0 != 0 },
       pledge: (try? RowMapping.flag(row, "pledge", fallback: false)) ?? false,
       returnBy: RowMapping.day(row, "return_by"),
-      termsReviewed: (try? RowMapping.flag(row, "terms_reviewed", fallback: false)) ?? false)
+      termsReviewed: (try? RowMapping.flag(row, "terms_reviewed", fallback: false)) ?? false,
+      pause: Self.pause(row))
+  }
+
+  /// A pause: both days and an order that holds; the kind defaults to a holiday when it does not
+  /// read. Anything else reads as no pause: one damaged cell must not stop the history from being
+  /// read.
+  private static func pause(_ row: Row) -> DebtPause? {
+    guard row.hasColumn("pause_from"), let from = RowMapping.day(row, "pause_from"),
+      let to = RowMapping.day(row, "pause_to"), to >= from
+    else { return nil }
+    let kind = (row["pause_kind"] as String?).flatMap(DebtPauseKind.init(rawValue:)) ?? .holiday
+    return DebtPause(from: from, to: to, kind: kind)
   }
 
   /// A number that does not read — only a hand edit leaves one — reads as not said.
@@ -301,6 +317,9 @@ extension Debt: @retroactive FetchableRecord, @retroactive PersistableRecord {
     container["pledge"] = pledge
     container["return_by"] = returnBy?.iso
     container["terms_reviewed"] = termsReviewed
+    container["pause_from"] = pause?.from.iso
+    container["pause_to"] = pause?.to.iso
+    container["pause_kind"] = pause?.kind.rawValue
   }
 }
 

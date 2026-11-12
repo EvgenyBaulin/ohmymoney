@@ -44,6 +44,9 @@ struct SubscriptionsPage: Sendable {
   /// The page leaves out subscriptions of a covered hidden account (`covering(_:)`); its
   /// totals still count them.
   var partHidden = false
+  /// The bank subscriptions that state a benefit or a share of the cashback, against what they
+  /// cost this month (`BankSubscriptionPaybacks`).
+  var bankPaybacks: [BankSubscriptionPayback] = []
 
   func row(_ id: UUID) -> Row? { rows.first { $0.id == id } }
 
@@ -96,11 +99,34 @@ struct SubscriptionsPage: Sendable {
       + FloatingAmount.notices(
         book: book, subscriptions: subscriptions, ledger: ledger, today: today))
       .sorted { ($0.day, $0.id) < ($1.day, $1.id) }
-    return SubscriptionsPage(
+    var page = SubscriptionsPage(
       rows: rows, totals: totals, perDayRub: SubscriptionCosts.perDay(yearlyRub: totals.yearlyRub),
       advice: advice, notices: notices,
       appStoreCandidates: candidates.filter { AppStoreBilling.isAppleBilling($0) },
       today: today)
+    page.bankPaybacks = BankSubscriptionPaybacks.report(
+      book: book, subscriptions: subscriptions, accounts: ledger.dataset.paymentMethods,
+      cashbackRub: bankCashback(ledger: ledger, today: today), today: today,
+      rubPerUnit: rubPerUnit)
+    return page
+  }
+
+  /// The cashback of each bank this month in rubles: what the rules of its cards promise or the
+  /// owner typed, or what was received as income, whichever is more (`CashbackReport`).
+  static func bankCashback(ledger: Ledger, today: DateOnly) -> [UUID: AmountE4] {
+    let bankOf = Dictionary(
+      ledger.dataset.paymentMethods.compactMap { account in account.bankId.map { (account.id, $0) } },
+      uniquingKeysWith: { first, _ in first })
+    var byBank: [UUID: (expected: AmountE4, received: AmountE4)] = [:]
+    let report = CashbackReport(ledger: ledger, period: .month(today.monthKey))
+    for cell in report.cells {
+      guard let account = cell.holder.accountId, let bank = bankOf[account] else { continue }
+      var sums = byBank[bank] ?? (.zero, .zero)
+      sums.expected += cell.expectedRub
+      sums.received += cell.receivedRub
+      byBank[bank] = sums
+    }
+    return byBank.mapValues { max($0.expected, $0.received) }
   }
 
   /// The changes of the price of a payment, oldest first: each row of the history that differs
@@ -140,6 +166,7 @@ struct SubscriptionsPage: Sendable {
     copy.notices = notices.filter { shown($0.paymentId) }
     copy.advice.unused = advice.unused.filter { shown($0.paymentId) }
     copy.advice.duplicates = advice.duplicates.filter { $0.paymentIds.allSatisfy(shown) }
+    copy.bankPaybacks = bankPaybacks.filter { shown($0.paymentId) }
     copy.partHidden =
       copy.rows.count != rows.count || copy.notices.count != notices.count
       || copy.advice.unused.count != advice.unused.count

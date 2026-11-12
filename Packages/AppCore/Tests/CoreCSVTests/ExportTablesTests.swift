@@ -27,16 +27,17 @@ private let specifiedFileNames = [
   "wishes.csv",
   "wish_prices.csv", "shopping_items.csv", "owned_items.csv", "habit_badges.csv",
   "no_spend_days.csv",
-  "bank_cashback_categories.csv", "cashback_offers.csv",
+  "bank_cashback_categories.csv", "cashback_offers.csv", "credit_statements.csv",
+  "thing_valuations.csv",
 ]
 
-@Suite("ExportTables describes the 53 files of the export")
+@Suite("ExportTables describes the 55 files of the export")
 struct ExportTablesDescriptionTests {
   @Test func theFortyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 53)
+    #expect(ExportTables.all.count == 55)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.dropLast(2).suffix(30) == [
+      ExportTables.all.dropLast(4).suffix(30) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -55,7 +56,10 @@ struct ExportTablesDescriptionTests {
   /// at the end of the accounts, the categories, the goals, the debts, their journal and the
   /// transfers: an older reader still finds its columns where they were.
   @Test func theColumnsOfTheCreditsComeLast() {
-    #expect(ExportTables.debtInstalments.columns == ["id", "debt_id", "from_index", "amount"])
+    #expect(
+      ExportTables.debtInstalments.columns == [
+        "id", "debt_id", "from_index", "amount", "due_on",
+      ])
     #expect(
       ExportTables.debtCosts.columns == [
         "id", "debt_id", "kind", "name", "amount", "every", "day", "in_loan", "transaction_id",
@@ -73,7 +77,7 @@ struct ExportTablesDescriptionTests {
       ])
     #expect(ExportTables.settings.columns == ["key", "value"])
     #expect(
-      Array(ExportTables.paymentMethods.columns.dropLast(5).suffix(16)) == [
+      Array(ExportTables.paymentMethods.columns.dropLast(12).suffix(16)) == [
         "cushion", "credit_limit", "credit_grace", "credit_statement_day", "credit_pay_days",
         "credit_grace_days", "credit_purchase_rate", "credit_cash_rate", "credit_min_percent",
         "credit_min_floor", "credit_cash_fee_percent", "credit_cash_fee_fixed",
@@ -82,9 +86,16 @@ struct ExportTablesDescriptionTests {
     // The ceilings of cashback and the day of the bank's choice came after them, then the
     // three fields of someone else's card.
     #expect(
-      Array(ExportTables.paymentMethods.columns.suffix(5)) == [
+      Array(ExportTables.paymentMethods.columns.dropLast(7).suffix(5)) == [
         "cashback_monthly_cap", "cashback_choice_day", "borrowed", "borrowed_person_id",
         "borrowed_income_category_id",
+      ])
+    // The base and the next rate of the interest, the points that burn, the digital ruble and
+    // the piggy bank go last.
+    #expect(
+      Array(ExportTables.paymentMethods.columns.suffix(7)) == [
+        "interest_base", "interest_next_rate", "interest_next_rate_on", "points_burn_on",
+        "points_burn", "digital_ruble", "piggy",
       ])
     #expect(
       Array(ExportTables.categories.columns.suffix(8)) == [
@@ -95,11 +106,13 @@ struct ExportTablesDescriptionTests {
         "plan_start_month", "account_id", "transfer_on_contribution", "sort", "why_note",
       ])
     #expect(
-      Array(ExportTables.debts.columns.suffix(14)) == [
+      Array(ExportTables.debts.columns.dropLast(3).suffix(14)) == [
         "repay_months", "step_days", "first_due_on", "parts", "markup", "psk", "prepay_any_day",
         "prepay_notice_days", "planned_prepay_on", "planned_prepay", "in_ladder", "pledge",
         "return_by", "terms_reviewed",
       ])
+    #expect(
+      Array(ExportTables.debts.columns.suffix(3)) == ["pause_from", "pause_to", "pause_kind"])
     #expect(Array(ExportTables.debtEntries.columns.suffix(2)) == ["tranche", "prepay"])
     #expect(
       Array(ExportTables.transfers.columns.suffix(3)) == [
@@ -138,7 +151,7 @@ struct ExportTablesDescriptionTests {
         "account_amount", "card_id", "cashback_currency", "cashback", "time_zone", "one_off",
         "source", "bank_status", "posted_on", "dedup_key", "warranty_until", "warranty_where",
         "return_until", "discount", "regret", "regret_asked_on", "refund_waiting_until",
-        "odometer_km", "receipt_fn", "receipt_i", "receipt_fp", "receipt_n",
+        "odometer_km", "receipt_fn", "receipt_i", "receipt_fp", "receipt_n", "mcc", "fee",
       ])
     #expect(
       ExportTables.scheduledPayments.columns == [
@@ -222,9 +235,9 @@ struct ExportTablesDescriptionTests {
       let older = Array(table.columns.prefix(before[table.fileName] ?? 0))
       #expect(Array(older.suffix(columns.count)) == columns, "\(table.fileName)")
     }
-    #expect(ExportTables.transactions.columns.count == 45)
+    #expect(ExportTables.transactions.columns.count == 47)
     #expect(ExportTables.transactionParts.columns.count == 17)
-    #expect(ExportTables.paymentMethods.columns.count == 43)
+    #expect(ExportTables.paymentMethods.columns.count == 50)
     #expect(ExportTables.templates.columns.count == 8)
     #expect(ExportTables.goals.columns.count == 13)
     #expect(ExportTables.debtEntries.columns.count == 18)

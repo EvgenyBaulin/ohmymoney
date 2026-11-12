@@ -318,8 +318,10 @@ public struct ReferenceRepository: Sendable {
 
   /// Columns that point at a row being merged and are left where they are, as its history:
   /// the balances counted on an account are what that account held at the time, and they stay
-  /// with the account merged away.
-  static let keptOnMerge = ["reconciliation_balances.payment_method_id"]
+  /// with the account merged away; so do the minimum payments typed from its statements.
+  static let keptOnMerge = [
+    "reconciliation_balances.payment_method_id", "credit_statements.payment_method_id",
+  ]
 
   /// Moves everything that points at one row of a dictionary — operations, debts, the
   /// planning book — to another and archives the one that was merged away. Nothing is
@@ -328,6 +330,7 @@ public struct ReferenceRepository: Sendable {
     guard source != target else { return }
     try writer.write { db in
       try Self.repoint("people", from: source, to: target, db: db)
+      _ = try SpendingRulesRepository.repointRules(.person, from: source, to: target, db: db)
       try Self.mergeAliases(Person.self, source: source, into: target, db: db)
       try db.execute(
         sql: "UPDATE people SET archived = 1 WHERE id = ?", arguments: [source.uuidString])
@@ -338,6 +341,7 @@ public struct ReferenceRepository: Sendable {
     guard source != target else { return }
     try writer.write { db in
       try Self.repoint("places", from: source, to: target, db: db)
+      _ = try SpendingRulesRepository.repointRules(.place, from: source, to: target, db: db)
       try Self.mergeAliases(Place.self, source: source, into: target, db: db)
       try db.execute(
         sql: "UPDATE places SET archived = 1 WHERE id = ?", arguments: [source.uuidString])
@@ -358,6 +362,7 @@ public struct ReferenceRepository: Sendable {
       try AccountRepository.dropCollidingRules(of: source, into: target, db: db)
       try AccountRepository.dropPayoutToItself(of: source, into: target, db: db)
       try Self.repoint("payment_methods", from: source, to: target, db: db)
+      _ = try SpendingRulesRepository.repointRules(.account, from: source, to: target, db: db)
       try Self.mergeAliases(PaymentMethod.self, source: source, into: target, db: db)
       let wasMain =
         try Bool.fetchOne(
@@ -532,9 +537,8 @@ public struct ReferenceRepository: Sendable {
   }
 
   /// «Вернуть»: the row is live again. Its other names a live row has taken meanwhile are
-  /// dropped, so one name is never on two live rows. Throws `nameTaken` when a live row has its
-  /// name — an event is the exception, as events may share a name — and `notFound` when there
-  /// is no such row.
+  /// dropped. A live row with the same name never stops it: the screen advises renaming, and
+  /// the owner decides. Throws `notFound` when there is no such row.
   public func restore(_ id: UUID, in book: ReferenceBook) throws {
     try writer.write { db in
       let rows = try Self.spelled(book, db: db)
@@ -543,9 +547,6 @@ public struct ReferenceRepository: Sendable {
       }
       guard row.archived else { return }
       let taken = Self.liveKeys(rows, except: id)
-      if book != .events, taken.contains(Self.nameKey(row.name)) {
-        throw ReferenceWriteError.nameTaken
-      }
       try Self.bringBack(row, book: book, taken: taken, db: db)
     }
   }

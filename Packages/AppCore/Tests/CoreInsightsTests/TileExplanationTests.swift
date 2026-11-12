@@ -29,6 +29,22 @@ struct TileExplanationTests {
   static let calendar = CalendarContext.moscow
   static let rates: [CurrencyCode: Decimal] = [.usd: 95, .eur: 103]
 
+  @Test func aNegativeSavingsFormulaIsLabelledAsAMonthBalance() throws {
+    let today = DateOnly(year: 2026, month: 11, day: 12)
+    var planning = Self.world(Dataset(), today: today).planning
+    planning.income = MonthIncomeEstimate(
+      month: today.monthKey, received: .zero, expectedRemaining: .zero,
+      median3: nil, monthsInMedian: 0, value: .zero, source: .receivedOnly, lowData: false)
+    planning.spentWithoutGoals = AmountE4(whole: 1_000)
+    let remainder = MonthForecast.Remainder(
+      p10: .zero, middle: .zero, p90: .zero, lowData: false, computedFor: today,
+      daysLeft: 18, windowDays: 90)
+    let explanation = TileExplanations.canSave(planning, remainder: remainder)
+    let total = try #require(explanation.sections.first?.total)
+    #expect(total.label.key == "why.canSave.balance")
+    #expect(explanation.notes.contains { $0.key == "why.canSave.impossible" })
+  }
+
   struct World {
     let ledger: Ledger
     let summary: OverviewSummary

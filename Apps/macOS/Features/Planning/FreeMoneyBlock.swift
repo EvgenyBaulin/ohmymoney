@@ -47,7 +47,7 @@ struct FreeMoneyBlock: View {
             of: free, hasCushion: !snapshot.planning.cushion.accounts.isEmpty,
             half: snapshot.planning.halfFreeMoney(ledger: snapshot.ledger),
             payHalf: snapshot.planning.payHalf,
-            cards: Self.cardsDue(snapshot, until: free.until)),
+            cards: Self.cardsDue(compute.snapshot ?? snapshot, until: free.until)),
           id: \.name
         ) { part in
           view(of: part, free, snapshot)
@@ -222,6 +222,9 @@ struct FreeMoneyBlock: View {
     case .grey(let grey, let lines):
       Divider()
       greyLine(grey)
+      ForEach(FreeMoneyRecoveryText.shortfalls(free, environment), id: \.self) { line in
+        caption(line)
+      }
       FormulaLines(lines: lines.map { (key: $0.key, plus: $0.sign == .plus, amount: $0.amount) })
     case .overdue(let amount):
       HStack(alignment: .firstTextBaseline, spacing: 8) {
@@ -244,8 +247,10 @@ struct FreeMoneyBlock: View {
       caption(environment.format("free.planWithoutRate", table: "Planning", codes(currencies)))
     case .perDay(let amount, let days):
       Text(
-        verbatim: environment.language.format(
-          "free.perDay", table: "Planning", environment.money.rounded(amount), days)
+        verbatim: free.dailyReductionRubles != nil
+          ? FreeMoneyRecoveryText.daily(free, environment)
+          : environment.language.format(
+            "free.perDay", table: "Planning", environment.money.rounded(amount), days)
       )
       .appFont(.callout.monospacedDigit())
       .foregroundStyle(.secondary)
@@ -255,15 +260,24 @@ struct FreeMoneyBlock: View {
           caption(
             environment.format(
               "free.cardDue", table: "Planning", card.name, dayText(card.due, snapshot),
-              environment.money.rounded(card.amount, currency: card.currency)))
+              (card.isEstimate ? "≈\u{00A0}" : "")
+                + environment.money.rounded(card.amount, currency: card.currency)))
+          caption(
+            environment.format(
+              "account.credit.minimum.full", table: "Accounts",
+              environment.money.rounded(card.fullAmount, currency: card.currency)))
         }
       }
       .accessibilityIdentifier("free.cardsDue")
     case .half(let amount, let perDay, let day):
       Text(
-        verbatim: environment.format(
-          "free.half", table: "Planning", dayText(day, snapshot), environment.money.rounded(amount),
-          environment.money.rounded(perDay))
+        verbatim: amount <= .zero
+          ? FreeMoneyRecoveryText.daily(
+            snapshot.planning.freeMoney(until: day, ledger: snapshot.ledger), environment)
+          : environment.format(
+            "free.half", table: "Planning", dayText(day, snapshot),
+            environment.money.rounded(amount),
+            environment.money.rounded(perDay))
       )
       .appFont(.callout.monospacedDigit())
       .fixedSize(horizontal: false, vertical: true)
@@ -311,6 +325,8 @@ struct FreeMoneyBlock: View {
     var due: DateOnly
     var amount: AmountE4
     var currency: CurrencyCode
+    var fullAmount: AmountE4 = .zero
+    var isEstimate: Bool = true
     var id: UUID { accountId }
   }
 
@@ -323,11 +339,12 @@ struct FreeMoneyBlock: View {
     return planning.creditCards.compactMap { accountId, card -> CardDue? in
       guard let line = planning.accounts.line(of: accountId), !line.account.archived,
         !planning.accounts.isInSummary(accountId), let due = card.payBy, due <= until,
-        card.toPayNoInterestE4.raw > 0
+        let minimum = card.minimumE4, minimum.raw > 0, !snapshot.hiding.isHidden(accountId)
       else { return nil }
       return CardDue(
         accountId: accountId, name: line.account.name, due: due,
-        amount: card.toPayNoInterestE4, currency: line.account.mainCurrency)
+        amount: minimum, currency: line.account.mainCurrency,
+        fullAmount: card.toPayNoInterestE4, isEstimate: card.minimumIsEstimate)
     }
     .sorted { ($0.due, $0.name) < ($1.due, $1.name) }
   }
@@ -355,7 +372,7 @@ struct FreeMoneyBlock: View {
   {
     HStack(alignment: .firstTextBaseline, spacing: 12) {
       VStack(alignment: .leading, spacing: 2) {
-        Text(verbatim: environment.money.rounded(main))
+        Text(verbatim: environment.money.rounded(max(.zero, main)))
           .appFont(.title2.monospacedDigit())
         Text(verbatim: t(spendable ? "free.mainSpendable" : "free.main"))
           .appFont(.caption)
@@ -390,7 +407,7 @@ struct FreeMoneyBlock: View {
         .appFont(.caption)
       }
       Spacer(minLength: 8)
-      Text(verbatim: environment.money.rounded(grey))
+      Text(verbatim: environment.money.rounded(max(.zero, grey)))
         .monospacedDigit()
     }
     .foregroundStyle(.secondary)

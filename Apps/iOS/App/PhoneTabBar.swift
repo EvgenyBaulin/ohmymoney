@@ -51,6 +51,14 @@ struct NavBarButton: View {
     self.action = action
   }
 
+  /// The room a tab keeps at its sides. With every name shown the tabs share the width of the
+  /// bar and the longest name («Планирование») has to fit in what is left, scaled down to 0.7
+  /// at most: a wide margin turned it into «Планиров…».
+  static func horizontalPadding(isActive: Bool, labelsOnAll: Bool) -> CGFloat {
+    if labelsOnAll { return 3 }
+    return isActive ? 14 : 10
+  }
+
   var body: some View {
     Button(action: action) {
       Group {
@@ -79,7 +87,7 @@ struct NavBarButton: View {
         }
       }
       .foregroundStyle(isActive ? colors.activeContent : colors.icon)
-      .padding(.horizontal, isActive && !labelsOnAll ? 14 : 10)
+      .padding(.horizontal, Self.horizontalPadding(isActive: isActive, labelsOnAll: labelsOnAll))
       .frame(minWidth: 44, minHeight: 44)
       .background {
         if isActive { Capsule().fill(colors.pill) }
@@ -118,7 +126,9 @@ struct PhoneTabBar: View {
           colors: colors, labelsOnAll: !activeLabelOnly
         ) { router.open(nav: item) }
         .frame(maxWidth: router.current == item && activeLabelOnly ? nil : .infinity)
-        .layoutPriority(router.current == item ? 1 : 0)
+        // Only a bar that labels the active tab alone lets it widen; with every label shown the
+        // tabs share the width equally, or the active one squeezed the rest to «Tra…».
+        .layoutPriority(router.current == item && activeLabelOnly ? 1 : 0)
       }
       NavBarButton(
         title: moreTitle, symbol: "ellipsis", isActive: router.isMoreLit(visible: layout.visible),
@@ -126,16 +136,16 @@ struct PhoneTabBar: View {
       ) { router.open(PhoneRoute(tab: .more)) }
       .frame(
         maxWidth: router.isMoreLit(visible: layout.visible) && activeLabelOnly ? nil : .infinity)
-      .layoutPriority(router.isMoreLit(visible: layout.visible) ? 1 : 0)
+      .layoutPriority(router.isMoreLit(visible: layout.visible) && activeLabelOnly ? 1 : 0)
     }
     .padding(.horizontal, 8)
     .padding(.vertical, 6)
     .background(colors.background, in: RoundedRectangle(cornerRadius: 34, style: .continuous))
     .shadow(color: .black.opacity(0.18), radius: 12, y: 4)
     // The bar floats: a margin on every side, the page shows around it (design: tab bar pill).
-    .padding(.horizontal, 16)
+    .padding(.horizontal, PhoneMetrics.screenMargin)
     .padding(.top, 6)
-    .padding(.bottom, 8)
+    .padding(.bottom, PhoneMetrics.barBottomMargin)
   }
 }
 

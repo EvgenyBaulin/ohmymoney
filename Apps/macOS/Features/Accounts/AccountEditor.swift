@@ -42,6 +42,13 @@ struct AccountDraft: Equatable {
   var isBorrowed = false
   var borrowedPersonId: UUID?
   var borrowedIncomeCategoryId: UUID?
+  /// «Копилка»: an account the owner puts money aside to, with interest or not.
+  var piggy = false
+  /// «Цифровой рубль»: a wallet of the digital ruble — rubles only, no interest, no cashback.
+  var digitalRuble = false
+  /// «Баллы сгорают»: the day the nearest points burn and how many, as typed (empty — all).
+  var pointsBurnOn: DateOnly?
+  var pointsBurnText = ""
 
   /// The fields of an account there is.
   init(_ account: PaymentMethod) {
@@ -62,6 +69,12 @@ struct AccountDraft: Equatable {
     isBorrowed = account.isBorrowed
     borrowedPersonId = account.borrowed?.personId
     borrowedIncomeCategoryId = account.borrowed?.incomeCategoryId
+    piggy = account.piggy
+    digitalRuble = account.digitalRuble
+    pointsBurnOn = account.pointsBurn?.on
+    pointsBurnText =
+      account.pointsBurn?.amountE4.map { NumberText.decimal($0.decimal, fractionDigits: 0...2) }
+      ?? ""
   }
 
   /// A new account: a bank account in the default currency, in no group, under a bank — `bank`
@@ -95,6 +108,8 @@ struct AccountDraft: Equatable {
     account.mainCardId = mainCardId
     account.accent = accent
     account.hidden = isHidden
+    account.piggy = piggy
+    account.pointsBurn = pointsBurn
     account.borrowed =
       isBorrowed
       ? BorrowedCardTerms(personId: borrowedPersonId, incomeCategoryId: borrowedIncomeCategoryId)
@@ -105,8 +120,20 @@ struct AccountDraft: Equatable {
       account.isDefault = false
       account.groupId = nil
       account.cushion = false
+      account.piggy = false
     }
-    return account
+    // A wallet of the digital ruble: rubles alone, no interest, no cashback.
+    account.digitalRuble = false
+    return digitalRuble && !isBorrowed ? DigitalRuble.made(from: account) : account
+  }
+
+  /// The points that burn, as typed: a day, and how many unless the field is empty or does not
+  /// read as a sum above zero (then all of them).
+  var pointsBurn: PointsBurn? {
+    guard let day = pointsBurnOn else { return nil }
+    let typed = DecimalMath.parse(pointsBurnText)
+    let amount = typed.flatMap { $0 > 0 ? try? AmountE4(decimal: $0) : nil }
+    return PointsBurn(on: day, amountE4: amount)
   }
 
   mutating func add(_ currency: CurrencyCode) {
@@ -177,6 +204,8 @@ struct AccountEditor: View {
   let finish: (UUID?) -> Void
 
   @State private var draft: AccountDraft
+  @State private var newBankId = UUID()
+  @State private var firstCardId = UUID()
   @State private var books: AccountBooks?
   @State private var groups: [AccountGroup] = []
   @State private var banks: [Bank] = []
@@ -213,6 +242,9 @@ struct AccountEditor: View {
       Form {
         NameField(
           title: t("account.editor.name"), text: $draft.name, identifier: "account.editor.name")
+        PlanningNamesakeNotice(
+          kind: .account, id: draft.id, name: $draft.name,
+          otherNames: $draft.aliases, didRestore: { finish($0.id) })
         Picker(selection: $draft.kind) {
           ForEach(PaymentMethodKind.allCases, id: \.self) { kind in
             Text(verbatim: t(AccountText.kindKey(kind))).tag(kind)
@@ -258,12 +290,18 @@ struct AccountEditor: View {
               title: t("account.credit.firstCard"), text: $draft.firstCardName,
               prompt: draft.name.isEmpty ? nil : draft.name,
               identifier: "account.editor.firstCard")
+            PlanningNamesakeNotice(
+              kind: .card, id: firstCardId,
+              name: Binding(
+                get: { draft.firstCardName.isEmpty ? draft.name : draft.firstCardName },
+                set: { draft.firstCardName = $0 }), accountId: draft.id,
+              didRestore: { finish($0.id) })
           } footer: {
             Text(verbatim: t("account.credit.firstCardHint"))
               .foregroundStyle(.secondary)
           }
         }
-        if !draft.isBorrowed {
+        if !draft.isBorrowed, !draft.digitalRuble {
           AccountInterestSection(draft: $draft.interest, payoutChoices: payoutChoices)
         }
         BankConditionsSection(
@@ -274,11 +312,24 @@ struct AccountEditor: View {
               Text(verbatim: t("account.editor.cushion"))
             }
             .accessibilityIdentifier("account.editor.cushion")
+            Toggle(isOn: $draft.piggy) {
+              Text(verbatim: t("account.editor.piggy"))
+            }
+            .accessibilityIdentifier("account.editor.piggy")
+            Toggle(isOn: digitalRuble) {
+              Text(verbatim: t("account.editor.digitalRuble"))
+            }
+            .accessibilityIdentifier("account.editor.digitalRuble")
           } footer: {
-            Text(verbatim: t("account.editor.cushionHint"))
+            Text(verbatim: t("account.editor.cushionHint") + "\n" + t("account.editor.piggyHint"))
               .foregroundStyle(.secondary)
+            if draft.digitalRuble {
+              Text(verbatim: t("account.editor.digitalRubleHint"))
+                .foregroundStyle(.secondary)
+            }
           }
         }
+        if holdsPoints { pointsBurnSection }
         Section {
           AccountOtherNames(names: $draft.aliases)
         } header: {
@@ -372,6 +423,13 @@ struct AccountEditor: View {
           title: t("account.editor.bank.newName"), text: $draft.newBankName,
           prompt: draft.name.trimmingCharacters(in: .whitespaces),
           identifier: "account.editor.newBankName")
+        PlanningNamesakeNotice(
+          kind: .bank, id: newBankId,
+          name: Binding(
+            get: { draft.newBankName.isEmpty ? draft.name : draft.newBankName },
+            set: { draft.newBankName = $0 }),
+          didRestore: { draft.bankId = $0.id }, onChange: { banks = actions.banks },
+          dismissesOnRestore: false)
       }
     } footer: {
       Text(
@@ -496,6 +554,74 @@ struct AccountEditor: View {
     enabled.filter { !draft.currencies.contains($0) }
   }
 
+  /// The wallet of the digital ruble switch: on, the account takes rubles alone and leaves its
+  /// interest behind.
+  private var digitalRuble: Binding<Bool> {
+    Binding(
+      get: { draft.digitalRuble },
+      set: { on in
+        draft.digitalRuble = on
+        guard on else { return }
+        draft.currencies = [.rub]
+        draft.interest = InterestDraft(nil)
+        draft.credit = CreditDraft(nil)
+      })
+  }
+
+  /// Another account pays its cashback as points to this one.
+  private var holdsPoints: Bool {
+    CashbackPoints.owners(among: accounts)[draft.id] != nil || draft.pointsBurnOn != nil
+  }
+
+  /// «Баллы сгорают»: the day and how many; the rate of a point is the rate of the currency of
+  /// this account.
+  private var pointsBurnSection: some View {
+    Section {
+      Toggle(isOn: pointsBurnSaid) {
+        Text(verbatim: t("account.editor.pointsBurn"))
+      }
+      .accessibilityIdentifier("account.editor.pointsBurn")
+      if draft.pointsBurnOn != nil {
+        DatePicker(selection: pointsBurnDay, displayedComponents: .date) {
+          Text(verbatim: t("account.editor.pointsBurnOn"))
+        }
+        LabeledContent {
+          TextField(text: $draft.pointsBurnText, prompt: Text(verbatim: t("account.editor.pointsBurnAll"))) {
+            Text(verbatim: t("account.editor.pointsBurnAmount"))
+          }
+          .labelsHidden()
+          .multilineTextAlignment(.trailing)
+          .appFont(.body.monospacedDigit())
+          .frame(width: 120)
+          .accessibilityIdentifier("account.editor.pointsBurnAmount")
+        } label: {
+          Text(verbatim: t("account.editor.pointsBurnAmount"))
+        }
+      }
+    } header: {
+      Text(verbatim: t("account.editor.pointsTitle"))
+    } footer: {
+      Text(verbatim: t("account.editor.pointsHint")).foregroundStyle(.secondary)
+    }
+  }
+
+  private var pointsBurnSaid: Binding<Bool> {
+    Binding(
+      get: { draft.pointsBurnOn != nil },
+      set: { on in
+        draft.pointsBurnOn = on ? (draft.pointsBurnOn ?? environment.today.adding(days: 30)) : nil
+        if !on { draft.pointsBurnText = "" }
+      })
+  }
+
+  private var pointsBurnDay: Binding<Date> {
+    Binding(
+      get: {
+        environment.calendar.startOfDay(draft.pointsBurnOn ?? environment.today)
+      },
+      set: { draft.pointsBurnOn = environment.calendar.day(of: $0) })
+  }
+
   /// Where the interest may go besides this account: the other live accounts, and the one it
   /// goes to now even from the archive or a hidden one, named as every list names them. The
   /// other hidden accounts are not offered while covered.
@@ -551,8 +677,9 @@ struct AccountEditor: View {
       return
     }
     var account = draft.account(over: previous)
-    if draft.isBorrowed {
-      // Someone else's money earns the owner no interest and is no debt of his to a bank.
+    if draft.isBorrowed || draft.digitalRuble {
+      // Someone else's money earns the owner no interest and is no debt of his to a bank, and a
+      // wallet of the digital ruble earns none either.
       account.interest = nil
       account.credit = nil
     } else {
@@ -572,7 +699,8 @@ struct AccountEditor: View {
     switch actions.save(
       account, previous: previous, openings: draft.isBorrowed ? [:] : openings, books: books,
       newBankNamed: draft.bankId == nil ? draft.newBankName : nil,
-      firstCardNamed: draft.firstCardName)
+      firstCardNamed: draft.firstCardName, newBankId: newBankId,
+      firstCardId: firstCardId)
     {
     case .done:
       Self.logCushion(of: account, previous: previous)

@@ -110,6 +110,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
   public var spentWithoutGoals: AmountE4
   /// Net goal contributions from the 1st through today (`GoalRules.netContributions`).
   public var goalsNetThisMonth: AmountE4
+  /// Net transfers into the cushion and deposits from the 1st through today.
+  public var accountsSavedThisMonth: AmountE4 = .zero
   /// Σ over the running subscriptions of what the next charge comes to per month and per
   /// year, in rubles; a subscription in a currency without a rate is left out.
   public var subscriptionsMonthly: AmountE4
@@ -140,6 +142,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
   public var ladder: LadderComparison? = nil
   /// The debt load of the last months (`DebtLoad.history`).
   public var debtLoadHistory: [DebtLoadMonth] = []
+  /// The same burden the way a bank counts it (`BankPdn`); `nil` before the debts are read.
+  public var bankPdn: BankPdn? = nil
   /// The reminders of the debts and credit cards (`DebtReminders`).
   public var debtReminders: [DebtReminder] = []
   /// The debts made before this version, to ask about once (`DebtReview`).
@@ -374,6 +378,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
         through: month.lastDay),
       capital: capital,
       cushion: cushion)
+    snapshot.accountsSavedThisMonth =
+      SavingsTotals(ledger: ledger, in: toDate, income: .zero).accounts
     snapshot.npd = npd
     snapshot.creditStatements = creditStatements
     return snapshot
@@ -390,7 +396,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
         account: account, ledger: ledger, transfers: ledger.dataset.transfers)
       let statements = CreditStatements.statements(
         account: account, terms: terms, movements: movements, balances: accounts.balances,
-        through: today, calendar: ledger.calendar)
+        through: today, calendar: ledger.calendar,
+        overrides: ledger.dataset.creditStatements)
       if !statements.isEmpty { result[account.id] = statements }
     }
     return result
@@ -448,7 +455,10 @@ public struct PlanningSnapshot: Hashable, Sendable {
       subtractGoalSavings: book.settings.reconcileIncludesGoalSavings, dayRates: dayRates,
       goalSavingsValuation: book.settings.goalSavingsValuation,
       reserveEventBudgets: book.settings.reserveEventBudgets, npd: npd,
-      creditStatements: creditStatements)
+      creditStatements: creditStatements,
+      interestTax: BankReport.interestYear(
+        ledger: ledger, accounts: accounts, today: today, rubPerUnit: rubPerUnit)?
+        .sofar.taxE4 ?? .zero)
     let still = IncomeEstimate.stillExpected(
       statuses: expected, today: today, through: end, ledger: ledger)
     let year = ledger.dataset.yearPlan
@@ -459,21 +469,42 @@ public struct PlanningSnapshot: Hashable, Sendable {
       accounts: accounts, plan: plan, stillExpected: still.amount,
       stillExpectedWithoutRate: still.withoutRate, today: today, until: end,
       cushion: ledger.dataset.capitalSettings.outOfFreeMoney ? cushion.inSummaryRub : .zero,
-      buffer: buffer?.left ?? .zero)
+      buffer: buffer?.left ?? .zero,
+      usualDailySpending: UsualDay(
+        ledger: ledger, today: today, window: ledger.dataset.weekendWindow,
+        oneOff: ledger.dataset.oneOffMarks
+      ).overall.amount,
+      nextIncomeDay: FreeMoney.nextExpectedIncomeDay(
+        book: book, ledger: ledger, today: today, rubPerUnit: rubPerUnit))
   }
 
   // MARK: - Can save
 
   /// «Can save this month» with the remainder the forecast step gives: the income of the
   /// month, my expenses without goal contributions, the scheduled and debt payments still
-  /// due (my share), and the net contributions of the month as what is saved already.
-  public func canSave(remainder: MonthForecast.Remainder) -> CanSave {
-    CanSave(
+  /// due (my share), and the net savings of the month as what is saved already.
+  public func canSave(remainder: MonthForecast.Remainder, ledger: Ledger? = nil) -> CanSave {
+    var result = CanSave(
       CanSaveInputs(
         income: income, spentWithoutGoals: spentWithoutGoals,
         plannedStillDue: planned.scheduled + planned.debts + planned.debtsDueByToday,
         remainder: remainder,
-        alreadySaved: goalsNetThisMonth))
+        alreadySaved: goalsNetThisMonth + accountsSavedThisMonth))
+    guard result.shortfall != nil else { return result }
+    let cuts: [CanSave.FundingHint]
+    if let ledger {
+      cuts = LimitSuggestions.suggestions(ledger: ledger, budgets: book.budgets, today: today)
+        .compactMap { suggestion in
+          let reduction = suggestion.usual - suggestion.tenPercentLess
+          return reduction > .zero ? .category(suggestion.categoryId, reduction) : nil
+        }
+    } else {
+      cuts = []
+    }
+    result.fundingHints = CanSave.fundingHints(
+      goals: AmountE4.sum(goals.compactMap(\.savedRubToday)), cushion: cushion.moneyRub,
+      cuts: cuts.isEmpty ? [.variable(remainder.middle)] : cuts)
+    return result
   }
 
   // MARK: - Pieces

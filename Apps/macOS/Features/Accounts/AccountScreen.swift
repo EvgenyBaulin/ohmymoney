@@ -589,8 +589,10 @@ struct AccountScreen: View {
       actionRow
       if line != nil, hasBalance { AccountForecastCard(accountId: accountId) }
       if account != nil {
-        AccountCashbackBlock(accountId: accountId)
+        if earnsCashback { AccountCashbackBlock(accountId: accountId) }
         AccountInterestBlock(accountId: accountId)
+        AccountSavingsBlock(accountId: accountId)
+        AccountPointsBlock(accountId: accountId)
       }
     } stacked: {
       balance
@@ -600,11 +602,18 @@ struct AccountScreen: View {
         AccountCreditBlock(accountId: accountId)
         AccountCardsBlock(accountId: accountId)
         AccountConditionsBlock(accountId: accountId)
-        AccountCashbackBlock(accountId: accountId)
+        if earnsCashback { AccountCashbackBlock(accountId: accountId) }
         AccountInterestBlock(accountId: accountId)
+        AccountSavingsBlock(accountId: accountId)
+        AccountPointsBlock(accountId: accountId)
         AccountPaymentsBlock(accountId: accountId)
       }
     }
+  }
+
+  /// A wallet of the digital ruble pays no cashback: its screen has no block of it.
+  private var earnsCashback: Bool {
+    account.map(DigitalRuble.allowsInterestAndCashback) ?? true
   }
 
   /// The hero with the balance — a credit card has no hero: its block says «Доступно» and

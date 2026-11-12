@@ -77,6 +77,10 @@ enum CalendarLayout {
   /// How many upcoming events the card lists.
   static let upcomingLimit = 5
 
+  static func upcomingCount(in calendar: SpendingCalendar) -> Int {
+    upcoming(in: calendar, limit: .max).count
+  }
+
   /// The plans of the days shown from today on, soonest first, payments before incomes within
   /// a day, at most `limit`; the days ahead only, so a past day never appears.
   static func upcoming(
@@ -193,6 +197,14 @@ enum CalendarText {
     return "\(plan.name) · \(DepositText.payoutTag(kind, environment))"
   }
 
+  static func fullAmount(of plan: CalendarPlan, _ environment: AppEnvironment) -> String? {
+    plan.fullAmountE4.map { full in
+      environment.format(
+        "account.credit.minimum.full", table: "Accounts",
+        environment.money.exact(full, currency: plan.currency))
+    }
+  }
+
   static func symbol(of kind: CalendarPlan.Kind) -> String {
     switch kind {
     case .payment: "clock"
@@ -253,6 +265,7 @@ enum CalendarText {
 
   /// The amount of a plan in its own currency, as Planning shows it.
   static func amount(of plan: CalendarPlan, _ environment: AppEnvironment) -> String {
-    environment.money.rounded(plan.amount, currency: plan.currency)
+    (plan.isEstimate ? "≈\u{00A0}" : "")
+      + environment.money.rounded(plan.amount, currency: plan.currency)
   }
 }

@@ -12,6 +12,10 @@ enum InterestIssue: Error, Hashable, Sendable {
   case endBeforeOpening
   /// The interest goes to an account that is not a live account other than this one.
   case payoutAccount
+  /// The announced rate does not read as a percent above zero and up to 100.
+  case nextRate
+  /// A new rate without the day it starts.
+  case nextRateNeedsDay
 }
 
 /// «Проценты» of the account editor, as typed until «Сохранить»: whether the balance earns
@@ -30,6 +34,11 @@ struct InterestDraft: Equatable {
   var openedOn: DateOnly?
   /// `nil` — a savings account, which never ends.
   var endsOn: DateOnly?
+  /// What the bank counts the interest on: the balance of each day, or the lowest of the month.
+  var base: InterestBase
+  /// The rate the bank announced, as typed; empty — none — and the first day it holds.
+  var nextRateText: String
+  var nextRateOn: DateOnly?
 
   /// The interest an account has, or the switch off for one that earns none.
   init(_ terms: DepositTerms?) {
@@ -40,6 +49,9 @@ struct InterestDraft: Equatable {
     payoutAccountId = terms?.payoutAccountId
     openedOn = terms?.openedOn
     endsOn = terms?.endsOn
+    base = terms?.base ?? .daily
+    nextRateText = terms?.nextRate.map { NumberText.decimal($0, fractionDigits: 0...4) } ?? ""
+    nextRateOn = terms?.nextRateOn
   }
 
   /// A deposit ends; a savings account does not.
@@ -57,10 +69,19 @@ struct InterestDraft: Equatable {
     if period == .atEnd, endsOn == nil { return .failure(.endNeeded) }
     if let endsOn, let openedOn, endsOn <= openedOn { return .failure(.endBeforeOpening) }
     if payoutAccountId == accountId { return .failure(.payoutAccount) }
+    var nextRate: Decimal?
+    if !nextRateText.trimmingCharacters(in: .whitespaces).isEmpty {
+      guard let typed = DebtPayoff.parseRate(nextRateText), typed > 0, typed <= 100 else {
+        return .failure(.nextRate)
+      }
+      guard nextRateOn != nil else { return .failure(.nextRateNeedsDay) }
+      nextRate = typed
+    }
     return .success(
       DepositTerms(
         rate: rate, period: period, day: period == .atEnd ? nil : day,
-        payoutAccountId: payoutAccountId, openedOn: openedOn, endsOn: endsOn))
+        payoutAccountId: payoutAccountId, openedOn: openedOn, endsOn: endsOn, base: base,
+        nextRate: nextRate, nextRateOn: nextRate == nil ? nil : nextRateOn))
   }
 }
 
@@ -98,6 +119,35 @@ struct AccountInterestSection: View {
           }
         } label: {
           Text(verbatim: t("account.interest.rate"))
+        }
+        Picker(selection: $draft.base) {
+          ForEach(InterestBase.allCases, id: \.self) { base in
+            Text(verbatim: t(Self.baseKey(base))).tag(base)
+          }
+        } label: {
+          Text(verbatim: t("account.interest.base"))
+        }
+        .accessibilityIdentifier("account.interest.base")
+        LabeledContent {
+          HStack(spacing: 4) {
+            TextField(text: $draft.nextRateText, prompt: Text(verbatim: "12")) {
+              Text(verbatim: t("account.interest.nextRate"))
+            }
+            .labelsHidden()
+            .multilineTextAlignment(.trailing)
+            .appFont(.body.monospacedDigit())
+            .frame(width: 80)
+            .accessibilityIdentifier("account.interest.nextRate")
+            Text(verbatim: "%").foregroundStyle(.secondary)
+          }
+        } label: {
+          Text(verbatim: t("account.interest.nextRate"))
+        }
+        if !draft.nextRateText.trimmingCharacters(in: .whitespaces).isEmpty {
+          DatePicker(selection: nextRateDay, displayedComponents: .date) {
+            Text(verbatim: t("account.interest.nextRateOn"))
+          }
+          .accessibilityIdentifier("account.interest.nextRateOn")
         }
         Picker(selection: $draft.period) {
           ForEach(InterestPeriod.allCases, id: \.self) { period in
@@ -159,6 +209,23 @@ struct AccountInterestSection: View {
       Text(verbatim: t(draft.isOn ? "account.interest.hint" : "account.interest.offHint"))
         .foregroundStyle(.secondary)
     }
+  }
+
+  static func baseKey(_ base: InterestBase) -> String {
+    switch base {
+    case .daily: "account.interest.base.daily"
+    case .minBalance: "account.interest.base.minBalance"
+    }
+  }
+
+  /// The day the announced rate starts; the day after today until one is chosen.
+  private var nextRateDay: Binding<Date> {
+    Binding(
+      get: {
+        environment.calendar.startOfDay(
+          draft.nextRateOn ?? environment.today.adding(days: 1))
+      },
+      set: { draft.nextRateOn = environment.calendar.day(of: $0) })
   }
 
   static func periodKey(_ period: InterestPeriod) -> String {

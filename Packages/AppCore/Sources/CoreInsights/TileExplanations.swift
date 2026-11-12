@@ -259,14 +259,19 @@ public enum TileExplanations {
       details.insert(
         TileRow(TilePhrase("why.range", .money(low, .rub), .money(high, .rub))), at: 0)
     }
+    var notes = canSave.lowData ? [TilePhrase("why.lowData")] : []
+    if canSave.cannotSave { notes.insert(TilePhrase("why.canSave.impossible"), at: 0) }
     return TileExplanation(
       tile: .canSave,
       sections: [
         TileSection(
-          rows: rows, total: TileRow(TilePhrase("why.canSave.total"), .approximately(p50, .rub))),
+          rows: rows,
+          total: TileRow(
+            TilePhrase(canSave.cannotSave ? "why.canSave.balance" : "why.canSave.total"),
+            .approximately(p50, .rub))),
         TileSection(rows: details),
       ],
-      notes: canSave.lowData ? [TilePhrase("why.lowData")] : [])
+      notes: notes)
   }
 
   static func canSaveKey(_ key: String) -> String {
@@ -776,6 +781,7 @@ public enum TileExplanations {
     case FreeMoney.Key.events: "why.free.events"
     case FreeMoney.Key.npdTax: "why.free.npdTax"
     case FreeMoney.Key.creditCards: "why.free.creditCards"
+    case FreeMoney.Key.interestTax: "why.free.interestTax"
     default: "why.free.other"
     }
   }

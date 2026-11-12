@@ -35,6 +35,8 @@ struct ReferenceBooksView: View {
   @State private var note: String?
   /// A write the database refused; the alert says so (`AppEnvironment.attempt`).
   @State private var refused = false
+  /// One identity for the name being typed, so a hidden notice stays about this entry.
+  @State private var newNameId = UUID()
 
   enum Book: String, CaseIterable, Identifiable {
     case people, places, events
@@ -117,32 +119,59 @@ struct ReferenceBooksView: View {
     #endif
   }
 
+  private var bookPicker: some View {
+    Picker(selection: $book) {
+      ForEach(Book.allCases) { item in
+        Text(verbatim: t(item.titleKey)).tag(item)
+      }
+    } label: {
+      EmptyView()
+    }
+    .pickerStyle(.segmented)
+    .labelsHidden()
+  }
+
+  private var archiveToggle: some View {
+    Toggle(isOn: $showsArchive) {
+      Text(verbatim: t("references.showArchive"))
+    }
+    .toggleStyle(.checkbox)
+  }
+
   private var formLayout: some View {
     VStack(alignment: .leading, spacing: 12) {
-      HStack(spacing: 12) {
-        Picker(selection: $book) {
-          ForEach(Book.allCases) { item in
-            Text(verbatim: t(item.titleKey)).tag(item)
-          }
-        } label: {
-          EmptyView()
+      // Three segments and the archive switch are wider than a phone side by side.
+      if LayoutIdiom.current == .phone {
+        VStack(alignment: .leading, spacing: 12) {
+          bookPicker
+          archiveToggle
         }
-        .pickerStyle(.segmented)
-        .labelsHidden()
-        .fixedSize()
-        Spacer(minLength: 0)
-        Toggle(isOn: $showsArchive) {
-          Text(verbatim: t("references.showArchive"))
+      } else {
+        HStack(spacing: 12) {
+          bookPicker.fixedSize()
+          Spacer(minLength: 0)
+          archiveToggle
         }
-        .toggleStyle(.checkbox)
       }
 
-      HStack(alignment: .top, spacing: 12) {
-        list
-          .frame(width: 240)
-        Divider()
-        detail
-          .frame(maxWidth: .infinity, alignment: .leading)
+      if LayoutIdiom.current == .phone {
+        // The list and the form of the chosen record side by side leave the form a column of
+        // two letters on a phone: one under the other.
+        VStack(alignment: .leading, spacing: 12) {
+          list
+            .frame(maxWidth: .infinity, minHeight: 220)
+          Divider()
+          detail
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+      } else {
+        HStack(alignment: .top, spacing: 12) {
+          list
+            .frame(width: 240)
+          Divider()
+          detail
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
       }
 
       if let note {
@@ -164,11 +193,7 @@ struct ReferenceBooksView: View {
         Button(t("references.add"), action: add)
           .disabled(!canAddNewName)
       }
-      if isNewNameTaken {
-        Text(verbatim: t("references.nameTaken"))
-          .appFont(.callout)
-          .foregroundStyle(.secondary)
-      }
+      newNameNotice
     }
     .padding()
   }
@@ -426,6 +451,9 @@ struct ReferenceBooksView: View {
       Form {
         Section {
           TextField(text: $people[index].name) { label("references.name") }
+          PlanningNamesakeNotice(
+            kind: .person, id: person.id, name: $people[index].name, onChange: reload,
+            dismissesOnRestore: false)
           Picker(selection: $people[index].relation) {
             ForEach(PersonRelation.allCases, id: \.self) { relation in
               Text(verbatim: t("relation.\(relation.rawValue)")).tag(relation)
@@ -464,6 +492,9 @@ struct ReferenceBooksView: View {
       Form {
         Section {
           TextField(text: $places[index].name) { label("references.name") }
+          PlanningNamesakeNotice(
+            kind: .place, id: place.id, name: $places[index].name, onChange: reload,
+            dismissesOnRestore: false)
         }
         OtherNamesEditor(
           names: $places[index].aliases, ownName: place.name,
@@ -492,6 +523,9 @@ struct ReferenceBooksView: View {
       Form {
         Section {
           TextField(text: $events[index].name) { label("references.name") }
+          PlanningNamesakeNotice(
+            kind: .event, id: event.id, name: $events[index].name, onChange: reload,
+            dismissesOnRestore: false)
           Picker(selection: $events[index].kind) {
             ForEach(EventKind.allCases, id: \.self) { kind in
               Text(verbatim: t("event.\(kind.rawValue)")).tag(kind)
@@ -670,8 +704,6 @@ struct ReferenceBooksView: View {
   private func message(_ refusal: SaveRefusal) -> String {
     switch refusal {
     case .emptyName: t("references.refusal.emptyName")
-    case .nameTaken(let other):
-      environment.format("references.refusal.nameTaken", table: "Settings", other)
     case .otherNameTaken(let name, let other):
       environment.format("references.refusal.otherNameTaken", table: "Settings", name, other)
     }
@@ -722,8 +754,6 @@ struct ReferenceBooksView: View {
   /// Why a row cannot be saved under these names.
   enum SaveRefusal: Equatable {
     case emptyName
-    /// The name is another live row's name or other name; the value is that row's name.
-    case nameTaken(String)
     /// One of the other names is another live row's; the name, then that row's name.
     case otherNameTaken(String, String)
   }
@@ -737,9 +767,8 @@ struct ReferenceBooksView: View {
   ) -> SaveRefusal? {
     guard !ReferenceNames.folded(name).isEmpty else { return .emptyName }
     guard book != .events else { return nil }
-    if let other = spellings.owner(of: name, in: book, excluding: id) {
-      return .nameTaken(other)
-    }
+    // The name itself only gets advice (`PlanningNamesakeNotice`); an other name another live
+    // row answers to is still refused, since the entry line reads other names as spellings.
     for otherName in otherNames {
       if let other = spellings.owner(of: otherName, in: book, excluding: id) {
         return .otherNameTaken(otherName, other)
@@ -778,9 +807,16 @@ struct ReferenceBooksView: View {
     Self.canAdd(newName, to: book, people: people, places: places)
   }
 
-  /// The name is not empty and still cannot be added: say why the button is grey.
-  private var isNewNameTaken: Bool {
-    !ReferenceNames.folded(newName).isEmpty && !canAddNewName
+  /// Advice under the field for a new name, whichever book is open.
+  private var newNameNotice: some View {
+    let kind: NamesakeKind =
+      switch book {
+      case .people: .person
+      case .places: .place
+      case .events: .event
+      }
+    return PlanningNamesakeNotice(
+      kind: kind, id: newNameId, name: $newName, onChange: reload, dismissesOnRestore: false)
   }
 
   private var actions: ReferenceBookActions {
@@ -958,35 +994,19 @@ struct ReferenceBookActions {
 }
 
 extension ReferenceBooksView {
-  /// Whether a new row of `book` may be called `name`. A person or a place whose name or other
-  /// name is already a live row's adds nothing: two rows with one name are two rows the entry
-  /// line cannot tell apart. A name the archive holds may be added — «Добавить» brings that
-  /// row back. Events are the exception — a yearly event is made again under the same name
-  /// every year, so a shared name is how they are meant to be, and the entry line tells them
-  /// apart by their dates.
+  /// Whether a new row of `book` may be called `name`: any name that says something. A
+  /// namesake, live or archived, gets advice under the field (`PlanningNamesakeNotice`) and
+  /// never stops «Добавить».
   static func canAdd(
     _ name: String, to book: Book, people: [Person], places: [Place]
   ) -> Bool {
-    guard !ReferenceNames.folded(name).isEmpty else { return false }
-    switch book {
-    case .people:
-      return !ReferenceNames.isTaken(
-        name, among: people.filter { !$0.archived }.map(ReferenceNames.spellings))
-    case .places:
-      return !ReferenceNames.isTaken(
-        name, among: places.filter { !$0.archived }.map(ReferenceNames.spellings))
-    case .events: return true
-    }
+    !ReferenceNames.folded(name).isEmpty
   }
 }
 
-/// The one rule of «this name is taken», shared by the reference books, the accounts added
-/// from the ↓ panel and the General tab.
-///
-/// It compares names the way the entry line reads them: case, «ё» against «е» and the spaces
-/// around a name do not count. Only the rows the entry line knows are asked — the live ones;
-/// an archived row is out of the vocabulary and out of sight, and «Добавить» with its name
-/// brings it back rather than refusing.
+/// How names are compared, the way the entry line reads them: case, «ё» against «е» and the
+/// spaces around a name do not count. Only the rows the entry line knows are asked — the live
+/// ones. Other names (aliases) are still refused when another live row answers to them.
 enum ReferenceNames {
   static func folded(_ name: String) -> String {
     ReferenceRepository.nameKey(name)
@@ -1041,11 +1061,7 @@ enum ReferenceNames {
             Button(t("references.add"), action: add)
               .disabled(!canAddNewName)
           }
-          if isNewNameTaken {
-            Text(verbatim: t("references.nameTaken"))
-              .appFont(AppFont.system(size: 12))
-              .foregroundStyle(.secondary)
-          }
+          newNameNotice
         }
         .padding(.horizontal, SettingsChromeMetrics.contentInset)
         .padding(.vertical, 12)

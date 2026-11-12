@@ -135,6 +135,22 @@ struct PurchaseActions {
   // MARK: Wishes
 
   @discardableResult
+  func save(_ wish: Wish, isNew: Bool, imageURL: URL?) -> PurchaseOutcome {
+    if let why = Self.refusal(saving: wish) { return .refused(why) }
+    var next = Self.cleaned(wish)
+    if isNew {
+      let known = try? environment.wishes?.wishes(includeBought: true, includeArchived: true)
+      next.sort = max(next.sort, (known?.map(\.sort).max() ?? -1) + 1)
+    }
+    let saved = next
+    return environment.attempt(
+      "purchases.wishSaved", on: environment.wishes,
+      {
+        try $0.save(saved, isNew: isNew, imageURL: imageURL)
+      }) ? .done : .failed
+  }
+
+  @discardableResult
   func add(_ wish: Wish) -> PurchaseOutcome {
     if let why = Self.refusal(saving: wish) { return .refused(why) }
     var next = Self.cleaned(wish)

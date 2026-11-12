@@ -10,6 +10,8 @@ enum PurchasesSheet: Identifiable, Hashable {
   case newThing
   case editThing(OwnedItem)
   case sell(OwnedLine)
+  case valuation(OwnedLine)
+  case files(OwnedLine)
   case postpone(WaitingRefund)
 
   var id: String {
@@ -21,6 +23,8 @@ enum PurchasesSheet: Identifiable, Hashable {
     case .newThing: "thing.new"
     case .editThing(let item): "thing.edit.\(item.id)"
     case .sell(let line): "thing.sell.\(line.id)"
+    case .valuation(let line): "thing.value.\(line.id)"
+    case .files(let line): "thing.files.\(line.id)"
     case .postpone(let refund): "waiting.postpone.\(refund.id)"
     }
   }
@@ -58,10 +62,17 @@ struct PurchasesScreen: View {
 
   private func t(_ key: String) -> String { PurchasesText.t(key, environment) }
 
+  @Environment(\.horizontalSizeClass) private var sizeClass
   @Environment(\.layoutIdiom) private var idiom
 
+  private var design: LayoutIdiom {
+    #if os(iOS)
+      if sizeClass == .compact { return .phone }
+    #endif
+    return LayoutIdiom.resolved(idiom)
+  }
+
   var body: some View {
-    let design = LayoutIdiom.resolved(idiom)
     SectionPage {
       VStack(alignment: .leading, spacing: PurchasesMetrics.stackGap(design)) {
         SectionHeader(
@@ -92,6 +103,7 @@ struct PurchasesScreen: View {
       // The frame sets the header 24 under the top, 2 lower than the other screens.
       .padding(.top, design == .mac ? PurchasesMetrics.macTopExtra : 0)
     }
+    .environment(\.layoutIdiom, design)
     .task(id: compute.generation) { await load() }
     .onChange(of: PurchasesNavigation.shared.page) { _, page in selected = page }
     .onChange(of: selected) { _, page in PurchasesNavigation.shared.page = page }
@@ -185,7 +197,8 @@ struct PurchasesScreen: View {
     let built = await Task.detached(priority: .userInitiated) {
       PurchasesPage.build(
         dataset: snapshot.dataset, canSave: canSave, rubPerUnit: snapshot.context.rubPerUnit,
-        today: snapshot.today, calendar: calendar, waiting: snapshot.planning.waitingRefunds)
+        today: snapshot.today, calendar: calendar, waiting: snapshot.planning.waitingRefunds,
+        freeRubE4: snapshot.planning.freeMoney.main)
     }.value
     guard !Task.isCancelled else { return }
     page = built
@@ -201,6 +214,8 @@ struct PurchasesScreen: View {
     case .newThing: ThingEditor(original: nil)
     case .editThing(let item): ThingEditor(original: item)
     case .sell(let line): ThingSaleSheet(line: line)
+    case .valuation(let line): ThingValuationSheet(line: line)
+    case .files(let line): ThingFilesSheet(line: line)
     case .postpone(let refund): WaitingPostponeSheet(refund: refund)
     }
   }

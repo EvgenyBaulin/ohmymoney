@@ -109,6 +109,9 @@ struct Migration0014Tests {
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
+          "0025_split_dates_and_credit_statements",
+          "0026_mcc_fee_valuations_wish_image",
+          "0027_savings_points_digital_pause",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
@@ -685,7 +688,7 @@ struct Migration0014Tests {
       ])
     #expect(ExportTables.subscriptionTerms.columns.first == "payment_id")
     #expect(
-      Array(ExportTables.transactions.columns.dropLast(12).suffix(4)) == [
+      Array(ExportTables.transactions.columns.dropLast(14).suffix(4)) == [
         "source", "bank_status", "posted_on", "dedup_key",
       ])
     #expect(ExportTables.transfers.columns.last == "arrived_at")

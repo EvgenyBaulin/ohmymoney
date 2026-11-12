@@ -65,8 +65,8 @@ public enum SubscriptionCandidates {
   ///   10 % of their median (max − min ≤ median ÷ 10), and it is still running: the latest
   ///   operation is no older than the longest gap of its frequency. Three yearly charges
   ///   need a window of more than two years, so the default window finds none.
-  /// * A group that is already a payment — by name (normalized the same way), or by the
-  ///   same category and currency with an amount within 10 % of the payment's price today —
+  /// * A group that is already a payment by the same category and currency with an amount
+  ///   within 10 % of the payment's price today — unless it only shares that payment's name —
   ///   is left out. So is every operation that pays a scheduled payment by matching one of its
   ///   due dates (`paidOperations`, `ScheduledMatches.operationIds`): it is that payment's
   ///   charge, as one «Провести» wrote is — a dollar subscription typed in rubles included,
@@ -112,7 +112,6 @@ public enum SubscriptionCandidates {
           cardId: transaction.cardId))
     }
 
-    let names = Set(book.scheduled.compactMap { normalized($0.name) })
     var result: [SubscriptionCandidate] = []
     for (group, items) in groups where items.count >= 3 {
       // The ledger is sorted by day already; the groups keep that order.
@@ -139,9 +138,12 @@ public enum SubscriptionCandidates {
       guard high - low <= median / 10 else { continue }
       let typical = SubscriptionMath.rounded(median)
 
-      if names.contains(group.key) { continue }
       let known = book.scheduled.contains { payment in
-        guard let category = payment.categoryId, category == last.categoryId,
+        // A namesake needs the owner's choice. Actual linked or matched charges were
+        // excluded above; a name alone must not silently hide another subscription.
+        guard normalized(payment.name) != group.key,
+          NameKey.fold(payment.name) != NameKey.fold(group.key), payment.active,
+          let category = payment.categoryId, category == last.categoryId,
           payment.currency == group.currency
         else { return false }
         let price = SubscriptionMath.price(of: payment, on: today, prices: book.prices)
