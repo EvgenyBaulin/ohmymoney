@@ -20051,6 +20051,210 @@
         }
       }
     },
+    "pause.action": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credit holiday or restructuring…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каникулы или реструктуризация…"
+          }
+        }
+      }
+    },
+    "pause.card": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: from %2$@ to %3$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: с %2$@ по %3$@"
+          }
+        }
+      }
+    },
+    "pause.endsBeforeStart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The last day is before the first: the pause is not saved."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последний день раньше первого: пауза не сохранится."
+          }
+        }
+      }
+    },
+    "pause.from": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Первый день"
+          }
+        }
+      }
+    },
+    "pause.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A payment that falls in these days is not owed, and every later one moves on by as many months. The app does not work out the new sums: if the bank changed them, type them from its app with «Type a payment from the bank app…»."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платёж, который выпадает на эти дни, не нужен, а все следующие сдвигаются на столько же месяцев. Новые суммы приложение не считает: если банк их изменил, впишите их из приложения банка через «Вписать платёж из приложения банка…»."
+          }
+        }
+      }
+    },
+    "pause.kind": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What it is"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что это"
+          }
+        }
+      }
+    },
+    "pause.kind.holiday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credit holiday"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитные каникулы"
+          }
+        }
+      }
+    },
+    "pause.kind.restructuring": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restructuring"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Реструктуризация"
+          }
+        }
+      }
+    },
+    "pause.remove": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove the pause"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Убрать паузу"
+          }
+        }
+      }
+    },
+    "pause.sheet.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause of payments: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пауза платежей: %@"
+          }
+        }
+      }
+    },
+    "pause.termShift": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The last payment moves from %1$@ to %2$@ (payments skipped: %3$@)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последний платёж сдвинется с %1$@ на %2$@ (пропущено платежей: %3$@)."
+          }
+        }
+      }
+    },
+    "pause.to": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последний день"
+          }
+        }
+      }
+    },
     "plan.every.days": {
       "extractionState": "manual",
       "localizations": {

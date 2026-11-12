@@ -167,6 +167,7 @@ struct DebtsView: View {
     case .writeOffPledge(let debt): PledgeWriteOffSheet(debt: debt)
     case .review(let items): DebtReviewSheet(items: items)
     case .refinance(let debt): RefinanceSheet(debt: debt)
+    case .pause(let debt, let dues): DebtPauseSheet(debt: debt, dues: dues)
     case .cardTerms(let debt, let account):
       AccountEditor(previous: account, defaultCurrency: environment.defaultCurrency) { _ in
         creditSheet = nil

@@ -249,6 +249,16 @@ extension DebtActions {
     return save(changed)
   }
 
+  /// «Каникулы или реструктуризация…»: a pause of the payments from a day through a day, or none.
+  /// The dues inside it are not owed and the later ones move on (`DebtDueState.due(_:)`); a pause
+  /// that ends before it starts is not kept. Not money, so nothing else is written.
+  @discardableResult
+  func setPause(_ debt: Debt, _ pause: DebtPause?) -> Bool {
+    let changed = DebtPauseRules.applying(pause, to: debt)
+    guard changed.pause != debt.pause else { return true }
+    return save(changed)
+  }
+
   /// The debt with the terms of this version the owner answered, and seen: «Сохранить» and «Не
   /// нужно» of the review, one step of ⌘Z each, with the costs answered.
   @discardableResult

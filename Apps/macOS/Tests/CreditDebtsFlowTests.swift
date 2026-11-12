@@ -265,6 +265,52 @@ final class CreditDebtsFlowTests: XCTestCase {
     XCTAssertTrue(try journal(debt.id).filter { $0.kind == .payment }.isEmpty)
   }
 
+  // MARK: Pause of the payments
+
+  /// «Каникулы или реструктуризация…»: the first unpaid due falls in the pause, so it is not owed
+  /// and the last due moves a month on; the pause is one step of ⌘Z, and one that ends before it
+  /// starts is not kept.
+  func testAPausePutsADueOffCarriesTheTermOverAndIsOneStepOfUndo() async throws {
+    let debt = try await loan()
+    func dues() throws -> DebtDueState {
+      try XCTUnwrap(compute.snapshot?.planning.debts.iOwe.first { $0.id == debt.id }?.dues)
+    }
+    let far = DateOnly(year: 2200, month: 1, day: 1)
+    let before = try dues()
+    let first = try XCTUnwrap(before.firstUnpaid)
+    let all = before.unpaid(through: far)
+    XCTAssertGreaterThan(all.count, 2)
+
+    let pause = DebtPause(from: first, to: first, kind: .restructuring)
+    XCTAssertTrue(actions.setPause(debt, pause))
+    try await show()
+    XCTAssertEqual(try debts().first { $0.id == debt.id }?.pause, pause)
+    let paused = try dues()
+    let after = paused.unpaid(through: far)
+    XCTAssertEqual(after.count, all.count, "what is owed does not change")
+    XCTAssertEqual(after.first, all[1], "the due in the pause is skipped")
+    XCTAssertGreaterThan(try XCTUnwrap(after.last), try XCTUnwrap(all.last), "the term moves on")
+    let shift = try XCTUnwrap(DebtPauseRules.termShift(of: paused))
+    XCTAssertEqual(shift.skippedDues, 1)
+    XCTAssertEqual(shift.lastDueAfter, after.last)
+    XCTAssertTrue(
+      DebtPauseText.card(pause, environment).contains(
+        DebtPauseSheet.kindName(.restructuring, environment)))
+    XCTAssertNotNil(
+      DebtPauseText.shift(
+        dues: paused.knowing(debt), pause: pause, currency: debt.currency, environment))
+
+    store.undo()
+    try await show()
+    XCTAssertNil(try debts().first { $0.id == debt.id }?.pause)
+    XCTAssertEqual(try dues().unpaid(through: far), all)
+
+    let backwards = DebtPause(from: first.adding(days: 5), to: first)
+    XCTAssertTrue(actions.setPause(debt, backwards))
+    try await show()
+    XCTAssertNil(try debts().first { $0.id == debt.id }?.pause, "a pause that ends first is not kept")
+  }
+
   /// «Это платёж вперёд» in «Платёж…»: the answer is kept, the planned early repayment stays
   /// planned, and the money above the due pays the next due as a payment of 1.8 did.
   func testAPaymentAheadPaysTheNextDueAndKeepsThePlan() async throws {
@@ -509,7 +555,8 @@ final class DebtWizardModelTests: XCTestCase {
       direction: .iOwe, type: .loan, name: "Bank", interestRate: 10,
       monthlyPaymentE4: AmountE4(whole: 1_000), paymentDay: 1)
     XCTAssertEqual(
-      DebtMoreAction.offered(for: loan), [.costs, .prepay, .typeInstalment, .refinance])
+      DebtMoreAction.offered(for: loan),
+      [.costs, .prepay, .pause, .typeInstalment, .refinance])
     var pledge = Debt(direction: .owedToMe, type: .personal, name: "Deposit")
     pledge.pledge = true
     XCTAssertEqual(DebtMoreAction.offered(for: pledge), [.nudge, .writeOffPledge])

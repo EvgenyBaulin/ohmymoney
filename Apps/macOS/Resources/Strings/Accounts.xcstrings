@@ -7015,6 +7015,40 @@
         }
       }
     },
+    "account.editor.digitalRuble": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Digital ruble wallet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кошелёк цифрового рубля"
+          }
+        }
+      }
+    },
+    "account.editor.digitalRubleHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A digital ruble wallet holds rubles only and has no interest and no cashback: they are switched off for it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В кошельке цифрового рубля только рубли, без процентов и кэшбэка: они для него отключены."
+          }
+        }
+      }
+    },
     "account.editor.down": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -8175,6 +8209,142 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рядок введення знає рахунок за будь-якою з них. Наприклад: Т-Банк — тинькофф, тинек."
+          }
+        }
+      }
+    },
+    "account.editor.piggy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piggy bank — money is put aside here"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копилка: сюда откладывают деньги"
+          }
+        }
+      }
+    },
+    "account.editor.piggyHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfers to a piggy bank, round-ups included, count as put aside this month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переводы в копилку, в том числе округление, считаются отложенными за месяц."
+          }
+        }
+      }
+    },
+    "account.editor.pointsBurn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Points burn"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баллы сгорают"
+          }
+        }
+      }
+    },
+    "account.editor.pointsBurnAll": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "all"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "все"
+          }
+        }
+      }
+    },
+    "account.editor.pointsBurnAmount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How many"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сколько"
+          }
+        }
+      }
+    },
+    "account.editor.pointsBurnOn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "They burn on"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сгорят"
+          }
+        }
+      }
+    },
+    "account.editor.pointsHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type what the bank says: the day and how many points burn. A point is worth the rate of the currency of this account."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Впишите то, что говорит банк: день и сколько баллов сгорит. Балл стоит столько, сколько курс валюты этого счёта."
+          }
+        }
+      }
+    },
+    "account.editor.pointsTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Points"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баллы"
           }
         }
       }
@@ -10964,6 +11134,74 @@
         }
       }
     },
+    "account.interest.base": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest is counted on"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты считаются на"
+          }
+        }
+      }
+    },
+    "account.interest.base.daily": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The balance at the end of each day"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "остаток на конец каждого дня"
+          }
+        }
+      }
+    },
+    "account.interest.base.minBalance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The lowest balance of the month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "минимальный остаток месяца"
+          }
+        }
+      }
+    },
+    "account.interest.base.minBalanceNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest is counted on the lowest balance of each month: money taken out for a day lowers all of it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты считаются на минимальный остаток каждого месяца: деньги, снятые хотя бы на день, снижают проценты за весь месяц."
+          }
+        }
+      }
+    },
     "account.interest.category": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -12040,6 +12278,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Щомісяця"
+          }
+        }
+      }
+    },
+    "account.interest.nextRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New rate from the bank"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая ставка банка"
+          }
+        }
+      }
+    },
+    "account.interest.nextRateLine": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From %1$@ the rate is %2$@%% instead of %3$@%%"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С %1$@ ставка %2$@%% вместо %3$@%%"
+          }
+        }
+      }
+    },
+    "account.interest.nextRateOn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The new rate starts on"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая ставка с"
           }
         }
       }
@@ -13664,6 +13953,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Відсотки, що виплачуються наприкінці строку, потребують дня закриття депозиту."
+          }
+        }
+      }
+    },
+    "account.interest.refusal.nextRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The new rate must be a percent above zero and up to 100."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая ставка — процент больше нуля и до 100."
+          }
+        }
+      }
+    },
+    "account.interest.refusal.nextRateNeedsDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Say the day the new rate starts, or clear it."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укажите день, с которого действует новая ставка, или очистите её."
           }
         }
       }
@@ -15968,6 +16291,312 @@
           "stringUnit": {
             "state": "translated",
             "value": "Залишок цієї валюти не можна розрахувати. Введіть його, якщо знаєте, або залиште порожнім і звірте пізніше."
+          }
+        }
+      }
+    },
+    "account.points.burns": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ points burn on %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сгорит баллов: %1$@, %2$@"
+          }
+        }
+      }
+    },
+    "account.points.burnsWorth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ points burn on %2$@ (≈ %3$@)"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сгорит баллов: %1$@, %2$@ (≈ %3$@)"
+          }
+        }
+      }
+    },
+    "account.points.compare": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compare points and money…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сравнить баллы и деньги…"
+          }
+        }
+      }
+    },
+    "account.points.compareBurn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Points are counted as spent in time: the app does not know when they burn."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баллы считаются потраченными вовремя: когда они сгорают, расчёт не знает."
+          }
+        }
+      }
+    },
+    "account.points.compareMoney": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback in money"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэк деньгами"
+          }
+        }
+      }
+    },
+    "account.points.compareMoneyLine": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In money: %1$@%% — %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деньгами: %1$@%% — %2$@"
+          }
+        }
+      }
+    },
+    "account.points.compareNone": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type the percents, the rate of a point and a purchase."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Впишите проценты, цену балла и покупку."
+          }
+        }
+      }
+    },
+    "account.points.comparePoints": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback in points"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэк баллами"
+          }
+        }
+      }
+    },
+    "account.points.comparePointsLine": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In points: %1$@%% in rubles — %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баллами: %1$@%% в рублях — %2$@"
+          }
+        }
+      }
+    },
+    "account.points.compareRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One point is worth"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Один балл стоит"
+          }
+        }
+      }
+    },
+    "account.points.compareSpent": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Purchase"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупка"
+          }
+        }
+      }
+    },
+    "account.points.compareTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Points or money"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баллы или деньги"
+          }
+        }
+      }
+    },
+    "account.points.nothingBurns": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing burns within a month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В ближайший месяц ничего не сгорает."
+          }
+        }
+      }
+    },
+    "account.points.rate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 point = %@ ₽"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 балл = %@ ₽"
+          }
+        }
+      }
+    },
+    "account.points.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Points"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баллы"
+          }
+        }
+      }
+    },
+    "account.points.verdictMoney": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money brings %@ more."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деньгами выгоднее на %@."
+          }
+        }
+      }
+    },
+    "account.points.verdictPoints": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Points bring %@ more."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баллами выгоднее на %@."
+          }
+        }
+      }
+    },
+    "account.points.verdictSame": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The same either way."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Одинаково."
           }
         }
       }
@@ -18434,6 +19063,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Залишок у %@ не вдалося прочитати як суму."
+          }
+        }
+      }
+    },
+    "account.savings.foreign": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ transfers in another currency are left out."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переводов в другой валюте не учтено: %@."
+          }
+        }
+      }
+    },
+    "account.savings.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transfers into this account from accounts that are not saving places, less what went back out."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переводы на этот счёт со счетов, которые не копят, за вычетом того, что ушло обратно."
+          }
+        }
+      }
+    },
+    "account.savings.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Put aside · %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отложено · %@"
           }
         }
       }

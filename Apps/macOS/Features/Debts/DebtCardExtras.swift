@@ -20,6 +20,8 @@ enum DebtCreditSheet: Identifiable {
   case review([DebtReviewItem])
   /// «Записать рефинансирование…»: a new loan paid this one off.
   case refinance(Debt)
+  /// «Каникулы или реструктуризация…»: a pause of the payments.
+  case pause(Debt, dues: DebtDueState)
 
   var id: String {
     switch self {
@@ -31,13 +33,14 @@ enum DebtCreditSheet: Identifiable {
     case .cardTerms(let debt, _): "card-\(debt.id)"
     case .review(let items): "review-\(items.map(\.debtId.uuidString).joined())"
     case .refinance(let debt): "refinance-\(debt.id)"
+    case .pause(let debt, _): "pause-\(debt.id)"
     }
   }
 }
 
 /// The further actions of a card, after the ones every debt has (`DebtCardAction`).
 enum DebtMoreAction: Hashable, CaseIterable {
-  case costs, prepay, typeInstalment, nudge, writeOffPledge, keepOnlyAccount, refinance
+  case costs, prepay, pause, typeInstalment, nudge, writeOffPledge, keepOnlyAccount, refinance
 
   /// What the card of `debt` offers: a loan — its costs, a planned early repayment and a sum
   /// typed from the bank's app; an instalment plan — the sum typed; a debt owed to me — the
@@ -49,7 +52,7 @@ enum DebtMoreAction: Hashable, CaseIterable {
     if debt.direction == .iOwe, debt.type == .loan {
       actions += [.costs, .prepay]
     }
-    if debt.direction == .iOwe, debt.hasDues { actions.append(.typeInstalment) }
+    if debt.direction == .iOwe, debt.hasDues { actions += [.pause, .typeInstalment] }
     if debt.direction == .owedToMe { actions.append(.nudge) }
     if debt.pledge { actions.append(.writeOffPledge) }
     if CreditCardDebtMerge.offered(for: debt) { actions.append(.keepOnlyAccount) }
@@ -107,6 +110,21 @@ struct DebtCardExtras: View {
         }
         .appFont(.callout)
       }
+      if let pause = debt.pause, pause.isValid {
+        Label {
+          Text(verbatim: DebtPauseText.card(pause, environment))
+        } icon: {
+          Image(systemName: pause.contains(environment.today) ? "pause.circle.fill" : "pause.circle")
+        }
+        .appFont(.callout)
+        .accessibilityIdentifier("debts.pause")
+        if let shift = DebtPauseText.shift(
+          dues: line.dues.knowing(debt), pause: pause, currency: debt.currency, environment)
+        {
+          Text(verbatim: shift).appFont(.callout).foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+        }
+      }
       if debt.pledge, let returnBy = debt.returnBy {
         Label {
           Text(
@@ -151,6 +169,8 @@ struct DebtCardExtras: View {
       return Button(t("costs.action")) { sheet = .costs(debt) }
     case .prepay:
       return Button(t("prepay.action")) { sheet = .prepay(debt) }
+    case .pause:
+      return Button(t("pause.action")) { sheet = .pause(debt, dues: line.dues) }
     case .typeInstalment:
       return Button(t("typed.action")) { sheet = .typeInstalment(debt) }
     case .nudge:

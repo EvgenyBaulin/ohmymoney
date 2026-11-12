@@ -151,6 +151,37 @@ struct OverviewFiguresTests {
     #expect(both.accounts == AmountE4(whole: 120))
   }
 
+  @Test func whatIsPutAsideIntoOneAccountIsWhatCameFromOrdinaryAccountsLessWhatWentBack() throws {
+    let main = PaymentMethod(name: "Main", isDefault: true)
+    let piggy = PaymentMethod(name: "Piggy", piggy: true)
+    let savings = PaymentMethod(
+      name: "Savings", interest: DepositTerms(rate: 16, period: .monthly))
+    func move(
+      _ from: PaymentMethod, _ to: PaymentMethod, _ amount: Int64, currency: CurrencyCode = .rub
+    ) -> Transfer {
+      Transfer(
+        occurredAt: at(9, 10), fromAccountId: from.id, fromCurrency: .rub,
+        fromAmountE4: AmountE4(whole: amount), toAccountId: to.id, toCurrency: currency,
+        toAmountE4: AmountE4(whole: amount))
+    }
+    let transfers = [
+      move(main, piggy, 120), move(main, piggy, 30), move(piggy, main, 50),
+      // Piggy bank to savings account: neither side saved it out of the main account.
+      move(piggy, savings, 70), move(main, savings, 500),
+      move(main, piggy, 9, currency: CurrencyCode("USD")),
+    ]
+    let book = Ledger(
+      dataset: Dataset(
+        paymentMethods: [main, piggy, savings], planning: PlanningBook(), transfers: transfers),
+      calendar: .utc)
+    let month = DayRange(
+      DateOnly(year: 2026, month: 9, day: 1), DateOnly(year: 2026, month: 9, day: 30))
+    let toPiggy = SavingsTotals.putAside(into: piggy.id, ledger: book, in: month)
+    #expect(toPiggy.amount == AmountE4(whole: 100) && toPiggy.leftOutForeign == 1)
+    let toSavings = SavingsTotals.putAside(into: savings.id, ledger: book, in: month)
+    #expect(toSavings.amount == AmountE4(whole: 500) && toSavings.leftOutForeign == 0)
+  }
+
   @Test func aTransferOutOfTheCushionTakesFromWhatWasSaved() throws {
     let main = PaymentMethod(name: "Main", isDefault: true)
     let cushion = PaymentMethod(name: "Cushion", cushion: true)

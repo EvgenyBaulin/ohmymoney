@@ -42,6 +42,29 @@ public struct SavingsTotals: Hashable, Sendable {
     leftOutForeign = foreign
   }
 
+  /// What was put aside into one account in `span`: the rubles that came to it by transfer from
+  /// accounts that are not saving places themselves (a cushion, an account with interest, a piggy
+  /// bank), less what went back out to them. Moves between saving places save nothing twice; a
+  /// transfer in another currency is counted as left out, not converted.
+  public static func putAside(
+    into accountId: UUID, ledger: Ledger, in span: DayRange
+  ) -> (amount: AmountE4, leftOutForeign: Int) {
+    let savers = Set(
+      ledger.dataset.paymentMethods.filter { $0.cushion || $0.interest != nil || $0.piggy }
+        .map(\.id))
+    var net = AmountE4.zero
+    var foreign = 0
+    for transfer in ledger.dataset.transfers
+    where span.contains(ledger.calendar.day(of: transfer.occurredAt)) {
+      if transfer.toAccountId == accountId, !savers.contains(transfer.fromAccountId) {
+        if transfer.toCurrency == .rub { net += transfer.toAmountE4 } else { foreign += 1 }
+      } else if transfer.fromAccountId == accountId, !savers.contains(transfer.toAccountId) {
+        if transfer.fromCurrency == .rub { net = net - transfer.fromAmountE4 } else { foreign += 1 }
+      }
+    }
+    return (net, foreign)
+  }
+
   /// Goal withdrawals count on their own date, even when linked to an earlier contribution.
   /// Expense contributions have already had linked refunds deducted, so use the gross amounts.
   public static func netGoalContributions(ledger: Ledger, in span: DayRange) -> AmountE4 {

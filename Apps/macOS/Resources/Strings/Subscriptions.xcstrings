@@ -1093,6 +1093,108 @@
         }
       }
     },
+    "subs.bank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do bank subscriptions pay back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Окупаются ли подписки банков"
+          }
+        }
+      }
+    },
+    "subs.bank.caption": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This month"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За этот месяц"
+          }
+        }
+      }
+    },
+    "subs.bank.costsMore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Costs more than it brings"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стоит больше, чем приносит"
+          }
+        }
+      }
+    },
+    "subs.bank.line": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Costs %1$@, brings %2$@, net %3$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стоит %1$@, приносит %2$@, итого %3$@"
+          }
+        }
+      }
+    },
+    "subs.bank.notStated": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No benefit stated"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выгода не указана"
+          }
+        }
+      }
+    },
+    "subs.bank.paysBack": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pays back"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Окупается"
+          }
+        }
+      }
+    },
     "subs.calendar.bunched": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -5463,6 +5565,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Усе, що списується автоматично"
+          }
+        }
+      }
+    },
+    "subs.terms.bank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank subscription"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подписка банка"
+          }
+        }
+      }
+    },
+    "subs.terms.bankBenefit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saves or earns a month, besides cashback"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экономит или приносит в месяц, кроме кэшбэка"
+          }
+        }
+      }
+    },
+    "subs.terms.bankNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free transfers, interest, a higher cashback: type what you think it is worth. The report «Do bank subscriptions pay back» sets it against the price."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бесплатные переводы, проценты, повышенный кэшбэк: впишите, сколько это стоит по-вашему. Отчёт «Окупаются ли подписки банков» сравнит это с ценой."
+          }
+        }
+      }
+    },
+    "subs.terms.bankShare": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Part of the bank cashback it gives"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Какую часть кэшбэка банка даёт"
           }
         }
       }

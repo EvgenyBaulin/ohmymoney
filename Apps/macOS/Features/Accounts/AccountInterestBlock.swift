@@ -60,6 +60,10 @@ struct AccountInterestLines: Equatable {
   var toEnd: String?
   /// Payouts due or missing, oldest first.
   var asks: [Ask]
+  /// «С 1 декабря ставка 12 % вместо 16 %»: the rate the bank announced, while it is ahead.
+  var nextRate: String? = nil
+  /// «Проценты считаются на минимальный остаток месяца», when the bank counts so.
+  var base: String? = nil
 }
 
 /// The words of interest: the account's block, the forecast line and the rows of «Поступления».
@@ -72,6 +76,8 @@ enum InterestText {
     case .endNeeded: "account.interest.refusal.endNeeded"
     case .endBeforeOpening: "account.interest.refusal.endBeforeOpening"
     case .payoutAccount: "account.interest.refusal.payoutAccount"
+    case .nextRate: "account.interest.refusal.nextRate"
+    case .nextRateNeedsDay: "account.interest.refusal.nextRateNeedsDay"
     }
   }
 
@@ -133,6 +139,12 @@ enum InterestText {
     var lines = AccountInterestLines(
       headline: headline, kind: kind, ended: ended, notCounted: nil, accrued: nil, payout: nil,
       toEnd: nil, asks: [])
+    if terms.base == .minBalance { lines.base = t("account.interest.base.minBalanceNote") }
+    if let next = terms.nextRate, let on = terms.nextRateOn, on >= today, !ended {
+      lines.nextRate = environment.format(
+        "account.interest.nextRateLine", table: "Accounts", dates.longDay(on),
+        environment.money.number(next), environment.money.number(terms.rate))
+    }
     guard outlook.counted else {
       lines.notCounted = t("account.interest.notCounted")
       return lines
@@ -271,7 +283,10 @@ struct AccountInterestBlock: View {
         .foregroundStyle(.secondary)
       }
       // Estimates: grey, with «≈» in the words — never colour alone.
-      ForEach([lines.accrued, lines.payout, lines.toEnd].compactMap { $0 }, id: \.self) { line in
+      ForEach(
+        [lines.accrued, lines.payout, lines.toEnd, lines.nextRate, lines.base].compactMap { $0 },
+        id: \.self
+      ) { line in
         Text(verbatim: line)
           .monospacedDigit()
           .foregroundStyle(.secondary)

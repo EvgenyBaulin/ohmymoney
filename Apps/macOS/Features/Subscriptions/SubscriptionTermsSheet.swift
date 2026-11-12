@@ -27,6 +27,8 @@ struct SubscriptionTermsSheet: View {
   @State private var monthlyPlan: AmountE4
   @State private var tolerance: Int
   @State private var people: Set<UUID>
+  @State private var bankBenefit: AmountE4
+  @State private var bankShareText: String
 
   init(request: SubscriptionTermsRequest) {
     self.request = request
@@ -36,6 +38,10 @@ struct SubscriptionTermsSheet: View {
     _tolerance = State(
       initialValue: request.terms.tolerancePercent ?? FloatingAmount.defaultTolerancePercent)
     _people = State(initialValue: Set(request.people))
+    _bankBenefit = State(initialValue: request.terms.bankBenefitE4 ?? .zero)
+    _bankShareText = State(
+      initialValue: request.terms.bankCashbackShare.map { NumberText.decimal($0, fractionDigits: 0...2) }
+        ?? "")
   }
 
   private func t(_ key: String) -> String { SubscriptionsText.t(key, environment) }
@@ -92,6 +98,31 @@ struct SubscriptionTermsSheet: View {
             .appFont(.caption)
             .foregroundStyle(.secondary)
         }
+        if paidFromABank {
+          Section {
+            LabeledContent(t("subs.terms.bankBenefit")) {
+              AmountField(amount: $bankBenefit, locale: environment.language.locale)
+                .accessibilityIdentifier("subs.terms.bankBenefit")
+            }
+            LabeledContent(t("subs.terms.bankShare")) {
+              HStack(spacing: 4) {
+                TextField(text: $bankShareText, prompt: Text(verbatim: "50")) {
+                  Text(verbatim: t("subs.terms.bankShare"))
+                }
+                .labelsHidden()
+                .multilineTextAlignment(.trailing)
+                .appFont(.body.monospacedDigit())
+                .frame(width: 80)
+                .accessibilityIdentifier("subs.terms.bankShare")
+                Text(verbatim: "%").foregroundStyle(.secondary)
+              }
+            }
+          } header: {
+            Text(verbatim: t("subs.terms.bank"))
+          } footer: {
+            Text(verbatim: t("subs.terms.bankNote")).foregroundStyle(.secondary)
+          }
+        }
         Section {
           AttachedFilesCard(owner: .subscription, id: payment.id)
         }
@@ -131,6 +162,12 @@ struct SubscriptionTermsSheet: View {
     (compute.snapshot?.dataset.people ?? []).filter { !$0.archived || people.contains($0.id) }
   }
 
+  /// The payment is paid from an account of a bank: only then can it be a subscription of the bank.
+  private var paidFromABank: Bool {
+    guard let account = request.payment.paymentMethodId else { return false }
+    return compute.snapshot?.dataset.paymentMethods.first { $0.id == account }?.bankId != nil
+  }
+
   private var yearlyReminder: Binding<Bool> {
     Binding(get: { !terms.yearlyReminderOff }, set: { terms.yearlyReminderOff = !$0 })
   }
@@ -147,6 +184,11 @@ struct SubscriptionTermsSheet: View {
     saved.yearlyPlanE4 = yearlyPlan.raw > 0 ? yearlyPlan : nil
     saved.monthlyPlanE4 = monthlyPlan.raw > 0 ? monthlyPlan : nil
     saved.tolerancePercent = terms.floating && terms.tolerancePercent != nil ? tolerance : nil
+    saved.bankBenefitE4 = paidFromABank && bankBenefit.raw > 0 ? bankBenefit : nil
+    saved.bankCashbackShare =
+      paidFromABank
+      ? DebtPayoff.parseRate(bankShareText).flatMap { (0...100).contains($0) && $0 > 0 ? $0 : nil }
+      : nil
     return saved
   }
 
