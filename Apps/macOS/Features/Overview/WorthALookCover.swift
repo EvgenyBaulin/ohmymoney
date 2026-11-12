@@ -57,7 +57,7 @@ enum WorthALookCover {
         return account(id) || hidden.cards.contains(card)
       case .insuranceOver(let bank, _, _, _):
         return hidesBank(bank, accounts: ledger.dataset.paymentMethods, hiding: hidden.accounts)
-      case .forgotten:
+      case .forgotten, .cardCount, .interestTax, .cashbackTax:
         return false
       }
     case .allocate(let incomeId, _, _):

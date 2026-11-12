@@ -137,16 +137,19 @@ struct BankLimitTests {
     #expect(!line.exceeded)
   }
 
-  @Test func aTransferToAnotherBankIsAnSbpTransferAndOneWithinTheBankIsFree() throws {
+  @Test func aTransferToOwnAccountInAnotherBankHasItsOwnSbpLimitAndOneWithinTheBankIsFree() throws {
     var books = books()
     books.transfers = [
       B.transfer(1, "2026-10-05", "20000", from: B.current, to: B.other),
       B.transfer(2, "2026-10-06", "99000", from: B.current, to: B.savings),
     ]
     let lines = books.report.limits(of: B.current)
-    let sbp = try #require(lines.first { $0.kind == .sbp })
-    #expect(sbp.usedE4 == B.money("20000"))
-    #expect(sbp.leftE4 == B.money("30000"))
+    // Money sent to oneself in another bank is not money sent to people: the limit for people
+    // stays untouched and the limit for oneself is the 30 million of the system.
+    #expect(try #require(lines.first { $0.kind == .sbp }).usedE4 == .zero)
+    let own = try #require(lines.first { $0.kind == .sbpOwn })
+    #expect(own.limitE4 == B.money("30000000"))
+    #expect(own.usedE4 == B.money("20000"))
     #expect(try #require(lines.first { $0.kind == .interbank }).usedE4 == .zero)
     #expect(try #require(lines.first { $0.kind == .cash }).usedE4 == .zero)
   }
@@ -557,5 +560,411 @@ struct BankForgottenTests {
       return
     }
     #expect(count == 2)
+  }
+}
+
+@Suite("Banks: SBP fee estimate, card count, cashback note")
+struct BankRuExtrasTests {
+  private typealias B = BankBooks
+
+  private func line(_ limit: String, _ amounts: [String]) -> BankLimitLine {
+    let movements = amounts.enumerated().map { index, amount in
+      BankLimitMovement(
+        id: B.id(100 + index), source: .operation, accountId: B.current, kind: .sbp,
+        day: B.day("2026-10-0\(index + 1)"), amountE4: B.money(amount))
+    }.reversed()
+    return BankLimitLine(
+      accountId: B.current, kind: .sbp, currency: .rub, limitE4: B.money(limit),
+      usedE4: AmountE4.sum(movements.map(\.amountE4)), movements: Array(movements))
+  }
+
+  @Test func nothingIsTakenWithinTheLimit() {
+    #expect(line("100000", ["60000", "40000"]).feeEstimateE4 == .zero)
+  }
+
+  @Test func halfAPercentOfTheUnfreePartOfEachTransfer() {
+    // 40 000 fits; of 30 000 the last 20 000 is past the limit: 0.5 % of it.
+    #expect(line("50000", ["40000", "30000"]).feeEstimateE4 == B.money("100"))
+    // The transfer after that is past the limit as a whole.
+    #expect(line("50000", ["40000", "30000", "10000"]).feeEstimateE4 == B.money("150"))
+  }
+
+  @Test func aTransferIsNeverCharged1500Plus() {
+    #expect(line("50000", ["1000000"]).feeEstimateE4 == B.money("1500"))
+  }
+
+  @Test func theEstimateIsOnlyForTransfersToPeople() {
+    var own = line("50000", ["100000"])
+    own.kind = .sbpOwn
+    #expect(own.feeEstimateE4 == .zero)
+  }
+
+  @Test func theSwitchedOffTransferIsNotCharged() {
+    var charged = line("50000", ["40000", "30000"])
+    charged.movements[0].off = true
+    #expect(charged.feeEstimateE4 == .zero)
+  }
+
+  @Test func ownLimitIsWhereTheAccountStatesSbp() {
+    var books = BankBooks()
+    books.conditions = [BankConditions(accountId: B.current, freeSbpE4: B.money("100000"))]
+    #expect(books.report.limits(of: B.current).map(\.kind) == [.sbp, .sbpOwn])
+    books.conditions = [BankConditions(accountId: B.current, freeCashE4: B.money("1"))]
+    #expect(books.report.limits(of: B.current).map(\.kind) == [.cash])
+  }
+
+  @Test func theCardsOfTheOwnerAreCountedAcrossBanks() {
+    var books = BankBooks()
+    books.cards = (0..<18).map { number in
+      PaymentCard(
+        id: B.id(500 + number), accountId: number % 2 == 0 ? B.current : B.other,
+        name: "Card \(number)")
+    }
+    books.cards.append(PaymentCard(id: B.id(600), accountId: B.cash, name: "Cash card"))
+    books.cards.append(
+      PaymentCard(id: B.id(601), accountId: B.current, name: "Closed", archived: true))
+    let status = CardCount.status(ledger: books.ledger, today: B.today)
+    #expect(status.count == 18)
+    #expect(status.limit == 20)
+    #expect(status.left == 2)
+    #expect(status.isNear && !status.isAtLimit && !status.isOver)
+    #expect(status.limitFrom == B.day("2027-09-01"))
+    #expect(!status.inForce(on: B.today))
+    #expect(status.inForce(on: B.day("2027-09-01")))
+  }
+
+  @Test func theCountSaysNothingFarFromTheCap() {
+    var books = BankBooks()
+    books.cards = (0..<10).map { PaymentCard(id: B.id(500 + $0), accountId: B.current, name: "C") }
+    let status = CardCount.status(ledger: books.ledger, today: B.today)
+    #expect(!status.isNear)
+    #expect(BankReport.build(
+      ledger: books.ledger, accounts: books.accountsSnapshot, today: B.today, rubPerUnit: [:]
+    ).notes().isEmpty)
+  }
+
+  @Test func aCardNothingWasPaidWithIsListedAndTheLongestIdleComesFirst() {
+    var books = BankBooks()
+    let recent = PaymentCard(id: B.id(701), accountId: B.current, name: "Recent")
+    let old = PaymentCard(id: B.id(702), accountId: B.current, name: "Old")
+    let never = PaymentCard(id: B.id(703), accountId: B.current, name: "Never")
+    books.cards = [recent, old, never]
+    books.entries = [
+      B.expense(1, "2026-10-10", "100", card: recent.id),
+      B.expense(2, "2026-05-01", "100", card: old.id),
+    ]
+    let status = CardCount.status(ledger: books.ledger, today: B.today)
+    #expect(status.unused == [never.id, old.id])
+  }
+
+  @Test func aCardOfSomeoneElseIsNotOurs() {
+    var books = BankBooks()
+    var borrowed = PaymentMethod(id: B.id(801), name: "Mum", currency: .rub)
+    borrowed.borrowed = BorrowedCardTerms()
+    books.accounts.append(borrowed)
+    books.cards = [PaymentCard(id: B.id(802), accountId: borrowed.id, name: "Mum card")]
+    #expect(CardCount.status(ledger: books.ledger, today: B.today).count == 0)
+  }
+
+  @Test func theNoteAppearsFromEighty() {
+    var books = BankBooks()
+    books.cards = (0..<16).map { PaymentCard(id: B.id(500 + $0), accountId: B.current, name: "C") }
+    let notes = BankReport.build(
+      ledger: books.ledger, accounts: books.accountsSnapshot, today: B.today, rubPerUnit: [:]
+    ).notes()
+    #expect(notes == [.cardCount(count: 16, limit: 20, from: B.day("2027-09-01"), inForce: false)])
+  }
+
+  @Test func aCreditCardKeptOnlyAsADebtIsACreditWhenThereIsNoCardAccount() {
+    var set = (debts: [Debt](), states: [UUID: DebtDueState]())
+    let debt = Debt(
+      id: B.id(910), direction: .iOwe, type: .creditCard, name: "Card debt",
+      monthlyPaymentE4: B.money("7000"), paymentDay: 5)
+    set.debts = [debt]
+    set.states[debt.id] = DebtDueState(
+      debtId: debt.id, firstDue: B.day("2026-09-05"), paidCount: 1, owes: true, paymentDay: 5,
+      balanceE4: B.money("50000"), monthlyE4: B.money("7000"))
+    let pdn = BankPdn.build(
+      month: MonthKey(year: 2026, month: 10), debts: set.debts, states: set.states, accounts: [],
+      incomeRub: B.money("100000"), rubPerUnit: [:])
+    #expect(pdn.creditsRub == B.money("7000"))
+    #expect(pdn.cardsRub == .zero)
+  }
+
+  @Test func largeYearlyCashbackBringsTheNoteAndSmallBringsNone() throws {
+    var books = BankBooks()
+    var big = B.expense(1, "2026-03-01", "500000")
+    big.transaction.cashback = Money(amount: B.money("120000"), currency: .rub)
+    var lastYear = B.expense(2, "2025-12-31", "500000")
+    lastYear.transaction.cashback = Money(amount: B.money("900000"), currency: .rub)
+    books.entries = [big, lastYear]
+    let note = try #require(
+      CashbackTax.note(ledger: books.ledger, today: B.today))
+    #expect(note.year == 2026)
+    #expect(note.totalRub == B.money("120000"))
+    var small = B.expense(3, "2026-04-01", "1000")
+    small.transaction.cashback = Money(amount: B.money("50"), currency: .rub)
+    books.entries = [small]
+    #expect(CashbackTax.note(ledger: books.ledger, today: B.today) == nil)
+  }
+}
+
+@Suite("Banks: tax on the interest of deposits")
+struct InterestTaxTests {
+  private func rub(_ whole: Int64) -> AmountE4 { AmountE4(whole: whole) }
+
+  @Test func theFreeSumOfEachYearIsTheKeyRateTimesAMillion() {
+    #expect(InterestTax.exemption(year: 2025).amountE4 == rub(210_000))
+    #expect(!InterestTax.exemption(year: 2025).isEstimate)
+    #expect(InterestTax.exemption(year: 2026).amountE4 == rub(160_000))
+    // The year is not over: December can still move the rate.
+    #expect(InterestTax.exemption(year: 2026).isEstimate)
+  }
+
+  @Test func aYearTheTableDoesNotKnowTakesTheLastOneAsAnEstimate() {
+    let later = InterestTax.exemption(year: 2030)
+    #expect(later.amountE4 == rub(160_000))
+    #expect(later.isEstimate)
+  }
+
+  @Test func nothingIsOwedBelowTheFreeSum() {
+    let figure = InterestTax.figure(year: 2026, interestRub: rub(160_000))
+    #expect(figure.taxableE4 == .zero)
+    #expect(figure.taxE4 == .zero)
+  }
+
+  @Test func thirteenPercentOfWhatIsPast() {
+    let figure = InterestTax.figure(year: 2025, interestRub: rub(300_000))
+    #expect(figure.taxableE4 == rub(90_000))
+    #expect(figure.taxE4 == rub(11_700))
+    #expect(figure.dueDay == DateOnly(year: 2026, month: 12, day: 1))
+    #expect(!figure.isEstimate)
+  }
+
+  @Test func fifteenPercentPastTwoPointFourMillion() {
+    // 3 000 000 − 160 000 = 2 840 000: 13 % of 2 400 000 and 15 % of the 440 000 past it.
+    let figure = InterestTax.figure(year: 2026, interestRub: rub(3_000_000))
+    #expect(figure.taxE4 == rub(312_000 + 66_000))
+  }
+
+  @Test func theTaxIsRoundedToTheWholeRuble() {
+    // 13 % of 1 003.50 is 130.455.
+    let figure = InterestTax.figure(
+      year: 2026, interestRub: rub(160_000) + AmountE4(raw: 1_003_5000))
+    #expect(figure.taxE4 == rub(130))
+  }
+
+  private func booksWithInterest(received: [(String, String)]) -> (BankBooks, UUID) {
+    var books = BankBooks()
+    let category = UUID(uuidString: "BAC00000-0000-0000-0000-000000009999")!
+    books.categories = [CoreKit.Category(id: category, kind: .income, name: "Interest")]
+    for (index, item) in received.enumerated() {
+      let when = BankBooks.noon(item.0)
+      let id = BankBooks.id(7000 + index)
+      books.entries.append(
+        TransactionEntry(
+          transaction: Transaction(
+            id: id, kind: .income, occurredAt: when, amountE4: BankBooks.money(item.1),
+            paymentMethodId: BankBooks.current, createdAt: when, updatedAt: when),
+          parts: [
+            TransactionPart(
+              id: BankBooks.id(8000 + index), transactionId: id, categoryId: category,
+              quality: .neutral, qualitySource: .category,
+              amountE4: BankBooks.money(item.1))
+          ]))
+    }
+    return (books, category)
+  }
+
+  @Test func theYearAddsWhatWasWrittenAndWhatIsStillToCome() {
+    let (books, category) = booksWithInterest(received: [
+      ("2026-02-01", "100000"), ("2025-12-01", "999999"),
+    ])
+    let payout = DepositPayout(
+      accountId: BankBooks.current, target: BalanceKey(accountId: BankBooks.current, currency: .rub),
+      periodStart: BankBooks.day("2026-10-01"), payDate: BankBooks.day("2026-11-01"),
+      accruedE4: BankBooks.money("30000"), expectedE4: BankBooks.money("90000"),
+      capitalized: false, state: .accruing)
+    let year = InterestTax.year(
+      ledger: books.ledger, payouts: [payout], interestCategoryId: category,
+      today: BankBooks.today, rubPerUnit: [:])
+    #expect(year.receivedE4 == BankBooks.money("100000"))
+    #expect(year.accruedE4 == BankBooks.money("30000"))
+    #expect(year.expectedE4 == BankBooks.money("190000"))
+    // 190 000 − 160 000 = 30 000, 13 % of it; through today 130 000 is still free of tax.
+    #expect(year.forecast.taxE4 == rub(3_900))
+    #expect(year.sofar.taxE4 == .zero)
+  }
+
+  @Test func aPayoutAlreadyWrittenIsNotCountedTwice() {
+    let (books, category) = booksWithInterest(received: [("2026-02-01", "100000")])
+    let payout = DepositPayout(
+      accountId: BankBooks.current, target: BalanceKey(accountId: BankBooks.current, currency: .rub),
+      periodStart: BankBooks.day("2026-01-01"), payDate: BankBooks.day("2026-02-01"),
+      accruedE4: BankBooks.money("100000"), expectedE4: BankBooks.money("100000"),
+      capitalized: false, state: .received(UUID()))
+    let year = InterestTax.year(
+      ledger: books.ledger, payouts: [payout], interestCategoryId: category,
+      today: BankBooks.today, rubPerUnit: [:])
+    #expect(year.expectedE4 == BankBooks.money("100000"))
+  }
+
+  @Test func aPayoutInAForeignCurrencyWithoutARateIsListedNotGuessed() {
+    let (books, category) = booksWithInterest(received: [])
+    let payout = DepositPayout(
+      accountId: BankBooks.current, target: BalanceKey(accountId: BankBooks.current, currency: .usd),
+      periodStart: BankBooks.day("2026-10-01"), payDate: BankBooks.day("2026-11-01"),
+      accruedE4: BankBooks.money("30"), expectedE4: BankBooks.money("90"),
+      capitalized: false, state: .accruing)
+    let year = InterestTax.year(
+      ledger: books.ledger, payouts: [payout], interestCategoryId: category,
+      today: BankBooks.today, rubPerUnit: [:])
+    #expect(year.expectedE4 == .zero)
+    #expect(year.withoutRate == [.usd])
+  }
+
+  @Test func theReserveGrowsWithTheInterestPastTheFreeSum() {
+    let (books, category) = booksWithInterest(received: [("2026-02-01", "260000")])
+    let year = InterestTax.year(
+      ledger: books.ledger, payouts: [], interestCategoryId: category,
+      today: BankBooks.today, rubPerUnit: [:])
+    #expect(year.sofar.taxE4 == rub(13_000))
+    let plan = CashPlan(interestTax: year.sofar.taxE4)
+    #expect(plan.total == rub(13_000))
+  }
+}
+
+@Suite("Banks: the debt burden the way a bank reads it")
+struct BankPdnTests {
+  private typealias B = BankBooks
+  private let october = MonthKey(year: 2026, month: 10)
+
+  private func state(_ id: UUID, monthly: String) -> DebtDueState {
+    DebtDueState(
+      debtId: id, firstDue: B.day("2026-09-05"), paidCount: 1, owes: true, paymentDay: 5,
+      balanceE4: B.money("500000"), monthlyE4: B.money(monthly))
+  }
+
+  private func fixture() -> (debts: [Debt], states: [UUID: DebtDueState], accounts: [PaymentMethod]) {
+    let loan = Debt(
+      id: B.id(901), direction: .iOwe, type: .loan, name: "Bank", monthlyPaymentE4: B.money("30000"),
+      paymentDay: 5)
+    let split = Debt(
+      id: B.id(902), direction: .iOwe, type: .installment, name: "Split",
+      monthlyPaymentE4: B.money("5000"), paymentDay: 5, origin: .purchase, parts: 4)
+    let card = PaymentMethod(
+      id: B.id(903), name: "Credit", currency: .rub,
+      credit: CreditCardTerms(limitE4: B.money("200000")))
+    return (
+      [loan, split], [loan.id: state(loan.id, monthly: "30000"), split.id: state(split.id, monthly: "5000")],
+      [card]
+    )
+  }
+
+  @Test func aCardWeighsFivePercentOfItsLimitAndAnInstalmentIsToldApart() {
+    let set = fixture()
+    let pdn = BankPdn.build(
+      month: october, debts: set.debts, states: set.states, accounts: set.accounts,
+      incomeRub: B.money("100000"), rubPerUnit: [:])
+    #expect(pdn.creditsRub == B.money("30000"))
+    #expect(pdn.cardsRub == B.money("10000"))
+    #expect(pdn.instalmentsRub == B.money("5000"))
+    // As the credit history sees it: 40 %; with the instalment, 45 %.
+    #expect(pdn.bankBp == 4_000)
+    #expect(pdn.withInstalmentsBp == 4_500)
+  }
+
+  @Test func theCautiousIncomeIsNineTenths() {
+    let set = fixture()
+    let pdn = BankPdn.build(
+      month: october, debts: set.debts, states: set.states, accounts: set.accounts,
+      incomeRub: B.money("100000"), rubPerUnit: [:])
+    #expect(pdn.cautiousIncomeRub == B.money("90000"))
+    // 40 000 over 90 000 is 44.44 %, to the basis point 4 444.
+    #expect(pdn.cautiousBp == 4_444)
+    #expect(pdn.cautiousWithInstalmentsBp == 5_000)
+  }
+
+  @Test func withoutAnIncomeThereIsNoFigure() {
+    let set = fixture()
+    let pdn = BankPdn.build(
+      month: october, debts: set.debts, states: set.states, accounts: set.accounts,
+      incomeRub: nil, rubPerUnit: [:])
+    #expect(pdn.bankBp == nil && pdn.withInstalmentsBp == nil && pdn.cautiousBp == nil)
+    #expect(pdn.bankPaymentsRub == B.money("40000"))
+  }
+
+  @Test func aCardInADollarLimitWithoutARateIsListedNotGuessed() {
+    var set = fixture()
+    set.accounts[0].currency = .usd
+    let pdn = BankPdn.build(
+      month: october, debts: set.debts, states: set.states, accounts: set.accounts,
+      incomeRub: B.money("100000"), rubPerUnit: [:])
+    #expect(pdn.cardsRub == .zero)
+    #expect(pdn.withoutRate == [B.id(903)])
+    let rated = BankPdn.build(
+      month: october, debts: set.debts, states: set.states, accounts: set.accounts,
+      incomeRub: B.money("100000"), rubPerUnit: [.usd: 100])
+    #expect(rated.cardsRub == B.money("1000000"))
+  }
+
+  @Test func aCreditCardKeptAsADebtIsNotCountedTwice() {
+    var set = fixture()
+    set.debts.append(
+      Debt(
+        id: B.id(904), direction: .iOwe, type: .creditCard, name: "Card debt",
+        monthlyPaymentE4: B.money("7000"), paymentDay: 5))
+    set.states[B.id(904)] = state(B.id(904), monthly: "7000")
+    let pdn = BankPdn.build(
+      month: october, debts: set.debts, states: set.states, accounts: set.accounts,
+      incomeRub: B.money("100000"), rubPerUnit: [:])
+    #expect(pdn.creditsRub == B.money("30000"))
+  }
+}
+
+@Suite("Banks: the fee for an account without a card")
+struct NoCardFeeTests {
+  private typealias B = BankBooks
+
+  @Test func anAccountWithoutACardPaysTheStatedFee() {
+    var books = BankBooks()
+    // The savings account has no card; the current one has one.
+    books.cards = [PaymentCard(id: B.card, accountId: B.current, name: "Visa")]
+    let lines = NoCardFee.lines(
+      dataset: books.dataset, fees: [B.savings: B.money("150"), B.current: B.money("150")],
+      service: [])
+    #expect(lines == [NoCardFeeLine(accountId: B.savings, monthlyFeeE4: B.money("150"), currency: .rub)])
+  }
+
+  @Test func aMetConditionOfFreeServiceTakesTheFeeAway() {
+    var books = BankBooks()
+    books.cards = []
+    let met = BankServiceProgress(
+      accountId: B.savings, currency: .rub, spendTargetE4: B.money("5000"),
+      spentE4: B.money("5000"), balanceTargetE4: nil, balanceE4: nil, through: B.today)
+    #expect(
+      NoCardFee.lines(dataset: books.dataset, fees: [B.savings: B.money("150")], service: [met])
+        .isEmpty)
+  }
+
+  @Test func cashArchivedAndUnstatedAccountsArePassedOver() {
+    var books = BankBooks()
+    books.cards = []
+    books.accounts[1].archived = true
+    let lines = NoCardFee.lines(
+      dataset: books.dataset, fees: [B.cash: B.money("150"), B.savings: B.money("150")],
+      service: [])
+    #expect(lines.isEmpty)
+    #expect(
+      NoCardFee.lines(dataset: books.dataset, fees: [B.other: .zero], service: []).isEmpty)
+  }
+
+  @Test func theLargestFeeComesFirst() {
+    var books = BankBooks()
+    books.cards = []
+    let lines = NoCardFee.lines(
+      dataset: books.dataset, fees: [B.savings: B.money("100"), B.other: B.money("300")],
+      service: [])
+    #expect(lines.map(\.accountId) == [B.other, B.savings])
   }
 }
