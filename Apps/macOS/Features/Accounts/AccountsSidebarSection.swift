@@ -16,6 +16,7 @@ struct AccountsSidebarSection: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.store) private var store
   @Dependency(\.compute) private var compute
+  @Environment(\.appTheme) private var theme
   let model: AccountsSidebarModel
   @Binding var selection: SidebarItem
   /// The groups folded by their chevron, kept between launches as a habit of the window.
@@ -26,6 +27,8 @@ struct AccountsSidebarSection: View {
   private func t(_ key: String) -> String { environment.language(key, table: AccountText.table) }
 
   private var actions: AccountActions { AccountActions(environment: environment, store: store) }
+
+  private var secondaryInk: Color { Color(theme.palette.sidebarSecondaryText) }
 
   /// «без курса: USD, KZT».
   private func withoutRate(_ codes: String) -> String {
@@ -45,6 +48,12 @@ struct AccountsSidebarSection: View {
       snapshot?.sections.flatMap(\.accounts).map(\.account) ?? [],
       locale: environment.language.locale)
     Section {
+      // A native List section header is a noninteractive cell on macOS: controls placed in
+      // it lose their actions. Keep this heading as an ordinary row so its menu stays usable.
+      header(live: live)
+        .selectionDisabled()
+        .moveDisabled(true)
+        .listRowSeparator(.hidden)
       if let snapshot, !snapshot.sections.isEmpty {
         totalRow(snapshot)
         let grouped = snapshot.sections.contains { $0.group != nil }
@@ -68,8 +77,6 @@ struct AccountsSidebarSection: View {
         }
       }
       HiddenAccountsRow()
-    } header: {
-      header(live: live)
     }
   }
 
@@ -81,30 +88,31 @@ struct AccountsSidebarSection: View {
       Text(verbatim: t("accounts.section.accounts"))
         .appFont(SidebarType.header)
         .textCase(.uppercase)
-        .foregroundStyle(.secondary)
+        .foregroundStyle(secondaryInk)
+        .accessibilityAddTraits(.isHeader)
       Spacer()
-      Menu {
-        Button(t("accounts.newAccount")) { model.sheet = .account(nil) }
-        Button(t("accounts.newGroup")) { model.sheet = .group(nil) }
-        Divider()
-        Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: nil)) }
-          .disabled(live.isEmpty)
-        Button(t("accounts.reconcile")) { environment.showsReconciliation = true }
-        if environment.accountSetup == .later {
-          Divider()
-          Button(environment.language("onboarding.card.action", table: "Onboarding")) {
-            AccountSetupRequest.shared.isRequested = true
-          }
-        }
-      } label: {
-        Image(systemName: "plus")
-          .accessibilityLabel(Text(verbatim: t("sidebar.add")))
+      AccessibleMenu(t("sidebar.add"), systemImage: "plus", identifier: "sidebar.accounts.add") {
+        addActions(live: live)
       }
-      .menuStyle(.borderlessButton)
-      .menuIndicator(.hidden)
-      .fixedSize()
-      .help(t("sidebar.add"))
-      .accessibilityIdentifier("sidebar.accounts.add")
+    }
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel(Text(verbatim: t("accounts.section.accounts")))
+    .accessibilityIdentifier("sidebar.accounts.header")
+  }
+
+  @ViewBuilder
+  private func addActions(live: [PaymentMethod]) -> some View {
+    Button(t("accounts.newAccount")) { model.sheet = .account(nil) }
+    Button(t("accounts.newGroup")) { model.sheet = .group(nil) }
+    Divider()
+    Button(t("accounts.transfer")) { model.sheet = .transfer(newTransfer(from: nil)) }
+      .disabled(live.isEmpty)
+    Button(t("accounts.reconcile")) { environment.showsReconciliation = true }
+    if environment.accountSetup == .later {
+      Divider()
+      Button(environment.language("onboarding.card.action", table: "Onboarding")) {
+        AccountSetupRequest.shared.isRequested = true
+      }
     }
   }
 
@@ -132,13 +140,16 @@ struct AccountsSidebarSection: View {
               missing.map(\.code).joined(separator: ", "))
           )
           .appFont(.caption)
-          .foregroundStyle(.secondary)
+          .foregroundStyle(secondaryInk)
         }
       }
     }
     .help(snapshot.inSummaryTotalRub == nil ? t("sidebar.totalNotCounted") : t("sidebar.totalHint"))
     .tag(SidebarItem.allAccounts)
+    .foregroundStyle(theme.contentPrimary)
     .accessibilityElement(children: .combine)
+    .accessibilityAddTraits(.isButton)
+    .accessibilityAction { selection = .allAccounts }
     .accessibilityIdentifier("sidebar.accounts.total")
   }
 
@@ -147,7 +158,7 @@ struct AccountsSidebarSection: View {
     Text(verbatim: environment.language("tree.noGroup", table: EntryLinks.table))
       .appFont(SidebarType.header)
       .textCase(.uppercase)
-      .foregroundStyle(.secondary)
+      .foregroundStyle(secondaryInk)
       .padding(.top, 12 - AccountsSidebarMetrics.rowVertical)
       .selectionDisabled()
       .moveDisabled(true)
@@ -166,7 +177,7 @@ struct AccountsSidebarSection: View {
       } label: {
         Image(systemName: isFolded ? "chevron.right" : "chevron.down")
           .font(.system(size: 8, weight: .semibold))  // font-fixed: 9 pt chevron of a group
-          .foregroundStyle(.secondary)
+          .foregroundStyle(secondaryInk)
           .frame(width: AccountsSidebarMetrics.dot, height: AccountsSidebarMetrics.dot)
           .contentShape(.rect)
       }
@@ -183,28 +194,38 @@ struct AccountsSidebarSection: View {
           // Left out of the summary: said in words, never by colour.
           Text(verbatim: t("sidebar.excluded"))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(secondaryInk)
         }
       }
       Spacer(minLength: 4)
       VStack(alignment: .trailing, spacing: 0) {
         Text(verbatim: section.totalRub.map { environment.money.rounded($0) } ?? "—")
           .appFont(AccountsSidebarMetrics.figure)
-          .foregroundStyle(.secondary)
+          .foregroundStyle(secondaryInk)
           .sidebarAmount()
         if compute.snapshot?.coveredAccounts?.isPartHidden(section) == true { partHiddenNote }
         if section.totalRub != nil, !section.withoutRate.isEmpty {
           // Money the total leaves out for want of a rate is named, not dropped in silence.
           Text(verbatim: withoutRate(section.withoutRate.map(\.code).joined(separator: ", ")))
             .appFont(.caption)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(secondaryInk)
             .lineLimit(1)
         }
       }
     }
     .tag(SidebarItem.group(group.id))
     .contextMenu { groupMenu(group, holdsMain: section.accounts.contains { $0.account.isDefault }) }
+    .foregroundStyle(theme.contentPrimary)
     .accessibilityElement(children: .combine)
+    .accessibilityAddTraits(.isButton)
+    .accessibilityAction { selection = .group(group.id) }
+    .accessibilityAction(
+      named: Text(
+        verbatim: environment.language(
+          isFolded ? "tree.expandAll" : "tree.collapseAll", table: EntryLinks.table))
+    ) {
+      foldedGroups = AccountsSidebarFold.toggled(group.id, in: foldedGroups)
+    }
   }
 
   private func accountRow(
@@ -228,7 +249,10 @@ struct AccountsSidebarSection: View {
     .contextMenu {
       accountMenu(line.account, live: live, section: section, snapshot: snapshot)
     }
+    .foregroundStyle(theme.contentPrimary)
     .accessibilityElement(children: .combine)
+    .accessibilityAddTraits(.isButton)
+    .accessibilityAction { selection = .account(line.account.id) }
   }
 
   /// The row of someone else's card: what was spent with it this month, and whose card it is —
@@ -767,6 +791,9 @@ struct SidebarAccountRowBody: View {
   let main: String
   let caption: String?
   let mainLabel: String
+  @Environment(\.appTheme) private var theme
+  /// Secondary text of the sidebar in the theme's own ink: `.secondary` goes pale on a gradient.
+  private var secondaryInk: Color { Color(theme.palette.sidebarSecondaryText) }
 
   var body: some View {
     HStack(alignment: .firstTextBaseline, spacing: AccountsSidebarMetrics.gap) {
@@ -784,14 +811,14 @@ struct SidebarAccountRowBody: View {
       VStack(alignment: .trailing, spacing: 0) {
         Text(verbatim: main)
           .appFont(AccountsSidebarMetrics.figure)
-          .foregroundStyle(.secondary)
+          .foregroundStyle(secondaryInk)
           .sidebarAmount()
           .accessibilityIdentifier("sidebar.row.figure")
         if let caption {
           Text(verbatim: caption)
             .appFont(.caption)
             .monospacedDigit()
-            .foregroundStyle(.secondary)
+            .foregroundStyle(secondaryInk)
             .lineLimit(1)
         }
       }

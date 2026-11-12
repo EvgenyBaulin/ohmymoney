@@ -1197,6 +1197,8 @@ struct DetailsPanel: View {
       Image(systemName: "minus.circle")
     }
     .buttonStyle(.borderless)
+    .accessibilityLabel(Text(verbatim: t("entry.split.removePart")))
+    .accessibilityIdentifier("entry.split.removePart")
     // A part someone gave the money back for stays.
     .disabled(!model.canRemovePart(id: part.id))
     let amount = AmountField(amount: partBinding(index).amount)

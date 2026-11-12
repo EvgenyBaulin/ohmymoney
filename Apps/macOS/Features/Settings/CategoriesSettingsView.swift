@@ -441,6 +441,8 @@ struct CategoriesSettingsView: View {
         EmptyView()
       }
       .labelsHidden()
+      // Without a title VoiceOver reads a bare pop-up: name the category and the field.
+      .accessibilityLabel(Text(verbatim: Self.qualityLabel(of: category.name, environment)))
       .frame(width: 150)
       .disabled(Self.qualityIsFixed(category, in: tree))
     }
@@ -448,7 +450,10 @@ struct CategoriesSettingsView: View {
 
   /// The «…» of a row: tax and essential choices, basket, delete and archive.
   private func rowMenu(_ category: CoreKit.Category, tree: CategoryTree) -> some View {
-    Menu {
+    AccessibleMenu(
+      SettingsRowMenu.label(category.name, environment), systemImage: "ellipsis.circle",
+      identifier: "categories.row.menu"
+    ) {
       if kind == .income, selfEmployment.enabled {
         Picker(selection: taxBinding(for: category, tree: tree)) {
           ForEach(
@@ -501,19 +506,7 @@ struct CategoriesSettingsView: View {
           setArchived(category, true)
         }
       }
-    } label: {
-      // Named by its category, like the «…» of every row of Справочники: the bare symbol
-      // was read as «More» on every row alike.
-      Image(systemName: "ellipsis.circle")
-        .accessibilityLabel(
-          Text(
-            verbatim: environment.format(
-              "references.rowMenu", table: "Settings", category.name)))
     }
-    .menuStyle(.borderlessButton)
-    .menuIndicator(.hidden)
-    .fixedSize()
-    .accessibilityIdentifier("categories.row.menu")
   }
 
   /// The mark of the row, which opens the picker of its symbol and colour. It shows what the
@@ -787,6 +780,11 @@ struct CategoriesSettingsView: View {
 
   /// The new quality is saved at once and counts for the operations to come. Whether the
   /// past follows is asked next, once the operations it would change have been counted.
+  /// What VoiceOver says of a quality pop-up or chip: whose rating it is, then the field.
+  static func qualityLabel(of name: String, _ environment: AppEnvironment) -> String {
+    "\(name) · \(environment.language("categories.quality", table: "Settings"))"
+  }
+
   private func qualityBinding(for category: CoreKit.Category) -> Binding<Quality?> {
     Binding(
       get: { category.quality },
@@ -1205,6 +1203,8 @@ struct CategoryLimitField: View {
       .multilineTextAlignment(.trailing)
       .focused($focused)
       .help(environment.language("categories.limit.placeholder", table: "Settings"))
+      .accessibilityLabel(
+        Text(verbatim: environment.language("categories.limit.placeholder", table: "Settings")))
       .accessibilityIdentifier("categories.row.limit")
       .onSubmit {
         if draft.submit(shown: shown, write: commit) == .written { focused = false }
@@ -1725,6 +1725,8 @@ enum EssentialChoice: String, CaseIterable, Hashable {
       .menuIndicator(.hidden)
       .fixedSize()
       .disabled(Self.qualityIsFixed(category, in: wholeTree()))
+      // The chip's own text is only the value, «Plain»; VoiceOver also needs whose and what.
+      .accessibilityLabel(Text(verbatim: Self.qualityLabel(of: category.name, environment)))
       .accessibilityIdentifier("categories.row.quality")
     }
 

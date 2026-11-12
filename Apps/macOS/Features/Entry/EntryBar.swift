@@ -1215,6 +1215,7 @@ struct EntryBar<Accessory: View>: View {
           .padding(.trailing, 4)
         }
         .frame(maxHeight: EntryBarMetrics.panelMaxHeight)
+        .accessibilityIdentifier("entry.details.scroll")
       }
       // Esc while a control inside the panel has focus. Esc on the line itself is
       // handled by the line, so neither reaches the list behind.

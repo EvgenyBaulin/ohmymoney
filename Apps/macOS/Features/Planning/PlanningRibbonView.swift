@@ -60,11 +60,15 @@ struct PlanningRibbonView: View {
           }
         }
         .scrollIndicators(.hidden)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text(verbatim: t("layout.ribbon.title")))
         .accessibilityIdentifier("planning.ribbon.days")
       } else {
         HStack(alignment: .top, spacing: PlanningMetrics.dayGap) {
           ForEach(ribbon.days) { day in chip(day) }
         }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text(verbatim: t("layout.ribbon.title")))
         .accessibilityIdentifier("planning.ribbon.days")
       }
       if !ribbon.withoutRate.isEmpty {
@@ -126,7 +130,7 @@ struct PlanningRibbonView: View {
     ) {
       Text(verbatim: "\(day.day.day)")
         .appFont(compact ? PlanningType.phoneDayNumber : PlanningType.dayNumber)
-        .foregroundStyle(planned ? theme.accentDefault : theme.contentPrimary)
+        .foregroundStyle(Color(planned ? theme.palette.plannedDayText : theme.palette.emptyDayText))
       HStack(spacing: 2) {
         if !day.payments.isEmpty { markImage(.payment) }
         if !day.incomes.isEmpty { markImage(.income) }
@@ -148,6 +152,10 @@ struct PlanningRibbonView: View {
     Group {
       if plans.isEmpty {
         face
+          .accessibilityElement(children: .ignore)
+          .accessibilityLabel(Text(verbatim: spoken))
+          .accessibilityAddTraits(.isStaticText)
+          .accessibilityIdentifier("planning.ribbon.day.\(day.day.iso)")
       } else if plans.count == 1, let plan = plans.first {
         Button {
           open(plan)
@@ -155,6 +163,8 @@ struct PlanningRibbonView: View {
           face
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(Text(verbatim: spoken))
+        .accessibilityIdentifier("planning.ribbon.day.\(day.day.iso)")
       } else {
         Menu {
           ForEach(plans) { plan in
@@ -166,12 +176,11 @@ struct PlanningRibbonView: View {
         .menuStyle(.button)
         .buttonStyle(.plain)
         .menuIndicator(.hidden)
+        .accessibilityLabel(Text(verbatim: spoken))
+        .accessibilityIdentifier("planning.ribbon.day.\(day.day.iso)")
       }
     }
     .help(help)
-    .accessibilityElement(children: .ignore)
-    .accessibilityLabel(Text(verbatim: spoken))
-    .accessibilityAddTraits(plans.isEmpty ? [] : .isButton)
   }
 
   private var markSize: CGFloat {

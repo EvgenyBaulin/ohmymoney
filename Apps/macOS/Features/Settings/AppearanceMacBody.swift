@@ -115,6 +115,7 @@
   /// semibold over five dots of the theme's colours; the chosen tile wears a 2-point ring in its
   /// accent and a check, the others a 1-point border.
   struct MacThemeTiles: View {
+    @Dependency(\.environment) private var environment
     let chosen: ThemeID
     let scheme: ColorScheme
     let name: (ThemeID) -> String
@@ -132,6 +133,10 @@
       ) {
         ForEach(ThemeCatalog.all, id: \.id) { tile($0) }
       }
+      .accessibilityElement(children: .contain)
+      .accessibilityLabel(
+        Text(verbatim: environment.language("appearance.themes.title", table: "Appearance"))
+      )
       .accessibilityIdentifier("settings.appearance.themes")
     }
 

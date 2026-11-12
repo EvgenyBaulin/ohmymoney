@@ -36,6 +36,8 @@ struct MonthBarsChart: View {
             )
             .accessibilityElement()
             .accessibilityLabel(Text(verbatim: column.spokenLabel))
+            .accessibilityIdentifier("chart.month.\(column.id)")
+            .accessibilityAddTraits(.isStaticText)
             .accessibilityAddTraits(column.isHighlighted && !allAccent ? .isSelected : [])
         }
       }

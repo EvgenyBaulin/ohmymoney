@@ -170,6 +170,7 @@ struct ChartLegend: View {
   }
 
   @Environment(\.colorSchemeContrast) private var contrast
+  @Environment(\.appTheme) private var theme
   @Environment(\.appAccent) private var accent
   let items: [Item]
 
@@ -200,7 +201,7 @@ struct ChartLegend: View {
           .imageScale(.small)
           .accessibilityHidden(true)
         Text(verbatim: item.label)
-          .foregroundStyle(.primary)
+          .foregroundStyle(Color(theme.palette.cardText))
           .lineLimit(1)
       }
     }

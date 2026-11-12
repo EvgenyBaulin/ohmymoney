@@ -215,6 +215,20 @@ final class SettingsAccessibilityTests: XCTestCase {
       menus.contains { $0.contains(expected) }, "no «…» says «\(expected)»: \(menus)")
   }
 
+  /// The pop-up and the chip of a category's quality show only the value, so VoiceOver would
+  /// read a bare «Plain» on every row: they are named by the category and the field, in both
+  /// languages.
+  func testTheQualityPickerOfACategoryRowNamesItsCategoryAndItsField() {
+    let language = environment.language
+    let before = language.choice
+    defer { language.choice = before }
+    language.choice = .english
+    XCTAssertEqual(CategoriesSettingsView.qualityLabel(of: "Cafes", environment), "Cafes · Quality")
+    language.choice = .russian
+    XCTAssertEqual(
+      CategoriesSettingsView.qualityLabel(of: "Кофейни", environment), "Кофейни · Оценка")
+  }
+
   /// The first setup: each field for the balance now of an account says its currency — two
   /// currencies, two different names —, not its placeholder «0».
   func testEveryBalanceFieldOfTheSetupSaysItsCurrency() throws {
@@ -678,6 +692,15 @@ final class SettingsAccessibilityTests: XCTestCase {
 
   /// What VoiceOver says for an element: its label, its title and the title of the element
   /// that names it.
+  /// What an element and the nodes SwiftUI builds inside it say, for a label that may sit on
+  /// either.
+  private static func spokenWithin(_ object: NSObject, depth: Int = 0) -> String {
+    guard depth < 6 else { return "" }
+    let children = attribute(object, "accessibilityChildren") as? [Any] ?? []
+    return ([spoken(object)] + children.compactMap { $0 as? NSObject }
+      .map { spokenWithin($0, depth: depth + 1) }).joined(separator: " | ")
+  }
+
   private static func spoken(_ object: NSObject) -> String {
     var words: [String] = []
     for name in ["accessibilityLabel", "accessibilityTitle", "accessibilityValue"] {

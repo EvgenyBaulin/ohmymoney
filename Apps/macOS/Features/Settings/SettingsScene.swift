@@ -54,6 +54,8 @@ struct SettingsView: View {
           title: environment.language(navigation.section.titleKey, table: "Settings"))
         SettingsSectionContent(section: navigation.section)
           .scrollContentBackground(.hidden)
+          .accessibilityLabel(
+            Text(verbatim: environment.language(navigation.section.titleKey, table: "Settings")))
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
       .background(surfaces.background)
@@ -69,6 +71,8 @@ struct SettingsView: View {
     )
     .background(ResizableSettingsWindow(minimum: Self.minimumSize))
     // So a UI test can say the settings really opened when the gear of the toolbar is pressed.
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel(Text(verbatim: environment.language("settings.title", table: "Settings")))
     .accessibilityIdentifier("settings.window")
     // «Справка» → «Собрать отчёт о проблеме…»: the report itself, not a section to look for it
     // in. A sheet is laid out by a host of its own: the dependencies are handed over.

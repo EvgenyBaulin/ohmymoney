@@ -92,6 +92,7 @@ struct SettingsIconTile: View {
 
 /// The title of a section above its form: the tile and the name, 22 bold.
 struct SettingsSectionTitle: View {
+  @Environment(\.appTheme) private var theme
   let section: SettingsSection
   let title: String
 
@@ -103,6 +104,9 @@ struct SettingsSectionTitle: View {
         glyph: SettingsChromeMetrics.headerGlyphSize)
       Text(verbatim: title)
         .appFont(StyleType.screenTitle)
+        .foregroundStyle(
+          Color(
+            theme.palette.contentPrimary.ensuringTextContrast(on: theme.palette.surfaceBackground)))
     }
     .padding(.horizontal, SettingsChromeMetrics.contentInset)
     .padding(.top, SettingsChromeMetrics.contentInset)

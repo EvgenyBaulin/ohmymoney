@@ -15,6 +15,7 @@ struct ShareDonutSlice: Hashable, Identifiable {
 /// between them. The ring never carries the meaning alone — the legend beside it names every
 /// part with its percent.
 struct ShareDonutChart: View {
+  @Dependency(\.environment) private var environment
   let slices: [ShareDonutSlice]
   let figure: String
   let caption: String
@@ -38,6 +39,10 @@ struct ShareDonutChart: View {
       )
       .foregroundStyle(slice.tint)
       .accessibilityLabel(Text(verbatim: slice.name))
+      .accessibilityValue(
+        Text(verbatim: environment.money.percent(basisPoints: slice.basisPoints, fractionDigits: 0))
+      )
+      .accessibilityIdentifier("chart.native.share.\(slice.id)")
     }
     .chartLegend(.hidden)
     .frame(width: side, height: side)

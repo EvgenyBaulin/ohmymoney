@@ -80,7 +80,7 @@ struct AccountsTreeRow: View {
       if let amount {
         Text(verbatim: amount)
           .appFont(AppFont.callout.weight(.medium).monospacedDigit())
-          .foregroundStyle(theme.contentPrimary)
+          .foregroundStyle(Color(isChosen ? theme.palette.tintedCardText : theme.palette.cardText))
           .lineLimit(1)
           .fixedSize()
       }
@@ -130,6 +130,7 @@ struct AccountsTreeRow: View {
     .buttonStyle(.plain)
     .disabled(mark == nil)
     .accessibilityHidden(mark == nil)
+    .accessibilityLabel(Text(verbatim: title))
     .accessibilityAddTraits(mark == true ? [.isSelected] : [])
   }
 

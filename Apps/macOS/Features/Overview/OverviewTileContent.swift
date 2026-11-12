@@ -327,7 +327,7 @@ func wholeNumber(_ amount: AmountE4, _ money: MoneyFormatter) -> String {
 
 /// A line of a tile: its words on the left in 12, the figure on the right in 12 medium.
 struct TileFigureRow<Trailing: View>: View {
-  @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.appTheme) private var theme
   let label: String
   @ViewBuilder var trailing: Trailing
 
@@ -335,7 +335,7 @@ struct TileFigureRow<Trailing: View>: View {
     HStack(alignment: .center, spacing: StyleMetrics.tileInlineGap) {
       Text(verbatim: label)
         .appFont(StyleType.tileRow)
-        .foregroundStyle(surfaces.primary)
+        .foregroundStyle(Color(theme.palette.cardText))
         .lineLimit(1)
         .truncationMode(.tail)
       Spacer(minLength: 8)
@@ -353,13 +353,13 @@ extension TileFigureRow where Trailing == TileFigureText {
 
 /// The figure of a line: 12 medium, never wrapped.
 struct TileFigureText: View {
-  @Environment(\.themeSurfaces) private var surfaces
+  @Environment(\.appTheme) private var theme
   let text: String
 
   var body: some View {
     Text(verbatim: text)
       .appFont(StyleType.tileRowFigure)
-      .foregroundStyle(surfaces.primary)
+      .foregroundStyle(Color(theme.palette.cardText))
       .lineLimit(1)
       .fixedSize()
   }

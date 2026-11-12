@@ -1,3 +1,5 @@
+import AppCore
+import CoreKit
 import SwiftUI
 import XCTest
 
@@ -102,6 +104,117 @@ final class ThemeCatalogTests: XCTestCase {
       let ratio = p.contentOnAccent.contrast(on: p.accentDefault)
       XCTAssertGreaterThanOrEqual(ratio, 4.5, "\(id) \(scheme): text on accent \(ratio)")
     }
+  }
+
+  func testSidebarFiguresUseReadableThemeInkInEveryScheme() {
+    for (id, scheme, p) in palettes {
+      let background = p.surfaceSidebar.composited(over: p.surfaceBackground)
+      XCTAssertGreaterThanOrEqual(
+        p.sidebarSecondaryText.contrast(on: background), 4.5, "\(id) \(scheme) sidebar figures")
+    }
+  }
+
+  func testSecondaryInkIsReadableOnTintedRowsAndCardsOfEveryTheme() {
+    for (id, scheme, p) in palettes {
+      for surface in [
+        p.surfaceBackground, p.surfaceCard, p.fillNeutral.composited(over: p.surfaceCard),
+      ] {
+        XCTAssertGreaterThanOrEqual(
+          p.contentSecondary.contrast(on: surface), 4.5, "\(id) \(scheme) secondary ink")
+      }
+    }
+  }
+
+  func testCardAndRibbonInksAreReadableOnTheirActualSurfacesInEveryTheme() {
+    for (id, scheme, p) in palettes {
+      for (ink, surface) in [
+        (p.cardText, p.surfaceCard),
+        (p.tintedCardText, p.accentTint.composited(over: p.surfaceCard)),
+        (p.plannedDayText, p.accentTint.composited(over: p.surfaceCard)),
+        (p.emptyDayText, p.fillNeutral.composited(over: p.surfaceCard)),
+      ] {
+        XCTAssertGreaterThanOrEqual(ink.contrast(on: surface), 4.5, "\(id) \(scheme)")
+      }
+    }
+  }
+
+  /// The names in the sidebar (the main window's and Settings'), selected or not, are read
+  /// against the plate the sidebar really paints: translucent over the page.
+  func testSidebarNamesAreReadableOnTheSidebarOfEveryTheme() {
+    for (id, scheme, p) in palettes {
+      let plate = p.surfaceSidebar.composited(over: p.surfaceBackground)
+      XCTAssertGreaterThanOrEqual(
+        p.sidebarText.contrast(on: plate), 4.5, "\(id) \(scheme) sidebar names")
+      let selected = p.accentTint.composited(over: plate)
+      XCTAssertGreaterThanOrEqual(
+        p.sidebarSelectionText.contrast(on: selected), 4.5, "\(id) \(scheme) chosen name")
+    }
+  }
+
+  /// The status word of a limit row on «Обзор» — «Over», «Close», «Within» — stands on the card
+  /// in every theme and scheme; the bar and the symbol repeat it in colour.
+  func testLimitStatusWordsAreReadableOnTheCardOfEveryTheme() {
+    for (id, scheme, p) in palettes {
+      for status in [LimitStatus.over, .warning, .ok] {
+        XCTAssertGreaterThanOrEqual(
+          LimitTileRow.textColor(status, p).contrast(on: p.surfaceCard), 4.5, "\(id) \(scheme) \(status)")
+      }
+    }
+  }
+
+  /// The ink of the figures in the lists and tiles — a balance in the accounts tree, a chart
+  /// legend, a day of the planning ribbon — is the checked card ink, not a system grey.
+  func testListFiguresLegendsAndRibbonDaysUseCheckedInkOnEveryTheme() {
+    for (id, scheme, p) in palettes {
+      let tinted = p.accentTint.composited(over: p.surfaceCard)
+      let neutral = p.fillNeutral.composited(over: p.surfaceCard)
+      XCTAssertGreaterThanOrEqual(p.cardText.contrast(on: p.surfaceCard), 4.5, "\(id) \(scheme)")
+      XCTAssertGreaterThanOrEqual(p.tintedCardText.contrast(on: tinted), 4.5, "\(id) \(scheme)")
+      XCTAssertGreaterThanOrEqual(p.plannedDayText.contrast(on: tinted), 4.5, "\(id) \(scheme)")
+      XCTAssertGreaterThanOrEqual(p.emptyDayText.contrast(on: neutral), 4.5, "\(id) \(scheme)")
+    }
+  }
+
+  /// The themes whose hero gradient is mid-tone at one stop: neither black nor white, nor any
+  /// ink between, reaches 4.5 : 1 on both stops (themes 10–30 darken or lighten the text
+  /// automatically, 0526, but the palettes are not edited). Small text on their hero is the
+  /// owner's design question; the rest of the themes must hold 4.5 : 1 at both stops.
+  private static let heroBelowAA: Set<ThemeID> = [
+    .theme03, .theme04, .theme10, .theme11, .theme12, .theme13, .theme14, .theme15, .theme16,
+    .theme18, .theme19, .theme21, .theme22, .theme23, .theme24, .theme28,
+  ]
+
+  func testHeroTextIsReadableAtBothStopsExceptTheListedGradients() {
+    for (id, scheme, p) in palettes {
+      let worst = [p.heroStart, p.heroEnd].map { p.heroText.contrast(on: $0) }.min() ?? 0
+      if Self.heroBelowAA.contains(id) {
+        let own = [p.heroStart, p.heroEnd].map { p.heroContent.contrast(on: $0) }.min() ?? 0
+        XCTAssertLessThan(worst, 4.5, "\(id) \(scheme) now passes: drop it from the list")
+        XCTAssertGreaterThanOrEqual(worst, own, "\(id) \(scheme) hero ink got worse")
+      } else {
+        XCTAssertGreaterThanOrEqual(worst, 4.5, "\(id) \(scheme) hero text \(worst)")
+      }
+    }
+  }
+
+  func testWarmHeroSmallTextIsReadableAtBothGradientStops() {
+    for p in [ThemeCatalog.all[0].light, ThemeCatalog.all[0].dark] {
+      for surface in [p.heroStart, p.heroEnd] {
+        XCTAssertGreaterThanOrEqual(p.heroText.contrast(on: surface), 4.5)
+      }
+    }
+  }
+
+  func testGradientInkPreservesPassingTextAndFindsOneColourForBothStops() {
+    let white = ThemeColor(0xFFFF_FFFF)
+    let black = ThemeColor(0x0000_00FF)
+    let light = [white, ThemeColor(0xEEEE_EEFF)]
+    XCTAssertEqual(black.ensuringTextContrast(on: light), black)
+    // Sequential single-surface correction can undo the first correction. One ink must be
+    // checked against both stops on every search iteration.
+    let warm = [ThemeColor(0xF5A8_3AFF), ThemeColor(0xC269_2BFF)]
+    let adjusted = white.ensuringTextContrast(on: warm)
+    for surface in warm { XCTAssertGreaterThanOrEqual(adjusted.contrast(on: surface), 4.5) }
   }
 
   func testTextOnTheHeroIsReadableExceptOnTheLightOrange() {

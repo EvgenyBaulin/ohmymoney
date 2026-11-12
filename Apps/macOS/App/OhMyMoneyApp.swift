@@ -578,6 +578,7 @@ struct MainWindow: View {
       .appDependencies(deps)
     }
     .navigationTitle(windowTitle)
+    .mainContentAccessibility(windowTitle)
     .onChange(of: windowWidth, initial: true) { _, width in sidebar.resize(to: width) }
     // The menu remains usable while the native sidebar has no visible host. The sidebar
     // also accepts this notification when hosted independently of the main window.
@@ -1054,3 +1055,15 @@ struct SecondaryWindow<Content: View>: View {
       }
   }
 }
+
+extension View {
+  /// The content of the main window as one named container for VoiceOver and UI tests.
+  /// A function of its own: in the long chain of the window these three are too much for the
+  /// type checker.
+  fileprivate func mainContentAccessibility(_ title: String) -> some View {
+    accessibilityElement(children: .contain)
+      .accessibilityLabel(Text(verbatim: title))
+      .accessibilityIdentifier("main.content")
+  }
+}
+

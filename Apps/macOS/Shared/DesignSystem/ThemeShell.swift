@@ -54,7 +54,7 @@ struct SidebarHighlight: Equatable {
   }
 
   func text(_ theme: AppThemeColors) -> Color {
-    isSelected ? Color(theme.palette.sidebarSelectionText) : Color(theme.palette.contentPrimary)
+    isSelected ? Color(theme.palette.sidebarSelectionText) : Color(theme.palette.sidebarText)
   }
 
   /// The row's symbol follows its text, so the whole row changes with the theme.

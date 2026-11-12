@@ -54,6 +54,7 @@ struct ColumnChart: View {
           }
           .accessibilityLabel(Text(verbatim: column.spokenLabel))
           .accessibilityValue(Text(verbatim: column.valueText))
+          .accessibilityIdentifier("chart.native.column.\(column.id)")
       }
       if let average {
         RuleMark(y: .value("Average", average.value))
@@ -65,6 +66,8 @@ struct ColumnChart: View {
               .foregroundStyle(.secondary)
           }
           .accessibilityLabel(Text(verbatim: average.label))
+          .accessibilityValue(Text(verbatim: money.rubles(average.value)))
+          .accessibilityIdentifier("chart.native.average")
       }
       if !direct, let hovered, let column = byId[hovered] {
         RuleMark(x: .value("Bucket", column.id))
@@ -207,5 +210,6 @@ struct PairedColumnChart: View {
       }
       .accessibilityLabel(Text(verbatim: "\(pair.spokenLabel), \(style.label)"))
       .accessibilityValue(Text(verbatim: text))
+      .accessibilityIdentifier("chart.native.pair.\(id).\(style.id)")
   }
 }

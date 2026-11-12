@@ -97,4 +97,46 @@ public struct ThemeColor: Equatable, Hashable, Sendable {
     }
     return best
   }
+
+  /// Chooses one ink for a gradient without changing its stops. Where both ends cannot
+  /// reach AA with one colour, keep the black/white endpoint with the strongest worst ratio.
+  func ensuringTextContrast(on backgrounds: [ThemeColor]) -> ThemeColor {
+    guard let first = backgrounds.first else { return self }
+    func weakest(_ ink: ThemeColor) -> Double {  // stats-only
+      backgrounds.map { ink.contrast(on: $0) }.min() ?? 21
+    }
+    guard weakest(self) < 4.5 else { return self }
+    let visible = composited(over: first)
+    let endpoints = [ThemeColor(0x0000_00FF), ThemeColor(0xFFFF_FFFF)]
+    var fallback = self
+    var best: ThemeColor?
+    var smallestChange = Double.infinity  // stats-only
+    for endpoint in endpoints {
+      if weakest(endpoint) > weakest(fallback) { fallback = endpoint }
+      guard weakest(endpoint) >= 4.5 else { continue }
+      var low = 0.0  // stats-only
+      var high = 1.0  // stats-only
+      var passing = endpoint
+      for _ in 0..<20 {
+        let fraction = (low + high) / 2
+        func mix(_ start: UInt8, _ end: UInt8) -> UInt8 {
+          UInt8((Double(start) + (Double(end) - Double(start)) * fraction).rounded())
+        }
+        let candidate = ThemeColor(
+          red: mix(visible.red, endpoint.red), green: mix(visible.green, endpoint.green),
+          blue: mix(visible.blue, endpoint.blue))
+        if weakest(candidate) >= 4.5 {
+          high = fraction
+          passing = candidate
+        } else {
+          low = fraction
+        }
+      }
+      if high < smallestChange {
+        best = passing
+        smallestChange = high
+      }
+    }
+    return best ?? fallback
+  }
 }

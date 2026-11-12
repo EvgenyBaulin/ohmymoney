@@ -38,6 +38,7 @@
   /// One row of a card: symbol, title and hint, and the control (a switch, a value, a chevron).
   struct SettingsCardRow<Trailing: View>: View {
     @Environment(\.themeSurfaces) private var surfaces
+    @Namespace private var controlLabel
     var symbol: String?
     let title: String
     var hint: String?
@@ -62,6 +63,7 @@
             Text(verbatim: title)
               .appFont(AppFont.system(size: compact ? 13 : 14, weight: .medium))
               .foregroundStyle(surfaces.primary)
+              .accessibilityLabeledPair(role: .label, id: "control", in: controlLabel)
             if let hint {
               Text(verbatim: hint)
                 .appFont(compact ? AppFont.system(size: 11) : AppFont.callout)
@@ -71,6 +73,9 @@
           }
           Spacer(minLength: 8)
           trailing
+            .accessibilityLabeledPair(role: .content, id: "control", in: controlLabel)
+            .accessibilityLabel(Text(verbatim: title))
+            .accessibilityHint(Text(verbatim: hint ?? ""))
         }
         .padding(.horizontal, SettingsCardMetrics.rowHorizontal)
         .padding(
@@ -83,6 +88,7 @@
         }
       }
       .accessibilityElement(children: .contain)
+      .accessibilityLabel(Text(verbatim: title))
     }
   }
 
@@ -160,12 +166,14 @@
     func makeBody(configuration: Configuration) -> some View {
       configuration.label
         .appFont(AppFont.system(size: 13, weight: .medium))
-        .foregroundStyle(theme.contentPrimary)
+        .foregroundStyle(isEnabled ? theme.contentPrimary : theme.contentSecondary)
         .padding(.horizontal, Self.horizontal)
         .padding(.vertical, Self.vertical)
-        .background(theme.fillNeutral, in: .rect(cornerRadius: Self.radius))
+        .background(
+          isEnabled && configuration.isPressed ? theme.fillStrong : theme.fillNeutral,
+          in: .rect(cornerRadius: Self.radius)
+        )
         .contentShape(.rect(cornerRadius: Self.radius))
-        .opacity(isEnabled ? (configuration.isPressed ? 0.8 : 1) : 0.4)
     }
   }
 #endif

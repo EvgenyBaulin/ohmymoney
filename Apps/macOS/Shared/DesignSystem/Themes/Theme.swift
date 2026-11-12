@@ -14,6 +14,32 @@ extension ThemePalette {
   var sidebarSelectionText: ThemeColor {
     accentContent.ensuringTextContrast(on: accentTint.composited(over: surfaceSidebar))
   }
+
+  /// The sidebar's figures are small body text, even when the native source list dims them.
+  var sidebarSecondaryText: ThemeColor {
+    contentSecondary.ensuringTextContrast(on: surfaceSidebar.composited(over: surfaceBackground))
+  }
+
+  /// The sidebar's names, over the same translucent plate as its figures.
+  var sidebarText: ThemeColor {
+    contentPrimary.ensuringTextContrast(on: surfaceSidebar.composited(over: surfaceBackground))
+  }
+
+  var heroText: ThemeColor { heroContent.ensuringTextContrast(on: [heroStart, heroEnd]) }
+
+  var cardText: ThemeColor { contentPrimary.ensuringTextContrast(on: surfaceCard) }
+
+  var tintedCardText: ThemeColor {
+    contentPrimary.ensuringTextContrast(on: accentTint.composited(over: surfaceCard))
+  }
+
+  var plannedDayText: ThemeColor {
+    accentContent.ensuringTextContrast(on: accentTint.composited(over: surfaceCard))
+  }
+
+  var emptyDayText: ThemeColor {
+    contentPrimary.ensuringTextContrast(on: fillNeutral.composited(over: surfaceCard))
+  }
 }
 
 /// The colours of one theme in one scheme, ready to paint with: `theme.surfaceBackground`,

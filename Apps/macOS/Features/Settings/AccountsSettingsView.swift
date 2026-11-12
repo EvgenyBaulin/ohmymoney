@@ -412,25 +412,16 @@ struct AccountsSettingsView: View {
 
   /// «+ Добавить группу или банк…»: a group, a bank with its first account, or an account.
   private var addRow: some View {
-    Menu {
+    AccessibleMenu(
+      w("tree.add"), systemImage: "plus", identifier: "accounts.tree.add", showsTitle: true,
+      tint: theme.accentContent
+    ) {
       Button(t("accounts.newGroup")) { sheet = .group(nil) }
       Button(t("accounts.newBank")) { sheet = .bank(nil) }
         .accessibilityIdentifier("accounts.newBank")
       Button(t("accounts.newAccount")) { sheet = .account(nil) }
         .accessibilityIdentifier("accounts.newAccount")
-    } label: {
-      Label {
-        Text(verbatim: w("tree.add"))
-      } icon: {
-        Image(systemName: "plus")
-      }
-      .labelStyle(.titleAndIcon)
-      .appFont(.callout)
-      .foregroundStyle(theme.accentContent)
     }
-    .menuStyle(.borderlessButton)
-    .menuIndicator(.hidden)
-    .fixedSize()
     .padding(.horizontal, AccountsTreeMetrics.rowPadding)
     .frame(height: AccountsTreeMetrics.rowHeight)
     .listRowInsets(EdgeInsets())

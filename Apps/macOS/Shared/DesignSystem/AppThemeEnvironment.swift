@@ -24,7 +24,10 @@ extension View {
   /// The settings preview uses this with colours of its own; the scenes use it through
   /// `AppThemeModifier`.
   func themed(_ colors: AppThemeColors, accent: AppTheme.Accent) -> some View {
-    environment(\.appTheme, colors)
+    // Hierarchical `.secondary` must use the theme's opaque ink too; otherwise SwiftUI dims
+    // the primary ink over our custom backgrounds, independently of the contrast tokens.
+    foregroundStyle(colors.contentPrimary, colors.contentSecondary)
+      .environment(\.appTheme, colors)
       .environment(\.appAccent, accent.resolved(in: colors))
       .environment(\.themeSurfaces, ThemeSurfaces(colors))
       .tint(accent.resolvedTint(in: colors))
