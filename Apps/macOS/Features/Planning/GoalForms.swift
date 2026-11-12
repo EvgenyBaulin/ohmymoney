@@ -27,22 +27,15 @@ struct GoalForm: View {
 
   var body: some View {
     let namesake = Self.namesake(of: goal, isNew: original == nil, among: goals)
-    let taken = Self.liveNamesake(of: goal, among: goals)
     VStack(alignment: .leading) {
       Text(verbatim: t(original == nil ? "form.goal.new" : "form.goal.edit")).appFont(.headline)
       Form {
         TextField(t("form.name"), text: $goal.name)
           .onChange(of: goal.name) { _, _ in deletionNote = nil }
-        if taken != nil {
-          Label {
-            Text(verbatim: t("form.goal.liveNamesake"))
-          } icon: {
-            Image(systemName: "exclamationmark.circle")
-          }
-          .foregroundStyle(.secondary)
-          .accessibilityIdentifier("goal.liveNamesake")
-        } else if let namesake {
-          namesakeRow(namesake)
+        PlanningNamesakeNotice(
+          kind: .goal, id: goal.id, name: $goal.name, onChange: reloadGoals)
+        if let namesake {
+          oldNamesakeRow(namesake)
         }
         LabeledContent(t("form.goal.target")) {
           HStack {
@@ -103,7 +96,6 @@ struct GoalForm: View {
       FormButtons(
         title: environment.language("action.save"),
         enabled: !goal.name.trimmingCharacters(in: .whitespaces).isEmpty && goal.targetE4.raw > 0
-          && namesake == nil && taken == nil
       ) {
         guard let dependencies else { return false }
         return Self.save(
@@ -138,23 +130,14 @@ struct GoalForm: View {
     }
   }
 
-  /// Under the name of a new goal an archived goal has: «Такая цель есть в архиве», with
-  /// «Вернуть» — that goal back as it was, the form closed — and «Удалить старую…», until the
-  /// goal is found not deletable: then only «Вернуть» stays.
+  /// Under the name of a new goal an archived goal has, beside the notice (which offers to
+  /// bring it back or rename it): «Удалить старую…», until the goal is found not deletable.
+  /// Saving never waits for it.
   @ViewBuilder
-  private func namesakeRow(_ namesake: Goal) -> some View {
+  private func oldNamesakeRow(_ namesake: Goal) -> some View {
     VStack(alignment: .leading, spacing: 6) {
-      Label {
-        Text(verbatim: t("form.goal.archivedNamesake"))
-      } icon: {
-        Image(systemName: "archivebox")
-      }
-      .foregroundStyle(.secondary)
-      HStack {
-        Button(environment.language("goals.restore", table: "Settings")) { restore(namesake) }
-        if Self.offersDeletion(after: deletionNote) {
-          Button(t("form.goal.deleteOld")) { askToDelete(namesake) }
-        }
+      if Self.offersDeletion(after: deletionNote) {
+        Button(t("form.goal.deleteOld")) { askToDelete(namesake) }
       }
       if let deletionNote {
         Text(verbatim: t(deletionNote))
@@ -174,15 +157,6 @@ struct GoalForm: View {
 
   private func reloadGoals() {
     goals = (try? environment.references?.goals(includeArchived: true)) ?? []
-  }
-
-  private func restore(_ namesake: Goal) {
-    guard let dependencies else { return }
-    if GoalsBlock.restore(
-      namesake.id, with: PlanningActions(dependencies), references: environment.references)
-    {
-      dismiss()
-    }
   }
 
   /// The goal is not deleted when it has a contribution outside «Цели»: said under the buttons
@@ -234,12 +208,6 @@ struct GoalForm: View {
     return GoalRules.archivedNamesake(of: goal.name, among: goals)
   }
 
-  /// The live goal that already has the name the form holds — for a new goal, a rename and a
-  /// goal brought back alike; the goal itself is never its own namesake. «Такая цель уже есть».
-  static func liveNamesake(of goal: Goal, among goals: [Goal]) -> Goal? {
-    GoalRules.liveNamesake(of: goal.name, excluding: goal.id, among: goals)
-  }
-
   /// The goal as «Сохранить» writes it: no date unless it has one, and the month its plan
   /// counts from — this month for a plan that appears, none for a plan removed, the stored one
   /// otherwise (`GoalRules.withPlanStart`).
@@ -249,23 +217,13 @@ struct GoalForm: View {
     return GoalRules.withPlanStart(saved, previous: original, today: today)
   }
 
-  /// «Сохранить» of the form, one step of ⌘Z. A name the archive holds is never made a second
-  /// time: a new goal named as an archived one — compared the way the entry line compares
-  /// names — is not saved; the form offers to bring that goal back or to delete it first. A name
-  /// a live goal has is refused by the write itself (`PlanningActions.save`).
+  /// «Сохранить» of the form, one step of ⌘Z. A name another goal has, live or archived, never
+  /// stops it: the form advises renaming or bringing the old goal back.
   @discardableResult
   static func save(
     _ goal: Goal, isNew: Bool, with actions: PlanningActions, references: ReferenceRepository?
   ) -> Bool {
-    if isNew, archivedGoal(named: goal.name, references: references) != nil { return false }
-    return actions.save(goal)
-  }
-
-  /// The goal in the archive a new goal named `name` repeats; nil when none is there, or when
-  /// a live goal is already called that.
-  static func archivedGoal(named name: String, references: ReferenceRepository?) -> Goal? {
-    guard let all = try? references?.goals(includeArchived: true) else { return nil }
-    return GoalRules.archivedNamesake(of: name, among: all)
+    actions.save(goal)
   }
 
   /// A new goal counts in the default currency until another is picked.

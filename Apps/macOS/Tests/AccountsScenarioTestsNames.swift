@@ -348,12 +348,12 @@ final class AccountsScenarioCardRuleTests: XCTestCase {
       [.nameTaken(owner: .account(alfa.id))])
   }
 
-  func testAnArchivedAccountsNameIsNeverFree() {
+  func testAnArchivedAccountsNameIsAvailableForANewCard() {
     let old = PaymentMethod(name: "Старый", archived: true)
     let card = PaymentCard(accountId: sber.id, name: "Старый")
     XCTAssertEqual(
       CardRules.validate(card, previous: nil, cards: [], accounts: [sber, old]),
-      [.nameTaken(owner: .account(old.id))])
+      [])
   }
 
   func testAnArchivedCardsNameIsFree() {

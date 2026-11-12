@@ -33,6 +33,8 @@ struct CategoriesSettingsView: View {
   @State private var pastQuality: PastQualityQuestion?
   @State private var counting: Task<Void, Never>?
   @State private var newName = ""
+  /// One identity for the name being typed, so a hidden notice stays about this entry.
+  @State private var newNameId = UUID()
   @State private var newParent: UUID?
   @State private var kind: CategoryKind = .expense
   @State private var cashbackId: UUID?
@@ -208,6 +210,7 @@ struct CategoriesSettingsView: View {
         Button(environment.language("references.add", table: "Settings"), action: add)
           .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
       }
+      newNameNotice
 
       if let refusalKey {
         Text(verbatim: environment.language(refusalKey, table: "Settings"))
@@ -823,16 +826,15 @@ struct CategoriesSettingsView: View {
       categories[index].name = stored.name
       return
     }
-    guard !Self.nameIsTaken(renamed.name, by: stored, among: all) else {
-      categories[index].name = stored.name
-      refusalKey = "categories.rename.taken"
-      return
-    }
     guard
       environment.attempt("categories.save", on: environment.references, { try $0.save(renamed) })
     else {
       refused = true
       return
+    }
+    // The rename is written whatever the name; a namesake only gets a note under the list.
+    if Self.nameIsTaken(renamed.name, by: stored, among: all) {
+      refusalKey = "categories.rename.taken"
     }
     categories[index].name = renamed.name
     environment.refreshVocabulary()
@@ -1091,7 +1093,7 @@ struct CategoriesSettingsView: View {
 
   /// What came of «Добавить».
   enum AddOutcome: Equatable {
-    /// A new category, or the one the archive gave back: its id.
+    /// The new category's id.
     case added(UUID)
     /// `parent` cannot take a category of the kind (`acceptsParent`).
     case parentRefused
@@ -1100,26 +1102,26 @@ struct CategoriesSettingsView: View {
   }
 
   /// «Добавить»: a new category, made the way «Add…» of the ↓ panel makes one
-  /// (`NewReference`) — and like there, a name the archive holds beside the same parent brings
-  /// that category back instead of making a second one.
+  /// (`NewReference`) — and like there, a name another category has, live or archived, never
+  /// changes it: the screen advises renaming or bringing the archived one back.
   static func add(
     named name: String, kind: CategoryKind, parent: UUID?, references: ReferenceRepository
   ) -> AddOutcome {
     let all = (try? references.categories(includeArchived: true)) ?? []
     guard let category = NewReference.category(named: name, kind: kind, parent: parent, among: all)
     else { return .parentRefused }
-    if let archived = NewReference.archivedCategory(
-      named: name, kind: kind, parent: parent, among: all)
-    {
-      let restored = AppEnvironment.attempt("categories.add", on: references) {
-        try $0.restoreCategory(archived.id)
-      }
-      guard restored else { return .failed }
-      return .added(archived.id)
-    }
     guard AppEnvironment.attempt("categories.add", on: references, { try $0.save(category) })
     else { return .failed }
     return .added(category.id)
+  }
+
+  /// Advice under the field for the name of a new category: the same kind beside the same parent.
+  private var newNameNotice: some View {
+    let all = (try? environment.references?.categories(includeArchived: true)) ?? []
+    let ids = Set(all.filter { $0.kind == kind && $0.parentId == newParent }.map(\.id))
+    return PlanningNamesakeNotice(
+      kind: .category, id: newNameId, name: $newName, onChange: reload,
+      scope: { ids.contains($0.id) }, dismissesOnRestore: false)
   }
 
   private func add() {
@@ -1720,6 +1722,9 @@ enum EssentialChoice: String, CaseIterable, Hashable {
         }
         .padding(.horizontal, CategoriesMacMetrics.rowHorizontal)
         .padding(.vertical, CategoriesMacMetrics.rowVertical)
+        newNameNotice
+          .padding(.horizontal, CategoriesMacMetrics.rowHorizontal)
+          .padding(.bottom, CategoriesMacMetrics.rowVertical)
       }
     }
 

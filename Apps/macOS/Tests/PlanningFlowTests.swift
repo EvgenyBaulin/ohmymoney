@@ -733,7 +733,7 @@ final class EventBudgetFlowTests: XCTestCase {
     XCTAssertEqual(try events(), [], "one ⌘Z took the new event back")
   }
 
-  func testANameInTheArchiveComesBackAndATwinIsRefused() throws {
+  func testAnEventNamedLikeAnArchivedOrLiveOneIsSavedAsANewEvent() throws {
     let day = DateOnly(year: 2026, month: 10, day: 3)
     let trip = Event(name: "Trip", startDate: day, endDate: day.adding(days: 3), archived: true)
     try XCTUnwrap(environment.references).save(trip)
@@ -742,21 +742,18 @@ final class EventBudgetFlowTests: XCTestCase {
       name: "trip", startDate: day.adding(days: 1), endDate: day.adding(days: 5),
       budgetE4: AmountE4(whole: 50_000))
     XCTAssertTrue(actions.save(again))
-    let stored = try events()
-    XCTAssertEqual(stored.count, 1, "a second event beside the archived one")
-    XCTAssertEqual(stored.first?.id, trip.id)
-    XCTAssertEqual(stored.first?.archived, false)
-    XCTAssertEqual(stored.first?.budgetE4, AmountE4(whole: 50_000))
+    var stored = try events()
+    XCTAssertEqual(stored.count, 2, "the archived event was brought back instead of a new one")
+    XCTAssertEqual(stored.first { $0.id == trip.id }?.archived, true, "the archive was touched")
+    XCTAssertEqual(stored.first { $0.id == again.id }?.budgetE4, AmountE4(whole: 50_000))
 
     let twin = Event(name: "TRIP", startDate: day.adding(days: 2), endDate: day.adding(days: 2))
-    XCTAssertEqual(PlanningActions.issue(of: twin, among: stored), .sameNameAndDays)
-    XCTAssertFalse(actions.save(twin))
+    XCTAssertTrue(actions.save(twin), "a live namesake with the same days stopped the save")
+    stored = try events()
+    XCTAssertEqual(stored.count, 3)
     XCTAssertEqual(
       PlanningActions.issue(of: Event(name: "", startDate: day, endDate: day), among: []),
       .emptyName)
-    let nextYear = Event(
-      name: "Trip", startDate: day.adding(days: 365), endDate: day.adding(days: 366))
-    XCTAssertNil(PlanningActions.issue(of: nextYear, among: stored))
   }
 
   /// An event with a budget five months ahead is past the 120 days of «upcoming», but the
@@ -784,7 +781,7 @@ final class EventBudgetFlowTests: XCTestCase {
   func testTheWordsOfTheEventFormAreTranslated() {
     let keys = [
       "events.add", "events.edit", "events.form.new", "events.form.edit", "events.form.budget",
-      "events.form.budgetHint", "events.issue.emptyName", "events.issue.sameNameAndDays",
+      "events.form.budgetHint", "events.issue.emptyName",
       "free.noReconciliation", "free.grey", "free.perDay", "free.stillExpected",
       "free.excludedTitle", "planning.free.events", "free.mainSpendable", "free.moneyAndGoals",
       "free.overdue", "free.overdueReview", "reminders.overdue.title", "reminders.overdue.explain",

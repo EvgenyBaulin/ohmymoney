@@ -94,10 +94,14 @@ final class YearActionsTests: XCTestCase {
     XCTAssertEqual(goal.targetE4, expense.expectedAmount)
     XCTAssertEqual(goal.targetDate, expense.expectedDate)
     XCTAssertNotNil(goal.monthlyPlanE4)
-    // The same name again is refused: one saving for one expense.
-    XCTAssertFalse(actions.startReserve(expense, name: "Car insurance"))
-    let count = try await loaded().goals.count
-    XCTAssertEqual(count, 1)
+    // A name is not a reserve identity: a second deliberate creation remains independent.
+    XCTAssertTrue(actions.startReserve(expense, name: "Car insurance"))
+    let both = try await loaded().goals
+    XCTAssertEqual(both.count, 2)
+    XCTAssertEqual(Set(both.map(\.id)).count, 2)
+    store.undo()
+    let remaining = try await loaded().goals.filter { !$0.archived }
+    XCTAssertEqual(remaining.map(\.id), [goal.id])
     store.undo()
     let after = try await loaded().goals.filter { !$0.archived }
     XCTAssertTrue(after.isEmpty)

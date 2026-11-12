@@ -113,8 +113,7 @@ struct AccountSetupModel: Equatable {
   var defaultCurrency: CurrencyCode
   /// The currencies switched on now.
   let enabled: [CurrencyCode]
-  /// The archived accounts and groups: never listed, they only keep their names — and the
-  /// other names of the accounts — from being taken.
+  /// Archived accounts do not reserve names. Archived groups retain their separate rules.
   private(set) var archivedAccounts: [PaymentMethod] = []
   private(set) var archivedGroups: [AccountGroup] = []
   /// The cards of every account, archived ones included: a live card keeps its name from being
@@ -482,7 +481,10 @@ struct AccountSetupModel: Equatable {
     if let stored = account.stored, Self.nameKey(stored.name) == Self.nameKey(row.name) {
       return nil
     }
-    return CardRules.cardTaking(row.name, except: row.id, cards: cards)
+    return CardRules.cardTaking(
+      row.name, except: row.id,
+      cards: CardRules.liveNamingCards(
+        cards, accounts: accounts.map { self.row($0) } + archivedAccounts))
   }
 
   /// The account as «Готово» would write it: the row the database has, with what the sheet

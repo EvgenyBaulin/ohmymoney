@@ -7508,7 +7508,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "There is already a category with this name. The name stays as it was — choose another."
+            "value": "Another category has this name now. The rename is saved; you can rename either one."
           }
         },
         "es": {
@@ -7526,7 +7526,7 @@
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Категория с таким названием уже есть. Название осталось прежним — выберите другое."
+            "value": "Теперь есть ещё одна категория с таким названием. Переименование сохранено; можно переименовать любую из них."
           }
         },
         "uk": {
@@ -14797,42 +14797,6 @@
         }
       }
     },
-    "references.nameTaken": {
-      "comment": "Translation not verified by a native speaker.",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This name is already taken: the entry line would not tell the two apart."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Este nombre ya está en uso: la línea de entrada no distinguiría los dos."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ce nom est déjà pris : la ligne de saisie ne saurait pas les distinguer."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Это имя уже занято: строка ввода не различила бы двоих."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Цю назву вже зайнято: рядок вводу не зможе розрізнити записи."
-          }
-        }
-      }
-    },
     "references.pick": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -14901,42 +14865,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Назва не може бути порожньою."
-          }
-        }
-      }
-    },
-    "references.refusal.nameTaken": {
-      "comment": "Translation not verified by a native speaker.",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "«%@» already answers to this name: the entry line would not tell the two apart."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "«%@» ya responde a este nombre: la línea de entrada no distinguiría los dos."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "« %@ » répond déjà à ce nom : la ligne de saisie ne saurait pas les distinguer."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Это название уже у «%@» — строка ввода не различила бы две записи."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "«%@» уже використовує цю назву: рядок вводу не розрізнить записи."
           }
         }
       }

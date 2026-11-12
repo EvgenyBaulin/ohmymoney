@@ -700,9 +700,8 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
     await compute.stop()
   }
 
-  /// The first version let a new card take the name of one in the archive. After the update the
-  /// setup does not write two accounts of one name: it says so of the live one, and a new name
-  /// given right in the sheet lets «Готово» through — the archived one keeps its name.
+  /// An archived namesake does not stop setup after an update. Renaming remains optional,
+  /// while restoring the archive still respects the live account's name.
   func testALiveAccountNamedLikeAnArchivedOneIsRenamedRightInTheSetup() async throws {
     let url = try firstVersionInPlace()
     try FirstVersionFile.execute(
@@ -715,8 +714,8 @@ final class UpgradeFromFirstVersionTests: XCTestCase {
     let at = Date()
     let read = await AccountSetupExpectations.load(from: environment, at: at)
     model.setExpected(try XCTUnwrap(read))
-    XCTAssertEqual(model.issues, [.nameArchived(card)])
-    XCTAssertNil(model.plan(at: at))
+    XCTAssertEqual(model.issues, [])
+    XCTAssertNotNil(model.plan(at: at))
     // The words ask only for another name: bringing the archived one back is no way out for an
     // account the database has — Settings refuses it beside a live one of its name.
     let key = model.messageKey(for: .nameArchived(card))
@@ -1506,7 +1505,8 @@ extension UpgradeFromFirstVersionTests {
     let read = await AccountSetupExpectations.load(from: environment, at: at)
     model.setExpected(try XCTUnwrap(read))
     let added = try XCTUnwrap(model.addAccount(name: "old card", kind: .card))
-    XCTAssertEqual(model.issues, [.nameArchived(added)])
+    XCTAssertEqual(model.issues, [])
+    XCTAssertNotNil(model.plan(at: at))
     XCTAssertEqual(model.messageKey(for: .nameArchived(added)), "onboarding.issue.nameArchived")
 
     XCTAssertEqual(AccountActions(environment: environment, store: store).restore(oldCard), .done)

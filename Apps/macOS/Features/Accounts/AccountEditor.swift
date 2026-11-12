@@ -177,6 +177,8 @@ struct AccountEditor: View {
   let finish: (UUID?) -> Void
 
   @State private var draft: AccountDraft
+  @State private var newBankId = UUID()
+  @State private var firstCardId = UUID()
   @State private var books: AccountBooks?
   @State private var groups: [AccountGroup] = []
   @State private var banks: [Bank] = []
@@ -213,6 +215,9 @@ struct AccountEditor: View {
       Form {
         NameField(
           title: t("account.editor.name"), text: $draft.name, identifier: "account.editor.name")
+        PlanningNamesakeNotice(
+          kind: .account, id: draft.id, name: $draft.name,
+          otherNames: $draft.aliases, didRestore: { finish($0.id) })
         Picker(selection: $draft.kind) {
           ForEach(PaymentMethodKind.allCases, id: \.self) { kind in
             Text(verbatim: t(AccountText.kindKey(kind))).tag(kind)
@@ -258,6 +263,12 @@ struct AccountEditor: View {
               title: t("account.credit.firstCard"), text: $draft.firstCardName,
               prompt: draft.name.isEmpty ? nil : draft.name,
               identifier: "account.editor.firstCard")
+            PlanningNamesakeNotice(
+              kind: .card, id: firstCardId,
+              name: Binding(
+                get: { draft.firstCardName.isEmpty ? draft.name : draft.firstCardName },
+                set: { draft.firstCardName = $0 }), accountId: draft.id,
+              didRestore: { finish($0.id) })
           } footer: {
             Text(verbatim: t("account.credit.firstCardHint"))
               .foregroundStyle(.secondary)
@@ -372,6 +383,13 @@ struct AccountEditor: View {
           title: t("account.editor.bank.newName"), text: $draft.newBankName,
           prompt: draft.name.trimmingCharacters(in: .whitespaces),
           identifier: "account.editor.newBankName")
+        PlanningNamesakeNotice(
+          kind: .bank, id: newBankId,
+          name: Binding(
+            get: { draft.newBankName.isEmpty ? draft.name : draft.newBankName },
+            set: { draft.newBankName = $0 }),
+          didRestore: { draft.bankId = $0.id }, onChange: { banks = actions.banks },
+          dismissesOnRestore: false)
       }
     } footer: {
       Text(
@@ -572,7 +590,8 @@ struct AccountEditor: View {
     switch actions.save(
       account, previous: previous, openings: draft.isBorrowed ? [:] : openings, books: books,
       newBankNamed: draft.bankId == nil ? draft.newBankName : nil,
-      firstCardNamed: draft.firstCardName)
+      firstCardNamed: draft.firstCardName, newBankId: newBankId,
+      firstCardId: firstCardId)
     {
     case .done:
       Self.logCushion(of: account, previous: previous)

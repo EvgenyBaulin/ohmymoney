@@ -287,7 +287,7 @@ struct AccountRulesTests {
     #expect(
       AccountRules.validate(
         account(1, "old"), previous: nil, balances: empty, enabled: enabled, others: others)
-        == [.nameTaken])
+        == [])
     #expect(
       AccountRules.validate(
         account(1, "Т-Банк"), previous: nil, balances: empty, enabled: enabled, others: others

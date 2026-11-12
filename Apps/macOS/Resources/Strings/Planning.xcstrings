@@ -5385,41 +5385,6 @@
         }
       }
     },
-    "events.issue.sameNameAndDays": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Another event with this name covers some of these days."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Otro evento con este nombre cubre algunos de estos días."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un autre événement portant ce nom couvre certains de ces jours."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Другое событие с таким названием уже приходится на эти дни."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Інша подія з цією назвою охоплює частину цих днів."
-          }
-        }
-      }
-    },
     "events.lastTime": {
       "extractionState": "manual",
       "localizations": {
@@ -5828,6 +5793,23 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "expected.archiveAction": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archive"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В архив"
           }
         }
       }
@@ -7982,41 +7964,6 @@
         }
       }
     },
-    "form.goal.archivedNamesake": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A goal of this name is in the archive"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hay un objetivo con este nombre en el archivo"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un objectif de ce nom est aux archives"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Такая цель есть в архиве"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ціль із такою назвою є в архіві"
-          }
-        }
-      }
-    },
     "form.goal.date": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -8295,41 +8242,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "До дати"
-          }
-        }
-      }
-    },
-    "form.goal.liveNamesake": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A goal with this name already exists"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ya existe un objetivo con este nombre"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un objectif portant ce nom existe déjà"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Такая цель уже есть"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ціль із такою назвою вже є"
           }
         }
       }
@@ -18542,6 +18454,295 @@
           "stringUnit": {
             "state": "translated",
             "value": "Це не сума"
+          }
+        }
+      }
+    },
+    "namesake.archived": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is a record named “%@” in the archive."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В архиве есть такая же запись «%@»."
+          }
+        }
+      }
+    },
+    "namesake.canSave": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can save with this name or choose a different one."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Можно сохранить с этим именем или выбрать другое."
+          }
+        }
+      }
+    },
+    "namesake.financial.alias": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matching alias: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Совпавший псевдоним: %@"
+          }
+        }
+      }
+    },
+    "namesake.financial.notSaved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The action could not be completed. Check that the name and aliases are available among active records."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось выполнить действие. Проверьте, свободны ли имя и псевдонимы среди действующих записей."
+          }
+        }
+      }
+    },
+    "namesake.financial.renameArchivedAlias": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the archived record’s alias…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить псевдоним архивной записи…"
+          }
+        }
+      }
+    },
+    "namesake.financial.renameNewAlias": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change this record’s alias…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить псевдоним этой записи…"
+          }
+        }
+      }
+    },
+    "namesake.financial.restoreCardAccount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore the account and card from archive"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вернуть счёт и карту из архива"
+          }
+        }
+      }
+    },
+    "namesake.financial.unique": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Names and aliases of active accounts, cards and banks must stay unique. An archived namesake does not prevent saving."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Имена и псевдонимы действующих счетов, карт и банков должны различаться. Архивный тёзка не мешает сохранить запись."
+          }
+        }
+      }
+    },
+    "namesake.hidePair": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide warning for this pair"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скрыть предупреждение для этой пары"
+          }
+        }
+      }
+    },
+    "namesake.live": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is an active record named “%@”."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже есть действующая запись «%@»."
+          }
+        }
+      }
+    },
+    "namesake.noHistory": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No linked history yet. You can choose a different name for the archived record."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Связанной истории пока нет. Для архивной записи можно выбрать другое имя."
+          }
+        }
+      }
+    },
+    "namesake.rename": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rename"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переименовать"
+          }
+        }
+      }
+    },
+    "namesake.renameArchived": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rename the archived record…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переименовать архивную запись…"
+          }
+        }
+      }
+    },
+    "namesake.renameExisting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rename the existing record…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переименовать прежнюю запись…"
+          }
+        }
+      }
+    },
+    "namesake.renameNew": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rename this record…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переименовать эту запись…"
+          }
+        }
+      }
+    },
+    "namesake.restore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore from archive"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вернуть из архива"
+          }
+        }
+      }
+    },
+    "namesake.suggested": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggested name: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предлагаемое имя: %@"
           }
         }
       }

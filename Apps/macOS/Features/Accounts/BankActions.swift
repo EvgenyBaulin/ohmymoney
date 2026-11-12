@@ -29,11 +29,15 @@ extension AccountActions {
   /// and the card of that account, called like the bank too: one write, one step of ⌘Z. The
   /// account is checked as any new account is, so a name an account or a card already answers to
   /// is refused in words, and one in the archive offers to come back.
-  func createBank(named name: String, books: AccountBooks) -> BankCreation {
+  func createBank(named name: String, books: AccountBooks, id: UUID? = nil) -> BankCreation {
     let all = self.all
     let banks = self.banks
-    let kit = BankRules.startingKit(
+    var kit = BankRules.startingKit(
       named: name, currency: environment.defaultCurrency, accounts: all, banks: banks)
+    if let id {
+      kit.bank.id = id
+      kit.account.bankId = id
+    }
     if let refusal = Self.refusal(saving: kit.bank, among: banks) {
       return BankCreation(outcome: .refused(refusal), accountId: nil)
     }
