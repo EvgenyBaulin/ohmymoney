@@ -306,6 +306,8 @@ public struct DebtDueState: Hashable, Sendable {
   /// not before the first due and not before the first unpaid one, something is owed, and the
   /// unpaid dues before it do not already pay off what is left of the debt.
   public func isUnpaid(_ day: DateOnly) -> Bool {
+    // A day inside a pause is no due: the pause skipped it, whatever is unpaid before it.
+    if let pause, pause.isValid, explicitDates.isEmpty, pause.contains(day) { return false }
     guard let first = firstUnpaid, day >= first else { return false }
     guard let index = index(of: day) else { return true }
     return !asksNothing(index) && !paysOff(beforeIndex: index)
