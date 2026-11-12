@@ -157,7 +157,7 @@ final class OperationsFigmaTests: XCTestCase {
     XCTAssertEqual(OperationsMetrics.padRowVertical, 8)
     XCTAssertEqual(OperationsMetrics.padDayTop, 8)
     XCTAssertEqual(OperationsMetrics.padDayBottom, 4)
-    XCTAssertEqual(OperationsMetrics.phonePageSide, 16)
+    XCTAssertEqual(OperationsMetrics.phonePageSide, PhoneMetrics.screenMargin)
     XCTAssertEqual(OperationsMetrics.phoneStackGap, 10)
     XCTAssertEqual(OperationsMetrics.phoneDayInset, 6)
     XCTAssertEqual(OperationsMetrics.phoneDayGap, 4)

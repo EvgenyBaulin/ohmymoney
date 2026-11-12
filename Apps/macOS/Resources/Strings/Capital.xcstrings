@@ -4,22 +4,34 @@
     "capital.accrued": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ налічана ≈ %@, не ўлічваецца да выплаты"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ aufgelaufen ≈ %@, nicht gezählt, bis es ausgezahlt ist"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "+ accrued ≈ %@, not counted until paid"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ acumulado ≈ %@, no se cuenta hasta que se cobre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ accumulés ≈ %@, non comptés tant qu'ils ne sont pas versés"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ начислено ≈ %@, не учтено до выплаты"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ нараховано ≈ %@, не враховується, доки не сплачено"
           }
         },
         "it": {
@@ -34,10 +46,16 @@
             "value": "+ есептелген ≈ %@, төленгенше саналмайды"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "+ начислено ≈ %@, не учтено до выплаты"
+            "value": "+ налічана ≈ %@, не ўлічваецца да выплаты"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ aufgelaufen ≈ %@, nicht gezählt, bis es ausgezahlt ist"
           }
         }
       }
@@ -45,22 +63,34 @@
     "capital.assetKind.equipment": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Абсталяванне"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ausrüstung"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Equipment"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equipo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Équipement"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Техника"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обладнання"
           }
         },
         "it": {
@@ -75,10 +105,16 @@
             "value": "Жабдық"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Техника"
+            "value": "Абсталяванне"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausrüstung"
           }
         }
       }
@@ -86,22 +122,34 @@
     "capital.assetKind.investment": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Інвестыцыі"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geldanlagen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Investments"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inversiones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Placements"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Инвестиции"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інвестиції"
           }
         },
         "it": {
@@ -116,10 +164,16 @@
             "value": "Инвестициялар"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Инвестиции"
+            "value": "Інвестыцыі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geldanlagen"
           }
         }
       }
@@ -128,34 +182,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Іншае"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sonstiges"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Other"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Altro"
+            "value": "Otro"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Басқа"
+            "value": "Autre"
           }
         },
         "ru": {
@@ -169,28 +211,64 @@
             "state": "translated",
             "value": "Інші"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқа"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altro"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іншае"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonstiges"
+          }
         }
       }
     },
     "capital.assetKind.realty": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нерухомасць"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Immobilie"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Real estate"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inmueble"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immobilier"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недвижимость"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нерухомість"
           }
         },
         "it": {
@@ -205,10 +283,16 @@
             "value": "Жылжымайтын мүлік"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Недвижимость"
+            "value": "Нерухомасць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immobilie"
           }
         }
       }
@@ -216,22 +300,34 @@
     "capital.assetKind.vehicle": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Транспарт"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fahrzeuge"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Vehicles"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vehículos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Véhicules"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Транспорт"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Транспорт"
           }
         },
         "it": {
@@ -246,10 +342,16 @@
             "value": "Көлік құралдары"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Транспорт"
+            "value": "Транспарт"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fahrzeuge"
           }
         }
       }
@@ -257,22 +359,34 @@
     "capital.assets.add": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дадаць маёмасць…"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vermögenswert hinzufügen…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Add property…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir bien…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajouter un bien…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить имущество…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати майно…"
           }
         },
         "it": {
@@ -287,10 +401,16 @@
             "value": "Мүлік қосу…"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добавить имущество…"
+            "value": "Дадаць маёмасць…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermögenswert hinzufügen…"
           }
         }
       }
@@ -299,34 +419,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Выдаліць…"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Löschen…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Delete…"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Elimina…"
+            "value": "Eliminar…"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жою…"
+            "value": "Supprimer…"
           }
         },
         "ru": {
@@ -340,28 +448,64 @@
             "state": "translated",
             "value": "Видалити…"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жою…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina…"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löschen…"
+          }
         }
       }
     },
     "capital.assets.delete.message": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маёмасць будзе выдалена разам з усімі ацэнкамі. ⌘Z верне іх."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Vermögenswert geht mit allen seinen Bewertungen. ⌘Z holt sie zurück."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The property goes with all its valuations. ⌘Z brings them back."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El bien se elimina con todas sus valoraciones. ⌘Z las devuelve."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le bien part avec toutes ses estimations. ⌘Z les rétablit."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалятся имущество и все его оценки. ⌘Z вернёт их."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Майно видаляється разом з усіма його оцінками. ⌘Z поверне їх."
           }
         },
         "it": {
@@ -376,10 +520,16 @@
             "value": "Мүлік барлық бағалауымен бірге кетеді. ⌘Z оларды қайтарады."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Удалятся имущество и все его оценки. ⌘Z вернёт их."
+            "value": "Маёмасць будзе выдалена разам з усімі ацэнкамі. ⌘Z верне іх."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Vermögenswert geht mit allen seinen Bewertungen. ⌘Z holt sie zurück."
           }
         }
       }
@@ -387,22 +537,34 @@
     "capital.assets.delete.message.touch": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маёмасць будзе выдалена разам з усімі ацэнкамі. “Адмяніць” верне іх."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Vermögenswert geht mit allen seinen Bewertungen. „Rückgängig“ holt sie zurück."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The property goes with all its valuations. “Undo” brings them back."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El bien se elimina con todas sus valoraciones. «Deshacer» las devuelve."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le bien part avec toutes ses estimations. « Annuler » les rétablit."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалятся имущество и все его оценки. «Отменить» вернёт их."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Майно видаляється разом з усіма його оцінками. «Скасувати» поверне їх."
           }
         },
         "it": {
@@ -417,10 +579,16 @@
             "value": "Мүлік барлық бағалауымен бірге кетеді. «Болдырмау» оларды қайтарады."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Удалятся имущество и все его оценки. «Отменить» вернёт их."
+            "value": "Маёмасць будзе выдалена разам з усімі ацэнкамі. “Адмяніць” верне іх."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Vermögenswert geht mit allen seinen Bewertungen. „Rückgängig“ holt sie zurück."
           }
         }
       }
@@ -429,34 +597,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Выдаліць «%@»?"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "„%@“ löschen?"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Delete «%@»?"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eliminare «%@»?"
+            "value": "¿Eliminar «%@»?"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "«%@» жойылсын ба?"
+            "value": "Supprimer « %@ » ?"
           }
         },
         "ru": {
@@ -470,28 +626,64 @@
             "state": "translated",
             "value": "Видалити «%@»?"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» жойылсын ба?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminare «%@»?"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць «%@»?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ löschen?"
+          }
         }
       }
     },
     "capital.assets.dispose": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Прададзена / спісана…"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verkauft / abgeschrieben…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Sold / written off…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendido / dado de baja…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendu / radié…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продано / списано…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продано / списано…"
           }
         },
         "it": {
@@ -506,10 +698,16 @@
             "value": "Сатылды / есептен шығарылды…"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продано / списано…"
+            "value": "Прададзена / спісана…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verkauft / abgeschrieben…"
           }
         }
       }
@@ -517,22 +715,34 @@
     "capital.assets.disposed": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Прададзена"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verkauft"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Sold"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendidos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendus"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проданное"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продано"
           }
         },
         "it": {
@@ -547,10 +757,16 @@
             "value": "Сатылды"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проданное"
+            "value": "Прададзена"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verkauft"
           }
         }
       }
@@ -558,22 +774,34 @@
     "capital.assets.disposedOn": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "прададзена або спісана %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "verkauft oder abgeschrieben am %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "sold or written off on %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vendido o dado de baja el %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vendu ou radié le %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "продано или списано %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "продано або списано %@"
           }
         },
         "it": {
@@ -588,10 +816,16 @@
             "value": "%@ күні сатылды немесе есептен шығарылды"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "продано или списано %@"
+            "value": "прададзена або спісана %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "verkauft oder abgeschrieben am %@"
           }
         }
       }
@@ -600,34 +834,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Рэдагаваць…"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bearbeiten…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Edit…"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Modifica…"
+            "value": "Editar…"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Өңдеу…"
+            "value": "Modifier…"
           }
         },
         "ru": {
@@ -641,28 +863,64 @@
             "state": "translated",
             "value": "Редагувати…"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өңдеу…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifica…"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэдагаваць…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeiten…"
+          }
         }
       }
     },
     "capital.assets.empty": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Аўтамабіль, абсталяванне, брокерскі рахунак, кватэра: ацаніце іх уручную, і яны ўвойдуць у чысты капітал."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ein Auto, Ausrüstung, ein Brokerkonto, eine Wohnung: Bewerten Sie es von Hand, dann zählt es im Vermögen mit."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "A car, equipment, a brokerage account, a flat: value it by hand and it counts in net worth."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un coche, un equipo, una cuenta de inversión, un piso: valórelo a mano y cuenta en el patrimonio neto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une voiture, un équipement, un compte-titres, un appartement : estimez-le à la main et il compte dans le patrimoine net."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Машина, техника, брокерский счёт, квартира: оцените вручную, и это войдёт в капитал."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Автомобіль, обладнання, брокерський рахунок, квартира: оцініть вручну, і вони враховуються в чистому капіталі."
           }
         },
         "it": {
@@ -677,10 +935,16 @@
             "value": "Көлік, жабдық, брокерлік шот, пәтер: оны қолмен бағалаңыз — ол таза байлыққа есептеледі."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Машина, техника, брокерский счёт, квартира: оцените вручную, и это войдёт в капитал."
+            "value": "Аўтамабіль, абсталяванне, брокерскі рахунак, кватэра: ацаніце іх уручную, і яны ўвойдуць у чысты капітал."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Auto, Ausrüstung, ein Brokerkonto, eine Wohnung: Bewerten Sie es von Hand, dann zählt es im Vermögen mit."
           }
         }
       }
@@ -688,22 +952,34 @@
     "capital.assets.history": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Гісторыя ацэнак"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verlauf der Bewertungen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Valuation history"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historial de valoraciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historique des estimations"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "История оценок"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Історія оцінок"
           }
         },
         "it": {
@@ -718,10 +994,16 @@
             "value": "Бағалау тарихы"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "История оценок"
+            "value": "Гісторыя ацэнак"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlauf der Bewertungen"
           }
         }
       }
@@ -729,22 +1011,34 @@
     "capital.assets.menu": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дзеянні з «%@»"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aktionen mit „%@“"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Actions with «%@»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acciones con «%@»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actions avec « %@ »"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Действия с «%@»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дії з «%@»"
           }
         },
         "it": {
@@ -759,10 +1053,16 @@
             "value": "«%@» әрекеттері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Действия с «%@»"
+            "value": "Дзеянні з «%@»"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktionen mit „%@“"
           }
         }
       }
@@ -770,22 +1070,34 @@
     "capital.assets.newValuation": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новая ацэнка…"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neue Bewertung…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "New valuation…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nueva valoración…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouvelle estimation…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая оценка…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нова оцінка…"
           }
         },
         "it": {
@@ -800,10 +1112,16 @@
             "value": "Жаңа бағалау…"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая оценка…"
+            "value": "Новая ацэнка…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Bewertung…"
           }
         }
       }
@@ -812,34 +1130,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маёмасць"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vermögen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Property"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beni"
+            "value": "Bienes"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мүлік"
+            "value": "Biens"
           }
         },
         "ru": {
@@ -853,28 +1159,64 @@
             "state": "translated",
             "value": "Майно"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мүлік"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beni"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маёмасць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermögen"
+          }
         }
       }
     },
     "capital.assets.undispose": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не прададзена"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nicht verkauft"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Not sold"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No vendido"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non vendu"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не продано"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не продано"
           }
         },
         "it": {
@@ -889,10 +1231,16 @@
             "value": "Сатылмады"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не продано"
+            "value": "Не прададзена"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht verkauft"
           }
         }
       }
@@ -900,22 +1248,34 @@
     "capital.assets.unvalued": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Яшчэ не ацэнена"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Noch keine Bewertung"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No valuation yet"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía sin valoración"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore d'estimation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ещё нет оценки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оцінки ще немає"
           }
         },
         "it": {
@@ -930,10 +1290,16 @@
             "value": "Бағалау әлі жоқ"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ещё нет оценки"
+            "value": "Яшчэ не ацэнена"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Bewertung"
           }
         }
       }
@@ -941,22 +1307,34 @@
     "capital.assets.valuedOn": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ацэнена %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "bewertet am %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "valued on %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "valorado el %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "estimé le %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оценка на %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оцінено %@"
           }
         },
         "it": {
@@ -971,17 +1349,6 @@
             "value": "%@ күні бағаланған"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "оценка на %@"
-          }
-        }
-      }
-    },
-    "capital.assets.valuedShort": {
-      "extractionState": "manual",
-      "localizations": {
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -991,13 +1358,42 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "bewertet %@"
+            "value": "bewertet am %@"
           }
-        },
+        }
+      }
+    },
+    "capital.assets.valuedShort": {
+      "extractionState": "manual",
+      "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "valued %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "valorado %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "estimé %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оценка %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "оцінено %@"
           }
         },
         "it": {
@@ -1012,10 +1408,16 @@
             "value": "бағаланған %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "оценка %@"
+            "value": "ацэнена %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bewertet %@"
           }
         }
       }
@@ -1023,22 +1425,34 @@
     "capital.breakdown.title": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Склад капіталу"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Woraus es besteht"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "What it is made of"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De qué está compuesto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De quoi il se compose"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Из чего складывается"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З чого складається"
           }
         },
         "it": {
@@ -1053,10 +1467,16 @@
             "value": "Неден құралған"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Из чего складывается"
+            "value": "Склад капіталу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Woraus es besteht"
           }
         }
       }
@@ -1065,34 +1485,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Усё"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "All"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tutto"
+            "value": "Todo"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Барлығы"
+            "value": "Tout"
           }
         },
         "ru": {
@@ -1106,28 +1514,64 @@
             "state": "translated",
             "value": "Усі"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлығы"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutto"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Усё"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle"
+          }
         }
       }
     },
     "capital.chart.have": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маю"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haben"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Have"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tengo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avoirs"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маю"
           }
         },
         "it": {
@@ -1142,10 +1586,16 @@
             "value": "Бар"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Есть"
+            "value": "Маю"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haben"
           }
         }
       }
@@ -1153,22 +1603,34 @@
     "capital.chart.net": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Чысты капітал"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vermögen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Net worth"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimonio neto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimoine net"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Капитал"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чистий капітал"
           }
         },
         "it": {
@@ -1183,10 +1645,16 @@
             "value": "Таза байлық"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Капитал"
+            "value": "Чысты капітал"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermögen"
           }
         }
       }
@@ -1194,22 +1662,34 @@
     "capital.chart.notEnough": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Для графіка патрэбны канец хаця б аднаго поўнага месяца."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Das Diagramm braucht das Ende von mindestens einem vollen Monat."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The chart needs the end of at least one full month."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El gráfico necesita el cierre de al menos un mes completo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le graphique demande la fin d'au moins un mois complet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для графика нужен конец хотя бы одного полного месяца."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для графіка потрібен кінець хоча б одного повного місяця."
           }
         },
         "it": {
@@ -1224,10 +1704,16 @@
             "value": "Графикке кем дегенде бір толық айдың соңы керек."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Для графика нужен конец хотя бы одного полного месяца."
+            "value": "Для графіка патрэбны канец хаця б аднаго поўнага месяца."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Diagramm braucht das Ende von mindestens einem vollen Monat."
           }
         }
       }
@@ -1235,22 +1721,34 @@
     "capital.chart.now": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "цяпер"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "jetzt"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "now"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ahora"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "maintenant"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сейчас"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "зараз"
           }
         },
         "it": {
@@ -1265,10 +1763,16 @@
             "value": "қазір"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "сейчас"
+            "value": "цяпер"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "jetzt"
           }
         }
       }
@@ -1276,22 +1780,34 @@
     "capital.chart.owe": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Павінен"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schulden"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Owe"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dettes"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Должен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Винен"
           }
         },
         "it": {
@@ -1306,10 +1822,16 @@
             "value": "Берешек"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Должен"
+            "value": "Павінен"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schulden"
           }
         }
       }
@@ -1318,34 +1840,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Перыяд"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zeitraum"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Period"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Periodo"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Кезең"
+            "value": "Période"
           }
         },
         "ru": {
@@ -1359,28 +1869,64 @@
             "state": "translated",
             "value": "Період"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кезең"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Periodo"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перыяд"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeitraum"
+          }
         }
       }
     },
     "capital.chart.title": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Чысты капітал па месяцах"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vermögen nach Monat"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Net worth by month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimonio neto por mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimoine net par mois"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Капитал по месяцам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чистий капітал за місяцями"
           }
         },
         "it": {
@@ -1395,10 +1941,16 @@
             "value": "Ай бойынша таза байлық"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Капитал по месяцам"
+            "value": "Чысты капітал па месяцах"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermögen nach Monat"
           }
         }
       }
@@ -1407,34 +1959,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "сёння"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "heute"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "today"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "oggi"
+            "value": "hoy"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "бүгін"
+            "value": "aujourd'hui"
           }
         },
         "ru": {
@@ -1448,6 +1988,30 @@
             "state": "translated",
             "value": "сьогодні"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бүгін"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "oggi"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сёння"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "heute"
+          }
         }
       }
     },
@@ -1455,34 +2019,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "12 месяцаў"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "12 Monate"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "12 months"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "12 mesi"
+            "value": "12 meses"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "12 ай"
+            "value": "12 mois"
           }
         },
         "ru": {
@@ -1496,28 +2048,64 @@
             "state": "translated",
             "value": "12 місяців"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 ай"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 mesi"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 месяцаў"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 Monate"
+          }
         }
       }
     },
     "capital.chart.yearShort": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 mo."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 m."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 m."
+          }
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "12 мес."
           }
         },
-        "de": {
+        "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "12 Mon."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "12 mo."
+            "value": "12 міс."
           }
         },
         "it": {
@@ -1532,10 +2120,16 @@
             "value": "12 ай"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
             "value": "12 мес."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 Mon."
           }
         }
       }
@@ -1543,22 +2137,34 @@
     "capital.countedTwice": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "«%@» — і рахунак з адмоўным балансам, і доўг па крэдытнай карце: сума можа быць аднята двойчы."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "„%@“ ist sowohl ein Konto im Minus als auch eine Kreditkartenschuld: Sein Geld könnte zweimal abgezogen werden."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "«%@» is both an account below zero and a credit card debt: its money may be taken off twice."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» es a la vez una cuenta en negativo y una deuda de tarjeta de crédito: su dinero podría restarse dos veces."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« %@ » est à la fois un compte à découvert et une dette de carte de crédit : son argent risque d'être retiré deux fois."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» — и счёт в минусе, и долг по кредитной карте: его деньги могут вычитаться дважды."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» — і рахунок з мінусовим залишком, і борг по кредитній картці: його гроші можуть бути відняті двічі."
           }
         },
         "it": {
@@ -1573,10 +2179,16 @@
             "value": "«%@» — нөлден төмен есеп-шот та, кредиттік карта берешегі де: оның ақшасы екі рет алынуы мүмкін."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "«%@» — и счёт в минусе, и долг по кредитной карте: его деньги могут вычитаться дважды."
+            "value": "«%@» — і рахунак з адмоўным балансам, і доўг па крэдытнай карце: сума можа быць аднята двойчы."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ ist sowohl ein Konto im Minus als auch eine Kreditkartenschuld: Sein Geld könnte zweimal abgezogen werden."
           }
         }
       }
@@ -1584,22 +2196,34 @@
     "capital.cushion.goal": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "мэта: %@ мес."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ziel %@ Mon."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "goal %@ mo."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "objetivo %@ meses"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "objectif %@ mois"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "цель %@ мес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ціль %@ міс."
           }
         },
         "it": {
@@ -1614,10 +2238,16 @@
             "value": "мақсат %@ ай"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "цель %@ мес."
+            "value": "мэта: %@ мес."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel %@ Mon."
           }
         }
       }
@@ -1625,22 +2255,34 @@
     "capital.cushion.lasts": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Хопіць на %@ мес."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reicht %@ Mon."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Lasts %@ mo."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dura %@ meses"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tient %@ mois"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проживёте %@ мес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вистачає на %@ міс."
           }
         },
         "it": {
@@ -1655,10 +2297,16 @@
             "value": "%@ айға жетеді"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проживёте %@ мес."
+            "value": "Хопіць на %@ мес."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reicht %@ Mon."
           }
         }
       }
@@ -1666,22 +2314,34 @@
     "capital.cushion.monthly": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "неабходныя выдаткі %@/мес."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "notwendige Ausgaben %@/Mon."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "essential spending %@/mo."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gasto esencial %@/mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dépenses essentielles %@/mois"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "обязательные траты %@/мес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "необхідні витрати %@/міс."
           }
         },
         "it": {
@@ -1696,10 +2356,16 @@
             "value": "маңызды шығыс %@/ай"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "обязательные траты %@/мес."
+            "value": "неабходныя выдаткі %@/мес."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "notwendige Ausgaben %@/Mon."
           }
         }
       }
@@ -1707,22 +2373,34 @@
     "capital.details.title": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Што маю і што павінен"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Was ich habe und schulde"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "What I have and owe"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que tengo y lo que debo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que j'ai et ce que je dois"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что есть и что должен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що маю і що винен"
           }
         },
         "it": {
@@ -1737,10 +2415,16 @@
             "value": "Менде не бар және кімге қарыздармын"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Что есть и что должен"
+            "value": "Што маю і што павінен"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was ich habe und schulde"
           }
         }
       }
@@ -1749,34 +2433,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дата"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Am"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "On"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Data"
+            "value": "El"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Күні"
+            "value": "Le"
           }
         },
         "ru": {
@@ -1790,28 +2462,64 @@
             "state": "translated",
             "value": "Дата"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күні"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Am"
+          }
         }
       }
     },
     "capital.dispose.hint": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Улічваецца да папярэдняга дня ўключна, пасля чаго выключаецца з чыстага капіталу і трапляе ў «Прададзена»."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Es zählt bis zum Vortag, dann verlässt es das Vermögen und steht unter „Verkauft“."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "It counts through the day before, then it leaves net worth and is listed under «Sold»."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta hasta el día anterior; después sale del patrimonio neto y aparece en «Vendidos»."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il compte jusqu'à la veille, puis il sort du patrimoine net et figure dans « Vendus »."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Считается по предыдущий день, потом уходит из капитала в «Проданное»."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Майно враховується до попереднього дня, потім виходить з чистого капіталу і з'являється в «Продано»."
           }
         },
         "it": {
@@ -1826,10 +2534,16 @@
             "value": "Ол алдыңғы күнге дейін есептеледі, содан кейін таза байлықтан шығып, «Сатылды» тізімінде көрсетіледі."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Считается по предыдущий день, потом уходит из капитала в «Проданное»."
+            "value": "Улічваецца да папярэдняга дня ўключна, пасля чаго выключаецца з чыстага капіталу і трапляе ў «Прададзена»."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es zählt bis zum Vortag, dann verlässt es das Vermögen und steht unter „Verkauft“."
           }
         }
       }
@@ -1837,22 +2551,34 @@
     "capital.dispose.title": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "«%@» прададзена або спісана"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "„%@“ verkauft oder abgeschrieben"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "«%@» sold or written off"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» vendido o dado de baja"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« %@ » vendu ou radié"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» продано или списано"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» продано або списано"
           }
         },
         "it": {
@@ -1867,10 +2593,16 @@
             "value": "«%@» сатылды немесе есептен шығарылды"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "«%@» продано или списано"
+            "value": "«%@» прададзена або спісана"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„%@“ verkauft oder abgeschrieben"
           }
         }
       }
@@ -1879,6 +2611,48 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Currency"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divisa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devise"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valuta"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1890,36 +2664,6 @@
             "state": "translated",
             "value": "Währung"
           }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Currency"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Valuta"
-          }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Валюта"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Валюта"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Валюта"
-          }
         }
       }
     },
@@ -1927,6 +2671,48 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На дату"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На дату"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күні"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1938,36 +2724,6 @@
             "state": "translated",
             "value": "Am"
           }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Data"
-          }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Күні"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На дату"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На дату"
-          }
         }
       }
     },
@@ -1975,34 +2731,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маёмасць"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vermögenswert"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Property"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bene"
+            "value": "Bien"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мүлік"
+            "value": "Bien"
           }
         },
         "ru": {
@@ -2016,6 +2760,30 @@
             "state": "translated",
             "value": "Майно"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мүлік"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bene"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маёмасць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermögenswert"
+          }
         }
       }
     },
@@ -2023,34 +2791,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Тып"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Art"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Kind"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Tipo"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Түрі"
+            "value": "Type"
           }
         },
         "ru": {
@@ -2064,6 +2820,30 @@
             "state": "translated",
             "value": "Вид"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түрі"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тып"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Art"
+          }
         }
       }
     },
@@ -2071,34 +2851,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Назва"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Name"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Name"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nome"
+            "value": "Nombre"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Атауы"
+            "value": "Nom"
           }
         },
         "ru": {
@@ -2112,28 +2880,64 @@
             "state": "translated",
             "value": "Назва"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Атауы"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nome"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name"
+          }
         }
       }
     },
     "capital.editor.new": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новая маёмасць"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neuer Vermögenswert"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "New property"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo bien"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveau bien"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новое имущество"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нове майно"
           }
         },
         "it": {
@@ -2148,10 +2952,16 @@
             "value": "Жаңа мүлік"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новое имущество"
+            "value": "Новая маёмасць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neuer Vermögenswert"
           }
         }
       }
@@ -2160,34 +2970,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нататка"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Notiz"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Note"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "Nota"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ескерту"
+            "value": "Remarque"
           }
         },
         "ru": {
@@ -2201,28 +2999,64 @@
             "state": "translated",
             "value": "Примітка"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ескерту"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нататка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notiz"
+          }
         }
       }
     },
     "capital.editor.value": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Кошт"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wert"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Value"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valeur"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стоимость"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вартість"
           }
         },
         "it": {
@@ -2237,10 +3071,16 @@
             "value": "Құны"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Стоимость"
+            "value": "Кошт"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wert"
           }
         }
       }
@@ -2248,22 +3088,34 @@
     "capital.editor.valueHint": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Новыя ацэнкі: «Новая ацэнка…» ў меню адпаведнага радка."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neue Werte: „Neue Bewertung…“ im Menü seiner Zeile."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "New values: «New valuation…» in the menu of its row."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevos valores: «Nueva valoración…» en el menú de su fila."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouvelles valeurs : « Nouvelle estimation… » dans le menu de sa ligne."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая стоимость — «Новая оценка…» в меню строки."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нові вартості: «Нова оцінка…» в меню його рядка."
           }
         },
         "it": {
@@ -2278,10 +3130,16 @@
             "value": "Жаңа құн: жолының мәзірінде «Жаңа бағалау…»."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая стоимость — «Новая оценка…» в меню строки."
+            "value": "Новыя ацэнкі: «Новая ацэнка…» ў меню адпаведнага радка."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neue Werte: „Neue Bewertung…“ im Menü seiner Zeile."
           }
         }
       }
@@ -2289,22 +3147,34 @@
     "capital.empty": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Пакуль няма чаго падлічваць: зверце рахунак або дадайце маёмасць."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Noch nichts zu zählen: Gleichen Sie ein Konto ab oder fügen Sie einen Vermögenswert hinzu."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Nothing to count yet: reconcile an account or add property."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay nada que contar: concilie una cuenta o añada un bien."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien à compter pour l'instant : rapprochez un compte ou ajoutez un bien."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нечего считать: сверьте счёт или добавьте имущество."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поки нічого порахувати: звірте рахунок або додайте майно."
           }
         },
         "it": {
@@ -2319,10 +3189,16 @@
             "value": "Есептеуге әлі ештеңе жоқ: есеп-шотты салыстырыңыз немесе мүлік қосыңыз."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пока нечего считать: сверьте счёт или добавьте имущество."
+            "value": "Пакуль няма чаго падлічваць: зверце рахунак або дадайце маёмасць."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nichts zu zählen: Gleichen Sie ein Konto ab oder fügen Sie einen Vermögenswert hinzu."
           }
         }
       }
@@ -2330,22 +3206,34 @@
     "capital.group.accounts": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Рахункі ў аглядзе"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Konten in der Übersicht"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Accounts in the summary"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuentas en el resumen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptes du récapitulatif"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счета в сводке"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки в підсумку"
           }
         },
         "it": {
@@ -2360,10 +3248,16 @@
             "value": "Қорытындыдағы есеп-шоттар"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Счета в сводке"
+            "value": "Рахункі ў аглядзе"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konten in der Übersicht"
           }
         }
       }
@@ -2371,22 +3265,34 @@
     "capital.group.assetsOf": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маёмасць: %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vermögen: %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Property: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bienes: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biens : %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Имущество: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Майно: %@"
           }
         },
         "it": {
@@ -2401,10 +3307,16 @@
             "value": "Мүлік: %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Имущество: %@"
+            "value": "Маёмасць: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermögen: %@"
           }
         }
       }
@@ -2412,22 +3324,34 @@
     "capital.group.collapse": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Згарнуць"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einklappen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Collapse"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraer"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replier"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Свернуть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Згорнути"
           }
         },
         "it": {
@@ -2442,10 +3366,16 @@
             "value": "Жасыру"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Свернуть"
+            "value": "Згарнуць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einklappen"
           }
         }
       }
@@ -2453,22 +3383,34 @@
     "capital.group.collapsed": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "згорнута"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eingeklappt"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "collapsed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "contraído"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "replié"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "свёрнуто"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "згорнуто"
           }
         },
         "it": {
@@ -2483,10 +3425,16 @@
             "value": "жиылған"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "свёрнуто"
+            "value": "згорнута"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "eingeklappt"
           }
         }
       }
@@ -2494,22 +3442,34 @@
     "capital.group.deposits": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дэпазіты і ашчадныя рахункі"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Festgeld und Sparkonten"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Deposits and savings accounts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Depósitos y cuentas de ahorro"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dépôts et comptes d'épargne"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вклады и накопительные"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Депозити й накопичувальні рахунки"
           }
         },
         "it": {
@@ -2524,10 +3484,16 @@
             "value": "Салымдар мен жинақ шоттары"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вклады и накопительные"
+            "value": "Дэпазіты і ашчадныя рахункі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Festgeld und Sparkonten"
           }
         }
       }
@@ -2535,22 +3501,34 @@
     "capital.group.expand": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Разгарнуць"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ausklappen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Expand"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expandir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déplier"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Развернуть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розгорнути"
           }
         },
         "it": {
@@ -2565,10 +3543,16 @@
             "value": "Ашу"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Развернуть"
+            "value": "Разгарнуць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausklappen"
           }
         }
       }
@@ -2576,22 +3560,34 @@
     "capital.group.expanded": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "разгорнута"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ausgeklappt"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "expanded"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "expandido"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "déplié"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "развёрнуто"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "розгорнуто"
           }
         },
         "it": {
@@ -2606,10 +3602,16 @@
             "value": "ашық"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "развёрнуто"
+            "value": "разгорнута"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ausgeklappt"
           }
         }
       }
@@ -2618,34 +3620,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Даўгі"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schulden"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Debts"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Debiti"
+            "value": "Deudas"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Берешектер"
+            "value": "Dettes"
           }
         },
         "ru": {
@@ -2659,28 +3649,64 @@
             "state": "translated",
             "value": "Борги"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Берешектер"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debiti"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даўгі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schulden"
+          }
         }
       }
     },
     "capital.group.outOfSummary": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Па-за аглядам"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nicht in der Übersicht"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Out of the summary"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuera del resumen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hors du récapitulatif"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вне сводки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поза підсумком"
           }
         },
         "it": {
@@ -2695,10 +3721,16 @@
             "value": "Қорытындыдан тыс"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вне сводки"
+            "value": "Па-за аглядам"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht in der Übersicht"
           }
         }
       }
@@ -2706,22 +3738,34 @@
     "capital.group.outOfSummaryNamed": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Па-за аглядам: %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nicht in der Übersicht: %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Out of the summary: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuera del resumen: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hors du récapitulatif : %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вне сводки: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поза підсумком: %@"
           }
         },
         "it": {
@@ -2736,10 +3780,16 @@
             "value": "Қорытындыдан тыс: %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вне сводки: %@"
+            "value": "Па-за аглядам: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht in der Übersicht: %@"
           }
         }
       }
@@ -2748,6 +3798,30 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debts owed to me"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Долги мне"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маған берілген"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crediti"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2759,58 +3833,40 @@
             "state": "translated",
             "value": "Mir geschuldet"
           }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Owed to me"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crediti"
-          }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маған берілген"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мне должны"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мені винні"
-          }
         }
       }
     },
     "capital.have": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Што я маю"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Was ich habe"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "What I have"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que tengo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que j'ai"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что есть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що маю"
           }
         },
         "it": {
@@ -2825,10 +3881,16 @@
             "value": "Менде бар"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Что есть"
+            "value": "Што я маю"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was ich habe"
           }
         }
       }
@@ -2836,22 +3898,34 @@
     "capital.hero.haveOwe": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маю %@ · Павінен %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haben %@ · Schulden %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Have %@ · Owe %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tengo %@ · Debo %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avoirs %@ · Dettes %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есть %@ · Должен %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маю %@ · Винен %@"
           }
         },
         "it": {
@@ -2866,10 +3940,16 @@
             "value": "Бар %@ · Берешек %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Есть %@ · Должен %@"
+            "value": "Маю %@ · Павінен %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haben %@ · Schulden %@"
           }
         }
       }
@@ -2877,22 +3957,34 @@
     "capital.history.empty": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Няма ацэнак."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keine Bewertungen."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No valuations."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay valoraciones."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune estimation."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оценок нет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оцінок немає."
           }
         },
         "it": {
@@ -2907,10 +3999,16 @@
             "value": "Бағалаулар жоқ."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Оценок нет."
+            "value": "Няма ацэнак."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Bewertungen."
           }
         }
       }
@@ -2918,22 +4016,34 @@
     "capital.history.title": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ацэнкі «%@»"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bewertungen von „%@“"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Valuations of «%@»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valoraciones de «%@»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimations de « %@ »"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оценки «%@»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оцінки «%@»"
           }
         },
         "it": {
@@ -2948,10 +4058,16 @@
             "value": "«%@» бағалаулары"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Оценки «%@»"
+            "value": "Ацэнкі «%@»"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertungen von „%@“"
           }
         }
       }
@@ -2959,22 +4075,34 @@
     "capital.interest": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з іх працэнты ≈ %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "davon Zinsen ≈ %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "of which interest ≈ %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de ello intereses ≈ %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dont intérêts ≈ %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "из них проценты ≈ %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з них відсотки ≈ %@"
           }
         },
         "it": {
@@ -2989,10 +4117,16 @@
             "value": "оның ішінде пайыз ≈ %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "из них проценты ≈ %@"
+            "value": "з іх працэнты ≈ %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "davon Zinsen ≈ %@"
           }
         }
       }
@@ -3000,22 +4134,34 @@
     "capital.issue.unanchored": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не зверана"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nicht abgeglichen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Not reconciled"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin conciliar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non rapproché"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не сверен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не звірено"
           }
         },
         "it": {
@@ -3030,10 +4176,16 @@
             "value": "Салыстырылмаған"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не сверен"
+            "value": "Не зверана"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht abgeglichen"
           }
         }
       }
@@ -3041,22 +4193,34 @@
     "capital.issue.unvalued": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Няма ацэнкі"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keine Bewertung"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No valuation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin valoración"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas d'estimation"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет оценки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає оцінки"
           }
         },
         "it": {
@@ -3071,10 +4235,16 @@
             "value": "Бағалау жоқ"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет оценки"
+            "value": "Няма ацэнкі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Bewertung"
           }
         }
       }
@@ -3082,22 +4252,34 @@
     "capital.issue.withoutRate": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Няма курсу"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kein Kurs"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No rate"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin tipo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de taux"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет курса"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає курсу"
           }
         },
         "it": {
@@ -3112,10 +4294,16 @@
             "value": "Мөлшерлеме жоқ"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет курса"
+            "value": "Няма курсу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Kurs"
           }
         }
       }
@@ -3123,22 +4311,34 @@
     "capital.nothing": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Нічога"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nichts"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Nothing"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ничего"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нічого"
           }
         },
         "it": {
@@ -3153,10 +4353,16 @@
             "value": "Жоқ"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ничего"
+            "value": "Нічога"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nichts"
           }
         }
       }
@@ -3164,22 +4370,34 @@
     "capital.owe": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Што я павінен"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Was ich schulde"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "What I owe"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que debo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que je dois"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что должен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що винен"
           }
         },
         "it": {
@@ -3194,10 +4412,16 @@
             "value": "Менің берешегім"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Что должен"
+            "value": "Што я павінен"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was ich schulde"
           }
         }
       }
@@ -3205,22 +4429,34 @@
     "capital.refusal.emptyName": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Увядзіце назву."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Benennen Sie es."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Name it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Póngale un nombre."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Donnez-lui un nom."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Укажите название."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дайте назву."
           }
         },
         "it": {
@@ -3235,10 +4471,16 @@
             "value": "Атауын беріңіз."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Укажите название."
+            "value": "Увядзіце назву."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benennen Sie es."
           }
         }
       }
@@ -3246,22 +4488,34 @@
     "capital.refusal.failed": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не захавана: база даных адхіліла запіс."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nicht gespeichert: Die Datenbank hat den Schreibvorgang abgelehnt."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Not saved: the database refused the write."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se guardó: la base de datos rechazó la escritura."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non enregistré : la base a refusé l'écriture."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не сохранено: база отказала в записи."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не збережено: база відмовила в записі."
           }
         },
         "it": {
@@ -3276,10 +4530,16 @@
             "value": "Сақталмады: дерекқор жазудан бас тартты."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не сохранено: база отказала в записи."
+            "value": "Не захавана: база даных адхіліла запіс."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht gespeichert: Die Datenbank hat den Schreibvorgang abgelehnt."
           }
         }
       }
@@ -3287,22 +4547,34 @@
     "capital.refusal.negativeValue": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Кошт не можа быць меншы за нуль."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ein Wert kann nicht unter null liegen."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "A value cannot be below zero."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un valor no puede ser menor que cero."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une valeur ne peut pas être inférieure à zéro."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стоимость не может быть меньше нуля."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вартість не може бути меншою за нуль."
           }
         },
         "it": {
@@ -3317,10 +4589,16 @@
             "value": "Құн нөлден төмен бола алмайды."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Стоимость не может быть меньше нуля."
+            "value": "Кошт не можа быць меншы за нуль."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Wert kann nicht unter null liegen."
           }
         }
       }
@@ -3328,22 +4606,34 @@
     "capital.refusal.notFound": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Гэтага больш няма."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Es ist nicht mehr vorhanden."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "It is no longer there."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya no está."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il n'est plus là."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этой записи больше нет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Його вже немає."
           }
         },
         "it": {
@@ -3358,10 +4648,16 @@
             "value": "Ол енді жоқ."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Этой записи больше нет."
+            "value": "Гэтага больш няма."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es ist nicht mehr vorhanden."
           }
         }
       }
@@ -3370,34 +4666,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Рахункі"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Konten"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Accounts"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Conti"
+            "value": "Cuentas"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Есеп-шоттар"
+            "value": "Comptes"
           }
         },
         "ru": {
@@ -3411,6 +4695,30 @@
             "state": "translated",
             "value": "Рахунки"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есеп-шоттар"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conti"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахункі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konten"
+          }
         }
       }
     },
@@ -3418,34 +4726,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маёмасць"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vermögen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Property"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Immobili"
+            "value": "Bienes"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мүлік"
+            "value": "Biens"
           }
         },
         "ru": {
@@ -3459,28 +4755,64 @@
             "state": "translated",
             "value": "Майно"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мүлік"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immobili"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маёмасць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermögen"
+          }
         }
       }
     },
     "capital.shares.caption": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "долі"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anteile"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "shares"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "partes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "parts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "доли"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "частки"
           }
         },
         "it": {
@@ -3495,10 +4827,16 @@
             "value": "үлестер"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "доли"
+            "value": "долі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anteile"
           }
         }
       }
@@ -3506,22 +4844,34 @@
     "capital.shares.deposits": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Уклады"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einlagen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Deposits"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Depósitos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dépôts"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вклады"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Депозити"
           }
         },
         "it": {
@@ -3536,10 +4886,16 @@
             "value": "Салымдар"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вклады"
+            "value": "Уклады"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einlagen"
           }
         }
       }
@@ -3547,22 +4903,34 @@
     "capital.shares.have": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ёсць"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "haben"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "have"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tengo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "avoirs"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "есть"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "маю"
           }
         },
         "it": {
@@ -3577,10 +4945,16 @@
             "value": "бар"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "есть"
+            "value": "ёсць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "haben"
           }
         }
       }
@@ -3589,6 +4963,30 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debts owed to me"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Долги мне"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маған берілген"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crediti"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3600,58 +4998,40 @@
             "state": "translated",
             "value": "Mir geschuldet"
           }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Owed to me"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crediti"
-          }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Маған берілген"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мне должны"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мені винні"
-          }
         }
       }
     },
     "capital.since.1": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца студзеня"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende Januar"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of January"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de enero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin janvier"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца января"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця січня"
           }
         },
         "it": {
@@ -3666,10 +5046,16 @@
             "value": "қаңтар айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца января"
+            "value": "з канца студзеня"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende Januar"
           }
         }
       }
@@ -3677,22 +5063,34 @@
     "capital.since.10": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца кастрычніка"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende Oktober"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of October"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de octubre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin octobre"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца октября"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця жовтня"
           }
         },
         "it": {
@@ -3707,10 +5105,16 @@
             "value": "қазан айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца октября"
+            "value": "з канца кастрычніка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende Oktober"
           }
         }
       }
@@ -3718,22 +5122,34 @@
     "capital.since.11": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца лістапада"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende November"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of November"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de noviembre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin novembre"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца ноября"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця листопада"
           }
         },
         "it": {
@@ -3748,10 +5164,16 @@
             "value": "қараша айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца ноября"
+            "value": "з канца лістапада"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende November"
           }
         }
       }
@@ -3759,22 +5181,34 @@
     "capital.since.12": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца снежня"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende Dezember"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of December"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de diciembre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin décembre"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца декабря"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця грудня"
           }
         },
         "it": {
@@ -3789,10 +5223,16 @@
             "value": "желтоқсан айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца декабря"
+            "value": "з канца снежня"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende Dezember"
           }
         }
       }
@@ -3800,22 +5240,34 @@
     "capital.since.2": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца лютага"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende Februar"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of February"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de febrero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin février"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца февраля"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця лютого"
           }
         },
         "it": {
@@ -3830,10 +5282,16 @@
             "value": "ақпан айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца февраля"
+            "value": "з канца лютага"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende Februar"
           }
         }
       }
@@ -3841,22 +5299,34 @@
     "capital.since.3": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца сакавіка"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende März"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of March"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de marzo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin mars"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца марта"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця березня"
           }
         },
         "it": {
@@ -3871,10 +5341,16 @@
             "value": "наурыз айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца марта"
+            "value": "з канца сакавіка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende März"
           }
         }
       }
@@ -3882,22 +5358,34 @@
     "capital.since.4": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца красавіка"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende April"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of April"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de abril"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin avril"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца апреля"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця квітня"
           }
         },
         "it": {
@@ -3912,10 +5400,16 @@
             "value": "сәуір айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца апреля"
+            "value": "з канца красавіка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende April"
           }
         }
       }
@@ -3923,22 +5417,34 @@
     "capital.since.5": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца мая"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende Mai"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of May"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de mayo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin mai"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца мая"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця травня"
           }
         },
         "it": {
@@ -3953,10 +5459,16 @@
             "value": "мамыр айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца мая"
+            "value": "з канца мая"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende Mai"
           }
         }
       }
@@ -3964,22 +5476,34 @@
     "capital.since.6": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца чэрвеня"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende Juni"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of June"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de junio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin juin"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца июня"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця червня"
           }
         },
         "it": {
@@ -3994,10 +5518,16 @@
             "value": "маусым айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца июня"
+            "value": "з канца чэрвеня"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende Juni"
           }
         }
       }
@@ -4005,22 +5535,34 @@
     "capital.since.7": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца ліпеня"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende Juli"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of July"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de julio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin juillet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца июля"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця липня"
           }
         },
         "it": {
@@ -4035,10 +5577,16 @@
             "value": "шілде айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца июля"
+            "value": "з канца ліпеня"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende Juli"
           }
         }
       }
@@ -4046,22 +5594,34 @@
     "capital.since.8": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца жніўня"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende August"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of August"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de agosto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin août"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца августа"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця серпня"
           }
         },
         "it": {
@@ -4076,10 +5636,16 @@
             "value": "тамыз айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца августа"
+            "value": "з канца жніўня"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende August"
           }
         }
       }
@@ -4087,22 +5653,34 @@
     "capital.since.9": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "з канца верасня"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "seit Ende September"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "since the end of September"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde finales de septiembre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "depuis la fin septembre"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "с конца сентября"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "з кінця вересня"
           }
         },
         "it": {
@@ -4117,10 +5695,16 @@
             "value": "қыркүйек айының соңынан бері"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "с конца сентября"
+            "value": "з канца верасня"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "seit Ende September"
           }
         }
       }
@@ -4128,22 +5712,34 @@
     "capital.subtitle": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Што маеце мінус тое, што вінны"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Was Sie haben, abzüglich dessen, was Sie schulden"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "What you have less what you owe"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que tiene menos lo que debe"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que vous avez moins ce que vous devez"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что есть минус что должен"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що маєте, мінус те, що винні"
           }
         },
         "it": {
@@ -4158,10 +5754,16 @@
             "value": "Бар нәрсеңіз мінус берешегіңіз"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Что есть минус что должен"
+            "value": "Што маеце мінус тое, што вінны"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was Sie haben, abzüglich dessen, was Sie schulden"
           }
         }
       }
@@ -4169,22 +5771,34 @@
     "capital.tile.haveOwe": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ёсць %@ · Вінны %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Haben %@ · Schulden %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Have %@ · Owe %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tengo %@ · Debo %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avoirs %@ · Dettes %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Есть %@ · Должен %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Маю %@ · Винен %@"
           }
         },
         "it": {
@@ -4199,10 +5813,16 @@
             "value": "Бар %@ · Берешек %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Есть %@ · Должен %@"
+            "value": "Ёсць %@ · Вінны %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haben %@ · Schulden %@"
           }
         }
       }
@@ -4211,34 +5831,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ за гэты месяц"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ in diesem Monat"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ this month"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ questo mese"
+            "value": "%@ este mes"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "осы айда %@"
+            "value": "%@ ce mois-ci"
           }
         },
         "ru": {
@@ -4252,6 +5860,30 @@
             "state": "translated",
             "value": "%@ за цей місяць"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "осы айда %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ questo mese"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ за гэты месяц"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ in diesem Monat"
+          }
         }
       }
     },
@@ -4259,34 +5891,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Капітал"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kapital"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Capital"
           }
         },
-        "it": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Patrimonio"
+            "value": "Capital"
           }
         },
-        "kk": {
+        "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Капитал"
+            "value": "Capital"
           }
         },
         "ru": {
@@ -4300,28 +5920,64 @@
             "state": "translated",
             "value": "Капітал"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Капитал"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimonio"
+          }
+        },
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Капітал"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kapital"
+          }
         }
       }
     },
     "capital.valuation.replaces": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На гэты дзень ужо ёсць ацэнка. Новая заменіць яе."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Für diesen Tag gibt es bereits eine Bewertung: Diese ersetzt sie."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "That day has a valuation already: this one takes its place."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ese día ya hay una valoración: esta la sustituye."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce jour-là a déjà une estimation : celle-ci la remplace."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На эту дату уже есть оценка — новая её заменит."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На цей день уже є оцінка: ця її замінить."
           }
         },
         "it": {
@@ -4336,10 +5992,16 @@
             "value": "Ол күнге бағалау бұрыннан бар: бұл оның орнын басады."
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "На эту дату уже есть оценка — новая её заменит."
+            "value": "На гэты дзень ужо ёсць ацэнка. Новая заменіць яе."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für diesen Tag gibt es bereits eine Bewertung: Diese ersetzt sie."
           }
         }
       }
@@ -4347,22 +6009,34 @@
     "capital.valuation.title": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ацэнка «%@»"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bewertung von „%@“"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Valuation of «%@»"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valoración de «%@»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimation de « %@ »"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оценка «%@»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оцінка «%@»"
           }
         },
         "it": {
@@ -4377,10 +6051,16 @@
             "value": "«%@» бағалауы"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Оценка «%@»"
+            "value": "Ацэнка «%@»"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertung von „%@“"
           }
         }
       }
@@ -4388,22 +6068,34 @@
     "capital.warning.unanchored": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не зверана, не ўлічана: %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nicht abgeglichen, nicht gezählt: %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Not reconciled, not counted: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin conciliar, no se cuenta: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non rapproché, non compté : %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не сверен, не учтён: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не звірено, не враховано: %@"
           }
         },
         "it": {
@@ -4418,10 +6110,16 @@
             "value": "Салыстырылмаған, есептелмейді: %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не сверен, не учтён: %@"
+            "value": "Не зверана, не ўлічана: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht abgeglichen, nicht gezählt: %@"
           }
         }
       }
@@ -4429,22 +6127,34 @@
     "capital.warning.unvalued": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Няма ацэнкі, не ўлічана: %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keine Bewertung, nicht gezählt: %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No valuation, not counted: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin valoración, no se cuenta: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas d'estimation, non compté : %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет оценки, не учтено: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає оцінки, не враховано: %@"
           }
         },
         "it": {
@@ -4459,10 +6169,16 @@
             "value": "Бағалау жоқ, есептелмейді: %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет оценки, не учтено: %@"
+            "value": "Няма ацэнкі, не ўлічана: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Bewertung, nicht gezählt: %@"
           }
         }
       }
@@ -4470,22 +6186,34 @@
     "capital.warning.withoutRate": {
       "extractionState": "manual",
       "localizations": {
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Няма курсу, не ўлічана: %@"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kein Kurs, nicht gezählt: %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No rate, not counted: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin tipo, no se cuenta: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de taux, non compté : %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет курса, не учтено: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає курсу, не враховано: %@"
           }
         },
         "it": {
@@ -4500,10 +6228,16 @@
             "value": "Мөлшерлеме жоқ, есептелмейді: %@"
           }
         },
-        "ru": {
+        "be": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет курса, не учтено: %@"
+            "value": "Няма курсу, не ўлічана: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Kurs, nicht gezählt: %@"
           }
         }
       }

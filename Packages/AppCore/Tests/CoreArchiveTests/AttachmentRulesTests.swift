@@ -58,8 +58,9 @@ struct AttachmentRetentionTests {
     let due = attachment(addedDaysAgo: 7)
     let pinned = attachment(addedDaysAgo: 100, keepForever: true)
     let warranty = attachment(kind: .warranty, addedDaysAgo: 100)
+    let document = attachment(kind: .document, addedDaysAgo: 100)
     let actions = AttachmentRetention.actions(
-      for: [fresh, due, pinned, warranty], settings: settings, now: t0)
+      for: [fresh, due, pinned, warranty, document], settings: settings, now: t0)
     #expect(actions == [.moveToTrash(id: due.id, at: t0)])
   }
 
@@ -83,6 +84,79 @@ struct AttachmentRetentionTests {
     #expect(
       AttachmentRetention.actions(for: [old], settings: settings, now: t0)
         == [.moveToTrash(id: old.id, at: t0)])
+  }
+
+  @Test(arguments: [false, true])
+  func aReceiptStaysThroughTheLastDayOfWarrantyOrReturn(useWarranty: Bool) {
+    let settings = AttachmentSettings(keepReceiptsForever: false)
+    let receipt = attachment(addedDaysAgo: 100)
+    let today = CalendarContext.utc.day(of: t0)
+    let purchase = Transaction(
+      id: receipt.ownerId, kind: .expense, occurredAt: t0, amountE4: AmountE4(whole: 10),
+      amountRubE4: AmountE4(whole: 10),
+      warrantyUntil: useWarranty ? today : nil, returnUntil: useWarranty ? nil : today)
+    let end = CalendarContext.utc.endOfDay(today)
+    #expect(
+      AttachmentRetention.actions(
+        for: [receipt], settings: settings, now: end, transactions: [purchase], calendar: .utc
+      )
+      .isEmpty)
+    let tomorrow = CalendarContext.utc.startOfDay(CalendarContext.utc.adding(days: 1, to: today))
+    #expect(
+      AttachmentRetention.actions(
+        for: [receipt], settings: settings, now: tomorrow, transactions: [purchase], calendar: .utc)
+        == [.moveToTrash(id: receipt.id, at: tomorrow)])
+  }
+
+  @Test func theLaterTermProtectsOnlyTheReceiptsOfThatPurchase() {
+    let settings = AttachmentSettings(keepReceiptsForever: false)
+    let receipt = attachment(addedDaysAgo: 100)
+    let otherReceipt = attachment(addedDaysAgo: 100)
+    var assetReceipt = receipt
+    assetReceipt.id = UUID()
+    assetReceipt.ownerKind = .asset
+    let today = CalendarContext.utc.day(of: t0)
+    var purchase = Transaction(
+      id: receipt.ownerId, kind: .expense, occurredAt: t0, amountE4: AmountE4(whole: 10),
+      amountRubE4: AmountE4(whole: 10), warrantyUntil: CalendarContext.utc.adding(days: -1, to: today),
+      returnUntil: CalendarContext.utc.adding(days: 1, to: today))
+    #expect(
+      AttachmentRetention.actions(
+        for: [receipt, otherReceipt, assetReceipt], settings: settings, now: t0,
+        transactions: [purchase], calendar: .utc)
+        == [.moveToTrash(id: otherReceipt.id, at: t0), .moveToTrash(id: assetReceipt.id, at: t0)])
+    purchase.warrantyUntil = CalendarContext.utc.adding(days: 2, to: today)
+    purchase.returnUntil = CalendarContext.utc.adding(days: -1, to: today)
+    #expect(
+      AttachmentRetention.actions(
+        for: [receipt], settings: settings, now: t0, transactions: [purchase], calendar: .utc
+      )
+      .isEmpty)
+  }
+
+  @Test func aWarrantyDoesNotOverrideTheOwnersExplicitTrashAction() {
+    let receipt = attachment(addedDaysAgo: 100, trashedDaysAgo: 31)
+    let purchase = Transaction(
+      id: receipt.ownerId, kind: .expense, occurredAt: t0, amountE4: AmountE4(whole: 10),
+      amountRubE4: AmountE4(whole: 10),
+      warrantyUntil: CalendarContext.utc.adding(days: 100, to: CalendarContext.utc.day(of: t0)))
+    #expect(
+      AttachmentRetention.actions(
+        for: [receipt], settings: AttachmentSettings(keepReceiptsForever: false), now: t0,
+        transactions: [purchase], calendar: .utc) == [.delete(id: receipt.id)])
+  }
+
+  @Test func anExpiredTermDoesNotShortenTheWeekOfANewReceipt() {
+    let receipt = attachment(addedDaysAgo: 6)
+    let purchase = Transaction(
+      id: receipt.ownerId, kind: .expense, occurredAt: t0, amountE4: AmountE4(whole: 10),
+      amountRubE4: AmountE4(whole: 10),
+      warrantyUntil: CalendarContext.utc.adding(days: -1, to: CalendarContext.utc.day(of: t0)))
+    #expect(
+      AttachmentRetention.actions(
+        for: [receipt], settings: AttachmentSettings(keepReceiptsForever: false), now: t0,
+        transactions: [purchase], calendar: .utc
+      ).isEmpty)
   }
 
   @Test func aRestoredOldCopyIsNotDamage() {

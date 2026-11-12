@@ -92,7 +92,7 @@ final class AppLanguageCoverageTests: XCTestCase {
       XCTAssertEqual(defaults.stringArray(forKey: AppLanguage.appleLanguagesKey), [choice.rawValue])
     }
     AppLanguage.store(.system, in: defaults)
-    XCTAssertNil(defaults.object(forKey: AppLanguage.appleLanguagesKey))
+    XCTAssertNil(defaults.persistentDomain(forName: suite)?[AppLanguage.appleLanguagesKey])
   }
 
   func testMissingTranslationsUseEnglishIncludingTouchInstructionsAndPlurals() throws {

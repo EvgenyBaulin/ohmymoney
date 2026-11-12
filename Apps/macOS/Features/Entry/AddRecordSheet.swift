@@ -23,6 +23,8 @@ struct AddRecordSheet: View {
   @State private var failure: String?
   /// Written once: Return in the field and the default button can both ask.
   @State private var saved = false
+  /// The identity of the record being typed, so a hidden notice stays about this entry.
+  @State private var draftId = UUID()
 
   init(
     kind: AddFromPicker.Kind, model: EntryDraftModel, today: DateOnly,
@@ -48,6 +50,7 @@ struct AddRecordSheet: View {
           Text(verbatim: environment.language("references.name", table: "Settings"))
         }
         .onSubmit(save)
+        namesakeAdvice
         if case .event = form.kind {
           EventDaysFields(
             owner: nil, start: startBinding, end: endBinding,
@@ -97,9 +100,12 @@ struct AddRecordSheet: View {
     guard !saved else { return }
     asked = true
     failure = nil
+    if form.kind == .paymentMethod { model.reload() }
     guard form.refusalKey(in: model) == nil else { return }
     let saveContext = NewRecordForm.Context.app(environment, store: store)
-    if let refused = form.commit(into: model, today: environment.today, context: saveContext) {
+    if let refused = form.commit(
+      into: model, today: environment.today, context: saveContext, id: draftId)
+    {
       failure = refused.text(environment)
       return
     }
@@ -118,6 +124,42 @@ struct AddRecordSheet: View {
       return t(key)
     }
     return failure
+  }
+
+  /// Dictionary names may repeat. Financial names stay unique among live records, with
+  /// archived namesakes offering explicit renames or restoration through the same notice.
+  @ViewBuilder
+  private var namesakeAdvice: some View {
+    switch form.kind {
+    case .person, .debtor, .payingFor: notice(.person)
+    case .place: notice(.place)
+    case .event: notice(.event)
+    case .category: notice(.category, parent: nil)
+    case .subcategory(let part):
+      notice(.category, parent: model.categoryOfPart(model.part(at: part)))
+    case .paymentMethod: notice(.account)
+    }
+  }
+
+  private func notice(_ kind: NamesakeKind, parent: UUID? = nil) -> some View {
+    var scope: ((NamesakeRecord) -> Bool)?
+    if kind == .category {
+      let side = model.draft.kind.categoryKind
+      let ids = Set(
+        ((try? environment.references?.categories(includeArchived: true)) ?? [])
+          .filter { $0.kind == side && $0.parentId == parent }.map(\.id))
+      scope = { ids.contains($0.id) }
+    }
+    return PlanningNamesakeNotice(
+      kind: kind, id: draftId, name: $form.name,
+      didRestore: kind == .account
+        ? { record in
+          model.reload()
+          model.setAccountOrCard(record.id)
+          close()
+        } : nil,
+      onChange: { model.reload() },
+      scope: scope, dismissesOnRestore: false)
   }
 
   private var title: String {

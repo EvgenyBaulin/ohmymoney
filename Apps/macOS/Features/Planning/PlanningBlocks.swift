@@ -80,6 +80,8 @@ struct ExpectedIncomeBlock: View {
             HStack(spacing: 8) {
               Button(t("expected.link")) { sheet = .linkIncome(status) }
               Button(t("expected.edit")) { sheet = .expected(status.income) }
+              Button(t("expected.archiveAction")) { archiveIncome(status.income) }
+                .accessibilityIdentifier("expected.archiveAction")
               if ExpectedIncomeRules.offersClosing(status) {
                 Button(t("expected.closeFully")) { close(status.income) }
                   .help(t("expected.closeFully.help"))
@@ -92,6 +94,7 @@ struct ExpectedIncomeBlock: View {
           .contextMenu {
             Button(t("expected.edit")) { sheet = .expected(status.income) }
             Button(t("expected.link")) { sheet = .linkIncome(status) }
+            Button(t("expected.archiveAction")) { archiveIncome(status.income) }
             if ExpectedIncomeRules.offersClosing(status) {
               Button(t("expected.closeFully")) { close(status.income) }
             }
@@ -197,6 +200,11 @@ struct ExpectedIncomeBlock: View {
   private func close(_ income: ExpectedIncome) {
     guard let dependencies else { return }
     PlanningActions(dependencies).close(income)
+  }
+
+  private func archiveIncome(_ income: ExpectedIncome) {
+    guard let dependencies else { return }
+    PlanningActions(dependencies).archive(income)
   }
 
   /// A one-off income as a whole; a regular one by the term of this month, or its latest.

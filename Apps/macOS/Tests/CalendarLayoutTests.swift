@@ -49,6 +49,15 @@ final class CalendarLayoutTests: XCTestCase {
     XCTAssertEqual(CalendarLayout.upcoming(in: calendar(days), limit: 2).count, 2)
   }
 
+  func testUpcomingCountIncludesEventsBeyondTheVisibleFive() {
+    let days =
+      [day(10, today: 12, plans: [plan("Past", on: 10)])]
+      + (12...23).map { day($0, today: 12, plans: [plan("P\($0)", on: $0)]) }
+    let value = calendar(days)
+    XCTAssertEqual(CalendarLayout.upcoming(in: value).count, 5)
+    XCTAssertEqual(CalendarLayout.upcomingCount(in: value), 12)
+  }
+
   func testNewStringsExistInBothLanguages() {
     for choice in [AppLanguage.Choice.russian, .english] {
       let environment = AppEnvironment()

@@ -42,6 +42,16 @@ final class ExpectedIncomeTermsTests: XCTestCase {
     XCTAssertNotEqual(second.id, parents().id)
   }
 
+  func testTermsKeepTheirDraftIdentityAndCanHaveDifferentNames() {
+    let first = parents()
+    var term = IncomeTerm(day: 31, amountE4: AmountE4(whole: 10_000))
+    term.name = "Parents at month end"
+    let extra = first.terms([term], today: today)
+    XCTAssertEqual(extra.first?.id, term.id)
+    XCTAssertEqual(extra.first?.name, term.name)
+    XCTAssertEqual(first.terms([term], today: today), extra)
+  }
+
   /// A term has its own amount.
   func testATermHasItsOwnAmount() {
     let extra = parents().terms(

@@ -5,22 +5,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Währung"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Currency"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Валюта"
+            "value": "Divisa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devise"
           }
         },
         "ru": {
@@ -34,22 +34,52 @@
             "state": "translated",
             "value": "Валюта"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Währung"
+          }
         }
       }
     },
     "travel.cards.atmFixed": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geldautomat, fest"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "ATM, fixed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cajero, fija"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retrait, frais fixes"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банкомат, фикс."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банкомат, фіксована"
           }
         },
         "kk": {
@@ -58,10 +88,10 @@
             "value": "Банкомат, тұрақты"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Банкомат, фикс."
+            "value": "Geldautomat, fest"
           }
         }
       }
@@ -69,16 +99,34 @@
     "travel.cards.atmPercent": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geldautomat, %"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "ATM, %"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cajero, %"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retrait, %"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банкомат, %"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банкомат, %"
           }
         },
         "kk": {
@@ -87,10 +135,10 @@
             "value": "Банкомат, %"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Банкомат, %"
+            "value": "Geldautomat, %"
           }
         }
       }
@@ -98,16 +146,34 @@
     "travel.cards.badFixed": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "„%@“: Tragen Sie die feste Gebühr mit ihrer Währung (drei Buchstaben) ein, oder keine."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "«%@»: type the fixed fee with its currency (three letters), or neither."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@»: escriba la comisión fija con su divisa (tres letras), o ninguna."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« %@ » : saisissez les frais fixes avec leur devise (trois lettres), ou aucun des deux."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@»: введите фиксированную комиссию вместе с валютой (три буквы) или ни то ни другое."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@»: введіть фіксовану комісію з її валютою (три літери) або нічого."
           }
         },
         "kk": {
@@ -116,10 +182,10 @@
             "value": "«%@»: тұрақты комиссияны валютасымен (үш әріп) енгізіңіз немесе екеуін де бос қалдырыңыз."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "«%@»: введите фиксированную комиссию вместе с валютой (три буквы) или ни то ни другое."
+            "value": "„%@“: Tragen Sie die feste Gebühr mit ihrer Währung (drei Buchstaben) ein, oder keine."
           }
         }
       }
@@ -127,16 +193,34 @@
     "travel.cards.badPercent": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "„%@“: Ein Prozentsatz liegt zwischen 0 und 100, mit höchstens vier Nachkommastellen."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "«%@»: a percent is from 0 to 100, up to four places after the point."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@»: un porcentaje va de 0 a 100, con hasta cuatro decimales."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« %@ » : un pourcentage va de 0 à 100, avec quatre décimales au plus."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@»: процент — от 0 до 100, не больше четырёх знаков после запятой."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@»: відсоток — від 0 до 100, не більше чотирьох знаків після коми."
           }
         },
         "kk": {
@@ -145,10 +229,10 @@
             "value": "«%@»: пайыз 0-ден 100-ге дейін, нүктеден кейін төрт таңбаға дейін."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "«%@»: процент — от 0 до 100, не больше четырёх знаков после запятой."
+            "value": "„%@“: Ein Prozentsatz liegt zwischen 0 und 100, mit höchstens vier Nachkommastellen."
           }
         }
       }
@@ -156,16 +240,34 @@
     "travel.cards.best": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beste Karte im Ausland: %1$@ — %2$@ für die Umrechnung; bei %3$@ kostet sie %4$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Best card abroad: %1$@ — %2$@ for converting; on %3$@ it costs %4$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mejor tarjeta en el extranjero: %1$@ — %2$@ por la conversión; en %3$@ cuesta %4$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meilleure carte à l'étranger : %1$@ — %2$@ pour la conversion ; sur %3$@ elle coûte %4$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лучшая карта за границей: %1$@ — %2$@ за конвертацию; на %3$@ это %4$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найкраща картка за кордоном: %1$@ — %2$@ за конвертацію; на %3$@ вона коштує %4$@"
           }
         },
         "kk": {
@@ -174,10 +276,10 @@
             "value": "Шетелдегі ең тиімді карта: %1$@ — айырбастауға %2$@; %3$@ үшін құны %4$@"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лучшая карта за границей: %1$@ — %2$@ за конвертацию; на %3$@ это %4$@"
+            "value": "Beste Karte im Ausland: %1$@ — %2$@ für die Umrechnung; bei %3$@ kostet sie %4$@"
           }
         }
       }
@@ -185,16 +287,34 @@
     "travel.cards.button": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Karten im Ausland…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Cards abroad…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjetas en el extranjero…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartes à l'étranger…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карты за границей…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картки за кордоном…"
           }
         },
         "kk": {
@@ -203,10 +323,10 @@
             "value": "Шетелдегі карталар…"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Карты за границей…"
+            "value": "Karten im Ausland…"
           }
         }
       }
@@ -214,16 +334,34 @@
     "travel.cards.fx": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Umrechnung, %"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Conversion, %"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conversión, %"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conversion, %"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Конвертация, %"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Конвертація, %"
           }
         },
         "kk": {
@@ -232,10 +370,10 @@
             "value": "Айырбастау, %"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Конвертация, %"
+            "value": "Umrechnung, %"
           }
         }
       }
@@ -243,16 +381,34 @@
     "travel.cards.loss": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@: %2$@ — bei %3$@ kostet sie %4$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@ — on %3$@ it costs %4$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ — en %3$@ cuesta %4$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@ — sur %3$@ elle coûte %4$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ — на %3$@ это %4$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ — на %3$@ вона коштує %4$@"
           }
         },
         "kk": {
@@ -261,10 +417,10 @@
             "value": "%1$@: %2$@ — %3$@ үшін құны %4$@"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$@: %2$@ — на %3$@ это %4$@"
+            "value": "%1$@: %2$@ — bei %3$@ kostet sie %4$@"
           }
         }
       }
@@ -272,16 +428,34 @@
     "travel.cards.noBest": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tragen Sie die Umrechnungsgebühr einer Karte ein, um die Karten zu vergleichen."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Type the conversion fee of a card to compare the cards."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba la comisión de conversión de una tarjeta para comparar las tarjetas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez les frais de conversion d'une carte pour comparer les cartes."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введите комиссию конвертации карты, чтобы сравнить карты."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть комісію конвертації картки, щоб порівняти картки."
           }
         },
         "kk": {
@@ -290,10 +464,10 @@
             "value": "Карталарды салыстыру үшін айырбастау комиссиясын енгізіңіз."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Введите комиссию конвертации карты, чтобы сравнить карты."
+            "value": "Tragen Sie die Umrechnungsgebühr einer Karte ein, um die Karten zu vergleichen."
           }
         }
       }
@@ -301,16 +475,34 @@
     "travel.cards.notTyped": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bedingungen nicht eingetragen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "terms not typed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "condiciones sin escribir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "conditions non saisies"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "условия не заведены"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "умови не введено"
           }
         },
         "kk": {
@@ -319,10 +511,10 @@
             "value": "шарттар енгізілмеген"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "условия не заведены"
+            "value": "Bedingungen nicht eingetragen"
           }
         }
       }
@@ -330,16 +522,34 @@
     "travel.cards.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Karten im Ausland"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Cards abroad"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjetas en el extranjero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartes à l'étranger"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карты за границей"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картки за кордоном"
           }
         },
         "kk": {
@@ -348,10 +558,10 @@
             "value": "Шетелдегі карталар"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Карты за границей"
+            "value": "Karten im Ausland"
           }
         }
       }
@@ -359,16 +569,34 @@
     "travel.day.exhausted": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Das Reisebudget ist aufgebraucht · heute ausgegeben %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The trip budget is spent · spent today %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El presupuesto del viaje está agotado · gastado hoy %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le budget du voyage est épuisé · dépensé aujourd'hui %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет поездки потрачен · сегодня потрачено %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет поїздки витрачено · сьогодні витрачено %@"
           }
         },
         "kk": {
@@ -377,10 +605,10 @@
             "value": "Сапар бюджеті таусылды · бүгін %@ жұмсалды"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бюджет поездки потрачен · сегодня потрачено %@"
+            "value": "Das Reisebudget ist aufgebraucht · heute ausgegeben %@"
           }
         }
       }
@@ -388,16 +616,34 @@
     "travel.day.left": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Heute ausgegeben %1$@ · für den Tag übrig %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Spent today %1$@ · left for the day %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gastado hoy %1$@ · queda para el día %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dépensé aujourd'hui %1$@ · reste pour la journée %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня потрачено %1$@ · осталось на день %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сьогодні витрачено %1$@ · лишилося на день %2$@"
           }
         },
         "kk": {
@@ -406,10 +652,10 @@
             "value": "Бүгін %1$@ жұмсалды · бүгінге %2$@ қалды"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сегодня потрачено %1$@ · осталось на день %2$@"
+            "value": "Heute ausgegeben %1$@ · für den Tag übrig %2$@"
           }
         }
       }
@@ -417,16 +663,34 @@
     "travel.day.over": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Heute ausgegeben %1$@ · %2$@ über dem Tagesanteil"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Spent today %1$@ · %2$@ over the day's share"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gastado hoy %1$@ · %2$@ por encima de la parte del día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dépensé aujourd'hui %1$@ · %2$@ au-delà de la part de la journée"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня потрачено %1$@ · сверх доли дня на %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сьогодні витрачено %1$@ · понад частку дня на %2$@"
           }
         },
         "kk": {
@@ -435,10 +699,10 @@
             "value": "Бүгін %1$@ жұмсалды · күн үлесінен %2$@ артық"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сегодня потрачено %1$@ · сверх доли дня на %2$@"
+            "value": "Heute ausgegeben %1$@ · %2$@ über dem Tagesanteil"
           }
         }
       }
@@ -446,16 +710,34 @@
     "travel.export.choose": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hier sichern"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Save here"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar aquí"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer ici"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить сюда"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти сюди"
           }
         },
         "kk": {
@@ -464,10 +746,10 @@
             "value": "Осында сақтау"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сохранить сюда"
+            "value": "Hier sichern"
           }
         }
       }
@@ -475,16 +757,34 @@
     "travel.export.done": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Geschriebene Dateien: %d."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Files written: %d."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos escritos: %d."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers écrits : %d."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано файлов: %d."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано файлів: %d."
           }
         },
         "kk": {
@@ -493,10 +793,10 @@
             "value": "Жазылған файлдар: %d."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Записано файлов: %d."
+            "value": "Geschriebene Dateien: %d."
           }
         }
       }
@@ -504,16 +804,34 @@
     "travel.export.failed": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Dateien wurden nicht gesichert."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The files were not saved."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los archivos no se guardaron."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les fichiers n'ont pas été enregistrés."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлы не сохранились."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файли не збережено."
           }
         },
         "kk": {
@@ -522,10 +840,10 @@
             "value": "Файлдар сақталмады."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Файлы не сохранились."
+            "value": "Die Dateien wurden nicht gesichert."
           }
         }
       }
@@ -534,22 +852,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ersetzen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Replace"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ауыстыру"
+            "value": "Reemplazar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remplacer"
           }
         },
         "ru": {
@@ -563,22 +881,52 @@
             "state": "translated",
             "value": "Замінити"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ауыстыру"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersetzen"
+          }
         }
       }
     },
     "travel.export.replace.body": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Ordner enthält schon Dateien mit diesen Namen."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The folder already has files with these names."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carpeta ya tiene archivos con estos nombres."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dossier contient déjà des fichiers portant ces noms."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В папке уже есть файлы с такими именами."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У цій теці вже є файли з такими назвами."
           }
         },
         "kk": {
@@ -587,10 +935,10 @@
             "value": "Қалтада осы атаулы файлдар бар."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "В папке уже есть файлы с такими именами."
+            "value": "Der Ordner enthält schon Dateien mit diesen Namen."
           }
         }
       }
@@ -598,16 +946,34 @@
     "travel.export.replace.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%d Dateien ersetzen?"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Replace %d files?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Reemplazar %d archivos?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remplacer %d fichiers ?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заменить файлов: %d?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Замінити %d файлів?"
           }
         },
         "kk": {
@@ -616,10 +982,10 @@
             "value": "%d файл ауыстырылсын ба?"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Заменить файлов: %d?"
+            "value": "%d Dateien ersetzen?"
           }
         }
       }
@@ -627,16 +993,34 @@
     "travel.export.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wohin sollen die Dateien?"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Where to put the files?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Dónde guardar los archivos?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où mettre les fichiers ?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куда положить файлы?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куди покласти файли?"
           }
         },
         "kk": {
@@ -645,10 +1029,10 @@
             "value": "Файлдарды қайда сақтау керек?"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Куда положить файлы?"
+            "value": "Wohin sollen die Dateien?"
           }
         }
       }
@@ -656,16 +1040,34 @@
     "travel.extend.confirm": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verlängern"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Extend"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ampliar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prolonger"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продлить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продовжити"
           }
         },
         "kk": {
@@ -674,10 +1076,10 @@
             "value": "Ұзарту"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продлить"
+            "value": "Verlängern"
           }
         }
       }
@@ -685,16 +1087,34 @@
     "travel.extend.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Reise verlängern"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Extend the trip"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ampliar el viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prolonger le voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продлить поездку"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продовжити поїздку"
           }
         },
         "kk": {
@@ -703,10 +1123,10 @@
             "value": "Сапарды ұзарту"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продлить поездку"
+            "value": "Die Reise verlängern"
           }
         }
       }
@@ -714,16 +1134,34 @@
     "travel.extend.until": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neuer letzter Tag"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "New last day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo último día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveau dernier jour"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая дата окончания"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новий останній день"
           }
         },
         "kk": {
@@ -732,10 +1170,10 @@
             "value": "Жаңа соңғы күн"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая дата окончания"
+            "value": "Neuer letzter Tag"
           }
         }
       }
@@ -744,22 +1182,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Monat"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Month"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ай"
+            "value": "Mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mois"
           }
         },
         "ru": {
@@ -773,22 +1211,52 @@
             "state": "translated",
             "value": "Місяць"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ай"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monat"
+          }
         }
       }
     },
     "travel.gain.note": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Was das Geld in Fremdwährungen in Rubel nur durch die Bewegung des Kurses gewonnen oder verloren hat. Keine Einnahme und keine Ausgabe."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "What the money in foreign currencies gained or lost in rubles only because the rate moved. Not income or expense."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que ganó o perdió el dinero en divisas extranjeras solo en rublos porque se movió el tipo. No es ingreso ni gasto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que l'argent en devises étrangères a gagné ou perdu en roubles seulement parce que le cours a bougé. Ce n'est ni un revenu ni une dépense."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сколько рублей выиграли или потеряли деньги в валюте только из-за движения курса. Не доход и не расход."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Те, що гроші в іноземних валютах виграли або програли в рублях лише тому, що курс змінився. Це не дохід і не витрата."
           }
         },
         "kk": {
@@ -797,10 +1265,10 @@
             "value": "Шетел валютасындағы ақшаның тек бағам өзгерісінен рубльмен қосқан не жоғалтқан құны. Кіріс те, шығын да емес."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сколько рублей выиграли или потеряли деньги в валюте только из-за движения курса. Не доход и не расход."
+            "value": "Was das Geld in Fremdwährungen in Rubel nur durch die Bewegung des Kurses gewonnen oder verloren hat. Keine Einnahme und keine Ausgabe."
           }
         }
       }
@@ -809,22 +1277,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zeitraum"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Period"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Кезең"
+            "value": "Periodo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Période"
           }
         },
         "ru": {
@@ -838,22 +1306,52 @@
             "state": "translated",
             "value": "Період"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кезең"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeitraum"
+          }
         }
       }
     },
     "travel.gain.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kursdifferenz"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Exchange-rate difference"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diferencia de tipo de cambio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écart de change"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Курсовая разница"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Різниця курсу"
           }
         },
         "kk": {
@@ -862,10 +1360,10 @@
             "value": "Бағам айырмасы"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Курсовая разница"
+            "value": "Kursdifferenz"
           }
         }
       }
@@ -873,24 +1371,6 @@
     "travel.gain.uncounted": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld Paar ist noch nicht gezählt und bleibt weg"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld Paare sind noch nicht gezählt und bleiben weg"
-                }
-              }
-            }
-          }
-        },
         "en": {
           "variations": {
             "plural": {
@@ -909,19 +1389,49 @@
             }
           }
         },
-        "kk": {
+        "es": {
           "variations": {
             "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld pares todavía no se cuentan y se dejan fuera"
+                }
+              },
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld жұп әлі есептелмеген, сондықтан кірмейді"
+                  "value": "%lld par todavía no se cuenta y se deja fuera"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld жұп әлі есептелмеген, сондықтан кірмейді"
+                  "value": "%lld pares todavía no se cuentan y se dejan fuera"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld paires ne sont pas encore comptées et sont laissées de côté"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld paire n'est pas encore comptée et est laissée de côté"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld paires ne sont pas encore comptées et sont laissées de côté"
                 }
               }
             }
@@ -956,30 +1466,78 @@
               }
             }
           }
-        }
-      }
-    },
-    "travel.gain.unpriced": {
-      "extractionState": "manual",
-      "localizations": {
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пари ще не пораховані і не враховуються"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пар ще не пораховано і не враховуються"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пара ще не порахована і не враховується"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пари ще не порахована і не враховується"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жұп әлі есептелмеген, сондықтан кірмейді"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жұп әлі есептелмеген, сондықтан кірмейді"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld Paar hat keinen Kurs und bleibt weg"
+                  "value": "%lld Paar ist noch nicht gezählt und bleibt weg"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld Paare haben keinen Kurs und bleiben weg"
+                  "value": "%lld Paare sind noch nicht gezählt und bleiben weg"
                 }
               }
             }
           }
-        },
+        }
+      }
+    },
+    "travel.gain.unpriced": {
+      "extractionState": "manual",
+      "localizations": {
         "en": {
           "variations": {
             "plural": {
@@ -998,19 +1556,49 @@
             }
           }
         },
-        "kk": {
+        "es": {
           "variations": {
             "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld pares no tienen tipo y se dejan fuera"
+                }
+              },
               "one": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld жұптың бағамы жоқ, сондықтан кірмейді"
+                  "value": "%lld par no tiene tipo y se deja fuera"
                 }
               },
               "other": {
                 "stringUnit": {
                   "state": "translated",
-                  "value": "%lld жұптың бағамы жоқ, сондықтан кірмейді"
+                  "value": "%lld pares no tienen tipo y se dejan fuera"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld paires n'ont pas de cours et sont laissées de côté"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld paire n'a pas de cours et est laissée de côté"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld paires n'ont pas de cours et sont laissées de côté"
                 }
               }
             }
@@ -1045,6 +1633,72 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пари без курсу не враховуються"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пар без курсу не враховуються"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пара без курсу не враховується"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld пари без курсу не враховується"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жұптың бағамы жоқ, сондықтан кірмейді"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жұптың бағамы жоқ, сондықтан кірмейді"
+                }
+              }
+            }
+          }
+        },
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Paar hat keinen Kurs und bleibt weg"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Paare haben keinen Kurs und bleiben weg"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1052,22 +1706,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jahr"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Year"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жыл"
+            "value": "Año"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Année"
           }
         },
         "ru": {
@@ -1081,22 +1735,52 @@
             "state": "translated",
             "value": "Рік"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жыл"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jahr"
+          }
         }
       }
     },
     "travel.goal.help": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Das Ziel hat seine Summe gesammelt: Machen Sie eine Reise mit diesem Budget."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The goal has gathered its target: make a trip with that budget."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El objetivo ya reunió su meta: haga un viaje con ese presupuesto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'objectif a atteint sa cible : faites un voyage avec ce budget."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цель собрана: заведите поездку с этим бюджетом."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль зібрала свою суму: зробіть поїздку з цим бюджетом."
           }
         },
         "kk": {
@@ -1105,10 +1789,10 @@
             "value": "Мақсат сомасы жиналды: осы бюджетпен сапар жасаңыз."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Цель собрана: заведите поездку с этим бюджетом."
+            "value": "Das Ziel hat seine Summe gesammelt: Machen Sie eine Reise mit diesem Budget."
           }
         }
       }
@@ -1116,16 +1800,34 @@
     "travel.goal.make": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eine Reise daraus machen…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Make a trip of it…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hacer un viaje con ello…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En faire un voyage…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сделать поездкой…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зробити з цього поїздку…"
           }
         },
         "kk": {
@@ -1134,10 +1836,10 @@
             "value": "Сапарға айналдыру…"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сделать поездкой…"
+            "value": "Eine Reise daraus machen…"
           }
         }
       }
@@ -1145,16 +1847,34 @@
     "travel.goal.notGathered": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Das Ziel hat seine Summe noch nicht gesammelt."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The goal has not gathered its target yet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El objetivo todavía no ha reunido su meta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'objectif n'a pas encore atteint sa cible."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цель ещё не собрана."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль ще не зібрала своєї суми."
           }
         },
         "kk": {
@@ -1163,10 +1883,10 @@
             "value": "Мақсат сомасы әлі жиналмады."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Цель ещё не собрана."
+            "value": "Das Ziel hat seine Summe noch nicht gesammelt."
           }
         }
       }
@@ -1175,22 +1895,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Budget %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "budget %@"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "бюджет %@"
+            "value": "presupuesto %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "budget %@"
           }
         },
         "ru": {
@@ -1204,22 +1924,52 @@
             "state": "translated",
             "value": "бюджет %@"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бюджет %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget %@"
+          }
         }
       }
     },
     "travel.mode.currency": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Währung %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "currency %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "divisa %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "devise %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "валюта %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "валюта %@"
           }
         },
         "kk": {
@@ -1228,10 +1978,10 @@
             "value": "валюта %@"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "валюта %@"
+            "value": "Währung %@"
           }
         }
       }
@@ -1239,16 +1989,34 @@
     "travel.mode.off": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reisemodus ausschalten"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Turn trip mode off"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivar el modo viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désactiver le mode voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выключить режим поездки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вимкнути режим поїздки"
           }
         },
         "kk": {
@@ -1257,10 +2025,10 @@
             "value": "Сапар режимін өшіру"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выключить режим поездки"
+            "value": "Reisemodus ausschalten"
           }
         }
       }
@@ -1268,16 +2036,34 @@
     "travel.mode.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reise: %1$@ bis %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Trip: %1$@ until %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viaje: %1$@ hasta el %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voyage : %1$@ jusqu'au %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поездка: %1$@ до %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поїздка: %1$@ до %2$@"
           }
         },
         "kk": {
@@ -1286,10 +2072,10 @@
             "value": "Сапар: %1$@, %2$@ дейін"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поездка: %1$@ до %2$@"
+            "value": "Reise: %1$@ bis %2$@"
           }
         }
       }
@@ -1298,22 +2084,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Budget"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Budget"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бюджет"
+            "value": "Presupuesto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget"
           }
         },
         "ru": {
@@ -1327,6 +2113,18 @@
             "state": "translated",
             "value": "Бюджет"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget"
+          }
         }
       }
     },
@@ -1334,22 +2132,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Anlegen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Create"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жасау"
+            "value": "Crear"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créer"
           }
         },
         "ru": {
@@ -1363,22 +2161,52 @@
             "state": "translated",
             "value": "Створити"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жасау"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anlegen"
+          }
         }
       }
     },
     "travel.new.currency": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Währung der Reise"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Currency of the trip"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divisa del viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devise du voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта поездки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта поїздки"
           }
         },
         "kk": {
@@ -1387,10 +2215,10 @@
             "value": "Сапар валютасы"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Валюта поездки"
+            "value": "Währung der Reise"
           }
         }
       }
@@ -1398,16 +2226,34 @@
     "travel.new.currencyNone": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "So lassen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Leave as it is"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejar como está"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laisser tel quel"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не менять"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишити як є"
           }
         },
         "kk": {
@@ -1416,10 +2262,10 @@
             "value": "Өзгертпеу"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не менять"
+            "value": "So lassen"
           }
         }
       }
@@ -1427,16 +2273,34 @@
     "travel.new.end": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Letzter Tag"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Last day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernier jour"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последний день"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останній день"
           }
         },
         "kk": {
@@ -1445,10 +2309,10 @@
             "value": "Соңғы күн"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Последний день"
+            "value": "Letzter Tag"
           }
         }
       }
@@ -1456,16 +2320,34 @@
     "travel.new.failed": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Reise wurde nicht gespeichert."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The trip was not saved."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El viaje no se guardó."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le voyage n'a pas été enregistré."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поездка не сохранилась."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поїздку не збережено."
           }
         },
         "kk": {
@@ -1474,10 +2356,10 @@
             "value": "Сапар сақталмады."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поездка не сохранилась."
+            "value": "Die Reise wurde nicht gespeichert."
           }
         }
       }
@@ -1485,16 +2367,34 @@
     "travel.new.issue.alreadyOver": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Reise ist schon vorbei."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The trip is already over."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El viaje ya terminó."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le voyage est déjà terminé."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поездка уже закончилась."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поїздка вже закінчилася."
           }
         },
         "kk": {
@@ -1503,10 +2403,10 @@
             "value": "Сапар аяқталған."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поездка уже закончилась."
+            "value": "Die Reise ist schon vorbei."
           }
         }
       }
@@ -1514,16 +2414,34 @@
     "travel.new.issue.emptyName": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tippen Sie ein Land oder einen Namen ein."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Type a country or a name."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba un país o un nombre."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez un pays ou un nom."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Впишите страну или название."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть країну або назву."
           }
         },
         "kk": {
@@ -1532,10 +2450,10 @@
             "value": "Елді не атауды енгізіңіз."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Впишите страну или название."
+            "value": "Tippen Sie ein Land oder einen Namen ein."
           }
         }
       }
@@ -1543,16 +2461,34 @@
     "travel.new.issue.endsBeforeItStarts": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der letzte Tag liegt vor dem ersten."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The last day is before the first."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El último día es anterior al primero."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dernier jour est avant le premier."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последний день раньше первого."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останній день раніше за перший."
           }
         },
         "kk": {
@@ -1561,10 +2497,10 @@
             "value": "Соңғы күн бірінші күннен бұрын."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Последний день раньше первого."
+            "value": "Der letzte Tag liegt vor dem ersten."
           }
         }
       }
@@ -1572,16 +2508,34 @@
     "travel.new.issue.negativeBudget": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Das Budget kann nicht negativ sein."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The budget cannot be negative."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El presupuesto no puede ser negativo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le budget ne peut pas être négatif."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет не может быть отрицательным."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет не може бути від'ємним."
           }
         },
         "kk": {
@@ -1590,10 +2544,10 @@
             "value": "Бюджет теріс болмауы керек."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бюджет не может быть отрицательным."
+            "value": "Das Budget kann nicht negativ sein."
           }
         }
       }
@@ -1601,16 +2555,34 @@
     "travel.new.name": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Land oder Name"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Country or name"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "País o nombre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pays ou nom"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Страна или название"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Країна або назва"
           }
         },
         "kk": {
@@ -1619,10 +2591,10 @@
             "value": "Ел не атау"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Страна или название"
+            "value": "Land oder Name"
           }
         }
       }
@@ -1630,16 +2602,34 @@
     "travel.new.start": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erster Tag"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "First day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primer día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premier jour"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Первый день"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перший день"
           }
         },
         "kk": {
@@ -1648,10 +2638,10 @@
             "value": "Бірінші күн"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Первый день"
+            "value": "Erster Tag"
           }
         }
       }
@@ -1659,16 +2649,34 @@
     "travel.new.switchOn": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Den Reisemodus einschalten"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Switch the trip mode on"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar el modo viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activer le mode voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включить режим поездки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнути режим поїздки"
           }
         },
         "kk": {
@@ -1677,10 +2685,10 @@
             "value": "Сапар режимін қосу"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Включить режим поездки"
+            "value": "Den Reisemodus einschalten"
           }
         }
       }
@@ -1688,16 +2696,34 @@
     "travel.new.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neue Reise"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "New trip"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveau voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая поездка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нова поїздка"
           }
         },
         "kk": {
@@ -1706,10 +2732,10 @@
             "value": "Жаңа сапар"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая поездка"
+            "value": "Neue Reise"
           }
         }
       }
@@ -1717,16 +2743,34 @@
     "travel.start.back": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ich bin zurück"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "I am back"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya volví"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je suis rentré"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я вернулся"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я вдома"
           }
         },
         "kk": {
@@ -1735,10 +2779,10 @@
             "value": "Қайтып келдім"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Я вернулся"
+            "value": "Ich bin zurück"
           }
         }
       }
@@ -1746,16 +2790,34 @@
     "travel.start.button": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Auf Reisen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "On a trip"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я в поездке"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У поїздці"
           }
         },
         "kk": {
@@ -1764,10 +2826,10 @@
             "value": "Сапардамын"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Я в поездке"
+            "value": "Auf Reisen"
           }
         }
       }
@@ -1775,13 +2837,31 @@
     "travel.start.days": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
+        "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ – %2$@"
           }
         },
-        "en": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ – %2$@"
@@ -1793,7 +2873,7 @@
             "value": "%1$@ – %2$@"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ – %2$@"
@@ -1804,16 +2884,34 @@
     "travel.start.extend": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verlängern…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Extend…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ampliar…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prolonger…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продлить…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продовжити…"
           }
         },
         "kk": {
@@ -1822,10 +2920,10 @@
             "value": "Ұзарту…"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продлить…"
+            "value": "Verlängern…"
           }
         }
       }
@@ -1833,16 +2931,34 @@
     "travel.start.help": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Den Reisemodus ein- oder ausschalten"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Switch the trip mode on or off"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar o desactivar el modo viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activer ou désactiver le mode voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Включить или выключить режим поездки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнути або вимкнути режим поїздки"
           }
         },
         "kk": {
@@ -1851,10 +2967,10 @@
             "value": "Сапар режимін қосу не өшіру"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Включить или выключить режим поездки"
+            "value": "Den Reisemodus ein- oder ausschalten"
           }
         }
       }
@@ -1862,16 +2978,34 @@
     "travel.start.menu": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Auf Reisen…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "On a Trip…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De viaje…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En voyage…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я в поездке…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У поїздці…"
           }
         },
         "kk": {
@@ -1880,10 +3014,10 @@
             "value": "Сапардамын…"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Я в поездке…"
+            "value": "Auf Reisen…"
           }
         }
       }
@@ -1891,16 +3025,34 @@
     "travel.start.new": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neue Reise…"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "New trip…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo viaje…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveau voyage…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новая поездка…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нова поїздка…"
           }
         },
         "kk": {
@@ -1909,10 +3061,10 @@
             "value": "Жаңа сапар…"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая поездка…"
+            "value": "Neue Reise…"
           }
         }
       }
@@ -1920,16 +3072,34 @@
     "travel.start.none": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keine Reise voraus. Legen Sie unten eine neue an."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No trip ahead. Make a new one below."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ningún viaje próximo. Cree uno nuevo abajo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de voyage à venir. Créez-en un ci-dessous."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поездок впереди нет. Заведите новую ниже."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Попереду немає поїздок. Створіть нову нижче."
           }
         },
         "kk": {
@@ -1938,10 +3108,10 @@
             "value": "Алда сапар жоқ. Төменде жаңасын жасаңыз."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поездок впереди нет. Заведите новую ниже."
+            "value": "Keine Reise voraus. Legen Sie unten eine neue an."
           }
         }
       }
@@ -1949,16 +3119,34 @@
     "travel.start.on": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jetzt: %1$@, bis %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Now: %1$@, until %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahora: %1$@, hasta el %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenant : %1$@, jusqu'au %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сейчас: %1$@, до %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зараз: %1$@, до %2$@"
           }
         },
         "kk": {
@@ -1967,10 +3155,10 @@
             "value": "Қазір: %1$@, %2$@ дейін"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сейчас: %1$@, до %2$@"
+            "value": "Jetzt: %1$@, bis %2$@"
           }
         }
       }
@@ -1978,16 +3166,34 @@
     "travel.start.onHint": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Neue Vorgänge beginnen in der Währung der Reise und werden darunter eingeordnet. Tippen Sie auf „Ich bin zurück“, wenn Sie zu Hause sind."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "New operations start in the currency of the trip and are filed under it. Tap «I am back» when you are home."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las operaciones nuevas empiezan en la divisa del viaje y se archivan bajo él. Pulse «Ya volví» cuando esté en casa."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les nouvelles opérations se font dans la devise du voyage et y sont classées. Appuyez sur « Je suis rentré » quand vous êtes de retour."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Новые операции начинаются в валюте поездки и относятся к ней. Нажмите «Я вернулся», когда будете дома."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нові операції йдуть у валюті поїздки і записуються за нею. Натисніть «Я вдома», коли повернетеся."
           }
         },
         "kk": {
@@ -1996,10 +3202,10 @@
             "value": "Жаңа операциялар сапар валютасымен басталып, соған тіркеледі. Үйге оралғанда «Қайтып келдім» басыңыз."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новые операции начинаются в валюте поездки и относятся к ней. Нажмите «Я вернулся», когда будете дома."
+            "value": "Neue Vorgänge beginnen in der Währung der Reise und werden darunter eingeordnet. Tippen Sie auf „Ich bin zurück“, wenn Sie zu Hause sind."
           }
         }
       }
@@ -2007,16 +3213,34 @@
     "travel.start.pick": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wählen Sie die Reise, auf der Sie sind:"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Pick the trip you are on:"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija el viaje en el que está:"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez le voyage en cours :"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите поездку, в которой вы сейчас:"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оберіть поїздку, в якій ви зараз:"
           }
         },
         "kk": {
@@ -2025,10 +3249,10 @@
             "value": "Қазір жүрген сапарыңызды таңдаңыз:"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выберите поездку, в которой вы сейчас:"
+            "value": "Wählen Sie die Reise, auf der Sie sind:"
           }
         }
       }
@@ -2036,16 +3260,34 @@
     "travel.start.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Auf Reisen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "On a trip"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Я в поездке"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У поїздці"
           }
         },
         "kk": {
@@ -2054,10 +3296,10 @@
             "value": "Сапардамын"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Я в поездке"
+            "value": "Auf Reisen"
           }
         }
       }
@@ -2066,22 +3308,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@ von %2$@ übrig"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ left of %2$@"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "%2$@ ішінен %1$@ қалды"
+            "value": "Queda %1$@ de %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ restants sur %2$@"
           }
         },
         "ru": {
@@ -2095,22 +3337,52 @@
             "state": "translated",
             "value": "Залишилося %1$@ із %2$@"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ ішінен %1$@ қалды"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ von %2$@ übrig"
+          }
         }
       }
     },
     "travel.summary.budget.none": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kein Budget für diese Reise"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No budget for this trip"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin presupuesto para este viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de budget pour ce voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджета у поездки нет"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджету для цієї поїздки немає"
           }
         },
         "kk": {
@@ -2119,10 +3391,10 @@
             "value": "Бұл сапардың бюджеті жоқ"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бюджета у поездки нет"
+            "value": "Kein Budget für diese Reise"
           }
         }
       }
@@ -2130,16 +3402,34 @@
     "travel.summary.budget.over": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ über dem Budget"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ over the budget"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ por encima del presupuesto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ au-delà du budget"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сверх бюджета на %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ понад бюджет"
           }
         },
         "kk": {
@@ -2148,10 +3438,10 @@
             "value": "Бюджеттен %@ артық"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сверх бюджета на %@"
+            "value": "%@ über dem Budget"
           }
         }
       }
@@ -2159,16 +3449,34 @@
     "travel.summary.budgetCard": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reisebudget"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Trip budget"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Presupuesto del viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget du voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет поездки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бюджет поїздки"
           }
         },
         "kk": {
@@ -2177,10 +3485,10 @@
             "value": "Сапар бюджеті"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Бюджет поездки"
+            "value": "Reisebudget"
           }
         }
       }
@@ -2188,16 +3496,34 @@
     "travel.summary.byCategory": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nach Kategorie"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "By category"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por categoría"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Par catégorie"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По категориям"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За категорією"
           }
         },
         "kk": {
@@ -2206,10 +3532,10 @@
             "value": "Санат бойынша"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "По категориям"
+            "value": "Nach Kategorie"
           }
         }
       }
@@ -2217,16 +3543,34 @@
     "travel.summary.byCurrency": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nach Währung"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "By currency"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por divisa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Par devise"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По валютам"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За валютою"
           }
         },
         "kk": {
@@ -2235,10 +3579,10 @@
             "value": "Валюта бойынша"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "По валютам"
+            "value": "Nach Währung"
           }
         }
       }
@@ -2246,16 +3590,34 @@
     "travel.summary.byDay": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nach Tag"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "By day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Par jour"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По дням"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За днем"
           }
         },
         "kk": {
@@ -2264,10 +3626,10 @@
             "value": "Күн бойынша"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "По дням"
+            "value": "Nach Tag"
           }
         }
       }
@@ -2275,16 +3637,34 @@
     "travel.summary.export": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "CSV exportieren"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Export CSV"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar CSV"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter le CSV"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выгрузить CSV"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Експорт CSV"
           }
         },
         "kk": {
@@ -2293,10 +3673,10 @@
             "value": "CSV экспорттау"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выгрузить CSV"
+            "value": "CSV exportieren"
           }
         }
       }
@@ -2304,16 +3684,34 @@
     "travel.summary.forOthers": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "für andere"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "for others"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "para otros"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pour d'autres"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "за других"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "для інших"
           }
         },
         "kk": {
@@ -2322,10 +3720,10 @@
             "value": "басқаларға"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "за других"
+            "value": "für andere"
           }
         }
       }
@@ -2333,16 +3731,34 @@
     "travel.summary.missing": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Diese Reise ist nicht mehr vorhanden."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "This trip is no longer there."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este viaje ya no está."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce voyage n'est plus là."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Такой поездки больше нет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цієї поїздки більше немає."
           }
         },
         "kk": {
@@ -2351,10 +3767,10 @@
             "value": "Бұл сапар енді жоқ."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Такой поездки больше нет."
+            "value": "Diese Reise ist nicht mehr vorhanden."
           }
         }
       }
@@ -2362,16 +3778,34 @@
     "travel.summary.noCategory": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keine Kategorie"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No category"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin categoría"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sans catégorie"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без категории"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без категорії"
           }
         },
         "kk": {
@@ -2380,10 +3814,10 @@
             "value": "Санатсыз"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Без категории"
+            "value": "Keine Kategorie"
           }
         }
       }
@@ -2391,16 +3825,34 @@
     "travel.summary.settlement": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abrechnung mit der Firma"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Settling up with the company"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuentas con la empresa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Règlement avec la société"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расчёт с компанией"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розрахунок із компанією"
           }
         },
         "kk": {
@@ -2409,10 +3861,10 @@
             "value": "Серіктермен есеп айырысу"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Расчёт с компанией"
+            "value": "Abrechnung mit der Firma"
           }
         }
       }
@@ -2420,16 +3872,34 @@
     "travel.summary.settlement.none": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Für diese Reise schuldet niemand etwas."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Nobody owes anything for this trip."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nadie debe nada por este viaje."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personne ne doit rien pour ce voyage."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По этой поездке никто ничего не должен."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "За цю поїздку ніхто нічого не винен."
           }
         },
         "kk": {
@@ -2438,10 +3908,10 @@
             "value": "Бұл сапар үшін ешкім қарыз емес."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "По этой поездке никто ничего не должен."
+            "value": "Für diese Reise schuldet niemand etwas."
           }
         }
       }
@@ -2449,16 +3919,34 @@
     "travel.summary.settlement.note": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nur was Ihnen geschuldet wird; Schulden unter Freunden werden nicht geführt."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Only what is owed to you; debts between friends are not kept."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo lo que se le debe a usted; las deudas entre amigos no se guardan."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seulement ce qui vous est dû ; les dettes entre amis ne sont pas tenues."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Только то, что должны вам; долги друзей друг другу не ведутся."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише те, що винні вам; борги між друзями не ведуться."
           }
         },
         "kk": {
@@ -2467,10 +3955,10 @@
             "value": "Тек сізге берешек есептеледі; достар арасындағы қарыздар жүргізілмейді."
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Только то, что должны вам; долги друзей друг другу не ведутся."
+            "value": "Nur was Ihnen geschuldet wird; Schulden unter Freunden werden nicht geführt."
           }
         }
       }
@@ -2478,16 +3966,34 @@
     "travel.summary.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reisezusammenfassung: %@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Trip summary: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumen del viaje: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Récapitulatif du voyage : %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итог поездки: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підсумок поїздки: %@"
           }
         },
         "kk": {
@@ -2496,10 +4002,10 @@
             "value": "Сапар қорытындысы: %@"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Итог поездки: %@"
+            "value": "Reisezusammenfassung: %@"
           }
         }
       }
@@ -2507,16 +4013,34 @@
     "travel.summary.total": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Reise hat gekostet"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The trip cost"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El viaje costó"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le voyage a coûté"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поездка обошлась в"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поїздка коштувала"
           }
         },
         "kk": {
@@ -2525,10 +4049,10 @@
             "value": "Сапар құны"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поездка обошлась в"
+            "value": "Die Reise hat gekostet"
           }
         }
       }
@@ -2536,16 +4060,34 @@
     "travel.welcome.body": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die Reise „%1$@“ hat %2$@ gekostet"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The trip «%1$@» cost %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El viaje «%1$@» costó %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le voyage « %1$@ » a coûté %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поездка «%1$@» обошлась в %2$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поїздка «%1$@» коштувала %2$@"
           }
         },
         "kk": {
@@ -2554,10 +4096,10 @@
             "value": "«%1$@» сапарының құны %2$@"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поездка «%1$@» обошлась в %2$@"
+            "value": "Die Reise „%1$@“ hat %2$@ gekostet"
           }
         }
       }
@@ -2566,22 +4108,22 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Schließen"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Close"
           }
         },
-        "kk": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жабу"
+            "value": "Cerrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fermer"
           }
         },
         "ru": {
@@ -2595,22 +4137,52 @@
             "state": "translated",
             "value": "Закрити"
           }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жабу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schließen"
+          }
         }
       }
     },
     "travel.welcome.extend": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verlängern"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Extend"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ampliar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prolonger"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продлить"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продовжити"
           }
         },
         "kk": {
@@ -2619,10 +4191,10 @@
             "value": "Ұзарту"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продлить"
+            "value": "Verlängern"
           }
         }
       }
@@ -2630,16 +4202,34 @@
     "travel.welcome.summary": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reisezusammenfassung"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Trip summary"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumen del viaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Récapitulatif du voyage"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Итог поездки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підсумок поїздки"
           }
         },
         "kk": {
@@ -2648,10 +4238,10 @@
             "value": "Сапар қорытындысы"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Итог поездки"
+            "value": "Reisezusammenfassung"
           }
         }
       }
@@ -2659,16 +4249,34 @@
     "travel.welcome.title": {
       "extractionState": "manual",
       "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Willkommen zurück!"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Welcome back!"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¡Bienvenido de vuelta!"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bon retour !"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "С возвращением!"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З поверненням!"
           }
         },
         "kk": {
@@ -2677,10 +4285,10 @@
             "value": "Қош келдіңіз!"
           }
         },
-        "ru": {
+        "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "С возвращением!"
+            "value": "Willkommen zurück!"
           }
         }
       }

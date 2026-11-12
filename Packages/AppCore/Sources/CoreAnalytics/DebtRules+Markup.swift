@@ -19,12 +19,13 @@ public enum DebtMarkup {
     guard debt.isInstalmentPlan, let markup = debt.markupE4, markup.raw > 0,
       let count = debt.parts, count >= 1
     else { return DebtPaymentSplit(interestE4: .zero, principalE4: money) }
-    let shares = InstalmentPlan.markupShares(markup: markup, count: count)
     let instalments =
       dues.instalments.isEmpty
       ? InstalmentPlan.instalments(
         debt: debt, price: InstalmentPlan.price(of: debt, journal: journal))
       : dues.instalments
+    let shares = InstalmentPlan.markupShares(
+      markup: markup, payments: (0..<count).map { instalments.amount(at: $0) })
     var kept = dues.partialE4 + money
     var index = dues.paidCount
     var carried = AmountE4.zero

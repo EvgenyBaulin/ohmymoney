@@ -386,18 +386,20 @@ final class DebtsBoardTests: XCTestCase {
     let window = show(width: 440, height: 1_600)
     try attachPicture(of: window, named: "Долги 440 (Figma 68:18363)")
     let summary = try frame(of: "debts.summary", in: window)
-    XCTAssertEqual(summary.minX, 16, accuracy: 1)
-    XCTAssertEqual(summary.width, 408, accuracy: 1.5)
+    // The phone screen margin (owner, 11.11): 20 on each side of 440.
+    let side = PhoneMetrics.screenMargin
+    XCTAssertEqual(summary.minX, side, accuracy: 1)
+    XCTAssertEqual(summary.width, 440 - 2 * side, accuracy: 1.5)
     let cards = DebtsFigmaBoard.board.groups.flatMap(\.cards)
     var previous: CGRect?
     for card in cards {
       let frame = try frame(of: DebtsBoardCard.identifier(of: card.selection), in: window)
-      XCTAssertEqual(frame.width, 408, accuracy: 1.5, "a card across the page: \(frame)")
+      XCTAssertEqual(frame.width, 440 - 2 * side, accuracy: 1.5, "a card across the page: \(frame)")
       if let previous { XCTAssertLessThan(frame.maxY, previous.minY, "one under the other") }
       previous = frame
     }
     let ladder = try frame(of: "debts.ladder.card", in: window)
-    XCTAssertEqual(ladder.width, 408, accuracy: 1.5)
+    XCTAssertEqual(ladder.width, 440 - 2 * side, accuracy: 1.5)
   }
 
   /// «Закрытые» stays folded until its name is pressed: closed debts pile up over the years, and

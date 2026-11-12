@@ -35,6 +35,9 @@ struct ScheduledPaymentForm: View {
         .appFont(.headline)
       Form {
         TextField(t("form.name"), text: $draft.payment.name)
+        PlanningNamesakeNotice(
+          kind: .scheduledPayment, id: draft.payment.id,
+          name: $draft.payment.name)
         Picker(t("form.kind"), selection: $draft.payment.kind) {
           Text(verbatim: t("form.kind.bill")).tag(ScheduledKind.bill)
           Text(verbatim: t("form.kind.subscription")).tag(ScheduledKind.subscription)

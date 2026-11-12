@@ -1,19 +1,11 @@
 import AppCore
 import Foundation
 import SwiftUI
-import Vision
 
 /// Text recognition supplies editable facts; matching and its tolerances belong to the core.
 enum ScreenshotText {
   static func read(_ data: Data) -> String {
-    guard let image = ReceiptQRDetector.image(from: data) else { return "" }
-    let request = VNRecognizeTextRequest()
-    request.recognitionLevel = .accurate
-    request.recognitionLanguages = ["ru-RU", "en-US"]
-    guard (try? VNImageRequestHandler(cgImage: image, options: [:]).perform([request])) != nil
-    else { return "" }
-    return (request.results ?? []).compactMap { $0.topCandidates(1).first?.string }
-      .joined(separator: "\n")
+    ReceiptTextReader.lines(inFile: data).map(\.text).joined(separator: "\n")
   }
 }
 

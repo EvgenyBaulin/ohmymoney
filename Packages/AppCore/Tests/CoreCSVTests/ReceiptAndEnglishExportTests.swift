@@ -7,7 +7,7 @@ import Testing
 // Synthetic data only.
 
 /// Schema 23 in the CSV: the numbers of the receipt go last in `transactions.csv`, the English
-/// name of a category last in `categories.csv`; the files stay 53.
+/// name of a category last in `categories.csv`; the files grew to 54.
 @Suite("CSV: номера чека и английское название")
 struct ReceiptAndEnglishExportTests {
   @Test func theReceiptNumbersGoLastAndEmptyForNone() throws {
@@ -46,7 +46,7 @@ struct ReceiptAndEnglishExportTests {
   }
 
   @Test func theFilesStayFiftyThreeAndNoColumnEndsInE4() {
-    #expect(ExportTables.all.count == 53)
+    #expect(ExportTables.all.count == 54)
     for table in [ExportTables.transactions, ExportTables.categories] {
       #expect(!table.columns.contains { $0.hasSuffix("_e4") })
     }

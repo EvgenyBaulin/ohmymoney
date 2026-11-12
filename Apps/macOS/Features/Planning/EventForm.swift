@@ -21,6 +21,9 @@ struct EventForm: View {
   @State private var start: DateOnly?
   @State private var end: DateOnly?
   @State private var budget: AmountE4
+  /// A new event keeps one identity while the form is open, so a hidden namesake notice
+  /// stays about this event.
+  @State private var draftId = UUID()
 
   init(original: Event?, today: DateOnly? = nil) {
     self.original = original
@@ -39,6 +42,7 @@ struct EventForm: View {
         .appFont(.headline)
       Form {
         TextField(text: $name) { Text(verbatim: t("events.form.name")) }
+        PlanningNamesakeNotice(kind: .event, id: original?.id ?? draftId, name: $name)
         if let start, let end {
           EventDaysFields(
             owner: original?.id,
@@ -81,7 +85,7 @@ struct EventForm: View {
   /// empty or zero budget as none.
   private var edited: Event {
     let today = environment.today
-    var event = original ?? Event(name: "", startDate: today, endDate: today)
+    var event = original ?? Event(id: draftId, name: "", startDate: today, endDate: today)
     event.name = PlanningActions.trimmed(name)
     event.startDate = start ?? today
     event.endDate = max(event.startDate, end ?? event.startDate)

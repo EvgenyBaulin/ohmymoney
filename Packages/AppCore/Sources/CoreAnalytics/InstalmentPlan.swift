@@ -31,6 +31,26 @@ public enum InstalmentPlan {
     parts(total: markup, count: count)
   }
 
+  /// Equal commission shares, with any part a small edited payment cannot carry passed
+  /// forward. The last payment's excess is assigned to earlier spare capacity, so the shares
+  /// always add up to the commission and no payment spends more commission than its amount.
+  public static func markupShares(markup: AmountE4, payments: [AmountE4]) -> [AmountE4] {
+    let equal = markupShares(markup: markup, count: payments.count)
+    var result = Array(repeating: AmountE4.zero, count: payments.count)
+    var carry = AmountE4.zero
+    for index in payments.indices {
+      let asked = equal[index] + carry
+      result[index] = min(asked, max(.zero, payments[index]))
+      carry = asked - result[index]
+    }
+    for index in payments.indices.reversed() where carry.raw > 0 {
+      let extra = min(carry, max(.zero, payments[index] - result[index]))
+      result[index] += extra
+      carry = carry - extra
+    }
+    return result
+  }
+
   /// What each due asks for: its part of the price and its part of the markup. The due after the
   /// last asks for nothing — the plan has no more dues.
   public static func instalments(debt: Debt, price: AmountE4) -> DebtInstalments {

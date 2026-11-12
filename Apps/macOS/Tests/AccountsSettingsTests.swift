@@ -295,21 +295,36 @@ final class AccountsSettingsTests: XCTestCase {
       "its own name, spelt otherwise, is its own")
   }
 
-  /// A new account named like one in the archive brings that one back instead.
-  func testANewAccountNamedLikeOneInTheArchiveBringsItBack() async throws {
+  /// An archived namesake is advice: saving makes a new identity and keeps the old archive.
+  func testANewAccountNamedLikeOneInTheArchiveSavesBesideIt() async throws {
     _ = try account("Сбер", main: true)
     let old = try account("Альфа")
     let books6 = try await freshBooks()
     XCTAssertEqual(actions.archive(old.id, books: books6), .done)
-
     var draft = AccountDraft(newIn: .rub)
     draft.name = " альфа"
     let books7 = try await freshBooks()
-    XCTAssertEqual(
-      actions.save(draft.account(over: nil), previous: nil, books: books7),
-      .refused(.inArchive(old.id)))
+    XCTAssertEqual(actions.save(draft.account(over: nil), previous: nil, books: books7), .done)
+    XCTAssertEqual(try stored().first { $0.id == old.id }?.archived, true)
+    XCTAssertEqual(try stored().first { $0.id == draft.id }?.name, "альфа")
+    XCTAssertEqual(actions.restore(old.id), .refused(.nameTaken))
+    store.undo()
+    XCTAssertNil(try stored().first { $0.id == draft.id })
     XCTAssertEqual(actions.restore(old.id), .done)
-    XCTAssertEqual(try stored().filter { $0.name == "Альфа" }.map(\.archived), [false])
+  }
+
+  func testAnArchivedAccountsAliasesAreAvailableWithoutChangingThem() async throws {
+    _ = try account("Main", main: true)
+    var old = try account("Old")
+    old.aliases = ["Reserve"]
+    try XCTUnwrap(environment.references).save(old)
+    let before = try await freshBooks()
+    XCTAssertEqual(actions.archive(old.id, books: before), .done)
+    let new = PaymentMethod(name: "New", aliases: ["reserve"])
+    let books = try await freshBooks()
+    XCTAssertEqual(actions.save(new, previous: nil, books: books), .done)
+    XCTAssertEqual(try stored().first { $0.id == old.id }?.aliases, ["Reserve"])
+    XCTAssertEqual(actions.restore(old.id), .refused(.otherNameTaken("Reserve")))
   }
 
   // MARK: Groups

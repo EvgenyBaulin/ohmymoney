@@ -180,6 +180,7 @@ struct Migration0009Tests {
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
+          "0025_split_dates_and_credit_statements",
         ])
 
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
@@ -274,6 +275,7 @@ struct Migration0009Tests {
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
+          "0025_split_dates_and_credit_statements",
         ])
     let debts = try DatabaseStack.rowCounts(fileAt: url)["debts"] ?? 0
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
@@ -294,6 +296,7 @@ struct Migration0009Tests {
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
+          "0025_split_dates_and_credit_statements",
         ])
     let counts = try DatabaseStack.rowCounts(fileAt: url)
     #expect(counts["debts"] == debts)

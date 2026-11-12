@@ -77,6 +77,7 @@ struct Migration0010Tests {
           "0022_borrowed_card",
           "0023_receipt_numbers_and_category_english",
           "0024_category_icon_color",
+          "0025_split_dates_and_credit_statements",
         ])
     let stack = try DatabaseStack(url: url, schema: TestSupport.schemaSource)
     defer { try? stack.close() }

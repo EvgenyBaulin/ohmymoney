@@ -77,6 +77,7 @@ struct ConfiguredFreeMoneyTests {
       ExpectedIncome(name: "Salary", totalE4: Fx.money("100000"), dueDate: Fx.day("2026-09-25")),
     ]
     #expect(fx.snapshot().configuredFreeMoney(ledger: fx.ledger).until == Fx.day("2026-09-25"))
+    #expect(fx.snapshot().configuredFreeMoney(ledger: fx.ledger).daysToIncome == 6)
   }
 
   @Test func nearestIncomeWorksForOneMonthlySalaryAcrossTheYearBoundary() {

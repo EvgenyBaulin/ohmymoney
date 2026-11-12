@@ -179,7 +179,7 @@ public final class AppLanguage {
   }
 
   /// The ending of a key that words an instruction for a touch screen (see `callAsFunction`).
-  public static let touchSuffix = ".touch"
+  public nonisolated static let touchSuffix = ".touch"
 
   /// Convenience for interpolated strings: `language.format("transactions.paidFor", name)`.
   public func format(_ key: String, table: String = "Common", _ arguments: CVarArg...) -> String {

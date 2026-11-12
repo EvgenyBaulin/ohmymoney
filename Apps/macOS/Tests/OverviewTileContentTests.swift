@@ -147,6 +147,34 @@ final class OverviewTileContentTests: XCTestCase {
     XCTAssertEqual(framed(tile.figure), "≈ 22 000 ₽")
   }
 
+  func testCanSaveExplainsTheShortfallAndExistingSourcesInBothLanguages() {
+    let environment = russian()
+    var result = canSave(low: -274_947, high: -7_441, middle: -100_000, saved: 7_000)
+    result.fundingHints = [.goals(rub(7_000)), .cushion(rub(20_000))]
+    for choice in [AppLanguage.Choice.russian, .english] {
+      environment.language.choice = choice
+      let tile = CanSaveTile.make(result, environment)
+      XCTAssertEqual(
+        tile.figure,
+        choice == .russian ? "Сэкономить в этом месяце не получится" : "You cannot save this month")
+      XCTAssertEqual(
+        tile.shortfall.map(framed),
+        choice == .russian ? "Не хватает от 7 441 до 274 947 ₽" : "Short by 7 441 to 274 947 ₽")
+      XCTAssertEqual(tile.hints.count, 2)
+      XCTAssertTrue(tile.hints[0].contains(environment.money.rounded(rub(7_000))))
+      XCTAssertFalse(tile.figure.contains("−"))
+      XCTAssertFalse(tile.shortfall?.contains("−") ?? true)
+    }
+  }
+
+  func testCanSaveCrossingZeroShowsTheRiskWithoutNegativeSavings() {
+    let tile = CanSaveTile.make(
+      canSave(low: -500, high: 200, middle: 100, saved: 0), russian())
+    XCTAssertFalse(tile.figure.contains("−"))
+    XCTAssertEqual(framed(tile.figure), "≈ 100 ₽")
+    XCTAssertEqual(tile.shortfall.map(framed), "При высоких тратах не хватает до 500 ₽")
+  }
+
   // MARK: Платежи на 7 дней
 
   private func payment(

@@ -131,6 +131,9 @@ enum EntryPlusMetrics {
   /// The iPad: 56 pt, 24 from the edges.
   static let padDiameter: CGFloat = 56
   static let padMargin: CGFloat = 24
+  /// The room scrolling content keeps at its bottom on the iPad: the button, its margin and a gap,
+  /// so the last tile can be scrolled out from under the «+».
+  static let padScrollClearance: CGFloat = padDiameter + padMargin + 12
   /// The plus is drawn in a 26 pt square on both.
   static let glyph: CGFloat = 26
   /// The shadow: 4 down, blurred 8, black at 16 %.

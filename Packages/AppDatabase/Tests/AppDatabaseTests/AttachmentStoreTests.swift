@@ -168,6 +168,35 @@ struct AttachmentStoreTests {
     #expect(rig.service.store.contains(hash: card.contentHash))
   }
 
+  @Test(arguments: [false, true])
+  func retentionReadsThePurchasesWarrantyAndReturnTerm(useWarranty: Bool) throws {
+    let rig = try Rig()
+    defer { rig.cleanUp() }
+    let calendar = CalendarContext.system
+    let today = calendar.day(of: now)
+    let photo = try rig.add("protected receipt", at: now.addingTimeInterval(-100 * 86_400))
+    var purchase = try #require(
+      try rig.stack.writer.read { db in
+        try CoreKit.Transaction.fetchOne(db, key: rig.owner.uuidString)
+      })
+    purchase.warrantyUntil = useWarranty ? today : nil
+    purchase.returnUntil = useWarranty ? nil : today
+    try rig.stack.writer.write { db in try purchase.update(db) }
+    try rig.service.repository.save(AttachmentSettings(keepReceiptsForever: false))
+
+    #expect(try rig.service.applyRetention(now: calendar.endOfDay(today)).isEmpty)
+    #expect(try rig.service.repository.attachment(id: photo.id)?.trashedAt == nil)
+    #expect(rig.service.store.contains(hash: photo.contentHash))
+    let tomorrow = calendar.startOfDay(today.adding(days: 1))
+    #expect(
+      try rig.service.applyRetention(now: tomorrow) == [.moveToTrash(id: photo.id, at: tomorrow)])
+    #expect(try rig.service.repository.trash().map(\.id) == [photo.id])
+    #expect(rig.service.store.contains(hash: photo.contentHash))
+    let afterTrash = tomorrow.addingTimeInterval(30 * 86_400)
+    #expect(try rig.service.applyRetention(now: afterTrash) == [.delete(id: photo.id)])
+    #expect(!rig.service.store.contains(hash: photo.contentHash))
+  }
+
   @Test func theDailySweepKeepsEveryReceiptWhileTheSettingIsOn() throws {
     let rig = try Rig()
     defer { rig.cleanUp() }

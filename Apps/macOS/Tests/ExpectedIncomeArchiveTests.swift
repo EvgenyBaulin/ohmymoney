@@ -39,7 +39,7 @@ final class ExpectedIncomeArchiveTests: XCTestCase {
     var draft = TransactionDraft(
       kind: .income, occurredAt: noon(day), amount: AmountE4(whole: whole), note: "project")
     draft.normalizeSinglePart()
-    let entry = try draft.materialize()
+    let entry = try draft.materialize(timeZone: CalendarContext.utc.timeZone)
     XCTAssertTrue(store.save(entry))
     return entry.id
   }
@@ -146,6 +146,39 @@ final class ExpectedIncomeArchiveTests: XCTestCase {
   }
 
   // MARK: Names
+
+  func testAnIncomeCanBeArchivedBeforeAnyMoneyArrives() throws {
+    let income = project(100_000)
+    XCTAssertTrue(actions.save(income))
+    XCTAssertTrue(actions.archive(income))
+    XCTAssertTrue(try statuses().isEmpty)
+    XCTAssertEqual(try planning.expected().first?.closed, true)
+    XCTAssertTrue(actions.reopen(try XCTUnwrap(try planning.expected().first)))
+    XCTAssertEqual(try statuses().map(\.id), [income.id])
+  }
+
+  /// A recurring income need not be fully paid before it can go to the archive.
+  func testArchivingAPartlyPaidRecurringIncomeKeepsItsHistoryAndUndoRestoresIt() throws {
+    var income = project(100_000)
+    income.kind = .recurring
+    income.freq = .monthly
+    income.day = 15
+    XCTAssertTrue(actions.save(income))
+    let paid = try earn(10_000, on: today)
+    XCTAssertTrue(actions.link(income: paid, to: income))
+    let links = try planning.book().expectedLinks
+
+    XCTAssertTrue(actions.archive(income))
+    XCTAssertTrue(try statuses().isEmpty)
+    XCTAssertEqual(try planning.book().expectedLinks, links)
+    XCTAssertEqual(try planning.expected().map(\.id), [income.id])
+    XCTAssertEqual(ExpectedIncomeBlock.archived(try planning.expected()).map(\.id), [income.id])
+    XCTAssertEqual(
+      try transactions.entries(from: .distantPast, to: .distantFuture).map(\.id), [paid])
+    store.undo()
+    XCTAssertEqual(try statuses().map(\.id), [income.id])
+    XCTAssertEqual(try statuses().first?.received, AmountE4(whole: 10_000))
+  }
 
   /// Names may repeat: a second «Зарплата» saves beside the first.
   func testTwoIncomesWithOneNameBothSave() throws {

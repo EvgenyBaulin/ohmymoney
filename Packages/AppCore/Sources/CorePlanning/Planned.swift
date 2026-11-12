@@ -24,6 +24,10 @@ public struct PlannedItem: Hashable, Sendable {
   public var myShareRub: AmountE4?
   public var categoryId: UUID?
   public var forWhom: ForWhom
+  /// Credit-card statement metadata; a repayment is money, never another purchase expense.
+  public var creditAccountId: UUID? = nil
+  public var fullAmountE4: AmountE4? = nil
+  public var isEstimate: Bool = false
 
   public init(
     kind: PlannedKind, id: UUID, due: DateOnly?, currency: CurrencyCode, amount: AmountE4,
@@ -42,7 +46,9 @@ public struct PlannedItem: Hashable, Sendable {
 
 /// The payments known for the rest of the month — scheduled payments, debts whose payments
 /// are expenses, goals behind their plan — in rubles of my own spending. The forecast, the
-/// limits and «can save» all add the same figure. The free sum counts money, not spending,
+/// limits and «can save» all add the same figure. Repayment-only items have a zero spending
+/// share: they are visible in the plan and calendar without changing expense totals.
+/// The free sum counts money, not spending,
 /// and has a plan of its own (`CashPlan`).
 public struct PlannedMonth: Hashable, Sendable {
   /// Soonest first; the goals, which have no date, last.
@@ -142,7 +148,7 @@ public struct PlannedMonth: Hashable, Sendable {
     // Debts whose payments are expenses.
     var debtsDueByToday = AmountE4.zero
     let payable = ledger.dataset.debts.filter { debt in
-      !debt.closed && DebtRules.paymentIsExpense(on: debt) && debt.hasDues
+      !debt.isDeleted && !debt.closed && DebtRules.paymentIsExpense(on: debt) && debt.hasDues
     }
     let states = DebtDues.states(
       debts: payable, ledger: ledger, journal: book.debtEntries, today: today)
@@ -168,6 +174,37 @@ public struct PlannedMonth: Hashable, Sendable {
             kind: .debt, id: debt.id, due: due, currency: debt.currency, amount: owed,
             myShareRub: rubles, categoryId: debt.loansSubcategoryId))
       }
+    }
+
+    // Purchase principal was spent at purchase. List its dues without spending it again.
+    let purchases = ledger.dataset.debts.filter {
+      !$0.isDeleted && !$0.closed && $0.origin == .purchase && !$0.paymentsAreExpenses && $0.hasDues
+    }
+    let purchaseStates = DebtDues.states(
+      debts: purchases, ledger: ledger, journal: book.debtEntries, today: today)
+    for debt in purchases {
+      guard let state = purchaseStates[debt.id]?.knowing(debt) else { continue }
+      for due in state.unpaid(through: last) where due >= month.firstDay {
+        items.append(
+          PlannedItem(
+            kind: .debt, id: debt.id, due: due, currency: debt.currency,
+            amount: state.owed(due), myShareRub: .zero, categoryId: nil))
+      }
+    }
+
+    // The bank asks for the minimum; the full balance is shown alongside for the grace period.
+    for (accountId, statements) in CreditCardDues.statements(ledger: ledger, today: today) {
+      guard let statement = statements.last, statement.due <= last,
+        statement.minimumRemainingE4.raw > 0,
+        let account = ledger.dataset.paymentMethods.first(where: { $0.id == accountId })
+      else { continue }
+      var item = PlannedItem(
+        kind: .debt, id: accountId, due: statement.due, currency: account.mainCurrency,
+        amount: statement.minimumRemainingE4, myShareRub: .zero, categoryId: nil)
+      item.creditAccountId = accountId
+      item.fullAmountE4 = statement.remainingE4
+      item.isEstimate = statement.minimumIsEstimate
+      items.append(item)
     }
 
     // Goals behind their monthly plan, never asking more than the goal still needs.

@@ -121,10 +121,10 @@ final class PurchasesFigmaTests: SectionFigmaHarness {
     let tabs = try frame(of: "purchases.pages", in: window)
     let add = try frame(of: "purchases.wishes.add", in: window)
     let list = try frame(of: "purchases.wishes.list", in: window)
-    XCTAssertEqual(tabs.minX, 16, accuracy: 1.5)
+    XCTAssertEqual(tabs.minX, PhoneMetrics.screenMargin, accuracy: 1.5)
     XCTAssertEqual(tabs.minY - add.maxY, 12, accuracy: 2, "tabs → button")
     XCTAssertEqual(add.minY - list.maxY, 12, accuracy: 2, "button → list")
     XCTAssertEqual(add.height, 36, accuracy: 3, "the quiet button of 36: \(add)")
-    XCTAssertEqual(list.width, 408, accuracy: 1.5)
+    XCTAssertEqual(list.width, 440 - 2 * PhoneMetrics.screenMargin, accuracy: 1.5)
   }
 }

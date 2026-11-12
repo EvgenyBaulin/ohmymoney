@@ -337,6 +337,19 @@ public struct ExportRepository: Sendable {
               + [CSVValue.string(row["percent_e4"] as Int?), Self.flag(row, "chosen", false)])
         }
       }
+    case ExportTables.creditStatements.fileName:
+      for row in try Row.fetchAll(
+        db, sql: "SELECT * FROM credit_statements ORDER BY payment_method_id, statement_on, id")
+      {
+        // A statement this build can not read still goes out, in the text of the database.
+        if let statement = try? CreditStatementOverride(row: row) {
+          csv.append(ExportTables.row(statement))
+        } else {
+          csv.append(
+            Self.text(row, ["id", "payment_method_id", "statement_on"])
+              + Self.amount(row, "minimum_e4") + Self.text(row, ["pay_by"]))
+        }
+      }
     default:
       // A table the list gains before its rows are mapped still gets its header row.
       break

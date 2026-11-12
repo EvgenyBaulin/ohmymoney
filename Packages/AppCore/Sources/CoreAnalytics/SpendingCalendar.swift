@@ -60,6 +60,9 @@ public struct CalendarPlan: Hashable, Sendable, Identifiable {
   public var currency: CurrencyCode
   /// A dividend or a coupon among the incomes; `nil` for everything else.
   public var payoutKind: PayoutKind?
+  public var creditAccountId: UUID? = nil
+  public var fullAmountE4: AmountE4? = nil
+  public var isEstimate: Bool = false
 
   public var id: String { "\(kind.rawValue):\(sourceId.uuidString):\(day.iso)" }
 

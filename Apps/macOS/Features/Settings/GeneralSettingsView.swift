@@ -31,6 +31,8 @@ struct GeneralSettingsView: View {
   /// is added.
   @State private var people: [Person] = []
   @State private var newPerson = ""
+  /// One identity for the person being typed, so a hidden notice stays about this entry.
+  @State private var newPersonId = UUID()
   #if !APPSTORE && os(macOS)
     /// Read once when the tab is made; the switch is the only thing that changes it.
     @State private var automaticUpdates = AutomaticUpdates().isOn
@@ -170,11 +172,9 @@ struct GeneralSettingsView: View {
           Button(environment.language("references.add", table: "Settings"), action: addPerson)
             .disabled(!canAddPerson)
         }
-        if !ReferenceNames.folded(newPerson).isEmpty, !canAddPerson {
-          Text(verbatim: environment.language("references.nameTaken", table: "Settings"))
-            .appFont(.callout)
-            .foregroundStyle(.secondary)
-        }
+        PlanningNamesakeNotice(
+          kind: .person, id: newPersonId, name: $newPerson, onChange: reloadPeople,
+          dismissesOnRestore: false)
       } header: {
         Text(verbatim: environment.language("settings.forWhom.people", table: "Settings"))
           .settingsHeaderStyle()
@@ -307,38 +307,22 @@ struct GeneralSettingsView: View {
     people = (try? environment.references?.people(includeArchived: true)) ?? []
   }
 
-  /// A name already in the book — a name or an alias, by the rule the reference books use —
-  /// adds nothing, and a button that stays live while nothing happens is worse than one that
-  /// explains itself by being grey.
+  /// A name that says something can always be added; a namesake only gets advice under the
+  /// field (`PlanningNamesakeNotice`).
   private var canAddPerson: Bool {
     Self.person(toAdd: newPerson, among: people) != nil
   }
 
-  /// The row «Добавить» brings for `name`, or nil when it adds nothing: an empty name, or one
-  /// a live person already answers to, as a name or an other name, by the rule the reference
-  /// books use (`ReferenceNames`: case, «ё»/«е» and the spaces around do not count) — two
-  /// people with one name are two rows the entry line cannot tell apart. A name the archive
-  /// has — his name first, else one of his other names — brings that person back with the
-  /// relation and the other names he had, as `ReferenceRepository.revive` does on the write.
+  /// The row «Добавить» writes for `name`: always a new person, nil for a name that says
+  /// nothing. A person of the same name — live or in the archive — is left alone: the notice
+  /// offers to rename either one or to bring the archived one back.
   static func person(toAdd name: String, among people: [Person]) -> Person? {
     let name = name.trimmingCharacters(in: .whitespaces)
-    let live = people.filter { !$0.archived }
-    guard ReferenceBooksView.canAdd(name, to: .people, people: live, places: []) else {
-      return nil
-    }
-    let wanted = ReferenceNames.folded(name)
-    let archived = people.filter(\.archived)
-    guard
-      var back = archived.first(where: { ReferenceNames.folded($0.name) == wanted })
-        ?? archived.first(where: { $0.aliases.contains { ReferenceNames.folded($0) == wanted } })
-    else { return Person(name: name) }
-    back.archived = false
-    return back
+    guard !ReferenceNames.folded(name).isEmpty else { return nil }
+    return Person(name: name)
   }
 
-  /// A new person, or the one the archive holds under this name or an other name of his —
-  /// with the relation and the other names he had — by the rule of the reference books
-  /// (`NewReference.add`), rather than a second row with the same name.
+  /// A new person, never a silent return of the archived one of the same name.
   private func addPerson() {
     guard canAddPerson else { return }
     let today = environment.today
