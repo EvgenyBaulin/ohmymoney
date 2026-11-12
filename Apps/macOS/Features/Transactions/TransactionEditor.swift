@@ -493,6 +493,10 @@ struct TransactionEditor: View {
         .foregroundStyle(.red)
       }
 
+      // The foot stays put while the fields scroll under it: a hairline says where they end, so
+      // a control cut at the edge of the page reads as scrolled, not as cut off.
+      if style == .inspector { Divider() }
+
       // Named, not read by their captions: every confirmation of the Transactions window has
       // a «Cancel» of its own, and switching operations replaces the whole inspector
       // (`.id(ObjectIdentifier(editor))`), so two can stand there for one frame. A UI test

@@ -66,6 +66,57 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     }
   }
 
+  /// Scrolled to its end, the page's last point stands above the bar: what the owner sees when
+  /// the last card is read to the bottom.
+  private func checkScrolledToTheEnd(
+    _ section: MainWindow.Section, width: CGFloat, height: CGFloat, language: AppLanguage.Choice
+  ) throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    environment.language.choice = language
+    try seedChips()
+    let window = mainWindow(section, width: width, height: height)
+    settle(window)
+    let top = try barTop(in: window)
+    var scrolls: [NSScrollView] = []
+    Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &scrolls)
+    // The page's scroll view runs under the sidebar and the bar (the safe area is its content
+    // inset), so it is told by its size, not by where it starts.
+    let pages = scrolls.filter { scroll in
+      let inWindow = scroll.convert(scroll.bounds, to: nil)
+      return inWindow.width > 600 && inWindow.height > 300
+        && !(scroll.documentView is NSTableView)
+    }
+    XCTAssertFalse(pages.isEmpty, "\(section): the page scrolls")
+    for scroll in pages {
+      guard let document = scroll.documentView else { continue }
+      let clip = scroll.contentView
+      let lowest = max(0, document.frame.height - clip.bounds.height + clip.contentInsets.bottom)
+      let isFlipped = document.isFlipped
+      clip.scroll(to: NSPoint(x: 0, y: isFlipped ? lowest : -clip.contentInsets.bottom))
+      scroll.reflectScrolledClipView(clip)
+      settle(window, passes: 6)
+      // The document's bottom edge in window coordinates (y grows upwards there).
+      let edge = document.convert(
+        NSPoint(x: 0, y: isFlipped ? document.bounds.maxY : document.bounds.minY), to: nil
+      ).y
+      XCTAssertGreaterThanOrEqual(
+        edge, top - 0.5,
+        "\(section) \(Int(width))×\(Int(height)) \(language): scrolled to the end the page's last point is at \(edge), the bar starts at \(top)"
+      )
+    }
+  }
+
+  func testEveryScreenScrolledToTheEndClearsTheBar() throws {
+    // «Календарь» is a fixed page, not a scrolling one; «Операции» is a table (below).
+    for section in Self.sections where section != .operations && section != .calendar {
+      for (width, height) in [(CGFloat(1_440), CGFloat(900)), (1_024, 700)] {
+        for language in [AppLanguage.Choice.russian, .english] {
+          try checkScrolledToTheEnd(section, width: width, height: height, language: language)
+        }
+      }
+    }
+  }
+
   func testEveryScreenScrollsAboveTheBarWide() throws {
     for section in Self.sections {
       for language in [AppLanguage.Choice.russian, .english] {
@@ -87,8 +138,6 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
   /// «Ещё N более ранних…» and «Показать ещё 3 месяца» stand under the table's last row, not over
   /// it and its sum: the table scrolled to its end ends above the footer, and the footer above
   /// the bar.
-  private func rowInWindow0(_ t: NSTableView) -> CGRect { t.convert(t.rect(ofRow: t.numberOfRows - 1), to: nil) }
-
   private func checkFooter(width: CGFloat, height: CGFloat, language: AppLanguage.Choice) throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     environment.language.choice = language
@@ -110,7 +159,6 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     }
     settle(window, passes: 10)
     let footer = try frame(of: "operations.earlier", in: window)
-    print("FOOT top=\(top) footer=\(footer) row=\(rowInWindow0(table)) inset=\(scroll.contentInsets.bottom) clipinset=\(scroll.contentView.contentInsets.bottom) rows=\(table.numberOfRows) win=\(window.frame)")
     XCTAssertGreaterThan(footer.height, 0)
     XCTAssertGreaterThanOrEqual(footer.minY, top - 0.5, "the footer stands above the bar")
     let lastRow = table.rect(ofRow: table.numberOfRows - 1)
@@ -193,7 +241,10 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     return window
   }
 
-  private func checkEditorBesideTheTable(
+  /// The table beside the editor shows the columns it was given at least their minimum, and does
+  /// not run off to the right under a horizontal scroller: the account and the category are
+  /// read, not cut to «Повсе…».
+  private func checkTableBesideTheEditor(
     width: CGFloat, height: CGFloat, language: AppLanguage.Choice
   ) throws {
     try TestEnvironment.requireSwiftUIAccessibility()
@@ -203,15 +254,94 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
     var tables: [NSTableView] = []
     Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &tables)
     let table = try XCTUnwrap(tables.max { $0.numberOfColumns < $1.numberOfColumns })
+    let clip = try XCTUnwrap(table.enclosingScrollView).contentView
     let widths = table.tableColumns.map { Int($0.width) }
-    print("EDITOR \(Int(width)) \(language) columns=\(widths) titles=\(table.tableColumns.map(\.title))")
-    let scroller = table.enclosingScrollView?.hasHorizontalScroller == true
-    print("EDITOR hscroll=\(scroller) tablewidth=\(table.frame.width) clip=\(table.enclosingScrollView?.contentView.bounds.width ?? 0)")
+    // The card keeps room for every column at its minimum and the gap after each.
+    let needed = CGFloat(
+      OperationColumn.allCases.filter(\.shownByDefault).reduce(0) { $0 + $1.minimumWidth }
+    ) + 5 * table.intercellSpacing.width
+    XCTAssertGreaterThanOrEqual(
+      clip.bounds.width, needed,
+      "\(Int(width)) \(language): the card is \(clip.bounds.width) wide, its columns need \(needed)")
+    if width >= 1_440 {
+      XCTAssertLessThanOrEqual(
+        table.frame.width, clip.bounds.width + 0.5,
+        "\(Int(width)) \(language): the table is wider than its card (\(widths))")
+    }
+    for (column, shown) in zip(OperationColumn.allCases.filter(\.shownByDefault), widths)
+    where width >= 1_440 {
+      XCTAssertGreaterThanOrEqual(
+        shown, column.minimumWidth, "\(Int(width)) \(language): \(column) is \(shown) wide")
+    }
   }
 
-  func testEditorDump() throws {
-    for (w, h) in [(CGFloat(1_440), CGFloat(900)), (1_120, 800), (1_024, 700)] {
-      try checkEditorBesideTheTable(width: w, height: h, language: .russian)
+  func testTheTableBesideTheEditorKeepsItsColumns() throws {
+    for (w, h) in [(CGFloat(1_440), CGFloat(900)), (1_300, 800), (1_200, 800), (1_024, 700)] {
+      for language in [AppLanguage.Choice.russian, .english] {
+        try checkTableBesideTheEditor(width: w, height: h, language: language)
+      }
+    }
+  }
+
+  /// The wide window gives the account and the category what a name needs, not the minimum a
+  /// squeezed table falls back to.
+  func testTheAccountAndCategoryColumnsAreReadableBesideTheEditor() throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    try seedChips()
+    let window = try windowWithEditor(width: 1_440, height: 900)
+    var tables: [NSTableView] = []
+    Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &tables)
+    let table = try XCTUnwrap(tables.max { $0.numberOfColumns < $1.numberOfColumns })
+    let widths = table.tableColumns.map { Int($0.width) }
+    XCTAssertGreaterThanOrEqual(widths[1], 140, "category \(widths)")
+    XCTAssertGreaterThanOrEqual(widths[2], 130, "account \(widths)")
+  }
+
+  /// The editor's foot is pinned above the bar and the page of fields scrolls above it: the
+  /// viewport ends where the foot begins, and scrolled to its end the last field is whole.
+  private func checkEditorFoot(width: CGFloat, height: CGFloat, language: AppLanguage.Choice) throws {
+    try TestEnvironment.requireSwiftUIAccessibility()
+    environment.language.choice = language
+    try seedChips()
+    let window = try windowWithEditor(width: width, height: height)
+    let top = try barTop(in: window)
+    let save = try frame(of: "editor.save", in: window)
+    let delete = try frame(of: "editor.delete", in: window)
+    XCTAssertGreaterThanOrEqual(save.minY, top - 0.5, "the foot stands above the bar")
+    let foot = min(save.minY, delete.minY)
+    let footTop = max(save.maxY, delete.maxY)
+    var scrolls: [NSScrollView] = []
+    Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &scrolls)
+    let page = try XCTUnwrap(
+      scrolls.first { scroll in
+        let r = scroll.convert(scroll.bounds, to: nil)
+        return r.width < 420 && r.height > 150 && r.minX > width / 2
+          && !(scroll.documentView is NSTableView)
+      }, "the editor's page of fields")
+    let viewport = page.convert(page.bounds, to: nil)
+    XCTAssertGreaterThanOrEqual(
+      viewport.minY, footTop - 0.5,
+      "\(Int(width)) \(language): the page of fields (to \(viewport.minY)) reaches the foot (\(footTop))"
+    )
+    _ = foot
+    let document = try XCTUnwrap(page.documentView)
+    let clip = page.contentView
+    let lowest = max(0, document.frame.height - clip.bounds.height + clip.contentInsets.bottom)
+    clip.scroll(to: NSPoint(x: 0, y: document.isFlipped ? lowest : 0))
+    page.reflectScrolledClipView(clip)
+    settle(window, passes: 6)
+    let edge = document.convert(
+      NSPoint(x: 0, y: document.isFlipped ? document.bounds.maxY : document.bounds.minY), to: nil
+    ).y
+    XCTAssertGreaterThanOrEqual(
+      edge, viewport.minY - 0.5, "\(Int(width)) \(language): the last field ends under the foot")
+  }
+
+  func testTheFootOfTheEditorIsPinnedAndTheFieldsScroll() throws {
+    for (w, h) in [(CGFloat(1_440), CGFloat(900)), (1_300, 800)] {
+      for language in [AppLanguage.Choice.russian, .english] {
+        try checkEditorFoot(width: w, height: h, language: language)
+      }
     }
   }
 }
