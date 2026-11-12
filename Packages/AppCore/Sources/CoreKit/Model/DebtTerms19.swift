@@ -41,18 +41,23 @@ public enum PrepayChoice: String, Hashable, Sendable, Codable, CaseIterable {
 }
 
 /// What a due asks for, typed from the bank's app: from due `fromIndex` (0 the first) on, until
-/// the next step of either kind (`debt_instalments`).
+/// the next step of either kind (`debt_instalments`). `dueOn` is the day of that due when the
+/// instalment service named it; `nil` leaves the day to the debt's own schedule.
 public struct DebtInstalmentStep: Identifiable, Hashable, Sendable, Codable {
   public var id: UUID
   public var debtId: UUID
   public var fromIndex: Int
   public var amountE4: AmountE4
+  public var dueOn: DateOnly?
 
-  public init(id: UUID = UUID(), debtId: UUID, fromIndex: Int, amountE4: AmountE4) {
+  public init(
+    id: UUID = UUID(), debtId: UUID, fromIndex: Int, amountE4: AmountE4, dueOn: DateOnly? = nil
+  ) {
     self.id = id
     self.debtId = debtId
     self.fromIndex = fromIndex
     self.amountE4 = amountE4
+    self.dueOn = dueOn
   }
 }
 

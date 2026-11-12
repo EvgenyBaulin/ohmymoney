@@ -62,7 +62,7 @@ struct ReportsMetrics: Equatable, Sendable {
   /// the width, 10 × 7 in a track of 3; a row 10 × 7 with 6 between the cells, an amount 70, a
   /// share 62, the card rounded 10. «По месяцам» scrolls sideways.
   static let phone = ReportsMetrics(
-    side: 16, top: 4, stackGap: 10,
+    side: PhoneMetrics.screenMargin, top: 4, stackGap: 10,
     tabTrack: 3, tabHorizontal: 10, tabVertical: 7, tabGap: 2, tabTrackRadius: 10, tabRadius: 8,
     tabsFillWidth: true,
     cellHorizontal: 10, cellVertical: 7, cellGap: 6, tableRadius: 10,

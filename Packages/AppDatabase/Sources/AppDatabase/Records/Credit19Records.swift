@@ -14,7 +14,8 @@ extension DebtInstalmentStep: @retroactive FetchableRecord, @retroactive Persist
       id: try RowMapping.uuid(row, "id"),
       debtId: try RowMapping.uuid(row, "debt_id"),
       fromIndex: try RowMapping.optionalInteger(row, "from_index") ?? 0,
-      amountE4: try RowMapping.amount(row, "amount_e4"))
+      amountE4: try RowMapping.amount(row, "amount_e4"),
+      dueOn: RowMapping.day(row, "due_on"))
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -22,6 +23,7 @@ extension DebtInstalmentStep: @retroactive FetchableRecord, @retroactive Persist
     container["debt_id"] = debtId.uuidString
     container["from_index"] = fromIndex
     container["amount_e4"] = amountE4.raw
+    container["due_on"] = dueOn?.iso
   }
 }
 

@@ -16,7 +16,7 @@ final class TouchScreensFigmaTests: XCTestCase {
 
   func testThePhonesOverviewStacksEverythingTenApart() {
     let phone = OverviewPageMetrics.phone
-    XCTAssertEqual(phone.side, 16, "the content 16 from the sides")
+    XCTAssertEqual(phone.side, PhoneMetrics.screenMargin, "the content 20 from the sides")
     XCTAssertEqual(phone.stackGap, 10)
     XCTAssertEqual(phone.groupGap, 10)
     XCTAssertEqual(phone.nameGap, 10)
@@ -115,7 +115,7 @@ final class TouchScreensFigmaTests: XCTestCase {
     XCTAssertFalse(narrow.doNowStandsBesideMain(columns: 2))
     XCTAssertEqual(OverviewPageMetrics.of(.pad, columns: 3).side, 28)
     XCTAssertEqual(OverviewPageMetrics.of(.pad, columns: nil).side, 28)
-    XCTAssertEqual(OverviewPageMetrics.of(.phone, columns: 1).side, 16, "the phone keeps its 16")
+    XCTAssertEqual(OverviewPageMetrics.of(.phone, columns: 1).side, PhoneMetrics.screenMargin, "the phone keeps its 20")
     XCTAssertFalse(OverviewPageMetrics.phone.doNowWithMain)
   }
 
@@ -204,7 +204,7 @@ final class TouchScreensFigmaTests: XCTestCase {
   // MARK: Operations
 
   func testThePhonesOperationsHaveTheNumbersOf5_7984() {
-    XCTAssertEqual(OperationsMetrics.phonePageSide, 16)
+    XCTAssertEqual(OperationsMetrics.phonePageSide, PhoneMetrics.screenMargin)
     XCTAssertEqual(OperationsMetrics.phoneStackGap, 10)
     XCTAssertEqual(OperationsMetrics.phoneDayInset, 6)
     XCTAssertEqual(OperationsMetrics.phoneDayGap, 4)
@@ -231,7 +231,7 @@ final class TouchScreensFigmaTests: XCTestCase {
   func testThePhonesOperationsHeaderHasNoNewOperation() {
     let phone = OperationsHeaderMetrics.phone
     XCTAssertFalse(phone.showsNewOperation, "the «+» of the bar writes")
-    XCTAssertEqual(phone.side, 16)
+    XCTAssertEqual(phone.side, PhoneMetrics.screenMargin)
     XCTAssertEqual(phone.rowTop, 2, "2 under the title, as the frame lays the month")
     XCTAssertEqual(phone.chipsTop, 10)
     XCTAssertEqual(phone.chipsToList, 10)

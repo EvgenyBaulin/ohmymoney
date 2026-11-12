@@ -40,14 +40,19 @@ public enum CalendarPlans {
         name = payment?.name ?? ""
         source = payment?.kind == .subscription ? .subscription : .payment
       case .debt:
-        name = debtNames[item.id] ?? ""
+        name =
+          debtNames[item.id]
+          ?? ledger.dataset.paymentMethods.first { $0.id == item.creditAccountId }?.name ?? ""
         source = .debt
       case .goal: continue
       }
-      plans.append(
-        CalendarPlan(
-          kind: .payment, sourceId: item.id, day: due, name: name, amount: item.amount,
-          currency: item.currency, source: source))
+      var plan = CalendarPlan(
+        kind: .payment, sourceId: item.id, day: due, name: name, amount: item.amount,
+        currency: item.currency, source: source)
+      plan.creditAccountId = item.creditAccountId
+      plan.fullAmountE4 = item.fullAmountE4
+      plan.isEstimate = item.isEstimate
+      plans.append(plan)
     }
 
     // A goal's plan is for a month, not for a day: the calendar puts the whole monthly plan on

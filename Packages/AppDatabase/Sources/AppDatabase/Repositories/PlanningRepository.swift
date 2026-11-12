@@ -33,6 +33,8 @@ public struct PlanningRows: Sendable, Hashable {
   public var debtInstalments: [DebtInstalmentStep]
   /// What else a loan costs.
   public var debtCosts: [DebtCost]
+  /// The minimum payments typed from a bank's statements.
+  public var creditStatements: [CreditStatementOverride]
   public var allocationRules: [AllocationRule]
   /// Saved «what if» scenarios; one deleted softly is written back with `deletedAt` set.
   public var scenarios: [Scenario]
@@ -53,8 +55,10 @@ public struct PlanningRows: Sendable, Hashable {
     assets: [Asset] = [], assetValuations: [AssetValuation] = [],
     debtInstalments: [DebtInstalmentStep] = [], debtCosts: [DebtCost] = [],
     allocationRules: [AllocationRule] = [], customCurrencies: [CustomCurrency] = [],
-    rates: [Rate] = [], scenarios: [Scenario] = []
+    rates: [Rate] = [], scenarios: [Scenario] = [],
+    creditStatements: [CreditStatementOverride] = []
   ) {
+    self.creditStatements = creditStatements
     self.scenarios = scenarios
     self.rates = rates
     self.debtInstalments = debtInstalments
@@ -110,6 +114,7 @@ public struct PlanningRowIDs: Sendable, Hashable {
   public var assetValuations: [UUID]
   public var debtInstalments: [UUID]
   public var debtCosts: [UUID]
+  public var creditStatements: [UUID]
   public var allocationRules: [UUID]
   public var scenarios: [UUID]
   /// Custom currencies are keyed by their code.
@@ -125,8 +130,9 @@ public struct PlanningRowIDs: Sendable, Hashable {
     cashbackRules: [UUID] = [], banks: [UUID] = [], assets: [UUID] = [],
     assetValuations: [UUID] = [], debtInstalments: [UUID] = [], debtCosts: [UUID] = [],
     allocationRules: [UUID] = [], customCurrencies: [CurrencyCode] = [], rates: [RateKey] = [],
-    scenarios: [UUID] = []
+    scenarios: [UUID] = [], creditStatements: [UUID] = []
   ) {
+    self.creditStatements = creditStatements
     self.scenarios = scenarios
     self.rates = rates
     self.debtInstalments = debtInstalments
@@ -525,6 +531,7 @@ public struct PlanningRepository: Sendable {
     try journal.upsert(rows.debts, db: db)
     try journal.upsert(rows.allocationRules, db: db)
     try journal.upsert(rows.scenarios, db: db)
+    try journal.upsert(rows.creditStatements, db: db)
     try journal.upsertCustomCurrencies(rows.customCurrencies, db: db)
     try journal.upsertRates(rows.rates, db: db)
     try journal.upsert(rows.debtInstalments, db: db)
@@ -586,6 +593,7 @@ public struct PlanningRepository: Sendable {
     try journal.delete(DebtInstalmentStep.self, ids: gone.debtInstalments, db: db)
     try journal.delete(AllocationRule.self, ids: gone.allocationRules, db: db)
     try journal.delete(Scenario.self, ids: gone.scenarios, db: db)
+    try journal.delete(CreditStatementOverride.self, ids: gone.creditStatements, db: db)
     try journal.deleteRates(gone.rates, db: db)
     try journal.deleteCustomCurrencies(gone.customCurrencies, db: db)
     try journal.delete(CashbackRule.self, ids: gone.cashbackRules, db: db)
@@ -935,6 +943,7 @@ public struct PlanningRepository: Sendable {
     try Self.deleteAll(DebtInstalmentStep.self, ids: added.debtInstalments, db: db)
     try Self.deleteAll(AllocationRule.self, ids: added.allocationRules, db: db)
     try Self.deleteAll(Scenario.self, ids: added.scenarios, db: db)
+    try Self.deleteAll(CreditStatementOverride.self, ids: added.creditStatements, db: db)
     for key in added.rates { _ = try Rate.deleteOne(db, key: key.databaseKey) }
     for code in added.customCurrencies {
       _ = try CustomCurrency.deleteOne(db, key: code.code)
@@ -965,6 +974,7 @@ public struct PlanningRepository: Sendable {
     for row in before.debts { try row.save(db) }
     for row in before.allocationRules { try row.save(db) }
     for row in before.scenarios { try row.save(db) }
+    for row in before.creditStatements { try row.save(db) }
     for row in before.customCurrencies { try row.save(db) }
     for row in before.rates { try row.save(db) }
     for row in before.debtInstalments { try row.save(db) }
@@ -1024,6 +1034,7 @@ public struct PlanningRepository: Sendable {
     try Self.restoreRowIDs(before.debtInstalments, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.allocationRules, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.scenarios, undo.rowIDs, db: db)
+    try Self.restoreRowIDs(before.creditStatements, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.expectedLinks, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.prices, undo.rowIDs, db: db)
     try Self.restoreRowIDs(before.reconciliations, undo.rowIDs, db: db)
@@ -1644,6 +1655,11 @@ extension DebtCost: PlanningRow {
 extension AllocationRule: PlanningRow {
   static var rows: WritableKeyPath<PlanningRows, [Self]> { \.allocationRules }
   static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.allocationRules }
+}
+
+extension CreditStatementOverride: PlanningRow {
+  static var rows: WritableKeyPath<PlanningRows, [Self]> { \.creditStatements }
+  static var ids: WritableKeyPath<PlanningRowIDs, [UUID]> { \.creditStatements }
 }
 
 extension Scenario: PlanningRow {

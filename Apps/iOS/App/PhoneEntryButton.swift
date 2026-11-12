@@ -15,8 +15,11 @@ struct PhoneEntryButton: View {
   /// The gap between the button and the pill of the bar below it, and the margin to the right
   /// edge of the screen — the bar's own.
   static let gapAboveBar: CGFloat = 10
-  static let sideMargin: CGFloat = 16
+  static let sideMargin: CGFloat = PhoneMetrics.screenMargin
   static let cornerMargin: CGFloat = 16
+  /// The room scrolling content keeps at its bottom so its last controls can be scrolled out
+  /// from under the button (the button and the gap around it).
+  static let scrollClearance: CGFloat = diameter + gapAboveBar
 
   /// The room under the button: above the pill of the bar when the bar is at the bottom (the
   /// measured bar includes 6 pt of its own above the pill), the margin of the corner when not.

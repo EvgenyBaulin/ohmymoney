@@ -1,6 +1,10 @@
 import AppCore
 import SwiftUI
 
+#if os(iOS)
+  import UIKit
+#endif
+
 /// The Planning section of the main window, as the design draws it: the header with the month
 /// and the one main button «+ Добавить ▾»; the tabs — «Всё» and a tab for each block, the
 /// cushion and the plan of the year —; on «Всё» the card «Сейчас свободно», the next 14 days and
@@ -37,6 +41,16 @@ struct PlanningView: View {
     _tab = State(initialValue: tab)
   }
 
+  /// The side margin: the phone's one, the page's own on a tablet and the Mac.
+  private var pageSide: CGFloat {
+    #if os(iOS)
+      UIDevice.current.userInterfaceIdiom == .phone
+        ? PhoneMetrics.screenMargin : PlanningMetrics.pageSide
+    #else
+      PlanningMetrics.pageSide
+    #endif
+  }
+
   var body: some View {
     let snapshot = compute.states.data.value
     let picked = until.map { environment.calendar.day(of: $0) }
@@ -46,7 +60,7 @@ struct PlanningView: View {
         ledger: snapshot.ledger)
     }
     GeometryReader { proxy in
-      let content = max(0, proxy.size.width - 2 * PlanningMetrics.pageSide)
+      let content = max(0, proxy.size.width - 2 * pageSide)
       ScrollView {
         VStack(
           alignment: .leading,
@@ -58,7 +72,7 @@ struct PlanningView: View {
           page(snapshot: snapshot, free: free, picked: picked, content: content)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, PlanningMetrics.pageSide)
+        .padding(.horizontal, pageSide)
         .padding(.top, PlanningMetrics.pageTop)
         .padding(.bottom, PlanningMetrics.pageBottom)
       }
@@ -131,6 +145,7 @@ struct PlanningView: View {
       if let snapshot {
         PlanningRibbonView(
           ribbon: Self.ribbon(of: snapshot, shown: compute.snapshot), open: open)
+        CreditMinimumPlanCard(snapshot: compute.snapshot ?? snapshot)
         PlanningBirthdaysStrip(snapshot: snapshot)
       }
       if editing {

@@ -235,9 +235,12 @@ extension DebtInterestPayment {
         of: debt, journal: journal,
         typed: snapshot?.dataset.debtInstalments.filter { $0.debtId == debt.id } ?? [],
         calendar: environment.calendar, today: environment.today)
-      return DebtMarkupPayment.parting(
-        change, paying: debt, journal: journal, dues: dues, categoryId: category,
+      let (withFees, feeCategory) = DebtMarkupPayment.preparingFees(
+        change, environment: environment, snapshot: snapshot)
+      let parted = DebtMarkupPayment.parting(
+        withFees, paying: debt, journal: journal, dues: dues, categoryId: feeCategory,
         note: DebtMarkupPayment.note(of: debt, language: environment.language))
+      return parted.created.count > change.created.count ? parted : change
     }
     return parting(
       change, paying: debt, journal: journal, calendar: environment.calendar,
@@ -295,7 +298,8 @@ extension TransactionsStore {
       return DebtMarkupPayment.editChange(
         edited, before: before, debt: debt, dataset: dataset, calendar: calendar,
         today: calendar.day(of: Date()),
-        categoryId: DebtInterestPayment.categoryId(of: debt, tree: listing.tree),
+        categoryId: dataset.accountSettings.transferFeeCategoryId
+          ?? DebtMarkupPayment.existingFeeCategory(in: dataset.categories),
         note: DebtMarkupPayment.storedNote(of: debt), now: edited.transaction.updatedAt)
     }
     return DebtInterestPayment.editChange(

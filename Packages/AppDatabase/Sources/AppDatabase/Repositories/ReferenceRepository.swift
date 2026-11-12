@@ -318,8 +318,10 @@ public struct ReferenceRepository: Sendable {
 
   /// Columns that point at a row being merged and are left where they are, as its history:
   /// the balances counted on an account are what that account held at the time, and they stay
-  /// with the account merged away.
-  static let keptOnMerge = ["reconciliation_balances.payment_method_id"]
+  /// with the account merged away; so do the minimum payments typed from its statements.
+  static let keptOnMerge = [
+    "reconciliation_balances.payment_method_id", "credit_statements.payment_method_id",
+  ]
 
   /// Moves everything that points at one row of a dictionary — operations, debts, the
   /// planning book — to another and archives the one that was merged away. Nothing is

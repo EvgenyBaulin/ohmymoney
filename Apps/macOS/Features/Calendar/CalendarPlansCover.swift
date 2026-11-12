@@ -12,12 +12,14 @@ import Foundation
 struct HiddenPlans: Hashable, Sendable {
   let scheduled: Set<UUID>
   let expected: Set<UUID>
+  let creditAccounts: Set<UUID>
 
   static let none = HiddenPlans(scheduled: [], expected: [])
 
-  init(scheduled: Set<UUID>, expected: Set<UUID>) {
+  init(scheduled: Set<UUID>, expected: Set<UUID>, creditAccounts: Set<UUID> = []) {
     self.scheduled = scheduled
     self.expected = expected
+    self.creditAccounts = creditAccounts
   }
 
   /// The plans of `book` that `hidden` leaves out.
@@ -26,6 +28,7 @@ struct HiddenPlans: Hashable, Sendable {
       self = .none
       return
     }
+    creditAccounts = hidden.accounts.ids
     scheduled = Set(
       book.scheduled.filter { hidden.hides(account: $0.paymentMethodId, card: $0.cardId) }
         .map(\.id))
@@ -39,14 +42,16 @@ struct HiddenPlans: Hashable, Sendable {
       book: snapshot.ledger.dataset.planning, hidden: HiddenOperations(snapshot: snapshot))
   }
 
-  var isEmpty: Bool { scheduled.isEmpty && expected.isEmpty }
+  var isEmpty: Bool { scheduled.isEmpty && expected.isEmpty && creditAccounts.isEmpty }
 
   func hides(scheduled id: UUID) -> Bool { scheduled.contains(id) }
   func hides(expected id: UUID) -> Bool { expected.contains(id) }
 
   func hides(_ plan: CalendarPlan) -> Bool {
     switch plan.kind {
-    case .payment: scheduled.contains(plan.sourceId)
+    case .payment:
+      scheduled.contains(plan.sourceId)
+        || plan.creditAccountId.map(creditAccounts.contains) == true
     case .income: expected.contains(plan.sourceId)
     }
   }

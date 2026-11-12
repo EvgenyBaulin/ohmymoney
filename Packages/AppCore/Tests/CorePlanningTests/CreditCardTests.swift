@@ -266,7 +266,7 @@ struct CreditCardTests {
     #expect(
       CreditCardDues.outOfSummary(
         accounts: snapshot(outside), statements: statements, today: books.today,
-        until: Self.day("2026-11-30")) == Self.rub("30000"))
+        until: Self.day("2026-11-30")) == Self.rub("2400"))
     #expect(
       CreditCardDues.outOfSummary(
         accounts: snapshot(outside), statements: statements, today: books.today,

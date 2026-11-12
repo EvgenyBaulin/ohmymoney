@@ -47,11 +47,11 @@ struct OverviewPageMetrics: Equatable, Sendable {
     mainHorizontal: StyleMetrics.mainCardHorizontal, mainVertical: StyleMetrics.mainCardVertical,
     mainFigurePoints: 24, tileEdgeIsHairline: false, doNowBesideMain: nil, countIsAccent: false)
 
-  /// 5:8097: the content 16 from the sides, every part 10 apart, a group's name 6 lower; the
+  /// 5:8097: the content 20 from the sides (the design drew 16; the display's corners ask for more), every part 10 apart, a group's name 6 lower; the
   /// title 34 bold 12 under the status bar with 19 to the main card; the main card 14 × 16 with
   /// a figure of 20.
   static let phone = OverviewPageMetrics(
-    side: 16, top: 12, bottom: 16, stackGap: 10, groupGap: 10, nameTop: 6, nameGap: 10,
+    side: PhoneMetrics.screenMargin, top: 12, bottom: 16, stackGap: 10, groupGap: 10, nameTop: 6, nameGap: 10,
     columnGap: StyleMetrics.columnGap, rowGap: 10, titlePoints: 34, titleBottom: 9,
     mainHorizontal: 14, mainVertical: 16, mainFigurePoints: 20, tileEdgeIsHairline: true,
     doNowBesideMain: nil, countIsAccent: true)

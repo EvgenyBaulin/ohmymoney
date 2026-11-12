@@ -205,17 +205,18 @@ struct PhoneRoot: View {
   }
 
   /// The iPad's sidebar, or the tabs of a phone with the bar of the sections at the bottom.
-  @ViewBuilder
-  private var root: some View {
+  /// Erased on purpose: the concrete type of the whole app nested so deep that resolving its
+  /// metadata overflowed the stack on a device at launch (11.11, `decodeMangledType` recursion).
+  private var root: AnyView {
     if isPad {
-      PadRoot(
-        deps: deps, session: session, lock: lock, router: router, actions: actions,
-        operations: operations, overviewScreen: overviewScreen, width: width,
-        besideTheForm: padFormPlacement == .docked && showsPadForm
-      ) { entryBar($0) }
-    } else {
-      phoneTabsView
+      return AnyView(
+        PadRoot(
+          deps: deps, session: session, lock: lock, router: router, actions: actions,
+          operations: operations, overviewScreen: overviewScreen, width: width,
+          besideTheForm: padFormPlacement == .docked && showsPadForm
+        ) { entryBar($0) })
     }
+    return AnyView(phoneTabsView)
   }
 
   private var phoneTabsView: some View {
@@ -394,6 +395,7 @@ struct PhoneSheets: ViewModifier {
         ProblemReportSheet(height: 380).appDependencies(deps)
       }
       .receiptSheet(deps)
+      .entryImportSheet(deps)
       .fullScreenCover(
         item: environment.lock.presenting(
           Binding(get: { router.cover }, set: { router.cover = $0 }))
@@ -474,6 +476,10 @@ struct PhoneContent<Content: View, Entry: View>: View {
       DatabaseFailureView(failure: failure, deps: deps)
     case .ready:
       content
+        .contentMargins(
+          .bottom,
+          UIDevice.current.userInterfaceIdiom == .phone ? PhoneEntryButton.scrollClearance : 0,
+          for: .scrollContent)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         // Over the bar of the phone the page fades out instead of ending in a hard edge.
         .overlay(alignment: .bottom) { if fades { NavBarFade() } }

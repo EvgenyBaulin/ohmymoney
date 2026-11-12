@@ -27,6 +27,7 @@ private struct ShareInboxPresenter: ViewModifier {
     ShareInbox.isEnabled && phase == .active && !deps.environment.lock.isCovered
       && deps.environment.state == .ready && deps.compute.wholeSnapshot != nil
       && deps.environment.receiptRequest == nil && deps.environment.statementImportRequest == nil
+      && deps.environment.entryImports.active == nil
       && AppPaths.dataSet == nil && !AppEnvironment.isTestHost && offeredFile == nil
       && session.file == nil
   }

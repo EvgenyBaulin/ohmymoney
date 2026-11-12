@@ -74,7 +74,7 @@ public struct CashPlan: Hashable, Sendable {
   /// (`NPDState.accruedUnpaidE4`): money on the accounts that is not the owner's. Zero while
   /// self-employment is off.
   public var npdTax: AmountE4
-  /// What the credit cards out of the summary ask to be paid by D, without interest
+  /// The minimum payments of credit cards out of the summary due by D
   /// (`CreditCardDues.outOfSummary`): a card in the summary has its minus in the money already.
   public var creditCards: AmountE4
 

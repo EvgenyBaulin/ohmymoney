@@ -56,7 +56,7 @@ struct DebtsBoardView: View {
   /// The phone's one column; a width not measured yet is the wide page.
   private var isPhone: Bool { width > 0 && width < DebtsMetrics.phoneWidth }
 
-  private var side: CGFloat { isPhone ? 16 : StyleMetrics.pageSide }
+  private var side: CGFloat { isPhone ? PhoneMetrics.screenMargin : StyleMetrics.pageSide }
   private var top: CGFloat {
     #if os(iOS)
       16

@@ -47,7 +47,7 @@ final class DebtsScenarioTestsWizard: DebtsScenarioCase {
       XCTAssertEqual(kind.direction, owedToMe.contains(kind) ? .owedToMe : .iOwe, kind.rawValue)
     }
     XCTAssertEqual(DebtWizardKind.allCases.filter(\.isLoan), [.loan, .mortgage, .education])
-    XCTAssertEqual(DebtWizardKind.allCases.filter(\.isPurchase), [.instalments, .purchase])
+    XCTAssertEqual(DebtWizardKind.allCases.filter(\.isPurchase), [.instalments, .split, .purchase])
     XCTAssertEqual(Set(DebtWizardKind.allCases.map(\.symbol)).count, DebtWizardKind.allCases.count)
   }
 
@@ -57,7 +57,8 @@ final class DebtsScenarioTestsWizard: DebtsScenarioCase {
     model.amount = money(1_000)
     let types: [DebtWizardKind: DebtType] = [
       .loan: .loan, .mortgage: .loan, .education: .loan, .instalments: .installment,
-      .purchase: .installment, .creditCard: .creditCard, .personIOwe: .personal,
+      .split: .installment, .purchase: .installment, .creditCard: .creditCard,
+      .personIOwe: .personal,
       .owedToMe: .personal, .pledge: .personal,
     ]
     for (kind, type) in types {

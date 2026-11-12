@@ -27,16 +27,16 @@ private let specifiedFileNames = [
   "wishes.csv",
   "wish_prices.csv", "shopping_items.csv", "owned_items.csv", "habit_badges.csv",
   "no_spend_days.csv",
-  "bank_cashback_categories.csv", "cashback_offers.csv",
+  "bank_cashback_categories.csv", "cashback_offers.csv", "credit_statements.csv",
 ]
 
-@Suite("ExportTables describes the 53 files of the export")
+@Suite("ExportTables describes the 54 files of the export")
 struct ExportTablesDescriptionTests {
   @Test func theFortyFiveFilesInTheirOrder() {
-    #expect(ExportTables.all.count == 53)
+    #expect(ExportTables.all.count == 54)
     #expect(ExportTables.all.map(\.fileName) == specifiedFileNames)
     #expect(
-      ExportTables.all.dropLast(2).suffix(30) == [
+      ExportTables.all.dropLast(3).suffix(30) == [
         ExportTables.cards, ExportTables.cashbackRules, ExportTables.banks, ExportTables.assets,
         ExportTables.assetValuations, ExportTables.debtInstalments, ExportTables.debtCosts,
         ExportTables.allocationRules, ExportTables.customCurrencies, ExportTables.settings,
@@ -55,7 +55,10 @@ struct ExportTablesDescriptionTests {
   /// at the end of the accounts, the categories, the goals, the debts, their journal and the
   /// transfers: an older reader still finds its columns where they were.
   @Test func theColumnsOfTheCreditsComeLast() {
-    #expect(ExportTables.debtInstalments.columns == ["id", "debt_id", "from_index", "amount"])
+    #expect(
+      ExportTables.debtInstalments.columns == [
+        "id", "debt_id", "from_index", "amount", "due_on",
+      ])
     #expect(
       ExportTables.debtCosts.columns == [
         "id", "debt_id", "kind", "name", "amount", "every", "day", "in_loan", "transaction_id",
