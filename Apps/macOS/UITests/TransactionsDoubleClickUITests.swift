@@ -200,11 +200,11 @@ final class TransactionsDoubleClickUITests: XCTestCase {
     XCTAssertEqual(app.state, .runningForeground, "the app died on the click")
   }
 
-  /// «Cancel», not «Save»: at the default size the editor's last button can fall past the
+  /// «×», not «Save»: at the default size the editor's last button can fall past the
   /// right edge of a small screen, and XCUITest then does not list it. By identifier, not by
   /// its caption: every confirmation of this window has a «Cancel» too.
   private func inspectorCancel(in window: XCUIElement) -> XCUIElement {
-    window.descendants(matching: .button).matching(identifier: "editor.cancel").firstMatch
+    window.descendants(matching: .button).matching(identifier: "editor.close").firstMatch
   }
 
   private func expectInspector(in window: XCUIElement, _ app: XCUIApplication) {

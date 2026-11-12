@@ -2491,6 +2491,27 @@ public final class EntryDraftModel {
     resolveQuality(ofPartAt: draft.parts.count - 1, in: categoryTree)
   }
 
+  /// The part that takes what is left of the total when the owner gives the remainder away: the
+  /// largest part nobody has paid back (a closed part keeps its amount), the first of equals.
+  /// `nil` when nothing is left over or no part may change.
+  public var remainderTargetIndex: Int? {
+    guard !takesBackFromAPurchase, draft.unallocated.raw > 0 else { return nil }
+    let open = draft.parts.indices.filter { !isClosedPart(id: draft.parts[$0].id) }
+    return open.max { draft.parts[$0].amount < draft.parts[$1].amount }
+      .flatMap { largest in
+        // `max(by:)` keeps the last of equals; the first one wins here.
+        open.first { draft.parts[$0].amount == draft.parts[largest].amount }
+      }
+  }
+
+  /// «Отдать остаток в «<категория>»»: what is left of the total goes to the part
+  /// `remainderTargetIndex` names, so the parts add up and the operation can be written. Only a
+  /// positive remainder is given; a part that is too large is cut by hand, never by this.
+  public func giveRemainderAway() {
+    guard let index = remainderTargetIndex else { return }
+    draft.parts[index].amount += draft.unallocated
+  }
+
   /// «Paid for someone» of the panel. An operation of one part gets a second one — empty, the
   /// total is all mine until an amount is typed into it — and the last part is paid for someone.
   /// An empty part is never saved (`saveRefusalKey`: every part above zero), so the button
