@@ -415,9 +415,9 @@ struct PhoneLayoutAudit {
 
 /// Mac-only controls, by what they are called to accessibility.
 enum PhoneMacElements {
-  /// The palette of commands in the phone's top bar draws the command key (⌘) as its icon. The
-  /// owner has not said whether the phone keeps it; until he does it is listed, not hidden.
-  static let awaitingOwner: Set<String> = ["toolbar.palette"]
+  /// Nothing is let through: the palette of commands (⌘) left the phone, as it lists keyboard
+  /// shortcuts a phone cannot press.
+  static let awaitingOwner: Set<String> = []
 
   static func problems(in leaves: [AXLeaf]) -> [String] {
     let symbols = CharacterSet(charactersIn: "⌘⌥⌃⇧⌫⎋")
