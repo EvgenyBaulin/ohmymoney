@@ -27,7 +27,11 @@ final class UpgradeFromTwoPointThirteenTests: XCTestCase {
 
   private static let account = "0A000000-0000-0000-0000-000000000001"
   private static let loan = "0B000000-0000-0000-0000-000000000001"
-  private static let newestMigration = "0026_mcc_fee_valuations_wish_image"
+  /// The migrations after 2.13.1's schema 21, read from the bundle so a new migration does not
+  /// make this test lie: the update from the released version runs every one of them.
+  private static func laterMigrations() throws -> [String] {
+    try BundleSchemaSource().migrations().map(\.name).filter { $0 > "0021" }.sorted()
+  }
 
   override func setUp() async throws {
     dataDirectoryBefore = ProcessInfo.processInfo.environment["OHMYMONEY_DATA_DIR"]
@@ -153,9 +157,9 @@ final class UpgradeFromTwoPointThirteenTests: XCTestCase {
     let url = AppPaths.databaseURL
     try writeReleasedFile(at: url)
     let before = try DatabaseStack.pendingMigrations(fileAt: url, schema: BundleSchemaSource())
-    XCTAssertEqual(before.count, 5, "\(before)")
+    let later = try Self.laterMigrations()
+    XCTAssertEqual(before, later, "\(before)")
     XCTAssertEqual(before.first, "0022_borrowed_card")
-    XCTAssertEqual(before.last, Self.newestMigration)
     let counts = try DatabaseStack.rowCounts(fileAt: url)
     let liveSum = "SELECT SUM(amount_rub_e4) FROM transactions WHERE deleted_at IS NULL"
     let allSum = "SELECT SUM(amount_rub_e4) FROM transactions"
@@ -165,8 +169,8 @@ final class UpgradeFromTwoPointThirteenTests: XCTestCase {
 
     XCTAssertEqual(environment.state, .ready)
     let stack = try XCTUnwrap(environment.stack)
-    XCTAssertEqual(try stack.appliedMigrations().last, Self.newestMigration)
-    XCTAssertEqual(stack.applied.applied, 5)
+    XCTAssertEqual(try stack.appliedMigrations().last, later.last)
+    XCTAssertEqual(stack.applied.applied, later.count)
 
     // The copy before the update is the database as 2.13.1 left it.
     let copies = try copiesBeforeAnUpdate()
@@ -215,6 +219,7 @@ final class UpgradeFromTwoPointThirteenTests: XCTestCase {
     XCTAssertTrue(FileManager.default.fileExists(atPath: copy.path))
     // The retention list for «older than a year» may offer it, but nothing removes it unasked.
     XCTAssertEqual(
-      try DatabaseStack.pendingMigrations(fileAt: copy, schema: BundleSchemaSource()).count, 5)
+      try DatabaseStack.pendingMigrations(fileAt: copy, schema: BundleSchemaSource()),
+      try Self.laterMigrations())
   }
 }
