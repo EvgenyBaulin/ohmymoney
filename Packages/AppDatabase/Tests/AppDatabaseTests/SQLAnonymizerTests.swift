@@ -645,6 +645,31 @@ struct SQLAnonymizerTests {
     }
   }
 
+  @Test func migrationMemoriesAreDroppedFromTheCopy() throws {
+    let stack = try TestSupport.makeStack()
+    let memories = [
+      MigrationSettings.accountMapKey: MigrationSettings.text(["sample visa 4276": UUID()]),
+      MigrationSettings.categoryMapKey: MigrationSettings.text(["expense|sample|cafe": UUID()]),
+      MigrationSettings.mappingsKey: MigrationSettings.text([
+        "sample layout": MigrationMapping(roles: [0: .date, 1: .amount])
+      ]),
+    ]
+    try stack.writer.write { db in
+      for (key, value) in memories {
+        try db.execute(
+          sql: "INSERT INTO settings (key, value) VALUES (?, ?)", arguments: [key, value])
+      }
+    }
+    try SQLAnonymizer().anonymize(copy: ExportCopyDatabase(writer: stack.writer))
+    try stack.writer.read { db in
+      for key in memories.keys {
+        let value = try String.fetchOne(
+          db, sql: "SELECT value FROM settings WHERE key = ?", arguments: [key])
+        #expect(value == nil)
+      }
+    }
+  }
+
   @Test func legacyStatementReviewsAreDroppedWithTheirFileNames() throws {
     let stack = try TestSupport.makeStack()
     try Self.seed(stack)

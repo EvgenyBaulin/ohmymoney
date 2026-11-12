@@ -1,6 +1,7 @@
 import AppCore
 import AppDatabase
 import CoreKit
+import GRDB
 import XCTest
 
 @testable import OhMyMoney
@@ -48,6 +49,49 @@ final class AnonymizerLanguageExportTests: XCTestCase {
     let file = directory.appendingPathComponent("opened-\(english).sqlite")
     try XCTUnwrap(opened.database).write(to: file)
     return try DatabaseStack.dataset(fileAt: file)
+  }
+
+  func testMigrationMemoriesAreAbsentFromAnonymizedDatabaseAndArchiveSettings() throws {
+    let memories = [
+      MigrationSettings.accountMapKey: MigrationSettings.text(["sample visa 4276": UUID()]),
+      MigrationSettings.categoryMapKey: MigrationSettings.text(["expense|sample|cafe": UUID()]),
+      MigrationSettings.mappingsKey: MigrationSettings.text([
+        "sample layout": MigrationMapping(roles: [0: .date, 1: .amount])
+      ]),
+    ]
+    try stack.writer.write { db in
+      for (key, value) in memories {
+        try db.execute(
+          sql: "INSERT INTO settings (key, value) VALUES (?, ?)", arguments: [key, value])
+      }
+    }
+    let service = ExportCopyService(
+      stack: stack, appVersion: "2.6.1", cipher: cipher, iterations: 1_000)
+    let target = directory.appendingPathComponent("migration.ohmymoneyarchive")
+    _ = try service.export(
+      ExportCopyRequest(anonymize: true, password: "correct horse"), to: target,
+      settings: ["theme.scheme": "dark"])
+    let opened = try ArchiveOpener.open(
+      Data(contentsOf: target), password: "correct horse", cipher: cipher,
+      supportedSchemaVersion: stack.applied.onDisk)
+    let settings = try XCTUnwrap(opened.settings)
+    let portable = try XCTUnwrap(
+      JSONSerialization.jsonObject(with: settings) as? [String: String])
+    XCTAssertEqual(portable["theme.scheme"], "dark")
+    let file = directory.appendingPathComponent("migration-copy.sqlite")
+    try XCTUnwrap(opened.database).write(to: file)
+    let copy = try DatabaseQueue(path: file.path)
+    for key in memories.keys {
+      XCTAssertNil(portable[key])
+      let copied = try copy.read { db in
+        try String.fetchOne(db, sql: "SELECT value FROM settings WHERE key = ?", arguments: [key])
+      }
+      XCTAssertNil(copied)
+      let original = try stack.writer.read { db in
+        try String.fetchOne(db, sql: "SELECT value FROM settings WHERE key = ?", arguments: [key])
+      }
+      XCTAssertEqual(original, memories[key])
+    }
   }
 
   func testAnEnglishInterfaceGetsEnglishWords() throws {

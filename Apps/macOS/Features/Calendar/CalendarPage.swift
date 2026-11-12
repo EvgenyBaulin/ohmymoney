@@ -396,7 +396,8 @@ struct CalendarUpcomingCard: View {
     if !plans.isEmpty {
       VStack(alignment: .leading, spacing: SectionMetrics.cardGap) {
         SectionCardHeader(
-          title: CalendarText.t("calendar.upcoming", environment), caption: "\(plans.count)")
+          title: CalendarText.t("calendar.upcoming", environment),
+          caption: "\(CalendarLayout.upcomingCount(in: calendar))")
         ForEach(plans) { plan in
           HStack(spacing: SectionMetrics.rowGap) {
             Image(systemName: CalendarMark.symbol(plan.source))

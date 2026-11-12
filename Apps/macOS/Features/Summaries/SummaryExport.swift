@@ -77,7 +77,8 @@ enum SummaryExport {
     let folder = FileManager.default.temporaryDirectory.appendingPathComponent(
       "summaries", isDirectory: true)
     try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-    let url = folder.appendingPathComponent(name).appendingPathExtension("png")
+    let url = folder.appendingPathComponent("\(name)-\(UUID().uuidString)")
+      .appendingPathExtension("png")
     do {
       try data.write(to: url, options: .atomic)
       return url
