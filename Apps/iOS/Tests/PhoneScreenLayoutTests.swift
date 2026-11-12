@@ -88,6 +88,18 @@ final class PhoneScreenLayoutTests: XCTestCase {
     for size in PadSize.all { walk(size: size, idiom: .pad) }
   }
 
+  /// Regression: the chart's accessible range label escaped the left edge on wide iPads.
+  func testAnalyticsFitsWideIPadsOnFirstPresentation() {
+    for width: CGFloat in [1024, 1366] {
+      let size = CGSize(width: width, height: 1024)
+      let shown = PhoneScreenRegistry.open(.more(.analytics), in: harness, size: size, idiom: .pad)
+      let problems = audit.problems(shown, size: size)
+      harness.close(shown.window)
+      XCTAssertTrue(
+        problems.isEmpty, "Analytics at \(width) pt: \(problems.joined(separator: "; "))")
+    }
+  }
+
   func testEveryScreenFitsAPhoneInTheDarkTheme() {
     executionTimeAllowance = 300
     walk(size: PhoneSize.regular, dark: true)
