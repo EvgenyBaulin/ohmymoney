@@ -58,8 +58,32 @@ final class CalendarWindowTests: XCTestCase {
     if let directory { try? FileManager.default.removeItem(at: directory) }
   }
 
-  private func settle(_ passes: Int = 10) {
-    for _ in 0..<passes { RunLoop.main.run(until: Date().addingTimeInterval(0.05)) }
+  private func waitFor(
+    _ window: NSWindow, _ description: String, until ready: () -> Bool
+  ) throws {
+    let deadline = Date().addingTimeInterval(5)
+    var previousFrames: [CGRect] = []
+    var stablePasses = 0
+    while Date() < deadline {
+      RunLoop.main.run(until: Date().addingTimeInterval(0.01))
+      window.contentView?.layoutSubtreeIfNeeded()
+      let frames = WindowAccessibility.elements(in: window).map {
+        WindowAccessibility.frame(of: $0)
+      }
+      stablePasses = ready() && frames == previousFrames ? stablePasses + 1 : 0
+      if stablePasses >= 3 { return }
+      previousFrames = frames
+    }
+    XCTFail("Timed out waiting for \(description) and stable layout")
+    throw NSError(domain: "CalendarWindowTests", code: 1)
+  }
+
+  private func frame(_ identifier: String, in window: NSWindow) -> CGRect? {
+    guard let element = WindowAccessibility.element(identified: identifier, in: window) else {
+      return nil
+    }
+    let rect = WindowAccessibility.frame(of: element)
+    return rect.width > 0 && rect.height > 0 ? rect : nil
   }
 
   private func snapshot() throws -> DataSnapshot {
@@ -83,7 +107,7 @@ final class CalendarWindowTests: XCTestCase {
       version: DataVersion(load: 0))
   }
 
-  private func mainWindow(selection: SidebarItem = .section(.overview)) -> NSWindow {
+  private func mainWindow(selection: SidebarItem = .section(.overview)) throws -> NSWindow {
     let deps = AppDependencies(environment: environment, store: store, compute: compute)
     let root = AppScenes.root(deps, window: .main, launches: false) { deps in
       MainWindow(deps: deps, actions: OperationActions(), opensDetails: false, selection: selection)
@@ -97,7 +121,9 @@ final class CalendarWindowTests: XCTestCase {
     window.contentViewController = controller
     window.orderFront(nil)
     windows.append(window)
-    settle(20)
+    try waitFor(window, "section \(selection.journalToken)") {
+      self.shown(selection.journalToken)
+    }
     return window
   }
 
@@ -124,10 +150,10 @@ final class CalendarWindowTests: XCTestCase {
     XCTAssertTrue(["Календарь", "Calendar"].contains(four.first?.title ?? ""))
 
     compute.applyLight(try snapshot())
-    _ = mainWindow()
+    let window = try mainWindow()
     XCTAssertTrue(shown("overview"))
     NotificationCenter.default.post(name: .selectSection, object: 4)
-    settle()
+    try waitFor(window, "calendar section") { self.shown("calendar") }
     XCTAssertTrue(shown("calendar"), "⌘4 did not bring «Календарь»")
     XCTAssertFalse(missingDependencies)
   }
@@ -135,46 +161,63 @@ final class CalendarWindowTests: XCTestCase {
   /// The month and the week are laid out with their dependencies.
   func testTheScreenIsLaidOutWithItsDependencies() throws {
     compute.applyLight(try snapshot())
-    let window = mainWindow(selection: .section(.calendar))
+    let window = try mainWindow(selection: .section(.calendar))
     XCTAssertTrue(shown("calendar"))
     window.setContentSize(CGSize(width: 760, height: 600))
-    settle()
+    try waitFor(window, "resized calendar title") {
+      self.frame("calendar.screenTitle", in: window) != nil
+    }
     XCTAssertFalse(missingDependencies)
   }
 
+  /// SwiftUI may extend the scroll view's frame under the dock; its safe area keeps the
+  /// document's final card clear. Compare the visible content with the actual input capsule.
   func testCalendarPageScrollsAsAWholeAboveTheEntryDock() throws {
+    TestEnvironment.enableAccessibilityTree()
     environment.entryStyle = .line
     compute.applyLight(try snapshot())
-    let window = mainWindow(selection: .section(.calendar))
+    let window = try mainWindow(selection: .section(.calendar))
     for size in [CGSize(width: 980, height: 600), CGSize(width: 760, height: 520)] {
       window.setContentSize(size)
-      settle(20)
       let root = try XCTUnwrap(window.contentView)
       func scrolls(_ view: NSView) -> [NSScrollView] {
-        (view as? NSScrollView).map { [$0] } ?? view.subviews.flatMap(scrolls)
+        ((view as? NSScrollView).map { [$0] } ?? []) + view.subviews.flatMap(scrolls)
       }
-      let page = try XCTUnwrap(
+      func pageScroll() -> NSScrollView? {
         scrolls(root).filter {
           $0.bounds.width > 400 && ($0.documentView?.bounds.height ?? 0) > $0.bounds.height
-        }.max { $0.bounds.width < $1.bounds.width })
+        }.max { $0.bounds.width < $1.bounds.width }
+      }
+      try waitFor(window, "calendar page, last card and input capsule") {
+        pageScroll() != nil && self.frame("calendar.upcoming", in: window) != nil
+          && self.frame("entry.line.capsule", in: window) != nil
+      }
+      let page = try XCTUnwrap(pageScroll())
       let document = try XCTUnwrap(page.documentView)
-      XCTAssertGreaterThan(document.bounds.height, page.contentView.bounds.height)
+      let start = document.isFlipped ? document.bounds.minY : document.bounds.maxY
+      document.scroll(CGPoint(x: 0, y: start))
+      try waitFor(window, "calendar document reaches its start") {
+        let visible = page.contentView.documentVisibleRect
+        return document.isFlipped
+          ? visible.minY <= document.bounds.minY + 1
+          : visible.maxY >= document.bounds.maxY - 1
+      }
+      let before = page.contentView.bounds.origin.y
       let end = document.isFlipped ? document.bounds.maxY : document.bounds.minY
       document.scroll(CGPoint(x: 0, y: end))
-      settle()
-      let visible = page.contentView.documentVisibleRect
-      if document.isFlipped {
-        XCTAssertGreaterThanOrEqual(visible.maxY, document.bounds.maxY - 1)
-      } else {
-        XCTAssertLessThanOrEqual(visible.minY, document.bounds.minY + 1)
+      try waitFor(window, "calendar document reaches its end") {
+        let visible = page.contentView.documentVisibleRect
+        return document.isFlipped
+          ? visible.maxY >= document.bounds.maxY - 1
+          : visible.minY <= document.bounds.minY + 1
       }
-      // The main window reserves the dock in its bottom safe area.
-      let pageFrame = page.convert(page.bounds, to: root)
-      let bottomClearance =
-        root.isFlipped
-        ? root.bounds.maxY - pageFrame.maxY : pageFrame.minY - root.bounds.minY
-      XCTAssertGreaterThan(
-        bottomClearance, EntryBarMetrics.bottomInset + EntryBarMetrics.contentGap)
+      XCTAssertNotEqual(page.contentView.bounds.origin.y, before, "the page must actually scroll")
+      let card = try XCTUnwrap(frame("calendar.upcoming", in: window))
+      let capsule = try XCTUnwrap(frame("entry.line.capsule", in: window))
+      // Accessibility frames use screen coordinates, with Y increasing upwards.
+      XCTAssertGreaterThanOrEqual(card.minY, capsule.maxY + EntryBarMetrics.contentGap - 1)
+      let viewport = window.convertToScreen(root.convert(page.bounds, to: nil))
+      XCTAssertLessThanOrEqual(card.maxY, viewport.maxY + 1, "the entire last card is reachable")
     }
   }
 
@@ -207,7 +250,12 @@ final class CalendarWindowTests: XCTestCase {
     windows.append(window)
     window.contentViewController = controller
     window.orderFront(nil)
-    settle(20)
+    let expected = environment.money.percent(basisPoints: 7500, fractionDigits: 0)
+    try waitFor(window, "trip budget percentage") {
+      WindowAccessibility.elements(in: window).contains {
+        WindowAccessibility.text(of: $0) == expected
+      }
+    }
     var values: [String] = []
     func walk(_ element: Any) {
       guard let object = element as? NSObject else { return }
@@ -251,26 +299,30 @@ final class CalendarWindowTests: XCTestCase {
     window.orderFront(nil)
     for language in [AppLanguage.Choice.russian, .english] {
       environment.language.choice = language
-      settle(20)
-      var frames: [String: CGRect] = [:]
-      func walk(_ element: Any) {
-        guard let object = element as? NSObject else { return }
-        if object.responds(to: NSSelectorFromString("accessibilityIdentifier")),
-          let identifier = object.value(forKey: "accessibilityIdentifier") as? String,
-          let frame = (object.value(forKey: "accessibilityFrame") as? NSValue)?.rectValue
-        {
-          frames[identifier] = frame
-        }
-        if object.responds(to: NSSelectorFromString("accessibilityChildren")) {
-          for child in object.value(forKey: "accessibilityChildren") as? [Any] ?? [] { walk(child) }
-        }
+      let expected = "≈ " + environment.money.exact(AmountE4(whole: 11_400))
+      try waitFor(window, "complete conversion text and amount in \(language)") {
+        guard let hint = WindowAccessibility.element(identified: "entry.approximate", in: window)
+        else { return false }
+        return WindowAccessibility.text(of: hint) == expected
+          && self.frame("entry.approximate", in: window) != nil
+          && self.frame("entry.totalAmount", in: window) != nil
       }
-      walk(try XCTUnwrap(window.contentView))
-      let hint = try XCTUnwrap(frames["entry.approximate"])
-      let amount = try XCTUnwrap(frames["entry.totalAmount"])
-      XCTAssertGreaterThan(hint.width, 60)
-      XCTAssertLessThan(hint.height, 24)
-      XCTAssertLessThanOrEqual(hint.maxY, amount.minY)
+      let hint = try XCTUnwrap(frame("entry.approximate", in: window))
+      let amount = try XCTUnwrap(frame("entry.totalAmount", in: window))
+      // Measure the same complete text unconstrained, instead of guessing a minimum width.
+      let reference = NSHostingView(
+        rootView:
+          Text(verbatim: expected).appFont(.caption.monospacedDigit()).fixedSize()
+          .appDependencies(deps))
+      let natural = reference.fittingSize
+      XCTAssertGreaterThan(natural.width, 0)
+      XCTAssertEqual(hint.height, natural.height, accuracy: 1, "conversion must occupy one line")
+      XCTAssertGreaterThanOrEqual(hint.width, natural.width - 1, "full conversion must fit")
+      XCTAssertLessThanOrEqual(hint.maxY, amount.minY, "conversion belongs below the amount")
+      let root = try XCTUnwrap(window.contentView)
+      let bounds = window.convertToScreen(root.convert(root.bounds, to: nil))
+      XCTAssertGreaterThanOrEqual(hint.minX, bounds.minX)
+      XCTAssertLessThanOrEqual(hint.maxX, bounds.maxX)
     }
   }
 
@@ -286,7 +338,12 @@ final class CalendarWindowTests: XCTestCase {
     windows.append(window)
     window.contentViewController = controller
     window.orderFront(nil)
-    settle(20)
+    try waitFor(window, "empty scenario prompt and input fields") {
+      self.frame("whatif.emptyScenario", in: window) != nil
+        && WindowAccessibility.elements(in: window).filter {
+          WindowAccessibility.attribute($0, "accessibilityRole") as? String == "AXTextField"
+        }.count >= 3
+    }
     let root = try XCTUnwrap(window.contentView)
     func inputs(_ view: NSView) -> [NSTextField] {
       ((view as? NSTextField).map { [$0] } ?? []) + view.subviews.flatMap(inputs)
@@ -328,7 +385,7 @@ final class CalendarWindowTests: XCTestCase {
     let before = environment.overviewTiles
     defer { environment.overviewTiles = before }
     environment.overviewTiles = [.spendingCalendar, .monthToDate]
-    _ = mainWindow()
+    _ = try mainWindow()
     XCTAssertTrue(shown("overview"))
     XCTAssertFalse(missingDependencies)
   }

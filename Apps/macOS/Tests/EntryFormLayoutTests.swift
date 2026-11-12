@@ -171,7 +171,12 @@ final class EntryFormLayoutTests: XCTestCase {
             for hint in hints {
               XCTAssertLessThanOrEqual(hint.maxY, amount.minY, "conversion belongs below amount")
               XCTAssertLessThan(hint.height, 24, "conversion must fit one line: \(place)")
-              XCTAssertGreaterThan(hint.width, 60)
+              let expected = "≈ " + host.environment.money.exact(AmountE4(whole: 142_500))
+              let reference = NSHostingView(
+                rootView:
+                  Text(verbatim: expected).appFont(.caption.monospacedDigit()).fixedSize()
+                  .appDependencies(deps))
+              XCTAssertGreaterThanOrEqual(hint.width, reference.fittingSize.width - 1)
             }
           }
 
