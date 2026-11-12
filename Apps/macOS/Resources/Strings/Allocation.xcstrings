@@ -4,6 +4,18 @@
     "allocation.base": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спачатку падатак на прафесійны даход ≈ %@; правілы бяруць долю ад %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuerst die Selbstständigensteuer ≈ %@; die Regeln nehmen ihren Anteil von %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -22,18 +34,6 @@
             "value": "D'abord l'impôt sur l'activité ≈ %@ ; les règles prennent leur part de %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сначала налог самозанятого ≈ %@; правила берут долю от %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Спершу податок на самозайнятість ≈ %@; правила беруть свою частку з %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -46,16 +46,28 @@
             "value": "Алдымен өзін-өзі жұмыспен қамтығандар салығы ≈ %@; ережелер өз үлесін %@ ішінен алады"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Спачатку падатак на прафесійны даход ≈ %@; правілы бяруць долю ад %@"
+            "value": "Najpierw podatek od samozatrudnienia ≈ %@; reguły dzielą %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zuerst die Selbstständigensteuer ≈ %@; die Regeln nehmen ihren Anteil von %@"
+            "value": "Сначала налог самозанятого ≈ %@; правила берут долю от %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önce serbest çalışma vergisi ≈ %@; kurallar %@ üzerinden pay alır"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спершу податок на самозайнятість ≈ %@; правила беруть свою частку з %@"
           }
         }
       }
@@ -64,6 +76,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не цяпер"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht jetzt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -82,16 +106,10 @@
             "value": "Pas maintenant"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не надо"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не зараз"
+            "value": "Non ora"
           }
         },
         "kk": {
@@ -100,22 +118,28 @@
             "value": "Қазір емес"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Non ora"
+            "value": "Nie teraz"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не цяпер"
+            "value": "Не надо"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nicht jetzt"
+            "value": "Şimdi Değil"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не зараз"
           }
         }
       }
@@ -123,6 +147,18 @@
     "allocation.deleteWith": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць разам з размеркаваннем (унёскаў: %ld, пераводаў: %ld)"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit ihrer Verteilung löschen (Beiträge: %ld, Überweisungen: %ld)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -141,18 +177,6 @@
             "value": "Supprimer avec sa répartition (cotisations : %ld, virements : %ld)"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Удалить и распределение (взносов: %ld, переводов: %ld)"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Видалити разом із його розподілом (внески: %ld, перекази: %ld)"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -165,16 +189,28 @@
             "value": "Бөлумен бірге жою (салымдар: %ld, аударымдар: %ld)"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выдаліць разам з размеркаваннем (унёскаў: %ld, пераводаў: %ld)"
+            "value": "Usuń wraz z podziałem (wpłaty: %ld, przelewy: %ld)"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mit ihrer Verteilung löschen (Beiträge: %ld, Überweisungen: %ld)"
+            "value": "Удалить и распределение (взносов: %ld, переводов: %ld)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dağılımıyla sil (katkı: %ld, transfer: %ld)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити разом із його розподілом (внески: %ld, перекази: %ld)"
           }
         }
       }
@@ -182,6 +218,18 @@
     "allocation.earlier": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размеркавана %@ з %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verteilt %@ von %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -200,18 +248,6 @@
             "value": "Réparti %@ sur %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Распределено %@ из %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Розподілено %@ з %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -224,16 +260,28 @@
             "value": "%2$@ ішінен %1$@ бөлінді"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размеркавана %@ з %@"
+            "value": "Przydzielono %@ z %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verteilt %@ von %@"
+            "value": "Распределено %@ из %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ / %@ dağıtıldı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розподілено %@ з %@"
           }
         }
       }
@@ -241,6 +289,18 @@
     "allocation.failed": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не ўдалося запісаць размеркаванне. Паспрабуйце яшчэ раз."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Verteilung konnte nicht gespeichert werden. Versuchen Sie es erneut."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -259,18 +319,6 @@
             "value": "Impossible d'enregistrer la répartition. Réessayez."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не удалось записать распределение. Попробуйте ещё раз."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не вдалося записати розподіл. Спробуйте ще раз."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -283,16 +331,28 @@
             "value": "Бөлуді жазу мүмкін болмады. Қайталап көріңіз."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не ўдалося запісаць размеркаванне. Паспрабуйце яшчэ раз."
+            "value": "Nie udało się zapisać podziału. Spróbuj ponownie."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Verteilung konnte nicht gespeichert werden. Versuchen Sie es erneut."
+            "value": "Не удалось записать распределение. Попробуйте ещё раз."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dağılım kaydedilemedi. Yeniden deneyin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося записати розподіл. Спробуйте ще раз."
           }
         }
       }
@@ -300,6 +360,18 @@
     "allocation.gone": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гэтага даходу больш няма."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieses Einkommen ist nicht mehr vorhanden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -318,18 +390,6 @@
             "value": "Ce revenu n'est plus là."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Этого дохода больше нет."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Цього доходу вже немає."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -342,16 +402,28 @@
             "value": "Бұл табыс енді жоқ."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Гэтага даходу больш няма."
+            "value": "Tego przychodu już nie ma."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dieses Einkommen ist nicht mehr vorhanden."
+            "value": "Этого дохода больше нет."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu gelir artık mevcut değil."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цього доходу вже немає."
           }
         }
       }
@@ -360,6 +432,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фінансавая падушка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sicherheitspolster"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -378,16 +462,10 @@
             "value": "Matelas de sécurité"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Подушка безопасности"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Фінансова подушка"
+            "value": "Fondo di emergenza"
           }
         },
         "kk": {
@@ -396,22 +474,28 @@
             "value": "Қаржылық жастық"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fondo di emergenza"
+            "value": "Poduszka finansowa"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Фінансавая падушка"
+            "value": "Подушка безопасности"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sicherheitspolster"
+            "value": "Güvenlik yastığı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фінансова подушка"
           }
         }
       }
@@ -419,6 +503,18 @@
     "allocation.line.cushionAccount": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунак падушкі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto des Polsters"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -437,18 +533,6 @@
             "value": "Compte du matelas"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Счёт подушки"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Рахунок подушки"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -461,16 +545,28 @@
             "value": "Жастық есеп-шоты"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рахунак падушкі"
+            "value": "Konto poduszki finansowej"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Konto des Polsters"
+            "value": "Счёт подушки"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güvenlik yastığı hesabı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок подушки"
           }
         }
       }
@@ -478,6 +574,18 @@
     "allocation.line.tax": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатак на прафесійны даход"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selbstständigensteuer"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -496,18 +604,6 @@
             "value": "Impôt sur l'activité"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Налог самозанятого"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Податок на самозайнятість"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -520,16 +616,28 @@
             "value": "Өзін-өзі жұмыспен қамтығандар салығы"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падатак на прафесійны даход"
+            "value": "Podatek od samozatrudnienia"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Selbstständigensteuer"
+            "value": "Налог самозанятого"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serbest çalışma vergisi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податок на самозайнятість"
           }
         }
       }
@@ -537,6 +645,18 @@
     "allocation.line.transfer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таксама перавесці грошы на «%@»"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Geld zusätzlich auf „%@“ überweisen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -555,18 +675,6 @@
             "value": "Transférer aussi l'argent vers « %@ »"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Перевести деньги на «%@»"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Також перекази гроші на «%@»"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -579,16 +687,28 @@
             "value": "Ақшаны «%@» есеп-шотына да аудару"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Таксама перавесці грошы на «%@»"
+            "value": "Przenieś też środki do «%@»"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Das Geld zusätzlich auf „%@“ überweisen"
+            "value": "Перевести деньги на «%@»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parayı ayrıca «%@» hesabına aktar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Також перекази гроші на «%@»"
           }
         }
       }
@@ -596,6 +716,18 @@
     "allocation.note.cushionLeft": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падушцы яшчэ не хапае %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dem Polster fehlen noch %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -614,18 +746,6 @@
             "value": "Il manque encore %@ au matelas"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "До цели подушки не хватает %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Подушці ще бракує %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -638,16 +758,28 @@
             "value": "Жастыққа әлі %@ жетпейді"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падушцы яшчэ не хапае %@"
+            "value": "Do poduszki brakuje jeszcze %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dem Polster fehlen noch %@"
+            "value": "До цели подушки не хватает %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güvenlik yastığı için %@ daha gerekli"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушці ще бракує %@"
           }
         }
       }
@@ -655,6 +787,18 @@
     "allocation.note.dropRule": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць правіла"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regel entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -673,18 +817,6 @@
             "value": "Supprimer la règle"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Убрать правило"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Видалити правило"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -697,16 +829,28 @@
             "value": "Ережені жою"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выдаліць правіла"
+            "value": "Usuń regułę"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regel entfernen"
+            "value": "Убрать правило"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kuralı kaldır"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити правило"
           }
         }
       }
@@ -714,6 +858,18 @@
     "allocation.note.goalComplete": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мэта дасягнута — выдаліць яе правіла?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Ziel ist erreicht — soll seine Regel entfernt werden?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -732,18 +888,6 @@
             "value": "L'objectif est atteint — supprimer sa règle ?"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Цель собрана — убрать правило?"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ціль досягнуто — видалити її правило?"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -756,16 +900,28 @@
             "value": "Мақсат орындалды — оның ережесін жою керек пе?"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мэта дасягнута — выдаліць яе правіла?"
+            "value": "Cel osiągnięty — usunąć jego regułę?"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Das Ziel ist erreicht — soll seine Regel entfernt werden?"
+            "value": "Цель собрана — убрать правило?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hedef tamamlandı — kuralı kaldırılsın mı?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль досягнуто — видалити її правило?"
           }
         }
       }
@@ -773,6 +929,18 @@
     "allocation.note.goalPlan": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паводле плана месяца патрэбна %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Plan des Monats verlangt %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -791,18 +959,6 @@
             "value": "Le plan du mois demande %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "План месяца: %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "План місяця просить %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -815,16 +971,28 @@
             "value": "Айдың жоспары %@ сұрайды"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Паводле плана месяца патрэбна %@"
+            "value": "Plan na ten miesiąc wymaga %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Der Plan des Monats verlangt %@"
+            "value": "План месяца: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aylık plan için %@ gerekli"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "План місяця просить %@"
           }
         }
       }
@@ -832,6 +1000,18 @@
     "allocation.note.noCushion": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пазначце рахунак падушкі ў Капітале"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markieren Sie das Konto des Polsters unter „Kapital“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -850,18 +1030,6 @@
             "value": "Marquez le compte du matelas dans « Capital »"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отметьте счёт подушки в «Капитале»"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Позначте рахунок подушки на «Капіталі»"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -874,16 +1042,28 @@
             "value": "«Капиталда» жастықтың есеп-шотын белгілеңіз"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пазначце рахунак падушкі ў Капітале"
+            "value": "Oznacz konto poduszki w Kapitale"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Markieren Sie das Konto des Polsters unter „Kapital“"
+            "value": "Отметьте счёт подушки в «Капитале»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sermaye bölümünde güvenlik yastığı hesabını işaretleyin"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначте рахунок подушки на «Капіталі»"
           }
         }
       }
@@ -891,6 +1071,18 @@
     "allocation.over": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размеркавана больш, чым паступіла: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mehr verteilt, als eingegangen ist: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -909,18 +1101,6 @@
             "value": "Réparti plus que ce qui est entré : %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Распределено больше, чем пришло: %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Розподілено більше, ніж надійшло: %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -933,16 +1113,28 @@
             "value": "Түскеннен көбі бөлінді: %@"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размеркавана больш, чым паступіла: %@"
+            "value": "Przydzielono więcej niż wpłynęło: %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mehr verteilt, als eingegangen ist: %@"
+            "value": "Распределено больше, чем пришло: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gelenden fazla dağıtıldı: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розподілено більше, ніж надійшло: %@"
           }
         }
       }
@@ -950,6 +1142,18 @@
     "allocation.raise": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На %@ больш за звычайнае. Размеркаваць розніцу?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ mehr als üblich. Die Differenz verteilen?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -968,18 +1172,6 @@
             "value": "%@ de plus que d'habitude. Répartir l'écart ?"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На %@ больше обычного. Разложить разницу?"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На %@ більше, ніж зазвичай. Розподілити різницю?"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -992,16 +1184,28 @@
             "value": "Әдеттегіден %@ көп. Айырманы бөлейін бе?"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "На %@ больш за звычайнае. Размеркаваць розніцу?"
+            "value": "O %@ więcej niż zwykle. Rozdzielić różnicę?"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ mehr als üblich. Die Differenz verteilen?"
+            "value": "На %@ больше обычного. Разложить разницу?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Normalden %@ fazla. Fark dağıtılsın mı?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На %@ більше, ніж зазвичай. Розподілити різницю?"
           }
         }
       }
@@ -1009,6 +1213,18 @@
     "allocation.raise.spread": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размеркаваць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verteilen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1027,18 +1243,6 @@
             "value": "Répartir"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Разложить"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Розподілити"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1051,16 +1255,28 @@
             "value": "Бөлу"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размеркаваць"
+            "value": "Rozdziel"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verteilen"
+            "value": "Разложить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dağıt"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розподілити"
           }
         }
       }
@@ -1068,6 +1284,18 @@
     "allocation.rules": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правілы…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regeln…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1086,18 +1314,6 @@
             "value": "Règles…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Правила…"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Правила…"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1110,16 +1326,28 @@
             "value": "Ережелер…"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Правілы…"
+            "value": "Reguły…"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regeln…"
+            "value": "Правила…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurallar…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила…"
           }
         }
       }
@@ -1127,6 +1355,18 @@
     "allocation.shown.due": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1145,18 +1385,6 @@
             "value": "%@ · %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ · %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1169,13 +1397,25 @@
             "value": "%@ · %@"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ · %@"
           }
         },
-        "de": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ · %@"
@@ -1186,6 +1426,18 @@
     "allocation.shown.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Толькі паказана: плацяжы, абавязковыя выплаты і ліміты тут не запісваюцца. Змяняйце ліміты ў Планаванні."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur zur Anzeige: Zahlungen, Fälligkeiten und Limits werden hier nicht eingetragen. Limits ändern Sie in der Planung."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1204,18 +1456,6 @@
             "value": "Simplement affiché : les paiements, échéances et plafonds ne sont pas notés ici. Modifiez les plafonds dans « Planification »."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Только показано: платежи, сроки и лимиты здесь не записываются. Изменить лимиты — в «Планировании»."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Лише показано: платежі, внески й ліміти тут не записуються. Змініть ліміти в «Плануванні»."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1228,16 +1468,28 @@
             "value": "Тек көрсетіледі: төлемдер, берешектер және лимиттер мұнда жазылмайды. Лимиттерді «Жоспарлауда» өзгертіңіз."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Толькі паказана: плацяжы, абавязковыя выплаты і ліміты тут не запісваюцца. Змяняйце ліміты ў Планаванні."
+            "value": "Tylko podgląd: płatności, zobowiązania i limity nie są tu zapisywane. Zmienisz je w Planowaniu."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nur zur Anzeige: Zahlungen, Fälligkeiten und Limits werden hier nicht eingetragen. Limits ändern Sie in der Planung."
+            "value": "Только показано: платежи, сроки и лимиты здесь не записываются. Изменить лимиты — в «Планировании»."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca gösterilir: ödemeler, borçlar ve limitler buraya kaydedilmez. Limitleri Planlama bölümünden değiştirin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише показано: платежі, внески й ліміти тут не записуються. Змініть ліміти в «Плануванні»."
           }
         }
       }
@@ -1245,6 +1497,18 @@
     "allocation.shown.limit": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэшта ліміту «%@»"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest des Limits „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1263,18 +1527,6 @@
             "value": "Reste du plafond « %@ »"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Остаток лимита «%@»"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Залишок ліміту «%@»"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1287,16 +1539,28 @@
             "value": "«%@» лимитінен қалғаны"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рэшта ліміту «%@»"
+            "value": "Pozostało z limitu «%@»"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rest des Limits „%@“"
+            "value": "Остаток лимита «%@»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» limitinden kalan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишок ліміту «%@»"
           }
         }
       }
@@ -1304,6 +1568,18 @@
     "allocation.shown.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зарэзервавана да %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verplant bis %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1322,18 +1598,6 @@
             "value": "Déjà réservé jusqu'au %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Уже занято до %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Уже закладено до %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1346,16 +1610,28 @@
             "value": "%@ дейін бөлінген"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Зарэзервавана да %@"
+            "value": "Zaplanowane do %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verplant bis %@"
+            "value": "Уже занято до %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tarihine kadar ayrılan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже закладено до %@"
           }
         }
       }
@@ -1363,6 +1639,18 @@
     "allocation.shownNotWritten": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З іх паказана, але не запісана: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Davon angezeigt, aber nicht eingetragen: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1381,18 +1669,6 @@
             "value": "Dont affiché mais non noté : %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Из них показано, но не записано: %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "З них показано, але не записано: %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1405,16 +1681,28 @@
             "value": "Соның көрсетілген, бірақ жазылмаған бөлігі: %@"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "З іх паказана, але не запісана: %@"
+            "value": "W tym pokazano, ale nie zapisano: %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Davon angezeigt, aber nicht eingetragen: %@"
+            "value": "Из них показано, но не записано: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gösterilen ancak kaydedilmeyen: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З них показано, але не записано: %@"
           }
         }
       }
@@ -1422,6 +1710,18 @@
     "allocation.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Размеркаваць %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ verteilen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1440,18 +1740,6 @@
             "value": "Répartir %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Распределить %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Розподіл: %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1464,16 +1752,28 @@
             "value": "%@ бөлу"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размеркаваць %@"
+            "value": "Rozdziel %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ verteilen"
+            "value": "Распределить %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tutarını dağıt"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розподіл: %@"
           }
         }
       }
@@ -1482,6 +1782,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не размеркавана"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht verteilt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1500,16 +1812,10 @@
             "value": "Non réparti"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нераспределено"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не розподілено"
+            "value": "Non ripartito"
           }
         },
         "kk": {
@@ -1518,22 +1824,28 @@
             "value": "Бөлінбеген"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Non ripartito"
+            "value": "Nieprzydzielone"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не размеркавана"
+            "value": "Нераспределено"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nicht verteilt"
+            "value": "Dağıtılmamış"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не розподілено"
           }
         }
       }
@@ -1542,6 +1854,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісаць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eintragen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1560,16 +1884,10 @@
             "value": "Noter"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Записать"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Записати"
+            "value": "Registra"
           }
         },
         "kk": {
@@ -1578,22 +1896,28 @@
             "value": "Жазу"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Registra"
+            "value": "Zapisz"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Запісаць"
+            "value": "Записать"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eintragen"
+            "value": "Kaydet"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати"
           }
         }
       }
@@ -1601,6 +1925,18 @@
     "allocation.write.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Да запісу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einzutragen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1619,18 +1955,6 @@
             "value": "À noter"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Записать"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Записати"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1643,16 +1967,28 @@
             "value": "Жазылатын"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Да запісу"
+            "value": "Do zapisania"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einzutragen"
+            "value": "Записать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydedilecek"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати"
           }
         }
       }
@@ -1661,6 +1997,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summe"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1679,16 +2027,10 @@
             "value": "Somme"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сумма"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сума"
+            "value": "Importo"
           }
         },
         "kk": {
@@ -1697,22 +2039,28 @@
             "value": "Сома"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Importo"
+            "value": "Kwota"
           }
         },
-        "be": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutar"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Сума"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Summe"
           }
         }
       }
@@ -1720,6 +2068,18 @@
     "monthRest.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Што можна патраціць цяпер мінус будучыя плацяжы. «Не цяпер» схавае да наступнага месяца."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Was jetzt ausgegeben werden kann, abzüglich der anstehenden Zahlungen. „Nicht jetzt“ legt es bis zum nächsten Monat beiseite."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1738,18 +2098,6 @@
             "value": "Ce qui peut être dépensé maintenant, moins les paiements à venir. « Pas maintenant » le met de côté jusqu'au mois prochain."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "«Можно тратить сейчас» минус платежи впереди. «Не надо» — до следующего месяца."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Те, що можна витратити зараз, без наперед запланованих платежів. «Не зараз» відкладає це до наступного місяця."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1762,16 +2110,28 @@
             "value": "Қазір не жұмсауға болатыны, минус алдағы төлемдер. «Қазір емес» оны келесі айға дейін бөлек қояды."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Што можна патраціць цяпер мінус будучыя плацяжы. «Не цяпер» схавае да наступнага месяца."
+            "value": "Dostępne środki pomniejszone o nadchodzące płatności. Wybierz «Nie teraz», aby odłożyć je do przyszłego miesiąca."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Was jetzt ausgegeben werden kann, abzüglich der anstehenden Zahlungen. „Nicht jetzt“ legt es bis zum nächsten Monat beiseite."
+            "value": "«Можно тратить сейчас» минус платежи впереди. «Не надо» — до следующего месяца."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şimdi harcanabilecek tutardan yaklaşan ödemeler düşülür. «Şimdi Değil» seçeneği tutarı gelecek aya bırakır."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Те, що можна витратити зараз, без наперед запланованих платежів. «Не зараз» відкладає це до наступного місяця."
           }
         }
       }
@@ -1780,6 +2140,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэшта за %@ — %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest von %@ — %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1798,16 +2170,10 @@
             "value": "Ce qui reste de %@ — %@"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Остаток за %@ — %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Залишок %@ — %@"
+            "value": "Residuo di %@ — %@"
           }
         },
         "kk": {
@@ -1816,22 +2182,28 @@
             "value": "%1$@ ішінде қалғаны — %2$@"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Residuo di %@ — %@"
+            "value": "Pozostało z %@ — %@"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рэшта за %@ — %@"
+            "value": "Остаток за %@ — %@"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rest von %@ — %@"
+            "value": "%@ ayından kalan — %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишок %@ — %@"
           }
         }
       }
@@ -1839,6 +2211,18 @@
     "monthRest.where": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куды"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wohin"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1857,18 +2241,6 @@
             "value": "Vers"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Куда"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Куди"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1881,16 +2253,28 @@
             "value": "Қайда"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Куды"
+            "value": "Dokąd"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wohin"
+            "value": "Куда"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nereye"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куди"
           }
         }
       }
@@ -1898,6 +2282,18 @@
     "npd.gap.less": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатковая налічыла на %@ менш"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Finanzamt hat %@ weniger berechnet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1916,18 +2312,6 @@
             "value": "Le fisc a prélevé %@ de moins"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ФНС насчитала на %@ меньше"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Податкова нарахувала на %@ менше"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1940,16 +2324,28 @@
             "value": "Салық басқармасы %@ кем есептеді"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падатковая налічыла на %@ менш"
+            "value": "Urząd naliczył o %@ mniej"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Das Finanzamt hat %@ weniger berechnet"
+            "value": "ФНС насчитала на %@ меньше"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vergi dairesi %@ daha az tahakkuk ettirdi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податкова нарахувала на %@ менше"
           }
         }
       }
@@ -1957,6 +2353,18 @@
     "npd.gap.more": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатковая налічыла на %@ больш"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Finanzamt hat %@ mehr berechnet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1975,18 +2383,6 @@
             "value": "Le fisc a prélevé %@ de plus"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ФНС насчитала на %@ больше"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Податкова нарахувала на %@ більше"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -1999,16 +2395,28 @@
             "value": "Салық басқармасы %@ артық есептеді"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падатковая налічыла на %@ больш"
+            "value": "Urząd naliczył o %@ więcej"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Das Finanzamt hat %@ mehr berechnet"
+            "value": "ФНС насчитала на %@ больше"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vergi dairesi %@ daha fazla tahakkuk ettirdi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податкова нарахувала на %@ більше"
           }
         }
       }
@@ -2017,6 +2425,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З рахунку"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Von Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2035,16 +2455,10 @@
             "value": "Depuis le compte"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Со счёта"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "З рахунку"
+            "value": "Dal conto"
           }
         },
         "kk": {
@@ -2053,22 +2467,28 @@
             "value": "Есеп-шоттан"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dal conto"
+            "value": "Z konta"
           }
         },
-        "be": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Со счёта"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaptan"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "З рахунку"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Von Konto"
           }
         }
       }
@@ -2077,6 +2497,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summe"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2095,16 +2527,10 @@
             "value": "Somme"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сумма"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сума"
+            "value": "Importo"
           }
         },
         "kk": {
@@ -2113,22 +2539,28 @@
             "value": "Сома"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Importo"
+            "value": "Kwota"
           }
         },
-        "be": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutar"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Сума"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Summe"
           }
         }
       }
@@ -2136,6 +2568,18 @@
     "npd.pay.check": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разлічана: %@. Праверце ў «Мой налог» — канчатковая сума за падатковай."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Berechnet: %@. Prüfen Sie es in „Mein Steuer“ — das letzte Wort hat das Finanzamt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2154,18 +2598,6 @@
             "value": "Calculé : %@. Vérifiez-le dans « Mon impôt » — le dernier mot revient au fisc."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Посчитано: %@. Проверьте в «Мой налог» — последнее слово за ФНС."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Розраховано: %@. Перевірте в «Мой налог» — останнє слово за податковою."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2178,16 +2610,28 @@
             "value": "Есептелді: %@. «Менің салығым» ішінде тексеріңіз — соңғы сөз салық басқармасында."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Разлічана: %@. Праверце ў «Мой налог» — канчатковая сума за падатковай."
+            "value": "Obliczono: %@. Sprawdź w «Мой налог» — decyduje urząd skarbowy."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Berechnet: %@. Prüfen Sie es in „Mein Steuer“ — das letzte Wort hat das Finanzamt."
+            "value": "Посчитано: %@. Проверьте в «Мой налог» — последнее слово за ФНС."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaplanan: %@. «Мой налог» üzerinden kontrol edin — son sözü vergi dairesi söyler."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розраховано: %@. Перевірте в «Мой налог» — останнє слово за податковою."
           }
         }
       }
@@ -2196,6 +2640,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дзень"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2214,16 +2670,10 @@
             "value": "Jour"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "День"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "День"
+            "value": "Giorno"
           }
         },
         "kk": {
@@ -2232,22 +2682,28 @@
             "value": "Күні"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Giorno"
+            "value": "Dzień"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Дзень"
+            "value": "День"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tag"
+            "value": "Gün"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День"
           }
         }
       }
@@ -2256,6 +2712,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аплаціць…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2274,16 +2742,10 @@
             "value": "Payer…"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Заплатить…"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сплатити…"
+            "value": "Paga…"
           }
         },
         "kk": {
@@ -2292,22 +2754,28 @@
             "value": "Төлеу…"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Paga…"
+            "value": "Zapłać…"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Аплаціць…"
+            "value": "Заплатить…"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zahlen…"
+            "value": "Öde…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сплатити…"
           }
         }
       }
@@ -2315,6 +2783,18 @@
     "npd.pay.save": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запісаць плацеж"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlung eintragen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2333,18 +2813,6 @@
             "value": "Noter le paiement"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Записать уплату"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Записати платіж"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2357,16 +2825,28 @@
             "value": "Төлемді жазу"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Запісаць плацеж"
+            "value": "Zapisz płatność"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zahlung eintragen"
+            "value": "Записать уплату"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödemeyi kaydet"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати платіж"
           }
         }
       }
@@ -2374,6 +2854,18 @@
     "npd.pay.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатак на прафесійны даход за %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selbstständigensteuer für %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2392,18 +2884,6 @@
             "value": "Impôt sur l'activité pour %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Налог самозанятого за %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Податок на самозайнятість за %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2416,16 +2896,28 @@
             "value": "%@ үшін өзін-өзі жұмыспен қамтығандар салығы"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падатак на прафесійны даход за %@"
+            "value": "Podatek od samozatrudnienia za %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Selbstständigensteuer für %@"
+            "value": "Налог самозанятого за %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ için serbest çalışma vergisi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податок на самозайнятість за %@"
           }
         }
       }
@@ -2433,6 +2925,18 @@
     "rules.add": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дадаць правіла…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regel hinzufügen…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2451,18 +2955,6 @@
             "value": "Ajouter une règle…"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Добавить правило…"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Додати правило…"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2475,16 +2967,28 @@
             "value": "Ереже қосу…"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Дадаць правіла…"
+            "value": "Dodaj regułę…"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regel hinzufügen…"
+            "value": "Добавить правило…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kural Ekle…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати правило…"
           }
         }
       }
@@ -2492,6 +2996,18 @@
     "rules.amount.percent": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %% даходу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ % des Einkommens"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2510,18 +3026,6 @@
             "value": "%@ %% du revenu"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ % дохода"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ % від доходу"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2534,16 +3038,28 @@
             "value": "Табыстың %@ %"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ %% даходу"
+            "value": "%@ % przychodu"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ % des Einkommens"
+            "value": "%@ % дохода"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gelirin %@ %"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ % від доходу"
           }
         }
       }
@@ -2552,6 +3068,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змяніць…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeiten…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2570,16 +3098,10 @@
             "value": "Modifier…"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Изменить…"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Редагувати…"
+            "value": "Modifica…"
           }
         },
         "kk": {
@@ -2588,22 +3110,28 @@
             "value": "Өңдеу…"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Modifica…"
+            "value": "Edytuj…"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Змяніць…"
+            "value": "Изменить…"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bearbeiten…"
+            "value": "Düzenle…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Редагувати…"
           }
         }
       }
@@ -2611,6 +3139,18 @@
     "rules.empty": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Яшчэ няма правілаў"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Regeln"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2629,18 +3169,6 @@
             "value": "Pas encore de règle"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Правил пока нет"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Правил ще немає"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2653,16 +3181,28 @@
             "value": "Ережелер әлі жоқ"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Яшчэ няма правілаў"
+            "value": "Brak reguł"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Noch keine Regeln"
+            "value": "Правил пока нет"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz kural yok"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правил ще немає"
           }
         }
       }
@@ -2671,6 +3211,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунак"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2689,16 +3241,10 @@
             "value": "Compte"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Счёт"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Рахунок"
+            "value": "Conto"
           }
         },
         "kk": {
@@ -2707,22 +3253,28 @@
             "value": "Есеп-шот"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Conto"
-          }
-        },
-        "be": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Рахунак"
-          }
-        },
-        "de": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
             "value": "Konto"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счёт"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesap"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок"
           }
         }
       }
@@ -2730,6 +3282,18 @@
     "rules.form.cushionHint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На рахунак, пазначаны як падушка; калі іх некалькі, форма спытае."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf das Konto, das als Polster markiert ist; bei mehreren fragt das Blatt nach."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2748,18 +3312,6 @@
             "value": "Vers le compte marqué comme matelas ; s'il y en a plusieurs, la feuille demande lequel."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На счёт, отмеченный подушкой; если их несколько, лист спросит."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На рахунок, позначений як подушка; якщо їх кілька, аркуш запитає."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2772,16 +3324,28 @@
             "value": "Жастық ретінде белгіленген есеп-шотқа; бірнеше болса, парақ сұрайды."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "На рахунак, пазначаны як падушка; калі іх некалькі, форма спытае."
+            "value": "Na konto oznaczone jako poduszka; jeśli jest ich kilka, wybierz je w arkuszu."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Auf das Konto, das als Polster markiert ist; bei mehreren fragt das Blatt nach."
+            "value": "На счёт, отмеченный подушкой; если их несколько, лист спросит."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güvenlik yastığı olarak işaretlenen hesaba aktarılır; birden fazla hesap varsa seçim istenir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На рахунок, позначений як подушка; якщо їх кілька, аркуш запитає."
           }
         }
       }
@@ -2789,6 +3353,18 @@
     "rules.form.fixed": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фіксаваная сума"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fester Betrag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2807,18 +3383,6 @@
             "value": "Somme fixe"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сумма"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Фіксована сума"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2831,16 +3395,28 @@
             "value": "Тұрақты сома"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Фіксаваная сума"
+            "value": "Stała kwota"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fester Betrag"
+            "value": "Сумма"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sabit tutar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фіксована сума"
           }
         }
       }
@@ -2849,6 +3425,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мэта"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2867,16 +3455,10 @@
             "value": "Objectif"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Цель"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ціль"
+            "value": "Obiettivo"
           }
         },
         "kk": {
@@ -2885,22 +3467,28 @@
             "value": "Мақсат"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Obiettivo"
+            "value": "Cel"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мэта"
+            "value": "Цель"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ziel"
+            "value": "Hedef"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль"
           }
         }
       }
@@ -2908,6 +3496,18 @@
     "rules.form.how": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колькі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie viel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2926,18 +3526,6 @@
             "value": "Combien"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сколько"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Скільки"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2950,16 +3538,28 @@
             "value": "Қанша"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Колькі"
+            "value": "Ile"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wie viel"
+            "value": "Сколько"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne kadar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скільки"
           }
         }
       }
@@ -2968,6 +3568,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Працэнт"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prozent"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2986,16 +3598,10 @@
             "value": "Pourcentage"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Процент"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Відсоток"
+            "value": "Percentuale"
           }
         },
         "kk": {
@@ -3004,22 +3610,28 @@
             "value": "Пайыз"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Percentuale"
+            "value": "Procent"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Працэнт"
+            "value": "Процент"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prozent"
+            "value": "Yüzde"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відсоток"
           }
         }
       }
@@ -3027,6 +3639,18 @@
     "rules.form.percentOfBase": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ад даходу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vom Einkommen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3045,18 +3669,6 @@
             "value": "Du revenu"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "От дохода"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Від доходу"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3069,16 +3681,28 @@
             "value": "Табыстан"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ад даходу"
+            "value": "Przychodu"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vom Einkommen"
+            "value": "От дохода"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gelirin"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Від доходу"
           }
         }
       }
@@ -3087,6 +3711,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summe"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3105,16 +3741,10 @@
             "value": "Somme"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сумма"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сума"
+            "value": "Importo"
           }
         },
         "kk": {
@@ -3123,22 +3753,28 @@
             "value": "Сома"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Importo"
+            "value": "Kwota"
           }
         },
-        "be": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutar"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Сума"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Summe"
           }
         }
       }
@@ -3146,6 +3782,18 @@
     "rules.form.target": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куды"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wohin"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3164,18 +3812,6 @@
             "value": "Vers"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Куда"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Куди"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3188,16 +3824,28 @@
             "value": "Қайда"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Куды"
+            "value": "Dokąd"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wohin"
+            "value": "Куда"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nereye"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Куди"
           }
         }
       }
@@ -3205,6 +3853,18 @@
     "rules.form.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правіла"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3223,18 +3883,6 @@
             "value": "Règle"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Правило"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Правило"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3247,16 +3895,28 @@
             "value": "Ереже"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Правіла"
+            "value": "Reguła"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regel"
+            "value": "Правило"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kural"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правило"
           }
         }
       }
@@ -3264,6 +3924,18 @@
     "rules.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Працэнт бярэцца ад даходу пасля падатку на прафесійны даход. Правілы толькі прапануюць: без «Запісаць» нічога не запісваецца."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Prozentsatz wird vom Einkommen nach der Selbstständigensteuer genommen. Regeln schlagen nur vor: Ohne „Eintragen“ wird nichts geschrieben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3282,18 +3954,6 @@
             "value": "Le pourcentage se prend sur le revenu après l'impôt sur l'activité. Les règles ne font que proposer : rien n'est noté sans « Noter »."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Процент берётся от дохода после налога самозанятого. Правила только предлагают: без «Записать» ничего не пишется."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Відсоток береться від доходу після податку на самозайнятість. Правила лише пропонують: нічого не записується без «Записати»."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3306,16 +3966,28 @@
             "value": "Пайыз өзін-өзі жұмыспен қамтығандар салығынан кейінгі табыстан алынады. Ережелер тек ұсынады: «Жазу» басылмайынша ештеңе жазылмайды."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Працэнт бярэцца ад даходу пасля падатку на прафесійны даход. Правілы толькі прапануюць: без «Запісаць» нічога не запісваецца."
+            "value": "Procent jest liczony od przychodu po odliczeniu podatku od samozatrudnienia. Reguły tylko sugerują podział: nic nie zostanie zapisane bez wybrania «Zapisz»."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein Prozentsatz wird vom Einkommen nach der Selbstständigensteuer genommen. Regeln schlagen nur vor: Ohne „Eintragen“ wird nichts geschrieben."
+            "value": "Процент берётся от дохода после налога самозанятого. Правила только предлагают: без «Записать» ничего не пишется."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yüzde, serbest çalışma vergisi düşüldükten sonraki gelirden alınır. Kurallar yalnızca öneri sunar; «Kaydet» seçilmeden hiçbir şey kaydedilmez."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відсоток береться від доходу після податку на самозайнятість. Правила лише пропонують: нічого не записується без «Записати»."
           }
         }
       }
@@ -3323,6 +3995,18 @@
     "rules.refusal.amount": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увядзіце працэнт ад 0 да 100 або суму большую за нуль"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geben Sie einen Prozentsatz von 0 bis 100 oder einen Betrag über null ein"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3341,18 +4025,6 @@
             "value": "Saisissez un pourcentage de 0 à 100 ou une somme supérieure à zéro"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введите процент от 0 до 100 или сумму больше нуля"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Введіть відсоток від 0 до 100 або суму більше нуля"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3365,16 +4037,28 @@
             "value": "0-ден 100-ге дейінгі пайызды немесе нөлден жоғары соманы енгізіңіз"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Увядзіце працэнт ад 0 да 100 або суму большую за нуль"
+            "value": "Wpisz procent od 0 do 100 lub kwotę większą od zera"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Geben Sie einen Prozentsatz von 0 bis 100 oder einen Betrag über null ein"
+            "value": "Введите процент от 0 до 100 или сумму больше нуля"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "0 ile 100 arasında bir yüzde veya sıfırdan büyük bir tutar girin"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть відсоток від 0 до 100 або суму більше нуля"
           }
         }
       }
@@ -3382,6 +4066,18 @@
     "rules.refusal.cushionTaken": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для падушкі ўжо ёсць правіла"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für das Polster gibt es bereits eine Regel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3400,18 +4096,6 @@
             "value": "Le matelas a déjà une règle"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У подушки уже есть правило"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Для подушки вже є правило"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3424,16 +4108,28 @@
             "value": "Жастықтың ережесі бұрыннан бар"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Для падушкі ўжо ёсць правіла"
+            "value": "Poduszka ma już regułę"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Für das Polster gibt es bereits eine Regel"
+            "value": "У подушки уже есть правило"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güvenlik yastığının zaten bir kuralı var"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для подушки вже є правило"
           }
         }
       }
@@ -3441,6 +4137,18 @@
     "rules.refusal.goalTaken": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для гэтай мэты ўжо ёсць правіла"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für dieses Ziel gibt es bereits eine Regel"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3459,18 +4167,6 @@
             "value": "Cet objectif a déjà une règle"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "У этой цели уже есть правило"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Для цієї цілі вже є правило"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3483,16 +4179,28 @@
             "value": "Бұл мақсаттың ережесі бұрыннан бар"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Для гэтай мэты ўжо ёсць правіла"
+            "value": "Ten cel ma już regułę"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Für dieses Ziel gibt es bereits eine Regel"
+            "value": "У этой цели уже есть правило"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu hedefin zaten bir kuralı var"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для цієї цілі вже є правило"
           }
         }
       }
@@ -3500,6 +4208,18 @@
     "rules.target.account": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На «%@»"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3518,18 +4238,6 @@
             "value": "Vers « %@ »"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На «%@»"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "На «%@»"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3542,16 +4250,28 @@
             "value": "«%@» есеп-шотына"
           }
         },
-        "be": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do «%@»"
+          }
+        },
+        "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "На «%@»"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Auf „%@“"
+            "value": "«%@» hesabına"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На «%@»"
           }
         }
       }
@@ -3559,6 +4279,18 @@
     "rules.target.goal": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мэта «%@»"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ziel „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3577,18 +4309,6 @@
             "value": "Objectif « %@ »"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Цель «%@»"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ціль «%@»"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3601,16 +4321,28 @@
             "value": "«%@» мақсатына"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мэта «%@»"
+            "value": "Cel «%@»"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ziel „%@“"
+            "value": "Цель «%@»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» hedefi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль «%@»"
           }
         }
       }
@@ -3619,6 +4351,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правілы размеркавання"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verteilungsregeln"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3637,16 +4381,10 @@
             "value": "Règles de répartition"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Правила распределения"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Правила розподілу"
+            "value": "Regole di ripartizione"
           }
         },
         "kk": {
@@ -3655,22 +4393,28 @@
             "value": "Бөлу ережелері"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regole di ripartizione"
+            "value": "Reguły podziału"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Правілы размеркавання"
+            "value": "Правила распределения"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verteilungsregeln"
+            "value": "Dağılım kuralları"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Правила розподілу"
           }
         }
       }
@@ -3678,6 +4422,18 @@
     "selfEmployed.block.deduction": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэшта выліку"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verbleibender Abzug"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3696,18 +4452,6 @@
             "value": "Déduction restante"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Остаток вычета"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Залишок вирахування"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3720,16 +4464,28 @@
             "value": "Қалған шегерім"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рэшта выліку"
+            "value": "Pozostała ulga"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verbleibender Abzug"
+            "value": "Остаток вычета"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalan indirim"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишок вирахування"
           }
         }
       }
@@ -3737,6 +4493,18 @@
     "selfEmployed.block.deductionUnknown": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "не зададзена — разлік без яго"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nicht angegeben — ohne ihn berechnet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3755,18 +4523,6 @@
             "value": "non précisée — calculé sans elle"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "не указан — без вычета"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "не вказано — враховано без нього"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3779,16 +4535,28 @@
             "value": "айтылмаған — онсыз есептелді"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "не зададзена — разлік без яго"
+            "value": "nie podano — obliczono bez ulgi"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "nicht angegeben — ohne ihn berechnet"
+            "value": "не указан — без вычета"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "belirtilmedi — indirimsiz hesaplandı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "не вказано — враховано без нього"
           }
         }
       }
@@ -3796,6 +4564,18 @@
     "selfEmployed.block.due": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "да %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bis %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3814,18 +4594,6 @@
             "value": "avant le %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "до %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "до %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3838,16 +4606,28 @@
             "value": "мерзімі — %@"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "да %@"
+            "value": "do %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "bis %@"
+            "value": "до %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son gün: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "до %@"
           }
         }
       }
@@ -3855,6 +4635,18 @@
     "selfEmployed.block.exceeded": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ліміт перавышаны"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Über dem Limit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3873,18 +4665,6 @@
             "value": "Plafond dépassé"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Лимит превышен"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Понад ліміт"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3897,16 +4677,28 @@
             "value": "Лимиттен асты"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ліміт перавышаны"
+            "value": "Przekroczono limit"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Über dem Limit"
+            "value": "Лимит превышен"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limit aşıldı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Понад ліміт"
           }
         }
       }
@@ -3914,6 +4706,18 @@
     "selfEmployed.block.income": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даход за гэты месяц"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen in diesem Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3932,18 +4736,6 @@
             "value": "Revenu de ce mois"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Доход за месяц"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Дохід за місяць"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -3956,16 +4748,28 @@
             "value": "Осы айдағы табыс"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Даход за гэты месяц"
+            "value": "Przychód w tym miesiącu"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einnahmen in diesem Monat"
+            "value": "Доход за месяц"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu ayki gelir"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід за місяць"
           }
         }
       }
@@ -3973,6 +4777,18 @@
     "selfEmployed.block.tax": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатак да выплаты"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu zahlende Steuer"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -3991,18 +4807,6 @@
             "value": "Impôt à payer"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Налог к уплате"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Податок до сплати"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4015,16 +4819,28 @@
             "value": "Төлейтін салық"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падатак да выплаты"
+            "value": "Podatek do zapłaty"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zu zahlende Steuer"
+            "value": "Налог к уплате"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödenecek vergi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податок до сплати"
           }
         }
       }
@@ -4033,6 +4849,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Самазанятасць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selbstständigkeit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4051,16 +4879,10 @@
             "value": "Activité indépendante"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Самозанятость"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Самозайнятість"
+            "value": "Lavoro autonomo"
           }
         },
         "kk": {
@@ -4069,22 +4891,28 @@
             "value": "Өзін-өзі жұмыспен қамтығандар"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lavoro autonomo"
+            "value": "Samozatrudnienie"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Самазанятасць"
+            "value": "Самозанятость"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Selbstständigkeit"
+            "value": "Serbest çalışma"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Самозайнятість"
           }
         }
       }
@@ -4092,6 +4920,18 @@
     "selfEmployed.block.yearLeft": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэшта да гадавога ліміту"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bis zum Jahreslimit übrig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4110,18 +4950,6 @@
             "value": "Reste jusqu'au plafond annuel"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "До лимита года"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Залишок до річного ліміту"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4134,16 +4962,28 @@
             "value": "Жылдық лимитке қалғаны"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рэшта да гадавога ліміту"
+            "value": "Do limitu rocznego"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bis zum Jahreslimit übrig"
+            "value": "До лимита года"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yıllık limitten kalan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишок до річного ліміту"
           }
         }
       }
@@ -4151,6 +4991,18 @@
     "selfEmployed.category.earnings": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заробак"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einnahmen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4169,18 +5021,6 @@
             "value": "Gains"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Заработок"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Заробіток"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4193,16 +5033,28 @@
             "value": "Табыс"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Заробак"
+            "value": "Zarobki"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einnahmen"
+            "value": "Заработок"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kazanç"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заробіток"
           }
         }
       }
@@ -4210,6 +5062,18 @@
     "selfEmployed.category.individuals": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ад фізічных асоб"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "von Privatpersonen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4228,18 +5092,6 @@
             "value": "de particuliers"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "от физлиц"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "від фізичних осіб"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4252,16 +5104,28 @@
             "value": "жеке тұлғалардан"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "ад фізічных асоб"
+            "value": "od osób fizycznych"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "von Privatpersonen"
+            "value": "от физлиц"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bireylerden"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "від фізичних осіб"
           }
         }
       }
@@ -4269,6 +5133,18 @@
     "selfEmployed.category.organizations": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ад арганізацый"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "von Organisationen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4287,18 +5163,6 @@
             "value": "d'organisations"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "от организаций"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "від організацій"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4311,16 +5175,28 @@
             "value": "ұйымдардан"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "ад арганізацый"
+            "value": "od organizacji"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "von Organisationen"
+            "value": "от организаций"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kuruluşlardan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "від організацій"
           }
         }
       }
@@ -4328,6 +5204,18 @@
     "selfEmployed.category.returns": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вяртанне кліенту"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rückzahlung an einen Kunden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4346,18 +5234,6 @@
             "value": "Retour à un client"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Возврат клиенту"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Повернення клієнту"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4370,16 +5246,28 @@
             "value": "Клиентке қайтару"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вяртанне кліенту"
+            "value": "Zwrot dla klienta"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rückzahlung an einen Kunden"
+            "value": "Возврат клиенту"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Müşteriye iade"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повернення клієнту"
           }
         }
       }
@@ -4388,6 +5276,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Самазанятасць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selbstständigkeit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4406,16 +5306,10 @@
             "value": "Activité indépendante"
           }
         },
-        "ru": {
+        "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Самозанятость"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Самозайнятість"
+            "value": "Lavoro autonomo"
           }
         },
         "kk": {
@@ -4424,22 +5318,28 @@
             "value": "Өзін-өзі жұмыспен қамту"
           }
         },
-        "it": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lavoro autonomo"
+            "value": "Samozatrudnienie"
           }
         },
-        "be": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Самазанятасць"
+            "value": "Самозанятость"
           }
         },
-        "de": {
+        "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Selbstständigkeit"
+            "value": "Serbest çalışma"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Самозайнятість"
           }
         }
       }
@@ -4447,6 +5347,18 @@
     "selfEmployed.category.tax": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатак на прафесійны даход"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selbstständigensteuer"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4465,18 +5377,6 @@
             "value": "Impôt sur l'activité"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Налог самозанятого"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Податок на самозайнятість"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4489,16 +5389,28 @@
             "value": "Өзін-өзі жұмыспен қамтығандар салығы"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падатак на прафесійны даход"
+            "value": "Podatek od samozatrudnienia"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Selbstständigensteuer"
+            "value": "Налог самозанятого"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serbest çalışma vergisi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податок на самозайнятість"
           }
         }
       }
@@ -4506,6 +5418,18 @@
     "selfEmployed.category.taxes": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падаткі і зборы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Steuern und Gebühren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4524,18 +5448,6 @@
             "value": "Impôts et taxes"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Налоги и сборы"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Податки й збори"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4548,16 +5460,28 @@
             "value": "Салықтар мен алымдар"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падаткі і зборы"
+            "value": "Podatki i opłaty"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Steuern und Gebühren"
+            "value": "Налоги и сборы"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vergiler ve harçlar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податки й збори"
           }
         }
       }
@@ -4565,6 +5489,18 @@
     "selfEmployed.setup.enable": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключыць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einschalten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4583,18 +5519,6 @@
             "value": "Activer"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Включить"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Увімкнути"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4607,16 +5531,28 @@
             "value": "Қосу"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Уключыць"
+            "value": "Włącz"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einschalten"
+            "value": "Включить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aç"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнути"
           }
         }
       }
@@ -4624,6 +5560,18 @@
     "selfEmployed.setup.own": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мае катэгорыі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigene Kategorien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4642,18 +5590,6 @@
             "value": "Mes propres catégories"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Свои категории"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Мої власні категорії"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4666,16 +5602,28 @@
             "value": "Өз санаттарым"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мае катэгорыі"
+            "value": "Moje kategorie"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eigene Kategorien"
+            "value": "Свои категории"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kendi kategorilerim"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мої власні категорії"
           }
         }
       }
@@ -4683,6 +5631,18 @@
     "selfEmployed.setup.ownHint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пазначце стаўку кожнай катэгорыі ў Наладах → Катэгорыі."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markieren Sie den Satz jeder Ihrer Kategorien unter Einstellungen → Kategorien."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4701,18 +5661,6 @@
             "value": "Indiquez le taux de chacune de vos catégories dans Réglages → Catégories."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Отметьте ставку у своих категорий в «Настройки → Категории»."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Позначте ставку кожної з ваших категорій у «Налаштування → Категорії»."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4725,16 +5673,28 @@
             "value": "«Параметрлер → Санаттар» ішінде әр санатыңыздың мөлшерлемесін белгілеңіз."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пазначце стаўку кожнай катэгорыі ў Наладах → Катэгорыі."
+            "value": "Oznacz stawkę każdej kategorii w Ustawienia → Kategorie."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Markieren Sie den Satz jeder Ihrer Kategorien unter Einstellungen → Kategorien."
+            "value": "Отметьте ставку у своих категорий в «Настройки → Категории»."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayarlar → Kategoriler bölümünde her kategorinizin oranını işaretleyin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначте ставку кожної з ваших категорій у «Налаштування → Категорії»."
           }
         }
       }
@@ -4742,6 +5702,18 @@
     "selfEmployed.setup.ready": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гатова: Заробак → Самазанятасць → ад фізічных асоб (4 %) і ад арганізацый (6 %)"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertig: Einnahmen → Selbstständigkeit → von Privatpersonen (4 %) und von Organisationen (6 %)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4760,18 +5732,6 @@
             "value": "Prêt : Gains → Activité indépendante → de particuliers (4 %) et d'organisations (6 %)"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Готовые: Заработок → Самозанятость → от физлиц (4 %) и от организаций (6 %)"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Готово: Заробіток → Самозайнятість → від фізичних осіб (4 %) і від організацій (6 %)"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4784,16 +5744,28 @@
             "value": "Дайын: Табыс → Өзін-өзі жұмыспен қамту → жеке тұлғалардан (4 %) және ұйымдардан (6 %)"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Гатова: Заробак → Самазанятасць → ад фізічных асоб (4 %) і ад арганізацый (6 %)"
+            "value": "Gotowe: Przychody → Samozatrudnienie → od osób fizycznych (4 %) i od organizacji (6 %)"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fertig: Einnahmen → Selbstständigkeit → von Privatpersonen (4 %) und von Organisationen (6 %)"
+            "value": "Готовые: Заработок → Самозанятость → от физлиц (4 %) и от организаций (6 %)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hazır: Kazançlar → Serbest çalışma → kişilerden (%4) ve kurumlardan (%6)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово: Заробіток → Самозайнятість → від фізичних осіб (4 %) і від організацій (6 %)"
           }
         }
       }
@@ -4801,6 +5773,18 @@
     "selfEmployed.setup.readyHint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Катэгорыі будуць створаны, а наяўныя атрымаюць свае стаўкі."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kategorien sind angelegt oder bekommen ihre Sätze, wo sie schon sind."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4819,18 +5803,6 @@
             "value": "Les catégories sont créées, ou reçoivent leurs taux là où elles existent déjà."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Категории создадутся, а если уже есть — получат ставки."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Категорії створено або вони вже мають свої ставки."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4843,16 +5815,28 @@
             "value": "Санаттар жасалды немесе бар жерінде өз мөлшерлемесін алды."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Катэгорыі будуць створаны, а наяўныя атрымаюць свае стаўкі."
+            "value": "Kategorie zostały utworzone lub przypisano stawki do istniejących."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Kategorien sind angelegt oder bekommen ihre Sätze, wo sie schon sind."
+            "value": "Категории создадутся, а если уже есть — получат ставки."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategoriler oluşturuldu veya mevcut kategorilerin oranları güncellendi."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорії створено або вони вже мають свої ставки."
           }
         }
       }
@@ -4860,6 +5844,18 @@
     "selfEmployed.setup.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Катэгорыі самазанятасці"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorien der Selbstständigkeit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4878,18 +5874,6 @@
             "value": "Catégories d'activité indépendante"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Категории самозанятого"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Категорії самозайнятості"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4902,16 +5886,28 @@
             "value": "Өзін-өзі жұмыспен қамту санаттары"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Катэгорыі самазанятасці"
+            "value": "Kategorie samozatrudnienia"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kategorien der Selbstständigkeit"
+            "value": "Категории самозанятого"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serbest çalışma kategorileri"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорії самозайнятості"
           }
         }
       }
@@ -4919,6 +5915,18 @@
     "selfEmployed.tile.off": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уключыце «Я самазаняты» ў Наладах → Планаванне"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schalten Sie „Ich bin selbstständig“ unter Einstellungen → Planung ein"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4937,18 +5945,6 @@
             "value": "Activez « Je suis indépendant » dans Réglages → Planification"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Включите «Я самозанятый» в «Настройки → Планирование»"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Увімкніть «Я самозайнятий» у «Налаштування → Планування»"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4961,16 +5957,28 @@
             "value": "«Параметрлер → Жоспарлау» ішінде «Мен өзін-өзі жұмыспен қамтамын» қосыңыз"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Уключыце «Я самазаняты» ў Наладах → Планаванне"
+            "value": "Włącz «Jestem samozatrudniony» w Ustawienia → Planowanie"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schalten Sie „Ich bin selbstständig“ unter Einstellungen → Planung ein"
+            "value": "Включите «Я самозанятый» в «Настройки → Планирование»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayarlar → Planlama bölümünde «Serbest çalışıyorum» seçeneğini açın"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкніть «Я самозайнятий» у «Налаштування → Планування»"
           }
         }
       }
@@ -4978,6 +5986,18 @@
     "tax.pay.check": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разлічана: %@ — стаўка катэгорыі ад даходу за квартал. Зверце з падатковай — канчатковая сума за ёй."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Berechnet: %@ — der Satz der Kategorie auf die Einnahmen des Quartals. Prüfen Sie ihn beim Finanzamt — das letzte Wort hat es."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4996,18 +6016,6 @@
             "value": "Calculé : %@ — le taux de la catégorie sur le revenu du trimestre. Vérifiez-le auprès du fisc — le dernier mot lui revient."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Посчитано: %@ — ставка категории с доходов квартала. Сверьте с ФНС — последнее слово за ней."
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Розраховано: %@ — ставка категорії від доходу за квартал. Звірте з податковою — останнє слово за нею."
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5020,16 +6028,28 @@
             "value": "Есептелді: %@ — тоқсан табысына санаттың мөлшерлемесі. Салық басқармасымен тексеріңіз — соңғы сөз оныкі."
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Разлічана: %@ — стаўка катэгорыі ад даходу за квартал. Зверце з падатковай — канчатковая сума за ёй."
+            "value": "Obliczono: %@ — według stawki kategorii od przychodu za kwartał. Sprawdź kwotę w urzędzie skarbowym — jego wyliczenie jest wiążące."
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Berechnet: %@ — der Satz der Kategorie auf die Einnahmen des Quartals. Prüfen Sie ihn beim Finanzamt — das letzte Wort hat es."
+            "value": "Посчитано: %@ — ставка категории с доходов квартала. Сверьте с ФНС — последнее слово за ней."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaplanan: %@ — kategori oranı üç aylık gelire uygulandı. Vergi dairesinden kontrol edin; son karar vergi dairesinindir."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розраховано: %@ — ставка категорії від доходу за квартал. Звірте з податковою — останнє слово за нею."
           }
         }
       }
@@ -5037,6 +6057,18 @@
     "tax.pay.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатак па спрошчанай сістэме (USN) за %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vereinfachte Steuer (USN) für %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -5055,18 +6087,6 @@
             "value": "Impôt simplifié (USN) pour %@"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Налог УСН за %@"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Спрощений податок (УСН) за %@"
-          }
-        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -5079,16 +6099,28 @@
             "value": "%@ үшін жеңілдетілген салық (УСН)"
           }
         },
-        "be": {
+        "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Падатак па спрошчанай сістэме (USN) за %@"
+            "value": "Podatek uproszczony (USN) za %@"
           }
         },
-        "de": {
+        "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vereinfachte Steuer (USN) für %@"
+            "value": "Налог УСН за %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ için basitleştirilmiş vergi (USN)"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спрощений податок (УСН) за %@"
           }
         }
       }

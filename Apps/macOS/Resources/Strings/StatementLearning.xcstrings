@@ -5,6 +5,54 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld радкі запоўнены, як вы пісалі раней"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld радкоў запоўнена, як вы пісалі раней"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld радок запоўнены, як вы пісалі раней"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld радка запоўнена, як вы пісалі раней"
+                }
+              }
+            }
+          }
+        },
+        "de": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeile so ausgefüllt, wie Sie sie früher geschrieben haben"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Zeilen so ausgefüllt, wie Sie sie früher geschrieben haben"
+                }
+              }
+            }
+          }
+        },
         "en": {
           "variations": {
             "plural": {
@@ -71,6 +119,48 @@
             }
           }
         },
+        "it": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld righe compilate come le avevi scritte"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld riga compilata come l’avevi scritta"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld righe compilate come le avevi scritte"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол бұрын жазғаныңыздай толтырылды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жол бұрын жазғаныңыздай толтырылды"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -130,42 +220,6 @@
               }
             }
           }
-        },
-        "kk": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld жол бұрын жазғаныңыздай толтырылды"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld жол бұрын жазғаныңыздай толтырылды"
-                }
-              }
-            }
-          }
-        },
-        "de": {
-          "variations": {
-            "plural": {
-              "one": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld Zeile so ausgefüllt, wie Sie sie früher geschrieben haben"
-                }
-              },
-              "other": {
-                "stringUnit": {
-                  "state": "translated",
-                  "value": "%lld Zeilen so ausgefüllt, wie Sie sie früher geschrieben haben"
-                }
-              }
-            }
-          }
         }
       }
     },
@@ -173,6 +227,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Як вы пісалі раней"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie Sie es früher geschrieben haben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -191,6 +257,18 @@
             "value": "Comme vous l'aviez écrit avant"
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come l’avevi scritto"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұрын жазғаныңыздай"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -202,18 +280,6 @@
             "state": "translated",
             "value": "За вашим попереднім записом"
           }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Бұрын жазғаныңыздай"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wie Sie es früher geschrieben haben"
-          }
         }
       }
     },
@@ -221,6 +287,18 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запоўнена паводле аперацыі, якую вы ўвялі ўручную для такога ж тэксту гэтага банка. Змяніце аперацыю пасля загрузкі, і наступныя радкі будуць запоўнены з улікам змены."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus einem Vorgang ausgefüllt, den Sie für denselben Text dieser Bank von Hand eingetragen haben. Ändern Sie den Vorgang nach dem Laden, dann folgen die nächsten Zeilen Ihrer Änderung."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -239,6 +317,18 @@
             "value": "Rempli d'après une opération que vous avez saisie à la main pour le même texte de cette banque. Modifiez l'opération après le chargement, et les lignes suivantes suivront votre modification."
           }
         },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compilata da un’operazione inserita a mano con lo stesso testo di questa banca. Modifica l’operazione dopo il caricamento e le righe successive seguiranno la modifica."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы банктің дәл осындай мәтініне қолмен енгізген операцияңыздан толтырылды. Жүктегеннен кейін операцияны өзгертсеңіз, келесі жолдар өзгерісіңізді ескереді."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -249,18 +339,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заповнено з операції, яку ви ввели вручну для такого самого тексту цього банку. Змініть операцію після завантаження — наступні рядки врахують цю зміну."
-          }
-        },
-        "kk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Осы банктің дәл осындай мәтініне қолмен енгізген операцияңыздан толтырылды. Жүктегеннен кейін операцияны өзгертсеңіз, келесі жолдар өзгерісіңізді ескереді."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aus einem Vorgang ausgefüllt, den Sie für denselben Text dieser Bank von Hand eingetragen haben. Ändern Sie den Vorgang nach dem Laden, dann folgen die nächsten Zeilen Ihrer Änderung."
           }
         }
       }
