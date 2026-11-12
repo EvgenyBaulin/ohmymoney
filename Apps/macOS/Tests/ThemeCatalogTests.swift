@@ -8,10 +8,6 @@ import XCTest
 /// The colour themes: the data is complete, text can be read on every surface, and «Увеличить
 /// контраст» always lands on the Contrast theme.
 final class ThemeCatalogTests: XCTestCase {
-  /// The one theme whose white text on the hero gradient stays below 3 (2.4 on the light
-  /// orange of «Белый и оранжевый»), as the design file has it. Every other theme must reach 3.
-  private static let whiteOnHeroExceptions: Set<ThemeID> = [.theme02]
-
   private var palettes: [(id: ThemeID, scheme: String, palette: ThemePalette)] {
     ThemeCatalog.all.flatMap { theme in
       [(theme.id, "light", theme.light), (theme.id, "dark", theme.dark)]
@@ -175,25 +171,14 @@ final class ThemeCatalogTests: XCTestCase {
     }
   }
 
-  /// The themes whose hero gradient is mid-tone at one stop: neither black nor white, nor any
-  /// ink between, reaches 4.5 : 1 on both stops (themes 10–30 darken or lighten the text
-  /// automatically, 0526, but the palettes are not edited). Small text on their hero is the
-  /// owner's design question; the rest of the themes must hold 4.5 : 1 at both stops.
-  private static let heroBelowAA: Set<ThemeID> = [
-    .theme03, .theme04, .theme10, .theme11, .theme12, .theme13, .theme14, .theme15, .theme16,
-    .theme18, .theme19, .theme21, .theme22, .theme23, .theme24, .theme28,
-  ]
-
-  func testHeroTextIsReadableAtBothStopsExceptTheListedGradients() {
+  /// Text on the hero gradient reaches WCAG AA (4.5 : 1) at both stops, in every theme and
+  /// scheme, with the theme's own ink: the colours of the theme carry the contrast (0632), no
+  /// theme is excused and nothing is adjusted at run time.
+  func testHeroInkIsReadableAtBothStopsInEveryTheme() {
     for (id, scheme, p) in palettes {
-      let worst = [p.heroStart, p.heroEnd].map { p.heroText.contrast(on: $0) }.min() ?? 0
-      if Self.heroBelowAA.contains(id) {
-        let own = [p.heroStart, p.heroEnd].map { p.heroContent.contrast(on: $0) }.min() ?? 0
-        XCTAssertLessThan(worst, 4.5, "\(id) \(scheme) now passes: drop it from the list")
-        XCTAssertGreaterThanOrEqual(worst, own, "\(id) \(scheme) hero ink got worse")
-      } else {
-        XCTAssertGreaterThanOrEqual(worst, 4.5, "\(id) \(scheme) hero text \(worst)")
-      }
+      let worst = [p.heroStart, p.heroEnd].map { p.heroContent.contrast(on: $0) }.min() ?? 0
+      XCTAssertGreaterThanOrEqual(worst, 4.5, "\(id) \(scheme) hero ink \(worst)")
+      XCTAssertEqual(p.heroText, p.heroContent, "\(id) \(scheme) hero ink is adjusted")
     }
   }
 
@@ -215,12 +200,6 @@ final class ThemeCatalogTests: XCTestCase {
     let warm = [ThemeColor(0xF5A8_3AFF), ThemeColor(0xC269_2BFF)]
     let adjusted = white.ensuringTextContrast(on: warm)
     for surface in warm { XCTAssertGreaterThanOrEqual(adjusted.contrast(on: surface), 4.5) }
-  }
-
-  func testTextOnTheHeroIsReadableExceptOnTheLightOrange() {
-    for (id, scheme, p) in palettes where !Self.whiteOnHeroExceptions.contains(id) {
-      XCTAssertGreaterThanOrEqual(p.heroContent.contrast(on: p.heroEnd), 3, "\(id) \(scheme)")
-    }
   }
 
   func testIncreasedContrastResolvesToTheContrastTheme() {

@@ -9,7 +9,9 @@ final class ThemeFigmaTests: XCTestCase {
   /// FNV-1a (64 bit) of every colour of every theme, one line per colour:
   /// `"<id> <light|dark> <token> RRGGBBAA\n"`, themes in order, light before dark, tokens in
   /// palette order. 30 themes × 2 schemes × 54 tokens = 3240 lines.
-  private static let designFingerprint: UInt64 = 0xED4A_F47B_114B_07CA
+  /// Since 12.11 (0632) the hero gradient and ink of 21 themes differ from the design file by
+  /// the lightness needed for 4.5 : 1 text; the design file follows (changes listed in the lane report).
+  private static let designFingerprint: UInt64 = 0xFA68_C052_9E95_FD36
   private static let designLineCount = 3240
 
   /// The colours the design file changed for legibility, per theme: secondary text light and
