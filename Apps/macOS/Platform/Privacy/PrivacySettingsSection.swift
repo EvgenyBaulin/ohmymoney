@@ -85,8 +85,10 @@ struct PrivacySettingsSection: View {
             }
           }
           .pickerStyle(.inline).labelsHidden()
+          // Only the choices are switched off with the lock: a disabled menu label is dimmed
+          // by the system below the contrast the value needs.
+          .disabled(!lock.isEnabled)
         }
-        .disabled(!lock.isEnabled)
         .accessibilityIdentifier("settings.privacy.idle")
       }
       if lock.isEnabled {

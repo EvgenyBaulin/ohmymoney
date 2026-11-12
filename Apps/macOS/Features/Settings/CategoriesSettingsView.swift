@@ -442,11 +442,7 @@ struct CategoriesSettingsView: View {
       }
       .labelsHidden()
       // Without a title VoiceOver reads a bare pop-up: name the category and the field.
-      .accessibilityLabel(
-        Text(
-          verbatim:
-            "\(category.name) · \(environment.language("categories.quality", table: "Settings"))")
-      )
+      .accessibilityLabel(Text(verbatim: Self.qualityLabel(of: category.name, environment)))
       .frame(width: 150)
       .disabled(Self.qualityIsFixed(category, in: tree))
     }
@@ -784,6 +780,11 @@ struct CategoriesSettingsView: View {
 
   /// The new quality is saved at once and counts for the operations to come. Whether the
   /// past follows is asked next, once the operations it would change have been counted.
+  /// What VoiceOver says of a quality pop-up or chip: whose rating it is, then the field.
+  static func qualityLabel(of name: String, _ environment: AppEnvironment) -> String {
+    "\(name) · \(environment.language("categories.quality", table: "Settings"))"
+  }
+
   private func qualityBinding(for category: CoreKit.Category) -> Binding<Quality?> {
     Binding(
       get: { category.quality },
@@ -1724,6 +1725,8 @@ enum EssentialChoice: String, CaseIterable, Hashable {
       .menuIndicator(.hidden)
       .fixedSize()
       .disabled(Self.qualityIsFixed(category, in: wholeTree()))
+      // The chip's own text is only the value, «Plain»; VoiceOver also needs whose and what.
+      .accessibilityLabel(Text(verbatim: Self.qualityLabel(of: category.name, environment)))
       .accessibilityIdentifier("categories.row.quality")
     }
 

@@ -20,6 +20,11 @@ extension ThemePalette {
     contentSecondary.ensuringTextContrast(on: surfaceSidebar.composited(over: surfaceBackground))
   }
 
+  /// The sidebar's names, over the same translucent plate as its figures.
+  var sidebarText: ThemeColor {
+    contentPrimary.ensuringTextContrast(on: surfaceSidebar.composited(over: surfaceBackground))
+  }
+
   var heroText: ThemeColor { heroContent.ensuringTextContrast(on: [heroStart, heroEnd]) }
 
   var cardText: ThemeColor { contentPrimary.ensuringTextContrast(on: surfaceCard) }
