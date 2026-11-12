@@ -343,6 +343,8 @@ targets:
       - path: Apps/macOS/Tests/CloudKitTransportTests.swift
       - path: Apps/macOS/Tests/SharedItemProviderReaderTests.swift
       - path: Apps/macOS/Tests/NegativeBalanceContentTests.swift
+      # The comparison of screen pictures with their references is shared; the references too.
+      - path: Apps/macOS/Tests/ScreenSnapshots.swift
       - path: Apps/ShareExtension/SharedItemProviderReader.swift
     dependencies:
       - target: OhMyMoney-iOS

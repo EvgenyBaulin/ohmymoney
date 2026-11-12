@@ -154,9 +154,11 @@ final class PhoneHarness {
     AppDependencies(environment: environment, store: store, compute: compute)
   }
 
-  /// `withData` false is a book with nothing in it: the empty states of every screen.
+  /// `withData` false is a book with nothing in it: the empty states of every screen. `now` fixes
+  /// the day the book is drawn up to and the app's clock: the screens of a snapshot do not change
+  /// from one day to the next.
   static func make(
-    withData: Bool = true, language: AppLanguage.Choice = .russian
+    withData: Bool = true, language: AppLanguage.Choice = .russian, now: Date? = nil
   ) async throws -> PhoneHarness {
     OverviewFiguresStore.shared.reset()
     // The session points `AppPaths` at the app's own folder; that must not outlive the test.
@@ -176,7 +178,13 @@ final class PhoneHarness {
     store.attach(
       try XCTUnwrap(environment.transactions), references: environment.references,
       planning: environment.planning)
-    let compute = ComputeStore(calendar: .system, rebuildsInline: true)
+    let compute: ComputeStore
+    if let now {
+      environment.now = { now }
+      compute = ComputeStore(calendar: .system, clock: FixedClock(now), rebuildsInline: true)
+    } else {
+      compute = ComputeStore(calendar: .system, rebuildsInline: true)
+    }
     let harness = PhoneHarness(
       environment: environment, store: store, compute: compute, session: session,
       directory: directory, dataDirectoryBefore: before)
