@@ -62,6 +62,7 @@ public struct FreeMoney: Hashable, Sendable {
     public static let cushion = "planning.free.cushion"
     /// «Налог самозанятого ≈ X — не ваши деньги».
     public static let npdTax = "planning.free.npdTax"
+    public static let interestTax = "planning.free.interestTax"
     /// «Кредитка «…» к оплате до …», for the cards out of the summary.
     public static let creditCards = "planning.free.creditCards"
     /// «Буфер на непредвиденное −X»: the part of the month's buffer not yet spent.
@@ -181,6 +182,9 @@ public struct FreeMoney: Hashable, Sendable {
     // card out of the summary the lines are the ones they always were.
     if !plan.npdTax.isZero {
       lines.append(FreeToSpendLine(key: Key.npdTax, sign: .minus, amount: plan.npdTax))
+    }
+    if !plan.interestTax.isZero {
+      lines.append(FreeToSpendLine(key: Key.interestTax, sign: .minus, amount: plan.interestTax))
     }
     if !plan.creditCards.isZero {
       lines.append(FreeToSpendLine(key: Key.creditCards, sign: .minus, amount: plan.creditCards))

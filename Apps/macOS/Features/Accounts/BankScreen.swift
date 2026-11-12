@@ -32,6 +32,21 @@ struct BankScreen: View {
 
   private var insurance: BankInsurance? { compute.snapshot?.planning.banks.insurance(of: bankId) }
 
+  /// The tax on interest, where this bank has an account that earns it.
+  private var interestYear: InterestTax.Year? {
+    lines.contains { $0.account.interest != nil }
+      ? compute.snapshot?.planning.banks.interestTax : nil
+  }
+
+  /// The card count across all banks, where this bank has a card of its own.
+  private var cardCount: CardCountStatus? {
+    let ids = Set(lines.map(\.account.id))
+    guard let dataset = compute.snapshot?.dataset,
+      dataset.cards.contains(where: { !$0.archived && ids.contains($0.accountId) })
+    else { return nil }
+    return compute.snapshot?.planning.banks.cardCount
+  }
+
   private var creditCards: [CreditCardDebtLine] {
     guard let snapshot = compute.snapshot else { return [] }
     return CreditCardDebts.lines(
@@ -50,6 +65,8 @@ struct BankScreen: View {
       VStack(alignment: .leading, spacing: 14) {
         header
         if let insurance { insuranceCard(insurance) }
+        if let year = interestYear { InterestTaxCard(year: year) }
+        if let count = cardCount { CardCountCard(status: count) }
         accountsCard
         if !creditCards.isEmpty {
           CreditCardDebtCards(lines: creditCards) { id in

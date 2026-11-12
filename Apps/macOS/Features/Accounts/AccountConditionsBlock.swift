@@ -79,6 +79,10 @@ struct AccountConditionsBlock: View {
       // The bar only draws the share; the words above carry the figures.
       ProgressView(value: share(line))
         .accessibilityHidden(true)
+      if let fee = BanksRuText.sbpFeeLine(line, environment) {
+        Text(verbatim: fee).appFont(.caption).foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+      }
       if !line.movements.isEmpty {
         DisclosureGroup(BankText.t("bank.limit.counted", environment)) {
           ForEach(line.movements) { movement in movementRow(movement, line.currency) }
@@ -119,6 +123,7 @@ struct AccountConditionsBlock: View {
     switch kind {
     case .cash: "banknote"
     case .sbp: "arrow.left.arrow.right"
+    case .sbpOwn: "arrow.triangle.swap"
     case .interbank: "building.columns"
     }
   }

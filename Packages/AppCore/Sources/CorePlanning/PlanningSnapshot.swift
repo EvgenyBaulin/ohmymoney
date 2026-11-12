@@ -142,6 +142,8 @@ public struct PlanningSnapshot: Hashable, Sendable {
   public var ladder: LadderComparison? = nil
   /// The debt load of the last months (`DebtLoad.history`).
   public var debtLoadHistory: [DebtLoadMonth] = []
+  /// The same burden the way a bank counts it (`BankPdn`); `nil` before the debts are read.
+  public var bankPdn: BankPdn? = nil
   /// The reminders of the debts and credit cards (`DebtReminders`).
   public var debtReminders: [DebtReminder] = []
   /// The debts made before this version, to ask about once (`DebtReview`).
@@ -453,7 +455,10 @@ public struct PlanningSnapshot: Hashable, Sendable {
       subtractGoalSavings: book.settings.reconcileIncludesGoalSavings, dayRates: dayRates,
       goalSavingsValuation: book.settings.goalSavingsValuation,
       reserveEventBudgets: book.settings.reserveEventBudgets, npd: npd,
-      creditStatements: creditStatements)
+      creditStatements: creditStatements,
+      interestTax: BankReport.interestYear(
+        ledger: ledger, accounts: accounts, today: today, rubPerUnit: rubPerUnit)?
+        .sofar.taxE4 ?? .zero)
     let still = IncomeEstimate.stillExpected(
       statuses: expected, today: today, through: end, ledger: ledger)
     let year = ledger.dataset.yearPlan

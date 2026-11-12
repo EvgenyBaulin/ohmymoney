@@ -293,6 +293,13 @@ extension WorthALookNoteText {
         ? base + " " + f("look.bank.forgottenAmount", money.rounded(balance)) : base
     case .insuranceOver(_, let name, let total, let limit):
       return f("look.bank.insurance", name, money.rounded(total), money.rounded(limit))
+    case .cardCount(let count, let limit, let from, let inForce):
+      return BanksRuText.cardCountNote(
+        count: count, limit: limit, from: from, inForce: inForce, environment)
+    case .interestTax(let year, let tax, _, let dueDay):
+      return BanksRuText.interestTaxNote(year: year, taxE4: tax, dueDay: dueDay, environment)
+    case .cashbackTax(_, let total):
+      return BanksRuText.cashbackNote(totalRub: total, environment)
     }
   }
 
@@ -304,6 +311,9 @@ extension WorthALookNoteText {
     case .cardExpiry: "creditcard.trianglebadge.exclamationmark"
     case .forgotten: "zzz"
     case .insuranceOver: "exclamationmark.shield"
+    case .cardCount: "creditcard.and.123"
+    case .interestTax: "percent"
+    case .cashbackTax: "gift"
     }
   }
 
@@ -314,6 +324,7 @@ extension WorthALookNoteText {
       count > 0 ? [.rebind, .openAccount, .done] : [.openAccount, .done]
     case .forgotten: [.openForgotten, .done]
     case .insuranceOver: [.openBank, .done]
+    case .cardCount, .interestTax, .cashbackTax: [.done]
     }
   }
 
@@ -328,7 +339,7 @@ extension WorthALookNoteText {
     case .limitNear(let id, _, _, _), .limitExceeded(let id, _, _, _),
       .minBalanceBelow(let id, _, _, _), .cardExpiry(let id, _, _, _, _):
       return bank(ofAccount: id)
-    case .forgotten: return nil
+    case .forgotten, .cardCount, .interestTax, .cashbackTax: return nil
     }
   }
 }
