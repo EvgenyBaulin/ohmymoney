@@ -10,10 +10,22 @@
             "value": "%1$@ of %2$@ mo."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ de %2$@ meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ из %2$@ мес."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ з %2$@ міс."
           }
         }
       }
@@ -27,10 +39,22 @@
             "value": "Not less than today's obligatory payments: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No menos que los pagos obligatorios de hoy: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не меньше нынешних обязательных платежей: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не менше за сьогоднішні обов'язкові платежі: %@"
           }
         }
       }
@@ -44,10 +68,22 @@
             "value": "Full months so far: %lld."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meses completos hasta ahora: %lld."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Полных месяцев пока: %lld."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повних місяців поки що: %lld."
           }
         }
       }
@@ -61,10 +97,22 @@
             "value": "Goal — %1$@ (%2$@): put aside %3$@ a month until %4$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo — %1$@ (%2$@): aparte %3$@ al mes hasta el %4$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цель — %1$@ (%2$@): откладывайте %3$@ в месяц до %4$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль — %1$@ (%2$@): відкладати по %3$@ на місяць до %4$@"
           }
         }
       }
@@ -78,15 +126,28 @@
             "value": "Complete by"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Completar para"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Собрать к"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Досягти до"
+          }
         }
       }
     },
     "cushion.goal.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -95,10 +156,22 @@
             "value": "Month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Месяц"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяць"
           }
         }
       }
@@ -119,6 +192,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "A cushion for %lld months"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Un colchón para %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Un colchón para %lld mes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Un colchón para %lld meses"
                 }
               }
             }
@@ -153,6 +250,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подушка на %lld місяці"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подушка на %lld місяців"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подушка на %lld місяць"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Подушка на %lld місяця"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -165,15 +292,28 @@
             "value": "No goal yet: say how many months the cushion should cover."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay objetivo: indique cuántos meses debe cubrir el colchón."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цель не задана: скажите, на сколько месяцев нужна подушка."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цілі ще немає: скажіть, на скільки місяців має вистачати подушки."
+          }
         }
       }
     },
     "cushion.goal.open": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -182,10 +322,22 @@
             "value": "Goal…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цель…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль…"
           }
         }
       }
@@ -199,10 +351,22 @@
             "value": "at the present pace — by %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "al ritmo actual — para el %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "при нынешнем темпе — к %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "за поточним темпом — до %@"
           }
         }
       }
@@ -216,10 +380,22 @@
             "value": "at the present pace it is never reached"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "al ritmo actual nunca se alcanza"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "при нынешнем темпе не соберётся"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "за поточним темпом її не досягти"
           }
         }
       }
@@ -233,10 +409,22 @@
             "value": "Goal — %1$@ (%2$@): %3$@ a month gets there in a year"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo — %1$@ (%2$@): %3$@ al mes lo logran en un año"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цель — %1$@ (%2$@): по %3$@ в месяц — за год"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль — %1$@ (%2$@): %3$@ на місяць дадуть її за рік"
           }
         }
       }
@@ -250,10 +438,22 @@
             "value": "Goal — %1$@ (%2$@): reached"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo — %1$@ (%2$@): cumplido"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цель — %1$@ (%2$@): собрана"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль — %1$@ (%2$@): досягнуто"
           }
         }
       }
@@ -267,10 +467,22 @@
             "value": "Remove the goal"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar el objetivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Убрать цель"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити ціль"
           }
         }
       }
@@ -284,10 +496,22 @@
             "value": "Goal of the cushion"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo del colchón"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цель подушки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль подушки"
           }
         }
       }
@@ -308,6 +532,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Without income you would last %lld months"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sin ingresos le duraría %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sin ingresos le duraría %lld mes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sin ingresos le duraría %lld meses"
                 }
               }
             }
@@ -342,6 +590,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Без доходів вистачило б на %lld місяці"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Без доходів вистачило б на %lld місяців"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Без доходів вистачило б на %lld місяць"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Без доходів вистачило б на %lld місяця"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -354,21 +632,40 @@
             "value": "Without income you would last %@ months"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin ingresos le duraría %@ meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Без дохода вы проживёте %@ месяца"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без доходів вистачило б на %@ міс."
+          }
         }
       }
     },
     "cushion.month.by.1": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "January"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "enero"
           }
         },
         "ru": {
@@ -376,10 +673,17 @@
             "state": "translated",
             "value": "январю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Січень"
+          }
         }
       }
     },
     "cushion.month.by.10": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -388,15 +692,28 @@
             "value": "October"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "octubre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "октябрю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жовтень"
+          }
         }
       }
     },
     "cushion.month.by.11": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -405,15 +722,28 @@
             "value": "November"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "noviembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "ноябрю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Листопад"
+          }
         }
       }
     },
     "cushion.month.by.12": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -422,15 +752,28 @@
             "value": "December"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "diciembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "декабрю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Грудень"
+          }
         }
       }
     },
     "cushion.month.by.2": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -439,15 +782,28 @@
             "value": "February"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "febrero"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "февралю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лютий"
+          }
         }
       }
     },
     "cushion.month.by.3": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -456,15 +812,28 @@
             "value": "March"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "marzo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "марту"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Березень"
+          }
         }
       }
     },
     "cushion.month.by.4": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -473,15 +842,28 @@
             "value": "April"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "abril"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "апрелю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Квітень"
+          }
         }
       }
     },
     "cushion.month.by.5": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -490,15 +872,28 @@
             "value": "May"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mayo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "маю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Травень"
+          }
         }
       }
     },
     "cushion.month.by.6": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -507,15 +902,28 @@
             "value": "June"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "junio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "июню"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Червень"
+          }
         }
       }
     },
     "cushion.month.by.7": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -524,15 +932,28 @@
             "value": "July"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "julio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "июлю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Липень"
+          }
         }
       }
     },
     "cushion.month.by.8": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -541,15 +962,28 @@
             "value": "August"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "agosto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "августу"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Серпень"
+          }
         }
       }
     },
     "cushion.month.by.9": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -558,15 +992,28 @@
             "value": "September"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "septiembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "сентябрю"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вересень"
+          }
         }
       }
     },
     "cushion.month.until.1": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -575,15 +1022,28 @@
             "value": "January"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "enero"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "января"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Січень"
+          }
         }
       }
     },
     "cushion.month.until.10": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -592,15 +1052,28 @@
             "value": "October"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "octubre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "октября"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жовтень"
+          }
         }
       }
     },
     "cushion.month.until.11": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -609,15 +1082,28 @@
             "value": "November"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "noviembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "ноября"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Листопад"
+          }
         }
       }
     },
     "cushion.month.until.12": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -626,15 +1112,28 @@
             "value": "December"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "diciembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "декабря"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Грудень"
+          }
         }
       }
     },
     "cushion.month.until.2": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -643,15 +1142,28 @@
             "value": "February"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "febrero"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "февраля"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лютий"
+          }
         }
       }
     },
     "cushion.month.until.3": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -660,15 +1172,28 @@
             "value": "March"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "marzo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "марта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Березень"
+          }
         }
       }
     },
     "cushion.month.until.4": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -677,15 +1202,28 @@
             "value": "April"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "abril"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "апреля"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Квітень"
+          }
         }
       }
     },
     "cushion.month.until.5": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -694,15 +1232,28 @@
             "value": "May"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mayo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "мая"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Травень"
+          }
         }
       }
     },
     "cushion.month.until.6": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -711,15 +1262,28 @@
             "value": "June"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "junio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "июня"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Червень"
+          }
         }
       }
     },
     "cushion.month.until.7": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -728,15 +1292,28 @@
             "value": "July"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "julio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "июля"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Липень"
+          }
         }
       }
     },
     "cushion.month.until.8": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -745,15 +1322,28 @@
             "value": "August"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "agosto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "августа"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Серпень"
+          }
         }
       }
     },
     "cushion.month.until.9": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -762,10 +1352,22 @@
             "value": "September"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "septiembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "сентября"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вересень"
           }
         }
       }
@@ -786,6 +1388,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld months"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld meses"
                 }
               }
             }
@@ -820,6 +1446,36 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld місяці"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld місяців"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld місяць"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld місяця"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -832,10 +1488,22 @@
             "value": "Mark the accounts of the cushion, and this will show how many months it lasts without income."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque las cuentas del colchón y aquí se verá cuántos meses dura sin ingresos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отметьте счета подушки — и здесь будет видно, на сколько месяцев её хватит без дохода."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначте рахунки подушки, і тут буде видно, на скільки місяців її вистачить без доходів."
           }
         }
       }
@@ -849,15 +1517,28 @@
             "value": "Not enough data: the obligatory spending needs 3 full months."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos insuficientes: el gasto obligatorio necesita 3 meses completos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Мало данных: для обязательных трат нужно 3 полных месяца."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даних поки мало: для обов'язкових витрат потрібні 3 повні місяці."
+          }
         }
       }
     },
     "cushion.part.debts": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -866,10 +1547,22 @@
             "value": "Debts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deudas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Долги"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Борги"
           }
         }
       }
@@ -883,15 +1576,28 @@
             "value": "Essential categories"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorías esenciales"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Необходимые категории"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Необхідні категорії"
+          }
         }
       }
     },
     "cushion.part.scheduled": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -900,15 +1606,28 @@
             "value": "Payments and subscriptions"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagos y suscripciones"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Платежи и подписки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платежі та підписки"
+          }
         }
       }
     },
     "cushion.planning.name": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -917,10 +1636,22 @@
             "value": "Safety cushion"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón de seguridad"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безопасности"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фінансова подушка"
           }
         }
       }
@@ -934,10 +1665,22 @@
             "value": "Safety cushion: not enough data yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón de seguridad: todavía datos insuficientes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безопасности: пока мало данных"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка безпеки: даних поки мало"
           }
         }
       }
@@ -951,10 +1694,22 @@
             "value": "Safety cushion: no account marked yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón de seguridad: todavía no hay cuenta marcada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безопасности: счета не отмечены"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка безпеки: рахунок ще не позначено"
           }
         }
       }
@@ -968,10 +1723,22 @@
             "value": "Open Capital"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Capital"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открыть «Капитал»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити «Капітал»"
           }
         }
       }
@@ -985,10 +1752,22 @@
             "value": "Safety cushion: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón de seguridad: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безопасности: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка безпеки: %@"
           }
         }
       }
@@ -1002,10 +1781,22 @@
             "value": "Accounts of the cushion"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuentas del colchón"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Счета подушки"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки подушки"
           }
         }
       }
@@ -1019,15 +1810,28 @@
             "value": "The money of these accounts, every currency of it, is the cushion."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El dinero de estas cuentas, en todas sus divisas, es el colchón."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Деньги этих счетов во всех их валютах — подушка."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гроші цих рахунків, кожна їхня валюта, і є подушкою."
+          }
         }
       }
     },
     "cushion.setup.essential": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1036,10 +1840,22 @@
             "value": "Essential spending"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gasto esencial"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Необходимые траты"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Необхідні витрати"
           }
         }
       }
@@ -1053,10 +1869,22 @@
             "value": "Spending that cannot stop. With the payments, subscriptions and debts it makes the obligatory spending of a month."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gasto que no puede parar. Junto con los pagos, suscripciones y deudas forma el gasto obligatorio de un mes."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Траты, без которых не обойтись. Вместе с платежами, подписками и долгами это обязательные траты месяца."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Витрати, які не можна зупинити. Разом із платежами, підписками й боргами вони становлять обов'язкові витрати за місяць."
           }
         }
       }
@@ -1070,10 +1898,22 @@
             "value": "No accounts yet."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay cuentas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Счетов пока нет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунків ще немає."
           }
         }
       }
@@ -1087,10 +1927,22 @@
             "value": "No expense categories of your own."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No tiene categorías de gasto propias."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Своих категорий расходов нет."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Власних категорій витрат немає."
           }
         }
       }
@@ -1104,10 +1956,22 @@
             "value": "Accounts and categories…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuentas y categorías…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Счета и категории…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки й категорії…"
           }
         }
       }
@@ -1121,15 +1985,28 @@
             "value": "The usual essential categories are ticked: check them and save."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Están marcadas las categorías esenciales habituales: revíselas y guarde."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отмечены обычные необходимые категории — проверьте и сохраните."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначено звичайні необхідні категорії: перевірте їх і збережіть."
+          }
         }
       }
     },
     "cushion.setup.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1138,10 +2015,22 @@
             "value": "Safety cushion"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón de seguridad"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безопасности"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фінансова подушка"
           }
         }
       }
@@ -1155,10 +2044,22 @@
             "value": "Cushion %1$@ · obligatory spending ≈ %2$@ a month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón %1$@ · gasto obligatorio ≈ %2$@ al mes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подушка %1$@ · обязательные траты ≈ %2$@ в месяц"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подушка %1$@ · обов'язкові витрати ≈ %2$@ на місяць"
           }
         }
       }
@@ -1172,15 +2073,28 @@
             "value": "%@ mo."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ m."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ мес."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ міс."
+          }
         }
       }
     },
     "cushion.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1189,10 +2103,22 @@
             "value": "Safety cushion"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colchón de seguridad"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безопасности"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фінансова подушка"
           }
         }
       }
@@ -1206,10 +2132,22 @@
             "value": "Not counted yet: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía sin contar: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не сверен: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ще не враховано: %@"
           }
         }
       }

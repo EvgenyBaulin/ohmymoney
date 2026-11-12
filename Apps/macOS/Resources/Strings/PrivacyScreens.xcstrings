@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "account.editor.hidden": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -10,15 +11,28 @@
             "value": "Hidden account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta oculta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скрытый счёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прихований рахунок"
+          }
         }
       }
     },
     "account.editor.hiddenHint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -27,15 +41,28 @@
             "value": "A hidden account is not in the lists while the app is covered. The totals still hold its money and say «part hidden»."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una cuenta oculta no aparece en las listas mientras la app está tapada. Los totales siguen teniendo su dinero y dicen «parte oculta»."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скрытого счёта нет в списках, пока приложение закрыто. Итоги считают и его деньги и пишут «часть скрыта»."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прихований рахунок не відображається в списках, поки дані застосунку приховано. Підсумки враховують його гроші з позначкою «частину приховано»."
+          }
         }
       }
     },
     "privacy.hidden.hide": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -44,15 +71,28 @@
             "value": "Hide"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скрыть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приховати"
+          }
         }
       }
     },
     "privacy.hidden.show": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -61,15 +101,28 @@
             "value": "Show hidden"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar ocultas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать скрытые"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показати приховані"
+          }
         }
       }
     },
     "privacy.partHidden": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -78,15 +131,28 @@
             "value": "part hidden"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "parte oculta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "часть скрыта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "частину приховано"
+          }
         }
       }
     },
     "privacy.readOnly.banner": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -95,15 +161,28 @@
             "value": "Read-only: nothing can be changed"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo lectura: no se puede cambiar nada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Только просмотр: ничего нельзя изменить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Лише перегляд: нічого не можна змінити"
+          }
         }
       }
     },
     "privacy.readOnly.exit": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -112,15 +191,28 @@
             "value": "Leave…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salir…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Выйти…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вийти…"
+          }
         }
       }
     },
     "privacy.readOnly.leave.reason": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -129,15 +221,28 @@
             "value": "leave the read-only mode"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "salir del modo de solo lectura"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "выйти из режима «Только просмотр»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "вийти з режиму лише перегляду"
+          }
         }
       }
     },
     "privacy.readOnly.menu.off": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -146,15 +251,28 @@
             "value": "Leave Read-Only…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salir de Solo lectura…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Выйти из «Только просмотра»…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вийти з режиму лише перегляду…"
+          }
         }
       }
     },
     "privacy.readOnly.menu.on": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -163,15 +281,28 @@
             "value": "Turn on Read-Only"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar Solo lectura"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Включить «Только просмотр»"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімкнути лише перегляд"
+          }
         }
       }
     },
     "privacy.reveal.reason": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -180,15 +311,28 @@
             "value": "show the hidden accounts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mostrar las cuentas ocultas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "показать скрытые счета"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "показати приховані рахунки"
+          }
         }
       }
     },
     "privacy.transfer.betweenHidden": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -197,15 +341,28 @@
             "value": "Transfer between hidden accounts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia entre cuentas ocultas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перевод между скрытыми счетами"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переказ між прихованими рахунками"
+          }
         }
       }
     },
     "privacy.transfer.fromHidden": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -214,15 +371,28 @@
             "value": "Transfer from a hidden account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia desde una cuenta oculta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перевод со скрытого счёта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переказ із прихованого рахунку"
+          }
         }
       }
     },
     "privacy.transfer.toHidden": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -231,10 +401,22 @@
             "value": "Transfer to a hidden account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencia a una cuenta oculta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перевод на скрытый счёт"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переказ на прихований рахунок"
           }
         }
       }

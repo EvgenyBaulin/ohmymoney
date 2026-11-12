@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "afford.amount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -10,15 +11,28 @@
             "value": "Price of the purchase"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precio de la compra"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цена покупки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціна покупки"
+          }
         }
       }
     },
     "afford.close": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -27,15 +41,28 @@
             "value": "Close"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Закрыть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Закрити"
+          }
         }
       }
     },
     "afford.fewHistory": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -44,15 +71,28 @@
             "value": "Little history: fewer than three full months, so the wait is counted from the obligatory spending only."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poco historial: menos de tres meses completos, así que la espera se calcula solo con el gasto obligatorio."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Мало истории: меньше трёх полных месяцев, поэтому срок посчитан только по обязательным тратам."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мало історії: менше трьох повних місяців, тому строк очікування обчислено лише за обов'язковими витратами."
+          }
         }
       }
     },
     "afford.free": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -61,15 +101,28 @@
             "value": "Free to spend now: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Libre para gastar ahora: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Можно тратить сейчас: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зараз вільно для витрат: %@"
+          }
         }
       }
     },
     "afford.noCount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -78,15 +131,28 @@
             "value": "Reconcile an account first: without its balance the free money is not known."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Concilie antes una cuenta: sin su saldo no se sabe el dinero libre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сначала сверьте счёт: без остатка свободные деньги неизвестны."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спочатку звірте рахунок: без його залишку вільна сума невідома."
+          }
         }
       }
     },
     "afford.notEnough": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -95,15 +161,28 @@
             "value": "No — %@ more is needed."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No — hacen falta %@ más."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нет — не хватает %@."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ні — бракує ще %@."
+          }
         }
       }
     },
     "afford.notEnoughUntil": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -112,15 +191,28 @@
             "value": "No — not enough until %@, %@ more is needed."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No — hasta el %1$@ no basta, hacen falta %2$@ más."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нет — не хватит до %@, нужно ещё %@."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ні — до %@ не вистачає, потрібно ще %@."
+          }
         }
       }
     },
     "afford.note": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -129,15 +221,28 @@
             "value": "Not financial advice. The answer comes from your records and plans; it does not suggest a loan or an instalment."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No es asesoramiento financiero. La respuesta sale de sus registros y planes; no sugiere ningún préstamo ni plazo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не финансовая консультация. Ответ считается по вашим записям и планам и не предлагает кредит или рассрочку."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це не фінансова порада. Відповідь ґрунтується на ваших записах і планах та не пропонує кредиту або розстрочки."
+          }
         }
       }
     },
     "afford.shift": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -146,15 +251,28 @@
             "value": "“%@” moves a month later"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» se desplaza un mes más tarde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "«%@» сдвинется на месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» зсувається на місяць пізніше"
+          }
         }
       }
     },
     "afford.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -163,15 +281,28 @@
             "value": "Can I afford it?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Me lo puedo permitir?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Хватит ли?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чи можу я собі це дозволити?"
+          }
         }
       }
     },
     "afford.typeAmount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -180,15 +311,28 @@
             "value": "Type the price to see the answer."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escriba el precio para ver la respuesta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Впишите цену — и появится ответ."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Введіть ціну, щоб побачити відповідь."
+          }
         }
       }
     },
     "afford.yes": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -197,15 +341,28 @@
             "value": "Yes, there is enough."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sí, hay suficiente."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Да, хватает."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Так, грошей вистачає."
+          }
         }
       }
     },
     "afford.yesCushionBelowTarget": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -214,15 +371,28 @@
             "value": "Yes, but the cushion drops below its target: %@ left of %@."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sí, pero el colchón baja de su objetivo: queda %1$@ de %2$@."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Да, но подушка опустится ниже цели: останется %@ при цели %@."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Так, але подушка стане меншою за ціль: залишиться %@ із %@."
+          }
         }
       }
     },
     "afford.yesGoalsShift": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -231,15 +401,28 @@
             "value": "Yes, but a goal moves later:"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sí, pero un objetivo se retrasa:"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Да, но цель сдвинется:"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Так, але ціль зсувається на пізніше:"
+          }
         }
       }
     },
     "afford.yesIfWait": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -248,15 +431,28 @@
             "value": "Yes, if you wait until %@ (%@ more is needed)."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sí, si espera hasta el %1$@ (hacen falta %2$@ más)."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Да, если подождать до %@ (нужно ещё %@)."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Так, якщо зачекати до %@ (бракує ще %@)."
+          }
         }
       }
     },
     "whatif.addChange": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -265,15 +461,28 @@
             "value": "Add a change"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir un cambio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Добавить изменение"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати зміну"
+          }
         }
       }
     },
     "whatif.amount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -282,15 +491,28 @@
             "value": "Amount"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сумма"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
         }
       }
     },
     "whatif.delete": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -299,15 +521,28 @@
             "value": "Delete"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Удалить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити"
+          }
         }
       }
     },
     "whatif.enough": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -316,15 +551,28 @@
             "value": "The money lasts over the whole period."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El dinero dura todo el periodo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Денег хватает на весь срок."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Грошей вистачає на весь період."
+          }
         }
       }
     },
     "whatif.horizon": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -333,15 +581,28 @@
             "value": "Look ahead, months"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mirar hacia delante, meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Смотреть вперёд, месяцев"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прогноз на місяців"
+          }
         }
       }
     },
     "whatif.kind": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -350,15 +611,28 @@
             "value": "What happens"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qué pasa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что происходит"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Що відбудеться"
+          }
         }
       }
     },
     "whatif.kind.incomeLoss": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -367,15 +641,28 @@
             "value": "Income stops"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejan de llegar ingresos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Доход пропадает"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дохід припиняється"
+          }
         }
       }
     },
     "whatif.kind.loan": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -384,7 +671,19 @@
             "value": "A loan"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un préstamo"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредит"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Кредит"
@@ -393,6 +692,7 @@
       }
     },
     "whatif.kind.prepay": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -401,15 +701,28 @@
             "value": "Early repayment"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amortización anticipada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Досрочное погашение"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дострокове погашення"
+          }
         }
       }
     },
     "whatif.kind.purchase": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -418,7 +731,19 @@
             "value": "A purchase"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una compra"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Покупка"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Покупка"
@@ -427,6 +752,7 @@
       }
     },
     "whatif.kind.save": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -435,15 +761,28 @@
             "value": "Putting money aside every month"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apartar dinero cada mes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Откладывать каждый месяц"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Щомісячні заощадження"
+          }
         }
       }
     },
     "whatif.lowest": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -452,15 +791,28 @@
             "value": "Lowest free money: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dinero libre más bajo: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Меньше всего свободных денег: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найменша вільна сума: %@"
+          }
         }
       }
     },
     "whatif.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -476,6 +828,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Month %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Mes %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Mes %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Mes %lld"
                 }
               }
             }
@@ -506,6 +882,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Месяц %lld"
+                }
+              }
+            }
+          }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Місяць %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Місяць %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Місяць %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Місяць %lld"
                 }
               }
             }
@@ -514,6 +920,7 @@
       }
     },
     "whatif.months": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -522,15 +929,28 @@
             "value": "Months"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Месяцев"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місяці"
+          }
         }
       }
     },
     "whatif.name": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -539,15 +959,28 @@
             "value": "Name"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Название"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва"
+          }
         }
       }
     },
     "whatif.noneSaved": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -556,15 +989,28 @@
             "value": "Nothing saved yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay nada guardado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пока ничего не сохранено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поки нічого не збережено"
+          }
         }
       }
     },
     "whatif.open": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -573,15 +1019,28 @@
             "value": "Open"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открыть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити"
+          }
         }
       }
     },
     "whatif.rate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -590,15 +1049,28 @@
             "value": "Rate, % a year"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo, % anual"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ставка, % годовых"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставка, % на рік"
+          }
         }
       }
     },
     "whatif.removeChange": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -607,15 +1079,28 @@
             "value": "Remove"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Убрать"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прибрати"
+          }
         }
       }
     },
     "whatif.save": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -624,15 +1109,28 @@
             "value": "Save scenario"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar escenario"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить сценарий"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти сценарій"
+          }
         }
       }
     },
     "whatif.saved": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -641,15 +1139,28 @@
             "value": "Saved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранённые"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Збережено"
+          }
         }
       }
     },
     "whatif.short": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -665,6 +1176,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "The money runs short in month %lld."
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "El dinero se queda corto en el mes %lld."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "El dinero se queda corto en el mes %lld."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "El dinero se queda corto en el mes %lld."
                 }
               }
             }
@@ -699,10 +1234,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Грошей забракне в місяці %lld."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Грошей забракне в місяці %lld."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Грошей забракне в місяці %lld."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Грошей забракне в місяці %lld."
+                }
+              }
+            }
+          }
         }
       }
     },
     "whatif.unread": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -711,15 +1277,28 @@
             "value": "Fill in the amount and months — until then a line is left out."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rellene el importe y los meses — hasta entonces una línea se deja fuera."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Впишите сумму и месяцы — пока строка не учитывается."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Заповніть суму й місяці — до того рядок не враховується."
+          }
         }
       }
     },
     "whatif.waiting": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -728,10 +1307,22 @@
             "value": "Calculating, please wait"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calculando, espere"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Считается, ожидайте"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обчислюємо, зачекайте"
           }
         }
       }

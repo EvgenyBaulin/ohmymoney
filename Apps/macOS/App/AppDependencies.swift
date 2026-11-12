@@ -121,6 +121,7 @@ extension View {
   func appDependencies(_ deps: AppDependencies) -> some View {
     environment(\.dependencies, deps)
       .environment(\.locale, deps.environment.language.locale)
+      .environment(\.layoutDirection, deps.environment.language.layoutDirection)
       .modifier(AppTheming(theme: deps.environment.theme))
   }
 }
@@ -156,6 +157,7 @@ extension View {
     let resolved = deps ?? AppDependencies.missing(in: #fileID)
     return environment(\.dependencies, deps)
       .environment(\.locale, resolved.environment.language.locale)
+      .environment(\.layoutDirection, resolved.environment.language.layoutDirection)
       .modifier(AppTheming(theme: resolved.environment.theme))
   }
 }

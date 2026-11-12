@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "quick.bank.askCard": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -10,15 +11,28 @@
             "value": "Which card?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué tarjeta?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Какая это карта?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Яка картка?"
+          }
         }
       }
     },
     "quick.bank.card": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -27,15 +41,28 @@
             "value": "card %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tarjeta %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "карта %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "картка %@"
+          }
         }
       }
     },
     "quick.bank.read": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -44,15 +71,28 @@
             "value": "Read from the bank's text: %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leído del texto del banco: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Прочитано из сообщения банка: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитано з тексту банку: %@"
+          }
         }
       }
     },
     "quick.bank.reconcile": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -61,15 +101,28 @@
             "value": "Open the reconciliation after writing (the text says %@ is left)"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir la conciliación tras escribir (el texto dice que quedan %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открыть сверку после записи (в сообщении остаток %@)"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Відкрити звірку після запису (у тексті залишок %@)"
+          }
         }
       }
     },
     "quick.bills.categoryNote": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -78,15 +131,28 @@
             "value": "What the history and the model cannot file goes to «Don't remember»; change it later in the list."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que el historial y el modelo no pueden clasificar va a «No recuerdo»; cámbielo después en la lista."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что история и модель не смогли разложить, попадает в «Не помню»; потом это можно поправить в списке."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Те, що історія та модель не змогли визначити, потрапить у «Не пам'ятаю»; змініть пізніше в списку."
+          }
         }
       }
     },
     "quick.bills.duplicate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -95,15 +161,28 @@
             "value": "already written"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ya escrito"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "уже записана"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "уже записано"
+          }
         }
       }
     },
     "quick.bills.skipped": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -119,6 +198,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld lines were not read"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld líneas no se leyeron"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld línea no se leyó"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld líneas no se leyeron"
                 }
               }
             }
@@ -153,10 +256,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядки не прочитано"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядків не прочитано"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядок не прочитано"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld рядка не прочитано"
+                }
+              }
+            }
+          }
         }
       }
     },
     "quick.bills.subtitle": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -165,15 +299,28 @@
             "value": "Tick what to write. What you already have is unticked."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque lo que quiere escribir. Lo que ya tiene está desmarcado."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отметьте, что записать. То, что уже записано, не отмечено."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позначте, що записати. Уже наявні операції не позначено."
+          }
         }
       }
     },
     "quick.bills.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -182,15 +329,28 @@
             "value": "Operations from the bank"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operaciones del banco"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операции из банка"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операції з банку"
+          }
         }
       }
     },
     "quick.bills.write": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -206,6 +366,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Write %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
                 }
               }
             }
@@ -236,6 +420,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Записать %lld"
+                }
+              }
+            }
+          }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записати %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записати %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записати %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записати %lld"
                 }
               }
             }
@@ -244,6 +458,7 @@
       }
     },
     "quick.bills.written": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -252,7 +467,19 @@
             "value": "Written"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escrito"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записано"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Записано"
@@ -261,6 +488,7 @@
       }
     },
     "quick.card.details": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -269,15 +497,28 @@
             "value": "Other card data"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otros datos de la tarjeta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Другие данные карты"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інші дані картки"
+          }
         }
       }
     },
     "quick.card.details.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -286,15 +527,28 @@
             "value": "Free text: holder, expiry date. Never keep the code from the back of the card."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto libre: titular, fecha de caducidad. Nunca guarde el código del dorso de la tarjeta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Свободный текст: владелец, срок действия. Код с обратной стороны карты здесь не храните."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Довільний текст: власник, строк дії. Ніколи не зберігайте код зі звороту картки."
+          }
         }
       }
     },
     "quick.card.last4": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -303,15 +557,28 @@
             "value": "Last 4 digits"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Últimas 4 cifras"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Последние 4 цифры"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останні 4 цифри"
+          }
         }
       }
     },
     "quick.card.last4.bad": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -320,15 +587,28 @@
             "value": "Exactly four digits are needed"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se necesitan exactamente cuatro cifras"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нужны ровно четыре цифры"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Потрібно рівно чотири цифри"
+          }
         }
       }
     },
     "quick.card.last4.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -337,15 +617,28 @@
             "value": "Lets the app find this card in the bank's texts. Not the card number."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permite a la app encontrar esta tarjeta en los textos del banco. No es el número de la tarjeta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "По ним приложение находит карту в сообщениях банка. Это не номер карты."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Допомагає знайти картку в текстах банку. Це не номер картки."
+          }
         }
       }
     },
     "quick.card.masked": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -354,15 +647,28 @@
             "value": "Card %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карта %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картка %@"
+          }
         }
       }
     },
     "quick.cardAsk.message": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -371,15 +677,28 @@
             "value": "The bank's texts name these digits. Which of your cards is it? The digits are kept on the card, not the number."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los textos del banco citan estas cifras. ¿Cuál de sus tarjetas es? Se guardan las cifras en la tarjeta, no el número."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В сообщениях банка стоят эти цифры. Какая это из ваших карт? Запоминаются только цифры, не номер."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У текстах банку є ці цифри. Яка це ваша картка? На картці зберігаються лише цифри, а не номер."
+          }
         }
       }
     },
     "quick.cardAsk.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -388,15 +707,28 @@
             "value": "Not any of them"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ninguna de ellas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ни одна"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жодна з них"
+          }
         }
       }
     },
     "quick.cardAsk.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -405,15 +737,28 @@
             "value": "Card •••• %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta •••• %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карта •••• %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картка •••• %@"
+          }
         }
       }
     },
     "quick.correction.apply": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -422,15 +767,28 @@
             "value": "Correct"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corregir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Исправить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виправити"
+          }
         }
       }
     },
     "quick.correction.ask": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -439,15 +797,28 @@
             "value": "%@: %@ → %@. Correct it?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ → %3$@. ¿Corregirla?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@: %@ → %@. Исправить?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@ → %@. Виправити?"
+          }
         }
       }
     },
     "quick.correction.done": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -456,15 +827,28 @@
             "value": "Corrected"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corregido"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Исправлено"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виправлено"
+          }
         }
       }
     },
     "quick.correction.failed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -473,15 +857,28 @@
             "value": "The correction was not saved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La corrección no se guardó"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Исправление не записалось"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виправлення не збережено"
+          }
         }
       }
     },
     "quick.correction.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -490,15 +887,28 @@
             "value": "Nothing to correct: no entries of yours yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada que corregir: todavía no hay apuntes suyos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нечего исправлять: своих записей ещё нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає що виправляти: ваших записів ще немає"
+          }
         }
       }
     },
     "quick.correction.refused.account": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -507,15 +917,28 @@
             "value": "The account was charged in another currency: change the amount in the ↓ panel"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cuenta se cargó en otra divisa: cambie el importe en el panel ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Счёт списан в другой валюте: измените сумму в панели ↓"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "З рахунку списано в іншій валюті: змініть суму на панелі ↓"
+          }
         }
       }
     },
     "quick.correction.refused.amount": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -524,15 +947,28 @@
             "value": "That is not an amount to correct to"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eso no es un importe al que corregir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Это не подходит как новая сумма"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Це не сума для виправлення"
+          }
         }
       }
     },
     "quick.correction.refused.currency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -541,15 +977,28 @@
             "value": "Another currency is another operation: open the ↓ panel"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otra divisa es otra operación: abra el panel ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Другая валюта — это другая операция: откройте панель ↓"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інша валюта — інша операція: відкрийте панель ↓"
+          }
         }
       }
     },
     "quick.correction.refused.debt": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -558,15 +1007,28 @@
             "value": "A debt payment is changed on the debt's own screen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un pago de deuda se cambia en la pantalla de la propia deuda"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Платёж по долгу меняется на экране долга"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платіж за боргом змінюється на екрані самого боргу"
+          }
         }
       }
     },
     "quick.correction.refused.moneyBack": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -575,15 +1037,28 @@
             "value": "Money back from a person cannot change its amount: delete it and enter it again"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El dinero devuelto por una persona no puede cambiar de importe: elimínelo y vuelva a introducirlo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат денег от человека нельзя изменить: удалите его и запишите заново"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не можна змінити суму повернення грошей від людини: видаліть і введіть знову"
+          }
         }
       }
     },
     "quick.correction.refused.parts": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -592,15 +1067,28 @@
             "value": "Something in this operation was returned or paid back: change it in the ↓ panel"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algo de esta operación se devolvió o se pagó: cámbielo en el panel ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Часть этой операции уже возвращена или погашена: измените её в панели ↓"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частину цієї операції вже повернули або відшкодували: змініть на панелі ↓"
+          }
         }
       }
     },
     "quick.correction.refused.rate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -609,15 +1097,28 @@
             "value": "The operation has no rate to price the new amount by: change it in the ↓ panel"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La operación no tiene tipo con el que valorar el nuevo importe: cámbiela en el panel ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "У операции нет курса для новой суммы: измените её в панели ↓"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В операції немає курсу для нової суми: змініть на панелі ↓"
+          }
         }
       }
     },
     "quick.correction.stale": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -626,15 +1127,28 @@
             "value": "The last entry, %@, was made over an hour ago: %@ → %@. Correct that one?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El último apunte, %1$@, se hizo hace más de una hora: %2$@ → %3$@. ¿Corregir ese?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Последняя запись, %@, сделана больше часа назад: %@ → %@. Исправить её?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останній запис, %@, зроблено понад годину тому: %@ → %@. Виправити саме його?"
+          }
         }
       }
     },
     "quick.draft.failed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -643,15 +1157,28 @@
             "value": "It was not saved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se guardó"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось сохранить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не збережено"
+          }
         }
       }
     },
     "quick.draft.kept": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -660,15 +1187,28 @@
             "value": "Kept as a draft"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardado como borrador"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранено в черновики"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Збережено як чернетку"
+          }
         }
       }
     },
     "quick.draft.later": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -677,15 +1217,28 @@
             "value": "Write later"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribir más tarde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запишу потом"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати пізніше"
+          }
         }
       }
     },
     "quick.draft.list": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -701,6 +1254,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Drafts: %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Borradores: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Borradores: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Borradores: %lld"
                 }
               }
             }
@@ -735,10 +1312,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Чернетки: %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Чернетки: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Чернетки: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Чернетки: %lld"
+                }
+              }
+            }
+          }
         }
       }
     },
     "quick.drafts.delete": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -747,15 +1355,28 @@
             "value": "Delete"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Удалить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити"
+          }
         }
       }
     },
     "quick.drafts.empty": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -764,15 +1385,28 @@
             "value": "No drafts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay borradores"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Черновиков нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає чернеток"
+          }
         }
       }
     },
     "quick.drafts.finish": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -781,15 +1415,28 @@
             "value": "Finish"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Дописать"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завершити"
+          }
         }
       }
     },
     "quick.drafts.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -798,15 +1445,28 @@
             "value": "A draft is not an operation: it counts in no figure until you finish it and write it."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un borrador no es una operación: no cuenta en ninguna cifra hasta que lo termine y lo escriba."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Черновик — не операция: он не входит ни в одну сумму, пока вы его не допишете и не запишете."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чернетка — не операція: вона не входить у жоден підсумок, доки ви не завершите й не запишете її."
+          }
         }
       }
     },
     "quick.drafts.reminder": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -822,6 +1482,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld drafts are waiting to be finished"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld borradores esperan a que los termine"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld borrador espera a que lo termine"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld borradores esperan a que los termine"
                 }
               }
             }
@@ -856,10 +1540,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld чернетки очікують завершення"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld чернеток очікують завершення"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld чернетка очікує завершення"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld чернетки очікують завершення"
+                }
+              }
+            }
+          }
         }
       }
     },
     "quick.drafts.reminder.action": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -868,15 +1583,28 @@
             "value": "Finish…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Дописать…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завершити…"
+          }
         }
       }
     },
     "quick.drafts.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -885,15 +1613,28 @@
             "value": "Drafts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borradores"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Черновики"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чернетки"
+          }
         }
       }
     },
     "quick.move.ahead.message": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -902,15 +1643,28 @@
             "value": "Move the operation to a day ahead as it is?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Mover la operación tal cual a un día futuro?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенести операцию на день вперёд как есть?"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перемістити операцію як є на майбутній день?"
+          }
         }
       }
     },
     "quick.move.ahead.record": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -919,15 +1673,28 @@
             "value": "Move as it is"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover tal cual"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенести как есть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перемістити як є"
+          }
         }
       }
     },
     "quick.move.ahead.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -936,15 +1703,28 @@
             "value": "That day has not come yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ese día todavía no ha llegado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Этот день ещё не наступил"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цей день ще не настав"
+          }
         }
       }
     },
     "quick.move.confirm": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -953,15 +1733,28 @@
             "value": "Move"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенести"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перемістити"
+          }
         }
       }
     },
     "quick.move.done": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -970,15 +1763,28 @@
             "value": "Moved to %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movida al %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенесено на %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переміщено на %@"
+          }
         }
       }
     },
     "quick.move.drop": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -987,15 +1793,28 @@
             "value": "Drop an operation here to move it to this day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suelte una operación aquí para moverla a este día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перетащите сюда операцию, чтобы перенести её на этот день"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перетягніть сюди операцію, щоб перемістити її на цей день"
+          }
         }
       }
     },
     "quick.move.failed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1004,15 +1823,28 @@
             "value": "It was not moved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se movió"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось перенести"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не переміщено"
+          }
         }
       }
     },
     "quick.move.menu": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1021,15 +1853,28 @@
             "value": "Move to another day…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a otro día…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенести на другой день…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перемістити на інший день…"
+          }
         }
       }
     },
     "quick.move.month": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1038,15 +1883,28 @@
             "value": "It moves to another month: limits and reports follow"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasa a otro mes: los límites y los informes se ajustan"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операция уйдёт в другой месяц: лимиты и отчёты пересчитаются"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операція переходить в інший місяць: ліміти й звіти зміняться відповідно"
+          }
         }
       }
     },
     "quick.move.pick": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1055,7 +1913,19 @@
             "value": "Day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Día"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "День"
@@ -1064,6 +1934,7 @@
       }
     },
     "quick.move.rate": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1072,15 +1943,28 @@
             "value": "The rate of the new day is applied"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se aplica el tipo del nuevo día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Применится курс нового дня"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Застосовується курс нового дня"
+          }
         }
       }
     },
     "quick.move.same": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1089,15 +1973,28 @@
             "value": "It is on that day already"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya está en ese día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операция уже в этом дне"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже записано на цей день"
+          }
         }
       }
     },
     "quick.move.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1106,15 +2003,28 @@
             "value": "Move to another day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a otro día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенос на другой день"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перемістити на інший день"
+          }
         }
       }
     },
     "quick.note.add": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1123,15 +2033,28 @@
             "value": "Add a note to this day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añadir una nota a este día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Добавить заметку к дню"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати примітку до дня"
+          }
         }
       }
     },
     "quick.note.delete": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1140,15 +2063,28 @@
             "value": "Delete the note"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar la nota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Удалить заметку"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити примітку"
+          }
         }
       }
     },
     "quick.note.edit": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1157,15 +2093,28 @@
             "value": "Edit the note of this day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar la nota de este día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Изменить заметку дня"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Редагувати примітку до дня"
+          }
         }
       }
     },
     "quick.note.failed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1174,15 +2123,28 @@
             "value": "The note was not saved"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La nota no se guardó"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Заметка не записалась"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Примітку не збережено"
+          }
         }
       }
     },
     "quick.note.mark": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1191,15 +2153,28 @@
             "value": "Day with a note"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Día con nota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День с заметкой"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "День із приміткою"
+          }
         }
       }
     },
     "quick.note.placeholder": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1208,15 +2183,28 @@
             "value": "For example, mum's birthday"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por ejemplo, el cumpleaños de mamá"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Например, день рождения мамы"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наприклад, день народження мами"
+          }
         }
       }
     },
     "quick.note.save": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1225,15 +2213,28 @@
             "value": "Save"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти"
+          }
         }
       }
     },
     "quick.note.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1242,15 +2243,28 @@
             "value": "Note of the day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota del día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Заметка дня"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Примітка до дня"
+          }
         }
       }
     },
     "quick.operation": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1259,15 +2273,28 @@
             "value": "operation"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "operación"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "операция"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "операція"
+          }
         }
       }
     },
     "quick.queue.cancel": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1276,15 +2303,28 @@
             "value": "Drop the rest"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descartar el resto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отменить остальное"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скасувати решту"
+          }
         }
       }
     },
     "quick.queue.waiting": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1300,6 +2340,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld more operations of the line are waiting"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Faltan %lld operaciones más de la línea"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Falta %lld operación más de la línea"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Faltan %lld operaciones más de la línea"
                 }
               }
             }
@@ -1334,10 +2398,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "У рядку очікують ще %lld операції"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "У рядку очікують ще %lld операцій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "У рядку очікує ще %lld операція"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "У рядку очікують ще %lld операції"
+                }
+              }
+            }
+          }
         }
       }
     },
     "quick.repeat.left": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1346,15 +2441,28 @@
             "value": "Some were left out: no exchange rate for them yet"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algunas se dejaron fuera: todavía no tienen tipo de cambio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Часть не записана: для неё пока нет курса"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дещо не враховано: ще немає валютного курсу"
+          }
         }
       }
     },
     "quick.repeat.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1363,15 +2471,28 @@
             "value": "Nothing to repeat: no spending of yours was entered by hand that day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada que repetir: ese día no se introdujo a mano ningún gasto suyo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нечего повторять: своих расходов, записанных руками, за тот день нет"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає що повторити: цього дня ви не вводили власних витрат вручну"
+          }
         }
       }
     },
     "quick.repeat.subtitle": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1380,15 +2501,28 @@
             "value": "What you entered by hand on %@. Tick what to write for today."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que introdujo a mano el %@. Marque lo que quiere escribir para hoy."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что вы записали руками %@. Отметьте, что записать на сегодня."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Те, що ви ввели вручну %@. Позначте, що записати на сьогодні."
+          }
         }
       }
     },
     "quick.repeat.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1397,15 +2531,28 @@
             "value": "Repeat a day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repetir un día"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Повторить день"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторити день"
+          }
         }
       }
     },
     "quick.repeat.write": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1421,6 +2568,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Write %lld"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Escribir %lld"
                 }
               }
             }
@@ -1455,10 +2626,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записати %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записати %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записати %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записати %lld"
+                }
+              }
+            }
+          }
         }
       }
     },
     "quick.repeat.written": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1474,6 +2676,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations written"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones escritas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operación escrita"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operaciones escritas"
                 }
               }
             }
@@ -1508,10 +2734,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записано %lld операції"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записано %lld операцій"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записано %lld операцію"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Записано %lld операції"
+                }
+              }
+            }
+          }
         }
       }
     },
     "quick.split.exact": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1520,15 +2777,28 @@
             "value": "Exact amount of the first part"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe exacto de la primera parte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Точная сумма первой части"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Точна сума першої частини"
+          }
         }
       }
     },
     "quick.split.first": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1537,15 +2807,28 @@
             "value": "First part"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primera parte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Первая часть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перша частина"
+          }
         }
       }
     },
     "quick.split.hint": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1554,15 +2837,28 @@
             "value": "Drag the divider between the two parts; it moves by 10."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrastre el divisor entre las dos partes; se mueve de 10 en 10."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Тяните границу между частями; шаг — 10."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перетягніть роздільник між двома частинами; крок — 10."
+          }
         }
       }
     },
     "quick.split.second": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1571,15 +2867,28 @@
             "value": "Second part"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segunda parte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вторая часть"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Друга частина"
+          }
         }
       }
     },
     "quick.split.step": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1588,15 +2897,28 @@
             "value": "Step %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paso %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Шаг %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Крок %@"
+          }
         }
       }
     },
     "quick.split.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1605,15 +2927,28 @@
             "value": "Split the amount"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividir el importe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Разделить сумму"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розділити суму"
+          }
         }
       }
     },
     "quick.suggest.label": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1622,15 +2957,28 @@
             "value": "Places"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugares"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Места"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місця"
+          }
         }
       }
     },
     "quick.suggest.usual": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1639,10 +2987,22 @@
             "value": "%@, usually ~%@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, normalmente ~%2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@, обычно ~%@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, зазвичай ~%@"
           }
         }
       }

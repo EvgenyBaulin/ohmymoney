@@ -1,24 +1,8 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "share.preparing": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Preparing shared files…"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Подготовка файлов…"
-          }
-        }
-      }
-    },
     "share.close": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -27,151 +11,28 @@
             "value": "Close"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Закрыть"
           }
-        }
-      }
-    },
-    "share.unavailable": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sharing to OhMyMoney will be available when App Groups are enabled."
-          }
         },
-        "ru": {
+        "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Передача в OhMyMoney станет доступна после включения App Groups."
-          }
-        }
-      }
-    },
-    "share.unsupported": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Share a picture, PDF or bank message."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Поделитесь картинкой, PDF или сообщением банка."
-          }
-        }
-      }
-    },
-    "share.saved": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Saved. Open OhMyMoney to review the shared files."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сохранено. Откройте OhMyMoney, чтобы проверить файлы."
-          }
-        }
-      }
-    },
-    "share.failed": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The shared item could not be saved. Please try again."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Не удалось сохранить. Попробуйте ещё раз."
-          }
-        }
-      }
-    },
-    "share.messageTitle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bank message"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Сообщение банка"
-          }
-        }
-      }
-    },
-    "share.messageHint": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Check this message. OhMyMoney will offer the operation as a draft."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Проверьте сообщение. OhMyMoney предложит операцию в «Запишу потом»."
-          }
-        }
-      }
-    },
-    "share.saveDraft": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Offer as draft"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "В «Запишу потом»"
-          }
-        }
-      }
-    },
-    "share.draftSaved": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "The operation is waiting in drafts for you to review."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Операция ждёт проверки в «Запишу потом»."
+            "value": "Закрити"
           }
         }
       }
     },
     "share.damaged": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -180,15 +41,148 @@
             "value": "The shared file could not be opened. Share it again with the latest version of OhMyMoney."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo abrir el archivo compartido. Compártalo de nuevo con la última versión de OhMyMoney."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось открыть переданный файл. Поделитесь им ещё раз с последней версией OhMyMoney."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося відкрити надісланий файл. Надішліть його знову з найновішої версії OhMyMoney."
+          }
+        }
+      }
+    },
+    "share.draftSaved": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The operation is waiting in drafts for you to review."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La operación espera en borradores para que la revise."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операция ждёт проверки в «Запишу потом»."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операція очікує перевірки в чернетках."
+          }
+        }
+      }
+    },
+    "share.failed": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The shared item could not be saved. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo guardar el elemento compartido. Inténtelo de nuevo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось сохранить. Попробуйте ещё раз."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося зберегти надісланий об'єкт. Спробуйте ще раз."
+          }
+        }
+      }
+    },
+    "share.messageHint": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check this message. OhMyMoney will offer the operation as a draft."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revise este mensaje. OhMyMoney ofrecerá la operación como borrador."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проверьте сообщение. OhMyMoney предложит операцию в «Запишу потом»."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перевірте це повідомлення. OhMyMoney запропонує операцію як чернетку."
+          }
+        }
+      }
+    },
+    "share.messageTitle": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensaje del banco"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сообщение банка"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повідомлення банку"
+          }
         }
       }
     },
     "share.partial": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -197,10 +191,172 @@
             "value": "Some files were saved. Open OhMyMoney to review them, then share the remaining files again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se guardaron algunos archivos. Abra OhMyMoney para revisarlos, y después comparta de nuevo los archivos que faltan."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Часть файлов сохранена. Проверьте их в OhMyMoney, затем поделитесь оставшимися ещё раз."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частину файлів збережено. Відкрийте OhMyMoney, щоб перевірити їх, а потім надішліть решту знову."
+          }
+        }
+      }
+    },
+    "share.preparing": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparing shared files…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparando los archivos compartidos…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подготовка файлов…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підготовка надісланих файлів…"
+          }
+        }
+      }
+    },
+    "share.saveDraft": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offer as draft"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ofrecer como borrador"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В «Запишу потом»"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запропонувати як чернетку"
+          }
+        }
+      }
+    },
+    "share.saved": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved. Open OhMyMoney to review the shared files."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardado. Abra OhMyMoney para revisar los archivos compartidos."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранено. Откройте OhMyMoney, чтобы проверить файлы."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Збережено. Відкрийте OhMyMoney, щоб перевірити надіслані файли."
+          }
+        }
+      }
+    },
+    "share.unavailable": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sharing to OhMyMoney will be available when App Groups are enabled."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartir con OhMyMoney estará disponible cuando se activen los grupos de apps."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Передача в OhMyMoney станет доступна после включения App Groups."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Надсилання в OhMyMoney стане доступним після ввімкнення App Groups."
+          }
+        }
+      }
+    },
+    "share.unsupported": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share a picture, PDF or bank message."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comparta una imagen, un PDF o un mensaje del banco."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поделитесь картинкой, PDF или сообщением банка."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Надішліть зображення, PDF або повідомлення банку."
           }
         }
       }

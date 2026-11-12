@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "sync.bootstrap.damaged": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -10,15 +11,28 @@
             "value": "The copy in the folder is damaged. Nothing was taken."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia de la carpeta está dañada. No se tomó nada."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия в папке повреждена. Ничего не взято."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію в папці пошкоджено. Нічого не завантажено."
+          }
         }
       }
     },
     "sync.bootstrap.explain": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -27,15 +41,28 @@
             "value": "The folder holds a full copy of another device's data. You can take it as your own: the app first saves a copy of what is here, then puts the data in place the next time it starts. This is possible only while this device has none of your records."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carpeta guarda una copia completa de los datos de otro dispositivo. Puede tomarla como propia: la app primero guarda una copia de lo que hay aquí, y luego coloca los datos en su sitio al siguiente inicio. Solo es posible mientras este dispositivo no tenga ninguno de sus registros."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В папке лежит полная копия данных другого устройства. Её можно взять как свои данные: приложение сначала сохранит копию того, что здесь есть, а потом подставит данные при следующем запуске. Это возможно, только пока на этом устройстве нет ваших записей."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У папці є повна копія даних іншого пристрою. Можна взяти її як свою: застосунок спочатку збереже копію поточного стану, а потім застосує дані під час наступного запуску. Це можливо лише поки на цьому пристрої немає ваших записів."
+          }
         }
       }
     },
     "sync.bootstrap.failed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -44,15 +71,28 @@
             "value": "The data could not be loaded. Nothing was changed; try again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron cargar los datos. No se cambió nada; inténtelo de nuevo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не получилось загрузить данные. Ничего не изменено, попробуйте ещё раз."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося завантажити дані. Нічого не змінено; спробуйте ще раз."
+          }
         }
       }
     },
     "sync.bootstrap.load": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -61,15 +101,28 @@
             "value": "Load data from the folder"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargar los datos de la carpeta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Загрузить данные из папки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завантажити дані з папки"
+          }
         }
       }
     },
     "sync.bootstrap.loading": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -78,15 +131,28 @@
             "value": "Loading the data…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cargando los datos…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Загружаю данные…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завантаження даних…"
+          }
         }
       }
     },
     "sync.bootstrap.newerVersion": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -95,15 +161,28 @@
             "value": "The copy was written by a newer version of the app. Update this app and try again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copia la escribió una versión más reciente de la app. Actualice esta app e inténtelo de nuevo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копию записала более новая версия приложения. Обновите это приложение и повторите."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копію записала новіша версія застосунку. Оновіть цей застосунок і спробуйте ще раз."
+          }
         }
       }
     },
     "sync.bootstrap.noSnapshot": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -112,15 +191,28 @@
             "value": "The folder holds no copy of the data yet. Open the app on the other device with this same folder and wait until it writes the copy."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carpeta todavía no tiene una copia de los datos. Abra la app en el otro dispositivo con esta misma carpeta y espere a que escriba la copia."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В папке пока нет копии данных. Откройте приложение на другом устройстве с этой же папкой и подождите, пока оно запишет копию."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У папці ще немає копії даних. Відкрийте застосунок на іншому пристрої з цією самою папкою та зачекайте, поки він запише копію."
+          }
         }
       }
     },
     "sync.bootstrap.notConfigured": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -129,15 +221,28 @@
             "value": "Choose the exchange folder first."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija primero la carpeta de intercambio."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сначала выберите папку обмена."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спочатку виберіть папку обміну."
+          }
         }
       }
     },
     "sync.bootstrap.notEmpty": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -146,15 +251,28 @@
             "value": "There are already records here, so they are not replaced."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí ya hay registros, así que no se reemplazan."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Здесь уже есть записи, поэтому их не заменяют."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тут уже є записи, тому вони не замінюються."
+          }
         }
       }
     },
     "sync.bootstrap.offer": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -163,15 +281,28 @@
             "value": "Copy from %@ · device %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia de %1$@ · dispositivo %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия от %@ · устройство %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копія від %@ · пристрій %@"
+          }
         }
       }
     },
     "sync.bootstrap.reopen": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -180,15 +311,28 @@
             "value": "Close the app completely and open it again: the data is put in place at launch."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cierre la app por completo y ábrala de nuevo: los datos se colocan al iniciarse."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Полностью закройте приложение и откройте снова: данные подставятся при запуске."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повністю закрийте застосунок і відкрийте знову: дані застосовуються під час запуску."
+          }
         }
       }
     },
     "sync.bootstrap.restart": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -197,15 +341,28 @@
             "value": "Restart"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reiniciar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перезапустить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перезапустити"
+          }
         }
       }
     },
     "sync.bootstrap.staged": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -214,15 +371,28 @@
             "value": "The data is ready. Restart the app to see it."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los datos están listos. Reinicie la app para verlos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Данные готовы. Перезапустите приложение, чтобы они появились."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дані готові. Перезапустіть застосунок, щоб побачити їх."
+          }
         }
       }
     },
     "sync.bootstrap.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -231,15 +401,28 @@
             "value": "Data from the folder"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos de la carpeta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Данные из папки"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дані з папки"
+          }
         }
       }
     },
     "sync.conflict.changedOnTwo": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -248,15 +431,28 @@
             "value": "Changed on two devices"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiado en dos dispositivos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Изменена на двух устройствах"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змінено на двох пристроях"
+          }
         }
       }
     },
     "sync.conflicts.banner": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -272,6 +468,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld records are waiting for your choice"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros esperan su elección"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registro espera su elección"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros esperan su elección"
                 }
               }
             }
@@ -306,10 +526,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld записи очікують вашого вибору"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld записів очікують вашого вибору"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запис очікує вашого вибору"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld запису очікує вашого вибору"
+                }
+              }
+            }
+          }
         }
       }
     },
     "sync.conflicts.deletedHere": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -318,15 +569,28 @@
             "value": "Deleted here"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminado aquí"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Удалена здесь"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалено тут"
+          }
         }
       }
     },
     "sync.conflicts.deletedThere": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -335,15 +599,28 @@
             "value": "Deleted on the other device"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminado en el otro dispositivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Удалена на другом устройстве"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалено на іншому пристрої"
+          }
         }
       }
     },
     "sync.conflicts.differs": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -352,15 +629,28 @@
             "value": "differs"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "difiere"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "различается"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "відрізняється"
+          }
         }
       }
     },
     "sync.conflicts.empty": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -369,15 +659,28 @@
             "value": "No conflicts. A record changed on two devices at once waits here."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay conflictos. Aquí espera un registro cambiado en dos dispositivos a la vez."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Конфликтов нет. Запись, изменённая на двух устройствах сразу, будет ждать здесь."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Конфліктів немає. Тут очікують записи, змінені одночасно на двох пристроях."
+          }
         }
       }
     },
     "sync.conflicts.explain": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -386,15 +689,28 @@
             "value": "Left — mine (this device), right — the other device."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A la izquierda, el mío (este dispositivo); a la derecha, el otro dispositivo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Слева — моя (это устройство), справа — другая."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ліворуч — моє (цей пристрій), праворуч — інший пристрій."
+          }
         }
       }
     },
     "sync.conflicts.footnote": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -403,15 +719,28 @@
             "value": "Until you choose, the other version is not saved in your books and is in no sum."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasta que elija, la otra versión no se guarda en sus cuentas y no entra en ninguna suma."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пока вы не выбрали, чужая версия не записана и не попадает в суммы."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "До вашого вибору інша версія не записується в облік і не входить до жодної суми."
+          }
         }
       }
     },
     "sync.conflicts.keepMine": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -420,15 +749,28 @@
             "value": "Keep mine"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quedarme con el mío"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Оставить мою"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишити моє"
+          }
         }
       }
     },
     "sync.conflicts.mine": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -437,15 +779,28 @@
             "value": "Mine"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mío"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Моя"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Моє"
+          }
         }
       }
     },
     "sync.conflicts.otherValue": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -454,15 +809,28 @@
             "value": "other"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "otro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "другое"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "інше"
+          }
         }
       }
     },
     "sync.conflicts.review": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -471,15 +839,28 @@
             "value": "Review"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Разобрать"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переглянути"
+          }
         }
       }
     },
     "sync.conflicts.takeTheirs": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -488,15 +869,28 @@
             "value": "Take the other"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tomar el otro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Взять другую"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Взяти інше"
+          }
         }
       }
     },
     "sync.conflicts.theirs": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -505,15 +899,28 @@
             "value": "Other device"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otro dispositivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Другое устройство"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інший пристрій"
+          }
         }
       }
     },
     "sync.conflicts.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -522,15 +929,28 @@
             "value": "Conflicts"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflictos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Конфликты"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Конфлікти"
+          }
         }
       }
     },
     "sync.conflicts.waiting": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -539,15 +959,28 @@
             "value": "waiting for a decision"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "esperando una decisión"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "ждёт решения"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "очікує рішення"
+          }
         }
       }
     },
     "sync.error.database": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -556,15 +989,58 @@
             "value": "The database did not take the changes. Nothing was lost; try again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La base de datos no aceptó los cambios. No se perdió nada; inténtelo de nuevo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "База не приняла изменения. Ничего не потеряно, повторите."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "База даних не прийняла зміни. Нічого не втрачено; спробуйте ще раз."
+          }
+        }
+      }
+    },
+    "sync.error.filesNotReadable": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange files could not be encrypted or read. Create a key on your first device or enter its 24 recovery words on other devices. Update OhMyMoney on all devices, then try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los archivos de intercambio no se pudieron cifrar ni leer. Cree una clave en su primer dispositivo o introduzca sus 24 palabras de recuperación en los demás dispositivos. Actualice OhMyMoney en todos los dispositivos e inténtelo de nuevo."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось зашифровать или прочитать файлы обмена. На первом устройстве создайте ключ, на других введите его 24 слова восстановления. Обновите OhMyMoney на всех устройствах и повторите обмен."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося зашифрувати або прочитати файли обміну. Створіть ключ на першому пристрої або введіть його 24 слова відновлення на інших. Оновіть OhMyMoney на всіх пристроях і спробуйте ще раз."
+          }
         }
       }
     },
     "sync.error.folderMissing": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -573,15 +1049,28 @@
             "value": "The exchange folder is not available. Check that iCloud Drive is on, or choose the folder again."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La carpeta de intercambio no está disponible. Compruebe que iCloud Drive esté activado, o elija la carpeta de nuevo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Папка обмена недоступна. Проверьте iCloud Drive или выберите папку заново."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка обміну недоступна. Перевірте, чи ввімкнено iCloud Drive, або виберіть папку знову."
+          }
         }
       }
     },
     "sync.error.folderNotReadable": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -590,15 +1079,28 @@
             "value": "The files in the exchange folder cannot be read. Nothing was lost."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los archivos de la carpeta de intercambio no se pueden leer. No se perdió nada."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Файлы в папке обмена не читаются. Ничего не потеряно."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файли в папці обміну не читаються. Нічого не втрачено."
+          }
         }
       }
     },
     "sync.error.folderNotWritable": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -607,15 +1109,28 @@
             "value": "Nothing can be written to the exchange folder. Your changes wait and go out later."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se puede escribir nada en la carpeta de intercambio. Sus cambios esperan y se envían más tarde."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В папку обмена нельзя записать. Ваши изменения ждут и уйдут позже."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У папку обміну не можна записувати. Ваші зміни очікують і будуть надіслані пізніше."
+          }
         }
       }
     },
     "sync.error.insideData": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -624,15 +1139,28 @@
             "value": "This folder holds or lies inside your database or its copies. Choose another one."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta carpeta guarda o está dentro de su base de datos o sus copias. Elija otra."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Эта папка содержит базу или копии либо лежит внутри них. Выберите другую."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ця папка містить вашу базу чи її копії або розташована всередині них. Виберіть іншу."
+          }
         }
       }
     },
     "sync.field.amount_e4": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -641,15 +1169,28 @@
             "value": "Amount"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сумма"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума"
+          }
         }
       }
     },
     "sync.field.amount_rub_e4": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -658,15 +1199,28 @@
             "value": "Amount in ₽"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importe en ₽"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сумма в ₽"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума в ₽"
+          }
         }
       }
     },
     "sync.field.category_id": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -675,15 +1229,28 @@
             "value": "Category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Категория"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія"
+          }
         }
       }
     },
     "sync.field.currency": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -692,7 +1259,19 @@
             "value": "Currency"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divisa"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Валюта"
@@ -701,6 +1280,7 @@
       }
     },
     "sync.field.date": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -709,7 +1289,19 @@
             "value": "Date"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fecha"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Дата"
@@ -718,6 +1310,7 @@
       }
     },
     "sync.field.kind": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -726,7 +1319,19 @@
             "value": "Kind"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вид"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Вид"
@@ -735,6 +1340,7 @@
       }
     },
     "sync.field.name": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -743,15 +1349,28 @@
             "value": "Name"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Название"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва"
+          }
         }
       }
     },
     "sync.field.note": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -760,15 +1379,28 @@
             "value": "Description"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descripción"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Описание"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Опис"
+          }
         }
       }
     },
     "sync.field.occurred_at": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -777,7 +1409,19 @@
             "value": "Date"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fecha"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дата"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Дата"
@@ -786,6 +1430,7 @@
       }
     },
     "sync.field.other": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -794,15 +1439,28 @@
             "value": "Other details"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otros datos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Другие данные"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Інші подробиці"
+          }
         }
       }
     },
     "sync.folder.change": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -811,15 +1469,28 @@
             "value": "Change folder…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar carpeta…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Изменить папку…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Змінити папку…"
+          }
         }
       }
     },
     "sync.folder.choose": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -828,15 +1499,28 @@
             "value": "Choose folder…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir carpeta…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Выбрать папку…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибрати папку…"
+          }
         }
       }
     },
     "sync.folder.none": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -845,15 +1529,28 @@
             "value": "Not chosen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin elegir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не выбрана"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вибрано"
+          }
         }
       }
     },
     "sync.folder.note": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -862,15 +1559,28 @@
             "value": "Only journal files go into this folder — never your database or its copies."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A esta carpeta solo van archivos del diario — nunca su base de datos ni sus copias."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В эту папку попадают только файлы журнала — никогда база и её копии."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У цю папку потрапляють лише файли журналу — не база даних і не її копії."
+          }
         }
       }
     },
     "sync.folder.stop": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -879,15 +1589,28 @@
             "value": "Stop exchanging"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dejar de intercambiar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не обмениваться"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Припинити обмін"
+          }
         }
       }
     },
     "sync.folder.suggest": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -896,15 +1619,28 @@
             "value": "Suggested: iCloud Drive › OhMyMoney › Sync"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sugerida: iCloud Drive › OhMyMoney › Sync"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Предлагается: iCloud Drive › OhMyMoney › Sync"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рекомендовано: iCloud Drive › OhMyMoney › Sync"
+          }
         }
       }
     },
     "sync.folder.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -913,15 +1649,28 @@
             "value": "Exchange folder"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpeta de intercambio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Папка обмена"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка обміну"
+          }
         }
       }
     },
     "sync.notify.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -930,15 +1679,28 @@
             "value": "Conflict"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflicto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Конфликт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Конфлікт"
+          }
         }
       }
     },
     "sync.retry": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -947,15 +1709,28 @@
             "value": "Retry"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reintentar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Повторить"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Спробувати ще раз"
+          }
         }
       }
     },
     "sync.status.failed": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -964,15 +1739,28 @@
             "value": "Exchange failed"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El intercambio falló"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ошибка обмена"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Помилка обміну"
+          }
         }
       }
     },
     "sync.status.notConfigured": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -981,15 +1769,28 @@
             "value": "Exchange is off"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El intercambio está desactivado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Обмен выключен"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Обмін вимкнено"
+          }
         }
       }
     },
     "sync.status.notConfigured.detail": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -998,15 +1799,28 @@
             "value": "Choose a folder to exchange records with your other devices."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elija una carpeta para intercambiar registros con sus otros dispositivos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Выберите папку, чтобы обмениваться записями с другими устройствами."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Виберіть папку для обміну записами з іншими пристроями."
+          }
         }
       }
     },
     "sync.status.running": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1015,15 +1829,28 @@
             "value": "Syncing…"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizando…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Идёт обмен…"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Синхронізація…"
+          }
         }
       }
     },
     "sync.status.seeded": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1039,6 +1866,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld existing records sent to the folder"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros existentes enviados a la carpeta"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registro existente enviado a la carpeta"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld registros existentes enviados a la carpeta"
                 }
               }
             }
@@ -1073,10 +1924,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld наявні записи надіслано до папки"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld наявних записів надіслано до папки"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld наявний запис надіслано до папки"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld наявного запису надіслано до папки"
+                }
+              }
+            }
+          }
         }
       }
     },
     "sync.status.snapshot": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1085,15 +1967,28 @@
             "value": "A fresh copy of all the data is in the folder."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hay en la carpeta una copia nueva de todos los datos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Свежая копия всех данных лежит в папке."
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У папці є свіжа копія всіх даних."
+          }
         }
       }
     },
     "sync.status.synced": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1102,15 +1997,28 @@
             "value": "Synced"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Синхронизировано"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Синхронізовано"
+          }
         }
       }
     },
     "sync.status.syncedAt": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1119,15 +2027,28 @@
             "value": "Last exchange %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último intercambio %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Последний обмен: %@"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останній обмін %@"
+          }
         }
       }
     },
     "sync.status.waiting.detail": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1143,6 +2064,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld changes in the queue"
+                }
+              }
+            }
+          }
+        },
+        "es": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld cambios en la cola"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld cambio en la cola"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld cambios en la cola"
                 }
               }
             }
@@ -1177,10 +2122,41 @@
               }
             }
           }
+        },
+        "uk": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld зміни в черзі"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld змін у черзі"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld зміна в черзі"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld зміни в черзі"
+                }
+              }
+            }
+          }
         }
       }
     },
     "sync.status.waiting.title": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1189,15 +2165,28 @@
             "value": "Waiting"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En espera"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ждёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Очікує"
+          }
         }
       }
     },
     "sync.table.cards": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1206,15 +2195,28 @@
             "value": "Card"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarjeta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карта"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Картка"
+          }
         }
       }
     },
     "sync.table.categories": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1223,15 +2225,28 @@
             "value": "Category"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoría"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Категория"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категорія"
+          }
         }
       }
     },
     "sync.table.debts": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1240,15 +2255,28 @@
             "value": "Debt"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deuda"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Долг"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Борг"
+          }
         }
       }
     },
     "sync.table.events": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1257,15 +2285,28 @@
             "value": "Event"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Событие"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подія"
+          }
         }
       }
     },
     "sync.table.goals": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1274,15 +2315,28 @@
             "value": "Goal"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Цель"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ціль"
+          }
         }
       }
     },
     "sync.table.other": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1291,15 +2345,28 @@
             "value": "Record"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запись"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Записати"
+          }
         }
       }
     },
     "sync.table.payment_methods": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1308,15 +2375,28 @@
             "value": "Account"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Счёт"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунок"
+          }
         }
       }
     },
     "sync.table.people": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1325,15 +2405,28 @@
             "value": "Person"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Persona"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Человек"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Людина"
+          }
         }
       }
     },
     "sync.table.places": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1342,15 +2435,28 @@
             "value": "Place"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Место"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Місце"
+          }
         }
       }
     },
     "sync.table.templates": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1359,7 +2465,19 @@
             "value": "Template"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plantilla"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шаблон"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Шаблон"
@@ -1368,6 +2486,7 @@
       }
     },
     "sync.table.transaction_parts": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1376,15 +2495,28 @@
             "value": "Part of an operation"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte de una operación"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Часть операции"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частина операції"
+          }
         }
       }
     },
     "sync.table.transactions": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1393,15 +2525,28 @@
             "value": "Operation"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operación"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операция"
           }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операція"
+          }
         }
       }
     },
     "sync.table.transfers": {
+      "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -1410,27 +2555,22 @@
             "value": "Transfer"
           }
         },
-        "ru": {
+        "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Перевод"
-          }
-        }
-      }
-    },
-    "sync.error.filesNotReadable": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Exchange files could not be encrypted or read. Create a key on your first device or enter its 24 recovery words on other devices. Update OhMyMoney on all devices, then try again."
+            "value": "Transferencia"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не удалось зашифровать или прочитать файлы обмена. На первом устройстве создайте ключ, на других введите его 24 слова восстановления. Обновите OhMyMoney на всех устройствах и повторите обмен."
+            "value": "Перевод"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Переказ"
           }
         }
       }
