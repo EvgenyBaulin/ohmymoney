@@ -675,6 +675,22 @@ struct BankRuExtrasTests {
     #expect(notes == [.cardCount(count: 16, limit: 20, from: B.day("2027-09-01"), inForce: false)])
   }
 
+  @Test func aCreditCardKeptOnlyAsADebtIsACreditWhenThereIsNoCardAccount() {
+    var set = (debts: [Debt](), states: [UUID: DebtDueState]())
+    let debt = Debt(
+      id: B.id(910), direction: .iOwe, type: .creditCard, name: "Card debt",
+      monthlyPaymentE4: B.money("7000"), paymentDay: 5)
+    set.debts = [debt]
+    set.states[debt.id] = DebtDueState(
+      debtId: debt.id, firstDue: B.day("2026-09-05"), paidCount: 1, owes: true, paymentDay: 5,
+      balanceE4: B.money("50000"), monthlyE4: B.money("7000"))
+    let pdn = BankPdn.build(
+      month: MonthKey(year: 2026, month: 10), debts: set.debts, states: set.states, accounts: [],
+      incomeRub: B.money("100000"), rubPerUnit: [:])
+    #expect(pdn.creditsRub == B.money("7000"))
+    #expect(pdn.cardsRub == .zero)
+  }
+
   @Test func largeYearlyCashbackBringsTheNoteAndSmallBringsNone() throws {
     var books = BankBooks()
     var big = B.expense(1, "2026-03-01", "500000")
@@ -683,13 +699,13 @@ struct BankRuExtrasTests {
     lastYear.transaction.cashback = Money(amount: B.money("900000"), currency: .rub)
     books.entries = [big, lastYear]
     let note = try #require(
-      CashbackTax.note(ledger: books.ledger, today: B.today, rubPerUnit: [:]))
+      CashbackTax.note(ledger: books.ledger, today: B.today))
     #expect(note.year == 2026)
     #expect(note.totalRub == B.money("120000"))
     var small = B.expense(3, "2026-04-01", "1000")
     small.transaction.cashback = Money(amount: B.money("50"), currency: .rub)
     books.entries = [small]
-    #expect(CashbackTax.note(ledger: books.ledger, today: B.today, rubPerUnit: [:]) == nil)
+    #expect(CashbackTax.note(ledger: books.ledger, today: B.today) == nil)
   }
 }
 

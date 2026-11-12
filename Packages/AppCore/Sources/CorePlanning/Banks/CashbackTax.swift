@@ -22,22 +22,15 @@ public enum CashbackTax {
   /// where «large» starts for the hint.
   public static let largeYearlyE4 = AmountE4(whole: 100_000)
 
-  /// The cashback the owner wrote on this year's operations, in rubles at today's rates; an
-  /// operation in a currency without a rate is left out.
-  public static func note(
-    ledger: Ledger, today: DateOnly, rubPerUnit: [CurrencyCode: Decimal]
-  ) -> CashbackTaxNote? {
-    var total = AmountE4.zero
-    for entry in ledger.dataset.entries where !entry.transaction.isDeleted {
-      let transaction = entry.transaction
-      guard let cashback = transaction.cashback, cashback.amount.raw > 0,
-        ledger.calendar.day(of: transaction.occurredAt, recordedIn: transaction.timeZoneId).year
-          == today.year,
-        let rubles = DebtRubles.convert(
-          cashback.amount, from: cashback.currency, rubPerUnit: rubPerUnit)
-      else { continue }
-      total += rubles
-    }
+  /// The cashback of `today`'s year in rubles: what the rules of the cards promise or the owner
+  /// typed for the purchases, or what was received as income, whichever is more
+  /// (`CashbackReport`).
+  public static func note(ledger: Ledger, today: DateOnly) -> CashbackTaxNote? {
+    let report = CashbackReport(ledger: ledger, period: .year(today.year))
+    let months = report.byMonth()
+    let expected = AmountE4.sum(months.map(\.expectedRub))
+    let received = AmountE4.sum(months.map(\.receivedRub))
+    let total = max(expected, received)
     guard total >= largeYearlyE4 else { return nil }
     return CashbackTaxNote(year: today.year, totalRub: total)
   }

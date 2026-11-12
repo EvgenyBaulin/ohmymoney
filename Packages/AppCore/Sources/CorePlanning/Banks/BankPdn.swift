@@ -75,9 +75,12 @@ public struct BankPdn: Hashable, Sendable {
     incomeRub: AmountE4?, rubPerUnit: [CurrencyCode: Decimal]
   ) -> BankPdn {
     let owing = debts.filter { !$0.isDeleted && $0.direction == .iOwe }
-    // A credit card kept as a debt weighs through its account's limit when it has one; with
-    // none, its schedule stands for it and it is told as a credit.
-    let credits = owing.filter { !$0.isInstalmentPlan && $0.type != .creditCard }
+    // A credit card kept as a debt weighs through its account's limit when the owner has such an
+    // account; with none, its schedule stands for it and it is told as a credit.
+    let hasCardAccount = accounts.contains { !$0.archived && $0.credit != nil }
+    let credits = owing.filter {
+      !$0.isInstalmentPlan && ($0.type != .creditCard || !hasCardAccount)
+    }
     let instalments = owing.filter(\.isInstalmentPlan)
     func payments(_ list: [Debt]) -> DebtLoad {
       DebtLoad.month(

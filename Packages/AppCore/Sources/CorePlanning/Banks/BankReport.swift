@@ -172,7 +172,7 @@ public struct BankReport: Hashable, Sendable {
       cardExpiries: CardExpiries.list(dataset: dataset, today: today),
       cardCount: CardCount.status(ledger: ledger, today: today),
       interestTax: interestYear(ledger: ledger, accounts: accounts, today: today, rubPerUnit: rubPerUnit),
-      cashbackTax: CashbackTax.note(ledger: ledger, today: today, rubPerUnit: rubPerUnit))
+      cashbackTax: CashbackTax.note(ledger: ledger, today: today))
   }
 
   /// The interest of the year with its tax; `nil` when no account earns interest and none was
