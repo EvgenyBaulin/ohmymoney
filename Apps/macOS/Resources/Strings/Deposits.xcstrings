@@ -75,6 +75,18 @@
             "state": "translated",
             "value": "Назва, під якою CoinGecko знає монету: bitcoin, ethereum, tether. Не більше 4 знаків після коми: гроші зберігаються з точністю до 1/10 000."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinGecko'dagi tanga nomi: bitcoin, ethereum, tether. Nuqtadan keyin ko‘pi bilan 4 ta raqam: summa 1/10 000 aniqlikda saqlanadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinGecko 使用的幣種名稱：bitcoin、ethereum、tether。小數點後最多 4 位：金額精確至萬分之一。"
+          }
         }
       }
     },
@@ -152,6 +164,18 @@
             "state": "translated",
             "value": "Ідентифікатор монети"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanga IDsi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "幣種 ID"
+          }
         }
       }
     },
@@ -228,6 +252,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ідентифікатор монети — малі латинські літери, цифри й дефіси."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanga IDsi kichik lotin harflari, raqamlar va defislardan iborat."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "幣種 ID 只能包含小寫英文字母、數字和連字號。"
           }
         }
       }
@@ -307,6 +343,18 @@
             "state": "translated",
             "value": "Курс"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurs"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "匯率"
+          }
         }
       }
     },
@@ -383,6 +431,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Курси криптовалют"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kriptovalyuta kurslari"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加密貨幣匯率"
           }
         }
       }
@@ -461,6 +521,18 @@
             "state": "translated",
             "value": "З мережі (CoinGecko)"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarmoqdan (CoinGecko)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從網路取得（CoinGecko）"
+          }
         }
       }
     },
@@ -537,6 +609,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "На api.coingecko.com надсилаються лише ідентифікатор монети та валюта (рублі). Без мережі лишається останній курс із його датою."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "api.coingecko.com saytiga faqat tanga IDsi va valyuta (rubl) yuboriladi. Tarmoqsiz oxirgi kurs va uning sanasi saqlanadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "僅將幣種 ID 和貨幣（盧布）傳送至 api.coingecko.com。無網路連線時，會保留上次的匯率及日期。"
           }
         }
       }
@@ -615,6 +699,18 @@
             "state": "translated",
             "value": "Вручну"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qo‘lda"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "手動輸入"
+          }
         }
       }
     },
@@ -691,6 +787,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Додати пропозицію…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taklif qo‘shish…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入存款方案…"
           }
         }
       }
@@ -770,6 +878,18 @@
             "state": "translated",
             "value": "з %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ dan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 起"
+          }
         }
       }
     },
@@ -843,6 +963,18 @@
           }
         },
         "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – %@"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ – %@"
@@ -924,6 +1056,18 @@
             "state": "translated",
             "value": "до %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ gacha"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高 %@"
+          }
         }
       }
     },
@@ -1000,6 +1144,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Середня найвища ставка за рублевими депозитами десяти банків з найбільшою кількістю вкладів: %1$@ %% на рік, станом на %2$@. Орієнтир для ринку, а не ставка жодного банку."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eng ko‘p omonatga ega o‘nta bankdagi rubl omonatlari bo‘yicha o‘rtacha eng yuqori stavka: yiliga %1$@%%, %2$@ holatiga. Bu bozor ko‘rsatkichi, biror bankning stavkasi emas."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存款總額最高的十家銀行的盧布存款最高利率平均值：年利率 %1$@%%，資料日期為 %2$@。此數值僅供參考，並非任何銀行的利率。"
           }
         }
       }
@@ -1078,6 +1234,18 @@
             "state": "translated",
             "value": "За даними Банку Росії"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rossiya banki ma’lumotiga ko‘ra"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "俄羅斯銀行資料"
+          }
         }
       }
     },
@@ -1154,6 +1322,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставки відрізняються: %1$@ — %2$@ %%, %3$@ — %4$@ %%. Варто перевірити на сайті банку."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stavkalar farq qiladi: %1$@ — %2$@%%, %3$@ — %4$@%%. Bank saytida tekshirib ko‘ring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利率有差異：%1$@ — %2$@%%、%3$@ — %4$@%%。建議前往銀行網站確認。"
           }
         }
       }
@@ -1233,6 +1413,18 @@
             "state": "translated",
             "value": "Сума"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Summa"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額"
+          }
         }
       }
     },
@@ -1311,6 +1503,18 @@
             "state": "translated",
             "value": "Будь-який"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Istalgan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不限"
+          }
         }
       }
     },
@@ -1388,6 +1592,18 @@
             "state": "translated",
             "value": "Строк, місяців"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muddat, oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期限（月）"
+          }
         }
       }
     },
@@ -1464,6 +1680,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "З поповненням"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To‘ldirish mumkin"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可追加存款"
           }
         }
       }
@@ -1543,6 +1771,18 @@
             "state": "translated",
             "value": "Банк"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行"
+          }
         }
       }
     },
@@ -1619,6 +1859,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Змінити пропозицію"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taklifni tahrirlash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "編輯方案"
           }
         }
       }
@@ -1697,6 +1949,18 @@
             "state": "translated",
             "value": "Найбільша сума"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eng katta summa"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高金額"
+          }
         }
       }
     },
@@ -1773,6 +2037,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Найменша сума"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eng kichik summa"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最低金額"
           }
         }
       }
@@ -1851,6 +2127,18 @@
             "state": "translated",
             "value": "Нова пропозиція"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yangi taklif"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增方案"
+          }
         }
       }
     },
@@ -1927,6 +2215,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Лише для нових клієнтів"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faqat yangi mijozlarga"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "僅限新客戶"
           }
         }
       }
@@ -2006,6 +2306,18 @@
             "state": "translated",
             "value": "Примітка"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Izoh"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備註"
+          }
         }
       }
     },
@@ -2084,6 +2396,18 @@
             "state": "translated",
             "value": "Ставка, % на рік"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stavka, yillik %"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年利率（%）"
+          }
         }
       }
     },
@@ -2160,6 +2484,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ставка — додатне число, наприклад 15.5."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stavka musbat son bo‘lishi kerak, masalan 15.5."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利率須為正數，例如 15.5。"
           }
         }
       }
@@ -2238,6 +2574,18 @@
             "state": "translated",
             "value": "Ставка станом на"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stavka sanasi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利率日期"
+          }
         }
       }
     },
@@ -2314,6 +2662,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Потрібна підписка"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obuna talab etiladi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "需要訂閱"
           }
         }
       }
@@ -2392,6 +2752,18 @@
             "state": "translated",
             "value": "Строк, місяців"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muddat, oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期限（月）"
+          }
         }
       }
     },
@@ -2468,6 +2840,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Можна поповнювати"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To‘ldirish mumkin"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可追加存款"
           }
         }
       }
@@ -2546,6 +2930,18 @@
             "state": "translated",
             "value": "нові клієнти"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "yangi mijozlarga"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新客戶"
+          }
         }
       }
     },
@@ -2622,6 +3018,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нічого не підходить під фільтр."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtrga mos takliflar yo‘q."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有符合條件的方案。"
           }
         }
       }
@@ -2700,6 +3108,18 @@
             "state": "translated",
             "value": "Вітрина депозитів…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omonat takliflari…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存款方案…"
+          }
         }
       }
     },
@@ -2776,6 +3196,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "моя пропозиція"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mening taklifim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我的方案"
           }
         }
       }
@@ -2854,6 +3286,18 @@
             "state": "translated",
             "value": "Брати ставки з відкритих джерел (з Mac іде лише запит сторінки)"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stavkalarni ochiq manbalardan olish (Mac'dan faqat sahifa so‘rovi yuboriladi)"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從公開來源取得利率（僅從 Mac 傳送頁面請求）"
+          }
         }
       }
     },
@@ -2930,6 +3374,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не вдалося оновити ставки"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stavkalarni yangilab bo‘lmadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法更新利率"
           }
         }
       }
@@ -3008,6 +3464,18 @@
             "state": "translated",
             "value": "для %@: %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ uchun: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "金額 %@：%@"
+          }
         }
       }
     },
@@ -3084,6 +3552,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "на %lld міс.: %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld oy uchun: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "期限 %lld 個月：%@"
           }
         }
       }
@@ -3162,6 +3642,18 @@
             "state": "translated",
             "value": "з поповненням: %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "to‘ldirish mumkin: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可追加存款：%@"
+          }
         }
       }
     },
@@ -3236,6 +3728,18 @@
           }
         },
         "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%%"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%%"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "%@%%"
@@ -3317,6 +3821,18 @@
             "state": "translated",
             "value": "Уточніть на сайті банку"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank saytida tekshiring"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請查看銀行網站"
+          }
         }
       }
     },
@@ -3393,6 +3909,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "до %@ %%"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%% gacha"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高 %@%%"
           }
         }
       }
@@ -3471,6 +3999,18 @@
             "state": "translated",
             "value": "ставка станом на %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ holatiga stavka"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利率日期：%@"
+          }
         }
       }
     },
@@ -3547,6 +4087,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "список застосунку"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ilova ro‘yxati"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 內建列表"
           }
         }
       }
@@ -3625,6 +4177,18 @@
             "state": "translated",
             "value": "Банк Росії"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rossiya banki"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "俄羅斯銀行"
+          }
         }
       }
     },
@@ -3701,6 +4265,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "моя пропозиція"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mening taklifim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我的方案"
           }
         }
       }
@@ -3779,6 +4355,18 @@
             "state": "translated",
             "value": "могла змінитися"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "o‘zgargan bo‘lishi mumkin"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可能已變更"
+          }
         }
       }
     },
@@ -3855,6 +4443,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "потрібна підписка"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "obuna talab etiladi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "需要訂閱"
           }
         }
       }
@@ -3933,6 +4533,18 @@
             "state": "translated",
             "value": "Що банки публікують зараз, за ставкою. Це не фінансова порада: умови перевіряйте на сайті банку."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banklarning joriy takliflari, stavka bo‘yicha. Bu moliyaviy maslahat emas: shartlarni bank saytida tekshiring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依利率排列的銀行目前公布方案。這不是財務建議，請至銀行網站確認條款。"
+          }
         }
       }
     },
@@ -4009,6 +4621,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "від %lld міс."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld oydan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 個月起"
           }
         }
       }
@@ -4087,6 +4711,18 @@
             "state": "translated",
             "value": "%lld міс."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 個月"
+          }
         }
       }
     },
@@ -4163,6 +4799,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld–%lld міс."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld–%lld oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld–%lld 個月"
           }
         }
       }
@@ -4241,6 +4889,18 @@
             "state": "translated",
             "value": "до %lld міс."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld oygacha"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最長 %lld 個月"
+          }
         }
       }
     },
@@ -4317,6 +4977,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вітрина депозитів"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omonat takliflari"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存款方案"
           }
         }
       }
@@ -4395,6 +5067,18 @@
             "state": "translated",
             "value": "без поповнення"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "to‘ldirib bo‘lmaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不可追加存款"
+          }
         }
       }
     },
@@ -4471,6 +5155,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "поповнення можливе"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "to‘ldirish mumkin"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "可追加存款"
           }
         }
       }
@@ -4549,6 +5245,18 @@
             "state": "translated",
             "value": "Список банків прочитано %@; оновлюється з кожним випуском."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banklar ro‘yxati %@ sanasida olingan; har bir versiyada yangilanadi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行列表讀取於 %@；每次發行新版本時更新。"
+          }
         }
       }
     },
@@ -4625,6 +5333,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Депозит «%1$@» закінчується %2$@. Зараз на вітрині (це не фінансова порада):"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” omonati %2$@ sanasida tugaydi. Hozirgi takliflar (moliyaviy maslahat emas):"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存款「%1$@」將於 %2$@ 到期。目前的存款方案如下（非財務建議）："
           }
         }
       }
@@ -4703,6 +5423,18 @@
             "state": "translated",
             "value": "Актив"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiv"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "持有資產"
+          }
         }
       }
     },
@@ -4779,6 +5511,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Купон"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kupon"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "債券利息"
           }
         }
       }
@@ -4857,6 +5601,18 @@
             "state": "translated",
             "value": "Дивіденди"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividendlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "股息"
+          }
         }
       }
     },
@@ -4933,6 +5689,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очікувана виплата…"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kutilayotgan to‘lov…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "預期收益…"
           }
         }
       }
@@ -5012,6 +5780,18 @@
             "state": "translated",
             "value": "Виплата"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To‘lov"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收益"
+          }
         }
       }
     },
@@ -5088,6 +5868,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нова виплата"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yangi to‘lov"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新增收益"
           }
         }
       }
@@ -5166,6 +5958,18 @@
             "state": "translated",
             "value": "В «Капіталі» інвестицій поки немає: додайте їх там."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kapitalda hali investitsiyalar yo‘q. Avval u yerga qo‘shing."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「資產」中尚無投資，請先加入。"
+          }
         }
       }
     },
@@ -5242,6 +6046,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Звичайний дохід"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oddiy daromad"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一般收入"
           }
         }
       }
@@ -5320,6 +6136,18 @@
             "state": "translated",
             "value": "Купон, що приходить раз на півроку, — регулярний дохід: оберіть вище «Регулярний»."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Har yarim yilda tushadigan kupon muntazam daromad hisoblanadi: yuqorida “Muntazam”ni tanlang."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每半年支付的債券利息屬於定期收入：請在上方選擇「定期」。"
+          }
         }
       }
     },
@@ -5397,6 +6225,18 @@
             "state": "translated",
             "value": "купон"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kupon"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "債券利息"
+          }
         }
       }
     },
@@ -5473,6 +6313,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "дивіденди"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dividendlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "股息"
           }
         }
       }

@@ -76,6 +76,18 @@
             "state": "translated",
             "value": "Редагувати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tahrirlash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "編輯"
+          }
         }
       }
     },
@@ -153,6 +165,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записати"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qayd etish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記錄"
           }
         }
       }
@@ -232,6 +256,18 @@
             "state": "translated",
             "value": "Уже записано: ця операція є в обліку."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu operatsiya allaqachon qayd etilgan."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已記錄：此交易已入帳。"
+          }
         }
       }
     },
@@ -309,6 +345,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney заблоковано: розблокуйте, щоб передати повідомлення."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney qulflangan. Xabarni uzatish uchun uni qulfdan chiqaring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney 已鎖定：請解鎖以傳送訊息。"
           }
         }
       }
@@ -388,6 +436,18 @@
             "state": "translated",
             "value": "Це не схоже на повідомлення банку: немає операції, суми та картки або залишку."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu bank xabariga o‘xshamaydi: unda operatsiya, summa va karta yoki balans yo‘q."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這似乎不是銀行訊息：其中沒有交易、金額及卡片或餘額資訊。"
+          }
         }
       }
     },
@@ -465,6 +525,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney ще відкриває облік — спробуйте за мить."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney hali ochilmoqda. Birozdan so‘ng qayta urinib ko‘ring."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney 仍在開啟帳本，請稍後再試。"
           }
         }
       }
@@ -544,6 +616,18 @@
             "state": "translated",
             "value": "Операція прихованого рахунку — записати?"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yashirilgan hisob operatsiyasi. Qayd etilsinmi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隱藏帳戶有一筆交易，要記錄嗎？"
+          }
         }
       }
     },
@@ -621,6 +705,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Операцію прихованого рахунку записано"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yashirilgan hisob operatsiyasi qayd etildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已記錄隱藏帳戶的一筆交易"
           }
         }
       }
@@ -916,6 +1012,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta operatsiya kutmoqda. Yakunlansinmi?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ta operatsiya kutmoqda. Yakunlansinmi?"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 筆交易待處理，要完成記錄嗎？"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -993,6 +1119,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записати пізніше"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keyinroq qayd etish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "稍後記錄"
           }
         }
       }
@@ -1072,6 +1210,18 @@
             "state": "translated",
             "value": "З повідомлення банку"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank xabaridan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "來自銀行訊息"
+          }
         }
       }
     },
@@ -1149,6 +1299,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "За даними банку %1$@, у застосунку %2$@ — час звірити рахунок."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankda %1$@, ilovada %2$@ — hisobni tekshirish vaqti keldi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行餘額為 %1$@，App 餘額為 %2$@，請核對帳戶。"
           }
         }
       }
@@ -1228,6 +1390,18 @@
             "state": "translated",
             "value": "Залишок у банку відрізняється від залишку в застосунку — час звірити рахунок."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankdagi balans ilovadagidan farq qiladi — hisobni tekshirish vaqti keldi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行餘額與 App 餘額不符，請核對帳戶。"
+          }
         }
       }
     },
@@ -1305,6 +1479,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Залишок не збігається"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Balans mos kelmayapti"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "餘額不符"
           }
         }
       }
@@ -1384,6 +1570,18 @@
             "state": "translated",
             "value": "%@ — записати?"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — qayd etilsinmi?"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@，要記錄嗎？"
+          }
         }
       }
     },
@@ -1461,6 +1659,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записано: %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qayd etildi: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已記錄：%@"
           }
         }
       }
@@ -1540,6 +1750,18 @@
             "state": "translated",
             "value": "Зняття готівки"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Naqd pul yechish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提領現金"
+          }
         }
       }
     },
@@ -1617,6 +1839,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Комісія"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Komissiya"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "手續費"
           }
         }
       }
@@ -1696,6 +1930,18 @@
             "state": "translated",
             "value": "Дохід"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kirim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收入"
+          }
         }
       }
     },
@@ -1773,6 +2019,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Покупка"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xarid"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "消費"
           }
         }
       }
@@ -1852,6 +2110,18 @@
             "state": "translated",
             "value": "Повернення покупки"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pulni qaytarish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "退款"
+          }
         }
       }
     },
@@ -1929,6 +2199,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вхідний переказ"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiruvchi o‘tkazma"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉入"
           }
         }
       }
@@ -2008,6 +2290,18 @@
             "state": "translated",
             "value": "Переказ"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O‘tkazma"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轉帳"
+          }
         }
       }
     },
@@ -2085,6 +2379,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Передавання повідомлень банку на iPhone буде ввімкнено разом із Siri, коли застосунок з'явиться в App Store."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPhone’da bank xabarlarini uzatish ilova App Store’da paydo bo‘lgach, Siri bilan birga yoqiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App 上架 App Store 後，iPhone 上傳送銀行訊息的功能將隨 Siri 一併啟用。"
           }
         }
       }
@@ -2164,6 +2470,18 @@
             "state": "translated",
             "value": "Очікує в «Записати пізніше»: %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Keyinroq qayd etish”da kutmoqda: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "等待在「稍後記錄」中處理：%@"
+          }
         }
       }
     },
@@ -2241,6 +2559,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Операція очікує в «Записати пізніше»."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operatsiya “Keyinroq qayd etish”da kutmoqda."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「稍後記錄」中有一筆交易待處理。"
           }
         }
       }
@@ -2320,6 +2650,18 @@
             "state": "translated",
             "value": "Увімкнено «Лише перегляд»: нічого не записується."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Faqat ko‘rish” yoqilgan: hech narsa qayd etilmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已開啟「僅供檢視」：不會記錄任何交易。"
+          }
         }
       }
     },
@@ -2397,6 +2739,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повідомлення, передане через Команди («Передати повідомлення банку»), стає операцією. З пропозицією: сповіщення запитує «Записати?», а операція чекає в «Записати пізніше». Одразу: записується так само, як із рядка вводу; якщо рядок поставив би запитання, натомість буде пропозиція. Зберігаються лише сума, магазин, картка та залишок — ніколи саме повідомлення."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shortcuts orqali uzatilgan xabar (“Bank xabarini uzatish”) operatsiyaga aylanadi. Taklif etish: bildirishnomada “Qayd etilsinmi?” deb so‘raladi va operatsiya “Keyinroq qayd etish”da kutadi. Darhol: operatsiya kiritish qatoridagi kabi qayd etiladi; agar qatorda biror savol tug‘ilsa, uni qayd etish taklif qilinadi. Faqat summa, do‘kon, karta va balans saqlanadi — xabarning o‘zi saqlanmaydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "透過捷徑「傳送銀行訊息」傳送的訊息會轉為交易。選擇「建議記錄」時，通知會詢問「要記錄嗎？」，交易會在「稍後記錄」中等待。選擇「立即記錄」時，交易會以輸入列的方式記錄；若輸入列需要詢問，則改為建議記錄。只會保留金額、商店、卡片和餘額，不會保留訊息本身。"
           }
         }
       }
@@ -2476,6 +2830,18 @@
             "state": "translated",
             "value": "Повідомлення банку"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank xabari"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行訊息"
+          }
         }
       }
     },
@@ -2553,6 +2919,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Записувати одразу"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Darhol qayd etish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "立即記錄"
           }
         }
       }
@@ -2632,6 +3010,18 @@
             "state": "translated",
             "value": "Пропонувати записати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qayd etishni taklif qilish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建議記錄"
+          }
         }
       }
     },
@@ -2709,6 +3099,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повідомлення банку"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank xabarlari"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "銀行訊息"
           }
         }
       }
@@ -2788,6 +3190,18 @@
             "state": "translated",
             "value": "Читає SMS або push-повідомлення банку та записує операцію або пропонує записати її відповідно до налаштувань OhMyMoney."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankdan kelgan SMS yoki push-xabarni o‘qiydi va OhMyMoney sozlamalariga ko‘ra operatsiyani qayd etadi yoki qayd etishni taklif qiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "讀取銀行簡訊或推播通知，並依 OhMyMoney 中的設定記錄交易或建議記錄。"
+          }
         }
       }
     },
@@ -2865,6 +3279,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Повідомлення"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xabar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "訊息"
           }
         }
       }
@@ -2944,6 +3370,18 @@
             "state": "translated",
             "value": "Передати повідомлення банку"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank xabarini uzatish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "傳送銀行訊息"
+          }
         }
       }
     },
@@ -3022,6 +3460,18 @@
             "state": "translated",
             "value": "Читає повідомлення банку, скопійоване в буфер обміну, як команда «Передати повідомлення банку»."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Almashish buferiga nusxalangan bank xabarini “Bank xabarini uzatish” kabi o‘qiydi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "讀取拷貝到剪貼簿的銀行訊息，作用與「傳送銀行訊息」相同。"
+          }
         }
       }
     },
@@ -3099,6 +3549,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Передати повідомлення банку з буфера обміну"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank xabarini almashish buferidan uzatish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "從剪貼簿傳送銀行訊息"
           }
         }
       }

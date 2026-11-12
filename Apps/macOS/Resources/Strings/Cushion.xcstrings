@@ -75,6 +75,18 @@
             "state": "translated",
             "value": "%1$@ з %2$@ міс."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ / %2$@ oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@／%2$@ 個月"
+          }
         }
       }
     },
@@ -151,6 +163,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не менше за сьогоднішні обов'язкові платежі: %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugungi majburiy to‘lovlardan kam emas: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不少於今日必要付款：%@"
           }
         }
       }
@@ -229,6 +253,18 @@
             "state": "translated",
             "value": "Повних місяців поки що: %lld."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hozirgacha to‘liq oylar: %lld."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前完整月數：%lld。"
+          }
         }
       }
     },
@@ -305,6 +341,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ціль — %1$@ (%2$@): відкладати по %3$@ на місяць до %4$@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maqsad — %1$@ (%2$@): %4$@ gacha har oy %3$@ jamg‘aring"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目標 — %1$@（%2$@）：每月存入 %3$@，直到 %4$@"
           }
         }
       }
@@ -383,6 +431,18 @@
             "state": "translated",
             "value": "Досягти до"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muddat"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "完成期限"
+          }
         }
       }
     },
@@ -460,6 +520,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Місяць"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "月份"
           }
         }
       }
@@ -754,6 +826,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld oylik zaxira"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld oylik zaxira"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 個月的備用金"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -830,6 +932,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цілі ще немає: скажіть, на скільки місяців має вистачати подушки."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hali maqsad yo‘q: zaxira necha oyga yetishi kerakligini belgilang."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚未設定目標：請設定備用金應涵蓋的月數。"
           }
         }
       }
@@ -909,6 +1023,18 @@
             "state": "translated",
             "value": "Ціль…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maqsad…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目標…"
+          }
         }
       }
     },
@@ -985,6 +1111,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "за поточним темпом — до %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hozirgi sur’atda — %@ gacha"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依目前速度，預計於 %@ 達成"
           }
         }
       }
@@ -1063,6 +1201,18 @@
             "state": "translated",
             "value": "за поточним темпом її не досягти"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hozirgi sur’atda maqsadga erishib bo‘lmaydi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "依目前速度，無法達成目標"
+          }
         }
       }
     },
@@ -1139,6 +1289,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ціль — %1$@ (%2$@): %3$@ на місяць дадуть її за рік"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maqsad — %1$@ (%2$@): har oy %3$@ jamg‘arsangiz, bir yilda erishasiz"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目標 — %1$@（%2$@）：每月存入 %3$@，一年內達成"
           }
         }
       }
@@ -1217,6 +1379,18 @@
             "state": "translated",
             "value": "Ціль — %1$@ (%2$@): досягнуто"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maqsad — %1$@ (%2$@): erishildi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目標 — %1$@（%2$@）：已達成"
+          }
         }
       }
     },
@@ -1294,6 +1468,18 @@
             "state": "translated",
             "value": "Видалити ціль"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maqsadni olib tashlash"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移除目標"
+          }
         }
       }
     },
@@ -1370,6 +1556,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ціль подушки"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaxira maqsadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金目標"
           }
         }
       }
@@ -1664,6 +1862,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Daromadsiz %lld oyga yetadi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Daromadsiz %lld oyga yetadi"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "沒有收入時，可支應 %lld 個月"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -1740,6 +1968,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без доходів вистачило б на %@ міс."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daromadsiz %@ oyga yetadi"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有收入時，可支應 %@ 個月"
           }
         }
       }
@@ -1819,6 +2059,18 @@
             "state": "translated",
             "value": "Січень"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yanvar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 月"
+          }
         }
       }
     },
@@ -1896,6 +2148,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жовтень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oktabr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 月"
           }
         }
       }
@@ -1975,6 +2239,18 @@
             "state": "translated",
             "value": "Листопад"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noyabr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "11 月"
+          }
         }
       }
     },
@@ -2052,6 +2328,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Грудень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dekabr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 月"
           }
         }
       }
@@ -2131,6 +2419,18 @@
             "state": "translated",
             "value": "Лютий"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fevral"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 月"
+          }
         }
       }
     },
@@ -2208,6 +2508,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Березень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mart"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 月"
           }
         }
       }
@@ -2287,6 +2599,18 @@
             "state": "translated",
             "value": "Квітень"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aprel"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4 月"
+          }
         }
       }
     },
@@ -2364,6 +2688,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Травень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "May"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 月"
           }
         }
       }
@@ -2443,6 +2779,18 @@
             "state": "translated",
             "value": "Червень"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iyun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "6 月"
+          }
         }
       }
     },
@@ -2520,6 +2868,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Липень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iyul"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 月"
           }
         }
       }
@@ -2599,6 +2959,18 @@
             "state": "translated",
             "value": "Серпень"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avgust"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "8 月"
+          }
         }
       }
     },
@@ -2676,6 +3048,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вересень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sentabr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "9 月"
           }
         }
       }
@@ -2755,6 +3139,18 @@
             "state": "translated",
             "value": "Січень"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yanvar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 月"
+          }
         }
       }
     },
@@ -2832,6 +3228,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жовтень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oktabr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 月"
           }
         }
       }
@@ -2911,6 +3319,18 @@
             "state": "translated",
             "value": "Листопад"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noyabr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "11 月"
+          }
         }
       }
     },
@@ -2988,6 +3408,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Грудень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dekabr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 月"
           }
         }
       }
@@ -3067,6 +3499,18 @@
             "state": "translated",
             "value": "Лютий"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fevral"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 月"
+          }
         }
       }
     },
@@ -3144,6 +3588,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Березень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mart"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 月"
           }
         }
       }
@@ -3223,6 +3679,18 @@
             "state": "translated",
             "value": "Квітень"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aprel"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4 月"
+          }
         }
       }
     },
@@ -3300,6 +3768,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Травень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "May"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 月"
           }
         }
       }
@@ -3379,6 +3859,18 @@
             "state": "translated",
             "value": "Червень"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iyun"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "6 月"
+          }
         }
       }
     },
@@ -3456,6 +3948,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Липень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iyul"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 月"
           }
         }
       }
@@ -3535,6 +4039,18 @@
             "state": "translated",
             "value": "Серпень"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avgust"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "8 月"
+          }
         }
       }
     },
@@ -3612,6 +4128,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вересень"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sentabr"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "9 月"
           }
         }
       }
@@ -3906,6 +4434,36 @@
               }
             }
           }
+        },
+        "uz": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld oy"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld oy"
+                }
+              }
+            }
+          }
+        },
+        "zh-Hant": {
+          "variations": {
+            "plural": {
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld 個月"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -3983,6 +4541,18 @@
             "state": "translated",
             "value": "Позначте рахунки подушки, і тут буде видно, на скільки місяців її вистачить без доходів."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaxira hisoblarini belgilang. Shunda zaxira daromadsiz necha oyga yetishi ko‘rsatiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "標記備用金帳戶，即可查看沒有收入時可支應的月數。"
+          }
         }
       }
     },
@@ -4059,6 +4629,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Даних поки мало: для обов'язкових витрат потрібні 3 повні місяці."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ma’lumot yetarli emas: majburiy xarajatlar uchun 3 to‘liq oy kerak."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "資料不足：必要支出需要 3 個完整月份的資料。"
           }
         }
       }
@@ -4138,6 +4720,18 @@
             "state": "translated",
             "value": "Борги"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qarzlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "債務"
+          }
         }
       }
     },
@@ -4214,6 +4808,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Необхідні категорії"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zarur toifalar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "必要類別"
           }
         }
       }
@@ -4293,6 +4899,18 @@
             "state": "translated",
             "value": "Платежі та підписки"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To‘lovlar va obunalar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "付款與訂閱"
+          }
         }
       }
     },
@@ -4371,6 +4989,18 @@
             "state": "translated",
             "value": "Фінансова подушка"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moliyaviy zaxira"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金"
+          }
         }
       }
     },
@@ -4447,6 +5077,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подушка безпеки: даних поки мало"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moliyaviy zaxira: ma’lumot hali yetarli emas"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金：資料尚不足"
           }
         }
       }
@@ -4525,6 +5167,18 @@
             "state": "translated",
             "value": "Подушка безпеки: рахунок ще не позначено"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moliyaviy zaxira: hisob hali belgilanmagan"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金：尚未標記帳戶"
+          }
         }
       }
     },
@@ -4601,6 +5255,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Відкрити «Капітал»"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kapitalni ochish"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟資產"
           }
         }
       }
@@ -4679,6 +5345,18 @@
             "state": "translated",
             "value": "Подушка безпеки: %@"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moliyaviy zaxira: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金：%@"
+          }
         }
       }
     },
@@ -4756,6 +5434,18 @@
             "state": "translated",
             "value": "Рахунки подушки"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaxira hisoblari"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金帳戶"
+          }
         }
       }
     },
@@ -4832,6 +5522,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гроші цих рахунків, кожна їхня валюта, і є подушкою."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu hisoblar barcha valyutalardagi mablag‘lari bilan zaxirani tashkil qiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這些帳戶中所有幣別的資金都計入備用金。"
           }
         }
       }
@@ -4911,6 +5613,18 @@
             "state": "translated",
             "value": "Необхідні витрати"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zarur xarajatlar"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "必要支出"
+          }
         }
       }
     },
@@ -4987,6 +5701,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витрати, які не можна зупинити. Разом із платежами, підписками й боргами вони становлять обов'язкові витрати за місяць."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To‘xtatib bo‘lmaydigan xarajatlar. Ular to‘lovlar, obunalar va qarzlar bilan birga oylik majburiy xarajatlarni tashkil qiladi."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法中斷的支出，與付款、訂閱和債務合計為每月必要支出。"
           }
         }
       }
@@ -5065,6 +5791,18 @@
             "state": "translated",
             "value": "Рахунків ще немає."
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hali hisoblar yo‘q."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無帳戶。"
+          }
         }
       }
     },
@@ -5141,6 +5879,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Власних категорій витрат немає."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shaxsiy xarajat toifalari yo‘q."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無自訂支出類別。"
           }
         }
       }
@@ -5219,6 +5969,18 @@
             "state": "translated",
             "value": "Рахунки й категорії…"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hisoblar va toifalar…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳戶與類別…"
+          }
         }
       }
     },
@@ -5295,6 +6057,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Позначено звичайні необхідні категорії: перевірте їх і збережіть."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odatdagi zarur toifalar belgilandi. Ularni tekshiring va saqlang."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已勾選常見的必要類別，請確認後儲存。"
           }
         }
       }
@@ -5374,6 +6148,18 @@
             "state": "translated",
             "value": "Фінансова подушка"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moliyaviy zaxira"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金"
+          }
         }
       }
     },
@@ -5451,6 +6237,18 @@
             "state": "translated",
             "value": "Подушка %1$@ · обов'язкові витрати ≈ %2$@ на місяць"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaxira %1$@ · majburiy xarajatlar ≈ oyiga %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金 %1$@ · 每月必要支出約 %2$@"
+          }
         }
       }
     },
@@ -5527,6 +6325,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ міс."
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ oy"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 個月"
           }
         }
       }
@@ -5606,6 +6416,18 @@
             "state": "translated",
             "value": "Фінансова подушка"
           }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moliyaviy zaxira"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "備用金"
+          }
         }
       }
     },
@@ -5682,6 +6504,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ще не враховано: %@"
+          }
+        },
+        "uz": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hali hisobga olinmagan: %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚未計入：%@"
           }
         }
       }
