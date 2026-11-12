@@ -53,6 +53,36 @@
             }
           }
         },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld řádky vyplněny podle vašeho dřívějšího zadání"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld řádku vyplněno podle vašeho dřívějšího zadání"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld řádek vyplněn podle vašeho dřívějšího zadání"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld řádků vyplněno podle vašeho dřívějšího zadání"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -455,6 +485,12 @@
             "value": "Як вы пісалі раней"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podle vašeho dřívějšího zadání"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -579,6 +615,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запоўнена паводле аперацыі, якую вы ўвялі ўручную для такога ж тэксту гэтага банка. Змяніце аперацыю пасля загрузкі, і наступныя радкі будуць запоўнены з улікам змены."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyplněno podle ručně zadané transakce se stejným textem od této banky. Pokud transakci po načtení změníte, další řádky se vyplní podle této změny."
           }
         },
         "de": {

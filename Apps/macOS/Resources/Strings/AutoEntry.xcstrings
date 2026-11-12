@@ -77,6 +77,12 @@
             "value": "Түзөтүү"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wijzig"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -207,6 +213,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жазуу"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boek"
           }
         },
         "pl": {
@@ -341,6 +353,12 @@
             "value": "Буга чейин жазылган: бул операция эсепте бар."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al geboekt: deze transactie staat in de administratie."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -471,6 +489,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney кулпуланган: билдирүүнү өткөрүү үчүн кулпусун ачыңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney is vergrendeld: ontgrendel de app om het bericht door te geven."
           }
         },
         "pl": {
@@ -605,6 +629,12 @@
             "value": "Бул банк билдирүүсүнө окшобойт: операция, сумма жана карта же калдык жок."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dit lijkt geen bankbericht: een transactie, bedrag en kaart of saldo ontbreken."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -735,6 +765,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney эсептерди ачып жатат — бир аздан кийин кайра аракет кылыңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney wordt nog geopend. Probeer het zo opnieuw."
           }
         },
         "pl": {
@@ -869,6 +905,12 @@
             "value": "Жашыруун эсептеги операция — жазылсынбы?"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Een transactie van een verborgen rekening. Boeken?"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -999,6 +1041,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жашыруун эсептеги операция жазылды"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Een transactie van een verborgen rekening is geboekt"
           }
         },
         "pl": {
@@ -1319,6 +1367,24 @@
             }
           }
         },
+        "nl": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transactie wacht. Afronden?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transacties wachten. Afronden?"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -1601,6 +1667,12 @@
             "value": "Кийин жазуу"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boek later"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1731,6 +1803,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банк билдирүүсүнөн"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uit een bankbericht"
           }
         },
         "pl": {
@@ -1865,6 +1943,12 @@
             "value": "Банкта %1$@, колдонмодо %2$@ — эсепти саноого убакыт келди."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volgens de bank is het saldo %1$@, volgens de app %2$@. Tel de rekening na."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1995,6 +2079,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банктын калдыгы колдонмодогудан айырмаланат — эсепти саноого убакыт келди."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het saldo van de bank wijkt af van dat in de app. Tel de rekening na."
           }
         },
         "pl": {
@@ -2129,6 +2219,12 @@
             "value": "Калдык дал келбейт"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het saldo komt niet overeen"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2259,6 +2355,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ — жазылсынбы?"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — boeken?"
           }
         },
         "pl": {
@@ -2393,6 +2495,12 @@
             "value": "Жазылды: %@"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geboekt: %@"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2523,6 +2631,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нак акча алуу"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geldopname"
           }
         },
         "pl": {
@@ -2657,6 +2771,12 @@
             "value": "Комиссия"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kosten"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2787,6 +2907,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Киреше"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inkomsten"
           }
         },
         "pl": {
@@ -2921,6 +3047,12 @@
             "value": "Сатып алуу"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aankoop"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3051,6 +3183,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Акча кайтаруу"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terugbetaling"
           }
         },
         "pl": {
@@ -3185,6 +3323,12 @@
             "value": "Кирген которуу"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Binnenkomende overboeking"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3315,6 +3459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Которуу"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Overboeking"
           }
         },
         "pl": {
@@ -3449,6 +3599,12 @@
             "value": "iPhone'до банк билдирүүлөрүн өткөрүү колдонмо App Store'го чыкканда Siri менен кошо иштетилет."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Het doorgeven van bankberichten op de iPhone wordt samen met Siri ingeschakeld zodra de app in de App Store verschijnt."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3579,6 +3735,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Кийин жазууда” күтүп жатат: %@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wacht in ‘Boek later’: %@"
           }
         },
         "pl": {
@@ -3713,6 +3875,12 @@
             "value": "“Кийин жазууда” операция күтүп жатат."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Er wacht een transactie in ‘Boek later’."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3843,6 +4011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Көрүү гана” күйгүзүлгөн: эч нерсе жазылбайт."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "‘Alleen bekijken’ staat aan: er wordt niets geboekt."
           }
         },
         "pl": {
@@ -3977,6 +4151,12 @@
             "value": "Shortcuts аркылуу өткөрүлгөн билдирүү (“Банк билдирүүсүн өткөрүү”) операцияга айланат. Сунуштоо: эскертме “Жазылсынбы?” деп сурайт, операция “Кийин жазууда” күтөт. Дароо: операция киргизүү сабындагыдай жазылат; сабы суроо бере турган болсо, операция сунушталат. Сумма, дүкөн, карта жана калдык гана сакталат — билдирүүнүн өзү сакталбайт."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Een bericht dat via Opdrachten wordt doorgegeven (‘Geef een bankbericht door’) wordt een transactie. Bij voorstellen vraagt een melding ‘Boeken?’ en wacht de transactie in ‘Boek later’. Bij direct boeken wordt de transactie geboekt zoals via de invoerregel. Als de invoerregel om meer informatie zou vragen, wordt de transactie alsnog voorgesteld. Alleen het bedrag, de winkel, de kaart en het saldo worden bewaard, nooit het bericht zelf."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4107,6 +4287,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банк билдирүүсү"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Een bankbericht"
           }
         },
         "pl": {
@@ -4241,6 +4427,12 @@
             "value": "Дароо жазуу"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boek direct"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4371,6 +4563,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жазууну сунуштоо"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stel boeken voor"
           }
         },
         "pl": {
@@ -4505,6 +4703,12 @@
             "value": "Банк билдирүүлөрү"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankberichten"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4635,6 +4839,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банктын SMS же push билдирүүсүн окуп, OhMyMoney жөндөөлөрүнө жараша операцияны жазат же жазууну сунуштайт."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leest een sms of pushbericht van een bank en boekt de transactie of stelt voor deze te boeken, volgens de instellingen in OhMyMoney."
           }
         },
         "pl": {
@@ -4769,6 +4979,12 @@
             "value": "Билдирүү"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bericht"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4899,6 +5115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банк билдирүүсүн өткөрүү"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geef een bankbericht door"
           }
         },
         "pl": {
@@ -5033,6 +5255,12 @@
             "value": "“Банк билдирүүсүн өткөрүү” сыяктуу, алмашуу буферине көчүрүлгөн банк билдирүүсүн окуйт."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leest een bankbericht dat naar het klembord is gekopieerd, net als ‘Geef een bankbericht door’."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -5163,6 +5391,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банк билдирүүсүн алмашуу буферинен өткөрүү"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geef een bankbericht van het klembord door"
           }
         },
         "pl": {

@@ -76,6 +76,12 @@
             "value": "%1$@ / %2$@ ай"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ van %2$@ mnd."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -205,6 +211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бүгүнкү милдеттүү төлөмдөрдөн кем эмес: %@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niet minder dan de verplichte betalingen van vandaag: %@"
           }
         },
         "pl": {
@@ -338,6 +350,12 @@
             "value": "Азырынча толук айлар: %lld."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volledige maanden tot nu toe: %lld."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -467,6 +485,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Максат — %1$@ (%2$@): %4$@ чейин айына %3$@ топтоо"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doel — %1$@ (%2$@): zet elke maand %3$@ opzij tot %4$@"
           }
         },
         "pl": {
@@ -600,6 +624,12 @@
             "value": "Аяктоо мөөнөтү"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltooien vóór"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -730,6 +760,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ай"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maand"
           }
         },
         "pl": {
@@ -1049,6 +1085,24 @@
             }
           }
         },
+        "nl": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Een buffer voor %lld maand"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Een buffer voor %lld maanden"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -1330,6 +1384,12 @@
             "value": "Азырынча максат жок: камдык каражат канча айга жетиши керектигин көрсөтүңүз."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog geen doel: geef aan hoeveel maanden de buffer moet dekken."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1460,6 +1520,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Максат…"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doel…"
           }
         },
         "pl": {
@@ -1593,6 +1659,12 @@
             "value": "азыркы ылдамдыкта — %@ чейин"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "in het huidige tempo — in %@"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1722,6 +1794,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "азыркы ылдамдыкта максатка жетпейсиз"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "in het huidige tempo wordt het doel nooit bereikt"
           }
         },
         "pl": {
@@ -1855,6 +1933,12 @@
             "value": "Максат — %1$@ (%2$@): айына %3$@ топтосоңуз, бир жылда жетесиз"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doel — %1$@ (%2$@): met %3$@ per maand bereik je het in een jaar"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1984,6 +2068,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Максат — %1$@ (%2$@): жеттиңиз"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doel — %1$@ (%2$@): bereikt"
           }
         },
         "pl": {
@@ -2117,6 +2207,12 @@
             "value": "Максатты өчүрүү"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verwijder doel"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2246,6 +2342,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Камдык каражаттын максаты"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doel van de buffer"
           }
         },
         "pl": {
@@ -2565,6 +2667,24 @@
             }
           }
         },
+        "nl": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zonder inkomen kun je %lld maand vooruit"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zonder inkomen kun je %lld maanden vooruit"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -2846,6 +2966,12 @@
             "value": "Кирешесиз %@ айга жетет"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zonder inkomen kun je %@ maanden vooruit"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2976,6 +3102,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Январь"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "januari"
           }
         },
         "pl": {
@@ -3110,6 +3242,12 @@
             "value": "Октябрь"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "oktober"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3240,6 +3378,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ноябрь"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "november"
           }
         },
         "pl": {
@@ -3374,6 +3518,12 @@
             "value": "Декабрь"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "december"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3504,6 +3654,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Февраль"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "februari"
           }
         },
         "pl": {
@@ -3638,6 +3794,12 @@
             "value": "Март"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "maart"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3768,6 +3930,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Апрель"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "april"
           }
         },
         "pl": {
@@ -3902,6 +4070,12 @@
             "value": "Май"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mei"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4032,6 +4206,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Июнь"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "juni"
           }
         },
         "pl": {
@@ -4166,6 +4346,12 @@
             "value": "Июль"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "juli"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4296,6 +4482,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Август"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "augustus"
           }
         },
         "pl": {
@@ -4430,6 +4622,12 @@
             "value": "Сентябрь"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "september"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4560,6 +4758,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Январь"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "januari"
           }
         },
         "pl": {
@@ -4694,6 +4898,12 @@
             "value": "Октябрь"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "oktober"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4824,6 +5034,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ноябрь"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "november"
           }
         },
         "pl": {
@@ -4958,6 +5174,12 @@
             "value": "Декабрь"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "december"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -5088,6 +5310,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Февраль"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "februari"
           }
         },
         "pl": {
@@ -5222,6 +5450,12 @@
             "value": "Март"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "maart"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -5352,6 +5586,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Апрель"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "april"
           }
         },
         "pl": {
@@ -5486,6 +5726,12 @@
             "value": "Май"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mei"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -5616,6 +5862,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Июнь"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "juni"
           }
         },
         "pl": {
@@ -5750,6 +6002,12 @@
             "value": "Июль"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "juli"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -5882,6 +6140,12 @@
             "value": "Август"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "augustus"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -6012,6 +6276,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сентябрь"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "september"
           }
         },
         "pl": {
@@ -6331,6 +6601,24 @@
             }
           }
         },
+        "nl": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld maand"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld maanden"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -6612,6 +6900,12 @@
             "value": "Камдык каражаттын эсептерин белгилеңиз. Ошондо анын кирешесиз канча айга жетери көрсөтүлөт."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selecteer de rekeningen voor je buffer om te zien hoeveel maanden je zonder inkomen vooruit kunt."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -6741,6 +7035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Маалымат жетишсиз: милдеттүү чыгымдарды эсептөө үчүн 3 толук ай керек."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niet genoeg gegevens: er zijn 3 volledige maanden aan verplichte uitgaven nodig."
           }
         },
         "pl": {
@@ -6875,6 +7175,12 @@
             "value": "Карыздар"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schulden"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -7004,6 +7310,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зарыл категориялар"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essentiële categorieën"
           }
         },
         "pl": {
@@ -7138,6 +7450,12 @@
             "value": "Төлөмдөр жана жазылуулар"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Betalingen en abonnementen"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -7268,6 +7586,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Камдык каражат"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Financiële buffer"
           }
         },
         "pl": {
@@ -7401,6 +7725,12 @@
             "value": "Камдык каражат: азырынча маалымат жетишсиз"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Financiële buffer: nog niet genoeg gegevens"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -7530,6 +7860,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Камдык каражат: азырынча эсеп белгилене элек"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Financiële buffer: nog geen rekening geselecteerd"
           }
         },
         "pl": {
@@ -7663,6 +7999,12 @@
             "value": "Капиталды ачуу"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open vermogen"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -7792,6 +8134,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Камдык каражат: %@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Financiële buffer: %@"
           }
         },
         "pl": {
@@ -7925,6 +8273,12 @@
             "value": "Камдык каражаттын эсептери"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rekeningen voor je buffer"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8054,6 +8408,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бул эсептердеги бардык валютадагы акча камдык каражатты түзөт."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al het geld op deze rekeningen, in elke valuta, vormt je buffer."
           }
         },
         "pl": {
@@ -8188,6 +8548,12 @@
             "value": "Зарыл чыгымдар"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essentiële uitgaven"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8317,6 +8683,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Токтотууга болбой турган чыгымдар. Алар төлөмдөр, жазылуулар жана карыздар менен бирге айлык милдеттүү чыгымдарды түзөт."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uitgaven die niet kunnen stoppen. Samen met betalingen, abonnementen en schulden vormen ze je verplichte maandelijkse uitgaven."
           }
         },
         "pl": {
@@ -8450,6 +8822,12 @@
             "value": "Азырынча эсептер жок."
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog geen rekeningen."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8579,6 +8957,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Өзүңүз түзгөн чыгым категориялары жок."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geen eigen uitgavencategorieën."
           }
         },
         "pl": {
@@ -8712,6 +9096,12 @@
             "value": "Эсептер жана категориялар…"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rekeningen en categorieën…"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8841,6 +9231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адаттагы зарыл категориялар белгиленди: текшерип, сактаңыз."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De gebruikelijke essentiële categorieën zijn geselecteerd. Controleer ze en bewaar je keuze."
           }
         },
         "pl": {
@@ -8975,6 +9371,12 @@
             "value": "Камдык каражат"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Financiële buffer"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -9106,6 +9508,12 @@
             "value": "Камдык каражат %1$@ · милдеттүү чыгымдар ≈ айына %2$@"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buffer %1$@ · verplichte uitgaven ≈ %2$@ per maand"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -9235,6 +9643,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ ай"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ mnd."
           }
         },
         "pl": {
@@ -9369,6 +9783,12 @@
             "value": "Камдык каражат"
           }
         },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Financiële buffer"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -9498,6 +9918,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Азырынча эсепке алынган жок: %@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nog niet meegeteld: %@"
           }
         },
         "pl": {

@@ -17,6 +17,12 @@
             "value": "Гарантыі"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Záruky"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -141,6 +147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выдаліць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odstranit"
           }
         },
         "de": {
@@ -269,6 +281,12 @@
             "value": "Яшчэ няма гарантый"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zatím žádné záruky"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -393,6 +411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дадайце гарантыю або тэрмін вяртання ў панэлі аперацыі ці ўвядзіце ў радку: «warranty 2y», «return 14d»."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidejte záruku nebo lhůtu pro vrácení v detailu transakce nebo ji zadejte do řádku: «warranty 2y», «return 14d»."
           }
         },
         "de": {
@@ -521,6 +545,12 @@
             "value": "Дзе арыгінал"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kde je originál"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -645,6 +675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "скрынка ў шафе, папка «Бытавая тэхніка»"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "krabice ve skříni, složka «Spotřebiče»"
           }
         },
         "de": {
@@ -773,6 +809,12 @@
             "value": "Можна вярнуць да"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vrátit lze do"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -897,6 +939,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гарантыя да"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Záruka do"
           }
         },
         "de": {
@@ -1056,6 +1104,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Засталося %lld дня"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zbývají %lld dny"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zbývá %lld dne"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zbývá %lld den"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zbývá %lld dní"
                 }
               }
             }
@@ -1463,6 +1541,12 @@
             "value": "Можна вярнуць да %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vrátit lze do %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1587,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гарантыя да %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Záruka do %@"
           }
         },
         "de": {
@@ -1715,6 +1805,12 @@
             "value": "Нічога не знойдзена"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nic nenalezeno"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1839,6 +1935,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адкрыць аперацыю"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít transakci"
           }
         },
         "de": {
@@ -1967,6 +2069,12 @@
             "value": "тэрмін скончыўся"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "lhůta vypršela"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2091,6 +2199,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выбраць дату"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyberte datum"
           }
         },
         "de": {
@@ -2250,6 +2364,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld дня"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld dny"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld dne"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld den"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld dní"
                 }
               }
             }
@@ -2693,6 +2837,36 @@
             }
           }
         },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld roky"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld roku"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld rok"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld let"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -3095,6 +3269,12 @@
             "value": "Арыгінал: %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Originál: %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3219,6 +3399,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Можна вярнуць да %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vrátit lze do %@"
           }
         },
         "de": {
@@ -3347,6 +3533,12 @@
             "value": "Гарантыя да %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Záruka do %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3471,6 +3663,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пошук па назве або месцы"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hledat podle názvu nebo místa"
           }
         },
         "de": {
@@ -3599,6 +3797,12 @@
             "value": "Скончыліся"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukončené"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3723,6 +3927,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дзейнічаюць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktivní"
           }
         },
         "de": {
@@ -3851,6 +4061,12 @@
             "value": "Што на гарантыі і што яшчэ можна вярнуць"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co je v záruce a co lze ještě vrátit"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3975,6 +4191,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гарантыі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Záruky"
           }
         },
         "de": {
@@ -4103,6 +4325,12 @@
             "value": "сёння апошні дзень"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dnes je poslední den"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4227,6 +4455,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Купля: %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nákup: %@"
           }
         },
         "de": {

@@ -17,6 +17,12 @@
             "value": "Скасаваць з…"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušit od…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -141,6 +147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адкрыць старонку скасавання"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít stránku pro zrušení"
           }
         },
         "de": {
@@ -269,6 +281,12 @@
             "value": "Змяніць аплату…"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Upravit platbu…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -393,6 +411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Умовы…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podmínky…"
           }
         },
         "de": {
@@ -521,6 +545,12 @@
             "value": "Выкарыстана сёння"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dnes použito"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -645,6 +675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Што можна скасаваць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co by šlo zrušit"
           }
         },
         "de": {
@@ -773,6 +809,12 @@
             "value": "Скасаваць…"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušit…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -897,6 +939,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Аднаго тыпу, %1$@: %2$@ — %3$@ за месяц"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stejný typ, %1$@: %2$@ — %3$@ měsíčně"
           }
         },
         "de": {
@@ -1025,6 +1073,12 @@
             "value": "Пакінуць усе"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponechat vše"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1149,6 +1203,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Патрэбна"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Potřebné"
           }
         },
         "de": {
@@ -1277,6 +1337,12 @@
             "value": "эканомія %@ за год"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "úspora %@ ročně"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1401,6 +1467,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ каштуе %2$@ за год, апошняе выкарыстанне — %3$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ stojí %2$@ ročně, naposledy použito %3$@"
           }
         },
         "de": {
@@ -1529,6 +1601,12 @@
             "value": "%1$@ каштуе %2$@ за год, выкарыстанне не адзначана"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ stojí %2$@ ročně a nemá záznam o použití"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1653,6 +1731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Спісанні App Store паказваюцца адным радком («APPLE.COM/BILL»), таму іх нельга адрозніць. Дадайце падпіскі ўручную."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Platby z App Storu přicházejí jako jedna položka («APPLE.COM/BILL») a nelze je rozlišit. Předplatná rozepište ručně."
           }
         },
         "de": {
@@ -1812,6 +1896,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld спісання"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld platby"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld platby"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld platba"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld plateb"
                 }
               }
             }
@@ -2219,6 +2333,12 @@
             "value": "чакаецца"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nadcházející"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2343,6 +2463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "У гэтым месяцы спісанняў за падпіскі няма"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tento měsíc žádné platby za předplatná"
           }
         },
         "de": {
@@ -2471,6 +2597,12 @@
             "value": "Толькі падпіскі"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jen předplatná"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2595,6 +2727,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "спісана"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zaplaceno"
           }
         },
         "de": {
@@ -2723,6 +2861,12 @@
             "value": "%@ за месяц"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ za měsíc"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2847,6 +2991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скасаваць падпіску"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušit předplatné"
           }
         },
         "de": {
@@ -2975,6 +3125,12 @@
             "value": "Скасаваць з"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušit od"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3099,6 +3255,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Падпіска дзейнічае да гэтага дня; яе гісторыя захаваецца."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do tohoto dne zůstane aktivní. Historie se zachová."
           }
         },
         "de": {
@@ -3227,6 +3389,12 @@
             "value": "Скасаваць %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušit %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3353,6 +3521,12 @@
             "value": "Пакуль няма падпісак. Дадайце падпіску ў планаванні або выберыце з прапанаваных на падставе пакупак."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zatím žádná předplatná. Přidejte je v Plánování nebo vyberte některé z návrhů podle nákupů."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3477,6 +3651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Падпіскі за месяц"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Předplatná měsíčně"
           }
         },
         "de": {
@@ -3636,6 +3816,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld падпіскі не ўлічана: няма курсу яе валюты"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld předplatná nejsou započítána: chybí kurz jejich měny"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld předplatného není započítáno: chybí kurz jeho měny"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld předplatné není započítáno: chybí kurz jeho měny"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld předplatných není započítáno: chybí kurz jejich měny"
                 }
               }
             }
@@ -4043,6 +4253,12 @@
             "value": "%1$@ за год · ≈ %2$@ за дзень"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ročně · ≈ %2$@ denně"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4167,6 +4383,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: спісана %2$@ замест звычайных %3$@–%4$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ strhl %2$@ místo obvyklých %3$@–%4$@"
           }
         },
         "de": {
@@ -4295,6 +4517,12 @@
             "value": "Адкласці"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odložit"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4419,6 +4647,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сёння %1$@ спіша %2$@: пробны перыяд заканчваецца"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dnes %1$@ strhne %2$@: zkušební období končí"
           }
         },
         "de": {
@@ -4547,6 +4781,12 @@
             "value": "Заўтра %1$@ спіша %2$@: пробны перыяд заканчваецца"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zítra %1$@ strhne %2$@: zkušební období končí"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4671,6 +4911,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Гадавое спісанне %1$@ %2$@: %3$@. Падоўжыць?"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Roční platba za %1$@ dne %2$@: %3$@. Obnovit?"
           }
         },
         "de": {
@@ -4799,6 +5045,12 @@
             "value": "Варта паглядзець"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stojí za pozornost"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4925,6 +5177,12 @@
             "value": "Усе падпіскі…"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechna předplatná…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -5049,6 +5307,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "штомесяц"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "každý měsíc"
           }
         },
         "de": {
@@ -5208,6 +5472,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "кожныя %lld месяца"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "každé %lld měsíce"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "každého %lld měsíce"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "každý %lld měsíc"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "každých %lld měsíců"
                 }
               }
             }
@@ -5615,6 +5909,12 @@
             "value": "штотыдзень"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "každý týden"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -5739,6 +6039,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "штогод"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "každý rok"
           }
         },
         "de": {
@@ -5898,6 +6204,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "кожныя %lld года"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "každé %lld roky"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "každého %lld roku"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "každý %lld rok"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "každých %lld let"
                 }
               }
             }
@@ -6305,6 +6641,12 @@
             "value": "Каля %1$@ ±%2$@: чакаецца %3$@–%4$@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přibližně %1$@ ±%2$@: očekává se %3$@–%4$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6429,6 +6771,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адно спісанне %1$@, %2$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jedna platba %1$@, %2$@"
           }
         },
         "de": {
@@ -6557,6 +6905,12 @@
             "value": "Дванаццаць месяцаў каштуюць %1$@ — на %3$@ менш, чым год за %2$@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dvanáct měsíců stojí %1$@, tedy o %3$@ méně než rok za %2$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6681,6 +7035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Год каштуе столькі ж, колькі дванаццаць месяцаў: %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rok stojí stejně jako dvanáct měsíců: %@"
           }
         },
         "de": {
@@ -6809,6 +7169,12 @@
             "value": "Год за %1$@ замест %2$@ за дванаццаць месяцаў: эканомія %3$@ (%4$@), як за %5$@ месяцаў"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rok za %1$@ místo %2$@ za dvanáct měsíců: úspora %3$@ (%4$@), jako %5$@ měsíců"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6933,6 +7299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ за месяц · %2$@ за год"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ měsíčně · %2$@ ročně"
           }
         },
         "de": {
@@ -7061,6 +7433,12 @@
             "value": "Скасавана, дзейнічае да %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušeno, aktivní do %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7185,6 +7563,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сумесна з %1$@: ваша доля — %2$@ з %3$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sdíleno s %1$@: váš podíl %2$@ z %3$@"
           }
         },
         "de": {
@@ -7313,6 +7697,12 @@
             "value": "Гісторыя цэн"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historie cen"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7437,6 +7827,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пазначана як патрэбная: не прапануецца да скасавання"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Označeno jako potřebné: nebude nabídnuto ke zrušení"
           }
         },
         "de": {
@@ -7565,6 +7961,12 @@
             "value": "Няма курсу для %@: не ўлічана ў выніках"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chybí kurz pro %@: není v součtech"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7689,6 +8091,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пробны перыяд да %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkušební období do %@"
           }
         },
         "de": {
@@ -7817,6 +8225,12 @@
             "value": "Дарагая і даўно не выкарыстоўвалася"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drahé a dlouho nepoužívané"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7941,6 +8355,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выкарыстоўвалася %1$@ з апошніх 30 дзён · ≈ %2$@ за выкарыстанне"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Použito %1$@ z posledních 30 dnů · ≈ %2$@ za použití"
           }
         },
         "de": {
@@ -8069,6 +8489,12 @@
             "value": "Не выкарыстоўвалася за апошнія 30 дзён, апошні раз — %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za posledních 30 dnů nepoužito, naposledy %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8190,6 +8616,12 @@
           }
         },
         "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ → %3$@"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@ → %3$@"
@@ -8321,6 +8753,12 @@
             "value": "Знізілася на %1$@ у рублях: сэрвіс %2$@ (%3$@), курс валюты %4$@ (%5$@)"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokles v rublech o %1$@: služba %2$@ (%3$@), kurz %4$@ (%5$@)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8445,6 +8883,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выраслa на %1$@ у рублях: сэрвіс %2$@ (%3$@), курс валюты %4$@ (%5$@)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nárůst v rublech o %1$@: služba %2$@ (%3$@), kurz %4$@ (%5$@)"
           }
         },
         "de": {
@@ -8573,6 +9017,12 @@
             "value": "Усё, што спісваецца аўтаматычна"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vše, co se platí automaticky"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8697,6 +9147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скасаваць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušit"
           }
         },
         "de": {
@@ -8825,6 +9281,12 @@
             "value": "Сума — «каля N»"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Částka je «přibližně N»"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8949,6 +9411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кошт месячнага плана"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Měsíční tarif stojí"
           }
         },
         "de": {
@@ -9077,6 +9545,12 @@
             "value": "Патрэбна"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Potřebné"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9201,6 +9675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Падпіска, пазначаная як патрэбная, не прапануецца да скасавання."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Předplatné označené jako potřebné nebude nabídnuto ke zrušení."
           }
         },
         "de": {
@@ -9329,6 +9809,12 @@
             "value": "Я таксама карыстаюся"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Také používám"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9453,6 +9939,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хто карыстаецца"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kdo používá"
           }
         },
         "de": {
@@ -9581,6 +10073,12 @@
             "value": "Дадайце людзей у Наладах → Даведнікі, каб падзяліць выдаткі."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro rozdělení nákladů přidejte osoby v Nastavení → Číselníky."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9705,6 +10203,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Іншы план"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Druhý tarif"
           }
         },
         "de": {
@@ -9833,6 +10337,12 @@
             "value": "Захаваць"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uložit"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9957,6 +10467,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Умовы %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podmínky %@"
           }
         },
         "de": {
@@ -10085,6 +10601,12 @@
             "value": "Допуск ±%@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tolerance ±%@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10209,6 +10731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Разлічыць допуск па гісторыі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vypočítat toleranci z historie"
           }
         },
         "de": {
@@ -10337,6 +10865,12 @@
             "value": "Тып сэрвісу"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Typ služby"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10461,6 +10995,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Са спіса"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ze seznamu"
           }
         },
         "de": {
@@ -10589,6 +11129,12 @@
             "value": "Кошт гадавога плана"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Roční tarif stojí"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10713,6 +11259,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нагадаць за два тыдні да гадавога спісання"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Připomenout dva týdny před roční platbou"
           }
         },
         "de": {
@@ -10872,6 +11424,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld падпіскі"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld předplatná"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld předplatného"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld předplatné"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld předplatných"
                 }
               }
             }
@@ -11279,6 +11861,12 @@
             "value": "Няма падпісак"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádná předplatná"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -11403,6 +11991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ за год · ≈ %2$@ за дзень"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ročně · ≈ %2$@ denně"
           }
         },
         "de": {
@@ -11531,6 +12125,12 @@
             "value": "Падпіскі"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Předplatná"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -11655,6 +12255,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ШІ-памочнік"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI asistent"
           }
         },
         "de": {
@@ -11783,6 +12389,12 @@
             "value": "Кнігі"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Knihy"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -11907,6 +12519,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Воблачнае сховішча"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudové úložiště"
           }
         },
         "de": {
@@ -12035,6 +12653,12 @@
             "value": "Музыка"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hudba"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -12159,6 +12783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Іншае"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatní"
           }
         },
         "de": {
@@ -12287,6 +12917,12 @@
             "value": "Відэа"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Video"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -12411,6 +13047,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Няма падпісак"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádná předplatná"
           }
         },
         "de": {
@@ -12539,6 +13181,12 @@
             "value": "За месяц"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za měsíc"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -12663,6 +13311,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Няма курсу для: %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chybí kurz pro: %@"
           }
         },
         "de": {
