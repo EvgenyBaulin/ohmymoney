@@ -16,6 +16,12 @@
             "value": "атрымана %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "získáno %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -139,6 +145,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зверка штомесяц на працягу года"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontrola každý měsíc po celý rok"
           }
         },
         "de": {
@@ -266,6 +278,12 @@
             "value": "Зверка штомесяц на працягу 3 месяцаў"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontrola každý měsíc po 3 měsíce"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -389,6 +407,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зверка ў гэтым месяцы"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontrola v tomto měsíci"
           }
         },
         "de": {
@@ -516,6 +540,12 @@
             "value": "100 дзён запісаў запар"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 dní se záznamy v řadě"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -639,6 +669,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "30 дзён запісаў запар"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 dní se záznamy v řadě"
           }
         },
         "de": {
@@ -766,6 +802,12 @@
             "value": "7 дзён запісаў запар"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 dní se záznamy v řadě"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -889,6 +931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "За гэты перыяд узнагарод няма"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V tomto období žádné odznaky"
           }
         },
         "de": {
@@ -1047,6 +1095,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Зараз запар: %lld дня"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Aktuální řada: %lld dny"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Aktuální řada: %lld dne"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Aktuální řada: %lld den"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Aktuální řada: %lld dní"
                 }
               }
             }
@@ -1453,6 +1531,12 @@
             "value": "Узнагароды"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odznaky"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1578,6 +1662,12 @@
             "value": "Схавана ў рэжыме пачаткоўца"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V režimu pro začátečníky skryto"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1701,6 +1791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адкрыць зараз"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevřít"
           }
         },
         "de": {
@@ -1859,6 +1955,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Адкрыецца пасля %lld дня з запісамі (зараз %lld)"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Otevře se po %lld dnech se záznamy (nyní %lld)"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Otevře se po %lld dne se záznamy (nyní %lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Otevře se po %lld dni se záznamy (nyní %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Otevře se po %lld dnech se záznamy (nyní %lld)"
                 }
               }
             }
@@ -2265,6 +2391,12 @@
             "value": "Адкрыецца пасля першай зверкі"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otevře se po první kontrole"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2421,6 +2553,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Адкрыецца праз %lld дня, пасля месяца запісаў"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Otevře se za %lld dny, po měsíci záznamů"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Otevře se za %lld dne, po měsíci záznamů"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Otevře se za %lld den, po měsíci záznamů"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Otevře se za %lld dní, po měsíci záznamů"
                 }
               }
             }
@@ -2827,6 +2989,12 @@
             "value": "Навошта вы збіраеце"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proč si spoříte"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2950,6 +3118,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Праграма нагадае пра гэта, калі грошы на мэту будуць выглядаць патрачанымі, план будзе зменшаны або мэта выдалена"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplikace vám důvod připomene, když to vypadá, že jste peníze na cíl utratili, když snížíte plán nebo cíl smažete"
           }
         },
         "de": {
@@ -3077,6 +3251,12 @@
             "value": "Вы збіраеце на «%1$@», таму што: %2$@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na «%1$@» spoříte, protože: %2$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3202,6 +3382,12 @@
             "value": "Мора ў ліпені ўсёй сям’ёй"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "K moři v červenci s celou rodinou"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3322,6 +3508,12 @@
           }
         },
         "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»: %2$@"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@»: %2$@"
@@ -3452,6 +3644,12 @@
             "value": "Навошта я збіраю"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proč si spořím"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3575,6 +3773,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без выдаткаў"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádné výdaje"
           }
         },
         "de": {
@@ -3703,6 +3907,12 @@
             "value": "Аднавіць…"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obnovit…"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3826,6 +4036,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 картак"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 karet"
           }
         },
         "de": {
@@ -3954,6 +4170,12 @@
             "value": "Закрыць"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zavřít"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4077,6 +4299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Урокі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lekce"
           }
         },
         "de": {
@@ -4204,6 +4432,12 @@
             "value": "Кароткія ўрокі пра грошы, па пяць картак"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krátké lekce o penězích, každá na pěti kartách"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4327,6 +4561,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Урокі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lekce"
           }
         },
         "de": {
@@ -4454,6 +4694,12 @@
             "value": "Сёння без выдаткаў?"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dnes žádné výdaje?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4577,6 +4823,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запішыце сённяшнія выдаткі — ці іх не было?"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapište dnešní výdaje. Nebo dnes žádné nebyly?"
           }
         },
         "de": {
@@ -4735,6 +4987,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Няма запісаў за %lld дня — аднавіць паводле рэшткаў?"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dny bez záznamů. Obnovit podle zůstatků?"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dne bez záznamů. Obnovit podle zůstatků?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld den bez záznamů. Obnovit podle zůstatků?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dní bez záznamů. Obnovit podle zůstatků?"
                 }
               }
             }
@@ -5177,6 +5459,36 @@
             }
           }
         },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "řada %lld dny"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "řada %lld dne"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "řada %lld den"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "řada %lld dní"
+                }
+              }
+            }
+          }
+        },
         "de": {
           "variations": {
             "plural": {
@@ -5579,6 +5891,12 @@
             "value": "Назад"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zpět"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -5702,6 +6020,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зараз на рахунку"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nyní na účtu"
           }
         },
         "de": {
@@ -5829,6 +6153,12 @@
             "value": "Паводле запісаў: %@ — супадае"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podle záznamů: %@ — souhlasí"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -5952,6 +6282,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Увядзіце бягучы рэштавы баланс кожнага рахунку. Паказаны рахункі ў «Агулам», якія звяраліся хаця б раз."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zadejte aktuální zůstatek každého účtu. Zobrazují se účty v «Total», které jste alespoň jednou zkontrolovali."
           }
         },
         "de": {
@@ -6079,6 +6415,12 @@
             "value": "Паводле запісаў %1$@ · не запісана %2$@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podle záznamů %1$@ · nezapsáno %2$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6202,6 +6544,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Больш, чым у запісах — магчыма, гэта незапісаны даход; ён не размяркоўваецца як выдаткі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Více než podle záznamů. Možná jde o nezapsaný příjem; částka se nerozpočítá jako výdaj"
           }
         },
         "de": {
@@ -6329,6 +6677,12 @@
             "value": "Ніводзін рахунак у «Агулам» яшчэ не звяраўся. Спачатку зрабіце зверку, каб было з чым параўнаць."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zatím jste nezkontrolovali žádný účet v «Total». Nejprve proveďte kontrolu, aby měl průvodce s čím porovnávat."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6452,6 +6806,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Усе рэшткі супадаюць з запісамі: няма чаго аднаўляць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny zůstatky odpovídají záznamům. Není co obnovit"
           }
         },
         "de": {
@@ -6580,6 +6940,12 @@
             "value": "Скасаваць"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušit"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6703,6 +7069,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рэшткі змяніліся, пакуль майстар быў адкрыты. Закрыйце яго і зрабіце зверку зноў."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zůstatky se během práce s průvodcem změnily. Zavřete ho a proveďte kontrolu znovu."
           }
         },
         "de": {
@@ -6830,6 +7202,12 @@
             "value": "Дадаць радок"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidat řádek"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6953,6 +7331,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Радкі без катэгорыі — «Невядома»"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Řádky bez kategorie — «Unknown»"
           }
         },
         "de": {
@@ -7081,6 +7465,12 @@
             "value": "Катэгорыя"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7204,6 +7594,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Размеркавана цалкам"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plně rozpočítáno"
           }
         },
         "de": {
@@ -7331,6 +7727,12 @@
             "value": "Для кожнага радка патрэбна катэгорыя; «Невядома» таксама можна выбраць. Сума радкоў рахунку павінна супадаць з сумай, якой на ім не стае."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Každý řádek potřebuje kategorii; můžete vybrat i «Unknown». Součet řádků účtu musí odpovídat chybějící částce."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7454,6 +7856,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Засталося размеркаваць: %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zbývá rozpočítat: %@"
           }
         },
         "de": {
@@ -7581,6 +7989,12 @@
             "value": "На што (неабавязкова)"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za co to bylo (volitelné)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7704,6 +8118,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выдаліць радок"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odstranit řádek"
           }
         },
         "de": {
@@ -7832,6 +8252,12 @@
             "value": "Далей"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dále"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7955,6 +8381,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не ўдалося запісаць аперацыі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operace se nepodařilo zapsat"
           }
         },
         "de": {
@@ -8082,6 +8514,12 @@
             "value": "У кожным радку патрэбна сума большая за нуль"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na každém řádku musí být částka větší než nula"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8205,6 +8643,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выберыце катэгорыю для кожнага радка"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro každý řádek vyberte kategorii"
           }
         },
         "de": {
@@ -8332,6 +8776,12 @@
             "value": "Сума радкоў рахунку не супадае з сумай, якой на ім не стае"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Součet řádků účtu neodpovídá chybějící částce"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8455,6 +8905,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запісаць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsat"
           }
         },
         "de": {
@@ -8582,6 +9038,12 @@
             "value": "Запісана"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsáno"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8705,6 +9167,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "1. Колькі зараз на рахунках"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Aktuální zůstatky účtů"
           }
         },
         "de": {
@@ -8832,6 +9300,12 @@
             "value": "2. Размяркуйце выдаткі па днях"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Rozpočítejte výdaje do jednotlivých dnů"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8955,6 +9429,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "З %1$@ па %2$@ запісаў не было. Спачатку рэшткі, потым дні."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Od %1$@ do %2$@ nebylo nic zapsáno. Nejprve zůstatky, potom jednotlivé dny."
           }
         },
         "de": {
@@ -9082,6 +9562,12 @@
             "value": "Аднавіць прапушчаныя дні"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obnovit chybějící dny"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9205,6 +9691,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "дзень %1$lld з %2$lld"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld. den z %2$lld"
           }
         },
         "de": {
@@ -9333,6 +9825,12 @@
             "value": "Схаваць"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skrýt"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9456,6 +9954,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld з %2$lld"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld z %2$lld"
           }
         },
         "de": {
@@ -9583,6 +10087,12 @@
             "value": "Паказаць дзе"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazit"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9706,6 +10216,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Першы месяц"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "První měsíc"
           }
         },
         "de": {
@@ -9833,6 +10349,12 @@
             "value": "Рэжым пачаткоўца"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Režim pro začátečníky"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9956,6 +10478,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Складаныя раздзелы застаюцца бачнымі, але прыглушанымі, пакуль у іх няма даных"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Složitější části zůstanou viditelné, ale ztlumené, dokud v nich nebude co zobrazit"
           }
         },
         "de": {
@@ -10083,6 +10611,12 @@
             "value": "Увечары пытацца пра выдаткі за дзень"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Večer se ptát na denní výdaje"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10206,6 +10740,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Сёння без выдаткаў?» дадае дзень у серыю"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volba «Dnes žádné výdaje?» započítá den do řady"
           }
         },
         "de": {
@@ -10333,6 +10873,12 @@
             "value": "Вечар пачынаецца а"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Večer začíná v"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10456,6 +11002,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Паказваць спіс першага месяца"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazit seznam úkolů na první měsíc"
           }
         },
         "de": {
@@ -10583,6 +11135,12 @@
             "value": "Прапаноўваць аднаўленне пасля дзён без запісаў"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nabídnout obnovení po dnech bez záznamů"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10706,6 +11264,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Радок у «Варта паглядзець», без апавяшчэння"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Řádek v části «Worth a look», nikoli oznámení"
           }
         },
         "de": {
@@ -10832,6 +11396,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Звычкі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Návyky"
           }
         },
         "de": {

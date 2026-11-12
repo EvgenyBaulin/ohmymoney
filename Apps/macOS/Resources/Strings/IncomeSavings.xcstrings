@@ -16,6 +16,12 @@
             "value": "Вышэй за мэту"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nad cílem"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -139,6 +145,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Паводле правілаў (як у бацькоўскай катэгорыі)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podle pravidel (jako nadřazená)"
           }
         },
         "de": {
@@ -266,6 +278,12 @@
             "value": "Ніжэй за мэту"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pod cílem"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -389,6 +407,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@ пры мэце %3$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ z cílových %3$@"
           }
         },
         "de": {
@@ -516,6 +540,12 @@
             "value": "Кошык бюджэту"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozpočtový koš"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -639,6 +669,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Патрэбы"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Potřeby"
           }
         },
         "de": {
@@ -766,6 +802,12 @@
             "value": "Няма даходу"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádný příjem"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -891,6 +933,12 @@
             "value": "У межах мэты"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na cíli"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1014,6 +1062,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ваша правіла: %1$lld / %2$lld / %3$lld"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vaše pravidlo %1$lld / %2$lld / %3$lld"
           }
         },
         "de": {
@@ -1142,6 +1196,12 @@
             "value": "Зберажэнні"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Úspory"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1267,6 +1327,12 @@
             "value": "Жаданні"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přání"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1388,6 +1454,12 @@
           }
         },
         "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@"
@@ -1518,6 +1590,12 @@
             "value": "У гэтым месяцы даходу не было, таму няма з чаго вылічыць долі."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V tomto měsíci nebyl žádný příjem, takže není z čeho počítat podíly."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1641,6 +1719,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Месяц яшчэ не скончыўся: долі могуць змяніцца."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Měsíc ještě neskončil: podíly se budou měnit."
           }
         },
         "de": {
@@ -1768,6 +1852,12 @@
             "value": "Кошыкі бюджэту"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozpočtové koše"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1891,6 +1981,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сродкі на рахунках падушкі, падзеленыя на абавязковыя выдаткі за дзень"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peníze na účtech rezervy vzhledem k nutným denním výdajům"
           }
         },
         "de": {
@@ -2049,6 +2145,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Хопіць на %lld дня"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Vystačí na %lld dny"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Vystačí na %lld dne"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Vystačí na %lld den"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Vystačí na %lld dní"
                 }
               }
             }
@@ -2455,6 +2581,12 @@
             "value": "У падушцы %1$@, абавязковыя выдаткі ≈ %2$@ за дзень"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezerva je %1$@, nutné výdaje ≈ %2$@ denně"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2578,6 +2710,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рахункі падушкі не пазначаны. Пазначце іх на экране «Капітал»."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Není označen žádný účet rezervy. Označte ho na obrazovce Kapitál."
           }
         },
         "de": {
@@ -2705,6 +2843,12 @@
             "value": "Абавязковыя выдаткі за месяц пакуль невядомыя."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutné měsíční výdaje zatím nejsou známé."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2828,6 +2972,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Падушка ў днях"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezerva ve dnech"
           }
         },
         "de": {
@@ -2955,6 +3105,12 @@
             "value": "Апошнія 12 месяцаў · да %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posledních 12 měsíců · do %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3078,6 +3234,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адзін паказчык з пяці частак і яго складнікі"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jedno číslo z pěti oblastí a přehled jeho složení"
           }
         },
         "de": {
@@ -3205,6 +3367,12 @@
             "value": "%lld са 100"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ze 100"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3328,6 +3496,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не ўлічана праз недахоп даных: %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vynecháno kvůli nedostatku dat: %@"
           }
         },
         "de": {
@@ -3455,6 +3629,12 @@
             "value": "Не ўлічана"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nezapočítáno"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3580,6 +3760,12 @@
             "value": "Патрэбны даныя прынамсі для дзвюх з пяці частак: падушка, даўгавая нагрузка, норма зберажэнняў, пратэрмінаваныя плацяжы, стабільнасць даходу."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jsou potřeba data alespoň pro dvě z pěti oblastí: rezerva, dluhová zátěž, míra úspor, platby po splatnosti a stabilita příjmů."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3703,6 +3889,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кожны раз разлічваецца паводле вашых даных, без параўнання з іншымі. Арыенцір, а не адзнака."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vždy se počítá z vašich dat, bez srovnání s ostatními. Slouží pro orientaci, ne jako známka."
           }
         },
         "de": {
@@ -3831,6 +4023,12 @@
             "value": "Падушка"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezerva"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3957,6 +4155,12 @@
             "value": "Даўгавая нагрузка"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dluhová zátěž"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4080,6 +4284,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пратэрмінаваныя плацяжы"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Platby po splatnosti"
           }
         },
         "de": {
@@ -4208,6 +4418,12 @@
             "value": "Норма зберажэнняў"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Míra úspor"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4333,6 +4549,12 @@
             "value": "Стабільнасць даходу"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilita příjmů"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4456,6 +4678,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld з %2$lld"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld z %2$lld"
           }
         },
         "de": {
@@ -4584,6 +4812,12 @@
             "value": "Фінансавае здароўе"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finanční zdraví"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4707,6 +4941,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доля даходу пасля выдаткаў · увесь даход"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podíl příjmů zbývající po výdajích · všechny příjmy"
           }
         },
         "de": {
@@ -4834,6 +5074,12 @@
             "value": "Доля даходу пасля выдаткаў · толькі заробак"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podíl příjmů zbývající po výdajích · pouze výdělky"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4957,6 +5203,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Даход %1$@ − выдаткі %2$@ = засталося %3$@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Příjmy %1$@ − výdaje %2$@ = zůstalo %3$@"
           }
         },
         "de": {
@@ -5084,6 +5336,12 @@
             "value": "%1$@: засталося %2$@ даходу"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: z příjmů zůstalo %2$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -5207,6 +5465,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: даходу няма, таму норма не вылічана"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: žádný příjem, míru úspor nelze určit"
           }
         },
         "de": {
@@ -5334,6 +5598,12 @@
             "value": "Патрэбны прынамсі адзін месяц з даходам."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je potřeba alespoň jeden měsíc s příjmem."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -5457,6 +5727,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "* Месяц яшчэ не скончыўся: выдаткі наперадзе, таму паказчык выглядае лепшым, чым будзе."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "* Měsíc ještě neskončil: další výdaje teprve přijdou, takže číslo vypadá lépe než nakonec bude."
           }
         },
         "de": {
@@ -5584,6 +5860,12 @@
             "value": "%@, яшчэ не скончыўся"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, měsíc ještě neskončil"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -5707,6 +5989,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ (пакуль)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (zatím)"
           }
         },
         "de": {
@@ -5835,6 +6123,12 @@
             "value": "Норма зберажэнняў"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Míra úspor"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -5958,6 +6252,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зразумела"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozumím"
           }
         },
         "de": {
@@ -6085,6 +6385,12 @@
             "value": "За 6 месяцаў даход %1$@, выдаткі %2$@ у параўнанні з папярэднімі 6 месяцамі"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za 6 měsíců příjmy %1$@, výdaje %2$@ oproti předchozím 6 měsícům"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6208,6 +6514,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не паказваць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přestat zobrazovat"
           }
         },
         "de": {
@@ -6335,6 +6647,12 @@
             "value": "За 3 месяцы даход %1$@, выдаткі %2$@ у параўнанні з тымі ж месяцамі год таму"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za 3 měsíce příjmy %1$@, výdaje %2$@ oproti stejným měsícům před rokem"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6458,6 +6776,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Крэдыты, падпіскі і неабходныя выдаткі адносна звычайнага даходу"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Půjčky, předplatná a nutné výdaje vzhledem k obvyklým příjmům"
           }
         },
         "de": {
@@ -6585,6 +6909,12 @@
             "value": "Абавязковыя выдаткі ≈ %1$@ за месяц, застаецца %2$@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutné výdaje ≈ %1$@ měsíčně, zbývá %2$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6708,6 +7038,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Занята %1$@ даходу · %2$@ застаецца"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Z příjmů připadá %1$@ na nutné výdaje · %2$@ zbývá"
           }
         },
         "de": {
@@ -6835,6 +7171,12 @@
             "value": "За гэтыя месяцы даходу не было, таму няма з чаго вылічыць долю."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V těchto měsících nebyl žádný příjem, takže není z čeho počítat podíl."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -6958,6 +7300,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Абавязковыя выдаткі пакуль невядомыя: патрэбны некалькі поўных месяцаў і катэгорыі, пазначаныя як неабходныя."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutné výdaje zatím nejsou známé: je potřeba několik celých měsíců a kategorie označené jako nutné."
           }
         },
         "de": {
@@ -7085,6 +7433,12 @@
             "value": "Доля абавязковых выдаткаў"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podíl nutných výdajů"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7208,6 +7562,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Першыя тры дні пасля даходу ў параўнанні з астатнімі днямі месяца"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "První tři dny po příjmu oproti zbytku měsíce"
           }
         },
         "de": {
@@ -7335,6 +7695,12 @@
             "value": "%1$@ за дзень пасля даходу супраць %2$@ у звычайны дзень"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ denně po příjmu oproti %2$@ v běžný den"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7458,6 +7824,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "У першыя тры дні вы траціце ў %@× больш"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V prvních třech dnech utratíte %@× více"
           }
         },
         "de": {
@@ -7585,6 +7957,12 @@
             "value": "Патрэбны прынамсі два завершаныя чаканыя паступленні і сем звычайных дзён для параўнання."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro srovnání jsou potřeba alespoň dva dokončené očekávané příjmy a sedm běžných dní."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7708,6 +8086,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Эфект зарплаты"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Efekt výplaty"
           }
         },
         "de": {
@@ -7835,6 +8219,12 @@
             "value": "Норма зберажэнняў толькі ад заробку"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Míra úspor pouze z výdělků"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -7958,6 +8348,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кэшбэк, працэнты і лішкі не ўлічваюцца ў даходзе для разліку нормы"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback, úroky a přebytky se pak do příjmů pro výpočet nezapočítávají"
           }
         },
         "de": {
@@ -8085,6 +8481,12 @@
             "value": "Прапорцыі і налады захоўваюцца ў базе даных і пераносяцца разам з архівам. Кошык катэгорыі задаецца ў раздзеле «Катэгорыі»."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podíly a nastavení se ukládají do databáze a přenášejí se s archivem. Koš kategorie nastavíte v kategoriích."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8208,6 +8610,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Патрэбы: %lld%%"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Potřeby: %lld%%"
           }
         },
         "de": {
@@ -8335,6 +8743,12 @@
             "value": "Патрэбы"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Potřeby"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8458,6 +8872,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вярнуць 50 / 30 / 20"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obnovit 50 / 30 / 20"
           }
         },
         "de": {
@@ -8586,6 +9006,12 @@
             "value": "Зберажэнні"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Úspory"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8709,6 +9135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рэштка да ста працэнтаў"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zbytek do sta procent"
           }
         },
         "de": {
@@ -8837,6 +9269,12 @@
             "value": "Даходы і зберажэнні"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Příjmy a úspory"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -8960,6 +9398,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Паведамляць, калі выдаткі растуць хутчэй за даход"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Upozornit, když výdaje rostou rychleji než příjmy"
           }
         },
         "de": {
@@ -9087,6 +9531,12 @@
             "value": "Радок у раздзеле «Варта паглядзець» не часцей за раз на квартал"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Řádek v části „Stojí za pozornost“, nejvýš jednou za čtvrtletí"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9210,6 +9660,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жаданні: %lld%%"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přání: %lld%%"
           }
         },
         "de": {
@@ -9337,6 +9793,12 @@
             "value": "Жаданні"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přání"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9462,6 +9924,12 @@
             "value": "Няўдалы месяц для планаў: %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Špatný měsíc pro plány: %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -9585,6 +10053,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поўныя месяцы да бягучага, не больш за 24"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokončené měsíce před tímto měsícem, nejvýš 24"
           }
         },
         "de": {
@@ -9743,6 +10217,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Мала даных: пакуль толькі %lld месяца"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Málo dat: zatím jen %lld měsíce"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Málo dat: zatím jen %lld měsíce"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Málo dat: zatím jen %lld měsíc"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Málo dat: zatím jen %lld měsíců"
                 }
               }
             }
@@ -10149,6 +10653,12 @@
             "value": "Патрэбна прынамсі %1$lld поўных месяцаў з даходам, пакуль іх %2$lld."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je potřeba alespoň %1$lld celých měsíců s příjmem, zatím jich je %2$lld."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10272,6 +10782,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Даход стабільны"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Příjmy jsou stabilní"
           }
         },
         "de": {
@@ -10399,6 +10915,12 @@
             "value": "Стабільнасць даходу"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilita příjmů"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10522,6 +11044,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Даход вагаецца"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Příjmy kolísají"
           }
         },
         "de": {
@@ -10649,6 +11177,12 @@
             "value": "Звычайны месяц: ад %1$@ да %2$@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Běžný měsíc: od %1$@ do %2$@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10774,6 +11308,12 @@
             "value": "Улічана складнікаў: %1$lld з %2$lld"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Započteno: %1$lld z %2$lld"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -10895,6 +11435,12 @@
           }
         },
         "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@"
@@ -11025,6 +11571,12 @@
             "value": "%@ · пакуль"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · zatím"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -11148,6 +11700,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выдаткі растуць не хутчэй за даходы."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Výdaje nerostou rychleji než příjmy."
           }
         },
         "de": {
@@ -11275,6 +11833,12 @@
             "value": "Патрэбна больш за год гісторыі або даныя хаця б за год і даход для параўнання."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je potřeba více než rok historie nebo alespoň rok měsíců a příjem pro srovnání."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -11398,6 +11962,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выдаткі растуць хутчэй за даходы. Варта звярнуць увагу, пакуль гэта не ўвайшло ў звычку."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Výdaje rostou rychleji než příjmy. Je dobré si toho všimnout, než se z toho stane zvyk."
           }
         },
         "de": {
@@ -11525,6 +12095,12 @@
             "value": "Паказваць у «Варта ўвагі»"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazovat v „Stojí za pozornost“"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -11648,6 +12224,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Параўнанне з папярэднімі месяцамі, а не з мінулым годам: параўноўваць лета з зімой было б несправядліва."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Srovnání s předchozími měsíci, ne s loňskem: srovnávat léto se zimou není fér."
           }
         },
         "de": {
@@ -11775,6 +12357,12 @@
             "value": "За 6 месяцаў даходы %1$@, выдаткі %2$@ у параўнанні з папярэднімі 6 месяцамі"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za 6 měsíců příjmy %1$@, výdaje %2$@ oproti předchozím 6 měsícům"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -11898,6 +12486,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не паказваць у «Варта ўвагі»"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přestat zobrazovat v „Stojí za pozornost“"
           }
         },
         "de": {
@@ -12025,6 +12619,12 @@
             "value": "Выдаткі за даходамі"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Výdaje následují příjmy"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -12148,6 +12748,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "За 3 месяцы даходы %1$@, выдаткі %2$@ у параўнанні з тымі ж месяцамі год таму"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za 3 měsíce příjmy %1$@, výdaje %2$@ oproti stejným měsícům loni"
           }
         },
         "de": {
@@ -12276,6 +12882,12 @@
             "value": "Фінансавая падушка"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezerva"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -12402,6 +13014,12 @@
             "value": "Пазыковая нагрузка"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dluhová zátěž"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -12525,6 +13143,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пратэрмінаваныя плацяжы"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Závazky po splatnosti"
           }
         },
         "de": {
@@ -12653,6 +13277,12 @@
             "value": "Норма зберажэнняў"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Míra úspor"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -12776,6 +13406,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Стабільнасць даходаў"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilita příjmů"
           }
         },
         "de": {
@@ -12903,6 +13539,12 @@
             "value": "Не ўлічана: няма даных"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nezapočítáno, chybí data"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -13026,6 +13668,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Недастаткова складнікаў для разліку."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro výpočet čísla lze započítat příliš málo složek."
           }
         },
         "de": {
@@ -13153,6 +13801,12 @@
             "value": "Неўлічаныя складнікі не лічацца за нуль: астатнія пералічваюцца да ста. Паказчык ні з кім не параўноўваецца."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vynechané složky nedostávají nulu: ostatní se přepočítají na sto. Číslo se s nikým nesrovnává."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -13276,6 +13930,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Фінансавая падушка (з %@)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rezerva (z %@)"
           }
         },
         "de": {
@@ -13403,6 +14063,12 @@
             "value": "Пазыковая нагрузка (з %@)"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dluhová zátěž (z %@)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -13526,6 +14192,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пратэрмінаваныя плацяжы (з %@)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Závazky po splatnosti (z %@)"
           }
         },
         "de": {
@@ -13653,6 +14325,12 @@
             "value": "Норма зберажэнняў (з %@)"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Míra úspor (z %@)"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -13776,6 +14454,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Стабільнасць даходаў (з %@)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilita příjmů (z %@)"
           }
         },
         "de": {
@@ -13904,6 +14588,12 @@
             "value": "Фінансавае здароўе"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finanční zdraví"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -14027,6 +14717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Пераведзена ў падушку (не выдаткавана)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Převedeno do rezervy (neutraceno)"
           }
         },
         "de": {
@@ -14154,6 +14850,12 @@
             "value": "Катэгорыі «Заробак» няма, таму ўлічваюцца ўсе даходы."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie „Výdělky“ neexistuje, proto se počítají všechny příjmy."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -14277,6 +14979,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адкладзена на мэты (не выдаткавана)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vloženo do cílů (odloženo, neutráceno)"
           }
         },
         "de": {
@@ -14405,6 +15113,12 @@
             "value": "Даходы"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Příjmy"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -14528,6 +15242,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Захавана"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ušetřeno"
           }
         },
         "de": {
@@ -14655,6 +15375,12 @@
             "value": "У гэтым месяцы даходаў яшчэ няма, таму норма не разлічана."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V tomto měsíci zatím nejsou žádné příjmy, míru úspor nelze vypočítat."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -14778,6 +15504,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Месяц яшчэ не скончыўся: выдаткі яшчэ будуць, таму норма выглядае лепш, чым будзе ў выніку."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Měsíc ještě neskončil: další výdaje teprve přijdou, takže míra úspor zatím vypadá lépe."
           }
         },
         "de": {
@@ -14906,6 +15638,12 @@
             "value": "Норма зберажэнняў"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Míra úspor"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -15029,6 +15767,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мае выдаткі без унёскаў на мэты"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moje výdaje bez příspěvků na cíle"
           }
         },
         "de": {

@@ -83,6 +83,12 @@
             "value": "Qual cartão?"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual é o cartão?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -198,6 +204,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cartão %@"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "cartão %@"
@@ -323,6 +335,12 @@
             "value": "Lido na mensagem do banco: %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lido na mensagem do banco: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -441,6 +459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir a conciliação após registrar (a mensagem diz que restam %@)"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir a reconciliação após registar (a mensagem indica que restam %@)"
           }
         },
         "ru": {
@@ -563,6 +587,12 @@
             "value": "O que o histórico e o modelo não classificarem vai para «Não lembro»; altere depois na lista."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que o histórico e o modelo não conseguirem classificar fica em «Não me lembro»; pode alterar depois na lista."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -681,6 +711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "já registrado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "já registada"
           }
         },
         "ru": {
@@ -1007,6 +1043,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas não foram lidas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linha não foi lida"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas não foram lidas"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1217,6 +1277,12 @@
             "value": "Marque o que deseja registrar. O que já existe fica desmarcado."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selecione o que pretende registar. O que já existe não está selecionado."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1332,6 +1398,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operações do banco"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Operações do banco"
@@ -1661,6 +1733,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registar %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registar %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registar %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1871,6 +1967,12 @@
             "value": "Registrado"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registadas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1986,6 +2088,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outros dados do cartão"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Outros dados do cartão"
@@ -2111,6 +2219,12 @@
             "value": "Texto livre: titular, validade. Nunca guarde o código do verso do cartão."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto livre: titular, data de validade. Nunca guarde o código do verso do cartão."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2226,6 +2340,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Últimos 4 dígitos"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Últimos 4 dígitos"
@@ -2351,6 +2471,12 @@
             "value": "Digite exatamente quatro dígitos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "São necessários exatamente quatro dígitos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2466,6 +2592,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permite encontrar este cartão nas mensagens do banco. Não é o número do cartão."
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Permite encontrar este cartão nas mensagens do banco. Não é o número do cartão."
@@ -2591,6 +2723,12 @@
             "value": "Cartão %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartão %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2709,6 +2847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "As mensagens do banco indicam estes dígitos. Qual dos seus cartões é este? Apenas os dígitos são salvos no cartão, não o número."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As mensagens do banco indicam estes dígitos. A qual dos seus cartões pertencem? Os dígitos são guardados no cartão, mas não o número completo."
           }
         },
         "ru": {
@@ -2831,6 +2975,12 @@
             "value": "Nenhum deles"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum destes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2946,6 +3096,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartão •••• %@"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Cartão •••• %@"
@@ -3071,6 +3227,12 @@
             "value": "Corrigir"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrigir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3186,6 +3348,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@ → %@. Corrigir?"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "%@: %@ → %@. Corrigir?"
@@ -3311,6 +3479,12 @@
             "value": "Corrigido"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrigido"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3429,6 +3603,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A correção não foi salva"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A correção não foi guardada"
           }
         },
         "ru": {
@@ -3551,6 +3731,12 @@
             "value": "Nada a corrigir: você ainda não tem lançamentos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada para corrigir: ainda não existem registos seus"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3669,6 +3855,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A conta foi debitada em outra moeda: altere o valor no painel ↓"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A conta foi debitada noutra moeda: altere o valor no painel ↓"
           }
         },
         "ru": {
@@ -3791,6 +3983,12 @@
             "value": "Este não é um valor válido para correção"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esse valor não é válido para a correção"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3909,6 +4107,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Outra moeda exige outra operação: abra o painel ↓"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outra moeda corresponde a outra operação: abra o painel ↓"
           }
         },
         "ru": {
@@ -4031,6 +4235,12 @@
             "value": "Altere o pagamento na tela da dívida"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os pagamentos de dívidas são alterados no ecrã da dívida"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4149,6 +4359,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não é possível alterar o valor de uma devolução de uma pessoa: apague e registre novamente"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não é possível alterar o valor devolvido por uma pessoa: apague-o e registe-o novamente"
           }
         },
         "ru": {
@@ -4271,6 +4487,12 @@
             "value": "Parte desta operação foi devolvida ou reembolsada: altere no painel ↓"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte desta operação foi devolvida ou reembolsada: altere-a no painel ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4389,6 +4611,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A operação não tem cotação para calcular o novo valor: altere no painel ↓"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A operação não tem uma taxa para calcular o novo valor: altere-a no painel ↓"
           }
         },
         "ru": {
@@ -4511,6 +4739,12 @@
             "value": "O último lançamento, %@, foi feito há mais de uma hora: %@ → %@. Corrigir?"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O último registo, %@, foi feito há mais de uma hora: %@ → %@. Corrigir esse registo?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4629,6 +4863,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não foi salvo"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi guardado"
           }
         },
         "ru": {
@@ -4751,6 +4991,12 @@
             "value": "Salvo como rascunho"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardado como rascunho"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4869,6 +5115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registrar depois"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registar mais tarde"
           }
         },
         "ru": {
@@ -5195,6 +5447,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rascunhos: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rascunhos: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rascunhos: %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -5405,6 +5681,12 @@
             "value": "Apagar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5525,6 +5807,12 @@
             "value": "Nenhum rascunho"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem rascunhos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5640,6 +5928,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Concluir"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Concluir"
@@ -5763,6 +6057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Um rascunho não é uma operação: ele não entra nos cálculos até ser concluído e registrado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um rascunho não é uma operação: não conta para nenhum valor até ser concluído e registado."
           }
         },
         "ru": {
@@ -6089,6 +6389,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rascunhos por concluir"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rascunho por concluir"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rascunhos por concluir"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6299,6 +6623,12 @@
             "value": "Concluir…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Concluir…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6414,6 +6744,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rascunhos"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Rascunhos"
@@ -6539,6 +6875,12 @@
             "value": "Mover a operação como está para uma data futura?"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a operação tal como está para um dia futuro?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6657,6 +6999,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mover como está"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover tal como está"
           }
         },
         "ru": {
@@ -6779,6 +7127,12 @@
             "value": "Essa data ainda não chegou"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esse dia ainda não chegou"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6894,6 +7248,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Mover"
@@ -7019,6 +7379,12 @@
             "value": "Movido para %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movida para %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7137,6 +7503,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solte uma operação aqui para movê-la para este dia"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Largue aqui uma operação para a mover para este dia"
           }
         },
         "ru": {
@@ -7259,6 +7631,12 @@
             "value": "Não foi movido"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi movida"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7374,6 +7752,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover para outro dia…"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Mover para outro dia…"
@@ -7499,6 +7883,12 @@
             "value": "A operação será movida para outro mês, junto com seus efeitos nos limites e relatórios"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ao mover para outro mês, os limites e relatórios são atualizados"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7614,6 +8004,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dia"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Dia"
@@ -7739,6 +8135,12 @@
             "value": "A cotação do novo dia será aplicada"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É aplicada a taxa do novo dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7859,6 +8261,12 @@
             "value": "Já está neste dia"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Já está nesse dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7974,6 +8382,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover para outro dia"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Mover para outro dia"
@@ -8099,6 +8513,12 @@
             "value": "Adicionar uma nota a este dia"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar nota a este dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8214,6 +8634,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar nota"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Apagar nota"
@@ -8339,6 +8765,12 @@
             "value": "Editar a nota deste dia"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar nota deste dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8459,6 +8891,12 @@
             "value": "A nota não foi salva"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A nota não foi guardada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8574,6 +9012,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dia com nota"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Dia com nota"
@@ -8699,6 +9143,12 @@
             "value": "Por exemplo, aniversário da mãe"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por exemplo, aniversário da mãe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8819,6 +9269,12 @@
             "value": "Salvar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8934,6 +9390,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota do dia"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Nota do dia"
@@ -9059,6 +9521,12 @@
             "value": "operação"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "operação"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9177,6 +9645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descartar o restante"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descartar as restantes"
           }
         },
         "ru": {
@@ -9503,6 +9977,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Faltam %lld operações da linha"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Falta %lld operação da linha"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Faltam %lld operações da linha"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -9713,6 +10211,12 @@
             "value": "Algumas ficaram de fora: ainda não há cotação para elas"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algumas ficaram de fora: ainda não há taxa de câmbio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9831,6 +10335,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nada a repetir: você não registrou gastos manualmente nesse dia"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada para repetir: não registou despesas manualmente nesse dia"
           }
         },
         "ru": {
@@ -9953,6 +10463,12 @@
             "value": "O que você registrou manualmente em %@. Marque o que deseja registrar hoje."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que registou manualmente em %@. Selecione o que pretende registar hoje."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10068,6 +10584,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repetir um dia"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Repetir um dia"
@@ -10392,6 +10914,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Registrar %lld"
+                }
+              }
+            }
+          }
+        },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registar %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registar %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registar %lld"
                 }
               }
             }
@@ -10811,6 +11357,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações registadas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operação registada"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações registadas"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -11021,6 +11591,12 @@
             "value": "Valor exato da primeira parte"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor exato da primeira parte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11136,6 +11712,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primeira parte"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Primeira parte"
@@ -11261,6 +11843,12 @@
             "value": "Arraste o divisor entre as duas partes; ele avança de 10 em 10."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arraste o separador entre as duas partes; move-se em intervalos de 10."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11376,6 +11964,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segunda parte"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Segunda parte"
@@ -11501,6 +12095,12 @@
             "value": "Intervalo de %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intervalo %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11616,6 +12216,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividir o valor"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Dividir o valor"
@@ -11741,6 +12347,12 @@
             "value": "Lugares"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Locais"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11859,6 +12471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@, geralmente ~%@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, normalmente ~%@"
           }
         },
         "ru": {

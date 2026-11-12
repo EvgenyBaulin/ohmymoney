@@ -17,6 +17,12 @@
             "value": "Змяніць"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Upravit"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -141,6 +147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запісаць"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsat"
           }
         },
         "de": {
@@ -269,6 +281,12 @@
             "value": "Ужо запісана: гэтая аперацыя ёсць ва ўліку."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Už zapsáno: tato operace je v účetnictví."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -393,6 +411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney заблакавана: разблакіруйце праграму, каб перадаць паведамленне."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney je zamčené: pro předání zprávy ho odemkněte."
           }
         },
         "de": {
@@ -521,6 +545,12 @@
             "value": "Гэта не падобна да паведамлення банка: няма аперацыі, сумы і карты або балансу."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tohle nevypadá jako zpráva od banky: chybí operace, částka a karta nebo zůstatek."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -645,6 +675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney яшчэ адкрывае ўлік — паспрабуйце праз хвіліну."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney se ještě otevírá — zkuste to za chvíli."
           }
         },
         "de": {
@@ -773,6 +809,12 @@
             "value": "Аперацыя схаванага рахунку — запісаць?"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operace skrytého účtu — zapsat?"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -897,6 +939,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Аперацыя схаванага рахунку запісана"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operace skrytého účtu byla zapsána"
           }
         },
         "de": {
@@ -1056,6 +1104,36 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld аперацыі чакаюць завяршэння — завяршыць?"
+                }
+              }
+            }
+          }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Čekají %lld operace — dokončit je?"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Čeká %lld operace — dokončit ji?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Čeká %lld operace — dokončit ji?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Čeká %lld operací — dokončit je?"
                 }
               }
             }
@@ -1463,6 +1541,12 @@
             "value": "Запісаць пазней"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsat později"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1587,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "З паведамлення банка"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ze zprávy od banky"
           }
         },
         "de": {
@@ -1715,6 +1805,12 @@
             "value": "У банку %1$@, у праграме %2$@ — час пералічыць рахунак."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka uvádí %1$@, aplikace %2$@ — je čas přepočítat účet."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -1839,6 +1935,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Баланс у банку адрозніваецца ад балансу ў праграме — час пералічыць рахунак."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zůstatek banky se liší od aplikace — je čas přepočítat účet."
           }
         },
         "de": {
@@ -1967,6 +2069,12 @@
             "value": "Баланс не супадае"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zůstatek nesouhlasí"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2091,6 +2199,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ — запісаць?"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — zapsat?"
           }
         },
         "de": {
@@ -2219,6 +2333,12 @@
             "value": "Запісана: %@"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsáno: %@"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2343,6 +2463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Зняцце наяўных"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Výběr hotovosti"
           }
         },
         "de": {
@@ -2471,6 +2597,12 @@
             "value": "Камісія"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poplatek"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2595,6 +2727,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Даход"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Příjem"
           }
         },
         "de": {
@@ -2723,6 +2861,12 @@
             "value": "Пакупка"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nákup"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -2847,6 +2991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вяртанне"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vrácení peněz"
           }
         },
         "de": {
@@ -2975,6 +3125,12 @@
             "value": "Уваходны перавод"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Příchozí převod"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3099,6 +3255,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перавод"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Převod"
           }
         },
         "de": {
@@ -3227,6 +3389,12 @@
             "value": "Перадача паведамленняў банка на iPhone уключыцца разам з Siri, калі праграма з'явіцца ў App Store."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Předávání bankovních zpráv na iPhonu se zapne společně se Siri, až bude aplikace v App Storu."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3351,6 +3519,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Чакае ў «Запісаць пазней»: %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Čeká v „Zapsat později“: %@"
           }
         },
         "de": {
@@ -3479,6 +3653,12 @@
             "value": "Аперацыя чакае ў «Запісаць пазней»."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V „Zapsat později“ čeká operace."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3603,6 +3783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Уключаны рэжым «Толькі прагляд»: нічога не запісана."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je zapnuto „Pouze prohlížení“: nic se nezapisuje."
           }
         },
         "de": {
@@ -3731,6 +3917,12 @@
             "value": "Паведамленне, перададзенае праз Shortcuts («Перадаць паведамленне банка»), становіцца аперацыяй. Пры прапанове запісу апавяшчэнне пытаецца «Запісаць?», а аперацыя чакае ў «Запісаць пазней». Пры імгненным запісе аперацыя запісваецца як праз радок уводу; калі радок запытаў бы ўдакладненне, прапануецца запіс. Захоўваюцца толькі сума, крама, карта і баланс — само паведамленне ніколі не захоўваецца."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zpráva předaná aplikací Zkratky („Předat bankovní zprávu“) se změní na operaci. Nabídnout: oznámení se zeptá „Zapsat?“ a operace počká v „Zapsat později“. Ihned: zapíše se stejně jako při zadání do řádku; pokud by se řádek na něco zeptal, nabídne se místo toho k zápisu. Ukládá se jen částka, obchod, karta a zůstatek — nikdy samotná zpráva."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -3855,6 +4047,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Паведамленне банка"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankovní zpráva"
           }
         },
         "de": {
@@ -3983,6 +4181,12 @@
             "value": "Запісваць адразу"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsat ihned"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4107,6 +4311,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Прапанаваць запіс"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nabídnout k zápisu"
           }
         },
         "de": {
@@ -4235,6 +4445,12 @@
             "value": "Паведамленні банка"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankovní zprávy"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4359,6 +4575,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Чытае SMS або push-апавяшчэнне ад банка і запісвае аперацыю або прапануе яе запісаць паводле налад OhMyMoney."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přečte SMS nebo oznámení od banky a operaci zapíše nebo nabídne k zápisu podle nastavení v OhMyMoney."
           }
         },
         "de": {
@@ -4487,6 +4709,12 @@
             "value": "Паведамленне"
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zpráva"
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4611,6 +4839,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перадаць паведамленне банка"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Předat bankovní zprávu"
           }
         },
         "de": {
@@ -4739,6 +4973,12 @@
             "value": "Чытае паведамленне банка, скапіяванае ў буфер абмену, як дзеянне «Перадаць паведамленне банка»."
           }
         },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přečte bankovní zprávu zkopírovanou do schránky stejně jako „Předat bankovní zprávu“."
+          }
+        },
         "de": {
           "stringUnit": {
             "state": "translated",
@@ -4863,6 +5103,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перадаць паведамленне банка з буфера абмену"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Předat bankovní zprávu ze schránky"
           }
         },
         "de": {

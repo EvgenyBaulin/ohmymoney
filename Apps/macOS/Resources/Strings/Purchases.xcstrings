@@ -286,6 +286,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Valor disponível dentro de %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Valor disponível dentro de %lld mês"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Valor disponível dentro de %lld meses"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -495,6 +519,12 @@
             "value": "Ainda não há valor para guardar — não é possível prever uma data"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não há dinheiro para pôr de lado — não é possível indicar uma data"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -612,6 +642,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sem cotação para esta moeda — data não calculada"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem taxa de câmbio para esta moeda — não foi calculada uma data"
           }
         },
         "ru": {
@@ -733,6 +769,12 @@
             "value": "Você já pode comprar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Já pode comprar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -852,6 +894,12 @@
             "value": "guardando %@ por mês"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a poupar %@ por mês"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -969,6 +1017,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Previsão do valor: %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dinheiro previsto para: %@"
           }
         },
         "ru": {
@@ -1294,6 +1348,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Comprados: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Comprado: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Comprados: %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1503,6 +1581,12 @@
             "value": "Escolha a transação entre as de valor semelhante nos últimos dois meses. O preço do item desejado é %@."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha uma operação de valor semelhante dos últimos dois meses. O preço do artigo desejado é %@."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1622,6 +1706,12 @@
             "value": "Vincular ao item desejado"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Associar ao artigo desejado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1736,6 +1826,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem descrição"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Sem descrição"
@@ -1860,6 +1956,12 @@
             "value": "A compra não está entre as transações"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A compra não está nas operações"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1979,6 +2081,12 @@
             "value": "Nenhuma transação correspondente nos últimos 60 dias. Registre a compra e volte."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há operações correspondentes nos últimos 60 dias. Registe a compra e volte aqui."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2093,6 +2201,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprado: “%@”"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Comprado: “%@”"
@@ -2217,6 +2331,12 @@
             "value": "Venda de itens"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Venda de artigos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2336,6 +2456,12 @@
             "value": "Previsto: %@ — total: %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previsto %@ — recebido %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2450,6 +2576,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descontos"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Descontos"
@@ -2574,6 +2706,12 @@
             "value": "Lista de compras"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lista de compras"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2691,6 +2829,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Itens"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artigos"
           }
         },
         "ru": {
@@ -2812,6 +2956,12 @@
             "value": "Aguardando crédito"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A aguardar crédito"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2929,6 +3079,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quero comprar"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A comprar"
           }
         },
         "ru": {
@@ -3050,6 +3206,12 @@
             "value": "Previsto para"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previsto até"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3167,6 +3329,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quando esperar o valor"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando espera receber o dinheiro"
           }
         },
         "ru": {
@@ -3288,6 +3456,12 @@
             "value": "Em relação ao registro anterior: %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Face ao registo anterior: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3403,6 +3577,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Data"
@@ -3527,6 +3707,12 @@
             "value": "Maior: %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais alto: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3644,6 +3830,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Preços registrados"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preços registados"
           }
         },
         "ru": {
@@ -3765,6 +3957,12 @@
             "value": "Menor: %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais baixo: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3882,6 +4080,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nenhum preço registrado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não há preços registados"
           }
         },
         "ru": {
@@ -4003,6 +4207,12 @@
             "value": "Registrar preço"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registar preço"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4117,6 +4327,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preço atual"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Preço atual"
@@ -4241,6 +4457,12 @@
             "value": "Remover registro"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remover registo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4355,6 +4577,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preço de “%@”"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Preço de “%@”"
@@ -4479,6 +4707,12 @@
             "value": "nenhuma"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nenhuma"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4596,6 +4830,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não foi possível salvar. Consulte o log."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível guardar. Consulte o registo."
           }
         },
         "ru": {
@@ -4717,6 +4957,12 @@
             "value": "Não foi possível ler o link. Verifique o endereço."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler a ligação. Verifique o endereço."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4834,6 +5080,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Informe um nome."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Introduza um nome."
           }
         },
         "ru": {
@@ -4955,6 +5207,12 @@
             "value": "O registro não foi encontrado."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O registo não foi encontrado."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5072,6 +5330,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O preço deve ser maior que zero."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O preço tem de ser superior a zero."
           }
         },
         "ru": {
@@ -5194,6 +5458,12 @@
             "value": "Conta de destino"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para a conta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5313,6 +5583,12 @@
             "value": "Registrar venda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registar venda"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5428,6 +5704,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moeda"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Moeda"
@@ -5552,6 +5834,12 @@
             "value": "Data da venda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data da venda"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5671,6 +5959,12 @@
             "value": "A venda é registrada como receita na categoria “Venda de itens”, e o item passa para os vendidos."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A venda é registada como receita na categoria “Venda de artigos” e o artigo passa para os vendidos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5786,6 +6080,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conta principal"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Conta principal"
@@ -5910,6 +6210,12 @@
             "value": "Vendido por"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendido por"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6024,6 +6330,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendido: “%@”"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Vendido: “%@”"
@@ -6144,6 +6456,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por mês"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Por mês"
@@ -6472,6 +6790,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compras com desconto"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compra com desconto"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld compras com desconto"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6681,6 +7023,12 @@
             "value": "Nenhum desconto ainda. Registre um desconto ao registrar uma compra para ver quanto você economizou."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não há descontos. Registe um desconto ao registar uma compra para ver aqui quanto poupou."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6796,6 +7144,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este mês"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Este mês"
@@ -6920,6 +7274,12 @@
             "value": "%@ do preço sem descontos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ do preço sem descontos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7035,6 +7395,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este ano"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Este ano"
@@ -7363,6 +7729,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Perguntar após %lld dias"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Perguntar após %lld dia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Perguntar após %lld dias"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -7572,6 +7962,12 @@
             "value": "Perguntar a quilometragem ao abastecer"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pedir quilometragem ao abastecer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7689,6 +8085,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A quilometragem permite calcular o consumo de combustível e o custo por quilômetro"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A quilometragem permite calcular o consumo de combustível e o custo por quilómetro"
           }
         },
         "ru": {
@@ -7810,6 +8212,12 @@
             "value": "Pausa antes de uma compra grande"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa antes de uma compra avultada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7927,6 +8335,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O limite é uma porcentagem do valor disponível no mês. Ele também determina para quais compras será feita a pergunta “Sem arrependimentos?”."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O limite é uma percentagem do valor disponível no mês. Também determina que compras dão origem à pergunta “Sem arrependimentos?”."
           }
         },
         "ru": {
@@ -8048,6 +8462,12 @@
             "value": "Sugere esperar até o dia seguinte antes de uma compra grande"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sugerir que espere uma noite antes de uma compra avultada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8167,6 +8587,12 @@
             "value": "Uma compra é grande acima de %@ do valor disponível"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma compra é avultada acima de %@ do valor disponível"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8281,6 +8707,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Sem arrependimentos?”"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "“Sem arrependimentos?”"
@@ -8405,6 +8837,12 @@
             "value": "Perguntar alguns dias após uma compra grande se você a faria novamente"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alguns dias após uma compra avultada, perguntar se a voltaria a fazer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8520,6 +8958,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compras"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Compras"
@@ -8644,6 +9088,12 @@
             "value": "O que comprar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que comprar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8759,6 +9209,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Adicionar"
@@ -9087,6 +9543,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Limpar concluídos (%lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Limpar concluídos (%lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Limpar concluídos (%lld)"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -9296,6 +9776,12 @@
             "value": "A lista está vazia. Digite o que você precisa comprar na próxima ida à loja."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A lista está vazia. Escreva o que precisa de comprar na próxima ida às compras."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9411,6 +9897,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remover da lista"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Remover da lista"
@@ -9535,6 +10027,12 @@
             "value": "Marcar como concluído"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcar como concluído"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9649,6 +10147,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desmarcar"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Desmarcar"
@@ -9773,6 +10277,12 @@
             "value": "O que você quer comprar, o que possui e quanto custa manter"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que quer comprar, o que tem e quanto custa mantê-lo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9887,6 +10397,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprado em %@"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Comprado em %@"
@@ -10011,6 +10527,12 @@
             "value": "%@ por mês · %@ no total · %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ por mês · %@ no total · %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10130,6 +10652,12 @@
             "value": "O item será removido da lista; as transações serão mantidas."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O artigo é removido da lista; as operações mantêm-se."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10245,6 +10773,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar “%@”?"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Apagar “%@”?"
@@ -10370,6 +10904,12 @@
             "value": "Editar…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10485,6 +11025,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moeda"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Moeda"
@@ -10609,6 +11155,12 @@
             "value": "Data da compra"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data da compra"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10728,6 +11280,12 @@
             "value": "Item"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artigo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10842,6 +11400,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sei a data da compra"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Sei a data da compra"
@@ -10967,6 +11531,12 @@
             "value": "Nome"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nome"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11086,6 +11656,12 @@
             "value": "Novo bem"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novo bem"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11200,6 +11776,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem etiqueta"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Sem etiqueta"
@@ -11325,6 +11907,12 @@
             "value": "Nota"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11439,6 +12027,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preço de compra"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Preço de compra"
@@ -11563,6 +12157,12 @@
             "value": "Etiqueta"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etiqueta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11682,6 +12282,12 @@
             "value": "A etiqueta reúne as operações do bem: reparos, seguro, combustível."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A etiqueta agrupa os movimentos do bem: reparações, seguro, combustível."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11799,6 +12405,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Do patrimônio"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do património"
           }
         },
         "ru": {
@@ -12124,6 +12736,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "durante %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "durante %lld mês"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "durante %lld meses"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -12333,6 +12969,12 @@
             "value": "Sem preço de compra — só os gastos com o bem são contabilizados"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem preço de compra — só são contabilizadas as despesas com o bem"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12450,6 +13092,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sem etiqueta — os gastos com o bem não são contabilizados. Adicione uma etiqueta com o nome dele às operações."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem etiqueta — as despesas com o bem não são contabilizadas. Atribua aos movimentos uma etiqueta com o nome do bem."
           }
         },
         "ru": {
@@ -12571,6 +13219,12 @@
             "value": "Registrado à parte"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registado à parte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12690,6 +13344,12 @@
             "value": "Vendido…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendido…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12804,6 +13464,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vendido por %@"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Vendido por %@"
@@ -12929,6 +13595,12 @@
             "value": "Garantia até %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantia até %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -13043,6 +13715,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A garantia terminou"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "A garantia terminou"
@@ -13167,6 +13845,12 @@
             "value": "Adicionar bem"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar bem"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -13286,6 +13970,12 @@
             "value": "Aqui estão os bens do patrimônio (exceto investimentos) e os que você registra à parte, com o custo mensal de cada um. Para contabilizar os gastos com um bem, adicione uma etiqueta com o nome dele às operações."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aqui estão os bens do património (exceto investimentos) e os que regista à parte, com o custo mensal de cada um. Para contabilizar as despesas com um bem, atribua aos movimentos uma etiqueta com o seu nome."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -13400,6 +14090,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bens"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Bens"
@@ -13728,6 +14424,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Bens vendidos: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Bens vendidos: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Bens vendidos: %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -13937,6 +14657,12 @@
             "value": "Hora de comprar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hora de comprar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -14054,6 +14780,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "o preço está dentro do esperado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "o preço não excede o esperado"
           }
         },
         "ru": {
@@ -14175,6 +14907,12 @@
             "value": "o preço caiu %@ em relação ao mais alto"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "o preço desceu %@ face ao máximo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -14290,6 +15028,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compras"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Compras"
@@ -14414,6 +15158,12 @@
             "value": "%@ L/100 km"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ L/100 km"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -14528,6 +15278,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Combustível %@"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Combustível %@"
@@ -14652,6 +15408,12 @@
             "value": "%@ por km"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ por km"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -14766,6 +15528,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creditado"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Creditado"
@@ -14890,6 +15658,12 @@
             "value": "Nenhum reembolso pendente. Os reembolsos que ainda não chegaram à conta ficam aqui sem alterar os gastos ou saldos."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há reembolsos pendentes. Os reembolsos que ainda não chegaram à conta aparecem aqui sem alterar as despesas ou os saldos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -15007,6 +15781,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Até o dinheiro chegar, o reembolso não reduz os gastos nem altera os saldos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Até o dinheiro chegar, o reembolso não reduz as despesas nem altera os saldos."
           }
         },
         "ru": {
@@ -15332,6 +16112,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dias de atraso"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dia de atraso"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dias de atraso"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -15542,6 +16346,12 @@
             "value": "Reembolso"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reembolso"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -15661,6 +16471,12 @@
             "value": "Previsto até %@ — atrasado"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previsto até %@ — em atraso"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -15775,6 +16591,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alterar data…"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Alterar data…"
@@ -16103,6 +16925,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Reembolsos pendentes: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Reembolsos pendentes: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Reembolsos pendentes: %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -16312,6 +17158,12 @@
             "value": "Previsto até %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previsto até %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -16427,6 +17279,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remover da lista"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Remover da lista"
@@ -16551,6 +17409,12 @@
             "value": "Comprado…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprado…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -16665,6 +17529,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sem data"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "sem data"
@@ -16789,6 +17659,12 @@
             "value": "pode comprar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pode comprar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -16903,6 +17779,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hora de comprar"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "hora de comprar"
@@ -17027,6 +17909,12 @@
             "value": "aguarde"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "aguardar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -17141,6 +18029,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O histórico de preços também será apagado."
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "O histórico de preços também será apagado."
@@ -17266,6 +18160,12 @@
             "value": "Apagar “%@”?"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar “%@”?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -17381,6 +18281,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar…"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Editar…"
@@ -17506,6 +18412,12 @@
             "value": "Moeda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moeda"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -17620,6 +18532,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desejo"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Desejo"
@@ -17744,6 +18662,12 @@
             "value": "Link"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligação"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -17864,6 +18788,12 @@
             "value": "Nome"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nome"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -17978,6 +18908,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novo desejo"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Novo desejo"
@@ -18103,6 +19039,12 @@
             "value": "Nota"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -18218,6 +19160,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preço"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Preço"
@@ -18342,6 +19290,12 @@
             "value": "Prioridade: %@ (1 é a mais alta)"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prioridade: %@ (1 é a mais alta)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -18461,6 +19415,12 @@
             "value": "Abrir link"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir ligação"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -18576,6 +19536,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Mais"
@@ -18700,6 +19666,12 @@
             "value": "sem preço"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sem preço"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -18814,6 +19786,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preço…"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Preço…"
@@ -18938,6 +19916,12 @@
             "value": "Prioridade %lld"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prioridade %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -19052,6 +20036,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar desejo"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Adicionar desejo"
@@ -19176,6 +20166,12 @@
             "value": "Nada por enquanto. Adicione o que deseja comprar e o app mostrará quantos meses leva para juntar o dinheiro e quando o preço está bom."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não há desejos. Adicione o que quer comprar — a aplicação indica quantos meses precisa de poupar e quando o preço é favorável."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -19290,6 +20286,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quero comprar"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Quero comprar"
