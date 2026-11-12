@@ -16,6 +16,12 @@
             "value": "El nombre con el que CoinGecko conoce la moneda: bitcoin, ethereum, tether. No más de 4 cifras decimales: el dinero se guarda con precisión de 1/10 000."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le nom sous lequel CoinGecko connaît la pièce : bitcoin, ethereum, tether. Pas plus de 4 chiffres après la virgule : l'argent est gardé au 1/10 000."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
             "value": "Id de la moneda"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Identifiant de la pièce"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -72,6 +84,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El id de la moneda son letras latinas minúsculas, cifras y guiones."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'identifiant de la pièce : lettres latines minuscules, chiffres et tirets."
           }
         },
         "ru": {
@@ -104,6 +122,12 @@
             "value": "Tipo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cours"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -131,6 +155,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipos de cripto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cours des cryptomonnaies"
           }
         },
         "ru": {
@@ -162,6 +192,12 @@
             "value": "Desde la red (CoinGecko)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Depuis le réseau (CoinGecko)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -189,6 +225,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A api.coingecko.com solo se envían el id de la moneda y la divisa (rublos). Sin red se conserva el último tipo, con su fecha."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seuls l'identifiant de la pièce et la devise (roubles) sont envoyés à api.coingecko.com. Sans réseau, le dernier cours reste, avec sa date."
           }
         },
         "ru": {
@@ -220,6 +262,12 @@
             "value": "A mano"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À la main"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -247,6 +295,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Añadir una oferta…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajouter une offre…"
           }
         },
         "ru": {
@@ -279,6 +333,12 @@
             "value": "desde %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "à partir de %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -303,6 +363,12 @@
           }
         },
         "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – %@"
+          }
+        },
+        "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ – %@"
@@ -337,6 +403,12 @@
             "value": "hasta %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "jusqu'à %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -364,6 +436,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo máximo medio de los depósitos en rublos de los diez bancos con más depósitos: %1$@ %% anual, a %2$@. Una guía del mercado, no el tipo de ningún banco."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux maximal moyen sur les dépôts en roubles des dix banques qui en ont le plus : %1$@ %% par an, au %2$@. Un repère pour le marché, pas le taux d'une banque."
           }
         },
         "ru": {
@@ -395,6 +473,12 @@
             "value": "Según el Banco de Rusia"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selon la Banque de Russie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -422,6 +506,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los tipos difieren: %1$@ — %2$@ %%, %3$@ — %4$@ %%. Conviene comprobarlo en la web del banco."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les taux diffèrent : %1$@ — %2$@ %%, %3$@ — %4$@ %%. À vérifier sur le site de la banque."
           }
         },
         "ru": {
@@ -454,6 +544,12 @@
             "value": "Importe"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -482,6 +578,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cualquiera"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tous"
           }
         },
         "ru": {
@@ -513,6 +615,12 @@
             "value": "Plazo, meses"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durée, mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -540,6 +648,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Con reposición"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avec versements complémentaires"
           }
         },
         "ru": {
@@ -572,6 +686,12 @@
             "value": "Banco"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banque"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -599,6 +719,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Editar la oferta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier l'offre"
           }
         },
         "ru": {
@@ -630,6 +756,12 @@
             "value": "Importe máximo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montant maximal"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -657,6 +789,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importe mínimo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montant minimal"
           }
         },
         "ru": {
@@ -688,6 +826,12 @@
             "value": "Nueva oferta"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouvelle offre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -715,6 +859,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solo clientes nuevos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveaux clients seulement"
           }
         },
         "ru": {
@@ -747,6 +897,12 @@
             "value": "Nota"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remarque"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -775,6 +931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo, % anual"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux, % par an"
           }
         },
         "ru": {
@@ -806,6 +968,12 @@
             "value": "El tipo es un número positivo, por ejemplo 15,5."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le taux est un nombre positif, par exemple 15,5."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -833,6 +1001,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo a fecha de"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux au"
           }
         },
         "ru": {
@@ -864,6 +1038,12 @@
             "value": "Requiere suscripción"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demande un abonnement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -891,6 +1071,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Plazo, meses"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durée, mois"
           }
         },
         "ru": {
@@ -922,6 +1108,12 @@
             "value": "Admite reposición"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versements complémentaires possibles"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -949,6 +1141,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "clientes nuevos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nouveaux clients"
           }
         },
         "ru": {
@@ -980,6 +1178,12 @@
             "value": "Nada cumple el filtro."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien ne correspond au filtre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1007,6 +1211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escaparate de depósitos…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitrine des dépôts…"
           }
         },
         "ru": {
@@ -1038,6 +1248,12 @@
             "value": "mi oferta"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mon offre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1065,6 +1281,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tomar los tipos de fuentes abiertas (solo sale del Mac la petición de la página)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prendre les taux de sources ouvertes (seule la requête de la page quitte le Mac)"
           }
         },
         "ru": {
@@ -1096,6 +1318,12 @@
             "value": "No se pudieron actualizar los tipos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de mettre à jour les taux"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1123,6 +1351,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "para %@: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pour %@ : %@"
           }
         },
         "ru": {
@@ -1154,6 +1388,12 @@
             "value": "para %lld m.: %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pour %lld mois : %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1181,6 +1421,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "con reposición: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "avec versements complémentaires : %@"
           }
         },
         "ru": {
@@ -1213,6 +1459,12 @@
             "value": "%@%%"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %%"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1240,6 +1492,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Consulte la web del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voir le site de la banque"
           }
         },
         "ru": {
@@ -1271,6 +1529,12 @@
             "value": "hasta %@%%"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "jusqu'à %@ %%"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1298,6 +1562,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "tipo a fecha de %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "taux au %@"
           }
         },
         "ru": {
@@ -1329,6 +1599,12 @@
             "value": "la lista de la app"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la liste de l'application"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1356,6 +1632,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "el Banco de Rusia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la Banque de Russie"
           }
         },
         "ru": {
@@ -1387,6 +1669,12 @@
             "value": "mi oferta"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mon offre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1414,6 +1702,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "puede haber cambiado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "peut avoir changé"
           }
         },
         "ru": {
@@ -1445,6 +1739,12 @@
             "value": "requiere suscripción"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "demande un abonnement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1472,6 +1772,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lo que publican los bancos ahora, por tipo. No es asesoramiento financiero: revise las condiciones en la web del banco."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que publient les banques aujourd'hui, par taux. Ce n'est pas un conseil financier : vérifiez les conditions sur le site de la banque."
           }
         },
         "ru": {
@@ -1503,6 +1809,12 @@
             "value": "desde %lld m."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "à partir de %lld mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1530,6 +1842,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld m."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld mois"
           }
         },
         "ru": {
@@ -1561,6 +1879,12 @@
             "value": "%lld–%lld m."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld–%lld mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1588,6 +1912,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "hasta %lld m."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "jusqu'à %lld mois"
           }
         },
         "ru": {
@@ -1619,6 +1949,12 @@
             "value": "Escaparate de depósitos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitrine des dépôts"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1646,6 +1982,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "sin reposición"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sans versement complémentaire"
           }
         },
         "ru": {
@@ -1677,6 +2019,12 @@
             "value": "se admite reposición"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "versement complémentaire autorisé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1704,6 +2052,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lista de bancos leída el %@; se actualiza con cada versión."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liste des banques lue le %@ ; elle est mise à jour à chaque version."
           }
         },
         "ru": {
@@ -1735,6 +2089,12 @@
             "value": "El depósito «%1$@» vence el %2$@. En el escaparate ahora (no es asesoramiento financiero):"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dépôt « %1$@ » arrive à échéance le %2$@. À la vitrine aujourd'hui (ce n'est pas un conseil financier) :"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1762,6 +2122,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tenencia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Placement"
           }
         },
         "ru": {
@@ -1793,6 +2159,12 @@
             "value": "Cupón"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coupon"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1822,6 +2194,12 @@
             "value": "Dividendos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividendes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1849,6 +2227,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abono previsto…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versement attendu…"
           }
         },
         "ru": {
@@ -1881,6 +2265,12 @@
             "value": "Abono"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1908,6 +2298,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nuevo abono"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveau versement"
           }
         },
         "ru": {
@@ -1939,6 +2335,12 @@
             "value": "Todavía no hay inversiones en Capital: añada una allí."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore de placement dans « Capital » : ajoutez-en un là-bas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1966,6 +2368,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ingreso ordinario"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenu ordinaire"
           }
         },
         "ru": {
@@ -1997,6 +2405,12 @@
             "value": "Un cupón que llega cada medio año es un ingreso periódico: elija «Periódico» arriba."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un coupon qui revient chaque semestre est un revenu régulier : choisissez « Régulier » ci-dessus."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2026,6 +2440,12 @@
             "value": "cupón"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "coupon"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2053,6 +2473,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "dividendos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dividendes"
           }
         },
         "ru": {

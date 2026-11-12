@@ -16,6 +16,12 @@
             "value": "Por encima del objetivo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Au-dessus de la cible"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -43,6 +49,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Según las reglas (como en el padre)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selon les règles (comme le parent)"
           }
         },
         "ru": {
@@ -74,6 +86,12 @@
             "value": "Por debajo del objetivo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En dessous de la cible"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -101,6 +119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@ frente a un objetivo de %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ pour une cible de %3$@"
           }
         },
         "ru": {
@@ -132,6 +156,12 @@
             "value": "Cesta de presupuesto"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Panier budgétaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -159,6 +189,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Necesidades"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besoins"
           }
         },
         "ru": {
@@ -190,6 +226,12 @@
             "value": "Sin ingresos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun revenu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -219,6 +261,12 @@
             "value": "En el objetivo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dans la cible"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -246,6 +294,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Su regla %1$lld / %2$lld / %3$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre règle %1$lld / %2$lld / %3$lld"
           }
         },
         "ru": {
@@ -278,6 +332,12 @@
             "value": "Ahorro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -307,6 +367,12 @@
             "value": "Deseos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -332,6 +398,12 @@
           }
         },
         "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
+        "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@"
@@ -366,6 +438,12 @@
             "value": "En este mes no hubo ingresos, así que no hay partes que repartir."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il n'y a pas eu de revenu ce mois-ci, donc il n'y a aucune part à prendre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -393,6 +471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El mes no ha terminado: las partes todavía cambiarán."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le mois n'est pas terminé : les parts vont encore changer."
           }
         },
         "ru": {
@@ -424,6 +508,12 @@
             "value": "Cestas de presupuesto"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paniers budgétaires"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -451,6 +541,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El dinero de las cuentas del colchón entre el gasto obligatorio de un día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'argent des comptes du matelas rapporté aux dépenses obligatoires d'un jour"
           }
         },
         "ru": {
@@ -507,6 +603,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Dura %lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tient %lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tient %lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tient %lld jours"
                 }
               }
             }
@@ -589,6 +709,12 @@
             "value": "El colchón tiene %1$@, gasto obligatorio ≈ %2$@ al día"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le matelas contient %1$@, dépenses obligatoires ≈ %2$@ par jour"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -616,6 +742,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No hay ninguna cuenta del colchón marcada: márquelas en la pantalla de Capital."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun compte de matelas n'est marqué : marquez-les sur l'écran « Capital »."
           }
         },
         "ru": {
@@ -647,6 +779,12 @@
             "value": "Todavía no se conoce el gasto obligatorio al mes."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les dépenses obligatoires par mois ne sont pas encore connues."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -674,6 +812,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Colchón en días"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas en jours"
           }
         },
         "ru": {
@@ -705,6 +849,12 @@
             "value": "Últimos 12 meses · hasta %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "12 derniers mois · jusqu'au %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -732,6 +882,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un número de cinco partes, con el desglose del que se compone"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un chiffre sur cinq parties, avec le détail dont il se compose"
           }
         },
         "ru": {
@@ -763,6 +919,12 @@
             "value": "%lld de 100"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld sur 100"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -790,6 +952,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No incluido por falta de datos: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non pris en compte faute de données : %@"
           }
         },
         "ru": {
@@ -821,6 +989,12 @@
             "value": "No contado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non compté"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -850,6 +1024,12 @@
             "value": "Necesita datos de al menos dos de las cinco partes: colchón, carga de deudas, tasa de ahorro, vencimientos atrasados, estabilidad de los ingresos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il faut des données pour au moins deux des cinq parties : matelas, poids des dettes, taux d'épargne, échéances en retard, stabilité des revenus."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -877,6 +1057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se calcula cada vez con sus datos, sin compararse con nadie. Una guía, no una calificación."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calculé à chaque fois à partir de vos données, sans comparaison avec personne. Un repère, pas une note."
           }
         },
         "ru": {
@@ -909,6 +1095,12 @@
             "value": "Colchón"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -939,6 +1131,12 @@
             "value": "Carga de deudas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poids des dettes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -966,6 +1164,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vencimientos atrasados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échéances en retard"
           }
         },
         "ru": {
@@ -998,6 +1202,12 @@
             "value": "Tasa de ahorro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux d'épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1027,6 +1237,12 @@
             "value": "Estabilidad de los ingresos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilité des revenus"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1054,6 +1270,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld sur %2$lld"
           }
         },
         "ru": {
@@ -1086,6 +1308,12 @@
             "value": "Salud financiera"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Santé financière"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1113,6 +1341,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La parte de los ingresos que queda tras los gastos · todos los ingresos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La part du revenu qui reste après les dépenses · tous les revenus"
           }
         },
         "ru": {
@@ -1144,6 +1378,12 @@
             "value": "La parte de los ingresos que queda tras los gastos · solo ganancias"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La part du revenu qui reste après les dépenses · les gains seulement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1171,6 +1411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ingresos %1$@ − gastos %2$@ = guardado %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenu %1$@ − dépenses %2$@ = gardé %3$@"
           }
         },
         "ru": {
@@ -1202,6 +1448,12 @@
             "value": "%1$@: se guarda el %2$@ de los ingresos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@ du revenu gardé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1229,6 +1481,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: sin ingresos, así que sin tasa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ : pas de revenu, donc pas de taux"
           }
         },
         "ru": {
@@ -1260,6 +1518,12 @@
             "value": "Hace falta al menos un mes con ingresos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il faut au moins un mois avec des revenus."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1287,6 +1551,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "* El mes no ha terminado: el gasto todavía está por llegar, así que la cifra parece mejor de lo que será."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "* Le mois n'est pas terminé : les dépenses sont encore à venir, donc le chiffre paraît meilleur qu'il ne sera."
           }
         },
         "ru": {
@@ -1318,6 +1588,12 @@
             "value": "%@, sin terminar todavía"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, pas encore terminé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1345,6 +1621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ (hasta ahora)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (pour l'instant)"
           }
         },
         "ru": {
@@ -1377,6 +1659,12 @@
             "value": "Tasa de ahorro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux d'épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1404,6 +1692,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entendido"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compris"
           }
         },
         "ru": {
@@ -1435,6 +1729,12 @@
             "value": "En 6 meses ingresos %1$@, gastos %2$@ frente a los 6 anteriores"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sur 6 mois, revenus %1$@, dépenses %2$@ contre les 6 précédents"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1462,6 +1762,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dejar de mostrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne plus afficher"
           }
         },
         "ru": {
@@ -1493,6 +1799,12 @@
             "value": "En 3 meses ingresos %1$@, gastos %2$@ frente a los mismos meses del año pasado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sur 3 mois, revenus %1$@, dépenses %2$@ contre les mêmes mois l'an dernier"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1520,6 +1832,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Préstamos, suscripciones y gastos necesarios frente a los ingresos habituales"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crédits, abonnements et dépenses nécessaires, rapportés aux revenus habituels"
           }
         },
         "ru": {
@@ -1551,6 +1869,12 @@
             "value": "Obligatorio ≈ %1$@ al mes, queda %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obligatoire ≈ %1$@ par mois, reste %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1578,6 +1902,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se lleva el %1$@ de los ingresos · %2$@ para maniobrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ du revenu est pris · %2$@ de marge"
           }
         },
         "ru": {
@@ -1609,6 +1939,12 @@
             "value": "En estos meses no hubo ingresos, así que no hay partes que repartir."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ces mois n'ont pas apporté de revenu, donc il n'y a aucune part à prendre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1636,6 +1972,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Todavía no se conoce el gasto obligatorio: hacen falta algunos meses completos y categorías marcadas como necesarias."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les dépenses obligatoires ne sont pas encore connues : il faut quelques mois complets et des catégories marquées comme nécessaires."
           }
         },
         "ru": {
@@ -1667,6 +2009,12 @@
             "value": "Parte del gasto obligatorio"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Part des dépenses obligatoires"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1694,6 +2042,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los tres primeros días tras un ingreso frente al resto del mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les trois premiers jours après un revenu, comparés au reste du mois"
           }
         },
         "ru": {
@@ -1725,6 +2079,12 @@
             "value": "%1$@ al día tras un ingreso frente a %2$@ en un día habitual"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ par jour après un revenu, contre %2$@ un jour ordinaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1752,6 +2112,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En los tres primeros días gasta %@× más"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les trois premiers jours, vous dépensez %@× plus"
           }
         },
         "ru": {
@@ -1783,6 +2149,12 @@
             "value": "Hacen falta al menos dos ingresos previstos terminados y siete días habituales para comparar."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il faut au moins deux revenus attendus terminés et sept jours ordinaires pour comparer."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1810,6 +2182,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Efecto del sueldo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effet du salaire"
           }
         },
         "ru": {
@@ -1841,6 +2219,12 @@
             "value": "Tasa de ahorro solo con ganancias"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux d'épargne sur les gains seulement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1868,6 +2252,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El cashback, los intereses y los excedentes entonces no cuentan como ingreso para la tasa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le cashback, les intérêts et les excédents ne sont alors pas des revenus pour le taux"
           }
         },
         "ru": {
@@ -1899,6 +2289,12 @@
             "value": "Las proporciones y los interruptores se guardan en la base de datos y viajan con el archivo. La cesta de cada categoría se fija en Categorías."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les proportions et les interrupteurs sont gardés dans la base et voyagent avec l'archive. Le panier d'une catégorie se règle dans « Catégories »."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1926,6 +2322,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Necesidades: %lld%%"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besoins : %lld%%"
           }
         },
         "ru": {
@@ -1957,6 +2359,12 @@
             "value": "Necesidades"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Besoins"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1984,6 +2392,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Volver a 50 / 30 / 20"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenir à 50 / 30 / 20"
           }
         },
         "ru": {
@@ -2016,6 +2430,12 @@
             "value": "Ahorro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2043,6 +2463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lo que falta para llegar a cien"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce qui reste pour faire cent"
           }
         },
         "ru": {
@@ -2075,6 +2501,12 @@
             "value": "Ingresos y ahorro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenus et épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2102,6 +2534,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Avisar cuando el gasto supere a los ingresos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signaler quand les dépenses dépassent les revenus"
           }
         },
         "ru": {
@@ -2133,6 +2571,12 @@
             "value": "Una línea en «Merece una mirada», como mucho una vez por trimestre"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une ligne dans « À regarder de plus près », au plus une fois par trimestre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2160,6 +2604,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deseos: %lld%%"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envies : %lld%%"
           }
         },
         "ru": {
@@ -2191,6 +2641,12 @@
             "value": "Deseos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2220,6 +2676,12 @@
             "value": "Un mes malo para los planes: %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un mauvais mois pour les projets : %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2247,6 +2709,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Meses completos anteriores a este, como máximo 24"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mois complets avant celui-ci, 24 au plus"
           }
         },
         "ru": {
@@ -2303,6 +2771,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Pocos datos: hasta ahora solo %lld meses"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Peu de données : seulement %lld mois pour l'instant"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Peu de données : seulement %lld mois pour l'instant"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Peu de données : seulement %lld mois pour l'instant"
                 }
               }
             }
@@ -2385,6 +2877,12 @@
             "value": "Hacen falta al menos %1$lld meses completos con ingresos; hasta ahora hay %2$lld."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il faut au moins %1$lld mois complets avec des revenus, il y en a %2$lld pour l'instant."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2412,6 +2910,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los ingresos son estables"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les revenus sont réguliers"
           }
         },
         "ru": {
@@ -2443,6 +2947,12 @@
             "value": "Estabilidad de los ingresos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilité des revenus"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2470,6 +2980,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los ingresos oscilan"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les revenus fluctuent"
           }
         },
         "ru": {
@@ -2501,6 +3017,12 @@
             "value": "Un mes habitual: de %1$@ a %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un mois habituel : de %1$@ à %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2528,6 +3050,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Partes contadas: %1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parties comptées : %1$lld sur %2$lld"
           }
         },
         "ru": {
@@ -2560,6 +3088,12 @@
             "value": "%1$@: %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2587,6 +3121,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ · hasta ahora"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · pour l'instant"
           }
         },
         "ru": {
@@ -2618,6 +3158,12 @@
             "value": "El gasto no crece más deprisa que los ingresos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les dépenses ne croissent pas plus vite que les revenus."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2645,6 +3191,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Necesita más de un año de historial, o al menos un año de meses, y unos ingresos con los que comparar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il faut plus d'un an d'historique, ou au moins un an de mois, et un revenu à comparer."
           }
         },
         "ru": {
@@ -2676,6 +3228,12 @@
             "value": "El gasto crece más deprisa que los ingresos. Conviene fijarse antes de que se convierta en costumbre."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les dépenses croissent plus vite que les revenus. Mieux vaut le remarquer avant que cela devienne une habitude."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2703,6 +3261,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostrarlo en «Merece una mirada»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'afficher dans « À regarder de plus près »"
           }
         },
         "ru": {
@@ -2734,6 +3298,12 @@
             "value": "Comparado con los meses inmediatamente anteriores, no con el año pasado: verano frente a invierno no es una comparación justa."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comparé aux mois qui précèdent, pas à l'an dernier : l'été face à l'hiver n'est pas une comparaison équitable."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2761,6 +3331,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En 6 meses ingresos %1$@, gastos %2$@ frente a los 6 anteriores"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sur 6 mois, revenus %1$@, dépenses %2$@ contre les 6 précédents"
           }
         },
         "ru": {
@@ -2792,6 +3368,12 @@
             "value": "Dejar de mostrarlo en «Merece una mirada»"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne plus l'afficher dans « À regarder de plus près »"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2821,6 +3403,12 @@
             "value": "El gasto sigue a los ingresos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les dépenses suivent les revenus"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2848,6 +3436,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En 3 meses ingresos %1$@, gastos %2$@ frente a los mismos meses del año pasado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sur 3 mois, revenus %1$@, dépenses %2$@ contre les mêmes mois l'an dernier"
           }
         },
         "ru": {
@@ -2880,6 +3474,12 @@
             "value": "Colchón"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2910,6 +3510,12 @@
             "value": "Carga de deudas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poids des dettes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2937,6 +3543,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vencimientos atrasados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échéances en retard"
           }
         },
         "ru": {
@@ -2969,6 +3581,12 @@
             "value": "Tasa de ahorro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux d'épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2996,6 +3614,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Estabilidad de los ingresos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilité des revenus"
           }
         },
         "ru": {
@@ -3027,6 +3651,12 @@
             "value": "No contado, sin datos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non compté, pas de données"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3054,6 +3684,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se pueden contar muy pocas partes para dar un número."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trop peu de parties peuvent être comptées pour donner un chiffre."
           }
         },
         "ru": {
@@ -3085,6 +3721,12 @@
             "value": "Las partes no incluidas no puntúan cero: las demás se escalan a cien. El número no se compara con nadie."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les parties non prises en compte ne valent pas zéro : les autres sont ramenées sur cent. Le chiffre n'est comparé à personne."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3112,6 +3754,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Colchón (de %@)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas (sur %@)"
           }
         },
         "ru": {
@@ -3143,6 +3791,12 @@
             "value": "Carga de deudas (de %@)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poids des dettes (sur %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3170,6 +3824,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vencimientos atrasados (de %@)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échéances en retard (sur %@)"
           }
         },
         "ru": {
@@ -3201,6 +3861,12 @@
             "value": "Tasa de ahorro (de %@)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux d'épargne (sur %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3228,6 +3894,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Estabilidad de los ingresos (de %@)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilité des revenus (sur %@)"
           }
         },
         "ru": {
@@ -3260,6 +3932,12 @@
             "value": "Salud financiera"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Santé financière"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3287,6 +3965,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pasado al colchón (no gastado)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mis dans le matelas (non dépensé)"
           }
         },
         "ru": {
@@ -3318,6 +4002,12 @@
             "value": "No hay categoría «Ganancias», así que se cuentan todos los ingresos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il n'y a pas de catégorie « Gains », donc tous les revenus sont comptés."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3345,6 +4035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aportado a objetivos (apartado, no gastado)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mis dans les objectifs (mis de côté, non dépensé)"
           }
         },
         "ru": {
@@ -3377,6 +4073,12 @@
             "value": "Ingresos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3404,6 +4106,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guardado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gardé"
           }
         },
         "ru": {
@@ -3435,6 +4143,12 @@
             "value": "Todavía no hay ingresos en este mes, así que no hay tasa."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il n'y a pas encore de revenu ce mois-ci, donc pas de taux."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3462,6 +4176,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El mes no ha terminado: el gasto todavía está por llegar, así que la tasa parece mejor de lo que será."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le mois n'est pas terminé : les dépenses sont encore à venir, donc le taux paraît meilleur qu'il ne sera."
           }
         },
         "ru": {
@@ -3494,6 +4214,12 @@
             "value": "Tasa de ahorro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taux d'épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3521,6 +4247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mi gasto sin aportaciones a objetivos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes dépenses hors contributions aux objectifs"
           }
         },
         "ru": {

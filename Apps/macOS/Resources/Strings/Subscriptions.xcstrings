@@ -17,6 +17,12 @@
             "value": "Cancelar desde…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Résilier depuis…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir la página de cancelación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir la page de résiliation"
           }
         },
         "ru": {
@@ -77,6 +89,12 @@
             "value": "Editar pago…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier le paiement…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -105,6 +123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Condiciones…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conditions…"
           }
         },
         "ru": {
@@ -137,6 +161,12 @@
             "value": "Usada hoy"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilisé aujourd'hui"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qué se podría cancelar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce qui pourrait être résilié"
           }
         },
         "ru": {
@@ -197,6 +233,12 @@
             "value": "Cancelar…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Résilier…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -225,6 +267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Del mismo tipo, %1$@: %2$@ — %3$@ al mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Même type, %1$@ : %2$@ — %3$@ par mois"
           }
         },
         "ru": {
@@ -257,6 +305,12 @@
             "value": "Conservar todas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout garder"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -285,6 +339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Necesaria"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nécessaire"
           }
         },
         "ru": {
@@ -317,6 +377,12 @@
             "value": "ahorra %@ al año"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "économise %@ par an"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -345,6 +411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ cuesta %2$@ al año, último uso el %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ coûte %2$@ par an, dernière utilisation le %3$@"
           }
         },
         "ru": {
@@ -377,6 +449,12 @@
             "value": "%1$@ cuesta %2$@ al año y no tiene ninguna señal de uso"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ coûte %2$@ par an et n'a aucune trace d'utilisation"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -405,6 +483,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los cargos de App Store llegan como una sola línea («APPLE.COM/BILL») y no se distinguen: anote las suscripciones a mano."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les prélèvements de l'App Store arrivent sous une seule ligne (« APPLE.COM/BILL ») et ne peuvent pas être distingués : répartissez les abonnements à la main."
           }
         },
         "ru": {
@@ -462,6 +546,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld cargos"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld prélèvements"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld prélèvement"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld prélèvements"
                 }
               }
             }
@@ -545,6 +653,12 @@
             "value": "próximo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "à venir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -573,6 +687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No hay cargos de suscripciones este mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun prélèvement d'abonnement ce mois-ci"
           }
         },
         "ru": {
@@ -605,6 +725,12 @@
             "value": "Solo suscripciones"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnements seulement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -633,6 +759,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "cobrado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "prélevé"
           }
         },
         "ru": {
@@ -665,6 +797,12 @@
             "value": "%@ en el mes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ dans le mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -693,6 +831,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cancelar suscripción"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Résilier l'abonnement"
           }
         },
         "ru": {
@@ -725,6 +869,12 @@
             "value": "Cancelar desde"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Résilier à partir du"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -753,6 +903,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sigue activa hasta ese día; su historial se queda."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il court jusqu'à ce jour ; son historique reste."
           }
         },
         "ru": {
@@ -785,6 +941,12 @@
             "value": "Cancelar %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Résilier %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -815,6 +977,12 @@
             "value": "Todavía no hay suscripciones. Añada una en Planificación, o tome una que sugieran las compras."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore d'abonnement. Ajoutez-en un dans la Planification, ou reprenez-en un que les achats suggèrent."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -843,6 +1011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Suscripciones al mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnements par mois"
           }
         },
         "ru": {
@@ -900,6 +1074,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld suscripciones no se cuentan: no hay tipo para sus divisas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld abonnements ne sont pas comptés : pas de taux pour leur devise"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld abonnement n'est pas compté : pas de taux pour sa devise"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld abonnements ne sont pas comptés : pas de taux pour leur devise"
                 }
               }
             }
@@ -983,6 +1181,12 @@
             "value": "%1$@ al año · ≈ %2$@ al día"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ par an · ≈ %2$@ par jour"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1011,6 +1215,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ cobró %2$@ en lugar del habitual %3$@–%4$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ a prélevé %2$@ au lieu de l'habituel %3$@–%4$@"
           }
         },
         "ru": {
@@ -1043,6 +1253,12 @@
             "value": "Aplazar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reporter"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1071,6 +1287,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hoy %1$@ cobra %2$@: termina la prueba"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aujourd'hui %1$@ prélève %2$@ : l'essai se termine"
           }
         },
         "ru": {
@@ -1103,6 +1325,12 @@
             "value": "Mañana %1$@ cobra %2$@: termina la prueba"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demain %1$@ prélève %2$@ : l'essai se termine"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1131,6 +1359,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cargo anual de %1$@ el %2$@: %3$@. ¿Renovar?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prélèvement annuel de %1$@ le %2$@ : %3$@. Renouveler ?"
           }
         },
         "ru": {
@@ -1163,6 +1397,12 @@
             "value": "Merece una mirada"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À regarder de plus près"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1193,6 +1433,12 @@
             "value": "Todas las suscripciones…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tous les abonnements…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1221,6 +1467,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "cada mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chaque mois"
           }
         },
         "ru": {
@@ -1278,6 +1530,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "cada %lld meses"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "tous les %lld mois"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "tous les %lld mois"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "tous les %lld mois"
                 }
               }
             }
@@ -1361,6 +1637,12 @@
             "value": "cada semana"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chaque semaine"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1389,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "cada año"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chaque année"
           }
         },
         "ru": {
@@ -1446,6 +1734,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "cada %lld años"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "tous les %lld ans"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "tous les %lld an"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "tous les %lld ans"
                 }
               }
             }
@@ -1529,6 +1841,12 @@
             "value": "Unos %1$@ ±%2$@: se espera entre %3$@ y %4$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Environ %1$@ ±%2$@ : %3$@–%4$@ attendu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1557,6 +1875,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un cargo %1$@, %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un prélèvement %1$@, %2$@"
           }
         },
         "ru": {
@@ -1589,6 +1913,12 @@
             "value": "Doce meses cuestan %1$@, menos que el año a %2$@ (en %3$@)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Douze mois coûtent %1$@, moins que l'année à %2$@ (soit %3$@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1617,6 +1947,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un año cuesta lo mismo que doce meses: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une année coûte autant que douze mois : %@"
           }
         },
         "ru": {
@@ -1649,6 +1985,12 @@
             "value": "Un año a %1$@ en lugar de %2$@ por doce meses: ahorra %3$@ (%4$@), como %5$@ meses"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une année à %1$@ au lieu de %2$@ pour douze mois : économise %3$@ (%4$@), soit %5$@ mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1677,6 +2019,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ al mes · %2$@ al año"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ par mois · %2$@ par an"
           }
         },
         "ru": {
@@ -1709,6 +2057,12 @@
             "value": "Cancelada, sigue activa hasta el %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Résilié, court jusqu'au %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1737,6 +2091,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Compartida con %1$@: su parte %2$@ de %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partagé avec %1$@ : votre part %2$@ sur %3$@"
           }
         },
         "ru": {
@@ -1769,6 +2129,12 @@
             "value": "Historial de precios"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historique des prix"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1797,6 +2163,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Marcada como necesaria: nunca se sugiere cancelarla"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marqué comme nécessaire : jamais proposé à la résiliation"
           }
         },
         "ru": {
@@ -1829,6 +2201,12 @@
             "value": "Sin tipo para %@: no está en los totales"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de taux pour %@ : hors des totaux"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1857,6 +2235,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Prueba hasta el %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essai jusqu'au %@"
           }
         },
         "ru": {
@@ -1889,6 +2273,12 @@
             "value": "Cara y sin usar desde hace mucho"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cher et pas utilisé depuis longtemps"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1917,6 +2307,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usada en %1$@ de los últimos 30 días · ≈ %2$@ por uso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilisé le %1$@ sur les 30 derniers jours · ≈ %2$@ par utilisation"
           }
         },
         "ru": {
@@ -1949,6 +2345,12 @@
             "value": "No se usó en los últimos 30 días, la última vez el %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas utilisé sur les 30 derniers jours, dernière fois le %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1977,6 +2379,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@ → %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@ → %3$@"
           }
         },
         "ru": {
@@ -2009,6 +2417,12 @@
             "value": "Bajó %1$@ en rublos: servicio %2$@ (%3$@), tipo de cambio %4$@ (%5$@)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baissé de %1$@ en roubles : service %2$@ (%3$@), cours de change %4$@ (%5$@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2037,6 +2451,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Subió %1$@ en rublos: servicio %2$@ (%3$@), tipo de cambio %4$@ (%5$@)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monté de %1$@ en roubles : service %2$@ (%3$@), cours de change %4$@ (%5$@)"
           }
         },
         "ru": {
@@ -2069,6 +2489,12 @@
             "value": "Todo lo que se cobra solo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout ce qui se prélève tout seul"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2097,6 +2523,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cancelar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler"
           }
         },
         "ru": {
@@ -2129,6 +2561,12 @@
             "value": "El importe es «unos N»"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le montant est « environ N »"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2157,6 +2595,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un plan mensual cuesta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un forfait mensuel coûte"
           }
         },
         "ru": {
@@ -2189,6 +2633,12 @@
             "value": "Necesaria"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nécessaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2217,6 +2667,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una suscripción marcada como necesaria nunca se sugiere cancelar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un abonnement marqué comme nécessaire n'est jamais proposé à la résiliation."
           }
         },
         "ru": {
@@ -2249,6 +2705,12 @@
             "value": "La uso yo también"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je l'utilise aussi"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2277,6 +2739,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quién la usa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qui l'utilise"
           }
         },
         "ru": {
@@ -2309,6 +2777,12 @@
             "value": "Añada personas en Ajustes → Libros de referencia para repartir el coste."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajoutez des personnes dans Réglages → Références pour partager le coût."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2337,6 +2811,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El otro plan"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'autre forfait"
           }
         },
         "ru": {
@@ -2369,6 +2849,12 @@
             "value": "Guardar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2397,6 +2883,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Condiciones de %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conditions de %@"
           }
         },
         "ru": {
@@ -2429,6 +2921,12 @@
             "value": "Tolerancia ±%@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tolérance ±%@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2457,6 +2955,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Calcular la tolerancia a partir del historial"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calculer la tolérance d'après l'historique"
           }
         },
         "ru": {
@@ -2489,6 +2993,12 @@
             "value": "Tipo de servicio"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type de service"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2517,6 +3027,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Según la lista"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "D'après la liste"
           }
         },
         "ru": {
@@ -2549,6 +3065,12 @@
             "value": "Un plan anual cuesta"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un forfait annuel coûte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2577,6 +3099,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recordar dos semanas antes de un cargo anual"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rappeler deux semaines avant un prélèvement annuel"
           }
         },
         "ru": {
@@ -2634,6 +3162,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld suscripciones"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld abonnements"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld abonnement"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld abonnements"
                 }
               }
             }
@@ -2717,6 +3269,12 @@
             "value": "No hay suscripciones"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun abonnement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2745,6 +3303,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ al año · ≈ %2$@ al día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ par an · ≈ %2$@ par jour"
           }
         },
         "ru": {
@@ -2777,6 +3341,12 @@
             "value": "Suscripciones"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnements"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2805,6 +3375,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Asistente de IA"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assistant IA"
           }
         },
         "ru": {
@@ -2837,6 +3413,12 @@
             "value": "Libros"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Livres"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2865,6 +3447,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Almacenamiento en la nube"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage en nuage"
           }
         },
         "ru": {
@@ -2897,6 +3485,12 @@
             "value": "Música"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Musique"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2925,6 +3519,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Otro"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autre"
           }
         },
         "ru": {
@@ -2957,6 +3557,12 @@
             "value": "Vídeo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vidéo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2985,6 +3591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No hay suscripciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun abonnement"
           }
         },
         "ru": {
@@ -3017,6 +3629,12 @@
             "value": "Al mes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Par mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3045,6 +3663,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sin tipo para: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de taux pour : %@"
           }
         },
         "ru": {

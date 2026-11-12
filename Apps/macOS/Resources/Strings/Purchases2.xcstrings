@@ -16,6 +16,12 @@
             "value": "Cumpleaños de %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaire de %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -43,6 +49,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Crear un evento con el presupuesto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créer un événement avec le budget"
           }
         },
         "ru": {
@@ -74,6 +86,12 @@
             "value": "Evento creado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Événement créé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -103,6 +121,12 @@
             "value": "cumpleaños"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "anniversaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -130,6 +154,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El evento no se creó: ya hay uno igual"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'événement n'a pas été créé : un semblable existe déjà"
           }
         },
         "ru": {
@@ -186,6 +216,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "cumple %lld años"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ans"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld an"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ans"
                 }
               }
             }
@@ -268,6 +322,12 @@
             "value": "Cumpleaños de %1$@, presupuesto %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaire de %1$@, budget %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -295,6 +355,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Crear evento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créer l'événement"
           }
         },
         "ru": {
@@ -326,6 +392,12 @@
             "value": "Abonado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crédité"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -353,6 +425,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Devoluciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remboursements"
           }
         },
         "ru": {
@@ -384,6 +462,12 @@
             "value": "Lista de deseos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liste d'envies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -411,6 +495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: cumpleaños el %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : anniversaire le %2$@"
           }
         },
         "ru": {
@@ -442,6 +532,12 @@
             "value": "%1$@: cumpleaños el %2$@, presupuesto de regalo %3$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : anniversaire le %2$@, budget cadeau %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -469,6 +565,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: cumpleaños hoy"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ : anniversaire aujourd'hui"
           }
         },
         "ru": {
@@ -500,6 +602,12 @@
             "value": "%1$@: cumpleaños hoy, presupuesto de regalo %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : anniversaire aujourd'hui, budget cadeau %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -529,6 +637,12 @@
             "value": "Cumpleaños: %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaire : %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -556,6 +670,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La devolución de «%1$@», %2$@, espera a que se abone"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement de « %1$@ », %2$@, attend d'être crédité"
           }
         },
         "ru": {
@@ -612,6 +732,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours"
                 }
               }
             }
@@ -694,6 +838,12 @@
             "value": "La devolución de «%1$@», %2$@, va con retraso"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement de « %1$@ », %2$@, est en retard"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -721,6 +871,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La devolución de %@ va con retraso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement de %@ est en retard"
           }
         },
         "ru": {
@@ -752,6 +908,12 @@
             "value": "La devolución de %@ espera a que se abone"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le remboursement de %@ attend d'être crédité"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -779,6 +941,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "¿Algún arrepentimiento por «%1$@» (%2$@, %3$@)?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets pour « %1$@ » (%2$@, %3$@) ?"
           }
         },
         "ru": {
@@ -810,6 +978,12 @@
             "value": "¿Algún arrepentimiento por la compra en «%1$@» del %2$@ (%3$@)?"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets pour l'achat dans « %1$@ » du %2$@ (%3$@) ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -837,6 +1011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "¿Algún arrepentimiento por la compra del %1$@ (%2$@)?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets pour l'achat du %1$@ (%2$@) ?"
           }
         },
         "ru": {
@@ -893,6 +1073,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld compras más esperan respuesta"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld autres achats attendent une réponse"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld autre achat attend une réponse"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld autres achats attendent une réponse"
                 }
               }
             }
@@ -975,6 +1179,12 @@
             "value": "¿Algún arrepentimiento por la compra en %1$@ del %2$@ (%3$@)?"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets pour l'achat chez %1$@ le %2$@ (%3$@) ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1004,6 +1214,12 @@
             "value": "una compra"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "un achat"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1031,6 +1247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@» ya se puede comprar: %2$@ ahorrados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« %1$@ » peut être acheté : %2$@ épargnés"
           }
         },
         "ru": {
@@ -1063,6 +1285,12 @@
             "value": "Cumpleaños"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1090,6 +1318,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Poner cumpleaños"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Définir l'anniversaire"
           }
         },
         "ru": {
@@ -1122,6 +1356,12 @@
             "value": "Día"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jour"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1150,6 +1390,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mois"
           }
         },
         "ru": {
@@ -1181,6 +1427,12 @@
             "value": "Quitar cumpleaños"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer l'anniversaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1208,6 +1460,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Año (opcional)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Année (facultatif)"
           }
         },
         "ru": {
@@ -1240,6 +1498,12 @@
             "value": "Año"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Année"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1269,6 +1533,12 @@
             "value": "Presupuesto para regalos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budget cadeau"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1296,6 +1566,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una semana antes del cumpleaños la app se lo recuerda y ofrece un evento con este presupuesto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une semaine avant l'anniversaire, l'app vous le rappelle et propose un événement avec ce budget."
           }
         },
         "ru": {
@@ -1328,6 +1604,12 @@
             "value": "%1$@: %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1355,6 +1637,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@, presupuesto %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ : %2$@, budget %3$@"
           }
         },
         "ru": {
@@ -1386,6 +1674,12 @@
             "value": "Próximos cumpleaños"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anniversaires les plus proches"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1413,6 +1707,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: hoy"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ : aujourd'hui"
           }
         },
         "ru": {
@@ -1444,6 +1744,12 @@
             "value": "Descuento %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remise %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1471,6 +1777,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descuento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remise"
           }
         },
         "ru": {
@@ -1502,6 +1814,12 @@
             "value": "Escriba los kilómetros; el kilometraje se cuenta desde el último repostaje."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez les kilomètres ; le kilométrage se calcule depuis le dernier plein."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1529,6 +1847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Este es el primer repostaje con kilometraje. Escriba lo que muestra el cuadro de mandos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C'est le premier plein avec un kilométrage. Saisissez ce qu'affiche le tableau de bord."
           }
         },
         "ru": {
@@ -1560,6 +1884,12 @@
             "value": "Kilometraje"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilométrage"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1589,6 +1919,12 @@
             "value": "Kilómetros"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilomètres"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1616,6 +1952,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "¿Cuántos kilómetros recorrió desde el último repostaje?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Combien de kilomètres avez-vous roulé depuis le dernier plein ?"
           }
         },
         "ru": {
@@ -1648,6 +1990,12 @@
             "value": "Guardar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1675,6 +2023,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kilometraje, km"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilométrage, km"
           }
         },
         "ru": {
@@ -1706,6 +2060,12 @@
             "value": "No lo recuerdo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je ne sais plus"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1735,6 +2095,12 @@
             "value": "%1$@ es el %2$@ % del dinero que puede gastar ahora. Puede registrarla o esperar."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ représente %2$@ %% de l'argent que vous pouvez dépenser maintenant. Vous pouvez le noter ou attendre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1762,6 +2128,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@, y no se cuenta dinero libre. Puede registrarla o esperar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, et aucun argent libre n'est compté. Vous pouvez le noter ou attendre."
           }
         },
         "ru": {
@@ -1794,6 +2166,12 @@
             "value": "Registrar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1823,6 +2201,12 @@
             "value": "¿Esperar con la compra?"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attendre avant cet achat ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1850,6 +2234,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ya abonado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déjà crédité"
           }
         },
         "ru": {
@@ -1882,6 +2272,12 @@
             "value": "Esperando el dinero"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente de l'argent"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1909,6 +2305,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Espera que se abone el"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente d'être crédité par"
           }
         },
         "ru": {
@@ -1940,6 +2342,12 @@
             "value": "Sin arrepentimientos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun regret"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1969,6 +2377,12 @@
             "value": "No volver a preguntar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus demandé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1996,6 +2410,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Me arrepiento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regretté"
           }
         },
         "ru": {
@@ -2028,6 +2448,12 @@
             "value": "Cambiar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2055,6 +2481,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sin arrepentimientos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun regret"
           }
         },
         "ru": {
@@ -2086,6 +2518,12 @@
             "value": "No preguntar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne pas demander"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2115,6 +2553,12 @@
             "value": "¿Algún arrepentimiento?"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Des regrets ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2142,6 +2586,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Me arrepiento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je le regrette"
           }
         },
         "ru": {

@@ -17,6 +17,12 @@
             "value": "No mover"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne pas déplacer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cuenta sin nombre en el archivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compte non nommé dans le fichier"
           }
         },
         "ru": {
@@ -77,6 +89,12 @@
             "value": "Cuentas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -105,6 +123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Adónde van las operaciones de cada cuenta de la otra app. «No mover» las deja fuera. Las cuentas ocultas se ofrecen solo mientras se muestran."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où vont les opérations de chaque compte de l'autre app. « Ne pas déplacer » les laisse de côté. Les comptes masqués ne sont proposés que lorsqu'ils sont affichés."
           }
         },
         "ru": {
@@ -137,6 +161,12 @@
             "value": "Otro archivo…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un autre fichier…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -167,6 +197,12 @@
             "value": "Traer"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -195,6 +231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categorías"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégories"
           }
         },
         "ru": {
@@ -252,6 +294,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Crear %lld categorías que faltan"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Créer %lld catégories manquantes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Créer %lld catégorie manquante"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Créer %lld catégories manquantes"
                 }
               }
             }
@@ -335,6 +401,12 @@
             "value": "Se emparejan por nombre y significado («Restaurantes» → «Cafeterías»). Una categoría nueva se crea solo donde elija «Crear»."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appariées par nom et sens (« Restaurants » → « Cafés »). Une nouvelle catégorie n'est créée que là où vous choisissez « Créer »."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -363,6 +435,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El archivo no tiene categorías: todo va a «Sin clasificar»."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier n'a pas de catégories : tout va dans « Non classées »."
           }
         },
         "ru": {
@@ -395,6 +473,12 @@
             "value": "Crear «%@»"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créer « %@ »"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -423,6 +507,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sin clasificar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non classées"
           }
         },
         "ru": {
@@ -455,6 +545,12 @@
             "value": "Elegir archivo…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir le fichier…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -483,6 +579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Listo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminé"
           }
         },
         "ru": {
@@ -515,6 +617,12 @@
             "value": "Qué contiene cada columna. Su elección se recuerda para el siguiente archivo con las mismas columnas."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que contient chaque colonne. Votre choix est retenu pour le prochain fichier aux mêmes colonnes."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -543,6 +651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elija la columna de fecha y el importe (o las columnas de ingreso y gasto)."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez la colonne de date et le montant (ou les colonnes revenus et dépenses)."
           }
         },
         "ru": {
@@ -575,6 +689,12 @@
             "value": "Operaciones leídas: %lld · líneas no leídas: %lld"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opérations lues : %lld · lignes non lues : %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -603,6 +723,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fechas como 03/04"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dates du type 03/04"
           }
         },
         "ru": {
@@ -635,6 +761,12 @@
             "value": "día, luego mes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "jour, puis mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -663,6 +795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "mes, luego día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mois, puis jour"
           }
         },
         "ru": {
@@ -695,6 +833,12 @@
             "value": "ya estaba"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "déjà présente"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -723,6 +867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "¿anotada a mano?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "saisie à la main ?"
           }
         },
         "ru": {
@@ -755,6 +905,12 @@
             "value": "tipo más cercano"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "taux le plus proche"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -785,6 +941,12 @@
             "value": "nueva"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nouvelle"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -813,6 +975,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "sin tipo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pas de taux"
           }
         },
         "ru": {
@@ -870,6 +1038,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld categorías nuevas creadas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouvelles catégories créées"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouvelle catégorie créée"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouvelles catégories créées"
                 }
               }
             }
@@ -983,6 +1175,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations importées"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération importée"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations importées"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1061,6 +1277,12 @@
             "value": "Editar → Deshacer (⌘Z) deshace todo el traslado. La copia de la base de datos hecha antes está entre las copias de seguridad."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier → Annuler (⌘Z) reprend tout l'import. La copie de la base faite avant figure parmi les sauvegardes."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1089,6 +1311,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Deshacer» deshace todo el traslado. La copia de la base de datos hecha antes está entre las copias de seguridad."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« Annuler » reprend tout l'import. La copie de la base faite avant figure parmi les sauvegardes."
           }
         },
         "ru": {
@@ -1121,6 +1349,12 @@
             "value": "CSV o Excel (.xlsx) de CoinKeeper, Zenmoney, Money Manager, o cualquier tabla con fecha e importe. Una tabla de Numbers: primero expórtela a CSV o Excel."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV ou Excel (.xlsx) de CoinKeeper, Zenmoney, Money Manager, ou tout tableau avec une date et un montant. Un tableau Numbers : exportez-le d'abord en CSV ou Excel."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1149,6 +1383,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elija un archivo de exportación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez un fichier d'export"
           }
         },
         "ru": {
@@ -1181,6 +1421,12 @@
             "value": "No se trajo nada, no se escribió nada. El diario indica el motivo."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien n'a été importé, rien n'a été écrit. Le journal indique pourquoi."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1209,6 +1455,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Es un documento de Numbers, y su formato está cerrado. En Numbers elija Archivo → Exportar a → CSV o Excel, y después elija ese archivo aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C'est un document Numbers, dont le format est fermé. Dans Numbers, choisissez Fichier → Exporter vers → CSV ou Excel, puis choisissez ce fichier ici."
           }
         },
         "ru": {
@@ -1241,6 +1493,12 @@
             "value": "El archivo no se lee como tabla con nombres de columna. Expórtelo como CSV o .xlsx."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier ne se lit pas comme un tableau avec des noms de colonnes. Exportez-le en CSV ou .xlsx."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1269,6 +1527,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Es un archivo de Excel anterior a 2007 (.xls). Guárdelo de nuevo como .xlsx o CSV y elíjalo aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C'est un fichier Excel antérieur à 2007 (.xls). Enregistrez-le à nouveau en .xlsx ou CSV et choisissez-le ici."
           }
         },
         "ru": {
@@ -1301,6 +1565,12 @@
             "value": "Gasto"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dépense"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1329,6 +1599,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ingreso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenu"
           }
         },
         "ru": {
@@ -1361,6 +1637,12 @@
             "value": "El archivo está en windows-1251 y se leyó como tal."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier est en windows-1251 et a été lu comme tel."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1389,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Traer desde otra app…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importer depuis une autre app…"
           }
         },
         "ru": {
@@ -1421,6 +1709,12 @@
             "value": "Siguiente"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1449,6 +1743,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Antes del traslado se hace una copia de la base de datos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une copie de la base est faite avant l'import."
           }
         },
         "ru": {
@@ -1506,6 +1806,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ya están en las cuentas — se omiten"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sont déjà dans les comptes — ignorées"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld est déjà dans les comptes — ignorée"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sont déjà dans les comptes — ignorées"
                 }
               }
             }
@@ -1589,6 +1913,12 @@
             "value": "Pidiendo al Banco de Rusia los tipos de esos días…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demande à la Banque de Russie les taux de ces jours…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1644,6 +1974,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld parecen operaciones anotadas a mano — se dejan fuera"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ressemblent à des opérations saisies à la main — laissées de côté"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ressemble à une opération saisie à la main — laissée de côté"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ressemblent à des opérations saisies à la main — laissées de côté"
                 }
               }
             }
@@ -1727,6 +2081,12 @@
             "value": "Traer también estas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les importer quand même"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1782,6 +2142,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "y %lld más"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "et %lld de plus"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "et %lld de plus"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "et %lld de plus"
                 }
               }
             }
@@ -1895,6 +2279,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld au taux le plus proche disponible, marquées provisoires — précisées quand le taux du jour arrive"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld au taux le plus proche disponible, marquée provisoire — précisée quand le taux du jour arrive"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld au taux le plus proche disponible, marquées provisoires — précisées quand le taux du jour arrive"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1973,6 +2381,12 @@
             "value": "Del %1$@ al %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du %1$@ au %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2028,6 +2442,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld en divisas sin ningún tipo disponible — no se traen"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dans des devises sans aucun taux disponible — non importées"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dans une devise sans aucun taux disponible — non importée"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dans des devises sans aucun taux disponible — non importées"
                 }
               }
             }
@@ -2141,6 +2579,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations seront importées"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération sera importée"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations seront importées"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2244,6 +2706,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transferencias entre las cuentas propias de la app — no se traen"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements entre les comptes propres de l'app — non importés"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virement entre les comptes propres de l'app — non importé"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements entre les comptes propres de l'app — non importés"
                 }
               }
             }
@@ -2357,6 +2843,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes non lues"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ligne non lue"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes non lues"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2435,6 +2945,12 @@
             "value": "Leyendo el archivo…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecture du fichier…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2463,6 +2979,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cuenta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compte"
           }
         },
         "ru": {
@@ -2495,6 +3017,12 @@
             "value": "Importe (con signo)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montant (signé)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2523,6 +3051,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categoría"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégorie"
           }
         },
         "ru": {
@@ -2555,6 +3089,12 @@
             "value": "Comentario"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commentaire"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2583,6 +3123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Divisa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devise"
           }
         },
         "ru": {
@@ -2615,6 +3161,12 @@
             "value": "Fecha"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2643,6 +3195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descripción"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Description"
           }
         },
         "ru": {
@@ -2675,6 +3233,12 @@
             "value": "Gasto"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dépense"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2703,6 +3267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Desde"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De"
           }
         },
         "ru": {
@@ -2735,6 +3305,12 @@
             "value": "Ingreso"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2763,6 +3339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cuenta del ingreso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compte du revenu"
           }
         },
         "ru": {
@@ -2795,6 +3377,12 @@
             "value": "Divisa del ingreso"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devise du revenu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2823,6 +3411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo (gasto, ingreso, transferencia)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type (dépense, revenu, virement)"
           }
         },
         "ru": {
@@ -2855,6 +3449,12 @@
             "value": "No leída"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non lu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2883,6 +3483,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Beneficiario o tienda"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bénéficiaire ou magasin"
           }
         },
         "ru": {
@@ -2915,6 +3521,12 @@
             "value": "Subcategoría"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sous-catégorie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2943,6 +3555,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vers"
           }
         },
         "ru": {
@@ -2975,6 +3593,12 @@
             "value": "Traer desde otra app…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importer depuis une autre app…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3003,6 +3627,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parece una exportación de CoinKeeper"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ressemble à un export CoinKeeper"
           }
         },
         "ru": {
@@ -3035,6 +3665,12 @@
             "value": "Parece una exportación de Money Manager"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ressemble à un export Money Manager"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3063,6 +3699,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una tabla"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un tableau"
           }
         },
         "ru": {
@@ -3095,6 +3737,12 @@
             "value": "Parece una exportación de Zenmoney"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ressemble à un export Zenmoney"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3123,6 +3771,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Columnas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colonnes"
           }
         },
         "ru": {
@@ -3155,6 +3809,12 @@
             "value": "Cuentas y categorías"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptes et catégories"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3183,6 +3843,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vista previa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aperçu"
           }
         },
         "ru": {
@@ -3215,6 +3881,12 @@
             "value": "Una tabla exportada de CoinKeeper, Zenmoney, Money Manager, Excel o Numbers. Nada se escribe antes de «Traer»; primero se hace una copia de la base de datos, y ⌘Z deshace todo el traslado."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un tableau exporté de CoinKeeper, Zenmoney, Money Manager, Excel ou Numbers. Rien n'est écrit avant « Importer » ; une copie de la base est faite d'abord, et ⌘Z reprend tout l'import."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3243,6 +3915,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una tabla exportada de CoinKeeper, Zenmoney, Money Manager, Excel o Numbers. Nada se escribe antes de «Traer»; primero se hace una copia de la base de datos, y «Deshacer» deshace todo el traslado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un tableau exporté de CoinKeeper, Zenmoney, Money Manager, Excel ou Numbers. Rien n'est écrit avant « Importer » ; une copie de la base est faite d'abord, et « Annuler » reprend tout l'import."
           }
         },
         "ru": {
@@ -3300,6 +3978,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operaciones para traer"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations à importer"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération à importer"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations à importer"
                 }
               }
             }
@@ -3381,6 +4083,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Traer desde otra app"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importer depuis une autre app"
           }
         },
         "ru": {

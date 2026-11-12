@@ -17,6 +17,12 @@
             "value": "Cuenta"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elija una cuenta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez un compte"
           }
         },
         "ru": {
@@ -76,6 +88,12 @@
             "value": "Elija la cuenta a la que pertenece este extracto: las líneas se comparan con lo que ya contiene."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez le compte auquel appartient le relevé — les lignes sont comparées à ce qu'il contient déjà."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -103,6 +121,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Añadir un archivo…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajouter un fichier…"
           }
         },
         "ru": {
@@ -134,6 +158,12 @@
             "value": "Archivar en"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Classer dans"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -161,6 +191,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Decidir más tarde"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Décider plus tard"
           }
         },
         "ru": {
@@ -193,6 +229,12 @@
             "value": "Recordar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retenir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -221,6 +263,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escribir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter"
           }
         },
         "ru": {
@@ -388,6 +436,12 @@
             "value": "Diferencia entre los totales del extracto y sus líneas: ingresos %@, gastos %@. El extracto se escribe igualmente tal como está."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écart entre les totaux du relevé et ses lignes : revenus %@, dépenses %@. Le relevé est noté tel quel."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -415,6 +469,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se pudieron leer los totales del extracto. Las operaciones se pueden escribir igualmente."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les totaux du relevé n'ont pas pu être lus. Les opérations peuvent tout de même être notées."
           }
         },
         "ru": {
@@ -446,6 +506,12 @@
             "value": "Los totales del pie no coinciden"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les totaux en bas ne concordent pas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -473,6 +539,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elegir archivos…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir des fichiers…"
           }
         },
         "ru": {
@@ -503,6 +575,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cerrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fermer"
           }
         },
         "ru": {
@@ -559,6 +637,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld cambian algo"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modifient quelque chose"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modifie quelque chose"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modifient quelque chose"
                 }
               }
             }
@@ -671,6 +773,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld refusés par la banque"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld refusé par la banque"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld refusés par la banque"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -773,6 +899,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld ya están"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld déjà présents"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld déjà présent"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld déjà présents"
                 }
               }
             }
@@ -885,6 +1035,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouveaux"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouveau"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouveaux"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -987,6 +1161,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld no leídas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld non lus"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld non lu"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld non lus"
                 }
               }
             }
@@ -1099,6 +1297,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouvelles opérations"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouvelle opération"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nouvelles opérations"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1201,6 +1423,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld líneas omitidas, ya estaban"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes ignorées, déjà présentes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ligne ignorée, déjà présente"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes ignorées, déjà présentes"
                 }
               }
             }
@@ -1313,6 +1559,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld saisies à vous complétées depuis la banque"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld saisie à vous complétée depuis la banque"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld saisies à vous complétées depuis la banque"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1420,6 +1690,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld règles retenues"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld règle retenue"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld règles retenues"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1498,6 +1792,12 @@
             "value": "Escrito"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistré"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1552,6 +1852,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transferencias entre sus cuentas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements entre vos comptes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virement entre vos comptes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements entre vos comptes"
                 }
               }
             }
@@ -1634,6 +1958,12 @@
             "value": "Deshacer esta carga"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler ce chargement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1663,6 +1993,12 @@
             "value": "Las operaciones que nadie ha editado desde entonces van a la papelera. Las transferencias entre sus cuentas y los apuntes suyos que completó el banco se quedan; elimine una transferencia en «Operaciones»."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les opérations que personne n'a modifiées depuis partent à la corbeille. Les virements entre vos comptes et les saisies à vous que la banque a complétées restent ; supprimez un virement dans « Opérations »."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1690,6 +2026,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deshecho"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annulé"
           }
         },
         "ru": {
@@ -1746,6 +2088,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operaciones esperan en «Sin clasificar»"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations attendent dans « Non classées »"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération attend dans « Non classées »"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations attendent dans « Non classées »"
                 }
               }
             }
@@ -1858,6 +2224,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes en attente sont maintenant notées"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ligne en attente est maintenant notée"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes en attente sont maintenant notées"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1965,6 +2355,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes attendent un taux de leur devise"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ligne attend un taux de sa devise"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes attendent un taux de leur devise"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2042,6 +2456,12 @@
             "value": "Un CSV de VTB o Raiffeisen, o un certificado en PDF de T-Bank con su texto. También puede arrastrar los archivos a esta ventana."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un CSV de VTB ou Raiffeisen, ou un certificat PDF de T-Bank avec son texte. Vous pouvez aussi déposer les fichiers sur cette fenêtre."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2071,6 +2491,12 @@
             "value": "Elija un extracto"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez un relevé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2098,6 +2524,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se escribió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien n'a été noté."
           }
         },
         "ru": {
@@ -2130,6 +2562,12 @@
             "value": "Archivo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichier"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2158,6 +2596,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Todas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout"
           }
         },
         "ru": {
@@ -2189,6 +2633,12 @@
             "value": "Cambios"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifications"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2216,6 +2666,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ya estaban"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déjà présents"
           }
         },
         "ru": {
@@ -2248,6 +2704,12 @@
             "value": "Mostrar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2275,6 +2737,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nuevas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveaux"
           }
         },
         "ru": {
@@ -2307,6 +2775,12 @@
             "value": "No leídas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non lus"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2334,6 +2808,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Formato: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format : %@"
           }
         },
         "ru": {
@@ -2365,6 +2845,12 @@
             "value": "nuevas %lld, ya estaban %lld"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nouveaux %lld, déjà présents %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2392,6 +2878,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Todavía no se ha cargado ningún extracto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun relevé n'a encore été chargé."
           }
         },
         "ru": {
@@ -2423,6 +2915,12 @@
             "value": "No se pudo deshacer la carga."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le chargement n'a pas pu être annulé."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2450,6 +2948,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deshacer…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler…"
           }
         },
         "ru": {
@@ -2481,6 +2985,12 @@
             "value": "Las operaciones que nadie ha editado desde entonces van a la papelera. Las que usted editó se quedan y son suyas, y también las transferencias entre sus cuentas."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les opérations que personne n'a modifiées depuis partent à la corbeille. Celles que vous avez modifiées restent et vous appartiennent, de même que les virements entre vos comptes."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2508,6 +3018,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "¿Deshacer esta carga?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler ce chargement ?"
           }
         },
         "ru": {
@@ -2539,6 +3055,12 @@
             "value": "Deshecho"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annulé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2566,6 +3088,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un extracto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un relevé"
           }
         },
         "ru": {
@@ -2597,6 +3125,12 @@
             "value": "Un valor por línea. Esto se queda en la base de datos y en el archivo de traslado; no está en la exportación CSV ni en un informe de problema."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une valeur par ligne. Cela reste dans la base et dans l'archive de transfert ; ce n'est ni dans l'export CSV ni dans un rapport de problème."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2624,6 +3158,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tarjetas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartes"
           }
         },
         "ru": {
@@ -2655,6 +3195,12 @@
             "value": "Enmascaradas, como en los extractos: 2200 70** **** 1234."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquées, comme dans les relevés : 2200 70** **** 1234."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2682,6 +3228,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Contratos y cuentas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contrats et comptes"
           }
         },
         "ru": {
@@ -2713,6 +3265,12 @@
             "value": "Los números de sus propios contratos en otros bancos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les numéros de vos propres contrats dans d'autres banques."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2740,6 +3298,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se pudieron guardar los datos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les données n'ont pas pu être enregistrées."
           }
         },
         "ru": {
@@ -2771,6 +3335,12 @@
             "value": "Con sus teléfonos, nombres y contratos, una transferencia a usted mismo es un traslado entre sus propias cuentas, no un regalo a un desconocido."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avec vos téléphones, vos noms et vos contrats, un virement à soi-même est un transfert entre vos propres comptes, et non un cadeau à un inconnu."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2798,6 +3368,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nombres"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noms"
           }
         },
         "ru": {
@@ -2829,6 +3405,12 @@
             "value": "La forma que imprimen los bancos: nombre, patronímico y la inicial del apellido."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La forme que les banques impriment : nom, patronyme et l'initiale du nom de famille."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2856,6 +3438,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quién es usted en los extractos…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qui vous êtes dans les relevés…"
           }
         },
         "ru": {
@@ -2887,6 +3475,12 @@
             "value": "Teléfonos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Téléphones"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2914,6 +3508,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Como los escribe el banco, con o sin +7."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tels que la banque les écrit, avec ou sans +7."
           }
         },
         "ru": {
@@ -2945,6 +3545,12 @@
             "value": "Quién es usted en los extractos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qui vous êtes dans les relevés"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2972,6 +3578,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importar extracto…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importer un relevé…"
           }
         },
         "ru": {
@@ -3003,6 +3615,12 @@
             "value": "El archivo no estaba en UTF-8 y se leyó como Windows-1251."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier n'était pas en UTF-8 et a été lu en Windows-1251."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3030,6 +3648,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Este archivo se cargó el %@. Las líneas que ya están se omiten."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce fichier a été chargé le %@. Les lignes déjà présentes sont ignorées."
           }
         },
         "ru": {
@@ -3061,6 +3685,12 @@
             "value": "Líneas no leídas: %lld, por un total de %@. Están en «No leídas» y no se escriben."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lignes non lues : %lld, avec %@. Elles sont listées sous « Non lus » et ne sont pas notées."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3088,6 +3718,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld líneas, %@ – %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld lignes, %@ – %@"
           }
         },
         "ru": {
@@ -3119,6 +3755,12 @@
             "value": "No pudieron colocarse con un archivo ni con una regla suya. Responda al grupo una vez; «Recordar» convierte la respuesta en una regla para el siguiente extracto."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un fichier ou une de vos règles ne peut pas les placer. Répondez une fois par groupe ; « Retenir » fait de la réponse une règle pour le prochain relevé."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3148,6 +3790,12 @@
             "value": "Nada que preguntar: cada línea tiene su sitio."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien à demander : chaque ligne a sa place."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3175,6 +3823,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Leyendo los archivos…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecture des fichiers…"
           }
         },
         "ru": {
@@ -3207,6 +3861,12 @@
             "value": "Quitar de la lista"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retirer de la liste"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3234,6 +3894,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Enviar una petición para este banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envoyer une demande pour cette banque"
           }
         },
         "ru": {
@@ -3265,6 +3931,12 @@
             "value": "Añadan por favor un formato de extracto. La primera línea del archivo: %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Merci d'ajouter un format de relevé. La première ligne du fichier : %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3292,6 +3964,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parece su apunte"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ressemble à votre saisie"
           }
         },
         "ru": {
@@ -3323,6 +4001,12 @@
             "value": "No es el mismo — añadir como nueva"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas la même — ajouter comme nouvelle"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3350,6 +4034,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Igual que"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Identique à"
           }
         },
         "ru": {
@@ -3381,6 +4071,12 @@
             "value": "Ya estaba"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déjà présente"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3408,6 +4104,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transferencia ya registrada"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virement déjà noté"
           }
         },
         "ru": {
@@ -3439,6 +4141,12 @@
             "value": "Igual que su apunte — el importe pasa a ser el del banco"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Identique à votre saisie — le montant devient celui de la banque"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3466,6 +4174,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nueva"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouvelle"
           }
         },
         "ru": {
@@ -3497,6 +4211,12 @@
             "value": "Cuenta propia"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compte à soi"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3524,6 +4244,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Retenida"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloquée"
           }
         },
         "ru": {
@@ -3555,6 +4281,12 @@
             "value": "Ya contabilizada — actualiza la línea retenida"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenant comptabilisée — met à jour la ligne bloquée"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3582,6 +4314,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sustituye una línea retenida"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remplace une ligne bloquée"
           }
         },
         "ru": {
@@ -3613,6 +4351,12 @@
             "value": "Elija una cuenta en «Archivos» para ver las líneas."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez un compte dans « Fichiers » pour voir les lignes."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3640,6 +4384,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No hay líneas aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune ligne ici."
           }
         },
         "ru": {
@@ -3671,6 +4421,12 @@
             "value": "Se leyó cada línea."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque ligne a été lue."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3698,6 +4454,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Es un escaneo o una foto. La lectura de escaneos llegará en una versión posterior; por ahora pida al banco el extracto como archivo con texto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C'est un scan ou une photo. La lecture des scans arrivera dans une version ultérieure ; pour l'instant, demandez à la banque le relevé sous forme de fichier avec du texte."
           }
         },
         "ru": {
@@ -3729,6 +4491,12 @@
             "value": "Este PDF no tiene texto"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun texte dans ce PDF"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3758,6 +4526,12 @@
             "value": "Cargar un extracto…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Charger un relevé…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3785,6 +4559,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Extractos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Relevés"
           }
         },
         "ru": {
@@ -3841,6 +4621,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Eliminar %lld líneas retenidas que el banco no ha contabilizado desde hace semanas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Supprimer %lld lignes bloquées que la banque n'a pas comptabilisées depuis des semaines"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Supprimer %lld ligne bloquée que la banque n'a pas comptabilisée depuis des semaines"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Supprimer %lld lignes bloquées que la banque n'a pas comptabilisées depuis des semaines"
                 }
               }
             }
@@ -3923,6 +4727,12 @@
             "value": "Una retención rechazada desaparece del extracto. Las líneas van a la papelera y ⌘Z las devuelve."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une retenue refusée disparaît du relevé. Les lignes vont à la corbeille et ⌘Z les rétablit."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3952,6 +4762,12 @@
             "value": "Una retención rechazada desaparece del extracto. Las líneas van a la papelera y «Deshacer» las devuelve."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une retenue refusée disparaît du relevé. Les lignes vont à la corbeille et « Annuler » les rétablit."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3979,6 +4795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Líneas retenidas que nadie contabilizó"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lignes bloquées que personne n'a comptabilisées"
           }
         },
         "ru": {
@@ -4011,6 +4833,12 @@
             "value": "Archivos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4038,6 +4866,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Preguntas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questions"
           }
         },
         "ru": {
@@ -4069,6 +4903,12 @@
             "value": "Líneas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lignes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4096,6 +4936,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nada se escribe hasta que pulse Escribir. ⌘Z lo deshace."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien n'est noté tant que vous n'appuyez pas sur « Noter ». ⌘Z le reprend."
           }
         },
         "ru": {
@@ -4127,6 +4973,12 @@
             "value": "Nada se escribe hasta que pulse Escribir. «Deshacer» lo deshace."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien n'est noté tant que vous n'appuyez pas sur « Noter ». « Annuler » le reprend."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4156,6 +5008,12 @@
             "value": "Todavía no hay nada que escribir."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien à noter pour l'instant."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4183,6 +5041,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Para escribir: %lld · cambios: %lld · transferencias: %lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À noter : %lld · modifications : %lld · virements : %lld"
           }
         },
         "ru": {
@@ -4215,6 +5079,12 @@
             "value": "Marcar todas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout cocher"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4244,6 +5114,12 @@
             "value": "Desmarcar todas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout décocher"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4271,6 +5147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importar extractos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importer des relevés"
           }
         },
         "ru": {
@@ -4303,6 +5185,12 @@
             "value": "Un préstamo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un crédit"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4330,6 +5218,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un lugar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un lieu"
           }
         },
         "ru": {
@@ -4361,6 +5255,12 @@
             "value": "Una persona"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une personne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4388,6 +5288,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ingreso por contrato"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenu de contrat"
           }
         },
         "ru": {
@@ -4419,6 +5325,12 @@
             "value": "Una tarjeta de dueño desconocido"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une carte d'un propriétaire inconnu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4446,6 +5358,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dinero recibido de un remitente sin nombre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Argent reçu d'un expéditeur sans nom"
           }
         },
         "ru": {
@@ -4502,6 +5420,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld grupos de líneas encajan igual con varias otras; siguen siendo operaciones normales"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ensembles de lignes correspondent à plusieurs autres à égalité ; ils restent des opérations ordinaires"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ensemble de lignes correspond à plusieurs autres à égalité ; ils restent des opérations ordinaires"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ensembles de lignes correspondent à plusieurs autres à égalité ; ils restent des opérations ordinaires"
                 }
               }
             }
@@ -4584,6 +5526,12 @@
             "value": "Transferencias a su cuenta en «%@»: %lld, %@. No hay extracto de esa cuenta, así que siguen siendo operaciones normales en «Sin clasificar»."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virements vers votre compte « %@ » : %lld, %@. Il n'y a pas de relevé pour lui, donc ils restent des opérations ordinaires dans « Non classées »."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4638,6 +5586,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transferencias están en camino (hasta 5 días)"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements sont en route (jusqu'à 5 jours)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virement est en route (jusqu'à 5 jours)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements sont en route (jusqu'à 5 jours)"
                 }
               }
             }
@@ -4750,6 +5722,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements ne sont pas arrivés depuis plus de 5 jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virement n'est pas arrivé depuis plus de 5 jours"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements ne sont pas arrivés depuis plus de 5 jours"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -4827,6 +5823,12 @@
             "value": "%1$@: %2$@ → %3$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ : %@ → %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4854,6 +5856,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Enviada %1$@, llegó %2$@ — marque si es una sola transferencia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envoyé le %@, arrivé le %@ — cochez s'il s'agit d'un seul virement"
           }
         },
         "ru": {
@@ -4885,6 +5893,12 @@
             "value": "Transferencias entre sus cuentas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virements entre vos comptes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4912,6 +5926,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ningún banco conocido escribió este archivo. Envíe la petición al banco, con la primera línea, y se puede crear un lector para él."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune banque connue n'a écrit ce fichier. Envoyez la demande pour la banque, avec la première ligne ; un lecteur pourra alors être créé."
           }
         },
         "ru": {
@@ -4943,6 +5963,12 @@
             "value": "El formato no es conocido"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le format n'est pas connu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4970,6 +5996,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Línea %lld del archivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligne %lld du fichier"
           }
         },
         "ru": {
@@ -5001,6 +6033,12 @@
             "value": "Están rellenadas las dos columnas de importe o ninguna"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les deux colonnes de montant, ou aucune, sont remplies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5028,6 +6066,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El importe no se puede leer"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le montant ne se lit pas"
           }
         },
         "ru": {
@@ -5059,6 +6103,12 @@
             "value": "La fecha no se puede leer"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La date ne se lit pas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5086,6 +6136,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El número de columnas es incorrecto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le nombre de colonnes est faux"
           }
         },
         "ru": {
@@ -5117,6 +6173,12 @@
             "value": "El signo contradice el «débito/crédito» del propio banco"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le signe contredit le « débit/crédit » de la banque"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5144,6 +6206,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La línea no se lee como operación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La ligne ne se lit pas comme une opération"
           }
         },
         "ru": {
@@ -5175,6 +6243,12 @@
             "value": "Está vacío, dañado o no es un extracto."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il est vide, endommagé ou ce n'est pas un relevé."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5202,6 +6276,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se puede leer el archivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier ne peut pas être lu"
           }
         },
         "ru": {
@@ -5232,6 +6312,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sin clasificar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non classées"
           }
         },
         "ru": {

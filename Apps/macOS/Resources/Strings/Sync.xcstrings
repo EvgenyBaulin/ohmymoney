@@ -17,6 +17,12 @@
             "value": "La copia de la carpeta está dañada. No se tomó nada."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie dans le dossier est endommagée. Rien n'a été pris."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La carpeta guarda una copia completa de los datos de otro dispositivo. Puede tomarla como propia: la app primero guarda una copia de lo que hay aquí, y luego coloca los datos en su sitio al siguiente inicio. Solo es posible mientras este dispositivo no tenga ninguno de sus registros."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dossier contient une copie complète des données d'un autre appareil. Vous pouvez la prendre comme la vôtre : l'app enregistre d'abord une copie de ce qui est ici, puis met les données en place au prochain démarrage. Cela n'est possible que tant que cet appareil n'a aucun de vos enregistrements."
           }
         },
         "ru": {
@@ -77,6 +89,12 @@
             "value": "No se pudieron cargar los datos. No se cambió nada; inténtelo de nuevo."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les données n'ont pas pu être chargées. Rien n'a été modifié ; réessayez."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -105,6 +123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cargar los datos de la carpeta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Charger les données depuis le dossier"
           }
         },
         "ru": {
@@ -137,6 +161,12 @@
             "value": "Cargando los datos…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chargement des données…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La copia la escribió una versión más reciente de la app. Actualice esta app e inténtelo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie a été écrite par une version plus récente de l'app. Mettez cette app à jour et réessayez."
           }
         },
         "ru": {
@@ -197,6 +233,12 @@
             "value": "La carpeta todavía no tiene una copia de los datos. Abra la app en el otro dispositivo con esta misma carpeta y espere a que escriba la copia."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dossier ne contient pas encore de copie des données. Ouvrez l'app sur l'autre appareil avec ce même dossier et attendez qu'elle écrive la copie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -225,6 +267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elija primero la carpeta de intercambio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez d'abord le dossier d'échange."
           }
         },
         "ru": {
@@ -257,6 +305,12 @@
             "value": "Aquí ya hay registros, así que no se reemplazan."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il y a déjà des enregistrements ici, donc ils ne sont pas remplacés."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -285,6 +339,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copia de %1$@ · dispositivo %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copie de %@ · appareil %@"
           }
         },
         "ru": {
@@ -317,6 +377,12 @@
             "value": "Cierre la app por completo y ábrala de nuevo: los datos se colocan al iniciarse."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fermez complètement l'app puis rouvrez-la : les données sont mises en place au lancement."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -345,6 +411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reiniciar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redémarrer"
           }
         },
         "ru": {
@@ -377,6 +449,12 @@
             "value": "Los datos están listos. Reinicie la app para verlos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les données sont prêtes. Redémarrez l'app pour les voir."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -407,6 +485,12 @@
             "value": "Datos de la carpeta"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Données du dossier"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -435,6 +519,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cambiado en dos dispositivos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifié sur deux appareils"
           }
         },
         "ru": {
@@ -492,6 +582,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld registros esperan su elección"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrements attendent votre choix"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrement attend votre choix"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrements attendent votre choix"
                 }
               }
             }
@@ -575,6 +689,12 @@
             "value": "Eliminado aquí"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimé ici"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -603,6 +723,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eliminado en el otro dispositivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimé sur l'autre appareil"
           }
         },
         "ru": {
@@ -635,6 +761,12 @@
             "value": "difiere"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "diffère"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -663,6 +795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No hay conflictos. Aquí espera un registro cambiado en dos dispositivos a la vez."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun conflit. Un enregistrement modifié sur deux appareils à la fois attend ici."
           }
         },
         "ru": {
@@ -695,6 +833,12 @@
             "value": "A la izquierda, el mío (este dispositivo); a la derecha, el otro dispositivo."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "À gauche — le mien (cet appareil), à droite — l'autre appareil."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -723,6 +867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hasta que elija, la otra versión no se guarda en sus cuentas y no entra en ninguna suma."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tant que vous n'avez pas choisi, l'autre version n'est pas enregistrée dans vos comptes et n'entre dans aucune somme."
           }
         },
         "ru": {
@@ -755,6 +905,12 @@
             "value": "Quedarme con el mío"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garder le mien"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -783,6 +939,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mío"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le mien"
           }
         },
         "ru": {
@@ -815,6 +977,12 @@
             "value": "otro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "autre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -843,6 +1011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Revisar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Examiner"
           }
         },
         "ru": {
@@ -875,6 +1049,12 @@
             "value": "Tomar el otro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prendre l'autre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -903,6 +1083,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Otro dispositivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autre appareil"
           }
         },
         "ru": {
@@ -935,6 +1121,12 @@
             "value": "Conflictos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflits"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -963,6 +1155,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "esperando una decisión"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "en attente d'une décision"
           }
         },
         "ru": {
@@ -995,6 +1193,12 @@
             "value": "La base de datos no aceptó los cambios. No se perdió nada; inténtelo de nuevo."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La base n'a pas accepté les modifications. Rien n'a été perdu ; réessayez."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1023,6 +1227,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los archivos de intercambio no se pudieron cifrar ni leer. Cree una clave en su primer dispositivo o introduzca sus 24 palabras de recuperación en los demás dispositivos. Actualice OhMyMoney en todos los dispositivos e inténtelo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les fichiers d'échange n'ont pas pu être chiffrés ni lus. Créez une clé sur votre premier appareil ou saisissez ses 24 mots de récupération sur les autres appareils. Mettez OhMyMoney à jour sur tous les appareils, puis réessayez."
           }
         },
         "ru": {
@@ -1055,6 +1265,12 @@
             "value": "La carpeta de intercambio no está disponible. Compruebe que iCloud Drive esté activado, o elija la carpeta de nuevo."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dossier d'échange n'est pas disponible. Vérifiez que iCloud Drive est activé, ou choisissez à nouveau le dossier."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1083,6 +1299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los archivos de la carpeta de intercambio no se pueden leer. No se perdió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les fichiers du dossier d'échange ne peuvent pas être lus. Rien n'a été perdu."
           }
         },
         "ru": {
@@ -1115,6 +1337,12 @@
             "value": "No se puede escribir nada en la carpeta de intercambio. Sus cambios esperan y se envían más tarde."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien ne peut être écrit dans le dossier d'échange. Vos modifications attendent et partiront plus tard."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1143,6 +1371,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esta carpeta guarda o está dentro de su base de datos o sus copias. Elija otra."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce dossier contient votre base ou ses copies, ou se trouve à l'intérieur. Choisissez-en un autre."
           }
         },
         "ru": {
@@ -1175,6 +1409,12 @@
             "value": "Importe"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1203,6 +1443,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importe en ₽"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montant en ₽"
           }
         },
         "ru": {
@@ -1235,6 +1481,12 @@
             "value": "Categoría"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégorie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1263,6 +1515,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Divisa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devise"
           }
         },
         "ru": {
@@ -1295,6 +1553,12 @@
             "value": "Fecha"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1323,6 +1587,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type"
           }
         },
         "ru": {
@@ -1355,6 +1625,12 @@
             "value": "Nombre"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nom"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1383,6 +1659,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descripción"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Description"
           }
         },
         "ru": {
@@ -1415,6 +1697,12 @@
             "value": "Fecha"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1443,6 +1731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Otros datos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autres détails"
           }
         },
         "ru": {
@@ -1475,6 +1769,12 @@
             "value": "Cambiar carpeta…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changer de dossier…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1503,6 +1803,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elegir carpeta…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir le dossier…"
           }
         },
         "ru": {
@@ -1535,6 +1841,12 @@
             "value": "Sin elegir"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non choisi"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1563,6 +1875,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A esta carpeta solo van archivos del diario — nunca su base de datos ni sus copias."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seuls les fichiers du journal vont dans ce dossier — jamais votre base ni ses copies."
           }
         },
         "ru": {
@@ -1595,6 +1913,12 @@
             "value": "Dejar de intercambiar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrêter l'échange"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1623,6 +1947,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sugerida: iCloud Drive › OhMyMoney › Sync"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggéré : iCloud Drive › OhMyMoney › Sync"
           }
         },
         "ru": {
@@ -1655,6 +1985,12 @@
             "value": "Carpeta de intercambio"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier d'échange"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1683,6 +2019,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conflicto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conflit"
           }
         },
         "ru": {
@@ -1715,6 +2057,12 @@
             "value": "Reintentar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réessayer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1743,6 +2091,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El intercambio falló"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échec de l'échange"
           }
         },
         "ru": {
@@ -1775,6 +2129,12 @@
             "value": "El intercambio está desactivado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'échange est désactivé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1805,6 +2165,12 @@
             "value": "Elija una carpeta para intercambiar registros con sus otros dispositivos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez un dossier pour échanger des enregistrements avec vos autres appareils."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1833,6 +2199,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sincronizando…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronisation…"
           }
         },
         "ru": {
@@ -1890,6 +2262,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld registros existentes enviados a la carpeta"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrements existants envoyés dans le dossier"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrement existant envoyé dans le dossier"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrements existants envoyés dans le dossier"
                 }
               }
             }
@@ -1973,6 +2369,12 @@
             "value": "Hay en la carpeta una copia nueva de todos los datos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une copie fraîche de toutes les données est dans le dossier."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2003,6 +2405,12 @@
             "value": "Sincronizado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronisé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2031,6 +2439,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Último intercambio %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernier échange %@"
           }
         },
         "ru": {
@@ -2088,6 +2502,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld cambios en la cola"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modifications en file d'attente"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modification en file d'attente"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld modifications en file d'attente"
                 }
               }
             }
@@ -2171,6 +2609,12 @@
             "value": "En espera"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2199,6 +2643,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tarjeta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carte"
           }
         },
         "ru": {
@@ -2231,6 +2681,12 @@
             "value": "Categoría"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégorie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2259,6 +2715,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deuda"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dette"
           }
         },
         "ru": {
@@ -2291,6 +2753,12 @@
             "value": "Evento"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Événement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2319,6 +2787,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objetivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objectif"
           }
         },
         "ru": {
@@ -2351,6 +2825,12 @@
             "value": "Registro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2379,6 +2859,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cuenta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compte"
           }
         },
         "ru": {
@@ -2411,6 +2897,12 @@
             "value": "Persona"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2439,6 +2931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lugar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lieu"
           }
         },
         "ru": {
@@ -2471,6 +2969,12 @@
             "value": "Plantilla"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modèle"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2499,6 +3003,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parte de una operación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partie d'une opération"
           }
         },
         "ru": {
@@ -2531,6 +3041,12 @@
             "value": "Operación"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opération"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2559,6 +3075,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transferencia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virement"
           }
         },
         "ru": {

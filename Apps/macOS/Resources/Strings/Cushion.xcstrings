@@ -16,6 +16,12 @@
             "value": "%1$@ de %2$@ meses"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ sur %2$@ mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -43,6 +49,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No menos que los pagos obligatorios de hoy: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas moins que les paiements obligatoires d'aujourd'hui : %@"
           }
         },
         "ru": {
@@ -74,6 +86,12 @@
             "value": "Meses completos hasta ahora: %lld."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mois complets jusqu'ici : %lld."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -101,6 +119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objetivo — %1$@ (%2$@): aparte %3$@ al mes hasta el %4$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objectif — %1$@ (%2$@) : mettre de côté %3$@ par mois jusqu'au %4$@"
           }
         },
         "ru": {
@@ -132,6 +156,12 @@
             "value": "Completar para"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atteindre pour"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -160,6 +190,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mois"
           }
         },
         "ru": {
@@ -216,6 +252,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Un colchón para %lld meses"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Un matelas pour %lld mois"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Un matelas pour %lld mois"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Un matelas pour %lld mois"
                 }
               }
             }
@@ -298,6 +358,12 @@
             "value": "Todavía no hay objetivo: indique cuántos meses debe cubrir el colchón."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore d'objectif : indiquez pour combien de mois le matelas doit tenir."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -326,6 +392,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objetivo…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objectif…"
           }
         },
         "ru": {
@@ -357,6 +429,12 @@
             "value": "al ritmo actual — para el %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "au rythme actuel — d'ici le %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -384,6 +462,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "al ritmo actual nunca se alcanza"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "au rythme actuel il n'est jamais atteint"
           }
         },
         "ru": {
@@ -415,6 +499,12 @@
             "value": "Objetivo — %1$@ (%2$@): %3$@ al mes lo logran en un año"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objectif — %1$@ (%2$@) : %3$@ par mois suffisent pour y arriver en un an"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -442,6 +532,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objetivo — %1$@ (%2$@): cumplido"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objectif — %1$@ (%2$@) : atteint"
           }
         },
         "ru": {
@@ -473,6 +569,12 @@
             "value": "Quitar el objetivo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer l'objectif"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -500,6 +602,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Objetivo del colchón"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objectif du matelas"
           }
         },
         "ru": {
@@ -556,6 +664,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Sin ingresos le duraría %lld meses"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sans revenu, vous tiendriez %lld mois"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sans revenu, vous tiendriez %lld mois"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sans revenu, vous tiendriez %lld mois"
                 }
               }
             }
@@ -638,6 +770,12 @@
             "value": "Sin ingresos le duraría %@ meses"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sans revenu, vous tiendriez %@ mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -666,6 +804,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "enero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "janvier"
           }
         },
         "ru": {
@@ -698,6 +842,12 @@
             "value": "octubre"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "octobre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -726,6 +876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "noviembre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "novembre"
           }
         },
         "ru": {
@@ -758,6 +914,12 @@
             "value": "diciembre"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "décembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -786,6 +948,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "febrero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "février"
           }
         },
         "ru": {
@@ -818,6 +986,12 @@
             "value": "marzo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mars"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -846,6 +1020,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "abril"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "avril"
           }
         },
         "ru": {
@@ -878,6 +1058,12 @@
             "value": "mayo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mai"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -906,6 +1092,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "junio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "juin"
           }
         },
         "ru": {
@@ -938,6 +1130,12 @@
             "value": "julio"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "juillet"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -966,6 +1164,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "agosto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "août"
           }
         },
         "ru": {
@@ -998,6 +1202,12 @@
             "value": "septiembre"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "septembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1026,6 +1236,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "enero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "janvier"
           }
         },
         "ru": {
@@ -1058,6 +1274,12 @@
             "value": "octubre"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "octobre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1086,6 +1308,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "noviembre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "novembre"
           }
         },
         "ru": {
@@ -1118,6 +1346,12 @@
             "value": "diciembre"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "décembre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1146,6 +1380,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "febrero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "février"
           }
         },
         "ru": {
@@ -1178,6 +1418,12 @@
             "value": "marzo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mars"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1206,6 +1452,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "abril"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "avril"
           }
         },
         "ru": {
@@ -1238,6 +1490,12 @@
             "value": "mayo"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mai"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1266,6 +1524,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "junio"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "juin"
           }
         },
         "ru": {
@@ -1298,6 +1562,12 @@
             "value": "julio"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "juillet"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1328,6 +1598,12 @@
             "value": "agosto"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "août"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1356,6 +1632,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "septiembre"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "septembre"
           }
         },
         "ru": {
@@ -1412,6 +1694,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld meses"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mois"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mois"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mois"
                 }
               }
             }
@@ -1494,6 +1800,12 @@
             "value": "Marque las cuentas del colchón y aquí se verá cuántos meses dura sin ingresos."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marquez les comptes du matelas : ici s'affichera combien de mois il tient sans revenu."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1521,6 +1833,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Datos insuficientes: el gasto obligatorio necesita 3 meses completos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Données insuffisantes : les dépenses obligatoires demandent 3 mois complets."
           }
         },
         "ru": {
@@ -1553,6 +1871,12 @@
             "value": "Deudas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dettes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1580,6 +1904,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categorías esenciales"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégories essentielles"
           }
         },
         "ru": {
@@ -1612,6 +1942,12 @@
             "value": "Pagos y suscripciones"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paiements et abonnements"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1640,6 +1976,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Colchón de seguridad"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas de sécurité"
           }
         },
         "ru": {
@@ -1671,6 +2013,12 @@
             "value": "Colchón de seguridad: todavía datos insuficientes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas de sécurité : pas encore assez de données"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1698,6 +2046,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Colchón de seguridad: todavía no hay cuenta marcada"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas de sécurité : aucun compte marqué pour l'instant"
           }
         },
         "ru": {
@@ -1729,6 +2083,12 @@
             "value": "Abrir Capital"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir Capital"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1756,6 +2116,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Colchón de seguridad: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas de sécurité : %@"
           }
         },
         "ru": {
@@ -1787,6 +2153,12 @@
             "value": "Cuentas del colchón"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptes du matelas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1814,6 +2186,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El dinero de estas cuentas, en todas sus divisas, es el colchón."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'argent de ces comptes, dans toutes ses devises, est le matelas."
           }
         },
         "ru": {
@@ -1846,6 +2224,12 @@
             "value": "Gasto esencial"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dépenses essentielles"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1873,6 +2257,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gasto que no puede parar. Junto con los pagos, suscripciones y deudas forma el gasto obligatorio de un mes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les dépenses qui ne peuvent pas s'arrêter. Avec les paiements, abonnements et dettes, elles forment les dépenses obligatoires d'un mois."
           }
         },
         "ru": {
@@ -1904,6 +2294,12 @@
             "value": "Todavía no hay cuentas."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore de compte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1931,6 +2327,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No tiene categorías de gasto propias."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune catégorie de dépenses à vous."
           }
         },
         "ru": {
@@ -1962,6 +2364,12 @@
             "value": "Cuentas y categorías…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptes et catégories…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1989,6 +2397,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Están marcadas las categorías esenciales habituales: revíselas y guarde."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les catégories essentielles habituelles sont cochées : vérifiez-les et enregistrez."
           }
         },
         "ru": {
@@ -2021,6 +2435,12 @@
             "value": "Colchón de seguridad"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas de sécurité"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2050,6 +2470,12 @@
             "value": "Colchón %1$@ · gasto obligatorio ≈ %2$@ al mes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas %1$@ · dépenses obligatoires ≈ %2$@ par mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2077,6 +2503,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ m."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ mois"
           }
         },
         "ru": {
@@ -2109,6 +2541,12 @@
             "value": "Colchón de seguridad"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Matelas de sécurité"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2136,6 +2574,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Todavía sin contar: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore compté : %@"
           }
         },
         "ru": {

@@ -17,6 +17,12 @@
             "value": "Editar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifier"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter"
           }
         },
         "ru": {
@@ -77,6 +89,12 @@
             "value": "Ya registrado: esta operación ya está en las cuentas."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déjà noté : cette opération est dans les comptes."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -105,6 +123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney está bloqueada: desbloquéela para pasar el mensaje."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney est verrouillée : déverrouillez-la pour transmettre le message."
           }
         },
         "ru": {
@@ -137,6 +161,12 @@
             "value": "Esto no parece un mensaje del banco: no hay operación, importe ni tarjeta o saldo."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cela ne ressemble pas à un message de banque : ni opération, ni montant, ni carte ou solde."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney todavía está abriendo las cuentas: inténtelo de nuevo en un momento."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ouvre encore les comptes — réessayez dans un instant."
           }
         },
         "ru": {
@@ -197,6 +233,12 @@
             "value": "Una operación de una cuenta oculta: ¿registrarla?"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une opération d'un compte masqué — la noter ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -225,6 +267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se registró una operación de una cuenta oculta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une opération d'un compte masqué a été notée"
           }
         },
         "ru": {
@@ -282,6 +330,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Hay %lld operaciones en espera: ¿terminarlas?"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations attendent — les terminer ?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération attend — la terminer ?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations attendent — les terminer ?"
                 }
               }
             }
@@ -365,6 +437,12 @@
             "value": "Registrar más tarde"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter plus tard"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -393,6 +471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "De un mensaje del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Depuis un message de banque"
           }
         },
         "ru": {
@@ -425,6 +509,12 @@
             "value": "El banco dice %1$@, la app %2$@: es hora de contar la cuenta."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La banque indique %1$@, l'application %2$@ — il est temps de compter le compte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -453,6 +543,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El saldo del banco no coincide con el de la app: es hora de contar la cuenta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le solde de la banque diffère de celui de l'application — il est temps de compter le compte."
           }
         },
         "ru": {
@@ -485,6 +581,12 @@
             "value": "El saldo no coincide"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le solde ne correspond pas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -513,6 +615,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ — ¿registrarla?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — la noter ?"
           }
         },
         "ru": {
@@ -545,6 +653,12 @@
             "value": "Registrada: %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notée : %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -573,6 +687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Retirada de efectivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retrait d'espèces"
           }
         },
         "ru": {
@@ -605,6 +725,12 @@
             "value": "Comisión"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frais"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -633,6 +759,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ingreso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenu"
           }
         },
         "ru": {
@@ -665,6 +797,12 @@
             "value": "Compra"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Achat"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -693,6 +831,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Devolución"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remboursement"
           }
         },
         "ru": {
@@ -725,6 +869,12 @@
             "value": "Transferencia recibida"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virement reçu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -753,6 +903,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transferencia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virement"
           }
         },
         "ru": {
@@ -785,6 +941,12 @@
             "value": "Pasar los mensajes del banco en el iPhone se activará junto con Siri, cuando la app llegue a App Store."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La transmission des messages de banque sur iPhone sera activée avec Siri, lorsque l'application arrivera sur l'App Store."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -813,6 +975,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En espera en «Registrar más tarde»: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente dans « Noter plus tard » : %@"
           }
         },
         "ru": {
@@ -845,6 +1013,12 @@
             "value": "Hay una operación en espera en «Registrar más tarde»."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une opération attend dans « Noter plus tard »."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -873,6 +1047,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Solo ver» está activado: no se registra nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« Consultation seule » est activé : rien n'est noté."
           }
         },
         "ru": {
@@ -905,6 +1085,12 @@
             "value": "Un mensaje que pasa Atajos («Pasar un mensaje del banco») se convierte en una operación. Ofrecer: una notificación pregunta «¿Registrar?» y la operación espera en «Registrar más tarde». Al momento: se registra como lo registraría la línea de entrada; si la línea preguntaría algo, se ofrece en su lugar. Solo se guardan el importe, la tienda, la tarjeta y el saldo, nunca el mensaje en sí."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un message transmis par Raccourcis (« Transmettre un message de banque ») devient une opération. Proposé : une notification demande « Noter ? » et l'opération attend dans « Noter plus tard ». Tout de suite : elle est notée comme la ligne de saisie la note ; si la ligne demanderait une précision, elle est proposée à la place. Seuls le montant, le magasin, la carte et le solde sont conservés — jamais le message lui-même."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -933,6 +1119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mensaje del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un message de banque"
           }
         },
         "ru": {
@@ -965,6 +1157,12 @@
             "value": "Registrar al momento"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter tout de suite"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -993,6 +1191,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ofrecer registrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proposer de noter"
           }
         },
         "ru": {
@@ -1025,6 +1229,12 @@
             "value": "Mensajes del banco"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Messages de banque"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1053,6 +1263,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lee un SMS o una notificación de un banco y registra la operación o la ofrece para registrar, según lo configurado en OhMyMoney."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lit un SMS ou une notification d'une banque et note l'opération, ou propose de la noter, selon le réglage dans OhMyMoney."
           }
         },
         "ru": {
@@ -1085,6 +1301,12 @@
             "value": "Mensaje"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Message"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1113,6 +1335,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pasar un mensaje del banco"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transmettre un message de banque"
           }
         },
         "ru": {
@@ -1145,6 +1373,12 @@
             "value": "Lee un mensaje del banco copiado al portapapeles, igual que «Pasar un mensaje del banco»."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lit un message de banque copié dans le presse-papiers, comme le fait « Transmettre un message de banque »."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1173,6 +1407,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pasar un mensaje del banco desde el portapapeles"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transmettre un message de banque depuis le presse-papiers"
           }
         },
         "ru": {

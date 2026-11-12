@@ -16,6 +16,12 @@
             "value": "conseguida el %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "obtenu le %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -43,6 +49,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un recuento cada mes durante un año"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un bilan chaque mois pendant un an"
           }
         },
         "ru": {
@@ -74,6 +86,12 @@
             "value": "Un recuento cada mes durante 3 meses"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un bilan chaque mois pendant 3 mois"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -101,6 +119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un recuento este mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un bilan ce mois-ci"
           }
         },
         "ru": {
@@ -132,6 +156,12 @@
             "value": "100 días seguidos con apuntes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 jours de suite avec des saisies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -159,6 +189,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "30 días seguidos con apuntes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 jours de suite avec des saisies"
           }
         },
         "ru": {
@@ -190,6 +226,12 @@
             "value": "7 días seguidos con apuntes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 jours de suite avec des saisies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -217,6 +259,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No hay insignias en este periodo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun badge sur cette période"
           }
         },
         "ru": {
@@ -273,6 +321,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Racha actual: %lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Série en cours : %lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Série en cours : %lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Série en cours : %lld jours"
                 }
               }
             }
@@ -355,6 +427,12 @@
             "value": "Insignias"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Badges"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -384,6 +462,12 @@
             "value": "Tranquilo en el modo principiante"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discret en mode débutant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -411,6 +495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir ahora"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvert maintenant"
           }
         },
         "ru": {
@@ -467,6 +557,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Se abre a los %lld días con apuntes (ahora %lld)"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre au %lld jours avec des saisies (aujourd'hui %lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre au %lld jour avec des saisies (aujourd'hui %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre au %lld jours avec des saisies (aujourd'hui %lld)"
                 }
               }
             }
@@ -549,6 +663,12 @@
             "value": "Se abre tras el primer recuento"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "S'ouvre après le premier bilan"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -603,6 +723,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Se abre en %lld días, tras un mes de apuntes"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre dans %lld jours, après un mois de saisies"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre dans %lld jour, après un mois de saisies"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "S'ouvre dans %lld jours, après un mois de saisies"
                 }
               }
             }
@@ -685,6 +829,12 @@
             "value": "Por qué ahorra"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pourquoi vous épargnez"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -712,6 +862,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La app se lo recuerda cuando el dinero del objetivo parece gastado, el plan se baja o el objetivo se elimina"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'application vous le rappelle quand l'argent de l'objectif semble dépensé, que le plan est abaissé ou que l'objectif est supprimé"
           }
         },
         "ru": {
@@ -743,6 +899,12 @@
             "value": "Ahorra para «%1$@» porque: %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous épargnez pour « %1$@ » parce que : %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -770,6 +932,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El mar en julio, con toda la familia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La mer en juillet, avec toute la famille"
           }
         },
         "ru": {
@@ -801,6 +969,12 @@
             "value": "«%1$@»: %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« %1$@ » : %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -830,6 +1004,12 @@
             "value": "Por qué ahorro"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pourquoi j'épargne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -857,6 +1037,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sin gastos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune dépense"
           }
         },
         "ru": {
@@ -889,6 +1075,12 @@
             "value": "Restaurar…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurer…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -916,6 +1108,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 tarjetas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 cartes"
           }
         },
         "ru": {
@@ -948,6 +1146,12 @@
             "value": "Cerrar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fermer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -975,6 +1179,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lecciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leçons"
           }
         },
         "ru": {
@@ -1006,6 +1216,12 @@
             "value": "Lecciones breves de dinero, cinco tarjetas cada una"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De courtes leçons d'argent, cinq cartes chacune"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1033,6 +1249,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lecciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leçons"
           }
         },
         "ru": {
@@ -1064,6 +1286,12 @@
             "value": "¿Sin gastos hoy?"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas de dépense aujourd'hui ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1091,6 +1319,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Anote los gastos de hoy — ¿o hoy no hubo ninguno?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notez vos dépenses du jour — ou n'y en a-t-il eu aucune aujourd'hui ?"
           }
         },
         "ru": {
@@ -1147,6 +1381,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "No hay apuntes desde hace %lld días — ¿restaurar desde los saldos?"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rien saisi depuis %lld jours — restaurer d'après les soldes ?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rien saisi depuis %lld jour — restaurer d'après les soldes ?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rien saisi depuis %lld jours — restaurer d'après les soldes ?"
                 }
               }
             }
@@ -1259,6 +1517,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "série %lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "série %lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "série %lld jours"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1337,6 +1619,12 @@
             "value": "Atrás"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1364,6 +1652,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ahora en la cuenta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenant sur le compte"
           }
         },
         "ru": {
@@ -1395,6 +1689,12 @@
             "value": "Según los registros: %@ — coincide"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selon les saisies : %@ — concorde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1422,6 +1722,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escriba lo que tiene ahora cada cuenta. Cuentas en «Total» que se contaron al menos una vez."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez ce que contient chaque compte maintenant. Les comptes du « Total » qui ont été comptés au moins une fois."
           }
         },
         "ru": {
@@ -1453,6 +1759,12 @@
             "value": "Según los registros %1$@ · sin anotar %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selon les saisies %1$@ · non notés %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1480,6 +1792,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Más de lo que dicen los registros — quizá un ingreso sin anotar; no se reparte como gasto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus que ce que disent les saisies — peut-être un revenu non noté ; il n'est pas réparti en dépenses"
           }
         },
         "ru": {
@@ -1511,6 +1829,12 @@
             "value": "Todavía no se contó ninguna cuenta de «Total». Haga antes un recuento y el asistente sabrá con qué comparar."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun compte du « Total » n'a encore été compté. Faites d'abord un bilan, et l'assistant saura à quoi comparer."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1538,6 +1862,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cada saldo coincide con los registros: nada que restaurar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque solde concorde avec les saisies : rien à restaurer"
           }
         },
         "ru": {
@@ -1570,6 +1900,12 @@
             "value": "Cancelar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1597,6 +1933,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Los saldos cambiaron mientras el asistente estaba abierto. Ciérrelo y cuente de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les soldes ont changé pendant que l'assistant était ouvert. Fermez-le et comptez à nouveau."
           }
         },
         "ru": {
@@ -1628,6 +1970,12 @@
             "value": "Añadir una línea"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajouter une ligne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1655,6 +2003,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Líneas sin categoría — «Desconocida»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lignes sans catégorie — « Inconnue »"
           }
         },
         "ru": {
@@ -1687,6 +2041,12 @@
             "value": "Categoría"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Catégorie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1714,6 +2074,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Repartido por completo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entièrement réparti"
           }
         },
         "ru": {
@@ -1745,6 +2111,12 @@
             "value": "Cada línea necesita una categoría; «Desconocida» también es una elección. Las líneas de una cuenta suman lo que falta en ella."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque ligne a besoin d'une catégorie ; « Inconnue » est aussi un choix. Les lignes d'un compte font ensemble ce qui manque sur ce compte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1772,6 +2144,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Queda por repartir: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reste à répartir : %@"
           }
         },
         "ru": {
@@ -1803,6 +2181,12 @@
             "value": "Qué fue (opcional)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que c'était (facultatif)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1830,6 +2214,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quitar la línea"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer la ligne"
           }
         },
         "ru": {
@@ -1862,6 +2252,12 @@
             "value": "Siguiente"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1889,6 +2285,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se pudieron escribir las operaciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les opérations n'ont pas pu être notées"
           }
         },
         "ru": {
@@ -1920,6 +2322,12 @@
             "value": "Cada línea necesita un importe mayor que cero"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque ligne doit avoir un montant supérieur à zéro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1947,6 +2355,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elija una categoría para cada línea"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez une catégorie pour chaque ligne"
           }
         },
         "ru": {
@@ -1978,6 +2392,12 @@
             "value": "Las líneas de una cuenta no suman lo que falta en ella"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les lignes d'un compte ne font pas ensemble ce qui manque sur ce compte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2005,6 +2425,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Anotar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noter"
           }
         },
         "ru": {
@@ -2036,6 +2462,12 @@
             "value": "Anotado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notées"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2063,6 +2495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "1. Lo que hay ahora en las cuentas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Ce qu'il y a sur les comptes maintenant"
           }
         },
         "ru": {
@@ -2094,6 +2532,12 @@
             "value": "2. Repartir el gasto por días"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Répartir les dépenses sur les jours"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2121,6 +2565,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No se anotó nada desde el %1$@ hasta el %2$@. Primero los saldos, luego los días."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien n'a été saisi du %1$@ au %2$@. D'abord les soldes, puis les jours."
           }
         },
         "ru": {
@@ -2152,6 +2602,12 @@
             "value": "Restaurar los días sin anotar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurer les jours manqués"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2179,6 +2635,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "día %1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "jour %1$lld sur %2$lld"
           }
         },
         "ru": {
@@ -2211,6 +2673,12 @@
             "value": "Ocultar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2238,6 +2706,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld sur %2$lld"
           }
         },
         "ru": {
@@ -2269,6 +2743,12 @@
             "value": "Mostrar dónde"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montrer où"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2296,6 +2776,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El primer mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le premier mois"
           }
         },
         "ru": {
@@ -2327,6 +2813,12 @@
             "value": "Modo principiante"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode débutant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2354,6 +2846,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Las secciones complejas se ven atenuadas hasta que tengan algo que mostrar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les sections complexes restent visibles mais atténuées tant qu'elles n'ont rien à montrer"
           }
         },
         "ru": {
@@ -2385,6 +2883,12 @@
             "value": "Preguntar por los gastos del día por la noche"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demander le soir les dépenses du jour"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2412,6 +2916,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«¿Sin gastos hoy?» cuenta el día en la racha"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "« Pas de dépense aujourd'hui ? » compte le jour dans la série"
           }
         },
         "ru": {
@@ -2443,6 +2953,12 @@
             "value": "La noche empieza a las"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le soir commence à"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2470,6 +2986,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostrar la lista del primer mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher la liste du premier mois"
           }
         },
         "ru": {
@@ -2501,6 +3023,12 @@
             "value": "Ofrecer restaurar tras días sin apuntes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proposer de restaurer après des jours sans saisie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2528,6 +3056,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una línea en «Merece una mirada», no una notificación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une ligne dans « À regarder de plus près », pas une notification"
           }
         },
         "ru": {
@@ -2558,6 +3092,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hábitos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Habitudes"
           }
         },
         "ru": {

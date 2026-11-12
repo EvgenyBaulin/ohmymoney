@@ -47,6 +47,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes remplies comme vous les aviez écrites avant"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ligne remplie comme vous l'aviez écrit avant"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes remplies comme vous les aviez écrites avant"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -125,6 +149,12 @@
             "value": "Como la escribió antes"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comme vous l'aviez écrit avant"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -153,6 +183,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rellenada desde una operación que escribió a mano para el mismo texto de este banco. Cambie la operación después de cargar, y las líneas siguientes seguirán su cambio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rempli d'après une opération que vous avez saisie à la main pour le même texte de cette banque. Modifiez l'opération après le chargement, et les lignes suivantes suivront votre modification."
           }
         },
         "ru": {

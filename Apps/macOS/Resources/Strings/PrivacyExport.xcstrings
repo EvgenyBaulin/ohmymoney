@@ -16,6 +16,12 @@
             "value": "Anonimizar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonymiser"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -43,6 +49,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En la copia se borran descripciones, comentarios, lugares y nombres. Los importes, las fechas y las categorías se quedan. El original no cambia."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les descriptions, commentaires, lieux et noms sont effacés dans la copie. Les montants, dates et catégories restent. L'original ne change pas."
           }
         },
         "ru": {
@@ -74,6 +86,12 @@
             "value": "Incluir los adjuntos (%@)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inclure les pièces jointes (%@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -101,6 +119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La copia está lista"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie est prête"
           }
         },
         "ru": {
@@ -132,6 +156,12 @@
             "value": "Adjuntos: %lld"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pièces jointes : %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -159,6 +189,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bloqueada con su contraseña."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrouillée par votre mot de passe."
           }
         },
         "ru": {
@@ -215,6 +251,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operaciones en la copia"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations dans la copie"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération dans la copie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations dans la copie"
                 }
               }
             }
@@ -327,6 +387,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements dans la copie"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virement dans la copie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements dans la copie"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -404,6 +488,12 @@
             "value": "La anonimización no está disponible en esta compilación, así que la copia no se hizo."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'anonymisation n'est pas disponible dans cette version, donc la copie n'a pas été faite."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -431,6 +521,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una cuenta oculta todavía la usa algo que la copia conserva, así que no se puede dejar fuera. Incluya las cuentas ocultas, o vuelva a mostrar la cuenta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un compte masqué est encore utilisé par quelque chose que la copie garde, donc il ne peut pas être laissé de côté. Incluez les comptes masqués, ou réaffichez le compte."
           }
         },
         "ru": {
@@ -462,6 +558,12 @@
             "value": "La copia no se hizo. No se cambió nada."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie n'a pas été faite. Rien n'a été modifié."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -489,6 +591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escriba una contraseña: no se hace una copia sin ella."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez un mot de passe : une copie sans mot de passe n'est pas faite."
           }
         },
         "ru": {
@@ -520,6 +628,12 @@
             "value": "El periodo está vacío: el final es anterior al inicio."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La période est vide : la fin est avant le début."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -547,6 +661,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Formato"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format"
           }
         },
         "ru": {
@@ -578,6 +698,12 @@
             "value": "Archivo de traslado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archive de transfert"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -605,6 +731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solo CSV"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV seulement"
           }
         },
         "ru": {
@@ -637,6 +769,12 @@
             "value": "Desde"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -664,6 +802,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Incluir cuentas ocultas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inclure les comptes masqués"
           }
         },
         "ru": {
@@ -695,6 +839,12 @@
             "value": "Sin ello, la copia no tiene cuentas ocultas, ni sus operaciones ni transferencias."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sans cela, la copie n'a aucun compte masqué, ni aucune de leurs opérations ou virements."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -722,6 +872,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La copia incluirá cuentas ocultas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie comprendra les comptes masqués."
           }
         },
         "ru": {
@@ -753,6 +909,12 @@
             "value": "Dejadas fuera: %lld"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laissé de côté : %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -780,6 +942,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una copia — el original se queda con usted."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une copie — l'original reste chez vous."
           }
         },
         "ru": {
@@ -812,6 +980,12 @@
             "value": "Contraseña"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mot de passe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -840,6 +1014,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Repita la contraseña"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Répétez le mot de passe"
           }
         },
         "ru": {
@@ -871,6 +1051,12 @@
             "value": "La copia se bloquea con esta contraseña. Nadie puede abrirla sin ella, y no se puede recuperar. El original se queda con usted, sin cambios."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La copie est verrouillée par ce mot de passe. Personne ne peut l'ouvrir sans lui, et il ne peut pas être récupéré. L'original reste chez vous, inchangé."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -898,6 +1084,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "adjuntos: %lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pièces jointes : %lld"
           }
         },
         "ru": {
@@ -930,6 +1122,12 @@
             "value": "Contando…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptage…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -957,6 +1155,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Incluirá:"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprendra :"
           }
         },
         "ru": {
@@ -1014,6 +1218,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operaciones"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opération"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld opérations"
                 }
               }
             }
@@ -1126,6 +1354,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virement"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld virements"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1203,6 +1455,12 @@
             "value": "Escriba una contraseña: no se hace una copia sin ella."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saisissez un mot de passe : une copie sans mot de passe n'est pas faite."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1230,6 +1488,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Las contraseñas no coinciden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les mots de passe ne concordent pas."
           }
         },
         "ru": {
@@ -1261,6 +1525,12 @@
             "value": "El periodo está vacío: el final es anterior al inicio."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La période est vide : la fin est avant le début."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1288,6 +1558,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guardar copia…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer la copie…"
           }
         },
         "ru": {
@@ -1319,6 +1595,12 @@
             "value": "Parte del historial"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une partie de l'historique"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1346,6 +1628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Por periodo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pour une période"
           }
         },
         "ru": {
@@ -1377,6 +1665,12 @@
             "value": "Toda la base de datos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toute la base"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1406,6 +1700,12 @@
             "value": "Mostrar la contraseña"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher le mot de passe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1433,6 +1733,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Exportar una copia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter une copie"
           }
         },
         "ru": {
@@ -1465,6 +1771,12 @@
             "value": "Hasta"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Au"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1492,6 +1804,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Haciendo la copia…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Création de la copie…"
           }
         },
         "ru": {
@@ -1523,6 +1841,12 @@
             "value": "Volver a Mis datos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour à mes données"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1552,6 +1876,12 @@
             "value": "Datos de entrenamiento"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Données d'entraînement"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1579,6 +1909,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Estas cifras son inventadas. Su base de datos propia no está abierta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ces chiffres sont inventés. Votre propre base n'est pas ouverte."
           }
         },
         "ru": {
@@ -1611,6 +1947,12 @@
             "value": "Mostrar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1638,6 +1980,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La app se reinicia con datos inventados. Su base de datos propia no se toca, y un botón le devuelve."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'app redémarre sur des données fictives. Votre propre base n'est pas touchée, et un bouton vous ramène."
           }
         },
         "ru": {
@@ -1669,6 +2017,12 @@
             "value": "¿Mostrar la app con datos de entrenamiento?"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher l'app sur des données d'entraînement ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1698,6 +2052,12 @@
             "value": "Cifrar (se abre en OhMyMoney)"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiffrer (s'ouvre dans OhMyMoney)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1725,6 +2085,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Borrar el diario"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vider le journal"
           }
         },
         "ru": {
@@ -1757,6 +2123,12 @@
             "value": "Borrar"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vider"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1784,6 +2156,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se eliminarán todas las líneas del diario de apertura."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les entrées du journal d'ouverture seront supprimées."
           }
         },
         "ru": {
@@ -1815,6 +2193,12 @@
             "value": "¿Borrar el diario?"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vider le journal ?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1842,6 +2226,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Todavía no hay líneas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore de lignes."
           }
         },
         "ru": {
@@ -1873,6 +2263,12 @@
             "value": "Se exportó una copia"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une copie a été exportée"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1900,6 +2296,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cuentas ocultas mostradas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptes masqués affichés"
           }
         },
         "ru": {
@@ -1931,6 +2333,12 @@
             "value": "Bloqueada"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrouillée"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1958,6 +2366,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "App abierta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App ouverte"
           }
         },
         "ru": {
@@ -1989,6 +2403,12 @@
             "value": "Modo solo ver desactivado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode lecture seule désactivé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2016,6 +2436,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modo solo ver activado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode lecture seule activé"
           }
         },
         "ru": {
@@ -2047,6 +2473,12 @@
             "value": "Desbloqueada con la contraseña"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déverrouillée avec le mot de passe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2074,6 +2506,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Desbloqueada con Touch ID"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déverrouillée avec Touch ID"
           }
         },
         "ru": {
@@ -2105,6 +2543,12 @@
             "value": "El diario vive solo en este Mac. Guarda momentos y tipos de eventos — sin importes, nombres ni títulos — y no entra en ninguna copia ni archivo."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le journal ne vit que sur ce Mac. Il contient des moments et des types d'événements — ni montants, ni noms, ni titres — et il n'entre ni dans une copie ni dans une archive."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2132,6 +2576,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guardar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conserver pendant"
           }
         },
         "ru": {
@@ -2188,6 +2638,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours"
                 }
               }
             }
@@ -2270,6 +2744,12 @@
             "value": "Diario de aperturas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal des ouvertures"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2297,6 +2777,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quien abra el archivo necesita esta contraseña. No se puede recuperar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quiconque ouvre le fichier a besoin de ce mot de passe. Il ne peut pas être récupéré."
           }
         },
         "ru": {
@@ -2328,6 +2814,12 @@
             "value": "Bloquear el archivo con una contraseña"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrouiller le fichier par un mot de passe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2355,6 +2847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Exportar copia…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter une copie…"
           }
         },
         "ru": {
@@ -2386,6 +2884,12 @@
             "value": "Qué sabe la app…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que sait l'app…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2413,6 +2917,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ocultar importes mientras se graba la pantalla"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquer les montants pendant l'enregistrement de l'écran"
           }
         },
         "ru": {
@@ -2444,6 +2954,12 @@
             "value": "También mientras la pantalla se duplica o se comparte en una llamada."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aussi pendant la recopie de l'écran ou un partage dans un appel."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2471,6 +2987,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostrar con datos de entrenamiento…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher les données d'entraînement…"
           }
         },
         "ru": {
@@ -2502,6 +3024,12 @@
             "value": "Exportar una copia…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exporter une copie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2529,6 +3057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entrega"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remise à quelqu'un"
           }
         },
         "ru": {
@@ -2560,6 +3094,12 @@
             "value": "Una copia se bloquea con contraseña; el original no cambia. Los datos de entrenamiento son cifras inventadas, y su base de datos propia no se abre."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une copie est verrouillée par un mot de passe ; l'original reste inchangé. Les données d'entraînement sont des chiffres inventés, et votre propre base n'est pas ouverte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2587,6 +3127,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Diario de aperturas…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal des ouvertures…"
           }
         },
         "ru": {
@@ -2618,6 +3164,12 @@
             "value": "Qué sabe la app"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que sait l'app"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2645,6 +3197,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "El diario y los recuentos solo se muestran aquí; no se envían a ningún sitio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le journal et les compteurs ne sont affichés qu'ici ; ils ne sont envoyés nulle part."
           }
         },
         "ru": {
@@ -2676,6 +3234,12 @@
             "value": "Bloqueo y contraseña…"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verrou et mot de passe…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2705,6 +3269,12 @@
             "value": "Solo ver"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultation seule"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2732,6 +3302,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La app lo muestra todo y no cambia nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'app affiche tout et ne modifie rien."
           }
         },
         "ru": {
@@ -2764,6 +3340,12 @@
             "value": "Pantalla"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écran"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2791,6 +3373,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qué se guarda…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce qui est stocké…"
           }
         },
         "ru": {
@@ -2823,6 +3411,12 @@
             "value": "Adjuntos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pièces jointes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2850,6 +3444,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copias"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copies"
           }
         },
         "ru": {
@@ -2907,6 +3507,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld copias"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copies"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld copies"
                 }
               }
             }
@@ -3019,6 +3643,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fichiers"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fichier"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fichiers"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3121,6 +3769,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld líneas"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ligne"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld lignes"
                 }
               }
             }
@@ -3233,6 +3905,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrements"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrement"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld enregistrements"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3310,6 +4006,12 @@
             "value": "Base de datos"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Base de données"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3337,6 +4039,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aquí solo se muestran recuentos y tamaños. Nada se envía a ningún sitio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seuls les compteurs et les tailles sont affichés ici. Rien n'est envoyé nulle part."
           }
         },
         "ru": {
@@ -3368,6 +4076,12 @@
             "value": "Diario de aperturas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Journal des ouvertures"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3395,6 +4109,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registros"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrements"
           }
         },
         "ru": {
@@ -3426,6 +4146,12 @@
             "value": "Por tabla"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Par table"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3453,6 +4179,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qué sabe la app"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce que sait l'app"
           }
         },
         "ru": {
@@ -3484,6 +4216,12 @@
             "value": "Total en el disco"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total sur le disque"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3511,6 +4249,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "B"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "o"
           }
         },
         "ru": {
@@ -3542,6 +4286,12 @@
             "value": "GB"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Go"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3569,6 +4319,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "KB"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ko"
           }
         },
         "ru": {
@@ -3600,6 +4356,12 @@
             "value": "MB"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3627,6 +4389,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dónde está"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où il se trouve"
           }
         },
         "ru": {
@@ -3658,6 +4426,12 @@
             "value": "Copias"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copies"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3685,6 +4459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Carpeta de datos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier des données"
           }
         },
         "ru": {
@@ -3716,6 +4496,12 @@
             "value": "Las rutas solo se muestran: la base de datos y el archivo no las guardan."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les chemins ne sont qu'affichés : la base et l'archive ne les contiennent pas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3743,6 +4529,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Carpeta de copias reflejadas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier des copies miroir"
           }
         },
         "ru": {

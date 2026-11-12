@@ -17,6 +17,12 @@
             "value": "Garantías"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garanties"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quitar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer"
           }
         },
         "ru": {
@@ -77,6 +89,12 @@
             "value": "Todavía no hay garantías"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore de garantie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -105,6 +123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Añada una garantía o un plazo de devolución en el panel de una operación, o escríbalo en la línea: «garantía 2a», «devolución 14d»."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajoutez une garantie ou un délai de retour dans le panneau d'une opération, ou tapez-le dans la ligne : « garantie 2a », « retour 14j »."
           }
         },
         "ru": {
@@ -137,6 +161,12 @@
             "value": "Dónde está el original"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Où se trouve l'original"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "caja en el armario, carpeta «Electrodomésticos»"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "boîte dans le placard, dossier « Électroménager »"
           }
         },
         "ru": {
@@ -197,6 +233,12 @@
             "value": "Se puede devolver hasta el"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour possible jusqu'au"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -225,6 +267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Garantía hasta el"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantie jusqu'au"
           }
         },
         "ru": {
@@ -282,6 +330,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Quedan %lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours restants"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jour restant"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld jours restants"
                 }
               }
             }
@@ -365,6 +437,12 @@
             "value": "Se puede devolver hasta el %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour possible jusqu'au %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -393,6 +471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Garantía hasta el %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantie jusqu'au %@"
           }
         },
         "ru": {
@@ -425,6 +509,12 @@
             "value": "No se encontró nada"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien trouvé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -453,6 +543,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir la operación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir l'opération"
           }
         },
         "ru": {
@@ -485,6 +581,12 @@
             "value": "el plazo ha terminado"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "délai dépassé"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -513,6 +615,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elegir una fecha"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez une date"
           }
         },
         "ru": {
@@ -570,6 +678,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld días"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld jours"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld jours"
                 }
               }
             }
@@ -683,6 +815,30 @@
             }
           }
         },
+        "fr": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld ans"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld an"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld ans"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -761,6 +917,12 @@
             "value": "Original: %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Original : %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -789,6 +951,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se puede devolver hasta el %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retour possible jusqu'au %@"
           }
         },
         "ru": {
@@ -821,6 +989,12 @@
             "value": "Garantía hasta el %@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantie jusqu'au %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -849,6 +1023,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Buscar por nombre o lugar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher par nom ou lieu"
           }
         },
         "ru": {
@@ -881,6 +1061,12 @@
             "value": "Terminadas"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminées"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -909,6 +1095,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "En curso"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En cours"
           }
         },
         "ru": {
@@ -941,6 +1133,12 @@
             "value": "Qué está en garantía y qué todavía se puede devolver"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce qui est sous garantie et ce qui peut encore être rendu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -969,6 +1167,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Garantías"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garanties"
           }
         },
         "ru": {
@@ -1001,6 +1205,12 @@
             "value": "el último día es hoy"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "le dernier jour est aujourd'hui"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1029,6 +1239,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Compra de %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Achat de %@"
           }
         },
         "ru": {
