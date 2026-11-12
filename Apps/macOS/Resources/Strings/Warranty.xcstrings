@@ -47,6 +47,12 @@
             "value": "Кепілдіктер"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепилдиктер"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -135,6 +141,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жою"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өчүрүү"
           }
         },
         "pl": {
@@ -227,6 +239,12 @@
             "value": "Әлі кепілдіктер жоқ"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепилдиктер жок"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -315,6 +333,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Операция панелінде кепілдік не қайтару мерзімін қосыңыз немесе жолға жазыңыз: «кепілдік 2ж», «қайтару 14к»."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операциянын панелине кепилдикти же кайтаруу мөөнөтүн кошуңуз, же сапка жазыңыз: «warranty 2y», «return 14d»."
           }
         },
         "pl": {
@@ -407,6 +431,12 @@
             "value": "Түпнұсқа қайда"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түп нуска кайда"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -495,6 +525,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "шкафтағы қорап, «Техника» қалтасы"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "шкафтагы куту, «Appliances» папкасы"
           }
         },
         "pl": {
@@ -587,6 +623,12 @@
             "value": "Қайтаруға болады"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кайтаруу мөөнөтү"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -675,6 +717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кепілдік мерзімі"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепилдик мөөнөтү"
           }
         },
         "pl": {
@@ -876,6 +924,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld күн қалды"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld күн калды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld күн калды"
                 }
               }
             }
@@ -1091,6 +1157,12 @@
             "value": "%@ дейін қайтаруға болады"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ чейин кайтарууга болот"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1179,6 +1251,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кепілдік %@ дейін"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепилдик %@ чейин"
           }
         },
         "pl": {
@@ -1271,6 +1349,12 @@
             "value": "Ештеңе табылмады"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эч нерсе табылган жок"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1359,6 +1443,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Операцияны ашу"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операцияны ачуу"
           }
         },
         "pl": {
@@ -1451,6 +1541,12 @@
             "value": "мерзімі бітті"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "мөөнөтү бүттү"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1539,6 +1635,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Күнді таңдау"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күндү тандаңыз"
           }
         },
         "pl": {
@@ -1728,6 +1830,24 @@
           }
         },
         "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld күн"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld күн"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
           "variations": {
             "plural": {
               "one": {
@@ -2069,6 +2189,24 @@
             }
           }
         },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld жыл"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld жыл"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -2279,6 +2417,12 @@
             "value": "Түпнұсқа: %@"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түп нуска: %@"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2367,6 +2511,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ дейін қайтаруға болады"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ чейин кайтарууга болот"
           }
         },
         "pl": {
@@ -2459,6 +2609,12 @@
             "value": "Кепілдік %@ дейін"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепилдик %@ чейин"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2547,6 +2703,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Атау не орын бойынша іздеу"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аты же жайгашкан жери боюнча издөө"
           }
         },
         "pl": {
@@ -2639,6 +2801,12 @@
             "value": "Аяқталған"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мөөнөтү бүткөн"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2727,6 +2895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Белсенді"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жарактуу"
           }
         },
         "pl": {
@@ -2819,6 +2993,12 @@
             "value": "Кепілдігі бар және әлі қайтаруға болатын сатып алулар"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепилдиги бар жана кайтарууга боло турган сатып алуулар"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2907,6 +3087,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кепілдіктер"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепилдиктер"
           }
         },
         "pl": {
@@ -2999,6 +3185,12 @@
             "value": "бүгін — соңғы күн"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "акыркы күнү бүгүн"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3087,6 +3279,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ күнгі сатып алу"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ сатып алуу"
           }
         },
         "pl": {

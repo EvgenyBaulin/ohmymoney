@@ -47,6 +47,12 @@
             "value": "Жылжытпау"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көчүрбөө"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -135,6 +141,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Файлда есеп-шот аталмаған"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлда эсептин аты көрсөтүлгөн эмес"
           }
         },
         "pl": {
@@ -227,6 +239,12 @@
             "value": "Есеп-шоттар"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эсептер"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -315,6 +333,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Басқа қолданбаның әр есеп-шотының операциялары қайда барады. «Жылжытпау» оларды шығарып тастайды. Жасырын есеп-шоттар тек көрсетіліп тұрғанда ғана ұсынылады."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Башка колдонмодогу ар бир эсептин операциялары кайда көчүрүлөт. «Көчүрбөө» тандалса, алар өткөрүлүп жиберилет. Жашыруун эсептер көрсөтүлүп турганда гана сунушталат."
           }
         },
         "pl": {
@@ -407,6 +431,12 @@
             "value": "Басқа файл…"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Башка файл…"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -497,6 +527,12 @@
             "value": "Көшіріп алу"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көчүрүү"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -585,6 +621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Санаттар"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категориялар"
           }
         },
         "pl": {
@@ -786,6 +828,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Жетіспейтін %lld санатты жасау"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Жетишпеген %lld категорияны түзүү"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Жетишпеген %lld категорияны түзүү"
                 }
               }
             }
@@ -1001,6 +1061,12 @@
             "value": "Атауы мен мағынасы бойынша сәйкестендіріледі («Кафеде тамақтану» → «Кафелер»). Жаңа санат тек «Жасау» таңдалған жерде жасалады."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аты жана мааниси боюнча дал келтирилет («Тышта тамактануу» → «Кафелер»). Жаңы категория «Түзүү» тандалганда гана түзүлөт."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1089,6 +1155,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Файлда санаттар жоқ: бәрі «Сұрыпталмағанға» түседі."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файлда категориялар жок: баары «Сорттолбогон» бөлүмүнө өтөт."
           }
         },
         "pl": {
@@ -1181,6 +1253,12 @@
             "value": "«%@» жасау"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» түзүү"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1269,6 +1347,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сұрыпталмаған"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сорттолбогон"
           }
         },
         "pl": {
@@ -1361,6 +1445,12 @@
             "value": "Файлды таңдау…"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл тандоо…"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1449,6 +1539,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Дайын"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даяр"
           }
         },
         "pl": {
@@ -1541,6 +1637,12 @@
             "value": "Әр бағанда не бар. Таңдауыңыз бірдей бағандары бар келесі файлға есте қалады."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ар бир мамычанын мазмунун тандаңыз. Тандооңуз мамычалары бирдей кийинки файл үчүн сакталат."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1629,6 +1731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Күн бағанын және соманы (немесе табыс пен шығыс бағандарын) таңдаңыз."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күн жана сумма мамычаларын же киреше жана чыгаша мамычаларын тандаңыз."
           }
         },
         "pl": {
@@ -1721,6 +1829,12 @@
             "value": "Оқылған операциялар: %lld · оқылмаған жолдар: %lld"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Окулган операциялар: %lld · окулбаган саптар: %lld"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1809,6 +1923,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "03/04 түріндегі күндер"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "03/04 сыяктуу даталар"
           }
         },
         "pl": {
@@ -1901,6 +2021,12 @@
             "value": "күн, сосын ай"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "адегенде күн, анан ай"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1989,6 +2115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ай, сосын күн"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "адегенде ай, анан күн"
           }
         },
         "pl": {
@@ -2081,6 +2213,12 @@
             "value": "бұрыннан бар"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "мурунтан бар"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2169,6 +2307,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "қолмен теріле ме?"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "кол менен киргизилгенби?"
           }
         },
         "pl": {
@@ -2261,6 +2405,12 @@
             "value": "ең жақын бағам"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "эң жакын курс"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2351,6 +2501,12 @@
             "value": "жаңа"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "жаңы"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2439,6 +2595,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "бағам жоқ"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "курс жок"
           }
         },
         "pl": {
@@ -2640,6 +2802,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld жаңа санат жасалды"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жаңы категория түзүлдү"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жаңы категория түзүлдү"
                 }
               }
             }
@@ -2969,6 +3149,24 @@
             }
           }
         },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция көчүрүлдү"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция көчүрүлдү"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -3179,6 +3377,12 @@
             "value": "Өңдеу → Болдырмау (⌘Z) бүкіл көшіруді қайтарады. Оның алдында жасалған дерекқор көшірмесі резервтік көшірмелердің ішінде."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түзөтүү → Артка кайтаруу (⌘Z) көчүрүүнү толугу менен жокко чыгарат. Ага чейин түзүлгөн маалымат базасынын көчүрмөсү камдык көчүрмөлөрдө сакталат."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3267,6 +3471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Болдырмау» бүкіл көшіруді қайтарады. Оның алдында жасалған дерекқор көшірмесі резервтік көшірмелердің ішінде."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Артка кайтаруу” көчүрүүнү толугу менен жокко чыгарат. Ага чейин түзүлгөн маалымат базасынын көчүрмөсү камдык көчүрмөлөрдө сакталат."
           }
         },
         "pl": {
@@ -3359,6 +3569,12 @@
             "value": "CoinKeeper, Zenmoney, Money Manager немесе күні мен сомасы бар кез келген кестеден CSV немесе Excel (.xlsx). Numbers кестесі болса: алдымен оны CSV немесе Excel ретінде экспорттаңыз."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager колдонмолорунан алынган CSV же Excel (.xlsx) файлы же күн менен сумма көрсөтүлгөн каалаган таблица. Numbers таблицасын адегенде CSV же Excel форматына экспорттоңуз."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3447,6 +3663,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт файлын таңдаңыз"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспорт файлын тандаңыз"
           }
         },
         "pl": {
@@ -3539,6 +3761,12 @@
             "value": "Көшіріп алынбады, ештеңе жазылмады. Себебі журналда."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көчүрүлгөн жок, эч нерсе жазылган жок. Себеби журналда көрсөтүлгөн."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3627,6 +3855,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бұл Numbers құжаты, оның пішімі жабық. Numbers-те «Файл → Экспорттау → CSV немесе Excel» таңдап, сол файлды осы жерде таңдаңыз."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бул Numbers документинин форматы жабык. Numbers колдонмосунда Файл → Экспорттоо → CSV же Excel тандап, анан ошол файлды бул жерден тандаңыз."
           }
         },
         "pl": {
@@ -3719,6 +3953,12 @@
             "value": "Файл бағандар аттары бар кесте ретінде оқылмайды. CSV немесе .xlsx ретінде экспорттаңыз."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл мамыча аттары бар таблица катары окулган жок. Аны CSV же .xlsx форматына экспорттоңуз."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3807,6 +4047,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бұл 2007-ден ерте Excel файлы (.xls). Оны .xlsx немесе CSV ретінде қайта сақтап, осында таңдаңыз."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бул 2007-жылга чейинки Excel файлы (.xls). Аны .xlsx же CSV форматында кайра сактап, бул жерден тандаңыз."
           }
         },
         "pl": {
@@ -3899,6 +4145,12 @@
             "value": "Шығыс"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чыгаша"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3987,6 +4239,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Табыс"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Киреше"
           }
         },
         "pl": {
@@ -4079,6 +4337,12 @@
             "value": "Файл windows-1251 кодтауында, солай оқылды."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл windows-1251 коддоосунда окулду."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4167,6 +4431,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Басқа қолданбадан көшіріп алу…"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Башка колдонмодон көчүрүү…"
           }
         },
         "pl": {
@@ -4259,6 +4529,12 @@
             "value": "Келесі"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кийинки"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4347,6 +4623,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Көшірме алдында дерекқордың көшірмесі жасалады."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көчүрүүдөн мурун маалымат базасынын көчүрмөсү түзүлөт."
           }
         },
         "pl": {
@@ -4548,6 +4830,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld кітапта бұрыннан бар — өткізілді"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мурунтан бар — өткөрүлүп жиберилди"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld мурунтан бар — өткөрүлүп жиберилди"
                 }
               }
             }
@@ -4763,6 +5063,12 @@
             "value": "Сол күндердің бағамдарын Ресей Банкінен сұрап жатыр…"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Россия Банкынын ошол күндөрдөгү курстары алынууда…"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -4962,6 +5268,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld қолмен терілген операцияға ұқсайды — шығарылды"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld кол менен киргизилген операцияга окшойт — өткөрүлүп жиберилди"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld кол менен киргизилген операцияга окшойт — өткөрүлүп жиберилди"
                 }
               }
             }
@@ -5177,6 +5501,12 @@
             "value": "Бұларды да көшіру"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Буларды да көчүрүү"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -5376,6 +5706,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "және тағы %lld"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "жана дагы %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "жана дагы %lld"
                 }
               }
             }
@@ -5705,6 +6053,24 @@
             }
           }
         },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жеткиликтүү эң жакын курс боюнча эсептелип, убактылуу деп белгиленди — ошол күндүн курсу келгенде такталат"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld жеткиликтүү эң жакын курс боюнча эсептелип, убактылуу деп белгиленди — ошол күндүн курсу келгенде такталат"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -5915,6 +6281,12 @@
             "value": "%1$@ бастап %2$@ дейін"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — %2$@"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -6114,6 +6486,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Қолда мүлде бағамы жоқ валютада %lld — көшірілмеді"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld курсу такыр жок валютада — көчүрүлгөн жок"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld курсу такыр жок валютада — көчүрүлгөн жок"
                 }
               }
             }
@@ -6443,6 +6833,24 @@
             }
           }
         },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция көчүрүлөт"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция көчүрүлөт"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -6762,6 +7170,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Қолданбаның өз есеп-шоттары арасындағы %lld аударым — көшірілмеді"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Колдонмонун өз эсептеринин ортосундагы %lld которуу — көчүрүлгөн жок"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Колдонмонун өз эсептеринин ортосундагы %lld которуу — көчүрүлгөн жок"
                 }
               }
             }
@@ -7091,6 +7517,24 @@
             }
           }
         },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сап окулган жок"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld сап окулган жок"
+                }
+              }
+            }
+          }
+        },
         "pl": {
           "variations": {
             "plural": {
@@ -7301,6 +7745,12 @@
             "value": "Файлды оқып жатыр…"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл окулууда…"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -7389,6 +7839,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Есеп-шот"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эсеп"
           }
         },
         "pl": {
@@ -7481,6 +7937,12 @@
             "value": "Сома (таңбасымен)"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сумма (белгиси менен)"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -7569,6 +8031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Санат"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Категория"
           }
         },
         "pl": {
@@ -7661,6 +8129,12 @@
             "value": "Пікір"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Комментарий"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -7746,6 +8220,12 @@
           }
         },
         "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Валюта"
+          }
+        },
+        "ky": {
           "stringUnit": {
             "state": "translated",
             "value": "Валюта"
@@ -7841,6 +8321,12 @@
             "value": "Күні"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күн"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -7929,6 +8415,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сипаттама"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сүрөттөмө"
           }
         },
         "pl": {
@@ -8021,6 +8513,12 @@
             "value": "Шығыс"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чыгаша"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8109,6 +8607,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Қайдан"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кайдан"
           }
         },
         "pl": {
@@ -8201,6 +8705,12 @@
             "value": "Табыс"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Киреше"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8289,6 +8799,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Табыс есеп-шоты"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Киреше эсеби"
           }
         },
         "pl": {
@@ -8381,6 +8897,12 @@
             "value": "Табыс валютасы"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Киреше валютасы"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8469,6 +8991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Түрі (шығыс, табыс, аударым)"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түрү (чыгаша, киреше, которуу)"
           }
         },
         "pl": {
@@ -8561,6 +9089,12 @@
             "value": "Оқылмайды"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Окулбайт"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8649,6 +9183,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Алушы немесе дүкен"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Алуучу же дүкөн"
           }
         },
         "pl": {
@@ -8741,6 +9281,12 @@
             "value": "Ішкі санат"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ички категория"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -8829,6 +9375,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Қайда"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кайда"
           }
         },
         "pl": {
@@ -8921,6 +9473,12 @@
             "value": "Басқа қолданбадан көшіріп алу…"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Башка колдонмодон көчүрүү…"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -9009,6 +9567,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "CoinKeeper экспорты сияқты"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper экспорт файлына окшойт"
           }
         },
         "pl": {
@@ -9101,6 +9665,12 @@
             "value": "Money Manager экспорты сияқты"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money Manager экспорт файлына окшойт"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -9189,6 +9759,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кесте"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таблица"
           }
         },
         "pl": {
@@ -9281,6 +9857,12 @@
             "value": "Zenmoney экспорты сияқты"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zenmoney экспорт файлына окшойт"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -9369,6 +9951,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бағандар"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мамычалар"
           }
         },
         "pl": {
@@ -9461,6 +10049,12 @@
             "value": "Есеп-шоттар мен санаттар"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эсептер жана категориялар"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -9549,6 +10143,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Алдын ала көрініс"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Алдын ала көрүү"
           }
         },
         "pl": {
@@ -9641,6 +10241,12 @@
             "value": "CoinKeeper, Zenmoney, Money Manager, Excel немесе Numbers-тен экспортталған кесте. «Көшіріп алу» басылғанға дейін ештеңе жазылмайды; алдымен дерекқордың көшірмесі жасалады, ал ⌘Z бүкіл көшіруді қайтарады."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager, Excel же Numbers колдонмосунан экспорттолгон таблица. «Көчүрүү» басылганга чейин эч нерсе жазылбайт; адегенде маалымат базасынын көчүрмөсү түзүлөт, ал эми ⌘Z көчүрүүнү толугу менен жокко чыгарат."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -9729,6 +10335,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "CoinKeeper, Zenmoney, Money Manager, Excel немесе Numbers-тен экспортталған кесте. «Көшіріп алу» басылғанға дейін ештеңе жазылмайды; алдымен дерекқордың көшірмесі жасалады, ал «Болдырмау» бүкіл көшіруді қайтарады."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager, Excel же Numbers колдонмосунан экспорттолгон таблица. «Көчүрүү» басылганга чейин эч нерсе жазылбайт; адегенде маалымат базасынын көчүрмөсү түзүлөт, ал эми “Артка кайтаруу” көчүрүүнү толугу менен жокко чыгарат."
           }
         },
         "pl": {
@@ -9930,6 +10542,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Көшіріп алынатын %lld операция"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Көчүрүлө турган %lld операция"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Көчүрүлө турган %lld операция"
                 }
               }
             }
@@ -10143,6 +10773,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Басқа қолданбадан көшіріп алу"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Башка колдонмодон көчүрүү"
           }
         },
         "pl": {

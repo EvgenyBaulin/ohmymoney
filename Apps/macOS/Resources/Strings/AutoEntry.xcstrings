@@ -47,6 +47,12 @@
             "value": "Өңдеу"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түзөтүү"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -135,6 +141,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жазу"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазуу"
           }
         },
         "pl": {
@@ -227,6 +239,12 @@
             "value": "Бұрын жазылған: бұл операция кітапта бар."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Буга чейин жазылган: бул операция эсепте бар."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -315,6 +333,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney құлыптаулы: хабарламаны өткізу үшін ашыңыз."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney кулпуланган: билдирүүнү өткөрүү үчүн кулпусун ачыңыз."
           }
         },
         "pl": {
@@ -407,6 +431,12 @@
             "value": "Бұл банк хабарламасына ұқсамайды: онда операция, сома, карта немесе теңгерім жоқ."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бул банк билдирүүсүнө окшобойт: операция, сумма жана карта же калдык жок."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -495,6 +525,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney әлі кітаптарды ашып жатыр — сәлден соң қайталап көріңіз."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney эсептерди ачып жатат — бир аздан кийин кайра аракет кылыңыз."
           }
         },
         "pl": {
@@ -587,6 +623,12 @@
             "value": "Жасырын есеп-шоттың операциясы — жазайын ба?"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жашыруун эсептеги операция — жазылсынбы?"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -675,6 +717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жасырын есеп-шоттың операциясы жазылды"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жашыруун эсептеги операция жазылды"
           }
         },
         "pl": {
@@ -876,6 +924,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операция күтуде — аяқтайық па?"
+                }
+              }
+            }
+          }
+        },
+        "ky": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция күтүп жатат — бүтүрөсүзбү?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция күтүп жатат — бүтүрөсүзбү?"
                 }
               }
             }
@@ -1091,6 +1157,12 @@
             "value": "Кейін жазу"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кийин жазуу"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1179,6 +1251,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банк хабарламасынан"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк билдирүүсүнөн"
           }
         },
         "pl": {
@@ -1271,6 +1349,12 @@
             "value": "Банк %1$@ дейді, қолданба — %2$@ — есеп-шотты санайтын уақыт."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банкта %1$@, колдонмодо %2$@ — эсепти саноого убакыт келди."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1359,6 +1443,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банктің теңгерімі қолданбадағыдан өзгеше — есеп-шотты санайтын уақыт."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктын калдыгы колдонмодогудан айырмаланат — эсепти саноого убакыт келди."
           }
         },
         "pl": {
@@ -1451,6 +1541,12 @@
             "value": "Теңгерім сәйкес келмейді"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Калдык дал келбейт"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1541,6 +1637,12 @@
             "value": "%@ — жазайын ба?"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — жазылсынбы?"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1626,6 +1728,12 @@
           }
         },
         "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазылды: %@"
+          }
+        },
+        "ky": {
           "stringUnit": {
             "state": "translated",
             "value": "Жазылды: %@"
@@ -1721,6 +1829,12 @@
             "value": "Қолма-қола ақша алу"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нак акча алуу"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1806,6 +1920,12 @@
           }
         },
         "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Комиссия"
+          }
+        },
+        "ky": {
           "stringUnit": {
             "state": "translated",
             "value": "Комиссия"
@@ -1901,6 +2021,12 @@
             "value": "Табыс"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Киреше"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -1989,6 +2115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сатып алу"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сатып алуу"
           }
         },
         "pl": {
@@ -2081,6 +2213,12 @@
             "value": "Қайтару"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Акча кайтаруу"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2169,6 +2307,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кіріс аударым"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кирген которуу"
           }
         },
         "pl": {
@@ -2261,6 +2405,12 @@
             "value": "Аударым"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Которуу"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2349,6 +2499,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "iPhone-да банк хабарламаларын өткізу App Store-ға шыққанда, Siri-мен бірге қосылады."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iPhone'до банк билдирүүлөрүн өткөрүү колдонмо App Store'го чыкканда Siri менен кошо иштетилет."
           }
         },
         "pl": {
@@ -2441,6 +2597,12 @@
             "value": "«Кейін жазу» ішінде күтуде: %@"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Кийин жазууда” күтүп жатат: %@"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2529,6 +2691,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Кейін жазу» ішінде бір операция күтуде."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Кийин жазууда” операция күтүп жатат."
           }
         },
         "pl": {
@@ -2621,6 +2789,12 @@
             "value": "«Тек көру» қосулы: ештеңе жазылмайды."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Көрүү гана” күйгүзүлгөн: эч нерсе жазылбайт."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2709,6 +2883,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Жылдам команда» арқылы берілген хабарлама («Банк хабарламасын өткізу») операцияға айналады. Ұсынылса: хабарландыру «Жазайын ба?» деп сұрайды, ал операция «Кейін жазу» ішінде күтеді. Бірден: енгізу жолы сияқты жазылады; жол бірдеңе сұраса, оның орнына ұсынылады. Тек сома, дүкен, карта және теңгерім сақталады — хабарламаның өзі ешқашан сақталмайды."
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shortcuts аркылуу өткөрүлгөн билдирүү (“Банк билдирүүсүн өткөрүү”) операцияга айланат. Сунуштоо: эскертме “Жазылсынбы?” деп сурайт, операция “Кийин жазууда” күтөт. Дароо: операция киргизүү сабындагыдай жазылат; сабы суроо бере турган болсо, операция сунушталат. Сумма, дүкөн, карта жана калдык гана сакталат — билдирүүнүн өзү сакталбайт."
           }
         },
         "pl": {
@@ -2801,6 +2981,12 @@
             "value": "Банк хабарламасы"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк билдирүүсү"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -2889,6 +3075,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Бірден жазу"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дароо жазуу"
           }
         },
         "pl": {
@@ -2981,6 +3173,12 @@
             "value": "Жазуды ұсыну"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жазууну сунуштоо"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3069,6 +3267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Банк хабарламалары"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк билдирүүлөрү"
           }
         },
         "pl": {
@@ -3161,6 +3365,12 @@
             "value": "Банктен келген SMS немесе push-хабарламаны оқиды және OhMyMoney-де белгіленгеніндей операцияны жазады не жазуды ұсынады."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктын SMS же push билдирүүсүн окуп, OhMyMoney жөндөөлөрүнө жараша операцияны жазат же жазууну сунуштайт."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3249,6 +3459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хабарлама"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Билдирүү"
           }
         },
         "pl": {
@@ -3341,6 +3557,12 @@
             "value": "Банк хабарламасын өткізу"
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк билдирүүсүн өткөрүү"
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3431,6 +3653,12 @@
             "value": "Көшіру буферіне көшірілген банк хабарламасын «Банк хабарламасын өткізу» сияқты оқиды."
           }
         },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Банк билдирүүсүн өткөрүү” сыяктуу, алмашуу буферине көчүрүлгөн банк билдирүүсүн окуйт."
+          }
+        },
         "pl": {
           "stringUnit": {
             "state": "translated",
@@ -3519,6 +3747,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Көшіру буферіндегі банк хабарламасын өткізу"
+          }
+        },
+        "ky": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк билдирүүсүн алмашуу буферинен өткөрүү"
           }
         },
         "pl": {
