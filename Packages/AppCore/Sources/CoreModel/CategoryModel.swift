@@ -73,6 +73,50 @@ public struct CategoryModel: Sendable, Equatable, Codable {
     apply(example, sign: -1)
   }
 
+  /// What a write took out of the model and put into it: the examples to take back and the ones
+  /// to learn. Worked out from the two sets of examples alone, so it can be done where the model
+  /// is not being used, and applied to it afterwards.
+  public struct Changes: Sendable {
+    public var gone: [CategoryExample] = []
+    public var came: [CategoryExample] = []
+  }
+
+  /// The difference between what a model learned — `old`, by part — and `new`; `nil` when more
+  /// than `limit` parts differ on either side, since a training on all of them is no slower than
+  /// finding which.
+  public static func changes(
+    from old: [UUID: CategoryExample], to new: [UUID: CategoryExample], limit: Int
+  ) -> Changes? {
+    var changes = Changes()
+    for (part, example) in old where new[part] != example {
+      changes.gone.append(example)
+      if changes.gone.count > limit { return nil }
+    }
+    for (part, example) in new where old[part] != example {
+      changes.came.append(example)
+      if changes.came.count > limit { return nil }
+    }
+    return changes
+  }
+
+  /// Takes back what changed or went and learns what changed or came. Counts add and take back
+  /// exactly, so the order does not matter, nothing drifts, and the result is the model a full
+  /// training on the new examples gives, to the last count — as long as the anchor day is the one
+  /// that training would use, which is the caller's to see.
+  public mutating func apply(_ changes: Changes) {
+    for example in changes.gone { unlearn(example) }
+    for example in changes.came { learn(example) }
+  }
+
+  /// `changes` and `apply` in one; `false`, with the model untouched, when there are too many.
+  public mutating func catchUp(
+    from old: [UUID: CategoryExample], to new: [UUID: CategoryExample], limit: Int
+  ) -> Bool {
+    guard let changes = Self.changes(from: old, to: new, limit: limit) else { return false }
+    apply(changes)
+    return true
+  }
+
   private mutating func apply(_ example: CategoryExample, sign: Int64) {
     let weight =
       sign
