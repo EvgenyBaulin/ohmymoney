@@ -100,8 +100,13 @@ final class EntryFormLayoutTests: XCTestCase {
     // fields and the date — are checked.
     let walksAccessibility = !TestEnvironment.isCI
     if walksAccessibility { TestEnvironment.enableAccessibilityTree() }
+    let compute = ComputeStore(calendar: .system, rebuildsInline: true)
+    compute.applyLight(
+      DataSnapshot.build(
+        dataset: Dataset(), calendar: .system, today: host.environment.today,
+        context: SnapshotContext(rubPerUnit: [.usd: 95]), version: DataVersion(load: 0)))
     let deps = AppDependencies(
-      environment: host.environment, store: host.store, compute: ComputeStore(calendar: .system))
+      environment: host.environment, store: host.store, compute: compute)
     for language in [AppLanguage.Choice.russian, .english] {
       host.environment.language.choice = language
       for width in [CGFloat(340), MainWindow.entryFormWidth, 420] {
@@ -137,6 +142,30 @@ final class EntryFormLayoutTests: XCTestCase {
           content.layoutSubtreeIfNeeded()
           let found = controls(in: content).filter { !$0.isHidden && $0.frame.width > 0 }
           let place = "\(language) \(width) \(variant)"
+          if variant == "currency" {
+            var hints: [CGRect] = []
+            func findHint(_ element: Any) {
+              guard let object = element as? NSObject else { return }
+              if object.responds(to: NSSelectorFromString("accessibilityIdentifier")),
+                object.value(forKey: "accessibilityIdentifier") as? String == "entry.approximate",
+                let frame = (object.value(forKey: "accessibilityFrame") as? NSValue)?.rectValue
+              {
+                hints.append(frame)
+              }
+              if object.responds(to: NSSelectorFromString("accessibilityChildren")) {
+                for child in object.value(forKey: "accessibilityChildren") as? [Any] ?? [] {
+                  findHint(child)
+                }
+              }
+            }
+            findHint(content)
+            XCTAssertFalse(hints.isEmpty, "conversion hint must be present: \(place)")
+            for hint in hints {
+              XCTAssertLessThan(hint.height, 24, "conversion must fit one line: \(place)")
+              XCTAssertGreaterThan(hint.width, 60)
+            }
+          }
+
           XCTAssertGreaterThanOrEqual(found.count, 3, "the fields are there: \(place)")
           for control in found {
             let frame = control.convert(control.bounds, to: nil)

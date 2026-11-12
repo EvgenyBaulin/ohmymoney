@@ -74,6 +74,8 @@ struct WhatIfDraft: Equatable, Sendable {
     return ScenarioSpec(changes: rows.compactMap(\.change), horizonMonths: months)
   }
 
+  var hasScenario: Bool { !spec.changes.isEmpty }
+
   /// Lines that have something typed and are not ready yet.
   var unreadRows: Int {
     rows.filter { $0.change == nil && !($0.amount.isEmpty && $0.months.isEmpty) }.count

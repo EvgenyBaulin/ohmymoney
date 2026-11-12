@@ -156,11 +156,7 @@ struct TripSummaryView: View {
 
   /// «Бюджет поездки · 36 %» over the bar and what is left of it in words.
   private func budgetCard(_ summary: TripSummary) -> some View {
-    let share: Int = {
-      guard let budget = summary.budget, budget.raw > 0 else { return 0 }
-      let ratio = Decimal(summary.total.raw) / Decimal(budget.raw) * Decimal(Shares.whole)
-      return max(0, NSDecimalNumber(decimal: ratio).intValue)
-    }()
+    let share = summary.budgetUsedBasisPoints ?? 0
     return VStack(alignment: .leading, spacing: 10) {
       ScreenCardHeader(
         title: TravelText.t("travel.summary.budgetCard", environment),

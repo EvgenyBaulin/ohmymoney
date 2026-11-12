@@ -139,6 +139,75 @@ final class CalendarWindowTests: XCTestCase {
     XCTAssertFalse(missingDependencies)
   }
 
+  func testCalendarPageScrollsAsAWholeAboveTheEntryDock() throws {
+    compute.applyLight(try snapshot())
+    let window = mainWindow(selection: .section(.calendar))
+    for size in [CGSize(width: 980, height: 600), CGSize(width: 760, height: 520)] {
+      window.setContentSize(size)
+      settle(20)
+      let root = try XCTUnwrap(window.contentView)
+      func scrolls(_ view: NSView) -> [NSScrollView] {
+        (view as? NSScrollView).map { [$0] } ?? view.subviews.flatMap(scrolls)
+      }
+      let page = try XCTUnwrap(
+        scrolls(root).filter {
+          $0.bounds.width > 400 && ($0.documentView?.bounds.height ?? 0) > $0.bounds.height
+        }.max { $0.bounds.width < $1.bounds.width })
+      let document = try XCTUnwrap(page.documentView)
+      XCTAssertGreaterThan(document.bounds.height, page.contentView.bounds.height)
+      let end = document.isFlipped ? document.bounds.maxY : document.bounds.minY
+      document.scroll(CGPoint(x: 0, y: end))
+      settle()
+      let visible = page.contentView.documentVisibleRect
+      if document.isFlipped {
+        XCTAssertGreaterThanOrEqual(visible.maxY, document.bounds.maxY - 1)
+      } else {
+        XCTAssertLessThanOrEqual(visible.minY, document.bounds.minY + 1)
+      }
+      // The main window reserves the dock in its bottom safe area.
+      XCTAssertGreaterThan(page.convert(page.bounds, to: root).minY, 24)
+    }
+  }
+
+  func testWhatIfEmptyWindowOffersInputsBeforeAnyVerdict() throws {
+    TestEnvironment.enableAccessibilityTree()
+    compute.applyLight(try snapshot())
+    let deps = AppDependencies(environment: environment, store: store, compute: compute)
+    let controller = NSHostingController(rootView: WhatIfWindow(deps: deps).appDependencies(deps))
+    let window = NSWindow(
+      contentRect: CGRect(x: 0, y: 0, width: 760, height: 600),
+      styleMask: [.titled], backing: .buffered, defer: false)
+    window.isReleasedWhenClosed = false
+    windows.append(window)
+    window.contentViewController = controller
+    window.orderFront(nil)
+    settle(20)
+    var labels: [String] = []
+    var fields: [CGRect] = []
+    func walk(_ element: Any) {
+      guard let object = element as? NSObject else { return }
+      if object.responds(to: NSSelectorFromString("accessibilityValue")),
+        let text = object.value(forKey: "accessibilityValue") as? String
+      {
+        labels.append(text)
+      }
+      if object.responds(to: NSSelectorFromString("accessibilityRole")),
+        object.value(forKey: "accessibilityRole") as? String == "AXTextField",
+        let frame = (object.value(forKey: "accessibilityFrame") as? NSValue)?.rectValue
+      {
+        fields.append(frame)
+      }
+      if object.responds(to: NSSelectorFromString("accessibilityChildren")) {
+        for child in object.value(forKey: "accessibilityChildren") as? [Any] ?? [] { walk(child) }
+      }
+    }
+    walk(try XCTUnwrap(window.contentView))
+    XCTAssertGreaterThanOrEqual(fields.count, 3)
+    for field in fields { XCTAssertGreaterThan(field.width, 60) }
+    XCTAssertTrue(labels.contains(environment.language("whatif.enterScenario", table: "WhatIf")))
+    XCTAssertFalse(labels.contains(environment.language("whatif.enough", table: "WhatIf")))
+  }
+
   /// The tile on Overview, added as the owner adds it in the settings.
   func testTheTileIsLaidOutOnOverview() throws {
     compute.applyLight(try snapshot())

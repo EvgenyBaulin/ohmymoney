@@ -129,13 +129,19 @@ struct WhatIfWindow: View {
       }
     }
     .formStyle(.grouped)
+    .textFieldStyle(.roundedBorder)
   }
 
   // MARK: The result
 
   @ViewBuilder
   private var result: some View {
-    if let baseline {
+    if !draft.hasScenario {
+      Text(verbatim: text("whatif.enterScenario"))
+        .foregroundStyle(.secondary)
+        .padding(16)
+        .accessibilityIdentifier("whatif.emptyScenario")
+    } else if let baseline {
       let spec = draft.spec
       let trajectory = ScenarioEngine.run(spec, from: baseline)
       VStack(alignment: .leading, spacing: 12) {
