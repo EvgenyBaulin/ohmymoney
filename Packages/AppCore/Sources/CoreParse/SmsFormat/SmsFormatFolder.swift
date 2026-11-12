@@ -40,6 +40,8 @@ public struct SmsFolderContents: Sendable {
   public var skipped: [SmsFolderSkip] = []
   /// Folders of banks that gave at least one format or category.
   public var bankCount = 0
+
+  public init() {}
 }
 
 /// Reads a folder the owner chose and laid out by banks:

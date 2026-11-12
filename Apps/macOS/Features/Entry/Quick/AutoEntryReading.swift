@@ -32,13 +32,13 @@ struct AutoEntryReading {
     let ownBanks =
       dataset.banks.filter { !$0.archived }.map(\.name)
       + dataset.paymentMethods.filter { $0.bankId == nil && !$0.archived }.map(\.name)
-    let parser = AutoEntryFormats.parser(environment)
+    let bankParser = AutoEntryFormats.parser(environment)
     // Two formats of one tier that read the text differently are no reading: the owner picks
     // between them once, in the settings, and the question is kept there.
-    if case .ambiguous(let candidates) = parser.outcome(text, today: today) {
+    if case .ambiguous(let candidates) = bankParser.outcome(text, today: today) {
       AutoEntryFormats.recordConflict(candidates)
     }
-    guard let message = parser.parse(text, today: today, ownBanks: ownBanks) else {
+    guard let message = bankParser.parse(text, today: today, ownBanks: ownBanks) else {
       return nil
     }
     let names = AutoEntryLearning.names(environment)

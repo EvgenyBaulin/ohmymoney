@@ -44,6 +44,15 @@ public struct SmsFormatCandidate: Hashable, Sendable {
   public var source: SmsFormatSource
   public var bankName: String?
   public var reading: SmsFormatReading
+
+  public init(
+    formatId: String, source: SmsFormatSource, bankName: String?, reading: SmsFormatReading
+  ) {
+    self.formatId = formatId
+    self.source = source
+    self.bankName = bankName
+    self.reading = reading
+  }
 }
 
 /// What the library makes of a text.

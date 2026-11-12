@@ -22,6 +22,11 @@ public struct SmsFormatReading: Hashable, Sendable {
   public var cardLast4: String?
   public var isAccountDigits = false
 
+  public init(formatId: String, bank: BankBrand) {
+    self.formatId = formatId
+    self.bank = bank
+  }
+
   /// Nothing to write: the text only informs.
   public var isInformational: Bool { money == nil || operation == nil }
 
