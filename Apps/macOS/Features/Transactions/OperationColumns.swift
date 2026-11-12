@@ -46,7 +46,8 @@ enum OperationColumn: String, CaseIterable, Identifiable, Hashable, Sendable {
     case .time: 64
     case .amount: 104
     case .description: 120
-    case .category: 80
+    case .category: 110
+    case .account: 100
     default: 60
     }
   }

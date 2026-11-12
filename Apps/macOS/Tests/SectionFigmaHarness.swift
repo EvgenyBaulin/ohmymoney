@@ -103,7 +103,7 @@ class SectionFigmaHarness: XCTestCase {
     return host(root, width: width, height: height, unified: false)
   }
 
-  private func host<Root: View>(
+  func host<Root: View>(
     _ root: Root, width: CGFloat, height: CGFloat, unified: Bool
   ) -> NSWindow {
     let controller = NSHostingController(rootView: root)
