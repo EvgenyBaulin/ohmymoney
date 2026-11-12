@@ -116,6 +116,34 @@ public struct FreeMoney: Hashable, Sendable {
     let exact = max(.zero, grey ?? .zero).decimal / Decimal(max(1, days))
     return (try? DecimalMath.int64(rounding: exact)) ?? 0
   }
+  /// Presentation keeps the signed formula in `grey`, but never offers negative money.
+  public var spendable: AmountE4? { grey.map { max(.zero, $0) } }
+
+  /// Payments take precedence over retaining the cushion. These two gaps add up to the
+  /// total shortage; a cushion target is not a bill and is never added to the payment gap.
+  public var paymentShortfall: AmountE4 {
+    guard let grey else { return .zero }
+    return max(.zero, -(grey + max(.zero, cushion)))
+  }
+
+  public var cushionShortfall: AmountE4 {
+    guard let grey else { return .zero }
+    return min(max(.zero, cushion), max(.zero, -grey))
+  }
+
+  /// The deficit divided by the same inclusive horizon as the daily guide, rounded once.
+  /// `nil` when a normal spending guide is available or the balances are unknown.
+  public var dailyReductionRubles: Int64? {
+    guard let grey, grey <= .zero else { return nil }
+    return try? DecimalMath.int64(rounding: (-grey).decimal / Decimal(max(1, days)))
+  }
+
+  public var usualDailySpending: AmountE4?
+  public var nextIncomeDay: DateOnly?
+  /// A countdown excludes today: income due today is zero days away.
+  public var daysToIncome: Int? {
+    nextIncomeDay.map { max(0, $0.dayNumber - today.dayNumber) }
+  }
   /// What the grey line takes away, each a minus line, in the order the block shows them.
   public var lines: [FreeToSpendLine]
   /// The part of the lines due before today and unpaid (`CashPlan.overdue`).
@@ -137,7 +165,8 @@ public struct FreeMoney: Hashable, Sendable {
   public init(
     accounts: AccountsSnapshot, plan: CashPlan, stillExpected: AmountE4,
     stillExpectedWithoutRate: [UUID] = [], today: DateOnly, until: DateOnly,
-    cushion: AmountE4 = .zero, buffer: AmountE4 = .zero
+    cushion: AmountE4 = .zero, buffer: AmountE4 = .zero,
+    usualDailySpending: AmountE4? = nil, nextIncomeDay: DateOnly? = nil
   ) {
     let window = Self.window(today: today, until: until)
     var lines = [
@@ -176,6 +205,8 @@ public struct FreeMoney: Hashable, Sendable {
     self.main = main
     self.grey = grey
     self.dailyGuide = grey.map { SavingsMath.divide(max(.zero, $0), by: days) } ?? .zero
+    self.usualDailySpending = usualDailySpending
+    self.nextIncomeDay = nextIncomeDay
     self.lines = lines
     self.overdue = plan.overdue
     self.info = [FreeToSpendLine(key: Key.stillExpected, sign: .plus, amount: stillExpected)]
@@ -219,6 +250,25 @@ extension PlanningSnapshot {
     if let payHalf, payHalf.late {
       return freeMoney(until: today, ledger: ledger)
     }
+    if let nearest = nextExpectedIncomeDay(ledger: ledger) {
+      return freeMoney(until: nearest, ledger: ledger)
+    }
+    return freeMoney(until: fallback, ledger: ledger)
+  }
+
+  /// Shared by the selected horizon and the recovery countdown, including incomes in the
+  /// next month. Fulfilled, closed and overdue expectations cannot promise future money.
+  public func nextExpectedIncomeDay(ledger: Ledger) -> DateOnly? {
+    FreeMoney.nextExpectedIncomeDay(
+      book: book, ledger: ledger, today: today, rubPerUnit: rubPerUnit)
+  }
+}
+
+extension FreeMoney {
+  static func nextExpectedIncomeDay(
+    book: PlanningBook, ledger: Ledger, today: DateOnly, rubPerUnit: [CurrencyCode: Decimal]
+  ) -> DateOnly? {
+    guard book.expected.contains(where: { !$0.closed }) else { return nil }
     let latest = today.adding(months: FreeMoney.horizonMonths)
     // Search month by month so the occurrence limit cannot drop a nearby weekly income.
     for offset in 0...FreeMoney.horizonMonths {
@@ -228,8 +278,8 @@ extension PlanningSnapshot {
       let nearest = statuses.flatMap(\.occurrences)
         .filter { !$0.isFulfilled && $0.due >= today && $0.due <= through }
         .map(\.due).min()
-      if let nearest { return freeMoney(until: nearest, ledger: ledger) }
+      if let nearest { return nearest }
     }
-    return freeMoney(until: fallback, ledger: ledger)
+    return nil
   }
 }

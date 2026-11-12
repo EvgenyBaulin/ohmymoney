@@ -13921,6 +13921,40 @@
         }
       }
     },
+    "why.canSave.balance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Month balance"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Баланс месяца"
+          }
+        }
+      }
+    },
+    "why.canSave.impossible": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You cannot save this month."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сэкономить в этом месяце не получится."
+          }
+        }
+      }
+    },
     "why.canSave.income": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",

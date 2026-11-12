@@ -222,6 +222,9 @@ struct FreeMoneyBlock: View {
     case .grey(let grey, let lines):
       Divider()
       greyLine(grey)
+      ForEach(FreeMoneyRecoveryText.shortfalls(free, environment), id: \.self) { line in
+        caption(line)
+      }
       FormulaLines(lines: lines.map { (key: $0.key, plus: $0.sign == .plus, amount: $0.amount) })
     case .overdue(let amount):
       HStack(alignment: .firstTextBaseline, spacing: 8) {
@@ -244,8 +247,10 @@ struct FreeMoneyBlock: View {
       caption(environment.format("free.planWithoutRate", table: "Planning", codes(currencies)))
     case .perDay(let amount, let days):
       Text(
-        verbatim: environment.language.format(
-          "free.perDay", table: "Planning", environment.money.rounded(amount), days)
+        verbatim: free.dailyReductionRubles != nil
+          ? FreeMoneyRecoveryText.daily(free, environment)
+          : environment.language.format(
+            "free.perDay", table: "Planning", environment.money.rounded(amount), days)
       )
       .appFont(.callout.monospacedDigit())
       .foregroundStyle(.secondary)
@@ -266,9 +271,13 @@ struct FreeMoneyBlock: View {
       .accessibilityIdentifier("free.cardsDue")
     case .half(let amount, let perDay, let day):
       Text(
-        verbatim: environment.format(
-          "free.half", table: "Planning", dayText(day, snapshot), environment.money.rounded(amount),
-          environment.money.rounded(perDay))
+        verbatim: amount <= .zero
+          ? FreeMoneyRecoveryText.daily(
+            snapshot.planning.freeMoney(until: day, ledger: snapshot.ledger), environment)
+          : environment.format(
+            "free.half", table: "Planning", dayText(day, snapshot),
+            environment.money.rounded(amount),
+            environment.money.rounded(perDay))
       )
       .appFont(.callout.monospacedDigit())
       .fixedSize(horizontal: false, vertical: true)
@@ -363,7 +372,7 @@ struct FreeMoneyBlock: View {
   {
     HStack(alignment: .firstTextBaseline, spacing: 12) {
       VStack(alignment: .leading, spacing: 2) {
-        Text(verbatim: environment.money.rounded(main))
+        Text(verbatim: environment.money.rounded(max(.zero, main)))
           .appFont(.title2.monospacedDigit())
         Text(verbatim: t(spendable ? "free.mainSpendable" : "free.main"))
           .appFont(.caption)
@@ -398,7 +407,7 @@ struct FreeMoneyBlock: View {
         .appFont(.caption)
       }
       Spacer(minLength: 8)
-      Text(verbatim: environment.money.rounded(grey))
+      Text(verbatim: environment.money.rounded(max(.zero, grey)))
         .monospacedDigit()
     }
     .foregroundStyle(.secondary)
