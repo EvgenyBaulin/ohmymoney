@@ -83,6 +83,12 @@
             "value": "Editar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -201,6 +207,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registrar"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registar"
           }
         },
         "ru": {
@@ -323,6 +335,12 @@
             "value": "Já registrada: esta operação está nos registros."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Já registada: esta operação já está nas contas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -441,6 +459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney está bloqueado: desbloqueie-o para encaminhar a mensagem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney está bloqueada: desbloqueie-a para transmitir a mensagem."
           }
         },
         "ru": {
@@ -563,6 +587,12 @@
             "value": "Esta não parece ser uma mensagem bancária: faltam a operação, o valor e o cartão ou saldo."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não parece ser uma mensagem bancária: faltam a operação, o valor e o cartão ou saldo."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -681,6 +711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney ainda está abrindo os registros. Tente novamente em instantes."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ainda está a abrir as contas. Tente novamente daqui a pouco."
           }
         },
         "ru": {
@@ -803,6 +839,12 @@
             "value": "Uma operação de uma conta oculta. Registrar?"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma operação de uma conta oculta. Registar?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -921,6 +963,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uma operação de uma conta oculta foi registrada"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Foi registada uma operação de uma conta oculta"
           }
         },
         "ru": {
@@ -1247,6 +1295,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações em espera. Concluir?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operação em espera. Concluir?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações em espera. Concluir?"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1457,6 +1529,12 @@
             "value": "Registrar depois"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registar mais tarde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1572,6 +1650,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De uma mensagem bancária"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "De uma mensagem bancária"
@@ -1697,6 +1781,12 @@
             "value": "O banco informa %1$@, e o app, %2$@. Hora de conferir a conta."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O banco indica %1$@ e a app %2$@. É altura de conferir a conta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1815,6 +1905,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O saldo do banco difere do saldo no app. Hora de conferir a conta."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O saldo do banco difere do da app. É altura de conferir a conta."
           }
         },
         "ru": {
@@ -1937,6 +2033,12 @@
             "value": "O saldo não confere"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O saldo não corresponde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2055,6 +2157,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ — registrar?"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — registar?"
           }
         },
         "ru": {
@@ -2177,6 +2285,12 @@
             "value": "Registrada: %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registada: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2295,6 +2409,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saque"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Levantamento"
           }
         },
         "ru": {
@@ -2417,6 +2537,12 @@
             "value": "Tarifa"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comissão"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2532,6 +2658,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receita"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Receita"
@@ -2657,6 +2789,12 @@
             "value": "Compra"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compra"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2772,6 +2910,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reembolso"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Reembolso"
@@ -2897,6 +3041,12 @@
             "value": "Transferência recebida"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferência recebida"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3012,6 +3162,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferência"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Transferência"
@@ -3137,6 +3293,12 @@
             "value": "O encaminhamento de mensagens bancárias no iPhone será ativado junto com a Siri quando o app chegar à App Store."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A transmissão de mensagens bancárias no iPhone será ativada juntamente com a Siri, quando a app chegar à App Store."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3255,6 +3417,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aguardando em “Registrar depois”: %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em espera em “Registar mais tarde”: %@"
           }
         },
         "ru": {
@@ -3377,6 +3545,12 @@
             "value": "Uma operação aguarda em “Registrar depois”."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma operação está em espera em “Registar mais tarde”."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3495,6 +3669,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Somente visualização” está ativado: nada é registrado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Apenas visualização” está ativado: nada é registado."
           }
         },
         "ru": {
@@ -3617,6 +3797,12 @@
             "value": "Uma mensagem encaminhada pelo Atalhos (“Encaminhar mensagem bancária”) se torna uma operação. Ao oferecer, uma notificação pergunta “Registrar?” e a operação aguarda em “Registrar depois”. Ao registrar imediatamente, ela é registrada como na linha de lançamento; se a linha precisar de mais informações, a operação será oferecida. Apenas o valor, a loja, o cartão e o saldo são mantidos — nunca a mensagem."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma mensagem transmitida pela app Atalhos (“Transmitir mensagem bancária”) torna-se numa operação. Ao propor o registo, uma notificação pergunta “Registar?” e a operação fica em “Registar mais tarde”. Ao registar de imediato, a operação é registada como na linha de introdução; se for necessário pedir mais informações, é proposta para registo. Apenas são guardados o valor, a loja, o cartão e o saldo, nunca a mensagem."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3735,6 +3921,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mensagem bancária"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma mensagem bancária"
           }
         },
         "ru": {
@@ -3857,6 +4049,12 @@
             "value": "Registrar imediatamente"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registar de imediato"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3977,6 +4175,12 @@
             "value": "Oferecer registro"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Propor registo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4092,6 +4296,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensagens bancárias"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Mensagens bancárias"
@@ -4217,6 +4427,12 @@
             "value": "Lê um SMS ou uma notificação de um banco e registra a operação ou oferece seu registro, conforme definido no OhMyMoney."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lê um SMS ou uma notificação de um banco e regista a operação ou propõe o seu registo, conforme definido em OhMyMoney."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4332,6 +4548,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mensagem"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Mensagem"
@@ -4457,6 +4679,12 @@
             "value": "Encaminhar Mensagem Bancária"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transmitir mensagem bancária"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4577,6 +4805,12 @@
             "value": "Lê uma mensagem bancária copiada para a área de transferência, como em “Encaminhar Mensagem Bancária”."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lê uma mensagem bancária copiada para a área de transferência, tal como “Transmitir mensagem bancária”."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4695,6 +4929,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Encaminhar Mensagem Bancária da Área de Transferência"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transmitir mensagem bancária da área de transferência"
           }
         },
         "ru": {

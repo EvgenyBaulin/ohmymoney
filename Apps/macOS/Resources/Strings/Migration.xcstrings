@@ -83,6 +83,12 @@
             "value": "Não importar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não importar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -203,6 +209,12 @@
             "value": "Conta sem nome no arquivo"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conta sem nome no ficheiro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -318,6 +330,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contas"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Contas"
@@ -443,6 +461,12 @@
             "value": "Escolha para onde vão as operações de cada conta do outro app. «Não importar» as deixa de fora. Contas ocultas só aparecem quando estão visíveis."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Destino dos movimentos de cada conta da outra app. «Não importar» exclui-os. As contas ocultas só são apresentadas quando estão visíveis."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -561,6 +585,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Outro Arquivo…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outro ficheiro…"
           }
         },
         "ru": {
@@ -683,6 +713,12 @@
             "value": "Importar"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -798,6 +834,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorias"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Categorias"
@@ -1127,6 +1169,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Criar %lld categorias em falta"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Criar %lld categoria em falta"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Criar %lld categorias em falta"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1337,6 +1403,12 @@
             "value": "Associadas por nome e significado («Comer fora» → «Cafés»). Uma categoria só é criada onde você escolher «Criar»."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Associadas por nome e significado («Comer fora» → «Cafés»). Só é criada uma categoria quando escolhe «Criar»."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1457,6 +1529,12 @@
             "value": "O arquivo não tem categorias: tudo vai para «Sem categoria»."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O ficheiro não tem categorias: tudo passa para «Por classificar»."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1572,6 +1650,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Criar «%@»"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Criar «%@»"
@@ -1697,6 +1781,12 @@
             "value": "Sem categoria"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por classificar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1817,6 +1907,12 @@
             "value": "Escolher Arquivo…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolher ficheiro…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1932,6 +2028,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "OK"
@@ -2057,6 +2159,12 @@
             "value": "O conteúdo de cada coluna. Sua escolha será lembrada para o próximo arquivo com as mesmas colunas."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O conteúdo de cada coluna. A escolha é guardada para o próximo ficheiro com as mesmas colunas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2175,6 +2283,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escolha a coluna de data e a de valor, ou as colunas de receita e despesa."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha a coluna da data e do valor (ou as colunas de receitas e despesas)."
           }
         },
         "ru": {
@@ -2297,6 +2411,12 @@
             "value": "Operações lidas: %lld · linhas não lidas: %lld"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movimentos lidos: %lld · linhas não lidas: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2412,6 +2532,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datas como 03/04"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Datas como 03/04"
@@ -2537,6 +2663,12 @@
             "value": "dia, depois mês"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dia, depois mês"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2652,6 +2784,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mês, depois dia"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "mês, depois dia"
@@ -2777,6 +2915,12 @@
             "value": "já existe"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "já existe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2895,6 +3039,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "digitada manualmente?"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "introduzido manualmente?"
           }
         },
         "ru": {
@@ -3017,6 +3167,12 @@
             "value": "cotação mais próxima"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "taxa mais próxima"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3137,6 +3293,12 @@
             "value": "nova"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "novo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3255,6 +3417,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "sem cotação"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sem taxa"
           }
         },
         "ru": {
@@ -3558,6 +3726,30 @@
           }
         },
         "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld categorias criadas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld categoria criada"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld categorias criadas"
+                }
+              }
+            }
+          }
+        },
+        "pt-PT": {
           "variations": {
             "plural": {
               "many": {
@@ -3995,6 +4187,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld movimentos importados"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld movimento importado"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld movimentos importados"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -4205,6 +4421,12 @@
             "value": "Editar → Desfazer (⌘Z) reverte toda a importação. A cópia do banco de dados feita antes dela está entre os backups."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edição → Desfazer (⌘Z) reverte toda a importação. A cópia da base de dados criada antes da importação está nas cópias de segurança."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4323,6 +4545,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Desfazer” reverte toda a importação. A cópia do banco de dados feita antes dela está entre os backups."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Desfazer” reverte toda a importação. A cópia da base de dados criada antes da importação está nas cópias de segurança."
           }
         },
         "ru": {
@@ -4445,6 +4673,12 @@
             "value": "CSV ou Excel (.xlsx) do CoinKeeper, Zenmoney ou Money Manager, ou qualquer tabela com data e valor. Para uma tabela do Numbers, exporte-a primeiro para CSV ou Excel."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um ficheiro CSV ou Excel (.xlsx) do CoinKeeper, Zenmoney ou Money Manager, ou uma tabela com uma data e um valor. Para uma tabela do Numbers, exporte-a primeiro para CSV ou Excel."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4563,6 +4797,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escolha um arquivo exportado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha um ficheiro exportado"
           }
         },
         "ru": {
@@ -4685,6 +4925,12 @@
             "value": "A importação falhou e nada foi gravado. Consulte o registro para saber o motivo."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A importação falhou e nada foi guardado. Consulte o registo para saber porquê."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4803,6 +5049,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Este é um documento do Numbers, cujo formato é fechado. No Numbers, escolha Arquivo → Exportar Para → CSV ou Excel e selecione o arquivo aqui."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este é um documento do Numbers, cujo formato é fechado. No Numbers, escolha Ficheiro → Exportar para → CSV ou Excel e, em seguida, escolha esse ficheiro aqui."
           }
         },
         "ru": {
@@ -4925,6 +5177,12 @@
             "value": "Não foi possível ler o arquivo como uma tabela com nomes de colunas. Exporte-o como CSV ou .xlsx."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler o ficheiro como uma tabela com nomes de colunas. Exporte-o como CSV ou .xlsx."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5045,6 +5303,12 @@
             "value": "Este é um arquivo do Excel anterior a 2007 (.xls). Salve-o como .xlsx ou CSV e selecione-o aqui."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este é um ficheiro Excel anterior a 2007 (.xls). Guarde-o novamente como .xlsx ou CSV e escolha-o aqui."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5160,6 +5424,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Despesa"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Despesa"
@@ -5285,6 +5555,12 @@
             "value": "Receita"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receita"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5403,6 +5679,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O arquivo usa a codificação windows-1251 e foi lido com ela."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O ficheiro está em windows-1251 e foi lido com essa codificação."
           }
         },
         "ru": {
@@ -5525,6 +5807,12 @@
             "value": "Importar de Outro App…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar de outra app…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5640,6 +5928,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguinte"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Seguinte"
@@ -5763,6 +6057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uma cópia do banco de dados será criada antes da importação."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É criada uma cópia da base de dados antes da importação."
           }
         },
         "ru": {
@@ -6089,6 +6389,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld já estão registados — ignorados"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld já está registado — ignorado"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld já estão registados — ignorados"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6297,6 +6621,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Consultando as cotações dessas datas no Banco da Rússia…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A obter as taxas desses dias junto do Banco da Rússia…"
           }
         },
         "ru": {
@@ -6623,6 +6953,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld parecem ter sido introduzidos manualmente — excluídos"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld parece ter sido introduzido manualmente — excluído"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld parecem ter sido introduzidos manualmente — excluídos"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6831,6 +7185,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importar estas também"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar também estes"
           }
         },
         "ru": {
@@ -7134,6 +7494,30 @@
           }
         },
         "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "e mais %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "e mais %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "e mais %lld"
+                }
+              }
+            }
+          }
+        },
+        "pt-PT": {
           "variations": {
             "plural": {
               "many": {
@@ -7571,6 +7955,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld com a taxa mais próxima disponível, marcados como provisórios — serão atualizados quando estiver disponível a taxa do dia"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld com a taxa mais próxima disponível, marcado como provisório — será atualizado quando estiver disponível a taxa do dia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld com a taxa mais próxima disponível, marcados como provisórios — serão atualizados quando estiver disponível a taxa do dia"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -7776,6 +8184,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De %1$@ a %2$@"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "De %1$@ a %2$@"
@@ -8100,6 +8514,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld em moeda sem cotação disponível — não serão importadas"
+                }
+              }
+            }
+          }
+        },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld numa moeda sem qualquer taxa disponível — não importados"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld numa moeda sem qualquer taxa disponível — não importado"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld numa moeda sem qualquer taxa disponível — não importados"
                 }
               }
             }
@@ -8519,6 +8957,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Serão importados %lld movimentos"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Será importado %lld movimento"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Serão importados %lld movimentos"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -8928,6 +9390,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transferências entre contas do próprio app — não serão importadas"
+                }
+              }
+            }
+          }
+        },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferências entre contas da própria app — não importadas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferência entre contas da própria app — não importada"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferências entre contas da própria app — não importadas"
                 }
               }
             }
@@ -9347,6 +9833,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas não lidas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linha não lida"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas não lidas"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -9557,6 +10067,12 @@
             "value": "Lendo o arquivo…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A ler o ficheiro…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9672,6 +10188,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conta"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Conta"
@@ -9797,6 +10319,12 @@
             "value": "Valor (com sinal)"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor (com sinal)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9912,6 +10440,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Categoria"
@@ -10037,6 +10571,12 @@
             "value": "Comentário"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comentário"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10152,6 +10692,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moeda"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Moeda"
@@ -10277,6 +10823,12 @@
             "value": "Data"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10392,6 +10944,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descrição"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Descrição"
@@ -10517,6 +11075,12 @@
             "value": "Despesa"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Despesa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10632,6 +11196,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "De"
@@ -10757,6 +11327,12 @@
             "value": "Receita"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receita"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10872,6 +11448,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conta da receita"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Conta da receita"
@@ -10997,6 +11579,12 @@
             "value": "Moeda da receita"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moeda da receita"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11112,6 +11700,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo (despesa, receita, transferência)"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Tipo (despesa, receita, transferência)"
@@ -11237,6 +11831,12 @@
             "value": "Não ler"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não ler"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11352,6 +11952,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beneficiário ou loja"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Beneficiário ou loja"
@@ -11477,6 +12083,12 @@
             "value": "Subcategoria"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subcategoria"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11592,6 +12204,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Para"
@@ -11717,6 +12335,12 @@
             "value": "Importar de Outro App…"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar de outra app…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11832,6 +12456,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parece ser uma exportação do CoinKeeper"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Parece ser uma exportação do CoinKeeper"
@@ -11957,6 +12587,12 @@
             "value": "Parece ser uma exportação do Money Manager"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parece ser uma exportação do Money Manager"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12077,6 +12713,12 @@
             "value": "Tabela"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma tabela"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12192,6 +12834,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parece ser uma exportação do Zenmoney"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Parece ser uma exportação do Zenmoney"
@@ -12317,6 +12965,12 @@
             "value": "Colunas"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colunas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12432,6 +13086,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contas e categorias"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Contas e categorias"
@@ -12557,6 +13217,12 @@
             "value": "Prévia"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pré-visualização"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12677,6 +13343,12 @@
             "value": "Uma tabela exportada do CoinKeeper, Zenmoney, Money Manager, Excel ou Numbers. Nada é gravado antes de «Importar»; uma cópia do banco de dados é criada primeiro, e ⌘Z reverte toda a importação."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma tabela exportada do CoinKeeper, Zenmoney, Money Manager, Excel ou Numbers. Nada é guardado antes de escolher «Importar»; é criada uma cópia da base de dados e ⌘Z reverte toda a importação."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12795,6 +13467,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uma tabela exportada do CoinKeeper, Zenmoney, Money Manager, Excel ou Numbers. Nada é gravado antes de «Importar»; uma cópia do banco de dados é criada primeiro, e “Desfazer” reverte toda a importação."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma tabela exportada do CoinKeeper, Zenmoney, Money Manager, Excel ou Numbers. Nada é guardado antes de escolher «Importar»; é criada uma cópia da base de dados e “Desfazer” reverte toda a importação."
           }
         },
         "ru": {
@@ -13121,6 +13799,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações para importar"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operação para importar"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações para importar"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -13329,6 +14031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importar de outro app"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar de outra app"
           }
         },
         "ru": {

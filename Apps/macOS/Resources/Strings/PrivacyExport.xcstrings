@@ -4,6 +4,12 @@
     "privacy.copy.anonymize": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonimləşdir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -117,6 +123,12 @@
     "privacy.copy.anonymize.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxədə təsvirlər, şərhlər, məkanlar və adlar silinir. Məbləğlər, tarixlər və kateqoriyalar saxlanılır. Orijinal dəyişmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -230,6 +242,12 @@
     "privacy.copy.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əlavələri daxil et (%@)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -343,6 +361,12 @@
     "privacy.copy.done": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxə hazırdır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -456,6 +480,12 @@
     "privacy.copy.done.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əlavələr: %lld"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -569,6 +599,12 @@
     "privacy.copy.done.locked": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolunuzla kilidlənib."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -682,6 +718,24 @@
     "privacy.copy.done.operations": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nüsxədə %lld əməliyyat"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nüsxədə %lld əməliyyat"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -1077,6 +1131,24 @@
     "privacy.copy.done.transfers": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nüsxədə %lld köçürmə"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nüsxədə %lld köçürmə"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -1472,6 +1544,12 @@
     "privacy.copy.error.anonymizerMissing": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu versiyada anonimləşdirmə mövcud deyil, buna görə nüsxə yaradılmadı."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1585,6 +1663,12 @@
     "privacy.copy.error.hiddenInUse": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli hesabdan nüsxədə saxlanılan məlumatlar istifadə edir, buna görə onu kənarda saxlamaq olmur. Gizli hesabları daxil edin və ya hesabı yenidən göstərin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1698,6 +1782,12 @@
     "privacy.copy.error.other": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxə yaradılmadı. Heç nə dəyişdirilmədi."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1811,6 +1901,12 @@
     "privacy.copy.error.passwordMissing": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parol daxil edin: parolsuz nüsxə yaradılmır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1924,6 +2020,12 @@
     "privacy.copy.error.periodEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dövr boşdur: bitmə tarixi başlama tarixindən əvvəldir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2037,6 +2139,12 @@
     "privacy.copy.format": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2150,6 +2258,12 @@
     "privacy.copy.format.archive": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Köçürmə arxivi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2263,6 +2377,12 @@
     "privacy.copy.format.csv": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnız CSV"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2377,6 +2497,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başlanğıc"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2490,6 +2616,12 @@
     "privacy.copy.hidden": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli hesabları daxil et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2603,6 +2735,12 @@
     "privacy.copy.hidden.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu seçim söndürüldükdə nüsxəyə gizli hesablar və onların əməliyyatları və köçürmələri daxil edilmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2716,6 +2854,12 @@
     "privacy.copy.hidden.warning": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxəyə gizli hesablar daxil ediləcək."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2829,6 +2973,12 @@
     "privacy.copy.leftOut": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kənarda saxlanılan: %lld"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2942,6 +3092,12 @@
     "privacy.copy.originalStays": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu, nüsxədir — orijinal sizdə qalır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3056,6 +3212,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parol"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3170,6 +3332,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolu təkrarlayın"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3283,6 +3451,12 @@
     "privacy.copy.passwordHint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxə bu parolla kilidlənir. Onsuz nüsxəni açmaq mümkün deyil və parol bərpa edilə bilməz. Orijinal dəyişmədən sizdə qalır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3396,6 +3570,12 @@
     "privacy.copy.preview.attachments": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "əlavələr: %lld"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3510,6 +3690,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesablanır…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3623,6 +3809,12 @@
     "privacy.copy.preview.lead": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daxil ediləcək:"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3737,6 +3929,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld əməliyyat"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld əməliyyat"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -4132,6 +4342,24 @@
     "privacy.copy.preview.transfers": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld köçürmə"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld köçürmə"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -4527,6 +4755,12 @@
     "privacy.copy.problem.passwordEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parol daxil edin: parolsuz nüsxə yaradılmır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4640,6 +4874,12 @@
     "privacy.copy.problem.passwordMismatch": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parollar uyğun gəlmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4753,6 +4993,12 @@
     "privacy.copy.problem.periodEmpty": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dövr boşdur: bitmə tarixi başlama tarixindən əvvəldir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4866,6 +5112,12 @@
     "privacy.copy.save": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxəni saxla…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4979,6 +5231,12 @@
     "privacy.copy.scope": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarixçənin bir hissəsi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5092,6 +5350,12 @@
     "privacy.copy.scope.period": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Müəyyən dövr üçün"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5205,6 +5469,12 @@
     "privacy.copy.scope.whole": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütün verilənlər bazası"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5318,6 +5588,12 @@
     "privacy.copy.showPassword": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolu göstər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5431,6 +5707,12 @@
     "privacy.copy.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxəni ixrac et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5545,6 +5827,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5658,6 +5946,12 @@
     "privacy.copy.working": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxə yaradılır…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5771,6 +6065,12 @@
     "privacy.demo.back": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məlumatlarıma qayıt"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5884,6 +6184,12 @@
     "privacy.demo.banner": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təlim məlumatları"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5997,6 +6303,12 @@
     "privacy.demo.banner.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu rəqəmlər uydurmadır. Sizin verilənlər bazanız açıq deyil."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6111,6 +6423,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Göstər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6224,6 +6542,12 @@
     "privacy.demo.confirm.body": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiq uydurma məlumatlarla yenidən başladılır. Sizin verilənlər bazanıza toxunulmur və bir düymə ilə geri qayıda bilərsiniz."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6337,6 +6661,12 @@
     "privacy.demo.confirm.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiq təlim məlumatları ilə göstərilsin?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6450,6 +6780,12 @@
     "privacy.export.lock": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şifrələ (OhMyMoney-də açılır)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6563,6 +6899,12 @@
     "privacy.journal.clear": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jurnalı təmizlə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6677,6 +7019,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təmizlə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6790,6 +7138,12 @@
     "privacy.journal.clear.body": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açılış jurnalındakı bütün qeydlər silinəcək."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6903,6 +7257,12 @@
     "privacy.journal.clear.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jurnal təmizlənsin?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7016,6 +7376,12 @@
     "privacy.journal.empty": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hələ qeyd yoxdur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7129,6 +7495,12 @@
     "privacy.journal.event.exportedCopy": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxə ixrac edildi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7242,6 +7614,12 @@
     "privacy.journal.event.hiddenShown": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli hesablar göstərildi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7355,6 +7733,12 @@
     "privacy.journal.event.locked": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilidləndi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7468,6 +7852,12 @@
     "privacy.journal.event.opened": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiq açıldı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7581,6 +7971,12 @@
     "privacy.journal.event.readOnlyOff": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnız baxış rejimi söndürüldü"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7694,6 +8090,12 @@
     "privacy.journal.event.readOnlyOn": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnız baxış rejimi yandırıldı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7807,6 +8209,12 @@
     "privacy.journal.event.unlockedPassword": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolla kilid açıldı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7920,6 +8328,12 @@
     "privacy.journal.event.unlockedTouchID": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touch ID ilə kilid açıldı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8033,6 +8447,12 @@
     "privacy.journal.footer": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jurnal yalnız bu Mac-də saxlanılır. Burada hadisələrin vaxtı və növü qeyd olunur; məbləğlər və adlar saxlanılmır. Jurnal nüsxəyə və ya arxivə daxil edilmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8146,6 +8566,12 @@
     "privacy.journal.keep": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saxlama müddəti"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8259,6 +8685,24 @@
     "privacy.journal.term": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -8654,6 +9098,12 @@
     "privacy.journal.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açılış jurnalı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8767,6 +9217,12 @@
     "privacy.lockedFile.body": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylı açmaq üçün bu parol lazımdır. Parol bərpa edilə bilməz."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8880,6 +9336,12 @@
     "privacy.lockedFile.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylı parolla kilidlə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8993,6 +9455,12 @@
     "privacy.menu.exportCopy": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxəni ixrac et…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9106,6 +9574,12 @@
     "privacy.menu.storage": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiqin bildikləri…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9219,6 +9693,12 @@
     "privacy.settings.autoHide": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran yazılarkən məbləğləri gizlət"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9332,6 +9812,12 @@
     "privacy.settings.autoHide.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran əks etdirilərkən və ya zəngdə paylaşılarkən də tətbiq edilir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9445,6 +9931,12 @@
     "privacy.settings.demo": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təlim məlumatları ilə göstər…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9558,6 +10050,12 @@
     "privacy.settings.exportCopy": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxəni ixrac et…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9671,6 +10169,12 @@
     "privacy.settings.hand": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təhvil vermə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9784,6 +10288,12 @@
     "privacy.settings.hand.footer": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxə parolla kilidlənir; orijinal dəyişmir. Təlim məlumatları uydurma rəqəmlərdir və sizin verilənlər bazanız açılmır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9897,6 +10407,12 @@
     "privacy.settings.journal": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açılış jurnalı…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10010,6 +10526,12 @@
     "privacy.settings.knows": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiqin bildikləri"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10123,6 +10645,12 @@
     "privacy.settings.knows.footer": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jurnal və saylar yalnız burada göstərilir; heç yerə göndərilmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10236,6 +10764,12 @@
     "privacy.settings.lock": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilid və parol…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10349,6 +10883,12 @@
     "privacy.settings.readOnly": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnız baxış"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10462,6 +11002,12 @@
     "privacy.settings.readOnly.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiq hər şeyi göstərir və heç nəyi dəyişmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10576,6 +11122,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10689,6 +11241,12 @@
     "privacy.settings.storage": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saxlanılanlar…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10803,6 +11361,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qoşmalar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10916,6 +11480,12 @@
     "privacy.storage.backups": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxələr"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11030,6 +11600,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nüsxə"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld nüsxə"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -11425,6 +12013,24 @@
     "privacy.storage.count.files": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fayl"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fayl"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -11820,6 +12426,24 @@
     "privacy.storage.count.lines": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sətir"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sətir"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -12215,6 +12839,24 @@
     "privacy.storage.count.records": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld qeyd"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld qeyd"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -12610,6 +13252,12 @@
     "privacy.storage.database": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verilənlər bazası"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12723,6 +13371,12 @@
     "privacy.storage.footer": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Burada yalnız saylar və ölçülər göstərilir. Heç nə heç yerə göndərilmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12836,6 +13490,12 @@
     "privacy.storage.journal": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açılma jurnalı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12949,6 +13609,12 @@
     "privacy.storage.records": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeydlər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13062,6 +13728,12 @@
     "privacy.storage.tables": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cədvəllər üzrə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13175,6 +13847,12 @@
     "privacy.storage.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiqin bildikləri"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13288,6 +13966,12 @@
     "privacy.storage.total": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diskdə cəmi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13401,6 +14085,12 @@
     "privacy.storage.unit.bytes": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13514,6 +14204,12 @@
     "privacy.storage.unit.gb": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13627,6 +14323,12 @@
     "privacy.storage.unit.kb": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13740,6 +14442,12 @@
     "privacy.storage.unit.mb": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13853,6 +14561,12 @@
     "privacy.storage.where": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saxlanma yeri"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13966,6 +14680,12 @@
     "privacy.storage.where.backups": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nüsxələr"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14079,6 +14799,12 @@
     "privacy.storage.where.data": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məlumat qovluğu"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14192,6 +14918,12 @@
     "privacy.storage.where.footer": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yollar yalnız göstərilir: onlar verilənlər bazasında və arxivdə saxlanılmır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14305,6 +15037,12 @@
     "privacy.storage.where.mirror": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Güzgü nüsxələri qovluğu"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",

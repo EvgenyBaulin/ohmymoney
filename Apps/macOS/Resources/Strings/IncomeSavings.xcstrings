@@ -82,6 +82,12 @@
             "value": "Acima da meta"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acima da meta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -196,6 +202,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pelas regras (como a categoria principal)"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Pelas regras (como a categoria principal)"
@@ -320,6 +332,12 @@
             "value": "Abaixo da meta"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abaixo da meta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -434,6 +452,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ de uma meta de %3$@"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · %2$@ de uma meta de %3$@"
@@ -558,6 +582,12 @@
             "value": "Grupo do orçamento"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria do orçamento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -672,6 +702,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necessidades"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Necessidades"
@@ -796,6 +832,12 @@
             "value": "Sem renda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem rendimentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -915,6 +957,12 @@
             "value": "Na meta"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dentro da meta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1032,6 +1080,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sua regra: %1$lld / %2$lld / %3$lld"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A sua regra: %1$lld / %2$lld / %3$lld"
           }
         },
         "ru": {
@@ -1154,6 +1208,12 @@
             "value": "Economias"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poupança"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1268,6 +1328,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desejos"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Desejos"
@@ -1393,6 +1459,12 @@
             "value": "%1$@ · %2$@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1510,6 +1582,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não houve renda neste mês para calcular as proporções."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não houve rendimentos neste mês, pelo que não há valores a repartir."
           }
         },
         "ru": {
@@ -1631,6 +1709,12 @@
             "value": "O mês ainda não terminou: as proporções vão mudar."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O mês ainda não terminou: as proporções ainda vão mudar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1750,6 +1834,12 @@
             "value": "Grupos do orçamento"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorias do orçamento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1867,6 +1957,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saldo das contas da reserva dividido pelos gastos obrigatórios diários"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O saldo das contas de reserva a dividir pelas despesas obrigatórias diárias"
           }
         },
         "ru": {
@@ -2192,6 +2288,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Dura %lld dias"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Dura %lld dia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Dura %lld dias"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2401,6 +2521,12 @@
             "value": "Reserva de %1$@, gastos obrigatórios de ≈ %2$@ por dia"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva de %1$@, despesas obrigatórias ≈ %2$@ por dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2518,6 +2644,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nenhuma conta de reserva foi marcada. Marque na tela Patrimônio."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma conta de reserva selecionada: selecione-as no ecrã Património."
           }
         },
         "ru": {
@@ -2639,6 +2771,12 @@
             "value": "Os gastos obrigatórios mensais ainda não são conhecidos."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As despesas obrigatórias mensais ainda não são conhecidas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2753,6 +2891,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva em dias"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Reserva em dias"
@@ -2877,6 +3021,12 @@
             "value": "Últimos 12 meses · até %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Últimos 12 meses · até %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2994,6 +3144,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Um indicador composto por cinco partes, com seus detalhes"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um valor calculado a partir de cinco componentes, com a respetiva distribuição"
           }
         },
         "ru": {
@@ -3115,6 +3271,12 @@
             "value": "%lld de 100"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld em 100"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3232,6 +3394,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não incluído por falta de dados: %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Excluído por falta de dados: %@"
           }
         },
         "ru": {
@@ -3353,6 +3521,12 @@
             "value": "Não calculado"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não contabilizado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3470,6 +3644,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "São necessários dados de pelo menos duas das cinco partes: reserva, endividamento, taxa de economia, pagamentos em atraso e estabilidade da renda."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "São necessários dados para pelo menos dois dos cinco componentes: reserva, encargos com dívidas, taxa de poupança, pagamentos em atraso e estabilidade dos rendimentos."
           }
         },
         "ru": {
@@ -3591,6 +3771,12 @@
             "value": "Calculado sempre com seus dados, sem comparações. Uma orientação, não uma nota."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calculado sempre a partir dos seus dados, sem comparações. Uma orientação, não uma classificação."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3706,6 +3892,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Reserva"
@@ -3831,6 +4023,12 @@
             "value": "Endividamento"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encargos com dívidas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3945,6 +4143,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamentos em atraso"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Pagamentos em atraso"
@@ -4070,6 +4274,12 @@
             "value": "Taxa de economia"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taxa de poupança"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4189,6 +4399,12 @@
             "value": "Estabilidade da renda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilidade dos rendimentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4303,6 +4519,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld de %2$lld"
@@ -4428,6 +4650,12 @@
             "value": "Saúde financeira"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saúde financeira"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4545,6 +4773,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parcela da renda que sobra após os gastos · toda a renda"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A parte dos rendimentos que sobra após as despesas · todos os rendimentos"
           }
         },
         "ru": {
@@ -4666,6 +4900,12 @@
             "value": "Parcela da renda que sobra após os gastos · apenas rendimentos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A parte dos rendimentos que sobra após as despesas · apenas rendimentos do trabalho"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4783,6 +5023,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Renda %1$@ − gastos %2$@ = economizado %3$@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rendimentos %1$@ − despesas %2$@ = poupado %3$@"
           }
         },
         "ru": {
@@ -4904,6 +5150,12 @@
             "value": "%1$@: %2$@ da renda economizada"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ dos rendimentos poupados"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5021,6 +5273,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: sem renda, sem taxa"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: sem rendimentos, pelo que não há taxa"
           }
         },
         "ru": {
@@ -5142,6 +5400,12 @@
             "value": "É necessário pelo menos um mês com renda."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É necessário pelo menos um mês com rendimentos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5259,6 +5523,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "* O mês ainda não terminou: ainda haverá gastos, então o valor parece melhor do que será."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "* O mês ainda não terminou: ainda haverá despesas, pelo que o valor parece melhor do que será."
           }
         },
         "ru": {
@@ -5380,6 +5650,12 @@
             "value": "%@, ainda não terminou"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, ainda não terminou"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5494,6 +5770,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (até agora)"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ (até agora)"
@@ -5619,6 +5901,12 @@
             "value": "Taxa de economia"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taxa de poupança"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5736,6 +6024,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entendi"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entendido"
           }
         },
         "ru": {
@@ -5857,6 +6151,12 @@
             "value": "Em 6 meses: renda %1$@, gastos %2$@ em relação aos 6 meses anteriores"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em 6 meses, rendimentos %1$@, despesas %2$@ face aos 6 meses anteriores"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5974,6 +6274,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não mostrar mais"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deixar de mostrar"
           }
         },
         "ru": {
@@ -6095,6 +6401,12 @@
             "value": "Em 3 meses: renda %1$@, gastos %2$@ em relação aos mesmos meses do ano passado"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em 3 meses, rendimentos %1$@, despesas %2$@ face aos mesmos meses do ano anterior"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6212,6 +6524,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Empréstimos, assinaturas e gastos necessários em relação à renda habitual"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empréstimos, assinaturas e despesas necessárias face aos rendimentos habituais"
           }
         },
         "ru": {
@@ -6333,6 +6651,12 @@
             "value": "Gastos obrigatórios de ≈ %1$@ por mês, sobram %2$@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Despesas obrigatórias ≈ %1$@ por mês, sobram %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6450,6 +6774,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ da renda comprometida · %2$@ disponíveis"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ dos rendimentos comprometidos · %2$@ de margem"
           }
         },
         "ru": {
@@ -6571,6 +6901,12 @@
             "value": "Não houve renda nesses meses para calcular a proporção."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não houve rendimentos nestes meses, pelo que não há valores a repartir."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6688,6 +7024,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Os gastos obrigatórios ainda não são conhecidos. São necessários alguns meses completos e categorias marcadas como necessárias."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As despesas obrigatórias ainda não são conhecidas: são necessários alguns meses completos e categorias marcadas como necessárias."
           }
         },
         "ru": {
@@ -6809,6 +7151,12 @@
             "value": "Parcela de gastos obrigatórios"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peso das despesas obrigatórias"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6926,6 +7274,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Os três primeiros dias após uma entrada de renda em relação ao restante do mês"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os primeiros três dias após um rendimento face ao resto do mês"
           }
         },
         "ru": {
@@ -7047,6 +7401,12 @@
             "value": "%1$@ por dia após uma entrada de renda, contra %2$@ em um dia habitual"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ por dia após um rendimento face a %2$@ num dia normal"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7164,6 +7524,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nos primeiros três dias, você gasta %@× mais"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nos primeiros três dias gasta %@× mais"
           }
         },
         "ru": {
@@ -7285,6 +7651,12 @@
             "value": "São necessárias pelo menos duas entradas de renda esperadas já concluídas e sete dias habituais para comparação."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "São necessários pelo menos dois recebimentos previstos concluídos e sete dias normais para comparação."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7399,6 +7771,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Efeito do salário"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Efeito do salário"
@@ -7523,6 +7901,12 @@
             "value": "Taxa de economia apenas sobre rendimentos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taxa de poupança apenas dos rendimentos do trabalho"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7640,6 +8024,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cashback, juros e excedentes não entram no cálculo da taxa"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O cashback, os juros e os excedentes não contam como rendimentos para a taxa"
           }
         },
         "ru": {
@@ -7761,6 +8151,12 @@
             "value": "As proporções e opções são salvas no banco de dados e incluídas no arquivo. O grupo de cada categoria é definido em Categorias."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As proporções e opções são guardadas na base de dados e incluídas no arquivo. A categoria do orçamento é definida em Categorias."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7875,6 +8271,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necessidades: %lld%%"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Necessidades: %lld%%"
@@ -7999,6 +8401,12 @@
             "value": "Necessidades"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Necessidades"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8116,6 +8524,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Voltar para 50 / 30 / 20"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repor 50 / 30 / 20"
           }
         },
         "ru": {
@@ -8238,6 +8652,12 @@
             "value": "Economias"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poupança"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8355,6 +8775,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O que falta para completar cem"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que falta para chegar a cem"
           }
         },
         "ru": {
@@ -8477,6 +8903,12 @@
             "value": "Renda e economias"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rendimentos e poupança"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8594,6 +9026,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Avisar quando os gastos crescerem mais que a renda"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avisar quando as despesas crescem mais do que os rendimentos"
           }
         },
         "ru": {
@@ -8715,6 +9153,12 @@
             "value": "Uma linha em “Vale a pena ver”, no máximo uma vez por trimestre"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma linha em “A espreitar”, no máximo uma vez por trimestre"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8829,6 +9273,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desejos: %lld%%"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Desejos: %lld%%"
@@ -8953,6 +9403,12 @@
             "value": "Desejos"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desejos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9072,6 +9528,12 @@
             "value": "Um mês ruim para planejar: %@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um mês difícil para planear: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9189,6 +9651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Meses completos anteriores a este, no máximo 24"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meses completos anteriores a este, até 24"
           }
         },
         "ru": {
@@ -9514,6 +9982,30 @@
             }
           }
         },
+        "pt-PT": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Poucos dados: apenas %lld meses até agora"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Poucos dados: apenas %lld mês até agora"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Poucos dados: apenas %lld meses até agora"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -9723,6 +10215,12 @@
             "value": "São necessários pelo menos %1$lld meses completos com renda. Até agora, há %2$lld."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "São necessários pelo menos %1$lld meses completos com rendimentos; existem %2$lld até agora."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9840,6 +10338,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A renda é estável"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os rendimentos são estáveis"
           }
         },
         "ru": {
@@ -9961,6 +10465,12 @@
             "value": "Estabilidade da renda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilidade dos rendimentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10078,6 +10588,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A renda oscila"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os rendimentos variam"
           }
         },
         "ru": {
@@ -10199,6 +10715,12 @@
             "value": "Um mês típico: de %1$@ a %2$@"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um mês habitual: de %1$@ a %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10318,6 +10840,12 @@
             "value": "Itens considerados: %1$lld de %2$lld"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Componentes considerados: %1$lld de %2$lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10433,6 +10961,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@"
@@ -10557,6 +11091,12 @@
             "value": "%@ · até agora"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · até agora"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10674,6 +11214,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Os gastos não crescem mais rápido que a renda."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As despesas não crescem mais depressa do que os rendimentos."
           }
         },
         "ru": {
@@ -10795,6 +11341,12 @@
             "value": "É preciso ter mais de um ano de histórico ou pelo menos 12 meses registrados, além de renda para comparar."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É necessário mais de um ano de histórico, ou pelo menos 12 meses com dados, e rendimentos para comparar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10912,6 +11464,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Os gastos crescem mais rápido que a renda. Vale ficar de olho antes que vire hábito."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As despesas crescem mais depressa do que os rendimentos. Convém prestar atenção antes que se torne um hábito."
           }
         },
         "ru": {
@@ -11033,6 +11591,12 @@
             "value": "Mostrar em “Vale conferir”"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar em “A rever”"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11150,6 +11714,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Comparado aos meses anteriores, não ao ano passado: comparar verão e inverno não seria justo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comparado com os meses anteriores, não com o ano passado: comparar o verão com o inverno não seria justo."
           }
         },
         "ru": {
@@ -11271,6 +11841,12 @@
             "value": "Em 6 meses, renda %1$@ e gastos %2$@ em relação aos 6 meses anteriores"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em 6 meses, rendimentos %1$@, despesas %2$@ face aos 6 meses anteriores"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11388,6 +11964,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Não mostrar em “Vale conferir”"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deixar de mostrar em “A rever”"
           }
         },
         "ru": {
@@ -11509,6 +12091,12 @@
             "value": "Gastos acompanham a renda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As despesas acompanham os rendimentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11626,6 +12214,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Em 3 meses, renda %1$@ e gastos %2$@ em relação aos mesmos meses do ano passado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em 3 meses, rendimentos %1$@, despesas %2$@ face aos mesmos meses do ano passado"
           }
         },
         "ru": {
@@ -11748,6 +12342,12 @@
             "value": "Reserva"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fundo de emergência"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11866,6 +12466,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Peso das dívidas"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peso da dívida"
           }
         },
         "ru": {
@@ -11987,6 +12593,12 @@
             "value": "Contas atrasadas"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamentos em atraso"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12102,6 +12714,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taxa de poupança"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Taxa de poupança"
@@ -12226,6 +12844,12 @@
             "value": "Estabilidade da renda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilidade dos rendimentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12340,6 +12964,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não considerados por falta de dados"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Não considerados por falta de dados"
@@ -12464,6 +13094,12 @@
             "value": "Não há itens suficientes para calcular um número."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Há dados suficientes para calcular apenas alguns componentes, pelo que não é possível apresentar um valor."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12581,6 +13217,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Os itens excluídos não recebem zero: os demais são ajustados para somar cem. O número não é comparado ao de outras pessoas."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os componentes excluídos não recebem zero: os restantes são ajustados para uma escala de 100. O valor não é comparado com o de outras pessoas."
           }
         },
         "ru": {
@@ -12702,6 +13344,12 @@
             "value": "Reserva (de %@)"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fundo de emergência (em %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12819,6 +13467,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Peso das dívidas (de %@)"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peso da dívida (em %@)"
           }
         },
         "ru": {
@@ -12940,6 +13594,12 @@
             "value": "Contas atrasadas (de %@)"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamentos em atraso (em %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -13057,6 +13717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Taxa de poupança (de %@)"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taxa de poupança (em %@)"
           }
         },
         "ru": {
@@ -13178,6 +13844,12 @@
             "value": "Estabilidade da renda (de %@)"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilidade dos rendimentos (em %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -13293,6 +13965,12 @@
           }
         },
         "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saúde financeira"
+          }
+        },
+        "pt-PT": {
           "stringUnit": {
             "state": "translated",
             "value": "Saúde financeira"
@@ -13417,6 +14095,12 @@
             "value": "Transferido para a reserva (não gasto)"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferido para o fundo de emergência (não gasto)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -13536,6 +14220,12 @@
             "value": "Não há categoria “Ganhos”, então toda a renda é considerada."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não existe uma categoria “Rendimentos”, pelo que são considerados todos os rendimentos."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -13653,6 +14343,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Destinado a metas (guardado, não gasto)"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Destinado a objetivos (poupado, não gasto)"
           }
         },
         "ru": {
@@ -13775,6 +14471,12 @@
             "value": "Renda"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rendimentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -13892,6 +14594,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guardado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poupado"
           }
         },
         "ru": {
@@ -14013,6 +14721,12 @@
             "value": "Ainda não há renda neste mês, então não há taxa."
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não há rendimentos neste mês, pelo que não há taxa."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -14130,6 +14844,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "O mês ainda não acabou e ainda haverá gastos, então a taxa parece melhor do que será."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O mês ainda não terminou e ainda haverá despesas, pelo que a taxa parece melhor do que será."
           }
         },
         "ru": {
@@ -14252,6 +14972,12 @@
             "value": "Taxa de poupança"
           }
         },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taxa de poupança"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -14369,6 +15095,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Meus gastos sem contribuições para metas"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As minhas despesas sem contribuições para objetivos"
           }
         },
         "ru": {

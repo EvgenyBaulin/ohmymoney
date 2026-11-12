@@ -4,6 +4,12 @@
     "calendar.birthday": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — ad günü"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -117,6 +123,12 @@
     "calendar.birthday.createEvent": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Büdcə ilə tədbir yarat"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -230,6 +242,12 @@
     "calendar.birthday.created": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tədbir yaradıldı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -343,6 +361,12 @@
     "calendar.birthday.mark": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ad günü"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -456,6 +480,12 @@
     "calendar.birthday.notCreated": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tədbir yaradılmadı: eynisi artıq mövcuddur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -569,6 +599,24 @@
     "calendar.birthday.turns": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld yaşı tamam olur"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld yaşı tamam olur"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -964,6 +1012,12 @@
     "calendar.birthdayBudget": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — ad günü, büdcə %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1077,6 +1131,12 @@
     "look.purchase.action.createEvent": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tədbir yarat"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1190,6 +1250,12 @@
     "look.purchase.action.credited": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaba köçürüldü"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1303,6 +1369,12 @@
     "look.purchase.action.openRefunds": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geri ödənişlər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1416,6 +1488,12 @@
     "look.purchase.action.openWishes": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İstək siyahısı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1529,6 +1607,12 @@
     "look.purchase.birthday": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — ad günü: %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1642,6 +1726,12 @@
     "look.purchase.birthdayBudget": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — ad günü: %2$@, hədiyyə büdcəsi %3$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1755,6 +1845,12 @@
     "look.purchase.birthdayToday": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — bu gün ad günüdür"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1868,6 +1964,12 @@
     "look.purchase.birthdayTodayBudget": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — bu gün ad günüdür, hədiyyə büdcəsi %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1981,6 +2083,12 @@
     "look.purchase.eventName": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad günü: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2094,6 +2202,12 @@
     "look.purchase.refund": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” üçün %2$@ geri ödənişin hesaba köçürülməsi gözlənilir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2207,6 +2321,24 @@
     "look.purchase.refundDays": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -2602,6 +2734,12 @@
     "look.purchase.refundLate": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” üçün %2$@ geri ödəniş gecikir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2715,6 +2853,12 @@
     "look.purchase.refundLateNoName": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ məbləğində geri ödəniş gecikir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2828,6 +2972,12 @@
     "look.purchase.refundNoName": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ məbləğində geri ödənişin hesaba köçürülməsi gözlənilir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2941,6 +3091,12 @@
     "look.purchase.regret": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” (%2$@, %3$@) üçün peşmansınız?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3054,6 +3210,12 @@
     "look.purchase.regretCategory": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ tarixində “%1$@” üzrə alışa (%3$@) peşmansınız?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3167,6 +3329,12 @@
     "look.purchase.regretDated": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ tarixindəki alışa (%2$@) peşmansınız?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3280,6 +3448,24 @@
     "look.purchase.regretMore": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Daha %lld alış cavab gözləyir"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Daha %lld alış cavab gözləyir"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -3675,6 +3861,12 @@
     "look.purchase.regretPlace": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ tarixində %1$@ ünvanındakı alışa (%3$@) peşmansınız?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3788,6 +3980,12 @@
     "look.purchase.untitled": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "alış"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3901,6 +4099,12 @@
     "look.purchase.wish": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” almaq olar: %2$@ yığılıb"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4015,6 +4219,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad günü"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4128,6 +4338,12 @@
     "person.birthday.add": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad günü əlavə et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4242,6 +4458,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gün"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4356,6 +4578,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ay"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4469,6 +4697,12 @@
     "person.birthday.remove": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad gününü sil"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4582,6 +4816,12 @@
     "person.birthday.year": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İl (istəyə bağlı)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4696,6 +4936,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İl"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4809,6 +5055,12 @@
     "person.giftBudget": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hədiyyə büdcəsi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4922,6 +5174,12 @@
     "person.giftBudget.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiq ad günündən bir həftə əvvəl xatırladacaq və bu büdcə ilə tədbir təklif edəcək."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5036,6 +5294,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5149,6 +5413,12 @@
     "planning.birthdays.lineBudget": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@, büdcə %3$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5262,6 +5532,12 @@
     "planning.birthdays.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaxınlaşan ad günləri"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5375,6 +5651,12 @@
     "planning.birthdays.today": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — bu gün"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5488,6 +5770,12 @@
     "purchase.discount.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Endirim %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5601,6 +5889,12 @@
     "purchase.discount.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Endirim"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5714,6 +6008,12 @@
     "purchase.mileage.message": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometrləri daxil edin; yürüş son yanacaq doldurulmasından hesablanır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5827,6 +6127,12 @@
     "purchase.mileage.messageFirst": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu, yürüşü qeyd edilən ilk yanacaq doldurulmasıdır. Göstəricidəki rəqəmi daxil edin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5940,6 +6246,12 @@
     "purchase.mileage.prompt": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yürüş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6053,6 +6365,12 @@
     "purchase.mileage.prompt.km": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometr"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6166,6 +6484,12 @@
     "purchase.mileage.question": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son yanacaq doldurulmasından nə qədər yol getmisiniz?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6280,6 +6604,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saxla"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6393,6 +6723,12 @@
     "purchase.mileage.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yürüş, km"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6506,6 +6842,12 @@
     "purchase.mileage.unknown": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xatırlamıram"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6619,6 +6961,12 @@
     "purchase.pause.message": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ hazırda xərcləyə biləcəyiniz vəsaitin %2$@ %% hissəsidir. Alışı qeyd edə və ya gözləyə bilərsiniz."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6732,6 +7080,12 @@
     "purchase.pause.messageNoShare": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, sərbəst vəsait isə hesablanmayıb. Alışı qeyd edə və ya gözləyə bilərsiniz."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6846,6 +7200,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeyd et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6959,6 +7319,12 @@
     "purchase.pause.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alışı təxirə salaq?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7072,6 +7438,12 @@
     "purchase.refund.credited": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artıq hesaba köçürülüb"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7186,6 +7558,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geri ödəniş gözlənilir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7299,6 +7677,12 @@
     "purchase.refund.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gözlənilən köçürülmə tarixi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7412,6 +7796,12 @@
     "purchase.regret.answered.no": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peşman deyil"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7525,6 +7915,12 @@
     "purchase.regret.answered.skip": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yenidən soruşulmayacaq"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7638,6 +8034,12 @@
     "purchase.regret.answered.yes": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peşmandır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7752,6 +8154,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dəyiş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7865,6 +8273,12 @@
     "purchase.regret.no": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peşman deyiləm"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7978,6 +8392,12 @@
     "purchase.regret.skip": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soruşma"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8091,6 +8511,12 @@
     "purchase.regret.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peşmansınız?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8204,6 +8630,12 @@
     "purchase.regret.yes": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peşmanam"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
