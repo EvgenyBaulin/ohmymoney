@@ -30,7 +30,7 @@ final class UpgradeFromTwoPointThirteenTests: XCTestCase {
   /// The migrations after 2.13.1's schema 21, read from the bundle so a new migration does not
   /// make this test lie: the update from the released version runs every one of them.
   private static func laterMigrations() throws -> [String] {
-    try BundleSchemaSource().migrations().map(\.name).filter { $0 > "0021" }.sorted()
+    try BundleSchemaSource().migrations().map(\.name).filter { $0.prefix(4) > "0021" }.sorted()
   }
 
   override func setUp() async throws {
