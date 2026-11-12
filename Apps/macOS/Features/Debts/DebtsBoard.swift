@@ -129,6 +129,8 @@ struct DebtsBoard: Equatable {
     let nextDue: DateOnly?
     /// The debt «Удалить…» of the context menu deletes; a person has none.
     let debtId: UUID?
+    /// How the payments of the debt stand against its schedule; `nil` for a person.
+    var stripe: DebtPaymentMark? = nil
 
     var id: DebtsSelection { selection }
 
@@ -222,7 +224,8 @@ struct DebtsBoard: Equatable {
         model.paid.map { percent($0, of: borrowed) }
       },
       paid: model.paid, total: model.borrowed, progressCurrency: line.debt.currency,
-      rate: model.rate, payment: model.payment, nextDue: model.nextPayment, debtId: line.id)
+      rate: model.rate, payment: model.payment, nextDue: model.nextPayment, debtId: line.id,
+      stripe: line.stripe)
   }
 
   /// A person who owes me: everything they owe, what of it came back — their debts in rubles and
