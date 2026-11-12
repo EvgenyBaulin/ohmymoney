@@ -4,6 +4,20 @@ import XCTest
 @testable import OhMyMoney
 
 final class WhatIfDraftTests: XCTestCase {
+  func testResultWaitsForACompleteChange() {
+    var draft = WhatIfDraft()
+    XCTAssertFalse(draft.hasScenario)
+    draft.rows[0].amount = "invalid"
+    XCTAssertFalse(draft.hasScenario)
+    draft.rows[0].amount = "15000"
+    XCTAssertTrue(draft.hasScenario)
+    draft.rows[0].amount = ""
+    XCTAssertFalse(draft.hasScenario)
+    draft.rows[0].kind = .incomeLoss
+    draft.rows[0].months = "3"
+    XCTAssertTrue(draft.hasScenario)
+  }
+
   func testAHalfTypedLineIsLeftOutUntilItIsReadable() {
     var draft = WhatIfDraft()
     draft.rows[0].kind = .loan

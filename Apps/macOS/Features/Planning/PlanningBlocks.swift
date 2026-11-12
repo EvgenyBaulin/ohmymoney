@@ -328,6 +328,9 @@ private struct AdviceRow: View {
         if advice.kind == .debtLoad, let history = compute.snapshot?.planning.debtLoadHistory {
           DebtLoadHistoryView(history: history)
         }
+        if advice.kind == .debtLoad, let pdn = compute.snapshot?.planning.bankPdn {
+          BankPdnView(pdn: pdn)
+        }
       case .notEnoughData(let reason):
         Label {
           Text(

@@ -1,0 +1,431 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "banksRu.cardCount.after": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You hold %1$@ of %2$@ cards a person may have across all banks. The cap has been in force since %3$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карт во всех банках: %1$@ из %2$@ — столько можно держать на человека. Ограничение действует с %3$@."
+          }
+        }
+      }
+    },
+    "banksRu.cardCount.before": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You hold %1$@ of %2$@ cards a person may have across all banks. The cap comes into force on %3$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карт во всех банках: %1$@ из %2$@ — столько можно держать на человека. Ограничение начнёт действовать %3$@."
+          }
+        }
+      }
+    },
+    "banksRu.cardCount.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only the cards written in the app are counted; the bank's register has the last word."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Считаются только карты, записанные в приложении; последнее слово — за реестром банков."
+          }
+        }
+      }
+    },
+    "banksRu.cardCount.line": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cards: %1$@ of %2$@ · room for %3$@ more"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карт: %1$@ из %2$@ · ещё можно %3$@"
+          }
+        }
+      }
+    },
+    "banksRu.cardCount.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cards in all banks"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карты во всех банках"
+          }
+        }
+      }
+    },
+    "banksRu.cardCount.unused": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ cards nothing was paid with for %2$@ days or more: close or use them."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Карт, которыми не платили %2$@ дн. и дольше: %1$@ — закройте или пользуйтесь."
+          }
+        }
+      }
+    },
+    "banksRu.cardCount.unusedNone": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every card was used lately."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каждой картой недавно платили."
+          }
+        }
+      }
+    },
+    "banksRu.cashback.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback written this year: about %1$@. Ordinary cashback is not taxed, but prizes and gifts from a bank over %2$@ a year are, and a large cashback has been counted as income. The app works out no tax — check with the tax service."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэка за год записано около %1$@. Обычный кэшбэк налогом не облагается, но призы и подарки от банка свыше %2$@ в год — облагаются, а крупный кэшбэк иногда относят к доходу. Налог приложение не считает — сверьтесь с ФНС."
+          }
+        }
+      }
+    },
+    "banksRu.interest.due": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The tax service sends a notice; pay by %1$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ФНС пришлёт уведомление; платить до %1$@."
+          }
+        }
+      }
+    },
+    "banksRu.interest.forecast": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Through the end of the year: ≈ %1$@ · tax ≈ %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "К концу года: ≈ %1$@ · налог ≈ %2$@"
+          }
+        }
+      }
+    },
+    "banksRu.interest.freeSum": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest for %1$@ is free of tax up to %2$@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты за %1$@ не облагаются до %2$@."
+          }
+        }
+      }
+    },
+    "banksRu.interest.freeSumEstimate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest for %1$@ is free of tax up to ≈ %2$@ (not final until the key rate of December is known)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты за %1$@ не облагаются до ≈ %2$@ (окончательно — после декабрьского заседания ЦБ)."
+          }
+        }
+      }
+    },
+    "banksRu.interest.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The rate is 13 %% up to 2.4 million rubles of interest a year and 15 %% above it; interest from all banks adds up. Check the figures with the tax service."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ставка — 13 %% до 2,4 млн ₽ процентов в год и 15 %% сверху; проценты всех банков складываются. Сверьте цифры с ФНС."
+          }
+        }
+      }
+    },
+    "banksRu.interest.noRate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest in %1$@ is left out: no rate today."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты в %1$@ не учтены: нет курса на сегодня."
+          }
+        }
+      }
+    },
+    "banksRu.interest.noTax": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interest is below the sum free of tax: nothing to pay."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Проценты ниже необлагаемой суммы: платить нечего."
+          }
+        }
+      }
+    },
+    "banksRu.interest.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tax on interest for %1$@: about %2$@ — pay by %3$@ on the tax service's notice. An estimate."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налог с процентов за %1$@: около %2$@ — платить до %3$@ по уведомлению ФНС. Оценка."
+          }
+        }
+      }
+    },
+    "banksRu.interest.sofar": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Earned through today: %1$@ · tax on it ≈ %2$@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Набежало на сегодня: %1$@ · налог с них ≈ %2$@"
+          }
+        }
+      }
+    },
+    "banksRu.interest.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tax on deposit interest"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налог с процентов по вкладам"
+          }
+        }
+      }
+    },
+    "banksRu.pdn.bank": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — payments on credits and cards (a card counts 5 %% of its limit) over income"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — платежи по кредитам и картам (карта — 5 %% лимита) к доходу"
+          }
+        }
+      }
+    },
+    "banksRu.pdn.cautious": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ if the bank takes 90 %% of your income (%2$@) — a reference, the bank decides"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, если банк возьмёт 90 %% дохода (%2$@) — ориентир, решает банк"
+          }
+        }
+      }
+    },
+    "banksRu.pdn.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A guide, not the bank's verdict."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ориентир, а не решение банка."
+          }
+        }
+      }
+    },
+    "banksRu.pdn.noIncome": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not enough data: no income of «Earnings» yet."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мало данных: пока нет дохода из «Заработка»."
+          }
+        }
+      }
+    },
+    "banksRu.pdn.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debt burden as a bank sees it"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Долговая нагрузка, как её видит банк"
+          }
+        }
+      }
+    },
+    "banksRu.pdn.withInstalments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ with instalments (Split and the like) included"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ с рассрочками и Сплитом"
+          }
+        }
+      }
+    },
+    "banksRu.sbp.fee": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Past the free limit the bank may take about %1$@ (0.5 %% of each transfer's part past it, at most %2$@ a transfer). Check your bank's conditions."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сверх бесплатного лимита банк может взять около %1$@ (0,5 %% от части каждого перевода сверх лимита, не больше %2$@ за перевод). Уточните условия в банке."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

@@ -64,6 +64,25 @@ final class CalendarFigmaTests: SectionFigmaHarness {
     XCTAssertNotEqual(CalendarText.t("calendar.grid.spent", environment), "calendar.grid.spent")
   }
 
+  func testSidebarMeasurementIgnoresAScrollViewContainingTheWholeWindow() throws {
+    let root = NSView(frame: CGRect(x: 0, y: 0, width: 1440, height: 900))
+    let outer = NSScrollView(frame: root.bounds)
+    let document = NSView(frame: root.bounds)
+    outer.documentView = document
+    root.addSubview(outer)
+    let sidebar = NSScrollView(frame: CGRect(x: 0, y: 0, width: 232, height: 900))
+    sidebar.documentView = NSTableView(frame: sidebar.bounds)
+    document.addSubview(sidebar)
+    let page = NSScrollView(frame: CGRect(x: 232, y: 0, width: 1208, height: 900))
+    page.documentView = NSTableView(frame: page.bounds)
+    document.addSubview(page)
+    root.layoutSubtreeIfNeeded()
+
+    let measured = try XCTUnwrap(Self.sidebarScroll(in: root))
+    XCTAssertTrue(measured === sidebar, "an ancestor of a table is not its enclosing scroll view")
+    XCTAssertEqual(measured.convert(measured.bounds, to: root).maxX, 232, accuracy: 1)
+  }
+
   func testTheMacMasterHasTheNumbersOfTheFrame() throws {
     try TestEnvironment.requireSwiftUIAccessibility()
     try TestEnvironment.requireScreen(width: 1_440, height: 900)

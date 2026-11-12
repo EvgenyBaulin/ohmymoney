@@ -781,6 +781,7 @@ public enum TileExplanations {
     case FreeMoney.Key.events: "why.free.events"
     case FreeMoney.Key.npdTax: "why.free.npdTax"
     case FreeMoney.Key.creditCards: "why.free.creditCards"
+    case FreeMoney.Key.interestTax: "why.free.interestTax"
     default: "why.free.other"
     }
   }

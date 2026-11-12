@@ -5,7 +5,11 @@ import Foundation
 /// The three things a bank lets the owner do free of a fee up to a sum in a month.
 public enum BankLimitKind: String, Hashable, Sendable, CaseIterable {
   case cash
+  /// Transfers to people through the fast payment system.
   case sbp
+  /// Transfers of the owner to their own account in another bank through the same system: a
+  /// limit apart from the one for people.
+  case sbpOwn
   case interbank
 }
 
@@ -67,6 +71,23 @@ public struct BankLimitLine: Hashable, Sendable, Identifiable {
   /// Used up exactly: nothing is free any more.
   public var isUsedUp: Bool { leftE4.raw == 0 && limitE4.raw > 0 }
 
+  /// For the limit of transfers to people: what the bank is likely to take for the transfers past
+  /// it — 0.5 % of the part of each past the limit, at most 1 500 rubles a transfer. «≈»: the
+  /// bank's conditions rule. Zero for any other limit and in a currency other than rubles.
+  public var feeEstimateE4: AmountE4 {
+    guard kind == .sbp, currency == .rub else { return .zero }
+    var running = AmountE4.zero
+    var fee = Decimal(0)
+    for movement in movements.reversed() where !movement.off {
+      let before = running
+      running += movement.amountE4
+      let over = max(.zero, running - limitE4) - max(.zero, before - limitE4)
+      guard over.raw > 0 else { continue }
+      fee += min(over.decimal * BankLimits.sbpFeeRate, BankLimits.sbpFeeCapE4.decimal)
+    }
+    return (try? AmountE4(decimal: fee)) ?? .zero
+  }
+
   public init(
     accountId: UUID, kind: BankLimitKind, currency: CurrencyCode, limitE4: AmountE4,
     usedE4: AmountE4, movements: [BankLimitMovement]
@@ -85,6 +106,15 @@ public struct BankLimitLine: Hashable, Sendable, Identifiable {
 public enum BankLimits {
   /// The share of a limit (in basis points) from which «Стоит посмотреть» speaks of it.
   public static let nearShareBp = 8_000
+
+  /// What the fast payment system lets the owner send to their own accounts in other banks free
+  /// of a fee in a month: 30 million rubles, apart from the limit for people.
+  public static let sbpOwnFreeE4 = AmountE4(whole: 30_000_000)
+
+  /// The most a bank takes for one transfer to a person past the free limit, and its share of
+  /// the part past it (0.5 %). The bank's own conditions rule; the figure is an estimate.
+  public static let sbpFeeCapE4 = AmountE4(whole: 1_500)
+  public static let sbpFeeRate = Decimal(5) / 1_000
 
   /// The bank an account belongs to: its `bankId`, or the account itself when it has none (an
   /// account without a bank reads as a bank of its own name).
@@ -122,7 +152,7 @@ public enum BankLimits {
         kind = .cash
       } else if bankKey(from) != bankKey(to) {
         if conditions.currency == .rub, conditions.freeSbpE4 != nil {
-          kind = .sbp
+          kind = .sbpOwn
         } else if conditions.freeInterbankE4 != nil {
           kind = .interbank
         } else {
@@ -184,6 +214,7 @@ public enum BankLimits {
       let limits: [(BankLimitKind, AmountE4?)] = [
         (.cash, conditions.freeCashE4),
         (.sbp, conditions.currency == .rub ? conditions.freeSbpE4 : nil),
+        (.sbpOwn, conditions.currency == .rub && conditions.freeSbpE4 != nil ? sbpOwnFreeE4 : nil),
         (.interbank, conditions.freeInterbankE4),
       ]
       for (kind, limit) in limits {

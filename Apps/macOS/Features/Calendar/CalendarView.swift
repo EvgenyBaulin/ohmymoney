@@ -87,49 +87,48 @@ struct CalendarView: View {
     let dayCard = dayCard(
       chosenDay, calendar: calendar, snapshot: snapshot,
       gifts: gifts[chosenDay?.day ?? snapshot.today] ?? [])
-    return VStack(alignment: .leading, spacing: SectionMetrics.headerToContent) {
-      header(calendar, today: snapshot.today)
-      if let text = mover.message {
-        QuickCalendarMessage(text: text, failed: mover.failed)
-      }
-      if let giftMessage {
-        Label(giftMessage, systemImage: "gift")
-          .appFont(.callout)
-          .foregroundStyle(.secondary)
-          .accessibilityIdentifier("calendar.birthday.message")
-      }
-      if wide {
-        // The frame: the switch, the chosen day and the dearer days on the left; the month and
-        // what is ahead on the right, 16 apart.
-        HStack(alignment: .top, spacing: SectionMetrics.columnGap(design)) {
-          VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
-            scopeSwitch
-            dayCard
-            CalendarDearDaysCard(calendar: calendar) { chosen = $0 }
-          }
-          .frame(width: width > 0 ? columns.0 : nil)
-          .frame(maxHeight: .infinity, alignment: .top)
-          ScrollView {
+    return ScrollView {
+      VStack(alignment: .leading, spacing: SectionMetrics.headerToContent) {
+        header(calendar, today: snapshot.today)
+        if let text = mover.message {
+          QuickCalendarMessage(text: text, failed: mover.failed)
+        }
+        if let giftMessage {
+          Label(giftMessage, systemImage: "gift")
+            .appFont(.callout)
+            .foregroundStyle(.secondary)
+            .accessibilityIdentifier("calendar.birthday.message")
+        }
+        if wide {
+          // The frame: the switch, the chosen day and the dearer days on the left; the month and
+          // what is ahead on the right, 16 apart.
+          HStack(alignment: .top, spacing: SectionMetrics.columnGap(design)) {
+            VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
+              scopeSwitch
+              dayCard
+              CalendarDearDaysCard(calendar: calendar) { chosen = $0 }
+            }
+            .frame(width: width > 0 ? columns.0 : nil)
             VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
               grid
               CalendarUpcomingCard(calendar: calendar)
             }
+            .frame(width: width > 0 ? columns.1 : nil)
           }
-          .scrollIndicators(.never)
-          .frame(width: width > 0 ? columns.1 : nil)
-        }
-      } else {
-        VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
-          scopeSwitch
-          grid
-          dayCard
-          CalendarUpcomingCard(calendar: calendar)
+        } else {
+          VStack(alignment: .leading, spacing: SectionMetrics.stackGap) {
+            scopeSwitch
+            grid
+            dayCard
+            CalendarUpcomingCard(calendar: calendar)
+          }
         }
       }
+      .padding(.horizontal, SectionMetrics.side(design))
+      .padding(.top, SectionMetrics.top(design))
+      .padding(.bottom, SectionMetrics.bottom(design))
+      .frame(maxWidth: .infinity, alignment: .topLeading)
     }
-    .padding(.horizontal, SectionMetrics.side(design))
-    .padding(.top, SectionMetrics.top(design))
-    .padding(.bottom, SectionMetrics.bottom(design))
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     .background(surfaces.background)
     .onChange(of: compute.generation) { _, _ in actions.reloadDictionaries(from: snapshot.dataset) }

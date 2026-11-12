@@ -353,6 +353,20 @@ private struct TripBook {
 
 @Suite("The summary of a trip: total, days, categories, currencies, budget")
 struct TripSummaryTests {
+  @Test func budgetProgressUsesBasisPoints() {
+    var book = TripBook()
+    _ = book.add("2026-10-06", "11299.25")
+    var summary = TripSummary(
+      event: book.tripEvent, ledger: book.ledger(), budgetRub: money("15000"))
+    #expect(summary.budgetUsedBasisPoints == 7533)
+    summary.budget = money("10000")
+    #expect(summary.budgetUsedBasisPoints == 11299)
+    summary.budget = .zero
+    #expect(summary.budgetUsedBasisPoints == nil)
+    summary.budget = nil
+    #expect(summary.budgetUsedBasisPoints == nil)
+  }
+
   @Test func everyOperationOfTheEventCountsWhateverItsDateInRubles() throws {
     var book = TripBook()
     // Tickets bought three months ago, the hotel, then the days of the trip.
