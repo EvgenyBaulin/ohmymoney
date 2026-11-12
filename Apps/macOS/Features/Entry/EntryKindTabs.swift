@@ -19,6 +19,14 @@ struct EntryKindTabs: View {
   let choose: (EntryKindTile) -> Void
   @Environment(\.themeSurfaces) private var surfaces
   @Environment(\.appTheme) private var theme
+  @Environment(\.colorScheme) private var colorScheme
+
+  /// The chip of the chosen kind. In the dark themes the card and the track are one colour, and
+  /// the chip would vanish into it: there it is lifted with a light veil, so the chosen kind
+  /// stands out as it does on the white chip of the light themes.
+  static func chipFill(card: Color, scheme: ColorScheme) -> Color {
+    scheme == .dark ? Color.white.opacity(0.16) : card
+  }
 
   var body: some View {
     Group {
@@ -67,7 +75,7 @@ struct EntryKindTabs: View {
             .background {
               if isChosen {
                 RoundedRectangle(cornerRadius: metrics.chipRadius)
-                  .fill(surfaces.card)
+                  .fill(Self.chipFill(card: surfaces.card, scheme: colorScheme))
                   .strokeBorder(surfaces.cardBorder, lineWidth: 1)
               }
             }
