@@ -46,7 +46,10 @@ enum OperationColumn: String, CaseIterable, Identifiable, Hashable, Sendable {
     case .time: 64
     case .amount: 104
     case .description: 120
-    case .category: 80
+    // A category and an account are read by their names: squeezed to the old 80 and 60 pt
+    // they showed «Повсе…» beside the open editor.
+    case .category: 140
+    case .account: 130
     default: 60
     }
   }

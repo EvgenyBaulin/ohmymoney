@@ -359,7 +359,10 @@ struct OperationsScreen: View {
           .scrollContentBackground(.hidden)
           .safeAreaInset(edge: .bottom, spacing: 0) {
             if shown.operationCount < listing.operationCount {
+              // Opaque: the rows scroll under the footer (the table runs to the window's edge), and
+              // seen through it they read as its words laid over a row and its sum.
               earlierMonths(hidden: listing.operationCount - shown.operationCount)
+                .background(surfaces.card)
             }
           }
           // 4 inside the card at its top; at its bottom the table runs to the edge, so the room
@@ -429,6 +432,8 @@ struct OperationsScreen: View {
       .padding(.horizontal, 12)
       .padding(.vertical, 6)
     }
+    .accessibilityElement(children: .contain)
+    .accessibilityIdentifier("operations.earlier")
   }
 
   /// A few more months, cut off the main thread from the listing already built.
