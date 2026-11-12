@@ -28,13 +28,14 @@ struct CalendarView: View {
   /// «Только подписки»: the grid gives way to the days subscriptions are charged on.
   /// What the button «Создать событие с бюджетом» said last.
   @State private var giftMessage: String?
+  @Environment(\.horizontalSizeClass) private var sizeClass
   @Environment(\.layoutIdiom) private var idiom
 
   private func t(_ key: String) -> String { CalendarText.t(key, environment) }
 
   var body: some View {
     #if os(iOS)
-      if LayoutIdiom.resolved(idiom) == .phone {
+      if LayoutIdiom.resolved(idiom) == .phone || sizeClass == .compact {
         PhoneCalendarView(actions: actions)
       } else {
         sharedCalendar

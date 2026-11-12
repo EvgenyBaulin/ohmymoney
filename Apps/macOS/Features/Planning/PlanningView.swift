@@ -72,6 +72,9 @@ struct PlanningView: View {
           page(snapshot: snapshot, free: free, picked: picked, content: content)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        #if os(iOS)
+          .frame(width: content, alignment: .leading)
+        #endif
         .padding(.horizontal, pageSide)
         .padding(.top, PlanningMetrics.pageTop)
         .padding(.bottom, PlanningMetrics.pageBottom)

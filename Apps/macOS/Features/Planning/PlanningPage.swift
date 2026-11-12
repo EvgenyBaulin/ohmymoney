@@ -230,6 +230,9 @@ struct PlanningHeader: View {
         Text(verbatim: environment.language("section.planning"))
           .appFont(Self.titleFont)
           .lineLimit(1)
+          #if os(iOS)
+            .minimumScaleFactor(compact ? 0.8 : 1)
+          #endif
           .accessibilityAddTraits(.isHeader)
           .accessibilityIdentifier("planning.title")
         Spacer(minLength: 8)

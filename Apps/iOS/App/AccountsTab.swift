@@ -11,6 +11,7 @@ struct AccountsTab<Entry: View>: View {
   @ViewBuilder let entry: Entry
 
   @Environment(\.horizontalSizeClass) private var sizeClass
+  @State private var visibility: NavigationSplitViewVisibility = .all
   @State private var model = AccountsSidebarModel()
   @State private var selection: SidebarItem = .allAccounts
   @State private var shown: SidebarItem?
@@ -28,7 +29,7 @@ struct AccountsTab<Entry: View>: View {
   }
 
   var body: some View {
-    NavigationSplitView {
+    NavigationSplitView(columnVisibility: $visibility) {
       List(
         selection: Binding<SidebarItem?>(
           get: { shown },
@@ -59,6 +60,23 @@ struct AccountsTab<Entry: View>: View {
     } detail: {
       PhoneContent(deps: deps, actions: actions) {
         detail
+          .toolbar(removing: .sidebarToggle)
+          .toolbar {
+            if sizeClass == .regular {
+              ToolbarItem(placement: .topBarLeading) {
+                Button {
+                  visibility = visibility == .detailOnly ? .all : .detailOnly
+                } label: {
+                  Label(
+                    environment.language("accounts.section.accounts", table: "Accounts"),
+                    systemImage: "sidebar.left"
+                  )
+                  .labelStyle(.iconOnly)
+                  .frame(width: 44, height: 44)
+                }
+              }
+            }
+          }
       } entry: {
         entry
       }
