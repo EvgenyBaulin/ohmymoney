@@ -97,6 +97,38 @@ final class AutoEntryCenterTests: XCTestCase {
     XCTAssertTrue(drafts.isEmpty)
   }
 
+  /// The merchant code and the commission a text named go with the draft and are written with
+  /// the operation, the fee only in the currency of the operation; nothing is left behind.
+  func testTheCodeAndTheFeeOfADraftAreWrittenWithIt() async throws {
+    try await book.history("Kofemaniya", 300, on: book.sber, category: book.cafe.id)
+    let result = await center.receive(push, commands: book.commands)
+    let id = try XCTUnwrap(result.draftId)
+    let fields = BankStoredFields(
+      mcc: "742", fee: Money(amount: AmountE4(raw: 12_500), currency: .rub))
+    AutoEntryLearning.rememberFields(fields, draft: id, defaults: center.defaults)
+    XCTAssertEqual(AutoEntryLearning.fields(ofDraft: id, defaults: center.defaults), fields)
+    let written = await center.recordDraft(id, commands: book.commands)
+    XCTAssertTrue(written)
+    let entry = try XCTUnwrap(
+      try book.entries().first { $0.transaction.amountE4 == AmountE4(whole: 450) })
+    XCTAssertEqual(entry.transaction.mcc, "0742")
+    XCTAssertEqual(entry.transaction.feeE4, AmountE4(raw: 12_500))
+    XCTAssertNil(AutoEntryLearning.fields(ofDraft: id, defaults: center.defaults))
+  }
+
+  func testAFeeInAnotherCurrencyIsNotKeptAndACodeThatIsNoCodeIsDropped() async throws {
+    try await book.history("Kofemaniya", 300, on: book.sber, category: book.cafe.id)
+    let fields = BankStoredFields(
+      mcc: "abc", fee: Money(amount: AmountE4(whole: 1), currency: CurrencyCode("USD")))
+    XCTAssertNil(fields.mcc)
+    let written = await book.commands.add(line: "Kofemaniya 450", bankFields: fields)
+    guard case .done = written else { return XCTFail("\(written)") }
+    let entry = try XCTUnwrap(
+      try book.entries().first { $0.transaction.amountE4 == AmountE4(whole: 450) })
+    XCTAssertNil(entry.transaction.mcc)
+    XCTAssertNil(entry.transaction.feeE4)
+  }
+
   /// A draft finished the next day lands on the day the bank wrote about.
   func testADraftKeepsTheDayOfTheMessage() async throws {
     try await book.history("Kofemaniya", 300, on: book.sber, category: book.cafe.id)

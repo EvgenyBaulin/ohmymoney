@@ -18,6 +18,8 @@ enum OperationColumn: String, CaseIterable, Identifiable, Hashable, Sendable {
   case cashback
   case note
   case event
+  /// The merchant category code the bank gave the shop, four digits.
+  case mcc
 
   var id: String { rawValue }
 
@@ -69,6 +71,7 @@ enum OperationColumn: String, CaseIterable, Identifiable, Hashable, Sendable {
     case .cashback: 80
     case .note: 140
     case .event: 90
+    case .mcc: 60
     }
   }
 

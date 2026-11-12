@@ -533,6 +533,7 @@ struct DetailsPanel: View {
       oneOffRow
       warrantyRow
       purchaseRow
+      merchantCodeRow
     case .date: dateRow
     case .incomeMonth: incomeMonthRows
     case .currency: currencyRows
@@ -959,6 +960,31 @@ struct DetailsPanel: View {
               .accessibilityIdentifier("entry.oneOff.splitHint")
           }
         }
+      }
+    }
+  }
+
+  /// The merchant category code a bank's text or statement gave the operation: shown only when
+  /// the operation has one, so it can be corrected or cleared; four digits, the rest is dropped.
+  @ViewBuilder
+  private var merchantCodeRow: some View {
+    if model.draft.mcc != nil {
+      fieldRow("entry.mcc") {
+        TextField(
+          text: Binding(
+            get: { model.draft.mcc ?? "" },
+            set: { text in
+              let digits = String(text.filter { $0.isASCII && $0.isNumber }.prefix(4))
+              model.draft.mcc = digits.isEmpty ? nil : digits
+            }),
+          prompt: Text(verbatim: "0000")
+        ) {
+          Text(verbatim: t("entry.mcc"))
+        }
+        .labelsHidden()
+        .monospacedDigit()
+        .frame(width: 80)
+        .accessibilityIdentifier("entry.mcc")
       }
     }
   }

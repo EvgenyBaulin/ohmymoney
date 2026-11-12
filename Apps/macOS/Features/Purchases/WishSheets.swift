@@ -2,7 +2,7 @@ import AppCore
 import SwiftUI
 
 /// A wish: its name, price and currency, how much it is wanted, where it is sold and a note.
-/// «Сохранить» writes it; an empty name or a link that does not read is told, not saved.
+/// A valid link can stand alone: its host becomes the name when the page supplies none.
 struct WishEditor: View {
   @Dependency(\.environment) private var environment
   @Dependency(\.compute) private var compute
@@ -10,14 +10,20 @@ struct WishEditor: View {
   let original: Wish?
   @State private var wish: Wish
   @State private var price: AmountE4
-  @State private var refusal: PurchaseRefusal?
   @State private var loaded = false
+  @State private var files: AttachmentsModel
+  @State private var linkModel = ProductLinkModel()
+  @State private var imageURL: URL?
+  @State private var persisted = false
+  @State private var saving = false
 
   init(original: Wish?) {
     self.original = original
-    _wish = State(
-      initialValue: original
-        ?? Wish(name: "", createdOn: DateOnly(year: 2000, month: 1, day: 1)))
+    let seed = original ?? Wish(name: "", createdOn: DateOnly(year: 2000, month: 1, day: 1))
+    _wish = State(initialValue: seed)
+    _files = State(
+      initialValue: AttachmentsModel(
+        owner: .wish, ownerId: seed.id, deferred: original == nil))
     _price = State(initialValue: original?.priceE4 ?? .zero)
   }
 
@@ -56,38 +62,87 @@ struct WishEditor: View {
         }
         .autocorrectionDisabled()
         .accessibilityIdentifier("purchases.wish.editor.link")
+        productLinkSection
         TextField(
           text: Binding(get: { wish.note ?? "" }, set: { wish.note = $0 }), axis: .vertical
         ) {
           Text(verbatim: t("purchases.wish.editor.note"))
         }
         .lineLimit(1...3)
+        if environment.attachments != nil {
+          Section { AttachmentsSection(model: files) }
+        }
       }
       .formStyle(.grouped)
-      FormButtons(
-        title: environment.language("action.save"),
-        enabled: !wish.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-        failure: { refusal.map { PurchasesText.refusal($0, environment) } ?? "" }
-      ) {
-        guard let dependencies else { return false }
-        var next = wish
-        next.priceE4 = price.raw > 0 ? price : nil
-        let actions = PurchaseActions(dependencies)
-        let outcome = original == nil ? actions.add(next) : actions.save(next)
-        if case .refused(let why) = outcome { refusal = why }
-        return outcome == .done
-      }
+      .disabled(saving)
+      PurchaseEditorButtons(
+        enabled: !linkModel.isBusy
+          && (!wish.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            || PurchaseActions.link(wish.url) != nil),
+        saving: $saving
+      ) { await save() }
+
     }
     .padding(20)
-    .sheetFrame(width: 480, height: 470)
+    .sheetFrame(width: 480, height: 650)
     .onAppear {
       guard !loaded else { return }
       loaded = true
+      imageURL = try? environment.wishes?.imageURL(of: wish.id)
       if original == nil {
         wish.createdOn = environment.today
         wish.currency = environment.defaultCurrency
       }
     }
+    .onDisappear { files.discardPending() }
+    .interactiveDismissDisabled(saving)
+  }
+
+  private var productLinkSection: some View {
+    VStack(alignment: .leading, spacing: 6) {
+      Button(t("purchases.link.take")) {
+        let requested = wish.url
+        Task { @MainActor in
+          guard let metadata = await linkModel.load(requested), wish.url == requested else {
+            return
+          }
+          var draft = wish
+          draft.priceE4 = price.raw > 0 ? price : nil
+          wish = metadata.applying(to: draft)
+          price = wish.priceE4 ?? .zero
+          if let url = metadata.imageURL { imageURL = url }
+        }
+      }
+      .disabled(linkModel.isBusy || PurchaseActions.link(wish.url) == nil)
+      .accessibilityIdentifier("purchases.link.take")
+      if linkModel.isBusy { ProgressView().controlSize(.small) }
+      if let key = linkModel.messageKey {
+        Text(verbatim: t(key)).appFont(.caption).foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
+      }
+      if let imageURL {
+        Text(verbatim: t("purchases.link.image") + " · " + imageURL.absoluteString)
+          .appFont(.caption).foregroundStyle(.secondary).lineLimit(2)
+          .textSelection(.enabled)
+      }
+    }
+  }
+
+  private func save() async -> String? {
+    guard let dependencies else { return t("purchases.refusal.failed") }
+    var next = wish
+    next.priceE4 = price.raw > 0 ? price : nil
+    if next.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+      next.name = PurchaseActions.link(next.url)?.host ?? ""
+    }
+    let outcome = PurchaseActions(dependencies).save(
+      next, isNew: original == nil && !persisted, imageURL: imageURL)
+    if case .refused(let why) = outcome { return PurchasesText.refusal(why, environment) }
+    guard outcome == .done else { return t("purchases.refusal.failed") }
+    persisted = true
+    let failed = await files.commitPending(
+      service: environment.attachments, store: dependencies.store, retryFailures: true)
+    return failed == 0 ? nil : t("purchases.files.failed")
   }
 
   private var currencies: [CurrencyCode] {

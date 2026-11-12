@@ -144,9 +144,12 @@ public struct SQLAnonymizer: ExportCopyAnonymizing {
     try rename(db, table: "assets", labels.asset)
     try db.execute(sql: "UPDATE assets SET note = NULL")
     try db.execute(sql: "UPDATE asset_valuations SET note = NULL")
+    try db.execute(sql: "UPDATE thing_valuations SET note = NULL")
     try rename(db, table: "owned_items", labels.ownedItem)
     try db.execute(sql: "UPDATE owned_items SET note = NULL")
     try rename(db, table: "wishes", labels.wish)
+    // The address of a product picture names the shop, like the link of the wish.
+    try db.execute(sql: "UPDATE wishes SET image_url = NULL")
     try db.execute(sql: "UPDATE wishes SET url = NULL, note = NULL")
     try rename(db, table: "shopping_items", labels.shoppingItem)
     try db.execute(sql: "UPDATE shopping_items SET note = NULL")

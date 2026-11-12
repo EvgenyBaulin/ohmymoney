@@ -52,12 +52,14 @@ public struct Wish: Identifiable, Hashable, Sendable, Codable {
   /// Left the list without a purchase.
   public var archived: Bool
   public var sort: Int
+  /// The address of the picture the page of the product gave; the picture itself is not kept.
+  public var imageURL: String?
 
   public init(
     id: UUID = UUID(), name: String, priceE4: AmountE4? = nil, currency: CurrencyCode = .rub,
     priority: Int = 0, url: String? = nil, note: String? = nil, createdOn: DateOnly,
     boughtTransactionId: UUID? = nil, expectedE4: AmountE4? = nil, archived: Bool = false,
-    sort: Int = 0
+    sort: Int = 0, imageURL: String? = nil
   ) {
     self.id = id
     self.name = name
@@ -71,6 +73,7 @@ public struct Wish: Identifiable, Hashable, Sendable, Codable {
     self.expectedE4 = expectedE4
     self.archived = archived
     self.sort = sort
+    self.imageURL = imageURL
   }
 
   public var isBought: Bool { boughtTransactionId != nil }

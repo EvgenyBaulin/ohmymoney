@@ -97,6 +97,7 @@ public enum PeriodScope {
     habits.badges = habits.badges.filter { range.contains($0.earnedOn) }
     d.habits = habits
     d.assetValuations = dataset.assetValuations.filter { range.contains($0.day) }
+    d.thingValuations = dataset.thingValuations.filter { range.contains($0.day) }
 
     var planning = dataset.planning
     planning.expected = dataset.planning.expected.filter { income in

@@ -70,6 +70,7 @@ public struct CapitalLine: Hashable, Sendable {
   public enum Source: Hashable, Sendable {
     case account(UUID)
     case asset(UUID)
+    case ownedItem(UUID)
     case debt(UUID)
   }
 
@@ -262,6 +263,8 @@ public enum NetWorth {
     /// The keys of known accounts, in a stable order.
     let keys: [BalanceKey]
     let assets: [Asset]
+    let ownedItems: [OwnedItem]
+    let updates: [ThingValuation]
     /// Each asset's valuations, oldest first.
     let valuations: [UUID: [AssetValuation]]
     let debts: [Debt]
@@ -288,6 +291,10 @@ public enum NetWorth {
         uniquingKeysWith: { first, _ in first })
       let known = accountsById
       keys = balances.keys.filter { known[$0.accountId] != nil }.sorted()
+      updates = dataset.thingValuations
+      let valuedIds = Set(updates.filter { $0.owner == .ownedItem }.map(\.ownerId))
+      let owned = dataset.ownedItems.filter { !$0.archived && valuedIds.contains($0.id) }
+      ownedItems = owned
       self.assets = assets
       var byAsset: [UUID: [AssetValuation]] = [:]
       for valuation in valuations { byAsset[valuation.assetId, default: []].append(valuation) }
@@ -297,7 +304,9 @@ public enum NetWorth {
       for line in debtsJournal { journals[line.debtId, default: []].append(line) }
       self.journals = journals
       let firstCount = balances.keys.flatMap { balances.anchors($0).map(\.at) }.min()
-      firstCountMonth = firstCount.map { balances.day(of: $0).monthKey }
+      let firstValue = updates.map(\.day.monthKey).min()
+      firstCountMonth = [firstCount.map { balances.day(of: $0).monthKey }, firstValue]
+        .compactMap { $0 }.min()
     }
 
     /// The block of the breakdown an account's money is listed under.
@@ -362,17 +371,31 @@ public enum NetWorth {
 
       // Assets.
       var unvalued: [UUID] = []
-      for asset in assets {
+      let valuedThings =
+        assets.map { ($0, ThingValuation.Owner.asset) }
+        + ownedItems.map {
+          (
+            Asset(id: $0.id, name: $0.name, currency: $0.currency, disposedOn: $0.soldOn),
+            ThingValuation.Owner.ownedItem
+          )
+        }
+      for (asset, owner) in valuedThings {
         guard !asset.isDisposed(on: day) else { continue }
-        let last = valuations[asset.id]?.last { $0.day <= day }
+        let legacy = owner == .asset ? valuations[asset.id]?.last { $0.day <= day } : nil
+        let update = ThingValuation.latest(
+          updates,
+          owner: owner, id: asset.id, through: day)
+        let useUpdate = update.map { value in legacy.map { value.day >= $0.day } ?? true } ?? false
+        let amount = useUpdate ? update?.amountE4 : legacy?.valueE4
+        let currency = useUpdate ? (update?.currency ?? asset.currency) : asset.currency
         var issue: CapitalLine.Issue?
         var rub: AmountE4?
-        if let last {
-          rub = NetWorth.rubles(last.valueE4, in: asset.currency, rate: rate(asset.currency))
+        if let amount {
+          rub = NetWorth.rubles(amount, in: currency, rate: rate(currency))
           if let rub {
             point.assetsRub += rub
           } else {
-            withoutRate.insert(asset.currency)
+            withoutRate.insert(currency)
             issue = .withoutRate
           }
         } else {
@@ -389,8 +412,9 @@ public enum NetWorth {
               String(format: "%012d", asset.sort + 1_000_000), asset.name, asset.id.uuidString,
             ],
             CapitalLine(
-              source: .asset(asset.id), group: .assets, name: asset.name,
-              currency: asset.currency, amount: last?.valueE4, amountRub: rub,
+              source: owner == .ownedItem ? .ownedItem(asset.id) : .asset(asset.id),
+              group: .assets, name: asset.name,
+              currency: currency, amount: amount, amountRub: rub,
               assetKind: asset.kind, issue: issue)
           ))
       }

@@ -30,10 +30,13 @@ struct EntryLineCommand {
 
   private func entryText(_ key: String) -> String { environment.language(key, table: "Entry") }
 
-  func save(_ line: String, confirmed: Bool) async -> CommandOutcome {
+  func save(
+    _ line: String, confirmed: Bool, bankFields: BankStoredFields? = nil
+  ) async -> CommandOutcome {
     let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)
     guard !trimmed.isEmpty else { return .refused(entryText("entry.error.amountMissing")) }
     let model = EntryDraftModel(environment: environment)
+    model.bankFields = bankFields
     model.reload()
 
     let reading = interpreter.read(trimmed, today: environment.today, kind: model.draft.kind)

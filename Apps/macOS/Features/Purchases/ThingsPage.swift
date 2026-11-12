@@ -90,8 +90,10 @@ struct ThingsPage: View {
       PurchasesCardTitle(
         title: line.name, detail: origin(line),
         figure: line.cost.priceMissing ? nil : environment.money.rounded(line.cost.priceRubE4))
-      PurchasesDetailLine(symbol: "chart.bar", text: PurchasesText.ownership(line.cost, environment))
-        .accessibilityIdentifier("purchases.thing.cost")
+      PurchasesDetailLine(
+        symbol: "chart.bar", text: PurchasesText.ownership(line.cost, environment)
+      )
+      .accessibilityIdentifier("purchases.thing.cost")
       if line.cost.priceMissing {
         PurchasesDetailLine(symbol: "questionmark.circle", text: t("purchases.thing.noPrice"))
       }
@@ -106,6 +108,9 @@ struct ThingsPage: View {
         PurchasesDetailLine(symbol: "tag", text: t("purchases.thing.noTag"))
       }
       PurchasesActionRow {
+        Button(t("purchases.valuation.update")) { open(.valuation(line)) }
+          .accessibilityIdentifier("purchases.valuation.update")
+        Button(t("purchases.thing.files")) { open(.files(line)) }
         Button(t("purchases.thing.sell")) { open(.sell(line)) }
           .accessibilityIdentifier("purchases.thing.sell")
         if case .item(let item) = line.origin {

@@ -24,7 +24,8 @@ extension Wish: @retroactive FetchableRecord, @retroactive PersistableRecord {
       boughtTransactionId: RowMapping.optionalUUID(row, "bought_transaction_id"),
       expectedE4: readable(row, "expected_e4"),
       archived: try RowMapping.flag(row, "archived", fallback: false),
-      sort: (try? RowMapping.optionalInteger(row, "sort")).flatMap { $0 } ?? 0)
+      sort: (try? RowMapping.optionalInteger(row, "sort")).flatMap { $0 } ?? 0,
+      imageURL: row.hasColumn("image_url") ? (row["image_url"] as String?) : nil)
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -40,6 +41,7 @@ extension Wish: @retroactive FetchableRecord, @retroactive PersistableRecord {
     container["expected_e4"] = expectedE4?.raw
     container["archived"] = archived
     container["sort"] = sort
+    container["image_url"] = imageURL
   }
 }
 
@@ -112,5 +114,40 @@ extension OwnedItem: @retroactive FetchableRecord, @retroactive PersistableRecor
     container["sale_transaction_id"] = saleTransactionId?.uuidString
     container["note"] = note
     container["archived"] = archived
+  }
+}
+
+/// The market valuations of things (`Schema/0026_mcc_fee_valuations_wish_image.sql`). A row of
+/// an owner kind this build does not know, or with an amount below zero, fails the read of that
+/// row (`UnreadableValue`); the repository reads rows one by one and leaves it out, untouched in
+/// the database.
+extension ThingValuation: @retroactive FetchableRecord, @retroactive PersistableRecord {
+  public static let databaseTableName = "thing_valuations"
+
+  public init(row: Row) throws {
+    guard let kind = Owner(rawValue: row["owner_kind"] ?? "") else {
+      throw UnreadableValue(column: "owner_kind")
+    }
+    guard let day = RowMapping.day(row, "valued_on") else {
+      throw UnreadableValue(column: "valued_on")
+    }
+    let amount = try RowMapping.amount(row, "value_e4")
+    guard amount.raw >= 0 else { throw UnreadableValue(column: "value_e4") }
+    self.init(
+      id: try RowMapping.uuid(row, "id"), owner: kind,
+      ownerId: try RowMapping.uuid(row, "owner_id"), day: day, amountE4: amount,
+      currency: RowMapping.currency(row, "currency") ?? .rub, note: row["note"],
+      recordedAt: RowMapping.readableInstant(row, "recorded_at") ?? .distantPast)
+  }
+
+  public func encode(to container: inout PersistenceContainer) throws {
+    container["id"] = id.uuidString
+    container["owner_kind"] = owner.rawValue
+    container["owner_id"] = ownerId.uuidString
+    container["valued_on"] = day.iso
+    container["value_e4"] = amountE4.raw
+    container["currency"] = currency.code
+    container["note"] = note
+    container["recorded_at"] = StoredInstant.databaseValue(recordedAt)
   }
 }

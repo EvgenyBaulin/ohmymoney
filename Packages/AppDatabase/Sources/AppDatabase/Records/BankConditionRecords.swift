@@ -24,7 +24,8 @@ extension BankConditions: @retroactive FetchableRecord, @retroactive Persistable
       freeInterbankE4: amount("free_interbank_e4"),
       serviceFreeSpendE4: amount("service_free_spend_e4"),
       serviceFreeBalanceE4: amount("service_free_balance_e4"),
-      minBalanceE4: amount("min_balance_e4"), note: row["note"])
+      minBalanceE4: amount("min_balance_e4"), note: row["note"],
+      noCardFeeE4: row.hasColumn("no_card_fee_e4") ? amount("no_card_fee_e4") : nil)
   }
 
   public func encode(to container: inout PersistenceContainer) throws {
@@ -38,6 +39,7 @@ extension BankConditions: @retroactive FetchableRecord, @retroactive Persistable
     container["service_free_spend_e4"] = serviceFreeSpendE4?.raw
     container["service_free_balance_e4"] = serviceFreeBalanceE4?.raw
     container["min_balance_e4"] = minBalanceE4?.raw
+    container["no_card_fee_e4"] = noCardFeeE4?.raw
     container["note"] = note
   }
 }

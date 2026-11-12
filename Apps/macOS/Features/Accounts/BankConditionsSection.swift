@@ -19,6 +19,7 @@ struct BankConditionsDraft: Equatable {
   var serviceSpend: String
   var serviceBalance: String
   var minBalance: String
+  var noCardFee: String
   var note: String
 
   init(_ conditions: BankConditions? = nil) {
@@ -29,6 +30,7 @@ struct BankConditionsDraft: Equatable {
     serviceSpend = conditions?.serviceFreeSpendE4.map(CreditDraft.text) ?? ""
     serviceBalance = conditions?.serviceFreeBalanceE4.map(CreditDraft.text) ?? ""
     minBalance = conditions?.minBalanceE4.map(CreditDraft.text) ?? ""
+    noCardFee = conditions?.noCardFeeE4.map(CreditDraft.text) ?? ""
     note = conditions?.note ?? ""
   }
 
@@ -39,7 +41,8 @@ struct BankConditionsDraft: Equatable {
   ) -> Result<BankConditions, BankConditionsIssue> {
     guard let cash = CreditDraft.sum(freeCash), let sbp = CreditDraft.sum(freeSbp),
       let interbank = CreditDraft.sum(freeInterbank), let spend = CreditDraft.sum(serviceSpend),
-      let balance = CreditDraft.sum(serviceBalance), let minimum = CreditDraft.sum(minBalance)
+      let balance = CreditDraft.sum(serviceBalance), let minimum = CreditDraft.sum(minBalance),
+      let fee = CreditDraft.sum(noCardFee)
     else { return .failure(.amount) }
     let text = note.trimmingCharacters(in: .whitespacesAndNewlines)
     return .success(
@@ -47,7 +50,8 @@ struct BankConditionsDraft: Equatable {
         id: id, accountId: accountId, cardId: cardId, currency: currency,
         freeCashE4: cash.value, freeSbpE4: sbp.value, freeInterbankE4: interbank.value,
         serviceFreeSpendE4: spend.value, serviceFreeBalanceE4: balance.value,
-        minBalanceE4: minimum.value, note: text.isEmpty ? nil : text))
+        minBalanceE4: minimum.value, note: text.isEmpty ? nil : text,
+        noCardFeeE4: cardId == nil ? fee.value : nil))
   }
 
   var isValid: Bool {
@@ -104,6 +108,7 @@ struct BankConditionsSection: View {
   var body: some View {
     Section {
       if isAccount {
+        field("bank.cond.noCardFee", $draft.noCardFee)
         field("bank.cond.freeCash", $draft.freeCash)
         if currency == .rub { field("bank.cond.freeSbp", $draft.freeSbp) }
         field("bank.cond.freeInterbank", $draft.freeInterbank)

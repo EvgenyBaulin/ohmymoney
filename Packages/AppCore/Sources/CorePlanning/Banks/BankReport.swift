@@ -23,6 +23,7 @@ public struct MinBalanceRisk: Hashable, Sendable, Identifiable {
 
 /// A line of «Стоит посмотреть» about the conditions of banks.
 public enum BankNote: Hashable, Sendable, Identifiable {
+  case noCardFee(accountId: UUID, monthlyFeeE4: AmountE4, currency: CurrencyCode)
   /// A free limit is close to used up.
   case limitNear(accountId: UUID, kind: BankLimitKind, leftE4: AmountE4, currency: CurrencyCode)
   /// A free limit is used up or passed; `overE4` is what went beyond it.
@@ -49,6 +50,7 @@ public enum BankNote: Hashable, Sendable, Identifiable {
   /// The key «Готово» puts the line away by.
   public var id: String {
     switch self {
+    case .noCardFee(let account, _, _): "bankNoCardFee:\(account.uuidString)"
     case .limitNear(let account, let kind, _, _):
       "bankLimitNear:\(account.uuidString):\(kind.rawValue)"
     case .limitExceeded(let account, let kind, _, _):
@@ -76,13 +78,14 @@ public enum BankNote: Hashable, Sendable, Identifiable {
   public var canBePutAway: Bool {
     switch self {
     case .cardExpiry, .forgotten, .insuranceOver, .cardCount, .interestTax, .cashbackTax: true
-    case .limitNear, .limitExceeded, .minBalanceBelow: false
+    case .noCardFee, .limitNear, .limitExceeded, .minBalanceBelow: false
     }
   }
 }
 
 /// Everything the conditions of the banks say today, worked out once for the screens.
 public struct BankReport: Hashable, Sendable {
+  public var noCardFees: [NoCardFeeLine]
   public var today: DateOnly
   public var limits: [BankLimitLine]
   public var service: [BankServiceProgress]
@@ -102,8 +105,9 @@ public struct BankReport: Hashable, Sendable {
     minBalance: [MinBalanceRisk] = [], insurance: [BankInsurance] = [],
     forgotten: [ForgottenProduct] = [], cardExpiries: [CardExpiry] = [],
     cardCount: CardCountStatus? = nil, interestTax: InterestTax.Year? = nil,
-    cashbackTax: CashbackTaxNote? = nil
+    cashbackTax: CashbackTaxNote? = nil, noCardFees: [NoCardFeeLine] = []
   ) {
+    self.noCardFees = noCardFees
     self.cardCount = cardCount
     self.interestTax = interestTax
     self.cashbackTax = cashbackTax
@@ -135,7 +139,8 @@ public struct BankReport: Hashable, Sendable {
   }
 
   public var isEmpty: Bool {
-    limits.isEmpty && service.isEmpty && minBalance.isEmpty && forgotten.isEmpty
+    noCardFees.isEmpty && limits.isEmpty && service.isEmpty && minBalance.isEmpty
+      && forgotten.isEmpty
       && cardExpiries.isEmpty && !insurance.contains { $0.isOver }
   }
 
@@ -160,19 +165,26 @@ public struct BankReport: Hashable, Sendable {
           accountId: account.id, currency: conditions.currency, balanceE4: balance,
           minimumE4: minimum))
     }
+    let service = BankServiceFree.progress(
+      ledger: ledger, data: data, accounts: accounts, today: today)
+    var fees: [UUID: AmountE4] = [:]
+    for conditions in data.conditions where conditions.cardId == nil {
+      if let fee = conditions.noCardFeeE4 { fees[conditions.accountId] = fee }
+    }
     return BankReport(
       today: today,
       limits: BankLimits.progress(ledger: ledger, data: data, month: today.monthKey),
-      service: BankServiceFree.progress(
-        ledger: ledger, data: data, accounts: accounts, today: today),
+      service: service,
       minBalance: risks,
       insurance: insurance(
         ledger: ledger, accounts: accounts, today: today, rubPerUnit: rubPerUnit),
       forgotten: BankForgotten.list(ledger: ledger, data: data, accounts: accounts, today: today),
       cardExpiries: CardExpiries.list(dataset: dataset, today: today),
       cardCount: CardCount.status(ledger: ledger, today: today),
-      interestTax: interestYear(ledger: ledger, accounts: accounts, today: today, rubPerUnit: rubPerUnit),
-      cashbackTax: CashbackTax.note(ledger: ledger, today: today))
+      interestTax: interestYear(
+        ledger: ledger, accounts: accounts, today: today, rubPerUnit: rubPerUnit),
+      cashbackTax: CashbackTax.note(ledger: ledger, today: today),
+      noCardFees: NoCardFee.lines(dataset: dataset, fees: fees, service: service))
   }
 
   /// The interest of the year with its tax; `nil` when no account earns interest and none was
@@ -246,6 +258,11 @@ public struct BankReport: Hashable, Sendable {
   /// The lines of «Стоит посмотреть», the alarms first; `dismissed` are the keys put away.
   public func notes(dismissed: Set<String> = []) -> [BankNote] {
     var notes: [BankNote] = []
+    for line in noCardFees {
+      notes.append(
+        .noCardFee(
+          accountId: line.accountId, monthlyFeeE4: line.monthlyFeeE4, currency: line.currency))
+    }
     for line in limits {
       if line.exceeded {
         notes.append(
