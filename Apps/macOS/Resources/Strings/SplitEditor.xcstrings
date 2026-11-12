@@ -4,13 +4,73 @@
     "editor.recorded": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · запісана %2$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · erfasst am %2$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · recorded %2$@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · registrado el %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · enregistré le %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · registrato il %2$@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ жазылды"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · zapisano %2$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · registrado em %2$@"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · записано %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · %2$@ tarihinde kaydedildi"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ · записано %2$@"
@@ -21,10 +81,58 @@
     "entry.payingFor.paysBack.segment.no": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не, гэта падарунак"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nein, ein Geschenk"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No, a gift"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No, es un regalo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non, c’est un cadeau"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No, è un regalo"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жоқ, сыйлық"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie, to prezent"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não, é um presente"
           }
         },
         "ru": {
@@ -32,16 +140,76 @@
             "state": "translated",
             "value": "Нет, дарю"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hayır, hediye"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ні, це подарунок"
+          }
         }
       }
     },
     "entry.payingFor.paysBack.segment.yes": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Так, верне грошы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ja, zahlt zurück"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Yes, will pay back"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sí, me lo devolverá"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oui, remboursement prévu"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sì, mi rimborserà"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Иә, қайтарады"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tak, odda"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sim, vai me pagar"
           }
         },
         "ru": {
@@ -49,16 +217,76 @@
             "state": "translated",
             "value": "Да, вернёт"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evet, geri ödeyecek"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Так, поверне"
+          }
         }
       }
     },
     "entry.payingFor.paysBack.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чалавек верне вам грошы?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlt die Person dir das Geld zurück?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Will the person pay you back?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Te devolverá el dinero?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cette personne vous remboursera-t-elle ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questa persona ti rimborserà?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ақшаны қайтара ма?"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Czy ta osoba Ci odda?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A pessoa vai pagar você de volta?"
           }
         },
         "ru": {
@@ -66,16 +294,76 @@
             "state": "translated",
             "value": "Вернёт ли человек деньги?"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu kişi size geri ödeyecek mi?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ця людина поверне вам гроші?"
+          }
         }
       }
     },
     "entry.split.addPart": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Частка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Anteil"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "+ Part"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Parte"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Part"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Parte"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Үлес"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Część"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Parte"
           }
         },
         "ru": {
@@ -83,16 +371,76 @@
             "state": "translated",
             "value": "+ Часть"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Parça"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ Частина"
+          }
         }
       }
     },
     "entry.split.giveRemainder": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аддаць рэшту «%@»"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest „%@“ zuweisen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Give the remainder to “%@”"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asignar el resto a “%@”"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attribuer le reste à “%@”"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assegna il resto a “%@”"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қалғанын “%@” үшін қосу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przypisz resztę do „%@”"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dar o restante a “%@”"
           }
         },
         "ru": {
@@ -100,16 +448,76 @@
             "state": "translated",
             "value": "Отдать остаток в «%@»"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalanı “%@” kişisine ver"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Віддати залишок «%@»"
+          }
         }
       }
     },
     "entry.split.overshoot": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сума частак перавышае агульную на %@ — захаваць можна толькі пры нулявой розніцы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Anteile überschreiten den Gesamtbetrag um %@ — Speichern nur bei null möglich"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The parts are %@ over the total — it can be saved only at zero"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las partes superan el total en %@. Solo se puede guardar si es cero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les parts dépassent le total de %@ — l’écart doit être nul pour enregistrer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le parti superano il totale di %@ — puoi salvare solo quando la differenza è zero"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үлестер жалпы сомадан %@ артық — нөл болғанда ғана сақтауға болады"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suma części przekracza kwotę o %@ — zapis jest możliwy tylko przy zerze"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As partes excedem o total em %@ — só é possível salvar quando a diferença for zero"
           }
         },
         "ru": {
@@ -117,16 +525,76 @@
             "state": "translated",
             "value": "Части больше суммы на %@ — записать можно только при нуле"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parçalar toplamı %@ aşıyor — yalnızca fark sıfırken kaydedilebilir"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частини перевищують загальну суму на %@ — зберегти можна, лише коли різниця дорівнює нулю"
+          }
         }
       }
     },
     "entry.split.remainder": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Засталося %@ — захаваць можна толькі пры нулявой розніцы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ übrig — Speichern nur bei null möglich"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ left — it can be saved only at zero"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quedan %@. Solo se puede guardar si es cero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il reste %@ — l’écart doit être nul pour enregistrer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restano %@ — puoi salvare solo quando la differenza è zero"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ қалды — нөл болғанда ғана сақтауға болады"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pozostało %@ — zapis jest możliwy tylko przy zerze"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faltam %@ — só é possível salvar quando a diferença for zero"
           }
         },
         "ru": {
@@ -134,22 +602,94 @@
             "state": "translated",
             "value": "Остаток %@ — записать можно только при нуле"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ kaldı — yalnızca kalan sıfırken kaydedilebilir"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Залишилося %@ — зберегти можна, лише коли залишок дорівнює нулю"
+          }
         }
       }
     },
     "entry.split.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падзел — часткі пакупкі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aufteilen — Anteile am Kauf"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Split — parts of the purchase"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividir la compra"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Répartition de l’achat"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividi l’acquisto"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бөлу — сатып алу үлестері"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podział zakupu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Divisão — partes da compra"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Split — части покупки"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Böl — alışverişin parçaları"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Розподіл — частини покупки"
           }
         }
       }

@@ -5312,22 +5312,6 @@
         }
       }
     },
-    "look.bank.noCardFee" : {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ — without a card, the bank charges %@ a month. Check the account terms."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%@ — без карты банк берёт %@ в месяц. Проверьте условия счёта."
-          }
-        }
-      }
-    },
     "look.bank.limitNear": {
       "extractionState": "manual",
       "localizations": {
@@ -5555,6 +5539,82 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: залишок %2$@ нижче мінімуму %3$@ — ставка за місяць може бути втрачена"
+          }
+        }
+      }
+    },
+    "look.bank.noCardFee": {
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — без карты банк спаганяе %@ за месяц. Праверце ўмовы рахунку."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – ohne Karte berechnet die Bank %@ pro Monat. Prüfe die Kontobedingungen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — without a card, the bank charges %@ a month. Check the account terms."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — sin tarjeta, el banco cobra %@ al mes. Consulta las condiciones de la cuenta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — sans carte, la banque facture %@ par mois. Consultez les conditions du compte."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — senza carta, la banca addebita %@ al mese. Controlla le condizioni del conto."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — картасыз банк айына %@ алады. Шот шарттарын тексеріңіз."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — bez karty bank pobiera %@ miesięcznie. Sprawdź warunki konta."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — sem cartão, o banco cobra %@ por mês. Consulte as condições da conta."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — без карты банк берёт %@ в месяц. Проверьте условия счёта."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — kartınız yoksa banka ayda %@ ücret alır. Hesap koşullarını kontrol edin."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — без картки банк стягує %@ на місяць. Перевірте умови рахунку."
           }
         }
       }
@@ -37394,16 +37454,76 @@
     "why.free.interestTax": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Падатак на працэнты, атрыманыя сёлета"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Steuer auf die dieses Jahr erhaltenen Zinsen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Tax on the interest earned this year"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impuesto sobre los intereses generados este año"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impôt sur les intérêts perçus cette année"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposta sugli interessi maturati quest’anno"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Биыл есептелген пайызға салынатын салық"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podatek od odsetek uzyskanych w tym roku"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposto sobre os rendimentos deste ano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Налог с процентов, набежавших за год"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu yıl kazanılan faizin vergisi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Податок на відсотки, отримані цього року"
           }
         }
       }

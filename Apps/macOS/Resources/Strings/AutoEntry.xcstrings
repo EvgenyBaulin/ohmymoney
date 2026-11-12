@@ -238,10 +238,58 @@
     "autoEntry.formats.conflicts.footer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбар запамінаецца, і пытанне больш не задаецца."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Auswahl wird gespeichert und die Frage nicht erneut gestellt."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The choice is remembered and the question is not asked again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La elección se recordará y no se volverá a preguntar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce choix est mémorisé et la question ne sera plus posée."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La scelta viene salvata e la domanda non verrà più mostrata."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таңдау есте сақталады және сұрақ қайта қойылмайды."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybór zostanie zapamiętany, a pytanie nie pojawi się ponownie."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A escolha é salva e a pergunta não será feita novamente."
           }
         },
         "ru": {
@@ -249,16 +297,76 @@
             "state": "translated",
             "value": "Выбор запоминается, вопрос больше не повторится."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seçim hatırlanır ve soru tekrar sorulmaz."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вибір буде збережено, і запитання більше не з’явиться."
+          }
         }
       }
     },
     "autoEntry.formats.conflicts.header": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тэкст адпавядае двум фарматам"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwei Formate passen zu einem Text"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Two formats fit one text"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dos formatos coinciden con un texto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deux formats correspondent au même texte"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Due formati corrispondono allo stesso testo"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бір мәтінге екі формат сәйкес келеді"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dwa formaty pasują do jednego tekstu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dois formatos correspondem ao mesmo texto"
           }
         },
         "ru": {
@@ -266,16 +374,76 @@
             "state": "translated",
             "value": "Два формата подходят к одному тексту"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir metne iki biçim uyuyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тексту відповідають два формати"
+          }
         }
       }
     },
     "autoEntry.formats.conflicts.use": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выкарыстоўваць %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ verwenden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Use %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ пайдалану"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Użyj %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar %@"
           }
         },
         "ru": {
@@ -283,19 +451,91 @@
             "state": "translated",
             "value": "Использовать %@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Kullan"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Використовувати %@"
+          }
         }
       }
     },
     "autoEntry.formats.done": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Гатова"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Done"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminé"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fine"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дайын"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gotowe"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitti"
+          }
+        },
+        "uk": {
           "stringUnit": {
             "state": "translated",
             "value": "Готово"
@@ -306,10 +546,58 @@
     "autoEntry.formats.folder.choose": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фарматы з папкі…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formate aus einem Ordner…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Formats from a folder…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatos de una carpeta…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formats d’un dossier…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formati da una cartella…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қалтадағы форматтар…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formaty z folderu…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatos de uma pasta…"
           }
         },
         "ru": {
@@ -317,16 +605,76 @@
             "state": "translated",
             "value": "Форматы из папки…"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klasörden Biçimler…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формати з папки…"
+          }
         }
       }
     },
     "autoEntry.formats.folder.footer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney не змяшчае файлаў фарматаў і нічога не спампоўвае: праграма чытае выбраную папку. Папка запамінаецца толькі на гэтай прыладзе і не ўваходзіць у архіў."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney enthält keine Formatdateien und lädt nichts herunter. Die Dateien werden aus dem ausgewählten Ordner gelesen. Der Ordner wird nur auf diesem Gerät gespeichert und ist nicht Teil des Archivs."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney ships no format files and downloads nothing: it reads the folder you chose. The folder is remembered on this device only and is not part of the archive."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney no incluye archivos de formato ni descarga nada: lee la carpeta que elijas. La carpeta solo se recuerda en este dispositivo y no forma parte del archivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ne fournit aucun fichier de format et ne télécharge rien : l’app lit le dossier choisi. Ce dossier est mémorisé sur cet appareil uniquement et ne fait pas partie de l’archive."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney non include file di formato e non scarica nulla: legge la cartella scelta. La cartella viene salvata solo su questo dispositivo e non fa parte dell’archivio."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney формат файлдарын қамтымайды және ештеңе жүктемейді: ол сіз таңдаған қалтаны оқиды. Қалта тек осы құрылғыда есте сақталады және архивке кірмейді."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney nie zawiera plików formatów i niczego nie pobiera. Odczytuje wybrany folder. Wybór jest zapamiętywany tylko na tym urządzeniu i nie jest częścią archiwum."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O OhMyMoney não inclui arquivos de formato nem baixa nada: ele lê a pasta que você escolheu. A pasta é lembrada apenas neste dispositivo e não faz parte do arquivo."
           }
         },
         "ru": {
@@ -334,16 +682,76 @@
             "state": "translated",
             "value": "OhMyMoney не поставляет файлы форматов и ничего не скачивает: читается папка, которую вы выбрали. Она запоминается только на этом Mac и в архив не попадает."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney biçim dosyaları içermez ve hiçbir şey indirmez; seçtiğiniz klasörü okur. Klasör yalnızca bu aygıtta hatırlanır ve arşive dahil edilmez."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney не містить файлів форматів і нічого не завантажує: програма читає вибрану вами папку. Папка запам’ятовується лише на цьому пристрої та не входить до архіву."
+          }
         }
       }
     },
     "autoEntry.formats.folder.forget": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Забыць папку"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordner entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Forget the folder"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Olvidar carpeta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oublier le dossier"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dimentica la cartella"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қалтаны ұмыту"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapomnij folder"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esquecer pasta"
           }
         },
         "ru": {
@@ -351,16 +759,76 @@
             "state": "translated",
             "value": "Забыть папку"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klasörü Unut"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Забути папку"
+          }
         }
       }
     },
     "autoEntry.formats.folder.header": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка фарматаў"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatordner"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Formats folder"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carpeta de formatos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier des formats"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartella dei formati"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Форматтар қалтасы"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Folder formatów"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pasta de formatos"
           }
         },
         "ru": {
@@ -368,16 +836,76 @@
             "state": "translated",
             "value": "Папка с форматами"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biçimler Klasörü"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка форматів"
+          }
         }
       }
     },
     "autoEntry.formats.folder.reload": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прачытаць зноў"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut einlesen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Read again"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leer de nuevo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Relire"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leggi di nuovo"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайта оқу"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odczytaj ponownie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ler novamente"
           }
         },
         "ru": {
@@ -385,16 +913,76 @@
             "state": "translated",
             "value": "Прочитать заново"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeniden Oku"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитати знову"
+          }
         }
       }
     },
     "autoEntry.formats.folder.summary": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банкаў: %1$lld, фарматаў: %2$lld, катэгорый кэшбэку: %3$lld"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banken: %1$lld, Formate: %2$lld, Cashback-Kategorien: %3$lld"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Banks: %1$lld, formats: %2$lld, cashback categories: %3$lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bancos: %1$lld, formatos: %2$lld, categorías de devolución: %3$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banques : %1$lld, formats : %2$lld, catégories de cashback : %3$lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banche: %1$lld, formati: %2$lld, categorie di cashback: %3$lld"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банктер: %1$lld, форматтар: %2$lld, кэшбэк санаттары: %3$lld"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banki: %1$lld, formaty: %2$lld, kategorie zwrotów: %3$lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bancos: %1$lld, formatos: %2$lld, categorias de cashback: %3$lld"
           }
         },
         "ru": {
@@ -402,16 +990,76 @@
             "state": "translated",
             "value": "Банков: %1$lld, форматов: %2$lld, категорий кэшбэка: %3$lld"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankalar: %1$lld, biçimler: %2$lld, para iadesi kategorileri: %3$lld"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банків: %1$lld, форматів: %2$lld, категорій кешбеку: %3$lld"
+          }
         }
       }
     },
     "autoEntry.formats.offer.dismiss": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не патрэбна"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht benötigt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Not needed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hace falta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non nécessaire"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non serve"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қажет емес"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie potrzebuję"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não preciso"
           }
         },
         "ru": {
@@ -419,16 +1067,76 @@
             "state": "translated",
             "value": "Не нужно"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerekli Değil"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не потрібно"
+          }
         }
       }
     },
     "autoEntry.formats.offer.problem": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не падышло: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passt nicht: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Did not fit: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No coincide: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne correspond pas : %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non corrisponde: %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сәйкес келмеді: %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie pasuje: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não correspondeu: %@"
           }
         },
         "ru": {
@@ -436,16 +1144,76 @@
             "state": "translated",
             "value": "Не подошёл: %@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uymadı: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не підійшло: %@"
+          }
         }
       }
     },
     "autoEntry.formats.offer.save": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Захаваць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Behalten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Keep"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conserver"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantieni"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сақтау"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zachowaj"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manter"
           }
         },
         "ru": {
@@ -453,16 +1221,76 @@
             "state": "translated",
             "value": "Сохранить"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tut"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зберегти"
+          }
         }
       }
     },
     "autoEntry.formats.offers.footer": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фармат прапануецца на аснове выпраўленага вамі тэксту. У прыкладзе выкарыстоўваюцца выдуманыя лічбы і назва крамы; сам тэкст не захоўваецца."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus einem korrigierten Text wird ein Format vorgeschlagen. Das Beispiel enthält erfundene Zahlen und ein erfundenes Geschäft. Der Text selbst wird nicht gespeichert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "A format is proposed from a text you corrected. The example holds made-up figures and a made-up shop; the text itself is not kept."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se propone un formato a partir de un texto que corregiste. El ejemplo contiene cifras y una tienda ficticias; el texto no se guarda."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un format est proposé à partir d’un texte que vous avez corrigé. L’exemple contient des montants et un commerce fictifs ; le texte lui-même n’est pas conservé."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il formato viene proposto da un testo che hai corretto. L’esempio contiene cifre e un negozio inventati; il testo originale non viene salvato."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формат сіз түзеткен мәтін негізінде ұсынылады. Мысалдағы сандар мен дүкен ойдан шығарылған; мәтіннің өзі сақталмайды."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format jest proponowany na podstawie poprawionego tekstu. Przykład zawiera fikcyjne kwoty i nazwę sklepu. Sam tekst nie jest zachowywany."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um formato é sugerido com base em um texto que você corrigiu. O exemplo contém valores e uma loja fictícios; o texto não é salvo."
           }
         },
         "ru": {
@@ -470,16 +1298,76 @@
             "state": "translated",
             "value": "Формат предложен по тексту, который вы поправили. В примере выдуманные суммы и место; сам текст не хранится."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzelttiğiniz bir metinden biçim önerilir. Örnekteki tutarlar ve mağaza uydurmadır; metnin kendisi saklanmaz."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формат запропоновано на основі виправленого вами тексту. Приклад містить вигадані суми й назву магазину; сам текст не зберігається."
+          }
         }
       }
     },
     "autoEntry.formats.offers.header": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прапанаваныя фарматы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorgeschlagene Formate"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Proposed formats"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatos propuestos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formats proposés"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formati proposti"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ұсынылған форматтар"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proponowane formaty"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatos sugeridos"
           }
         },
         "ru": {
@@ -487,16 +1375,76 @@
             "state": "translated",
             "value": "Предложенные форматы"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önerilen Biçimler"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запропоновані формати"
+          }
         }
       }
     },
     "autoEntry.formats.open": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фарматы SMS…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS-Formate…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "SMS formats…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatos de SMS…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formats SMS…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formati SMS…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS форматтары…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formaty SMS…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatos de SMS…"
           }
         },
         "ru": {
@@ -504,16 +1452,76 @@
             "state": "translated",
             "value": "Форматы СМС…"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS Biçimleri…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формати SMS…"
+          }
         }
       }
     },
     "autoEntry.formats.own.delete": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Löschen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Delete"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elimina"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жою"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuń"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar"
           }
         },
         "ru": {
@@ -521,16 +1529,76 @@
             "state": "translated",
             "value": "Удалить"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sil"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити"
+          }
         }
       }
     },
     "autoEntry.formats.own.empty": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пакуль няма ўласных фарматаў"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine eigenen Formate"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No formats of your own yet"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no tienes formatos propios"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun format personnel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun formato personale"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өз форматтарыңыз әлі жоқ"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak własnych formatów"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum formato próprio ainda"
           }
         },
         "ru": {
@@ -538,16 +1606,76 @@
             "state": "translated",
             "value": "Пока нет своих форматов"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz kendi biçiminiz yok"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Власних форматів ще немає"
+          }
         }
       }
     },
     "autoEntry.formats.own.header": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мае фарматы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meine Formate"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "My formats"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mis formatos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes formats"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I miei formati"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Менің форматтарым"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moje formaty"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meus formatos"
           }
         },
         "ru": {
@@ -555,16 +1683,76 @@
             "state": "translated",
             "value": "Мои форматы"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biçimlerim"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мої формати"
+          }
         }
       }
     },
     "autoEntry.formats.skipped.header": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прапушчаныя файлы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersprungene Dateien"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Skipped files"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archivos omitidos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers ignorés"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File ignorati"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өткізіп жіберілген файлдар"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pominięte pliki"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arquivos ignorados"
           }
         },
         "ru": {
@@ -572,22 +1760,94 @@
             "state": "translated",
             "value": "Пропущенные файлы"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atlanan Dosyalar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропущені файли"
+          }
         }
       }
     },
     "autoEntry.formats.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Фарматы SMS"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS-Formate"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "SMS formats"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatos de SMS"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formats SMS"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formati SMS"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS форматтары"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formaty SMS"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formatos de SMS"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Форматы СМС"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS Biçimleri"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формати SMS"
           }
         }
       }
@@ -3463,10 +4723,58 @@
     "smsFormat.problem.badCategoryFile": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не ўдалося прачытаць файл катэгорый"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Kategoriedatei kann nicht gelesen werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The category file cannot be read"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se puede leer el archivo de categorías"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de lire le fichier des catégories"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile leggere il file delle categorie"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санаттар файлын оқу мүмкін емес"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie można odczytać pliku kategorii"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler o arquivo de categorias"
           }
         },
         "ru": {
@@ -3474,16 +4782,76 @@
             "state": "translated",
             "value": "Файл категорий не читается"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategori dosyası okunamıyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося прочитати файл категорій"
+          }
         }
       }
     },
     "smsFormat.problem.badDateFormat": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няправільны фармат даты “%@”"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ungültiges Datumsformat „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Bad date format “%@”"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato de fecha incorrecto: “%@”"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format de date « %@ » incorrect"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato data “%@” non valido"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» күн пішімі қате"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nieprawidłowy format daty „%@”"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato de data inválido “%@”"
           }
         },
         "ru": {
@@ -3491,16 +4859,76 @@
             "state": "translated",
             "value": "Неверный формат даты «%@»"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geçersiz tarih biçimi “%@”"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неправильний формат дати “%@”"
+          }
         }
       }
     },
     "smsFormat.problem.badSenders": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не ўдалося прачытаць файл адпраўнікоў"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Absenderdatei kann nicht gelesen werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The senders file cannot be read"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se puede leer el archivo de remitentes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de lire le fichier des expéditeurs"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile leggere il file dei mittenti"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жіберушілер файлын оқу мүмкін емес"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie można odczytać pliku nadawców"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler o arquivo de remetentes"
           }
         },
         "ru": {
@@ -3508,16 +4936,76 @@
             "state": "translated",
             "value": "Файл отправителей не читается"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gönderenler dosyası okunamıyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося прочитати файл відправників"
+          }
         }
       }
     },
     "smsFormat.problem.duplicateColumn": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слупок “%@” названы двойчы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spalte „%@“ ist doppelt vorhanden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Column “%@” is named twice"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La columna “%@” aparece dos veces"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La colonne « %@ » est nommée deux fois"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La colonna “%@” è indicata due volte"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» бағаны екі рет аталған"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kolumna „%@” występuje dwukrotnie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A coluna “%@” aparece duas vezes"
           }
         },
         "ru": {
@@ -3525,16 +5013,76 @@
             "state": "translated",
             "value": "Столбец «%@» указан дважды"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” sütunu iki kez adlandırılmış"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стовпець “%@” вказано двічі"
+          }
         }
       }
     },
     "smsFormat.problem.exampleDoesNotMatch": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прыклад %@ не адпавядае выразу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beispiel %@ passt nicht zum Ausdruck"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Example %@ does not fit the expression"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El ejemplo %@ no coincide con la expresión"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’exemple %@ ne correspond pas à l’expression"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’esempio %@ non corrisponde all’espressione"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ мысалы өрнекке сәйкес келмейді"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przykład %@ nie pasuje do wyrażenia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O exemplo %@ não corresponde à expressão"
           }
         },
         "ru": {
@@ -3542,16 +5090,76 @@
             "state": "translated",
             "value": "Пример %@ не подходит выражению"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ örneği ifadeye uymuyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приклад %@ не відповідає виразу"
+          }
         }
       }
     },
     "smsFormat.problem.exampleMatchesOther": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прыклад %1$@ таксама адпавядае фармату “%2$@”"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beispiel %1$@ passt auch zum Format „%2$@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Example %1$@ fits the format “%2$@” too"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El ejemplo %1$@ también coincide con el formato “%2$@”"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’exemple %1$@ correspond aussi au format « %2$@ »"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’esempio %1$@ corrisponde anche al formato “%2$@”"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ мысалы «%2$@» форматына да сәйкес келеді"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przykład %1$@ pasuje również do formatu „%2$@”"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O exemplo %1$@ também corresponde ao formato “%2$@”"
           }
         },
         "ru": {
@@ -3559,16 +5167,76 @@
             "state": "translated",
             "value": "Пример %1$@ подходит и формату «%2$@»"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ örneği “%2$@” biçimine de uyuyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приклад %1$@ також відповідає формату “%2$@”"
+          }
         }
       }
     },
     "smsFormat.problem.exampleUnreadable": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прыклад %1$@: не ўдалося прачытаць слупок “%2$@”"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beispiel %1$@: Spalte „%2$@“ kann nicht gelesen werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Example %1$@: column “%2$@” cannot be read"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ejemplo %1$@: no se puede leer la columna “%2$@”"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exemple %1$@ : impossible de lire la colonne « %2$@ »"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esempio %1$@: impossibile leggere la colonna “%2$@”"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ мысалы: «%2$@» бағанын оқу мүмкін емес"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przykład %1$@: nie można odczytać kolumny „%2$@”"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exemplo %1$@: não foi possível ler a coluna “%2$@”"
           }
         },
         "ru": {
@@ -3576,16 +5244,76 @@
             "state": "translated",
             "value": "Пример %1$@: столбец «%2$@» не читается"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ örneği: “%2$@” sütunu okunamıyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Приклад %1$@: не вдалося прочитати стовпець “%2$@”"
+          }
         }
       }
     },
     "smsFormat.problem.groupCountMismatch": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Колькасць груп у выразе — %1$@, слупкоў — %2$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Ausdruck hat %1$@ Gruppen, aber es gibt %2$@ Spalten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The expression has %1$@ groups but there are %2$@ columns"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La expresión tiene %1$@ grupos, pero hay %2$@ columnas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’expression contient %1$@ groupes, mais il y a %2$@ colonnes"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’espressione contiene %1$@ gruppi, ma ci sono %2$@ colonne"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өрнекте %1$@ топ бар, ал баған саны — %2$@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyrażenie ma %1$@ grup, a liczba kolumn to %2$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A expressão tem %1$@ grupos, mas há %2$@ colunas"
           }
         },
         "ru": {
@@ -3593,16 +5321,76 @@
             "state": "translated",
             "value": "Групп в выражении %1$@, а столбцов %2$@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İfadede %1$@ grup var, ancak %2$@ sütun var"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вираз містить груп: %1$@, а стовпців: %2$@"
+          }
         }
       }
     },
     "smsFormat.problem.invalidPattern": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няправільны выраз"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Ausdruck ist ungültig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The expression is not valid"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La expresión no es válida"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’expression n’est pas valide"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’espressione non è valida"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өрнек жарамсыз"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nieprawidłowe wyrażenie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A expressão é inválida"
           }
         },
         "ru": {
@@ -3610,16 +5398,76 @@
             "state": "translated",
             "value": "Выражение записано с ошибкой"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İfade geçerli değil"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Недійсний вираз"
+          }
         }
       }
     },
     "smsFormat.problem.missingColumns": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няма радка са слупкамі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Zeile mit den Spalten fehlt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "There is no line of columns"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falta la línea de columnas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La ligne des colonnes est absente"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manca la riga delle colonne"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бағандар жолы жоқ"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak wiersza z kolumnami"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há uma linha de colunas"
           }
         },
         "ru": {
@@ -3627,16 +5475,76 @@
             "state": "translated",
             "value": "Нет строки со столбцами"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sütun satırı yok"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає рядка зі стовпцями"
+          }
         }
       }
     },
     "smsFormat.problem.missingPattern": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У першым радку няма выразу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In der ersten Zeile fehlt der Ausdruck"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "There is no expression on the first line"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falta la expresión en la primera línea"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La première ligne ne contient aucune expression"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manca l’espressione nella prima riga"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бірінші жолда өрнек жоқ"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak wyrażenia w pierwszym wierszu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há uma expressão na primeira linha"
           }
         },
         "ru": {
@@ -3644,16 +5552,76 @@
             "state": "translated",
             "value": "В первой строке нет выражения"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk satırda ifade yok"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У першому рядку немає виразу"
+          }
         }
       }
     },
     "smsFormat.problem.noExamples": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Няма ніводнага прыкладу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es ist kein Beispiel vorhanden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "There is not a single example"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ningún ejemplo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun exemple"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non è presente alcun esempio"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бірде-бір мысал жоқ"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak przykładów"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há nenhum exemplo"
           }
         },
         "ru": {
@@ -3661,16 +5629,76 @@
             "state": "translated",
             "value": "Нет ни одного примера"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiç örnek yok"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Немає жодного прикладу"
+          }
         }
       }
     },
     "smsFormat.problem.notText": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не з’яўляецца тэкстам у UTF-8"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Datei ist kein UTF-8-Text"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The file is not UTF-8 text"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El archivo no es texto UTF-8"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le fichier n’est pas un texte UTF-8"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il file non è in formato testo UTF-8"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл UTF-8 мәтіні емес"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plik nie jest tekstem UTF-8"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O arquivo não é um texto UTF-8"
           }
         },
         "ru": {
@@ -3678,16 +5706,76 @@
             "state": "translated",
             "value": "Файл не в кодировке UTF-8"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dosya UTF-8 metni değil"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не є текстом у кодуванні UTF-8"
+          }
         }
       }
     },
     "smsFormat.problem.unknownColumn": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невядомы слупок “%@”"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unbekannte Spalte „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Unknown column “%@”"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Columna desconocida: “%@”"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colonne « %@ » inconnue"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colonna “%@” sconosciuta"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Белгісіз баған: «%@»"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nieznana kolumna „%@”"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coluna desconhecida “%@”"
           }
         },
         "ru": {
@@ -3695,16 +5783,76 @@
             "state": "translated",
             "value": "Неизвестный столбец «%@»"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilinmeyen sütun “%@”"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невідомий стовпець “%@”"
+          }
         }
       }
     },
     "smsFormat.problem.unknownOperation": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невядомая аперацыя “%@”"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unbekannte Operation „%@“"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Unknown operation “%@”"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operación desconocida: “%@”"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opération « %@ » inconnue"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operazione “%@” sconosciuta"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Белгісіз операция: «%@»"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nieznana operacja „%@”"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operação desconhecida “%@”"
           }
         },
         "ru": {
@@ -3712,22 +5860,94 @@
             "state": "translated",
             "value": "Неизвестная операция «%@»"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilinmeyen işlem “%@”"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невідома операція “%@”"
+          }
         }
       }
     },
     "smsFormat.problem.unknownSection": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невядомы раздзел %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unbekannter Abschnitt %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Unknown section %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sección desconocida: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Section %@ inconnue"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sezione %@ sconosciuta"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Белгісіз бөлім: %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nieznana sekcja %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seção desconhecida %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Неизвестный раздел %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilinmeyen bölüm %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невідомий розділ %@"
           }
         }
       }

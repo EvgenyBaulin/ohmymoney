@@ -9751,10 +9751,58 @@
     "debts.stripe.debt.extra": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Датэрміновыя плацяжы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonderzahlungen geleistet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Extra payments made"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con pagos adicionales"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remboursements anticipés effectués"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versamenti extra effettuati"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қосымша төлемдер жасалды"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokonano nadpłat"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamentos extras realizados"
           }
         },
         "ru": {
@@ -9762,16 +9810,76 @@
             "state": "translated",
             "value": "Были дополнительные платежи"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ek ödeme yapıldı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Є додаткові платежі"
+          }
         }
       }
     },
     "debts.stripe.debt.overdue": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Была пратэрміноўка"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlung verspätet"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Had a late payment"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con un pago atrasado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A eu un retard de paiement"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamento effettuato in ritardo"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мерзімі өткен төлем болды"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opóźniona płatność"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teve pagamento em atraso"
           }
         },
         "ru": {
@@ -9779,16 +9887,76 @@
             "state": "translated",
             "value": "Были просрочки"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödeme gecikti"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Був прострочений платіж"
+          }
         }
       }
     },
     "debts.stripe.debt.regular": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Плацяжы па графіку"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlungen planmäßig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Paying on schedule"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paiements à jour"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamenti regolari"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кесте бойынша төленуде"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spłata zgodnie z harmonogramem"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamentos em dia"
           }
         },
         "ru": {
@@ -9796,16 +9964,76 @@
             "state": "translated",
             "value": "Платежи по графику"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödemeler zamanında"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платежі за графіком"
+          }
         }
       }
     },
     "debts.stripe.payment.extra": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Датэрміновы плацёж"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonderzahlung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Extra payment"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pago adicional"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remboursement anticipé"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versamento extra"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қосымша төлем"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nadpłata"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamento extra"
           }
         },
         "ru": {
@@ -9813,16 +10041,76 @@
             "state": "translated",
             "value": "Дополнительный платёж"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ek ödeme"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додатковий платіж"
+          }
         }
       }
     },
     "debts.stripe.payment.overdue": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пратэрмінаваны плацёж"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verspätete Zahlung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Late payment"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pago atrasado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paiement en retard"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamento in ritardo"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мерзімі өткен төлем"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opóźniona płatność"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamento em atraso"
           }
         },
         "ru": {
@@ -9830,22 +10118,94 @@
             "state": "translated",
             "value": "Платёж с просрочкой"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gecikmiş ödeme"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прострочений платіж"
+          }
         }
       }
     },
     "debts.stripe.payment.regular": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Плацёж па графіку"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planmäßige Zahlung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Payment on schedule"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pago al día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paiement à échéance"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamento regolare"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кесте бойынша төлем"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Płatność zgodnie z harmonogramem"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamento em dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Платёж по графику"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zamanında ödeme"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платіж за графіком"
           }
         }
       }
@@ -20156,10 +20516,58 @@
     "pause.action": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Крэдытныя канікулы або рэструктурызацыя…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlungspause oder Umschuldung…"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Credit holiday or restructuring…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carencia o reestructuración…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report ou restructuration du crédit…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sospensione o ristrutturazione del credito…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Несие каникулы немесе қайта құрылымдау…"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wakacje kredytowe lub restrukturyzacja…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa no crédito ou renegociação…"
           }
         },
         "ru": {
@@ -20167,16 +20575,76 @@
             "state": "translated",
             "value": "Каникулы или реструктуризация…"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kredi erteleme veya yapılandırma…"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитні канікули або реструктуризація…"
+          }
         }
       }
     },
     "pause.card": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: з %2$@ па %3$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: vom %2$@ bis %3$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: from %2$@ to %3$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: del %2$@ al %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: du %2$@ au %3$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: dal %2$@ al %3$@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@–%3$@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: od %2$@ do %3$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: de %2$@ a %3$@"
           }
         },
         "ru": {
@@ -20184,16 +20652,76 @@
             "state": "translated",
             "value": "%1$@: с %2$@ по %3$@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@ – %3$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: з %2$@ до %3$@"
+          }
         }
       }
     },
     "pause.endsBeforeStart": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апошні дзень ранейшы за першы: паўза не захавана."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der letzte Tag liegt vor dem ersten. Die Pause wird nicht gesichert."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The last day is before the first: the pause is not saved."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El último día es anterior al primero: no se ha guardado la pausa."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dernier jour précède le premier : la pause n’est pas enregistrée."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’ultimo giorno precede il primo: la sospensione non viene salvata."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соңғы күн бірінші күннен бұрын: үзіліс сақталмады."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatni dzień przypada przed pierwszym. Przerwa nie zostanie zapisana."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O último dia é anterior ao primeiro: a pausa não foi salva."
           }
         },
         "ru": {
@@ -20201,16 +20729,76 @@
             "state": "translated",
             "value": "Последний день раньше первого: пауза не сохранится."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son gün ilk günden önce: erteleme kaydedilmedi."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останній день передує першому: паузу не збережено."
+          }
         }
       }
     },
     "pause.from": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Першы дзень"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erster Tag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "First day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primer día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premier jour"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primo giorno"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бірінші күн"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pierwszy dzień"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primeiro dia"
           }
         },
         "ru": {
@@ -20218,16 +20806,76 @@
             "state": "translated",
             "value": "Первый день"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk gün"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перший день"
+          }
         }
       }
     },
     "pause.hint": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Плацяжы ў гэтыя дні не патрабуюцца, а кожны наступны пераносіцца на адпаведную колькасць месяцаў. Праграма не разлічвае новыя сумы: калі банк змяніў іх, увядзіце іх з праграмы банка праз «Увесці плацёж з праграмы банка…». Плацяжы, скапіраваныя з сэрвісу па днях, не пераносяцца."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlungen, die in diesen Zeitraum fallen, entfallen. Alle späteren Zahlungen verschieben sich um die entsprechende Anzahl an Monaten. Die App berechnet die neuen Beträge nicht. Wenn die Bank sie geändert hat, gib sie über «Zahlung aus der Banking-App eingeben…» ein. Täglich aus einem Dienst übernommene Fälligkeiten werden nicht verschoben."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "A payment that falls in these days is not owed, and every later one moves on by as many months. The app does not work out the new sums: if the bank changed them, type them from its app with «Type a payment from the bank app…». Dues copied from a service day by day do not move."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los pagos que vencen durante estos días no se deben abonar y los posteriores se aplazan el mismo número de meses. La app no calcula los nuevos importes: si el banco los ha cambiado, introdúcelos desde su app con «Introducir un pago de la app del banco…». Los vencimientos copiados día a día de un servicio no se desplazan."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les paiements prévus pendant cette période ne sont pas dus. Les suivants sont décalés d’autant de mois. L’app ne calcule pas les nouveaux montants : si la banque les a modifiés, saisissez-les depuis son app avec «Saisir un paiement depuis l’app de la banque…». Les échéances copiées jour par jour depuis un service ne sont pas décalées."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I pagamenti previsti in questi giorni non sono dovuti e quelli successivi vengono spostati dello stesso numero di mesi. L’app non calcola i nuovi importi: se la banca li ha modificati, inseriscili dalla sua app con «Inserisci un pagamento dall’app della banca…». Le scadenze copiate giorno per giorno da un servizio non vengono spostate."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы күндерге түскен төлемдерді төлеу қажет емес, ал кейінгі төлемдердің әрқайсысы сонша айға шегеріледі. Қолданба жаңа сомаларды есептемейді: банк оларды өзгертсе, «Банк қолданбасынан төлемді енгізу…» арқылы енгізіңіз. Қызметтен күн сайын көшірілген төлемдер шегерілмейді."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Płatności przypadające w tych dniach nie są należne, a każda kolejna zostaje przesunięta o tyle samo miesięcy. Aplikacja nie oblicza nowych kwot. Jeśli bank je zmienił, wpisz je z jego aplikacji, wybierając „Wpisz płatność z aplikacji banku…”. Należności kopiowane z usługi dzień po dniu nie są przesuwane."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os pagamentos previstos nesses dias não são devidos, e os seguintes são adiados pelo mesmo número de meses. O app não calcula os novos valores: se o banco os alterou, digite-os usando «Digitar um pagamento do app do banco…». Os vencimentos copiados de um serviço dia a dia não são alterados."
           }
         },
         "ru": {
@@ -20235,16 +20883,76 @@
             "state": "translated",
             "value": "Платёж, который выпадает на эти дни, не нужен, а все следующие сдвигаются на столько же месяцев. Новые суммы приложение не считает: если банк их изменил, впишите их из приложения банка через «Вписать платёж из приложения банка…». Сроки, вписанные из сервиса датами, не сдвигаются."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu günlere denk gelen ödeme yapılmaz ve sonraki her ödeme aynı sayıda ay ertelenir. Uygulama yeni tutarları hesaplamaz: Banka tutarları değiştirdiyse «Banka uygulamasından ödeme gir…» seçeneğiyle girin. Bir servisten gün gün kopyalanan ödemeler ertelenmez."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Платежі, що припадають на ці дні, не потрібно сплачувати. Усі наступні платежі зсуваються на відповідну кількість місяців. Застосунок не обчислює нові суми: якщо банк їх змінив, введіть їх із його застосунку за допомогою дії «Ввести платіж із застосунку банку…». Нарахування, скопійовані із сервісу за днями, не зсуваються."
+          }
         }
       }
     },
     "pause.kind": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тып"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Art"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "What it is"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түрі"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rodzaj"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         },
         "ru": {
@@ -20252,16 +20960,76 @@
             "state": "translated",
             "value": "Что это"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tür"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тип"
+          }
         }
       }
     },
     "pause.kind.holiday": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Крэдытныя канікулы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlungspause"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Credit holiday"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carencia"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report de crédit"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sospensione del credito"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Несие каникулы"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wakacje kredytowe"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa no crédito"
           }
         },
         "ru": {
@@ -20269,16 +21037,76 @@
             "state": "translated",
             "value": "Кредитные каникулы"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kredi erteleme"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кредитні канікули"
+          }
         }
       }
     },
     "pause.kind.restructuring": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рэструктурызацыя"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umschuldung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Restructuring"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reestructuración"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restructuration"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ristrutturazione"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайта құрылымдау"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restrukturyzacja"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renegociação"
           }
         },
         "ru": {
@@ -20286,16 +21114,76 @@
             "state": "translated",
             "value": "Реструктуризация"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapılandırma"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Реструктуризація"
+          }
         }
       }
     },
     "pause.remove": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выдаліць паўзу"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause entfernen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Remove the pause"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eliminar pausa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer la pause"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimuovi sospensione"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзілісті алып тастау"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuń przerwę"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remover pausa"
           }
         },
         "ru": {
@@ -20303,16 +21191,76 @@
             "state": "translated",
             "value": "Убрать паузу"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ertelemeyi kaldır"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Видалити паузу"
+          }
         }
       }
     },
     "pause.sheet.title": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Паўза плацяжоў: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zahlungspause: %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Pause of payments: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa de pagos: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause des paiements : %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sospensione dei pagamenti: %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Төлемдер үзілісі: %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przerwa w płatnościach: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa nos pagamentos: %@"
           }
         },
         "ru": {
@@ -20320,16 +21268,76 @@
             "state": "translated",
             "value": "Пауза платежей: %@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödeme erteleme: %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пауза платежів: %@"
+          }
         }
       }
     },
     "pause.termShift": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апошні плацёж пераносіцца з %1$@ на %2$@ (прапушчана плацяжоў: %3$@)."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die letzte Zahlung verschiebt sich vom %1$@ auf den %2$@ (ausgesetzte Zahlungen: %3$@)."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "The last payment moves from %1$@ to %2$@ (payments skipped: %3$@)."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El último pago pasa del %1$@ al %2$@ (pagos omitidos: %3$@)."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le dernier paiement passe du %1$@ au %2$@ (paiements sautés : %3$@)."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’ultimo pagamento passa dal %1$@ al %2$@ (pagamenti saltati: %3$@)."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соңғы төлем %1$@ күнінен %2$@ күніне ауысады (өткізілген төлемдер: %3$@)."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatnia płatność zostanie przesunięta z %1$@ na %2$@ (pominięte płatności: %3$@)."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O último pagamento passa de %1$@ para %2$@ (pagamentos suspensos: %3$@)."
           }
         },
         "ru": {
@@ -20337,22 +21345,94 @@
             "state": "translated",
             "value": "Последний платёж сдвинется с %1$@ на %2$@ (пропущено платежей: %3$@)."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son ödeme %1$@ tarihinden %2$@ tarihine ertelenir (atlanacak ödeme: %3$@)."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останній платіж переноситься з %1$@ на %2$@ (пропущено платежів: %3$@)."
+          }
         }
       }
     },
     "pause.to": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Апошні дзень"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Letzter Tag"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Last day"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último día"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernier jour"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ultimo giorno"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Соңғы күн"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatni dzień"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Последний день"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son gün"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Останній день"
           }
         }
       }

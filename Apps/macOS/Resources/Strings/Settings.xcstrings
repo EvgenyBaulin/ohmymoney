@@ -16264,16 +16264,76 @@
     "categories.quality": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Якасць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualität"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Quality"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calidad"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualité"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualità"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сапа"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jakość"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualidade"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Оценка"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalite"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Якість"
           }
         }
       }
@@ -25488,6 +25548,84 @@
         }
       }
     },
+    "integrity.finding.nextRateIncomplete": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахункі з новай стаўкай без даты пачатку або з датай без стаўкі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konten mit neuem Zinssatz ohne Startdatum oder Startdatum ohne Zinssatz"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accounts with a new rate and no day it starts, or a day and no rate"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuentas con un nuevo tipo sin fecha de inicio o una fecha sin tipo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comptes avec un nouveau taux sans date de début, ou une date sans taux"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conti con un nuovo tasso senza data di inizio o una data senza tasso"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жаңа мөлшерлемесі бар, бірақ басталу күні жоқ немесе күні бар, бірақ мөлшерлемесі жоқ шоттар"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konta z nową stawką bez daty jej rozpoczęcia lub z datą bez stawki"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contas com nova taxa sem data de início ou data sem taxa"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счета с новой ставкой без дня начала или с днём без ставки"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni oranı olup başlangıç tarihi olmayan veya tarihi olup oranı olmayan hesaplar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Рахунки з новою ставкою без дати початку або з датою без ставки"
+          }
+        }
+      }
+    },
     "integrity.finding.partsSum": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -25562,6 +25700,84 @@
           "stringUnit": {
             "state": "translated",
             "value": "Операції без частин або з сумою частин, що не збігається із сумою операції"
+          }
+        }
+      }
+    },
+    "integrity.finding.pauseOutOfOrder": {
+      "comment": "Translation not verified by a native speaker.",
+      "extractionState": "manual",
+      "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Даўгі, паўза па якіх заканчваецца раней, чым пачынаецца"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schulden, deren Pause vor ihrem Beginn endet"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debts whose pause ends before it starts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deudas cuya pausa termina antes de empezar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dettes dont la pause se termine avant son début"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Debiti con una pausa che termina prima di iniziare"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Үзілісі басталуынан бұрын аяқталатын қарыздар"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Długi, których zawieszenie kończy się przed rozpoczęciem"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dívidas cuja pausa termina antes de começar"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Долги, у которых пауза кончается раньше начала"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duraklaması başlamadan biten borçlar"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Борги, у яких пауза закінчується раніше, ніж починається"
           }
         }
       }
@@ -25956,56 +26172,80 @@
         }
       }
     },
-    "integrity.finding.pauseOutOfOrder": {
-      "comment": "Translation not verified by a native speaker.",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Debts whose pause ends before it starts"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Долги, у которых пауза кончается раньше начала"
-          }
-        }
-      }
-    },
-    "integrity.finding.nextRateIncomplete": {
-      "comment": "Translation not verified by a native speaker.",
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Accounts with a new rate and no day it starts, or a day and no rate"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Счета с новой ставкой без дня начала или с днём без ставки"
-          }
-        }
-      }
-    },
     "integrity.finding.valuationWithoutOwner": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ацэнкі адсутных актываў або рэчаў"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bewertungen ohne zugehörigen Vermögenswert oder Gegenstand"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Valuations whose asset or thing is not there"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valoraciones cuyo activo u objeto ya no existe"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Évaluations dont l’actif ou le bien est introuvable"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valutazioni senza il relativo bene o oggetto"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Активі немесе заты жоқ бағалаулар"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyceny bez powiązanego aktywa lub przedmiotu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaliações sem o ativo ou item correspondente"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Оценки, у которых нет актива или вещи"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Varlığı veya eşyası bulunmayan değerlemeler"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оцінки відсутніх активів або речей"
           }
         }
       }
@@ -32054,6 +32294,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@» операциялары «%2$@» ішіне көшеді, атауы «%2$@» үшін басқа атау болады, ал «%1$@» мұрағатқа өтеді."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacje z «%1$@» zostaną przeniesione do «%2$@», nazwa stanie się inną nazwą «%2$@», a «%1$@» trafi do archiwum."
           }
         },
         "pt-BR": {

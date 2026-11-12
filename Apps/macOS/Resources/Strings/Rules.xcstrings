@@ -12997,16 +12997,76 @@
     "rules.problem.wontFire": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не спрацуе: у правіле пазначана месца, рахунак, картка або асоба, якія былі выдалены або архіваваны."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird nicht ausgeführt: Die Regel nennt einen Ort, ein Konto, eine Karte oder eine Person, die gelöscht oder archiviert wurde."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Will not fire: the rule names a place, account, card or person that was deleted or archived."
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se activará: la regla contiene un lugar, una cuenta, una tarjeta o una persona que se ha eliminado o archivado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne se déclenchera pas : la règle désigne un lieu, un compte, une carte ou une personne supprimé ou archivé."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non verrà eseguita: la regola indica un luogo, conto, carta o persona eliminati o archiviati."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іске қосылмайды: ережеде жойылған немесе архивтелген орын, шот, карта не адам көрсетілген."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie zadziała: reguła wskazuje usunięte lub zarchiwizowane miejsce, konto, kartę albo osobę."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não será aplicada: a regra menciona um local, conta, cartão ou pessoa que foi apagado ou arquivado."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не сработает: правило называет удалённое или архивное место, счёт, карту или человека."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çalışmaz: Kuralda silinmiş veya arşivlenmiş bir yer, hesap, kart ya da kişi var."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не спрацює: правило містить місце, рахунок, картку або особу, які видалено чи архівовано."
           }
         }
       }

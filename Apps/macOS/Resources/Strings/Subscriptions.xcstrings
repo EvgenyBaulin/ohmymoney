@@ -1096,10 +1096,58 @@
     "subs.bank": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ці акупляюцца банкаўскія падпіскі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lohnen sich Bankabos?"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Do bank subscriptions pay back"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Compensan las suscripciones bancarias?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les abonnements bancaires sont-ils rentables ?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli abbonamenti bancari convengono?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк жазылымдары өзін ақтай ма"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Czy abonamenty bankowe się opłacają"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As assinaturas bancárias compensam?"
           }
         },
         "ru": {
@@ -1107,16 +1155,76 @@
             "state": "translated",
             "value": "Окупаются ли подписки банков"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka abonelikleri kendini karşılıyor mu?"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чи окупаються підписки банків"
+          }
         }
       }
     },
     "subs.bank.caption": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У гэтым месяцы"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diesen Monat"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "This month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este mes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce mois-ci"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo mese"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы айда"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "W tym miesiącu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neste mês"
           }
         },
         "ru": {
@@ -1124,16 +1232,76 @@
             "state": "translated",
             "value": "За этот месяц"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu ay"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цього місяця"
+          }
         }
       }
     },
     "subs.bank.costsMore": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каштуе даражэй, чым прыносіць"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kostet mehr, als es einbringt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Costs more than it brings"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuesta más de lo que aporta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coûte plus qu’il ne rapporte"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Costa più di quanto rende"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пайдасынан қымбат"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kosztuje więcej, niż przynosi"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custa mais do que rende"
           }
         },
         "ru": {
@@ -1141,16 +1309,76 @@
             "state": "translated",
             "value": "Стоит больше, чем приносит"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getirisinden fazla tutuyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Коштує більше, ніж приносить"
+          }
         }
       }
     },
     "subs.bank.line": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каштуе %1$@, прыносіць %2$@, вынік %3$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kostet %1$@, bringt %2$@, netto %3$@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Costs %1$@, brings %2$@, net %3$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuesta %1$@, aporta %2$@, saldo neto %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coûte %1$@, rapporte %2$@, bilan %3$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Costa %1$@, rende %2$@, saldo %3$@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Құны %1$@, пайдасы %2$@, таза пайда %3$@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Koszt: %1$@, korzyści: %2$@, bilans: %3$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Custa %1$@, rende %2$@, saldo %3$@"
           }
         },
         "ru": {
@@ -1158,16 +1386,76 @@
             "state": "translated",
             "value": "Стоит %1$@, приносит %2$@, итого %3$@"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maliyet %1$@, getiri %2$@, net %3$@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вартість — %1$@, вигода — %2$@, підсумок — %3$@"
+          }
         }
       }
     },
     "subs.bank.notStated": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выгада не пазначана"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Vorteil angegeben"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No benefit stated"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin beneficio indicado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun avantage indiqué"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun vantaggio indicato"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пайдасы көрсетілмеген"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie podano korzyści"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Benefício não informado"
           }
         },
         "ru": {
@@ -1175,22 +1463,94 @@
             "state": "translated",
             "value": "Выгода не указана"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avantaj belirtilmedi"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вигоду не вказано"
+          }
         }
       }
     },
     "subs.bank.paysBack": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Акупляецца"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lohnt sich"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Pays back"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compensa"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rentable"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conviene"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өзін ақтайды"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opłaca się"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compensa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Окупается"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kendini karşılıyor"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Окупається"
           }
         }
       }
@@ -5572,10 +5932,58 @@
     "subs.terms.bank": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банкаўская падпіска"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankabo"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Bank subscription"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suscripción bancaria"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonnement bancaire"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbonamento bancario"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк жазылымы"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abonament bankowy"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assinatura bancária"
           }
         },
         "ru": {
@@ -5583,16 +5991,76 @@
             "state": "translated",
             "value": "Подписка банка"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka aboneliği"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Підписка банку"
+          }
         }
       }
     },
     "subs.terms.bankBenefit": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Эканомія або даход за месяц, акрамя кэшбэку"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ersparnis oder Ertrag pro Monat, zusätzlich zum Cashback"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Saves or earns a month, besides cashback"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ahorro o ingresos al mes, aparte del cashback"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Économies ou gains mensuels, hors cashback"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Risparmio o guadagno mensile, oltre al cashback"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кэшбэктен бөлек айлық үнем немесе табыс"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Miesięczne oszczędności lub zyski poza cashbackiem"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Economia ou rendimento mensal, além do cashback"
           }
         },
         "ru": {
@@ -5600,16 +6068,76 @@
             "state": "translated",
             "value": "Экономит или приносит в месяц, кроме кэшбэка"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nakit iadesi dışında aylık tasarruf veya kazanç"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Економія або дохід за місяць, крім кешбеку"
+          }
         }
       }
     },
     "subs.terms.bankNote": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бясплатныя пераводы, працэнты, павышаны кэшбэк: укажыце, колькі гэта для вас каштуе. Справаздача «Ці акупляюцца банкаўскія падпіскі» параўнае выгаду з цаной."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kostenlose Überweisungen, Zinsen, höheres Cashback: Gib an, was dir das wert ist. Der Bericht «Lohnen sich Bankabos?» vergleicht den Wert mit dem Preis."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Free transfers, interest, a higher cashback: type what you think it is worth. The report «Do bank subscriptions pay back» sets it against the price."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferencias gratuitas, intereses, más cashback: indica cuánto crees que valen. El informe «¿Compensan las suscripciones bancarias?» lo compara con el precio."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Virements gratuits, intérêts, cashback majoré : indiquez leur valeur estimée. Le rapport « Les abonnements bancaires sont-ils rentables ? » la compare au prix."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bonifici gratuiti, interessi, cashback maggiore: inserisci il valore che gli attribuisci. Il report «Gli abbonamenti bancari convengono?» lo confronta con il prezzo."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тегін аударымдар, пайыз, жоғары кэшбэк: олардың құнын өзіңіз бағалап енгізіңіз. «Банк жазылымдары өзін ақтай ма» есебі оны жазылым бағасымен салыстырады."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Darmowe przelewy, odsetki, wyższy cashback: wpisz, ile są według Ciebie warte. Raport «Czy abonamenty bankowe się opłacają» porównuje je z ceną."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferências grátis, juros, cashback maior: informe o valor que você atribui a esses benefícios. O relatório «As assinaturas bancárias compensam?» compara esse valor com o preço."
           }
         },
         "ru": {
@@ -5617,22 +6145,94 @@
             "state": "translated",
             "value": "Бесплатные переводы, проценты, повышенный кэшбэк: впишите, сколько это стоит по-вашему. Отчёт «Окупаются ли подписки банков» сравнит это с ценой."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ücretsiz transferler, faiz, daha yüksek nakit iadesi: Sizce ne kadar değerliyse yazın. «Banka abonelikleri kendini karşılıyor mu?» raporu bunu fiyatla karşılaştırır."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Безкоштовні перекази, відсотки, підвищений кешбек: вкажіть, скільки це для вас коштує. У звіті «Чи окупаються підписки банків» ця сума порівнюється з ціною."
+          }
         }
       }
     },
     "subs.terms.bankShare": {
       "extractionState": "manual",
       "localizations": {
+        "be": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частка банкаўскага кэшбэку ад падпіскі"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anteil am Cashback der Bank"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Part of the bank cashback it gives"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte del cashback del banco que aporta"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Part du cashback bancaire associé"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota del cashback bancario attribuita all’abbonamento"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банк кэшбэгінің жазылымға тиесілі бөлігі"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Część cashbacku bankowego z abonamentu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte do cashback do banco gerada pela assinatura"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Какую часть кэшбэка банка даёт"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sağladığı banka nakit iadesinin bir kısmı"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Частка кешбеку банку від підписки"
           }
         }
       }
