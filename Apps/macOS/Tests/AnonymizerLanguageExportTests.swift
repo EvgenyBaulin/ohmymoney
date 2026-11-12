@@ -59,12 +59,8 @@ final class AnonymizerLanguageExportTests: XCTestCase {
         "sample layout": MigrationMapping(roles: [0: .date, 1: .amount])
       ]),
     ]
-    try stack.writer.write { db in
-      for (key, value) in memories {
-        try db.execute(
-          sql: "INSERT INTO settings (key, value) VALUES (?, ?)", arguments: [key, value])
-      }
-    }
+    let store = SettingsRepository(writer: stack.writer)
+    for (key, value) in memories { try store.set(key, to: value) }
     let service = ExportCopyService(
       stack: stack, appVersion: "2.6.1", cipher: cipher, iterations: 1_000)
     let target = directory.appendingPathComponent("migration.ohmymoneyarchive")
@@ -81,17 +77,12 @@ final class AnonymizerLanguageExportTests: XCTestCase {
     let file = directory.appendingPathComponent("migration-copy.sqlite")
     try XCTUnwrap(opened.database).write(to: file)
     // Opened through the app's own stack: the test target does not link GRDB's initialisers.
-    let copy = try DatabaseStack(url: file, schema: BundleSchemaSource(bundle: .main)).writer
+    let copy = SettingsRepository(
+      writer: try DatabaseStack(url: file, schema: BundleSchemaSource(bundle: .main)).writer)
     for key in memories.keys {
       XCTAssertNil(portable[key])
-      let copied = try copy.read { db in
-        try String.fetchOne(db, sql: "SELECT value FROM settings WHERE key = ?", arguments: [key])
-      }
-      XCTAssertNil(copied)
-      let original = try stack.writer.read { db in
-        try String.fetchOne(db, sql: "SELECT value FROM settings WHERE key = ?", arguments: [key])
-      }
-      XCTAssertEqual(original, memories[key])
+      XCTAssertNil(try copy.string(key))
+      XCTAssertEqual(try store.string(key), memories[key])
     }
   }
 
