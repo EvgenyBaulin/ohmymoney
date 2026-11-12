@@ -41,7 +41,7 @@ final class PhoneScreenShotDumpTests: XCTestCase {
       for screen in PhoneScreen.all {
         let shown = PhoneScreenRegistry.open(
           screen, in: harness, size: device.size, dark: dark, idiom: device.idiom)
-        try save(shown.window, to: folder.appendingPathComponent("\(screen).png"))
+        try save(shown.window, to: folder.appendingPathComponent("\(screen).png"), harness: harness)
         harness.close(shown.window)
       }
       for (name, entry) in editorEntries(harness) {
@@ -49,7 +49,7 @@ final class PhoneScreenShotDumpTests: XCTestCase {
           EditTransactionSheet(entry: entry), size: device.size, dark: dark,
           idiom: device.idiom == .pad ? .pad : nil)
         harness.settleStable(window)
-        try save(window, to: folder.appendingPathComponent("editor.\(name).png"))
+        try save(window, to: folder.appendingPathComponent("editor.\(name).png"), harness: harness)
         harness.close(window)
       }
     }
@@ -74,11 +74,8 @@ final class PhoneScreenShotDumpTests: XCTestCase {
     return found
   }
 
-  private func save(_ window: UIWindow, to url: URL) throws {
-    let image = UIGraphicsImageRenderer(bounds: window.bounds).image { _ in
-      window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
-    }
-    try XCTUnwrap(image.pngData()).write(to: url)
+  private func save(_ window: UIWindow, to url: URL, harness: PhoneHarness) throws {
+    try XCTUnwrap(harness.picture(of: window).pngData()).write(to: url)
   }
 
   func testScreensRuIPhone402() async throws { try await write(.russian, Self.phone402) }

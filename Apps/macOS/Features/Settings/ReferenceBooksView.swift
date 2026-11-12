@@ -152,12 +152,24 @@ struct ReferenceBooksView: View {
         }
       }
 
-      HStack(alignment: .top, spacing: 12) {
-        list
-          .frame(width: 240)
-        Divider()
-        detail
-          .frame(maxWidth: .infinity, alignment: .leading)
+      if LayoutIdiom.current == .phone {
+        // The list and the form of the chosen record side by side leave the form a column of
+        // two letters on a phone: one under the other.
+        VStack(alignment: .leading, spacing: 12) {
+          list
+            .frame(maxWidth: .infinity, minHeight: 220)
+          Divider()
+          detail
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+      } else {
+        HStack(alignment: .top, spacing: 12) {
+          list
+            .frame(width: 240)
+          Divider()
+          detail
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
       }
 
       if let note {

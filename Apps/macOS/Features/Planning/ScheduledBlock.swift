@@ -212,7 +212,7 @@ struct ScheduledRow: View {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
           Text(verbatim: payment.name)
             .appFont(.body.weight(.semibold))
-            .lineLimit(1)
+            .lineLimit(2)
           if Self.showsDetails(status, prices: prices) {
             Button {
               expanded.toggle()
@@ -235,6 +235,10 @@ struct ScheduledRow: View {
           }
           .buttonStyle(.borderless)
           .appFont(.callout)
+          // A word of a button is never broken over lines: «Про-/пустить» in three lines was
+          // what a narrow row made of it.
+          .lineLimit(1)
+          .fixedSize(horizontal: true, vertical: false)
         }
         MatchedDues(status: status)
         if expanded && Self.showsDetails(status, prices: prices) { details }

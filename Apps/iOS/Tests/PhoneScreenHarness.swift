@@ -181,7 +181,8 @@ final class PhoneHarness {
       environment: environment, store: store, compute: compute, session: session,
       directory: directory, dataDirectoryBefore: before)
     environment.language.choice = language
-    if withData { harness.loadSnapshot(language: language == .english ? "en" : "ru") }
+    await harness.startPipeline(
+      withData ? harness.sampleDataset(language: language == .english ? "en" : "ru") : Dataset(entries: []))
     return harness
   }
 
@@ -202,6 +203,7 @@ final class PhoneHarness {
 
   func tearDown() async {
     closeAll()
+    await compute.stop()
     environment.language.choice = languageBefore
     environment.theme.fontSize = fontSizeBefore
     await environment.close()
@@ -213,13 +215,13 @@ final class PhoneHarness {
     try? FileManager.default.removeItem(at: directory)
   }
 
-  private func loadSnapshot(language: String) {
+  fileprivate func sampleDataset(language: String) -> Dataset {
     let today = environment.today
     let set = SampleDataGenerator(seed: 20_261_112).generate(
       months: 6, endingOn: today, calendar: .system, language: language
     ).withEveryFeature(seed: 20_261_112, calendar: .system, language: language)
     sampleEntries = set.entries.filter { $0.transaction.deletedAt == nil }
-    let dataset = Dataset(
+    return Dataset(
       entries: set.entries, links: set.links, categories: set.categories, people: set.people,
       places: set.places, events: set.events, paymentMethods: set.paymentMethods,
       debts: set.debts, goals: set.goals, planning: set.planningBook,
@@ -229,11 +231,26 @@ final class PhoneHarness {
       cashbackRules: set.cashbackRules, banks: set.banks, assets: set.assets,
       assetValuations: set.assetValuations,
       capitalSettings: CapitalSettings(storedValues: set.settings))
-    compute.applyLight(
-      DataSnapshot.build(
-        dataset: dataset, calendar: .system, today: today,
-        context: SnapshotContext(rubPerUnit: [.usd: 95, .eur: 103]),
-        version: DataVersion(load: 0)))
+  }
+
+  /// The app's own pipeline over the synthetic book, run to its end: every block of every
+  /// screen is ready, not «Считается, ожидайте» — a picture taken before the run would show
+  /// the wait, not the screen.
+  fileprivate func startPipeline(_ dataset: Dataset) async {
+    let calendar = CalendarContext.system
+    let sources = ComputeSources(
+      loadData: { mark, today, _ in
+        DataSnapshot.build(
+          dataset: dataset, calendar: calendar, today: today,
+          context: SnapshotContext(rubPerUnit: [.usd: 95, .eur: 103]),
+          version: DataVersion(load: mark))
+      },
+      refineRates: { RefinementResult() })
+    compute.attach(sources, changes: nil)
+    compute.run()
+    for _ in 0..<400 where !compute.states.run.hasEnded {
+      try? await Task.sleep(for: .milliseconds(50))
+    }
   }
 
   // MARK: Windows
@@ -247,6 +264,9 @@ final class PhoneHarness {
       rootView: AnyView(content.environment(\.layoutIdiom, idiom).appDependencies(deps)))
     let scene = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first
     let window = scene.map { UIWindow(windowScene: $0) } ?? UIWindow()
+    // The simulator's screen is a narrow one with an inset of its own at the right, and every
+    // window gets it whatever its size. The window is made that much wider, so the room the
+    // screen has left is exactly `size.width`; the picture is cut to it (`picture(of:)`).
     window.frame = CGRect(origin: .zero, size: size)
     window.windowLevel = .alert + 1
     window.overrideUserInterfaceStyle = dark ? .dark : .light
@@ -254,20 +274,36 @@ final class PhoneHarness {
     let sizeClass: UIUserInterfaceSizeClass = size.width >= 600 ? .regular : .compact
     window.traitOverrides.horizontalSizeClass = sizeClass
     controller.traitOverrides.horizontalSizeClass = sizeClass
-    controller.safeAreaRegions = []
     window.rootViewController = controller
     window.isHidden = false
     controller.view.frame = window.bounds
-    // The simulator's screen (a narrow one with a hinge-like inset at its right) puts side
-    // insets on a window that overhangs it; a phone has none. Only the sides are cancelled.
-    let sides = window.safeAreaInsets
-    controller.additionalSafeAreaInsets = UIEdgeInsets(
-      top: 0, left: -sides.left, bottom: 0, right: -sides.right)
     windows.append(window)
     settle(window)
+    // Known only once the window is laid out: the inset is the same whatever the width.
+    let extra = window.safeAreaInsets.right
+    if extra > 0 {
+      window.frame = CGRect(
+        origin: .zero, size: CGSize(width: size.width + extra, height: size.height))
+      controller.view.frame = window.bounds
+    }
     Self.force(sizeClass, controller)
     settle(window)
     return (window, controller)
+  }
+
+  /// The part of the window that is the screen the test asked for: without the strip the
+  /// simulator's inset takes at the right.
+  func pictureBounds(of window: UIWindow) -> CGRect {
+    CGRect(
+      x: 0, y: 0, width: window.bounds.width - window.safeAreaInsets.right,
+      height: window.bounds.height)
+  }
+
+  func picture(of window: UIWindow) -> UIImage {
+    let bounds = pictureBounds(of: window)
+    return UIGraphicsImageRenderer(bounds: bounds).image { _ in
+      window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
+    }
   }
 
   /// SwiftUI's `TabView` makes its own tab-bar controller, which reads the traits of the screen
@@ -318,14 +354,15 @@ final class PhoneHarness {
   }
 
   func leaves(of window: UIWindow, in root: UIView? = nil) -> [AXLeaf] {
-    AXTree.leaves(in: root ?? window, window: window)
+    // The strip the simulator's inset takes at the right is no part of the screen: its toolbar
+    // draws there as a column of its own, which a phone does not have.
+    let edge = window.bounds.width - window.safeAreaInsets.right
+    return AXTree.leaves(in: root ?? window, window: window).filter { $0.frame.minX < edge - 10 }
   }
 
   /// A picture of the window, kept with the result of the test.
   func attachPicture(of window: UIWindow, named name: String, to test: XCTestCase) {
-    let image = UIGraphicsImageRenderer(bounds: window.bounds).image { _ in
-      window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
-    }
+    let image = picture(of: window)
     let attachment = XCTAttachment(image: image)
     attachment.name = name
     attachment.lifetime = .keepAlways
@@ -340,7 +377,9 @@ struct PhoneLayoutAudit {
 
   /// Nothing wider than the screen or cut at its sides, every control a finger wide, and the
   /// bar and the «+» each in their own place.
-  func problems(_ shown: PhoneScreenShown, size: CGSize) -> [String] {
+  func problems(
+    _ shown: PhoneScreenShown, size: CGSize, reachesRightMargin: Bool = false
+  ) -> [String] {
     let leaves = harness.leaves(of: shown.window, in: shown.content)
     var found: [String] = []
     if leaves.isEmpty { found.append("nothing is reachable on the screen") }
@@ -353,6 +392,13 @@ struct PhoneLayoutAudit {
         found.append(
           "\(name) leaves the width: x \(Int(leaf.frame.minX)) … \(Int(leaf.frame.maxX))")
       }
+    }
+    // A page that stops short of the right margin was laid out for a narrower window than it
+    // has: the wide things (cards, rows, fields) end near the right edge, a margin away. Asked
+    // of the Overview only, as the canary of the test window itself: a page may be empty.
+    let wide = leaves.filter { !$0.scrollsSideways && $0.frame.width >= size.width * 0.4 }
+    if reachesRightMargin, let right = wide.map(\.frame.maxX).max(), right < size.width - 64 {
+      found.append("the content stops at x \(Int(right)) of \(Int(size.width))")
     }
     if shown.hasShell { found += shellProblems(leaves, size: size) }
     return found
@@ -378,10 +424,14 @@ struct PhoneLayoutAudit {
       environment.language("accounts.section.accounts", table: "Accounts"),
       environment.language("phone.tab.more", table: "Phone"),
     ]
-    // A page may have a control of the same name (a tab of the calendar): the bar's is the lowest.
-    let bar = barTitles.compactMap { title in
-      leaves.filter { $0.label == title && $0.isControl }.max { $0.frame.maxY < $1.frame.maxY }
+    // A page may have controls of the same names (the calendar's «Обзор» and «Операции»), and
+    // content runs under the bar: the bar's are the five in one row near the bottom.
+    let candidates = leaves.filter {
+      barTitles.contains($0.label) && $0.isControl && $0.frame.maxY > size.height - 60
     }
+    // Rows are told apart by their lower edge, give or take the lift of the open tab's pill.
+    let rows = Dictionary(grouping: candidates) { Int($0.frame.maxY / 12) }
+    let bar = rows.values.max { Set($0.map(\.label)).count < Set($1.map(\.label)).count } ?? []
     var found: [String] = []
     if bar.count != barTitles.count {
       found.append("the bar shows \(bar.count) of \(barTitles.count) sections")
