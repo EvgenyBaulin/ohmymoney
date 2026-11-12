@@ -48,7 +48,7 @@ public final class EntryDraftModel {
   /// what it was charged is still worked out from its currencies.
   private var allAccounts: [PaymentMethod] = []
   /// Naming validation needs archived parents too, so their cards do not reserve live names.
-  var namingAccounts: [PaymentMethod] { allAccounts.isEmpty ? paymentMethods : allAccounts }
+  var accountsForNameCheck: [PaymentMethod] { allAccounts.isEmpty ? paymentMethods : allAccounts }
   public var events: [Event] = []
   public var goals: [Goal] = []
   public var debts: [Debt] = []

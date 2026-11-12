@@ -127,7 +127,7 @@ struct NewRecordForm {
     guard !ReferenceNames.folded(trimmedName).isEmpty else { return "entry.add.nameMissing" }
     guard kind == .paymentMethod else { return nil }
     let account = PaymentMethod(name: trimmedName)
-    return AccountRules.nameConflict(account, accounts: model.namingAccounts, cards: model.cards)
+    return AccountRules.nameConflict(account, accounts: model.accountsForNameCheck, cards: model.cards)
       == nil ? nil : "entry.add.nameTaken"
   }
 
