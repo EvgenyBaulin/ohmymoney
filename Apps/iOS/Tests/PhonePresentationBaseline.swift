@@ -50,6 +50,8 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Import/StatementImportFlow.swift": 1,
     "Apps/macOS/Features/Import/StatementImportPresenter.swift": 1,
     "Apps/macOS/Features/Import/StatementImportSettings.swift": 4,
+    // The sheet of SMS formats: a list and forms, laid out by the phone walk of Settings.
+    "Apps/macOS/Features/MacFeatures/AutoEntry/AutoEntrySettingsSection.swift": 1,
     "Apps/macOS/Features/MacFeatures/MacFeaturesHost.swift": 1,
     "Apps/macOS/Features/Migration/MigrationPresenter.swift": 1,
     "Apps/macOS/Features/Onboarding/AccountSetupOffer.swift": 2,

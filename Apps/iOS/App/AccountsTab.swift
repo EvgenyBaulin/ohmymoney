@@ -31,32 +31,41 @@ struct AccountsTab<Entry: View>: View {
   var body: some View {
     Group {
       if sizeClass == .regular {
-        // Keep both columns in the window without the split view's automatic toolbar controls.
-        HStack(spacing: 0) {
-          if visibility != .detailOnly {
-            NavigationStack { sidebar }
-              .frame(width: CGFloat(PadLayout.sidebarWidth))
-            Divider()
-          }
-          NavigationStack {
-            accountContent
-              .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                  Button {
-                    visibility = visibility == .detailOnly ? .all : .detailOnly
-                  } label: {
-                    Image(systemName: "sidebar.left")
-                      .frame(width: 44, height: 44)
-                  }
-                  .accessibilityLabel(
-                    Text(
-                      verbatim: environment.language("accounts.section.accounts", table: "Accounts")
+        // Two columns of our own: the system split view's toggle hung past the left edge. A
+        // navigation stack extends under the safe area at the side, so the columns are held to
+        // what the reader sees: the part of the window inside the safe area.
+        GeometryReader { proxy in
+          HStack(spacing: 0) {
+            if visibility != .detailOnly {
+              NavigationStack { sidebar }
+                .frame(width: CGFloat(PadLayout.sidebarWidth))
+              Divider()
+            }
+            NavigationStack {
+              accountContent
+                .toolbar {
+                  ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                      visibility = visibility == .detailOnly ? .all : .detailOnly
+                    } label: {
+                      Image(systemName: "sidebar.left")
+                        .frame(width: 44, height: 44)
+                    }
+                    .accessibilityLabel(
+                      Text(
+                        verbatim: environment.language(
+                          "accounts.section.accounts", table: "Accounts")
+                      )
                     )
-                  )
-                  .accessibilityIdentifier("accounts.toggleSidebar")
+                    .accessibilityIdentifier("accounts.toggleSidebar")
+                  }
                 }
-              }
+            }
+            // A navigation stack draws under the safe area at its edge and its list lays rows
+            // across it: the stack stops where the reader's room does.
+            .padding(.trailing, proxy.safeAreaInsets.trailing)
           }
+          .frame(width: proxy.size.width, height: proxy.size.height)
         }
       } else {
         NavigationSplitView {

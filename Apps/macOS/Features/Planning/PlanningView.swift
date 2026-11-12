@@ -35,6 +35,11 @@ struct PlanningView: View {
   @State private var tab: PlanningTab
   /// The whole block of the free sum, opened from the title of the card at the top.
   @State private var showsFree = false
+  #if os(iOS)
+    /// The width the scroll view really shows: the page is held to it, not to what the
+    /// reader's proposal says, which can stand wider under a safe area at the side.
+    @State private var scrollWidth: CGFloat = 0
+  #endif
 
   init(layout: PlanningLayoutStore = .shared, tab: PlanningTab = .all) {
     self.layout = layout
@@ -60,7 +65,11 @@ struct PlanningView: View {
         ledger: snapshot.ledger)
     }
     GeometryReader { proxy in
-      let content = max(0, proxy.size.width - 2 * pageSide)
+      #if os(iOS)
+        let content = max(0, (scrollWidth > 0 ? scrollWidth : proxy.size.width) - 2 * pageSide)
+      #else
+        let content = max(0, proxy.size.width - 2 * pageSide)
+      #endif
       ScrollView {
         VStack(
           alignment: .leading,
@@ -79,6 +88,13 @@ struct PlanningView: View {
         .padding(.top, PlanningMetrics.pageTop)
         .padding(.bottom, PlanningMetrics.pageBottom)
       }
+      #if os(iOS)
+        .onScrollGeometryChange(for: CGFloat.self) {
+          $0.containerSize.width
+        } action: { _, width in
+          scrollWidth = width
+        }
+      #endif
     }
     .background(surfaces.background)
     .screenNavigationTitle(environment.language("section.planning"))
