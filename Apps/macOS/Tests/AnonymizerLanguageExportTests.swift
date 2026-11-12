@@ -80,7 +80,8 @@ final class AnonymizerLanguageExportTests: XCTestCase {
     XCTAssertEqual(portable["theme.scheme"], "dark")
     let file = directory.appendingPathComponent("migration-copy.sqlite")
     try XCTUnwrap(opened.database).write(to: file)
-    let copy = try DatabaseQueue(path: file.path)
+    // Opened through the app's own stack: the test target does not link GRDB's initialisers.
+    let copy = try DatabaseStack(url: file, schema: BundleSchemaSource(bundle: .main)).writer
     for key in memories.keys {
       XCTAssertNil(portable[key])
       let copied = try copy.read { db in
