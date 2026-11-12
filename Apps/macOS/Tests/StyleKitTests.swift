@@ -74,8 +74,11 @@ final class StyleKitTests: XCTestCase {
     XCTAssertEqual(content.tone, .bad)
     XCTAssertEqual(
       content.verdict, environment.language("overview.verdict.short", table: "Overview"))
+    // Below zero the title keeps «Свободно сейчас» and never shows a negative sum (0627); what
+    // is short for the payments is the line under it.
+    XCTAssertFalse(content.title.contains("−"), content.title)
     XCTAssertTrue(
-      content.title.contains(environment.money.rounded(AmountE4(whole: 3_000))), content.title)
+      content.line.contains(environment.money.rounded(AmountE4(whole: 3_000))), content.line)
   }
 
   /// The main card and «Из чего складывается сумма» show one free sum — the configured one —

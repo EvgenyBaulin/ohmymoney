@@ -65,6 +65,7 @@ struct CanSaveTests: SavingsFixtures {
     #expect(result.low == nil)
     #expect(result.high == nil)
     #expect(result.canSaveMore == nil)
+    #expect(result.shortfall == nil)
     #expect(result.lines.isEmpty)
     #expect(result.alreadySaved == rub("500"))
     #expect(result.lowData)
@@ -105,6 +106,65 @@ struct CanSaveTests: SavingsFixtures {
   }
 
   // MARK: - Savings rate
+
+  @Test func negativeSavingsBecomeAnOrderedPositiveShortfall() throws {
+    let result = CanSave(
+      CanSaveInputs(
+        income: income("100000"), spentWithoutGoals: rub("90000"),
+        plannedStillDue: rub("15000"),
+        remainder: remainder(p10: "2441", middle: "20000", p90: "269947"),
+        alreadySaved: .zero))
+    let shortfall = try #require(result.shortfall)
+    #expect(shortfall.low == rub("7441"))
+    #expect(shortfall.high == rub("274947"))
+    #expect(result.cannotSave)
+    #expect(result.canSaveMore == .zero)
+  }
+
+  @Test func aRangeCrossingZeroNeverOffersNegativeSavings() throws {
+    let result = CanSave(
+      CanSaveInputs(
+        income: income("100"), spentWithoutGoals: rub("90"), plannedStillDue: .zero,
+        remainder: remainder(p10: "0", middle: "5", p90: "20"), alreadySaved: .zero))
+    let shortfall = try #require(result.shortfall)
+    #expect(shortfall.low == .zero)
+    #expect(shortfall.high == rub("10"))
+    #expect(!result.cannotSave)
+  }
+
+  @Test func fundingHintsUsePositiveExistingSourcesAndAtMostTwo() {
+    let cut = CanSave.FundingHint.category(uid(10), rub("1200"))
+    #expect(
+      CanSave.fundingHints(goals: rub("3000"), cushion: rub("5000"), cuts: [cut])
+        == [.goals(rub("3000")), .cushion(rub("5000"))])
+    #expect(CanSave.fundingHints(goals: .zero, cushion: rub("-1"), cuts: [cut]) == [cut])
+    #expect(CanSave.fundingHints(goals: .zero, cushion: .zero, cuts: []).isEmpty)
+  }
+
+  @Test func theSnapshotSuggestsCategoryCutsFromExistingLimitSuggestions() throws {
+    var fx = CashFx()
+    for month in ["2026-06-10", "2026-07-10", "2026-08-10"] {
+      fx.add(.expense, "12000", at: CashFx.at(month, 12), category: CashFx.fun)
+    }
+    let snapshot = fx.snapshot()
+    let forecast = remainder(p10: "120000", middle: "130000", p90: "140000")
+    var planning = snapshot
+    planning.income = income("100000")
+    let result = planning.canSave(remainder: forecast, ledger: fx.ledger)
+    #expect(result.shortfall != nil)
+    // The cut is the gap between the two limits «Предложить лимиты…» offers, each rounded up
+    // to 1 000: 12 000 usual, 10 800 → 11 000 a tenth less.
+    #expect(result.fundingHints == [.category(CashFx.fun, rub("1000"))])
+  }
+
+  @Test func theSnapshotDoesNotInventAMonetarySourceWithoutData() {
+    var planning = CashFx().snapshot()
+    planning.income = income("100000")
+    planning.spentWithoutGoals = rub("120000")
+    let result = planning.canSave(remainder: remainder(p10: "0", middle: "0", p90: "0"))
+    #expect(result.shortfall != nil)
+    #expect(result.fundingHints.isEmpty)
+  }
 
   /// September: 100 000 of income (40 000 of it arriving on 3 October, marked «for
   /// September»), 10 000 − 2 000 into goals: 8 000 ÷ 100 000 = 800 bp, below a 10 % target

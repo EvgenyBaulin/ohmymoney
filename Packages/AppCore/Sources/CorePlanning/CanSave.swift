@@ -60,6 +60,46 @@ public struct CanSaveInputs: Hashable, Sendable {
 /// brings. Without an income estimate there is no advice, only «not enough data»; a thin
 /// history on either side keeps the numbers and raises `lowData`.
 public struct CanSave: Hashable, Sendable {
+  public struct Shortfall: Hashable, Sendable {
+    public var low: AmountE4
+    public var high: AmountE4
+  }
+
+  public enum FundingHint: Hashable, Sendable {
+    case goals(AmountE4)
+    case cushion(AmountE4)
+    case category(UUID, AmountE4)
+    case variable(AmountE4)
+  }
+
+  /// Sources already calculated by planning; a suggestion never moves money itself.
+  public var fundingHints: [FundingHint] = []
+
+  public var cannotSave: Bool { p50.map { $0 < .zero } ?? false }
+
+  /// A negative forecast is a shortage, never an amount that can be saved. A range crossing
+  /// zero describes the downside as a shortage too, without offering negative savings.
+  public var shortfall: Shortfall? {
+    guard let low, let high, low < .zero else { return nil }
+    return Shortfall(low: max(.zero, -high), high: -low)
+  }
+
+  public static func fundingHints(
+    goals: AmountE4, cushion: AmountE4, cuts: [FundingHint]
+  ) -> [FundingHint] {
+    var hints: [FundingHint] = []
+    if goals > .zero { hints.append(.goals(goals)) }
+    if cushion > .zero { hints.append(.cushion(cushion)) }
+    hints.append(
+      contentsOf: cuts.filter { hint in
+        switch hint {
+        case .category(_, let amount), .variable(let amount): amount > .zero
+        case .goals, .cushion: false
+        }
+      })
+    return Array(hints.prefix(2))
+  }
+
   public enum Status: Hashable, Sendable {
     case ready
     case notEnoughData(reasonKey: String)

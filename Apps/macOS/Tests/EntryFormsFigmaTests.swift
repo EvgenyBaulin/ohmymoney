@@ -176,11 +176,15 @@ final class EntryFormsFigmaTests: SectionFigmaHarness {
       let capsule = try frame(of: "entry.line.capsule", in: window)
       let panel = try frame(of: "entry.details.panel", in: window)
       let chips = try frame(of: "entry.templates", in: window)
-      // With the panel open the accessibility frames of the capsule and the panel are their
-      // content's: the glass edge lies outside them by the capsule's and the panel's own insets
-      // (the capsule's own full frame is checked, panel closed, by the 1440 line test above).
+      // The capsule is the design's 520 wide with the panel open as well as closed (the
+      // closed one is also checked by the 1440 line test above): every control lies inside.
       let line = EntryLineMetrics.of(.mac)
-      XCTAssertEqual(capsule.width + line.leading + line.trailing, 520, accuracy: 2)
+      XCTAssertEqual(capsule.width, 520, accuracy: 2)
+      let attachment = try frame(of: "entry.attachment", in: window)
+      let send = try frame(of: "entry.line.send", in: window)
+      XCTAssertGreaterThanOrEqual(attachment.minX, capsule.minX)
+      XCTAssertLessThanOrEqual(attachment.maxX, send.minX)
+      XCTAssertEqual(capsule.maxX - send.maxX, line.trailing, accuracy: 1.5)
       XCTAssertEqual(panel.width + 2 * EntryPanelMetrics.padding, 720, accuracy: 1)
       XCTAssertEqual(chips.width, 480, accuracy: 1)
       XCTAssertEqual(panel.midX, capsule.midX, accuracy: 1)

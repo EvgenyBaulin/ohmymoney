@@ -376,7 +376,8 @@ final class DataScenarioPortableSettingsTests: XCTestCase {
   }
 
   func testALanguageThisBuildDoesNotSpeakIsIgnored() throws {
-    try apply(["language": "de"])
+    // German is an interface language now; Finnish is not among them.
+    try apply(["language": "fi"])
     XCTAssertNil(defaults.string(forKey: "app.language"))
   }
 

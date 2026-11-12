@@ -794,6 +794,9 @@ struct EntryBar<Accessory: View>: View {
               // its keys — Tab into the panel — to itself.
               .popoverTip(EntryLineTip(), arrowEdge: .top)
             entryTextField
+              // The native editor may shrink when another action is added to the capsule.
+              // Its intrinsic prompt width must not push the quiet symbols outside the bar.
+              .frame(minWidth: 0, maxWidth: .infinity)
 
             EntryAttachmentButton(environment: environment, iconSize: line.icon)
 

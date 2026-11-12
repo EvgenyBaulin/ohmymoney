@@ -435,6 +435,16 @@ struct TransactionEditor: View {
   enum Tab: Hashable { case details, history }
   @State private var tab: Tab = .details
 
+  /// A phone or a tablet has no room for the Mac's grid of labels and controls (the sheet is
+  /// as wide as the screen): the fields stand in one column, each label above its control.
+  static var arrangement: DetailsPanel.Arrangement {
+    #if os(iOS)
+      .column
+    #else
+      .wide
+    #endif
+  }
+
   var body: some View {
     VStack(alignment: .leading, spacing: style == .sheet ? 16 : 12) {
       header
@@ -456,7 +466,8 @@ struct TransactionEditor: View {
           switch tab {
           case .details:
             DetailsPanel(
-              model: editor.draft, submit: saveOnReturn, hasRoomForSegments: style == .sheet
+              model: editor.draft, submit: saveOnReturn, arrangement: Self.arrangement,
+              hasRoomForSegments: style == .sheet
             )
             AttachedFilesCard(owner: .transaction, id: editor.id)
           case .history:
@@ -465,7 +476,8 @@ struct TransactionEditor: View {
         }
         .padding(.vertical, 2)
       }
-      .frame(minWidth: style == .sheet ? 620 : nil, minHeight: style == .sheet ? 360 : nil)
+      .sheetFrame(
+        minWidth: style == .sheet ? 620 : nil, minHeight: style == .sheet ? 360 : nil)
 
       // Wraps in the width it is given, never fixed to its full height: the inspector is a
       // column of a split view, and a text fixed that way made the column's minimum the text
