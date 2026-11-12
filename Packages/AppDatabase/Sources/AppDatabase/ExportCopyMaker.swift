@@ -111,10 +111,13 @@ public struct ExportCopyMaker: Sendable {
       sql: "DELETE FROM settings WHERE key = ?", arguments: [SQLAnonymizer.legacyStatementReviewKey]
     )
     if case .period(let range) = request.scope {
-      for value in try ThingValuationRepository.all(db) where !range.contains(value.day) {
-        try db.execute(
-          sql: "DELETE FROM thing_valuations WHERE id = ?", arguments: [value.id.uuidString])
-      }
+      // In SQL on the stored day, so a row this build cannot read is cut as well, never kept.
+      try db.execute(
+        sql: """
+          DELETE FROM thing_valuations
+          WHERE valued_on IS NULL OR valued_on < ? OR valued_on > ?
+          """,
+        arguments: [range.start.iso, range.end.iso])
       // The day an operation is shown on, in the zone it was recorded in; a transfer has no zone
       // and is read in Moscow, as everywhere else.
       let outside = try CoreKit.Transaction.fetchAll(db)
