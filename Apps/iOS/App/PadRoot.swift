@@ -97,7 +97,9 @@ struct PadRoot<Entry: View>: View {
     .accountsSidebarPresentations(accounts, selection: $accountSelection)
     .navigationSplitViewColumnWidth(PadLayout.sidebarWidth)
     .navigationTitle(Text(verbatim: "OhMyMoney"))
-    .safeAreaInset(edge: .bottom, spacing: 0) { foot }
+    .scrollContentBackground(.hidden)
+    .background(surfaces.sidebar)
+    .padSidebarFoot(background: surfaces.sidebar) { foot }
     .onChange(of: accountSelection) { _, new in
       if router.tab != .accounts || router.accountsSelection != nil { router.open(item: new) }
     }
@@ -256,6 +258,20 @@ struct PadRoot<Entry: View>: View {
       BankScreen(bankId: id).id(id)
     default:
       GroupScreen(scope: .summary, actions: actions) { accountSelection = .account($0) }
+    }
+  }
+}
+
+extension View {
+  /// The foot of the sidebar takes a place of its own under the list: the list ends above it and
+  /// scrolls there, and the foot is painted over, so a row scrolled behind it does not show.
+  func padSidebarFoot<Foot: View>(
+    background: Color, @ViewBuilder foot: () -> Foot
+  ) -> some View {
+    safeAreaInset(edge: .bottom, spacing: 0) {
+      foot()
+        .frame(maxWidth: .infinity)
+        .background(background, ignoresSafeAreaEdges: .bottom)
     }
   }
 }
