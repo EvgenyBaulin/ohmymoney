@@ -544,6 +544,7 @@ struct DetailsPanel: View {
           prominent: true
         )
         .frame(width: 180)
+        .accessibilityIdentifier("entry.totalAmount")
         .focused($focus, equals: .amount)
         // One part is the whole operation: its amount is the total.
         .disabled((!model.isSplit && model.hasClosedPart) || moneyLocked)
@@ -560,16 +561,20 @@ struct DetailsPanel: View {
             .appFont(.caption.monospaced())
             .foregroundStyle(.secondary)
         }
-        // Another currency than the default one: grey «≈ 1,240 ₽», display only.
-        if let approximate = ApproximateText.of(
-          amount: model.draft.amount, currency: model.draft.currency, environment: environment,
-          compute: compute)
-        {
-          Text(verbatim: approximate)
-            .appFont(.caption.monospacedDigit())
-            .foregroundStyle(.secondary)
-            .accessibilityIdentifier("entry.approximate")
-        }
+      }
+    }
+    // Keep the conversion below the amount, with the full field width even in an inspector.
+    if let approximate = ApproximateText.of(
+      amount: model.draft.amount, currency: model.draft.currency, environment: environment,
+      compute: compute)
+    {
+      fieldRow(nil, alone: true) {
+        Text(verbatim: approximate)
+          .appFont(.caption.monospacedDigit())
+          .foregroundStyle(.secondary)
+          .lineLimit(1)
+          .minimumScaleFactor(0.7)
+          .accessibilityIdentifier("entry.approximate")
       }
     }
     // An income in a category with a tax: grey «налог ≈ 240 ₽ (4 %)», never money.

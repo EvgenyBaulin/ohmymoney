@@ -54,6 +54,12 @@ public struct TripSummary: Hashable, Sendable {
   public var byCurrency: [CurrencyAmount]
   /// The budget in rubles; `nil` — the trip has none.
   public var budget: AmountE4?
+  /// Budget consumed in basis points; absent without a positive budget.
+  public var budgetUsedBasisPoints: Int? {
+    guard let budget, let ratio = Shares.ratio(total, of: budget) else { return nil }
+    return max(0, ratio)
+  }
+
   /// Budget minus total; negative when over.
   public var versusBudget: AmountE4? { budget.map { $0 - total } }
   /// The people who still owe, largest debt first; nobody owing is an empty list, and so is a
