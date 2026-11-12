@@ -63,8 +63,10 @@ struct AccessibleMenu<Content: View>: View {
     func makeCoordinator() -> Coordinator { Coordinator() }
 
     func makeNSView(context: Context) -> NSButton {
-      let button = NSButton()
+      let button = MenuTriggerButton()
       button.isBordered = false
+      button.setAccessibilityElement(true)
+      button.setAccessibilityChildrenInNavigationOrder([])
       button.target = context.coordinator
       button.action = #selector(Coordinator.openMenu(_:))
       updateNSView(button, context: context)
@@ -73,7 +75,8 @@ struct AccessibleMenu<Content: View>: View {
 
     func updateNSView(_ button: NSButton, context: Context) {
       button.title = showsTitle ? title : ""
-      button.image = NSImage(systemSymbolName: symbol, accessibilityDescription: title)
+      // The symbol is decorative. The button itself owns the title and press action.
+      button.image = NSImage(systemSymbolName: symbol, accessibilityDescription: nil)
       button.imagePosition = showsTitle ? .imageLeading : .imageOnly
       button.contentTintColor = tint.map { NSColor($0) }
       button.isEnabled = isEnabled
@@ -92,5 +95,11 @@ struct AccessibleMenu<Content: View>: View {
         menu.popUp(positioning: nil, at: NSPoint(x: 0, y: sender.bounds.minY), in: sender)
       }
     }
+  }
+
+  /// A menu trigger is one AX leaf. Exporting an image/cell beneath the representable can
+  /// give it a different AX parent from the one AppKit reports to the audit.
+  private final class MenuTriggerButton: NSButton {
+    override func accessibilityChildren() -> [Any]? { [] }
   }
 #endif

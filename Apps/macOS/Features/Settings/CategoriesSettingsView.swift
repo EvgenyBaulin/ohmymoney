@@ -425,7 +425,10 @@ struct CategoriesSettingsView: View {
 
   /// The «…» of a row: tax and essential choices, basket, delete and archive.
   private func rowMenu(_ category: CoreKit.Category, tree: CategoryTree) -> some View {
-    Menu {
+    AccessibleMenu(
+      SettingsRowMenu.label(category.name, environment), systemImage: "ellipsis.circle",
+      identifier: "categories.row.menu"
+    ) {
       if kind == .income, selfEmployment.enabled {
         Picker(selection: taxBinding(for: category, tree: tree)) {
           ForEach(
@@ -478,19 +481,7 @@ struct CategoriesSettingsView: View {
           setArchived(category, true)
         }
       }
-    } label: {
-      // Named by its category, like the «…» of every row of Справочники: the bare symbol
-      // was read as «More» on every row alike.
-      Image(systemName: "ellipsis.circle")
-        .accessibilityLabel(
-          Text(
-            verbatim: environment.format(
-              "references.rowMenu", table: "Settings", category.name)))
     }
-    .menuStyle(.borderlessButton)
-    .menuIndicator(.hidden)
-    .fixedSize()
-    .accessibilityIdentifier("categories.row.menu")
   }
 
   /// The mark of the row, which opens the picker of its symbol and colour. It shows what the

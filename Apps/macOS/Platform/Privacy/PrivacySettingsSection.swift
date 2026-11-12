@@ -5,6 +5,7 @@ import SwiftUI
 /// books. Turning the lock on asks Touch ID or the password of the Mac, then the app's password.
 struct PrivacySettingsSection: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.appTheme) private var theme
   /// The lock the section shows: the app's own, unless a test hands one that answers as it says.
   var lockShown: PrivacyLock?
   @State private var passwordSheet: LockPasswordSheet.Purpose?
@@ -45,17 +46,23 @@ struct PrivacySettingsSection: View {
         }
       }
 
-      Picker(selection: $lock.idleMinutes) {
-        ForEach(PrivacyLock.idleChoices, id: \.self) { minutes in
-          Text(
-            verbatim: environment.language("settings.privacy.idle.\(minutes)", table: "Settings")
-          )
-          .tag(minutes)
+      LabeledContent {
+        Picker(selection: $lock.idleMinutes) {
+          ForEach(PrivacyLock.idleChoices, id: \.self) { minutes in
+            Text(
+              verbatim: environment.language("settings.privacy.idle.\(minutes)", table: "Settings")
+            )
+            .tag(minutes)
+          }
+        } label: {
+          Text(verbatim: environment.language("settings.privacy.idle", table: "Settings"))
         }
+        .labelsHidden()
+        .disabled(!lock.isEnabled)
       } label: {
         Text(verbatim: environment.language("settings.privacy.idle", table: "Settings"))
+          .foregroundStyle(Color(theme.palette.cardText))
       }
-      .disabled(!lock.isEnabled)
 
       if lock.isEnabled {
         passwordRow(lock)

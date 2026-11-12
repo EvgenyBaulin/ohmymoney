@@ -123,6 +123,39 @@ final class ThemeCatalogTests: XCTestCase {
     }
   }
 
+  func testCardAndRibbonInksAreReadableOnTheirActualSurfacesInEveryTheme() {
+    for (id, scheme, p) in palettes {
+      for (ink, surface) in [
+        (p.cardText, p.surfaceCard),
+        (p.tintedCardText, p.accentTint.composited(over: p.surfaceCard)),
+        (p.plannedDayText, p.accentTint.composited(over: p.surfaceCard)),
+        (p.emptyDayText, p.fillNeutral.composited(over: p.surfaceCard)),
+      ] {
+        XCTAssertGreaterThanOrEqual(ink.contrast(on: surface), 4.5, "\(id) \(scheme)")
+      }
+    }
+  }
+
+  func testWarmHeroSmallTextIsReadableAtBothGradientStops() {
+    for p in [ThemeCatalog.all[0].light, ThemeCatalog.all[0].dark] {
+      for surface in [p.heroStart, p.heroEnd] {
+        XCTAssertGreaterThanOrEqual(p.heroText.contrast(on: surface), 4.5)
+      }
+    }
+  }
+
+  func testGradientInkPreservesPassingTextAndFindsOneColourForBothStops() {
+    let white = ThemeColor(0xFFFF_FFFF)
+    let black = ThemeColor(0x0000_00FF)
+    let light = [white, ThemeColor(0xEEEE_EEFF)]
+    XCTAssertEqual(black.ensuringTextContrast(on: light), black)
+    // Sequential single-surface correction can undo the first correction. One ink must be
+    // checked against both stops on every search iteration.
+    let warm = [ThemeColor(0xF5A8_3AFF), ThemeColor(0xC269_2BFF)]
+    let adjusted = white.ensuringTextContrast(on: warm)
+    for surface in warm { XCTAssertGreaterThanOrEqual(adjusted.contrast(on: surface), 4.5) }
+  }
+
   func testTextOnTheHeroIsReadableExceptOnTheLightOrange() {
     for (id, scheme, p) in palettes where !Self.whiteOnHeroExceptions.contains(id) {
       XCTAssertGreaterThanOrEqual(p.heroContent.contrast(on: p.heroEnd), 3, "\(id) \(scheme)")

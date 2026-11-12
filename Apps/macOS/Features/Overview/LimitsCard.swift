@@ -107,13 +107,16 @@ struct LimitTileRow: View {
             .accessibilityHidden(true)
           Text(verbatim: row.statusWord)
             .appFont(StyleType.tileHintMedium)
-            .foregroundStyle(row.status == .ok ? theme.contentPrimary : Self.ink(row.status, theme))
+            .foregroundStyle(Self.textInk(row.status, theme))
             .lineLimit(1)
         }
         .fixedSize()
       }
     }
-    .accessibilityElement(children: .combine)
+    // Keep the decorative bar out of the text's AX bounds: a combined StaticText rectangle
+    // included the bar's pixels in the contrast audit even though the bar is AX-hidden.
+    .accessibilityElement(children: .contain)
+    .accessibilityLabel(Text(verbatim: row.name))
   }
 
   /// The bar and the symbol: red over the limit, the warning ink close to it, green within.
@@ -123,6 +126,17 @@ struct LimitTileRow: View {
     case .warning: theme.contentWarning
     case .ok: theme.statusPositive
     }
+  }
+
+  static func textInk(_ status: LimitStatus, _ theme: AppThemeColors) -> Color {
+    let palette = theme.palette
+    let ink: ThemeColor =
+      switch status {
+      case .over: palette.statusNegative
+      case .warning: palette.contentWarning
+      case .ok: palette.contentPrimary
+      }
+    return Color(ink.ensuringTextContrast(on: palette.surfaceCard))
   }
 }
 

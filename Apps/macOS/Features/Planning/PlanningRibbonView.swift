@@ -126,7 +126,7 @@ struct PlanningRibbonView: View {
     ) {
       Text(verbatim: "\(day.day.day)")
         .appFont(compact ? PlanningType.phoneDayNumber : PlanningType.dayNumber)
-        .foregroundStyle(planned ? theme.accentDefault : theme.contentPrimary)
+        .foregroundStyle(Color(planned ? theme.palette.plannedDayText : theme.palette.emptyDayText))
       HStack(spacing: 2) {
         if !day.payments.isEmpty { markImage(.payment) }
         if !day.incomes.isEmpty { markImage(.income) }

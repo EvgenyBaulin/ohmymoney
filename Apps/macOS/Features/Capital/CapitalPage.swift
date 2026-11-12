@@ -154,7 +154,7 @@ struct CapitalHeroCard: View {
         }
       }
     }
-    .foregroundStyle(theme.heroContent)
+    .foregroundStyle(Color(theme.palette.heroText))
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(CapitalMetrics.heroPadding)
     .background(

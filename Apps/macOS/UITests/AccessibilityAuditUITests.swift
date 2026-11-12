@@ -72,12 +72,17 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
     try auditSettings("planning", ready: "settings.planning.freeMoneyHorizon")
   }
 
-  func testAccountMenuTriggerOpensItsCommands() {
+  func testAccountMenuTriggerOpensItsCommands() throws {
     let app = launch(section: "overview")
     defer { app.terminate() }
     let trigger = mainWindow(app).buttons["sidebar.accounts.add"]
     XCTAssertTrue(trigger.waitForExistence(timeout: 30), "No actionable account menu button")
     XCTAssertFalse(trigger.label.isEmpty, "The account menu trigger needs a description")
+    let buttonTree = try trigger.snapshot()
+    XCTAssertTrue(
+      buttonTree.children.isEmpty,
+      "The menu trigger must be one AX leaf; children: \(buttonTree.children.map { "\($0.elementType): \($0.label)" })"
+    )
     trigger.click()
     let command = app.menuItems["New Account…"]
     XCTAssertTrue(command.waitForExistence(timeout: 10), "The native trigger did not open its menu")
@@ -100,9 +105,11 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
     }
     let split = main.buttons["entry.split.addPart"]
     XCTAssertTrue(split.waitForExistence(timeout: 20), "No Split button in entry details")
-    // SwiftUI may export the scroll container as a group, so match any element type.
-    let scroll = descendant(main, "entry.details.scroll")
-    XCTAssertTrue(scroll.waitForExistence(timeout: 10), "No scroll view in entry details")
+    // The inner ScrollView is flattened by the glass host, but the panel is a named AX
+    // container. macOS scroll(byDeltaX:deltaY:) sends wheel events to its centre regardless
+    // of its AX role, so it does not need a separately exported ScrollView.
+    let scroll = descendant(main, "entry.details.panel")
+    XCTAssertTrue(scroll.waitForExistence(timeout: 10), "No entry details panel")
     // The split action is in the footer of a height-capped panel. Finding it in AX does
     // not make it visible: scroll the panel itself rather than the main window behind it.
     for _ in 0..<12 {
@@ -212,9 +219,36 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
   }
 
   private func audit(_ app: XCUIApplication, window: XCUIElement, name: String) throws {
-    try XCTContext.runActivity(named: "Accessibility audit: \(name)") { _ in
-      snapshot(name, of: window)
-      dump(name, of: app)
+    // Each viewport runs a native audit, while the UI-test target keeps its 600-second cap.
+    executionTimeAllowance = 540
+    var previous: String?
+    for viewport in 1...12 {
+      let signature = visibleSignature(try window.snapshot(), within: window.frame)
+      if let previous, signature == previous { return }
+      previous = signature
+      try auditViewport(app, window: window, name: name, viewport: viewport)
+      // Prefer an actual content scroller, excluding the narrow sidebar and offscreen AX
+      // containers. Fall back to the window: on macOS this still delivers real wheel events.
+      let scroller =
+        window.scrollViews.allElementsBoundByIndex.filter {
+          let frame = $0.frame
+          return frame.width > 280 && frame.height > 160 && window.frame.contains(frame)
+            && $0.isHittable
+        }.max { $0.frame.width * $0.frame.height < $1.frame.width * $1.frame.height } ?? window
+      scroller.scroll(byDeltaX: 0, deltaY: -max(160, scroller.frame.height * 0.65))
+    }
+    let finalSignature = visibleSignature(try window.snapshot(), within: window.frame)
+    XCTAssertEqual(
+      finalSignature, previous ?? "", "\(name): scrolling did not reach the end in 12 viewports")
+  }
+
+  private func auditViewport(
+    _ app: XCUIApplication, window: XCUIElement, name: String, viewport: Int
+  ) throws {
+    let step = "\(name)-viewport-\(viewport)"
+    try XCTContext.runActivity(named: "Accessibility audit: \(step)") { _ in
+      snapshot(step, of: window)
+      dump(step, of: app)
       let screenTree = try window.snapshot()
       let windowFrame = window.frame
       var descriptions: [String] = []
@@ -233,7 +267,7 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
             "\n\nSystem accessibility exceptions:\n" + systemDescriptions.joined(separator: "\n\n")
         }
         let attachment = XCTAttachment(string: report)
-        attachment.name = "accessibility-\(name)"
+        attachment.name = "accessibility-\(step)"
         attachment.lifetime = .keepAlways
         add(attachment)
       }
@@ -298,14 +332,14 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
             {
               systemException = "SwiftUI Table cell host around a described column"
             }
-            // The contrast audit samples screen pixels. An element whose frame leaves the audited
-            // window is either scrolled out of view or belongs to another window (the main
-            // window behind Settings): the pixels under it are not its own background, so the
-            // ratio cannot be measured. Elements fully inside the window are still checked.
+            // Offscreen AX rectangles have no corresponding pixels to measure in this viewport.
+            // The scroll sweep audits them when visible; a fragment larger than the window or
+            // an unscrollable framework fragment cannot be fully sampled by a screen audit.
             if issue.auditType == .contrast,
               !windowFrame.insetBy(dx: -1, dy: -1).contains(node.frame)
             {
-              systemException = "Contrast of an element outside the audited window"
+              systemException =
+                "Contrast outside this viewport; checked by the scroll sweep when visible"
             }
             // The screen-wide contrast audit also reaches the main window's pixels behind the
             // Settings window. Text that the audited window's own tree does not contain belongs
@@ -365,7 +399,7 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
         }
         let headline =
           "[\(name)] type=\(self.auditName(issue.auditType)) \(element)\(nearbyText)"
-          + " issue=\(String(reflecting: issue.compactDescription))"
+          + " viewport=\(viewport) issue=\(String(reflecting: issue.compactDescription))"
         // Parent/child findings have no element; keep their reason in the first log line too.
         let detail =
           issue.element == nil ? " detail=\(String(reflecting: issue.detailedDescription))" : ""
@@ -380,6 +414,22 @@ final class AccessibilityAuditUITests: E2EMacTestCase {
       }
       completed = true
     }
+  }
+
+  private func visibleSignature(_ root: any XCUIElementSnapshot, within frame: CGRect) -> String {
+    var parts: [String] = []
+    @MainActor func collect(_ node: any XCUIElementSnapshot) {
+      let text = node.label.isEmpty ? (node.value as? String) ?? "" : node.label
+      if !text.isEmpty, frame.intersects(node.frame), node.frame.height > 0,
+        node.elementType == .staticText || node.elementType == .textField
+          || node.elementType == .button
+      {
+        parts.append("\(node.identifier)|\(text)|\(node.frame.minY.rounded())")
+      }
+      for child in node.children { collect(child) }
+    }
+    collect(root)
+    return parts.joined(separator: "\n")
   }
 
   private func tree(_ node: any XCUIElementSnapshot, contains text: String) -> Bool {
