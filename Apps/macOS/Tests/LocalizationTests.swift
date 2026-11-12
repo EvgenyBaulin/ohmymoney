@@ -405,6 +405,8 @@ final class LocalizationTests: XCTestCase {
       "entry.rateCoingecko", "currencies.source.network",
       // The name of a file format is the same in both languages.
       "summaries.pdf", "mac.markdown.button",
+      // MCC is the international abbreviation for a merchant category code.
+      "transactions.column.mcc", "entry.mcc",
     ]
     let nativeLanguageNames = Set(
       AppLanguage.Choice.allCases.filter { $0 != .system }.map(\.settingsKey))

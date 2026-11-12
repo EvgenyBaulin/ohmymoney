@@ -319,9 +319,9 @@ final class OperationsSectionTests: XCTestCase {
       layout.order,
       [
         .description, .category, .account, .time, .amount, .place, .forWhom, .quality, .cashback,
-        .note, .event,
+        .note, .event, .mcc,
       ])
-    for column in [OperationColumn.place, .forWhom, .quality, .cashback, .note, .event] {
+    for column in [OperationColumn.place, .forWhom, .quality, .cashback, .note, .event, .mcc] {
       XCTAssertFalse(layout.isShown(column), "\(column)")
     }
     XCTAssertEqual(OperationColumnLayout(storage: nil), .standard)
@@ -334,6 +334,23 @@ final class OperationsSectionTests: XCTestCase {
       XCTAssertNotEqual(
         Self.russian(column.titleKey, table: "Transactions"), column.titleKey, "\(column)")
     }
+  }
+
+  /// Adding MCC preserves the order, visibility and widths saved by an older version.
+  func testTheOlderLayoutGainsMCCAtTheEndHidden() {
+    let storage =
+      "amount:150,-event:110,description:260,-note:300,category,account,time,-place,-forWhom,-quality,-cashback"
+    let layout = OperationColumnLayout(storage: storage)
+    XCTAssertEqual(
+      layout.order,
+      [
+        .amount, .event, .description, .note, .category, .account, .time, .place, .forWhom,
+        .quality, .cashback, .mcc,
+      ])
+    XCTAssertEqual(layout.visible, [.amount, .description, .category, .account, .time])
+    XCTAssertFalse(layout.isShown(.mcc))
+    XCTAssertEqual(layout.storage, storage + ",-mcc")
+    XCTAssertEqual(OperationColumnLayout(storage: layout.storage), layout)
   }
 
   /// What «Настроить столбцы…» changes is kept as text and read back the same; the description
@@ -354,7 +371,7 @@ final class OperationsSectionTests: XCTestCase {
     XCTAssertFalse(layout.isShown(.place))
     XCTAssertTrue(layout.isShown(.event))
     XCTAssertEqual(layout.order.first, .description, "the first column moves no further up")
-    XCTAssertEqual(Array(layout.order.suffix(3)), [.note, .cashback, .event])
+    XCTAssertEqual(Array(layout.order.suffix(4)), [.note, .cashback, .event, .mcc])
     XCTAssertEqual(layout.width(of: .description), 260)
     XCTAssertEqual(layout.width(of: .amount), OperationColumn.amount.minimumWidth)
     XCTAssertEqual(layout.width(of: .note), OperationColumn.note.maximumWidth)
