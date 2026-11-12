@@ -219,15 +219,7 @@ public enum GoalRules {
   /// category — over the days of the span, by date: what «already saved» and the savings
   /// rate count.
   public static func netContributions(ledger: Ledger, in range: DayRange) -> AmountE4 {
-    var total = AmountE4.zero
-    for row in ledger.rows(in: range) where row.isGoalContribution {
-      switch row.kind {
-      case .expense: total += row.amountRubE4
-      case .refund: total += -row.amountRubE4
-      case .income, .reimbursement: continue
-      }
-    }
-    return total
+    SavingsTotals.netGoalContributions(ledger: ledger, in: range)
   }
 
   private struct Sums {

@@ -114,12 +114,12 @@ struct OverviewFiguresTests {
     let cushion = PaymentMethod(name: "Cushion", cushion: true)
     let transfer = Transfer(
       occurredAt: at(9, 10), fromAccountId: main.id, fromCurrency: .rub,
-      fromAmountE4: AmountE4(whole: 5_500), toAccountId: cushion.id, toCurrency: .rub,
-      toAmountE4: AmountE4(whole: 5_500))
+      fromAmountE4: AmountE4(whole: 5_600), toAccountId: cushion.id, toCurrency: .rub,
+      toAmountE4: AmountE4(whole: 5_600))
     let savings = try figures(transfers: [transfer], accounts: [main, cushion]).savings
-    #expect(savings.accounts == AmountE4(whole: 5_500))
+    #expect(savings.accounts == AmountE4(whole: 5_600))
     #expect(savings.saved == savings.goals + savings.accounts)
-    // 5,500 of 55,000: ten per cent.
+    // The savings rate uses the whole attributed month: 5,600 of 56,000 is ten per cent.
     #expect(savings.basisPoints == 1_000)
   }
 
