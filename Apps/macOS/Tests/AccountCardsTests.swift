@@ -191,10 +191,8 @@ final class AccountCardsTests: XCTestCase {
     XCTAssertEqual(cards.cards.first?.accountId, kaspi.id)
   }
 
-  /// «Add…» of the ↓ panel advises about the name of another account's live card and saves
-  /// the account all the same: the entry line may read «black» as the card of «Т-Банк · Black»
-  /// (a risk the sheet says in words), but the owner is never blocked by a name.
-  func testAddFromPickerAdvisesAboutALiveCardsNameAndSaves() throws {
+  /// Live card names remain reserved; cards of archived accounts do not block a new account.
+  func testAddFromPickerRefusesALiveCardsNameButAllowsAnArchivedAccountsCard() throws {
     let references = try XCTUnwrap(environment.references)
     let transactions = try XCTUnwrap(environment.transactions)
     let tBank = PaymentMethod(name: "Т-Банк", kind: .card, currency: .rub)
@@ -218,18 +216,17 @@ final class AccountCardsTests: XCTestCase {
 
     var form = NewRecordForm(kind: .paymentMethod, model: model, today: today)
     form.name = " black "
-    XCTAssertNil(form.refusalKey(in: model))
+    XCTAssertEqual(form.refusalKey(in: model), "entry.add.nameTaken")
     XCTAssertEqual(form.accountAdviceKey(in: model), "entry.add.accountNameTaken")
-    XCTAssertTrue(form.save(into: model, today: today, context: context))
-
-    XCTAssertNotNil(account("black"), "a card's name stopped the account")
+    XCTAssertFalse(form.save(into: model, today: today, context: context))
+    XCTAssertNil(account("black"))
     var gold = NewRecordForm(kind: .paymentMethod, model: model, today: today)
     gold.name = "gold"
     XCTAssertNil(gold.refusalKey(in: model))
     XCTAssertTrue(gold.save(into: model, today: today, context: context))
     XCTAssertNotNil(account("gold"), "a card of an archived account stopped the account")
     XCTAssertEqual(
-      cards.cards.filter { !$0.archived }.map(\.name).sorted(), ["Black", "Gold", "black", "gold"],
+      cards.cards.filter { !$0.archived }.map(\.name).sorted(), ["Black", "Gold", "gold"],
       "the old cards were renamed or archived; each new account came with a card of its name")
   }
 

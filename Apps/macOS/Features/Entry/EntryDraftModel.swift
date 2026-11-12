@@ -47,6 +47,8 @@ public final class EntryDraftModel {
   /// Every account, archived ones too: a saved operation may sit on one retired since, and
   /// what it was charged is still worked out from its currencies.
   private var allAccounts: [PaymentMethod] = []
+  /// Naming validation needs archived parents too, so their cards do not reserve live names.
+  var namingAccounts: [PaymentMethod] { allAccounts.isEmpty ? paymentMethods : allAccounts }
   public var events: [Event] = []
   public var goals: [Goal] = []
   public var debts: [Debt] = []
@@ -2394,10 +2396,11 @@ public final class EntryDraftModel {
     named name: String, kind: PaymentMethodKind, id: UUID? = nil,
     saving save: (PaymentMethod, Bank?) throws -> Void
   ) -> UUID? {
-    let live = (try? references?.paymentMethods()) ?? paymentMethods
+    let all = (try? references?.paymentMethods(includeArchived: true)) ?? namingAccounts
+    let live = all.filter { !$0.archived }
     var method = NewReference.paymentMethod(named: name, kind: kind, among: live)
     if let id { method.id = id }
-    guard AccountRules.nameConflict(method, accounts: live, cards: cards) == nil else {
+    guard AccountRules.nameConflict(method, accounts: all, cards: cards) == nil else {
       creationFailureKey = "entry.add.nameTaken"
       return nil
     }

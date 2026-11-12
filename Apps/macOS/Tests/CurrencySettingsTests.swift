@@ -130,12 +130,19 @@ final class DefaultCurrencySettingsTests: XCTestCase {
     let model = EntryDraftModel(
       references: references, transactions: environment.transactions, calendar: .utc)
     model.reload()
-    var sheet = NewRecordForm(kind: .paymentMethod, model: model, today: environment.today)
-    sheet.name = "freedom"
-    XCTAssertNil(
-      sheet.commit(
-        into: model, today: environment.today, context: .app(environment, store: store)))
+    let actions = PlanningActions(
+      AppDependencies(
+        environment: environment, store: store,
+        compute: ComputeStore(calendar: .utc, rebuildsInline: true)))
+    let planning = try XCTUnwrap(environment.planning)
+    XCTAssertTrue(
+      actions.restoreNamesake(
+        NamesakeRecord(kind: .account, id: freedom.id, name: freedom.name, archived: true),
+        in: try planning.book()))
+    model.reload()
+    model.setAccountOrCard(freedom.id)
     XCTAssertEqual(model.draft.paymentMethodId, freedom.id)
+    XCTAssertEqual(try references.paymentMethods(includeArchived: true).count, 2)
     XCTAssertTrue(try enabled().contains(eur), "a live account holds a currency that is off")
     XCTAssertEqual(
       CurrenciesSettingsView.lock(
@@ -149,12 +156,11 @@ final class DefaultCurrencySettingsTests: XCTestCase {
     try references.save(kaspi)
     try settings.setEnabledCurrencies(full)
     XCTAssertEqual(try enabled().count, 10)
-    var another = NewRecordForm(kind: .paymentMethod, model: model, today: environment.today)
-    another.name = "Kaspi"
-    // There is no limit of ten any more: the account comes back and switches its currency on.
-    XCTAssertNil(
-      another.commit(
-        into: model, today: environment.today, context: .app(environment, store: store)))
+    XCTAssertTrue(
+      actions.restoreNamesake(
+        NamesakeRecord(kind: .account, id: kaspi.id, name: kaspi.name, archived: true),
+        in: try planning.book()))
+    XCTAssertEqual(try references.paymentMethods(includeArchived: true).count, 3)
     XCTAssertEqual(
       try references.paymentMethods(includeArchived: true).first { $0.id == kaspi.id }?.archived,
       false, "the account came back")
