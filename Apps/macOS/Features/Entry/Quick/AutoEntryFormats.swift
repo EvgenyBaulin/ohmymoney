@@ -72,7 +72,7 @@ enum AutoEntryFormats {
       try folder.save(url)
     } catch {
       AppLog.warning(
-        "autoEntry.formatsFolderFailed", .db, "the folder of formats could not be remembered",
+        "autoEntry.folderFailed", .db, "the folder of formats could not be remembered",
         [LogPair("error", .error(error))])
     }
     return reloadFolder()
