@@ -330,6 +330,7 @@ public struct ReferenceRepository: Sendable {
     guard source != target else { return }
     try writer.write { db in
       try Self.repoint("people", from: source, to: target, db: db)
+      _ = try SpendingRulesRepository.repointRules(.person, from: source, to: target, db: db)
       try Self.mergeAliases(Person.self, source: source, into: target, db: db)
       try db.execute(
         sql: "UPDATE people SET archived = 1 WHERE id = ?", arguments: [source.uuidString])
@@ -340,6 +341,7 @@ public struct ReferenceRepository: Sendable {
     guard source != target else { return }
     try writer.write { db in
       try Self.repoint("places", from: source, to: target, db: db)
+      _ = try SpendingRulesRepository.repointRules(.place, from: source, to: target, db: db)
       try Self.mergeAliases(Place.self, source: source, into: target, db: db)
       try db.execute(
         sql: "UPDATE places SET archived = 1 WHERE id = ?", arguments: [source.uuidString])
@@ -360,6 +362,7 @@ public struct ReferenceRepository: Sendable {
       try AccountRepository.dropCollidingRules(of: source, into: target, db: db)
       try AccountRepository.dropPayoutToItself(of: source, into: target, db: db)
       try Self.repoint("payment_methods", from: source, to: target, db: db)
+      _ = try SpendingRulesRepository.repointRules(.account, from: source, to: target, db: db)
       try Self.mergeAliases(PaymentMethod.self, source: source, into: target, db: db)
       let wasMain =
         try Bool.fetchOne(

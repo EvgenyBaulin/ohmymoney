@@ -358,6 +358,8 @@ public struct AccountRepository: Sendable {
     }
     try ReferenceRepository.repoint(
       "payment_methods", from: plan.sourceId, to: plan.target.id, db: db)
+    undo.rules = try SpendingRulesRepository.repointRules(
+      .account, from: plan.sourceId, to: plan.target.id, db: db)
     var target = plan.target
     target.isDefault = target.isDefault || wasMain
     if target.cashbackPointsAccountId == plan.sourceId { target.cashbackPointsAccountId = nil }
@@ -402,6 +404,7 @@ public struct AccountRepository: Sendable {
         sql: "UPDATE \(move.table) SET \(move.column) = ? WHERE rowid = ? AND \(move.column) = ?",
         arguments: [undo.sourceId.uuidString, move.rowid, undo.targetId.uuidString])
     }
+    try SpendingRulesRepository.revertRules(undo.rules, db: db)
     for freed in undo.freedKeys {
       try db.execute(
         sql: "UPDATE transactions SET external_id = ? WHERE id = ? AND external_id IS NULL",
@@ -719,6 +722,8 @@ public struct AccountMergeUndo: Hashable, Sendable {
   var moved: [MovedReference] = []
   /// The keys the fees of the removed transfers lost.
   var freedKeys: [FreedKey] = []
+  /// Spending rules that followed the merge.
+  var rules: [RewrittenRule] = []
   /// The reconciliations the merge wrote.
   var addedReconciliations: [String] = []
 

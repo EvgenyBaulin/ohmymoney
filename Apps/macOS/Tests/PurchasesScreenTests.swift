@@ -37,11 +37,11 @@ final class PurchasesPageTests: XCTestCase {
 
   private func build(
     _ dataset: Dataset, canSave: CanSave? = nil, rates: [CurrencyCode: Decimal] = [:],
-    waiting: WaitingRefunds = WaitingRefunds(items: [])
+    waiting: WaitingRefunds = WaitingRefunds(items: []), free: AmountE4? = nil
   ) -> PurchasesPage {
     PurchasesPage.build(
       dataset: dataset, canSave: canSave, rubPerUnit: rates, today: today, calendar: calendar,
-      waiting: waiting)
+      waiting: waiting, freeRubE4: free)
   }
 
   // MARK: Wishes
@@ -64,6 +64,17 @@ final class PurchasesPageTests: XCTestCase {
       let text = PurchasesText.afford(line, environment(choice))
       XCTAssertEqual(text, PurchasesText.t("purchases.afford.noPace", environment(choice)))
     }
+  }
+
+  func testAWishTheFreeSumCoversSaysItAlreadyFitsAndAnExpensiveOneDoesNot() {
+    let cheap = Wish(name: "Наушники", priceE4: rub(18_000), createdOn: day(10, 1))
+    let dear = Wish(name: "Ноутбук", priceE4: rub(300_000), createdOn: day(10, 2))
+    let page = build(Dataset(wishes: [cheap, dear]), free: rub(140_000))
+    let byName = Dictionary(uniqueKeysWithValues: page.wishes.map { ($0.wish.name, $0) })
+    XCTAssertEqual(byName["Наушники"]?.afford.outcome, .affordableNow)
+    XCTAssertEqual(byName["Ноутбук"]?.afford.outcome, .noSavingPace)
+    let text = PurchasesText.afford(byName["Наушники"]!, environment(.russian))
+    XCTAssertEqual(text, PurchasesText.t("purchases.afford.now", environment(.russian)))
   }
 
   func testAWishInAForeignCurrencyWithoutARateSaysSoAndIsNotGuessed() {
@@ -532,7 +543,7 @@ final class PurchaseActionsTests: CapitalStoreTestCase {
     let dataset = try await DatasetRepository(writer: stack.writer).load(version: 0)
     let page = PurchasesPage.build(
       dataset: dataset, canSave: nil, rubPerUnit: [:], today: today,
-      calendar: environment.calendar, waiting: WaitingRefunds(items: []))
+      calendar: environment.calendar, waiting: WaitingRefunds(items: []), freeRubE4: nil)
     XCTAssertEqual(page.bought.first?.outcome?.differenceE4, rub(-2_100))
   }
 
@@ -616,7 +627,7 @@ final class PurchaseActionsTests: CapitalStoreTestCase {
     XCTAssertEqual(closed.saleTransactionId, income.id)
     let page = PurchasesPage.build(
       dataset: dataset, canSave: nil, rubPerUnit: [:], today: today,
-      calendar: environment.calendar, waiting: WaitingRefunds(items: []))
+      calendar: environment.calendar, waiting: WaitingRefunds(items: []), freeRubE4: nil)
     let line = try XCTUnwrap(page.soldThings.first { $0.name == "Велосипед" })
     XCTAssertEqual(line.cost.saleRubE4, rub(12_000))
     XCTAssertEqual(line.cost.totalRubE4, rub(8_000), "price less what the sale brought")

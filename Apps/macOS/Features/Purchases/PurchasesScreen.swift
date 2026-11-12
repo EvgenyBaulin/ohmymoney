@@ -193,7 +193,8 @@ struct PurchasesScreen: View {
     let built = await Task.detached(priority: .userInitiated) {
       PurchasesPage.build(
         dataset: snapshot.dataset, canSave: canSave, rubPerUnit: snapshot.context.rubPerUnit,
-        today: snapshot.today, calendar: calendar, waiting: snapshot.planning.waitingRefunds)
+        today: snapshot.today, calendar: calendar, waiting: snapshot.planning.waitingRefunds,
+        freeRubE4: snapshot.planning.freeMoney.main)
     }.value
     guard !Task.isCancelled else { return }
     page = built

@@ -54,6 +54,21 @@ final class RuleScreensTests: XCTestCase {
     XCTAssertEqual(wording.title(rule), wording.summary(rule))
   }
 
+  func testARuleNamingAnArchivedPlaceSaysItWillNotFireInBothLanguages() {
+    let rule = Rule(conditions: [.place(place.id)], actions: [.addTag(tag.id)])
+    for choice in [AppLanguage.Choice.russian, .english] {
+      let wording = RuleWording(environment: environment(choice), names: names())
+      XCTAssertNil(wording.deadReason(rule, live: RuleLiveReferences(places: [place.id])))
+      XCTAssertEqual(
+        wording.deadReason(rule, live: RuleLiveReferences()),
+        RulesText.t("rules.problem.wontFire", environment(choice)))
+    }
+    XCTAssertTrue(
+      RulesText.t("rules.problem.wontFire", environment(.russian)).hasPrefix("Не сработает"))
+    XCTAssertTrue(
+      RulesText.t("rules.problem.wontFire", environment(.english)).hasPrefix("Will not fire"))
+  }
+
   func testWeekdaysAndClockReadAsTheyAreWritten() {
     let wording = RuleWording(environment: environment(.russian), names: names())
     XCTAssertEqual(
