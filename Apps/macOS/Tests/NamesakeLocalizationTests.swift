@@ -25,11 +25,7 @@ final class NamesakeLocalizationTests: XCTestCase {
     language.choice = .russian
     XCTAssertEqual(language("expected.archiveAction", table: "Planning"), "В архив")
     XCTAssertEqual(
-      language(
-        "namesake.hidePair", "namesake.financial.unique", "namesake.financial.alias",
-        "namesake.financial.notSaved", "namesake.financial.renameNewAlias",
-        "namesake.financial.renameArchivedAlias", "namesake.financial.restoreCardAccount",
-        table: "Planning"),
+      language("namesake.hidePair", table: "Planning"),
       "Скрыть предупреждение для этой пары")
     language.choice = .english
     XCTAssertEqual(language("expected.archiveAction", table: "Planning"), "Archive")
