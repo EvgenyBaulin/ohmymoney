@@ -17,6 +17,12 @@
             "value": "Warranties"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепілдіктер"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жою"
           }
         },
         "ru": {
@@ -77,6 +89,12 @@
             "value": "No warranties yet"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әлі кепілдіктер жоқ"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -105,6 +123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Add a warranty or a return term in the panel of an operation, or type it in the line: «warranty 2y», «return 14d»."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операция панелінде кепілдік не қайтару мерзімін қосыңыз немесе жолға жазыңыз: «кепілдік 2ж», «қайтару 14к»."
           }
         },
         "ru": {
@@ -137,6 +161,12 @@
             "value": "Where the original is"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түпнұсқа қайда"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -165,6 +195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "box in the closet, folder «Appliances»"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "шкафтағы қорап, «Техника» қалтасы"
           }
         },
         "ru": {
@@ -197,6 +233,12 @@
             "value": "Can be returned until"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтаруға болады"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -225,6 +267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Warranty until"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепілдік мерзімі"
           }
         },
         "ru": {
@@ -276,6 +324,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld days left"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld күн қалды"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld күн қалды"
                 }
               }
             }
@@ -359,6 +425,12 @@
             "value": "Can be returned until %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ дейін қайтаруға болады"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -387,6 +459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Warranty until %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепілдік %@ дейін"
           }
         },
         "ru": {
@@ -419,6 +497,12 @@
             "value": "Nothing found"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ештеңе табылмады"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -447,6 +531,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open the operation"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операцияны ашу"
           }
         },
         "ru": {
@@ -479,6 +569,12 @@
             "value": "term is over"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "мерзімі бітті"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -507,6 +603,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pick a date"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күнді таңдау"
           }
         },
         "ru": {
@@ -558,6 +660,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld days"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld күн"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld күн"
                 }
               }
             }
@@ -665,6 +785,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld жыл"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld жыл"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -743,6 +881,12 @@
             "value": "Original: %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түпнұсқа: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -771,6 +915,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Can be returned until %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ дейін қайтаруға болады"
           }
         },
         "ru": {
@@ -803,6 +953,12 @@
             "value": "Warranty until %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепілдік %@ дейін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -831,6 +987,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search by name or place"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Атау не орын бойынша іздеу"
           }
         },
         "ru": {
@@ -863,6 +1025,12 @@
             "value": "Ended"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аяқталған"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -891,6 +1059,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Running"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Белсенді"
           }
         },
         "ru": {
@@ -923,6 +1097,12 @@
             "value": "What is under warranty and what can still be returned"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепілдігі бар және әлі қайтаруға болатын сатып алулар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -951,6 +1131,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Warranties"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кепілдіктер"
           }
         },
         "ru": {
@@ -983,6 +1169,12 @@
             "value": "last day is today"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бүгін — соңғы күн"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1011,6 +1203,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Purchase of %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ күнгі сатып алу"
           }
         },
         "ru": {

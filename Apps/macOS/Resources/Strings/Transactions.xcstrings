@@ -16,6 +16,12 @@
             "value": "rate of %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ бағамы"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -38,6 +44,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apply"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қолдану"
           }
         },
         "ru": {
@@ -67,6 +79,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Category…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санат…"
           }
         },
         "ru": {
@@ -111,6 +129,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Delete %lld operations?"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция жойылсын ба?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция жойылсын ба?"
                 }
               }
             }
@@ -187,6 +223,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция өзгертілсін бе?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция өзгертілсін бе?"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -234,6 +288,12 @@
             "value": "Delete and Reopen the Debt «%@»"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жою және «%@» қарызын қайта ашу"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -255,6 +315,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The payment closed a debt: %@. Once it is deleted money is owed on it again, and the debt stays closed unless you reopen it."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Төлем қарызды жапқан: %@. Оны жойған соң қайтадан берешек пайда болады, ал қайта ашпасаңыз, қарыз жабық қалады."
           }
         },
         "ru": {
@@ -280,6 +346,12 @@
             "value": "Payments on debts are taken off their debts too."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қарыз төлемдері қарыздарынан да алынады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -301,6 +373,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Money given back takes its surplus or shortfall along, and the parts it closed wait to be paid back again."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарылған ақшамен бірге артық не кем сома да алынады, ал жапқан бөліктері қайта қайтаруды күтеді."
           }
         },
         "ru": {
@@ -325,6 +403,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Event"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оқиға"
           }
         },
         "ru": {
@@ -357,6 +441,12 @@
             "value": "For whom"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кімге"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -385,6 +475,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "None"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жоқ"
           }
         },
         "ru": {
@@ -416,6 +512,12 @@
             "value": "Nothing to change"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өзгертетін ештеңе жоқ"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -437,6 +539,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing to delete"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жоятын ештеңе жоқ"
           }
         },
         "ru": {
@@ -481,6 +589,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "In %lld operations some parts stay as they are:"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцияның кей бөліктері өзгермейді:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операцияның кей бөліктері өзгермейді:"
                 }
               }
             }
@@ -534,6 +660,12 @@
             "value": "Account"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шот"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -563,6 +695,12 @@
             "value": "Person…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адам…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -584,6 +722,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Place…"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Орын…"
           }
         },
         "ru": {
@@ -608,6 +752,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quality"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сапа"
           }
         },
         "ru": {
@@ -639,6 +789,12 @@
             "value": "money was given back for a part of it — delete that reimbursement first"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бір бөлігіне ақша қайтарылған — алдымен сол қайтаруды жойыңыз"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -660,6 +816,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "bought on credit — changed in Debts"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "несиеге алынған — Қарыздарда өзгертіледі"
           }
         },
         "ru": {
@@ -685,6 +847,12 @@
             "value": "Instalments were already paid on it — delete them first."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бөліп төлеу төлемдері жасалған — алдымен оларды жойыңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -706,6 +874,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "it is a payment on a debt"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бұл — қарыз төлемі"
           }
         },
         "ru": {
@@ -731,6 +905,12 @@
             "value": "income and money given back have no such field"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "кіріс пен қайтарылған ақшада мұндай өріс жоқ"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -752,6 +932,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "it is a contribution to a goal"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бұл — мақсатқа жарна"
           }
         },
         "ru": {
@@ -777,6 +963,12 @@
             "value": "a refund takes money back from it — delete the refund first"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "одан қайтарым арқылы ақша алынған — алдымен қайтарымды жойыңыз"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -798,6 +990,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "income has no place"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "кірістің орны жоқ"
           }
         },
         "ru": {
@@ -823,6 +1021,12 @@
             "value": "it is money given back by a person"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бұл — адам қайтарған ақша"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -844,6 +1048,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "income and money given back have no quality"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "кіріс пен қайтарылған ақшаның сапасы жоқ"
           }
         },
         "ru": {
@@ -869,6 +1079,12 @@
             "value": "no rate yet to work out what the account is charged"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "шоттан алынатын соманы есептеуге әлі бағам жоқ"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -890,6 +1106,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "the category is of the other kind"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "санат басқа түрге жатады"
           }
         },
         "ru": {
@@ -915,6 +1137,12 @@
             "value": "paid for somebody else"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "басқа адам үшін төленген"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -936,6 +1164,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "it is a reconciliation difference: its account comes from the count, and it never goes to Goals or a category of the app"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бұл — салыстыру айырмасы: шоты санаудан алынады, Мақсаттарға не қолданба санатына кірмейді"
           }
         },
         "ru": {
@@ -961,6 +1195,12 @@
             "value": "the category has been archived or removed"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "санат мұрағатталған не жойылған"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -982,6 +1222,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "a system category"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "жүйелік санат"
           }
         },
         "ru": {
@@ -1006,6 +1252,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іздеу"
           }
         },
         "ru": {
@@ -1056,6 +1308,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations stay as they are:"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция өзгермейді:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция өзгермейді:"
                 }
               }
             }
@@ -1132,6 +1402,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Таңдалған %lld операция бөліктерге бөлінген — өзгеріс барлық бөлігіне қолданылады."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Таңдалған %lld операция бөліктерге бөлінген — өзгеріс барлық бөлігіне қолданылады."
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1179,6 +1467,12 @@
             "value": "⌘Z brings everything back."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z бәрін қайтарады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1200,6 +1494,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Undo” brings everything back."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Болдырмау” бәрін қайтарады."
           }
         },
         "ru": {
@@ -1225,6 +1525,12 @@
             "value": "This is a reconciliation difference: its amount, type, account, currency and date follow by themselves when you add or fix operations before the count. Delete it, and this count's difference will no longer be recorded."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл — салыстыру айырмасы: санауға дейінгі операцияларды қосқанда не түзеткенде сомасы, түрі, шоты, валютасы мен күні автоматты өзгереді. Оны жойсаңыз, осы санаудың айырмасы енді жазылмайды."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1247,6 +1553,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "All time"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлық уақыт"
           }
         },
         "ru": {
@@ -1279,6 +1591,12 @@
             "value": "Any"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кез келген"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1308,6 +1626,12 @@
             "value": "Custom range"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өз аралығым"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1330,6 +1654,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Done"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дайын"
           }
         },
         "ru": {
@@ -1361,6 +1691,12 @@
             "value": "Nothing matches these filters"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл сүзгілерге сәйкес ештеңе жоқ"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1383,6 +1719,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "From"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басталуы"
           }
         },
         "ru": {
@@ -1415,6 +1757,12 @@
             "value": "Last month"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өткен ай"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1443,6 +1791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nothing found"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ештеңе табылмады"
           }
         },
         "ru": {
@@ -1475,6 +1829,12 @@
             "value": "Period"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кезең"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1503,6 +1863,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Person"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Адам"
           }
         },
         "ru": {
@@ -1535,6 +1901,12 @@
             "value": "Reset"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қалпына келтіру"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1563,6 +1935,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Money back"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ақшаны қайтару"
           }
         },
         "ru": {
@@ -1595,6 +1973,12 @@
             "value": "This month"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы ай"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1623,6 +2007,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This year"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы жыл"
           }
         },
         "ru": {
@@ -1654,6 +2044,12 @@
             "value": "Filters"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сүзгілер"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1676,6 +2072,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "To"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аяқталуы"
           }
         },
         "ru": {
@@ -1708,6 +2110,12 @@
             "value": "Type"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Түрі"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1737,6 +2145,12 @@
             "value": "Save them, or let them go."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сақтаңыз немесе алып тастаңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1758,6 +2172,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The inspector closed with changes you have not saved"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Инспектор сақталмаған өзгерістермен жабылды"
           }
         },
         "ru": {
@@ -1783,6 +2203,12 @@
             "value": "Don't Save"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сақтамау"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1804,6 +2230,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edit · "
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өңдеу · "
           }
         },
         "ru": {
@@ -1829,6 +2261,12 @@
             "value": "Another operation is being opened. Changes that are not saved will be lost."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқа операция ашылуда. Сақталмаған өзгерістер жоғалады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1850,6 +2288,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Save the changes to this operation?"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы операцияның өзгерістерін сақтау керек пе?"
           }
         },
         "ru": {
@@ -1874,6 +2318,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "All"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Барлығы"
           }
         },
         "ru": {
@@ -1906,6 +2356,12 @@
             "value": "Expenses"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шығындар"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1934,6 +2390,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кіріс"
           }
         },
         "ru": {
@@ -1966,6 +2428,12 @@
             "value": "Today"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бүгін"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1995,6 +2463,12 @@
             "value": "Columns…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бағандар…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2017,6 +2491,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move Down"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Төмен жылжыту"
           }
         },
         "ru": {
@@ -2048,6 +2528,12 @@
             "value": "Which columns are shown, in what order and how wide. Drag a row or use the arrows to move it. The description and the amount are always shown."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Көрсетілетін бағандар, олардың реті мен ені. Жолды сүйреңіз немесе көрсеткілермен жылжытыңыз. Сипаттама мен сома әрдайым көрсетіледі."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2069,6 +2555,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reset to Defaults"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әдепкіге қайтару"
           }
         },
         "ru": {
@@ -2094,6 +2586,12 @@
             "value": "The standard columns, their order and widths, and no filters or search."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Стандартты бағандар, олардың реті мен ені, сүзгілер мен іздеусіз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2115,6 +2613,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Columns of the table"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кесте бағандары"
           }
         },
         "ru": {
@@ -2139,6 +2643,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Move Up"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жоғары жылжыту"
           }
         },
         "ru": {
@@ -2170,6 +2680,12 @@
             "value": "Width %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ені %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2191,6 +2707,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Compact Operations List"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операциялардың ықшам тізімі"
           }
         },
         "ru": {
@@ -2216,6 +2738,12 @@
             "value": "Operation Filters…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операция сүзгілері…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2237,6 +2765,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Previous month"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Алдыңғы ай"
           }
         },
         "ru": {
@@ -2261,6 +2795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Next month"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Келесі ай"
           }
         },
         "ru": {
@@ -2293,6 +2833,12 @@
             "value": "New operation"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жаңа операция"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2321,6 +2867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transfer"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аударым"
           }
         },
         "ru": {
@@ -2352,6 +2904,12 @@
             "value": "Search operations"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операцияларды іздеу"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2373,6 +2931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search the whole history: words, category, place, account, amount"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бүкіл тарихтан іздеу: сөздер, санат, орын, шот, сома"
           }
         },
         "ru": {
@@ -2397,6 +2961,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Search"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іздеу"
           }
         },
         "ru": {
@@ -2428,6 +2998,12 @@
             "value": "split %@ ways"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ адамға тең бөлінді"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2449,6 +3025,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "for %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ үшін"
           }
         },
         "ru": {
@@ -2474,6 +3056,12 @@
             "value": "a gift"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "сыйлық"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2495,6 +3083,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "half with %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ екеуміз жартылай"
           }
         },
         "ru": {
@@ -2519,6 +3113,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Change"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өзгерту"
           }
         },
         "ru": {
@@ -2548,6 +3148,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Clear selection"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таңдауды алып тастау"
           }
         },
         "ru": {
@@ -2593,6 +3199,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operations"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld операция"
                 }
               }
             }
@@ -2676,6 +3300,12 @@
             "value": "Delete…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жою…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2705,6 +3335,12 @@
             "value": "Saving the changes…"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өзгерістер сақталуда…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2726,6 +3362,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The change wasn’t saved"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Өзгеріс сақталмады"
           }
         },
         "ru": {
@@ -2751,6 +3393,12 @@
             "value": "Couldn’t delete"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жою мүмкін болмады"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2772,6 +3420,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The database didn’t accept the write, and nothing changed. The error is in the journal (Help → Collect a Problem Report…)."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дерекқор жазуды қабылдамады, ештеңе өзгермеді. Қате журналда (Анықтама → Мәселе туралы есеп жинау…)."
           }
         },
         "ru": {
@@ -2797,6 +3451,12 @@
             "value": "Some of these operations changed elsewhere while you were choosing where the money goes, so the transfer no longer matches them. Nothing changed: select the operations and make the change again."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ақша қайда түсетінін таңдаған кезде кейбір операциялар басқа жерде өзгерді, сондықтан аударым оларға енді сәйкес емес. Ештеңе өзгермеді: операцияларды таңдап, өзгерісті қайталаңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2818,6 +3478,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Couldn’t undo"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Болдырмау мүмкін болмады"
           }
         },
         "ru": {
@@ -2843,6 +3509,12 @@
             "value": "The database didn’t accept the write. Nothing changed, and the step stays: ⌘Z will try it again. The error is in the journal (Help → Collect a Problem Report…)."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дерекқор жазуды қабылдамады. Ештеңе өзгермеді, қадам сақталады: ⌘Z қайта әрекет етеді. Қате журналда (Анықтама → Мәселе туралы есеп жинау…)."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2864,6 +3536,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "The database didn’t accept the write. Nothing changed, and the step stays: “Undo” will try it again. The error is in the journal (Settings → Help → Collect a Problem Report)."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дерекқор жазуды қабылдамады. Ештеңе өзгермеді, қадам сақталады: “Болдырмау” қайта әрекет етеді. Қате журналда (Баптаулар → Анықтама → Мәселе туралы есеп жинау)."
           }
         },
         "ru": {
@@ -2889,6 +3567,12 @@
             "value": "Something done since depends on this step — for example, an operation was filed under a category it created — or the step brings back something that points at a thing deleted since. Nothing changed, and the step stays: sort that out, then undo again."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кейін жасалған әрекет осы қадамға тәуелді — мысалы, операция осы қадам жасаған санатқа тіркелген — немесе қадам кейін жойылған нысанға сілтейтін жазбаны қайтарады. Ештеңе өзгермеді, қадам сақталады: тәуелділікті шешіп, қайта болдырмаңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2910,6 +3594,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "For others"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Басқаларға"
           }
         },
         "ru": {
@@ -2934,6 +3624,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Income"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кіріс"
           }
         },
         "ru": {
@@ -2966,6 +3662,12 @@
             "value": "Money back"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарылған ақша"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2994,6 +3696,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spent"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Жұмсалды"
           }
         },
         "ru": {
@@ -3026,6 +3734,12 @@
             "value": "Amount"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сома"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3054,6 +3768,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cashback"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кешбэк"
           }
         },
         "ru": {
@@ -3086,6 +3806,12 @@
             "value": "Category"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Санат"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3114,6 +3840,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Description"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сипаттама"
           }
         },
         "ru": {
@@ -3146,6 +3878,12 @@
             "value": "Event"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Оқиға"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3174,6 +3912,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "For whom"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кімге"
           }
         },
         "ru": {
@@ -3206,6 +3950,12 @@
             "value": "Comment"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пікір"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3234,6 +3984,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шот"
           }
         },
         "ru": {
@@ -3266,6 +4022,12 @@
             "value": "Place"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Орын"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3294,6 +4056,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quality"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сапа"
           }
         },
         "ru": {
@@ -3326,6 +4094,12 @@
             "value": "Time"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уақыт"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3355,6 +4129,12 @@
             "value": "The data was not refreshed — showing it as of %@ · ⌘R to retry"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Деректер жаңармады — %@ кезіндегі көрініс · қайталау үшін ⌘R"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3376,6 +4156,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Day total"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Күн қорытындысы"
           }
         },
         "ru": {
@@ -3401,6 +4187,12 @@
             "value": "Delete this operation?"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы операция жойылсын ба?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3422,6 +4214,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No operations yet. Type the first one in the floating entry line at the bottom of the window."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әлі операция жоқ. Алғашқысын терезенің төменгі жағындағы қалқымалы енгізу жолына жазыңыз."
           }
         },
         "ru": {
@@ -3447,6 +4245,12 @@
             "value": "A refund cannot be more than what is left of the purchase to refund, and keeps the purchase’s currency and type."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарым сатып алудың қайтаруға қалған сомасынан аспауы керек, оның валютасы мен түрі сақталады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3468,6 +4272,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Some money for this part has come back already: its amount, currency, type and “paid for someone else” stay as they are — delete that money back first."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы бөліктің ақшасы ішінара қайтарылған: сомасы, валютасы, түрі және “басқа адам үшін төленген” белгісі өзгермейді — алдымен қайтарылған ақшаны жойыңыз."
           }
         },
         "ru": {
@@ -3493,6 +4303,12 @@
             "value": "A refund takes money back from this purchase — delete the refund first."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы сатып алудан қайтарыммен ақша алынған — алдымен қайтарымды жойыңыз."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3514,6 +4330,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "That is more than is left of the purchase to refund."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл сатып алудың қайтаруға қалған сомасынан көп."
           }
         },
         "ru": {
@@ -3539,6 +4361,12 @@
             "value": "A refund must be more than zero."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарым нөлден үлкен болуы керек."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3560,6 +4388,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "This purchase cannot be refunded: it is paid for someone else, on credit, a debt payment or a goal contribution."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бұл сатып алуды қайтаруға болмайды: басқа адам үшін төленген, несиеге алынған, қарыз төлемі не мақсатқа жарна."
           }
         },
         "ru": {
@@ -3585,6 +4419,12 @@
             "value": "A refund is made in the currency of the purchase."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Қайтарым сатып алу валютасында жасалады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3606,6 +4446,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A refund takes money back from this purchase: its currency, type, “paid for someone else” and credit stay as they are — delete the refund first."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы сатып алудан қайтарыммен ақша алынған: валютасы, түрі, “басқа адам үшін төленген” белгісі мен несиесі өзгермейді — алдымен қайтарымды жойыңыз."
           }
         },
         "ru": {
@@ -3631,6 +4477,12 @@
             "value": "The part cannot be less than what its refunds already took back."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бөлік бұрынғы қайтарымдар сомасынан аз болмауы керек."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3652,6 +4504,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A refund takes money back from this part — delete the refund first."
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Осы бөліктен қайтарыммен ақша алынған — алдымен қайтарымды жойыңыз."
           }
         },
         "ru": {
@@ -3677,6 +4535,12 @@
             "value": "The transfer that keeps the archived account at zero cannot be written: the other account is in the archive now or does not hold the currency. Nothing was saved."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мұрағатталған шотты нөлде ұстайтын аударымды жазу мүмкін емес: екінші шот қазір мұрағатта не валютаны қолдамайды. Ештеңе сақталмады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3699,6 +4563,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Expenses"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Шығындар"
           }
         },
         "ru": {
@@ -3731,6 +4601,12 @@
             "value": "Income"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Кіріс"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3759,6 +4635,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "from %@"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ қайтарды"
           }
         },
         "ru": {
@@ -3790,6 +4672,12 @@
             "value": "money back — not income"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "қайтарылған ақша — кіріс емес"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3812,6 +4700,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "No operations yet"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Әлі операция жоқ"
           }
         },
         "ru": {
@@ -3841,6 +4735,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "They are entered in the main window (⌘N)"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Негізгі терезеде енгізіледі (⌘N)"
           }
         },
         "ru": {
@@ -3885,6 +4785,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld earlier operations are not shown yet"
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Бұрынғы %lld операция әлі көрсетілмеген"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Бұрынғы %lld операция әлі көрсетілмеген"
                 }
               }
             }
@@ -3937,6 +4855,12 @@
             "value": "paid for %@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ үшін төленді"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3958,6 +4882,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "part %lld"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld-бөлік"
           }
         },
         "ru": {
@@ -3983,6 +4913,12 @@
             "value": "refund of “%1$@”, %2$@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” қайтарымы, %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4005,6 +4941,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ refunded"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ қайтарылды"
           }
         },
         "ru": {
@@ -4037,6 +4979,12 @@
             "value": "Search"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Іздеу"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4066,6 +5014,12 @@
             "value": "several"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "бірнеше"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4087,6 +5041,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show 3 more months"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тағы 3 айды көрсету"
           }
         },
         "ru": {
@@ -4111,6 +5071,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transactions"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Операциялар"
           }
         },
         "ru": {
@@ -4142,6 +5108,12 @@
             "value": "Exchange in “%1$@”: %2$@ → %3$@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” ішіндегі айырбас: %2$@ → %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4165,6 +5137,12 @@
             "value": "Transfer: %1$@ → %2$@"
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аударым: %1$@ → %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4186,6 +5164,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transfers"
+          }
+        },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аударымдар"
           }
         },
         "ru": {
@@ -4230,6 +5214,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "And %lld transfers."
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Және %lld аударым."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Және %lld аударым."
                 }
               }
             }
@@ -4306,6 +5308,24 @@
             }
           }
         },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аударым жойылсын ба?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аударым жойылсын ба?"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -4353,6 +5373,12 @@
             "value": "Their fees, %@, are deleted with them."
           }
         },
+        "kk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Олармен бірге %@ комиссиялары да жойылады."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4395,6 +5421,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld transfers stay as they are."
+                }
+              }
+            }
+          }
+        },
+        "kk": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аударым өзгермейді."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld аударым өзгермейді."
                 }
               }
             }
