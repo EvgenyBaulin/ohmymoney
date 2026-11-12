@@ -52,6 +52,12 @@
             "value": "%1$@ z %2$@ mies."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ de %2$@ meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -121,6 +127,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie mniej niż dzisiejsze obowiązkowe płatności: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não menos que os pagamentos obrigatórios de hoje: %@"
           }
         },
         "ru": {
@@ -194,6 +206,12 @@
             "value": "Pełne miesiące do tej pory: %lld."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meses completos até agora: %lld."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -263,6 +281,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cel — %1$@ (%2$@): odkładaj %3$@ miesięcznie do %4$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta — %1$@ (%2$@): guarde %3$@ por mês até %4$@"
           }
         },
         "ru": {
@@ -336,6 +360,12 @@
             "value": "Osiągnij do"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Concluir até"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -406,6 +436,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Miesiąc"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mês"
           }
         },
         "ru": {
@@ -617,6 +653,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Uma reserva para %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Uma reserva para %lld mês"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Uma reserva para %lld meses"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -748,6 +808,12 @@
             "value": "Brak celu: określ, na ile miesięcy ma wystarczyć poduszka."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem meta ainda: informe quantos meses a reserva deve cobrir."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -818,6 +884,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cel…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta…"
           }
         },
         "ru": {
@@ -891,6 +963,12 @@
             "value": "w obecnym tempie — do %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no ritmo atual — até %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -960,6 +1038,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "w obecnym tempie cel nie zostanie osiągnięty"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no ritmo atual, a meta nunca será atingida"
           }
         },
         "ru": {
@@ -1033,6 +1117,12 @@
             "value": "Cel — %1$@ (%2$@): %3$@ miesięcznie pozwoli go osiągnąć w rok"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta — %1$@ (%2$@): %3$@ por mês para atingir em um ano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1102,6 +1192,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cel — %1$@ (%2$@): osiągnięty"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta — %1$@ (%2$@): atingida"
           }
         },
         "ru": {
@@ -1175,6 +1271,12 @@
             "value": "Usuń cel"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remover meta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1244,6 +1346,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cel poduszki"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta da reserva"
           }
         },
         "ru": {
@@ -1455,6 +1563,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sem renda, sua reserva duraria %lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sem renda, sua reserva duraria %lld mês"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sem renda, sua reserva duraria %lld meses"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1586,6 +1718,12 @@
             "value": "Bez dochodów wystarczy na %@ mies."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem renda, sua reserva duraria %@ meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1656,6 +1794,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "stycznia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Janeiro"
           }
         },
         "ru": {
@@ -1730,6 +1874,12 @@
             "value": "października"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outubro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1800,6 +1950,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "listopada"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novembro"
           }
         },
         "ru": {
@@ -1874,6 +2030,12 @@
             "value": "grudnia"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dezembro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1944,6 +2106,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "lutego"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fevereiro"
           }
         },
         "ru": {
@@ -2018,6 +2186,12 @@
             "value": "marca"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Março"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2088,6 +2262,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "kwietnia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abril"
           }
         },
         "ru": {
@@ -2162,6 +2342,12 @@
             "value": "maja"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2232,6 +2418,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "czerwca"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Junho"
           }
         },
         "ru": {
@@ -2306,6 +2498,12 @@
             "value": "lipca"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Julho"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2376,6 +2574,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "sierpnia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agosto"
           }
         },
         "ru": {
@@ -2450,6 +2654,12 @@
             "value": "września"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setembro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2520,6 +2730,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "stycznia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Janeiro"
           }
         },
         "ru": {
@@ -2594,6 +2810,12 @@
             "value": "października"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outubro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2664,6 +2886,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "listopada"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novembro"
           }
         },
         "ru": {
@@ -2738,6 +2966,12 @@
             "value": "grudnia"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dezembro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2808,6 +3042,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "lutego"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fevereiro"
           }
         },
         "ru": {
@@ -2882,6 +3122,12 @@
             "value": "marca"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Março"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2952,6 +3198,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "kwietnia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abril"
           }
         },
         "ru": {
@@ -3026,6 +3278,12 @@
             "value": "maja"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3096,6 +3354,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "czerwca"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Junho"
           }
         },
         "ru": {
@@ -3170,6 +3434,12 @@
             "value": "lipca"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Julho"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3242,6 +3512,12 @@
             "value": "sierpnia"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agosto"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3312,6 +3588,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "września"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setembro"
           }
         },
         "ru": {
@@ -3523,6 +3805,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld meses"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mês"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld meses"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3654,6 +3960,12 @@
             "value": "Wybierz konta poduszki, aby zobaczyć, na ile miesięcy wystarczy bez dochodów."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selecione as contas da reserva para ver quantos meses ela dura sem renda."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3723,6 +4035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Za mało danych: potrzebne są obowiązkowe wydatki z 3 pełnych miesięcy."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dados insuficientes: são necessários 3 meses completos de gastos obrigatórios."
           }
         },
         "ru": {
@@ -3797,6 +4115,12 @@
             "value": "Długi"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dívidas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3866,6 +4190,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Niezbędne kategorie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categorias essenciais"
           }
         },
         "ru": {
@@ -3940,6 +4270,12 @@
             "value": "Płatności i subskrypcje"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pagamentos e assinaturas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4010,6 +4346,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Poduszka finansowa"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva de segurança"
           }
         },
         "ru": {
@@ -4083,6 +4425,12 @@
             "value": "Poduszka finansowa: za mało danych"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva de segurança: dados insuficientes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4152,6 +4500,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Poduszka finansowa: nie wybrano kont"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva de segurança: nenhuma conta selecionada"
           }
         },
         "ru": {
@@ -4225,6 +4579,12 @@
             "value": "Otwórz Kapitał"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Capital"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4294,6 +4654,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Poduszka finansowa: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva de segurança: %@"
           }
         },
         "ru": {
@@ -4367,6 +4733,12 @@
             "value": "Konta poduszki"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contas da reserva"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4436,6 +4808,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wszystkie środki na tych kontach, we wszystkich walutach, tworzą poduszkę."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo o dinheiro dessas contas, em qualquer moeda, compõe a reserva."
           }
         },
         "ru": {
@@ -4510,6 +4888,12 @@
             "value": "Niezbędne wydatki"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gastos essenciais"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4579,6 +4963,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wydatki, z których nie można zrezygnować. Wraz z płatnościami, subskrypcjami i długami tworzą obowiązkowe wydatki miesięczne."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gastos indispensáveis. Com pagamentos, assinaturas e dívidas, formam os gastos obrigatórios do mês."
           }
         },
         "ru": {
@@ -4652,6 +5042,12 @@
             "value": "Brak kont."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma conta ainda."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4721,6 +5117,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Brak własnych kategorii wydatków."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma categoria de despesa própria."
           }
         },
         "ru": {
@@ -4794,6 +5196,12 @@
             "value": "Konta i kategorie…"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contas e categorias…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4863,6 +5271,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zaznaczono typowe niezbędne kategorie. Sprawdź je i zachowaj."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As categorias essenciais mais comuns estão selecionadas. Confira e salve."
           }
         },
         "ru": {
@@ -4937,6 +5351,12 @@
             "value": "Poduszka finansowa"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva de segurança"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5008,6 +5428,12 @@
             "value": "Poduszka %1$@ · obowiązkowe wydatki ≈ %2$@ miesięcznie"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva %1$@ · gastos obrigatórios ≈ %2$@ por mês"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5077,6 +5503,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ mies."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ meses"
           }
         },
         "ru": {
@@ -5151,6 +5583,12 @@
             "value": "Poduszka finansowa"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reserva de segurança"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5220,6 +5658,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jeszcze nie uwzględniono: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não contabilizado: %@"
           }
         },
         "ru": {

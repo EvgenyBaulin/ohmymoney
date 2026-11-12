@@ -52,6 +52,12 @@
             "value": "zdobyto %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "conquistado em %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -121,6 +127,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Liczenie co miesiąc przez rok"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma contagem por mês durante um ano"
           }
         },
         "ru": {
@@ -194,6 +206,12 @@
             "value": "Liczenie co miesiąc przez 3 miesiące"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma contagem por mês durante 3 meses"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -263,6 +281,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Liczenie w tym miesiącu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma contagem neste mês"
           }
         },
         "ru": {
@@ -336,6 +360,12 @@
             "value": "100 dni wpisów z rzędu"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 dias seguidos de lançamentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -405,6 +435,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "30 dni wpisów z rzędu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 dias seguidos de lançamentos"
           }
         },
         "ru": {
@@ -478,6 +514,12 @@
             "value": "7 dni wpisów z rzędu"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 dias seguidos de lançamentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -547,6 +589,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Brak odznak w tym okresie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma conquista neste período"
           }
         },
         "ru": {
@@ -758,6 +806,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sequência atual: %lld dias"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sequência atual: %lld dia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sequência atual: %lld dias"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -889,6 +961,12 @@
             "value": "Odznaki"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conquistas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -960,6 +1038,12 @@
             "value": "Ukryte w trybie początkującego"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em espera no modo iniciante"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1029,6 +1113,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Otwórz teraz"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir agora"
           }
         },
         "ru": {
@@ -1240,6 +1330,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Abre após %lld dias com lançamentos (agora: %lld)"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Abre após %lld dia com lançamentos (agora: %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Abre após %lld dias com lançamentos (agora: %lld)"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1369,6 +1483,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Otworzy się po pierwszym liczeniu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre após a primeira contagem"
           }
         },
         "ru": {
@@ -1580,6 +1700,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Abre em %lld dias, após um mês de lançamentos"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Abre em %lld dia, após um mês de lançamentos"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Abre em %lld dias, após um mês de lançamentos"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1711,6 +1855,12 @@
             "value": "Dlaczego oszczędzasz"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por que você guarda dinheiro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1780,6 +1930,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aplikacja przypomni Ci o tym, gdy pieniądze na cel wydadzą się wydane, plan zostanie obniżony lub cel usunięty"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O app lembra você disso quando o dinheiro da meta parece ter sido gasto, o valor planejado é reduzido ou a meta é apagada"
           }
         },
         "ru": {
@@ -1853,6 +2009,12 @@
             "value": "Oszczędzasz na «%1$@», ponieważ: %2$@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você guarda dinheiro para «%1$@» porque: %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1924,6 +2086,12 @@
             "value": "Morze w lipcu, z całą rodziną"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O mar em julho, com toda a família"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1990,6 +2158,12 @@
           }
         },
         "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»: %2$@"
+          }
+        },
+        "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@»: %2$@"
@@ -2066,6 +2240,12 @@
             "value": "Dlaczego oszczędzam"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por que guardo dinheiro"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2135,6 +2315,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bez wydatków"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum gasto"
           }
         },
         "ru": {
@@ -2209,6 +2395,12 @@
             "value": "Odtwórz…"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2278,6 +2470,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 kart"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 cartões"
           }
         },
         "ru": {
@@ -2352,6 +2550,12 @@
             "value": "Zamknij"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fechar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2421,6 +2625,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lekcje"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lições"
           }
         },
         "ru": {
@@ -2494,6 +2704,12 @@
             "value": "Krótkie lekcje o pieniądzach, po pięć kart każda"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lições rápidas sobre dinheiro, com cinco cartões cada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2563,6 +2779,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lekcje"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lições"
           }
         },
         "ru": {
@@ -2636,6 +2858,12 @@
             "value": "Dziś bez wydatków?"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum gasto hoje?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2705,6 +2933,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zapisz dzisiejsze wydatki — a może dziś ich nie było?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registre os gastos de hoje — ou não houve nenhum?"
           }
         },
         "ru": {
@@ -2911,6 +3145,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Brak wpisów od %lld dnia — odtworzyć na podstawie sald?"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nenhum lançamento há %lld dias — restaurar pelos saldos?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nenhum lançamento há %lld dia — restaurar pelos saldos?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nenhum lançamento há %lld dias — restaurar pelos saldos?"
                 }
               }
             }
@@ -3185,6 +3443,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "sequência de %lld dias"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "sequência de %lld dia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "sequência de %lld dias"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3317,6 +3599,12 @@
             "value": "Wstecz"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3386,6 +3674,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Obecnie na koncie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saldo atual da conta"
           }
         },
         "ru": {
@@ -3459,6 +3753,12 @@
             "value": "Według wpisów: %@ — zgadza się"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pelos registros: %@ — confere"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3528,6 +3828,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wpisz obecne saldo każdego konta. Pokazano konta w «Razem» policzone co najmniej raz."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informe o saldo atual de cada conta. São mostradas as contas em «Total» que já foram contadas ao menos uma vez."
           }
         },
         "ru": {
@@ -3601,6 +3907,12 @@
             "value": "Według wpisów: %1$@ · niezapisane: %2$@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pelos registros: %1$@ · não registrado: %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3670,6 +3982,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Więcej niż wynika z wpisów — być może to niezapisany przychód; nie zostanie rozpisany jako wydatek"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maior que o saldo nos registros — talvez seja uma receita não registrada; ela não será distribuída como gasto"
           }
         },
         "ru": {
@@ -3743,6 +4061,12 @@
             "value": "Żadne konto w «Razem» nie zostało jeszcze policzone. Najpierw policz środki, aby było z czym porównać salda."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma conta em «Total» foi contada ainda. Faça uma contagem primeiro para que o assistente tenha uma base de comparação."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3812,6 +4136,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wszystkie salda zgadzają się z wpisami. Nie ma nic do odtworzenia."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos os saldos conferem com os registros: nada a restaurar"
           }
         },
         "ru": {
@@ -3886,6 +4216,12 @@
             "value": "Anuluj"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3955,6 +4291,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Salda zmieniły się podczas działania asystenta. Zamknij go i policz środki ponownie."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os saldos mudaram enquanto o assistente estava aberto. Feche-o e faça uma nova contagem."
           }
         },
         "ru": {
@@ -4028,6 +4370,12 @@
             "value": "Dodaj pozycję"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar linha"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4097,6 +4445,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pozycje bez kategorii — «Nieznane»"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Linhas sem categoria — «Desconhecido»"
           }
         },
         "ru": {
@@ -4171,6 +4525,12 @@
             "value": "Kategoria"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4240,6 +4600,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rozpisano całość"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Totalmente distribuído"
           }
         },
         "ru": {
@@ -4313,6 +4679,12 @@
             "value": "Każda pozycja wymaga kategorii; możesz też wybrać «Nieznane». Suma pozycji konta musi odpowiadać brakującej kwocie."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada linha precisa de uma categoria; «Desconhecido» também é uma opção. A soma das linhas de cada conta deve corresponder ao valor que falta nela."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4382,6 +4754,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pozostało do rozpisania: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falta distribuir: %@"
           }
         },
         "ru": {
@@ -4455,6 +4833,12 @@
             "value": "Na co (opcjonalnie)"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que foi (opcional)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4524,6 +4908,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usuń pozycję"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remover linha"
           }
         },
         "ru": {
@@ -4598,6 +4988,12 @@
             "value": "Dalej"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguinte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4667,6 +5063,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie udało się zapisać operacji"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível registrar as operações"
           }
         },
         "ru": {
@@ -4740,6 +5142,12 @@
             "value": "Każda pozycja wymaga kwoty większej od zera"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cada linha precisa ter um valor maior que zero"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4809,6 +5217,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wybierz kategorię dla każdej pozycji"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha uma categoria para cada linha"
           }
         },
         "ru": {
@@ -4882,6 +5296,12 @@
             "value": "Suma pozycji konta nie odpowiada brakującej kwocie"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A soma das linhas de uma conta não corresponde ao valor que falta nela"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4951,6 +5371,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zapisz"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar"
           }
         },
         "ru": {
@@ -5024,6 +5450,12 @@
             "value": "Zapisano"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5093,6 +5525,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "1. Obecne salda kont"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Saldos atuais das contas"
           }
         },
         "ru": {
@@ -5166,6 +5604,12 @@
             "value": "2. Rozpisz wydatki na dni"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Distribua os gastos pelos dias"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5235,6 +5679,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Brak wpisów od %1$@ do %2$@. Najpierw salda, potem dni."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum lançamento de %1$@ a %2$@. Primeiro os saldos, depois os dias."
           }
         },
         "ru": {
@@ -5308,6 +5758,12 @@
             "value": "Odtwórz pominięte dni"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar dias sem lançamentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5377,6 +5833,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "dzień %1$lld z %2$lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dia %1$lld de %2$lld"
           }
         },
         "ru": {
@@ -5451,6 +5913,12 @@
             "value": "Ukryj"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5520,6 +5988,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld z %2$lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld de %2$lld"
           }
         },
         "ru": {
@@ -5593,6 +6067,12 @@
             "value": "Pokaż gdzie"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar onde"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5662,6 +6142,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pierwszy miesiąc"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O primeiro mês"
           }
         },
         "ru": {
@@ -5735,6 +6221,12 @@
             "value": "Tryb początkującego"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo iniciante"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5804,6 +6296,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bardziej złożone sekcje są widoczne, ale przygaszone, dopóki nie mają nic do pokazania"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As seções mais complexas ficam visíveis, mas esmaecidas, até terem algo para mostrar"
           }
         },
         "ru": {
@@ -5877,6 +6375,12 @@
             "value": "Pytaj wieczorem o wydatki"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perguntar sobre os gastos do dia à noite"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5946,6 +6450,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Odpowiedź «Dziś bez wydatków?» zalicza dzień do serii"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Nenhum gasto hoje?» conta o dia na sequência"
           }
         },
         "ru": {
@@ -6019,6 +6529,12 @@
             "value": "Wieczór zaczyna się o"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A noite começa às"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6088,6 +6604,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pokaż listę zadań na pierwszy miesiąc"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar a lista do primeiro mês"
           }
         },
         "ru": {
@@ -6161,6 +6683,12 @@
             "value": "Proponuj odtworzenie po dniach bez wpisów"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oferecer restauração após dias sem lançamentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6230,6 +6758,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pozycja w «Warto zajrzeć», bez powiadomienia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma linha em «Vale conferir», sem notificação"
           }
         },
         "ru": {
@@ -6302,6 +6836,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nawyki"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hábitos"
           }
         },
         "ru": {

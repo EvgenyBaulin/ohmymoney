@@ -52,6 +52,12 @@
             "value": "kurs %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "taxa de %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -124,6 +130,12 @@
             "value": "Zastosuj"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplicar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -193,6 +205,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kategoria…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria…"
           }
         },
         "ru": {
@@ -399,6 +417,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Usunąć %lld operacji?"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Apagar %lld operações?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Apagar %lld operação?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Apagar %lld operações?"
                 }
               }
             }
@@ -673,6 +715,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Alterar %lld operações?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Alterar %lld operação?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Alterar %lld operações?"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -804,6 +870,12 @@
             "value": "Usuń i otwórz ponownie dług «%@»"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar e Reabrir a Dívida «%@»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -873,6 +945,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ta spłata zamknęła dług: %@. Po jej usunięciu kwota znów będzie do spłaty, ale dług pozostanie zamknięty, dopóki nie otworzysz go ponownie."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O pagamento quitou uma dívida: %@. Ao apagá-lo, o valor volta a ser devido, mas a dívida permanece encerrada até que você a reabra."
           }
         },
         "ru": {
@@ -946,6 +1024,12 @@
             "value": "Spłaty zostaną też usunięte z powiązanych długów."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os pagamentos de dívidas também são removidos delas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1015,6 +1099,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usunięcie zwrotu usuwa też jego nadwyżkę lub niedobór. Rozliczone nim części znów będą oczekiwać na zwrot."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ao remover a devolução, seu excedente ou valor faltante também é removido, e as partes que ela quitou voltam a aguardar pagamento."
           }
         },
         "ru": {
@@ -1089,6 +1179,12 @@
             "value": "Wydarzenie"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1159,6 +1255,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dla kogo"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para quem"
           }
         },
         "ru": {
@@ -1233,6 +1335,12 @@
             "value": "Brak"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1304,6 +1412,12 @@
             "value": "Brak zmian"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada a alterar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1373,6 +1487,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie ma nic do usunięcia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada a apagar"
           }
         },
         "ru": {
@@ -1584,6 +1704,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Em %lld operações, algumas partes permanecem como estão:"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Em %lld operação, algumas partes permanecem como estão:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Em %lld operações, algumas partes permanecem como estão:"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1716,6 +1860,12 @@
             "value": "Konto"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1787,6 +1937,12 @@
             "value": "Osoba…"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pessoa…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1856,6 +2012,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Miejsce…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local…"
           }
         },
         "ru": {
@@ -1930,6 +2092,12 @@
             "value": "Jakość"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualidade"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1999,6 +2167,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "zwrócono pieniądze za część operacji — najpierw usuń ten zwrot"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "uma parte foi devolvida — apague a devolução primeiro"
           }
         },
         "ru": {
@@ -2072,6 +2246,12 @@
             "value": "zakup na kredyt — zmiany w sekcji Długi"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "compra a crédito — alterada em Dívidas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2141,6 +2321,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spłacono już raty — najpierw je usuń."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parcelas já foram pagas — apague-as primeiro."
           }
         },
         "ru": {
@@ -2214,6 +2400,12 @@
             "value": "to spłata długu"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "é um pagamento de dívida"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2283,6 +2475,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "przychody i otrzymane zwroty nie mają tego pola"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "receitas e devoluções não têm esse campo"
           }
         },
         "ru": {
@@ -2356,6 +2554,12 @@
             "value": "to wpłata na cel"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "é uma contribuição para uma meta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2425,6 +2629,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "do operacji przypisano zwrot — najpierw go usuń"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "há um reembolso associado — apague-o primeiro"
           }
         },
         "ru": {
@@ -2498,6 +2708,12 @@
             "value": "przychód nie ma miejsca"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "receitas não têm local"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2567,6 +2783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "to pieniądze zwrócone przez osobę"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "é dinheiro devolvido por uma pessoa"
           }
         },
         "ru": {
@@ -2640,6 +2862,12 @@
             "value": "przychody i otrzymane zwroty nie mają jakości"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "receitas e devoluções não têm qualidade"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2709,6 +2937,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "brak kursu potrzebnego do obliczenia kwoty obciążenia konta"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ainda não há taxa para calcular o valor debitado da conta"
           }
         },
         "ru": {
@@ -2782,6 +3016,12 @@
             "value": "kategoria jest innego typu"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a categoria é de outro tipo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2851,6 +3091,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "opłacono za kogoś innego"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pago para outra pessoa"
           }
         },
         "ru": {
@@ -2924,6 +3170,12 @@
             "value": "to różnica z uzgodnienia: jej konto wynika ze stanu konta i nie jest ona przypisywana do celów ani kategorii aplikacji"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "é uma diferença de conciliação: sua conta vem da contagem, e ela não é atribuída a Metas nem a uma categoria do app"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2993,6 +3245,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "kategoria została zarchiwizowana lub usunięta"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a categoria foi arquivada ou removida"
           }
         },
         "ru": {
@@ -3066,6 +3324,12 @@
             "value": "kategoria systemowa"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "é uma categoria do sistema"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3136,6 +3400,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Szukaj"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar"
           }
         },
         "ru": {
@@ -3342,6 +3612,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operacji pozostanie bez zmian:"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações permanecem como estão:"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operação permanece como está:"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações permanecem como estão:"
                 }
               }
             }
@@ -3616,6 +3910,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Entre as selecionadas, %lld operações estão divididas — a alteração afeta todas as suas partes."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Entre as selecionadas, %lld operação está dividida — a alteração afeta todas as suas partes."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Entre as selecionadas, %lld operações estão divididas — a alteração afeta todas as suas partes."
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3747,6 +4065,12 @@
             "value": "⌘Z cofa wszystkie zmiany."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘Z desfaz todas as alterações."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3818,6 +4142,12 @@
             "value": "„Cofnij” cofa wszystkie zmiany."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Desfazer” reverte todas as alterações."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3887,6 +4217,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "To różnica z uzgodnienia. Jej kwota, typ, konto, waluta i data aktualizują się automatycznie po dodaniu lub poprawieniu operacji sprzed sprawdzenia stanu konta. Po jej usunięciu różnica dla tego stanu nie będzie już zapisana."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta é uma diferença de conciliação: valor, tipo, conta, moeda e data são atualizados automaticamente quando você adiciona ou corrige operações anteriores à contagem. Se você apagá-la, a diferença desta contagem deixará de ser registrada."
           }
         },
         "ru": {
@@ -3961,6 +4297,12 @@
             "value": "Cały czas"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo o período"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4033,6 +4375,12 @@
             "value": "Dowolny"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualquer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4102,6 +4450,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Własny zakres"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Período personalizado"
           }
         },
         "ru": {
@@ -4176,6 +4530,12 @@
             "value": "Gotowe"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4245,6 +4605,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Brak wyników dla tych filtrów"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum resultado para estes filtros"
           }
         },
         "ru": {
@@ -4319,6 +4685,12 @@
             "value": "Od"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4389,6 +4761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Poprzedni miesiąc"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mês passado"
           }
         },
         "ru": {
@@ -4463,6 +4841,12 @@
             "value": "Nic nie znaleziono"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum resultado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4533,6 +4917,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Okres"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Período"
           }
         },
         "ru": {
@@ -4607,6 +4997,12 @@
             "value": "Osoba"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pessoa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4677,6 +5073,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wyzeruj"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redefinir"
           }
         },
         "ru": {
@@ -4751,6 +5153,12 @@
             "value": "Zwrot pieniędzy"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devolução"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4821,6 +5229,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bieżący miesiąc"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este mês"
           }
         },
         "ru": {
@@ -4895,6 +5309,12 @@
             "value": "Bieżący rok"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este ano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4964,6 +5384,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Filtry"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtros"
           }
         },
         "ru": {
@@ -5038,6 +5464,12 @@
             "value": "Do"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Até"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5108,6 +5540,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Typ"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo"
           }
         },
         "ru": {
@@ -5181,6 +5619,12 @@
             "value": "Zapisz je lub odrzuć."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salve ou descarte as alterações."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5250,6 +5694,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Inspektor zamknięto z niezapisanymi zmianami"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O inspetor foi fechado com alterações não salvas"
           }
         },
         "ru": {
@@ -5323,6 +5773,12 @@
             "value": "Nie zachowuj"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não Salvar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5392,6 +5848,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edycja · "
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar · "
           }
         },
         "ru": {
@@ -5465,6 +5927,12 @@
             "value": "Otwierana jest inna operacja. Niezapisane zmiany zostaną utracone."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outra operação está sendo aberta. As alterações não salvas serão perdidas."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5534,6 +6002,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zachować zmiany w tej operacji?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvar as alterações desta operação?"
           }
         },
         "ru": {
@@ -5608,6 +6082,12 @@
             "value": "Wszystkie"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5678,6 +6158,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wydatki"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Despesas"
           }
         },
         "ru": {
@@ -5752,6 +6238,12 @@
             "value": "Przychody"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receitas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5824,6 +6316,12 @@
             "value": "Dziś"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoje"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5893,6 +6391,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kolumny…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colunas…"
           }
         },
         "ru": {
@@ -5967,6 +6471,12 @@
             "value": "Przenieś w dół"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover para Baixo"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6036,6 +6546,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wybierz widoczne kolumny, ich kolejność i szerokość. Przeciągnij wiersz lub użyj strzałek, aby go przenieść. Opis i kwota są zawsze widoczne."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha as colunas exibidas, a ordem e a largura. Arraste uma linha ou use as setas para movê-la. A descrição e o valor são sempre exibidos."
           }
         },
         "ru": {
@@ -6109,6 +6625,12 @@
             "value": "Przywróć domyślne"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar Padrões"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6180,6 +6702,12 @@
             "value": "Przywraca domyślne kolumny, ich kolejność i szerokość oraz usuwa filtry i wyszukiwanie."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaura as colunas, a ordem e a largura padrão e remove os filtros e a busca."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6249,6 +6777,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kolumny tabeli"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colunas da tabela"
           }
         },
         "ru": {
@@ -6323,6 +6857,12 @@
             "value": "Przenieś w górę"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover para Cima"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6392,6 +6932,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Szerokość %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Largura %@"
           }
         },
         "ru": {
@@ -6465,6 +7011,12 @@
             "value": "Kompaktowa lista operacji"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lista Compacta de Operações"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6536,6 +7088,12 @@
             "value": "Filtry operacji…"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtros de Operações…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6605,6 +7163,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Poprzedni miesiąc"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mês anterior"
           }
         },
         "ru": {
@@ -6679,6 +7243,12 @@
             "value": "Następny miesiąc"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Próximo mês"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6749,6 +7319,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nowa operacja"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nova operação"
           }
         },
         "ru": {
@@ -6823,6 +7399,12 @@
             "value": "Przelew"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferência"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6894,6 +7476,12 @@
             "value": "Szukaj operacji"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar operações"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6963,6 +7551,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Przeszukaj całą historię: słowa, kategorię, miejsce, konto, kwotę"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Busque em todo o histórico: palavras, categoria, local, conta, valor"
           }
         },
         "ru": {
@@ -7037,6 +7631,12 @@
             "value": "Szukaj"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7106,6 +7706,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "podział na %@ osób"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dividido em %@ partes"
           }
         },
         "ru": {
@@ -7179,6 +7785,12 @@
             "value": "dla %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "para %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7250,6 +7862,12 @@
             "value": "prezent"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "um presente"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7319,6 +7937,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "po połowie z %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "metade com %@"
           }
         },
         "ru": {
@@ -7393,6 +8017,12 @@
             "value": "Zmień"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alterar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7462,6 +8092,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usuń zaznaczenie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limpar seleção"
           }
         },
         "ru": {
@@ -7674,6 +8310,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operação"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -7806,6 +8466,12 @@
             "value": "Usuń…"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7875,6 +8541,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zapisywanie zmian…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvando alterações…"
           }
         },
         "ru": {
@@ -7948,6 +8620,12 @@
             "value": "Nie zapisano zmiany"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A alteração não foi salva"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8017,6 +8695,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie udało się usunąć"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível apagar"
           }
         },
         "ru": {
@@ -8090,6 +8774,12 @@
             "value": "Baza danych nie przyjęła zapisu. Nic się nie zmieniło. Błąd znajduje się w dzienniku (Pomoc → Zbierz raport o problemie…)."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O banco de dados não aceitou a gravação e nada foi alterado. O erro está no registro (Ajuda → Coletar Relatório de Problema…)."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8159,6 +8849,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Niektóre operacje zmieniły się w innym miejscu podczas wybierania celu środków, więc przelew już do nich nie pasuje. Nic się nie zmieniło: zaznacz operacje i ponów zmianę."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algumas dessas operações foram alteradas em outro lugar enquanto você escolhia o destino do dinheiro. Por isso, a transferência não corresponde mais a elas. Nada foi alterado: selecione as operações e faça a alteração novamente."
           }
         },
         "ru": {
@@ -8232,6 +8928,12 @@
             "value": "Nie udało się cofnąć"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível desfazer"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8301,6 +9003,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Baza danych nie przyjęła zapisu. Nic się nie zmieniło, a czynność pozostaje do cofnięcia: naciśnij ⌘Z, aby spróbować ponownie. Błąd znajduje się w dzienniku (Pomoc → Zbierz raport o problemie…)."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O banco de dados não aceitou a gravação. Nada foi alterado e a etapa foi mantida: ⌘Z tentará desfazê-la novamente. O erro está no registro (Ajuda → Coletar Relatório de Problema…)."
           }
         },
         "ru": {
@@ -8374,6 +9082,12 @@
             "value": "Baza danych nie przyjęła zapisu. Nic się nie zmieniło, a czynność pozostaje do cofnięcia: stuknij „Cofnij”, aby spróbować ponownie. Błąd znajduje się w dzienniku (Ustawienia → Pomoc → Zbierz raport o problemie)."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O banco de dados não aceitou a gravação. Nada foi alterado e a etapa foi mantida: “Desfazer” tentará desfazê-la novamente. O erro está no registro (Ajustes → Ajuda → Coletar Relatório de Problema)."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8445,6 +9159,12 @@
             "value": "Późniejsza czynność zależy od tej czynności — na przykład operację przypisano do utworzonej w niej kategorii — lub jej cofnięcie przywróciłoby odwołanie do usuniętego później elementu. Nic się nie zmieniło, a czynność pozostaje do cofnięcia. Usuń zależność i spróbuj ponownie."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma ação posterior depende desta etapa — por exemplo, uma operação foi atribuída a uma categoria criada por ela — ou a etapa restaura algo que faz referência a um item apagado depois. Nada foi alterado e a etapa foi mantida: resolva isso e tente desfazer novamente."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8514,6 +9234,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dla innych"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para outros"
           }
         },
         "ru": {
@@ -8588,6 +9314,12 @@
             "value": "Przychody"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receitas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8658,6 +9390,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zwrócone środki"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dinheiro devolvido"
           }
         },
         "ru": {
@@ -8732,6 +9470,12 @@
             "value": "Wydatki"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gastos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8804,6 +9548,12 @@
             "value": "Kwota"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -8871,6 +9621,12 @@
           }
         },
         "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cashback"
+          }
+        },
+        "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Cashback"
@@ -8948,6 +9704,12 @@
             "value": "Kategoria"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Categoria"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9018,6 +9780,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Opis"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descrição"
           }
         },
         "ru": {
@@ -9092,6 +9860,12 @@
             "value": "Wydarzenie"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evento"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9162,6 +9936,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dla kogo"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para quem"
           }
         },
         "ru": {
@@ -9236,6 +10016,12 @@
             "value": "Komentarz"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comentário"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9306,6 +10092,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Konto"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conta"
           }
         },
         "ru": {
@@ -9380,6 +10172,12 @@
             "value": "Miejsce"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9450,6 +10248,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Jakość"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qualidade"
           }
         },
         "ru": {
@@ -9524,6 +10328,12 @@
             "value": "Czas"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hora"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9593,6 +10403,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie odświeżono danych — stan na %@ · ⌘R, aby spróbować ponownie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os dados não foram atualizados — exibindo dados de %@ · ⌘R para tentar novamente"
           }
         },
         "ru": {
@@ -9666,6 +10482,12 @@
             "value": "Suma dnia"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total do dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9735,6 +10557,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usunąć tę operację?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar esta operação?"
           }
         },
         "ru": {
@@ -9808,6 +10636,12 @@
             "value": "Brak operacji. Wpisz pierwszą w pływającym polu u dołu okna."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma operação ainda. Digite a primeira na linha de entrada flutuante na parte inferior da janela."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -9877,6 +10711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zwrot nie może przekraczać kwoty pozostałej do zwrotu i zachowuje walutę oraz typ zakupu."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um reembolso não pode ser maior que o valor restante da compra e mantém a moeda e o tipo da compra."
           }
         },
         "ru": {
@@ -9950,6 +10790,12 @@
             "value": "Część środków została już zwrócona: kwota, waluta, typ i ustawienie „opłacono za kogoś” pozostają bez zmian. Najpierw usuń zwrot."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte do dinheiro desta parte já foi devolvida: o valor, a moeda, o tipo e “pago para outra pessoa” permanecem como estão — apague primeiro a devolução."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10019,6 +10865,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Do tego zakupu przypisano zwrot. Najpierw go usuń."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Há um reembolso desta compra — apague o reembolso primeiro."
           }
         },
         "ru": {
@@ -10092,6 +10944,12 @@
             "value": "Ta kwota przekracza pozostałą kwotę zakupu do zwrotu."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esse valor é maior que o restante da compra a reembolsar."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10161,6 +11019,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kwota zwrotu musi być większa od zera."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um reembolso deve ser maior que zero."
           }
         },
         "ru": {
@@ -10234,6 +11098,12 @@
             "value": "Nie można zwrócić tego zakupu: został opłacony za kogoś innego, na kredyt albo jest spłatą długu lub wpłatą na cel."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta compra não pode ser reembolsada: ela foi paga para outra pessoa, feita a crédito ou é um pagamento de dívida ou uma contribuição para uma meta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10303,6 +11173,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zwrot jest dokonywany w walucie zakupu."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um reembolso é feito na moeda da compra."
           }
         },
         "ru": {
@@ -10376,6 +11252,12 @@
             "value": "Do tego zakupu przypisano zwrot: waluta, typ, ustawienie „opłacono za kogoś” i kredyt pozostają bez zmian. Najpierw usuń zwrot."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Há um reembolso desta compra: a moeda, o tipo, “pago para outra pessoa” e o crédito permanecem como estão — apague o reembolso primeiro."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10445,6 +11327,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kwota części nie może być niższa niż suma przypisanych do niej zwrotów."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A parte não pode ser menor que o valor já devolvido pelos reembolsos."
           }
         },
         "ru": {
@@ -10518,6 +11406,12 @@
             "value": "Do tej części przypisano zwrot. Najpierw go usuń."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Há um reembolso desta parte — apague o reembolso primeiro."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10587,6 +11481,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie można zapisać przelewu zerującego saldo zarchiwizowanego konta: drugie konto jest teraz w archiwum lub nie obsługuje tej waluty. Nic nie zapisano."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível registrar a transferência que mantém a conta arquivada com saldo zero: a outra conta está arquivada ou não aceita a moeda. Nada foi salvo."
           }
         },
         "ru": {
@@ -10661,6 +11561,12 @@
             "value": "Wydatki"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Despesas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10731,6 +11637,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Przychody"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receitas"
           }
         },
         "ru": {
@@ -10805,6 +11717,12 @@
             "value": "od %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -10874,6 +11792,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "zwrot środków — nie przychód"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dinheiro devolvido — não é receita"
           }
         },
         "ru": {
@@ -10948,6 +11872,12 @@
             "value": "Brak operacji"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma operação ainda"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11017,6 +11947,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dodaj je w oknie głównym (⌘N)"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicione operações na janela principal (⌘N)"
           }
         },
         "ru": {
@@ -11228,6 +12164,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações anteriores ainda não são exibidas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operação anterior ainda não é exibida"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações anteriores ainda não são exibidas"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -11359,6 +12319,12 @@
             "value": "opłacono za %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pago para %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11430,6 +12396,12 @@
             "value": "część %lld"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "parte %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11499,6 +12471,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "zwrot za „%1$@”, %2$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "reembolso de “%1$@”, %2$@"
           }
         },
         "ru": {
@@ -11573,6 +12551,12 @@
             "value": "Zwrócono %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ reembolsado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11643,6 +12627,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Szukaj"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar"
           }
         },
         "ru": {
@@ -11716,6 +12706,12 @@
             "value": "kilka"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vários"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11785,6 +12781,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pokaż kolejne 3 miesiące"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar mais 3 meses"
           }
         },
         "ru": {
@@ -11859,6 +12861,12 @@
             "value": "Transakcje"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transações"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -11928,6 +12936,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Wymiana na koncie „%1$@”: %2$@ → %3$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Câmbio em “%1$@”: %2$@ → %3$@"
           }
         },
         "ru": {
@@ -12001,6 +13015,12 @@
             "value": "Przelew: %1$@ → %2$@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferência: %1$@ → %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -12070,6 +13090,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Przelewy"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferências"
           }
         },
         "ru": {
@@ -12276,6 +13302,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Oraz %lld przelewu."
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "E %lld transferências."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "E %lld transferência."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "E %lld transferências."
                 }
               }
             }
@@ -12550,6 +13600,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Apagar %lld transferências?"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Apagar %lld transferência?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Apagar %lld transferências?"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -12679,6 +13753,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Powiązane opłaty, %@, również zostaną usunięte."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As tarifas, %@, serão apagadas junto com elas."
           }
         },
         "ru": {
@@ -12885,6 +13965,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld przelewu pozostanie bez zmian."
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferências permanecem como estão."
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferência permanece como está."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transferências permanecem como estão."
                 }
               }
             }

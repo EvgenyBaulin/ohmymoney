@@ -191,6 +191,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas preenchidas como você escreveu antes"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linha preenchida como você escreveu antes"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas preenchidas como você escreveu antes"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -323,6 +347,12 @@
             "value": "Jak poprzednio"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como você escreveu antes"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -393,6 +423,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uzupełniono na podstawie operacji wpisanej ręcznie dla tego samego tekstu z tego banku. Zmień operację po wczytaniu, a kolejne wiersze uwzględnią tę zmianę."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preenchido com base em uma operação que você digitou para o mesmo texto deste banco. Altere a operação após carregar, e as próximas linhas seguirão sua alteração."
           }
         },
         "ru": {

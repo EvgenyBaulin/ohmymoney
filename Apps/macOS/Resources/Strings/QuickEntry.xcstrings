@@ -53,6 +53,12 @@
             "value": "Która karta?"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual cartão?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -123,6 +129,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "karta %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cartão %@"
           }
         },
         "ru": {
@@ -197,6 +209,12 @@
             "value": "Odczytano z wiadomości banku: %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lido na mensagem do banco: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -267,6 +285,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Otwórz uzgadnianie po zapisaniu (według wiadomości pozostało %@)"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir a conciliação após registrar (a mensagem diz que restam %@)"
           }
         },
         "ru": {
@@ -341,6 +365,12 @@
             "value": "To, czego historia i model nie rozpoznają, trafi do «Nie pamiętam»; możesz to później zmienić na liście."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que o histórico e o modelo não classificarem vai para «Não lembro»; altere depois na lista."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -411,6 +441,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "już zapisano"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "já registrado"
           }
         },
         "ru": {
@@ -623,6 +659,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas não foram lidas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linha não foi lida"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld linhas não foram lidas"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -755,6 +815,12 @@
             "value": "Zaznacz, co zapisać. Istniejące operacje nie są zaznaczone."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque o que deseja registrar. O que já existe fica desmarcado."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -825,6 +891,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operacje z banku"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operações do banco"
           }
         },
         "ru": {
@@ -1037,6 +1109,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registrar %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registrar %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registrar %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1169,6 +1265,12 @@
             "value": "Zapisano"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrado"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1239,6 +1341,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pozostałe dane karty"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outros dados do cartão"
           }
         },
         "ru": {
@@ -1313,6 +1421,12 @@
             "value": "Dowolny tekst: posiadacz, data ważności. Nigdy nie zapisuj kodu z odwrotu karty."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto livre: titular, validade. Nunca guarde o código do verso do cartão."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1383,6 +1497,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ostatnie 4 cyfry"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Últimos 4 dígitos"
           }
         },
         "ru": {
@@ -1457,6 +1577,12 @@
             "value": "Wymagane są dokładnie cztery cyfry"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Digite exatamente quatro dígitos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1527,6 +1653,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pozwala znaleźć tę kartę w wiadomościach banku. To nie jest numer karty."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permite encontrar este cartão nas mensagens do banco. Não é o número do cartão."
           }
         },
         "ru": {
@@ -1601,6 +1733,12 @@
             "value": "Karta %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartão %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1671,6 +1809,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Te cyfry pojawiają się w wiadomościach banku. Której z Twoich kart dotyczą? Cyfry są zapisywane przy karcie, ale nie jej numer."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As mensagens do banco indicam estes dígitos. Qual dos seus cartões é este? Apenas os dígitos são salvos no cartão, não o número."
           }
         },
         "ru": {
@@ -1745,6 +1889,12 @@
             "value": "Żadna z nich"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum deles"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1815,6 +1965,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Karta •••• %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartão •••• %@"
           }
         },
         "ru": {
@@ -1889,6 +2045,12 @@
             "value": "Popraw"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrigir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -1959,6 +2121,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@: %@ → %@. Poprawić?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@ → %@. Corrigir?"
           }
         },
         "ru": {
@@ -2033,6 +2201,12 @@
             "value": "Poprawiono"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corrigido"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2103,6 +2277,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie zapisano poprawki"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A correção não foi salva"
           }
         },
         "ru": {
@@ -2177,6 +2357,12 @@
             "value": "Nie ma czego poprawiać: nie masz jeszcze wpisów"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada a corrigir: você ainda não tem lançamentos"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2247,6 +2433,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Konto obciążono w innej walucie: zmień kwotę w panelu ↓"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A conta foi debitada em outra moeda: altere o valor no painel ↓"
           }
         },
         "ru": {
@@ -2321,6 +2513,12 @@
             "value": "To nie jest prawidłowa kwota"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este não é um valor válido para correção"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2391,6 +2589,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Inna waluta oznacza inną operację: otwórz panel ↓"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outra moeda exige outra operação: abra o painel ↓"
           }
         },
         "ru": {
@@ -2465,6 +2669,12 @@
             "value": "Spłatę długu zmienia się na ekranie długu"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altere o pagamento na tela da dívida"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2535,6 +2745,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie można zmienić kwoty zwrotu od osoby: usuń go i wprowadź ponownie"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não é possível alterar o valor de uma devolução de uma pessoa: apague e registre novamente"
           }
         },
         "ru": {
@@ -2609,6 +2825,12 @@
             "value": "Część tej operacji została zwrócona lub spłacona: zmień ją w panelu ↓"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte desta operação foi devolvida ou reembolsada: altere no painel ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2679,6 +2901,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operacja nie ma kursu do przeliczenia nowej kwoty: zmień ją w panelu ↓"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A operação não tem cotação para calcular o novo valor: altere no painel ↓"
           }
         },
         "ru": {
@@ -2753,6 +2981,12 @@
             "value": "Ostatni wpis, %@, dodano ponad godzinę temu: %@ → %@. Poprawić go?"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O último lançamento, %@, foi feito há mais de uma hora: %@ → %@. Corrigir?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2823,6 +3057,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie zapisano"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi salvo"
           }
         },
         "ru": {
@@ -2897,6 +3137,12 @@
             "value": "Zachowano jako szkic"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvo como rascunho"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -2967,6 +3213,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zapisz później"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrar depois"
           }
         },
         "ru": {
@@ -3179,6 +3431,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rascunhos: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rascunhos: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Rascunhos: %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3311,6 +3587,12 @@
             "value": "Usuń"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3381,6 +3663,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Brak szkiców"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum rascunho"
           }
         },
         "ru": {
@@ -3455,6 +3743,12 @@
             "value": "Dokończ"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Concluir"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3525,6 +3819,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Szkic nie jest operacją: nie jest uwzględniany w obliczeniach, dopóki go nie dokończysz i nie zapiszesz."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um rascunho não é uma operação: ele não entra nos cálculos até ser concluído e registrado."
           }
         },
         "ru": {
@@ -3737,6 +4037,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rascunhos aguardam conclusão"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rascunho aguarda conclusão"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rascunhos aguardam conclusão"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3869,6 +4193,12 @@
             "value": "Dokończ…"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Concluir…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -3939,6 +4269,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Szkice"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rascunhos"
           }
         },
         "ru": {
@@ -4013,6 +4349,12 @@
             "value": "Przenieść operację na przyszły dzień bez zmian?"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover a operação como está para uma data futura?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4083,6 +4425,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Przenieś bez zmian"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover como está"
           }
         },
         "ru": {
@@ -4157,6 +4505,12 @@
             "value": "Ten dzień jeszcze nie nadszedł"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essa data ainda não chegou"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4227,6 +4581,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Przenieś"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover"
           }
         },
         "ru": {
@@ -4301,6 +4661,12 @@
             "value": "Przeniesiono na %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movido para %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4371,6 +4737,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Upuść tu operację, aby przenieść ją na ten dzień"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solte uma operação aqui para movê-la para este dia"
           }
         },
         "ru": {
@@ -4445,6 +4817,12 @@
             "value": "Nie przeniesiono"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi movido"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4515,6 +4893,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Przenieś na inny dzień…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover para outro dia…"
           }
         },
         "ru": {
@@ -4589,6 +4973,12 @@
             "value": "Operacja zostanie przeniesiona do innego miesiąca i uwzględniona w jego limitach i raportach"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A operação será movida para outro mês, junto com seus efeitos nos limites e relatórios"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4659,6 +5049,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dzień"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dia"
           }
         },
         "ru": {
@@ -4733,6 +5129,12 @@
             "value": "Zostanie zastosowany kurs z nowego dnia"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A cotação do novo dia será aplicada"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4803,6 +5205,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operacja jest już w tym dniu"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Já está neste dia"
           }
         },
         "ru": {
@@ -4877,6 +5285,12 @@
             "value": "Przenieś na inny dzień"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover para outro dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -4947,6 +5361,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dodaj notatkę do tego dnia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar uma nota a este dia"
           }
         },
         "ru": {
@@ -5021,6 +5441,12 @@
             "value": "Usuń notatkę"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar nota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5091,6 +5517,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Edytuj notatkę do tego dnia"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar a nota deste dia"
           }
         },
         "ru": {
@@ -5165,6 +5597,12 @@
             "value": "Nie zapisano notatki"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A nota não foi salva"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5235,6 +5673,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dzień z notatką"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dia com nota"
           }
         },
         "ru": {
@@ -5309,6 +5753,12 @@
             "value": "Na przykład urodziny mamy"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por exemplo, aniversário da mãe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5379,6 +5829,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zapisz"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvar"
           }
         },
         "ru": {
@@ -5453,6 +5909,12 @@
             "value": "Notatka dnia"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nota do dia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5525,6 +5987,12 @@
             "value": "operacja"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "operação"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -5595,6 +6063,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pomiń resztę"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Descartar o restante"
           }
         },
         "ru": {
@@ -5807,6 +6281,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Mais %lld operações da linha aguardam"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Mais %lld operação da linha aguarda"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Mais %lld operações da linha aguardam"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -5939,6 +6437,12 @@
             "value": "Niektóre pominięto: brak dla nich kursu wymiany"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algumas ficaram de fora: ainda não há cotação para elas"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6009,6 +6513,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nie ma czego powtórzyć: tego dnia nie wpisano ręcznie żadnych wydatków"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada a repetir: você não registrou gastos manualmente nesse dia"
           }
         },
         "ru": {
@@ -6083,6 +6593,12 @@
             "value": "Wpisy dodane ręcznie dnia %@. Zaznacz, co zapisać na dziś."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que você registrou manualmente em %@. Marque o que deseja registrar hoje."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6153,6 +6669,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Powtórz dzień"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Repetir um dia"
           }
         },
         "ru": {
@@ -6360,6 +6882,30 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Zapisz %lld"
+                }
+              }
+            }
+          }
+        },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registrar %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registrar %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Registrar %lld"
                 }
               }
             }
@@ -6635,6 +7181,30 @@
             }
           }
         },
+        "pt-BR": {
+          "variations": {
+            "plural": {
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações registradas"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operação registrada"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operações registradas"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6767,6 +7337,12 @@
             "value": "Dokładna kwota pierwszej części"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valor exato da primeira parte"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6837,6 +7413,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pierwsza część"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primeira parte"
           }
         },
         "ru": {
@@ -6911,6 +7493,12 @@
             "value": "Przeciągnij separator między częściami; przesuwa się co 10."
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arraste o divisor entre as duas partes; ele avança de 10 em 10."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -6981,6 +7569,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Druga część"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segunda parte"
           }
         },
         "ru": {
@@ -7055,6 +7649,12 @@
             "value": "Krok %@"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intervalo de %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7125,6 +7725,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Podziel kwotę"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividir o valor"
           }
         },
         "ru": {
@@ -7199,6 +7805,12 @@
             "value": "Miejsca"
           }
         },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lugares"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
@@ -7269,6 +7881,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@, zwykle ~%@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, geralmente ~%@"
           }
         },
         "ru": {
