@@ -627,8 +627,16 @@ public struct PlanningRepository: Sendable {
       ? DeletionEffects.none
       : try TransactionRepository.softDelete(ids: change.softDeleted, at: change.at, db: db)
 
+    var settingsToWrite = change.settings
+    if !change.delete.assets.isEmpty {
+      let deleted = Set(change.delete.assets)
+      for value in try ThingValuationRepository.all(db)
+      where value.owner == .asset && deleted.contains(value.ownerId) {
+        settingsToWrite.updateValue(nil, forKey: value.storageKey)
+      }
+    }
     var settingsBefore: [String: String?] = [:]
-    for (key, value) in change.settings.sorted(by: { $0.key < $1.key }) {
+    for (key, value) in settingsToWrite.sorted(by: { $0.key < $1.key }) {
       settingsBefore.updateValue(try Self.setting(key, db: db), forKey: key)
       try Self.setSetting(key, to: value, db: db)
     }

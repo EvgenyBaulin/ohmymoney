@@ -83,12 +83,14 @@ public enum DatabaseCheck {
   /// kind says, so no foreign key can see it.
   private static let attachmentsWithoutOwnerSQL = """
     SELECT a.id AS id FROM attachments a
-    WHERE a.owner_kind IN ('transaction', 'asset', 'debt', 'subscription') AND NOT EXISTS (
+    WHERE a.owner_kind IN ('transaction', 'asset', 'debt', 'subscription', 'wish', 'owned_item') AND NOT EXISTS (
       SELECT 1 FROM transactions o WHERE a.owner_kind = 'transaction' AND o.id = a.owner_id)
       AND NOT EXISTS (SELECT 1 FROM assets o WHERE a.owner_kind = 'asset' AND o.id = a.owner_id)
       AND NOT EXISTS (SELECT 1 FROM debts o WHERE a.owner_kind = 'debt' AND o.id = a.owner_id)
       AND NOT EXISTS (
         SELECT 1 FROM scheduled_payments o WHERE a.owner_kind = 'subscription' AND o.id = a.owner_id)
+      AND NOT EXISTS (SELECT 1 FROM wishes o WHERE a.owner_kind = 'wish' AND o.id = a.owner_id)
+      AND NOT EXISTS (SELECT 1 FROM owned_items o WHERE a.owner_kind = 'owned_item' AND o.id = a.owner_id)
     ORDER BY a.id
     """
 

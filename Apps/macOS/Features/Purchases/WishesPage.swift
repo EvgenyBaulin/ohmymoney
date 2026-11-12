@@ -82,11 +82,14 @@ struct WishesPage: View {
       Menu {
         menu(line)
       } label: {
-        PurchasesRow(
-          symbol: "tag", title: wish.name,
-          detail: detail(line),
-          chip: verdict.map { (t($0.titleKey), $0.tone) },
-          figure: PurchasesText.price(of: wish, environment))
+        HStack(spacing: 8) {
+          WishPhotoPreview(wishId: wish.id)
+          PurchasesRow(
+            symbol: "tag", title: wish.name,
+            detail: detail(line),
+            chip: verdict.map { (t($0.titleKey), $0.tone) },
+            figure: PurchasesText.price(of: wish, environment))
+        }
       }
       .menuStyle(.button)
       .buttonStyle(.plain)

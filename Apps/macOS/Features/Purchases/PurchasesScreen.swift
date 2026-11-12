@@ -10,6 +10,8 @@ enum PurchasesSheet: Identifiable, Hashable {
   case newThing
   case editThing(OwnedItem)
   case sell(OwnedLine)
+  case valuation(OwnedLine)
+  case files(OwnedLine)
   case postpone(WaitingRefund)
 
   var id: String {
@@ -21,6 +23,8 @@ enum PurchasesSheet: Identifiable, Hashable {
     case .newThing: "thing.new"
     case .editThing(let item): "thing.edit.\(item.id)"
     case .sell(let line): "thing.sell.\(line.id)"
+    case .valuation(let line): "thing.value.\(line.id)"
+    case .files(let line): "thing.files.\(line.id)"
     case .postpone(let refund): "waiting.postpone.\(refund.id)"
     }
   }
@@ -210,6 +214,8 @@ struct PurchasesScreen: View {
     case .newThing: ThingEditor(original: nil)
     case .editThing(let item): ThingEditor(original: item)
     case .sell(let line): ThingSaleSheet(line: line)
+    case .valuation(let line): ThingValuationSheet(line: line)
+    case .files(let line): ThingFilesSheet(line: line)
     case .postpone(let refund): WaitingPostponeSheet(refund: refund)
     }
   }
