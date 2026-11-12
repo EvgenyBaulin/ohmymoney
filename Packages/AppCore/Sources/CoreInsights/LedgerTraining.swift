@@ -10,26 +10,31 @@ import Foundation
 /// `make eval-model` read a CSV export without the ledger. This is the one place that knows
 /// both, and all it does is carry the facts across.
 public enum LedgerTraining {
-  public static func rows(of dataset: Dataset, calendar: CalendarContext) -> [CategoryTraining.Row]
-  {
+  /// `refunds` is the index of the same dataset when the caller holds one (`Ledger.refundIndex`),
+  /// so it is not built a second time.
+  public static func rows(
+    of dataset: Dataset, calendar: CalendarContext, refunds: RefundIndex? = nil
+  ) -> [CategoryTraining.Row] {
     let tree = CategoryTree(dataset.categories)
     // A refund taken back from a live purchase carries the purchase part's category and its
     // source because the app copied them there: the owner filed the purchase, once, and the
     // model learns it once. A refund of no purchase is filed by the owner and teaches.
-    let refunds = RefundIndex(entries: dataset.entries, debts: dataset.debtsById)
+    let refunds = refunds ?? RefundIndex(entries: dataset.entries, debts: dataset.debtsById)
+    // The first category of an id, as a search of the list would give it.
+    let categories = Dictionary(
+      dataset.categories.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
     var rows: [CategoryTraining.Row] = []
+    rows.reserveCapacity(dataset.entries.count)
     for entry in dataset.entries {
       let transaction = entry.transaction
       let day = calendar.day(of: transaction.occurredAt)
       for part in entry.parts where !refunds.isLinked(refundPart: part.id) {
-        let category = part.categoryId.flatMap { id in dataset.categories.first { $0.id == id } }
+        let category = part.categoryId.flatMap { categories[$0] }
         // A subcategory of Goals is a goal's own: the role of the root counts as much as the
         // role of the category itself.
         let role =
           category?.systemRole
-          ?? category?.parentId.flatMap { parent in
-            dataset.categories.first { $0.id == parent }?.systemRole
-          }
+          ?? category?.parentId.flatMap { categories[$0]?.systemRole }
         rows.append(
           CategoryTraining.Row(
             partId: part.id, categoryId: part.categoryId, systemRole: role,
@@ -43,6 +48,12 @@ public enum LedgerTraining {
 
   public static func examples(of dataset: Dataset, calendar: CalendarContext) -> [CategoryExample] {
     CategoryTraining.examples(from: rows(of: dataset, calendar: calendar))
+  }
+
+  /// The same examples, from a ledger: its refund index is the one the rows need.
+  public static func examples(of ledger: Ledger) -> [CategoryExample] {
+    CategoryTraining.examples(
+      from: rows(of: ledger.dataset, calendar: ledger.calendar, refunds: ledger.refundIndex))
   }
 
   /// What the model is taught with about a saved part: the question `rows(of:calendar:)`

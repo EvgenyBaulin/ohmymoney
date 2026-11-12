@@ -2,6 +2,7 @@ import CoreAnalytics
 import CoreKit
 import CoreModel
 import Foundation
+import Synchronization
 
 /// «Model quality»: the metrics of the category model and the backtest of the forecast.
 ///
@@ -82,20 +83,93 @@ public struct ModelQuality: Hashable, Sendable {
   /// Measures both halves. Pure and off the main thread, like every other section of
   /// Analytics — and not a step of the pipeline: this is looked at now and then, not with
   /// every write.
+  ///
+  /// What the replay of the history costs — most of a second — depends on the examples and the
+  /// options and on nothing else, so it is kept (`ModelQualityCache`) and worked out again only
+  /// when an example the model learns from has changed: a write that adds a purchase, say, and
+  /// does not touch what the model is filed from, costs the examples and a digest of them. The
+  /// forecast half is cached the same way (`ForecastBacktest.cached`).
   public static func build(
-    ledger: Ledger, today: DateOnly, options: CategoryModelOptions = .standard
+    ledger: Ledger, today: DateOnly, options: CategoryModelOptions = .standard,
+    cache: ModelQualityCache = .shared
   ) -> ModelQuality {
-    let examples = LedgerTraining.examples(of: ledger.dataset, calendar: ledger.calendar)
-    // Readiness is counts of examples, whatever the anchor; the metrics are measured at the
-    // end of the history, the anchor nearest to the days the questions were asked
-    // (`PrequentialEvaluation.run`).
-    let readiness = CategoryModel.train(on: examples, anchor: today, options: options).readiness
-    let report =
-      readiness.isOn ? PrequentialEvaluation.report(on: examples, options: options) : nil
+    let examples = LedgerTraining.examples(of: ledger)
+    let measured = cache.measurement(of: examples, options: options) {
+      // Readiness is counts of examples, whatever the anchor; the metrics are measured at the
+      // end of the history, the anchor nearest to the days the questions were asked
+      // (`PrequentialEvaluation.run`).
+      let readiness = CategoryModel.train(on: examples, anchor: today, options: options).readiness
+      let report =
+        readiness.isOn ? PrequentialEvaluation.report(on: examples, options: options) : nil
+      return ModelQualityCache.Measurement(readiness: readiness, report: report)
+    }
     return ModelQuality(
       categories: Categories(
-        readiness: readiness, examples: examples.count, metrics: report?.metrics,
-        choices: Choices.of(ledger.dataset), months: report?.months ?? []),
-      forecast: ForecastBacktest.run(ledger: ledger, today: today))
+        readiness: measured.readiness, examples: examples.count,
+        metrics: measured.report?.metrics, choices: Choices.of(ledger.dataset),
+        months: measured.report?.months ?? []),
+      forecast: ForecastBacktest.cached(ledger: ledger, today: today))
+  }
+}
+
+/// The last measurement of the category model, by the examples and the options it was made on.
+public final class ModelQualityCache: Sendable {
+  struct Measurement: Sendable {
+    var readiness: CategoryModelReadiness
+    var report: PrequentialEvaluation.Report?
+  }
+
+  public static let shared = ModelQualityCache()
+
+  private struct Held {
+    var key: Int?
+    var measurement: Measurement?
+    var hits = 0
+    var misses = 0
+  }
+
+  private let held = Mutex(Held())
+
+  public init() {}
+
+  /// How many measurements came from the cache and how many were made.
+  public var counts: (hits: Int, misses: Int) { held.withLock { ($0.hits, $0.misses) } }
+
+  /// A number that is the same for the same examples and options, in any order — the replay puts
+  /// them in its own — within one run of the program (`Hasher` is seeded at every start).
+  static func key(of examples: [CategoryExample], options: CategoryModelOptions) -> Int {
+    var combined = 0
+    for example in examples {
+      var hasher = Hasher()
+      hasher.combine(example)
+      combined &+= hasher.finalize()
+    }
+    var hasher = Hasher()
+    hasher.combine(combined)
+    hasher.combine(examples.count)
+    hasher.combine(options)
+    return hasher.finalize()
+  }
+
+  func measurement(
+    of examples: [CategoryExample], options: CategoryModelOptions,
+    make: () -> Measurement
+  ) -> Measurement {
+    let key = Self.key(of: examples, options: options)
+    let known: Measurement? = held.withLock { held in
+      guard held.key == key, let measurement = held.measurement else {
+        held.misses += 1
+        return nil
+      }
+      held.hits += 1
+      return measurement
+    }
+    if let known { return known }
+    let made = make()
+    held.withLock { held in
+      held.key = key
+      held.measurement = made
+    }
+    return made
   }
 }
