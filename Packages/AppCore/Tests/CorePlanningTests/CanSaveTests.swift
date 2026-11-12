@@ -152,7 +152,9 @@ struct CanSaveTests: SavingsFixtures {
     planning.income = income("100000")
     let result = planning.canSave(remainder: forecast, ledger: fx.ledger)
     #expect(result.shortfall != nil)
-    #expect(result.fundingHints == [.category(CashFx.fun, rub("1200"))])
+    // The cut is the gap between the two limits «Предложить лимиты…» offers, each rounded up
+    // to 1 000: 12 000 usual, 10 800 → 11 000 a tenth less.
+    #expect(result.fundingHints == [.category(CashFx.fun, rub("1000"))])
   }
 
   @Test func theSnapshotDoesNotInventAMonetarySourceWithoutData() {
