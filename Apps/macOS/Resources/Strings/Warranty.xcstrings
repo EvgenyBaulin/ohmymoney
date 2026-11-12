@@ -35,10 +35,22 @@
             "value": "Garanties"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երաշխիքներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Garanzie"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარანტიები"
           }
         },
         "kk": {
@@ -137,10 +149,22 @@
             "value": "Supprimer"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հեռացնել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Rimuovi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წაშლა"
           }
         },
         "kk": {
@@ -239,10 +263,22 @@
             "value": "Pas encore de garantie"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երաշխիքներ դեռ չկան"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna garanzia"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარანტიები ჯერ არ არის"
           }
         },
         "kk": {
@@ -341,10 +377,22 @@
             "value": "Ajoutez une garantie ou un délai de retour dans le panneau d'une opération, ou tapez-le dans la ligne : « garantie 2a », « retour 14j »."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավելացրեք երաշխիք կամ վերադարձի ժամկետ գործարքի վահանակում կամ մուտքագրեք տողում՝ «warranty 2y», «return 14d»։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi una garanzia o un termine di reso nel pannello di un'operazione, oppure scrivilo nella riga: «warranty 2y», «return 14d»."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაამატეთ გარანტია ან დაბრუნების ვადა ოპერაციის პანელში, ან ჩაწერეთ სტრიქონში: «warranty 2y», «return 14d»."
           }
         },
         "kk": {
@@ -443,10 +491,22 @@
             "value": "Où se trouve l'original"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բնօրինակի գտնվելու վայրը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Dove si trova l'originale"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სად არის ორიგინალი"
           }
         },
         "kk": {
@@ -545,10 +605,22 @@
             "value": "boîte dans le placard, dossier « Électroménager »"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "տուփը պահարանում, «Կենցաղային տեխնիկա» թղթապանակ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "scatola nell'armadio, cartella «Elettrodomestici»"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყუთი კარადაში, საქაღალდე «ტექნიკა»"
           }
         },
         "kk": {
@@ -647,10 +719,22 @@
             "value": "Retour possible jusqu'au"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերադարձնել մինչև"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Restituibile fino al"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაბრუნების ვადა"
           }
         },
         "kk": {
@@ -749,10 +833,22 @@
             "value": "Garantie jusqu'au"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երաշխիքը՝ մինչև"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Garanzia fino al"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარანტიის ვადა"
           }
         },
         "kk": {
@@ -935,6 +1031,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Մնացել է %lld օր"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Մնացել է %lld օր"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -954,6 +1068,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Restano %lld giorni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "დარჩა %lld დღე"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "დარჩა %lld დღე"
                 }
               }
             }
@@ -1211,10 +1343,22 @@
             "value": "Retour possible jusqu'au %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կարելի է վերադարձնել մինչև %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Restituibile fino al %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაბრუნება შესაძლებელია %@-მდე"
           }
         },
         "kk": {
@@ -1313,10 +1457,22 @@
             "value": "Garantie jusqu'au %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երաշխիքը՝ մինչև %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Garanzia fino al %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარანტია %@-მდე"
           }
         },
         "kk": {
@@ -1415,10 +1571,22 @@
             "value": "Rien trouvé"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ոչինչ չի գտնվել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessun risultato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვერაფერი მოიძებნა"
           }
         },
         "kk": {
@@ -1517,10 +1685,22 @@
             "value": "Ouvrir l'opération"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացել գործարքը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Apri operazione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციის გახსნა"
           }
         },
         "kk": {
@@ -1619,10 +1799,22 @@
             "value": "délai dépassé"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ժամկետն ավարտվել է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "termine scaduto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვადა ამოიწურა"
           }
         },
         "kk": {
@@ -1721,10 +1913,22 @@
             "value": "Choisissez une date"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ընտրել ամսաթիվը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Scegli una data"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აირჩიეთ თარიღი"
           }
         },
         "kk": {
@@ -1907,6 +2111,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld օր"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld օր"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -1926,6 +2148,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld giorni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld დღე"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld დღე"
                 }
               }
             }
@@ -2267,6 +2507,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld տարի"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld տարի"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -2286,6 +2544,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld anni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld წელი"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld წელი"
                 }
               }
             }
@@ -2543,10 +2819,22 @@
             "value": "Original : %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բնօրինակը՝ %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Originale: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ორიგინალი: %@"
           }
         },
         "kk": {
@@ -2645,10 +2933,22 @@
             "value": "Retour possible jusqu'au %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կարելի է վերադարձնել մինչև %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Restituibile fino al %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაბრუნება შესაძლებელია %@-მდე"
           }
         },
         "kk": {
@@ -2747,10 +3047,22 @@
             "value": "Garantie jusqu'au %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երաշխիքը՝ մինչև %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Garanzia fino al %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარანტია %@-მდე"
           }
         },
         "kk": {
@@ -2849,10 +3161,22 @@
             "value": "Rechercher par nom ou lieu"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Որոնել ըստ անվան կամ վայրի"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cerca per nome o luogo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ძიება სახელით ან მდებარეობით"
           }
         },
         "kk": {
@@ -2951,10 +3275,22 @@
             "value": "Terminées"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավարտված"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Scadute"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დასრულებული"
           }
         },
         "kk": {
@@ -3053,10 +3389,22 @@
             "value": "En cours"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գործող"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "In corso"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მოქმედი"
           }
         },
         "kk": {
@@ -3155,10 +3503,22 @@
             "value": "Ce qui est sous garantie et ce qui peut encore être rendu"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչն է երաշխիքի տակ և ինչ դեռ կարելի է վերադարձնել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cosa è in garanzia e cosa puoi ancora restituire"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რა არის გარანტიაზე და რისი დაბრუნებაა ჯერ კიდევ შესაძლებელი"
           }
         },
         "kk": {
@@ -3257,10 +3617,22 @@
             "value": "Garanties"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երաշխիքներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Garanzie"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარანტიები"
           }
         },
         "kk": {
@@ -3359,10 +3731,22 @@
             "value": "le dernier jour est aujourd'hui"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "վերջին օրն այսօր է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "ultimo giorno oggi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბოლო დღეა"
           }
         },
         "kk": {
@@ -3461,10 +3845,22 @@
             "value": "Achat de %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-ի գնում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Acquisto di %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-ის შეძენა"
           }
         },
         "kk": {

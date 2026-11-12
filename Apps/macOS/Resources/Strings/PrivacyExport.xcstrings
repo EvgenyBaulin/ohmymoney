@@ -34,10 +34,22 @@
             "value": "Anonymiser"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անանունացնել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Rendi anonima"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანონიმიზაცია"
           }
         },
         "kk": {
@@ -135,10 +147,22 @@
             "value": "Les descriptions, commentaires, lieux et noms sont effacés dans la copie. Les montants, dates et catégories restent. L'original ne change pas."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճենից հեռացվում են նկարագրությունները, մեկնաբանությունները, վայրերն ու անունները։ Գումարները, ամսաթվերն ու կատեգորիաները մնում են։ Բնօրինակը չի փոխվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nella copia vengono rimossi descrizioni, commenti, luoghi e nomi. Importi, date e categorie restano. L’originale non cambia."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლიდან წაიშლება აღწერები, კომენტარები, ადგილები და სახელები. თანხები, თარიღები და კატეგორიები დარჩება. ორიგინალი არ შეიცვლება."
           }
         },
         "kk": {
@@ -236,10 +260,22 @@
             "value": "Inclure les pièces jointes (%@)"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ներառել կցորդները (%@)"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Includi allegati (%@)"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დანართების ჩართვა (%@)"
           }
         },
         "kk": {
@@ -337,10 +373,22 @@
             "value": "La copie est prête"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճենը պատրաստ է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La copia è pronta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლი მზადაა"
           }
         },
         "kk": {
@@ -438,10 +486,22 @@
             "value": "Pièces jointes : %lld"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կցորդներ՝ %lld"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Allegati: %lld"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დანართები: %lld"
           }
         },
         "kk": {
@@ -539,10 +599,22 @@
             "value": "Verrouillée par votre mot de passe."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կողպված է ձեր գաղտնաբառով։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Protetta dalla tua password."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაცულია თქვენი პაროლით."
           }
         },
         "kk": {
@@ -724,6 +796,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գործարք պատճենում"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գործարք պատճենում"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -743,6 +833,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operazioni nella copia"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ასლში %lld ოპერაციაა"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ასლში %lld ოპერაციაა"
                 }
               }
             }
@@ -1083,6 +1191,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld փոխանցում պատճենում"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld փոխանցում պատճենում"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -1102,6 +1228,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld trasferimenti nella copia"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ასლში %lld გადარიცხვაა"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "ასლში %lld გადარიცხვაა"
                 }
               }
             }
@@ -1358,10 +1502,22 @@
             "value": "L'anonymisation n'est pas disponible dans cette version, donc la copie n'a pas été faite."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս տարբերակում անանունացումը հասանելի չէ, ուստի պատճենը չի ստեղծվել։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "L’anonimizzazione non è disponibile in questa versione. La copia non è stata creata."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ ვერსიაში ანონიმიზაცია მიუწვდომელია, ამიტომ ასლი არ შექმნილა."
           }
         },
         "kk": {
@@ -1459,10 +1615,22 @@
             "value": "Un compte masqué est encore utilisé par quelque chose que la copie garde, donc il ne peut pas être laissé de côté. Incluez les comptes masqués, ou réaffichez le compte."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Թաքցված հաշիվը դեռ օգտագործվում է պատճենում պահպանվող տվյալների կողմից, ուստի այն չի կարելի բաց թողնել։ Ներառեք թաքցված հաշիվները կամ կրկին ցուցադրեք հաշիվը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Un conto nascosto è ancora utilizzato da elementi inclusi nella copia e non può essere escluso. Includi i conti nascosti o mostra di nuovo il conto."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამალულ ანგარიშს ასლში დარჩენილი მონაცემები იყენებს, ამიტომ მისი გამოტოვება შეუძლებელია. ჩართეთ დამალული ანგარიშები ან კვლავ გამოაჩინეთ ანგარიში."
           }
         },
         "kk": {
@@ -1560,10 +1728,22 @@
             "value": "La copie n'a pas été faite. Rien n'a été modifié."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճենը չի ստեղծվել։ Ոչինչ չի փոխվել։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La copia non è stata creata. Non è stato modificato nulla."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლი არ შექმნილა. არაფერი შეცვლილა."
           }
         },
         "kk": {
@@ -1661,10 +1841,22 @@
             "value": "Saisissez un mot de passe : une copie sans mot de passe n'est pas faite."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մուտքագրեք գաղտնաբառ․ առանց դրա պատճեն չի ստեղծվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Inserisci una password: non è possibile creare una copia senza password."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეიყვანეთ პაროლი: მის გარეშე ასლი არ შეიქმნება."
           }
         },
         "kk": {
@@ -1762,10 +1954,22 @@
             "value": "La période est vide : la fin est avant le début."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ժամանակահատվածը դատարկ է․ ավարտը սկզբից առաջ է։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il periodo è vuoto: la fine precede l’inizio."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პერიოდი ცარიელია: დასრულება დაწყებამდეა."
           }
         },
         "kk": {
@@ -1863,10 +2067,22 @@
             "value": "Format"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ձևաչափ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Formato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფორმატი"
           }
         },
         "kk": {
@@ -1964,10 +2180,22 @@
             "value": "Archive de transfert"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փոխանցման արխիվ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Archivio di trasferimento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადატანის არქივი"
           }
         },
         "kk": {
@@ -2065,10 +2293,22 @@
             "value": "CSV seulement"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Միայն CSV"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Solo CSV"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მხოლოდ CSV"
           }
         },
         "kk": {
@@ -2167,10 +2407,22 @@
             "value": "Du"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սկիզբ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Da"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაწყება"
           }
         },
         "kk": {
@@ -2268,10 +2520,22 @@
             "value": "Inclure les comptes masqués"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ներառել թաքցված հաշիվները"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Includi conti nascosti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამალული ანგარიშების ჩართვა"
           }
         },
         "kk": {
@@ -2369,10 +2633,22 @@
             "value": "Sans cela, la copie n'a aucun compte masqué, ni aucune de leurs opérations ou virements."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հակառակ դեպքում պատճենում չեն լինի թաքցված հաշիվները և դրանց գործարքներն ու փոխանցումները։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Se disattivato, la copia non include i conti nascosti né le loro operazioni o i loro trasferimenti."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამის გარეშე ასლში არ იქნება დამალული ანგარიშები, მათი ოპერაციები და გადარიცხვები."
           }
         },
         "kk": {
@@ -2470,10 +2746,22 @@
             "value": "La copie comprendra les comptes masqués."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճենը կներառի թաքցված հաշիվները։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La copia includerà i conti nascosti."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლში დამალული ანგარიშებიც იქნება."
           }
         },
         "kk": {
@@ -2571,10 +2859,22 @@
             "value": "Laissé de côté : %lld"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բաց է թողնվել՝ %lld"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Esclusi: %lld"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გამოტოვებულია: %lld"
           }
         },
         "kk": {
@@ -2672,10 +2972,22 @@
             "value": "Une copie — l'original reste chez vous."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սա պատճեն է․ բնօրինակը մնում է ձեզ մոտ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Una copia: l’originale resta con te."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ეს ასლია — ორიგინალი თქვენთან რჩება."
           }
         },
         "kk": {
@@ -2774,10 +3086,22 @@
             "value": "Mot de passe"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գաղտնաբառ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Password"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პაროლი"
           }
         },
         "kk": {
@@ -2876,10 +3200,22 @@
             "value": "Répétez le mot de passe"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կրկնեք գաղտնաբառը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Ripeti la password"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაიმეორეთ პაროლი"
           }
         },
         "kk": {
@@ -2977,10 +3313,22 @@
             "value": "La copie est verrouillée par ce mot de passe. Personne ne peut l'ouvrir sans lui, et il ne peut pas être récupéré. L'original reste chez vous, inchangé."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճենը կկողպվի այս գաղտնաբառով։ Առանց դրա ոչ ոք չի կարող բացել պատճենը, իսկ գաղտնաբառը վերականգնել հնարավոր չէ։ Բնօրինակը մնում է ձեզ մոտ՝ անփոփոխ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La copia è protetta da questa password. Senza password non può essere aperta e non è possibile recuperarla. L’originale resta con te, invariato."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლი ამ პაროლით იქნება დაცული. მის გარეშე ვერავინ გახსნის და მისი აღდგენა შეუძლებელია. ორიგინალი თქვენთან უცვლელი რჩება."
           }
         },
         "kk": {
@@ -3078,10 +3426,22 @@
             "value": "pièces jointes : %lld"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "կցորդներ՝ %lld"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "allegati: %lld"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დანართები: %lld"
           }
         },
         "kk": {
@@ -3180,10 +3540,22 @@
             "value": "Comptage…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշվում է…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Conteggio…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ითვლება…"
           }
         },
         "kk": {
@@ -3281,10 +3653,22 @@
             "value": "Comprendra :"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կներառի՝"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Includerà:"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლში იქნება:"
           }
         },
         "kk": {
@@ -3467,6 +3851,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գործարք"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գործարք"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -3486,6 +3888,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operazioni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ოპერაცია"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ოპერაცია"
                 }
               }
             }
@@ -3826,6 +4246,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld փոխանցում"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld փոխանցում"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -3845,6 +4283,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld trasferimenti"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld გადარიცხვა"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld გადარიცხვა"
                 }
               }
             }
@@ -4101,10 +4557,22 @@
             "value": "Saisissez un mot de passe : une copie sans mot de passe n'est pas faite."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մուտքագրեք գաղտնաբառ․ առանց դրա պատճեն չի ստեղծվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Inserisci una password: non è possibile creare una copia senza password."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეიყვანეთ პაროლი: მის გარეშე ასლი არ შეიქმნება."
           }
         },
         "kk": {
@@ -4202,10 +4670,22 @@
             "value": "Les mots de passe ne concordent pas."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գաղտնաբառերը չեն համընկնում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Le password non coincidono."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პაროლები არ ემთხვევა."
           }
         },
         "kk": {
@@ -4303,10 +4783,22 @@
             "value": "La période est vide : la fin est avant le début."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ժամանակահատվածը դատարկ է․ ավարտը սկզբից առաջ է։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il periodo è vuoto: la fine precede l’inizio."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პერიოდი ცარიელია: დასრულება დაწყებამდეა."
           }
         },
         "kk": {
@@ -4404,10 +4896,22 @@
             "value": "Enregistrer la copie…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պահել պատճենը…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Salva copia…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლის შენახვა…"
           }
         },
         "kk": {
@@ -4505,10 +5009,22 @@
             "value": "Une partie de l'historique"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատմության մաս"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Parte della cronologia"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ისტორიის ნაწილი"
           }
         },
         "kk": {
@@ -4606,10 +5122,22 @@
             "value": "Pour une période"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ժամանակահատվածի համար"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Per un periodo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პერიოდისთვის"
           }
         },
         "kk": {
@@ -4707,10 +5235,22 @@
             "value": "Toute la base"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ամբողջ տվյալների բազան"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Intero database"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მთელი მონაცემთა ბაზა"
           }
         },
         "kk": {
@@ -4808,10 +5348,22 @@
             "value": "Afficher le mot de passe"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցուցադրել գաղտնաբառը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Mostra password"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პაროლის ჩვენება"
           }
         },
         "kk": {
@@ -4909,10 +5461,22 @@
             "value": "Exporter une copie"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Արտահանել պատճենը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Esporta una copia"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლის ექსპორტი"
           }
         },
         "kk": {
@@ -5011,10 +5575,22 @@
             "value": "Au"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավարտ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "A"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დასრულება"
           }
         },
         "kk": {
@@ -5112,10 +5688,22 @@
             "value": "Création de la copie…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճենը ստեղծվում է…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Creazione della copia…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლი იქმნება…"
           }
         },
         "kk": {
@@ -5213,10 +5801,22 @@
             "value": "Retour à mes données"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերադառնալ իմ տվյալներին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Torna ai miei dati"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩემს მონაცემებზე დაბრუნება"
           }
         },
         "kk": {
@@ -5314,10 +5914,22 @@
             "value": "Données d'entraînement"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ուսումնական տվյալներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Dati di prova"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სასწავლო მონაცემები"
           }
         },
         "kk": {
@@ -5415,10 +6027,22 @@
             "value": "Ces chiffres sont inventés. Votre propre base n'est pas ouverte."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս թվերը հորինված են։ Ձեր տվյալների բազան բացված չէ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Questi dati sono fittizi. Il tuo database non è aperto."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ეს რიცხვები გამოგონილია. თქვენი მონაცემთა ბაზა გახსნილი არ არის."
           }
         },
         "kk": {
@@ -5517,10 +6141,22 @@
             "value": "Afficher"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցուցադրել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Mostra"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩვენება"
           }
         },
         "kk": {
@@ -5618,10 +6254,22 @@
             "value": "L'app redémarre sur des données fictives. Votre propre base n'est pas touchée, et un bouton vous ramène."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հավելվածը կվերագործարկվի հորինված տվյալներով։ Ձեր տվյալների բազան չի փոխվի, և կարող եք վերադառնալ մեկ կոճակով։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "L’app si riavvia con dati fittizi. Il tuo database non viene modificato e puoi tornarci con un pulsante."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აპი ხელახლა ჩაირთვება გამოგონილი მონაცემებით. თქვენი მონაცემთა ბაზა უცვლელი დარჩება და დაბრუნებას ერთი ღილაკით შეძლებთ."
           }
         },
         "kk": {
@@ -5719,10 +6367,22 @@
             "value": "Afficher l'app sur des données d'entraînement ?"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցուցադրե՞լ հավելվածն ուսումնական տվյալներով։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Mostrare l’app con dati di prova?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვაჩვენოთ აპი სასწავლო მონაცემებით?"
           }
         },
         "kk": {
@@ -5820,10 +6480,22 @@
             "value": "Chiffrer (s'ouvre dans OhMyMoney)"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գաղտնագրել (բացվում է OhMyMoney-ում)"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Codifica (si apre in OhMyMoney)"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაშიფვრა (იხსნება OhMyMoney-ში)"
           }
         },
         "kk": {
@@ -5921,10 +6593,22 @@
             "value": "Vider le journal"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մաքրել մատյանը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cancella il registro"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჟურნალის გასუფთავება"
           }
         },
         "kk": {
@@ -6023,10 +6707,22 @@
             "value": "Vider"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մաքրել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cancella"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გასუფთავება"
           }
         },
         "kk": {
@@ -6124,10 +6820,22 @@
             "value": "Toutes les entrées du journal d'ouverture seront supprimées."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացումների մատյանի բոլոր գրառումները կհեռացվեն։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Tutte le voci del registro delle aperture verranno rimosse."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გახსნის ჟურნალის ყველა ჩანაწერი წაიშლება."
           }
         },
         "kk": {
@@ -6225,10 +6933,22 @@
             "value": "Vider le journal ?"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մաքրե՞լ մատյանը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cancellare il registro?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გავასუფთავოთ ჟურნალი?"
           }
         },
         "kk": {
@@ -6326,10 +7046,22 @@
             "value": "Pas encore de lignes."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեռ գրառումներ չկան։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna voce."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერები ჯერ არ არის."
           }
         },
         "kk": {
@@ -6427,10 +7159,22 @@
             "value": "Une copie a été exportée"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճենն արտահանվել է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Copia esportata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლი ექსპორტირებულია"
           }
         },
         "kk": {
@@ -6528,10 +7272,22 @@
             "value": "Comptes masqués affichés"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Թաքցված հաշիվները ցուցադրվել են"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Conti nascosti mostrati"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამალული ანგარიშები გამოჩნდა"
           }
         },
         "kk": {
@@ -6629,10 +7385,22 @@
             "value": "Verrouillée"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կողպվել է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Bloccata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაიბლოკა"
           }
         },
         "kk": {
@@ -6730,10 +7498,22 @@
             "value": "App ouverte"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հավելվածը բացվել է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "App aperta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აპი გაიხსნა"
           }
         },
         "kk": {
@@ -6831,10 +7611,22 @@
             "value": "Mode lecture seule désactivé"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Միայն դիտման ռեժիմն անջատվել է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Modalità sola lettura disattivata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მხოლოდ ნახვის რეჟიმი გამოირთო"
           }
         },
         "kk": {
@@ -6932,10 +7724,22 @@
             "value": "Mode lecture seule activé"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Միայն դիտման ռեժիմը միացվել է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Modalità sola lettura attivata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მხოლოდ ნახვის რეჟიმი ჩაირთო"
           }
         },
         "kk": {
@@ -7033,10 +7837,22 @@
             "value": "Déverrouillée avec le mot de passe"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ապակողպվել է գաղտնաբառով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Sbloccata con password"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პაროლით განიბლოკა"
           }
         },
         "kk": {
@@ -7134,10 +7950,22 @@
             "value": "Déverrouillée avec Touch ID"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ապակողպվել է Touch ID-ով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Sbloccata con Touch ID"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touch ID-ით განიბლოკა"
           }
         },
         "kk": {
@@ -7235,10 +8063,22 @@
             "value": "Le journal ne vit que sur ce Mac. Il contient des moments et des types d'événements — ni montants, ni noms, ni titres — et il n'entre ni dans une copie ni dans une archive."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մատյանը պահվում է միայն այս Mac-ում։ Այն պարունակում է իրադարձությունների ժամանակն ու տեսակը՝ առանց գումարների, անունների կամ վերնագրերի, և չի ներառվում պատճենում կամ արխիվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il registro si trova solo su questo Mac. Contiene date, ore e tipi di eventi, senza importi, nomi o titoli. Non viene incluso nelle copie o negli archivi."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჟურნალი მხოლოდ ამ Mac-ზე ინახება. მასში აღირიცხება მოვლენების დრო და ტიპი, თანხების, სახელებისა და დასახელებების გარეშე. ის ასლსა და არქივში არ შედის."
           }
         },
         "kk": {
@@ -7336,10 +8176,22 @@
             "value": "Conserver pendant"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պահել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Conserva per"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შენახვის ვადა"
           }
         },
         "kk": {
@@ -7521,6 +8373,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld օր"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld օր"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -7540,6 +8410,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld giorni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld დღე"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld დღე"
                 }
               }
             }
@@ -7796,10 +8684,22 @@
             "value": "Journal des ouvertures"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացումների մատյան"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Registro delle aperture"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გახსნის ჟურნალი"
           }
         },
         "kk": {
@@ -7897,10 +8797,22 @@
             "value": "Quiconque ouvre le fichier a besoin de ce mot de passe. Il ne peut pas être récupéré."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ֆայլը բացելու համար անհրաժեշտ է այս գաղտնաբառը։ Այն հնարավոր չէ վերականգնել։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Chiunque apra il file avrà bisogno di questa password. Non è possibile recuperarla."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილის გასახსნელად ეს პაროლი იქნება საჭირო. მისი აღდგენა შეუძლებელია."
           }
         },
         "kk": {
@@ -7998,10 +8910,22 @@
             "value": "Verrouiller le fichier par un mot de passe"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կողպել ֆայլը գաղտնաբառով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Proteggi il file con una password"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილის პაროლით დაცვა"
           }
         },
         "kk": {
@@ -8099,10 +9023,22 @@
             "value": "Exporter une copie…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Արտահանել պատճենը…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Esporta copia…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლის ექსპორტი…"
           }
         },
         "kk": {
@@ -8200,10 +9136,22 @@
             "value": "Ce que sait l'app…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչ գիտի հավելվածը…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cosa sa l’app…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რა იცის აპმა…"
           }
         },
         "kk": {
@@ -8301,10 +9249,22 @@
             "value": "Masquer les montants pendant l'enregistrement de l'écran"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Թաքցնել գումարները էկրանի ձայնագրման ընթացքում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nascondi gli importi durante la registrazione dello schermo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხების დამალვა ეკრანის ჩაწერისას"
           }
         },
         "kk": {
@@ -8402,10 +9362,22 @@
             "value": "Aussi pendant la recopie de l'écran ou un partage dans un appel."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նաև էկրանի արտապատկերման կամ զանգի ընթացքում ցուցադրման ժամանակ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Anche quando lo schermo viene duplicato o condiviso durante una chiamata."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასევე ეკრანის დუბლირებისას ან ზარში გაზიარებისას."
           }
         },
         "kk": {
@@ -8503,10 +9475,22 @@
             "value": "Afficher les données d'entraînement…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցուցադրել ուսումնական տվյալներով…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Mostra con dati di prova…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სასწავლო მონაცემებით ჩვენება…"
           }
         },
         "kk": {
@@ -8604,10 +9588,22 @@
             "value": "Exporter une copie…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Արտահանել պատճենը…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Esporta una copia…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლის ექსპორტი…"
           }
         },
         "kk": {
@@ -8705,10 +9701,22 @@
             "value": "Remise à quelqu'un"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փոխանցում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Condivisione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადაცემა"
           }
         },
         "kk": {
@@ -8806,10 +9814,22 @@
             "value": "Une copie est verrouillée par un mot de passe ; l'original reste inchangé. Les données d'entraînement sont des chiffres inventés, et votre propre base n'est pas ouverte."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճենը կողպվում է գաղտնաբառով, իսկ բնօրինակը մնում է անփոփոխ։ Ուսումնական տվյալները հորինված են, իսկ ձեր տվյալների բազան չի բացվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La copia è protetta da una password; l’originale resta invariato. I dati di prova sono fittizi e il tuo database non viene aperto."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლი პაროლითაა დაცული, ორიგინალი კი უცვლელი რჩება. სასწავლო მონაცემები გამოგონილი რიცხვებია და თქვენი მონაცემთა ბაზა არ იხსნება."
           }
         },
         "kk": {
@@ -8907,10 +9927,22 @@
             "value": "Journal des ouvertures…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացումների մատյան…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Registro delle aperture…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გახსნის ჟურნალი…"
           }
         },
         "kk": {
@@ -9008,10 +10040,22 @@
             "value": "Ce que sait l'app"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչ գիտի հավելվածը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cosa sa l’app"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რა იცის აპმა"
           }
         },
         "kk": {
@@ -9109,10 +10153,22 @@
             "value": "Le journal et les compteurs ne sont affichés qu'ici ; ils ne sont envoyés nulle part."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մատյանն ու քանակները ցուցադրվում են միայն այստեղ և ոչ մի տեղ չեն ուղարկվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il registro e i conteggi sono visibili solo qui e non vengono inviati altrove."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჟურნალი და რაოდენობები მხოლოდ აქ ჩანს; ისინი არსად იგზავნება."
           }
         },
         "kk": {
@@ -9210,10 +10266,22 @@
             "value": "Verrou et mot de passe…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կողպում և գաղտնաբառ…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Blocco e password…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაბლოკვა და პაროლი…"
           }
         },
         "kk": {
@@ -9311,10 +10379,22 @@
             "value": "Consultation seule"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Միայն դիտում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Sola lettura"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მხოლოდ ნახვა"
           }
         },
         "kk": {
@@ -9412,10 +10492,22 @@
             "value": "L'app affiche tout et ne modifie rien."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հավելվածը ցույց է տալիս ամեն ինչ՝ առանց փոփոխելու։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "L’app mostra tutto e non modifica nulla."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აპი ყველაფერს აჩვენებს და არაფერს ცვლის."
           }
         },
         "kk": {
@@ -9514,10 +10606,22 @@
             "value": "Écran"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Էկրան"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Schermo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ეკრანი"
           }
         },
         "kk": {
@@ -9615,10 +10719,22 @@
             "value": "Ce qui est stocké…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչ է պահվում…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cosa viene salvato…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რა ინახება…"
           }
         },
         "kk": {
@@ -9717,10 +10833,22 @@
             "value": "Pièces jointes"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կցորդներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Allegati"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დანართები"
           }
         },
         "kk": {
@@ -9818,10 +10946,22 @@
             "value": "Copies"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճեններ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Copie"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლები"
           }
         },
         "kk": {
@@ -10004,6 +11144,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld պատճեն"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld պատճեն"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -10023,6 +11181,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld copie"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ასლი"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ასლი"
                 }
               }
             }
@@ -10363,6 +11539,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ֆայլ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ֆայլ"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -10382,6 +11576,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld file"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ფაილი"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ფაილი"
                 }
               }
             }
@@ -10722,6 +11934,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld տող"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld տող"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -10741,6 +11971,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld righe"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ხაზი"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ხაზი"
                 }
               }
             }
@@ -11081,6 +12329,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գրառում"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գրառում"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -11100,6 +12366,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld record"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ჩანაწერი"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ჩანაწერი"
                 }
               }
             }
@@ -11356,10 +12640,22 @@
             "value": "Base de données"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Տվյալների բազա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Database"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მონაცემთა ბაზა"
           }
         },
         "kk": {
@@ -11457,10 +12753,22 @@
             "value": "Seuls les compteurs et les tailles sont affichés ici. Rien n'est envoyé nulle part."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այստեղ ցուցադրվում են միայն քանակներն ու չափերը։ Ոչինչ ոչ մի տեղ չի ուղարկվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Qui sono mostrati solo quantità e dimensioni. Non viene inviato nulla."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აქ მხოლოდ რაოდენობა და ზომაა ნაჩვენები. არაფერი იგზავნება."
           }
         },
         "kk": {
@@ -11558,10 +12866,22 @@
             "value": "Journal des ouvertures"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացումների մատյան"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Registro delle aperture"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გახსნის ჟურნალი"
           }
         },
         "kk": {
@@ -11659,10 +12979,22 @@
             "value": "Enregistrements"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրառումներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Record"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერები"
           }
         },
         "kk": {
@@ -11760,10 +13092,22 @@
             "value": "Par table"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ըստ աղյուսակի"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Per tabella"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ცხრილების მიხედვით"
           }
         },
         "kk": {
@@ -11861,10 +13205,22 @@
             "value": "Ce que sait l'app"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչ գիտի հավելվածը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cosa sa l’app"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რა იცის აპმა"
           }
         },
         "kk": {
@@ -11962,10 +13318,22 @@
             "value": "Total sur le disque"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ընդամենը սկավառակի վրա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Totale su disco"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სულ დისკზე"
           }
         },
         "kk": {
@@ -12063,10 +13431,22 @@
             "value": "o"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "B"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბ"
           }
         },
         "kk": {
@@ -12164,10 +13544,22 @@
             "value": "Go"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ԳԲ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "GB"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გბ"
           }
         },
         "kk": {
@@ -12265,10 +13657,22 @@
             "value": "Ko"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ԿԲ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "KB"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კბ"
           }
         },
         "kk": {
@@ -12366,10 +13770,22 @@
             "value": "Mo"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ՄԲ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "MB"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მბ"
           }
         },
         "kk": {
@@ -12467,10 +13883,22 @@
             "value": "Où il se trouve"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Որտեղ է պահվում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Dove si trova"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სად ინახება"
           }
         },
         "kk": {
@@ -12568,10 +13996,22 @@
             "value": "Copies"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պատճեններ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Copie"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ასლები"
           }
         },
         "kk": {
@@ -12669,10 +14109,22 @@
             "value": "Dossier des données"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Տվյալների պանակ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cartella dati"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მონაცემების საქაღალდე"
           }
         },
         "kk": {
@@ -12770,10 +14222,22 @@
             "value": "Les chemins ne sont qu'affichés : la base et l'archive ne les contiennent pas."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ուղիները միայն ցուցադրվում են․ դրանք չեն պահվում տվյալների բազայում կամ արխիվում։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "I percorsi sono solo mostrati: non sono salvati nel database né nell’archivio."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბილიკები მხოლოდ ნაჩვენებია: ისინი მონაცემთა ბაზასა და არქივში არ ინახება."
           }
         },
         "kk": {
@@ -12871,10 +14335,22 @@
             "value": "Dossier des copies miroir"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հայելային պատճենների պանակ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cartella delle copie speculari"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სარკისებური ასლების საქაღალდე"
           }
         },
         "kk": {

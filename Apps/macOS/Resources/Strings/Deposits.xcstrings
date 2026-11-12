@@ -4,6 +4,12 @@
     "crypto.coin.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinGecko-da sikkənin adı: bitcoin, ethereum, tether. Vergüldən sonra ən çox 4 rəqəm: məbləğ 1/10.000 dəqiqliklə saxlanılır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -44,6 +50,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il nome con cui CoinGecko identifica la valuta: bitcoin, ethereum, tether. Massimo 4 cifre dopo la virgola: gli importi sono conservati al decimillesimo."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მონეტის სახელი CoinGecko-ზე: bitcoin, ethereum, tether. მძიმის შემდეგ არაუმეტეს 4 ციფრისა: თანხა ინახება 1/10,000 სიზუსტით."
           }
         },
         "kk": {
@@ -111,6 +123,12 @@
     "crypto.coin.id": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sikkə ID-si"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -151,6 +169,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ID valuta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მონეტის ID"
           }
         },
         "kk": {
@@ -218,6 +242,12 @@
     "crypto.coin.refusal": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sikkə ID-si kiçik latın hərflərindən, rəqəmlərdən və defislərdən ibarətdir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -258,6 +288,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "L’ID valuta contiene lettere latine minuscole, cifre e trattini."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მონეტის ID შეიცავს ლათინურ პატარა ასოებს, ციფრებსა და დეფისებს."
           }
         },
         "kk": {
@@ -326,6 +362,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məzənnə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -366,6 +408,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cambio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კურსი"
           }
         },
         "kk": {
@@ -433,6 +481,12 @@
     "crypto.source": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kriptovalyuta məzənnələri"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -473,6 +527,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cambi crypto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კრიპტოვალუტის კურსები"
           }
         },
         "kk": {
@@ -540,6 +600,12 @@
     "crypto.source.coingecko": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İnternetdən (CoinGecko)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -580,6 +646,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dalla rete (CoinGecko)"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ქსელიდან (CoinGecko)"
           }
         },
         "kk": {
@@ -647,6 +719,12 @@
     "crypto.source.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "api.coingecko.com ünvanına yalnız sikkənin ID-si və valyuta (rubl) göndərilir. İnternet olmayanda son məzənnə tarixi ilə saxlanılır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -687,6 +765,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A api.coingecko.com vengono inviati solo l’ID della valuta e la valuta di riferimento (rubli). Senza rete resta l’ultimo cambio, con la relativa data."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "api.coingecko.com-ს მხოლოდ მონეტის ID და ვალუტა (რუბლი) გადაეცემა. ქსელის გარეშე ბოლო კურსი თარიღთან ერთად ინახება."
           }
         },
         "kk": {
@@ -754,6 +838,12 @@
     "crypto.source.manual": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əl ilə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -794,6 +884,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Manualmente"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხელით"
           }
         },
         "kk": {
@@ -861,6 +957,12 @@
     "dep.add": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təklif əlavə et…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -901,6 +1003,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi offerta…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეთავაზების დამატება…"
           }
         },
         "kk": {
@@ -969,6 +1077,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-dən"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1009,6 +1123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "da %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-დან"
           }
         },
         "kk": {
@@ -1076,6 +1196,12 @@
     "dep.amount.range": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1113,6 +1239,12 @@
           }
         },
         "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ – %@"
+          }
+        },
+        "ka": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ – %@"
@@ -1183,6 +1315,12 @@
     "dep.amount.upTo": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-dək"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1223,6 +1361,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "fino a %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-მდე"
           }
         },
         "kk": {
@@ -1290,6 +1434,12 @@
     "dep.cbr.body": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ən çox əmanəti olan on bankın rubl əmanətləri üzrə orta maksimal faizi: illik %1$@%%, %2$@ tarixindən. Bu, bazar göstəricisidir və konkret banka aid deyil."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1330,6 +1480,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Media dei tassi massimi sui depositi in rubli delle dieci banche con più depositi: %1$@%% annuo, dal %2$@. È un indicatore di mercato, non il tasso di una banca."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანაბრების მოცულობით ათი უმსხვილესი ბანკის რუბლის ანაბრების საშუალო მაქსიმალური განაკვეთი: %1$@%% წელიწადში, %2$@-ის მდგომარეობით. ბაზრის ორიენტირია და არა რომელიმე ბანკის განაკვეთი."
           }
         },
         "kk": {
@@ -1397,6 +1553,12 @@
     "dep.cbr.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rusiya Bankının məlumatına görə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1437,6 +1599,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Secondo la Banca di Russia"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რუსეთის ბანკის მონაცემებით"
           }
         },
         "kk": {
@@ -1504,6 +1672,12 @@
     "dep.diverge": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faizlər fərqlənir: %1$@ — %2$@%%, %3$@ — %4$@%%. Bankın saytında yoxlamağa dəyər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1544,6 +1718,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "I tassi differiscono: %1$@ — %2$@%%, %3$@ — %4$@%%. Verifica sul sito della banca."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განაკვეთები განსხვავდება: %1$@ — %2$@%%, %3$@ — %4$@%%. გადაამოწმეთ ბანკის საიტზე."
           }
         },
         "kk": {
@@ -1612,6 +1792,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1652,6 +1838,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა"
           }
         },
         "kk": {
@@ -1720,6 +1912,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hamısı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1760,6 +1958,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qualsiasi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნებისმიერი"
           }
         },
         "kk": {
@@ -1827,6 +2031,12 @@
     "dep.filter.term": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Müddət, ay"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1867,6 +2077,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Durata, mesi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვადა, თვე"
           }
         },
         "kk": {
@@ -1934,6 +2150,12 @@
     "dep.filter.topup": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artırmaq olar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1974,6 +2196,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Con versamenti aggiuntivi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შევსების შესაძლებლობით"
           }
         },
         "kk": {
@@ -2042,6 +2270,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2082,6 +2316,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Banca"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბანკი"
           }
         },
         "kk": {
@@ -2149,6 +2389,12 @@
     "dep.form.edit": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təklifi redaktə et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2189,6 +2435,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modifica offerta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეთავაზების შეცვლა"
           }
         },
         "kk": {
@@ -2256,6 +2508,12 @@
     "dep.form.max": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maksimal məbləğ"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2296,6 +2554,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importo massimo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მაქსიმალური თანხა"
           }
         },
         "kk": {
@@ -2363,6 +2627,12 @@
     "dep.form.min": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimal məbləğ"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2403,6 +2673,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importo minimo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მინიმალური თანხა"
           }
         },
         "kk": {
@@ -2470,6 +2746,12 @@
     "dep.form.new": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni təklif"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2510,6 +2792,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nuova offerta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახალი შეთავაზება"
           }
         },
         "kk": {
@@ -2577,6 +2865,12 @@
     "dep.form.newClient": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnız yeni müştərilər üçün"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2617,6 +2911,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solo nuovi clienti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მხოლოდ ახალი კლიენტებისთვის"
           }
         },
         "kk": {
@@ -2685,6 +2985,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeyd"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2725,6 +3031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nota"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შენიშვნა"
           }
         },
         "kk": {
@@ -2793,6 +3105,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faiz, illik %"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2833,6 +3151,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tasso annuo, %"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განაკვეთი, % წელიწადში"
           }
         },
         "kk": {
@@ -2900,6 +3224,12 @@
     "dep.form.rateInvalid": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faiz müsbət ədəd olmalıdır, məsələn 15.5."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2940,6 +3270,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il tasso deve essere un numero positivo, ad esempio 15.5."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განაკვეთი დადებითი რიცხვია, მაგალითად 15.5."
           }
         },
         "kk": {
@@ -3007,6 +3343,12 @@
     "dep.form.rateOn": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faizin tarixi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3047,6 +3389,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tasso al"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განაკვეთის თარიღი"
           }
         },
         "kk": {
@@ -3114,6 +3462,12 @@
     "dep.form.subscription": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abunəlik tələb olunur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3154,6 +3508,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Richiede un abbonamento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საჭიროა გამოწერა"
           }
         },
         "kk": {
@@ -3221,6 +3581,12 @@
     "dep.form.term": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Müddət, ay"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3261,6 +3627,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Durata, mesi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვადა, თვე"
           }
         },
         "kk": {
@@ -3328,6 +3700,12 @@
     "dep.form.topup": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artırmaq olar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3368,6 +3746,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Versamenti aggiuntivi consentiti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შევსება შესაძლებელია"
           }
         },
         "kk": {
@@ -3435,6 +3819,12 @@
     "dep.newClient": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "yeni müştərilər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3475,6 +3865,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "nuovi clienti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახალი კლიენტებისთვის"
           }
         },
         "kk": {
@@ -3542,6 +3938,12 @@
     "dep.none": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtrə uyğun təklif yoxdur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3582,6 +3984,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessun risultato per il filtro."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფილტრს არაფერი შეესაბამება."
           }
         },
         "kk": {
@@ -3649,6 +4057,12 @@
     "dep.open": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əmanət təklifləri…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3689,6 +4103,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Offerte di deposito…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანაბრების შეთავაზებები…"
           }
         },
         "kk": {
@@ -3756,6 +4176,12 @@
     "dep.own": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mənim təklifim"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3796,6 +4222,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "mia offerta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩემი შეთავაზება"
           }
         },
         "kk": {
@@ -3863,6 +4295,12 @@
     "dep.parser": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faizləri açıq mənbələrdən al (Mac-dən yalnız səhifə sorğusu göndərilir)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3903,6 +4341,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ottieni i tassi da fonti pubbliche (dal Mac viene inviata solo la richiesta della pagina)"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განაკვეთების მიღება ღია წყაროებიდან (Mac-იდან მხოლოდ გვერდის მოთხოვნა იგზავნება)"
           }
         },
         "kk": {
@@ -3970,6 +4414,12 @@
     "dep.parser.failed": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faizləri yeniləmək mümkün olmadı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4010,6 +4460,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile aggiornare i tassi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განაკვეთების განახლება ვერ მოხერხდა"
           }
         },
         "kk": {
@@ -4077,6 +4533,12 @@
     "dep.pick.amount": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ üçün: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4117,6 +4579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "per %@: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-ისთვის: %@"
           }
         },
         "kk": {
@@ -4184,6 +4652,12 @@
     "dep.pick.term": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ay üçün: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4224,6 +4698,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "per %lld mesi: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld თვისთვის: %@"
           }
         },
         "kk": {
@@ -4291,6 +4771,12 @@
     "dep.pick.topup": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "artırmaq olar: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4331,6 +4817,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "con versamenti aggiuntivi: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შევსებით: %@"
           }
         },
         "kk": {
@@ -4399,6 +4891,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%%"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4436,6 +4934,12 @@
           }
         },
         "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%%"
+          }
+        },
+        "ka": {
           "stringUnit": {
             "state": "translated",
             "value": "%@%%"
@@ -4506,6 +5010,12 @@
     "dep.rate.unknown": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankın saytında yoxlayın"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4546,6 +5056,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Verifica sul sito della banca"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეამოწმეთ ბანკის საიტზე"
           }
         },
         "kk": {
@@ -4613,6 +5129,12 @@
     "dep.rate.upTo": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%%-dək"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4653,6 +5175,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "fino al %@%%"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%%-მდე"
           }
         },
         "kk": {
@@ -4720,6 +5248,12 @@
     "dep.rateOn": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tarixinə faiz"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4760,6 +5294,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "tasso al %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განაკვეთი %@-ის მდგომარეობით"
           }
         },
         "kk": {
@@ -4827,6 +5367,12 @@
     "dep.source.builtIn": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tətbiqin siyahısı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4867,6 +5413,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "elenco dell’app"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აპის სია"
           }
         },
         "kk": {
@@ -4934,6 +5486,12 @@
     "dep.source.centralBank": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rusiya Bankı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4974,6 +5532,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Banca di Russia"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რუსეთის ბანკი"
           }
         },
         "kk": {
@@ -5041,6 +5605,12 @@
     "dep.source.own": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mənim təklifim"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5081,6 +5651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "mia offerta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩემი შეთავაზება"
           }
         },
         "kk": {
@@ -5148,6 +5724,12 @@
     "dep.stale": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dəyişmiş ola bilər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5188,6 +5770,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "potrebbe essere cambiato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შესაძლოა შეცვლილი იყოს"
           }
         },
         "kk": {
@@ -5255,6 +5843,12 @@
     "dep.subscription": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "abunəlik tələb olunur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5295,6 +5889,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "richiede un abbonamento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საჭიროა გამოწერა"
           }
         },
         "kk": {
@@ -5362,6 +5962,12 @@
     "dep.subtitle": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankların hazırkı təklifləri, faiz sırası ilə. Maliyyə məsləhəti deyil: şərtləri bankın saytında yoxlayın."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5402,6 +6008,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Le offerte attuali delle banche, ordinate per tasso. Non è una consulenza finanziaria: verifica le condizioni sul sito della banca."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბანკების მიმდინარე შეთავაზებები განაკვეთის მიხედვით. ეს არ არის ფინანსური რჩევა: პირობები ბანკის საიტზე გადაამოწმეთ."
           }
         },
         "kk": {
@@ -5469,6 +6081,12 @@
     "dep.term.from": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld aydan"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5509,6 +6127,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "da %lld mesi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld თვიდან"
           }
         },
         "kk": {
@@ -5576,6 +6200,12 @@
     "dep.term.one": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ay"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5616,6 +6246,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld mesi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld თვე"
           }
         },
         "kk": {
@@ -5683,6 +6319,12 @@
     "dep.term.range": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld–%lld ay"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5723,6 +6365,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld–%lld mesi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld–%lld თვე"
           }
         },
         "kk": {
@@ -5790,6 +6438,12 @@
     "dep.term.upTo": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ayadək"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5830,6 +6484,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "fino a %lld mesi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld თვემდე"
           }
         },
         "kk": {
@@ -5897,6 +6557,12 @@
     "dep.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əmanət təklifləri"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5937,6 +6603,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Offerte di deposito"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანაბრების შეთავაზებები"
           }
         },
         "kk": {
@@ -6004,6 +6676,12 @@
     "dep.topup.no": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "artırmaq olmur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6044,6 +6722,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "senza versamenti aggiuntivi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შევსების გარეშე"
           }
         },
         "kk": {
@@ -6111,6 +6795,12 @@
     "dep.topup.yes": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "artırmaq olar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6151,6 +6841,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "versamenti aggiuntivi consentiti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შევსება შესაძლებელია"
           }
         },
         "kk": {
@@ -6218,6 +6914,12 @@
     "dep.version": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bank siyahısı %@ tarixində oxunub; hər buraxılışda yenilənir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6258,6 +6960,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elenco delle banche consultato il %@; viene aggiornato a ogni versione."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბანკების სიის თარიღი: %@; სია ყოველი გამოშვებისას ახლდება."
           }
         },
         "kk": {
@@ -6325,6 +7033,12 @@
     "look.depositEnds": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” əmanətinin müddəti %2$@ tarixində bitir. Hazırkı təkliflər (maliyyə məsləhəti deyil):"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6365,6 +7079,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il deposito “%1$@” scade il %2$@. Offerte attuali (non è una consulenza finanziaria):"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანაბრის „%1$@“ ვადა იწურება %2$@. მიმდინარე შეთავაზებები (ეს არ არის ფინანსური რჩევა):"
           }
         },
         "kk": {
@@ -6432,6 +7152,12 @@
     "payout.asset": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiv"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6472,6 +7198,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Investimento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აქტივი"
           }
         },
         "kk": {
@@ -6539,6 +7271,12 @@
     "payout.coupon": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kupon"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6579,6 +7317,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cedola"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კუპონი"
           }
         },
         "kk": {
@@ -6646,6 +7390,12 @@
     "payout.dividend": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dividendlər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6686,6 +7436,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dividendi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დივიდენდები"
           }
         },
         "kk": {
@@ -6753,6 +7509,12 @@
     "payout.fromAsset": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gözlənilən ödəniş…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6793,6 +7555,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pagamento previsto…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მოსალოდნელი გადახდა…"
           }
         },
         "kk": {
@@ -6861,6 +7629,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödəniş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6901,6 +7675,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pagamento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადახდა"
           }
         },
         "kk": {
@@ -6968,6 +7748,12 @@
     "payout.newTitle": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni ödəniş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7008,6 +7794,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nuovo pagamento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახალი გადახდა"
           }
         },
         "kk": {
@@ -7075,6 +7867,12 @@
     "payout.noAssets": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kapital bölməsində hələ investisiya yoxdur: orada əlavə edin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7115,6 +7913,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessun investimento in Capitale. Aggiungine uno lì."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კაპიტალში ინვესტიციები ჯერ არ არის: დაამატეთ იქ."
           }
         },
         "kk": {
@@ -7182,6 +7986,12 @@
     "payout.none": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adi gəlir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7222,6 +8032,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entrata ordinaria"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩვეულებრივი შემოსავალი"
           }
         },
         "kk": {
@@ -7289,6 +8105,12 @@
     "payout.recurringHint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hər altı aydan bir alınan kupon müntəzəm gəlirdir: yuxarıda “Müntəzəm” seçin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7329,6 +8151,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una cedola semestrale è un’entrata regolare: scegli “Regolare” sopra."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნახევარ წელიწადში ერთხელ მიღებული კუპონი რეგულარული შემოსავალია: ზემოთ აირჩიეთ „რეგულარული“."
           }
         },
         "kk": {
@@ -7396,6 +8224,12 @@
     "payout.tag.coupon": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kupon"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7436,6 +8270,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "cedola"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კუპონი"
           }
         },
         "kk": {
@@ -7503,6 +8343,12 @@
     "payout.tag.dividend": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dividendlər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7543,6 +8389,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "dividendi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დივიდენდები"
           }
         },
         "kk": {

@@ -4,6 +4,12 @@
     "badges.earnedOn": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tarixində qazanılıb"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -44,6 +50,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ottenuto il %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მიღებულია: %@"
           }
         },
         "kk": {
@@ -111,6 +123,12 @@
     "badges.kind.count12": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir il ərzində hər ay sayım"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -151,6 +169,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un conteggio al mese per un anno"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღრიცხვა ყოველთვიურად, ერთი წლის განმავლობაში"
           }
         },
         "kk": {
@@ -218,6 +242,12 @@
     "badges.kind.count3": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 ay ərzində hər ay sayım"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -258,6 +288,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un conteggio al mese per 3 mesi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღრიცხვა ყოველთვიურად, 3 თვის განმავლობაში"
           }
         },
         "kk": {
@@ -325,6 +361,12 @@
     "badges.kind.countMonth": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu ay sayım"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -365,6 +407,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un conteggio questo mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღრიცხვა ამ თვეში"
           }
         },
         "kk": {
@@ -432,6 +480,12 @@
     "badges.kind.entry100": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ardıcıl 100 gün qeyd"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -472,6 +526,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "100 giorni consecutivi con registrazioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერები ზედიზედ 100 დღე"
           }
         },
         "kk": {
@@ -539,6 +599,12 @@
     "badges.kind.entry30": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ardıcıl 30 gün qeyd"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -579,6 +645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "30 giorni consecutivi con registrazioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერები ზედიზედ 30 დღე"
           }
         },
         "kk": {
@@ -646,6 +718,12 @@
     "badges.kind.entry7": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ardıcıl 7 gün qeyd"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -686,6 +764,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "7 giorni consecutivi con registrazioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერები ზედიზედ 7 დღე"
           }
         },
         "kk": {
@@ -753,6 +837,12 @@
     "badges.none": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu dövrdə nişan yoxdur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -793,6 +883,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessun traguardo in questo periodo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ პერიოდში ჯილდოები არ არის"
           }
         },
         "kk": {
@@ -860,6 +956,24 @@
     "badges.streakNow": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Cari seriya: %lld gün"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Cari seriya: %lld gün"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -1011,6 +1125,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Serie attuale: %lld giorni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "მიმდინარე სერია: %lld დღე"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "მიმდინარე სერია: %lld დღე"
                 }
               }
             }
@@ -1237,6 +1369,12 @@
     "badges.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nişanlar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1277,6 +1415,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Traguardi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჯილდოები"
           }
         },
         "kk": {
@@ -1344,6 +1488,12 @@
     "beginner.caption": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başlanğıc rejimində gizlədilib"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1384,6 +1534,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Non ancora disponibile nella modalità per principianti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამწყების რეჟიმში ნაკლებია"
           }
         },
         "kk": {
@@ -1451,6 +1607,12 @@
     "beginner.openNow": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndi aç"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1491,6 +1653,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apri ora"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახლავე გახსნა"
           }
         },
         "kk": {
@@ -1558,6 +1726,24 @@
     "beginner.unlock.entryDays": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün qeyd etdikdən sonra açılır (indi %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün qeyd etdikdən sonra açılır (indi %lld)"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -1709,6 +1895,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Si sblocca dopo %lld giorni con registrazioni (ora %lld)"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გაიხსნება ჩანაწერების %lld დღეზე (ახლა %lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გაიხსნება ჩანაწერების %lld დღეზე (ახლა %lld)"
                 }
               }
             }
@@ -1935,6 +2139,12 @@
     "beginner.unlock.firstCount": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk sayımdan sonra açılır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1975,6 +2185,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Si sblocca dopo il primo conteggio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაიხსნება პირველი აღრიცხვის შემდეგ"
           }
         },
         "kk": {
@@ -2042,6 +2258,24 @@
     "beginner.unlock.month": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld günə, bir ay qeyd etdikdən sonra açılır"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld günə, bir ay qeyd etdikdən sonra açılır"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -2193,6 +2427,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Si sblocca tra %lld giorni, dopo un mese di registrazioni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გაიხსნება %lld დღეში, ჩანაწერების ერთი თვის შემდეგ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გაიხსნება %lld დღეში, ჩანაწერების ერთი თვის შემდეგ"
                 }
               }
             }
@@ -2419,6 +2671,12 @@
     "goal.why.exceeded": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niyə yığırsınız"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2459,6 +2717,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Perché risparmi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რისთვის აგროვებთ"
           }
         },
         "kk": {
@@ -2526,6 +2790,12 @@
     "goal.why.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məqsəd üçün yığılan pul xərclənmiş görünəndə, plan azaldılanda və ya məqsəd silinəndə tətbiq bunu sizə xatırladır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2566,6 +2836,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "L’app te lo ricorda quando il denaro per l’obiettivo risulta speso, il piano viene ridotto o l’obiettivo viene eliminato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აპი შეგახსენებთ, როცა მიზნისთვის გადადებული თანხა დახარჯულად გამოჩნდება, გეგმას შეამცირებთ ან მიზანს წაშლით"
           }
         },
         "kk": {
@@ -2633,6 +2909,12 @@
     "goal.why.lowered": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@» üçün yığırsınız, çünki: %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2673,6 +2955,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Risparmi per «%1$@» perché: %2$@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»-ისთვის აგროვებთ, რადგან: %2$@"
           }
         },
         "kk": {
@@ -2740,6 +3028,12 @@
     "goal.why.prompt": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İyulda bütün ailə ilə dəniz"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2780,6 +3074,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il mare a luglio, con tutta la famiglia"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ზღვა ივლისში, მთელი ოჯახით"
           }
         },
         "kk": {
@@ -2847,6 +3147,12 @@
     "goal.why.reminder": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»: %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2884,6 +3190,12 @@
           }
         },
         "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%1$@»: %2$@"
+          }
+        },
+        "ka": {
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@»: %2$@"
@@ -2954,6 +3266,12 @@
     "goal.why.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niyə yığıram"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2994,6 +3312,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Perché risparmio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რისთვის ვაგროვებ"
           }
         },
         "kk": {
@@ -3061,6 +3385,12 @@
     "habit.action.noSpend": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xərc yoxdur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3101,6 +3431,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna spesa"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხარჯი არ მქონია"
           }
         },
         "kk": {
@@ -3169,6 +3505,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bərpa et…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3209,6 +3551,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recupera…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღდგენა…"
           }
         },
         "kk": {
@@ -3276,6 +3624,12 @@
     "lessons.cards": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 kart"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3316,6 +3670,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 schede"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 ბარათი"
           }
         },
         "kk": {
@@ -3384,6 +3744,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağla"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3424,6 +3790,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chiudi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დახურვა"
           }
         },
         "kk": {
@@ -3491,6 +3863,12 @@
     "lessons.menu": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dərslər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3531,6 +3909,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lezioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაკვეთილები"
           }
         },
         "kk": {
@@ -3598,6 +3982,12 @@
     "lessons.subtitle": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pul haqqında qısa dərslər, hərəsində beş kart"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3638,6 +4028,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Brevi lezioni sul denaro, cinque schede ciascuna"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მოკლე გაკვეთილები ფინანსებზე, თითოეული 5 ბარათით"
           }
         },
         "kk": {
@@ -3705,6 +4101,12 @@
     "lessons.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dərslər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3745,6 +4147,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lezioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაკვეთილები"
           }
         },
         "kk": {
@@ -3812,6 +4220,12 @@
     "look.habit.evening": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu gün xərc yoxdur?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3852,6 +4266,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna spesa oggi?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დღეს არაფერი დაგიხარჯავთ?"
           }
         },
         "kk": {
@@ -3919,6 +4339,12 @@
     "look.habit.eveningRemind": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugünkü xərcləri qeyd edin — yoxsa bu gün xərc olmayıb?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3959,6 +4385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra le spese di oggi. Oggi non hai speso nulla?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩაწერეთ დღევანდელი ხარჯები — თუ დღეს არაფერი დაგიხარჯავთ?"
           }
         },
         "kk": {
@@ -4026,6 +4458,24 @@
     "look.habit.missed": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gündür qeyd yoxdur — qalıqlara əsasən bərpa edilsin?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gündür qeyd yoxdur — qalıqlara əsasən bərpa edilsin?"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -4177,6 +4627,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Nessuna registrazione da %lld giorni. Vuoi recuperarle dai saldi?"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld დღეა ჩანაწერი არ არის — აღვადგინოთ ნაშთებით?"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld დღეა ჩანაწერი არ არის — აღვადგინოთ ნაშთებით?"
                 }
               }
             }
@@ -4403,6 +4871,24 @@
     "look.habit.streak": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "seriya: %lld gün"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "seriya: %lld gün"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -4554,6 +5040,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "serie di %lld giorni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "სერია: %lld დღე"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "სერია: %lld დღე"
                 }
               }
             }
@@ -4781,6 +5285,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geri"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4821,6 +5331,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Indietro"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "უკან"
           }
         },
         "kk": {
@@ -4888,6 +5404,12 @@
     "missed.balances.actual": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hazırda hesabda"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4928,6 +5450,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saldo attuale del conto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახლა ანგარიშზე"
           }
         },
         "kk": {
@@ -4995,6 +5523,12 @@
     "missed.balances.expected": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeydlərə görə: %@ — uyğundur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5035,6 +5569,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dalle registrazioni: %@ — corrisponde"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერებით: %@ — ემთხვევა"
           }
         },
         "kk": {
@@ -5102,6 +5642,12 @@
     "missed.balances.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hər hesabın cari qalığını daxil edin. Ən azı bir dəfə sayılmış «Cəmi» hesabları göstərilir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5142,6 +5688,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Inserisci il saldo attuale di ogni conto. Sono inclusi i conti in «Totale» conteggiati almeno una volta."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეიყვანეთ თითოეულ ანგარიშზე არსებული თანხა. ნაჩვენებია «სულ»-ში შემავალი ანგარიშები, რომლებიც ერთხელ მაინც აღრიცხეთ."
           }
         },
         "kk": {
@@ -5209,6 +5761,12 @@
     "missed.balances.missing": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeydlərə görə %1$@ · qeyd olunmayıb %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5249,6 +5807,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dalle registrazioni %1$@ · non registrato %2$@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერებით: %1$@ · არ არის ჩაწერილი: %2$@"
           }
         },
         "kk": {
@@ -5316,6 +5880,12 @@
     "missed.balances.more": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeydlərdə göstəriləndən çoxdur — bəlkə də qeyd olunmamış gəlirdir; xərc kimi bölüşdürülmür"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5356,6 +5926,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il saldo supera quello registrato: potrebbe esserci un’entrata non registrata, che non verrà ripartita come spesa"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერებზე მეტია — შესაძლოა, შემოსავალი არ ჩაგიწერიათ; ეს თანხა ხარჯად არ ნაწილდება"
           }
         },
         "kk": {
@@ -5423,6 +5999,12 @@
     "missed.balances.noAccounts": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Cəmi» bölməsindəki hesabların heç biri hələ sayılmayıb. Əvvəlcə sayım edin ki, müqayisə mümkün olsun."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5463,6 +6045,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessun conto in «Totale» è ancora stato conteggiato. Esegui prima un conteggio per avere un termine di confronto."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«სულ»-ში შემავალი არცერთი ანგარიში ჯერ არ აღრიცხულა. ჯერ აღრიცხეთ ანგარიშები, რათა შედარება შევძლოთ."
           }
         },
         "kk": {
@@ -5530,6 +6118,12 @@
     "missed.balances.none": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütün qalıqlar qeydlərə uyğundur: bərpa ediləcək heç nə yoxdur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5570,6 +6164,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tutti i saldi corrispondono alle registrazioni: niente da recuperare"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყველა ნაშთი ემთხვევა ჩანაწერებს: აღსადგენი არაფერია"
           }
         },
         "kk": {
@@ -5638,6 +6238,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ləğv et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5678,6 +6284,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Annulla"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაუქმება"
           }
         },
         "kk": {
@@ -5745,6 +6357,12 @@
     "missed.changed": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bərpa zamanı qalıqlar dəyişdi. Pəncərəni bağlayın və yenidən sayım edin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5785,6 +6403,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "I saldi sono cambiati durante la procedura. Chiudila ed esegui un nuovo conteggio."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნაშთები შეიცვალა, სანამ აღდგენის ფანჯარა ღია იყო. დახურეთ და ხელახლა აღრიცხეთ."
           }
         },
         "kk": {
@@ -5852,6 +6476,12 @@
     "missed.days.add": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sətir əlavə et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5892,6 +6522,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi riga"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სტრიქონის დამატება"
           }
         },
         "kk": {
@@ -5959,6 +6595,12 @@
     "missed.days.allUnknown": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kateqoriyasız sətirlər — «Naməlum»"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5999,6 +6641,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Righe senza categoria — «Sconosciuta»"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "უკატეგორიო სტრიქონები — «უცნობი»"
           }
         },
         "kk": {
@@ -6067,6 +6715,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kateqoriya"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6107,6 +6761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categoria"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კატეგორია"
           }
         },
         "kk": {
@@ -6174,6 +6834,12 @@
     "missed.days.done": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tam bölüşdürülüb"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6214,6 +6880,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Interamente ripartito"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სრულად განაწილდა"
           }
         },
         "kk": {
@@ -6281,6 +6953,12 @@
     "missed.days.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hər sətir üçün kateqoriya seçin; «Naməlum» da seçilə bilər. Hesabın sətirlərinin cəmi əskik məbləğə bərabər olmalıdır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6321,6 +6999,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ogni riga richiede una categoria; puoi scegliere anche «Sconosciuta». La somma delle righe di un conto deve corrispondere all’importo mancante."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყველა სტრიქონს კატეგორია სჭირდება; შეგიძლიათ აირჩიოთ «უცნობიც». ანგარიშის სტრიქონების ჯამი მის დანაკლისს უნდა უდრიდეს."
           }
         },
         "kk": {
@@ -6388,6 +7072,12 @@
     "missed.days.left": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölüşdürülməyib: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6428,6 +7118,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Da ripartire: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გასანაწილებელია: %@"
           }
         },
         "kk": {
@@ -6495,6 +7191,12 @@
     "missed.days.note": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nəyə xərclənib (istəyə bağlı)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6535,6 +7237,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descrizione (facoltativa)"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რას მოხმარდა (არასავალდებულო)"
           }
         },
         "kk": {
@@ -6602,6 +7310,12 @@
     "missed.days.remove": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sətiri sil"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6642,6 +7356,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rimuovi riga"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სტრიქონის წაშლა"
           }
         },
         "kk": {
@@ -6710,6 +7430,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Növbəti"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6750,6 +7476,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Avanti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შემდეგი"
           }
         },
         "kk": {
@@ -6817,6 +7549,12 @@
     "missed.notSaved": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyatları qeyd etmək mümkün olmadı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6857,6 +7595,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile registrare le operazioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციების ჩაწერა ვერ მოხერხდა"
           }
         },
         "kk": {
@@ -6924,6 +7668,12 @@
     "missed.problem.amount": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hər sətirdə sıfırdan böyük məbləğ olmalıdır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6964,6 +7714,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ogni riga richiede un importo maggiore di zero"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყველა სტრიქონის თანხა ნულზე მეტი უნდა იყოს"
           }
         },
         "kk": {
@@ -7031,6 +7787,12 @@
     "missed.problem.category": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hər sətir üçün kateqoriya seçin"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7071,6 +7833,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scegli una categoria per ogni riga"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აირჩიეთ კატეგორია ყველა სტრიქონისთვის"
           }
         },
         "kk": {
@@ -7138,6 +7906,12 @@
     "missed.problem.left": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesabın sətirlərinin cəmi əskik məbləğə bərabər deyil"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7178,6 +7952,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La somma delle righe di un conto non corrisponde all’importo mancante"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანგარიშის სტრიქონების ჯამი მის დანაკლისს არ უდრის"
           }
         },
         "kk": {
@@ -7245,6 +8025,12 @@
     "missed.save": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeyd et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7285,6 +8071,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩაწერა"
           }
         },
         "kk": {
@@ -7352,6 +8144,12 @@
     "missed.saved": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeyd edildi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7392,6 +8190,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registrato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩაწერილია"
           }
         },
         "kk": {
@@ -7459,6 +8263,12 @@
     "missed.step.balances": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. Hesabların cari qalığı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7499,6 +8309,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "1. Saldi attuali dei conti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. რა თანხაა ახლა ანგარიშებზე"
           }
         },
         "kk": {
@@ -7566,6 +8382,12 @@
     "missed.step.days": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. Xərcləri günlərə bölüşdürün"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7606,6 +8428,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "2. Ripartisci le spese per giorno"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. გაანაწილეთ ხარჯები დღეების მიხედვით"
           }
         },
         "kk": {
@@ -7673,6 +8501,12 @@
     "missed.subtitle": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@ aralığında qeyd yoxdur. Əvvəlcə qalıqları, sonra günləri doldurun."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7713,6 +8547,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna registrazione dal %1$@ al %2$@. Prima i saldi, poi i giorni."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@-დან %2$@-მდე ჩანაწერები არ არის. ჯერ ნაშთები შეიყვანეთ, შემდეგ — დღეები."
           }
         },
         "kk": {
@@ -7780,6 +8620,12 @@
     "missed.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buraxılmış günləri bərpa et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7820,6 +8666,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recupera i giorni mancanti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გამოტოვებული დღეების აღდგენა"
           }
         },
         "kk": {
@@ -7887,6 +8739,12 @@
     "month.dayOf": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld / %2$lld gün"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7927,6 +8785,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "giorno %1$lld di %2$lld"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld-ე დღე %2$lld-დან"
           }
         },
         "kk": {
@@ -7995,6 +8859,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizlət"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8035,6 +8905,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nascondi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამალვა"
           }
         },
         "kk": {
@@ -8102,6 +8978,12 @@
     "month.progress": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld / %2$lld"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8142,6 +9024,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld di %2$lld"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld / %2$lld"
           }
         },
         "kk": {
@@ -8209,6 +9097,12 @@
     "month.show": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Harada olduğunu göstər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8249,6 +9143,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostra dove"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩვენება"
           }
         },
         "kk": {
@@ -8316,6 +9216,12 @@
     "month.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk ay"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8356,6 +9262,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il primo mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პირველი თვე"
           }
         },
         "kk": {
@@ -8423,6 +9335,12 @@
     "settings.habits.beginner": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başlanğıc rejimi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8463,6 +9381,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modalità per principianti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამწყების რეჟიმი"
           }
         },
         "kk": {
@@ -8530,6 +9454,12 @@
     "settings.habits.beginnerHint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mürəkkəb bölmələr görünür, lakin göstərəcək məlumat olana qədər solğun qalır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8570,6 +9500,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Le sezioni più complesse restano visibili ma attenuate finché non hanno contenuti da mostrare"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რთული განყოფილებები ჩანს, მაგრამ ჩამქრალია, სანამ მათში რამე გამოჩნდება"
           }
         },
         "kk": {
@@ -8637,6 +9573,12 @@
     "settings.habits.evening": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Axşam günün xərclərini soruş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8677,6 +9619,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chiedi delle spese della giornata la sera"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საღამოს დღევანდელი ხარჯების შესახებ კითხვა"
           }
         },
         "kk": {
@@ -8744,6 +9692,12 @@
     "settings.habits.eveningHint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«Bu gün xərc yoxdur?» günü seriyaya əlavə edir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8784,6 +9738,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "«Nessuna spesa oggi?» aggiunge il giorno alla serie"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«დღეს არაფერი დაგიხარჯავთ?» დღეს სერიაში ჩათვლის"
           }
         },
         "kk": {
@@ -8851,6 +9811,12 @@
     "settings.habits.eveningHour": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Axşamın başlama vaxtı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8891,6 +9857,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La sera inizia alle"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საღამოს დაწყების დრო"
           }
         },
         "kk": {
@@ -8958,6 +9930,12 @@
     "settings.habits.firstMonth": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk ayın siyahısını göstər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8998,6 +9976,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostra l’elenco del primo mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პირველი თვის საკონტროლო სიის ჩვენება"
           }
         },
         "kk": {
@@ -9065,6 +10049,12 @@
     "settings.habits.missedAfter": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeydsiz günlərdən sonra bərpa təklif et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9105,6 +10095,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Proponi il recupero dopo giorni senza registrazioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღდგენის შეთავაზება ჩანაწერების გარეშე გასული დღეების შემდეგ"
           }
         },
         "kk": {
@@ -9172,6 +10168,12 @@
     "settings.habits.missedAfterHint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildiriş deyil, «Nəzər salın» bölməsində sətir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9212,6 +10214,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una riga in «Da controllare», non una notifica"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სტრიქონი განყოფილებაში «საყურადღებო», შეტყობინების გარეშე"
           }
         },
         "kk": {
@@ -9280,6 +10288,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vərdişlər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9320,6 +10334,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abitudini"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩვევები"
           }
         },
         "kk": {

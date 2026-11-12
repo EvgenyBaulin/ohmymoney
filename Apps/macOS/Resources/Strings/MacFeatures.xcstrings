@@ -4,6 +4,12 @@
     "intent.add.description": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daxiletmə sətrindəki kimi yazılmış əməliyyatı və ya köçürməni əlavə edir, məsələn, “qəhvə 250” və ya “Sber-dən T-Bank-a köçürmə 5000”. Daxiletmə sətrindəki kimi yoxlanılır və OhMyMoney-də ⌘Z ilə geri alına bilər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -44,6 +50,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiunge un’operazione o un trasferimento scritto come nella riga di inserimento, ad esempio “caffè 250” o “trasferimento 5000 da Sber a T-Bank”. Viene verificato come nella riga di inserimento e puoi annullarlo con ⌘Z in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამატებს შეყვანის სტრიქონში ჩაწერილ ოპერაციას ან გადარიცხვას, მაგალითად: “coffee 250” ან “transfer 5000 from Sber to T-Bank”. ჩანაწერი ისევე მოწმდება, როგორც შეყვანის სტრიქონში. გასაუქმებლად დააჭირეთ ⌘Z-ს OhMyMoney-ში."
           }
         },
         "kk": {
@@ -111,6 +123,12 @@
     "intent.add.description.touch": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daxiletmə sətrindəki kimi yazılmış əməliyyatı və ya köçürməni əlavə edir, məsələn, “qəhvə 250” və ya “Sber-dən T-Bank-a köçürmə 5000”. Daxiletmə sətrindəki kimi yoxlanılır və OhMyMoney-də “Geri al” düyməsi ilə geri alına bilər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -151,6 +169,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiunge un’operazione o un trasferimento scritto come nella riga di inserimento, ad esempio “caffè 250” o “trasferimento 5000 da Sber a T-Bank”. Viene verificato come nella riga di inserimento e puoi annullarlo con il pulsante “Annulla” in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამატებს შეყვანის სტრიქონში ჩაწერილ ოპერაციას ან გადარიცხვას, მაგალითად: “coffee 250” ან “transfer 5000 from Sber to T-Bank”. ჩანაწერი ისევე მოწმდება, როგორც შეყვანის სტრიქონში. გასაუქმებლად დააჭირეთ ღილაკს “გაუქმება” OhMyMoney-ში."
           }
         },
         "kk": {
@@ -218,6 +242,12 @@
     "intent.add.line": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sətir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -258,6 +288,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Riga"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სტრიქონი"
           }
         },
         "kk": {
@@ -325,6 +361,12 @@
     "intent.add.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyat əlavə et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -365,6 +407,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi operazione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციის დამატება"
           }
         },
         "kk": {
@@ -432,6 +480,12 @@
     "intent.delete.description": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siyahıdakı “Sil” əmri kimi əməliyyatı silir. OhMyMoney-də ⌘Z ilə geri qaytarıla bilər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -472,6 +526,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elimina un’operazione, come il comando “Elimina” nell’elenco. Puoi ripristinarla con ⌘Z in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შლის ოპერაციას, როგორც სიაში ღილაკით “წაშლა”. აღსადგენად დააჭირეთ ⌘Z-ს OhMyMoney-ში."
           }
         },
         "kk": {
@@ -539,6 +599,12 @@
     "intent.delete.description.touch": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siyahıdakı “Sil” əmri kimi əməliyyatı silir. OhMyMoney-də “Geri al” düyməsi ilə geri qaytarıla bilər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -579,6 +645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elimina un’operazione, come il comando “Elimina” nell’elenco. Puoi ripristinarla con il pulsante “Annulla” in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შლის ოპერაციას, როგორც სიაში ღილაკით “წაშლა”. აღსადგენად დააჭირეთ ღილაკს “გაუქმება” OhMyMoney-ში."
           }
         },
         "kk": {
@@ -646,6 +718,12 @@
     "intent.delete.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyatı sil"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -686,6 +764,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Elimina operazione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციის წაშლა"
           }
         },
         "kk": {
@@ -754,6 +838,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -794,6 +884,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა"
           }
         },
         "kk": {
@@ -862,6 +958,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kateqoriya"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -902,6 +1004,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categoria"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კატეგორია"
           }
         },
         "kk": {
@@ -969,6 +1077,12 @@
     "intent.edit.description": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyatın təsvirini, məbləğini və ya kateqoriyasını dəyişir. Boş qalan sahələr dəyişmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1009,6 +1123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modifica la descrizione, l’importo o la categoria di un’operazione. I campi lasciati vuoti restano invariati."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ცვლის ოპერაციის აღწერას, თანხას ან კატეგორიას. ცარიელი ველები უცვლელი რჩება."
           }
         },
         "kk": {
@@ -1077,6 +1197,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təsvir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1117,6 +1243,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descrizione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღწერა"
           }
         },
         "kk": {
@@ -1184,6 +1316,12 @@
     "intent.edit.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyatı dəyiş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1224,6 +1362,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modifica operazione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციის შეცვლა"
           }
         },
         "kk": {
@@ -1291,6 +1435,12 @@
     "intent.find.description": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təsvir, məkan və ya kateqoriyadakı sözə görə əməliyyatları tapır. Gizli hesablardakı əməliyyatlar göstərilmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1331,6 +1481,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trova le operazioni in base a una parola della descrizione, del luogo o della categoria. Le operazioni dei conti nascosti non vengono mai trovate."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პოულობს ოპერაციებს აღწერის, ადგილის ან კატეგორიის სიტყვის მიხედვით. დამალული ანგარიშების ოპერაციები არ იძებნება."
           }
         },
         "kk": {
@@ -1398,6 +1554,12 @@
     "intent.find.text": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mətn"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1438,6 +1600,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Testo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ტექსტი"
           }
         },
         "kk": {
@@ -1505,6 +1673,12 @@
     "intent.find.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyatları tap"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1545,6 +1719,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trova operazioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციების მოძებნა"
           }
         },
         "kk": {
@@ -1612,6 +1792,12 @@
     "intent.focus.description": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu Fokus aktiv olarkən OhMyMoney-də məbləğləri gizlədir və bitdikdə yenidən göstərir. Özünüz gizlətdiyiniz məbləğlər gizli qalır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1652,6 +1838,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nasconde gli importi in OhMyMoney mentre questa modalità Full immersion è attiva e li mostra di nuovo al termine. Gli importi nascosti manualmente rimangono nascosti."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ ფოკუსის ჩართვისას მალავს თანხებს OhMyMoney-ში და დასრულებისას კვლავ აჩვენებს. თქვენ მიერ დამალული თანხები დამალული დარჩება."
           }
         },
         "kk": {
@@ -1719,6 +1911,12 @@
     "intent.focus.hidden": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlər gizlədildi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1759,6 +1957,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importi nascosti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხები დამალულია"
           }
         },
         "kk": {
@@ -1826,6 +2030,12 @@
     "intent.focus.hide": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğləri gizlət"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1866,6 +2076,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nascondi importi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხების დამალვა"
           }
         },
         "kk": {
@@ -1933,6 +2149,12 @@
     "intent.focus.shown": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlər göstərildi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1973,6 +2195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importi visibili"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხები ნაჩვენებია"
           }
         },
         "kk": {
@@ -2041,6 +2269,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğləri gizlət"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2081,6 +2315,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nascondi importi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხების დამალვა"
           }
         },
         "kk": {
@@ -2148,6 +2388,12 @@
     "intent.markdown.description": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayın xülasəsini Markdown faylı kimi təqdim edir. Qovluqda saxlamaq üçün ardınca “Faylı saxla” əlavə edin və qısayolu cədvəl üzrə başladın."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2188,6 +2434,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il riepilogo di un mese come file Markdown. Aggiungi “Salva file” per salvarlo in una cartella ed esegui il comando rapido secondo una pianificazione."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვის შეჯამება Markdown ფაილად — საქაღალდეში შესანახად დაამატეთ “ფაილის შენახვა” და გაუშვით სწრაფი ბრძანება განრიგით."
           }
         },
         "kk": {
@@ -2255,6 +2507,12 @@
     "intent.markdown.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayı Markdown kimi ixrac et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2295,6 +2553,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esporta mese come Markdown"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვის ექსპორტი Markdown ფორმატში"
           }
         },
         "kk": {
@@ -2363,6 +2627,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ay"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2403,6 +2673,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვე"
           }
         },
         "kk": {
@@ -2471,6 +2747,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyat"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2511,6 +2793,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operazione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაცია"
           }
         },
         "kk": {
@@ -2579,6 +2867,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyat"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2619,6 +2913,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operazione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაცია"
           }
         },
         "kk": {
@@ -2686,6 +2986,12 @@
     "intent.summary.description": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayın mətn xülasəsi: gəlir, xərclər, kateqoriyalar, məkanlar. Ay seçilmədikdə son başa çatmış ay göstərilir. “Məbləğləri gizlət” aktivdirsə, məbləğlər göstərilmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2726,6 +3032,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il riepilogo di un mese come testo: entrate, spese, categorie e luoghi. Se non specifichi un mese, viene usato l’ultimo mese concluso. Se “Nascondi importi” è attivo, gli importi non vengono mostrati."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვის შეჯამება ტექსტად: შემოსავალი, ხარჯები, კატეგორიები, ადგილები. თვის მითითების გარეშე — ბოლო დასრულებული თვე. “თანხების დამალვის” ჩართვისას — თანხების გარეშე."
           }
         },
         "kk": {
@@ -2793,6 +3105,12 @@
     "intent.summary.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayın xülasəsi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2833,6 +3151,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Riepilogo mensile"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვის შეჯამება"
           }
         },
         "kk": {
@@ -2900,6 +3224,12 @@
     "mac.command.archivedLeftovers": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu dəyişiklik arxivləşdirilmiş hesabda pul saxlayacaq. Əməliyyatı OhMyMoney-də tamamlayın."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2940,6 +3270,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La modifica lascerebbe denaro su un conto archiviato. Completa l’operazione in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ ცვლილების შემდეგ დაარქივებულ ანგარიშზე თანხა დარჩება. დაასრულეთ მოქმედება OhMyMoney-ში."
           }
         },
         "kk": {
@@ -3007,6 +3343,12 @@
     "mac.command.badDate": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sətirdəki tarix və ya saat oxunmur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3047,6 +3389,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile leggere la data o l’ora nella riga."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სტრიქონში თარიღის ან დროის წაკითხვა ვერ მოხერხდა."
           }
         },
         "kk": {
@@ -3114,6 +3462,12 @@
     "mac.command.badMonth": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ay YYYY-MM formatında yazılır, məsələn, 2026-10."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3154,6 +3508,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il mese va scritto come AAAA-MM, ad esempio 2026-10."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვე იწერება ფორმატით YYYY-MM, მაგალითად 2026-10."
           }
         },
         "kk": {
@@ -3221,6 +3581,12 @@
     "mac.command.categoryMissing": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sətirdə kateqoriya yoxdur. Onu əlavə edin, məsələn, “qəhvə 250 kafe”, və ya OhMyMoney-də seçin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3261,6 +3627,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La riga non indica una categoria. Aggiungila, ad esempio “caffè 250 bar”, oppure sceglila in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სტრიქონში კატეგორია არ არის მითითებული. დაამატეთ ის, მაგალითად “coffee 250 cafe”, ან აირჩიეთ OhMyMoney-ში."
           }
         },
         "kk": {
@@ -3328,6 +3700,12 @@
     "mac.command.categoryUnknown": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” kateqoriyası yoxdur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3368,6 +3746,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La categoria “%@” non esiste."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კატეგორია “%@” არ არსებობს."
           }
         },
         "kk": {
@@ -3435,6 +3819,12 @@
     "mac.command.confirm": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ Yenə də qeyd edilsin?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3475,6 +3865,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ Registrare comunque?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ მაინც ჩაიწეროს?"
           }
         },
         "kk": {
@@ -3542,6 +3938,12 @@
     "mac.command.countQuestion": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Həmin gün balans yoxlanılıb. Əməliyyatın sayımdan əvvəl olub-olmadığını OhMyMoney-də göstərin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3582,6 +3984,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il saldo è stato verificato quel giorno. Indica in OhMyMoney se l’operazione è avvenuta prima della verifica."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "იმ დღეს ბალანსი შეჯერებული იყო. მიუთითეთ OhMyMoney-ში, ოპერაცია დათვლამდე მოხდა თუ არა."
           }
         },
         "kk": {
@@ -3649,6 +4057,12 @@
     "mac.command.deleteRefused": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu əməliyyatı buradan silmək mümkün deyil. Onu OhMyMoney-də açın."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3689,6 +4103,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile eliminare questa operazione da qui. Aprila in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ ოპერაციის აქედან წაშლა შეუძლებელია. გახსენით ის OhMyMoney-ში."
           }
         },
         "kk": {
@@ -3756,6 +4176,12 @@
     "mac.command.deleted": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silindi: %@. OhMyMoney-də ⌘Z ilə geri qaytarıla bilər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3796,6 +4222,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eliminata: %@. Puoi ripristinarla con ⌘Z in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წაიშალა: %@. აღსადგენად დააჭირეთ ⌘Z-ს OhMyMoney-ში."
           }
         },
         "kk": {
@@ -3863,6 +4295,12 @@
     "mac.command.deleted.touch": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silindi: %@. OhMyMoney-də “Geri al” düyməsi ilə geri qaytarıla bilər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3903,6 +4341,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Eliminata: %@. Puoi ripristinarla con il pulsante “Annulla” in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წაიშალა: %@. აღსადგენად დააჭირეთ ღილაკს “გაუქმება” OhMyMoney-ში."
           }
         },
         "kk": {
@@ -3970,6 +4414,12 @@
     "mac.command.edited": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dəyişdirildi: %@."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4010,6 +4460,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modificata: %@."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეიცვალა: %@."
           }
         },
         "kk": {
@@ -4077,6 +4533,12 @@
     "mac.command.instalmentReturn": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taksitlə alınmış malın qaytarılması OhMyMoney-də qeyd edilir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4117,6 +4579,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un reso di un acquisto a rate si registra in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განვადებით შეძენილი ნივთის დაბრუნება იწერება OhMyMoney-ში."
           }
         },
         "kk": {
@@ -4184,6 +4652,12 @@
     "mac.command.locked": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney kilidlidir. Tətbiqi açıb kilidini açın."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4224,6 +4698,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney è bloccato. Apri l’app e sbloccala."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney დაბლოკილია. გახსენით და განბლოკეთ აპი."
           }
         },
         "kk": {
@@ -4291,6 +4771,12 @@
     "mac.command.mileage": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son yanacaq doldurulmasından bəri qət edilən məsafə qeyd edilməyəcək."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4331,6 +4817,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "La distanza percorsa dall’ultimo rifornimento non verrà registrata."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბოლო საწვავის ჩასხმის შემდეგ გავლილი მანძილი არ ჩაიწერება."
           }
         },
         "kk": {
@@ -4398,6 +4890,12 @@
     "mac.command.moneyBack": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şəxsin qaytardığı pul OhMyMoney-də qeyd edilir. Orada hansı borcun bağlanacağını seçin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4438,6 +4936,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il denaro restituito da una persona si registra in OhMyMoney, dove puoi scegliere cosa salda."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ადამიანის მიერ დაბრუნებული თანხა იწერება OhMyMoney-ში. იქ აირჩიეთ, რომელ ვალს ფარავს ის."
           }
         },
         "kk": {
@@ -4505,6 +5009,12 @@
     "mac.command.notFound": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyat tapılmadı."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4545,6 +5055,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operazione non trovata."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაცია ვერ მოიძებნა."
           }
         },
         "kk": {
@@ -4612,6 +5128,12 @@
     "mac.command.notReady": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney məlumatlarını hələ açmayıb. Tətbiqi açıb yenidən cəhd edin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4652,6 +5174,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney non ha ancora aperto i suoi dati. Apri l’app e riprova."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney-ს მონაცემები ჯერ არ გაუხსნია. გახსენით აპი და სცადეთ ხელახლა."
           }
         },
         "kk": {
@@ -4719,6 +5247,12 @@
     "mac.command.prepayQuestion": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödəniş tələb olunan məbləğdən çoxdur. Müddətin qısaldılacağını, ödənişin azalacağını və ya qabaqcadan ödəniləcəyini OhMyMoney-də seçin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4759,6 +5293,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il pagamento supera l’importo dovuto. Scegli in OhMyMoney se riduce la durata, abbassa la rata o paga in anticipo."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა გადასახდელზე მეტია. აირჩიეთ OhMyMoney-ში, შემცირდეს ვადა, შემცირდეს გადასახადი თუ წინასწარ დაიფაროს."
           }
         },
         "kk": {
@@ -4826,6 +5366,12 @@
     "mac.command.readOnly": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Yalnız oxumaq” aktivdir: əlavə etmək, dəyişmək və ya silmək mümkün deyil."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4866,6 +5412,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Sola lettura” è attivo: non puoi aggiungere, modificare o eliminare nulla."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩართულია “მხოლოდ წაკითხვა”. დამატება, შეცვლა და წაშლა შეუძლებელია."
           }
         },
         "kk": {
@@ -4933,6 +5485,12 @@
     "mac.command.refundPurchase": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pulun qaytarılması: aid olduğu alışı OhMyMoney-də seçin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4973,6 +5531,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un rimborso: scegli in OhMyMoney l’acquisto a cui si riferisce."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხის დაბრუნება: აირჩიეთ შესყიდვა OhMyMoney-ში."
           }
         },
         "kk": {
@@ -5040,6 +5604,12 @@
     "mac.command.saved": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qeyd edildi: %@."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5080,6 +5650,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registrata: %@."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩაიწერა: %@."
           }
         },
         "kk": {
@@ -5147,6 +5723,12 @@
     "mac.command.splitAmount": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyat bir neçə hissədən ibarətdir. Məbləği OhMyMoney-də dəyişin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5187,6 +5769,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "L’operazione ha più parti. Modifica l’importo in OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაცია რამდენიმე ნაწილისგან შედგება. შეცვალეთ მისი თანხა OhMyMoney-ში."
           }
         },
         "kk": {
@@ -5254,6 +5842,12 @@
     "mac.command.transferIncomplete": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Köçürmə: eyni valyutada olan hər iki hesabı göstərin, məsələn, “köçürmə 5000 Sber T-Bank”."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5294,6 +5888,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un trasferimento: indica entrambi i conti nella stessa valuta, ad esempio “trasferimento 5000 Sber T-Bank”."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადარიცხვა: მიუთითეთ ერთი ვალუტის ორივე ანგარიში, მაგალითად “transfer 5000 Sber T-Bank”."
           }
         },
         "kk": {
@@ -5361,6 +5961,12 @@
     "mac.command.unchanged": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dəyişiklik yoxdur: %@."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5401,6 +6007,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna modifica: %@."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შესაცვლელი არაფერია: %@."
           }
         },
         "kk": {
@@ -5469,6 +6081,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyat"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5509,6 +6127,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operazione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაცია"
           }
         },
         "kk": {
@@ -5576,6 +6200,12 @@
     "mac.density.compact": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yığcam"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5616,6 +6246,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Compatta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კომპაქტური"
           }
         },
         "kk": {
@@ -5683,6 +6319,12 @@
     "mac.density.detailed": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ətraflı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5723,6 +6365,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dettagliata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დეტალური"
           }
         },
         "kk": {
@@ -5790,6 +6438,12 @@
     "mac.markdown.button": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5827,6 +6481,12 @@
           }
         },
         "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markdown…"
+          }
+        },
+        "ka": {
           "stringUnit": {
             "state": "translated",
             "value": "Markdown…"
@@ -5897,6 +6557,12 @@
     "mac.notify.evening.body": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Və ya bu gün xərc olmadığını OhMyMoney-də bildirin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5937,6 +6603,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oppure indica in OhMyMoney che oggi non hai avuto spese."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ან მიუთითეთ OhMyMoney-ში, რომ დღეს ხარჯი არ ყოფილა."
           }
         },
         "kk": {
@@ -6004,6 +6676,24 @@
     "mac.notify.evening.streak": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld günlük ardıcıllığınızı davam etdirin."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld günlük ardıcıllığınızı davam etdirin."
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -6155,6 +6845,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Continua la tua serie di %lld giorni."
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გააგრძელეთ %lld-დღიანი სერია."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გააგრძელეთ %lld-დღიანი სერია."
                 }
               }
             }
@@ -6381,6 +7089,12 @@
     "mac.notify.evening.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugünkü xərcləri qeyd edin"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6421,6 +7135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra le spese di oggi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩაწერეთ დღევანდელი ხარჯები"
           }
         },
         "kk": {
@@ -6488,6 +7208,12 @@
     "mac.notify.explain.allow": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İcazə ver…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6528,6 +7254,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Consenti…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაშვება…"
           }
         },
         "kk": {
@@ -6596,6 +7328,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndi yox"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6636,6 +7374,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Non ora"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახლა არა"
           }
         },
         "kk": {
@@ -6703,6 +7447,12 @@
     "mac.notify.explain.message": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ödənişə bir gün qalmış bildirişdə “Ödənişi qeyd et” düyməsi ilə xatırlada, limit tükənmək üzrə olduqda və həftəlik və ya aylıq xülasə hazır olduqda xəbər verə bilər. “Məbləğləri gizlət” aktiv olduqda bildirişlərdə məbləğlər və gizli hesabların adları göstərilmir. Hər bildiriş növünü Parametrlər → Məxfilik bölməsində söndürə bilərsiniz."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6743,6 +7493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "OhMyMoney può avvisarti il giorno prima della scadenza di un pagamento, con “Registra pagamento” direttamente nella notifica, quando un limite è quasi raggiunto e quando il riepilogo di una settimana o di un mese è pronto. Se “Nascondi importi” è attivo, le notifiche non mostrano gli importi e non indicano mai i conti nascosti. Puoi disattivare ogni tipo di notifica in Impostazioni → Privacy."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney შეგახსენებთ გადახდას ერთი დღით ადრე — შეტყობინებიდანვე შეძლებთ აირჩიოთ “გადახდის ჩაწერა”. ასევე შეგატყობინებთ, როცა ლიმიტი თითქმის ამოიწურება ან კვირის თუ თვის შეჯამება მზად იქნება. “თანხების დამალვის” ჩართვისას შეტყობინებებში თანხები არ ჩანს და დამალული ანგარიშები არ სახელდება. თითოეული სახის შეტყობინება შეგიძლიათ გამორთოთ: პარამეტრები → კონფიდენციალურობა."
           }
         },
         "kk": {
@@ -6810,6 +7566,12 @@
     "mac.notify.explain.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney bildirişləri?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6850,6 +7612,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notifiche da OhMyMoney?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეტყობინებები OhMyMoney-დან?"
           }
         },
         "kk": {
@@ -6917,6 +7685,12 @@
     "mac.notify.limit.body": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu ay %2$@ limitindən %1$@ xərclənib"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6957,6 +7731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spesi %1$@ di %2$@ questo mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ თვეში დაიხარჯა %1$@ / %2$@"
           }
         },
         "kk": {
@@ -7024,6 +7804,12 @@
     "mac.notify.limit.bodyHidden": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limiti görmək üçün Planlaşdırmanı açın"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7064,6 +7850,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apri Pianificazione per vedere il limite"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ლიმიტის სანახავად გახსენით დაგეგმვა"
           }
         },
         "kk": {
@@ -7131,6 +7923,12 @@
     "mac.notify.limit.near": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” limiti tükənmək üzrədir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7171,6 +7969,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il limite “%@” è quasi raggiunto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ლიმიტი “%@” თითქმის ამოწურულია"
           }
         },
         "kk": {
@@ -7238,6 +8042,12 @@
     "mac.notify.limit.over": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” limiti aşılıb"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7278,6 +8088,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il limite “%@” è stato superato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ლიმიტი “%@” გადაჭარბებულია"
           }
         },
         "kk": {
@@ -7345,6 +8161,12 @@
     "mac.notify.payment.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödəniş sabahdır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7385,6 +8207,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pagamento in scadenza domani"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადახდა ხვალ არის"
           }
         },
         "kk": {
@@ -7452,6 +8280,12 @@
     "mac.notify.payment.body": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7492,6 +8326,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ il %2$@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — %2$@"
           }
         },
         "kk": {
@@ -7559,6 +8399,12 @@
     "mac.notify.payment.bodyHidden": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödəniş tarixi: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7599,6 +8445,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scadenza: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადახდა: %@"
           }
         },
         "kk": {
@@ -7666,6 +8518,12 @@
     "mac.notify.payment.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sabah ödəniləcək: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7706,6 +8564,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "In scadenza domani: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადახდა ხვალ: %@"
           }
         },
         "kk": {
@@ -7773,6 +8637,12 @@
     "mac.notify.record": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödənişi qeyd et"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7813,6 +8683,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra pagamento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადახდის ჩაწერა"
           }
         },
         "kk": {
@@ -7880,6 +8756,12 @@
     "mac.notify.summary.body": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baxmaq üçün OhMyMoney-ni açın"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7920,6 +8802,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apri OhMyMoney per visualizzarlo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სანახავად გახსენით OhMyMoney"
           }
         },
         "kk": {
@@ -7987,6 +8875,12 @@
     "mac.print.ask": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlərlə çap edilsin?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8027,6 +8921,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stampare con gli importi?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაიბეჭდოს თანხებით?"
           }
         },
         "kk": {
@@ -8094,6 +8994,12 @@
     "mac.print.askMessage": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlər ekranda gizlədilib. Çap edilmiş səhifəni hər kəs görə bilər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8134,6 +9040,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gli importi sono nascosti sullo schermo. Una pagina stampata può essere vista da chiunque."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხები ეკრანზე დამალულია. დაბეჭდილ გვერდს ნებისმიერ მსურველს შეუძლია შეხედოს."
           }
         },
         "kk": {
@@ -8202,6 +9114,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çap et…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8242,6 +9160,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stampa…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბეჭდვა…"
           }
         },
         "kk": {
@@ -8310,6 +9234,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çap et…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8350,6 +9280,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stampa…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბეჭდვა…"
           }
         },
         "kk": {
@@ -8418,6 +9354,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyatlar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8458,6 +9400,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operazioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციები"
           }
         },
         "kk": {
@@ -8525,6 +9473,12 @@
     "mac.print.with": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlərlə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8565,6 +9519,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Con importi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხებით"
           }
         },
         "kk": {
@@ -8632,6 +9592,12 @@
     "mac.print.without": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlərsiz"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8672,6 +9638,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Senza importi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხების გარეშე"
           }
         },
         "kk": {
@@ -8739,6 +9711,12 @@
     "mac.quicklook.created": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaradılıb: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8779,6 +9757,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Creato: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეიქმნა: %@"
           }
         },
         "kk": {
@@ -8846,6 +9830,12 @@
     "mac.quicklook.encrypted": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şifrələnib"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8886,6 +9876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Crittografato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაშიფრულია"
           }
         },
         "kk": {
@@ -8953,6 +9949,12 @@
     "mac.quicklook.encryptedHint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məzmunu yalnız OhMyMoney-də parolla görmək olar."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8993,6 +9995,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il contenuto è visibile solo in OhMyMoney con la password."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შიგთავსის ნახვა შესაძლებელია მხოლოდ OhMyMoney-ში, პაროლით."
           }
         },
         "kk": {
@@ -9060,6 +10068,12 @@
     "mac.quicklook.operations": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Əməliyyatlar: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9100,6 +10114,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operazioni: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციები: %@"
           }
         },
         "kk": {
@@ -9167,6 +10187,12 @@
     "mac.quicklook.tables": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cədvəllər: %@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9207,6 +10233,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tabelle: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ცხრილები: %@"
           }
         },
         "kk": {
@@ -9275,6 +10307,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney arxivi"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9315,6 +10353,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Archivio OhMyMoney"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney-ის არქივი"
           }
         },
         "kk": {
@@ -9382,6 +10426,12 @@
     "mac.quicklook.unreadable": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu faylı OhMyMoney arxivi kimi oxumaq mümkün deyil."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9422,6 +10472,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile leggere questo file come archivio OhMyMoney."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილის OhMyMoney-ის არქივად წაკითხვა შეუძლებელია."
           }
         },
         "kk": {
@@ -9489,6 +10545,12 @@
     "mac.quicklook.version": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney %@ tərəfindən"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9529,6 +10591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Di OhMyMoney %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney %@"
           }
         },
         "kk": {
@@ -9596,6 +10664,12 @@
     "mac.settings.evening": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xərcləri qeyd etmək üçün axşam xatırlatması"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9636,6 +10710,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Promemoria serale per registrare le spese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საღამოს შეხსენება ხარჯების ჩასაწერად"
           }
         },
         "kk": {
@@ -9703,6 +10783,12 @@
     "mac.settings.footer.always": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildirişlərdə gizli hesablar daxil olmaqla həmişə ad və məbləğ göstərilir. Mac-ın yaxınlığındakı hər kəs onları ekranda görə bilər."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9743,6 +10829,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Le notifiche mostrano sempre il nome e l’importo, anche per i conti nascosti. Sono visibili sullo schermo a chiunque si trovi vicino al Mac."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეტყობინებებში ყოველთვის ჩანს სახელი და თანხა, მათ შორის დამალული ანგარიშებისთვისაც. მათი დანახვა შეუძლია ნებისმიერს, ვინც Mac-თან ახლოსაა."
           }
         },
         "kk": {
@@ -9810,6 +10902,12 @@
     "mac.settings.footer.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlər gizlədilərkən bildirişlərdə göstərilmir; gizli hesabın ödənişi adı və məbləği olmadan “Ödəniş sabahdır” kimi bildirilir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9850,6 +10948,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quando gli importi sono nascosti, le notifiche non li mostrano; un pagamento di un conto nascosto è annunciato come “Pagamento in scadenza domani”, senza nome né importo."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "როცა თანხები დამალულია, ისინი შეტყობინებებშიც არ ჩანს; დამალული ანგარიშის გადახდა ცხადდება როგორც „გადახდა ხვალაა“, სახელისა და თანხის გარეშე."
           }
         },
         "kk": {
@@ -9917,6 +11021,12 @@
     "mac.settings.footer.quiet": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlər gizlədilərkən bildirişlərdə göstərilmir və gizli hesablar barədə məlumat verilmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9957,6 +11067,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quando gli importi sono nascosti, le notifiche non li mostrano e non menzionano mai i conti nascosti."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "როცა თანხები დამალულია, ისინი შეტყობინებებშიც არ ჩანს, დამალული ანგარიშები კი საერთოდ არ იხსენიება."
           }
         },
         "kk": {
@@ -10024,6 +11140,12 @@
     "mac.settings.limits": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limitə yaxınlaşma və ya limitin aşılması"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10064,6 +11186,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Limite quasi raggiunto o superato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ლიმიტი თითქმის ან სრულად ამოწურულია"
           }
         },
         "kk": {
@@ -10131,6 +11259,12 @@
     "mac.settings.payments": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ödəniş sabahdır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10171,6 +11305,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pagamento in scadenza domani"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადახდა ხვალაა"
           }
         },
         "kk": {
@@ -10238,6 +11378,12 @@
     "mac.settings.payments.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildirişdə “Ödənişi qeyd et” düyməsi ilə."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10278,6 +11424,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Con “Registra pagamento” nella notifica."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეტყობინებაში ღილაკით „გადახდის ჩაწერა“."
           }
         },
         "kk": {
@@ -10345,6 +11497,12 @@
     "mac.settings.privacy": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildirişlərin məzmunu"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10385,6 +11543,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Contenuto delle notifiche"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეტყობინებების შიგთავსი"
           }
         },
         "kk": {
@@ -10452,6 +11616,12 @@
     "mac.settings.privacy.always": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Həmişə məbləğlə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10492,6 +11662,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sempre con l’importo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყოველთვის თანხით"
           }
         },
         "kk": {
@@ -10559,6 +11735,12 @@
     "mac.settings.privacy.anonymous": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli hesablar: ad və məbləğ olmadan “Ödəniş sabahdır”"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10599,6 +11781,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conti nascosti: “Pagamento in scadenza domani” senza nome né importo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამალული ანგარიშები: „გადახდა ხვალაა“ სახელისა და თანხის გარეშე"
           }
         },
         "kk": {
@@ -10666,6 +11854,12 @@
     "mac.settings.privacy.quiet": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizlədildikdə məbləğlər və gizli hesablar göstərilmir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10706,6 +11900,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessun importo quando è nascosto, nessuna notifica sui conti nascosti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამალვისას თანხების გარეშე, დამალული ანგარიშების ხსენების გარეშე"
           }
         },
         "kk": {
@@ -10773,6 +11973,12 @@
     "mac.settings.spotlight": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotlight-da əməliyyatlar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10813,6 +12019,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operazioni in Spotlight"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ოპერაციები Spotlight-ში"
           }
         },
         "kk": {
@@ -10880,6 +12092,12 @@
     "mac.settings.spotlight.hint": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu Mac-da yalnız təsvir və məkan indekslənir, məbləğlər yox. Gizli hesabların əməliyyatları heç vaxt indekslənmir."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10920,6 +12138,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solo la descrizione e il luogo vengono indicizzati su questo Mac, senza importi. Le operazioni dei conti nascosti non vengono mai indicizzate."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ Mac-ის ინდექსში მხოლოდ აღწერა და ადგილი ხვდება — თანხების გარეშე. დამალული ანგარიშების ოპერაციები არ ინდექსდება."
           }
         },
         "kk": {
@@ -10987,6 +12211,12 @@
     "mac.settings.summaries": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yekunlar hazırdır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11027,6 +12257,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Riepiloghi pronti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეჯამებები მზადაა"
           }
         },
         "kk": {
@@ -11094,6 +12330,12 @@
     "mac.settings.title": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tətbiqdən kənarda"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11134,6 +12376,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fuori dall’app"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აპის გარეთ"
           }
         },
         "kk": {
@@ -11202,6 +12450,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesab"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11242,6 +12496,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანგარიში"
           }
         },
         "kk": {
@@ -11310,6 +12570,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11350,6 +12616,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა"
           }
         },
         "kk": {
@@ -11418,6 +12690,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kateqoriya"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11458,6 +12736,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categoria"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კატეგორია"
           }
         },
         "kk": {
@@ -11526,6 +12810,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valyuta"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11566,6 +12856,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Valuta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვალუტა"
           }
         },
         "kk": {
@@ -11634,6 +12930,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarix"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11674,6 +12976,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Data"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თარიღი"
           }
         },
         "kk": {
@@ -11742,6 +13050,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təsvir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11782,6 +13096,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descrizione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღწერა"
           }
         },
         "kk": {
@@ -11850,6 +13170,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Növ"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11890,6 +13216,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ტიპი"
           }
         },
         "kk": {
@@ -11958,6 +13290,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xərc"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11998,6 +13336,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spesa"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხარჯი"
           }
         },
         "kk": {
@@ -12066,6 +13410,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gəlir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12106,6 +13456,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entrata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შემოსავალი"
           }
         },
         "kk": {
@@ -12174,6 +13530,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geri ödəniş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12214,6 +13576,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rimborso"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხის დაბრუნება"
           }
         },
         "kk": {
@@ -12282,6 +13650,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pulun qaytarılması"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12322,6 +13696,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Restituzione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხარჯის ანაზღაურება"
           }
         },
         "kk": {
@@ -12389,6 +13769,12 @@
     "mac.table.rubles": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rublla"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12429,6 +13815,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "In rubli"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რუბლებში"
           }
         },
         "kk": {
@@ -12497,6 +13889,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesablar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12537,6 +13935,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანგარიშები"
           }
         },
         "kk": {
@@ -12604,6 +14008,12 @@
     "mac.window.open": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni pəncərədə aç"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12644,6 +14054,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apri in una nuova finestra"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახალ ფანჯარაში გახსნა"
           }
         },
         "kk": {
@@ -12711,6 +14127,12 @@
     "mac.window.section": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bölmə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12751,6 +14173,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sezione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "განყოფილება"
           }
         },
         "kk": {
@@ -12819,6 +14247,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12859,6 +14293,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა"
           }
         },
         "kk": {
@@ -12927,6 +14367,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğlər gizlədilib."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12967,6 +14413,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gli importi sono nascosti."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხები დამალულია."
           }
         },
         "kk": {
@@ -13035,6 +14487,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keşbek"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13075,6 +14533,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cashback"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ქეშბექი"
           }
         },
         "kk": {
@@ -13143,6 +14607,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kateqoriyalar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13183,6 +14653,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categorie"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კატეგორიები"
           }
         },
         "kk": {
@@ -13251,6 +14727,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kateqoriya"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13291,6 +14773,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categoria"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კატეგორია"
           }
         },
         "kk": {
@@ -13358,6 +14846,12 @@
     "markdown.change": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ötən ayla müqayisədə xərclər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13398,6 +14892,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spese rispetto al mese scorso"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხარჯები წინა თვესთან შედარებით"
           }
         },
         "kk": {
@@ -13465,6 +14965,12 @@
     "markdown.closedDebts": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlanmış borclar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13505,6 +15011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Debiti estinti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაფარული ვალები"
           }
         },
         "kk": {
@@ -13572,6 +15084,12 @@
     "markdown.empty": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu ay əməliyyat yoxdur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13612,6 +15130,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna operazione questo mese."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ თვეში ოპერაციები არ არის."
           }
         },
         "kk": {
@@ -13680,6 +15204,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xərclər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13720,6 +15250,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხარჯები"
           }
         },
         "kk": {
@@ -13788,6 +15324,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gəlir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13828,6 +15370,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entrate"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შემოსავალი"
           }
         },
         "kk": {
@@ -13895,6 +15443,12 @@
     "markdown.item": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maddə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -13935,6 +15489,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Voce"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პოზიცია"
           }
         },
         "kk": {
@@ -14003,6 +15563,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qalıq"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14043,6 +15609,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rimanenza"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დარჩა"
           }
         },
         "kk": {
@@ -14111,6 +15683,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məkan"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14151,6 +15729,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Luogo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ადგილი"
           }
         },
         "kk": {
@@ -14219,6 +15803,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məkanlar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14259,6 +15849,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Luoghi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ადგილები"
           }
         },
         "kk": {
@@ -14327,6 +15923,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qənaət"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14367,6 +15969,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Risparmiato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაზოგილია"
           }
         },
         "kk": {
@@ -14435,6 +16043,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paylaş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14475,6 +16089,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Condividi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაზიარება"
           }
         },
         "kk": {
@@ -14543,6 +16163,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yekunlar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14583,6 +16209,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Totali"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჯამები"
           }
         },
         "kk": {
@@ -14650,6 +16282,12 @@
     "markdown.value": {
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dəyər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -14690,6 +16328,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Valore"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მნიშვნელობა"
           }
         },
         "kk": {

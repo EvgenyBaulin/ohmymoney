@@ -5,6 +5,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Köçürmə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -45,6 +51,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Non trasferire"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "არ გადმოიტანო"
           }
         },
         "kk": {
@@ -113,6 +125,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylda hesabın adı yoxdur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -153,6 +171,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conto senza nome nel file"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილში ანგარიშს სახელი არ აქვს"
           }
         },
         "kk": {
@@ -221,6 +245,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesablar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -261,6 +291,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანგარიშები"
           }
         },
         "kk": {
@@ -329,6 +365,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Digər tətbiqdəki hər hesabın əməliyyatlarının köçürüləcəyi hesab. «Köçürmə» seçildikdə əməliyyatlar buraxılır. Gizli hesablar yalnız göstərildikdə təklif olunur."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -369,6 +411,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Indica dove trasferire le operazioni di ogni conto dell'altra app. «Non trasferire» le esclude. I conti nascosti sono disponibili solo quando sono visibili."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აირჩიეთ, სად გადავიდეს სხვა აპის თითოეული ანგარიშის ოპერაციები. «არ გადმოიტანო» მათ გამოტოვებს. დამალული ანგარიშები ხელმისაწვდომია მხოლოდ მათი გამოჩენისას."
           }
         },
         "kk": {
@@ -437,6 +485,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başqa fayl…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -477,6 +531,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un altro file…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სხვა ფაილი…"
           }
         },
         "kk": {
@@ -545,6 +605,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Köçür"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -585,6 +651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trasferisci"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადმოტანა"
           }
         },
         "kk": {
@@ -653,6 +725,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kateqoriyalar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -693,6 +771,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categorie"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კატეგორიები"
           }
         },
         "kk": {
@@ -761,6 +845,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld çatışmayan kateqoriya yarat"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld çatışmayan kateqoriya yarat"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -912,6 +1014,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Crea %lld categorie mancanti"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld გამოტოვებული კატეგორიის შექმნა"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld გამოტოვებული კატეგორიის შექმნა"
                 }
               }
             }
@@ -1139,6 +1259,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ad və mənaya görə uyğunlaşdırılır («Çöldə yemək» → «Kafelər»). Yeni kateqoriya yalnız «Yarat» seçildikdə yaradılır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1179,6 +1305,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abbinate per nome e significato («Mangiare fuori» → «Caffè»). Una nuova categoria viene creata solo se scegli «Crea»."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაწყვილებულია სახელითა და მნიშვნელობით («კვება გარეთ» → «კაფეები»). ახალი კატეგორია იქმნება მხოლოდ იქ, სადაც აირჩევთ «შექმნას»."
           }
         },
         "kk": {
@@ -1247,6 +1379,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faylda kateqoriya yoxdur: hər şey «Çeşidlənməmiş» bölməsinə köçürüləcək."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1287,6 +1425,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il file non contiene categorie: tutto viene assegnato a «Da classificare»."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილში კატეგორიები არ არის: ყველაფერი გადავა «დაუხარისხებელში»."
           }
         },
         "kk": {
@@ -1355,6 +1499,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@» yarat"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1395,6 +1545,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Crea «%@»"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "«%@»-ის შექმნა"
           }
         },
         "kk": {
@@ -1463,6 +1619,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çeşidlənməmiş"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1503,6 +1665,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Da classificare"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაუხარისხებელი"
           }
         },
         "kk": {
@@ -1571,6 +1739,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fayl seç…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1611,6 +1785,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scegli file…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილის არჩევა…"
           }
         },
         "kk": {
@@ -1679,6 +1859,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hazır"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1719,6 +1905,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fine"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მზადაა"
           }
         },
         "kk": {
@@ -1787,6 +1979,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hər sütunun məzmunu. Seçiminiz eyni sütunlu növbəti fayl üçün yadda saxlanılır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1827,6 +2025,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Indica il contenuto di ogni colonna. La scelta verrà ricordata per il prossimo file con le stesse colonne."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მიუთითეთ, რას შეიცავს თითოეული სვეტი. არჩევანი დამახსოვრდება იმავე სვეტების მქონე შემდეგი ფაილისთვის."
           }
         },
         "kk": {
@@ -1895,6 +2099,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarix və məbləğ sütunlarını (və ya gəlir və xərc sütunlarını) seçin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -1935,6 +2145,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scegli la colonna della data e quella dell'importo, oppure le colonne delle entrate e delle uscite."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აირჩიეთ თარიღისა და თანხის სვეტები ან შემოსავლისა და ხარჯის სვეტები."
           }
         },
         "kk": {
@@ -2003,6 +2219,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oxunan əməliyyatlar: %lld · oxunmayan sətirlər: %lld"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2043,6 +2265,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operazioni lette: %lld · righe non lette: %lld"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წაკითხული ოპერაციები: %lld · წაუკითხავი სტრიქონები: %lld"
           }
         },
         "kk": {
@@ -2111,6 +2339,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "03/04 kimi tarixlər"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2151,6 +2385,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Date come 03/04"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თარიღები, როგორიცაა 03/04"
           }
         },
         "kk": {
@@ -2219,6 +2459,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "əvvəl gün, sonra ay"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2259,6 +2505,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "giorno, poi mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დღე, შემდეგ თვე"
           }
         },
         "kk": {
@@ -2327,6 +2579,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "əvvəl ay, sonra gün"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2367,6 +2625,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "mese, poi giorno"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვე, შემდეგ დღე"
           }
         },
         "kk": {
@@ -2435,6 +2699,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "artıq mövcuddur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2475,6 +2745,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "già presente"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "უკვე არსებობს"
           }
         },
         "kk": {
@@ -2543,6 +2819,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "əllə daxil edilib?"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2583,6 +2865,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "inserita a mano?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხელით შეყვანილი?"
           }
         },
         "kk": {
@@ -2651,6 +2939,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ən yaxın məzənnə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2691,6 +2985,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "tasso più vicino"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "უახლოესი კურსი"
           }
         },
         "kk": {
@@ -2759,6 +3059,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "yeni"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2799,6 +3105,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "nuova"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახალი"
           }
         },
         "kk": {
@@ -2867,6 +3179,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "məzənnə yoxdur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -2907,6 +3225,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "nessun tasso"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კურსი არ არის"
           }
         },
         "kk": {
@@ -2975,6 +3299,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld yeni kateqoriya yaradıldı"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld yeni kateqoriya yaradıldı"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -3126,6 +3468,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld nuove categorie create"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "შეიქმნა %lld ახალი კატეგორია"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "შეიქმნა %lld ახალი კატეგორია"
                 }
               }
             }
@@ -3353,6 +3713,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld əməliyyat köçürüldü"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld əməliyyat köçürüldü"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -3504,6 +3882,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operazioni trasferite"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გადმოტანილია %lld ოპერაცია"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გადმოტანილია %lld ოპერაცია"
                 }
               }
             }
@@ -3731,6 +4127,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzəliş → Geri al (⌘Z) bütün köçürməni geri qaytarır. Əvvəlcədən yaradılmış verilənlər bazası nüsxəsi ehtiyat nüsxələr arasındadır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3771,6 +4173,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modifica → Annulla (⌘Z) annulla l'intero trasferimento. La copia del database creata prima del trasferimento è tra i backup."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რედაქტირება → გაუქმება (⌘Z) მთელ გადმოტანას გააუქმებს. მანამდე შექმნილი მონაცემთა ბაზის ასლი სარეზერვო ასლებს შორისაა."
           }
         },
         "kk": {
@@ -3839,6 +4247,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Geri al” bütün köçürməni geri qaytarır. Əvvəlcədən yaradılmış verilənlər bazası nüsxəsi ehtiyat nüsxələr arasındadır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3879,6 +4293,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“Annulla” annulla l'intero trasferimento. La copia del database creata prima del trasferimento è tra i backup."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“გაუქმება” მთელ გადმოტანას გააუქმებს. მანამდე შექმნილი მონაცემთა ბაზის ასლი სარეზერვო ასლებს შორისაა."
           }
         },
         "kk": {
@@ -3947,6 +4367,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager tətbiqlərindən CSV və ya Excel (.xlsx) faylı, yaxud tarix və məbləğ olan istənilən cədvəl. Numbers cədvəlini əvvəlcə CSV və ya Excel kimi ixrac edin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -3987,6 +4413,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Un file CSV o Excel (.xlsx) da CoinKeeper, Zenmoney o Money Manager, oppure una tabella con una data e un importo. Per una tabella Numbers, esportala prima in CSV o Excel."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CSV ან Excel (.xlsx) ფაილი CoinKeeper-იდან, Zenmoney-იდან, Money Manager-იდან ან ნებისმიერი ცხრილი თარიღითა და თანხით. Numbers-ის ცხრილი ჯერ CSV ან Excel ფორმატში გაიტანეთ."
           }
         },
         "kk": {
@@ -4055,6 +4487,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İxrac faylını seçin"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4095,6 +4533,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scegli un file esportato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აირჩიეთ ექსპორტირებული ფაილი"
           }
         },
         "kk": {
@@ -4163,6 +4607,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Köçürülmədi, heç nə yazılmadı. Səbəb jurnalda göstərilib."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4203,6 +4653,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trasferimento non riuscito, nessun dato è stato scritto. Il registro ne indica il motivo."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადმოტანა ვერ მოხერხდა, არაფერი ჩაწერილა. მიზეზი ჟურნალშია მითითებული."
           }
         },
         "kk": {
@@ -4271,6 +4727,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu, Numbers sənədidir və formatı qapalıdır. Numbers-da Fayl → İxrac et → CSV və ya Excel seçin, sonra həmin faylı burada seçin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4311,6 +4773,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Questo è un documento Numbers, il cui formato è chiuso. In Numbers, scegli File → Esporta come → CSV o Excel, quindi seleziona il file qui."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ეს Numbers-ის დოკუმენტია და მისი ფორმატი დახურულია. Numbers-ში აირჩიეთ File → Export To → CSV ან Excel, შემდეგ კი აქ აირჩიეთ მიღებული ფაილი."
           }
         },
         "kk": {
@@ -4379,6 +4847,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fayl sütun adları olan cədvəl kimi oxunmur. Onu CSV və ya .xlsx kimi ixrac edin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4419,6 +4893,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il file non può essere letto come tabella con nomi di colonna. Esportalo in CSV o .xlsx."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილი სვეტების სახელების მქონე ცხრილად ვერ იკითხება. გაიტანეთ ის CSV ან .xlsx ფორმატში."
           }
         },
         "kk": {
@@ -4487,6 +4967,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu, 2007-dən əvvəlki Excel faylıdır (.xls). Onu .xlsx və ya CSV kimi yenidən saxlayın və burada seçin."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4527,6 +5013,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Questo è un file Excel precedente al 2007 (.xls). Salvalo come .xlsx o CSV e selezionalo qui."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ეს 2007 წლამდე შექმნილი Excel ფაილია (.xls). ხელახლა შეინახეთ .xlsx ან CSV ფორმატში და აქ აირჩიეთ."
           }
         },
         "kk": {
@@ -4595,6 +5087,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xərc"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4635,6 +5133,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uscita"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხარჯი"
           }
         },
         "kk": {
@@ -4703,6 +5207,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gəlir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4743,6 +5253,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entrata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შემოსავალი"
           }
         },
         "kk": {
@@ -4811,6 +5327,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fayl windows-1251 kodlaşdırmasındadır və bu şəkildə oxundu."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4851,6 +5373,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il file è codificato in windows-1251 ed è stato letto con questa codifica."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილი windows-1251 კოდირებითაა და შესაბამისად წაიკითხა."
           }
         },
         "kk": {
@@ -4919,6 +5447,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başqa tətbiqdən köçür…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -4959,6 +5493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trasferisci da un'altra app…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სხვა აპიდან გადმოტანა…"
           }
         },
         "kk": {
@@ -5027,6 +5567,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Növbəti"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5067,6 +5613,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Avanti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შემდეგი"
           }
         },
         "kk": {
@@ -5135,6 +5687,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Köçürmədən əvvəl verilənlər bazasının nüsxəsi yaradılır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5175,6 +5733,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Prima del trasferimento viene creata una copia del database."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადმოტანამდე მონაცემთა ბაზის ასლი შეიქმნება."
           }
         },
         "kk": {
@@ -5243,6 +5807,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld artıq mövcuddur — buraxıldı"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld artıq mövcuddur — buraxıldı"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -5394,6 +5976,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld sono già presenti — ignorate"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld უკვე აღრიცხულია — გამოტოვებულია"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld უკვე აღრიცხულია — გამოტოვებულია"
                 }
               }
             }
@@ -5621,6 +6221,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Həmin günlərin məzənnələri Rusiya Bankından alınır…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -5661,6 +6267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Richiesta dei tassi di quei giorni alla Banca di Russia…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მიმდინარეობს რუსეთის ბანკიდან შესაბამისი დღეების კურსების მიღება…"
           }
         },
         "kk": {
@@ -5729,6 +6341,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld əllə daxil edilmiş əməliyyata bənzəyir — buraxıldı"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld əllə daxil edilmiş əməliyyata bənzəyir — buraxıldı"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -5880,6 +6510,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld sembrano operazioni inserite a mano — escluse"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ჰგავს ხელით შეყვანილ ოპერაციას — გამოტოვებულია"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ჰგავს ხელით შეყვანილ ოპერაციას — გამოტოვებულია"
                 }
               }
             }
@@ -6107,6 +6755,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bunları da köçür"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -6147,6 +6801,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trasferisci anche queste"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მათიც გადმოტანა"
           }
         },
         "kk": {
@@ -6215,6 +6875,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "və daha %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "və daha %lld"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -6366,6 +7044,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "e %lld altre"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "და კიდევ %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "და კიდევ %lld"
                 }
               }
             }
@@ -6593,6 +7289,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mövcud ən yaxın məzənnə ilə, müvəqqəti olaraq qeyd edilib — həmin günün məzənnəsi alındıqda dəqiqləşdiriləcək"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld mövcud ən yaxın məzənnə ilə, müvəqqəti olaraq qeyd edilib — həmin günün məzənnəsi alındıqda dəqiqləşdiriləcək"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -6744,6 +7458,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld con il tasso disponibile più vicino, indicate come provvisorie — aggiornate quando sarà disponibile il tasso del giorno"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ხელმისაწვდომი უახლოესი კურსით, მონიშნულია დროებითად — დაზუსტდება იმ დღის კურსის მიღებისას"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ხელმისაწვდომი უახლოესი კურსით, მონიშნულია დროებითად — დაზუსტდება იმ დღის კურსის მიღებისას"
                 }
               }
             }
@@ -6971,6 +7703,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ — %2$@"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -7011,6 +7749,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dal %1$@ al %2$@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@-დან %2$@-მდე"
           }
         },
         "kk": {
@@ -7079,6 +7823,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld heç bir məzənnəsi olmayan valyutadadır — köçürülmədi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld heç bir məzənnəsi olmayan valyutadadır — köçürülmədi"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -7230,6 +7992,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld in una valuta senza alcun tasso disponibile — non trasferite"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ისეთ ვალუტაშია, რომლის კურსიც არ არის ხელმისაწვდომი — არ გადმოიტანება"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ისეთ ვალუტაშია, რომლის კურსიც არ არის ხელმისაწვდომი — არ გადმოიტანება"
                 }
               }
             }
@@ -7457,6 +8237,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld əməliyyat köçürüləcək"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld əməliyyat köçürüləcək"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -7608,6 +8406,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operazioni verranno trasferite"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გადმოიტანება %lld ოპერაცია"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გადმოიტანება %lld ოპერაცია"
                 }
               }
             }
@@ -7835,6 +8651,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tətbiqin öz hesabları arasında %lld köçürmə — köçürülmədi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Tətbiqin öz hesabları arasında %lld köçürmə — köçürülmədi"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -7986,6 +8820,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld trasferimenti tra conti della stessa app — non trasferiti"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld გადარიცხვა აპის საკუთარ ანგარიშებს შორის — არ გადმოიტანება"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld გადარიცხვა აპის საკუთარ ანგარიშებს შორის — არ გადმოიტანება"
                 }
               }
             }
@@ -8213,6 +9065,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sətir oxunmadı"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld sətir oxunmadı"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -8364,6 +9234,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld righe non lette"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld სტრიქონი ვერ წაიკითხა"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld სტრიქონი ვერ წაიკითხა"
                 }
               }
             }
@@ -8591,6 +9479,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fayl oxunur…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8631,6 +9525,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lettura del file…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფაილის წაკითხვა…"
           }
         },
         "kk": {
@@ -8699,6 +9599,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesab"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8739,6 +9645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანგარიში"
           }
         },
         "kk": {
@@ -8807,6 +9719,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məbləğ (işarəli)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8847,6 +9765,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importo (con segno)"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხა (ნიშნით)"
           }
         },
         "kk": {
@@ -8915,6 +9839,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kateqoriya"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -8955,6 +9885,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Categoria"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კატეგორია"
           }
         },
         "kk": {
@@ -9023,6 +9959,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şərh"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9063,6 +10005,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Commento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კომენტარი"
           }
         },
         "kk": {
@@ -9131,6 +10079,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valyuta"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9171,6 +10125,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Valuta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვალუტა"
           }
         },
         "kk": {
@@ -9239,6 +10199,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarix"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9279,6 +10245,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Data"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თარიღი"
           }
         },
         "kk": {
@@ -9347,6 +10319,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Təsvir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9387,6 +10365,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Descrizione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღწერა"
           }
         },
         "kk": {
@@ -9455,6 +10439,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xərc"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9495,6 +10485,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uscita"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ხარჯი"
           }
         },
         "kk": {
@@ -9563,6 +10559,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haradan"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9603,6 +10605,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Da"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საიდან"
           }
         },
         "kk": {
@@ -9671,6 +10679,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gəlir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9711,6 +10725,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Entrata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შემოსავალი"
           }
         },
         "kk": {
@@ -9779,6 +10799,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gəlir hesabı"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9819,6 +10845,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conto dell'entrata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შემოსავლის ანგარიში"
           }
         },
         "kk": {
@@ -9887,6 +10919,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gəlir valyutası"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -9927,6 +10965,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Valuta dell'entrata"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შემოსავლის ვალუტა"
           }
         },
         "kk": {
@@ -9995,6 +11039,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Növ (xərc, gəlir, köçürmə)"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10035,6 +11085,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo (uscita, entrata, trasferimento)"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ტიპი (ხარჯი, შემოსავალი, გადარიცხვა)"
           }
         },
         "kk": {
@@ -10103,6 +11159,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oxunmur"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10143,6 +11205,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Non leggere"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "არ იკითხება"
           }
         },
         "kk": {
@@ -10211,6 +11279,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alıcı və ya mağaza"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10251,6 +11325,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Beneficiario o negozio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მიმღები ან მაღაზია"
           }
         },
         "kk": {
@@ -10319,6 +11399,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alt kateqoriya"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10359,6 +11445,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sottocategoria"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ქვეკატეგორია"
           }
         },
         "kk": {
@@ -10427,6 +11519,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haraya"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10467,6 +11565,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "A"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სად"
           }
         },
         "kk": {
@@ -10535,6 +11639,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başqa tətbiqdən köçür…"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10575,6 +11685,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trasferisci da un'altra app…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სხვა აპიდან გადმოტანა…"
           }
         },
         "kk": {
@@ -10643,6 +11759,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper ixracına bənzəyir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10683,6 +11805,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sembra un'esportazione di CoinKeeper"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჰგავს CoinKeeper-იდან ექსპორტირებულ ფაილს"
           }
         },
         "kk": {
@@ -10751,6 +11879,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Money Manager ixracına bənzəyir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10791,6 +11925,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sembra un'esportazione di Money Manager"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჰგავს Money Manager-იდან ექსპორტირებულ ფაილს"
           }
         },
         "kk": {
@@ -10859,6 +11999,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cədvəl"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -10899,6 +12045,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una tabella"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ცხრილი"
           }
         },
         "kk": {
@@ -10967,6 +12119,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zenmoney ixracına bənzəyir"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11007,6 +12165,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sembra un'esportazione di Zenmoney"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჰგავს Zenmoney-იდან ექსპორტირებულ ფაილს"
           }
         },
         "kk": {
@@ -11075,6 +12239,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sütunlar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11115,6 +12285,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Colonne"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სვეტები"
           }
         },
         "kk": {
@@ -11183,6 +12359,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesablar və kateqoriyalar"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11223,6 +12405,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conti e categorie"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანგარიშები და კატეგორიები"
           }
         },
         "kk": {
@@ -11291,6 +12479,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önizləmə"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11331,6 +12525,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Anteprima"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წინასწარი ნახვა"
           }
         },
         "kk": {
@@ -11399,6 +12599,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager, Excel və ya Numbers-dan ixrac edilmiş cədvəl. «Köçür» seçilənədək heç nə yazılmır; əvvəlcə verilənlər bazasının nüsxəsi yaradılır və ⌘Z bütün köçürməni geri qaytarır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11439,6 +12645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una tabella esportata da CoinKeeper, Zenmoney, Money Manager, Excel o Numbers. Nessun dato viene scritto prima di scegliere «Trasferisci»; viene prima creata una copia del database e ⌘Z annulla l'intero trasferimento."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper-იდან, Zenmoney-იდან, Money Manager-იდან, Excel-იდან ან Numbers-იდან ექსპორტირებული ცხრილი. «გადმოტანამდე» არაფერი ჩაიწერება; ჯერ მონაცემთა ბაზის ასლი შეიქმნება, ხოლო ⌘Z მთელ გადმოტანას გააუქმებს."
           }
         },
         "kk": {
@@ -11507,6 +12719,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper, Zenmoney, Money Manager, Excel və ya Numbers-dan ixrac edilmiş cədvəl. «Köçür» seçilənədək heç nə yazılmır; əvvəlcə verilənlər bazasının nüsxəsi yaradılır və “Geri al” bütün köçürməni geri qaytarır."
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -11547,6 +12765,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Una tabella esportata da CoinKeeper, Zenmoney, Money Manager, Excel o Numbers. Nessun dato viene scritto prima di scegliere «Trasferisci»; viene prima creata una copia del database e “Annulla” annulla l'intero trasferimento."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CoinKeeper-იდან, Zenmoney-იდან, Money Manager-იდან, Excel-იდან ან Numbers-იდან ექსპორტირებული ცხრილი. «გადმოტანამდე» არაფერი ჩაიწერება; ჯერ მონაცემთა ბაზის ასლი შეიქმნება, ხოლო “გაუქმება” მთელ გადმოტანას გააუქმებს."
           }
         },
         "kk": {
@@ -11615,6 +12839,24 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Köçürüləcək %lld əməliyyat"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Köçürüləcək %lld əməliyyat"
+                }
+              }
+            }
+          }
+        },
         "be": {
           "variations": {
             "plural": {
@@ -11766,6 +13008,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld operazioni da importare"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გადმოსატანია %lld ოპერაცია"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გადმოსატანია %lld ოპერაცია"
                 }
               }
             }
@@ -11993,6 +13253,12 @@
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
       "localizations": {
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başqa tətbiqdən köçür"
+          }
+        },
         "be": {
           "stringUnit": {
             "state": "translated",
@@ -12033,6 +13299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Importa da un’altra app"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გადმოტანა სხვა აპიდან"
           }
         },
         "kk": {

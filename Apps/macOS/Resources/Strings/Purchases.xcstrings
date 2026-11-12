@@ -118,6 +118,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Կբավարարի %lld ամսից"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Կբավարարի %lld ամսից"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -137,6 +155,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Disponibile tra %lld mesi"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "საკმარისი იქნება %lld თვეში"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "საკმარისი იქნება %lld თვეში"
                 }
               }
             }
@@ -393,10 +429,22 @@
             "value": "Rien à mettre de côté pour l'instant — aucune date ne peut être calculée"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեռ մի կողմ դնելու գումար չկա․ ամսաթիվը հայտնի չէ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Non metti ancora nulla da parte: impossibile stimare una data"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჯერ გადასადები თანხა არ არის — თარიღი უცნობია"
           }
         },
         "kk": {
@@ -494,10 +542,22 @@
             "value": "Pas de taux pour cette devise — aucune date calculée"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս արժույթի փոխարժեքը չկա․ ամսաթիվը չի հաշվարկվել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Tasso di cambio non disponibile: impossibile stimare una data"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ ვალუტის კურსი არ არის — თარიღი ვერ გამოითვლება"
           }
         },
         "kk": {
@@ -595,10 +655,22 @@
             "value": "Vous pouvez vous le permettre dès maintenant"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կարող եք գնել հենց հիմա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Puoi permettertelo subito"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეგიძლიათ ახლავე შეიძინოთ"
           }
         },
         "kk": {
@@ -696,10 +768,22 @@
             "value": "en mettant de côté %@ par mois"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ամսական մի կողմ դնելով %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "mettendo da parte %@ al mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვეში %@-ის გადადებით"
           }
         },
         "kk": {
@@ -797,10 +881,22 @@
             "value": "Attendre l'argent : %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գումարը սպասվում է՝ %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Disponibilità prevista: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხას ელოდეთ: %@"
           }
         },
         "kk": {
@@ -982,6 +1078,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Գնված՝ %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Գնված՝ %lld"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -1001,6 +1115,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Acquistati: %lld"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "შეძენილია: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "შეძენილია: %lld"
                 }
               }
             }
@@ -1257,10 +1389,22 @@
             "value": "Choisissez l'opération parmi celles d'un montant proche des deux derniers mois. Le prix de l'envie est %@."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ընտրեք վերջին երկու ամսվա նման գումարով գործարքներից մեկը։ Ցանկության գինը %@ է։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Scegli un'operazione di importo simile degli ultimi due mesi. Il prezzo desiderato è %@."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აირჩიეთ ოპერაცია ბოლო ორი თვის მსგავსი თანხის ოპერაციებიდან. სასურველი ნივთის ფასია %@."
           }
         },
         "kk": {
@@ -1358,10 +1502,22 @@
             "value": "Lier à l'envie"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կապել ցանկության հետ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Collega al desiderio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დაკავშირება სასურველ ნივთთან"
           }
         },
         "kk": {
@@ -1459,10 +1615,22 @@
             "value": "Sans description"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նկարագրություն չկա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna descrizione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აღწერის გარეშე"
           }
         },
         "kk": {
@@ -1560,10 +1728,22 @@
             "value": "L'achat ne figure pas parmi les opérations"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնումը գործարքների ցանկում չէ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "L'acquisto non è tra le operazioni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შენაძენი ოპერაციებში არ არის"
           }
         },
         "kk": {
@@ -1661,10 +1841,22 @@
             "value": "Aucune opération correspondante sur les 60 derniers jours. Notez l'achat et revenez."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերջին 60 օրում համապատասխան գործարքներ չկան։ Գրանցեք գնումը և վերադարձեք։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessuna operazione corrispondente negli ultimi 60 giorni. Registra l'acquisto e torna qui."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბოლო 60 დღეში შესაბამისი ოპერაციები არ არის. აღრიცხეთ შენაძენი და დაბრუნდით."
           }
         },
         "kk": {
@@ -1762,10 +1954,22 @@
             "value": "Acheté : « %@ »"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնված՝ “%@”"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Acquistato: “%@”"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეძენილია: “%@”"
           }
         },
         "kk": {
@@ -1863,10 +2067,22 @@
             "value": "Vente d'objets"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Իրերի վաճառք"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Vendita di oggetti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნივთების გაყიდვა"
           }
         },
         "kk": {
@@ -1964,10 +2180,22 @@
             "value": "Attendu %@ — est arrivé à %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սպասվում էր %@ — ստացվեց %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Previsti %@ — ricevuti %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მოსალოდნელი %@ — შეადგინა %@"
           }
         },
         "kk": {
@@ -2065,10 +2293,22 @@
             "value": "Remises"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Զեղչեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Sconti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასდაკლებები"
           }
         },
         "kk": {
@@ -2166,10 +2406,22 @@
             "value": "Liste de courses"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնումների ցանկ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Lista della spesa"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საყიდლების სია"
           }
         },
         "kk": {
@@ -2267,10 +2519,22 @@
             "value": "Objets"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Իրեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Oggetti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნივთები"
           }
         },
         "kk": {
@@ -2368,10 +2632,22 @@
             "value": "En attente de crédit"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սպասվող մուտքեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "In attesa di accredito"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩარიცხვის მოლოდინში"
           }
         },
         "kk": {
@@ -2469,10 +2745,22 @@
             "value": "Envies d'achat"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցանկալի գնումներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Da acquistare"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სასურველი შენაძენები"
           }
         },
         "kk": {
@@ -2570,10 +2858,22 @@
             "value": "Attendu le"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սպասվում է մինչև"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Previsto entro"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მოსალოდნელია"
           }
         },
         "kk": {
@@ -2671,10 +2971,22 @@
             "value": "Quand attendre l'argent"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երբ սպասել գումարին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Quando arriveranno i soldi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "როდის ელოდებით თანხას"
           }
         },
         "kk": {
@@ -2772,10 +3084,22 @@
             "value": "Par rapport à la note précédente : %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նախորդ գրառման համեմատ՝ %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Rispetto al prezzo precedente: %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წინა ჩანაწერთან შედარებით: %@"
           }
         },
         "kk": {
@@ -2874,10 +3198,22 @@
             "value": "Date"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ամսաթիվ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Data"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თარიღი"
           }
         },
         "kk": {
@@ -2975,10 +3311,22 @@
             "value": "Le plus haut %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ամենաբարձր՝ %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Massimo %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "უმაღლესი %@"
           }
         },
         "kk": {
@@ -3076,10 +3424,22 @@
             "value": "Prix notés"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցված գներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Prezzi annotati"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანიშნული ფასები"
           }
         },
         "kk": {
@@ -3177,10 +3537,22 @@
             "value": "Le plus bas %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ամենացածր՝ %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Minimo %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "უმდაბლესი %@"
           }
         },
         "kk": {
@@ -3278,10 +3650,22 @@
             "value": "Aucun prix noté pour l'instant"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեռ գներ չեն գրանցվել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessun prezzo annotato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასები ჯერ არ ჩაგინიშნავთ"
           }
         },
         "kk": {
@@ -3379,10 +3763,22 @@
             "value": "Noter le prix"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցել գինը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Annota il prezzo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასის ჩანიშნვა"
           }
         },
         "kk": {
@@ -3480,10 +3876,22 @@
             "value": "Prix actuel"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ընթացիկ գին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Prezzo attuale"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამჟამინდელი ფასი"
           }
         },
         "kk": {
@@ -3581,10 +3989,22 @@
             "value": "Supprimer la note"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հեռացնել գրառումը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Rimuovi annotazione"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერის წაშლა"
           }
         },
         "kk": {
@@ -3682,10 +4102,22 @@
             "value": "Prix de « %@ »"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@”․ գին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Prezzo di “%@”"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%@” — ფასი"
           }
         },
         "kk": {
@@ -3783,10 +4215,22 @@
             "value": "aucune"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "չկա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "nessuna"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "არცერთი"
           }
         },
         "kk": {
@@ -3884,10 +4328,22 @@
             "value": "Impossible à écrire. Voir le journal."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Չհաջողվեց գրանցել։ Տեսեք մատյանը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile salvare. Consulta il registro."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვერ ჩაიწერა. იხილეთ ჟურნალი."
           }
         },
         "kk": {
@@ -3985,10 +4441,22 @@
             "value": "Le lien ne se lit pas. Vérifiez l'adresse."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հղումը չի բացվում։ Ստուգեք հասցեն։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile aprire il link. Controlla l'indirizzo."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბმული არ იკითხება. შეამოწმეთ მისამართი."
           }
         },
         "kk": {
@@ -4086,10 +4554,22 @@
             "value": "Donnez-lui un nom."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մուտքագրեք անունը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Inserisci un nome."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მიუთითეთ სახელი."
           }
         },
         "kk": {
@@ -4187,10 +4667,22 @@
             "value": "La fiche est introuvable."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրառումը չի գտնվել։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Elemento non trovato."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩანაწერი ვერ მოიძებნა."
           }
         },
         "kk": {
@@ -4288,10 +4780,22 @@
             "value": "Le prix doit être supérieur à zéro."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գինը պետք է զրոյից բարձր լինի։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il prezzo deve essere maggiore di zero."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასი ნულზე მეტი უნდა იყოს."
           }
         },
         "kk": {
@@ -4390,10 +4894,22 @@
             "value": "Vers le compte"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հաշվին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Sul conto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ანგარიშზე"
           }
         },
         "kk": {
@@ -4491,10 +5007,22 @@
             "value": "Noter la vente"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գրանցել վաճառքը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Registra la vendita"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაყიდვის აღრიცხვა"
           }
         },
         "kk": {
@@ -4593,10 +5121,22 @@
             "value": "Devise"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Արժույթ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Valuta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვალუტა"
           }
         },
         "kk": {
@@ -4694,10 +5234,22 @@
             "value": "Date de la vente"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վաճառքի ամսաթիվ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Data di vendita"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაყიდვის თარიღი"
           }
         },
         "kk": {
@@ -4795,10 +5347,22 @@
             "value": "La vente est notée comme revenu dans la catégorie « Vente d'objets », et l'objet passe dans les objets vendus."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վաճառքը գրանցվում է որպես եկամուտ «Իրերի վաճառք» կատեգորիայում, իսկ իրը տեղափոխվում է վաճառվածների ցանկ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La vendita viene registrata come entrata nella categoria “Vendita di oggetti” e l'oggetto viene spostato tra quelli venduti."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაყიდვა აღირიცხება შემოსავლად კატეგორიაში “ნივთების გაყიდვა”, ხოლო ნივთი გადავა გაყიდულებში."
           }
         },
         "kk": {
@@ -4897,10 +5461,22 @@
             "value": "Compte principal"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հիմնական հաշիվ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Conto principale"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მთავარი ანგარიში"
           }
         },
         "kk": {
@@ -4998,10 +5574,22 @@
             "value": "Vendu"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վաճառքի գին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Venduto a"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაყიდვის ფასი"
           }
         },
         "kk": {
@@ -5099,10 +5687,22 @@
             "value": "Vendu : « %@ »"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վաճառված՝ “%@”"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Venduto: “%@”"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაყიდულია: “%@”"
           }
         },
         "kk": {
@@ -5201,10 +5801,22 @@
             "value": "Par mois"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ըստ ամիսների"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Per mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თვეების მიხედვით"
           }
         },
         "kk": {
@@ -5386,6 +5998,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գնում զեղչով"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld գնում զեղչով"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -5405,6 +6035,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld acquisti scontati"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld შენაძენი ფასდაკლებით"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld შენაძენი ფასდაკლებით"
                 }
               }
             }
@@ -5661,10 +6309,22 @@
             "value": "Pas encore de remise. Notez une remise quand vous notez un achat — ici vous verrez combien vous avez économisé."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեռ զեղչեր չկան։ Գնում գրանցելիս նշեք զեղչը՝ տեսնելու համար, թե որքան եք խնայել։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessuno sconto. Annota uno sconto quando registri un acquisto per vedere qui quanto hai risparmiato."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასდაკლებები ჯერ არ არის. შენაძენის აღრიცხვისას მიუთითეთ ფასდაკლება და აქ ნახავთ, რამდენი დაზოგეთ."
           }
         },
         "kk": {
@@ -5763,10 +6423,22 @@
             "value": "Ce mois-ci"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս ամիս"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Questo mese"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ თვეში"
           }
         },
         "kk": {
@@ -5864,10 +6536,22 @@
             "value": "%@ du prix sans remises"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առանց զեղչի գնի %@-ը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ del prezzo senza sconti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასის %@ ფასდაკლების გარეშე"
           }
         },
         "kk": {
@@ -5966,10 +6650,22 @@
             "value": "Cette année"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այս տարի"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Quest'anno"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ამ წელს"
           }
         },
         "kk": {
@@ -6151,6 +6847,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Հարցնել %lld օր անց"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Հարցնել %lld օր անց"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -6170,6 +6884,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Chiedi dopo %lld giorni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "კითხვა %lld დღის შემდეგ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "კითხვა %lld დღის შემდეგ"
                 }
               }
             }
@@ -6426,10 +7158,22 @@
             "value": "Demander le kilométrage au plein"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հարցնել վազքը լիցքավորման ժամանակ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Chiedi il chilometraggio al rifornimento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარბენის კითხვა საწვავის ჩასხმისას"
           }
         },
         "kk": {
@@ -6527,10 +7271,22 @@
             "value": "Le kilométrage permet à l'app de calculer la consommation et le coût du kilomètre"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վազքի միջոցով հավելվածը հաշվում է վառելիքի ծախսը և մեկ կիլոմետրի արժեքը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il chilometraggio consente all'app di calcolare i consumi e il costo per chilometro"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარბენის მიხედვით აპი ითვლის საწვავის მოხმარებას და კილომეტრის ღირებულებას"
           }
         },
         "kk": {
@@ -6628,10 +7384,22 @@
             "value": "Pause avant un gros achat"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դադար մեծ գնումից առաջ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Pausa prima di un acquisto importante"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პაუზა დიდ შენაძენამდე"
           }
         },
         "kk": {
@@ -6729,10 +7497,22 @@
             "value": "Le seuil est une part de la somme libre du mois. Il décide aussi quel achat reçoit la question « Aucun regret ? »."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Շեմը ամսվա ազատ գումարի մասն է։ Այն նաև որոշում է, թե որ գնումից հետո հարցնել՝ “Չե՞ք զղջում”։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La soglia è una percentuale dell'importo disponibile del mese. Determina anche per quali acquisti viene posta la domanda “Nessun rimpianto?”."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ზღვარი თვის თავისუფალი თანხის წილია. ის ასევე განსაზღვრავს, რომელ შენაძენზე დაისმება კითხვა “არ ნანობთ?”."
           }
         },
         "kk": {
@@ -6830,10 +7610,22 @@
             "value": "Un gros achat se propose d'attendre une nuit"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մեծ գնումից առաջ կառաջարկվի սպասել մինչև հաջորդ օրը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Per un acquisto importante viene suggerito di aspettare una notte"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დიდი შენაძენის წინ შემოგთავაზებთ ერთი ღამით მოცდას"
           }
         },
         "kk": {
@@ -6931,10 +7723,22 @@
             "value": "Un achat est gros au-delà de %@ de la somme libre"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնումը մեծ է, եթե գերազանցում է ազատ գումարի %@-ը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Un acquisto è importante se supera il %@ dell'importo disponibile"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დიდია შენაძენი, რომელიც თავისუფალი თანხის %@-ს აღემატება"
           }
         },
         "kk": {
@@ -7032,10 +7836,22 @@
             "value": "« Aucun regret ? »"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“Չե՞ք զղջում”"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "“Nessun rimpianto?”"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“არ ნანობთ?”"
           }
         },
         "kk": {
@@ -7133,10 +7949,22 @@
             "value": "Quelques jours après un gros achat, demander si vous le rachèteriez"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մեծ գնումից մի քանի օր անց հարցնել՝ արդյոք կրկին կգնեիք այն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Qualche giorno dopo un acquisto importante, chiedi se lo rifaresti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დიდი შენაძენიდან რამდენიმე დღეში გკითხავთ, კვლავ შეიძენდით თუ არა მას"
           }
         },
         "kk": {
@@ -7235,10 +8063,22 @@
             "value": "Achats"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնումներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Acquisti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შენაძენები"
           }
         },
         "kk": {
@@ -7336,10 +8176,22 @@
             "value": "Ce qu'il faut acheter"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ինչ գնել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cosa acquistare"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რა უნდა იყიდოთ"
           }
         },
         "kk": {
@@ -7438,10 +8290,22 @@
             "value": "Ajouter"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավելացնել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დამატება"
           }
         },
         "kk": {
@@ -7623,6 +8487,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Հեռացնել գնվածները (%lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Հեռացնել գնվածները (%lld)"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -7642,6 +8524,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Rimuovi completati (%lld)"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "შესრულებულის გასუფთავება (%lld)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "შესრულებულის გასუფთავება (%lld)"
                 }
               }
             }
@@ -7898,10 +8798,22 @@
             "value": "La liste est vide. Tapez ce qu'il faut acheter à la prochaine course."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցանկը դատարկ է։ Գրեք, թե ինչ է պետք գնել խանութ հաջորդ այցելության ժամանակ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La lista è vuota. Scrivi cosa devi comprare la prossima volta che vai a fare la spesa."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სია ცარიელია. ჩაწერეთ, რა უნდა იყიდოთ მაღაზიაში შემდეგი ვიზიტისას."
           }
         },
         "kk": {
@@ -8000,10 +8912,22 @@
             "value": "Retirer de la liste"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հեռացնել ցանկից"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Rimuovi dalla lista"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სიიდან ამოღება"
           }
         },
         "kk": {
@@ -8101,10 +9025,22 @@
             "value": "Marquer comme fait"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նշել որպես գնված"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Segna come completato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შესრულებულად მონიშვნა"
           }
         },
         "kk": {
@@ -8202,10 +9138,22 @@
             "value": "Décocher"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հանել նշումը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Deseleziona"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მონიშვნის მოხსნა"
           }
         },
         "kk": {
@@ -8303,10 +9251,22 @@
             "value": "Ce que vous voulez acheter, ce que vous possédez et ce que coûte le fait de le posséder"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ձեր ցանկալի գնումները, իրերը և դրանց ծախսերը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Cosa vuoi comprare, cosa possiedi e quanto ti costa"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რისი ყიდვა გსურთ, რას ფლობთ და რა გიჯდებათ მისი ფლობა"
           }
         },
         "kk": {
@@ -8404,10 +9364,22 @@
             "value": "Acheté le %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնվել է %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Acquistato il %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეძენილია %@"
           }
         },
         "kk": {
@@ -8505,10 +9477,22 @@
             "value": "%@ par mois · %@ au total · %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ամսական՝ %@ · Ընդամենը՝ %@ · %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ al mese · %@ in totale · %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ თვეში · სულ %@ · %@"
           }
         },
         "kk": {
@@ -8606,10 +9590,22 @@
             "value": "L'objet quitte la liste ; les opérations restent."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Իրը կհեռացվի ցանկից, իսկ գործարքները կմնան։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "L'oggetto viene rimosso dalla lista; le operazioni restano."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნივთი წაიშლება სიიდან; ოპერაციები დარჩება."
           }
         },
         "kk": {
@@ -8708,10 +9704,22 @@
             "value": "Supprimer « %@ » ?"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ջնջե՞լ “%@”-ը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Eliminare “%@”?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წაიშალოს “%@”?"
           }
         },
         "kk": {
@@ -8810,10 +9818,22 @@
             "value": "Modifier…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Խմբագրել…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Modifica…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რედაქტირება…"
           }
         },
         "kk": {
@@ -8912,10 +9932,22 @@
             "value": "Devise"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Արժույթ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Valuta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვალუტა"
           }
         },
         "kk": {
@@ -9013,10 +10045,22 @@
             "value": "Date d'achat"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնման ամսաթիվ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Data di acquisto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეძენის თარიღი"
           }
         },
         "kk": {
@@ -9114,10 +10158,22 @@
             "value": "Objet"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Իր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Oggetto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნივთი"
           }
         },
         "kk": {
@@ -9215,10 +10271,22 @@
             "value": "Je connais la date d'achat"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գիտեմ գնման ամսաթիվը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Conosco la data di acquisto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვიცი შეძენის თარიღი"
           }
         },
         "kk": {
@@ -9317,10 +10385,22 @@
             "value": "Nom"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անուն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nome"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სახელი"
           }
         },
         "kk": {
@@ -9418,10 +10498,22 @@
             "value": "Nouvel objet"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նոր իր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nuovo bene"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახალი ნივთი"
           }
         },
         "kk": {
@@ -9519,10 +10611,22 @@
             "value": "Sans étiquette"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պիտակ չկա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessun tag"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჭდის გარეშე"
           }
         },
         "kk": {
@@ -9621,10 +10725,22 @@
             "value": "Remarque"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նշում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nota"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შენიშვნა"
           }
         },
         "kk": {
@@ -9722,10 +10838,22 @@
             "value": "Prix d'achat"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնման գին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Prezzo d’acquisto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეძენის ფასი"
           }
         },
         "kk": {
@@ -9823,10 +10951,22 @@
             "value": "Étiquette"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պիտակ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Tag"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჭდე"
           }
         },
         "kk": {
@@ -9924,10 +11064,22 @@
             "value": "L'étiquette regroupe les opérations sur l'objet : réparations, assurance, carburant."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պիտակը միավորում է իրի հետ կապված գործարքները՝ վերանորոգում, ապահովագրություն, վառելիք։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Il tag raggruppa le operazioni relative al bene: riparazioni, assicurazione, carburante."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჭდე აერთიანებს ნივთთან დაკავშირებულ ოპერაციებს: შეკეთებას, დაზღვევას, საწვავს."
           }
         },
         "kk": {
@@ -10025,10 +11177,22 @@
             "value": "Depuis le capital"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Կապիտալից"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Dal patrimonio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "კაპიტალიდან"
           }
         },
         "kk": {
@@ -10210,6 +11374,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ամսվա ընթացքում"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld ամսվա ընթացքում"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -10229,6 +11411,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "in %lld mesi"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld თვის განმავლობაში"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld თვის განმავლობაში"
                 }
               }
             }
@@ -10485,10 +11685,22 @@
             "value": "Pas de prix d'achat — seul ce qui y est dépensé est compté"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնման գինը նշված չէ․ հաշվվում են միայն դրա վրա արված ծախսերը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessun prezzo d’acquisto: vengono conteggiate solo le spese sostenute"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეძენის ფასი არ არის — ითვლება მხოლოდ მასზე გაწეული ხარჯი"
           }
         },
         "kk": {
@@ -10586,10 +11798,22 @@
             "value": "Pas d'étiquette — les dépenses sur l'objet ne sont pas comptées. Mettez sur les opérations une étiquette portant son nom."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Պիտակ չկա․ իրի վրա արված ծախսերը չեն հաշվվում։ Գործարքներին ավելացրեք իրի անունով պիտակ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessun tag: le spese per il bene non vengono conteggiate. Aggiungi alle operazioni un tag con il suo nome."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჭდე არ არის — ნივთზე გაწეული ხარჯი არ ითვლება. დაამატეთ ოპერაციებს ნივთის სახელის ჭდე."
           }
         },
         "kk": {
@@ -10687,10 +11911,22 @@
             "value": "Noté à part"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առանձին է նշված"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Annotato a parte"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ცალკე აღრიცხვა"
           }
         },
         "kk": {
@@ -10788,10 +12024,22 @@
             "value": "Vendu…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վաճառվել է…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Venduto…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაიყიდა…"
           }
         },
         "kk": {
@@ -10889,10 +12137,22 @@
             "value": "Vendu %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վաճառվել է %@-ով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Venduto a %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გაიყიდა %@-ად"
           }
         },
         "kk": {
@@ -10991,10 +12251,22 @@
             "value": "Garantie jusqu'au %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երաշխիքը՝ մինչև %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Garanzia fino al %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარანტია %@-მდე"
           }
         },
         "kk": {
@@ -11092,10 +12364,22 @@
             "value": "La garantie est terminée"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Երաշխիքն ավարտվել է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "La garanzia è scaduta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "გარანტიის ვადა გავიდა"
           }
         },
         "kk": {
@@ -11193,10 +12477,22 @@
             "value": "Ajouter un objet"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավելացնել իր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi un bene"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნივთის დამატება"
           }
         },
         "kk": {
@@ -11294,10 +12590,22 @@
             "value": "Voici les objets du capital (placements mis à part) et ceux que vous notez à part, chacun avec ce que coûte sa possession par mois. Pour compter ce qui est dépensé sur un objet, mettez sur les opérations une étiquette portant son nom."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Այստեղ են կապիտալի իրերը (բացի ներդրումներից) և առանձին նշված իրերը՝ յուրաքանչյուրի ամսական պահպանման ծախսով։ Իրի վրա արված ծախսերը հաշվելու համար գործարքներին ավելացրեք դրա անունով պիտակ։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Qui trovi i beni del patrimonio, esclusi gli investimenti, e quelli annotati a parte, con il costo mensile di ciascuno. Per conteggiare le spese di un bene, aggiungi alle operazioni un tag con il suo nome."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "აქ არის კაპიტალში შემავალი ნივთები (ინვესტიციების გარდა) და ცალკე აღრიცხული ნივთები, მათი ყოველთვიური ხარჯით. ნივთზე გაწეული ხარჯის დასათვლელად დაამატეთ ოპერაციებს მისი სახელის ჭდე."
           }
         },
         "kk": {
@@ -11395,10 +12703,22 @@
             "value": "Objets"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Իրեր"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Beni"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნივთები"
           }
         },
         "kk": {
@@ -11580,6 +12900,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Վաճառված իրեր՝ %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Վաճառված իրեր՝ %lld"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -11599,6 +12937,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Beni venduti: %lld"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გაყიდული ნივთები: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "გაყიდული ნივთები: %lld"
                 }
               }
             }
@@ -11855,10 +13211,22 @@
             "value": "Le moment d'acheter"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնելու ժամանակն է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "È il momento di acquistare"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყიდვის დროა"
           }
         },
         "kk": {
@@ -11956,10 +13324,22 @@
             "value": "le prix n'est pas au-dessus de ce que vous attendiez"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "գինը չի գերազանցում սպասվածը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "il prezzo non supera quello previsto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასი მოსალოდნელს არ აღემატება"
           }
         },
         "kk": {
@@ -12057,10 +13437,22 @@
             "value": "le prix a baissé de %@ par rapport au plus haut"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "գինը առավելագույնից իջել է %@-ով"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "il prezzo è sceso di %@ rispetto al massimo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასი უმაღლესი ნიშნულიდან %@-ით დაეცა"
           }
         },
         "kk": {
@@ -12159,10 +13551,22 @@
             "value": "Achats"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնումներ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Acquisti"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შესყიდვები"
           }
         },
         "kk": {
@@ -12260,10 +13664,22 @@
             "value": "%@ L/100 km"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ լ/100 կմ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ L/100 km"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ლ/100 კმ"
           }
         },
         "kk": {
@@ -12361,10 +13777,22 @@
             "value": "Carburant %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վառելիք՝ %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Carburante %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "საწვავი %@"
           }
         },
         "kk": {
@@ -12462,10 +13890,22 @@
             "value": "%@ par km"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@/կմ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ al km"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ კმ-ზე"
           }
         },
         "kk": {
@@ -12563,10 +14003,22 @@
             "value": "Crédité"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մուտքագրված է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Accreditato"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჩაირიცხა"
           }
         },
         "kk": {
@@ -12664,10 +14116,22 @@
             "value": "Aucun remboursement n'est attendu. Un remboursement qui n'est pas encore arrivé sur le compte attend ici, sans changer les dépenses ni les soldes."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սպասվող վերադարձներ չկան։ Հաշվին դեռ չհասած վերադարձն այստեղ է՝ առանց ծախսերն ու մնացորդները փոխելու։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nessun rimborso in attesa. I rimborsi non ancora arrivati sul conto restano qui senza modificare spese o saldi."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "დასაბრუნებელი თანხა არ არის. თანხის დაბრუნება, რომელიც ანგარიშზე ჯერ არ ასახულა, აქ გამოჩნდება ხარჯებისა და ნაშთების შეცვლის გარეშე."
           }
         },
         "kk": {
@@ -12765,10 +14229,22 @@
             "value": "Tant que l'argent n'est pas arrivé, un remboursement ne baisse ni les dépenses ni ne change les soldes."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Մինչև գումարի մուտքը վերադարձը չի նվազեցնում ծախսերը և չի փոխում մնացորդները։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Finché non arriva, un rimborso non riduce le spese né modifica i saldi."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხის ჩარიცხვამდე დაბრუნება არ ამცირებს ხარჯებს და არ ცვლის ნაშთებს."
           }
         },
         "kk": {
@@ -12950,6 +14426,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ուշանում է %lld օր"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Ուշանում է %lld օր"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -12969,6 +14463,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "In ritardo di %lld giorni"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld დღით დაგვიანებულია"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld დღით დაგვიანებულია"
                 }
               }
             }
@@ -13226,10 +14738,22 @@
             "value": "Remboursement"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Վերադարձ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Rimborso"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თანხის დაბრუნება"
           }
         },
         "kk": {
@@ -13327,10 +14851,22 @@
             "value": "Attendu avant le %@ — en retard"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սպասվում էր մինչև %@․ ժամկետանց է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Previsto entro il %@ — in ritardo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მოსალოდნელი იყო %@-მდე — ვადაგადაცილებულია"
           }
         },
         "kk": {
@@ -13428,10 +14964,22 @@
             "value": "Déplacer la date…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Փոխել ամսաթիվը…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Sposta la data…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თარიღის გადატანა…"
           }
         },
         "kk": {
@@ -13613,6 +15161,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Սպասվող վերադարձներ՝ %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Սպասվող վերադարձներ՝ %lld"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -13632,6 +15198,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Rimborsi in attesa: %lld"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "მოსალოდნელი დაბრუნებები: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "მოსალოდნელი დაბრუნებები: %lld"
                 }
               }
             }
@@ -13888,10 +15472,22 @@
             "value": "Attendu avant le %@"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Սպասվում է մինչև %@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Previsto entro il %@"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მოსალოდნელია %@-მდე"
           }
         },
         "kk": {
@@ -13990,10 +15586,22 @@
             "value": "Retirer de la liste"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հեռացնել ցանկից"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Rimuovi dall’elenco"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სიიდან ამოღება"
           }
         },
         "kk": {
@@ -14091,10 +15699,22 @@
             "value": "Acheté…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնվել է…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Acquistato…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ნაყიდია…"
           }
         },
         "kk": {
@@ -14192,10 +15812,22 @@
             "value": "sans date"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ամսաթիվ չկա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "nessuna data"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "თარიღის გარეშე"
           }
         },
         "kk": {
@@ -14293,10 +15925,22 @@
             "value": "on peut acheter"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "կարելի է գնել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "puoi acquistare"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეძენა შესაძლებელია"
           }
         },
         "kk": {
@@ -14394,10 +16038,22 @@
             "value": "le moment d'acheter"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "գնելու ժամանակն է"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "è il momento"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ყიდვის დროა"
           }
         },
         "kk": {
@@ -14495,10 +16151,22 @@
             "value": "attendre"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "սպասել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "attendi"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მოიცადეთ"
           }
         },
         "kk": {
@@ -14596,10 +16264,22 @@
             "value": "Son historique de prix part avec lui."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գնի պատմությունը նույնպես կջնջվի։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Anche la cronologia dei prezzi verrà eliminata."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მასთან ერთად წაიშლება ფასის ისტორიაც."
           }
         },
         "kk": {
@@ -14698,10 +16378,22 @@
             "value": "Supprimer « %@ » ?"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ջնջե՞լ «%@»-ը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Eliminare “%@”?"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "წაიშალოს „%@“?"
           }
         },
         "kk": {
@@ -14800,10 +16492,22 @@
             "value": "Modifier…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Խմբագրել…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Modifica…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "რედაქტირება…"
           }
         },
         "kk": {
@@ -14902,10 +16606,22 @@
             "value": "Devise"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Արժույթ"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Valuta"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ვალუტა"
           }
         },
         "kk": {
@@ -15003,10 +16719,22 @@
             "value": "Envie"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ցանկություն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Desiderio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სურვილი"
           }
         },
         "kk": {
@@ -15104,10 +16832,22 @@
             "value": "Lien"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Հղում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Link"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბმული"
           }
         },
         "kk": {
@@ -15206,10 +16946,22 @@
             "value": "Nom"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Անուն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nome"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სახელი"
           }
         },
         "kk": {
@@ -15307,10 +17059,22 @@
             "value": "Nouvelle envie"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նոր ցանկություն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nuovo desiderio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ახალი სურვილი"
           }
         },
         "kk": {
@@ -15409,10 +17173,22 @@
             "value": "Remarque"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Նշում"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Nota"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შენიშვნა"
           }
         },
         "kk": {
@@ -15511,10 +17287,22 @@
             "value": "Prix"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Prezzo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასი"
           }
         },
         "kk": {
@@ -15612,10 +17400,22 @@
             "value": "Priorité : %@ (1 est la plus désirée)"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առաջնահերթություն՝ %@ (1-ը՝ ամենացանկալին)"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Priorità: %@ (1 è la più alta)"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პრიორიტეტი: %@ (1 — ყველაზე სასურველი)"
           }
         },
         "kk": {
@@ -15713,10 +17513,22 @@
             "value": "Ouvrir le lien"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Բացել հղումը"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Apri link"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ბმულის გახსნა"
           }
         },
         "kk": {
@@ -15815,10 +17627,22 @@
             "value": "Plus"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավելին"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Altro"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მეტი"
           }
         },
         "kk": {
@@ -15916,10 +17740,22 @@
             "value": "sans prix"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "գին չկա"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "nessun prezzo"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასის გარეშე"
           }
         },
         "kk": {
@@ -16017,10 +17853,22 @@
             "value": "Prix…"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Գին…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Prezzo…"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ფასი…"
           }
         },
         "kk": {
@@ -16118,10 +17966,22 @@
             "value": "Priorité %lld"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Առաջնահերթություն՝ %lld"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Priorità %lld"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "პრიორიტეტი %lld"
           }
         },
         "kk": {
@@ -16219,10 +18079,22 @@
             "value": "Ajouter une envie"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ավելացնել ցանկություն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Aggiungi un desiderio"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "სურვილის დამატება"
           }
         },
         "kk": {
@@ -16320,10 +18192,22 @@
             "value": "Rien pour l'instant. Ajoutez ce que vous voulez acheter — l'app indique combien de mois il faut pour l'épargner et quand le prix est bon."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Դեռ ոչինչ չկա։ Ավելացրեք այն, ինչ ուզում եք գնել․ հավելվածը ցույց կտա, թե քանի ամսում կկուտակեք գումարը և երբ գինը հարմար կլինի։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Ancora nessun desiderio. Aggiungi ciò che vuoi acquistare: l’app ti dirà quanti mesi servono per risparmiare e quando il prezzo è giusto."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ჯერ არაფერია. დაამატეთ ის, რისი ყიდვაც გსურთ — აპი გაჩვენებთ, რამდენი თვე დაგჭირდებათ თანხის შესაგროვებლად და როდის იქნება ფასი ხელსაყრელი."
           }
         },
         "kk": {
@@ -16421,10 +18305,22 @@
             "value": "Envies d'achat"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ուզում եմ գնել"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Da acquistare"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "მინდა ვიყიდო"
           }
         },
         "kk": {

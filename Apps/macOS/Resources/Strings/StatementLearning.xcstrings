@@ -119,6 +119,24 @@
             }
           }
         },
+        "hy": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld տող լրացվել է ձեր նախորդ գրառման համաձայն"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld տող լրացվել է ձեր նախորդ գրառումների համաձայն"
+                }
+              }
+            }
+          }
+        },
         "it": {
           "variations": {
             "plural": {
@@ -138,6 +156,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld righe compilate come le avevi scritte"
+                }
+              }
+            }
+          }
+        },
+        "ka": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld სტრიქონი შეივსო ისე, როგორც ადრე ჩაწერეთ"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld სტრიქონი შეივსო ისე, როგორც ადრე ჩაწერეთ"
                 }
               }
             }
@@ -395,10 +431,22 @@
             "value": "Comme vous l'aviez écrit avant"
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ձեր նախորդ գրառման համաձայն"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Come l’avevi scritto"
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "როგორც ადრე ჩაწერეთ"
           }
         },
         "kk": {
@@ -497,10 +545,22 @@
             "value": "Rempli d'après une opération que vous avez saisie à la main pour le même texte de cette banque. Modifiez l'opération après le chargement, et les lignes suivantes suivront votre modification."
           }
         },
+        "hy": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Լրացվել է այս բանկի նույն տեքստի համար ձեր ձեռքով մուտքագրած գործարքից։ Ներմուծումից հետո փոխեք գործարքը, և հաջորդ տողերը կհետևեն ձեր փոփոխությանը։"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Compilata da un’operazione inserita a mano con lo stesso testo di questa banca. Modifica l’operazione dopo il caricamento e le righe successive seguiranno la modifica."
+          }
+        },
+        "ka": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "შეივსო ამ ბანკის იმავე ტექსტისთვის ხელით შეყვანილი ოპერაციიდან. ჩატვირთვის შემდეგ შეცვალეთ ოპერაცია და მომდევნო სტრიქონებიც ამ ცვლილებას მიჰყვება."
           }
         },
         "kk": {
