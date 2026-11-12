@@ -65,6 +65,8 @@ enum PhonePresentationBaseline {
     "Apps/macOS/Features/Planning/GoalsScreen.swift": 4,
     "Apps/macOS/Features/Planning/LimitsBlock.swift": 3,
     "Apps/macOS/Features/Planning/PlanningBlocks.swift": 1,
+    // The namesake notice opens a native rename alert with a name field, Save and Cancel.
+    "Apps/macOS/Features/Planning/PlanningNamesakeNotice.swift": 1,
     "Apps/macOS/Features/Planning/PlanningPage.swift": 2,
     "Apps/macOS/Features/Planning/PlanningView.swift": 9,
     "Apps/macOS/Features/Planning/RemindersPresentation.swift": 1,
