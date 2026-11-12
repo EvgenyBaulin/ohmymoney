@@ -161,6 +161,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wiersze uzupełnione jak poprzednio"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wierszy uzupełnionych jak poprzednio"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wiersz uzupełniony jak poprzednio"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wiersza uzupełnionego jak poprzednio"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -186,6 +216,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld строк заполнено, как вы записывали раньше"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld satır daha önce yazdığınız gibi dolduruldu"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld satır daha önce yazdığınız gibi dolduruldu"
                 }
               }
             }
@@ -269,10 +317,22 @@
             "value": "Бұрын жазғаныңыздай"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak poprzednio"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Как вы записали раньше"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha önce yazdığınız gibi"
           }
         },
         "uk": {
@@ -329,10 +389,22 @@
             "value": "Осы банктің дәл осындай мәтініне қолмен енгізген операцияңыздан толтырылды. Жүктегеннен кейін операцияны өзгертсеңіз, келесі жолдар өзгерісіңізді ескереді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uzupełniono na podstawie operacji wpisanej ręcznie dla tego samego tekstu z tego banku. Zmień operację po wczytaniu, a kolejne wiersze uwzględnią tę zmianę."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Заполнено по операции, которую вы вводили руками для такого же текста этого банка. Поправите операцию после загрузки — следующие строки будут как после правки."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu bankanın aynı açıklamasına sahip, elle girdiğiniz bir işlemden dolduruldu. Yükledikten sonra işlemi değiştirirseniz sonraki satırlar değişikliğinize göre doldurulur."
           }
         },
         "uk": {

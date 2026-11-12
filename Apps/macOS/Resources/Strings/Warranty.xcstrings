@@ -47,10 +47,22 @@
             "value": "Кепілдіктер"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gwarancje"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Гарантии"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantiler"
           }
         },
         "uk": {
@@ -107,10 +119,22 @@
             "value": "Жою"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuń"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Убрать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaldır"
           }
         },
         "uk": {
@@ -167,10 +191,22 @@
             "value": "Әлі кепілдіктер жоқ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak gwarancji"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Гарантий пока нет"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz garanti yok"
           }
         },
         "uk": {
@@ -227,10 +263,22 @@
             "value": "Операция панелінде кепілдік не қайтару мерзімін қосыңыз немесе жолға жазыңыз: «кепілдік 2ж», «қайтару 14к»."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dodaj gwarancję lub termin zwrotu w panelu operacji albo wpisz w wierszu: «warranty 2y», «return 14d»."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Добавьте гарантию или срок возврата в панели операции или напишите в строке: «гарантия 2г», «возврат 14д»."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşlem panelinde bir garanti veya iade süresi ekleyin ya da satıra yazın: «warranty 2y», «return 14d»."
           }
         },
         "uk": {
@@ -287,10 +335,22 @@
             "value": "Түпнұсқа қайда"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Miejsce przechowywania oryginału"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Где лежит оригинал"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asıl belgenin yeri"
           }
         },
         "uk": {
@@ -347,10 +407,22 @@
             "value": "шкафтағы қорап, «Техника» қалтасы"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pudełko w szafie, folder «Appliances»"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "коробка в шкафу, папка «Техника»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dolaptaki kutu, «Appliances» klasörü"
           }
         },
         "uk": {
@@ -407,10 +479,22 @@
             "value": "Қайтаруға болады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot do"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вернуть можно до"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son iade tarihi"
           }
         },
         "uk": {
@@ -467,10 +551,22 @@
             "value": "Кепілдік мерзімі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gwarancja do"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Гарантия до"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garanti bitiş tarihi"
           }
         },
         "uk": {
@@ -641,6 +737,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pozostały %lld dni"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pozostało %lld dni"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pozostał %lld dzień"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Pozostało %lld dnia"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -666,6 +792,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "осталось %lld дня"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün kaldı"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün kaldı"
                 }
               }
             }
@@ -749,10 +893,22 @@
             "value": "%@ дейін қайтаруға болады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot do %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вернуть можно до %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tarihine kadar iade edilebilir"
           }
         },
         "uk": {
@@ -809,10 +965,22 @@
             "value": "Кепілдік %@ дейін"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gwarancja do %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Гарантия до %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garanti bitiş tarihi: %@"
           }
         },
         "uk": {
@@ -869,10 +1037,22 @@
             "value": "Ештеңе табылмады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nic nie znaleziono"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ничего не найдено"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonuç bulunamadı"
           }
         },
         "uk": {
@@ -929,10 +1109,22 @@
             "value": "Операцияны ашу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwórz operację"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открыть операцию"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşlemi aç"
           }
         },
         "uk": {
@@ -989,10 +1181,22 @@
             "value": "мерзімі бітті"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "termin minął"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "срок вышел"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "süre doldu"
           }
         },
         "uk": {
@@ -1049,10 +1253,22 @@
             "value": "Күнді таңдау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wybierz datę"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Выбрать дату"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tarih seç"
           }
         },
         "uk": {
@@ -1223,6 +1439,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld dni"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld dni"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld dzień"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld dnia"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1248,6 +1494,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld дня"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld gün"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld gün"
                 }
               }
             }
@@ -1445,6 +1709,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld lata"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld lat"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld rok"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld roku"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1470,6 +1764,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "+%lld года"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld yıl"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld yıl"
                 }
               }
             }
@@ -1553,10 +1865,22 @@
             "value": "Түпнұсқа: %@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oryginał: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Оригинал: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asıl belge: %@"
           }
         },
         "uk": {
@@ -1613,10 +1937,22 @@
             "value": "%@ дейін қайтаруға болады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot do %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вернуть можно до %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tarihine kadar iade edilebilir"
           }
         },
         "uk": {
@@ -1673,10 +2009,22 @@
             "value": "Кепілдік %@ дейін"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gwarancja do %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Гарантия до %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garanti bitiş tarihi: %@"
           }
         },
         "uk": {
@@ -1733,10 +2081,22 @@
             "value": "Атау не орын бойынша іздеу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Szukaj według nazwy lub miejsca"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Поиск по названию и месту"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ada veya yere göre ara"
           }
         },
         "uk": {
@@ -1793,10 +2153,22 @@
             "value": "Аяқталған"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zakończone"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Закончились"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Süresi Dolanlar"
           }
         },
         "uk": {
@@ -1853,10 +2225,22 @@
             "value": "Белсенді"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktywne"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Действуют"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Devam Edenler"
           }
         },
         "uk": {
@@ -1913,10 +2297,22 @@
             "value": "Кепілдігі бар және әлі қайтаруға болатын сатып алулар"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co jest na gwarancji i co można jeszcze zwrócić"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что на гарантии и что ещё можно вернуть"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garanti kapsamındaki ve hâlâ iade edilebilecek ürünler"
           }
         },
         "uk": {
@@ -1973,10 +2369,22 @@
             "value": "Кепілдіктер"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gwarancje"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Гарантии"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garantiler"
           }
         },
         "uk": {
@@ -2033,10 +2441,22 @@
             "value": "бүгін — соңғы күн"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ostatni dzień dzisiaj"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "сегодня последний день"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "son gün bugün"
           }
         },
         "uk": {
@@ -2093,10 +2513,22 @@
             "value": "%@ күнгі сатып алу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zakup: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Покупка %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ satın alımı"
           }
         },
         "uk": {

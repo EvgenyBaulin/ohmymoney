@@ -46,10 +46,22 @@
             "value": "Жасыру"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonimizuj"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Обезличить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonimleştir"
           }
         },
         "uk": {
@@ -105,10 +117,22 @@
             "value": "Көшірмеде сипаттамалар, пікірлер, орындар және аттар өшіріледі. Сомалар, күндер және санаттар қалады. Түпнұсқа өзгермейді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opisy, komentarze, miejsca i nazwy zostaną usunięte z kopii. Kwoty, daty i kategorie pozostaną bez zmian. Oryginał nie zostanie zmieniony."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В копии стираются описания, комментарии, места и имена. Суммы, даты и категории остаются. Оригинал не меняется."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopyadaki açıklamalar, yorumlar, yerler ve adlar silinir. Tutarlar, tarihler ve kategoriler kalır. Özgün veri değişmez."
           }
         },
         "uk": {
@@ -164,10 +188,22 @@
             "value": "Тіркемелерді қосу (%@)"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dołącz załączniki (%@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "С вложениями (%@)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekleri dahil et (%@)"
           }
         },
         "uk": {
@@ -223,10 +259,22 @@
             "value": "Көшірме дайын"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopia jest gotowa"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия готова"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopya hazır"
           }
         },
         "uk": {
@@ -282,10 +330,22 @@
             "value": "Тіркемелер: %lld"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Załączniki: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вложений: %lld"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekler: %lld"
           }
         },
         "uk": {
@@ -341,10 +401,22 @@
             "value": "Құписөзіңізбен құлыпталған."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zabezpieczona hasłem."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Закрыта вашим паролем."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolanızla kilitlendi."
           }
         },
         "uk": {
@@ -514,6 +586,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operacje w kopii"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operacji w kopii"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operacja w kopii"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operacji w kopii"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -539,6 +641,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "В копии %lld операции"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Kopyada %lld işlem"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Kopyada %lld işlem"
                 }
               }
             }
@@ -735,6 +855,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld przelewy w kopii"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld przelewów w kopii"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld przelew w kopii"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld przelewu w kopii"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -760,6 +910,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "В копии %lld перевода"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Kopyada %lld transfer"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Kopyada %lld transfer"
                 }
               }
             }
@@ -842,10 +1010,22 @@
             "value": "Бұл құрастырымда жасыру жоқ, сондықтан көшірме жасалмады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonimizacja nie jest dostępna w tej wersji, więc kopia nie została utworzona."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Обезличивание в этой сборке недоступно, поэтому копия не сделана."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anonimleştirme bu sürümde kullanılamadığından kopya oluşturulamadı."
           }
         },
         "uk": {
@@ -901,10 +1081,22 @@
             "value": "Жасырын есеп-шотты көшірме сақтайтын бір нәрсе әлі пайдаланады, сондықтан оны шығаруға болмайды. Жасырын есеп-шоттарды қосыңыз немесе есеп-шотты қайта көрсетіңіз."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukryte konto jest nadal używane przez element, który pozostaje w kopii, więc nie można go pominąć. Dołącz ukryte konta lub ponownie pokaż konto."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скрытый счёт нужен тому, что остаётся в копии, и его нельзя убрать. Включите скрытые или верните счёт на экран."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli bir hesap, kopyada tutulan bir öğe tarafından hâlâ kullanıldığından dışarıda bırakılamıyor. Gizli hesapları dahil edin veya hesabı yeniden gösterin."
           }
         },
         "uk": {
@@ -960,10 +1152,22 @@
             "value": "Көшірме жасалмады. Ештеңе өзгерген жоқ."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopia nie została utworzona. Niczego nie zmieniono."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия не сделана. Ничего не изменилось."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopya oluşturulamadı. Hiçbir şey değiştirilmedi."
           }
         },
         "uk": {
@@ -1019,10 +1223,22 @@
             "value": "Құписөз енгізіңіз: құписөзсіз көшірме жасалмайды."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wpisz hasło. Kopia nie zostanie utworzona bez hasła."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Введите пароль: копия без пароля не делается."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir parola girin. Parolasız kopya oluşturulmaz."
           }
         },
         "uk": {
@@ -1078,10 +1294,22 @@
             "value": "Кезең бос: аяқталуы басталуынан бұрын."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Okres jest pusty: data końcowa jest wcześniejsza niż początkowa."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Период пуст: конец раньше начала."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dönem boş: Bitiş tarihi başlangıç tarihinden önce."
           }
         },
         "uk": {
@@ -1137,10 +1365,22 @@
             "value": "Пішім"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Format"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Формат"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biçim"
           }
         },
         "uk": {
@@ -1196,10 +1436,22 @@
             "value": "Көшіру мұрағаты"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archiwum do przeniesienia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Архив переноса"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktarım arşivi"
           }
         },
         "uk": {
@@ -1255,10 +1507,22 @@
             "value": "Тек CSV"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tylko CSV"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Только CSV"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca CSV"
           }
         },
         "uk": {
@@ -1315,10 +1579,22 @@
             "value": "Бастап"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Od"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "С"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başlangıç"
           }
         },
         "uk": {
@@ -1374,10 +1650,22 @@
             "value": "Жасырын есеп-шоттарды қосу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dołącz ukryte konta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Включая скрытые"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli hesapları dahil et"
           }
         },
         "uk": {
@@ -1433,10 +1721,22 @@
             "value": "Ол болмаса, көшірмеде жасырын есеп-шоттар және олардың операциялары мен аударымдары болмайды."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bez tej opcji kopia nie zawiera ukrytych kont ani ich operacji i przelewów."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Без галочки в копии нет скрытых счетов, их операций и переводов."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu seçenek kapalıysa gizli hesaplar ve bunlara ait işlemler ve transferler kopyaya dahil edilmez."
           }
         },
         "uk": {
@@ -1492,10 +1792,22 @@
             "value": "Көшірмеге жасырын есеп-шоттар кіреді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopia będzie zawierać ukryte konta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В копию войдут скрытые счета."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli hesaplar kopyaya dahil edilecek."
           }
         },
         "uk": {
@@ -1551,10 +1863,22 @@
             "value": "Шығарылды: %lld"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pominięto: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не вошло: %lld"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dahil edilmeyen: %lld"
           }
         },
         "uk": {
@@ -1610,10 +1934,22 @@
             "value": "Бұл көшірме — түпнұсқа сізде қалады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To kopia — oryginał pozostaje u Ciebie."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия — оригинал остаётся у вас."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir kopya oluşturulur; özgün veri sizde kalır."
           }
         },
         "uk": {
@@ -1670,10 +2006,22 @@
             "value": "Құписөз"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasło"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пароль"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parola"
           }
         },
         "uk": {
@@ -1730,10 +2078,22 @@
             "value": "Құписөзді қайталаңыз"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Powtórz hasło"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Повторите пароль"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolayı tekrar girin"
           }
         },
         "uk": {
@@ -1789,10 +2149,22 @@
             "value": "Көшірме осы құписөзбен құлыпталады. Онсыз ешкім аша алмайды, және оны қалпына келтіру мүмкін емес. Түпнұсқа өзгеріссіз сізде қалады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopia jest zabezpieczona tym hasłem. Bez niego nie można jej otworzyć, a hasła nie można odzyskać. Oryginał pozostaje u Ciebie bez zmian."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия закрыта этим паролем. Без него её не откроет никто, и восстановить пароль нельзя. Оригинал остаётся у вас без изменений."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopya bu parolayla kilitlenir. Parola olmadan kimse kopyayı açamaz ve parola kurtarılamaz. Özgün veri sizde değişmeden kalır."
           }
         },
         "uk": {
@@ -1848,10 +2220,22 @@
             "value": "тіркемелер: %lld"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "załączniki: %lld"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "вложений: %lld"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ek: %lld"
           }
         },
         "uk": {
@@ -1908,10 +2292,22 @@
             "value": "Санап жатыр…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obliczanie…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Считаем…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sayılıyor…"
           }
         },
         "uk": {
@@ -1967,10 +2363,22 @@
             "value": "Қосылады:"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Będzie zawierać:"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Войдёт:"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dahil edilecekler:"
           }
         },
         "uk": {
@@ -2141,6 +2549,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operacje"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operacji"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operacja"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld operacji"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2166,6 +2604,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld операции"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld işlem"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld işlem"
                 }
               }
             }
@@ -2362,6 +2818,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld przelewy"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld przelewów"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld przelew"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld przelewu"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2387,6 +2873,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld перевода"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transfer"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld transfer"
                 }
               }
             }
@@ -2469,10 +2973,22 @@
             "value": "Құписөз енгізіңіз: құписөзсіз көшірме жасалмайды."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wpisz hasło. Kopia nie zostanie utworzona bez hasła."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Введите пароль: копия без пароля не делается."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir parola girin. Parolasız kopya oluşturulmaz."
           }
         },
         "uk": {
@@ -2528,10 +3044,22 @@
             "value": "Құписөздер сәйкес келмейді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasła są różne."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пароли не совпадают."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolalar eşleşmiyor."
           }
         },
         "uk": {
@@ -2587,10 +3115,22 @@
             "value": "Кезең бос: аяқталуы басталуынан бұрын."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Okres jest pusty: data końcowa jest wcześniejsza niż początkowa."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Период пуст: конец раньше начала."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dönem boş: Bitiş tarihi başlangıç tarihinden önce."
           }
         },
         "uk": {
@@ -2646,10 +3186,22 @@
             "value": "Көшірмені сақтау…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisz kopię…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить копию…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopyayı Kaydet…"
           }
         },
         "uk": {
@@ -2705,10 +3257,22 @@
             "value": "Тарихтың бір бөлігі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Część historii"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что взять"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geçmişin bir bölümü"
           }
         },
         "uk": {
@@ -2764,10 +3328,22 @@
             "value": "Кезең үшін"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za wybrany okres"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "За период"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Belirli bir dönem"
           }
         },
         "uk": {
@@ -2823,10 +3399,22 @@
             "value": "Бүкіл дерекқор"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cała baza danych"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вся база"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tüm veritabanı"
           }
         },
         "uk": {
@@ -2882,10 +3470,22 @@
             "value": "Құписөзді көрсету"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokaż hasło"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать пароль"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolayı göster"
           }
         },
         "uk": {
@@ -2941,10 +3541,22 @@
             "value": "Көшірмені экспорттау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eksportuj kopię"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopyayı dışa aktar"
           }
         },
         "uk": {
@@ -3001,10 +3613,22 @@
             "value": "Дейін"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "По"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bitiş"
           }
         },
         "uk": {
@@ -3060,10 +3684,22 @@
             "value": "Көшірме жасалып жатыр…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tworzenie kopii…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Делаем копию…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopya oluşturuluyor…"
           }
         },
         "uk": {
@@ -3119,10 +3755,22 @@
             "value": "Менің деректеріме оралу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wróć do moich danych"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вернуться к моим данным"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verilerime Dön"
           }
         },
         "uk": {
@@ -3178,10 +3826,22 @@
             "value": "Оқу деректері"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dane szkoleniowe"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Учебные данные"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eğitim verileri"
           }
         },
         "uk": {
@@ -3237,10 +3897,22 @@
             "value": "Бұл сандар ойдан шығарылған. Сіздің дерекқорыңыз ашық емес."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te liczby są fikcyjne. Twoja baza danych nie jest otwarta."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Эти цифры выдуманные. Ваша база не открыта."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu sayılar örnek olarak oluşturulmuştur. Kendi veritabanınız açık değil."
           }
         },
         "uk": {
@@ -3297,10 +3969,22 @@
             "value": "Көрсету"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokaż"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Göster"
           }
         },
         "uk": {
@@ -3356,10 +4040,22 @@
             "value": "Қолданба ойдан шығарылған деректермен қайта іске қосылады. Сіздің дерекқорыңызға тиілмейді, ал бір түйме сізді қайтарады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplikacja uruchomi się ponownie z fikcyjnymi danymi. Twoja baza danych nie zostanie zmieniona, a jednym przyciskiem wrócisz do swoich danych."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приложение перезапустится на выдуманных данных. Ваша база не трогается, вернуться можно одной кнопкой."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama örnek verilerle yeniden başlatılır. Kendi veritabanınız değişmez ve tek bir düğmeyle geri dönebilirsiniz."
           }
         },
         "uk": {
@@ -3415,10 +4111,22 @@
             "value": "Қолданбаны оқу деректерімен көрсету керек пе?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokazać aplikację z danymi szkoleniowymi?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать приложение на учебных данных?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama eğitim verileriyle gösterilsin mi?"
           }
         },
         "uk": {
@@ -3474,10 +4182,22 @@
             "value": "Шифрлау (OhMyMoney-де ашылады)"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Szyfruj (otwiera się w OhMyMoney)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Зашифровать (открывается в OhMyMoney)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şifrele (OhMyMoney’de açılır)"
           }
         },
         "uk": {
@@ -3533,10 +4253,22 @@
             "value": "Журналды тазалау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyczyść dziennik"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Очистить журнал"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlüğü temizle"
           }
         },
         "uk": {
@@ -3593,10 +4325,22 @@
             "value": "Тазалау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyczyść"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Очистить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temizle"
           }
         },
         "uk": {
@@ -3652,10 +4396,22 @@
             "value": "Ашылу журналындағы барлық жазбалар жойылады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wszystkie wpisy w dzienniku otwarć zostaną usunięte."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Все записи журнала открытий будут удалены."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açılış günlüğündeki tüm kayıtlar silinecek."
           }
         },
         "uk": {
@@ -3711,10 +4467,22 @@
             "value": "Журнал тазартылсын ба?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyczyścić dziennik?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Очистить журнал?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlük temizlensin mi?"
           }
         },
         "uk": {
@@ -3770,10 +4538,22 @@
             "value": "Жолдар әлі жоқ."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak wpisów."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записей пока нет."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Henüz kayıt yok."
           }
         },
         "uk": {
@@ -3829,10 +4609,22 @@
             "value": "Көшірме экспортталды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyeksportowano kopię"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сделан экспорт копии"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir kopya dışa aktarıldı"
           }
         },
         "uk": {
@@ -3888,10 +4680,22 @@
             "value": "Жасырын есеп-шоттар көрсетілді"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokazano ukryte konta"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показаны скрытые счета"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gizli hesaplar gösterildi"
           }
         },
         "uk": {
@@ -3947,10 +4751,22 @@
             "value": "Құлыпталды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zablokowano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Заблокировано"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilitlendi"
           }
         },
         "uk": {
@@ -4006,10 +4822,22 @@
             "value": "Қолданба ашылды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwarto aplikację"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приложение открыто"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama açıldı"
           }
         },
         "uk": {
@@ -4065,10 +4893,22 @@
             "value": "Тек көру режимі өшірілді"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyłączono tryb tylko do podglądu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Режим «только просмотр» выключен"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca görüntüleme modu kapatıldı"
           }
         },
         "uk": {
@@ -4124,10 +4964,22 @@
             "value": "Тек көру режимі қосылды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Włączono tryb tylko do podglądu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Включён режим «только просмотр»"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca görüntüleme modu açıldı"
           }
         },
         "uk": {
@@ -4183,10 +5035,22 @@
             "value": "Құписөзбен ашылды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odblokowano hasłem"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка снята по паролю"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parolayla kilit açıldı"
           }
         },
         "uk": {
@@ -4242,10 +5106,22 @@
             "value": "Touch ID арқылы ашылды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odblokowano przez Touch ID"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка снята по Touch ID"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touch ID ile kilit açıldı"
           }
         },
         "uk": {
@@ -4301,10 +5177,22 @@
             "value": "Журнал тек осы Mac-та сақталады. Ол уақыт пен оқиға түрлерін сақтайды — сомаларды, аттарды және атауларды емес — және көшірмеге не мұрағатқа кірмейді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik jest przechowywany tylko na tym Macu. Zawiera czas i rodzaj zdarzeń, bez kwot i nazw. Nie jest dołączany do kopii ani archiwum."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал лежит только на этом Mac. В нём моменты и виды событий: ни сумм, ни имён, ни названий. В копию и в архив он не попадает."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlük yalnızca bu Mac’te tutulur. Tutar, ad veya başlık içermez; yalnızca olayların zamanını ve türünü kaydeder. Kopyaya veya arşive dahil edilmez."
           }
         },
         "uk": {
@@ -4360,10 +5248,22 @@
             "value": "Сақтау мерзімі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przechowuj przez"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Хранить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saklama süresi"
           }
         },
         "uk": {
@@ -4533,6 +5433,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dni"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dni"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dzień"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dnia"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -4558,6 +5488,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld дня"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün"
                 }
               }
             }
@@ -4640,10 +5588,22 @@
             "value": "Ашылулар журналы"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik otwarć"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал открытий"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açılış günlüğü"
           }
         },
         "uk": {
@@ -4699,10 +5659,22 @@
             "value": "Файлды ашатын адамға осы құписөз керек. Оны қалпына келтіру мүмкін емес."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasło będzie potrzebne do otwarcia pliku. Nie można go odzyskać."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Чтобы открыть файл, нужен этот пароль. Восстановить его нельзя."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dosyayı açmak için bu parola gerekir. Parola kurtarılamaz."
           }
         },
         "uk": {
@@ -4758,10 +5730,22 @@
             "value": "Файлды құписөзбен құлыптау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zabezpiecz plik hasłem"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Закрыть файл паролем"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dosyayı parolayla kilitle"
           }
         },
         "uk": {
@@ -4817,10 +5801,22 @@
             "value": "Көшірмені экспорттау…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eksportuj kopię…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopyayı Dışa Aktar…"
           }
         },
         "uk": {
@@ -4876,10 +5872,22 @@
             "value": "Қолданба не біледі…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co wie aplikacja…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulamanın Bildikleri…"
           }
         },
         "uk": {
@@ -4935,10 +5943,22 @@
             "value": "Экран жазылып жатқанда сомаларды жасыру"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukrywaj kwoty podczas nagrywania ekranu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скрывать суммы при записи экрана"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran kaydedilirken tutarları gizle"
           }
         },
         "uk": {
@@ -4994,10 +6014,22 @@
             "value": "Экран көрсетіліп немесе қоңырауда бөлісіліп жатқанда да."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Także podczas klonowania ekranu lub udostępniania go w trakcie rozmowy."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "И когда экран показывают другому или в звонке."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran yansıtılırken veya bir aramada paylaşılırken de gizlenir."
           }
         },
         "uk": {
@@ -5053,10 +6085,22 @@
             "value": "Оқу деректерінде көрсету…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokaż dane szkoleniowe…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Показать на учебных данных…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eğitim Verileriyle Göster…"
           }
         },
         "uk": {
@@ -5112,10 +6156,22 @@
             "value": "Көшірмені экспорттау…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eksportuj kopię…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Экспорт копии…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopyayı Dışa Aktar…"
           }
         },
         "uk": {
@@ -5171,10 +6227,22 @@
             "value": "Басқаға беру"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przekazywanie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Передать другому"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paylaşım"
           }
         },
         "uk": {
@@ -5230,10 +6298,22 @@
             "value": "Көшірме құписөзбен құлыпталады; түпнұсқа өзгеріссіз қалады. Оқу деректері — ойдан шығарылған сандар, сіздің дерекқорыңыз ашылмайды."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopia jest zabezpieczona hasłem, a oryginał pozostaje bez zmian. Dane szkoleniowe są fikcyjne, a Twoja baza danych nie jest otwierana."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копия закрыта паролем, оригинал не меняется. Учебные данные — выдуманные цифры, ваша база не открывается."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopya parolayla kilitlenir; özgün veri değişmez. Eğitim verileri örnek sayılardan oluşur ve kendi veritabanınız açılmaz."
           }
         },
         "uk": {
@@ -5289,10 +6369,22 @@
             "value": "Ашылулар журналы…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik otwarć…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал открытий…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açılış günlüğü…"
           }
         },
         "uk": {
@@ -5348,10 +6440,22 @@
             "value": "Қолданба не біледі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co wie aplikacja"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulamanın bildikleri"
           }
         },
         "uk": {
@@ -5407,10 +6511,22 @@
             "value": "Журнал мен санаулар тек осында көрсетіледі; оларды ешқайда жібермейді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik i liczby są widoczne tylko tutaj i nie są nigdzie wysyłane."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал и числа только показаны здесь и никуда не отправляются."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günlük ve sayılar yalnızca burada gösterilir; hiçbir yere gönderilmez."
           }
         },
         "uk": {
@@ -5466,10 +6582,22 @@
             "value": "Құлып және құписөз…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blokada i hasło…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Блокировка и пароль…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilit ve parola…"
           }
         },
         "uk": {
@@ -5525,10 +6653,22 @@
             "value": "Тек көру"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tylko podgląd"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Только просмотр"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yalnızca görüntüle"
           }
         },
         "uk": {
@@ -5584,10 +6724,22 @@
             "value": "Қолданба бәрін көрсетеді, ештеңені өзгертпейді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplikacja pokazuje wszystko, niczego nie zmienia."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Приложение всё показывает и ничего не меняет."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama her şeyi gösterir, hiçbir şeyi değiştirmez."
           }
         },
         "uk": {
@@ -5644,10 +6796,22 @@
             "value": "Экран"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Экран"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekran"
           }
         },
         "uk": {
@@ -5703,10 +6867,22 @@
             "value": "Не сақталады…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przechowywane dane…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что хранится…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saklananlar…"
           }
         },
         "uk": {
@@ -5763,10 +6939,22 @@
             "value": "Тіркемелер"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Załączniki"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вложения"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ekler"
           }
         },
         "uk": {
@@ -5822,10 +7010,22 @@
             "value": "Көшірмелер"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копии"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopyalar"
           }
         },
         "uk": {
@@ -5996,6 +7196,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kopie"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kopii"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kopia"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kopii"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6021,6 +7251,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld копии"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kopya"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kopya"
                 }
               }
             }
@@ -6217,6 +7465,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld pliki"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld plików"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld plik"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld pliku"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6242,6 +7520,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld файла"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dosya"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dosya"
                 }
               }
             }
@@ -6438,6 +7734,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wiersze"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wierszy"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wiersz"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wiersza"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6463,6 +7789,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld строки"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld satır"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld satır"
                 }
               }
             }
@@ -6659,6 +8003,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rekordy"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rekordów"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rekord"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld rekordu"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -6684,6 +8058,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld записи"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kayıt"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld kayıt"
                 }
               }
             }
@@ -6766,10 +8158,22 @@
             "value": "Дерекқор"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baza danych"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "База данных"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veritabanı"
           }
         },
         "uk": {
@@ -6825,10 +8229,22 @@
             "value": "Мұнда тек санаулар мен өлшемдер көрсетіледі. Ештеңе ешқайда жіберілмейді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokazywane są tylko liczby i rozmiary. Nic nie jest wysyłane."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Здесь только числа и размеры. Ничего никуда не отправляется."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Burada yalnızca sayılar ve boyutlar gösterilir. Hiçbir yere veri gönderilmez."
           }
         },
         "uk": {
@@ -6884,10 +8300,22 @@
             "value": "Ашылулар журналы"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dziennik otwarć"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Журнал открытий"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Açılma günlüğü"
           }
         },
         "uk": {
@@ -6943,10 +8371,22 @@
             "value": "Жазбалар"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rekordy"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записи"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kayıtlar"
           }
         },
         "uk": {
@@ -7002,10 +8442,22 @@
             "value": "Кестелер бойынша"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Według tabeli"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "По таблицам"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tabloya göre"
           }
         },
         "uk": {
@@ -7061,10 +8513,22 @@
             "value": "Қолданба не біледі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co wie aplikacja"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что знает приложение"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulamanın bildikleri"
           }
         },
         "uk": {
@@ -7120,10 +8584,22 @@
             "value": "Дискідегі барлығы"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Łącznie na dysku"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Всего на диске"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diskteki toplam"
           }
         },
         "uk": {
@@ -7179,10 +8655,22 @@
             "value": "Б"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Б"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "B"
           }
         },
         "uk": {
@@ -7238,10 +8726,22 @@
             "value": "ГБ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "ГБ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GB"
           }
         },
         "uk": {
@@ -7297,10 +8797,22 @@
             "value": "КБ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "КБ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KB"
           }
         },
         "uk": {
@@ -7356,10 +8868,22 @@
             "value": "МБ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "МБ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MB"
           }
         },
         "uk": {
@@ -7415,10 +8939,22 @@
             "value": "Қайда жатыр"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lokalizacja"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Где лежит"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konum"
           }
         },
         "uk": {
@@ -7474,10 +9010,22 @@
             "value": "Көшірмелер"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Копии"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kopyalar"
           }
         },
         "uk": {
@@ -7533,10 +9081,22 @@
             "value": "Деректер қалтасы"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Folder danych"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Папка данных"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veri klasörü"
           }
         },
         "uk": {
@@ -7592,10 +9152,22 @@
             "value": "Жолдар тек көрсетіледі: дерекқор мен мұрағат оларды сақтамайды."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ścieżki są tylko wyświetlane. Nie są przechowywane w bazie danych ani archiwum."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пути только показаны: в базе и в архиве их нет."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yollar yalnızca gösterilir; veritabanında ve arşivde saklanmaz."
           }
         },
         "uk": {
@@ -7651,10 +9223,22 @@
             "value": "Көшірмелер қалтасы"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Folder kopii lustrzanych"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Папка зеркальных копий"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yansıtılan kopyalar klasörü"
           }
         },
         "uk": {

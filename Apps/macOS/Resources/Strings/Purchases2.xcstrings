@@ -46,10 +46,22 @@
             "value": "%@ туған күні"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Urodziny: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ doğum günü"
           }
         },
         "uk": {
@@ -105,10 +117,22 @@
             "value": "Бюджеті бар іс-шара жасау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utwórz wydarzenie z budżetem"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Создать событие с бюджетом"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bütçeyle etkinlik oluştur"
           }
         },
         "uk": {
@@ -164,10 +188,22 @@
             "value": "Іс-шара жасалды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utworzono wydarzenie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Событие создано"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etkinlik oluşturuldu"
           }
         },
         "uk": {
@@ -223,10 +259,22 @@
             "value": "туған күн"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "urodziny"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "день рождения"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "doğum günü"
           }
         },
         "uk": {
@@ -282,10 +330,22 @@
             "value": "Іс-шара жасалмады: осындайы бұрыннан бар"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie utworzono wydarzenia: podobne już istnieje"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Событие не создано: такое уже есть"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etkinlik oluşturulmadı: benzer bir etkinlik zaten var"
           }
         },
         "uk": {
@@ -455,6 +515,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "kończy %lld lata"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "kończy %lld lat"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "kończy %lld rok"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "kończy %lld roku"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -480,6 +570,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "исполняется %lld"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld yaşına giriyor"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld yaşına giriyor"
                 }
               }
             }
@@ -562,10 +670,22 @@
             "value": "%1$@ туған күні, бюджет %2$@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Urodziny: %1$@, budżet %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %1$@, бюджет %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ doğum günü, bütçe %2$@"
           }
         },
         "uk": {
@@ -621,10 +741,22 @@
             "value": "Іс-шара жасау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utwórz wydarzenie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Создать событие"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etkinlik oluştur"
           }
         },
         "uk": {
@@ -680,10 +812,22 @@
             "value": "Есепке алынды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otrzymano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Зачислено"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaba geçti"
           }
         },
         "uk": {
@@ -739,10 +883,22 @@
             "value": "Қайтарулар"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwroty"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ждут зачисления"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İadeler"
           }
         },
         "uk": {
@@ -798,10 +954,22 @@
             "value": "Қалаулар тізімі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lista życzeń"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Хочу купить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İstek listesi"
           }
         },
         "uk": {
@@ -857,10 +1025,22 @@
             "value": "%1$@: туған күні %2$@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: urodziny %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %1$@, %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: doğum günü %2$@"
           }
         },
         "uk": {
@@ -916,10 +1096,22 @@
             "value": "%1$@: туған күні %2$@, сыйлық бюджеті %3$@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: urodziny %2$@, budżet na prezent %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %1$@, %2$@, бюджет %3$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: doğum günü %2$@, hediye bütçesi %3$@"
           }
         },
         "uk": {
@@ -975,10 +1167,22 @@
             "value": "%@: бүгін туған күні"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: dziś urodziny"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сегодня день рождения: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: doğum günü bugün"
           }
         },
         "uk": {
@@ -1034,10 +1238,22 @@
             "value": "%1$@: бүгін туған күні, сыйлық бюджеті %2$@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: dziś urodziny, budżet na prezent %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сегодня день рождения: %1$@, бюджет %2$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: doğum günü bugün, hediye bütçesi %2$@"
           }
         },
         "uk": {
@@ -1093,10 +1309,22 @@
             "value": "Туған күні: %@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Urodziny: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğum günü: %@"
           }
         },
         "uk": {
@@ -1152,10 +1380,22 @@
             "value": "“%1$@” қайтаруы, %2$@, есепке алынуын күтуде"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot za „%1$@”, %2$@, oczekuje na zaksięgowanie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат «%1$@» на %2$@ ждёт зачисления"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” iadesi olan %2$@ tutarının hesaba geçmesi bekleniyor"
           }
         },
         "uk": {
@@ -1325,6 +1565,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dni"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dni"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dzień"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dnia"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1350,6 +1620,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld дня"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld gün"
                 }
               }
             }
@@ -1432,10 +1720,22 @@
             "value": "“%1$@” қайтаруы, %2$@, кешікті"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot za „%1$@”, %2$@, jest opóźniony"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат «%1$@» на %2$@ просрочен"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” iadesi olan %2$@ gecikti"
           }
         },
         "uk": {
@@ -1491,10 +1791,22 @@
             "value": "%@ қайтаруы кешікті"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot w wysokości %@ jest opóźniony"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат на %@ просрочен"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tutarındaki iade gecikti"
           }
         },
         "uk": {
@@ -1550,10 +1862,22 @@
             "value": "%@ қайтаруы есепке алынуын күтуде"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwrot w wysokości %@ oczekuje na zaksięgowanie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат на %@ ждёт зачисления"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tutarındaki iadenin hesaba geçmesi bekleniyor"
           }
         },
         "uk": {
@@ -1609,10 +1933,22 @@
             "value": "“%1$@” (%2$@, %3$@) туралы өкініш бар ма?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żałujesz zakupu „%1$@” (%2$@, %3$@)?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке «%1$@» (%2$@, %3$@)?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” için pişman mısınız? (%2$@, %3$@)"
           }
         },
         "uk": {
@@ -1668,10 +2004,22 @@
             "value": "“%1$@” санатындағы %2$@ күнгі сатып алу туралы өкініш бар ма (%3$@)?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żałujesz zakupu w kategorii „%1$@” z dnia %2$@ (%3$@)?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке в категории «%1$@» %2$@ (%3$@)?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ tarihinde “%1$@” kategorisindeki alışverişten pişman mısınız? (%3$@)"
           }
         },
         "uk": {
@@ -1727,10 +2075,22 @@
             "value": "%1$@ күнгі сатып алу туралы өкініш бар ма (%2$@)?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żałujesz zakupu z dnia %1$@ (%2$@)?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке %1$@ (%2$@)?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ tarihindeki alışverişten pişman mısınız? (%2$@)"
           }
         },
         "uk": {
@@ -1900,6 +2260,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Jeszcze %lld zakupy czekają na odpowiedź"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Jeszcze %lld zakupów czeka na odpowiedź"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Jeszcze %lld zakup czeka na odpowiedź"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Jeszcze %lld zakupu czeka na odpowiedź"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -1925,6 +2315,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "ещё %lld покупки ждут ответа"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld alışveriş daha yanıt bekliyor"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld alışveriş daha yanıt bekliyor"
                 }
               }
             }
@@ -2007,10 +2415,22 @@
             "value": "%2$@ күні %1$@ орнындағы сатып алу туралы өкініш бар ма (%3$@)?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żałujesz zakupu w %1$@ z dnia %2$@ (%3$@)?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели о покупке: %1$@, %2$@ (%3$@)?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%2$@ tarihinde %1$@ konumundaki alışverişten pişman mısınız? (%3$@)"
           }
         },
         "uk": {
@@ -2066,10 +2486,22 @@
             "value": "сатып алу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zakup"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "покупка"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bir alışveriş"
           }
         },
         "uk": {
@@ -2125,10 +2557,22 @@
             "value": "“%1$@” сатып алуға болады: %2$@ жиналды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Możesz kupić „%1$@”: oszczędzono %2$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "«%1$@» можно купить: %2$@ накоплено"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "“%1$@” alınabilir: %2$@ biriktirildi"
           }
         },
         "uk": {
@@ -2185,10 +2629,22 @@
             "value": "Туған күні"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Urodziny"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День рождения"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğum günü"
           }
         },
         "uk": {
@@ -2244,10 +2700,22 @@
             "value": "Туған күнін белгілеу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ustaw datę urodzin"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Указать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğum günü ayarla"
           }
         },
         "uk": {
@@ -2304,10 +2772,22 @@
             "value": "Күн"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dzień"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gün"
           }
         },
         "uk": {
@@ -2364,10 +2844,22 @@
             "value": "Ай"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Miesiąc"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Месяц"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ay"
           }
         },
         "uk": {
@@ -2423,10 +2915,22 @@
             "value": "Туған күнін жою"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuń datę urodzin"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Убрать день рождения"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğum gününü sil"
           }
         },
         "uk": {
@@ -2482,10 +2986,22 @@
             "value": "Жыл (міндетті емес)"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rok (opcjonalnie)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Год (по желанию)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yıl (isteğe bağlı)"
           }
         },
         "uk": {
@@ -2542,10 +3058,22 @@
             "value": "Жыл"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rok"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Год"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yıl"
           }
         },
         "uk": {
@@ -2601,10 +3129,22 @@
             "value": "Сыйлық бюджеті"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Budżet na prezent"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Бюджет на подарок"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hediye bütçesi"
           }
         },
         "uk": {
@@ -2660,10 +3200,22 @@
             "value": "Туған күнге бір апта қалғанда қолданба еске салып, осы бюджетпен іс-шара ұсынады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tydzień przed urodzinami aplikacja przypomni o nich i zaproponuje wydarzenie z tym budżetem."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "За неделю до дня рождения приложение напомнит и предложит событие с этим бюджетом."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama, doğum gününden bir hafta önce hatırlatma yapar ve bu bütçeyle bir etkinlik önerir."
           }
         },
         "uk": {
@@ -2720,7 +3272,19 @@
             "value": "%1$@: %2$@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@"
+          }
+        },
+        "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@"
@@ -2779,10 +3343,22 @@
             "value": "%1$@: %2$@, бюджет %3$@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@, budżet %3$@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@: %2$@, бюджет %3$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@: %2$@, bütçe %3$@"
           }
         },
         "uk": {
@@ -2838,10 +3414,22 @@
             "value": "Жақын туған күндер"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Najbliższe urodziny"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ближайшие дни рождения"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaklaşan doğum günleri"
           }
         },
         "uk": {
@@ -2897,10 +3485,22 @@
             "value": "%@: бүгін"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: dziś"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@: сегодня"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: bugün"
           }
         },
         "uk": {
@@ -2956,10 +3556,22 @@
             "value": "Жеңілдік %@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rabat %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скидка %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndirim %@"
           }
         },
         "uk": {
@@ -3015,10 +3627,22 @@
             "value": "Жеңілдік"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rabat"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Скидка"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndirim"
           }
         },
         "uk": {
@@ -3074,10 +3698,22 @@
             "value": "Километрді теріңіз; жүрген жол соңғы толтырудан бері есептеледі."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wpisz stan licznika w kilometrach. Przebieg zostanie obliczony od ostatniego tankowania."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Напишите километры: пробег посчитается от прошлой заправки."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometreyi girin; mesafe son yakıt alımından itibaren hesaplanır."
           }
         },
         "uk": {
@@ -3133,10 +3769,22 @@
             "value": "Жүрген жолмен бұл алғашқы толтыру. Панельде көрсетілгенін теріңіз."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To pierwsze tankowanie z zapisanym stanem licznika. Wpisz wskazanie licznika."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Это первая заправка с пробегом. Напишите, что показывает приборная панель."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu, kilometre bilgisi girilen ilk yakıt alımı. Göstergedeki değeri girin."
           }
         },
         "uk": {
@@ -3192,10 +3840,22 @@
             "value": "Жүрген жол"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stan licznika"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пробег"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometre"
           }
         },
         "uk": {
@@ -3251,10 +3911,22 @@
             "value": "Километр"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometry"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Километров"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometre"
           }
         },
         "uk": {
@@ -3310,10 +3982,22 @@
             "value": "Соңғы толтырудан бері қанша жүрдіңіз?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ile kilometrów przejechano od ostatniego tankowania?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сколько проехали с прошлой заправки?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son yakıt alımından bu yana ne kadar yol yaptınız?"
           }
         },
         "uk": {
@@ -3370,10 +4054,22 @@
             "value": "Сақтау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zachowaj"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydet"
           }
         },
         "uk": {
@@ -3429,10 +4125,22 @@
             "value": "Жүрген жол, км"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stan licznika, km"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Пробег, км"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kilometre, km"
           }
         },
         "uk": {
@@ -3488,10 +4196,22 @@
             "value": "Есімде жоқ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie pamiętam"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не помню"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hatırlamıyorum"
           }
         },
         "uk": {
@@ -3547,10 +4267,22 @@
             "value": "%1$@ — қазір жұмсауға болатын ақшаңыздың %2$@ %%. Жазуға да, күтуге де болады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ to %2$@ %% środków, które możesz teraz wydać. Możesz zapisać zakup lub poczekać."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ — это %2$@ %% свободных денег. Можно записать сейчас или подождать."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@, şu anda harcayabileceğiniz paranın %% %2$@ kadarını oluşturuyor. Kaydedebilir veya bekleyebilirsiniz."
           }
         },
         "uk": {
@@ -3606,10 +4338,22 @@
             "value": "%@, және бос ақша есептелмеген. Жазуға да, күтуге де болады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — nie obliczono dostępnych środków. Możesz zapisać zakup lub poczekać."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@, а свободных денег нет. Можно записать сейчас или подождать."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@; harcanabilir para hesaplanmadı. Kaydedebilir veya bekleyebilirsiniz."
           }
         },
         "uk": {
@@ -3666,10 +4410,22 @@
             "value": "Жазу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisz"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydet"
           }
         },
         "uk": {
@@ -3725,10 +4481,22 @@
             "value": "Сатып алуды күтейін бе?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odłożyć zakup?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Подождать с покупкой?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alışverişi ertelemek ister misiniz?"
           }
         },
         "uk": {
@@ -3784,10 +4552,22 @@
             "value": "Есепке алынды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Już otrzymano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Уже зачислено"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaba geçti"
           }
         },
         "uk": {
@@ -3844,10 +4624,22 @@
             "value": "Ақшаны күту"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oczekuję na zwrot"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ждёт зачисления"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para bekleniyor"
           }
         },
         "uk": {
@@ -3903,10 +4695,22 @@
             "value": "Есепке алынуын күтуде"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Termin zwrotu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ждёт зачисления до"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaba geçmesi beklenen tarih"
           }
         },
         "uk": {
@@ -3962,10 +4766,22 @@
             "value": "Өкініш жоқ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bez żalu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не жалею"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pişman değil"
           }
         },
         "uk": {
@@ -4021,10 +4837,22 @@
             "value": "Қайта сұралмады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bez ponownego pytania"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Больше не спрашивать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tekrar sorulmayacak"
           }
         },
         "uk": {
@@ -4080,10 +4908,22 @@
             "value": "Өкінемін"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żałuję"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Жалею"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pişman"
           }
         },
         "uk": {
@@ -4140,10 +4980,22 @@
             "value": "Өзгерту"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zmień"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Изменить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Değiştir"
           }
         },
         "uk": {
@@ -4199,10 +5051,22 @@
             "value": "Өкініш жоқ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie żałuję"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не жалею"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pişman değilim"
           }
         },
         "uk": {
@@ -4258,10 +5122,22 @@
             "value": "Сұрамау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie pytaj"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не спрашивать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sorma"
           }
         },
         "uk": {
@@ -4317,10 +5193,22 @@
             "value": "Өкініш бар ма?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żałujesz zakupu?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не пожалели?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pişman mısınız?"
           }
         },
         "uk": {
@@ -4376,10 +5264,22 @@
             "value": "Өкінемін"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żałuję"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Жалею"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pişmanım"
           }
         },
         "uk": {

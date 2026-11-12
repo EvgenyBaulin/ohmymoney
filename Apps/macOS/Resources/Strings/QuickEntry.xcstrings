@@ -47,10 +47,22 @@
             "value": "Қай карта?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Która karta?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Какая это карта?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hangi kart?"
           }
         },
         "uk": {
@@ -107,10 +119,22 @@
             "value": "карта %@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "karta %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "карта %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kart %@"
           }
         },
         "uk": {
@@ -167,10 +191,22 @@
             "value": "Банк мәтінінен оқылған: %@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odczytano z wiadomości banku: %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Прочитано из сообщения банка: %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka metninden okunan: %@"
           }
         },
         "uk": {
@@ -227,10 +263,22 @@
             "value": "Жазғаннан кейін салыстыруды ашу (мәтінде %@ қалғаны айтылған)"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otwórz uzgadnianie po zapisaniu (według wiadomości pozostało %@)"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Открыть сверку после записи (в сообщении остаток %@)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydettikten sonra mutabakatı aç (metne göre %@ kaldı)"
           }
         },
         "uk": {
@@ -287,10 +335,22 @@
             "value": "Тарих пен үлгі санатқа жатқыза алмағанның бәрі «Есімде жоқ» болады; оны кейін тізімде өзгертуге болады."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To, czego historia i model nie rozpoznają, trafi do «Nie pamiętam»; możesz to później zmienić na liście."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что история и модель не смогли разложить, попадает в «Не помню»; потом это можно поправить в списке."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geçmişin ve modelin sınıflandıramadıkları «Hatırlamıyorum» kategorisine gider; daha sonra listeden değiştirebilirsiniz."
           }
         },
         "uk": {
@@ -347,10 +407,22 @@
             "value": "бұрын жазылған"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "już zapisano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "уже записана"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zaten kaydedildi"
           }
         },
         "uk": {
@@ -521,6 +593,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nie odczytano %lld wierszy"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nie odczytano %lld wierszy"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nie odczytano %lld wiersza"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Nie odczytano %lld wiersza"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -546,6 +648,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Не прочитано %lld строки"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld satır okunamadı"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld satır okunamadı"
                 }
               }
             }
@@ -629,10 +749,22 @@
             "value": "Жазылатындарды белгілеңіз. Сізде бар нәрсе белгіленбейді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaznacz, co zapisać. Istniejące operacje nie są zaznaczone."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отметьте, что записать. То, что уже записано, не отмечено."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydedilecekleri seçin. Zaten kaydedilmiş olanlar seçili değildir."
           }
         },
         "uk": {
@@ -689,10 +821,22 @@
             "value": "Банктен келген операциялар"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacje z banku"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операции из банка"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bankadan gelen işlemler"
           }
         },
         "uk": {
@@ -863,6 +1007,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisz %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisz %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisz %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisz %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -888,6 +1062,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Записать %lld"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Kaydet"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Kaydet"
                 }
               }
             }
@@ -971,10 +1163,22 @@
             "value": "Жазылды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Записано"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydedildi"
           }
         },
         "uk": {
@@ -1031,10 +1235,22 @@
             "value": "Картаның басқа деректері"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pozostałe dane karty"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Другие данные карты"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diğer kart bilgileri"
           }
         },
         "uk": {
@@ -1091,10 +1307,22 @@
             "value": "Еркін мәтін: иесі, жарамдылық мерзімі. Картаның артындағы кодты ешқашан сақтамаңыз."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dowolny tekst: posiadacz, data ważności. Nigdy nie zapisuj kodu z odwrotu karty."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Свободный текст: владелец, срок действия. Код с обратной стороны карты здесь не храните."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serbest metin: kart sahibi, son kullanma tarihi. Kartın arkasındaki kodu asla saklamayın."
           }
         },
         "uk": {
@@ -1151,10 +1379,22 @@
             "value": "Соңғы 4 цифр"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatnie 4 cyfry"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Последние 4 цифры"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son 4 rakam"
           }
         },
         "uk": {
@@ -1211,10 +1451,22 @@
             "value": "Дәл төрт цифр керек"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wymagane są dokładnie cztery cyfry"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нужны ровно четыре цифры"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tam olarak dört rakam gerekli"
           }
         },
         "uk": {
@@ -1271,10 +1523,22 @@
             "value": "Қолданба банк мәтіндерінде осы картаны таниды. Карта нөмірі емес."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pozwala znaleźć tę kartę w wiadomościach banku. To nie jest numer karty."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "По ним приложение находит карту в сообщениях банка. Это не номер карты."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulamanın bu kartı banka metinlerinde bulmasını sağlar. Kart numarası değildir."
           }
         },
         "uk": {
@@ -1331,10 +1595,22 @@
             "value": "Карта %@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karta %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карта %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kart %@"
           }
         },
         "uk": {
@@ -1391,10 +1667,22 @@
             "value": "Банк мәтіндерінде осы цифрлар аталған. Бұл сіздің қай картаңыз? Сақталатыны — цифрлар, нөмір емес."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te cyfry pojawiają się w wiadomościach banku. Której z Twoich kart dotyczą? Cyfry są zapisywane przy karcie, ale nie jej numer."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "В сообщениях банка стоят эти цифры. Какая это из ваших карт? Запоминаются только цифры, не номер."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banka metinlerinde bu rakamlar geçiyor. Kartlarınızdan hangisi? Kartta numaranın tamamı değil, bu rakamlar saklanır."
           }
         },
         "uk": {
@@ -1451,10 +1739,22 @@
             "value": "Олардың ешқайсысы емес"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Żadna z nich"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Ни одна"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiçbiri"
           }
         },
         "uk": {
@@ -1511,10 +1811,22 @@
             "value": "Карта •••• %@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karta •••• %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Карта •••• %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kart •••• %@"
           }
         },
         "uk": {
@@ -1571,10 +1883,22 @@
             "value": "Түзету"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Popraw"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Исправить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzelt"
           }
         },
         "uk": {
@@ -1631,10 +1955,22 @@
             "value": "%1$@: %2$@ → %3$@. Түзетейін бе?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@ → %@. Poprawić?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@: %@ → %@. Исправить?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@ → %@. Düzeltilsin mi?"
           }
         },
         "uk": {
@@ -1691,10 +2027,22 @@
             "value": "Түзетілді"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poprawiono"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Исправлено"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzeltildi"
           }
         },
         "uk": {
@@ -1751,10 +2099,22 @@
             "value": "Түзету сақталмады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie zapisano poprawki"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Исправление не записалось"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzeltme kaydedilemedi"
           }
         },
         "uk": {
@@ -1811,10 +2171,22 @@
             "value": "Түзетуге ештеңе жоқ: сіздің жазбаларыңыз әлі жоқ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie ma czego poprawiać: nie masz jeszcze wpisów"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нечего исправлять: своих записей ещё нет"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düzeltilecek bir şey yok: henüz kaydınız yok"
           }
         },
         "uk": {
@@ -1871,10 +2243,22 @@
             "value": "Есеп-шоттан басқа валютада шегерілген: соманы ↓ панельде өзгертіңіз"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto obciążono w innej walucie: zmień kwotę w panelu ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Счёт списан в другой валюте: измените сумму в панели ↓"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaptan başka bir para biriminde tahsil edildi: tutarı ↓ panelinde değiştirin"
           }
         },
         "uk": {
@@ -1931,10 +2315,22 @@
             "value": "Мұнда түзетуге болатын сома емес"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To nie jest prawidłowa kwota"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Это не подходит как новая сумма"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu, düzeltme için geçerli bir tutar değil"
           }
         },
         "uk": {
@@ -1991,10 +2387,22 @@
             "value": "Басқа валюта — басқа операция: ↓ панельді ашыңыз"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inna waluta oznacza inną operację: otwórz panel ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Другая валюта — это другая операция: откройте панель ↓"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka bir para birimi, başka bir işlemdir: ↓ panelini açın"
           }
         },
         "uk": {
@@ -2051,10 +2459,22 @@
             "value": "Берешек төлемі берешектің өз экранында өзгертіледі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spłatę długu zmienia się na ekranie długu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Платёж по долгу меняется на экране долга"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borç ödemesi, borcun kendi ekranında değiştirilir"
           }
         },
         "uk": {
@@ -2111,10 +2531,22 @@
             "value": "Адамнан қайтарылған ақшаның сомасын өзгертуге болмайды: оны жойып, қайта енгізіңіз"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie można zmienić kwoty zwrotu od osoby: usuń go i wprowadź ponownie"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Возврат денег от человека нельзя изменить: удалите его и запишите заново"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir kişiden geri alınan paranın tutarı değiştirilemez: silip yeniden girin"
           }
         },
         "uk": {
@@ -2171,10 +2603,22 @@
             "value": "Бұл операцияның бір бөлігі қайтарылған немесе қайтарылған: ↓ панельде өзгертіңіз"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Część tej operacji została zwrócona lub spłacona: zmień ją w panelu ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Часть этой операции уже возвращена или погашена: измените её в панели ↓"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu işlemin bir kısmı iade edildi veya geri ödendi: ↓ panelinde değiştirin"
           }
         },
         "uk": {
@@ -2231,10 +2675,22 @@
             "value": "Операцияда жаңа соманы санайтын бағам жоқ: ↓ панельде өзгертіңіз"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacja nie ma kursu do przeliczenia nowej kwoty: zmień ją w panelu ↓"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "У операции нет курса для новой суммы: измените её в панели ↓"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni tutarı hesaplamak için işlemin kuru yok: ↓ panelinde değiştirin"
           }
         },
         "uk": {
@@ -2291,10 +2747,22 @@
             "value": "Соңғы жазба, %1$@, сағаттан көп бұрын жасалған: %2$@ → %3$@. Соны түзетейін бе?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatni wpis, %@, dodano ponad godzinę temu: %@ → %@. Poprawić go?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Последняя запись, %@, сделана больше часа назад: %@ → %@. Исправить её?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son kayıt %@, bir saatten uzun süre önce yapıldı: %@ → %@. Bu kayıt düzeltilsin mi?"
           }
         },
         "uk": {
@@ -2351,10 +2819,22 @@
             "value": "Сақталмады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie zapisano"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось сохранить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydedilemedi"
           }
         },
         "uk": {
@@ -2411,10 +2891,22 @@
             "value": "Қаралама ретінде сақталды"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zachowano jako szkic"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранено в черновики"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taslak olarak saklandı"
           }
         },
         "uk": {
@@ -2471,10 +2963,22 @@
             "value": "Кейін жазу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisz później"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Запишу потом"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha Sonra Kaydet"
           }
         },
         "uk": {
@@ -2645,6 +3149,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Szkice: %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Szkice: %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Szkice: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Szkice: %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -2670,6 +3204,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Черновики: %lld"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Taslaklar: %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Taslaklar: %lld"
                 }
               }
             }
@@ -2753,10 +3305,22 @@
             "value": "Жою"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuń"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Удалить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sil"
           }
         },
         "uk": {
@@ -2813,10 +3377,22 @@
             "value": "Қаралама жоқ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak szkiców"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Черновиков нет"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taslak yok"
           }
         },
         "uk": {
@@ -2873,10 +3449,22 @@
             "value": "Аяқтау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokończ"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Дописать"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamamla"
           }
         },
         "uk": {
@@ -2933,10 +3521,22 @@
             "value": "Қаралама — операция емес: оны аяқтап жазғанға дейін ешбір санда есептелмейді."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Szkic nie jest operacją: nie jest uwzględniany w obliczeniach, dopóki go nie dokończysz i nie zapiszesz."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Черновик — не операция: он не входит ни в одну сумму, пока вы его не допишете и не запишете."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taslak bir işlem değildir: tamamlayıp kaydedene kadar hiçbir hesaplamaya dahil edilmez."
           }
         },
         "uk": {
@@ -3107,6 +3707,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld szkice czekają na dokończenie"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld szkiców czeka na dokończenie"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld szkic czeka na dokończenie"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld szkicu czeka na dokończenie"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -3132,6 +3762,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld черновика ждут — дописать?"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld taslak tamamlanmayı bekliyor"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld taslak tamamlanmayı bekliyor"
                 }
               }
             }
@@ -3215,10 +3863,22 @@
             "value": "Аяқтау…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokończ…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Дописать…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamamla…"
           }
         },
         "uk": {
@@ -3275,10 +3935,22 @@
             "value": "Қараламалар"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Szkice"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Черновики"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taslaklar"
           }
         },
         "uk": {
@@ -3335,10 +4007,22 @@
             "value": "Операцияны әлі келмеген күнге сол күйінде көшірейін бе?"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przenieść operację na przyszły dzień bez zmian?"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенести операцию на день вперёд как есть?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşlem gelecekteki bir güne olduğu gibi taşınsın mı?"
           }
         },
         "uk": {
@@ -3395,10 +4079,22 @@
             "value": "Сол күйінде көшіру"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przenieś bez zmian"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенести как есть"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Olduğu Gibi Taşı"
           }
         },
         "uk": {
@@ -3455,10 +4151,22 @@
             "value": "Ол күн әлі келмеген"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ten dzień jeszcze nie nadszedł"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Этот день ещё не наступил"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O gün henüz gelmedi"
           }
         },
         "uk": {
@@ -3515,10 +4223,22 @@
             "value": "Көшіру"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przenieś"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенести"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taşı"
           }
         },
         "uk": {
@@ -3575,10 +4295,22 @@
             "value": "%@ күніне көшірілді"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przeniesiono na %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенесено на %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tarihine taşındı"
           }
         },
         "uk": {
@@ -3635,10 +4367,22 @@
             "value": "Операцияны осы күнге көшіру үшін осында тастаңыз"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Upuść tu operację, aby przenieść ją na ten dzień"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перетащите сюда операцию, чтобы перенести её на этот день"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşlemi bu güne taşımak için buraya bırakın"
           }
         },
         "uk": {
@@ -3695,10 +4439,22 @@
             "value": "Көшірілмеді"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie przeniesiono"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось перенести"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taşınamadı"
           }
         },
         "uk": {
@@ -3755,10 +4511,22 @@
             "value": "Басқа күнге көшіру…"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przenieś na inny dzień…"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенести на другой день…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka Bir Güne Taşı…"
           }
         },
         "uk": {
@@ -3815,10 +4583,22 @@
             "value": "Басқа айға көшеді: лимиттер мен есептер соған ілеседі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacja zostanie przeniesiona do innego miesiąca i uwzględniona w jego limitach i raportach"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операция уйдёт в другой месяц: лимиты и отчёты пересчитаются"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşlem başka bir aya taşınır; limitler ve raporlar buna göre güncellenir"
           }
         },
         "uk": {
@@ -3875,10 +4655,22 @@
             "value": "Күн"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dzień"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gün"
           }
         },
         "uk": {
@@ -3935,10 +4727,22 @@
             "value": "Жаңа күннің бағамы қолданылады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zostanie zastosowany kurs z nowego dnia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Применится курс нового дня"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeni günün kuru uygulanır"
           }
         },
         "uk": {
@@ -3995,10 +4799,22 @@
             "value": "Ол дәл сол күнде тұр"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operacja jest już w tym dniu"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Операция уже в этом дне"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zaten o günde"
           }
         },
         "uk": {
@@ -4055,10 +4871,22 @@
             "value": "Басқа күнге көшіру"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przenieś na inny dzień"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Перенос на другой день"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Başka Bir Güne Taşı"
           }
         },
         "uk": {
@@ -4115,10 +4943,22 @@
             "value": "Осы күнге ескерту қосу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dodaj notatkę do tego dnia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Добавить заметку к дню"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu güne not ekle"
           }
         },
         "uk": {
@@ -4175,10 +5015,22 @@
             "value": "Ескертуді жою"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuń notatkę"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Удалить заметку"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notu Sil"
           }
         },
         "uk": {
@@ -4235,10 +5087,22 @@
             "value": "Осы күннің ескертуін өңдеу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edytuj notatkę do tego dnia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Изменить заметку дня"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu günün notunu düzenle"
           }
         },
         "uk": {
@@ -4295,10 +5159,22 @@
             "value": "Ескерту сақталмады"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie zapisano notatki"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Заметка не записалась"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not kaydedilemedi"
           }
         },
         "uk": {
@@ -4355,10 +5231,22 @@
             "value": "Ескертуі бар күн"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dzień z notatką"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "День с заметкой"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notlu gün"
           }
         },
         "uk": {
@@ -4415,10 +5303,22 @@
             "value": "Мысалы, анамның туған күні"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na przykład urodziny mamy"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Например, день рождения мамы"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Örneğin, annemin doğum günü"
           }
         },
         "uk": {
@@ -4475,10 +5375,22 @@
             "value": "Сақтау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapisz"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Сохранить"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kaydet"
           }
         },
         "uk": {
@@ -4535,10 +5447,22 @@
             "value": "Күн ескертуі"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notatka dnia"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Заметка дня"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günün Notu"
           }
         },
         "uk": {
@@ -4595,10 +5519,22 @@
             "value": "операция"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "operacja"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "операция"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "işlem"
           }
         },
         "uk": {
@@ -4655,10 +5591,22 @@
             "value": "Қалғанын тастау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pomiń resztę"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Отменить остальное"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalanları İptal Et"
           }
         },
         "uk": {
@@ -4829,6 +5777,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Czekają jeszcze %lld operacje z tego wiersza"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Czeka jeszcze %lld operacji z tego wiersza"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Czeka jeszcze %lld operacja z tego wiersza"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Czeka jeszcze %lld operacji z tego wiersza"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -4854,6 +5832,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Ещё %lld операции из строки ждут"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sırada %lld işlem daha bekliyor"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Sırada %lld işlem daha bekliyor"
                 }
               }
             }
@@ -4937,10 +5933,22 @@
             "value": "Кейбірі шығарылды: оларға әлі айырбастау бағамы жоқ"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niektóre pominięto: brak dla nich kursu wymiany"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Часть не записана: для неё пока нет курса"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bazıları atlandı: henüz döviz kuru yok"
           }
         },
         "uk": {
@@ -4997,10 +6005,22 @@
             "value": "Қайталайтын ештеңе жоқ: сол күні сіз қолмен енгізген шығын болмаған"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie ma czego powtórzyć: tego dnia nie wpisano ręcznie żadnych wydatków"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Нечего повторять: своих расходов, записанных руками, за тот день нет"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tekrarlanacak bir şey yok: o gün elle girilmiş harcamanız yok"
           }
         },
         "uk": {
@@ -5057,10 +6077,22 @@
             "value": "%@ күні қолмен енгізгеніңіз. Бүгінге не жазылатынын белгілеңіз."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wpisy dodane ręcznie dnia %@. Zaznacz, co zapisać na dziś."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Что вы записали руками %@. Отметьте, что записать на сегодня."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ tarihinde elle girdikleriniz. Bugün kaydedilecekleri seçin."
           }
         },
         "uk": {
@@ -5117,10 +6149,22 @@
             "value": "Күнді қайталау"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Powtórz dzień"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Повторить день"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir Günü Tekrarla"
           }
         },
         "uk": {
@@ -5291,6 +6335,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisz %lld"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisz %lld"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisz %lld"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisz %lld"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -5316,6 +6390,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Записать %lld"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Kaydet"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld Kaydet"
                 }
               }
             }
@@ -5513,6 +6605,36 @@
             }
           }
         },
+        "pl": {
+          "variations": {
+            "plural": {
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisano %lld operacje"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisano %lld operacji"
+                }
+              },
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisano %lld operację"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Zapisano %lld operacji"
+                }
+              }
+            }
+          }
+        },
         "ru": {
           "variations": {
             "plural": {
@@ -5538,6 +6660,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "Записано %lld операции"
+                }
+              }
+            }
+          }
+        },
+        "tr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld işlem kaydedildi"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld işlem kaydedildi"
                 }
               }
             }
@@ -5621,10 +6761,22 @@
             "value": "Бірінші бөліктің нақты сомасы"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokładna kwota pierwszej części"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Точная сумма первой части"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk kısmın tam tutarı"
           }
         },
         "uk": {
@@ -5681,10 +6833,22 @@
             "value": "Бірінші бөлік"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pierwsza część"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Первая часть"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İlk kısım"
           }
         },
         "uk": {
@@ -5741,10 +6905,22 @@
             "value": "Екі бөлікті бөлетін сызықты сүйреңіз; ол 10-шар жылжиды."
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przeciągnij separator między częściami; przesuwa się co 10."
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Тяните границу между частями; шаг — 10."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İki kısım arasındaki ayırıcıyı sürükleyin; 10'ar 10'ar hareket eder."
           }
         },
         "uk": {
@@ -5801,10 +6977,22 @@
             "value": "Екінші бөлік"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Druga część"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Вторая часть"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İkinci kısım"
           }
         },
         "uk": {
@@ -5861,10 +7049,22 @@
             "value": "Қадам %@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Krok %@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Шаг %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adım %@"
           }
         },
         "uk": {
@@ -5921,10 +7121,22 @@
             "value": "Соманы бөлу"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podziel kwotę"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Разделить сумму"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutarı Böl"
           }
         },
         "uk": {
@@ -5981,10 +7193,22 @@
             "value": "Орындар"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Miejsca"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "Места"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yerler"
           }
         },
         "uk": {
@@ -6041,10 +7265,22 @@
             "value": "%1$@, әдетте ~%2$@"
           }
         },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, zwykle ~%@"
+          }
+        },
         "ru": {
           "stringUnit": {
             "state": "translated",
             "value": "%@, обычно ~%@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, genellikle ~%@"
           }
         },
         "uk": {
