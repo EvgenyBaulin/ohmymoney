@@ -154,3 +154,72 @@ public struct SmsFormatLibrary: Sendable {
     return .noFormat
   }
 }
+
+/// The formats the owner keeps: proposed from a corrected text, or typed in. Stored as JSON in
+/// the `settings` table (`autoEntry.formats`), so they travel in the archive and the change
+/// journal with the rest of the owner's data; a copy for someone else forgets them.
+public struct OwnSmsFormats: Hashable, Sendable, Codable {
+  public static let settingsKey = "autoEntry.formats"
+  /// More formats than this keep the latest ones: a habit, not a ledger.
+  public static let capacity = 200
+
+  public struct Item: Hashable, Sendable, Codable, Identifiable {
+    public var id: String
+    /// The file text (`SmsFormat.fileText`).
+    public var text: String
+
+    public init(id: String, text: String) {
+      self.id = id
+      self.text = text
+    }
+  }
+
+  public private(set) var items: [Item] = []
+
+  public init() {}
+
+  /// The formats that can still be read; one that cannot is passed over, not lost.
+  public var formats: [SmsFormat] {
+    items.compactMap { item in
+      if case .success(let format) = SmsFormat.parse(fileText: item.text, id: item.id) {
+        return format
+      }
+      return nil
+    }
+  }
+
+  /// Adds a format, or replaces the one with the same id. Returns the problems when the format
+  /// is not valid next to the ones kept — and keeps nothing then.
+  @discardableResult
+  public mutating func add(_ format: SmsFormat) -> [SmsFormatProblem] {
+    let others = formats.filter { $0.id != format.id }
+    let problems = SmsFormatValidator.problems(of: format, among: others)
+    guard problems.isEmpty else { return problems }
+    items.removeAll { $0.id == format.id }
+    items.append(Item(id: format.id, text: format.fileText))
+    if items.count > Self.capacity { items.removeFirst(items.count - Self.capacity) }
+    return []
+  }
+
+  public mutating func remove(id: String) {
+    items.removeAll { $0.id == id }
+  }
+
+  public func encoded() -> String? {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.sortedKeys]
+    return (try? encoder.encode(self)).flatMap { String(data: $0, encoding: .utf8) }
+  }
+
+  public static func decoded(_ text: String?) -> OwnSmsFormats {
+    guard let data = text?.data(using: .utf8),
+      let value = try? JSONDecoder().decode(OwnSmsFormats.self, from: data)
+    else { return OwnSmsFormats() }
+    return value
+  }
+
+  /// The entries for the library, in the order kept.
+  public var entries: [SmsFormatEntry] {
+    formats.compactMap { SmsFormatEntry($0, source: .own) }
+  }
+}

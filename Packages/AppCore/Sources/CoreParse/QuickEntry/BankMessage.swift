@@ -107,6 +107,13 @@ public struct BankMessage: Hashable, Sendable {
     case .income, .transferIn: words = [name, "+" + amount]
     case .refund: words = ["возврат", name, amount]
     }
+    // The cashback the text names goes in as the entry line's own phrase; a figure in another
+    // currency than the amount would be read as the amount's.
+    if kind == .expense, let cashback, cashback.amount > .zero, cashback.currency == money.currency
+    {
+      return (words.filter { !$0.isEmpty } + ["кэшбэк", BankMessage.plain(cashback.amount)])
+        .joined(separator: " ")
+    }
     return words.filter { !$0.isEmpty }.joined(separator: " ")
   }
 

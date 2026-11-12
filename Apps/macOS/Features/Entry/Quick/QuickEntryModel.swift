@@ -87,7 +87,8 @@ final class QuickEntryModel {
     }
     notice = nil
     if let chunk = QuickPaste.inserted(old: old, new: new) {
-      switch QuickPaste.decide(chunk: chunk, today: environment.today) {
+      switch QuickPaste.decide(
+        chunk: chunk, today: environment.today, parser: AutoEntryFormats.parser(environment)) {
       case .plain:
         break
       case .message(let message):

@@ -32,7 +32,13 @@ struct AutoEntryReading {
     let ownBanks =
       dataset.banks.filter { !$0.archived }.map(\.name)
       + dataset.paymentMethods.filter { $0.bankId == nil && !$0.archived }.map(\.name)
-    guard let message = BankTextParser().parse(text, today: today, ownBanks: ownBanks) else {
+    let parser = AutoEntryFormats.parser(environment)
+    // Two formats of one tier that read the text differently are no reading: the owner picks
+    // between them once, in the settings, and the question is kept there.
+    if case .ambiguous(let candidates) = parser.outcome(text, today: today) {
+      AutoEntryFormats.recordConflict(candidates)
+    }
+    guard let message = parser.parse(text, today: today, ownBanks: ownBanks) else {
       return nil
     }
     let names = AutoEntryLearning.names(environment)
@@ -131,6 +137,7 @@ struct AutoEntryReading {
     AutoEntryLearning.remember(
       draft: draft.id, merchant: message.merchant,
       fingerprint: suggestion(receivedAt: now).fingerprint, defaults: defaults)
+    AutoEntryFormats.remember(message: message, draft: draft.id, defaults: defaults)
     NotificationCenter.default.post(name: .draftsChanged, object: nil)
     return draft.id
   }

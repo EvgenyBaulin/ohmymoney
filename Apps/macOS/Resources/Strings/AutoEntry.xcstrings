@@ -235,6 +235,363 @@
         }
       }
     },
+    "autoEntry.formats.conflicts.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The choice is remembered and the question is not asked again."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбор запоминается, вопрос больше не повторится."
+          }
+        }
+      }
+    },
+    "autoEntry.formats.conflicts.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Two formats fit one text"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Два формата подходят к одному тексту"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.conflicts.use": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Использовать %@"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.choose": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formats from a folder…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Форматы из папки…"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney ships no format files and downloads nothing: it reads the folder you chose. The folder is remembered on this device only and is not part of the archive."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OhMyMoney не поставляет файлы форматов и ничего не скачивает: читается папка, которую вы выбрали. Она запоминается только на этом Mac и в архив не попадает."
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.forget": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forget the folder"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Забыть папку"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formats folder"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Папка с форматами"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.reload": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read again"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Прочитать заново"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.folder.summary": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Banks: %1$lld, formats: %2$lld, cashback categories: %3$lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Банков: %1$lld, форматов: %2$lld, категорий кэшбэка: %3$lld"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offer.dismiss": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not needed"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не нужно"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offer.problem": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Did not fit: %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не подошёл: %@"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offer.save": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offers.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A format is proposed from a text you corrected. The example holds made-up figures and a made-up shop; the text itself is not kept."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Формат предложен по тексту, который вы поправили. В примере выдуманные суммы и место; сам текст не хранится."
+          }
+        }
+      }
+    },
+    "autoEntry.formats.offers.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proposed formats"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предложенные форматы"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS formats…"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Форматы СМС…"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.own.delete": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.own.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No formats of your own yet"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пока нет своих форматов"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.own.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My formats"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Мои форматы"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.skipped.header": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skipped files"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пропущенные файлы"
+          }
+        }
+      }
+    },
+    "autoEntry.formats.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SMS formats"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Форматы СМС"
+          }
+        }
+      }
+    },
     "autoEntry.locked": {
       "comment": "Translation not verified by a native speaker.",
       "extractionState": "manual",
@@ -3099,6 +3456,278 @@
           "stringUnit": {
             "state": "translated",
             "value": "Передати повідомлення банку з буфера обміну"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.badCategoryFile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The category file cannot be read"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл категорий не читается"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.badDateFormat": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bad date format “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неверный формат даты «%@»"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.badSenders": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The senders file cannot be read"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл отправителей не читается"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.duplicateColumn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Column “%@” is named twice"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Столбец «%@» указан дважды"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.exampleDoesNotMatch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Example %@ does not fit the expression"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пример %@ не подходит выражению"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.exampleMatchesOther": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Example %1$@ fits the format “%2$@” too"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пример %1$@ подходит и формату «%2$@»"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.exampleUnreadable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Example %1$@: column “%2$@” cannot be read"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пример %1$@: столбец «%2$@» не читается"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.groupCountMismatch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The expression has %1$@ groups but there are %2$@ columns"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Групп в выражении %1$@, а столбцов %2$@"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.invalidPattern": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The expression is not valid"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выражение записано с ошибкой"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.missingColumns": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no line of columns"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет строки со столбцами"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.missingPattern": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is no expression on the first line"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В первой строке нет выражения"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.noExamples": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "There is not a single example"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет ни одного примера"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.notText": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The file is not UTF-8 text"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Файл не в кодировке UTF-8"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.unknownColumn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown column “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестный столбец «%@»"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.unknownOperation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown operation “%@”"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестная операция «%@»"
+          }
+        }
+      }
+    },
+    "smsFormat.problem.unknownSection": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown section %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестный раздел %@"
           }
         }
       }

@@ -542,3 +542,97 @@ struct SmsFormatProposalTests {
     #expect(SmsFormatProposal.propose(text: text, message: wrong, id: "own.1") == nil)
   }
 }
+
+struct SmsFormatLineTests {
+  private func message(_ pattern: String, _ columns: String, _ text: String) throws -> BankMessage {
+    let f = format(pattern, columns, examples: [])
+    return try #require(try f.read(text)?.get().message(source: text))
+  }
+
+  @Test func cashbackFromTheTextTravelsInTheLine() throws {
+    let message = try message(
+      #"^paid ([\d.]+) at (.+), cashback ([\d.]+)$"#, "outcome;payee;cashback",
+      "paid 450.00 at KOFEMANIYA, cashback 9.00")
+    let line = message.suggestedLine()
+    let reading = Fixture.parser.read(line, today: Fixture.today, kind: nil)
+    #expect(reading.parsed.amount == 450)
+    #expect(reading.cashback == .amount(9))
+  }
+
+  @Test func aCashbackInAnotherCurrencyThanTheAmountIsNotWritten() throws {
+    let message = try message(
+      #"^paid ([\d.]+) (\w{3}) at (.+), cashback ([\d.]+)$"#, "op_outcome;op_instrument;payee;cashback",
+      "paid 12.00 USD at SAMPLE, cashback 9.00")
+    #expect(message.cashback?.currency == .rub)
+    #expect(!message.suggestedLine().contains("кэшбэк"))
+  }
+
+  @Test func anIncomeHasNoCashbackInItsLine() throws {
+    var message = try message(
+      #"^got ([\d.]+) from (.+), cashback ([\d.]+)$"#, "income;payee;cashback",
+      "got 100.00 from SAMPLE, cashback 1.00")
+    #expect(message.operation == .income)
+    message.cashback = Money(amount: AmountE4(whole: 1), currency: .rub)
+    #expect(!message.suggestedLine().contains("кэшбэк"))
+  }
+
+  @Test func theFeeIsKeptOnTheMessageNotWrittenAsAnOperation() throws {
+    let message = try message(
+      #"^paid ([\d.]+), fee ([\d.]+)$"#, "outcome;fee", "paid 100.00, fee 1.50")
+    #expect(message.fee == money("1.5"))
+    #expect(message.operation == .purchase)
+    #expect(!message.suggestedLine().contains("1.5"))
+  }
+}
+
+struct OwnSmsFormatsTests {
+  private let good = format(
+    #"^paid (\d+) at (.+)$"#, "outcome;payee", examples: ["paid 5 at SAMPLE"], id: "own.1")
+
+  @Test func aValidFormatIsKeptAndReadBack() {
+    var own = OwnSmsFormats()
+    #expect(own.add(good).isEmpty)
+    let again = OwnSmsFormats.decoded(own.encoded())
+    #expect(again == own)
+    #expect(again.formats == [good])
+    #expect(again.entries.first?.source == .own)
+  }
+
+  @Test func anInvalidFormatKeepsNothing() {
+    var own = OwnSmsFormats()
+    var bad = good
+    bad.examples = ["nope"]
+    #expect(own.add(bad) == [.exampleDoesNotMatch(1)])
+    #expect(own.items.isEmpty)
+  }
+
+  @Test func aFormatThatClashesWithAKeptOneIsRefused() {
+    var own = OwnSmsFormats()
+    own.add(good)
+    var twin = good
+    twin.id = "own.2"
+    #expect(own.add(twin) == [.exampleMatchesOther(1, other: "own.1")])
+    #expect(own.items.count == 1)
+  }
+
+  @Test func theSameIdReplacesTheFormat() {
+    var own = OwnSmsFormats()
+    own.add(good)
+    var changed = good
+    changed.columns = [.income, .payee]
+    own.add(changed)
+    #expect(own.formats == [changed])
+  }
+
+  @Test func aFormatIsRemovedById() {
+    var own = OwnSmsFormats()
+    own.add(good)
+    own.remove(id: "own.1")
+    #expect(own.items.isEmpty)
+  }
+
+  @Test func garbageDecodesToNothing() {
+    #expect(OwnSmsFormats.decoded("not json").items.isEmpty)
+    #expect(OwnSmsFormats.decoded(nil).items.isEmpty)
+  }
+}
