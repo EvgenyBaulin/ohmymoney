@@ -399,6 +399,9 @@ struct DebtsBoardCard: View {
             .appFont(DebtsType.cardName).foregroundStyle(theme.contentPrimary)
             .lineLimit(1)
             .frame(maxWidth: .infinity, alignment: .leading)
+          if DebtPaymentMark.isShown, let stripe = card.stripe {
+            DebtStripeSymbol(mark: stripe, key: stripe.debtKey)
+          }
           StatusLabel(tone: .neutral, text: t(card.labelKey))
         }
         Text(verbatim: environment.money.rounded(card.amount, currency: card.currency))
@@ -418,6 +421,12 @@ struct DebtsBoardCard: View {
       .padding(phone ? DebtsMetrics.phoneCardPadding : DebtsMetrics.cardPadding)
       .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
       .debtsCardSurface()
+      .overlay(alignment: .leading) {
+        if DebtPaymentMark.isShown, let stripe = card.stripe {
+          DebtStripeEdge(
+            mark: stripe, padding: phone ? DebtsMetrics.phoneCardPadding : DebtsMetrics.cardPadding)
+        }
+      }
       .contentShape(.rect(cornerRadius: ContentCard.cornerRadius))
     }
     .buttonStyle(.plain)

@@ -433,7 +433,8 @@ struct PlanningSnapshotTests {
       entries: [paidInAugust, borrowed],
       dues: DebtDueState(
         debtId: loan, firstDue: Fx.day("2026-08-25"), paidCount: 1, owes: true,
-        paymentDay: 25, balanceE4: Fx.rub("115000"), monthlyE4: Fx.rub("5000")))
+        paymentDay: 25, balanceE4: Fx.rub("115000"), monthlyE4: Fx.rub("5000")),
+      paymentMarks: [paidInAugust.id: .regular], stripe: .regular)
     #expect(
       planning.debts
         == DebtsOverview(

@@ -730,6 +730,10 @@ private struct DebtDetail: View {
           ForEach(byGroup[group.groupName] ?? [], id: \.id) { entry in
             VStack(alignment: .trailing, spacing: 1) {
               HStack(alignment: .firstTextBaseline, spacing: 8) {
+                // On the phone and the tablet: how the payment stands against the schedule.
+                if DebtPaymentMark.isShown, let mark = line.paymentMarks[entry.id] {
+                  DebtStripeMark(mark: mark, key: mark.paymentKey)
+                }
                 Text(verbatim: entry.date.map(day) ?? "—")
                   .monospacedDigit()
                   .foregroundStyle(.secondary)
