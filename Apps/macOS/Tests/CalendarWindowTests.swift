@@ -18,6 +18,7 @@ final class CalendarWindowTests: XCTestCase {
   private var directory: URL!
   private var logs: URL!
   private var dataDirectoryBefore: String?
+  private var entryStyleBefore: EntryStyle?
   private let food = CoreKit.Category(kind: .expense, name: "Food")
 
   override func setUp() async throws {
@@ -32,6 +33,7 @@ final class CalendarWindowTests: XCTestCase {
     await environment.start(preparing: {
       try DatabaseStack(inMemory: BundleSchemaSource(bundle: .main))
     })
+    entryStyleBefore = environment.entryStyle
     store = TransactionsStore()
     store.attach(
       try XCTUnwrap(environment.transactions), references: environment.references,
@@ -46,6 +48,7 @@ final class CalendarWindowTests: XCTestCase {
     }
     windows = []
     Logbook.shared.close()
+    if let entryStyleBefore { environment.entryStyle = entryStyleBefore }
     if let environment { await environment.close() }
     if let dataDirectoryBefore {
       setenv("OHMYMONEY_DATA_DIR", dataDirectoryBefore, 1)
@@ -140,6 +143,7 @@ final class CalendarWindowTests: XCTestCase {
   }
 
   func testCalendarPageScrollsAsAWholeAboveTheEntryDock() throws {
+    environment.entryStyle = .line
     compute.applyLight(try snapshot())
     let window = mainWindow(selection: .section(.calendar))
     for size in [CGSize(width: 980, height: 600), CGSize(width: 760, height: 520)] {
@@ -165,7 +169,108 @@ final class CalendarWindowTests: XCTestCase {
         XCTAssertLessThanOrEqual(visible.minY, document.bounds.minY + 1)
       }
       // The main window reserves the dock in its bottom safe area.
-      XCTAssertGreaterThan(page.convert(page.bounds, to: root).minY, 24)
+      let pageFrame = page.convert(page.bounds, to: root)
+      let bottomClearance =
+        root.isFlipped
+        ? root.bounds.maxY - pageFrame.maxY : pageFrame.minY - root.bounds.minY
+      XCTAssertGreaterThan(
+        bottomClearance, EntryBarMetrics.bottomInset + EntryBarMetrics.contentGap)
+    }
+  }
+
+  func testTripBudgetShowsSeventyFivePercentForTheScreenshotAmounts() throws {
+    TestEnvironment.enableAccessibilityTree()
+    let event = Event(
+      name: "Synthetic trip", kind: .trip,
+      startDate: environment.today, endDate: environment.today)
+    var draft = TransactionDraft(
+      occurredAt: environment.calendar.startOfDay(environment.today),
+      amount: AmountE4(raw: 112_992_500))
+    draft.normalizeSinglePart()
+    draft.parts[0].eventId = event.id
+    // The event's budget is read from the same snapshot as its expenses.
+    var budgetedEvent = event
+    budgetedEvent.budgetE4 = AmountE4(whole: 15_000)
+    budgetedEvent.budgetCurrency = .rub
+    compute.applyLight(
+      DataSnapshot.build(
+        dataset: Dataset(entries: [try draft.materialize()], events: [budgetedEvent]),
+        calendar: .system, today: environment.today, context: SnapshotContext(),
+        version: DataVersion(load: 1)))
+    let deps = AppDependencies(environment: environment, store: store, compute: compute)
+    let controller = NSHostingController(
+      rootView: TripSummaryView(eventId: event.id).appDependencies(deps))
+    let window = NSWindow(
+      contentRect: CGRect(x: 0, y: 0, width: 520, height: 600),
+      styleMask: [.titled], backing: .buffered, defer: false)
+    window.isReleasedWhenClosed = false
+    windows.append(window)
+    window.contentViewController = controller
+    window.orderFront(nil)
+    settle(20)
+    var values: [String] = []
+    func walk(_ element: Any) {
+      guard let object = element as? NSObject else { return }
+      if object.responds(to: NSSelectorFromString("accessibilityValue")),
+        let value = object.value(forKey: "accessibilityValue") as? String
+      {
+        values.append(value)
+      }
+      if object.responds(to: NSSelectorFromString("accessibilityChildren")) {
+        for child in object.value(forKey: "accessibilityChildren") as? [Any] ?? [] { walk(child) }
+      }
+    }
+    walk(try XCTUnwrap(window.contentView))
+    XCTAssertTrue(values.contains(environment.money.percent(basisPoints: 7500, fractionDigits: 0)))
+    XCTAssertEqual(GoalProgressBar.fraction(basisPoints: 7533), 0.7533, accuracy: 0.0001)
+  }
+
+  func testDollarConversionFitsOneLineBelowTheAmountInTheInspector() throws {
+    TestEnvironment.enableAccessibilityTree()
+    var draft = TransactionDraft(
+      occurredAt: environment.calendar.startOfDay(environment.today),
+      amount: AmountE4(whole: 120))
+    draft.currency = .usd
+    draft.normalizeSinglePart()
+    let entry = try draft.materialize()
+    compute.applyLight(
+      DataSnapshot.build(
+        dataset: Dataset(entries: [entry]), calendar: .system, today: environment.today,
+        context: SnapshotContext(rubPerUnit: [.usd: 95]), version: DataVersion(load: 0)))
+    let deps = AppDependencies(environment: environment, store: store, compute: compute)
+    let editor = TransactionEditorModel(entry: entry, environment: environment)
+    let controller = NSHostingController(
+      rootView:
+        TransactionEditor(editor: editor, style: .inspector, close: {}).appDependencies(deps))
+    let window = NSWindow(
+      contentRect: CGRect(x: 0, y: 0, width: 340, height: 800),
+      styleMask: [.titled], backing: .buffered, defer: false)
+    window.isReleasedWhenClosed = false
+    windows.append(window)
+    window.contentViewController = controller
+    window.orderFront(nil)
+    for language in [AppLanguage.Choice.russian, .english] {
+      environment.language.choice = language
+      settle(20)
+      var frames: [String: CGRect] = [:]
+      func walk(_ element: Any) {
+        guard let object = element as? NSObject else { return }
+        if object.responds(to: NSSelectorFromString("accessibilityIdentifier")),
+          let identifier = object.value(forKey: "accessibilityIdentifier") as? String,
+          let frame = (object.value(forKey: "accessibilityFrame") as? NSValue)?.rectValue
+        {
+          frames[identifier] = frame
+        }
+        if object.responds(to: NSSelectorFromString("accessibilityChildren")) {
+          for child in object.value(forKey: "accessibilityChildren") as? [Any] ?? [] { walk(child) }
+        }
+      }
+      walk(try XCTUnwrap(window.contentView))
+      let hint = try XCTUnwrap(frames["entry.approximate"])
+      let amount = try XCTUnwrap(frames["entry.totalAmount"])
+      XCTAssertGreaterThan(hint.width, 60)
+      XCTAssertLessThan(hint.height, 24)
+      XCTAssertLessThanOrEqual(hint.maxY, amount.minY)
     }
   }
 
@@ -182,6 +287,15 @@ final class CalendarWindowTests: XCTestCase {
     window.contentViewController = controller
     window.orderFront(nil)
     settle(20)
+    let root = try XCTUnwrap(window.contentView)
+    func inputs(_ view: NSView) -> [NSTextField] {
+      ((view as? NSTextField).map { [$0] } ?? []) + view.subviews.flatMap(inputs)
+    }
+    let editable = inputs(root).filter(\.isEditable)
+    XCTAssertGreaterThanOrEqual(editable.count, 3)
+    for input in editable {
+      XCTAssertTrue(input.isBezeled, "scenario inputs need a visible border")
+    }
     var labels: [String] = []
     var fields: [CGRect] = []
     func walk(_ element: Any) {

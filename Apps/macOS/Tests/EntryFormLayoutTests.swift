@@ -144,6 +144,7 @@ final class EntryFormLayoutTests: XCTestCase {
           let place = "\(language) \(width) \(variant)"
           if variant == "currency" {
             var hints: [CGRect] = []
+            var amounts: [CGRect] = []
             func findHint(_ element: Any) {
               guard let object = element as? NSObject else { return }
               if object.responds(to: NSSelectorFromString("accessibilityIdentifier")),
@@ -151,6 +152,12 @@ final class EntryFormLayoutTests: XCTestCase {
                 let frame = (object.value(forKey: "accessibilityFrame") as? NSValue)?.rectValue
               {
                 hints.append(frame)
+              }
+              if object.responds(to: NSSelectorFromString("accessibilityIdentifier")),
+                object.value(forKey: "accessibilityIdentifier") as? String == "entry.totalAmount",
+                let frame = (object.value(forKey: "accessibilityFrame") as? NSValue)?.rectValue
+              {
+                amounts.append(frame)
               }
               if object.responds(to: NSSelectorFromString("accessibilityChildren")) {
                 for child in object.value(forKey: "accessibilityChildren") as? [Any] ?? [] {
@@ -160,7 +167,9 @@ final class EntryFormLayoutTests: XCTestCase {
             }
             findHint(content)
             XCTAssertFalse(hints.isEmpty, "conversion hint must be present: \(place)")
+            let amount = try XCTUnwrap(amounts.first)
             for hint in hints {
+              XCTAssertLessThanOrEqual(hint.maxY, amount.minY, "conversion belongs below amount")
               XCTAssertLessThan(hint.height, 24, "conversion must fit one line: \(place)")
               XCTAssertGreaterThan(hint.width, 60)
             }

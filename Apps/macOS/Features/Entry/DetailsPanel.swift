@@ -544,6 +544,7 @@ struct DetailsPanel: View {
           prominent: true
         )
         .frame(width: 180)
+        .accessibilityIdentifier("entry.totalAmount")
         .focused($focus, equals: .amount)
         // One part is the whole operation: its amount is the total.
         .disabled((!model.isSplit && model.hasClosedPart) || moneyLocked)
