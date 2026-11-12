@@ -143,6 +143,8 @@ final class AutoEntryCenter {
     guard case .done = await commands.add(line: draft.text) else { return false }
     _ = store.save(store.load().filter { $0.id != id })
     _ = AutoEntryLearning.takeMerchant(ofDraft: id, defaults: defaults)
+    // Written as the text read, without the owner's hand: nothing to learn a format from.
+    AutoEntryFormats.forget(draft: id, defaults: defaults)
     NotificationCenter.default.post(name: .draftsChanged, object: nil)
     AppLog.info("autoEntry.recorded", .db, "an offered operation was written from its notification")
     return true

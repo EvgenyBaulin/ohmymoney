@@ -11,10 +11,36 @@ import Foundation
 /// (a text typed by hand is never taken for a bank's). The templates are part of the core and change with a
 /// release; there is no report of unknown texts.
 public struct BankTextParser: Sendable {
-  public init() {}
+  /// The formats tried before the scan; the app's own by default. A text a format knows is read
+  /// by it — one that only informs is not an operation, and the scan does not get a second go.
+  public var formats: SmsFormatLibrary
+  /// The owner's pick between two formats that both fit a text.
+  public var choices = SmsFormatChoices()
+  /// The sender of the SMS when known; a format of a folder may name the senders it is for.
+  public var sender: String?
+
+  public init(formats: SmsFormatLibrary = .builtIn) {
+    self.formats = formats
+  }
 
   /// One text. `today` only matters for a day written as «вчера» or «12 октября».
   public func parse(_ text: String, today: DateOnly? = nil) -> BankMessage? {
+    switch formats.outcome(for: text, sender: sender, choices: choices, today: today) {
+    case .operation(let message): return message
+    case .informational, .ambiguous: return nil
+    case .noFormat: break
+    }
+    return scanned(text, today: today)
+  }
+
+  /// What the formats make of a text, for the caller that has to tell a question (two readings)
+  /// from «nothing».
+  public func outcome(_ text: String, today: DateOnly? = nil) -> SmsFormatOutcome {
+    formats.outcome(for: text, sender: sender, choices: choices, today: today)
+  }
+
+  /// The general scan alone, without the formats.
+  public func scanned(_ text: String, today: DateOnly? = nil) -> BankMessage? {
     let scan = BankScan(text)
     guard scan.count > 0, scan.count <= Self.longestText else { return nil }
     return read(scan, source: text, today: today, strict: true)

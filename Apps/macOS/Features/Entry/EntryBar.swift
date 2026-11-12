@@ -1921,6 +1921,9 @@ struct EntryBar<Accessory: View>: View {
       ?? fast.drafts.finishing.flatMap { AutoEntryLearning.takeMerchant(ofDraft: $0) }
     AutoEntryLearning.written(
       merchant: bankMerchant, placeId: model.draft.placeId, environment: environment)
+    // A text the general scan read, written by the owner's hand, offers a format of its shape.
+    AutoEntryFormats.offerFormat(
+      pasted: fast.bank?.message, draft: fast.drafts.finishing, written: model.draft)
     model.reset()
     // The draft this line was finished from is done; the next part of a «;» line is next.
     fast.drafts.lineWritten()

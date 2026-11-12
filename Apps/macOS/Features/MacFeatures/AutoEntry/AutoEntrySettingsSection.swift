@@ -6,13 +6,23 @@ import SwiftUI
 /// (`UserDefaults`), not the archive.
 struct AutoEntrySettingsSection: View {
   @Dependency(\.environment) private var environment
+  @Environment(\.dependencies) private var dependencies
   @AppStorage(AutoEntryCenter.modeKey) private var mode = AutoEntryMode.standard.rawValue
+  @State private var showsFormats = false
 
   private func t(_ key: String) -> String {
     environment.language(key, table: AutoEntryCenter.table)
   }
 
   var body: some View {
+    content
+      .sheet(isPresented: $showsFormats) {
+        AutoEntryFormatsView().handingOver(dependencies)
+      }
+  }
+
+  @ViewBuilder
+  private var content: some View {
     #if os(macOS)
       macBody
     #else
@@ -29,7 +39,7 @@ struct AutoEntrySettingsSection: View {
           Text(verbatim: t("autoEntry.settings.title"))
             .appFont(AppFont.body.weight(.semibold))
           SettingsCard {
-            SettingsCardRow(title: t("autoEntry.settings.mode"), showsDivider: false, compact: true)
+            SettingsCardRow(title: t("autoEntry.settings.mode"), showsDivider: true, compact: true)
             {
               Picker(selection: $mode) {
                 ForEach(AutoEntryMode.allCases, id: \.self) { choice in
@@ -42,6 +52,11 @@ struct AutoEntrySettingsSection: View {
               .labelsHidden()
               .fixedSize()
               .accessibilityIdentifier("settings.autoEntry.mode")
+            }
+            SettingsCardRow(title: t("autoEntry.formats.title"), showsDivider: false, compact: true)
+            {
+              Button(t("autoEntry.formats.open")) { showsFormats = true }
+                .accessibilityIdentifier("settings.autoEntry.formats")
             }
           }
           Text(verbatim: t("autoEntry.settings.footer"))
@@ -66,6 +81,8 @@ struct AutoEntrySettingsSection: View {
         Text(verbatim: t("autoEntry.settings.mode"))
       }
       .accessibilityIdentifier("settings.autoEntry.mode")
+      Button(t("autoEntry.formats.open")) { showsFormats = true }
+        .accessibilityIdentifier("settings.autoEntry.formats")
     } header: {
       Text(verbatim: t("autoEntry.settings.title")).settingsHeaderStyle()
     } footer: {
