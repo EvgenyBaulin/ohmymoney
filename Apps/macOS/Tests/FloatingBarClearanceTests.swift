@@ -42,7 +42,31 @@ final class FloatingBarClearanceTests: SectionFigmaHarness {
       ($0.accessibilityRole?() == .scrollArea)
         && ($0.accessibilityIdentifier?() ?? "") != "entry.templates"
     }
+    // A nested list can stand below the visible part of the page (the chosen day under
+    // the month in a narrow calendar). Its full accessibility frame is not a page viewport:
+    // the enclosing scroll view clips it. Check that enclosing page instead.
+    var scrolls: [NSScrollView] = []
+    Self.allSubviews(of: try XCTUnwrap(window.contentView), into: &scrolls)
+    let nestedFrames = scrolls.filter { scroll in
+      var ancestor = scroll.superview
+      while let view = ancestor {
+        if let parent = view as? NSScrollView {
+          let rect = parent.convert(parent.bounds, to: nil)
+          if rect.minX >= sidebar - 1 && rect.width > 200 && rect.height > 100 {
+            return true
+          }
+        }
+        ancestor = view.superview
+      }
+      return false
+    }.map { $0.accessibilityFrame() }
     return found.compactMap { $0.accessibilityFrame?() }
+      .filter { frame in
+        !nestedFrames.contains { nested in
+          abs(frame.minX - nested.minX) < 1 && abs(frame.minY - nested.minY) < 1
+            && abs(frame.width - nested.width) < 1 && abs(frame.height - nested.height) < 1
+        }
+      }
       .map { window.convertFromScreen($0) }
       .filter { $0.minX >= sidebar - 1 && $0.width > 200 && $0.height > 100 }
   }
